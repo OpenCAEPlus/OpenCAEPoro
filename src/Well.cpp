@@ -1,4 +1,4 @@
-#include "Well.h"
+#include "Well.hpp"
 
 void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 {

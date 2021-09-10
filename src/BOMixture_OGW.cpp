@@ -1,4 +1,4 @@
-#include "BOMixture.h"
+#include "BOMixture.hpp"
 
 void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const double* Sjin, double Vpore, const double* Ziin)
 {

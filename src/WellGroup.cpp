@@ -1,4 +1,4 @@
-#include "WellGroup.h"
+#include "WellGroup.hpp"
 
 void WellGroup::assemblaMat_WB(Solver& mySolver, const Bulk& myBulk)
 {

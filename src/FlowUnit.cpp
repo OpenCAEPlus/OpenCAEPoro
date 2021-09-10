@@ -1,5 +1,5 @@
-#include "FlowUnit.h"
-#include "OpenCAEPoro_consts.h"
+#include "FlowUnit.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 
 void FlowUnit::calKrPc(const double* S_in, double* kr_out, double* pc_out)

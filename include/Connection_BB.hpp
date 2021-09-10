@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include "Grid.h"
-#include "Bulk.h"
-#include "Solver.h"
+#include "Grid.hpp"
+#include "Bulk.hpp"
+#include "Solver.hpp"
 
 
 using namespace std;

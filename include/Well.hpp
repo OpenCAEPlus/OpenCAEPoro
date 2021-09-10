@@ -1,9 +1,9 @@
 #pragma once
-#include "Perforation.h"
-#include "Solver.h"
-#include "Bulk.h"
-#include "Grid.h"
-#include "OpenCAEPoro_consts.h"
+#include "Perforation.hpp"
+#include "Solver.hpp"
+#include "Bulk.hpp"
+#include "Grid.hpp"
+#include "OpenCAEPoro_consts.hpp"
 #include <cassert>
 
 using namespace std;

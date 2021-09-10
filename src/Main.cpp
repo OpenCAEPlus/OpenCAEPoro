@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include "Connection_BB.h"
-#include "WellGroup.h"
+#include "Connection_BB.hpp"
+#include "WellGroup.hpp"
 #include "Timing.hxx"
-#include "OpenCAEPoro_consts.h"
+#include "OpenCAEPoro_consts.hpp"
 
 
 using namespace std;

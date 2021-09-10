@@ -1,9 +1,9 @@
 #pragma once
 #include<vector>
 #include <iostream>
-#include "Grid.h"
-#include "Mixture.h"
-#include "FlowUnit.h"
+#include "Grid.hpp"
+#include "Mixture.hpp"
+#include "FlowUnit.hpp"
 
 using namespace std;
 // Bulk contains the infomation of each bulk

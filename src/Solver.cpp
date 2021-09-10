@@ -1,4 +1,4 @@
-#include "Solver.h"
+#include "Solver.hpp"
 
 void Solver::assembleSolverA()
 {

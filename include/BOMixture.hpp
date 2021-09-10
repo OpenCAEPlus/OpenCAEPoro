@@ -1,7 +1,7 @@
 #pragma once
-#include "Mixture.h"
+#include "Mixture.hpp"
 #include "ReservoirTable.hxx"
-#include "OpenCAEPoro_consts.h"
+#include "OpenCAEPoro_consts.hpp"
 
 class BOMixture : public Mixture
 {

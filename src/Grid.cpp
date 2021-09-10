@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "Grid.hpp"
 
 
 void Grid::calActiveBulk(double e1, double e2)

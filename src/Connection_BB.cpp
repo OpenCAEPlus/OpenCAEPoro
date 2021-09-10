@@ -1,6 +1,6 @@
 #include <cassert>
-#include "Connection_BB.h"
-#include "OpenCAEPoro_consts.h"
+#include "Connection_BB.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 
 // Active Conn & Active Bulk

@@ -19,23 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\BOMixture.h" />
-    <ClInclude Include="include\Bulk.h" />
-    <ClInclude Include="include\Connection.h" />
-    <ClInclude Include="include\Connection_BB.h" />
-    <ClInclude Include="include\FlowUnit.h" />
-    <ClInclude Include="include\Grid.h" />
-    <ClInclude Include="include\MAT.h" />
-    <ClInclude Include="include\Mixture.h" />
-    <ClInclude Include="include\MyReservoir.h" />
-    <ClInclude Include="include\OpenCAEPoro.h" />
-    <ClInclude Include="include\OpenCAEPoro_consts.h" />
-    <ClInclude Include="include\Perforation.h" />
+    <ClInclude Include="include\BOMixture.hpp" />
+    <ClInclude Include="include\Bulk.hpp" />
+    <ClInclude Include="include\Connection.hpp" />
+    <ClInclude Include="include\Connection_BB.hpp" />
+    <ClInclude Include="include\FlowUnit.hpp" />
+    <ClInclude Include="include\Grid.hpp" />
+    <ClInclude Include="include\MAT.hpp" />
+    <ClInclude Include="include\Mixture.hpp" />
+    <ClInclude Include="include\Reservoir.hpp" />
+    <ClInclude Include="include\OpenCAEPoro.hpp" />
+    <ClInclude Include="include\OpenCAEPoro_consts.hpp" />
+    <ClInclude Include="include\Perforation.hpp" />
     <ClInclude Include="include\ReservoirTable.hxx" />
-    <ClInclude Include="include\Solver.h" />
+    <ClInclude Include="include\Solver.hpp" />
     <ClInclude Include="include\Timing.hxx" />
-    <ClInclude Include="include\Well.h" />
-    <ClInclude Include="include\WellGroup.h" />
+    <ClInclude Include="include\Well.hpp" />
+    <ClInclude Include="include\WellGroup.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BOMixture.cpp" />

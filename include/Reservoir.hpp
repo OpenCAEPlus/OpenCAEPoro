@@ -1,13 +1,13 @@
 #pragma once
-#include "Grid.h"
-#include "Bulk.h"
-#include "Connection_BB.h"
-#include "WellGroup.h"
+#include "Grid.hpp"
+#include "Bulk.hpp"
+#include "Connection_BB.hpp"
+#include "WellGroup.hpp"
 
 
 
 
-class MyReservoir
+class Reservoir
 {
 	
 	// assemble mat

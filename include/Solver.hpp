@@ -1,5 +1,5 @@
 #pragma once
-#include "MAT.h"
+#include "MAT.hpp"
 
 class Solver
 {
