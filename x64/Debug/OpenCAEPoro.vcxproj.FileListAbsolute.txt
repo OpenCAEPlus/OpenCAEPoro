@@ -1,2 +1,0 @@
-D:\Lsz\PennSim\OpenCAEPoro\x64\Debug\OpenCAEPoro.exe
-D:\Lsz\PennSim\OpenCAEPoro\x64\Debug\OpenCAEPoro.pdb
