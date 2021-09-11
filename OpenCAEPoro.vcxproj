@@ -45,7 +45,7 @@
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\MyReservoir.cpp" />
+    <ClCompile Include="src\Reservoir.cpp" />
     <ClCompile Include="src\Perforation.cpp" />
     <ClCompile Include="src\Solver.cpp" />
     <ClCompile Include="src\Timing.cxx" />
@@ -136,6 +136,9 @@
     <ClCompile>
       <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

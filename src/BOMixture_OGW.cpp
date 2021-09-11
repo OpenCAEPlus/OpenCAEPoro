@@ -1,6 +1,6 @@
 #include "BOMixture.hpp"
 
-void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const double* Sjin, double Vpore, const double* Ziin)
+void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const double* Sjin, double Vpore)
 {
 	// initialize    Np = 3, Nc = 3
 	PhaseExist.assign(Np, false);
@@ -371,7 +371,7 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 }
 
 
-double BOMixture::calRhoO_OGW(double Pin, double Pbbin)
+double BOMixture::gammaPhaseO_OGW(double Pin, double Pbbin)
 {
 	std::vector<double>		data(6, 0);
 	std::vector<double>		cdata(6, 0);
@@ -381,6 +381,7 @@ double BOMixture::calRhoO_OGW(double Pin, double Pbbin)
 	double bosat = data[2];
 	double cbosat = data[4];
 	double bo = bosat * (1 - cbosat * (Pin - Pbbin));
-
-	return (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
+	double gammaO = (Std_GammaO + (1000 / CONV1) * rs * Std_GammaG) / bo;
+	
+	return gammaO;
 }

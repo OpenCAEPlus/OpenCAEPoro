@@ -7,15 +7,15 @@ void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin,
 	switch (Mode)
 	{
 	case PHASE_W:
-		BOFlash_Sj_W(Pin, Sjin, Vpore, Ziin);
+		BOFlash_Sj_W(Pin, Sjin, Vpore);
 		break;
 
 	case PHASE_OW:
-		BOFlash_Sj_OW(Pin, Sjin, Vpore, Ziin);
+		BOFlash_Sj_OW(Pin, Sjin, Vpore);
 		break;
 
 	case PHASE_OGW:
-		BOFlash_Sj_OGW(Pin, Pbbin, Sjin, Vpore, Ziin);
+		BOFlash_Sj_OGW(Pin, Pbbin, Sjin, Vpore);
 		break;
 
 	default:
@@ -58,32 +58,56 @@ void BOMixture::BOFlash_Ni_OW(const double Pin, const double* Niin)
 
 }
 
-void BOMixture::BOFlash_Sj_W(const double Pin, const double* Sjin, double Vpore, const double* Ziin)
+void BOMixture::BOFlash_Sj_W(const double Pin, const double* Sjin, double Vpore)
 {
 
 }
 
-void BOMixture::BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore, const double* Ziin)
+void BOMixture::BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore)
 {
 
 }
 
 
-double BOMixture::calRhoO(double Pin, double Pbbin)
+double BOMixture::gammaPhaseO(double Pin, double Pbbin)
 {
 	switch (Mode)
 	{
 	case PHASE_OW:
-		return calRhoO_OW(Pin);
+		return gammaPhaseO_OW(Pin);
 	case PHASE_OGW:
-		return calRhoO_OGW(Pin, Pbbin);
+		return gammaPhaseO_OGW(Pin, Pbbin);
 	default:
 		ERRORcheck("Wrong Mode");
 		exit(0);
 	}
 }
 
-double BOMixture::calRhoO_OW(double Pin)
+double BOMixture::gammaPhaseO_OW(double Pin)
 {
 
+}
+
+double BOMixture::gammaPhaseW(double Pin)
+{
+	std::vector<double>		data(5, 0);
+	std::vector<double>		cdata(5, 0);
+
+	PVTW.eval_all(0, Pin, data, cdata);
+	double Pw0 = data[0];
+	double bw0 = data[1];
+	double cbw = data[2];
+	double bw = (bw0 * (1 - cbw * (Pin - Pw0)));
+
+	return Std_GammaW / bw;
+}
+
+double BOMixture::gammaPhaseG(double Pin)
+{
+	if (PVDG.isempty()) {
+		ERRORcheck("PVDG is missing");
+	}
+	double bg = (CONV1 / 1000) * PVDG.eval(0, P, 1);
+
+	return Std_GammaG / bg;
 }

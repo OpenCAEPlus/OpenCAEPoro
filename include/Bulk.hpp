@@ -4,10 +4,21 @@
 #include "Grid.hpp"
 #include "Mixture.hpp"
 #include "FlowUnit.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 using namespace std;
 // Bulk contains the infomation of each bulk
 // variables are ordered according to the time consuming of program
+
+class ParamEQUIL
+{
+	friend class Bulk;
+private:
+	//! EQUIL 6 items
+	double  Dref, Pref, DWOC, PcWOC, DGOC, PcGOC;
+	//! PBVD
+	ReservoirTable<double> PBVD;
+};
 
 
 class Bulk
@@ -20,12 +31,13 @@ public:
 
 	void init(const Grid& myGrid);
 
-	void initSjPc();
+	void initSjPc_blk(int depnum);
+	void initSjPc_comp(int depnum);
 
 	// Flash
 	void flash_Sj();
 	void flash_Ni();
-	void passValue(int n);
+	void passFlashValue(int n);
 
 	// relative permeability and capillary pressure
 	void calKrPc();
@@ -57,10 +69,13 @@ private:
 	std::vector<double>		Vfp;			// dVt / dP
 
 
+	std::vector<double>		InitZi;			// initial component for EoS : Nc - 1
 	Mixture*				Flashcal;
 	FlowUnit*				Flow;
 
-	
+	// last STEP
+	std::vector<double>		lP;
+	std::vector<double>		lNi;
 	
 	// Bulk rock infomation
 	std::vector<double>		Dx;					// dx
@@ -82,5 +97,5 @@ private:
 	std::vector<double>		Rock_Kz;
 
 	// Reservoir information
-	std::vector<double>		EQUIL;
+	ParamEQUIL				EQUIL;
 };
