@@ -1,5 +1,6 @@
 #pragma once
 #include "ReservoirTable.hxx"
+#include "OpenCAEPoro_consts.hpp"
 
 class FlowUnit
 {
@@ -7,6 +8,8 @@ public:
 
 	bool empty_SGOF() { return SGOF.isempty(); }
 	bool empty_SWOF() { return SWOF.isempty(); }
+
+	void generate_SWPCWG();
 
 	int eval_SWOF(int j, double val, int destj) { return SWOF.eval(j, val, destj); }
 	int evalinv_SWOF(int j, double val, int destj) { return SWOF.eval_inv(j, val, destj); }
@@ -34,6 +37,5 @@ private:
 
 	double							KroMax;		// oil relative permeability in the presence of connate water only
 };
-
 
 

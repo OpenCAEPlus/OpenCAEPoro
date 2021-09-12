@@ -12,11 +12,9 @@ class BB_Pair
 	friend class Connection_BB;
 public:
 	BB_Pair() = default;
-	BB_Pair(int bId, int eId) : State(true), BId(bId), EId(eId) {};
-	void setState(bool flag) { State = flag; };
+	BB_Pair(int bId, int eId) : BId(bId), EId(eId) {};
 
 private:
-	bool		State;
 	int			BId;
 	int			EId;
 };
@@ -30,6 +28,10 @@ public:
 
 	Connection_BB() = default;
 
+	// info
+	void getConnectionInfo();
+	int getActiveBulkNum() { return ActiveBulkNum; }
+
 	// Active Conn & Active Bulk
 	Connection_BB(const Grid& myGrid);
 	void initActive(const Grid& myGrid);
@@ -37,13 +39,12 @@ public:
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);
 	double calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
 
-
-	void getConnectionInfo();	
 	void calFlux(const Bulk& myBulk);
 	void massConserve(Bulk& myBulk);
 
 	// Assemble Mat
-	void initAssembleMat(Solver& mySolver, int wellnum);
+	void allocateMat(Solver& mySolver);
+	void initAssembleMat(Solver& mySolver);
 	void assembleMat(Solver& mySolver, const Bulk& myBulk);
 
 

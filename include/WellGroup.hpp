@@ -10,6 +10,7 @@ public:
 	WellGroup() = default;
 	WellGroup(int nw) :WellNum(nw) { WellG.reserve(WellNum); };
 
+	void allocateMat(Solver& mySolver);
 	void assemblaMat_WB(Solver& mySolver, const Bulk& myBulk);
 	int getWellNum() { return WellNum; };
 

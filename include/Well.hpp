@@ -20,6 +20,7 @@ public:
 	void calWI_Peaceman_Vertical(const Bulk& myBulk);
 
 	// Assemble Mat
+	void allocateMat(Solver& mySolver);
 	void assembleMat_INJ(const Bulk& myBulk, Solver& mySolver);
 	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver);
 

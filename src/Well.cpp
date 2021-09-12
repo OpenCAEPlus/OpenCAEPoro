@@ -1,5 +1,12 @@
 #include "Well.hpp"
 
+void Well::allocateMat(Solver& mySolver)
+{
+	for (int p = 0; p < PerfNum; p++) {
+		mySolver.RowCapacity[Perf[p].Location]++;
+	}
+}
+
 void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 {
 	int np = myBulk.Np;

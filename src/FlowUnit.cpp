@@ -1,6 +1,27 @@
 #include "FlowUnit.hpp"
 #include "OpenCAEPoro_consts.hpp"
 
+void FlowUnit::generate_SWPCWG()
+{
+	if (SGOF.isempty()) {
+		ERRORcheck("SGOF is missing!");
+		exit(0);
+	}
+
+	std::vector<double>		Sw(SWOF.getCol(0));
+	std::vector<double>		Pcw(SWOF.getCol(3));
+	int n = Sw.size();
+	for (int i = 0; i < n; i++) {
+		double Pcg = SGOF.eval(0, 1 - Sw[i], 3);
+		Pcw[i] += Pcg;
+	}
+
+	SWPCWG.pushCol(Sw);
+	SWPCWG.pushCol(Pcw);
+
+}
+
+
 
 void FlowUnit::calKrPc(const double* S_in, double* kr_out, double* pc_out)
 {

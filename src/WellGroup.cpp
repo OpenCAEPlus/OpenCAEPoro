@@ -1,5 +1,12 @@
 #include "WellGroup.hpp"
 
+void WellGroup::allocateMat(Solver& mySolver)
+{
+	for (int w = 0; w < WellNum; w++) {
+		WellG[w].allocateMat(mySolver);
+	}
+}
+
 void WellGroup::assemblaMat_WB(Solver& mySolver, const Bulk& myBulk)
 {
 	for (int w = 0; w < WellNum; w++) {

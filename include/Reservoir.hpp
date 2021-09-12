@@ -11,8 +11,10 @@ class Reservoir
 {
 	
 	// assemble mat
+	void allocateMat(Solver& mySolver);
 	void initAssembleMat(Solver& mySolver);
-	void AssembleMat(Solver& mysolver);
+	void assembleMat(Solver& mysolver);
+
 
 private:
 	Grid					grid;

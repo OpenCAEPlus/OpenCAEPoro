@@ -37,7 +37,7 @@ void Bulk::init(const Grid& myGrid)
 void Bulk::initSjPc_blk(int tabrow)
 {
 	double Dref = EQUIL.Dref;		double Pref = EQUIL.Pref;
-	double DOWC = EQUIL.DWOC;		double PcWOC = EQUIL.PcWOC;
+	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
 	double DOGC = EQUIL.DGOC;		double PcGOC = EQUIL.PcGOC;
 
 	double myT = T[0];
@@ -164,7 +164,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
 			Ptmp += gammaOtmp * mydz;
 		}
-		Ptmp -= PcWOC;
+		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
@@ -213,7 +213,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp += gammaWtmp * mydz;
 		}
-		Ptmp += PcWOC;
+		Ptmp += PcOWC;
 
 		for (int i = 0; i < mynum; i++) {
 			if (!EQUIL.PBVD.isempty()) {
@@ -311,6 +311,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
+
 		if (!Flow->empty_SGOF()) {
 			// find the gas pressure in Dref by Poref
 			Pgref = 0; Ptmp = Poref;
@@ -359,7 +360,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
 			Ptmp += gammaOtmp * mydz;
 		}
-		Ptmp -= PcWOC;
+		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
@@ -440,7 +441,7 @@ void Bulk::initSjPc_comp(int tabrow)
 {
 
 	double Dref = EQUIL.Dref;		double Pref  = EQUIL.Pref;
-	double DOWC = EQUIL.DWOC;		double PcWOC = EQUIL.PcWOC;
+	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
 	double DOGC = EQUIL.DGOC;		double PcGOC = EQUIL.PcGOC;
 
 	double myT = T[0];
@@ -547,7 +548,7 @@ void Bulk::initSjPc_comp(int tabrow)
 			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
-		Ptmp -= PcWOC;
+		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
@@ -596,7 +597,7 @@ void Bulk::initSjPc_comp(int tabrow)
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp += gammaWtmp * mydz;
 		}
-		Ptmp += PcWOC;
+		Ptmp += PcOWC;
 		
 		for (int i = 0; i < mynum; i++) {
 			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
@@ -707,7 +708,7 @@ void Bulk::initSjPc_comp(int tabrow)
 			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
-		Ptmp -= PcWOC;
+		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
 			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;

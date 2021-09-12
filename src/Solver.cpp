@@ -1,5 +1,24 @@
 #include "Solver.hpp"
 
+void Solver::allocate(int dimMax)
+{
+	MaxDim = dimMax;
+	RowCapacity.resize(MaxDim, 0);
+	ColId.resize(MaxDim);
+	Val.resize(MaxDim);
+	DiagPtr.resize(MaxDim, 0);
+	DiagVal.resize(MaxDim, 0);
+	b.resize(MaxDim, 0);
+}
+
+void Solver::allocateColVal()
+{
+	for (int n = 0; n < MaxDim; n < MaxDim) {
+		ColId[n].reserve(RowCapacity[n]);
+		Val[n].reserve(RowCapacity[n]);
+	}
+}
+
 void Solver::assembleSolverA()
 {
 
@@ -8,11 +27,11 @@ void Solver::assembleSolverA()
 
 void Solver::clearData()
 {
-	// ColId.clear();
-	for (int i = 0; i < Dim; i++) {
+	for (int i = 0; i < MaxDim; i++) {
+		ColId[i].clear();
 		Val[i].clear();
 	}
-	// DiagPtr.clear();
-	DiagVal.assign(Dim, 0);
-	b.assign(Dim, 0);
+	DiagPtr.resize(MaxDim, -1);
+	DiagVal.resize(MaxDim, 0);
+	b.resize(MaxDim, 0);
 }

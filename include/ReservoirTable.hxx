@@ -9,6 +9,7 @@ public:
 	ReservoirTable(int row, int col);
 
 	void pushCol(std::vector<T>& v) { data.push_back(v); }
+	std::vector<T>& getCol(int j) { return data[j]; }
 
 	bool isempty();
 	int eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope);

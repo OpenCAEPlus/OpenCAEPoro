@@ -256,21 +256,20 @@ void Connection_BB::massConserve(Bulk& myBulk)
 	}
 }
 
-void Connection_BB::initAssembleMat(Solver& mySolver, int wellnum)
+void Connection_BB::allocateMat(Solver& MySolver)
 {
-	mySolver.ColId.resize(ActiveBulkNum + wellnum);
-	mySolver.Val.resize(ActiveBulkNum + wellnum);
 	for (int n = 0; n < ActiveBulkNum; n++) {
-		mySolver.Val[n].reserve(NeighborNum[n]);
+		MySolver.RowCapacity[n] += NeighborNum[n];
 	}
-	mySolver.DiagPtr.resize(ActiveBulkNum + wellnum);
-	mySolver.DiagVal.resize(ActiveBulkNum + wellnum, 0);
-	mySolver.b.resize(ActiveBulkNum + wellnum);
+}
+
+void Connection_BB::initAssembleMat(Solver& mySolver)
+{
 	mySolver.Dim = ActiveBulkNum;
-
-	mySolver.ColId.assign(Neighbor.begin(), Neighbor.end());
-	mySolver.DiagPtr.assign(SelfPtr.begin(), SelfPtr.end());
-
+	for (int n = 0; n < ActiveBulkNum; n++) {
+		mySolver.ColId[n].assign(Neighbor[n].begin(), Neighbor[n].end());
+		mySolver.DiagPtr[n] = SelfPtr[n];
+	}
 }
 
 

@@ -15,7 +15,7 @@ class ParamEQUIL
 	friend class Bulk;
 private:
 	//! EQUIL 6 items
-	double  Dref, Pref, DWOC, PcWOC, DGOC, PcGOC;
+	double  Dref, Pref, DOWC, PcOWC, DGOC, PcGOC;
 	//! PBVD
 	ReservoirTable<double> PBVD;
 };
