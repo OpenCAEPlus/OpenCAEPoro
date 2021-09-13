@@ -5,6 +5,28 @@
 
 using namespace std;
 
+class TableSet
+{
+public:
+	void showTab() 
+	{
+		cout << Name << "\n";
+		for (auto v : data) {
+			int len = v[0].size();
+			for (int i = 0; i < len; i++) {
+				for (int j = 0; j < colNum; j++) {
+					cout << v[j][i] << "\t";
+				}
+				cout << "\n";
+			}
+			cout << "----------------\n" ;
+		}
+	}
+	string								Name;
+	int									colNum;
+	vector<vector<vector<double>>>		data;
+};
+
 class DIMENS
 {
 public:
@@ -38,27 +60,30 @@ public:
 	double								C2;
 
 	// Saturation table & buble point pressure 
-	std::vector<std::vector<double>>	SWOF;
-	std::vector<std::vector<double>>	SGOF;
+	TableSet							SWOF_T;
+	TableSet							SGOF_T;
+	TableSet							PBVD_T;
 	std::vector<double>					EQUIL;
-	std::vector<std::vector<double>>	PBVD;
 	
 	// phase property
 	std::vector<double>					Density;
 	std::vector<double>					Gravity;
 
 	// PVT property
-	std::vector<std::vector<double>>	PVCO;
-	std::vector<std::vector<double>>	PVDO;
-	std::vector<std::vector<double>>	PVTW;
+	TableSet							PVCO_T;
+	TableSet							PVDG_T;
+	TableSet							PVTW_T;
 
 	// method
-	double* FindPtr(string& varName);
+	vector<double>* FindPtr(string& varName);
+	TableSet* FindPtr_T(string& varName);
 
 	// init size of var
 	void initVar();
-	void setVal(double* obj, double val, vector<int>& index);
-	void copyVal(double* obj, double* src, vector<int>& index);
+	void initTab();
+	void setVal(vector<double>& obj, double val, vector<int>& index);
+	void copyVal(vector<double>& obj, vector<double>& src, vector<int>& index);
+	void multiplyVal(vector<double>& obj, double val, vector<int>& index);
 
 	// DIMENS
 	void inputDIMENS(ifstream& ifs);
@@ -69,4 +94,10 @@ public:
 
 	// COPY
 	void inputCOPY(ifstream& ifs);
+
+	// MULTIPLY
+	void inputMULTIPLY(ifstream& ifs);
+
+	// Table
+	void inputTABLE(ifstream& ifs, string tabName);
 };

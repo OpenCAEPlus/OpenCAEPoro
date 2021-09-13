@@ -47,27 +47,16 @@ void ParamRead::readFile(string file)
 			break;
 
 		case Map_str2int("MULTIPLY", 8):
-			Rs_param.inputCOPY(ifs);
+			Rs_param.inputMULTIPLY(ifs);
 			break;
 
 		case Map_str2int("SWOF", 4):
-			cout << "SWOF" << endl;
-			break;
-
 		case Map_str2int("SGOF", 4):
-			cout << "SGOF" << endl;
-			break;
-
 		case Map_str2int("PVCO", 4):
-			cout << "PVCO" << endl;
-			break;
-
 		case Map_str2int("PVDG", 4):
-			cout << "PVDG" << endl;
-			break;
-
 		case Map_str2int("PVTW", 4):
-			cout << "PVTW" << endl;
+		case Map_str2int("PBVD", 4):
+			Rs_param.inputTABLE(ifs, keyword);
 			break;
 
 		case Map_str2int("ROCK", 4):
@@ -86,9 +75,6 @@ void ParamRead::readFile(string file)
 			cout << "EQUIL" << endl;
 			break;
 
-		case Map_str2int("PBVD", 4):
-			cout << "PBVD" << endl;
-			break;
 		default:
 			break;
 		}

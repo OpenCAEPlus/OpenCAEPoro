@@ -19,6 +19,7 @@ int main()
 	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
 	ParamRead rp;
 	rp.getDirAndName(myfile);
+	rp.Rs_param.initTab();
 	rp.readFile(myfile);
 
 
