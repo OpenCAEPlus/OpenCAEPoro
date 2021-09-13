@@ -24,10 +24,19 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 	if (buf.empty())
 		return false;
 
-	auto pos = buf.find_first_of('/');
-	if (pos != string::npos) {
-		buf.erase(pos);
-		buf.push_back('/');
+	// remove the string behind the '/'
+	//auto pos = buf.find_first_of('/');
+	//if (pos != string::npos) {
+	//	buf.erase(pos);
+	//	buf.push_back('/');
+	//}
+
+	// get rid of  '
+	while (true) {
+		auto pos = buf.find('\'');
+		if (pos == string::npos)
+			break;
+		buf.erase(pos, 1);
 	}
 
 	istringstream tmp(buf);

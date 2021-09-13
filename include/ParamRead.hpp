@@ -24,4 +24,7 @@ public:
 
 	void getDirAndName(string file);
 	void readFile(string file);
+
+	// INCLUDE
+	void inputINCLUDE(ifstream& ifs);
 };

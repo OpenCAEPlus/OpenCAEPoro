@@ -30,16 +30,28 @@ void ParamRead::readFile(string file)
 		if (!ReadLine(ifs, vbuf))
 			break;
 		string keyword = vbuf[0];
+
 		switch (Map_str2int(&keyword[0], keyword.size()))
 		{
 		case Map_str2int("DIMENS", 6):
-			cout << "DIMENS" << endl;
 			Rs_param.inputDIMENS(ifs);
 			Rs_param.outputDIMENS();
 			break;
 
 		case Map_str2int("EQUALS", 6):
 			Rs_param.inputEQUALS(ifs);
+			break;
+
+		case Map_str2int("DX", 2):
+		case Map_str2int("DY", 2):
+		case Map_str2int("DZ", 2):
+		case Map_str2int("NTG", 3):
+		case Map_str2int("PORO", 4):
+		case Map_str2int("TOPS", 4):
+		case Map_str2int("PERMX", 5):
+		case Map_str2int("PERMY", 5):
+		case Map_str2int("PERMZ", 5):
+			Rs_param.inputGRID(ifs, keyword);
 			break;
 
 		case Map_str2int("COPY", 4):
@@ -60,19 +72,23 @@ void ParamRead::readFile(string file)
 			break;
 
 		case Map_str2int("ROCK", 4):
-			cout << "ROCK" << endl;
+			Rs_param.inputROCK(ifs);
 			break;
 
 		case Map_str2int("GRAVITY", 7):
-			cout << "GRAVITY" << endl;
+			Rs_param.inputGRAVITY(ifs);
 			break;
 
 		case Map_str2int("DENSITY", 7):
-			cout << "DENSITY" << endl;
+			Rs_param.inputDENSITY(ifs);
 			break;
 
 		case Map_str2int("EQUIL", 5):
-			cout << "EQUIL" << endl;
+			Rs_param.inputEQUIL(ifs);
+			break;
+
+		case Map_str2int("INCLUDE", 7):
+			inputINCLUDE(ifs);
 			break;
 
 		default:
@@ -83,4 +99,15 @@ void ParamRead::readFile(string file)
 
 
 	ifs.close();
+}
+
+
+void ParamRead::inputINCLUDE(ifstream& ifs)
+{
+	vector<string>	vbuf;
+	ReadLine(ifs, vbuf);
+	DealDefault(vbuf);
+
+	readFile(FileDir + vbuf[0]);
+
 }

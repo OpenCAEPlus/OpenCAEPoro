@@ -6,39 +6,39 @@ vector<double>* ParamReservoir::FindPtr(string& varName)
 
 	switch (Map_str2int(&varName[0], varName.size()))
 	{
-	case Map_str2int("'DX'", 4):
+	case Map_str2int("DX", 2):
 		myPtr = &Dx;
 		break;
 
-	case Map_str2int("'DY'", 4):
+	case Map_str2int("DY", 2):
 		myPtr = &Dy;
 		break;
 
-	case Map_str2int("'DZ'", 4):
+	case Map_str2int("DZ", 2):
 		myPtr = &Dz;
 		break;
 
-	case Map_str2int("'PORO'", 6):
+	case Map_str2int("PORO", 4):
 		myPtr = &Poro;
 		break;
 
-	case Map_str2int("'PERMX'", 7):
+	case Map_str2int("PERMX", 5):
 		myPtr = &PermX;
 		break;
 
-	case Map_str2int("'PERMY'", 7):
+	case Map_str2int("PERMY", 5):
 		myPtr = &PermY;
 		break;
 
-	case Map_str2int("'PERMZ'", 7):
+	case Map_str2int("PERMZ", 5):
 		myPtr = &PermZ;
 		break;
 
-	case Map_str2int("'NTG'", 5):
+	case Map_str2int("NTG", 3):
 		myPtr = &Ntg;
 		break;
 
-	case Map_str2int("'TOPS'", 6):
+	case Map_str2int("TOPS", 4):
 		myPtr = &Tops;
 		break;
 	}
@@ -63,19 +63,40 @@ TableSet* ParamReservoir::FindPtr_T(string& varName)
 		myPtr = &PBVD_T;
 		break;
 
-	case Map_str2int("PVDG", 4):
-		myPtr = &PVDG_T;
-		break;
-
 	case Map_str2int("PVCO", 4):
 		myPtr = &PVCO_T;
 		break;
 
+	case Map_str2int("PVDO", 4):
+		myPtr = &PVDO_T;
+		break;
+
+	case Map_str2int("PVDG", 4):
+		myPtr = &PVDG_T;
+		break;
+	
 	case Map_str2int("PVTW", 4):
 		myPtr = &PVTW_T;
 		break;
 	}
 	return myPtr;
+}
+
+void ParamReservoir::init()
+{
+	initTab();
+
+	Gravity.resize(3);
+	Gravity[0] = 45.5;		// oil
+	Gravity[1] = 1.0;		// pure water
+	Gravity[2] = 0.7773;	// air
+
+	Density.resize(3);
+	Density[0] = 37.457;		// oil
+	Density[1] = 62.366416;		// pure water
+	Density[2] = 0.062428;		// air
+
+	EQUIL.resize(6, 0);
 }
 
 void ParamReservoir::initVar()
@@ -97,6 +118,7 @@ void ParamReservoir::initTab()
 	SGOF_T.Name = "SGOF";	SGOF_T.colNum = 4;
 	PBVD_T.Name = "PBVD";	PBVD_T.colNum = 2;
 	PVCO_T.Name = "PVCO";	PVCO_T.colNum = 6;
+	PVDO_T.Name = "PVDO";	PVDO_T.colNum = 3;
 	PVDG_T.Name = "PVDG";	PVDG_T.colNum = 3;
 	PVTW_T.Name = "PVTW";	PVTW_T.colNum = 5;
 }
@@ -166,7 +188,8 @@ void ParamReservoir::inputDIMENS(ifstream& ifs)
 
 void ParamReservoir::outputDIMENS()
 {
-	cout << Dimens.Nx << "  " << Dimens.Ny << "  " << Dimens.Nz << endl;
+	std::cout << "DIMENS" << endl;
+	std::cout << Dimens.Nx << "  " << Dimens.Ny << "  " << Dimens.Nz << endl;
 }
 
 void ParamReservoir::inputEQUALS(ifstream& ifs)
@@ -206,16 +229,37 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 			exit(0);
 		}
 	}	
-	//cout << Dx[0] << endl;
-	//cout << Dy[0] << endl;
-	//cout << Dz[0] << endl;
-	//cout << Poro[0] << endl;
-	//cout << Ntg[0] << endl;
-	//cout << PermX[0] << endl;
-	//cout << PermY[0] << endl;
-	//cout << PermZ[0] << endl;
-	//cout << Tops[0] << endl;
+	std::cout << Dx[0] << endl;
+	std::cout << Dy[0] << endl;
+	std::cout << Dz[0] << endl;
+	std::cout << Poro[0] << endl;
+	std::cout << Ntg[0] << endl;
+	std::cout << PermX[0] << endl;
+	std::cout << PermY[0] << endl;
+	std::cout << PermZ[0] << endl;
+	std::cout << Tops[0] << endl;
 
+}
+
+void ParamReservoir::inputGRID(ifstream& ifs, string& tabName)
+{
+	vector<double>* objPtr = nullptr;
+	objPtr = FindPtr(tabName);
+	vector<string>		vbuf;
+
+	int n = 0;
+	while (ReadLine(ifs, vbuf)) {
+		if (vbuf[0] == "/")
+			break;
+		
+		for (auto str : vbuf) {
+			objPtr->at(n) = atof(str.c_str());
+			n++;
+		}
+	}
+	std::cout << PermX[0] << endl;
+	std::cout << PermY[0] << endl;
+	std::cout << PermZ[0] << endl;
 }
 
 void ParamReservoir::inputCOPY(ifstream& ifs)
@@ -250,7 +294,9 @@ void ParamReservoir::inputCOPY(ifstream& ifs)
 			exit(0);
 		}
 	}
-	//cout << PermY[0] << endl;
+	std::cout << PermX[0] << endl;
+	std::cout << PermY[0] << endl;
+	std::cout << PermZ[0] << endl;
 }
 
 void ParamReservoir::inputMULTIPLY(ifstream& ifs)
@@ -288,9 +334,12 @@ void ParamReservoir::inputMULTIPLY(ifstream& ifs)
 			exit(0);
 		}
 	}
+	std::cout << PermX[0] << endl;
+	std::cout << PermY[0] << endl;
+	std::cout << PermZ[0] << endl;
 }
 
-void ParamReservoir::inputTABLE(ifstream& ifs, string tabName)
+void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
 {
 	TableSet*	obj;
 	obj = FindPtr_T(tabName);
@@ -323,5 +372,63 @@ void ParamReservoir::inputTABLE(ifstream& ifs, string tabName)
 		obj->data.push_back(tmpTab);
 
 	obj->showTab();
-	cout << "hello" << endl;
+	std::cout << "hello" << endl;
 }
+
+void ParamReservoir::inputROCK(ifstream& ifs)
+{
+	vector<string>	vbuf;
+	ReadLine(ifs, vbuf);
+
+	Rock.Pref	= atof(vbuf[0].c_str());
+	Rock.Cr		= atof(vbuf[1].c_str());
+
+	std::cout << "ROCK" << endl;
+	std::cout << Rock.Pref << "  " << Rock.Cr << endl;
+}
+
+void ParamReservoir::inputGRAVITY(ifstream& ifs)
+{
+	vector<string>	vbuf;
+	ReadLine(ifs, vbuf);
+
+	for (int i = 0; i < 3; i++) {
+		if (vbuf[i] != "DEFAULT")
+			Gravity[i] = atof(vbuf[i].c_str());
+	}
+
+	std::cout << "GRAVITY" << endl;
+	std::cout << Gravity[0] << "  " <<  Gravity[1] << "  "  << Gravity[2] << endl;
+}
+
+void ParamReservoir::inputDENSITY(ifstream& ifs)
+{
+	vector<string>	vbuf;
+	ReadLine(ifs, vbuf);
+	DealDefault(vbuf);
+	for (int i = 0; i < 3; i++) {
+		if (vbuf[i] != "DEFAULT")
+			Density[i] = atof(vbuf[i].c_str());
+	}
+
+	std::cout << "DENSITY" << endl;
+	std::cout << Density[0] << "  " << Density[1] << "  " << Density[2] << endl;
+}
+
+void ParamReservoir::inputEQUIL(ifstream& ifs)
+{
+	vector<string>	vbuf;
+	ReadLine(ifs, vbuf);
+	DealDefault(vbuf);
+	for (int i = 0; i < 6; i++) {
+		if (vbuf[i] != "DEFAULT")
+			EQUIL[i] = atof(vbuf[i].c_str());
+	}
+	
+	std::cout << "EQUIL" << endl;
+	for (int i = 0; i < 6; i++)
+		std::cout << EQUIL[i] << "  ";
+	std::cout << endl;
+}
+
+

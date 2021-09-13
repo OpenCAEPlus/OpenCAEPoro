@@ -35,6 +35,12 @@ public:
 	int Nz;
 };
 
+class ROCK
+{
+public:
+	double	Pref;
+	double	Cr;
+};
 
 class ParamReservoir
 {
@@ -55,9 +61,7 @@ public:
 	std::vector<double>					PermX;
 	std::vector<double>					PermY;
 	std::vector<double>					PermZ;
-	double								Pref;
-	double								C1;
-	double								C2;
+	ROCK								Rock;
 
 	// Saturation table & buble point pressure 
 	TableSet							SWOF_T;
@@ -71,6 +75,7 @@ public:
 
 	// PVT property
 	TableSet							PVCO_T;
+	TableSet							PVDO_T;
 	TableSet							PVDG_T;
 	TableSet							PVTW_T;
 
@@ -79,6 +84,7 @@ public:
 	TableSet* FindPtr_T(string& varName);
 
 	// init size of var
+	void init();
 	void initVar();
 	void initTab();
 	void setVal(vector<double>& obj, double val, vector<int>& index);
@@ -89,8 +95,11 @@ public:
 	void inputDIMENS(ifstream& ifs);
 	void outputDIMENS();
 
-	// EUQALS
+	// EQUALS
 	void inputEQUALS(ifstream& ifs);
+
+	// EQUALS   ----   supplement
+	void inputGRID(ifstream& ifs, string& tabName);
 
 	// COPY
 	void inputCOPY(ifstream& ifs);
@@ -99,5 +108,18 @@ public:
 	void inputMULTIPLY(ifstream& ifs);
 
 	// Table
-	void inputTABLE(ifstream& ifs, string tabName);
+	void inputTABLE(ifstream& ifs, string& tabName);
+
+	// Rock
+	void inputROCK(ifstream& ifs);
+
+	// Gravity
+	void inputGRAVITY(ifstream& ifs);
+
+	// Density
+	void inputDENSITY(ifstream& ifs);
+
+	// EQUAL
+	void inputEQUIL(ifstream& ifs);
+
 };
