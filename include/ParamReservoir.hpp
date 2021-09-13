@@ -52,14 +52,21 @@ public:
 	std::vector<std::vector<double>>	PVDO;
 	std::vector<std::vector<double>>	PVTW;
 
+	// method
+	double* FindPtr(string& varName);
+
 	// init size of var
 	void initVar();
-	void setVal(vector<double>& obj, double val, vector<int>& index);
+	void setVal(double* obj, double val, vector<int>& index);
+	void copyVal(double* obj, double* src, vector<int>& index);
 
 	// DIMENS
 	void inputDIMENS(ifstream& ifs);
 	void outputDIMENS();
 
-	// DX DY DZ
-	void inputEQUALS(vector<string>& vbuf);
+	// EUQALS
+	void inputEQUALS(ifstream& ifs);
+
+	// COPY
+	void inputCOPY(ifstream& ifs);
 };

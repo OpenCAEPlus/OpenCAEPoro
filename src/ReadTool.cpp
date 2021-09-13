@@ -59,3 +59,4 @@ void DealDefault(vector<string>& result)
 	}
 	swap(result, tmp);
 }
+

@@ -26,3 +26,4 @@ constexpr inline long long Map_str2int(const char* mystr, int len)
 bool ReadLine(ifstream& ifs, vector<string>& result);
 
 void DealDefault(vector<string>& result);
+

@@ -37,48 +37,55 @@ void ParamRead::readFile(string file)
 			Rs_param.inputDIMENS(ifs);
 			Rs_param.outputDIMENS();
 			break;
-		case Map_str2int("'DX'", 4):
-		case Map_str2int("'DY'", 4):
-		case Map_str2int("'DZ'", 4):
-		case Map_str2int("'PORO'", 6):
-		case Map_str2int("'PERMX'", 7):
-		case Map_str2int("'PERMY'", 7):
-		case Map_str2int("'PERMZ'", 7):
-			Rs_param.inputEQUALS(vbuf);
+
+		case Map_str2int("EQUALS", 6):
+			Rs_param.inputEQUALS(ifs);
 			break;
-		case Map_str2int("'TOPS'", 6):
-			cout << "'TOPS'" << endl;
-			break;
+
 		case Map_str2int("COPY", 4):
-			cout << "COPY" << endl;
+			Rs_param.inputCOPY(ifs);
 			break;
+
+		case Map_str2int("MULTIPLY", 8):
+			Rs_param.inputCOPY(ifs);
+			break;
+
 		case Map_str2int("SWOF", 4):
 			cout << "SWOF" << endl;
 			break;
+
 		case Map_str2int("SGOF", 4):
 			cout << "SGOF" << endl;
 			break;
+
 		case Map_str2int("PVCO", 4):
 			cout << "PVCO" << endl;
 			break;
+
 		case Map_str2int("PVDG", 4):
 			cout << "PVDG" << endl;
 			break;
+
 		case Map_str2int("PVTW", 4):
 			cout << "PVTW" << endl;
 			break;
+
 		case Map_str2int("ROCK", 4):
 			cout << "ROCK" << endl;
 			break;
-		case Map_str2int("GRAVITY", 4):
+
+		case Map_str2int("GRAVITY", 7):
 			cout << "GRAVITY" << endl;
 			break;
-		case Map_str2int("DENSITY", 4):
+
+		case Map_str2int("DENSITY", 7):
 			cout << "DENSITY" << endl;
 			break;
-		case Map_str2int("EQUIL", 4):
+
+		case Map_str2int("EQUIL", 5):
 			cout << "EQUIL" << endl;
 			break;
+
 		case Map_str2int("PBVD", 4):
 			cout << "PBVD" << endl;
 			break;
