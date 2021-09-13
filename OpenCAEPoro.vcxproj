@@ -27,6 +27,12 @@
     <ClInclude Include="include\Grid.hpp" />
     <ClInclude Include="include\MAT.hpp" />
     <ClInclude Include="include\Mixture.hpp" />
+    <ClInclude Include="include\ParamControl.hpp" />
+    <ClInclude Include="include\ParamOutput.hpp" />
+    <ClInclude Include="include\ParamRead.hpp" />
+    <ClInclude Include="include\ParamReservoir.hpp" />
+    <ClInclude Include="include\ParamWell.hpp" />
+    <ClInclude Include="include\ReadTool.hpp" />
     <ClInclude Include="include\Reservoir.hpp" />
     <ClInclude Include="include\OpenCAEPoro.hpp" />
     <ClInclude Include="include\OpenCAEPoro_consts.hpp" />
@@ -45,6 +51,9 @@
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ParamRead.cpp" />
+    <ClCompile Include="src\ParamReservoir.cpp" />
+    <ClCompile Include="src\ReadTool.cpp" />
     <ClCompile Include="src\Reservoir.cpp" />
     <ClCompile Include="src\Perforation.cpp" />
     <ClCompile Include="src\Solver.cpp" />

@@ -1,6 +1,7 @@
 #include "Reservoir.hpp"
 
-inline void Reservoir::allocateMat(Solver& mySolver)
+// allocate memory
+void Reservoir::allocateMat(Solver& mySolver)
 {
 	mySolver.allocate(conn.getActiveBulkNum() + wellgroup.getWellNum());
 	conn.allocateMat(mySolver);
@@ -8,14 +9,15 @@ inline void Reservoir::allocateMat(Solver& mySolver)
 	mySolver.allocateColVal();
 }
 
-// allocate mat memory
-inline void Reservoir::initAssembleMat(Solver& mySolver) 
+
+void Reservoir::initAssembleMat(Solver& mySolver) 
 {
+	// initialize ColId and DiagPtr
 	conn.initAssembleMat(mySolver);
 }
 
 // assemble mat
-inline void Reservoir::assembleMat(Solver& mysolver) 
+void Reservoir::assembleMat(Solver& mysolver) 
 {
 	conn.assembleMat(mysolver, bulk);
 	wellgroup.assemblaMat_WB(mysolver, bulk);

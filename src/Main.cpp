@@ -5,14 +5,24 @@
 #include "WellGroup.hpp"
 #include "Timing.hxx"
 #include "OpenCAEPoro_consts.hpp"
-#include <algorithm>
+#include "ParamRead.hpp"
+#include "ReadTool.hpp"
 
 using namespace std;
 
 
-
 int main()
 {
+
+
+
+	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
+	ParamRead rp;
+	rp.getDirAndName(myfile);
+	rp.readFile(myfile);
+
+
+
 
 	return 0;
 }
