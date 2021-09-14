@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-#include<vector>
+#include <vector>
 #include "ReadTool.hpp"
 
 using namespace std;
@@ -55,6 +55,8 @@ public:
 	std::vector<double>					Dy;
 	std::vector<double>					Dz;
 
+	double								RTEMP;
+
 	// Rock
 	std::vector<double>					Ntg;
 	std::vector<double>					Poro;
@@ -79,7 +81,7 @@ public:
 	TableSet							PVDG_T;
 	TableSet							PVTW_T;
 
-	// method
+	// internal method
 	vector<double>* FindPtr(string& varName);
 	TableSet* FindPtr_T(string& varName);
 
@@ -94,6 +96,9 @@ public:
 	// DIMENS
 	void inputDIMENS(ifstream& ifs);
 	void outputDIMENS();
+
+	// RTEMP
+	void inputRTEMP(ifstream& ifs);
 
 	// EQUALS
 	void inputEQUALS(ifstream& ifs);
@@ -121,5 +126,11 @@ public:
 
 	// EQUAL
 	void inputEQUIL(ifstream& ifs);
+
+
+
+	// check
+	void checkParam();
+	void checkEQUIL();
 
 };

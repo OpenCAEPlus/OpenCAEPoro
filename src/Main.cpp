@@ -17,8 +17,10 @@ int main()
 	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
 	ParamRead rp;
 	rp.getDirAndName(myfile);
-	rp.Rs_param.init();
+	rp.init();
 	rp.readFile(myfile);
+	rp.checkParam();
+	cout << "Done !" << endl;
 
 	return 0;
 }

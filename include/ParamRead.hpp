@@ -25,6 +25,12 @@ public:
 	void getDirAndName(string file);
 	void readFile(string file);
 
+	// init
+	void init();
+
 	// INCLUDE
 	void inputINCLUDE(ifstream& ifs);
+
+	// check
+	void checkParam();
 };

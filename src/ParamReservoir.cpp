@@ -86,6 +86,8 @@ void ParamReservoir::init()
 {
 	initTab();
 
+	RTEMP = 60;
+
 	Gravity.resize(3);
 	Gravity[0] = 45.5;		// oil
 	Gravity[1] = 1.0;		// pure water
@@ -96,7 +98,9 @@ void ParamReservoir::init()
 	Density[1] = 62.366416;		// pure water
 	Density[2] = 0.062428;		// air
 
-	EQUIL.resize(6, 0);
+	Rock.Pref	= 14.7;
+	Rock.Cr		= 3.406E-6;
+
 }
 
 void ParamReservoir::initVar()
@@ -190,6 +194,18 @@ void ParamReservoir::outputDIMENS()
 {
 	std::cout << "DIMENS" << endl;
 	std::cout << Dimens.Nx << "  " << Dimens.Ny << "  " << Dimens.Nz << endl;
+}
+
+void ParamReservoir::inputRTEMP(ifstream& ifs)
+{
+	vector<string>		vbuf;
+	ReadLine(ifs, vbuf);
+	if (vbuf[0] == "/")
+		return;
+
+	RTEMP = atof(vbuf[0].c_str());
+	cout << "RTEMP" << endl;
+	cout << RTEMP << endl;
 }
 
 void ParamReservoir::inputEQUALS(ifstream& ifs)
@@ -379,6 +395,8 @@ void ParamReservoir::inputROCK(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
+	if (vbuf[0] == "/")
+		return;
 
 	Rock.Pref	= atof(vbuf[0].c_str());
 	Rock.Cr		= atof(vbuf[1].c_str());
@@ -391,6 +409,8 @@ void ParamReservoir::inputGRAVITY(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
+	if (vbuf[0] == "/")
+		return;
 
 	for (int i = 0; i < 3; i++) {
 		if (vbuf[i] != "DEFAULT")
@@ -405,6 +425,9 @@ void ParamReservoir::inputDENSITY(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
+	if (vbuf[0] == "/")
+		return;
+
 	DealDefault(vbuf);
 	for (int i = 0; i < 3; i++) {
 		if (vbuf[i] != "DEFAULT")
@@ -419,6 +442,10 @@ void ParamReservoir::inputEQUIL(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
+	if (vbuf[0] == "/")
+		return;
+
+	EQUIL.resize(6, 0);
 	DealDefault(vbuf);
 	for (int i = 0; i < 6; i++) {
 		if (vbuf[i] != "DEFAULT")
@@ -431,4 +458,18 @@ void ParamReservoir::inputEQUIL(ifstream& ifs)
 	std::cout << endl;
 }
 
+
+// check
+void ParamReservoir::checkParam()
+{
+	checkEQUIL();
+}
+
+void ParamReservoir::checkEQUIL()
+{
+	if (EQUIL.empty()) {
+		Paramcheck("EQUIL is missing !");
+		exit(0);
+	}
+}
 

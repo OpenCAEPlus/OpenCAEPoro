@@ -1,5 +1,10 @@
 #include "ParamRead.hpp"
 
+void ParamRead::init()
+{
+	Rs_param.init();
+	Control_param.init();
+}
 
 void ParamRead::getDirAndName(string file)
 {
@@ -36,6 +41,10 @@ void ParamRead::readFile(string file)
 		case Map_str2int("DIMENS", 6):
 			Rs_param.inputDIMENS(ifs);
 			Rs_param.outputDIMENS();
+			break;
+
+		case Map_str2int("RTEMP", 5):
+			Rs_param.inputRTEMP(ifs);
 			break;
 
 		case Map_str2int("EQUALS", 6):
@@ -91,6 +100,14 @@ void ParamRead::readFile(string file)
 			inputINCLUDE(ifs);
 			break;
 
+		case Map_str2int("METHOD", 6):
+			Control_param.inputMETHOD(ifs);
+			break;
+
+		case Map_str2int("TUNING", 6):
+			Control_param.inputTUNING(ifs);
+			break;
+
 		default:
 			break;
 		}
@@ -110,4 +127,11 @@ void ParamRead::inputINCLUDE(ifstream& ifs)
 
 	readFile(FileDir + vbuf[0]);
 
+}
+
+
+// check
+void ParamRead::checkParam()
+{
+	Rs_param.checkParam();
 }
