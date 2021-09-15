@@ -3,6 +3,7 @@
 void ParamRead::init()
 {
 	Rs_param.init();
+	Well_param.init();
 	Control_param.init();
 }
 
@@ -106,6 +107,32 @@ void ParamRead::readFile(string file)
 
 		case Map_str2int("TUNING", 6):
 			Control_param.inputTUNING(ifs);
+			break;
+
+		case Map_str2int("WELSPECS", 8):
+			Well_param.inputWELSPECS(ifs);
+			break;
+
+		case Map_str2int("COMPDAT", 7):
+			Well_param.inputCOMPDAT(ifs);
+			break;
+
+		case Map_str2int("WCONINJE", 8):
+			Well_param.inputWCONINJE(ifs);
+			break;
+
+		case Map_str2int("WCONPROD", 8):
+			Well_param.inputWCONPROD(ifs);
+			break;
+
+		case Map_str2int("TSTEP", 5):
+			Well_param.inputTSTEP(ifs);
+			Control_param.CriticalTime = Well_param.CriticalTime;
+			break;
+
+		case Map_str2int("WELTARG", 7):
+		case Map_str2int("WELLTARG", 8):
+			Well_param.inputWELTARG(ifs);
 			break;
 
 		default:

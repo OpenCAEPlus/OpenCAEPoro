@@ -54,6 +54,7 @@
     <ClCompile Include="src\ParamControl.cpp" />
     <ClCompile Include="src\ParamRead.cpp" />
     <ClCompile Include="src\ParamReservoir.cpp" />
+    <ClCompile Include="src\ParamWell.cpp" />
     <ClCompile Include="src\ReadTool.cpp" />
     <ClCompile Include="src\Reservoir.cpp" />
     <ClCompile Include="src\Perforation.cpp" />

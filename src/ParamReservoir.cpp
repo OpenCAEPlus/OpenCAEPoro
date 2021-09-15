@@ -228,7 +228,7 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 		DealDefault(vbuf);
 
 		for (int n = 2; n < 8; n++) {
-			if (vbuf[n] != DEFAULT)
+			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = atoi(vbuf[n].c_str()) - 1;
 		}
 
@@ -296,7 +296,7 @@ void ParamReservoir::inputCOPY(ifstream& ifs)
 		string objName = vbuf[1];
 		DealDefault(vbuf);
 		for (int n = 2; n < 8; n++) {
-			if (vbuf[n] != DEFAULT)
+			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = atoi(vbuf[n].c_str()) - 1;
 		}
 
@@ -334,7 +334,7 @@ void ParamReservoir::inputMULTIPLY(ifstream& ifs)
 
 		DealDefault(vbuf);
 		for (int n = 2; n < 8; n++) {
-			if (vbuf[n] != DEFAULT)
+			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = atoi(vbuf[n].c_str()) - 1;
 		}
 

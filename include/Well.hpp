@@ -31,10 +31,12 @@ private:
 
 	int							Type;			// inj or prod
 	int							State;			// open or close
+	int							FluidType;		// inj/prod type
 	int							Direction;		// direction of well
 	int							OptModeInit;	// initial opt mode
 	int							OptMode;		// the control mode
 	double						OptValue;		// corresponding values
+	double						MaxRate;
 	double						MaxBHP;
 	double						MinBHP;
 	std::vector<double>			Zi;				// inj for inj Well, prod for prod well

@@ -3,21 +3,29 @@
 #include <vector>
 #include "ReadTool.hpp"
 
-const int IMPES					= 0;
-const int FIM					= 1;
-const int param_BLKOIL			= 0;
-const int param_EoS				= 1;
+typedef vector<vector<double>>				TUNING;
+
+class TuningPair
+{
+public:
+	TuningPair(int t, TUNING& tmp) :d(t), Tuning(tmp) {};
+	int				d;
+	TUNING			Tuning;
+};
 
 class ParamControl
 {
 public:
 
 	int										Model;   // must be given
-	int										Method;
+	string									Method;
 	string									LinearSolve;
-	std::vector<std::vector<double>>		Tuning;
+	vector<TuningPair>						Tuning_T;
+	TUNING									Tuning;
+	vector<double>							CriticalTime;
 	
 	void init();
+	void initTime() { CriticalTime.push_back(0); };
 	void initMethod();
 	void initTuning();
 	void inputMETHOD(ifstream& ifs);

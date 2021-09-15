@@ -27,10 +27,9 @@ public:
 
 	// init
 	void init();
+	// check
+	void checkParam();
 
 	// INCLUDE
 	void inputINCLUDE(ifstream& ifs);
-
-	// check
-	void checkParam();
 };

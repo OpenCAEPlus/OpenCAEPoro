@@ -10,7 +10,6 @@ std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in " << __FI
 
 using namespace std;
 
-const string DEFAULT = "DEFAULT";
 
 constexpr inline long long Map_str2int(const char* mystr, int len)
 {

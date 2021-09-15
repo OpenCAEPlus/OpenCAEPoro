@@ -25,11 +25,11 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 		return false;
 
 	// remove the string behind the '/'
-	//auto pos = buf.find_first_of('/');
-	//if (pos != string::npos) {
-	//	buf.erase(pos);
-	//	buf.push_back('/');
-	//}
+	auto pos = buf.find_first_of('/');
+	if (pos != string::npos) {
+		buf.erase(pos);
+		buf.push_back('/');
+	}
 
 	// get rid of  '
 	while (true) {
@@ -58,12 +58,17 @@ void DealDefault(vector<string>& result)
 		else {
 			int num = atoi(str.substr(0, pos).c_str());
 			int len = str.size();
-			string val = DEFAULT;
+			string val = "DEFAULT";
 			if (pos != len - 1) {
 				val = str.substr(pos + 1, len - (pos + 1)).c_str();
 			}
-			for (int i = 0; i < num; i++)
-				tmp.push_back(val);
+			if (num == 0) {
+				tmp.push_back(str);
+			}		
+			else {
+				for (int i = 0; i < num; i++)
+					tmp.push_back(val);
+			}			
 		}
 	}
 	swap(result, tmp);
