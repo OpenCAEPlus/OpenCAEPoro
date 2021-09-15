@@ -52,6 +52,7 @@
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
+    <ClCompile Include="src\ParamOutput.cpp" />
     <ClCompile Include="src\ParamRead.cpp" />
     <ClCompile Include="src\ParamReservoir.cpp" />
     <ClCompile Include="src\ParamWell.cpp" />

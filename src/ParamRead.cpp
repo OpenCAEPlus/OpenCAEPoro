@@ -135,6 +135,10 @@ void ParamRead::readFile(string file)
 			Well_param.inputWELTARG(ifs);
 			break;
 
+		case Map_str2int("SUMMARY", 7):
+			Output_param.inputSUMMARY(ifs);
+			break;
+
 		default:
 			break;
 		}
