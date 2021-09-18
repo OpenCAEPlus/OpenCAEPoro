@@ -70,32 +70,56 @@ WellOpt::WellOpt(WellOptParam& Optparam)
 
 }
 
-void Well::setupPerf()
+void Well::setup(Grid& myGrid, Bulk& myBulk)
 {
-
+	Opt = OptSet[0];
+	PerfNum = K2 - K1 + 1;
+	dG.resize(PerfNum, 0);
+	Perf.resize(PerfNum);
+	for (int p = 0; p < PerfNum; p++) {
+		Perf[p].State = OPEN;
+		int Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
+		Perf[p].Location = myGrid.ActiveMap_G2B[Idg];
+		Perf[p].Depth = myBulk.Depth[Perf[p].Location];
+		Perf[p].Multiplier = 1;
+	}
+	calWI_Peaceman_Vertical(myBulk);
 }
+
 
 void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 {
 	// this fomular needs to be carefully checked !
 	// especially the dz
-
-	for (int p = 0; p < PerfNum; p++) {
-		int Idb = Perf[p].Location;
-		double kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
-		double kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
-		assert(kx_ky > 0);
-
-
-		double dx = myBulk.Dx[Idb];
-		double dy = myBulk.Dy[Idb];
-		double dz = myBulk.Dz[Idb] * myBulk.Ntg[Idb];
-
-		double ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
-		ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
-
-		Perf[p].WI = 2 * PI * dz * pow(kxky, 0.5) / (log(ro / Radius) + SkinFactor);
+	if (WI > 0) {
+		for (int p = 0; p < PerfNum; p++) {
+			Perf[p].WI = WI;
+		}
 	}
+	else {
+		for (int p = 0; p < PerfNum; p++) {
+			int Idb = Perf[p].Location;
+			double kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
+			double kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
+			assert(kx_ky > 0);
+
+
+			double dx = myBulk.Dx[Idb];
+			double dy = myBulk.Dy[Idb];
+			double dz = myBulk.Dz[Idb] * myBulk.Ntg[Idb];
+
+			double ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
+			ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
+			if (Kh < 0) {
+				Perf[p].WI = (2 * PI) * (dz * pow(kxky, 0.5)) / (log(ro / Radius) + SkinFactor);
+			}
+			else {
+				Perf[p].WI = (2 * PI) * Kh / (log(ro / Radius) + SkinFactor);
+			}
+			
+		}
+	}
+	
 }
 
 void Well::allocateMat(Solver& mySolver)

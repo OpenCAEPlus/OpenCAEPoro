@@ -13,7 +13,7 @@ void WellGroup::inputParam(ParamWell& Well_param)
 		WellG[w].Radius = Well_param.well[w].Diameter / 2;
 		WellG[w].Kh = Well_param.well[w].Kh;
 		WellG[w].SkinFactor = Well_param.well[w].SkinFactor;
-		WellG[w].Trans = Well_param.well[w].Trans;
+		WellG[w].WI = Well_param.well[w].WI;
 		WellG[w].I = Well_param.well[w].I;
 		WellG[w].J = Well_param.well[w].J;
 		WellG[w].K1 = Well_param.well[w].K1;
@@ -38,14 +38,17 @@ void WellGroup::inputParam(ParamWell& Well_param)
 	cout << "WellGroup::inputParam" << endl;
 }
 
-void WellGroup::setup(Bulk& myBulk)
+void WellGroup::setup(Grid& myGrid, Bulk& myBulk)
 {
+	setupWell(myGrid, myBulk);
 	setupMixture(myBulk);
 }
 
-void WellGroup::setupPerf()
+void WellGroup::setupWell(Grid& myGrid, Bulk& myBulk)
 {
-
+	for (int w = 0; w < WellNum; w++) {
+		WellG[w].setup(myGrid, myBulk);
+	}
 }
 
 void WellGroup::setupMixture(Bulk& myBulk)

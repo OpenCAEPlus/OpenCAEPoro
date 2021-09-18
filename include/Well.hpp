@@ -33,7 +33,7 @@ public:
 	Well() = default;
 	void setState(bool flag) { Opt.State = flag; };
 
-	void setupPerf();
+	void setup(Grid& myGrid, Bulk& myBulk);
 	// cal Well Index
 	void calWI_Peaceman_Vertical(const Bulk& myBulk);
 
@@ -47,7 +47,7 @@ private:
 	double						Radius;			// well radius
 	double						Kh;
 	double						SkinFactor;		// skin factor
-	double						Trans;
+	double						WI;				// connection factor
 	
 	string						Name;
 	int							I, J;

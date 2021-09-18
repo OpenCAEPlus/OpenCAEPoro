@@ -11,8 +11,8 @@ public:
 	WellGroup() = default;
 	
 	void inputParam(ParamWell& Well_param);
-	void setup(Bulk& myBulk);
-	void setupPerf();
+	void setup(Grid& myGrid, Bulk& myBulk);
+	void setupWell(Grid& myGrid, Bulk& myBulk);
 	void setupMixture(Bulk& myBulk);
 
 	void allocateMat(Solver& mySolver);

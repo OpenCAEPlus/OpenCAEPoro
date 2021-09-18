@@ -82,7 +82,7 @@ void ParamWell::inputCOMPDAT(ifstream& ifs)
 				well[w].K1 = stoi(vbuf[3]);
 				well[w].K2 = stoi(vbuf[4]);
 				if (vbuf[5] != "DEFAULT")
-					well[w].Trans = stod(vbuf[5]);
+					well[w].WI = stod(vbuf[5]);
 				if (vbuf[6] != "DEFAULT")
 					well[w].Diameter = stod(vbuf[6]);
 				if (vbuf[7] != "DEFAULT")

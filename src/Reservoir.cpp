@@ -12,7 +12,7 @@ void Reservoir::setup()
 	grid.setup();
 	bulk.setup(grid);
 	conn.setup(grid, bulk);
-	wellgroup.setup(bulk);
+	wellgroup.setup(grid, bulk);
 }
 
 // allocate memory

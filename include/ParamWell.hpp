@@ -45,7 +45,7 @@ public:
 	int			J_perf;
 	int			K1;
 	int			K2;
-	double		Trans{ -1.0 };
+	double		WI{ -1.0 };		// connection factor
 	double		Diameter{ 1.0 };
 	double		Kh{ -1.0 };
 	double		SkinFactor{ 0.0 };
