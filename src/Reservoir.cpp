@@ -1,5 +1,20 @@
 #include "Reservoir.hpp"
 
+void Reservoir::inputParam(ParamRead& param)
+{
+	grid.inputParam(param.Rs_param);
+	bulk.inputParam(param.Rs_param);
+	wellgroup.inputParam(param.Well_param);
+}
+
+void Reservoir::setup()
+{
+	grid.setup();
+	bulk.setup(grid);
+	conn.setup(grid, bulk);
+	wellgroup.setup(bulk);
+}
+
 // allocate memory
 void Reservoir::allocateMat(Solver& mySolver)
 {

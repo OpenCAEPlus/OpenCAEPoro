@@ -1,6 +1,40 @@
 #include "BOMixture.hpp"
 
+BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
+{
+	MixtureType = BLKOIL;
+	Mode = PVTmode;
+	Np = rs_param.Np;
+	Nc = rs_param.Nc;
 
+	if (rs_param.Density.activity) {
+		Std_RhoO = rs_param.Density.data[0];
+		Std_RhoW = rs_param.Density.data[1];
+		Std_RhoG = rs_param.Density.data[2];
+	}
+	else {
+		Std_RhoO = (141.5 * RHOW_STD) / (rs_param.Gravity.data[0] + 131.5);
+		Std_RhoW = RHOW_STD * rs_param.Gravity.data[1];
+		Std_RhoG = RHOAIR_STD * rs_param.Gravity.data[2];
+	}
+
+	Std_GammaO = GRAVITY_FACTOR * Std_RhoO;
+	Std_GammaG = GRAVITY_FACTOR * Std_RhoG;
+	Std_GammaW = GRAVITY_FACTOR * Std_RhoW;
+
+	if (rs_param.PVTW_T.data.size() != 0) {
+		PVTW.setup(rs_param.PVTW_T.data[i]);
+	}
+	if (rs_param.PVCO_T.data.size() != 0) {
+		PVCO.setup(rs_param.PVCO_T.data[i]);
+	}
+	if (rs_param.PVDO_T.data.size() != 0) {
+		PVDO.setup(rs_param.PVDO_T.data[i]);
+	}
+	if (rs_param.PVDG_T.data.size() != 0) {
+		PVDG.setup(rs_param.PVDG_T.data[i]);
+	}
+}
 
 void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin, const double* Sjin, double Vpore, const double* Ziin)
 {

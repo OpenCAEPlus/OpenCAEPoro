@@ -97,25 +97,27 @@ void ParamControl::inputTUNING(ifstream& ifs)
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
-		if (vbuf[0] == "/")
-			break;
+		/*if (vbuf[0] == "/")
+			break;*/
 		
 		DealDefault(vbuf);
 		int len = vbuf.size();
 		
 		for (int i = 0; i < len - 1; i++) {
-			tmp[row][i] = atof(vbuf[i].c_str());
+			tmp[row][i] = stod(vbuf[i]);
 		}
 		if (vbuf[len - 1] != "/") {
-			tmp[row][len - 1] = atof(vbuf[len - 1].c_str());
+			tmp[row][len - 1] = stod(vbuf[len - 1]);
 		}
 		else {
 			row++;
 		}
+		if (row == 3)
+			break;
 	}
 	Tuning_T.push_back(TuningPair(d, tmp));
 	showTuning();
-	cout << "hello" << endl;
+	cout << "TUNING" << endl;
 }
 
 void ParamControl::showTuning()

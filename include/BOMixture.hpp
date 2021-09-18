@@ -2,11 +2,13 @@
 #include "Mixture.hpp"
 #include "ReservoirTable.hxx"
 #include "OpenCAEPoro_consts.hpp"
+#include "ParamReservoir.hpp"
 
 class BOMixture : public Mixture
 {
 public:
 	BOMixture() = default;
+	BOMixture(ParamReservoir& rs_param, int PVTmode, int i);
 
 	bool empty_PVDG() override{ return PVDG.isempty(); }
 
@@ -26,6 +28,7 @@ public:
 	double gammaPhaseW(double Pin) override;
 	double gammaPhaseO_OW(double Pin);
 	double gammaPhaseO_OGW(double Pin, double Pbbin);
+	double gammaPhaseOG(double Pin, double Tin, double* Ziin) override { ERRORcheck("should not be used in BLKOIL"); exit(0); };
 
 private:
 

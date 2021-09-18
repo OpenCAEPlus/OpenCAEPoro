@@ -7,6 +7,7 @@ class ReservoirTable
 public:
 	ReservoirTable() = default;
 	ReservoirTable(int row, int col);
+	void setup(std::vector<std::vector<T>>& src);
 
 	void pushCol(std::vector<T>& v) { data.push_back(v); }
 	std::vector<T>& getCol(int j) { return data[j]; }
@@ -39,6 +40,14 @@ ReservoirTable<T>::ReservoirTable(int row, int col)
 	}
 }
 
+template <typename T>
+void ReservoirTable<T>::setup(std::vector<std::vector<T>>& src)
+{
+	data = src;
+	NCol = data.size();
+	NRow = data[0].size();
+	BId = NRow / 2;
+}
 
 template <typename T>
 inline bool ReservoirTable<T>::isempty()

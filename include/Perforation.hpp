@@ -12,6 +12,7 @@ private:
 	int				State;
 	int				Location;
 	double			Depth;
+	double			Trans;
 	double			P;
 	double			WI;
 	double			Multiplier;

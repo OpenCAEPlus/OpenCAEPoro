@@ -7,6 +7,10 @@ void FlowUnit::generate_SWPCWG()
 		ERRORcheck("SGOF is missing!");
 		exit(0);
 	}
+	if (SWOF.isempty()) {
+		ERRORcheck("SWOF is missing!");
+		exit(0);
+	}
 
 	std::vector<double>		Sw(SWOF.getCol(0));
 	std::vector<double>		Pcw(SWOF.getCol(3));
@@ -36,7 +40,7 @@ void FlowUnit::calKrPc(const double* S_in, double* kr_out, double* pc_out)
 	case PHASE_OG:
 		calKrPc_OG(S_in, kr_out, pc_out);
 		break;
-	case PHASE_OGW:
+	case PHASE_OGW: // should SWOF be used here?
 		calKrPc_OGW(S_in, kr_out, pc_out);
 		break;
 	default:
@@ -123,4 +127,15 @@ double FlowUnit::kro_stone2(double krow, double krog, double krw, double krg)
 		kro = 0;
 
 	return kro;
+}
+
+FlowUnit::FlowUnit(ParamReservoir& rs_param, int mode, int i)
+{
+	Mode = mode;
+	if (rs_param.WATER) {
+		SWOF.setup(rs_param.SWOF_T.data[i]);
+	}
+	if (rs_param.GAS) {
+		SGOF.setup(rs_param.SGOF_T.data[i]);
+	}
 }

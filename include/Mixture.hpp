@@ -9,7 +9,7 @@ class Mixture
 public:
 
 	Mixture() = default;
-	virtual ~Mixture() = 0;
+	virtual ~Mixture() {};
 
 	// return type
 	int getType() { return MixtureType; }

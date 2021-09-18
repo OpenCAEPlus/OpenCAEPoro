@@ -17,7 +17,6 @@ class ParamControl
 {
 public:
 
-	int										Model;   // must be given
 	string									Method;
 	string									LinearSolve;
 	vector<TuningPair>						Tuning_T;

@@ -1,5 +1,103 @@
 #include "Well.hpp"
 
+WellOpt::WellOpt(WellOptParam& Optparam)
+{
+	if (Optparam.Type == "INJ") {
+		Type = INJ;
+	}
+	else if (Optparam.Type == "PROD") {
+		Type = PROD;
+	}	
+	else {
+		ERRORcheck("WRONG Well Type");
+		exit(0);
+	}
+	
+	if (Type == INJ) {
+		if (Optparam.FluidType == "OIL") {
+			FluidType = OIL;
+		}
+		else if (Optparam.FluidType == "GAS") {
+			FluidType = GAS;
+		}
+		else if (Optparam.FluidType == "WATER") {
+			FluidType = WATER;
+		}
+		else if (Optparam.FluidType == "SOLVENT") {
+			FluidType = SOLVENT;
+		}
+		else {
+			ERRORcheck("WRONG Fluid type");
+			exit(0);
+		}
+	}
+	
+	
+	if (Optparam.State == "OPEN") {
+		State = OPEN;
+	}
+	else if (Optparam.State == "CLOSE") {
+		State = CLOSE;
+	}
+	else {
+		ERRORcheck("WRONG State type");
+		exit(0);
+	}
+		
+	if (Optparam.OptMode == "RATE") {
+		OptMode = RATE_MODE;
+	}
+	else if (Optparam.OptMode == "ORAT") {
+		OptMode = ORATE_MODE;
+	}
+	else if (Optparam.OptMode == "GRAT") {
+		OptMode = GRATE_MODE;
+	}
+	else if (Optparam.OptMode == "WRAT") {
+		OptMode = WRATE_MODE;
+	}
+	else if (Optparam.OptMode == "BHP") {
+		OptMode = BHP_MODE;
+	}
+	else {
+		ERRORcheck("WRONG Well Opt Mode");
+		exit(0);
+	}
+
+	MaxRate = Optparam.MaxRate;
+	MaxBHP = Optparam.MaxBHP;
+	MinBHP = Optparam.MinBHP;
+
+}
+
+void Well::setupPerf()
+{
+
+}
+
+void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
+{
+	// this fomular needs to be carefully checked !
+	// especially the dz
+
+	for (int p = 0; p < PerfNum; p++) {
+		int Idb = Perf[p].Location;
+		double kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
+		double kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
+		assert(kx_ky > 0);
+
+
+		double dx = myBulk.Dx[Idb];
+		double dy = myBulk.Dy[Idb];
+		double dz = myBulk.Dz[Idb] * myBulk.Ntg[Idb];
+
+		double ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
+		ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
+
+		Perf[p].WI = 2 * PI * dz * pow(kxky, 0.5) / (log(ro / Radius) + SkinFactor);
+	}
+}
+
 void Well::allocateMat(Solver& mySolver)
 {
 	for (int p = 0; p < PerfNum; p++) {
@@ -28,7 +126,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 
 		double Vfi_zi = 0;
 		for (int i = 0; i < nc; i++) {
-			Vfi_zi += myBulk.Vfi[k * nc + i] * Zi[i];
+			Vfi_zi += myBulk.Vfi[k * nc + i] * Opt.Zi[i];
 		}
 		
 		double valw = 1 * xi * trans * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
@@ -49,7 +147,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 
 
 		// Well to Bulk
-		switch (OptMode)
+		switch (Opt.OptMode)
 		{
 		case ORATE_MODE:
 		case GRATE_MODE:
@@ -76,7 +174,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 	// Well Self
 	assert(mySolver.Val[wId].size() == PerfNum);
 	// the order of perforation is not necessarily in order
-	switch (OptMode) 
+	switch (Opt.OptMode)
 	{
 	case ORATE_MODE:
 	case GRATE_MODE:
@@ -87,7 +185,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
 		// b
-		mySolver.b[wId] += 1 * OptValue;
+		mySolver.b[wId] += 1 * Opt.OptValue;
 		break;
 	case BHP_MODE:
 		// diag
@@ -95,7 +193,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver& mySolver)
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(1);
 		// b
-		mySolver.b[wId] += 1 * OptValue;
+		mySolver.b[wId] += 1 * Opt.OptValue;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode in function");
@@ -127,7 +225,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 			
 			for (int i = 0; i < nc; i++) {
 				tempb += myBulk.Vfi[k * nc + i] * myBulk.Cij[k * np * nc + j * nc + i];
-				tempw += Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
+				tempw += Opt.Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
 			}
 			double trans = myBulk.Xi[k * np + j] * myBulk.Kr[k * np + j] / myBulk.Mu[k * np + j];
 			valb += tempb * trans;
@@ -155,7 +253,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 
 
 		// Well to Bulk
-		switch (OptMode)
+		switch (Opt.OptMode)
 		{
 		case ORATE_MODE:
 		case GRATE_MODE:
@@ -183,7 +281,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 	// Well Self
 	assert(mySolver.Val[wId].size() == PerfNum);
 	// the order of perforation is not necessarily in order
-	switch (OptMode)
+	switch (Opt.OptMode)
 	{
 	case ORATE_MODE:
 	case GRATE_MODE:
@@ -194,7 +292,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
 		// b
-		mySolver.b[wId] += 1 * OptValue;
+		mySolver.b[wId] += 1 * Opt.OptValue;
 		break;
 	case BHP_MODE:
 		// diag
@@ -202,7 +300,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(1);
 		// b
-		mySolver.b[wId] += 1 * OptValue;
+		mySolver.b[wId] += 1 * Opt.OptValue;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode in function");
@@ -211,25 +309,4 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver& mySolver)
 }
 
 
-void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
-{
-	// this fomular needs to be carefully checked !
-	// especially the dz
 
-	for (int p = 0; p < PerfNum; p++) {
-		int Idb = Perf[p].Location;
-		double kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
-		double kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
-		assert(kx_ky > 0);
-
-
-		double dx = myBulk.Dx[Idb];
-		double dy = myBulk.Dy[Idb];
-		double dz = myBulk.Dz[Idb] * myBulk.Ntg[Idb];
-
-		double ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)),0.5);
-		ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
-
-		Perf[p].WI = 2 * PI * dz * pow(kxky, 0.5)/(log(ro/Radius)+SkinFactor);
-	}
-}

@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="include\BOMixture.hpp" />
     <ClInclude Include="include\Bulk.hpp" />
-    <ClInclude Include="include\Connection.hpp" />
     <ClInclude Include="include\Connection_BB.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\Grid.hpp" />
@@ -51,6 +50,7 @@
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\OpenCAEPoro.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
     <ClCompile Include="src\ParamOutput.cpp" />
     <ClCompile Include="src\ParamRead.cpp" />

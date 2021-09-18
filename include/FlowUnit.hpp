@@ -1,10 +1,13 @@
 #pragma once
 #include "ReservoirTable.hxx"
 #include "OpenCAEPoro_consts.hpp"
+#include "ParamReservoir.hpp"
 
 class FlowUnit
 {
 public:
+	FlowUnit() = default;
+	FlowUnit(ParamReservoir& rs_param, int mode, int i);
 
 	bool empty_SGOF() { return SGOF.isempty(); }
 	bool empty_SWOF() { return SWOF.isempty(); }

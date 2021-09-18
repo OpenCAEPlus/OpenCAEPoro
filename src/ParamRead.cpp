@@ -39,6 +39,30 @@ void ParamRead::readFile(string file)
 
 		switch (Map_str2int(&keyword[0], keyword.size()))
 		{
+		case Map_str2int("BLACKOIL", 8):
+			Rs_param.BLACKOIL = true;
+				break;
+
+		case Map_str2int("COMPS", 5):
+			Rs_param.inputCOMPS(ifs);
+			break;
+
+		case Map_str2int("OIL", 3):
+			Rs_param.OIL = true;
+			break;
+
+		case Map_str2int("GAS", 3):
+			Rs_param.GAS = true;
+			break;
+
+		case Map_str2int("WATER", 5):
+			Rs_param.WATER = true;
+			break;
+
+		case Map_str2int("DISGAS", 6):
+			Rs_param.DISGAS = true;
+			break;
+
 		case Map_str2int("DIMENS", 6):
 			Rs_param.inputDIMENS(ifs);
 			Rs_param.outputDIMENS();
@@ -61,6 +85,8 @@ void ParamRead::readFile(string file)
 		case Map_str2int("PERMX", 5):
 		case Map_str2int("PERMY", 5):
 		case Map_str2int("PERMZ", 5):
+		case Map_str2int("PRESSURE", 8):
+		case Map_str2int("Ni", 2):
 			Rs_param.inputGRID(ifs, keyword);
 			break;
 
@@ -95,6 +121,15 @@ void ParamRead::readFile(string file)
 
 		case Map_str2int("EQUIL", 5):
 			Rs_param.inputEQUIL(ifs);
+			break;
+
+		case Map_str2int("TABDIMS", 7):
+			Rs_param.inputTABDIMS(ifs);
+			break;
+
+		case Map_str2int("SATNUM", 6):
+		case Map_str2int("PVTNUM", 6):
+			Rs_param.inputRegion(ifs, keyword);
 			break;
 
 		case Map_str2int("INCLUDE", 7):
@@ -139,6 +174,8 @@ void ParamRead::readFile(string file)
 			Output_param.inputSUMMARY(ifs);
 			break;
 
+		
+
 		default:
 			break;
 		}
@@ -165,4 +202,5 @@ void ParamRead::inputINCLUDE(ifstream& ifs)
 void ParamRead::checkParam()
 {
 	Rs_param.checkParam();
+	Well_param.checkParam();
 }

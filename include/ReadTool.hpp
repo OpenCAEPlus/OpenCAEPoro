@@ -26,3 +26,24 @@ bool ReadLine(ifstream& ifs, vector<string>& result);
 
 void DealDefault(vector<string>& result);
 
+
+template<typename T>
+void DealData(vector<string>& vbuf, vector<int>& obj, vector<T>& region)
+{
+	//  8*1  16*2  8*3  16*4  ->
+	// obj <8, 16, 8, 16>   val  <1, 2, 3, 4>
+
+	obj.resize(0);
+	region.resize(0);
+	for (auto str : vbuf) {
+		auto pos = str.find('*');
+
+		if (pos != string::npos) {
+			int len = str.size();
+			int num = stoi(str.substr(0, pos));
+			int val = stoi(str.substr(pos + 1, len - (pos + 1)));
+			obj.push_back(num);
+			region.push_back(val);
+		}
+	}
+}

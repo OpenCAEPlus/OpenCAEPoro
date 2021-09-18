@@ -42,6 +42,14 @@ public:
 	double	Cr;
 };
 
+template<typename T>
+class Type_A_r
+{
+public:
+	bool				activity{ false };
+	vector<T>			data;
+};
+
 class ParamReservoir
 {
 
@@ -65,17 +73,39 @@ public:
 	std::vector<double>					PermZ;
 	ROCK								Rock;
 
+	// Restart
+	std::vector<double>					Pressure;
+	std::vector<double>					Ni;
+
+	// phase property
+	Type_A_r<double>					Density;
+	Type_A_r<double>					Gravity;
+
+	// Model and Phase
+	bool								BLACKOIL{ false };
+	bool								COMPS{ false };
+	bool								OIL{ false };
+	bool								GAS{ false };
+	bool								WATER{ false };
+	bool								DISGAS{ false };
+
+
+	// SAT Region & PVT Region
+	int									NTSFUN{ 1 };	// SAT num
+	int									NTPVT{ 1 };		// PVT num
+	Type_A_r<double>					SATNUM;
+	Type_A_r<double>					PVTNUM;
+
+
 	// Saturation table & buble point pressure 
 	TableSet							SWOF_T;
 	TableSet							SGOF_T;
 	TableSet							PBVD_T;
 	std::vector<double>					EQUIL;
 	
-	// phase property
-	std::vector<double>					Density;
-	std::vector<double>					Gravity;
-
 	// PVT property
+	int									Np;		// num of phase
+	int									Nc;		// num of comp, used for Eos or Restart
 	TableSet							PVCO_T;
 	TableSet							PVDO_T;
 	TableSet							PVDG_T;
@@ -83,15 +113,23 @@ public:
 
 	// internal method
 	vector<double>* FindPtr(string& varName);
+
 	TableSet* FindPtr_T(string& varName);
 
 	// init size of var
 	void init();
-	void initVar();
 	void initTab();
-	void setVal(vector<double>& obj, double val, vector<int>& index);
-	void copyVal(vector<double>& obj, vector<double>& src, vector<int>& index);
+
+	template<typename T>
+	void setVal(vector<T>& obj, T val, vector<int>& index);
+
+	template<typename T>
+	void copyVal(vector<T>& obj, vector<T>& src, vector<int>& index);
+
 	void multiplyVal(vector<double>& obj, double val, vector<int>& index);
+
+	// COMPS
+	void inputCOMPS(ifstream& ifs);
 
 	// DIMENS
 	void inputDIMENS(ifstream& ifs);
@@ -104,7 +142,7 @@ public:
 	void inputEQUALS(ifstream& ifs);
 
 	// EQUALS   ----   supplement
-	void inputGRID(ifstream& ifs, string& tabName);
+	void inputGRID(ifstream& ifs, string& keyword);
 
 	// COPY
 	void inputCOPY(ifstream& ifs);
@@ -127,10 +165,19 @@ public:
 	// EQUAL
 	void inputEQUIL(ifstream& ifs);
 
+	// SATNUM & PVTNUM  -- Region
+	void inputTABDIMS(ifstream& ifs);
+	void inputRegion(ifstream& ifs, string keyword);
 
 
 	// check
 	void checkParam();
+	void checkGrid();
 	void checkEQUIL();
+	void checkDenGra();
+	void checkPhase();
+	void checkPhaseTab();
+	void checkRegion();
+	void checkEqlRegion();
 
 };

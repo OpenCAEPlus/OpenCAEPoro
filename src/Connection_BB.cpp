@@ -5,7 +5,15 @@
 
 // Active Conn & Active Bulk
 
-Connection_BB::Connection_BB(const Grid& myGrid)
+void Connection_BB::setup(const Grid& myGrid, const Bulk& myBulk)
+{
+	initSize(myGrid);
+	initActive(myGrid);
+	getIteratorActive();
+	calAreaActive(myGrid, myBulk);
+}
+
+void Connection_BB::initSize(const Grid& myGrid)
 {
 	ActiveConnNum = 0;
 	ActiveBulkNum = myGrid.ActiveBulkNum;

@@ -7,15 +7,19 @@ WellOptParam::WellOptParam(string type, vector<string>& vbuf)
 		FluidType = vbuf[1];
 		State = vbuf[2];
 		OptMode = vbuf[3];
-		MaxRate = atof(vbuf[4].c_str());
-		MaxBHP = atof(vbuf[5].c_str());
+		MaxRate = stod(vbuf[4]);
+		MaxBHP = stod(vbuf[5]);
 	}
-	else {
+	else if (Type == "PROD"){
 		State = vbuf[1];
 		OptMode = vbuf[2];
-		MaxRate = atof(vbuf[3].c_str());
-		MinBHP = atof(vbuf[4].c_str());
-	}	
+		MaxRate = stod(vbuf[3]);
+		MinBHP = stod(vbuf[4]);
+	}
+	else {
+		Paramcheck("WRONG Well Type");
+		exit(0);
+	}
 }
 
 WellParam::WellParam(vector<string>& info)
@@ -23,10 +27,10 @@ WellParam::WellParam(vector<string>& info)
 	Name = info[0];
 	if (info[1] != "DEFAULT")
 		Group = info[1];
-	I = atoi(info[2].c_str());
-	J = atoi(info[3].c_str());
+	I = stoi(info[2]);
+	J = stoi(info[3]);
 	if (info[4] != "DEFAULT")
-		Dref = atof(info[4].c_str());
+		Dref = stod(info[4]);
 }
 
 void ParamWell::inputWELSPECS(ifstream& ifs)
@@ -40,7 +44,7 @@ void ParamWell::inputWELSPECS(ifstream& ifs)
 		DealDefault(vbuf);
 		well.push_back(WellParam(vbuf));
 	}
-	cout << "hello" << endl;
+	cout << "WELSPECS" << endl;
 }
 
 void ParamWell::inputCOMPDAT(ifstream& ifs)
@@ -72,23 +76,23 @@ void ParamWell::inputCOMPDAT(ifstream& ifs)
 					well[w].J_perf = well[w].J;
 				}
 				else {
-					well[w].I_perf = atoi(vbuf[1].c_str());
-					well[w].J_perf = atoi(vbuf[2].c_str());
+					well[w].I_perf = stoi(vbuf[1]);
+					well[w].J_perf = stoi(vbuf[2]);
 				}
-				well[w].K1 = atoi(vbuf[3].c_str());
-				well[w].K2 = atoi(vbuf[4].c_str());
+				well[w].K1 = stoi(vbuf[3]);
+				well[w].K2 = stoi(vbuf[4]);
 				if (vbuf[5] != "DEFAULT")
-					well[w].Trans = atof(vbuf[5].c_str());
+					well[w].Trans = stod(vbuf[5]);
 				if (vbuf[6] != "DEFAULT")
-					well[w].Diameter = atof(vbuf[6].c_str());
+					well[w].Diameter = stod(vbuf[6]);
 				if (vbuf[7] != "DEFAULT")
-					well[w].Kh = atof(vbuf[7].c_str());
+					well[w].Kh = stod(vbuf[7]);
 				if (vbuf[8] != "DEFAULT")
-					well[w].SkinFactor = atof(vbuf[8].c_str());
+					well[w].SkinFactor = stod(vbuf[8]);
 			}
 		}
 	}
-	cout << "hello" << endl;
+	cout << "COMPDAT" << endl;
 }
 
 void ParamWell::inputWCONINJE(ifstream& ifs)
@@ -125,7 +129,7 @@ void ParamWell::inputWCONINJE(ifstream& ifs)
 		}
 		
 	}
-	cout << "hello" << endl;
+	cout << "WCONINJE" << endl;
 }
 
 void ParamWell::inputWCONPROD(ifstream& ifs)
@@ -158,7 +162,7 @@ void ParamWell::inputWCONPROD(ifstream& ifs)
 		}
 
 	}
-	cout << "hello" << endl;
+	cout << "WCONPROD" << endl;
 }
 
 void ParamWell::inputTSTEP(ifstream& ifs)
@@ -172,15 +176,15 @@ void ParamWell::inputTSTEP(ifstream& ifs)
 		DealDefault(vbuf);
 		int len = vbuf.size();
 		for (int i = 0; i < len - 1; i++) {
-			double t = CriticalTime.back() + atof(vbuf[i].c_str());
+			double t = CriticalTime.back() + stod(vbuf[i]);
 			CriticalTime.push_back(t);
 		}
 		if (vbuf.back() != "/") {
-			double t = CriticalTime.back() + atof(vbuf.back().c_str());
+			double t = CriticalTime.back() + stod(vbuf.back());
 			CriticalTime.push_back(t);
 		}
 	}
-	cout << "hello" << endl;
+	cout << "TSTEP" << endl;
 }
 
 void ParamWell::inputWELTARG(ifstream& ifs)
@@ -212,7 +216,7 @@ void ParamWell::inputWELTARG(ifstream& ifs)
 				WellOptPair tar = well[w].OptParam.back();
 				tar.d = d;
 				tar.Opt.OptMode = vbuf[1];
-				double val = atof(vbuf[2].c_str());
+				double val = stod(vbuf[2]);
 				if (vbuf[1] == "BHP") {
 					if (tar.Opt.Type == "INJ")
 						tar.Opt.MaxBHP = val;
@@ -226,5 +230,21 @@ void ParamWell::inputWELTARG(ifstream& ifs)
 			}
 		}
 	}
-	cout << "hello" << endl;
+	cout << "WELTARG" << endl;
+}
+
+// check
+void ParamWell::checkParam()
+{
+	checkPerf();
+}
+void ParamWell::checkPerf()
+{
+	WellNum = well.size();
+	for (int w = 0; w < WellNum; w++) {
+		if ((well[w].I != well[w].I_perf) || (well[w].J != well[w].J_perf)) {
+			Paramcheck("This situation have not been supported!");
+			exit(0);
+		}
+	}
 }

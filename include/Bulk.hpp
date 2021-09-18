@@ -3,8 +3,10 @@
 #include <iostream>
 #include "Grid.hpp"
 #include "Mixture.hpp"
+#include "BOMixture.hpp"
 #include "FlowUnit.hpp"
 #include "OpenCAEPoro_consts.hpp"
+#include "ParamReservoir.hpp"
 
 using namespace std;
 // Bulk contains the infomation of each bulk
@@ -29,7 +31,8 @@ class Bulk
 public:
 	Bulk() = default;
 
-	void init(const Grid& myGrid);
+	void inputParam(ParamReservoir& rs_param);
+	void setup(const Grid& myGrid);
 
 	void initSjPc_blk(int depnum);
 	void initSjPc_comp(int depnum);
@@ -44,13 +47,16 @@ public:
 	// Rock
 	void calporo();
 
+	// get flash -- pass it to well
+	std::vector<Mixture*>& getMixture() { return Flashcal; }
+
 private:
 	int						Num;			// num of active bulk
 	// Physical infomation
 	int						Np;				// num of phase
 	int						Nc;				// num of component
 
-	std::vector<double>		T;				// temperature : Num
+	double					T;				// temperature : Num
 	std::vector<double>		Pbb;			// buble point pressere: Num
 	std::vector<double>		P;				// pressure: Num
 	std::vector<double>		Pc;				// capillary pressure of phase: Np*Num
@@ -70,8 +76,10 @@ private:
 
 
 	std::vector<double>		InitZi;			// initial component for EoS : Nc - 1
-	Mixture*				Flashcal;
-	FlowUnit*				Flow;
+	std::vector<int>		PVTNUM;
+	std::vector<Mixture*>	Flashcal;
+	std::vector<int>		SATNUM;
+	std::vector<FlowUnit*>	Flow;
 
 	// last STEP
 	std::vector<double>		lP;
@@ -98,4 +106,11 @@ private:
 
 	// Reservoir information
 	ParamEQUIL				EQUIL;
+	bool					BLACKOIL;
+	bool					COMPS;
+	bool					OIL;
+	bool					GAS;
+	bool					WATER;
+	bool					DISGAS;
+
 };

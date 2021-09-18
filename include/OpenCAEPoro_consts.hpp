@@ -34,14 +34,19 @@ const int PHASE_OG			= 5;
 // Well params
 const int INJ			= 0;
 const int PROD			= 1;
-const int CLOSE			= 0;
-const int OPEN			= 1;
+const int OPEN			= 0;
+const int CLOSE			= 1;
 const int HORIZONTAL	= 0;
 const int VERTICAL		= 1;
 // Well opt param
-const int ORATE_MODE	= 0;
-const int GRATE_MODE	= 1;
-const int WRATE_MODE	= 2;
-const int LRATE_MODE	= 3;
-const int BHP_MODE		= 4;
-
+const int RATE_MODE		= 0;
+const int ORATE_MODE	= 1;
+const int GRATE_MODE	= 2;
+const int WRATE_MODE	= 3;
+const int LRATE_MODE	= 4;
+const int BHP_MODE		= 5;
+// Fluid type
+const int OIL			= 0;
+const int GAS			= 1;
+const int WATER			= 2;
+const int SOLVENT		= 3;

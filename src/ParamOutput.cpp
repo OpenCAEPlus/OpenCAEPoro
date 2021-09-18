@@ -106,10 +106,11 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 			break;
 		}
 	}
+	cout << "SUMMARY" << endl;
 }
 
 
-void ParamOutput::inputType_A(ifstream& ifs, Type_A& obj)
+void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
 {
 	obj.status = true;
 	vector<string>		vbuf;
@@ -137,10 +138,10 @@ void ParamOutput::inputType_A(ifstream& ifs, Type_A& obj)
 				obj.obj.push_back(vbuf.back());
 		}
 	}
-	cout << "hello" << endl;
+	cout << "Type_A" << endl;
 }
 
-void ParamOutput::inputType_B(ifstream& ifs, Type_B& obj)
+void ParamOutput::inputType_B(ifstream& ifs, Type_B_o& obj)
 {
 
 	vector<string>		vbuf;
@@ -150,11 +151,11 @@ void ParamOutput::inputType_B(ifstream& ifs, Type_B& obj)
 
 		obj.status = true;
 		DealDefault(vbuf);
-		int i = atoi(vbuf[0].c_str());
-		int j = atoi(vbuf[1].c_str());
-		int k = atoi(vbuf[2].c_str());
+		int i = stoi(vbuf[0]);
+		int j = stoi(vbuf[1]);
+		int k = stoi(vbuf[2]);
 
 		obj.obj.push_back(COOIJK(i, j, k));
 	}
-	cout << "hello" << endl;
+	cout << "Type_B" << endl;
 }

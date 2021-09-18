@@ -1,7 +1,5 @@
 #include "ReadTool.hpp"
 
-
-
 bool ReadLine(ifstream& ifs, vector<string>& result)
 {
 	result.resize(0);
@@ -31,12 +29,10 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 		buf.push_back('/');
 	}
 
-	// get rid of  '
-	while (true) {
-		auto pos = buf.find('\'');
-		if (pos == string::npos)
-			break;
-		buf.erase(pos, 1);
+	// get rid of  '  and  ,
+	for (auto& s : buf) {
+		if (s == '\'' || s == ',')
+			s = ' ';
 	}
 
 	istringstream tmp(buf);
@@ -49,6 +45,8 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 
 void DealDefault(vector<string>& result)
 {
+	// m*n  -> <n,...,n> size m
+	// m*   -> <DEFAULT,..., DEFAULT> size m
 	vector<string>  tmp;
 	for (auto str : result) {
 		auto pos = str.find('*');
@@ -56,16 +54,16 @@ void DealDefault(vector<string>& result)
 			tmp.push_back(str);
 		}
 		else {
-			int num = atoi(str.substr(0, pos).c_str());
+			int num = atoi(str.substr(0, pos).c_str());  // non number -> 0
 			int len = str.size();
 			string val = "DEFAULT";
-			if (pos != len - 1) {
-				val = str.substr(pos + 1, len - (pos + 1)).c_str();
-			}
 			if (num == 0) {
 				tmp.push_back(str);
 			}		
 			else {
+				if (pos != len - 1) {
+					val = str.substr(pos + 1, len - (pos + 1));
+				}
 				for (int i = 0; i < num; i++)
 					tmp.push_back(val);
 			}			

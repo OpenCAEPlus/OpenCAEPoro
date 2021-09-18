@@ -12,14 +12,14 @@ public:
 	int		K;
 };
 
-class Type_B
+class Type_B_o
 {
 public:
 	bool				status{ false };
 	vector<COOIJK>		obj;
 };
 
-class Type_A
+class Type_A_o
 {
 public:
 	bool				status{ false };
@@ -42,23 +42,23 @@ public:
 	bool		FWIR{ false };
 	bool		FWIT{ false };
 
-	Type_A		WOPR;
-	Type_A		WOPT;
-	Type_A		WGPR;
-	Type_A		WGPT;
-	Type_A		WWPR;
-	Type_A		WWPT;
-	Type_A		WGIR;
-	Type_A		WGIT;
-	Type_A		WWIR;
-	Type_A		WWIT;
-	Type_A		WBHP;
+	Type_A_o		WOPR;
+	Type_A_o		WOPT;
+	Type_A_o		WGPR;
+	Type_A_o		WGPT;
+	Type_A_o		WWPR;
+	Type_A_o		WWPT;
+	Type_A_o		WGIR;
+	Type_A_o		WGIT;
+	Type_A_o		WWIR;
+	Type_A_o		WWIT;
+	Type_A_o		WBHP;
 
-	Type_B		BPR;
+	Type_B_o		BPR;
 
 	// Method
 
 	void inputSUMMARY(ifstream& ifs);
-	void inputType_A(ifstream& ifs, Type_A& obj);
-	void inputType_B(ifstream& ifs, Type_B& obj);
+	void inputType_A(ifstream& ifs, Type_A_o& obj);
+	void inputType_B(ifstream& ifs, Type_B_o& obj);
 };

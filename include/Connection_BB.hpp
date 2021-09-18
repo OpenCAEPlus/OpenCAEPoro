@@ -33,7 +33,9 @@ public:
 	int getActiveBulkNum() { return ActiveBulkNum; }
 
 	// Active Conn & Active Bulk
-	Connection_BB(const Grid& myGrid);
+	// init
+	void setup(const Grid& myGrid, const Bulk& myBulk);
+	void initSize(const Grid& myGrid);
 	void initActive(const Grid& myGrid);
 	void getIteratorActive();
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);

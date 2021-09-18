@@ -2,8 +2,73 @@
 #include <ctime>
 #include <algorithm>
 
+void Bulk::inputParam(ParamReservoir& rs_param)
+{
+	Rock_Pref = rs_param.Rock.Pref;
+	Rock_C1 = rs_param.Rock.Cr;
+	Rock_C2 = Rock_C1;
 
-void Bulk::init(const Grid& myGrid)
+	T = rs_param.RTEMP;
+	BLACKOIL = rs_param.BLACKOIL;
+	COMPS = rs_param.COMPS;
+	OIL = rs_param.OIL;
+	GAS = rs_param.GAS;
+	WATER = rs_param.WATER;
+	DISGAS = rs_param.DISGAS;
+
+	EQUIL.Dref = rs_param.EQUIL[0];
+	EQUIL.Pref = rs_param.EQUIL[1];
+	EQUIL.PBVD.setup(rs_param.PBVD_T.data[0]);
+	int SATmode;
+	int PVTmode;
+	
+	if (BLACKOIL) {
+		if (WATER && !OIL && !GAS) {
+			// water
+			Np = 1;	Nc = 1;
+			SATmode = PHASE_W;
+			PVTmode = PHASE_W;
+		}
+		else if (WATER && OIL && !GAS) {
+			// water, dead oil
+			Np = 2;	Nc = 2;
+			EQUIL.DOWC = rs_param.EQUIL[2];
+			EQUIL.PcOWC = rs_param.EQUIL[3];
+			SATmode = PHASE_OW;
+			PVTmode = PHASE_OW;
+		}
+		else if (WATER && OIL && GAS && !DISGAS) {
+			// water, dead oil, dry gas
+			Np = 3;	Nc = 3;
+			EQUIL.DOWC = rs_param.EQUIL[2];
+			EQUIL.PcOWC = rs_param.EQUIL[3];
+			EQUIL.DGOC = rs_param.EQUIL[4];
+			EQUIL.PcGOC = rs_param.EQUIL[5];
+			SATmode = PHASE_OGW;
+			PVTmode = PHASE_OGW;      // maybe it should be added later
+		}
+		else if (WATER && OIL && GAS && DISGAS) {
+			// water, live oil, dry gas
+			Np = 3;	Nc = 3;
+			EQUIL.DOWC = rs_param.EQUIL[2];
+			EQUIL.PcOWC = rs_param.EQUIL[3];
+			EQUIL.DGOC = rs_param.EQUIL[4];
+			EQUIL.PcGOC = rs_param.EQUIL[5];
+			SATmode = PHASE_OGW;
+			PVTmode = PHASE_OGW;
+		}
+	}
+	rs_param.Np = Np;
+	rs_param.Nc = Nc;
+	for (int i = 0; i < rs_param.NTSFUN; i++)
+		Flow.push_back(new FlowUnit(rs_param, SATmode, i));
+	for (int i = 0; i < rs_param.NTPVT; i++)
+		Flashcal.push_back(new BOMixture(rs_param, PVTmode, i));
+	cout << "Bulk::inputParam" << endl;
+}
+
+
+void Bulk::setup(const Grid& myGrid)
 {
 	Num = myGrid.ActiveBulkNum;
 	Dx.resize(Num, 0);
@@ -16,6 +81,9 @@ void Bulk::init(const Grid& myGrid)
 	Rock_KxInit.resize(Num, 0);
 	Rock_KyInit.resize(Num, 0);
 	Rock_KzInit.resize(Num, 0);
+	SATNUM.resize(Num, 0);
+	PVTNUM.resize(Num, 0);
+	
 
 	for (int bIdb = 0; bIdb < Num; bIdb++) {
 		int bIdg = myGrid.ActiveMap_B2G[bIdb];
@@ -31,7 +99,14 @@ void Bulk::init(const Grid& myGrid)
 		Rock_KxInit[bIdb] = myGrid.Kx[bIdg];
 		Rock_KyInit[bIdb] = myGrid.Kx[bIdg];
 		Rock_KzInit[bIdb] = myGrid.Kx[bIdg];
+
+		SATNUM[bIdb] = myGrid.SATNUM[bIdg];
+		PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
 	}
+	Rock_Poro = Rock_PoroInit;
+	Rock_Kx = Rock_KxInit;
+	Rock_Ky = Rock_KyInit;
+	Rock_Kz = Rock_KzInit;
 }
 
 void Bulk::initSjPc_blk(int tabrow)
@@ -39,8 +114,6 @@ void Bulk::initSjPc_blk(int tabrow)
 	double Dref = EQUIL.Dref;		double Pref = EQUIL.Pref;
 	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
 	double DOGC = EQUIL.DGOC;		double PcGOC = EQUIL.PcGOC;
-
-	double myT = T[0];
 
 	double Zmin = 1E8;
 	double Zmax = 0;
@@ -88,24 +161,24 @@ void Bulk::initSjPc_blk(int tabrow)
 
 	if (Dref < DOGC) {
 		//reference pressure is gas pressure
-		if (Flow->empty_SGOF()) {
+		if (Flow[0]->empty_SGOF()) {
 			ERRORcheck("SGOF is missing !");
 			exit(0);
 		}
 
 		Pgref = Pref;
-		gammaGtmp = Flashcal->gammaPhaseG(Pgref);
+		gammaGtmp = Flashcal[0]->gammaPhaseG(Pgref);
 		Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 		Pgtmp[beginId] = Pbegin;
 
 		//find the gas pressure
 		for (int id = beginId; id > 0; id--) {
-			gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+			gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 			Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+			gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 			Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -115,7 +188,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		mydz = (DOGC - Dref) / mynum;
 
 		for (int i = 0; i < mynum; i++) {
-			gammaGtmp = Flashcal->gammaPhaseG(Ptmp);
+			gammaGtmp = Flashcal[0]->gammaPhaseG(Ptmp);
 			Ptmp += gammaGtmp * mydz;
 		}
 		Ptmp -= PcGOC;
@@ -123,7 +196,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, DOGC - i * mydz, 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 			Ptmp -= gammaOtmp * mydz;
 		}
 		Poref = Ptmp;
@@ -132,7 +205,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		if (!EQUIL.PBVD.isempty()) {
 			Pbb = EQUIL.PBVD.eval(0, Dref, 1);
 		}
-		gammaOtmp = Flashcal->gammaPhaseO(Poref, Pbb);
+		gammaOtmp = Flashcal[0]->gammaPhaseO(Poref, Pbb);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 
@@ -140,7 +213,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 
@@ -148,7 +221,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -161,28 +234,28 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Dref + i * mydz, 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
 		}
 		Pwref = Ptmp;
 
 		//find the water pressure in tab
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 	}
@@ -190,17 +263,17 @@ void Bulk::initSjPc_blk(int tabrow)
 	{
 		// reference pressure is water pressure
 		Pwref = Pref;
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 
 		//find the water pressure
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -210,7 +283,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		mydz = (DOWC - Dref) / mynum;
 
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp += gammaWtmp * mydz;
 		}
 		Ptmp += PcOWC;
@@ -219,7 +292,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, DOWC - i * mydz, 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 			Ptmp -= gammaOtmp * mydz;
 		}
 		Poref = Ptmp;
@@ -228,7 +301,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		if (!EQUIL.PBVD.isempty()) {
 			Pbb = EQUIL.PBVD.eval(0, Dref, 1);
 		}
-		gammaOtmp = Flashcal->gammaPhaseO(Poref, Pbb);
+		gammaOtmp = Flashcal[0]->gammaPhaseO(Poref, Pbb);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 
@@ -236,7 +309,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 
@@ -244,12 +317,12 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
 
-		if (!Flow->empty_SGOF()) {
+		if (!Flow[0]->empty_SGOF()) {
 			// find the gas pressure in Dref by Poref
 			Pgref = 0; Ptmp = Poref;
 			mydz = (DOGC - Dref) / mynum;
@@ -258,27 +331,27 @@ void Bulk::initSjPc_blk(int tabrow)
 				if (!EQUIL.PBVD.isempty()) {
 					Pbb = EQUIL.PBVD.eval(0, Dref + i * mydz, 1);
 				}
-				gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+				gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 				Ptmp += gammaOtmp * mydz;
 			}
 			Ptmp += PcGOC;
 			for (int i = 0; i < mynum; i++) {
-				gammaGtmp = Flashcal->gammaPhaseG(Ptmp);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Ptmp);
 				Ptmp -= gammaGtmp * mydz;
 			}
 			Pgref = Ptmp;
 
 			//find the gas pressure in tab
-			gammaGtmp = Flashcal->gammaPhaseG(Pgref);
+			gammaGtmp = Flashcal[0]->gammaPhaseG(Pgref);
 			Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 			Pgtmp[beginId] = Pbegin;
 
 			for (int id = beginId; id > 0; id--) {
-				gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 				Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 			}
 			for (int id = beginId; id < tabrow - 1; id++) {
-				gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 				Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 			}
 		}
@@ -291,7 +364,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		if (!EQUIL.PBVD.isempty()) {
 			Pbb = EQUIL.PBVD.eval(0, Dref, 1);
 		}
-		gammaOtmp = Flashcal->gammaPhaseO(Poref, Pbb);
+		gammaOtmp = Flashcal[0]->gammaPhaseO(Poref, Pbb);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 
@@ -300,19 +373,19 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		for (int id = beginId; id < tabrow - 1; id++) {
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Potmp[id], Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Potmp[id], Pbb);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
 
-		if (!Flow->empty_SGOF()) {
+		if (!Flow[0]->empty_SGOF()) {
 			// find the gas pressure in Dref by Poref
 			Pgref = 0; Ptmp = Poref;
 			mydz = (DOGC - Dref) / mynum;
@@ -321,28 +394,28 @@ void Bulk::initSjPc_blk(int tabrow)
 				if (!EQUIL.PBVD.isempty()) {
 					Pbb = EQUIL.PBVD.eval(0, Dref + i * mydz, 1);
 				}
-				gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+				gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 				Ptmp += gammaOtmp * mydz;
 			}
 			Ptmp += PcGOC;
 			for (int i = 0; i < mynum; i++) {
-				gammaOtmp = Flashcal->gammaPhaseG(Ptmp);
+				gammaOtmp = Flashcal[0]->gammaPhaseG(Ptmp);
 				Ptmp -= gammaGtmp * mydz;
 			}
 			Pgref = Ptmp;
 
 			//find the gas pressure in tab
-			gammaGtmp = Flashcal->gammaPhaseG(Pgref);
+			gammaGtmp = Flashcal[0]->gammaPhaseG(Pgref);
 			Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 			Pgtmp[beginId] = Pbegin;
 
 			for (int id = beginId; id > 0; id--) {
-				gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 				Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 			}
 
 			for (int id = beginId; id < tabrow - 1; id++) {
-				gammaGtmp = Flashcal->gammaPhaseG(Pgtmp[id]);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Pgtmp[id]);
 				Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 			}
 		}
@@ -357,28 +430,28 @@ void Bulk::initSjPc_blk(int tabrow)
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Dref + i * mydz, 1);
 			}
-			gammaOtmp = Flashcal->gammaPhaseO(Ptmp, Pbb);
+			gammaOtmp = Flashcal[0]->gammaPhaseO(Ptmp, Pbb);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
 		}
 		Pwref = Ptmp;
 
 		//find the water pressure in tab
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 	}
@@ -400,37 +473,37 @@ void Bulk::initSjPc_blk(int tabrow)
 		double Pw = data[3];
 		double Pcgo = Pg - Po;
 		double Pcow = Po - Pw;
-		double Sw = Flow->evalinv_SWOF(3, Pcow, 0);
+		double Sw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
 		double Sg = 0;
-		if (!Flow->empty_SGOF()) {
-			Sg = Flow->eval_SGOF(3, Pcgo, 0);
+		if (!Flow[0]->empty_SGOF()) {
+			Sg = Flow[0]->eval_SGOF(3, Pcgo, 0);
 		}
 		if (Sw + Sg > 1) {
 			// should me modified
 			double Pcgw = Pcow + Pcgo;
-			Sw = Flow->evalinv_SWPCWG(1, Pcgw, 0);
+			Sw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
 			Sg = 1 - Sw;
 		}
 
 		if (1 - Sw < TINY) {
 			// all water
-			Po = Pw + Flow->eval_SWOF(0, 1.0, 3);
+			Po = Pw + Flow[0]->eval_SWOF(0, 1.0, 3);
 			// Pg = Po + Flow->eval_SGOF(0, 0.0, 3);
 		}
 		else if (1 - Sg < TINY) {
 			// all gas
-			Po = Pg - Flow->eval_SGOF(0, 1.0, 3);
+			Po = Pg - Flow[0]->eval_SGOF(0, 1.0, 3);
 			// Pw = Po - Flow->eval_SWOF(0, 0.0, 3);
 		}
 		else if (1 - Sw - Sg < TINY) {
 			// water and gas
-			Po = Pg - Flow->eval_SGOF(0, Sg, 3);
+			Po = Pg - Flow[0]->eval_SGOF(0, Sg, 3);
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
 		lP[n] = Po;
 		S[n * Np + Np - 1] = Sw;
-		if (!Flow->empty_SGOF()) {
+		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
 		}
 
@@ -443,8 +516,6 @@ void Bulk::initSjPc_comp(int tabrow)
 	double Dref = EQUIL.Dref;		double Pref  = EQUIL.Pref;
 	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
 	double DOGC = EQUIL.DGOC;		double PcGOC = EQUIL.PcGOC;
-
-	double myT = T[0];
 	
 	double Zmin = 1E8;
 	double Zmax = 0;
@@ -483,7 +554,7 @@ void Bulk::initSjPc_comp(int tabrow)
 	
 
 	// begin calculating oil pressure:
-	double mytemp = T[0];
+	double mytemp = T;
 	double gammaOtmp, gammaWtmp, gammaGtmp;
 	double Ptmp, Pcowtmp, Pcgotmp, Pcowg;
 	int mynum = 10;  double mydz = 0;
@@ -493,18 +564,18 @@ void Bulk::initSjPc_comp(int tabrow)
 	if (Dref < DOGC) {
 		//reference pressure is gas pressure
 		Pgref = Pref;
-		gammaGtmp = Flashcal->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
+		gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
 		Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 		Pgtmp[beginId] = Pbegin;
 		
 		//find the gas pressure
 		for (int id = beginId; id > 0; id--) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -514,28 +585,28 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOGC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaGtmp * mydz;
 		}
 		Ptmp -= PcGOC;
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp -= gammaOtmp * mydz;
 		}
 		Poref = Ptmp;
 
 		//find the oil pressure in tab
-		gammaOtmp = Flashcal->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
+		gammaOtmp = Flashcal[0]->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -545,28 +616,28 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOWC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
 		}
 		Pwref = Ptmp;
 
 		//find the water pressure in tab
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 	}
@@ -574,17 +645,17 @@ void Bulk::initSjPc_comp(int tabrow)
 	{
 		// reference pressure is water pressure
 		Pwref = Pref;
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 		
 		//find the water pressure
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -594,29 +665,29 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOWC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp += gammaWtmp * mydz;
 		}
 		Ptmp += PcOWC;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp -= gammaOtmp * mydz;
 		}
 		Poref = Ptmp;
 
 		//find the oil pressure in tab
-		gammaOtmp = Flashcal->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
+		gammaOtmp = Flashcal[0]->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -626,27 +697,27 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOGC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp += PcGOC;
 		for (int i = 0; i < mynum; i++) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp -= gammaGtmp * mydz;
 		}
 		Pgref = Ptmp;
 
 		//find the gas pressure in tab
-		gammaGtmp = Flashcal->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
+		gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
 		Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 		Pgtmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 	}
@@ -654,17 +725,17 @@ void Bulk::initSjPc_comp(int tabrow)
 	{
 		// reference pressure is oil pressure
 		Poref = Pref;
-		gammaOtmp = Flashcal->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
+		gammaOtmp = Flashcal[0]->gammaPhaseOG(Poref, mytemp, &InitZi[0]);
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 		
 		//find the oil pressure
 		for (int id = beginId; id > 0; id--) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}	
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Potmp[id], mytemp, &InitZi[0]);
 			Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -674,28 +745,28 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOGC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp += PcGOC;
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp -= gammaGtmp * mydz;
 		}
 		Pgref = Ptmp;
 
 		//find the gas pressure in tab
-		gammaGtmp = Flashcal->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
+		gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgref, mytemp, &InitZi[0]);
 		Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
 		Pgtmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaGtmp = Flashcal->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Pgtmp[id], mytemp, &InitZi[0]);
 			Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 
@@ -705,28 +776,28 @@ void Bulk::initSjPc_comp(int tabrow)
 		mydz = (DOWC - Dref) / mynum;
 		
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp += gammaOtmp * mydz;
 		}
 		Ptmp -= PcOWC;
 		for (int i = 0; i < mynum; i++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Ptmp);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Ptmp);
 			Ptmp -= gammaWtmp * mydz;
 		}
 		Pwref = Ptmp;
 
 		//find the water pressure in tab
-		gammaWtmp = Flashcal->gammaPhaseW(Pwref);
+		gammaWtmp = Flashcal[0]->gammaPhaseW(Pwref);
 		Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
 		Pwtmp[beginId] = Pbegin;
 		
 		for (int id = beginId; id > 0; id--) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
 		}
 		
 		for (int id = beginId; id < tabrow - 1; id++) {
-			gammaWtmp = Flashcal->gammaPhaseW(Pwtmp[id]);
+			gammaWtmp = Flashcal[0]->gammaPhaseW(Pwtmp[id]);
 			Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
 		}
 	}
@@ -748,37 +819,37 @@ void Bulk::initSjPc_comp(int tabrow)
 		double Pw = data[3];
 		double Pcgo = Pg - Po;
 		double Pcow = Po - Pw;
-		double Sw = Flow->evalinv_SWOF(3, Pcow, 0);
+		double Sw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
 		double Sg = 0;
-		if (!Flow->empty_SGOF()) {
-			Sg = Flow->eval_SGOF(3, Pcgo, 0);
+		if (!Flow[0]->empty_SGOF()) {
+			Sg = Flow[0]->eval_SGOF(3, Pcgo, 0);
 		}
 		if (Sw + Sg > 1) {
 			// should me modified
 			double Pcgw = Pcow + Pcgo;
-			Sw = Flow->evalinv_SWPCWG(1, Pcgw, 0);
+			Sw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
 			Sg = 1 - Sw;
 		}
 
 		if (1 - Sw < TINY) {
 			// all water
-			Po = Pw + Flow->eval_SWOF(0, 1.0, 3);
+			Po = Pw + Flow[0]->eval_SWOF(0, 1.0, 3);
 			// Pg = Po + Flow->eval_SGOF(0, 0.0, 3);
 		}
 		else if (1 - Sg < TINY) {
 			// all gas
-			Po = Pg - Flow->eval_SGOF(0, 1.0, 3);
+			Po = Pg - Flow[0]->eval_SGOF(0, 1.0, 3);
 			// Pw = Po - Flow->eval_SWOF(0, 0.0, 3);
 		}
 		else if (1 - Sw - Sg < TINY) {
 			// water and gas
-			Po = Pg - Flow->eval_SGOF(0, Sg, 3);
+			Po = Pg - Flow[0]->eval_SGOF(0, Sg, 3);
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
 		lP[n] = Po;
 		S[n * Np + Np - 1] = Sw;
-		if (!Flow->empty_SGOF()) {
+		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
 		}	
 	}
@@ -789,9 +860,9 @@ void Bulk::initSjPc_comp(int tabrow)
 void Bulk::flash_Sj()
 {
 	for (int n = 0; n < Num; n++) {
-		Flashcal->Flash_Sj(P[n], Pbb[n], T[n], &S[n * Np], Rock_V[n] * Rock_Poro[n], &InitZi[0]);
+		Flashcal[0]->Flash_Sj(P[n], Pbb[n], T, &S[n * Np], Rock_V[n] * Rock_Poro[n], &InitZi[0]);
 		for (int i = 0; i < Nc; i++) {
-			Ni[n * Nc + i] = Flashcal->Ni[i];
+			Ni[n * Nc + i] = Flashcal[0]->Ni[i];
 		}
 		passFlashValue(n);
 	}
@@ -800,7 +871,7 @@ void Bulk::flash_Sj()
 void Bulk::flash_Ni()
 {
 	for (int n = 0; n < Num; n++) {
-		Flashcal->Flash_Ni(P[n], T[n], &Ni[n * Nc]);
+		Flashcal[0]->Flash_Ni(P[n], T, &Ni[n * Nc]);
 		passFlashValue(n);
 	}
 }
@@ -809,22 +880,22 @@ void Bulk::passFlashValue(int n)
 {
 	int bId = n * Np;
 	for (int j = 0; j < Np; j++) {
-		PhaseExist[bId + j] = Flashcal->PhaseExist[j];
+		PhaseExist[bId + j] = Flashcal[0]->PhaseExist[j];
 		if (PhaseExist[j]) {
 			for (int i = 0; i < Nc; i++) {
-				Cij[bId + j * Nc + i] = Flashcal->Cij[j * Nc + i];
+				Cij[bId + j * Nc + i] = Flashcal[0]->Cij[j * Nc + i];
 			}
-			S[bId + j]		= Flashcal->S[j];
-			Xi[bId + j]		= Flashcal->Xi[j];
-			Rho[bId + j]	= Flashcal->Rho[j];
-			Mu[bId + j]		= Flashcal->Mu[j];
+			S[bId + j]		= Flashcal[0]->S[j];
+			Xi[bId + j]		= Flashcal[0]->Xi[j];
+			Rho[bId + j]	= Flashcal[0]->Rho[j];
+			Mu[bId + j]		= Flashcal[0]->Mu[j];
 		}
 	}
-	Vf[n] = Flashcal->Vf;
-	Vfp[n] = Flashcal->Vfp;
+	Vf[n] = Flashcal[0]->Vf;
+	Vfp[n] = Flashcal[0]->Vfp;
 	bId = n * Nc;
 	for (int i = 0; i < Nc; i++) {
-		Vfi[bId + i] = Flashcal->Vfi[i];
+		Vfi[bId + i] = Flashcal[0]->Vfi[i];
 	}
 }
 
@@ -833,7 +904,7 @@ void Bulk::calKrPc()
 {
 	for (int n = 0; n < Num; n++) {
 		int bId = n * Np;
-		Flow->calKrPc(&S[bId], &Kr[bId], &Pc[bId]);
+		Flow[0]->calKrPc(&S[bId], &Kr[bId], &Pc[bId]);
 	}
 }
 

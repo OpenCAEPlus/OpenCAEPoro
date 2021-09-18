@@ -1,27 +1,19 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include "Connection_BB.hpp"
-#include "WellGroup.hpp"
 #include "Timing.hxx"
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamRead.hpp"
-#include "ReadTool.hpp"
+#include "OpenCAEPoro.hpp"
 
 using namespace std;
 
+int& test(int& a) {
+	return a;
+}
 
 int main()
 {
-
-	vector<string>  vbuf;
-	vbuf.push_back("INJE*");
-	vbuf.push_back("3*");
-	vbuf.push_back("PROD*");
-	vbuf.push_back("1*");
-	vbuf.push_back("*");
-
-	DealDefault(vbuf);
 
 	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
 	ParamRead rp;
@@ -30,6 +22,11 @@ int main()
 	rp.readFile(myfile);
 	rp.checkParam();
 	cout << "Done !" << endl;
+
+	OpenCAEPoro simulator;
+	simulator.inputParam(rp);
+	simulator.setup();
+
 
 	return 0;
 }

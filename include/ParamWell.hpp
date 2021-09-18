@@ -59,7 +59,7 @@ class ParamWell
 {
 public:
 
-
+	int								WellNum;
 	std::vector<WellParam>			well;
 	std::vector<double>				CriticalTime;
 
@@ -71,4 +71,8 @@ public:
 	void inputWCONPROD(ifstream& ifs);
 	void inputTSTEP(ifstream& ifs);
 	void inputWELTARG(ifstream& ifs);
+
+	// check
+	void checkParam();
+	void checkPerf();
 };
