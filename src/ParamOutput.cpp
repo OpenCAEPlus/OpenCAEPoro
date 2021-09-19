@@ -12,97 +12,97 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 		switch (Map_str2int(&keyword[0], keyword.size()))
 		{
 		case Map_str2int("FPR", 3):
-			FPR = true;
+			Summary.FPR = true;
 			break;
 
 		// Field
 		case Map_str2int("FOPR", 4):
-			FOPR = true;
+			Summary.FOPR = true;
 			break;
 
 		case Map_str2int("FOPT", 4):
-			FOPT = true;
+			Summary.FOPT = true;
 			break;
 
 		case Map_str2int("FGPR", 4):
-			FGPR = true;
+			Summary.FGPR = true;
 			break;
 
 		case Map_str2int("FGPT", 4):
-			FGPT = true;
+			Summary.FGPT = true;
 			break;
 
 		case Map_str2int("FWPR", 4):
-			FWPR = true;
+			Summary.FWPR = true;
 			break;
 
 		case Map_str2int("FWPT", 4):
-			FWPT = true;
+			Summary.FWPT = true;
 			break;
 
 		case Map_str2int("FGIR", 4):
-			FGIR = true;
+			Summary.FGIR = true;
 			break;
 
 		case Map_str2int("FGIT", 4):
-			FGIT = true;
+			Summary.FGIT = true;
 			break;
 
 		case Map_str2int("FWIR", 4):
-			FWIR = true;
+			Summary.FWIR = true;
 			break;
 
 		case Map_str2int("FWIT", 4):
-			FWIT = true;
+			Summary.FWIT = true;
 			break;
 
 		// Well
 		case Map_str2int("WOPR", 4):
-			inputType_A(ifs, WOPR);
+			inputType_A(ifs, Summary.WOPR);
 			break;
 
 		case Map_str2int("WOPT", 4):
-			inputType_A(ifs, WOPT);
+			inputType_A(ifs, Summary.WOPT);
 			break;
 
 		case Map_str2int("WGPR", 4):
-			inputType_A(ifs, WGPR);
+			inputType_A(ifs, Summary.WGPR);
 			break;
 
 		case Map_str2int("WGPT", 4):
-			inputType_A(ifs, WGPT);
+			inputType_A(ifs, Summary.WGPT);
 			break;
 
 		case Map_str2int("WWPR", 4):
-			inputType_A(ifs, WWPR);
+			inputType_A(ifs, Summary.WWPR);
 			break;
 
 		case Map_str2int("WWPT", 4):
-			inputType_A(ifs, WWPT);
+			inputType_A(ifs, Summary.WWPT);
 			break;
 
 		case Map_str2int("WGIR", 4):
-			inputType_A(ifs, WGIR);
+			inputType_A(ifs, Summary.WGIR);
 			break;
 
 		case Map_str2int("WGIT", 4):
-			inputType_A(ifs, WGIT);
+			inputType_A(ifs, Summary.WGIT);
 			break;
 
 		case Map_str2int("WWIR", 4):
-			inputType_A(ifs, WWIR);
+			inputType_A(ifs, Summary.WWIR);
 			break;
 
 		case Map_str2int("WWIT", 4):
-			inputType_A(ifs, WWIT);
+			inputType_A(ifs, Summary.WWIT);
 			break;
 
 		case Map_str2int("WBHP", 4):
-			inputType_A(ifs, WBHP);
+			inputType_A(ifs, Summary.WBHP);
 			break;
 
 		case Map_str2int("BPR", 3):
-			inputType_B(ifs, BPR);
+			inputType_B(ifs, Summary.BPR);
 			break;
 		}
 	}
@@ -112,7 +112,7 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 
 void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
 {
-	obj.status = true;
+	obj.activity = true;
 	vector<string>		vbuf;
 	ReadLine(ifs, vbuf);
 	if (vbuf[0] == "/") {
@@ -149,7 +149,7 @@ void ParamOutput::inputType_B(ifstream& ifs, Type_B_o& obj)
 		if (vbuf[0] == "/")
 			break;
 
-		obj.status = true;
+		obj.activity = true;
 		DealDefault(vbuf);
 		int i = stoi(vbuf[0]);
 		int j = stoi(vbuf[1]);

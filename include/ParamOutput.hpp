@@ -6,6 +6,7 @@
 class COOIJK
 {
 public:
+	COOIJK() = default;
 	COOIJK(int i, int j, int k) :I(i), J(j), K(k) {};
 	int		I;
 	int		J;
@@ -15,20 +16,20 @@ public:
 class Type_B_o
 {
 public:
-	bool				status{ false };
+	bool				activity{ false };
 	vector<COOIJK>		obj;
 };
 
 class Type_A_o
 {
 public:
-	bool				status{ false };
+	bool				activity{ false };
 	vector<string>		obj;
 };
 
-
-class ParamOutput
+class OutputSummary 
 {
+
 public:
 	bool		FPR{ false };
 	bool		FOPR{ false };
@@ -55,10 +56,19 @@ public:
 	Type_A_o		WBHP;
 
 	Type_B_o		BPR;
+};
 
+class ParamOutput
+{	
+public:
+
+	OutputSummary	Summary;
 	// Method
 
 	void inputSUMMARY(ifstream& ifs);
 	void inputType_A(ifstream& ifs, Type_A_o& obj);
 	void inputType_B(ifstream& ifs, Type_B_o& obj);
+
+	
+	
 };

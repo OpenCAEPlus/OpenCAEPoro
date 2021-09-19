@@ -1,5 +1,7 @@
 #pragma once
 #include "Reservoir.hpp"
+#include "OpenCAEControl.hpp"
+#include "CAEOutput.hpp"
 #include "ParamRead.hpp"
 
 class OpenCAEPoro
@@ -16,7 +18,9 @@ private:
 	// linear solver
 	Solver				solver;
 
-	// I/O
-	string				inputfile;
+	// control
+	CAEControl			control;
 
+	// output file
+	CAEOutput			output;
 };

@@ -4,6 +4,9 @@
 #define ERRORcheck(exp) \
 std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in " << __FILE__ ;
 
+// Method
+const int IMPES				= 0;
+const int FIM				= 1;
 
 // general consts
 const double TINY			= 1E-8;
@@ -17,7 +20,7 @@ const double PRESSURE_STD	= 14.6959;		// psia   =   1 atm
 
 // Units consts
 const double CONV1			= 5.61458;		// 1 bbl = 5.61458 ft3
-const double CONV2			= 1.12712;		// Darcy constant in Field * 1E3
+const double CONV2			= 1.12712E-3;	// Darcy constant in Field
 
 // Mixture Type
 const int BLKOIL			= 1;
@@ -32,21 +35,21 @@ const int PHASE_OG			= 5;
 
 
 // Well params
-const int INJ			= 0;
-const int PROD			= 1;
-const int OPEN			= 0;
-const int CLOSE			= 1;
-const int HORIZONTAL	= 0;
-const int VERTICAL		= 1;
+const int INJ				= 0;
+const int PROD				= 1;
+const int OPEN				= 0;
+const int CLOSE				= 1;
+const int HORIZONTAL		= 0;
+const int VERTICAL			= 1;
 // Well opt param
-const int RATE_MODE		= 0;
-const int ORATE_MODE	= 1;
-const int GRATE_MODE	= 2;
-const int WRATE_MODE	= 3;
-const int LRATE_MODE	= 4;
-const int BHP_MODE		= 5;
+const int RATE_MODE			= 0;
+const int ORATE_MODE		= 1;
+const int GRATE_MODE		= 2;
+const int WRATE_MODE		= 3;
+const int LRATE_MODE		= 4;
+const int BHP_MODE			= 5;
 // Fluid type
-const int OIL			= 0;
-const int GAS			= 1;
-const int WATER			= 2;
-const int SOLVENT		= 3;
+const int OIL				= 0;
+const int GAS				= 1;
+const int WATER				= 2;
+const int SOLVENT			= 3;

@@ -21,7 +21,9 @@
   <ItemGroup>
     <ClInclude Include="include\BOMixture.hpp" />
     <ClInclude Include="include\Bulk.hpp" />
+    <ClInclude Include="include\CAEOutput.hpp" />
     <ClInclude Include="include\Connection_BB.hpp" />
+    <ClInclude Include="include\OpenCAEControl.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\Grid.hpp" />
     <ClInclude Include="include\MAT.hpp" />
@@ -46,6 +48,8 @@
     <ClCompile Include="src\BOMixture.cpp" />
     <ClCompile Include="src\BOMixture_OGW.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
+    <ClCompile Include="src\CAEOutput.cpp" />
+    <ClCompile Include="src\OpenCAEControl.cpp" />
     <ClCompile Include="src\Connection_BB.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\Grid.cpp" />

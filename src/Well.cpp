@@ -72,7 +72,6 @@ WellOpt::WellOpt(WellOptParam& Optparam)
 
 void Well::setup(Grid& myGrid, Bulk& myBulk)
 {
-	Opt = OptSet[0];
 	PerfNum = K2 - K1 + 1;
 	dG.resize(PerfNum, 0);
 	Perf.resize(PerfNum);
@@ -84,8 +83,13 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 		Perf[p].Multiplier = 1;
 	}
 	calWI_Peaceman_Vertical(myBulk);
+	cout << "Well::setup" << endl;
 }
 
+void Well::applyControl(int i)
+{
+	Opt = OptSet[i];
+}
 
 void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 {

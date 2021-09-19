@@ -81,6 +81,12 @@
     <ClInclude Include="include\ReadTool.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\OpenCAEControl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CAEOutput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BOMixture.cpp">
@@ -141,6 +147,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenCAEPoro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenCAEControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CAEOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

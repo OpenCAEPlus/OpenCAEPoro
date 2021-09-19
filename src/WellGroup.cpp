@@ -14,10 +14,10 @@ void WellGroup::inputParam(ParamWell& Well_param)
 		WellG[w].Kh = Well_param.well[w].Kh;
 		WellG[w].SkinFactor = Well_param.well[w].SkinFactor;
 		WellG[w].WI = Well_param.well[w].WI;
-		WellG[w].I = Well_param.well[w].I;
-		WellG[w].J = Well_param.well[w].J;
-		WellG[w].K1 = Well_param.well[w].K1;
-		WellG[w].K2 = Well_param.well[w].K2;
+		WellG[w].I = Well_param.well[w].I - 1;
+		WellG[w].J = Well_param.well[w].J - 1;
+		WellG[w].K1 = Well_param.well[w].K1 - 1;
+		WellG[w].K2 = Well_param.well[w].K2 - 1;
 		
 		// Opt
 		WellG[w].OptSet.resize(t);

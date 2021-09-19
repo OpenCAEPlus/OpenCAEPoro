@@ -34,6 +34,7 @@ public:
 	void setState(bool flag) { Opt.State = flag; };
 
 	void setup(Grid& myGrid, Bulk& myBulk);
+	void applyControl(int i);
 	// cal Well Index
 	void calWI_Peaceman_Vertical(const Bulk& myBulk);
 
