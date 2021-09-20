@@ -70,5 +70,4 @@ public:
 	void inputType_B(ifstream& ifs, Type_B_o& obj);
 
 	
-	
 };

@@ -6,7 +6,6 @@ using namespace std;
 
 class WellGroup
 {
-
 public:
 	WellGroup() = default;
 	
@@ -17,7 +16,8 @@ public:
 
 	void allocateMat(Solver& mySolver);
 	void assemblaMat_WB(Solver& mySolver, const Bulk& myBulk);
-	int getWellNum() { return WellNum; };
+	int getWellNum() { return WellNum; }
+	string getWellName(int i) { return WellG[i].Name; }
 
 private:
 	int							WellNum;

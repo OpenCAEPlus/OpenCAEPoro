@@ -1,4 +1,5 @@
 #pragma once
+#include "Reservoir.hpp"
 #include "ParamOutput.hpp"
 
 class CAEIJK
@@ -30,7 +31,9 @@ public:
 class SumPair
 {
 public:
-	string				Name;
+	SumPair(string item, string obj, string unit) :Item(item), Obj(obj), Unit(unit) {};
+	string				Item;
+	string				Obj;
 	string				Unit;
 	vector<double>		val;
 };
@@ -40,7 +43,7 @@ class Summary
 {
 public:
 	void inputParam(OutputSummary& summary_param);
-	void setup();
+	void setup(Reservoir& reservoir);
 
 private:
 
@@ -80,7 +83,7 @@ class CAEOutput
 public:
 
 	void inputParam(ParamOutput& Output_param);
-	void setup();
+	void setup(Reservoir& reservoir);
 
 private:
 	Summary		summary;

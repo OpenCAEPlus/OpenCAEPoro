@@ -8,6 +8,7 @@
 
 class Reservoir
 {
+	friend class Summary;
 public:
 
 	void inputParam(ParamRead& param);

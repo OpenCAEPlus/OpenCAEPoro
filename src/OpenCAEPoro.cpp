@@ -10,4 +10,5 @@ void OpenCAEPoro::inputParam(ParamRead& param)
 void OpenCAEPoro::setup()
 {
 	reservoir.setup();
+	output.setup(reservoir);
 }
