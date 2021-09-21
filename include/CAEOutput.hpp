@@ -8,14 +8,14 @@ public:
 	CAEIJK() = default;
 	CAEIJK(int i, int j, int k) :I(i), J(j), K(k) {};
 	CAEIJK(COOIJK& src) { I = src.I; J = src.J; K = src.K; };
-	CAEIJK& operator= (COOIJK& src) { I = src.I; J = src.J; K = src.K; }
+	CAEIJK& operator= (COOIJK& src) { I = src.I; J = src.J; K = src.K; return*this; }
 	int			I, J, K;
 };
 
 class CAETypeA
 {
 public:
-	CAETypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; }
+	CAETypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
 	bool				activity{ false };
 	vector<string>		obj;
 };
@@ -23,7 +23,7 @@ public:
 class CAETypeB
 {
 public:
-	CAETypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); }
+	CAETypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
 	bool				activity{ false };
 	vector<CAEIJK>		obj;
 };

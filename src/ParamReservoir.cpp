@@ -294,7 +294,6 @@ void ParamReservoir::inputGRID(ifstream& ifs, string& keyword)
 	}
 
 	vector<string>		vbuf;
-	int n = 0;
 	while (ReadLine(ifs, vbuf)) {
 		if (vbuf[0] == "/")
 			break;

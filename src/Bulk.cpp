@@ -57,14 +57,14 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 			SATmode = PHASE_OGW;
 			PVTmode = PHASE_OGW;
 		}
+		rs_param.Np = Np;
+		rs_param.Nc = Nc;
+		for (int i = 0; i < rs_param.NTSFUN; i++)
+			Flow.push_back(new FlowUnit(rs_param, SATmode, i));
+		for (int i = 0; i < rs_param.NTPVT; i++)
+			Flashcal.push_back(new BOMixture(rs_param, PVTmode, i));
+		cout << "Bulk::inputParam" << endl;
 	}
-	rs_param.Np = Np;
-	rs_param.Nc = Nc;
-	for (int i = 0; i < rs_param.NTSFUN; i++)
-		Flow.push_back(new FlowUnit(rs_param, SATmode, i));
-	for (int i = 0; i < rs_param.NTPVT; i++)
-		Flashcal.push_back(new BOMixture(rs_param, PVTmode, i));
-	cout << "Bulk::inputParam" << endl;
 }
 
 
@@ -154,7 +154,7 @@ void Bulk::initSjPc_blk(int tabrow)
 	// begin calculating oil pressure:
 	double Pbb = Pref;
 	double gammaOtmp, gammaWtmp, gammaGtmp;
-	double Ptmp, Pcowtmp, Pcgotmp, Pcowg;
+	double Ptmp;
 	int mynum = 10;  double mydz = 0;
 	double Poref, Pgref, Pwref;
 	double Pbegin = 0;
@@ -399,7 +399,7 @@ void Bulk::initSjPc_blk(int tabrow)
 			}
 			Ptmp += PcGOC;
 			for (int i = 0; i < mynum; i++) {
-				gammaOtmp = Flashcal[0]->gammaPhaseG(Ptmp);
+				gammaGtmp = Flashcal[0]->gammaPhaseG(Ptmp);
 				Ptmp -= gammaGtmp * mydz;
 			}
 			Pgref = Ptmp;
@@ -502,6 +502,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		}
 		P[n] = Po;
 		lP[n] = Po;
+		Pbub[n] = Pbb;
 		S[n * Np + Np - 1] = Sw;
 		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
@@ -556,7 +557,7 @@ void Bulk::initSjPc_comp(int tabrow)
 	// begin calculating oil pressure:
 	double mytemp = T;
 	double gammaOtmp, gammaWtmp, gammaGtmp;
-	double Ptmp, Pcowtmp, Pcgotmp, Pcowg;
+	double Ptmp;
 	int mynum = 10;  double mydz = 0;
 	double Poref, Pgref, Pwref;
 	double Pbegin = 0;
@@ -750,7 +751,7 @@ void Bulk::initSjPc_comp(int tabrow)
 		}
 		Ptmp += PcGOC;
 		for (int i = 0; i < mynum; i++) {
-			gammaOtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
+			gammaGtmp = Flashcal[0]->gammaPhaseOG(Ptmp, mytemp, &InitZi[0]);
 			Ptmp -= gammaGtmp * mydz;
 		}
 		Pgref = Ptmp;
@@ -860,7 +861,7 @@ void Bulk::initSjPc_comp(int tabrow)
 void Bulk::flash_Sj()
 {
 	for (int n = 0; n < Num; n++) {
-		Flashcal[0]->Flash_Sj(P[n], Pbb[n], T, &S[n * Np], Rock_V[n] * Rock_Poro[n], &InitZi[0]);
+		Flashcal[0]->Flash_Sj(P[n], Pbub[n], T, &S[n * Np], Rock_V[n] * Rock_Poro[n], &InitZi[0]);
 		for (int i = 0; i < Nc; i++) {
 			Ni[n * Nc + i] = Flashcal[0]->Ni[i];
 		}

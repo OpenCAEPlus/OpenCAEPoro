@@ -59,7 +59,6 @@ void FlowUnit::calKrPc_W(double* kr_out, double* pc_out)
 
 void FlowUnit::calKrPc_OW(const double* S_in, double* kr_out, double* pc_out)
 {
-	double So = S_in[0]; 
 	double Sw = S_in[1];
 
 	std::vector<double>		dataw(4, 0);
@@ -76,8 +75,6 @@ void FlowUnit::calKrPc_OW(const double* S_in, double* kr_out, double* pc_out)
 
 void FlowUnit::calKrPc_OG(const double* S_in, double* kr_out, double* pc_out)
 {
-
-	double So = S_in[0]; 
 	double Sg = S_in[1];
 
 	std::vector<double>		datag(4, 0);
@@ -94,7 +91,6 @@ void FlowUnit::calKrPc_OG(const double* S_in, double* kr_out, double* pc_out)
 
 void FlowUnit::calKrPc_OGW(const double* S_in, double* kr_out, double* pc_out)
 {
-	double So = S_in[0]; 
 	double Sg = S_in[1]; 
 	double Sw = S_in[2];
 

@@ -120,6 +120,7 @@ double BOMixture::gammaPhaseO(double Pin, double Pbbin)
 double BOMixture::gammaPhaseO_OW(double Pin)
 {
 
+	return 0;
 }
 
 double BOMixture::gammaPhaseW(double Pin)

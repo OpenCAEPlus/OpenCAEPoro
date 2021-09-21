@@ -13,7 +13,7 @@ void Solver::allocate(int dimMax)
 
 void Solver::allocateColVal()
 {
-	for (int n = 0; n < MaxDim; n < MaxDim) {
+	for (int n = 0; n < MaxDim; n++) {
 		ColId[n].reserve(RowCapacity[n]);
 		Val[n].reserve(RowCapacity[n]);
 	}

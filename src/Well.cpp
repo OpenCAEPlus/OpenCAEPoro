@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Well.hpp"
 
 WellOpt::WellOpt(WellOptParam& Optparam)

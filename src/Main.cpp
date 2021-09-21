@@ -14,8 +14,12 @@ int& test(int& a) {
 
 int main()
 {
-
+#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64) 
 	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
+#else
+	string myfile{"/mnt/d/Lsz/PennSim/input.txt"};
+#endif
+	
 	ParamRead rp;
 	rp.getDirAndName(myfile);
 	rp.init();

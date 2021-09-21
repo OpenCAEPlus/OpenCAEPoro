@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <vector>
 
 template <typename T>
@@ -156,8 +157,8 @@ void ReservoirTable<T>::display()
 {
 	for (int i = 0; i < NRow; i++) {
 		for (int j = 0; j < NCol; j++) {
-			cout << data[j][i] << "\t";
+			std::cout << data[j][i] << "\t";
 		}
-		cout << "\n";
+		std::cout << "\n";
 	}
 }

@@ -180,12 +180,10 @@ double Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, i
 void Connection_BB::calFlux(const Bulk& myBulk)
 {
 	// calculate a step flux using Iterator
-	double phaseVelocity;
 	int bId, eId, uId;
 	int bId_np_j, eId_np_j;
 	double Pbegin, Pend, rho;
 	int np = myBulk.Np;
-	int nc = myBulk.Nc;
 
 	for (int c = 0; c < ActiveConnNum; c++) {
 		bId = Iterator[c].BId;
@@ -213,6 +211,9 @@ void Connection_BB::calFlux(const Bulk& myBulk)
 				Pbegin = myBulk.P[bId];
 				Pend = myBulk.P[eId] + myBulk.Pc[eId_np_j];
 				rho = myBulk.Rho[eId_np_j];
+			}
+			else{
+				continue;
 			}
 
 			uId = bId;

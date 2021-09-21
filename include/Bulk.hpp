@@ -57,7 +57,7 @@ private:
 	int						Nc;				// num of component
 
 	double					T;				// temperature : Num
-	std::vector<double>		Pbb;			// buble point pressere: Num
+	std::vector<double>		Pbub;			// buble point pressere: Num
 	std::vector<double>		P;				// pressure: Num
 	std::vector<double>		Pc;				// capillary pressure of phase: Np*Num
 	std::vector<bool>		PhaseExist;		// existence of phase 
