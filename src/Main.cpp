@@ -12,14 +12,14 @@ int& test(int& a) {
 	return a;
 }
 
-int main()
+int main(int argc, const char* argv[])
 {
-#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64) 
-	string myfile{"D:\\Lsz\\PennSim\\input.txt"};
-#else
-	string myfile{"/mnt/d/Lsz/PennSim/input.txt"};
-#endif
-	
+	if (argc == 1) {
+		cout << "Input file is missing. Usage: ./OpenCAEPoro <filename>" << endl;
+		exit(0);
+	}
+
+	string myfile = argv[1];
 	ParamRead rp;
 	rp.readInputFile(myfile);
 
