@@ -89,6 +89,8 @@ public:
 	bool								WATER{ false };
 	bool								DISGAS{ false };
 
+	// Eos
+	std::vector<double>					InitZi;
 
 	// SAT Region & PVT Region
 	int									NTSFUN{ 1 };	// SAT num

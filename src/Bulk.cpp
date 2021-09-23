@@ -19,8 +19,6 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 	EQUIL.Dref = rs_param.EQUIL[0];
 	EQUIL.Pref = rs_param.EQUIL[1];
 	EQUIL.PBVD.setup(rs_param.PBVD_T.data[0]);
-	int SATmode;
-	int PVTmode;
 	
 	if (BLACKOIL) {
 		if (WATER && !OIL && !GAS) {
@@ -61,9 +59,17 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 		rs_param.Nc = Nc;
 		for (int i = 0; i < rs_param.NTSFUN; i++)
 			Flow.push_back(new FlowUnit(rs_param, SATmode, i));
+		if (OIL & GAS & WATER) {
+			for (int i = 0; i < rs_param.NTSFUN; i++) {
+				Flow[i]->generate_SWPCWG();
+			}
+		}
 		for (int i = 0; i < rs_param.NTPVT; i++)
 			Flashcal.push_back(new BOMixture(rs_param, PVTmode, i));
 		cout << "Bulk::inputParam" << endl;
+	}
+	else if (COMPS) {
+		InitZi = rs_param.InitZi;
 	}
 }
 
@@ -76,8 +82,8 @@ void Bulk::setup(const Grid& myGrid)
 	Dz.resize(Num, 0); 
 	Depth.resize(Num, 0);
 	Ntg.resize(Num, 0);
-	Rock_V.resize(Num, 0);
-	Rock_PoroInit.resize(Num, 0);
+	Rock_VpInit.resize(Num, 0);
+	Rock_Vp.resize(Num, 0);
 	Rock_KxInit.resize(Num, 0);
 	Rock_KyInit.resize(Num, 0);
 	Rock_KzInit.resize(Num, 0);
@@ -94,8 +100,8 @@ void Bulk::setup(const Grid& myGrid)
 		Depth[bIdb] = myGrid.Depth[bIdg];
 		Ntg[bIdb] = myGrid.Ntg[bIdg];
 
-		Rock_V[bIdb] = myGrid.V[bIdg] * Ntg[bIdb];
-		Rock_PoroInit[bIdb] = myGrid.Poro[bIdg];
+		Rock_VpInit[bIdb] = myGrid.V[bIdg] * myGrid.Ntg[bIdg] * myGrid.Poro[bIdg];
+		// Rock_PoroInit[bIdb] = myGrid.Poro[bIdg];
 		Rock_KxInit[bIdb] = myGrid.Kx[bIdg];
 		Rock_KyInit[bIdb] = myGrid.Kx[bIdg];
 		Rock_KzInit[bIdb] = myGrid.Kx[bIdg];
@@ -103,14 +109,37 @@ void Bulk::setup(const Grid& myGrid)
 		SATNUM[bIdb] = myGrid.SATNUM[bIdg];
 		PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
 	}
-	Rock_Poro = Rock_PoroInit;
+	Rock_Vp = Rock_VpInit;
+	// Rock_Poro = Rock_PoroInit;
 	Rock_Kx = Rock_KxInit;
 	Rock_Ky = Rock_KyInit;
 	Rock_Kz = Rock_KzInit;
+
+	// physical variable
+	P.resize(Num);
+	Pj.resize(Num * Np);
+	Pc.resize(Num * Np);
+	PhaseExist.resize(Num * Np);
+	Ni.resize(Num * Nc);
+	S.resize(Num * Np);
+	Xi.resize(Num * Np);
+	Cij.resize(Num * Np * Nc);
+	Rho.resize(Num * Np);
+	Mu.resize(Num * Np);
+	Kr.resize(Num * Np);
+
+	Vf.resize(Num, 0);
+	Vfi.resize(Num * Nc, 0);
+	Vfp.resize(Num, 0);
+
+	lP = P;
+	lNi = Ni;
 }
 
 void Bulk::initSjPc_blk(int tabrow)
 {
+	Pbub.resize(Num);
+
 	double Dref = EQUIL.Dref;		double Pref = EQUIL.Pref;
 	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
 	double DOGC = EQUIL.DGOC;		double PcGOC = EQUIL.PcGOC;
@@ -126,10 +155,11 @@ void Bulk::initSjPc_blk(int tabrow)
 	double tabdz = (Zmax - Zmin) / (tabrow - 1);
 
 	// creater table
-	vector<double>  Ztmp(tabrow, 0);
-	vector<double>  Potmp(tabrow, 0);
-	vector<double>	Pgtmp(tabrow, 0);
-	vector<double>  Pwtmp(tabrow, 0);
+	ReservoirTable<double>	DepthP(tabrow, 4);
+	vector<double>&		Ztmp = DepthP.getCol(0);
+	vector<double>&		Potmp = DepthP.getCol(1);
+	vector<double>&		Pgtmp = DepthP.getCol(2);
+	vector<double>&		Pwtmp = DepthP.getCol(3);
 
 	// cal Tab_Ztmp
 	Ztmp[0] = Zmin;
@@ -368,7 +398,7 @@ void Bulk::initSjPc_blk(int tabrow)
 		Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
 		Potmp[beginId] = Pbegin;
 
-		//find the oil pressure
+		//find the oil pressure in tab
 		for (int id = beginId; id > 0; id--) {
 			if (!EQUIL.PBVD.isempty()) {
 				Pbb = EQUIL.PBVD.eval(0, Ztmp[id], 1);
@@ -456,16 +486,11 @@ void Bulk::initSjPc_blk(int tabrow)
 		}
 	}
 
-	ReservoirTable<double>	DepthP;
-	DepthP.pushCol(Ztmp);
-	DepthP.pushCol(Potmp);
-	DepthP.pushCol(Pgtmp);
-	DepthP.pushCol(Pwtmp);
 	DepthP.display();
 
 	// calculate Pc from DepthP to calculate Sj
-	std::vector<double>		data;
-	std::vector<double>		cdata;
+	std::vector<double>		data(4, 0);
+	std::vector<double>		cdata(4, 0);
 	for (int n = 0; n < Num; n++) {
 		DepthP.eval_all(0, Depth[n], data, cdata);
 		double Po = data[1];
@@ -513,6 +538,8 @@ void Bulk::initSjPc_blk(int tabrow)
 
 void Bulk::initSjPc_comp(int tabrow)
 {
+	InitZi.resize(Num * Nc);
+
 
 	double Dref = EQUIL.Dref;		double Pref  = EQUIL.Pref;
 	double DOWC = EQUIL.DOWC;		double PcOWC = EQUIL.PcOWC;
@@ -529,10 +556,11 @@ void Bulk::initSjPc_comp(int tabrow)
 	double tabdz = (Zmax - Zmin) / (tabrow - 1);
 
 	// creater table
-	vector<double>  Ztmp(tabrow, 0);
-	vector<double>  Potmp(tabrow, 0);
-	vector<double>	Pgtmp(tabrow, 0);
-	vector<double>  Pwtmp(tabrow, 0);
+	ReservoirTable<double>	DepthP(tabrow, 4);
+	vector<double>& Ztmp = DepthP.getCol(0);
+	vector<double>& Potmp = DepthP.getCol(1);
+	vector<double>& Pgtmp = DepthP.getCol(2);
+	vector<double>& Pwtmp = DepthP.getCol(3);
 
 	// cal Tab_Ztmp
 	Ztmp[0] = Zmin;
@@ -803,16 +831,11 @@ void Bulk::initSjPc_comp(int tabrow)
 		}
 	}
 
-	ReservoirTable<double>	DepthP;
-	DepthP.pushCol(Ztmp);
-	DepthP.pushCol(Potmp);
-	DepthP.pushCol(Pgtmp);
-	DepthP.pushCol(Pwtmp);
 	DepthP.display();
 
 	// calculate Pc from DepthP to calculate Sj
-	std::vector<double>		data;
-	std::vector<double>		cdata;
+	std::vector<double>		data(4, 0);
+	std::vector<double>		cdata(4, 0);
 	for (int n = 0; n < Num; n++) {
 		DepthP.eval_all(0, Depth[n], data, cdata);
 		double Po = data[1];
@@ -861,9 +884,9 @@ void Bulk::initSjPc_comp(int tabrow)
 void Bulk::flash_Sj()
 {
 	for (int n = 0; n < Num; n++) {
-		Flashcal[0]->Flash_Sj(P[n], Pbub[n], T, &S[n * Np], Rock_V[n] * Rock_Poro[n], &InitZi[0]);
+		Flashcal[PVTNUM[n]]->Flash_Sj(P[n], Pbub[n], T, &S[n * Np], Rock_Vp[n], InitZi.data());
 		for (int i = 0; i < Nc; i++) {
-			Ni[n * Nc + i] = Flashcal[0]->Ni[i];
+			Ni[n * Nc + i] = Flashcal[PVTNUM[n]]->Ni[i];
 		}
 		passFlashValue(n);
 	}
@@ -872,7 +895,7 @@ void Bulk::flash_Sj()
 void Bulk::flash_Ni()
 {
 	for (int n = 0; n < Num; n++) {
-		Flashcal[0]->Flash_Ni(P[n], T, &Ni[n * Nc]);
+		Flashcal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * Nc]);
 		passFlashValue(n);
 	}
 }
@@ -880,23 +903,24 @@ void Bulk::flash_Ni()
 void Bulk::passFlashValue(int n)
 {
 	int bId = n * Np;
+	int pvtnum = PVTNUM[n];
 	for (int j = 0; j < Np; j++) {
-		PhaseExist[bId + j] = Flashcal[0]->PhaseExist[j];
+		PhaseExist[bId + j] = Flashcal[pvtnum]->PhaseExist[j];
 		if (PhaseExist[j]) {
 			for (int i = 0; i < Nc; i++) {
-				Cij[bId + j * Nc + i] = Flashcal[0]->Cij[j * Nc + i];
+				Cij[bId * Nc + j * Nc + i] = Flashcal[pvtnum]->Cij[j * Nc + i];
 			}
-			S[bId + j]		= Flashcal[0]->S[j];
-			Xi[bId + j]		= Flashcal[0]->Xi[j];
-			Rho[bId + j]	= Flashcal[0]->Rho[j];
-			Mu[bId + j]		= Flashcal[0]->Mu[j];
+			S[bId + j]		= Flashcal[pvtnum]->S[j];
+			Xi[bId + j]		= Flashcal[pvtnum]->Xi[j];
+			Rho[bId + j]	= Flashcal[pvtnum]->Rho[j];
+			Mu[bId + j]		= Flashcal[pvtnum]->Mu[j];
 		}
 	}
-	Vf[n] = Flashcal[0]->Vf;
-	Vfp[n] = Flashcal[0]->Vfp;
+	Vf[n] = Flashcal[pvtnum]->Vf;
+	Vfp[n] = Flashcal[pvtnum]->Vfp;
 	bId = n * Nc;
 	for (int i = 0; i < Nc; i++) {
-		Vfi[bId + i] = Flashcal[0]->Vfi[i];
+		Vfi[bId + i] = Flashcal[pvtnum]->Vfi[i];
 	}
 }
 
@@ -905,15 +929,25 @@ void Bulk::calKrPc()
 {
 	for (int n = 0; n < Num; n++) {
 		int bId = n * Np;
-		Flow[0]->calKrPc(&S[bId], &Kr[bId], &Pc[bId]);
+		Flow[SATNUM[n]]->calKrPc(&S[bId], &Kr[bId], &Pc[bId]);
+		for (int j = 0; j < Np; j++)
+			Pj[n * Np + j] = P[n] + Pc[n * Np + j];
 	}
 }
 
 // Rock
-void Bulk::calporo()
+void Bulk::calVporo()
 {
 	for (int n = 0; n < Num; n++) {
-		double dP = P[n] - Rock_Pref;
-		Rock_Poro[n] = Rock_PoroInit[n] * (1 + Rock_C1 * dP + Rock_C2 * dP * dP);
+		double dP = Rock_C1 * (P[n] - Rock_Pref);
+		Rock_Vp[n] = Rock_VpInit[n] * (1 + dP + dP * dP / 2);
 	}
+}
+
+int Bulk::mixMode()
+{
+	if (BLACKOIL)
+		return BLKOIL;
+	if (COMPS)
+		return EoS_PVTW;
 }

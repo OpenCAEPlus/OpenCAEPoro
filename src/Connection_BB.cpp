@@ -7,23 +7,24 @@
 
 void Connection_BB::setup(const Grid& myGrid, const Bulk& myBulk)
 {
-	initSize(myGrid);
-	initActive(myGrid);
+	initSize(myBulk);
+	initActive(myGrid, myBulk.Np);
 	getIteratorActive();
 	calAreaActive(myGrid, myBulk);
 }
 
-void Connection_BB::initSize(const Grid& myGrid)
+void Connection_BB::initSize(const Bulk& myBulk)
 {
 	ActiveConnNum = 0;
-	ActiveBulkNum = myGrid.ActiveBulkNum;
+	ActiveBulkNum = myBulk.Num;
 	
 	Neighbor.resize(ActiveBulkNum);
 	SelfPtr.resize(ActiveBulkNum);
 	NeighborNum.resize(ActiveBulkNum);
+
 }
 
-void Connection_BB::initActive(const Grid& myGrid)
+void Connection_BB::initActive(const Grid& myGrid, int np)
 {
 	int nx = myGrid.Nx;
 	int ny = myGrid.Ny;
@@ -104,6 +105,11 @@ void Connection_BB::initActive(const Grid& myGrid)
 
 		NeighborNum[bIdb] = count;
 	}
+
+	Upblock.resize(ActiveConnNum * np);
+	Upblock_Rho.resize(ActiveConnNum * np);
+	Upblock_Trans.resize(ActiveConnNum * np);
+	Upblock_Velocity.resize(ActiveConnNum * np);
 
 }
 
@@ -198,21 +204,22 @@ void Connection_BB::calFlux(const Bulk& myBulk)
 			bool exend = myBulk.PhaseExist[eId_np_j];
 
 			if ((exbegin) && (exend)) {
-				Pbegin = myBulk.P[bId] + myBulk.Pc[bId_np_j];
-				Pend = myBulk.P[eId] + myBulk.Pc[eId_np_j];
+				Pbegin = myBulk.Pj[bId_np_j];
+				Pend = myBulk.Pj[eId_np_j];
 				rho = (myBulk.Rho[bId_np_j] + myBulk.Rho[eId_np_j]) / 2;
 			}
 			else if (exbegin && (!exend)) {
-				Pbegin = myBulk.P[bId] + myBulk.Pc[bId_np_j];
+				Pbegin = myBulk.Pj[bId_np_j];
 				Pend = myBulk.P[eId];
 				rho = myBulk.Rho[bId_np_j];
 			}
 			else if ((!exbegin) && (exend)) {
 				Pbegin = myBulk.P[bId];
-				Pend = myBulk.P[eId] + myBulk.Pc[eId_np_j];
+				Pend = myBulk.Pj[eId_np_j];
 				rho = myBulk.Rho[eId_np_j];
 			}
 			else{
+				Upblock[c * np + j] = bId;
 				continue;
 			}
 
@@ -265,38 +272,22 @@ void Connection_BB::massConserve(Bulk& myBulk)
 	}
 }
 
-void Connection_BB::allocateMat(Solver& MySolver)
-{
-	for (int n = 0; n < ActiveBulkNum; n++) {
-		MySolver.RowCapacity[n] += NeighborNum[n];
-	}
-}
 
-void Connection_BB::initAssembleMat(Solver& mySolver)
-{
-	mySolver.Dim = ActiveBulkNum;
-	for (int n = 0; n < ActiveBulkNum; n++) {
-		mySolver.ColId[n].assign(Neighbor[n].begin(), Neighbor[n].end());
-		mySolver.DiagPtr[n] = SelfPtr[n];
-	}
-}
-
-
-void Connection_BB::assembleMat(Solver& mySolver, const Bulk& myBulk)
+void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, double dt)
 {
 	// accumulate term
 	double Vp0, Vp, Vf, Vfp, P;
 	double cr = myBulk.Rock_C1;
 	for (int n = 0; n < ActiveBulkNum; n++) {
-		Vp0 = myBulk.Rock_V[n] * myBulk.Rock_PoroInit[n];
-		Vp = myBulk.Rock_V[n] * myBulk.Rock_Poro[n];
+		Vp0 = myBulk.Rock_VpInit[n];
+		Vp = myBulk.Rock_Vp[n];
 		Vfp = myBulk.Vfp[n];
 		P = myBulk.P[n];
 		Vf = myBulk.Vf[n];
 
 		double temp = cr * Vp0 - Vfp;
 		mySolver.DiagVal[n] = temp;
-		mySolver.b[n] = temp * P + 1 * (Vf - Vp);
+		mySolver.b[n] = temp * P + dt * (Vf - Vp);
 	}
 	// flux term
 	int bId, eId, uId;
@@ -323,7 +314,7 @@ void Connection_BB::assembleMat(Solver& mySolver, const Bulk& myBulk)
 			}
 			double dD = myBulk.Depth[bId] - myBulk.Depth[eId];
 			double dPc = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
-			double temp = myBulk.Xi[uId * np + j] * Upblock_Trans[c * np + j];
+			double temp = myBulk.Xi[uId * np + j] * Upblock_Trans[c * np + j] * dt;
 			valup += temp * valupi;
 			valdown += temp * valdowni;
 			temp = Upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;
@@ -340,7 +331,7 @@ void Connection_BB::assembleMat(Solver& mySolver, const Bulk& myBulk)
 			lastbId = bId;
 		}
 
-		mySolver.Val[bId][diagptr] += valup;
+		mySolver.Val[bId][diagptr] += valup ;
 		mySolver.Val[bId].push_back(-valup);
 		mySolver.Val[eId].push_back(-valdown);
 		mySolver.DiagVal[eId] += valdown;

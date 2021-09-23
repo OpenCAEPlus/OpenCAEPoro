@@ -55,8 +55,8 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		double bg = data[1] * (CONV1 / 1000);
 
 		// total
-		double vw = CONV1 * Ni[2] * bw;
-		Vf = vw;
+		V[0] = 0;	V[1] = 0;	V[2] = CONV1 * Ni[2] * bw;
+		Vf = V[2];
 		Vfp = CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -86,11 +86,12 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		Rho[1] = Std_RhoG / bg;
 		Ni[1] = Vpore * S[1] * Xi[1];
 
-		double vg = 1000 * Ni[1] * bg;   // Ni[0] = 0;
-		double vw = CONV1 * Ni[2] * bw;
+		V[0] = 0;
+		V[1] = 1000 * Ni[1] * bg;   // Ni[0] = 0;
+		V[2] = CONV1 * Ni[2] * bw;
 		// total
-		Vf = vg + vw;
-		S[0] = 0;	S[1] = vg / Vf;	  S[2] = vw / Vf;
+		Vf = V[1] + V[2];
+		S[0] = 0;	S[1] = V[1] / Vf;	  S[2] = V[2] / Vf;
 		Vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -116,7 +117,7 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		double dBo_drs = bo / bosat * cdata[2] + bosat * (cdata[4] * (Pbb - P) + cbosat * cdata[0]);
 		dBo_drs /= cdata[1];
 
-		Ni[0] = Vpore * S[0] / (CONV1 * bo);
+		Ni[0] = Vpore * (1 - S[1] - S[2]) / (CONV1 * bo);
 		Ni[1] = Ni[0] * rs;
 		Xi[0] = (1 + rs) / (CONV1 * bo);
 		Rho[0] = (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
@@ -128,10 +129,10 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		Cij[8] = 1;
 
 		// total
-		double vo = CONV1 * Ni[0] * bo;
-		double vw = CONV1 * Ni[2] * bw;
-		Vf = vo + vw;
-		S[0] = vo / Vf;		S[1] = 0;		S[2] = vw / Vf;
+		V[0] = CONV1 * Ni[0] * bo;
+		V[2] = CONV1 * Ni[2] * bw;
+		Vf = V[0] + V[2];
+		S[0] = V[0] / Vf;		S[1] = 0;		S[2] = V[2] / Vf;
 		Vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
 		Vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
 		Vfi[1] = CONV1 * dBo_drs;
@@ -151,7 +152,7 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		double cbosat = cdata[2];
 
 		Mu[0] = data[3];
-		Ni[0] = Vpore * S[0] / (CONV1 * bo);
+		Ni[0] = Vpore * (1 - S[1] - S[2]) / (CONV1 * bo);
 		Xi[0] = (1 + rs) / bo / CONV1;
 		Rho[0] = (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
 		
@@ -170,12 +171,12 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 		Cij[8] = 1;
 
 		// total
-		double vo = CONV1 * Ni[0] * bo;
-		double vg = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		double vw = CONV1 * Ni[2] * bw;
+		V[0] = CONV1 * Ni[0] * bo;
+		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		V[2] = CONV1 * Ni[2] * bw;
 
-		Vf = vo + vg + vw;
-		S[0] = vo / Vf;		S[1] = vg / Vf;		S[2] = vw / Vf;
+		Vf = V[0] + V[1] + V[2];
+		S[0] = V[0] / Vf;		S[1] = V[1] / Vf;		S[2] = V[2] / Vf;
 		Vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -185,7 +186,6 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 	}
 	}
 }
-
 
 
 void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
@@ -201,8 +201,8 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		NT += Ni[i];
 	}
 
-	std::vector<double>		data;
-	std::vector<double>		cdata;
+	std::vector<double>		data(6, 0);
+	std::vector<double>		cdata(6, 0);
 
 	// Water property
 	PVTW.eval_all(0, P, data, cdata);
@@ -245,8 +245,9 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		double bg = data[1] * (CONV1 / 1000);
 
 		// total
-		double vw = CONV1 * Ni[2] * bw;
-		Vf = vw;
+		V[0] = 0;	V[1] = 0;
+		V[2] = CONV1 * Ni[2] * bw;
+		Vf = V[2];
 		Vfp = CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -275,12 +276,13 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		Rho[1] = Std_RhoG / bg;
 
 		// total
-		double vg = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		double vw = CONV1 * Ni[2] * bw;
-		if (vg < 0)
-			vg = 0;
-		Vf = vg + vw;
-		S[0] = 1; S[1] = vg / Vf; S[2] = vw / Vf;
+		V[0] = 0;
+		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		V[2] = CONV1 * Ni[2] * bw;
+		if (V[1] < 0)
+			V[1] = 0;
+		Vf = V[1] + V[2];
+		S[0] = 0;	S[1] = V[1] / Vf;	S[2] = V[2] / Vf;
 		Vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -314,10 +316,10 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		Rho[0] = (Std_RhoO + (1000/CONV1) * rs * Std_RhoG) / bo;
 
 		// total
-		double vo = CONV1 * Ni[0] * bo;
-		double vw = CONV1 * Ni[2] * bw;
-		Vf = vo + vw;
-		S[0] = vo / Vf; S[1] = 0; S[2] = vw / Vf;
+		V[0] = CONV1 * Ni[0] * bo;
+		V[2] = CONV1 * Ni[2] * bw;
+		Vf = V[0] + V[2];
+		S[0] = V[0] / Vf; S[1] = 0; S[2] = V[2] / Vf;
 		Vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
 		Vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
 		Vfi[1] = CONV1 * dBo_drs;
@@ -347,7 +349,7 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 
 		Mu[1] = data[3];
 		Xi[1] = 1 / data[1] / CONV1;
-		Rho[1] = Std_RhoO / bg;
+		Rho[1] = Std_RhoG / bg;
 
 		// total
 		Cij[0] = 1 / (1 + rs);
@@ -355,11 +357,11 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		Cij[4] = 1;
 		Cij[8] = 1;
 
-		double vo = CONV1 * Ni[0] * bo;
-		double vg = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		double vw = CONV1 * Ni[2] * bw;
-		Vf = vo + vg + vw;
-		S[0] = vo / Vf;  S[1] = vg / Vf;  S[2] = vw / Vf;
+		V[0] = CONV1 * Ni[0] * bo;
+		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		V[2] = CONV1 * Ni[2] * bw;
+		Vf = V[0] + V[1] + V[2];
+		S[0] = V[0] / Vf;  S[1] = V[1] / Vf;  S[2] = V[2] / Vf;
 		Vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
 		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
 		Vfi[1] = 1000 * bg;
@@ -367,6 +369,59 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		
 		break;
 	}
+	}
+}
+
+
+double BOMixture::xiPhase_OGW(double Pin, double* Ziin)
+{
+	if (Ziin[1] > 1 - TINY) {
+		// inj fluid is gas
+		double bg = PVDG.eval(0, Pin, 1);
+		double xig = (1 / CONV1) / bg;
+		return xig;
+	}
+	else if (Ziin[2] > 1 - TINY) {
+		// inj fluid is water
+		vector<double>		data(6, 0);
+		vector<double>		cdata(6, 0);
+		PVTW.eval_all(0, Pin, data, cdata);
+		double Pw0 = data[0];
+		double bw0 = data[1];
+		double cbw = data[2];
+		double bw = bw0 * (1 - cbw * (P - Pw0));
+		double xiw = (1 / CONV1) / bw;
+		return xiw;
+	}
+	else {
+		ERRORcheck("Wrong Zi!");
+		exit(0);
+	}
+}
+
+double BOMixture::rhoPhase_OGW(double Pin, double* Ziin)
+{
+	if (Ziin[1] > 1 - TINY) {
+		// inj fluid is gas
+		double bg = PVDG.eval(0, Pin, 1);
+		double rhog = (1000 / CONV1) * Std_RhoG / bg;
+		return rhog;
+	}
+	else if (Ziin[2] > 1 - TINY) {
+		// inj fluid is water
+		vector<double>		data(6, 0);
+		vector<double>		cdata(6, 0);
+		PVTW.eval_all(0, Pin, data, cdata);
+		double Pw0 = data[0];
+		double bw0 = data[1];
+		double cbw = data[2];
+		double bw = bw0 * (1 - cbw * (P - Pw0));
+		double rhow = Std_RhoW / bw;
+		return rhow;
+	}
+	else {
+		ERRORcheck("Wrong Zi!");
+		exit(0);
 	}
 }
 

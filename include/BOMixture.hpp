@@ -12,6 +12,7 @@ public:
 
 	bool empty_PVDG() override{ return PVDG.isempty(); }
 
+	// Flash
 	void Flash_Sj(const double Pin, const double Pbbin, const double Tin, const double* Sjin, double Vpore, const double* Ziin) override;
 	void BOFlash_Sj_W(const double Pin, const double* Sjin, double Vpore);
 	void BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore);
@@ -22,7 +23,16 @@ public:
 	void BOFlash_Ni_OW(const double Pin, const double* Niin);
 	void BOFlash_Ni_OGW(const double Pin, const double* Niin);
 
+	// return Xi  molar density
+	double xiPhase(double Pin, double T, double* Ziin) override;
+	double xiPhase_OGW(double Pin, double* Ziin);
+
 	// return rho
+	double rhoPhase(double Pin, double T, double* Ziin) override;
+	double rhoPhase_OGW(double Pin, double* Ziin);
+
+
+	// return gamma
 	double gammaPhaseO(double Pin, double Pbbin) override;
 	double gammaPhaseG(double Pin) override;
 	double gammaPhaseW(double Pin) override;

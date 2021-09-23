@@ -15,25 +15,35 @@ void Reservoir::setup()
 	wellgroup.setup(grid, bulk);
 }
 
-// allocate memory
-void Reservoir::allocateMat(Solver& mySolver)
+
+
+void Reservoir::init()
 {
-	mySolver.allocate(conn.getActiveBulkNum() + wellgroup.getWellNum());
-	conn.allocateMat(mySolver);
-	wellgroup.allocateMat(mySolver);
-	mySolver.allocateColVal();
+	
+	if (bulk.mixMode() == BLKOIL)
+		bulk.initSjPc_blk(50);
+	else if (bulk.mixMode() == EoS_PVTW)
+		bulk.initSjPc_comp(50);
+
+	bulk.calVporo();
+	bulk.flash_Sj();
+	bulk.calKrPc();
+	conn.calFlux(bulk);
+
+	wellgroup.init(bulk);
 }
 
 
-void Reservoir::initAssembleMat(Solver& mySolver) 
+double Reservoir::calCFL(double dt)
 {
-	// initialize ColId and DiagPtr
-	conn.initAssembleMat(mySolver);
+
 }
 
 // assemble mat
-void Reservoir::assembleMat(Solver& mysolver) 
+void Reservoir::assembleMat(Solver<double>& mysolver, double dt)
 {
-	conn.assembleMat(mysolver, bulk);
-	wellgroup.assemblaMat_WB(mysolver, bulk);
+	conn.initAssembleMat(mysolver);
+	conn.assembleMat(mysolver, bulk, dt);
+	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
 }
+

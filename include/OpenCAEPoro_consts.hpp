@@ -37,8 +37,8 @@ const int PHASE_OG			= 5;
 // Well params
 const int INJ				= 0;
 const int PROD				= 1;
-const int OPEN				= 0;
-const int CLOSE				= 1;
+const bool CLOSE			= 0;
+const bool OPEN				= 1;
 const int HORIZONTAL		= 0;
 const int VERTICAL			= 1;
 // Well opt param

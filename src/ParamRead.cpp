@@ -1,5 +1,14 @@
 #include "ParamRead.hpp"
 
+void ParamRead::readInputFile(string& file)
+{
+	File = file;
+	getDirAndName(File);
+	init();
+	readFile(File);
+	checkParam();
+}
+
 void ParamRead::init()
 {
 	Rs_param.init();
@@ -7,7 +16,7 @@ void ParamRead::init()
 	Control_param.init();
 }
 
-void ParamRead::getDirAndName(string file)
+void ParamRead::getDirAndName(string& file)
 {
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64) 
 	// for Window file system
@@ -22,7 +31,7 @@ void ParamRead::getDirAndName(string file)
 #endif
 }
 
-void ParamRead::readFile(string file)
+void ParamRead::readFile(string& file)
 {
 	ifstream ifs(file, ios::in);
 	if (!ifs) {

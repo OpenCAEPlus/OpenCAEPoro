@@ -58,25 +58,62 @@ void WellGroup::setupMixture(Bulk& myBulk)
 }
 
 
-void WellGroup::allocateMat(Solver& mySolver)
+
+void WellGroup::init(const Bulk& myBulk)
 {
 	for (int w = 0; w < WellNum; w++) {
-		WellG[w].allocateMat(mySolver);
+		WellG[w].init(myBulk);
 	}
 }
 
-void WellGroup::assemblaMat_WB(Solver& mySolver, const Bulk& myBulk)
+void WellGroup::applyControl(int i)
 {
 	for (int w = 0; w < WellNum; w++) {
-		if (WellG[w].Opt.State) {
+		WellG[w].Opt = WellG[w].OptSet[i];
+	}
+}
 
-			switch (WellG[w].Opt.Type)
+void WellGroup::checkOptMode(const Bulk& myBulk)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			WellG[w].checkOptMode(myBulk);
+		}
+	}
+}
+
+void WellGroup::calWelldG(const Bulk& myBulk)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			if (WellG[w].WellType() == PROD) {
+				WellG[w].calProddG(myBulk);
+			}
+			else {
+				WellG[w].calInjdG(myBulk);
+			}
+		}
+	}
+}
+
+void WellGroup::prepareWell(const Bulk& myBulk)
+{
+	calWelldG(myBulk);
+	checkOptMode(myBulk);
+}
+
+void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+
+			switch (WellG[w].WellType())
 			{
 			case INJ:
-				WellG[w].assembleMat_INJ(myBulk, mySolver);
+				WellG[w].assembleMat_INJ(myBulk, mySolver, dt);
 				break;
 			case PROD:
-				WellG[w].assembleMat_PROD_BLK(myBulk, mySolver);
+				WellG[w].assembleMat_PROD_BLK(myBulk, mySolver, dt);
 				break;
 			default:
 				ERRORcheck("Wrong Well Type in function");

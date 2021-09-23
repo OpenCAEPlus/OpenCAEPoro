@@ -14,12 +14,12 @@ public:
 
 	void generate_SWPCWG();
 
-	int eval_SWOF(int j, double val, int destj) { return SWOF.eval(j, val, destj); }
-	int evalinv_SWOF(int j, double val, int destj) { return SWOF.eval_inv(j, val, destj); }
-	int eval_SGOF(int j, double val, int destj) { return SGOF.eval(j, val, destj); }
-	int evalinv_SGOF(int j, double val, int destj) { return SGOF.eval_inv(j, val, destj); }
-	int eval_SWPCWG(int j, double val, int destj) { return SWPCWG.eval(j, val, destj); }
-	int evalinv_SWPCWG(int j, double val, int destj) { return SWPCWG.eval_inv(j, val, destj); }
+	double eval_SWOF(int j, double val, int destj) { return SWOF.eval(j, val, destj); }
+	double evalinv_SWOF(int j, double val, int destj) { return SWOF.eval_inv(j, val, destj); }
+	double eval_SGOF(int j, double val, int destj) { return SGOF.eval(j, val, destj); }
+	double evalinv_SGOF(int j, double val, int destj) { return SGOF.eval_inv(j, val, destj); }
+	double eval_SWPCWG(int j, double val, int destj) { return SWPCWG.eval(j, val, destj); }
+	double evalinv_SWPCWG(int j, double val, int destj) { return SWPCWG.eval_inv(j, val, destj); }
 
 
 	void calKrPc(const double* S_in, double* kr_out, double* pc_out);

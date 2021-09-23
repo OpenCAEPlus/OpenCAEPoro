@@ -50,15 +50,22 @@ public:
 
 class CAEControl
 {
+
+	friend class OpenCAEPoro;
 public:
 
 	void inputParam(ParamControl& CtrlParam);
 	void ApplyControl(int i);
 
+	void initTime(int i);
+
 private:
 
 	int							Method;
 	string						LinearSolve;
+	vector<double>				CriticalTime;
+	double						Current_dt{ 1E5 };
+	double						Current_time{ 0 };
 
 
 	ControlTime					CtrlTime;

@@ -22,7 +22,7 @@ void FlowUnit::generate_SWPCWG()
 
 	SWPCWG.pushCol(Sw);
 	SWPCWG.pushCol(Pcw);
-
+	SWPCWG.setRowCol();
 }
 
 
@@ -133,5 +133,13 @@ FlowUnit::FlowUnit(ParamReservoir& rs_param, int mode, int i)
 	}
 	if (rs_param.GAS) {
 		SGOF.setup(rs_param.SGOF_T.data[i]);
+	}
+	
+	KroMax = 0;
+	if (rs_param.WATER) {
+		KroMax = SWOF.getCol(2)[0];
+	}
+	else if (rs_param.GAS) {
+		KroMax = SGOF.getCol(2)[0];
 	}
 }

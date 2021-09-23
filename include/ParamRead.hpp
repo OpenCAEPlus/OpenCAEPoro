@@ -13,6 +13,7 @@ using namespace std;
 class ParamRead
 {
 public:
+	string					File;
 	string					FileDir;
 	string					FileName;
 
@@ -21,9 +22,9 @@ public:
 	ParamControl			Control_param;
 	ParamOutput				Output_param;
 
-
-	void getDirAndName(string file);
-	void readFile(string file);
+	void readInputFile(string& file);
+	void getDirAndName(string& file);
+	void readFile(string& file);
 
 	// init
 	void init();

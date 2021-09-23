@@ -6,6 +6,7 @@
 class Mixture
 {
 	friend class Bulk;
+	friend class Well;
 public:
 
 	Mixture() = default;
@@ -21,7 +22,13 @@ public:
 
 	virtual void getProp() {};
 
+	// return xi
+	virtual double xiPhase(double Pin, double T, double* Ziin) = 0;
+
 	// return rho
+	virtual double rhoPhase(double Pin, double T, double* Ziin) = 0;
+
+	// return gamma
 	virtual double gammaPhaseO(double Pin, double Pbbin) = 0;
 	virtual double gammaPhaseW(double Pin) = 0;
 	virtual double gammaPhaseG(double Pin) = 0;
@@ -39,9 +46,10 @@ protected:
 	
 	std::vector<double>				Ni;			// molar of component : Nc
 	std::vector<bool>				PhaseExist; // existence of phase : Np
-	std::vector<double>				Cij;		// Nij / Nj : Np*Nc
+	std::vector<double>				V;			// volume of phase
 	std::vector<double>				S;			// saturation of phase : Np
 	std::vector<double>				Xi;			// molar density of phase: Np
+	std::vector<double>				Cij;		// Nij / Nj : Np*Nc
 	std::vector<double>				Rho;		// mass density of phase : Np
 	std::vector<double>				Mu;			// viscosity of phase: Np
 	

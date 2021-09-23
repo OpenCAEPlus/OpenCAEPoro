@@ -9,6 +9,13 @@ class OpenCAEPoro
 public:
 	void inputParam(ParamRead& param);
 	void setup();
+	void allocateMat();
+
+	void init();
+
+	void run();
+	void runIMPES(double& dt);
+	void SolveP(double dt);
 
 private:
 
@@ -16,7 +23,7 @@ private:
 	Reservoir			reservoir;
 
 	// linear solver
-	Solver				solver;
+	Solver<double>		solver;
 
 	// control
 	CAEControl			control;

@@ -44,6 +44,7 @@ class Summary
 public:
 	void inputParam(OutputSummary& summary_param);
 	void setup(Reservoir& reservoir);
+	void setVal(Reservoir& reservoir);
 
 private:
 
@@ -80,6 +81,7 @@ private:
 
 class CAEOutput
 {
+	friend class OpenCAEPoro;
 public:
 
 	void inputParam(ParamOutput& Output_param);

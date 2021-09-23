@@ -49,6 +49,7 @@ void Grid::calActiveBulk(double e1, double e2)
 		count++;
 	}
 	ActiveBulkNum = count;
+	cout << (Num - ActiveBulkNum) / Num << "%  grids is inactive" << endl;
 	cout << "Grid::calActiveBulk" << endl;
 }
 

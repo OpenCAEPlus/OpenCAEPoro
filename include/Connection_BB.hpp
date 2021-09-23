@@ -2,7 +2,7 @@
 #include <vector>
 #include "Grid.hpp"
 #include "Bulk.hpp"
-#include "Solver.hpp"
+#include "Solver.hxx"
 
 
 using namespace std;
@@ -22,7 +22,7 @@ private:
 
 class Connection_BB
 {
-	friend class Solver;
+	friend class Solver<double>;
 
 public:
 
@@ -35,8 +35,8 @@ public:
 	// Active Conn & Active Bulk
 	// init
 	void setup(const Grid& myGrid, const Bulk& myBulk);
-	void initSize(const Grid& myGrid);
-	void initActive(const Grid& myGrid);
+	void initSize(const Bulk& myBulk);
+	void initActive(const Grid& myGrid, int np);
 	void getIteratorActive();
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);
 	double calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
@@ -45,9 +45,12 @@ public:
 	void massConserve(Bulk& myBulk);
 
 	// Assemble Mat
-	void allocateMat(Solver& mySolver);
-	void initAssembleMat(Solver& mySolver);
-	void assembleMat(Solver& mySolver, const Bulk& myBulk);
+	template<typename T>
+	void allocateMat(Solver<T>& mySolver);
+	template<typename T>
+	void initAssembleMat(Solver<T>& mySolver);
+
+	void assembleMat(Solver<double>& mySolver, const Bulk& myBulk, double dt);
 
 
 private:
@@ -65,7 +68,23 @@ private:
 	std::vector<double>				Upblock_Rho;			// rhoj in flux
 	std::vector<double>				Upblock_Trans;
 	std::vector<double>				Upblock_Velocity;
-
-	// Well to Bulk
-	int								WellNum;
 };
+
+
+template<typename T>
+void Connection_BB::allocateMat(Solver<T>& MySolver)
+{
+	for (int n = 0; n < ActiveBulkNum; n++) {
+		MySolver.RowCapacity[n] += NeighborNum[n];
+	}
+}
+
+template<typename T>
+void Connection_BB::initAssembleMat(Solver<T>& mySolver)
+{
+	mySolver.Dim = ActiveBulkNum;
+	for (int n = 0; n < ActiveBulkNum; n++) {
+		mySolver.ColId[n].assign(Neighbor[n].begin(), Neighbor[n].end());
+		mySolver.DiagPtr[n] = SelfPtr[n];
+	}
+}

@@ -18,6 +18,8 @@ public:
 	double				MaxRate;		
 	double				MaxBHP;	
 	double				MinBHP;
+
+	vector<double>		Zi;
 };
 
 class WellOptPair

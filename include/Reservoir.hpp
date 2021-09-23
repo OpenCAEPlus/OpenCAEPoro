@@ -8,16 +8,24 @@
 
 class Reservoir
 {
+	friend class OpenCAEPoro;
 	friend class Summary;
 public:
 
 	void inputParam(ParamRead& param);
 	void setup();
 
+	void init();
+
+	double calCFL(double dt);
 	// assemble mat
-	void allocateMat(Solver& mySolver);
-	void initAssembleMat(Solver& mySolver);
-	void assembleMat(Solver& mysolver);
+	template<typename T>
+	void allocateMat(Solver<T>& mySolver);
+
+	template<typename T>
+	void initAssembleMat(Solver<T>& mySolver);
+
+	void assembleMat(Solver<double>& mysolver, double dt);
 
 
 private:
@@ -26,3 +34,21 @@ private:
 	WellGroup				wellgroup;
 	Connection_BB			conn;
 };
+
+
+// allocate memory
+template<typename T>
+void Reservoir::allocateMat(Solver<T>& mySolver)
+{
+	mySolver.allocate(conn.getActiveBulkNum() + wellgroup.getWellNum());
+	conn.allocateMat(mySolver);
+	wellgroup.allocateMat(mySolver);
+	mySolver.allocateColVal();
+}
+
+template<typename T>
+void Reservoir::initAssembleMat(Solver<T>& mySolver)
+{
+	// initialize ColId and DiagPtr
+	conn.initAssembleMat(mySolver);
+}

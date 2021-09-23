@@ -49,7 +49,7 @@ void CAEControl::inputParam(ParamControl& CtrlParam)
 		exit(0);
 	}
 	LinearSolve = CtrlParam.LinearSolve;
-
+	CriticalTime = CtrlParam.CriticalTime;
 
 	int t = CtrlParam.CriticalTime.size();
 	CtrlTimeSet.resize(t);
@@ -78,4 +78,16 @@ void CAEControl::ApplyControl(int i)
 	CtrlTime = CtrlTimeSet[i];
 	CtrlError = CtrlErrorSet[i];
 	CtrlIter = CtrlIterSet[i];
+}
+
+
+void CAEControl::initTime(int i)
+{
+	double dt = CriticalTime[i + 1] - Current_time;
+	if (dt < 0) {
+		ERRORcheck("Wrong Time Step");
+		exit(0);
+	}
+	Current_dt = min(Current_dt, CtrlTime.TimeInit);
+	Current_dt = min(Current_dt, dt);
 }

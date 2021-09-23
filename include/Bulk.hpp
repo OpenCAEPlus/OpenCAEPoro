@@ -30,6 +30,8 @@ class Bulk
 
 public:
 	Bulk() = default;
+	
+	int getBulkNum() { return Num; }
 
 	void inputParam(ParamReservoir& rs_param);
 	void setup(const Grid& myGrid);
@@ -45,10 +47,12 @@ public:
 	// relative permeability and capillary pressure
 	void calKrPc();
 	// Rock
-	void calporo();
+	void calVporo();
 
 	// get flash -- pass it to well
 	std::vector<Mixture*>& getMixture() { return Flashcal; }
+
+	int mixMode();
 
 private:
 	int						Num;			// num of active bulk
@@ -59,6 +63,7 @@ private:
 	double					T;				// temperature : Num
 	std::vector<double>		Pbub;			// buble point pressere: Num
 	std::vector<double>		P;				// pressure: Num
+	std::vector<double>		Pj;				// phase pressure: Np*Num		
 	std::vector<double>		Pc;				// capillary pressure of phase: Np*Num
 	std::vector<bool>		PhaseExist;		// existence of phase 
 	std::vector<double>		Ni;				// molar of ith component in bulk: NC*Num
@@ -76,8 +81,10 @@ private:
 
 
 	std::vector<double>		InitZi;			// initial component for EoS : Nc - 1
+	int						PVTmode;
 	std::vector<int>		PVTNUM;
 	std::vector<Mixture*>	Flashcal;
+	int						SATmode;
 	std::vector<int>		SATNUM;
 	std::vector<FlowUnit*>	Flow;
 
@@ -91,9 +98,11 @@ private:
 	std::vector<double>		Dz;					// dz
 	std::vector<double>		Depth;				// depth: Num
 	std::vector<double>		Ntg;				// Ntg: Num
-	std::vector<double>		Rock_V;				// Vgrid * ntg
-	std::vector<double>		Rock_Poro;			// current porosity
-	std::vector<double>		Rock_PoroInit;		// initial porosity
+	std::vector<double>		Rock_VpInit;		// Vgrid * ntg * poro_init
+	std::vector<double>		Rock_Vp;			// Vgrid * ntg * poro
+
+	//std::vector<double>		Rock_Poro;			// current porosity
+	//std::vector<double>		Rock_PoroInit;		// initial porosity
 	double					Rock_Pref;
 	double					Rock_C1;
 	double					Rock_C2;

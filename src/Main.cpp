@@ -21,15 +21,15 @@ int main()
 #endif
 	
 	ParamRead rp;
-	rp.getDirAndName(myfile);
-	rp.init();
-	rp.readFile(myfile);
-	rp.checkParam();
-	cout << "Done !" << endl;
+	rp.readInputFile(myfile);
 
 	OpenCAEPoro simulator;
 	simulator.inputParam(rp);
 	simulator.setup();
+	simulator.allocateMat();
+
+	simulator.init();
+	simulator.run();
 
 
 	return 0;

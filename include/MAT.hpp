@@ -2,17 +2,16 @@
 #include<vector>
 
 // CSRX
+template <typename T>
 class MAT
 {
-	friend class Solver;
 public:
 	void clearData();
 
-private:
 	int						NRow;
 	int						NCol;
 	int						Nnz;		
-	std::vector<double>		Val;		
+	std::vector<T>			Val;		
 	std::vector<int>		ColId;
 	std::vector<int>		RowPtr;
 	std::vector<int>		DiagPtr;

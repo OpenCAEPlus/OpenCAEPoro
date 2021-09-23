@@ -7,6 +7,16 @@ BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
 	Np = rs_param.Np;
 	Nc = rs_param.Nc;
 
+	Ni.resize(Nc);
+	PhaseExist.resize(Np);
+	V.resize(Np);
+	S.resize(Np);
+	Xi.resize(Np);
+	Cij.resize(Np * Nc);
+	Rho.resize(Np);
+	Mu.resize(Np);
+	Vfi.resize(Nc);
+
 	if (rs_param.Density.activity) {
 		Std_RhoO = rs_param.Density.data[0];
 		Std_RhoW = rs_param.Density.data[1];
@@ -102,6 +112,38 @@ void BOMixture::BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore
 
 }
 
+double BOMixture::xiPhase(double Pin, double T, double* Ziin)
+{
+	switch (Mode)
+	{
+	case PHASE_W:
+		break;
+	case PHASE_OW:
+		break;
+	case PHASE_OGW:
+		return xiPhase_OGW(Pin, Ziin);
+		break;
+	default:
+		break;
+	}
+}
+
+double BOMixture::rhoPhase(double Pin, double T, double* Ziin)
+{
+	switch (Mode)
+	{
+	case PHASE_W:
+		break;
+	case PHASE_OW:
+		break;
+	case PHASE_OGW:
+		return rhoPhase_OGW(Pin, Ziin);
+		break;
+	default:
+		break;
+	}
+}
+
 
 double BOMixture::gammaPhaseO(double Pin, double Pbbin)
 {
@@ -142,7 +184,7 @@ double BOMixture::gammaPhaseG(double Pin)
 	if (PVDG.isempty()) {
 		ERRORcheck("PVDG is missing");
 	}
-	double bg = (CONV1 / 1000) * PVDG.eval(0, P, 1);
+	double bg = (CONV1 / 1000) * PVDG.eval(0, Pin, 1);
 
 	return Std_GammaG / bg;
 }
