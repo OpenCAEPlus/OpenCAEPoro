@@ -1,10 +1,15 @@
 #pragma once
 #include <string>
+#include <iostream>
+#include <fstream>
+using namespace std;
+
 #include "MAT.hxx"
 #include "fasp.h"
+extern "C"
+{
 #include "fasp_functs.h"
-
-using namespace std;
+}
 
 template <typename T>
 class Solver
@@ -12,11 +17,12 @@ class Solver
 	friend class OpenCAEPoro;
 	friend class Connection_BB;
 	friend class Well;
+
 public:
 	void allocate(int dimMax);
 	void allocateColVal();
 
-	void initSolver(string& dir, string& file);
+	void initSolver(string &dir, string &file);
 	// FASP
 	void init_param_Fasp();
 	void read_param_Fasp();
@@ -24,37 +30,35 @@ public:
 	void free_Fasp();
 	void showMat_CSR(string fileA, string fileb);
 
-
 	void clearData();
 
 private:
-	int									MaxDim;
-	int									Dim;
+	int MaxDim;
+	int Dim;
 	// for Mat assemble
-	std::vector<int>					RowCapacity;
-	std::vector<std::vector<int>>		ColId;
-	std::vector<std::vector<T>>			Val;
-	std::vector<int>					DiagPtr;
-	std::vector<T>						DiagVal;  // just for assembling: intermediate variable
+	std::vector<int> RowCapacity;
+	std::vector<std::vector<int>> ColId;
+	std::vector<std::vector<T>> Val;
+	std::vector<int> DiagPtr;
+	std::vector<T> DiagVal; // just for assembling: intermediate variable
 
-	std::vector<T>						b;
-	std::vector<T>						u;
+	std::vector<T> b;
+	std::vector<T> u;
 
 	// for FASP solver
-	string								SolveDir;
-	string								SolveFile;
-	dCSRmat								A_Fasp;
-	dvector								b_Fasp;
-	dvector								x_Fasp;
+	string SolveDir;
+	string SolveFile;
+	dCSRmat A_Fasp;
+	dvector b_Fasp;
+	dvector x_Fasp;
 
-	input_param							inparam;  // parameters from input files
-	ITS_param							itparam;  // parameters for itsolver    
+	input_param inparam; // parameters from input files
+	ITS_param itparam;	 // parameters for itsolver
 
-	AMG_param							amgparam; // parameters for AMG
-	ILU_param							iluparam; // parameters for ILU
-	SWZ_param							swzparam; // parameters for Schwarz method 
+	AMG_param amgparam; // parameters for AMG
+	ILU_param iluparam; // parameters for ILU
+	SWZ_param swzparam; // parameters for Schwarz method
 };
-
 
 template <typename T>
 void Solver<T>::allocate(int dimMax)
@@ -72,17 +76,18 @@ void Solver<T>::allocate(int dimMax)
 template <typename T>
 void Solver<T>::allocateColVal()
 {
-	for (int n = 0; n < MaxDim; n++) {
+	for (int n = 0; n < MaxDim; n++)
+	{
 		ColId[n].reserve(RowCapacity[n]);
 		Val[n].reserve(RowCapacity[n]);
 	}
 }
 
-
 template <typename T>
 void Solver<T>::clearData()
 {
-	for (int i = 0; i < MaxDim; i++) {
+	for (int i = 0; i < MaxDim; i++)
+	{
 		ColId[i].clear();
 		Val[i].clear();
 	}
@@ -90,7 +95,6 @@ void Solver<T>::clearData()
 	DiagVal.resize(MaxDim, 0);
 	b.resize(MaxDim, 0);
 }
-
 
 template <typename T>
 void Solver<T>::assemble_Fasp()
@@ -102,20 +106,23 @@ void Solver<T>::assemble_Fasp()
 	x_Fasp.val = u.data();
 	// A
 	int nnz = 0;
-	for (int i = 0; i < Dim; i++) {
+	for (int i = 0; i < Dim; i++)
+	{
 		nnz += ColId[i].size();
 	}
 	A_Fasp = fasp_dcsr_create(Dim, Dim, nnz);
 	// IA
-	
+
 	int count = 0;
-	for (int i = 1; i < Dim + 1; i++) {
+	for (int i = 1; i < Dim + 1; i++)
+	{
 		int nnz_Row = ColId[i - 1].size();
 		A_Fasp.IA[i] = A_Fasp.IA[i - 1] + nnz_Row;
 
-		for (int j = 0; j < nnz_Row; j++) {
-			A_Fasp.JA[count]	= ColId[i - 1][j];
-			A_Fasp.val[count]	= Val[i - 1][j];
+		for (int j = 0; j < nnz_Row; j++)
+		{
+			A_Fasp.JA[count] = ColId[i - 1][j];
+			A_Fasp.val[count] = Val[i - 1][j];
 			count++;
 		}
 	}
@@ -137,36 +144,34 @@ void Solver<T>::showMat_CSR(string fileA, string fileb)
 	// csr format
 	ofstream outA(FileA);
 	if (!outA.is_open())
-	    cout << "Can not open " << FileA << endl;
+		cout << "Can not open " << FileA << endl;
 	outA << A_Fasp.row << endl;
 	int nnz0 = A_Fasp.nnz;
 	for (int i = 0; i < A_Fasp.row + 1; i++)
-	    outA << A_Fasp.IA[i]+1 << endl;
+		outA << A_Fasp.IA[i] + 1 << endl;
 	for (int i = 0; i < nnz0; i++)
-	    outA << A_Fasp.JA[i]+1 << endl;
+		outA << A_Fasp.JA[i] + 1 << endl;
 	for (int i = 0; i < nnz0; i++)
-	    outA << A_Fasp.val[i] << endl;
+		outA << A_Fasp.val[i] << endl;
 	outA.close();
 	// out rhs
 	ofstream outb(Fileb);
 	if (!outb.is_open())
-	    cout << "Can not open " << Fileb << endl;
+		cout << "Can not open " << Fileb << endl;
 	outb << b_Fasp.row << endl;
 	for (int i = 0; i < b_Fasp.row; i++)
-	    outb << b_Fasp.val[i] << endl;
+		outb << b_Fasp.val[i] << endl;
 	outb.close();
 }
 
-
 template <typename T>
-void Solver<T>::initSolver(string& dir, string& file)
+void Solver<T>::initSolver(string &dir, string &file)
 {
 	SolveDir = dir;
 	SolveFile = file;
 #ifdef __SOLVER_FASP__
 	read_param_Fasp();
 #endif //  __SOLVER_FASP__
-
 }
 
 template <typename T>
@@ -175,21 +180,25 @@ void Solver<T>::read_param_Fasp()
 	string file = SolveDir + SolveFile;
 	init_param_Fasp(); // Set default solver parameters
 	std::ifstream ifs(file);
-	if (!ifs.is_open()) {
+	if (!ifs.is_open())
+	{
 		std::cout << "The input file " << file << " is missing!" << std::endl;
 		file = SolveDir + "../conf/csr.dat";
 		ifs.open(file);
-		if (!ifs.is_open()) {
+		if (!ifs.is_open())
+		{
 			std::cout << "The input file " << file << " is missing!" << std::endl;
 			std::cout << "Using the default parameters of FASP" << std::endl;
 		}
-		else {
+		else
+		{
 			ifs.close();
 			std::cout << "Using the input file " << file << std::endl;
 			fasp_param_input(file.data(), &inparam);
 		}
 	}
-	else {
+	else
+	{
 		ifs.close(); // if file has been opened, close it first
 		fasp_param_input(file.data(), &inparam);
 	}
@@ -197,7 +206,8 @@ void Solver<T>::read_param_Fasp()
 }
 
 template <typename T>
-void Solver<T>::init_param_Fasp() {
+void Solver<T>::init_param_Fasp()
+{
 	// Input/output
 	inparam.print_level = PRINT_MIN;
 	inparam.output_type = 0;

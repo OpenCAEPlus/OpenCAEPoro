@@ -6,6 +6,9 @@ project(OpenCAEPoro)
 # set C++ standard
 set(CMAKE_CXX_STANDARD 14)
 
+# Set module lookup path
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
+
 # flag
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
 
@@ -15,6 +18,33 @@ include_directories(${PROJECT_SOURCE_DIR}/include/)
 # Find source code from src
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.cxx)
 
-# OpenCAEPoro
-add_executable(OpenCAEPoro ${SRC_FILES})
+# Find FASP, requires faspsolver and fasp4blkoil     
+find_package(FASP4BLKOIL REQUIRED)
+if(FASP4BLKOIL_FOUND)
+    include_directories(${FASP_INCLUDE_DIRS})
+    include_directories(${FASP4BLKOIL_INCLUDE_DIRS})
+    set(CMAKE_REQUIRED_INCLUDES ${FASP_INCLUDE_DIRS})
+    set(CMAKE_REQUIRED_INCLUDES ${FASP4BLKOIL_INCLUDE_DIRS})
+    add_definitions(-D__SOLVER_FASP__) 
+else(FASP4BLKOIL_FOUND)
+    message("   ERROR: FASP4BLKOIL was requested but not supported!")
+endif(FASP4BLKOIL_FOUND)
 
+# Optional external libraries, including direct solvers
+include(external)
+
+# The OpenCAEPoro library target
+add_library(OpenCAEPoro STATIC ${SRC_FILES})
+
+# Main executable target: testOpenCAEPoro
+add_executable(testOpenCAEPoro ${SRC_FILES})
+target_link_libraries(testOpenCAEPoro
+                      ${FASP4BLKOIL_LIBRARIES}
+                      ${FASP_LIBRARIES}
+                      ${LAPACK_LIBRARIES}
+                      ${BLAS_LIBRARIES} 
+                      ${UMFPACK_LIBRARIES} 
+                      ${SUPERLU_LIBRARIES} 
+                      ${MUMPS_LIBRARIES}
+                      ${MKL_LIBRARIES}
+                      ${ADD_STDLIBS})
