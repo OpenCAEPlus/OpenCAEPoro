@@ -49,9 +49,12 @@ public:
 	void calInjdG(const Bulk& myBulk);
 	void calProddG(const Bulk& myBulk);
 
-	// calculate rate -- zi, uesd to check well opt mode
-	double calInjRate_blk(const Bulk& myBulk);
+	// calculate rate -- zi, uesd to check well opt mode and calculate well rate
+	double calInjRate_blk(const Bulk& myBulk, int flag = 0);
 	double calProdRate_blk(const Bulk& myBulk);
+	void calProdqi_blk(const Bulk& myBulk);
+
+
 
 	// check optmode
 	void checkOptMode(const Bulk& myBulk);
@@ -84,6 +87,7 @@ private:
 	std::vector<double>			dG;
 
 	// production rate and injection rate
+	std::vector<double>			Qi_lbmol;
 	double						WOPR;
 	double						WGPR;
 	double						WWPR;

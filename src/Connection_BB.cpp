@@ -261,9 +261,10 @@ void Connection_BB::massConserve(Bulk& myBulk)
 			if (!myBulk.PhaseExist[uId * np + j])
 				continue;
 
+			int uId_np_j = uId * np + j;
 			double phaseVelocity = Upblock_Velocity[c * np + j];
 			for (int i = 0; i < nc; i++) {
-				double dNi = phaseVelocity * myBulk.Xi[uId * np + j] * myBulk.Cij[uId * np * nc + j * nc + i];
+				double dNi = phaseVelocity * myBulk.Xi[uId_np_j] * myBulk.Cij[uId_np_j * nc + i];
 				myBulk.Ni[eId * nc + i] += dNi;
 				myBulk.Ni[bId * nc + i] -= dNi;
 			}

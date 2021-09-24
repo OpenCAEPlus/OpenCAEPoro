@@ -53,6 +53,7 @@ void WellGroup::setupWell(Grid& myGrid, Bulk& myBulk)
 
 void WellGroup::setupMixture(Bulk& myBulk)
 {
+
 	Flashcal = myBulk.getMixture();
 	cout << "WellGroup::setupMixture" << endl;
 }
@@ -128,6 +129,25 @@ void WellGroup::getP_IMPES(vector<double>& u, int bid)
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
 			WellG[w].BHP = u[bid + w];
+		}
+	}
+}
+
+void WellGroup::calIPRT(const Bulk& myBulk)
+{
+	for (int w = 0; w < WellNum; w++) {
+		WellG[w].WGIR = 0;
+		WellG[w].WWIR = 0;
+		WellG[w].WOPR = 0;
+		WellG[w].WGPR = 0;
+		WellG[w].WWPR = 0;
+		if (WellG[w].WellState()) {
+			if (WellG[w].WellType() == PROD) {
+				WellG[w].calProdqi_blk(myBulk);
+			}
+			else {
+
+			}
 		}
 	}
 }
