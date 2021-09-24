@@ -40,8 +40,8 @@ void OpenCAEPoro::SolveP(double dt)
 	solver.free_Fasp();
 	
 #endif // __SOLVER_FASP__
+	reservoir.getP_IMPES(solver.getSol());
 	solver.clearData();
-	
 }
 
 void OpenCAEPoro::run()
@@ -66,6 +66,7 @@ void OpenCAEPoro::runIMPES(double& dt)
 		reservoir.wellgroup.prepareWell(reservoir.bulk);
 		reservoir.calCFL(dt);
 		SolveP(dt);
+
 		cout << "stop" << endl;
 	}
 	

@@ -122,3 +122,12 @@ void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, dou
 		}
 	}
 }
+
+void WellGroup::getP_IMPES(vector<double>& u, int bid)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			WellG[w].BHP = u[bid + w];
+		}
+	}
+}

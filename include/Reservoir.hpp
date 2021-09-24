@@ -26,7 +26,7 @@ public:
 	void initAssembleMat(Solver<T>& mySolver);
 
 	void assembleMat(Solver<double>& mysolver, double dt);
-	void getP_IMPES(Solver<double>& mysolver);
+	void getP_IMPES(vector<double>& u);
 
 private:
 	Grid					grid;

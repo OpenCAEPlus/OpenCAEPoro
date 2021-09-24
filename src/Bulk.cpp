@@ -952,7 +952,8 @@ int Bulk::mixMode()
 		return EoS_PVTW;
 }
 
-void Bulk::getP_IMPES(Solver<double>& mysolver)
+void Bulk::getP_IMPES(vector<double>& u)
 {
-	
+	for (int n = 0; n < Num; n++)
+		P[n] = u[n];
 }

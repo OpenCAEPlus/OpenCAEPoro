@@ -56,7 +56,7 @@ public:
 	int mixMode();
 
 	// solver
-	void getP_IMPES(Solver<double>& mysolver);
+	void getP_IMPES(vector<double>& u);
 
 private:
 	int						Num;			// num of active bulk

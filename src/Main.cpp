@@ -14,6 +14,7 @@ int& test(int& a) {
 
 int main(int argc, const char* argv[])
 {
+
 	if (argc == 1) {
 		cout << "Input file is missing. Usage: ./OpenCAEPoro <filename>" << endl;
 		exit(0);
