@@ -1,7 +1,8 @@
 #include "ParamControl.hpp"
 
-void ParamControl::init()
+void ParamControl::init(string& dir)
 {
+	Dir = dir;
 	initMethod();
 	initTime();
 	initTuning();

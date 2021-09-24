@@ -2,7 +2,7 @@
 
 void WellGroup::inputParam(ParamWell& Well_param)
 {
-	WellNum = Well_param.WellNum;
+	WellNum = Well_param.well.size();
 	WellG.resize(WellNum);
 	int t = Well_param.CriticalTime.size();
 	vector<int>		wellCriticalTime;

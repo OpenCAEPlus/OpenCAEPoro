@@ -84,7 +84,7 @@
     <ClInclude Include="include\Solver.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\MAT.hpp">
+    <ClInclude Include="include\MAT.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -152,5 +152,8 @@
     <ClCompile Include="src\CAEOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

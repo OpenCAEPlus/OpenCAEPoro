@@ -24,7 +24,7 @@ public:
 
 	void readInputFile(string& file);
 	void getDirAndName(string& file);
-	void readFile(string& file);
+	void readFile(string file);
 
 	// init
 	void init();

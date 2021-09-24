@@ -61,7 +61,6 @@ class ParamWell
 {
 public:
 
-	int								WellNum;
 	std::vector<WellParam>			well;
 	std::vector<double>				CriticalTime;
 

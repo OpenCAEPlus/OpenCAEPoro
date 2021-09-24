@@ -3,7 +3,7 @@
 
 // CSRX
 template <typename T>
-class MAT
+class MAT_Faspxx
 {
 public:
 	void clearData();
@@ -18,10 +18,4 @@ public:
 
 };
 
-//void MAT::clearData()
-//{
-//	Val.clear();		
-//	ColId.clear();
-//	RowPtr.clear();		
-//	DiagPtr.clear();
-//}
+

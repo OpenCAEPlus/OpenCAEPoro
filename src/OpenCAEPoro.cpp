@@ -27,12 +27,21 @@ void OpenCAEPoro::allocateMat()
 void OpenCAEPoro::init()
 {
 	reservoir.init();
+	solver.initSolver(control.Dir, control.SolveFile);
 }
 
 void OpenCAEPoro::SolveP(double dt)
 {
 	reservoir.assembleMat(solver, dt);
+#ifdef __SOLVER_FASP__
+	
+	solver.assemble_Fasp();
+	solver.showMat_CSR("testA.dat", "testb.dat");
+	solver.free_Fasp();
+	
+#endif // __SOLVER_FASP__
 	solver.clearData();
+	
 }
 
 void OpenCAEPoro::run()

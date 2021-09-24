@@ -240,8 +240,8 @@ void ParamWell::checkParam()
 }
 void ParamWell::checkPerf()
 {
-	WellNum = well.size();
-	for (int w = 0; w < WellNum; w++) {
+	int wellnum = well.size();
+	for (int w = 0; w < wellnum; w++) {
 		if ((well[w].I != well[w].I_perf) || (well[w].J != well[w].J_perf)) {
 			Paramcheck("This situation have not been supported!");
 			exit(0);

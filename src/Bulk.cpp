@@ -951,3 +951,8 @@ int Bulk::mixMode()
 	if (COMPS)
 		return EoS_PVTW;
 }
+
+void Bulk::getP_IMPES(Solver<double>& mysolver)
+{
+	
+}

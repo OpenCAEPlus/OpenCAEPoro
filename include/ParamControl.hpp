@@ -17,13 +17,14 @@ class ParamControl
 {
 public:
 
+	string									Dir;
 	string									Method;
 	string									LinearSolve;
 	vector<TuningPair>						Tuning_T;
 	TUNING									Tuning;
 	vector<double>							CriticalTime;
 	
-	void init();
+	void init(string& dir);
 	void initTime() { CriticalTime.push_back(0); };
 	void initMethod();
 	void initTuning();

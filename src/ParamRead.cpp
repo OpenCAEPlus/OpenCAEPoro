@@ -13,7 +13,7 @@ void ParamRead::init()
 {
 	Rs_param.init();
 	Well_param.init();
-	Control_param.init();
+	Control_param.init(FileDir);
 }
 
 void ParamRead::getDirAndName(string& file)
@@ -31,7 +31,7 @@ void ParamRead::getDirAndName(string& file)
 #endif
 }
 
-void ParamRead::readFile(string& file)
+void ParamRead::readFile(string file)
 {
 	ifstream ifs(file, ios::in);
 	if (!ifs) {
@@ -201,7 +201,6 @@ void ParamRead::inputINCLUDE(ifstream& ifs)
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
 	DealDefault(vbuf);
-
 	readFile(FileDir + vbuf[0]);
 
 }

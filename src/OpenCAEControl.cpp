@@ -38,6 +38,7 @@ ControlIter::ControlIter(vector<double>& src)
 
 void CAEControl::inputParam(ParamControl& CtrlParam)
 {
+	Dir = CtrlParam.Dir;
 	if (CtrlParam.Method == "IMPES") {
 		Method = IMPES;
 	}
@@ -48,7 +49,7 @@ void CAEControl::inputParam(ParamControl& CtrlParam)
 		ERRORcheck("Wrong Method !");
 		exit(0);
 	}
-	LinearSolve = CtrlParam.LinearSolve;
+	SolveFile = CtrlParam.LinearSolve;
 	CriticalTime = CtrlParam.CriticalTime;
 
 	int t = CtrlParam.CriticalTime.size();

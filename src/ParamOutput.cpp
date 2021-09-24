@@ -29,7 +29,7 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 			break;
 
 		case Map_str2int("FGPT", 4):
-			Summary.FGPT = true;
+			Summary.FGPt = true;
 			break;
 
 		case Map_str2int("FWPR", 4):

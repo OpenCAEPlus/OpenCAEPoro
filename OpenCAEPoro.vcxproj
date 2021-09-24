@@ -23,7 +23,7 @@
     <ClInclude Include="include\Bulk.hpp" />
     <ClInclude Include="include\CAEOutput.hpp" />
     <ClInclude Include="include\Connection_BB.hpp" />
-    <ClInclude Include="include\MAT.hpp" />
+    <ClInclude Include="include\MAT.hxx" />
     <ClInclude Include="include\OpenCAEControl.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\Grid.hpp" />
@@ -66,6 +66,9 @@
     <ClCompile Include="src\Timing.cxx" />
     <ClCompile Include="src\Well.cpp" />
     <ClCompile Include="src\WellGroup.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -149,11 +152,16 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\FASP\faspsolver\base\include;..\..\FASP\fasp4blkoil\include;.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_LIB;__SOLVER_FASP__;_DEBUG;WIN32;_CONSOLE;</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>..\..\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FASP.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

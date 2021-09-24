@@ -5,6 +5,7 @@
 #include "Mixture.hpp"
 #include "BOMixture.hpp"
 #include "FlowUnit.hpp"
+#include "Solver.hxx"
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamReservoir.hpp"
 
@@ -53,6 +54,9 @@ public:
 	std::vector<Mixture*>& getMixture() { return Flashcal; }
 
 	int mixMode();
+
+	// solver
+	void getP_IMPES(Solver<double>& mysolver);
 
 private:
 	int						Num;			// num of active bulk

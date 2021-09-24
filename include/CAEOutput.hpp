@@ -54,7 +54,7 @@ private:
 	bool		FOPR{ false };
 	bool		FOPT{ false };
 	bool		FGPR{ false };
-	bool		FGPT{ false };
+	bool		FGPt{ false };
 	bool		FWPR{ false };
 	bool		FWPT{ false };
 	bool		FGIR{ false };

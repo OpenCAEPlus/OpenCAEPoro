@@ -6,7 +6,7 @@ void Summary::inputParam(OutputSummary& summary_param)
 	FOPR = summary_param.FOPR;
 	FOPT = summary_param.FOPT;
 	FGPR = summary_param.FGPR;
-	FGPT = summary_param.FGPT;
+	FGPt = summary_param.FGPt;
 	FWPR = summary_param.FWPR;
 	FWPT = summary_param.FWPT;
 	FGIR = summary_param.FGIR;
@@ -46,7 +46,7 @@ void Summary::setup(Reservoir& reservoir)
 		Sumdata.push_back(SumPair("FOPT", "  ", "STB"));
 	if (FGPR)
 		Sumdata.push_back(SumPair("FGPR", "  ", "MSCF/DAY"));
-	if (FGPT)
+	if (FGPt)
 		Sumdata.push_back(SumPair("FGPT", "  ", "MSCF"));
 	if (FWPR)
 		Sumdata.push_back(SumPair("FWPR", "  ", "STB/DAY"));

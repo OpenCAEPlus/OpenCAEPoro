@@ -61,8 +61,9 @@ public:
 
 private:
 
+	string						Dir;
 	int							Method;
-	string						LinearSolve;
+	string						SolveFile;
 	vector<double>				CriticalTime;
 	double						Current_dt{ 1E5 };
 	double						Current_time{ 0 };
