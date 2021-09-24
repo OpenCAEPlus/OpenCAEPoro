@@ -134,6 +134,39 @@ void Bulk::setup(const Grid& myGrid)
 
 	lP = P;
 	lNi = Ni;
+
+	if (BLACKOIL) {
+		switch (PVTmode)
+		{
+		case PHASE_W:
+			PhaseLabel.resize(1);
+			PhaseLabel[0] = WATER;
+			break;
+		case PHASE_OW:
+			PhaseLabel.resize(2);
+			PhaseLabel[0] = OIL;
+			PhaseLabel[1] = WATER;
+			break;
+		case PHASE_OG:
+			PhaseLabel.resize(2);
+			PhaseLabel[0] = OIL;
+			PhaseLabel[1] = GAS;
+			break;
+		case PHASE_GW:
+			PhaseLabel.resize(2);
+			PhaseLabel[0] = GAS;
+			PhaseLabel[1] = WATER;
+			break;
+		case PHASE_OGW:
+			PhaseLabel.resize(3);
+			PhaseLabel[0] = OIL;
+			PhaseLabel[1] = GAS;
+			PhaseLabel[2] = WATER;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Bulk::initSjPc_blk(int tabrow)

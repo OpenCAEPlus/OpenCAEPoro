@@ -126,6 +126,7 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 		exit(0);
 	}
 
+	Qi_lbmol.resize(myBulk.Nc);
 	// perf
 	PerfNum = K2 - K1 + 1;
 	dG.resize(PerfNum, 0);
@@ -497,7 +498,7 @@ void Well::calProddG(const Bulk& myBulk)
 					double qj = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * dP * xi;
 					double xij;
 					for (int i = 0; i < nc; i++) {
-						xij = myBulk.Cij[n * np * nc + j * nc + i];
+						xij = myBulk.Cij[id * nc + i];
 						Perf[p].qi_lbmol[i] += qj *  xij;
 					}
 				}
@@ -556,7 +557,7 @@ void Well::calProddG(const Bulk& myBulk)
 					double qj = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * dP * xi;
 					double xij;
 					for (int i = 0; i < nc; i++) {
-						xij = myBulk.Cij[n * np * nc + j * nc + i];
+						xij = myBulk.Cij[id * nc + i];
 						Perf[p].qi_lbmol[i] += qj * xij;
 					}
 				}
@@ -593,15 +594,23 @@ void Well::calProddG(const Bulk& myBulk)
 	}
 }
 
-double Well::calInjRate_blk(const Bulk& myBulk)
+double Well::calInjRate_blk(const Bulk& myBulk, int flag)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
 	double qj = 0;
 
+	double Pwell;
+	if (flag == -1) {
+		Pwell = Opt.MaxBHP;
+	}
+	else {
+		Pwell = BHP;
+	}
+
 	for (int p = 0; p < PerfNum; p++) {
 
-		double Pperf = Opt.MaxBHP + dG[p];
+		double Pperf = Pwell + dG[p];
 		int k = Perf[p].Location;
 
 		double trans = 0;
@@ -635,7 +644,7 @@ double Well::calProdRate_blk(const Bulk& myBulk)
 			if (myBulk.PhaseExist[id]) {	
 				double temp = 0;
 				for (int i = 0; i < nc; i++) {
-					temp += Opt.Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
+					temp += Opt.Zi[i] * myBulk.Cij[id * nc + i];
 				}
 				double kr = myBulk.Kr[id];
 				double mu = myBulk.Mu[id];
@@ -648,10 +657,56 @@ double Well::calProdRate_blk(const Bulk& myBulk)
 	return qj;
 }
 
+void Well::calProdqi_blk(const Bulk& myBulk)
+{
+	int np = myBulk.Np;
+	int nc = myBulk.Nc;
+
+	Qi_lbmol.assign(nc, 0);
+
+	for (int p = 0; p < PerfNum; p++) {
+
+		Perf[p].qi_lbmol.assign(nc, 0);
+		double Pperf = BHP + dG[p];
+		int k = Perf[p].Location;
+
+		for (int j = 0; j < np; j++) {
+			int id = k * np + j;
+			if (myBulk.PhaseExist[id]) {
+				double kr = myBulk.Kr[id];
+				double mu = myBulk.Mu[id];
+				double xi = myBulk.Xi[id];
+				double dP = myBulk.Pj[id] - Pperf;
+				double xij;
+				for (int i = 0; i < nc; i++) {
+					xij = myBulk.Cij[id * nc + i];
+					Perf[p].qi_lbmol[i] += CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * xi * xij * dP;
+				}
+			}
+		}
+		for (int i = 0; i < nc; i++) {
+			Qi_lbmol[i] += Perf[p].qi_lbmol[i];
+		}
+	}
+
+	for (int i = 0; i < nc; i++) {
+		if (myBulk.PhaseLabel[i] == OIL) {
+			WOPR = Qi_lbmol[i];
+			break;
+		}
+		else if (myBulk.PhaseLabel[i] == GAS) {
+			WGPR = Qi_lbmol[i];
+		}
+		else if (myBulk.PhaseLabel[i] == WATER) {
+			WWPR = Qi_lbmol[i];
+		}
+	}
+}
+
 void Well::checkOptMode(const Bulk& myBulk)
 {
 	if (Opt.Type == INJ) {
-		if (calInjRate_blk(myBulk) > Opt.MaxRate) {
+		if (calInjRate_blk(myBulk, -1) > Opt.MaxRate) {
 			Opt.OptMode = RATE_MODE;
 		}
 		else {

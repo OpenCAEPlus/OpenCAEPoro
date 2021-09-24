@@ -23,6 +23,7 @@ public:
 	void checkOptMode(const Bulk& myBulk);
 	void calWelldG(const Bulk& myBulk);
 	void prepareWell(const Bulk& myBulk);
+	void calIPRT(const Bulk& myBulk);
 
 	void assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt);
 	int getWellNum() { return WellNum; }

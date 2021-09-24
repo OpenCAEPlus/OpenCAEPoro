@@ -10,12 +10,14 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 		getline(ifs, buf);
 		if (buf.empty())
 			continue;
-		while (buf[0] == ' ')
+		while (buf[0] == ' ' || buf[0] == '\t' || buf[0] == '\r')
 			buf.erase(0, 1);
-		if (buf.empty() || buf[0] == '#' || (buf[0] == '-' && buf[1] == '-'))
+		if (buf.empty() || buf[0] == '#')
 			continue;
-		else
-			break;
+		if (buf.size() > 1 && (buf[0] == '-' && buf[1] == '-'))
+			continue;
+		
+		break;
 	}
 
 	// file ends

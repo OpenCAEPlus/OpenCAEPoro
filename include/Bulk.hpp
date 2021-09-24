@@ -83,7 +83,7 @@ private:
 	std::vector<double>		Vfi;			// dVt / dNi
 	std::vector<double>		Vfp;			// dVt / dP
 
-
+	vector<int>				PhaseLabel;
 	std::vector<double>		InitZi;			// initial component for EoS : Nc - 1
 	int						PVTmode;
 	std::vector<int>		PVTNUM;
