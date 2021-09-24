@@ -28,6 +28,8 @@ public:
 	int getWellNum() { return WellNum; }
 	string getWellName(int i) { return WellG[i].Name; }
 
+	void getP_IMPES(vector<double>& u, int bid);
+
 private:
 	int							WellNum;
 	std::vector<Well>			WellG;

@@ -1,10 +1,17 @@
 #pragma once
 #include <string>
-#include "MAT.hxx"
-#include "fasp.h"
-#include "fasp_functs.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
+#include "MAT.hxx"
+#include "fasp.h"
+
+extern "C" {
+#include "fasp_functs.h"
+}
+
+
 
 template <typename T>
 class Solver
@@ -25,7 +32,10 @@ public:
 	void showMat_CSR(string fileA, string fileb);
 
 
+
 	void clearData();
+
+	std::vector<T>& getSol() { return u; }
 
 private:
 	int									MaxDim;
