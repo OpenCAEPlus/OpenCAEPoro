@@ -37,6 +37,8 @@ void OpenCAEPoro::SolveP(double dt)
 	
 	solver.assemble_Fasp();
 	solver.showMat_CSR("testA.dat", "testb.dat");
+	solver.faspsolve();
+	solver.showSolution("testx.dat");
 	solver.free_Fasp();
 	
 #endif // __SOLVER_FASP__

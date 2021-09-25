@@ -239,7 +239,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 			mySolver.ColId[wId].push_back(k);
 			mySolver.Val[wId].push_back(-valw);
 			// b
-			mySolver.b[wId] += bw;
+			mySolver.b[wId] -= bw;
 			break;
 		case BHP_MODE:
 			mySolver.ColId[wId].push_back(k);
@@ -262,7 +262,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 	case WRATE_MODE:
 	case LRATE_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(PerfNum);
+		mySolver.ColId[wId].push_back(wId);
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
 		// b
@@ -290,6 +290,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 	int wId = mySolver.Dim;
 	// important !
 	mySolver.Dim++;
+	cout << Name << endl;
 
 	for (int p = 0; p < PerfNum; p++) {
 		int k = Perf[p].Location;
@@ -313,8 +314,8 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 			valw += tempw * trans;
 
 			double dP = dG[p] - myBulk.Pc[k * np + j];
-			bb += valb * dP;
-			bw += valw * dP;
+			bb += tempb * trans * dP;
+			bw += tempw * trans * dP;
 		}
 		double trans = dt * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
 		valb *= trans;
@@ -371,7 +372,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 	case WRATE_MODE:
 	case LRATE_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(PerfNum);
+		mySolver.ColId[wId].push_back(wId);
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
 		// b

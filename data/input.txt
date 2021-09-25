@@ -1,4 +1,5 @@
 NOECHO
+	
 
 RUNSPEC   ===============================================================
 
@@ -2567,14 +2568,6 @@ RPTSCHED
 WELSPECS
 --Well specification data
  'INJE1 '  'G'  24 25  9110  'WATER' /
- 'PROD2 '  'G'   5  1  9110  'OIL' /
- 'PROD3 '  'G'   8  2  9110  'OIL' /
- 'PROD4 '  'G'  11  3  9110  'OIL' /
- 'PROD5 '  'G'  10  4  9110  'OIL' /
- 'PROD6 '  'G'  12  5  9110  'OIL' /
- 'PROD7 '  'G'   4  6  9110  'OIL' /
- 'PROD8 '  'G'   8  7  9110  'OIL' /
- 'PROD9 '  'G'  14  8  9110  'OIL' /
  'PROD10'  'G'  11  9  9110  'OIL' /
  'PROD11'  'G'  12 10  9110  'OIL' /
  'PROD12'  'G'  10 11  9110  'OIL' /
@@ -2585,6 +2578,7 @@ WELSPECS
  'PROD17'  'G'  15 16  9110  'OIL' /
  'PROD18'  'G'  11 17  9110  'OIL' /
  'PROD19'  'G'  12 18  9110  'OIL' /
+ 'PROD2 '  'G'   5  1  9110  'OIL' /
  'PROD20'  'G'   5 19  9110  'OIL' /
  'PROD21'  'G'   8 20  9110  'OIL' /
  'PROD22'  'G'  11 21  9110  'OIL' /
@@ -2592,6 +2586,13 @@ WELSPECS
  'PROD24'  'G'  12 23  9110  'OIL' /
  'PROD25'  'G'  10 24  9110  'OIL' /
  'PROD26'  'G'  17 25  9110  'OIL' /
+ 'PROD3 '  'G'   8  2  9110  'OIL' /
+ 'PROD4 '  'G'  11  3  9110  'OIL' /
+ 'PROD5 '  'G'  10  4  9110  'OIL' /
+ 'PROD6 '  'G'  12  5  9110  'OIL' /
+ 'PROD7 '  'G'   4  6  9110  'OIL' /
+ 'PROD8 '  'G'   8  7  9110  'OIL' /
+ 'PROD9 '  'G'  14  8  9110  'OIL' /
 /
 
 COMPDAT
@@ -2637,7 +2638,7 @@ WCONPROD
 /
 
 TUNING
- 4.0  10.0  0.1    /
+ 0.1  10.0  0.1    /
                   /
   12 2 15         / 
 

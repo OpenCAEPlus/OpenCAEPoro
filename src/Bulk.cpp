@@ -103,8 +103,8 @@ void Bulk::setup(const Grid& myGrid)
 		Rock_VpInit[bIdb] = myGrid.V[bIdg] * myGrid.Ntg[bIdg] * myGrid.Poro[bIdg];
 		// Rock_PoroInit[bIdb] = myGrid.Poro[bIdg];
 		Rock_KxInit[bIdb] = myGrid.Kx[bIdg];
-		Rock_KyInit[bIdb] = myGrid.Kx[bIdg];
-		Rock_KzInit[bIdb] = myGrid.Kx[bIdg];
+		Rock_KyInit[bIdb] = myGrid.Ky[bIdg];
+		Rock_KzInit[bIdb] = myGrid.Kz[bIdg];
 
 		SATNUM[bIdb] = myGrid.SATNUM[bIdg];
 		PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
@@ -560,7 +560,42 @@ void Bulk::initSjPc_blk(int tabrow)
 		}
 		P[n] = Po;
 		lP[n] = Po;
+
+		if (Depth[n] < DOGC) {
+			Pbb = Po;
+		}
+		else if (!EQUIL.PBVD.isempty()) {
+			Pbb = EQUIL.PBVD.eval(0, Depth[n], 1);
+		}	
 		Pbub[n] = Pbb;
+
+		// cal Sg and Sw
+		Sw = 0;
+		Sg = 0;
+		int ncut = 10;
+
+		for (int k = 0; k < ncut; k++) {
+			double tmpSw = 0;
+			double tmpSg = 0;
+			double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+			DepthP.eval_all(0, depth, data, cdata);
+			Po = data[1]; Pg = data[2]; Pw = data[3];
+			Pcow = Po - Pw;	Pcgo = Pg - Po;
+			tmpSw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+			if (!Flow[0]->empty_SGOF()) {
+				tmpSg = Flow[0]->eval_SGOF(3, Pcgo, 0);
+			}
+			if (tmpSw + tmpSg > 1) {
+				// should me modified
+				double Pcgw = Pcow + Pcgo;
+				tmpSw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
+				tmpSg = 1 - tmpSw;
+			}
+			Sw += tmpSw;
+			Sg += tmpSg;
+		}
+		Sw /= ncut;
+		Sg /= ncut;
 		S[n * Np + Np - 1] = Sw;
 		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;

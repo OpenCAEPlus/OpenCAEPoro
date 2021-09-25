@@ -232,8 +232,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
 			}
 			Upblock_Rho[c * np + j] = rho;
 			Upblock[c * np + j] = uId;		
-			double uId_np_j = uId * np + j;
-			// double c_np_j = c * np + j;	
+			int uId_np_j = uId * np + j;
 			double trans = CONV1 * CONV2 * Akd * myBulk.Kr[uId_np_j] / myBulk.Mu[uId_np_j];
 			Upblock_Trans[c * np + j] = trans;
 				
@@ -286,10 +285,24 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
 		P = myBulk.P[n];
 		Vf = myBulk.Vf[n];
 
+		if (n == 8413) {
+			cout << "stop" << endl;
+		}
+
 		double temp = cr * Vp0 - Vfp;
 		mySolver.DiagVal[n] = temp;
 		mySolver.b[n] = temp * P + dt * (Vf - Vp);
 	}
+
+	// check 
+	ofstream outb("testb.dat");
+	if (!outb.is_open())
+		cout << "Can not open " << "testb.dat" << endl;
+	outb << mySolver.Dim << endl;
+	for (int i = 0; i < mySolver.Dim; i++)
+		outb << mySolver.b[i] << endl;
+	outb.close();
+
 	// flux term
 	int bId, eId, uId;
 	int np = myBulk.Np;
@@ -318,9 +331,9 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
 			double temp = myBulk.Xi[uId * np + j] * Upblock_Trans[c * np + j] * dt;
 			valup += temp * valupi;
 			valdown += temp * valdowni;
-			temp = Upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;
-			rhsup += valup * temp;
-			rhsdown += valdown * temp;
+			temp *= Upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;
+			rhsup += temp * valupi;
+			rhsdown -= temp * valdowni;
 
 		}
 
@@ -332,7 +345,7 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
 			lastbId = bId;
 		}
 
-		mySolver.Val[bId][diagptr] += valup ;
+		mySolver.Val[bId][diagptr] += valup;
 		mySolver.Val[bId].push_back(-valup);
 		mySolver.Val[eId].push_back(-valdown);
 		mySolver.DiagVal[eId] += valdown;
