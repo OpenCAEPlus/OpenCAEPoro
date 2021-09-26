@@ -36,13 +36,16 @@ void OpenCAEPoro::SolveP(double dt)
 #ifdef __SOLVER_FASP__
 	
 	solver.assemble_Fasp();
-	solver.showMat_CSR("testA.dat", "testb.dat");
-	solver.faspsolve();
-	solver.showSolution("testx.dat");
+	// solver.showMat_CSR("testA.dat", "testb.dat");
+	int status = solver.faspsolve();
+	// solver.showSolution("testx.dat");
 	solver.free_Fasp();
+
+	control.LS_iter = status;
+	control.LS_iter_total += status;
 	
 #endif // __SOLVER_FASP__
-	reservoir.getP_IMPES(solver.getSol());
+	reservoir.getSol_IMPES(solver.getSol());
 	solver.clearData();
 }
 
@@ -88,5 +91,9 @@ void OpenCAEPoro::runIMPES(double& dt)
 	reservoir.bulk.setLastStep();
 	reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
 
+	control.Tstep += 1;
+	control.NR_iter = 1;
+	control.NR_iter_total += 1;
+	output.setVal(reservoir, control);
 
 }

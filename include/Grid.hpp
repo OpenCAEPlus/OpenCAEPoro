@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "ParamReservoir.hpp"
+#include "OpenCAEControl.hpp"
 
 using namespace std;
 
@@ -23,6 +24,8 @@ public:
 	void calActiveBulk(double e1, double e2);		// fill ActiveMap_B2G and ActiveMap_G2B
 
 	void inputParam(ParamReservoir& rs_param);
+
+	int getIndex(int i, int j, int k);
 
 private:
 	int					Nx;					// num of bulks along x-aixs

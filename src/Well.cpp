@@ -724,7 +724,7 @@ double Well::calProdRate_blk(const Bulk& myBulk)
 	return qj;
 }
 
-void Well::calInjqi_blk(const Bulk& myBulk)
+void Well::calInjqi_blk(const Bulk& myBulk, double dt)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
@@ -744,13 +744,15 @@ void Well::calInjqi_blk(const Bulk& myBulk)
 	}
 	if (Opt.FluidType == WATER) {
 		WWIR = -qj;
+		WWIT += WWIR * dt;
 	}
 	else {
 		WGIR = -qj;
+		WGIT += WGIR * dt;
 	}
 }
 
-void Well::calProdqi_blk(const Bulk& myBulk)
+void Well::calProdqi_blk(const Bulk& myBulk, double dt)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
@@ -783,16 +785,17 @@ void Well::calProdqi_blk(const Bulk& myBulk)
 	for (int i = 0; i < nc; i++) {
 		if (myBulk.PhaseLabel[i] == OIL) {
 			WOPR = Qi_lbmol[i];
-			break;
+			WOPT += WOPR * dt;
 		}
 		else if (myBulk.PhaseLabel[i] == GAS) {
 			WGPR = Qi_lbmol[i];
+			WGPT += WGPR * dt;
 		}
 		else if (myBulk.PhaseLabel[i] == WATER) {
 			WWPR = Qi_lbmol[i];
+			WWPT += WWPR * dt;
 		}
 	}
-	cout << Name << endl;
 }
 
 void Well::checkOptMode(const Bulk& myBulk)

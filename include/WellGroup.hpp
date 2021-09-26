@@ -31,9 +31,35 @@ public:
 
 	void assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt);
 	int getWellNum() { return WellNum; }
-	string getWellName(int i) { return WellG[i].Name; }
+	string& getWellName(int i) { return WellG[i].Name; }
+	int getIndex(string name);
+	// Field
+	double getFOPR() { return FOPR; }
+	double getFOPT() { return FOPT; }
+	double getFGPR() { return FGPR; }
+	double getFGPT() { return FGPt; }
+	double getFWPR() { return FWPR; }
+	double getFWPT() { return FWPT; }
+	double getFGIR() { return FGIR; }
+	double getFGIT() { return FGIT; }
+	double getFWIR() { return FWIR; }
+	double getFWIT() { return FWIT; }
 
-	void getP_IMPES(vector<double>& u, int bid);
+	// Well
+	double getWOPR(int w) { return WellG[w].WOPR; }
+	double getWOPT(int w) { return WellG[w].WOPT; }
+	double getWGPR(int w) { return WellG[w].WGPR; }
+	double getWGPT(int w) { return WellG[w].WGPT; }
+	double getWWPR(int w) { return WellG[w].WWPR; }
+	double getWWPT(int w) { return WellG[w].WWPT; }
+	double getWGIR(int w) { return WellG[w].WGIR; }
+	double getWGIT(int w) { return WellG[w].WGIT; }
+	double getWWIR(int w) { return WellG[w].WWIR; }
+	double getWWIT(int w) { return WellG[w].WWIT; }
+	// BHP
+	double getWBHP(int w) { return WellG[w].BHP; }
+
+	void getSol_IMPES(vector<double>& u, int bid);
 
 private:
 	int							WellNum;

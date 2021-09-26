@@ -140,7 +140,7 @@ void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, dou
 	}
 }
 
-void WellGroup::getP_IMPES(vector<double>& u, int bid)
+void WellGroup::getSol_IMPES(vector<double>& u, int bid)
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
@@ -162,12 +162,13 @@ void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 		WellG[w].WOPR = 0;
 		WellG[w].WGPR = 0;
 		WellG[w].WWPR = 0;
+
 		if (WellG[w].WellState()) {
 			if (WellG[w].WellType() == PROD) {
-				WellG[w].calProdqi_blk(myBulk);
+				WellG[w].calProdqi_blk(myBulk, dt);
 			}
 			else {
-				WellG[w].calInjqi_blk(myBulk);
+				WellG[w].calInjqi_blk(myBulk, dt);
 			}
 		}
 		FGIR += WellG[w].WGIR = 0;
@@ -183,3 +184,14 @@ void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 	FWPT += FWPR * dt;
 }
 
+// return the index of Specified well name
+int WellGroup::getIndex(string name)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].Name == name) {
+			return w;
+		}
+	}
+	ERRORcheck("No such well name!");
+	exit(0);
+}

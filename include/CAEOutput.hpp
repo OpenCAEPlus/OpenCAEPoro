@@ -18,6 +18,7 @@ public:
 	CAETypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
 	bool				activity{ false };
 	vector<string>		obj;
+	vector<int>			index;
 };
 
 class CAETypeB
@@ -26,6 +27,7 @@ public:
 	CAETypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
 	bool				activity{ false };
 	vector<CAEIJK>		obj;
+	vector<int>			index;
 };
 
 class SumPair
@@ -44,7 +46,7 @@ class Summary
 public:
 	void inputParam(OutputSummary& summary_param);
 	void setup(Reservoir& reservoir);
-	void setVal(Reservoir& reservoir);
+	void setVal(Reservoir& reservoir, CAEControl& ctrl);
 
 private:
 
@@ -86,6 +88,7 @@ public:
 
 	void inputParam(ParamOutput& Output_param);
 	void setup(Reservoir& reservoir);
+	void setVal(Reservoir& reservoir, CAEControl& ctrl);
 
 private:
 	Summary		summary;

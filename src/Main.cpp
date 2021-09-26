@@ -8,9 +8,7 @@
 
 using namespace std;
 
-int& test(int& a) {
-	return a;
-}
+
 
 int main(int argc, const char* argv[])
 {

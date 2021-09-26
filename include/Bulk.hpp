@@ -39,7 +39,8 @@ public:
 
 	void initSjPc_blk(int depnum);
 	void initSjPc_comp(int depnum);
-	void setLastStep(){ lP = P; lNi = Ni; }
+	void setLastStep() { lP = P; lNi = Ni; lS = S; }
+	void calMaxChange();
 
 	// Flash
 	void flash_Sj();
@@ -57,7 +58,11 @@ public:
 	int mixMode();
 
 	// solver
-	void getP_IMPES(vector<double>& u);
+	void getSol_IMPES(vector<double>& u);
+
+	// calculate FPR
+	double calFPR();
+	double getP(int n) { return P[n]; }
 
 private:
 	int						Num;			// num of active bulk
@@ -96,6 +101,13 @@ private:
 	// last STEP
 	std::vector<double>		lP;
 	std::vector<double>		lNi;
+	std::vector<double>		lS;
+
+	// max change
+	double					dPmax;
+	double					dNmax;
+	double					dVmax;
+	double					dSmax;
 	
 	// Bulk rock infomation
 	std::vector<double>		Dx;					// dx

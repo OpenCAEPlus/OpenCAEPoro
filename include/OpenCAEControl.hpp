@@ -50,7 +50,6 @@ public:
 
 class CAEControl
 {
-
 	friend class OpenCAEPoro;
 public:
 
@@ -58,6 +57,10 @@ public:
 	void ApplyControl(int i);
 
 	void initTime(int i);
+
+	double getCurTime() { return Current_time; }
+	int getLSiter() { return LS_iter; }
+	int getNRiter() { return NR_iter; }
 
 private:
 
@@ -67,6 +70,11 @@ private:
 	vector<double>				CriticalTime;
 	double						Current_dt{ 1E5 };
 	double						Current_time{ 0 };
+	int							Tstep{ 0 };
+	int							LS_iter{ 0 };
+	int							LS_iter_total{ 0 };
+	int							NR_iter{ 0 };
+	int							NR_iter_total{ 0 };
 
 
 	ControlTime					CtrlTime;

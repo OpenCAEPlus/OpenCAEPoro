@@ -133,8 +133,9 @@ void Bulk::setup(const Grid& myGrid)
 	Vfi.resize(Num * Nc, 0);
 	Vfp.resize(Num, 0);
 
-	lP = P;
-	lNi = Ni;
+	lP.resize(Num, 0);
+	lNi.resize(Num * Nc);
+	lS.resize(Num * Np);
 
 	if (BLACKOIL) {
 		switch (PVTmode)
@@ -1049,7 +1050,7 @@ int Bulk::mixMode()
 		return EoS_PVTW;
 }
 
-void Bulk::getP_IMPES(vector<double>& u)
+void Bulk::getSol_IMPES(vector<double>& u)
 {
 	for (int n = 0; n < Num; n++) {
 		P[n] = u[n];
@@ -1061,4 +1062,69 @@ void Bulk::getP_IMPES(vector<double>& u)
 		}
 	}
 		
+}
+
+void Bulk::calMaxChange()
+{
+	dPmax = 0;
+	dNmax = 0;
+	dSmax = 0;
+	dVmax = 0;
+	double tmp = 0;
+	int id;
+	
+	for (int n = 0; n < Num; n++) {
+
+		// dP
+		tmp = fabs(P[n] - lP[n]);
+		dPmax = dPmax < tmp ? tmp : dPmax;
+
+		// dS
+		for (int j = 0; j < Np; j++) {
+			id = n * Np + j;
+			tmp = fabs(S[id] - lS[id]);
+			dSmax = dSmax < tmp ? tmp : dSmax;
+		}
+
+		// dN
+		for (int i = 0; i < Nc; i++) {
+			id = n * Nc + i;
+
+			tmp = fabs(max(Ni[id], lNi[id]));
+			if (tmp > TINY) {
+				tmp = fabs(Ni[id] - lNi[id]) / tmp;
+				dNmax = dNmax < tmp ? tmp : dNmax;
+			}
+		}
+
+		tmp = fabs(Vf[n] - Rock_Vp[n]) / Rock_Vp[n];
+		dVmax = dVmax < tmp ? tmp : dVmax;
+	}
+}
+
+double Bulk::calFPR()
+{
+	double ptmp = 0;
+	double vtmp = 0;
+	double tmp = 0;
+
+	if (Np == 3) {
+		for (int n = 0; n < Num; n++) {
+			tmp = Rock_Vp[n] * (1 - S[n * Np + 2]);
+			ptmp += P[n] * tmp;
+			vtmp += tmp;
+		}
+	}
+	else if (Np < 3) {
+		for (int n = 0; n < Num; n++) {
+			tmp = Rock_Vp[n] * (S[n * Np]);
+			ptmp += P[n] * tmp;
+			vtmp += tmp;
+		}
+	}
+	else {
+		ERRORcheck("Np is out of range!");
+		exit(0);
+	}
+	return ptmp / vtmp;
 }

@@ -52,8 +52,8 @@ void Reservoir::assembleMat(Solver<double>& mysolver, double dt)
 	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
 }
 
-void Reservoir::getP_IMPES(vector<double>& u)
+void Reservoir::getSol_IMPES(vector<double>& u)
 {
-	bulk.getP_IMPES(u);
-	wellgroup.getP_IMPES(u, bulk.getBulkNum());
+	bulk.getSol_IMPES(u);
+	wellgroup.getSol_IMPES(u, bulk.getBulkNum());
 }

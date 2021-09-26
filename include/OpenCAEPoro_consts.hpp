@@ -2,7 +2,7 @@
 #include <iostream>
 
 #define ERRORcheck(exp) \
-std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in " << __FILE__ ;
+std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in " << __FILE__ << std::endl;
 
 // Method
 const int IMPES				= 0;
