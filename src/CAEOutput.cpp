@@ -346,13 +346,92 @@ void Summary::setVal(Reservoir& reservoir, CAEControl& ctrl)
 	cout << "Summary::setVal" << endl;
 }
 
+void Summary::printInfo(string& dir)
+{
+	string FileOut = dir + "SUMMARY.dat";
+	ofstream outF(FileOut);
+	if (!outF.is_open()) {
+		ERRORcheck("Can not open " + FileOut);
+		exit(0);
+	}
+	
+	int ns = 10;
+	int col = 10;
+	int row = 0;
+	int num = Sumdata.size();
+	int len = Sumdata[0].val.size();
+	int id = 0;
+	int ID = 1;
+	
+	while (id != num) {
+		 
+		outF << "The " << ++row << "th Row\n";
+
+		// Item
+		// Time
+		outF << "\t" << setw(10) << Sumdata[0].Item;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Item;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// Unit
+		// Time
+		outF << "\t" << setw(10) << Sumdata[0].Unit;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Unit;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// Obj
+		// Time
+		outF << "\t" << setw(ns) << Sumdata[0].Obj;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Obj;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// data
+		for (int l = 0; l < len; l++) {
+
+			// Time
+			outF << "\t" << setw(ns) << Sumdata[0].val[l];
+
+			id = ID;
+			for (int i = 1; i < col; i++) {
+				outF << "\t" << setw(ns) << Sumdata[id].val[l];
+				id++;
+				if (id == num)
+					break;
+			}
+		}
+
+		ID += (col - 1);
+	}
+
+	outF.close();
+}
+
 void CAEOutput::inputParam(ParamOutput& Output_param)
 {
 	summary.inputParam(Output_param.Summary);
 }
 
-void CAEOutput::setup(Reservoir& reservoir)
+void CAEOutput::setup(Reservoir& reservoir, string& dir)
 {
+	Dir = dir;
 	summary.setup(reservoir);
 }
 
@@ -361,3 +440,7 @@ void CAEOutput::setVal(Reservoir& reservoir, CAEControl& ctrl)
 	summary.setVal(reservoir, ctrl);
 }
 
+void CAEOutput::printInfo()
+{
+	summary.printInfo(Dir);
+}

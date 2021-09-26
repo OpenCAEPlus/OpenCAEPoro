@@ -10,7 +10,7 @@ void OpenCAEPoro::inputParam(ParamRead& param)
 void OpenCAEPoro::setup()
 {
 	reservoir.setup();
-	output.setup(reservoir);
+	output.setup(reservoir, control.Dir);
 }
 
 void OpenCAEPoro::allocateMat()
@@ -63,6 +63,7 @@ void OpenCAEPoro::run()
 		}
 
 	}
+	output.printInfo();
 }
 
 void OpenCAEPoro::runIMPES(double& dt)
