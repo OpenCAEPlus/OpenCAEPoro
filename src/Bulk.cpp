@@ -11,23 +11,23 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 	T = rs_param.RTEMP;
 	BLACKOIL = rs_param.BLACKOIL;
 	COMPS = rs_param.COMPS;
-	OIL = rs_param.OIL;
-	GAS = rs_param.GAS;
-	WATER = rs_param.WATER;
-	DISGAS = rs_param.DISGAS;
+	Oil = rs_param.OIL;
+	Gas = rs_param.GAS;
+	Water = rs_param.WATER;
+	DisGas = rs_param.DISGAS;
 
 	EQUIL.Dref = rs_param.EQUIL[0];
 	EQUIL.Pref = rs_param.EQUIL[1];
 	EQUIL.PBVD.setup(rs_param.PBVD_T.data[0]);
 	
 	if (BLACKOIL) {
-		if (WATER && !OIL && !GAS) {
+		if (Water && !Oil && !Gas) {
 			// water
 			Np = 1;	Nc = 1;
 			SATmode = PHASE_W;
 			PVTmode = PHASE_W;
 		}
-		else if (WATER && OIL && !GAS) {
+		else if (Water && Oil && !Gas) {
 			// water, dead oil
 			Np = 2;	Nc = 2;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -35,7 +35,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 			SATmode = PHASE_OW;
 			PVTmode = PHASE_OW;
 		}
-		else if (WATER && OIL && GAS && !DISGAS) {
+		else if (Water && Oil && Gas && !DisGas) {
 			// water, dead oil, dry gas
 			Np = 3;	Nc = 3;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -45,7 +45,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 			SATmode = PHASE_OGW;
 			PVTmode = PHASE_OGW;      // maybe it should be added later
 		}
-		else if (WATER && OIL && GAS && DISGAS) {
+		else if (Water && Oil && Gas && DisGas) {
 			// water, live oil, dry gas
 			Np = 3;	Nc = 3;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -59,7 +59,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 		rs_param.Nc = Nc;
 		for (int i = 0; i < rs_param.NTSFUN; i++)
 			Flow.push_back(new FlowUnit(rs_param, SATmode, i));
-		if (OIL & GAS & WATER) {
+		if (Oil & Gas & Water) {
 			for (int i = 0; i < rs_param.NTSFUN; i++) {
 				Flow[i]->generate_SWPCWG();
 			}
@@ -560,7 +560,6 @@ void Bulk::initSjPc_blk(int tabrow)
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
-		lP[n] = Po;
 
 		if (Depth[n] < DOGC) {
 			Pbb = Po;
@@ -940,7 +939,35 @@ void Bulk::initSjPc_comp(int tabrow)
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
-		lP[n] = Po;
+
+		// cal Sg and Sw
+		Sw = 0;
+		Sg = 0;
+		int ncut = 10;
+
+		for (int k = 0; k < ncut; k++) {
+			double tmpSw = 0;
+			double tmpSg = 0;
+			double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+			DepthP.eval_all(0, depth, data, cdata);
+			Po = data[1]; Pg = data[2]; Pw = data[3];
+			Pcow = Po - Pw;	Pcgo = Pg - Po;
+			tmpSw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+			if (!Flow[0]->empty_SGOF()) {
+				tmpSg = Flow[0]->eval_SGOF(3, Pcgo, 0);
+			}
+			if (tmpSw + tmpSg > 1) {
+				// should me modified
+				double Pcgw = Pcow + Pcgo;
+				tmpSw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
+				tmpSg = 1 - tmpSw;
+			}
+			Sw += tmpSw;
+			Sg += tmpSg;
+		}
+		Sw /= ncut;
+		Sg /= ncut;
+
 		S[n * Np + Np - 1] = Sw;
 		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
@@ -1024,6 +1051,14 @@ int Bulk::mixMode()
 
 void Bulk::getP_IMPES(vector<double>& u)
 {
-	for (int n = 0; n < Num; n++)
+	for (int n = 0; n < Num; n++) {
 		P[n] = u[n];
+		for (int j = 0; j < Np; j++) {
+			int id = n * Np + j;
+			if (PhaseExist[id]) {
+				Pj[id] = P[n] + Pc[id];
+			}
+		}
+	}
+		
 }

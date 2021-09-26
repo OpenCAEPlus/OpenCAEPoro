@@ -39,6 +39,7 @@ public:
 
 	void initSjPc_blk(int depnum);
 	void initSjPc_comp(int depnum);
+	void setLastStep(){ lP = P; lNi = Ni; }
 
 	// Flash
 	void flash_Sj();
@@ -121,9 +122,9 @@ private:
 	ParamEQUIL				EQUIL;
 	bool					BLACKOIL;
 	bool					COMPS;
-	bool					OIL;
-	bool					GAS;
-	bool					WATER;
-	bool					DISGAS;
+	bool					Oil;
+	bool					Gas;
+	bool					Water;
+	bool					DisGas;
 
 };

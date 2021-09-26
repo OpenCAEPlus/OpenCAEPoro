@@ -209,14 +209,6 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 	for (int p = 0; p < PerfNum; p++) {
 		int k = Perf[p].Location; 
 
-		double trans = 0;
-		for (int j = 0; j < np; j++) {
-			int id = k * np + j;
-			if (myBulk.PhaseExist[id]) {
-				trans += myBulk.Kr[id] / myBulk.Mu[id];
-			}		
-		}
-		trans *= dt;
 		double Vfi_zi = 0;
 		for (int i = 0; i < nc; i++) {
 			Vfi_zi += myBulk.Vfi[k * nc + i] * Opt.Zi[i];
@@ -224,7 +216,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 		
 		int pvtnum = myBulk.PVTNUM[k];
 		Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
-		double valw = Perf[p].Xi * trans * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+		double valw = dt * Perf[p].Xi * Perf[p].transj[0];
 		double bw = valw * dG[p];
 		double valb = valw * Vfi_zi;
 		double bb = valb * dG[p];
@@ -325,7 +317,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 				tempb += myBulk.Vfi[k * nc + i] * myBulk.Cij[k * np * nc + j * nc + i];
 				tempw += Opt.Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
 			}
-			double trans = myBulk.Xi[k * np + j] * myBulk.Kr[k * np + j] / myBulk.Mu[k * np + j];
+			double trans = dt * Perf[p].transj[j] * myBulk.Xi[k * np + j];
 			valb += tempb * trans;
 			valw += tempw * trans;
 
@@ -333,11 +325,6 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 			bb += tempb * trans * dP;
 			bw += tempw * trans * dP;
 		}
-		double trans = dt * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
-		valb *= trans;
-		valw *= trans;
-		bb *= trans;
-		bw *= trans;
 
 		// Bulk to Well
 		// diag
@@ -629,6 +616,7 @@ void Well::calFlux(const Bulk& myBulk)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
+	cout << Name << endl;
 
 	if (Opt.Type == INJ) {
 
@@ -660,6 +648,9 @@ void Well::calFlux(const Bulk& myBulk)
 				if (myBulk.PhaseExist[id]) {
 					double dP = myBulk.Pj[id] - Perf[p].P;
 					Perf[p].qt_ft3 += Perf[p].transj[j] * dP;
+					//cout << p << " P[" << j << "] = " << myBulk.Pj[id] << endl;
+					//cout << p << " Perf = " << Perf[p].P << endl;
+
 
 					double xi = myBulk.Xi[id];
 					double xij;
@@ -801,6 +792,7 @@ void Well::calProdqi_blk(const Bulk& myBulk)
 			WWPR = Qi_lbmol[i];
 		}
 	}
+	cout << Name << endl;
 }
 
 void Well::checkOptMode(const Bulk& myBulk)

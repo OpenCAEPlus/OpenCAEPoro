@@ -28,9 +28,10 @@ void Reservoir::init()
 	bulk.calVporo();
 	bulk.flash_Sj();
 	bulk.calKrPc();
+	bulk.setLastStep();
 	conn.calFlux(bulk);
-
 	wellgroup.init(bulk);
+
 }
 
 

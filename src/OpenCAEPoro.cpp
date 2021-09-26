@@ -72,8 +72,6 @@ void OpenCAEPoro::runIMPES(double& dt)
 		if (cfl > 1)
 			dt /= (cfl + 1);
 
-
-
 		SolveP(dt);
 		reservoir.conn.calFlux(reservoir.bulk);
 		reservoir.wellgroup.calFlux(reservoir.bulk);
@@ -83,9 +81,12 @@ void OpenCAEPoro::runIMPES(double& dt)
 		reservoir.bulk.flash_Ni();
 		reservoir.bulk.calKrPc();
 
-		reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
+		break;
 		
 	}
 	
+	reservoir.bulk.setLastStep();
+	reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
+
 
 }
