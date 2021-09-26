@@ -183,6 +183,27 @@ double Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, i
 
 // Connection function, no matter what grid is
 
+double Connection_BB::calCFL(Bulk& myBulk, double dt)
+{
+	int np = myBulk.Np;
+	double cfl = 0;
+	double temp = 0;
+	for (int c = 0; c < ActiveConnNum; c++) {
+
+		for (int j = 0; j < np; j++) {
+			int uId = Upblock[c * np + j];
+			
+			if (myBulk.PhaseExist[uId]) {
+				temp = fabs(Upblock_Velocity[c * np + j]) * dt;
+				temp /= myBulk.Vj[uId * np + j];
+				if (cfl < temp)
+					cfl = temp;
+			}
+		}
+	}
+	return cfl;
+}
+
 void Connection_BB::calFlux(const Bulk& myBulk)
 {
 	// calculate a step flux using Iterator

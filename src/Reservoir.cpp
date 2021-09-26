@@ -36,7 +36,11 @@ void Reservoir::init()
 
 double Reservoir::calCFL(double dt)
 {
+	double cflB = conn.calCFL(bulk, dt);
+	double cflW = wellgroup.calCFL(bulk, dt);
+	double cfl = max(cflB, cflW);
 
+	return cfl;
 }
 
 // assemble mat

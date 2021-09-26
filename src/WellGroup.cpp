@@ -74,6 +74,37 @@ void WellGroup::applyControl(int i)
 	}
 }
 
+double WellGroup::calCFL(const Bulk& myBulk, double dt)
+{
+	double cflw = 0;
+	double tmp = 0;
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			tmp = WellG[w].calCFL(myBulk, dt);
+			if (cflw < tmp)
+				cflw = tmp;
+		}
+	}
+	return cflw;
+}
+
+void WellGroup::calFlux(const Bulk& myBulk)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			WellG[w].calFlux(myBulk);
+		}
+	}
+}
+
+void WellGroup::massConserve(Bulk& myBulk, double dt)
+{
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			WellG[w].massConserve(myBulk, dt);
+		}
+	}
+}
 
 void WellGroup::prepareWell(const Bulk& myBulk)
 {
@@ -152,7 +183,3 @@ void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 	FWPT += FWPR * dt;
 }
 
-void WellGroup::massConserve(Bulk& myBulk, double dt)
-{
-
-}

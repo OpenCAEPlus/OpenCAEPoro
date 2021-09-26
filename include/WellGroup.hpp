@@ -14,6 +14,11 @@ public:
 	void setupWell(Grid& myGrid, Bulk& myBulk);
 	void setupMixture(Bulk& myBulk);
 
+	double calCFL(const Bulk& myBulk, double dt);
+
+	void calFlux(const Bulk& myBulk);
+	void massConserve(Bulk& myBulk, double dt);
+
 	template<typename T>
 	void allocateMat(Solver<T>& mySolver);
 
@@ -21,8 +26,6 @@ public:
 	void applyControl(int i);
 
 	void prepareWell(const Bulk& myBulk);
-
-	void massConserve(Bulk& myBulk, double dt);
 
 	void calIPRT(const Bulk& myBulk, double dt);
 

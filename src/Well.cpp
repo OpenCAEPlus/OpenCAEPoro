@@ -148,6 +148,20 @@ void Well::init(const Bulk& myBulk) {
 	BHP = myBulk.P[Perf[0].Location];
 }
 
+double Well::calCFL(const Bulk& myBulk, double dt)
+{
+	double cfl = 0;
+	double tmp = 0;
+	for (int p = 0; p < PerfNum; p++) {
+		int k = Perf[p].Location;
+		tmp = fabs(Perf[p].qt_ft3) * dt;
+		tmp /= myBulk.Rock_Vp[k];
+		if (cfl < tmp)
+			cfl = tmp;
+	}
+	return cfl;
+}
+
 void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 {
 	// this fomular needs to be carefully checked !
@@ -622,6 +636,7 @@ void Well::calFlux(const Bulk& myBulk)
 			Perf[p].P = BHP + dG[p];
 			int k = Perf[p].Location;
 			double dP = Perf[p].P - myBulk.P[k];
+			dP *= -1.0;
 
 			Perf[p].qt_ft3 = Perf[p].transj[0] * dP;
 
@@ -657,6 +672,18 @@ void Well::calFlux(const Bulk& myBulk)
 		}
 	}
 
+}
+
+void Well::massConserve(Bulk& myBulk, double dt)
+{
+	int nc = myBulk.Nc;
+
+	for (int p = 0; p < PerfNum; p++) {
+		int k = Perf[p].Location;
+		for (int i = 0; i < nc; i++) {
+			myBulk.Ni[k * nc + i] -= Perf[p].qi_lbmol[i] * dt;
+		}
+	}
 }
 
 
@@ -717,15 +744,18 @@ void Well::calInjqi_blk(const Bulk& myBulk)
 		Perf[p].P = BHP + dG[p];
 		int k = Perf[p].Location;
 
-		double xi = Perf[p].Xi;
-		double dP = Perf[p].P - myBulk.P[k];
-		qj += Perf[p].transj[0] * xi * dP;
+		//double xi = Perf[p].Xi;
+		//double dP = Perf[p].P - myBulk.P[k];
+		//qj += Perf[p].transj[0] * xi * dP;
+
+		for (int i = 0; i < nc; i++)
+			qj += Perf[p].qi_lbmol[i];
 	}
 	if (Opt.FluidType == WATER) {
-		WWIR = qj;
+		WWIR = -qj;
 	}
 	else {
-		WGIR = qj;
+		WGIR = -qj;
 	}
 }
 
@@ -738,22 +768,22 @@ void Well::calProdqi_blk(const Bulk& myBulk)
 
 	for (int p = 0; p < PerfNum; p++) {
 
-		Perf[p].qi_lbmol.assign(nc, 0);
-		Perf[p].P = BHP + dG[p];
-		int k = Perf[p].Location;
+		//Perf[p].qi_lbmol.assign(nc, 0);
+		//Perf[p].P = BHP + dG[p];
+		//int k = Perf[p].Location;
 
-		for (int j = 0; j < np; j++) {
-			int id = k * np + j;
-			if (myBulk.PhaseExist[id]) {
-				double xi = myBulk.Xi[id];
-				double dP = myBulk.Pj[id] - Perf[p].P;
-				double xij;
-				for (int i = 0; i < nc; i++) {
-					xij = myBulk.Cij[id * nc + i];
-					Perf[p].qi_lbmol[i] += Perf[p].transj[j] * xi * xij * dP;
-				}
-			}
-		}
+		//for (int j = 0; j < np; j++) {
+		//	int id = k * np + j;
+		//	if (myBulk.PhaseExist[id]) {
+		//		double xi = myBulk.Xi[id];
+		//		double dP = myBulk.Pj[id] - Perf[p].P;
+		//		double xij;
+		//		for (int i = 0; i < nc; i++) {
+		//			xij = myBulk.Cij[id * nc + i];
+		//			Perf[p].qi_lbmol[i] += Perf[p].transj[j] * xi * xij * dP;
+		//		}
+		//	}
+		//}
 		for (int i = 0; i < nc; i++) {
 			Qi_lbmol[i] += Perf[p].qi_lbmol[i];
 		}

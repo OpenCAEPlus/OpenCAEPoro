@@ -127,6 +127,7 @@ void Bulk::setup(const Grid& myGrid)
 	Rho.resize(Num * Np);
 	Mu.resize(Num * Np);
 	Kr.resize(Num * Np);
+	Vj.resize(Num * Np);
 
 	Vf.resize(Num, 0);
 	Vfi.resize(Num * Nc, 0);
@@ -982,6 +983,7 @@ void Bulk::passFlashValue(int n)
 			Xi[bId + j]		= Flashcal[pvtnum]->Xi[j];
 			Rho[bId + j]	= Flashcal[pvtnum]->Rho[j];
 			Mu[bId + j]		= Flashcal[pvtnum]->Mu[j];
+			Vj[bId+j]		= Flashcal[pvtnum]->V[j];
 		}
 	}
 	Vf[n] = Flashcal[pvtnum]->Vf;

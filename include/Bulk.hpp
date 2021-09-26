@@ -78,7 +78,7 @@ private:
 	std::vector<double>		Mu;				// viscosity of phase: Np*Num
 	std::vector<double>		Kr;				// relative permeability of phase: Np*Num
 
-
+	std::vector<double>		Vj;
 	std::vector<double>		Vf;				// total fluid volume
 	std::vector<double>		Vfi;			// dVt / dNi
 	std::vector<double>		Vfp;			// dVt / dP
