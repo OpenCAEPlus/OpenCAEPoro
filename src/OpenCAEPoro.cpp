@@ -68,7 +68,11 @@ void OpenCAEPoro::runIMPES(double& dt)
 		reservoir.wellgroup.prepareWell(reservoir.bulk);
 		reservoir.calCFL(dt);
 		SolveP(dt);
-
+		reservoir.conn.calFlux(reservoir.bulk);
+		reservoir.conn.massConserve(reservoir.bulk, dt);
+		reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
+		reservoir.bulk.flash_Ni();
+		reservoir.bulk.calKrPc();
 		cout << "stop" << endl;
 	}
 	

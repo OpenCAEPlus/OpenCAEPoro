@@ -17,5 +17,8 @@ private:
 	double					WI;
 	double					Multiplier;
 
+	double					Xi;			// inj  single phase
 	std::vector<double>		qi_lbmol;
+	std::vector<double>		transj;
+	double					qt_ft3;
 };

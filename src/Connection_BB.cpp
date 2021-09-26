@@ -246,7 +246,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
 	}
 }
 
-void Connection_BB::massConserve(Bulk& myBulk)
+void Connection_BB::massConserve(Bulk& myBulk, double dt)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
@@ -263,7 +263,7 @@ void Connection_BB::massConserve(Bulk& myBulk)
 			int uId_np_j = uId * np + j;
 			double phaseVelocity = Upblock_Velocity[c * np + j];
 			for (int i = 0; i < nc; i++) {
-				double dNi = phaseVelocity * myBulk.Xi[uId_np_j] * myBulk.Cij[uId_np_j * nc + i];
+				double dNi = dt * phaseVelocity * myBulk.Xi[uId_np_j] * myBulk.Cij[uId_np_j * nc + i];
 				myBulk.Ni[eId * nc + i] += dNi;
 				myBulk.Ni[bId * nc + i] -= dNi;
 			}

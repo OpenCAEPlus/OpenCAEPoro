@@ -20,10 +20,11 @@ public:
 	void init(const Bulk& myBulk);
 	void applyControl(int i);
 
-	void checkOptMode(const Bulk& myBulk);
-	void calWelldG(const Bulk& myBulk);
 	void prepareWell(const Bulk& myBulk);
-	void calIPRT(const Bulk& myBulk);
+
+	void massConserve(Bulk& myBulk, double dt);
+
+	void calIPRT(const Bulk& myBulk, double dt);
 
 	void assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt);
 	int getWellNum() { return WellNum; }
@@ -35,6 +36,16 @@ private:
 	int							WellNum;
 	std::vector<Well>			WellG;
 	std::vector<Mixture*>		Flashcal;
+	double						FGIR;
+	double						FGIT;
+	double						FWIR;
+	double						FWIT;
+	double						FOPR;
+	double						FOPT;
+	double						FGPR;
+	double						FGPt;
+	double						FWPR;
+	double						FWPT;
 };
 
 template<typename T>

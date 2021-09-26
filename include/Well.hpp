@@ -46,12 +46,18 @@ public:
 	void init(const Bulk& myBulk);
 
 	// calculate dG
+	void caldG(const Bulk& myBulk);
 	void calInjdG(const Bulk& myBulk);
 	void calProddG(const Bulk& myBulk);
 
+	void calTrans(const Bulk& myBulk);
+	// cal flux ---- perf: qt_ft3 & qi_lbmol
+	void calFlux(const Bulk& myBulk);
+
 	// calculate rate -- zi, uesd to check well opt mode and calculate well rate
-	double calInjRate_blk(const Bulk& myBulk, int flag = 0);
+	double calInjRate_blk(const Bulk& myBulk);
 	double calProdRate_blk(const Bulk& myBulk);
+	void calInjqi_blk(const Bulk& myBulk);
 	void calProdqi_blk(const Bulk& myBulk);
 
 

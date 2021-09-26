@@ -100,6 +100,7 @@ void Solver<T>::clearData()
 	DiagPtr.resize(MaxDim, -1);
 	DiagVal.resize(MaxDim, 0);
 	b.resize(MaxDim, 0);
+	u.resize(MaxDim, 0);
 }
 
 

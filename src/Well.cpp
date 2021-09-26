@@ -138,6 +138,7 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 		Perf[p].Depth = myBulk.Depth[Perf[p].Location];
 		Perf[p].Multiplier = 1;
 		Perf[p].qi_lbmol.resize(myBulk.Nc);
+		Perf[p].transj.resize(myBulk.Np);
 	}
 	calWI_Peaceman_Vertical(myBulk);
 	cout << "Well::setup" << endl;
@@ -196,8 +197,9 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 
 		double trans = 0;
 		for (int j = 0; j < np; j++) {
-			if (myBulk.PhaseExist[k * np + j]) {
-				trans += myBulk.Kr[k * np + j] / myBulk.Mu[k * np + j];
+			int id = k * np + j;
+			if (myBulk.PhaseExist[id]) {
+				trans += myBulk.Kr[id] / myBulk.Mu[id];
 			}		
 		}
 		trans *= dt;
@@ -207,8 +209,8 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 		}
 		
 		int pvtnum = myBulk.PVTNUM[k];
-		double xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
-		double valw = 1 * xi * trans * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+		Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
+		double valw = Perf[p].Xi * trans * CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
 		double bw = valw * dG[p];
 		double valb = valw * Vfi_zi;
 		double bb = valb * dG[p];
@@ -270,7 +272,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 		break;
 	case BHP_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(PerfNum);
+		mySolver.ColId[wId].push_back(wId);
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(dt);
 		// b
@@ -380,7 +382,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 		break;
 	case BHP_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(PerfNum);
+		mySolver.ColId[wId].push_back(wId);
 		mySolver.DiagPtr[wId] = PerfNum;
 		mySolver.Val[wId].push_back(dt);
 		// b
@@ -390,6 +392,14 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 		ERRORcheck("Wrong Well Opt mode");
 		exit(0);
 	}
+}
+
+void Well::caldG(const Bulk& myBulk)
+{
+	if (Opt.Type == INJ)
+		calInjdG(myBulk);
+	else
+		calProddG(myBulk);
 }
 
 void Well::calInjdG(const Bulk& myBulk)
@@ -470,6 +480,7 @@ void Well::calProddG(const Bulk& myBulk)
 	double	qtacc = 0;
 	double	rhoacc = 0;
 	double	rhotmp = 0;
+	cout << Name << endl;
 	if (Depth <= Perf.front().Depth) {
 		// Well is higher
 		for (int p = PerfNum - 1; p >= 0; p--) {
@@ -486,24 +497,7 @@ void Well::calProddG(const Bulk& myBulk)
 			Perf[p].P = BHP + dG[p];
 			double Pperf = Perf[p].P;
 			double Ptmp = Pperf;
-			Perf[p].qi_lbmol.assign(nc, 0);
-			// vector<double>	qi_lbmol(nc, 0);
 
-			for (int j = 0; j < np; j++) {
-				int id = n * np + j;
-				if (myBulk.PhaseExist[id]) {
-					double dP = myBulk.Pj[id] - Perf[p].P;
-					double kr = myBulk.Kr[id];
-					double mu = myBulk.Mu[id];
-					double xi = myBulk.Xi[id];
-					double qj = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * dP * xi;
-					double xij;
-					for (int i = 0; i < nc; i++) {
-						xij = myBulk.Cij[id * nc + i];
-						Perf[p].qi_lbmol[i] += qj *  xij;
-					}
-				}
-			}
 			int pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
 			for (int p1 = PerfNum - 1; p1 >= p; p1--) {
@@ -545,24 +539,7 @@ void Well::calProddG(const Bulk& myBulk)
 			Perf[p].P = BHP + dG[p];
 			double Pperf = Perf[p].P;
 			double Ptmp = Pperf;
-			Perf[p].qi_lbmol.assign(nc, 0);
-			// vector<double>	qi_lbmol(nc, 0);
 
-			for (int j = 0; j < np; j++) {
-				int id = n * np + j;
-				if (myBulk.PhaseExist[id]) {
-					double dP = myBulk.Pj[id] - Perf[p].P;
-					double kr = myBulk.Kr[id];
-					double mu = myBulk.Mu[id];
-					double xi = myBulk.Xi[id];
-					double qj = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * dP * xi;
-					double xij;
-					for (int i = 0; i < nc; i++) {
-						xij = myBulk.Cij[id * nc + i];
-						Perf[p].qi_lbmol[i] += qj * xij;
-					}
-				}
-			}
 			int pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
 			for (int p1 = PerfNum - 1; p1 >= p; p1--) {
@@ -595,36 +572,109 @@ void Well::calProddG(const Bulk& myBulk)
 	}
 }
 
-double Well::calInjRate_blk(const Bulk& myBulk, int flag)
+void Well::calTrans(const Bulk& myBulk)
+{
+	int np = myBulk.Np;
+	int nc = myBulk.Nc;
+
+	cout << Name << endl;
+	if (Opt.Type == INJ) {
+		for (int p = 0; p < PerfNum; p++) {
+			Perf[p].transj.assign(np, 0);
+			int k = Perf[p].Location;
+			double temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+			
+			// single phase
+			for (int j = 0; j < np; j++) {
+				int id = k * np + j;
+				if (myBulk.PhaseExist[id]) {
+					Perf[p].transj[0] += myBulk.Kr[id] / myBulk.Mu[id];
+				}		
+			}
+			Perf[p].transj[0] *= temp;
+		}
+	}
+	else{
+		for (int p = 0; p < PerfNum; p++) {
+			Perf[p].transj.assign(np, 0);
+			int k = Perf[p].Location;
+			double temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+
+			// multi phase
+			for (int j = 0; j < np; j++) {
+				int id = k * np + j;
+				if (myBulk.PhaseExist[id]) {
+					Perf[p].transj[j] = temp * myBulk.Kr[id] / myBulk.Mu[id];
+				}	
+			}
+		}
+	}
+}
+
+void Well::calFlux(const Bulk& myBulk)
+{
+	int np = myBulk.Np;
+	int nc = myBulk.Nc;
+
+	if (Opt.Type == INJ) {
+
+		for (int p = 0; p < PerfNum; p++) {
+			Perf[p].P = BHP + dG[p];
+			int k = Perf[p].Location;
+			double dP = Perf[p].P - myBulk.P[k];
+
+			Perf[p].qt_ft3 = Perf[p].transj[0] * dP;
+
+			int pvtnum = myBulk.PVTNUM[k];
+			Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
+			for (int i = 0; i < nc; i++) {
+				Perf[p].qi_lbmol[i] = Perf[p].qt_ft3 * Perf[p].Xi * Opt.Zi[i];
+			}
+		}
+	}
+	else {
+
+		for (int p = 0; p < PerfNum; p++) {
+			Perf[p].P = BHP + dG[p];
+			int k = Perf[p].Location;
+			Perf[p].qt_ft3 = 0;
+			Perf[p].qi_lbmol.assign(nc, 0);
+
+			for (int j = 0; j < np; j++) {
+				int id = k * np + j;
+				if (myBulk.PhaseExist[id]) {
+					double dP = myBulk.Pj[id] - Perf[p].P;
+					Perf[p].qt_ft3 += Perf[p].transj[j] * dP;
+
+					double xi = myBulk.Xi[id];
+					double xij;
+					for (int i = 0; i < nc; i++) {
+						xij = myBulk.Cij[id * nc + i];
+						Perf[p].qi_lbmol[i] += Perf[p].transj[j] * dP * xi * xij;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+double Well::calInjRate_blk(const Bulk& myBulk)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
 	double qj = 0;
 
-	double Pwell;
-	if (flag == -1) {
-		Pwell = Opt.MaxBHP;
-	}
-	else {
-		Pwell = BHP;
-	}
-
 	for (int p = 0; p < PerfNum; p++) {
 
-		double Pperf = Pwell + dG[p];
+		double Pperf = Opt.MaxBHP + dG[p];
 		int k = Perf[p].Location;
 
-		double trans = 0;
-		for (int j = 0; j < np; j++) {
-			int id = k * np + j;
-			if (myBulk.PhaseExist[id]) {
-				trans += myBulk.Kr[id] / myBulk.Mu[id];
-			}
-		}
 		int pvtnum = myBulk.PVTNUM[k];
 		double xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
 		double dP = Pperf - myBulk.P[k];
-		qj += CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * trans * xi * dP;
+		qj += Perf[p].transj[0] * xi * dP;
 	}
 	return qj;
 }
@@ -647,15 +697,36 @@ double Well::calProdRate_blk(const Bulk& myBulk)
 				for (int i = 0; i < nc; i++) {
 					temp += Opt.Zi[i] * myBulk.Cij[id * nc + i];
 				}
-				double kr = myBulk.Kr[id];
-				double mu = myBulk.Mu[id];
 				double xi = myBulk.Xi[id];
 				double dP = myBulk.Pj[id] - Pperf;
-				qj += CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * xi * dP * temp;
+				qj += Perf[p].transj[j] * xi * dP * temp;
 			}
 		}
 	}
 	return qj;
+}
+
+void Well::calInjqi_blk(const Bulk& myBulk)
+{
+	int np = myBulk.Np;
+	int nc = myBulk.Nc;
+	double qj = 0;
+
+	for (int p = 0; p < PerfNum; p++) {
+
+		Perf[p].P = BHP + dG[p];
+		int k = Perf[p].Location;
+
+		double xi = Perf[p].Xi;
+		double dP = Perf[p].P - myBulk.P[k];
+		qj += Perf[p].transj[0] * xi * dP;
+	}
+	if (Opt.FluidType == WATER) {
+		WWIR = qj;
+	}
+	else {
+		WGIR = qj;
+	}
 }
 
 void Well::calProdqi_blk(const Bulk& myBulk)
@@ -668,20 +739,18 @@ void Well::calProdqi_blk(const Bulk& myBulk)
 	for (int p = 0; p < PerfNum; p++) {
 
 		Perf[p].qi_lbmol.assign(nc, 0);
-		double Pperf = BHP + dG[p];
+		Perf[p].P = BHP + dG[p];
 		int k = Perf[p].Location;
 
 		for (int j = 0; j < np; j++) {
 			int id = k * np + j;
 			if (myBulk.PhaseExist[id]) {
-				double kr = myBulk.Kr[id];
-				double mu = myBulk.Mu[id];
 				double xi = myBulk.Xi[id];
-				double dP = myBulk.Pj[id] - Pperf;
+				double dP = myBulk.Pj[id] - Perf[p].P;
 				double xij;
 				for (int i = 0; i < nc; i++) {
 					xij = myBulk.Cij[id * nc + i];
-					Perf[p].qi_lbmol[i] += CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier * kr / mu * xi * xij * dP;
+					Perf[p].qi_lbmol[i] += Perf[p].transj[j] * xi * xij * dP;
 				}
 			}
 		}
@@ -707,7 +776,7 @@ void Well::calProdqi_blk(const Bulk& myBulk)
 void Well::checkOptMode(const Bulk& myBulk)
 {
 	if (Opt.Type == INJ) {
-		if (calInjRate_blk(myBulk, -1) > Opt.MaxRate) {
+		if (calInjRate_blk(myBulk) > Opt.MaxRate) {
 			Opt.OptMode = RATE_MODE;
 		}
 		else {

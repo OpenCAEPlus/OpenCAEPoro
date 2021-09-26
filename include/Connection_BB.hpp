@@ -42,7 +42,7 @@ public:
 	double calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
 
 	void calFlux(const Bulk& myBulk);
-	void massConserve(Bulk& myBulk);
+	void massConserve(Bulk& myBulk, double dt);
 
 	// Assemble Mat
 	template<typename T>

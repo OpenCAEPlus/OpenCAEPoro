@@ -74,33 +74,18 @@ void WellGroup::applyControl(int i)
 	}
 }
 
-void WellGroup::checkOptMode(const Bulk& myBulk)
-{
-	for (int w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			WellG[w].checkOptMode(myBulk);
-		}
-	}
-}
-
-void WellGroup::calWelldG(const Bulk& myBulk)
-{
-	for (int w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			if (WellG[w].WellType() == PROD) {
-				WellG[w].calProddG(myBulk);
-			}
-			else {
-				WellG[w].calInjdG(myBulk);
-			}
-		}
-	}
-}
 
 void WellGroup::prepareWell(const Bulk& myBulk)
 {
-	calWelldG(myBulk);
-	checkOptMode(myBulk);
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+
+			WellG[w].calTrans(myBulk);
+			WellG[w].calFlux(myBulk);
+			WellG[w].caldG(myBulk);
+			WellG[w].checkOptMode(myBulk);
+		}
+	}
 }
 
 void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt)
@@ -133,8 +118,13 @@ void WellGroup::getP_IMPES(vector<double>& u, int bid)
 	}
 }
 
-void WellGroup::calIPRT(const Bulk& myBulk)
+void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 {
+	FGIR = 0;
+	FWIR = 0;
+	FOPR = 0;
+	FGPR = 0;
+	FWPR = 0;
 	for (int w = 0; w < WellNum; w++) {
 		WellG[w].WGIR = 0;
 		WellG[w].WWIR = 0;
@@ -146,8 +136,23 @@ void WellGroup::calIPRT(const Bulk& myBulk)
 				WellG[w].calProdqi_blk(myBulk);
 			}
 			else {
-
+				WellG[w].calInjqi_blk(myBulk);
 			}
 		}
+		FGIR += WellG[w].WGIR = 0;
+		FWIR += WellG[w].WWIR = 0;
+		FOPR += WellG[w].WOPR = 0;
+		FGPR += WellG[w].WGPR = 0;
+		FWPR += WellG[w].WWPR = 0;
 	}
+	FGIT += FGIR * dt;
+	FWIT += FWIR * dt;
+	FOPT += FOPR * dt;
+	FGPt += FGPR * dt;
+	FWPT += FWPR * dt;
+}
+
+void WellGroup::massConserve(Bulk& myBulk, double dt)
+{
+
 }
