@@ -112,7 +112,7 @@ void WellGroup::prepareWell(const Bulk& myBulk)
 		if (WellG[w].WellState()) {
 
 			WellG[w].calTrans(myBulk);
-			WellG[w].calFlux(myBulk);
+			WellG[w].calFlux(myBulk, true);
 			WellG[w].caldG(myBulk);
 			WellG[w].checkOptMode(myBulk);
 		}
@@ -171,11 +171,11 @@ void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 				WellG[w].calInjqi_blk(myBulk, dt);
 			}
 		}
-		FGIR += WellG[w].WGIR = 0;
-		FWIR += WellG[w].WWIR = 0;
-		FOPR += WellG[w].WOPR = 0;
-		FGPR += WellG[w].WGPR = 0;
-		FWPR += WellG[w].WWPR = 0;
+		FGIR += WellG[w].WGIR;
+		FWIR += WellG[w].WWIR;
+		FOPR += WellG[w].WOPR;
+		FGPR += WellG[w].WGPR;
+		FWPR += WellG[w].WWPR;
 	}
 	FGIT += FGIR * dt;
 	FWIT += FWIR * dt;

@@ -79,6 +79,8 @@ void CAEControl::ApplyControl(int i)
 	CtrlTime = CtrlTimeSet[i];
 	CtrlError = CtrlErrorSet[i];
 	CtrlIter = CtrlIterSet[i];
+
+	End_time = CriticalTime[i + 1];
 }
 
 
@@ -89,6 +91,40 @@ void CAEControl::initTime(int i)
 		ERRORcheck("Wrong Time Step");
 		exit(0);
 	}
-	Current_dt = min(Current_dt, CtrlTime.TimeInit);
-	Current_dt = min(Current_dt, dt);
+	Current_dt = min(dt, CtrlTime.TimeInit);
+}
+
+void CAEControl::setNextTstep(Reservoir& reservoir)
+{
+	Current_time += Current_dt;
+
+	double dPmax = reservoir.bulk.getdPmax();
+	double dNmax = reservoir.bulk.getdNmax();
+	double dSmax = reservoir.bulk.getdSmax();
+	double dVmax = reservoir.bulk.getdVmax();
+
+	double dPlim = 300;
+	double dNlim = 0.3;
+	double dSlim = 0.3;
+	double dVlim = 0.001;
+
+	double c1 = dPmax / dPlim;
+	double c2 = dNmax / dNlim;
+	double c3 = dSmax / dSlim;
+	double c4 = dVmax / dVlim;
+
+	double c = max(max(c1, c2), max(c3, c4));
+	c = max(1.0 / 3, c);
+	c = min(10.0 / 3, c);
+
+	Current_dt /= c;
+
+	if (Current_dt > CtrlTime.TimeMax)
+		Current_dt = CtrlTime.TimeMax;
+	if (Current_dt < CtrlTime.TimeMin)
+		Current_dt = CtrlTime.TimeMin;
+
+	double dt = End_time - Current_time;
+	if (Current_dt > dt)
+		Current_dt = dt;
 }

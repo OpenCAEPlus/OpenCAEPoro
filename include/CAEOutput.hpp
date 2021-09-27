@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "Reservoir.hpp"
 #include "ParamOutput.hpp"
+#include "OpenCAEControl.hpp"
 
 using namespace std;
 

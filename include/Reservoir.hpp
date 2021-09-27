@@ -10,6 +10,7 @@ class Reservoir
 {
 	friend class OpenCAEPoro;
 	friend class Summary;
+	friend class CAEControl;
 public:
 
 	void inputParam(ParamRead& param);

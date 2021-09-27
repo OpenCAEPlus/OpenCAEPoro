@@ -347,7 +347,7 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		double bg = data[1] * (CONV1 / 1000);
 		double cbg = cdata[1] * (CONV1 / 1000);
 
-		Mu[1] = data[3];
+		Mu[1] = data[2];
 		Xi[1] = 1 / data[1] / CONV1;
 		Rho[1] = Std_RhoG / bg;
 

@@ -2,6 +2,8 @@
 #include <vector>
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamControl.hpp"
+#include "Reservoir.hpp"
+
 
 using namespace std;
 
@@ -62,14 +64,17 @@ public:
 	int getLSiter() { return LS_iter; }
 	int getNRiter() { return NR_iter; }
 
+	void setNextTstep(Reservoir& reservoir);
+
 private:
 
 	string						Dir;
 	int							Method;
 	string						SolveFile;
 	vector<double>				CriticalTime;
-	double						Current_dt{ 1E5 };
+	double						Current_dt;
 	double						Current_time{ 0 };
+	double						End_time;
 	int							Tstep{ 0 };
 	int							LS_iter{ 0 };
 	int							LS_iter_total{ 0 };

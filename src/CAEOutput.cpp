@@ -343,7 +343,6 @@ void Summary::setVal(Reservoir& reservoir, CAEControl& ctrl)
 	for (int i = 0; i < len; i++)
 		Sumdata[n++].val.push_back(reservoir.bulk.getP(BPR.index[i]));
 
-	cout << "Summary::setVal" << endl;
 }
 
 void Summary::printInfo(string& dir)
@@ -378,6 +377,7 @@ void Summary::printInfo(string& dir)
 			if (id == num)
 				break;
 		}
+		outF << "\n";
 
 		// Unit
 		// Time
@@ -390,6 +390,7 @@ void Summary::printInfo(string& dir)
 			if (id == num)
 				break;
 		}
+		outF << "\n";
 
 		// Obj
 		// Time
@@ -402,6 +403,7 @@ void Summary::printInfo(string& dir)
 			if (id == num)
 				break;
 		}
+		outF << "\n";
 
 		// data
 		for (int l = 0; l < len; l++) {
@@ -416,7 +418,9 @@ void Summary::printInfo(string& dir)
 				if (id == num)
 					break;
 			}
+			outF << "\n";
 		}
+		
 
 		ID += (col - 1);
 	}

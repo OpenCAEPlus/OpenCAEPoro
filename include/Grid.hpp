@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "ParamReservoir.hpp"
-#include "OpenCAEControl.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 using namespace std;
 

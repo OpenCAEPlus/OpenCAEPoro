@@ -1039,6 +1039,7 @@ void Bulk::calVporo()
 	for (int n = 0; n < Num; n++) {
 		double dP = Rock_C1 * (P[n] - Rock_Pref);
 		Rock_Vp[n] = Rock_VpInit[n] * (1 + dP + dP * dP / 2);
+		// Rock_Vp[n] = Rock_VpInit[n] * (1 + dP);
 	}
 }
 

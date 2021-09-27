@@ -97,10 +97,10 @@ void Solver<T>::clearData()
 		ColId[i].clear();
 		Val[i].clear();
 	}
-	DiagPtr.resize(MaxDim, -1);
-	DiagVal.resize(MaxDim, 0);
-	b.resize(MaxDim, 0);
-	u.resize(MaxDim, 0);
+	DiagPtr.assign(MaxDim, -1);
+	DiagVal.assign(MaxDim, 0);
+	b.assign(MaxDim, 0);
+	u.assign(MaxDim, 0);
 }
 
 

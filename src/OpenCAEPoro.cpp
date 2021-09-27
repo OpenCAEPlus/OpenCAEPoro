@@ -56,7 +56,7 @@ void OpenCAEPoro::run()
 		reservoir.wellgroup.applyControl(d);
 		control.ApplyControl(d);
 		control.initTime(d);
-		while (control.Current_time < control.CriticalTime[d+1]) {
+		while (control.CriticalTime[d+1] - control.Current_time > TINY) {
 			
 			runIMPES(control.Current_dt);
 
@@ -69,32 +69,36 @@ void OpenCAEPoro::run()
 void OpenCAEPoro::runIMPES(double& dt)
 {
 	double cfl = 1;
-	while (true) {
-		reservoir.wellgroup.prepareWell(reservoir.bulk);
-		
-		cfl = reservoir.calCFL(dt);
-		if (cfl > 1)
-			dt /= (cfl + 1);
 
-		SolveP(dt);
-		reservoir.conn.calFlux(reservoir.bulk);
-		reservoir.wellgroup.calFlux(reservoir.bulk);
-		reservoir.conn.massConserve(reservoir.bulk, dt);
-		reservoir.wellgroup.massConserve(reservoir.bulk, dt);
+	reservoir.wellgroup.prepareWell(reservoir.bulk);
 
-		reservoir.bulk.flash_Ni();
-		reservoir.bulk.calKrPc();
+	cfl = reservoir.calCFL(dt);
+	if (cfl > 1)
+		dt /= (cfl + 1);
 
-		break;
-		
-	}
-	
-	reservoir.bulk.setLastStep();
+	SolveP(dt);
+	reservoir.conn.calFlux(reservoir.bulk);
+	reservoir.wellgroup.calFlux(reservoir.bulk);
+	reservoir.conn.massConserve(reservoir.bulk, dt);
+	reservoir.wellgroup.massConserve(reservoir.bulk, dt);
+
+	reservoir.bulk.flash_Ni();
+	reservoir.bulk.calKrPc();
+	reservoir.bulk.calVporo();
+	reservoir.conn.calFlux(reservoir.bulk);
+
+
 	reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
-
 	control.Tstep += 1;
 	control.NR_iter = 1;
 	control.NR_iter_total += 1;
+
+	reservoir.bulk.calMaxChange();
+	control.setNextTstep(reservoir);
+	reservoir.bulk.setLastStep();
+
+	cout << fixed << setprecision(3) << control.Current_time << "Days \n";
+
 	output.setVal(reservoir, control);
 
 }

@@ -54,7 +54,7 @@ public:
 
 	void calTrans(const Bulk& myBulk);
 	// cal flux ---- perf: qt_ft3 & qi_lbmol
-	void calFlux(const Bulk& myBulk);
+	void calFlux(const Bulk& myBulk, bool flag = false);
 	void massConserve(Bulk& myBulk, double dt);
 	
 

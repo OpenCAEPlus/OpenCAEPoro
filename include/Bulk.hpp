@@ -31,7 +31,7 @@ class Bulk
 
 public:
 	Bulk() = default;
-	
+
 	int getBulkNum() { return Num; }
 
 	void inputParam(ParamReservoir& rs_param);
@@ -63,6 +63,11 @@ public:
 	// calculate FPR
 	double calFPR();
 	double getP(int n) { return P[n]; }
+
+	double getdPmax() { return dPmax; }
+	double getdNmax() { return dNmax; }
+	double getdSmax() { return dSmax; }
+	double getdVmax() { return dVmax; }
 
 private:
 	int						Num;			// num of active bulk

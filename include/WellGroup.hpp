@@ -65,16 +65,16 @@ private:
 	int							WellNum;
 	std::vector<Well>			WellG;
 	std::vector<Mixture*>		Flashcal;
-	double						FGIR;
-	double						FGIT;
-	double						FWIR;
-	double						FWIT;
-	double						FOPR;
-	double						FOPT;
-	double						FGPR;
-	double						FGPt;
-	double						FWPR;
-	double						FWPT;
+	double						FGIR{ 0 };
+	double						FGIT{ 0 };
+	double						FWIR{ 0 };
+	double						FWIT{ 0 };
+	double						FOPR{ 0 };
+	double						FOPT{ 0 };
+	double						FGPR{ 0 };
+	double						FGPt{ 0 };
+	double						FWPR{ 0 };
+	double						FWPT{ 0 };
 };
 
 template<typename T>

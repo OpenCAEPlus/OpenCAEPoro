@@ -306,23 +306,19 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
 		P = myBulk.P[n];
 		Vf = myBulk.Vf[n];
 
-		if (n == 8413) {
-			cout << "stop" << endl;
-		}
-
 		double temp = cr * Vp0 - Vfp;
 		mySolver.DiagVal[n] = temp;
 		mySolver.b[n] = temp * P + dt * (Vf - Vp);
 	}
 
 	// check 
-	ofstream outb("testb.dat");
-	if (!outb.is_open())
-		cout << "Can not open " << "testb.dat" << endl;
-	outb << mySolver.Dim << endl;
-	for (int i = 0; i < mySolver.Dim; i++)
-		outb << mySolver.b[i] << endl;
-	outb.close();
+	//ofstream outb("testb.dat");
+	//if (!outb.is_open())
+	//	cout << "Can not open " << "testb.dat" << endl;
+	//outb << mySolver.Dim << endl;
+	//for (int i = 0; i < mySolver.Dim; i++)
+	//	outb << mySolver.b[i] << endl;
+	//outb.close();
 
 	// flux term
 	int bId, eId, uId;
@@ -334,6 +330,7 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
 	for (int c = 0; c < ActiveConnNum; c++) {
 		bId = Iterator[c].BId;
 		eId = Iterator[c].EId;
+
 		valup = 0; rhsup = 0; valdown = 0; rhsdown = 0;	
 
 		for (int j = 0; j < np; j++) {

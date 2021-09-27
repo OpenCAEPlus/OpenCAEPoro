@@ -140,6 +140,9 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 		Perf[p].qi_lbmol.resize(myBulk.Nc);
 		Perf[p].transj.resize(myBulk.Np);
 	}
+	if (Depth < 0)
+		Depth = Perf[0].Depth;
+
 	calWI_Peaceman_Vertical(myBulk);
 	cout << "Well::setup" << endl;
 }
@@ -283,6 +286,8 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double 
 		mySolver.Val[wId].push_back(dt);
 		// b
 		mySolver.b[wId] += dt * Opt.MaxBHP;
+		// u   initial value
+		mySolver.u[wId] = Opt.MaxBHP;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode in function");
@@ -298,7 +303,6 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 	int wId = mySolver.Dim;
 	// important !
 	mySolver.Dim++;
-	cout << Name << endl;
 
 	for (int p = 0; p < PerfNum; p++) {
 		int k = Perf[p].Location;
@@ -388,6 +392,8 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 		mySolver.Val[wId].push_back(dt);
 		// b
 		mySolver.b[wId] += dt * Opt.MinBHP;
+		// u   initial value
+		mySolver.u[wId] = Opt.MinBHP;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode");
@@ -481,7 +487,7 @@ void Well::calProddG(const Bulk& myBulk)
 	double	qtacc = 0;
 	double	rhoacc = 0;
 	double	rhotmp = 0;
-	cout << Name << endl;
+
 	if (Depth <= Perf.front().Depth) {
 		// Well is higher
 		for (int p = PerfNum - 1; p >= 0; p--) {
@@ -578,7 +584,6 @@ void Well::calTrans(const Bulk& myBulk)
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
 
-	cout << Name << endl;
 	if (Opt.Type == INJ) {
 		for (int p = 0; p < PerfNum; p++) {
 			Perf[p].transj.assign(np, 0);
@@ -612,11 +617,10 @@ void Well::calTrans(const Bulk& myBulk)
 	}
 }
 
-void Well::calFlux(const Bulk& myBulk)
+void Well::calFlux(const Bulk& myBulk, bool flag)
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;
-	cout << Name << endl;
 
 	if (Opt.Type == INJ) {
 
@@ -629,9 +633,11 @@ void Well::calFlux(const Bulk& myBulk)
 			Perf[p].qt_ft3 = Perf[p].transj[0] * dP;
 
 			int pvtnum = myBulk.PVTNUM[k];
-			Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
+			if (flag)
+				Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
+			double xi = Perf[p].Xi;
 			for (int i = 0; i < nc; i++) {
-				Perf[p].qi_lbmol[i] = Perf[p].qt_ft3 * Perf[p].Xi * Opt.Zi[i];
+				Perf[p].qi_lbmol[i] = Perf[p].qt_ft3 * xi * Opt.Zi[i];
 			}
 		}
 	}
