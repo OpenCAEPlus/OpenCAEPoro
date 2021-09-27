@@ -61,156 +61,180 @@ void Summary::setup(Reservoir& reservoir)
 	if (FWIT)
 		Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
+	int wellnum = reservoir.wellgroup.getWellNum();
+
 	if (WOPR.activity) {
 		if (WOPR.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WOPR", reservoir.wellgroup.getWellName(w), "STB/DAY"));
+				WOPR.index.push_back(w);
 			}
 		}
 		else {
 			int num = WOPR.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WOPR", WOPR.obj[w], "STB/DAY"));
+				WOPR.index.push_back(reservoir.wellgroup.getIndex(WOPR.obj[w]));
 			}
 		}
 	}
 	
 	if (WOPT.activity) {
 		if (WOPT.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WOPT", reservoir.wellgroup.getWellName(w), "STB"));
+				WOPT.index.push_back(w);
 			}
 		}
 		else {
 			int num = WOPT.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WOPT", WOPT.obj[w], "STB"));
+				WOPT.index.push_back(reservoir.wellgroup.getIndex(WOPT.obj[w]));
 			}
 		}
 	}
 
 	if (WGPR.activity) {
 		if (WGPR.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WGPR", reservoir.wellgroup.getWellName(w), "MSCF/DAY"));
+				WGPR.index.push_back(w);
 			}
 		}
 		else {
 			int num = WGPR.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WGPR", WGPR.obj[w], "MSCF/DAY"));
+				WGPR.index.push_back(reservoir.wellgroup.getIndex(WGPR.obj[w]));
 			}
 		}
 	}
 
 	if (WGPT.activity) {
 		if (WGPT.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WGPT", reservoir.wellgroup.getWellName(w), "MSCF"));
+				WGPT.index.push_back(w);
 			}
 		}
 		else {
 			int num = WGPT.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WGPT", WGPT.obj[w], "MSCF"));
+				WGPT.index.push_back(reservoir.wellgroup.getIndex(WGPT.obj[w]));
 			}
 		}
 	}
 
 	if (WWPR.activity) {
 		if (WWPR.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WWPR", reservoir.wellgroup.getWellName(w), "STB/DAY"));
+				WWPR.index.push_back(w);
 			}
 		}
 		else {
 			int num = WWPR.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WWPR", WWPR.obj[w], "STB/DAY"));
+				WWPR.index.push_back(reservoir.wellgroup.getIndex(WWPR.obj[w]));
 			}
 		}
 	}
 
 	if (WWPT.activity) {
 		if (WWPT.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WWPT", reservoir.wellgroup.getWellName(w), "STB"));
+				WWPT.index.push_back(w);
 			}
 		}
 		else {
 			int num = WWPT.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WWPT", WWPT.obj[w], "STB"));
+				WWPT.index.push_back(reservoir.wellgroup.getIndex(WWPT.obj[w]));
 			}
 		}
 	}
 
 	if (WGIR.activity) {
 		if (WGIR.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WGIR", reservoir.wellgroup.getWellName(w), "MSCF/DAY"));
+				WGIR.index.push_back(w);
 			}
 		}
 		else {
 			int num = WGIR.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WGIR", WGIR.obj[w], "MSCF/DAY"));
+				WGIR.index.push_back(reservoir.wellgroup.getIndex(WGIR.obj[w]));
 			}
 		}
 	}
 
 	if (WGIT.activity) {
 		if (WGIT.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WGIT", reservoir.wellgroup.getWellName(w), "MSCF"));
+				WGIT.index.push_back(w);
 			}
 		}
 		else {
 			int num = WGIT.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WGIT", WGIT.obj[w], "MSCF"));
+				WGIT.index.push_back(reservoir.wellgroup.getIndex(WGIT.obj[w]));
 			}
 		}
 	}
 
 	if (WWIR.activity) {
 		if (WWIR.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WWIR", reservoir.wellgroup.getWellName(w), "STB/DAY"));
+				WWIR.index.push_back(w);
 			}
 		}
 		else {
 			int num = WWIR.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WWIR", WWIR.obj[w], "STB/DAY"));
+				WWIR.index.push_back(reservoir.wellgroup.getIndex(WWIR.obj[w]));
 			}
 		}
 	}
 
 	if (WWIT.activity) {
 		if (WWIT.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WWIT", reservoir.wellgroup.getWellName(w), "STB"));
+				WWIT.index.push_back(w);
 			}
 		}
 		else {
 			int num = WWIT.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WWIT", WWIT.obj[w], "STB"));
+				WWIT.index.push_back(reservoir.wellgroup.getIndex(WWIT.obj[w]));
 			}
 		}
 	}
 
 	if (WBHP.activity) {
 		if (WBHP.obj[0] == "All") {
-			for (int w = 0; w < reservoir.wellgroup.getWellNum(); w++) {
+			for (int w = 0; w < wellnum; w++) {
 				Sumdata.push_back(SumPair("WBHP", reservoir.wellgroup.getWellName(w), "PSIA"));
+				WBHP.index.push_back(w);
 			}
 		}
 		else {
 			int num = WBHP.obj.size();
 			for (int w = 0; w < num; w++) {
 				Sumdata.push_back(SumPair("WBHP", WBHP.obj[w], "PSIA"));
+				WBHP.index.push_back(reservoir.wellgroup.getIndex(WBHP.obj[w]));
 			}
 		}
 	}
@@ -222,6 +246,10 @@ void Summary::setup(Reservoir& reservoir)
 				+ to_string(BPR.obj[i].J) + ", "
 				+ to_string(BPR.obj[i].K) + " )";
 			Sumdata.push_back(SumPair("BPR", temp, "PSIA"));
+			int I = BPR.obj[i].I - 1;
+			int J = BPR.obj[i].J - 1;
+			int K = BPR.obj[i].K - 1;
+			BPR.index.push_back(reservoir.grid.getIndex(I, J, K));
 		}
 	}
 
@@ -229,12 +257,190 @@ void Summary::setup(Reservoir& reservoir)
 
 }
 
+void Summary::setVal(Reservoir& reservoir, CAEControl& ctrl)
+{
+	int n = 0;
+
+	// TIME
+	Sumdata[n++].val.push_back(ctrl.getCurTime());
+	// NRiter
+	Sumdata[n++].val.push_back(ctrl.getNRiter());
+	// LSiter
+	Sumdata[n++].val.push_back(ctrl.getLSiter());
+
+	// FPR
+	if (FPR)
+		Sumdata[n++].val.push_back(reservoir.bulk.calFPR());
+	if (FOPR)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFOPR());
+	if (FOPT)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFOPT());
+	if (FGPR)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFGPR());
+	if (FGPt)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFGPT());
+	if (FWPR)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFWPR());
+	if (FWPT)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFWPT());
+	if (FGIR)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFGIR());
+	if (FGIT)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFGIT());
+	if (FWIR)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFWIR());
+	if (FWIT)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getFWIT());
+
+	int len = 0;
+	// WOPR
+	len = WOPR.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWOPR(WOPR.index[w]));
+	// WOPT
+	len = WOPT.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWOPT(WOPT.index[w]));
+	// WGPR
+	len = WGPR.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWGPR(WGPR.index[w]));
+	// WGPT
+	len = WGPT.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWGPT(WGPT.index[w]));
+	// WWPR
+	len = WWPR.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWWPR(WWPR.index[w]));
+	// WWPT
+	len = WWPT.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWWPT(WWPT.index[w]));
+	// WGIR
+	len = WGIR.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWGIR(WGIR.index[w]));
+	// WGIT
+	len = WGIT.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWGIT(WGIT.index[w]));
+	// WWIR
+	len = WWIR.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWWIR(WWIR.index[w]));
+	// WWIT
+	len = WWIT.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWWIT(WWIT.index[w]));
+	// WBHP
+	len = WBHP.index.size();
+	for (int w = 0; w < len; w++)
+		Sumdata[n++].val.push_back(reservoir.wellgroup.getWBHP(WBHP.index[w]));
+
+	// BPR
+	len = BPR.index.size();
+	for (int i = 0; i < len; i++)
+		Sumdata[n++].val.push_back(reservoir.bulk.getP(BPR.index[i]));
+
+	cout << "Summary::setVal" << endl;
+}
+
+void Summary::printInfo(string& dir)
+{
+	string FileOut = dir + "SUMMARY.dat";
+	ofstream outF(FileOut);
+	if (!outF.is_open()) {
+		ERRORcheck("Can not open " + FileOut);
+		exit(0);
+	}
+	
+	int ns = 10;
+	int col = 10;
+	int row = 0;
+	int num = Sumdata.size();
+	int len = Sumdata[0].val.size();
+	int id = 0;
+	int ID = 1;
+	
+	while (id != num) {
+		 
+		outF << "The " << ++row << "th Row\n";
+
+		// Item
+		// Time
+		outF << "\t" << setw(10) << Sumdata[0].Item;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Item;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// Unit
+		// Time
+		outF << "\t" << setw(10) << Sumdata[0].Unit;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Unit;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// Obj
+		// Time
+		outF << "\t" << setw(ns) << Sumdata[0].Obj;
+
+		id = ID;
+		for (int i = 1; i < col; i++) {
+			outF << "\t" << setw(ns) << Sumdata[id].Obj;
+			id++;
+			if (id == num)
+				break;
+		}
+
+		// data
+		for (int l = 0; l < len; l++) {
+
+			// Time
+			outF << "\t" << setw(ns) << Sumdata[0].val[l];
+
+			id = ID;
+			for (int i = 1; i < col; i++) {
+				outF << "\t" << setw(ns) << Sumdata[id].val[l];
+				id++;
+				if (id == num)
+					break;
+			}
+		}
+
+		ID += (col - 1);
+	}
+
+	outF.close();
+}
+
 void CAEOutput::inputParam(ParamOutput& Output_param)
 {
 	summary.inputParam(Output_param.Summary);
 }
 
-void CAEOutput::setup(Reservoir& reservoir)
+void CAEOutput::setup(Reservoir& reservoir, string& dir)
 {
+	Dir = dir;
 	summary.setup(reservoir);
+}
+
+void CAEOutput::setVal(Reservoir& reservoir, CAEControl& ctrl)
+{
+	summary.setVal(reservoir, ctrl);
+}
+
+void CAEOutput::printInfo()
+{
+	summary.printInfo(Dir);
 }

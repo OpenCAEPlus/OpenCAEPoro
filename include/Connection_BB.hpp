@@ -41,8 +41,9 @@ public:
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);
 	double calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
 
+	double calCFL(Bulk& myBulk, double dt);
 	void calFlux(const Bulk& myBulk);
-	void massConserve(Bulk& myBulk);
+	void massConserve(Bulk& myBulk, double dt);
 
 	// Assemble Mat
 	template<typename T>
@@ -67,7 +68,7 @@ private:
 	std::vector<int>				Upblock;				// upblock of connection
 	std::vector<double>				Upblock_Rho;			// rhoj in flux
 	std::vector<double>				Upblock_Trans;
-	std::vector<double>				Upblock_Velocity;
+	std::vector<double>				Upblock_Velocity;       // volume rate
 };
 
 

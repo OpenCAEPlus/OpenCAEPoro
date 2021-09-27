@@ -39,6 +39,8 @@ public:
 
 	void initSjPc_blk(int depnum);
 	void initSjPc_comp(int depnum);
+	void setLastStep() { lP = P; lNi = Ni; lS = S; }
+	void calMaxChange();
 
 	// Flash
 	void flash_Sj();
@@ -56,7 +58,11 @@ public:
 	int mixMode();
 
 	// solver
-	void getP_IMPES(vector<double>& u);
+	void getSol_IMPES(vector<double>& u);
+
+	// calculate FPR
+	double calFPR();
+	double getP(int n) { return P[n]; }
 
 private:
 	int						Num;			// num of active bulk
@@ -78,7 +84,7 @@ private:
 	std::vector<double>		Mu;				// viscosity of phase: Np*Num
 	std::vector<double>		Kr;				// relative permeability of phase: Np*Num
 
-
+	std::vector<double>		Vj;
 	std::vector<double>		Vf;				// total fluid volume
 	std::vector<double>		Vfi;			// dVt / dNi
 	std::vector<double>		Vfp;			// dVt / dP
@@ -95,6 +101,13 @@ private:
 	// last STEP
 	std::vector<double>		lP;
 	std::vector<double>		lNi;
+	std::vector<double>		lS;
+
+	// max change
+	double					dPmax;
+	double					dNmax;
+	double					dVmax;
+	double					dSmax;
 	
 	// Bulk rock infomation
 	std::vector<double>		Dx;					// dx
@@ -121,9 +134,9 @@ private:
 	ParamEQUIL				EQUIL;
 	bool					BLACKOIL;
 	bool					COMPS;
-	bool					OIL;
-	bool					GAS;
-	bool					WATER;
-	bool					DISGAS;
+	bool					Oil;
+	bool					Gas;
+	bool					Water;
+	bool					DisGas;
 
 };

@@ -24,13 +24,14 @@ public:
 	void allocateColVal();
 
 	void initSolver(string& dir, string& file);
+	void showSolution(string fileX);
 	// FASP
 	void init_param_Fasp();
 	void read_param_Fasp();
 	void assemble_Fasp();
+	int faspsolve();
 	void free_Fasp();
 	void showMat_CSR(string fileA, string fileb);
-
 
 
 	void clearData();
@@ -99,6 +100,7 @@ void Solver<T>::clearData()
 	DiagPtr.resize(MaxDim, -1);
 	DiagVal.resize(MaxDim, 0);
 	b.resize(MaxDim, 0);
+	u.resize(MaxDim, 0);
 }
 
 
@@ -135,8 +137,114 @@ template <typename T>
 void Solver<T>::free_Fasp()
 {
 	fasp_dcsr_free(&A_Fasp);
-	fasp_dvec_free(&b_Fasp);
-	fasp_dvec_free(&x_Fasp);
+}
+
+
+template <typename T>
+int Solver<T>::faspsolve() {
+	int status = FASP_SUCCESS;
+
+	const int print_level = inparam.print_level;
+	const int solver_type = inparam.solver_type;
+	const int precond_type = inparam.precond_type;
+	const int output_type = inparam.output_type;
+
+	if (output_type) {
+		const char* outputfile = "out/Solver.out";
+		printf("Redirecting outputs to file: %s ...\n", outputfile);
+		freopen(outputfile, "w", stdout); // open a file for stdout
+	}
+
+	// Preconditioned Krylov methods
+	if (solver_type >= 1 && solver_type <= 20) {
+
+		// Using no preconditioner for Krylov iterative methods
+		if (precond_type == PREC_NULL) {
+			status = fasp_solver_dcsr_krylov(&A_Fasp, &b_Fasp, &x_Fasp, &itparam);
+		}
+
+		// Using diag(A) as preconditioner for Krylov iterative methods
+		else if (precond_type == PREC_DIAG) {
+			status = fasp_solver_dcsr_krylov_diag(&A_Fasp, &b_Fasp, &x_Fasp, &itparam);
+		}
+
+		// Using AMG as preconditioner for Krylov iterative methods
+		else if (precond_type == PREC_AMG || precond_type == PREC_FMG) {
+			if (print_level > PRINT_NONE) fasp_param_amg_print(&amgparam);
+			status = fasp_solver_dcsr_krylov_amg(&A_Fasp, &b_Fasp, &x_Fasp, &itparam, &amgparam);
+		}
+
+		// Using ILU as preconditioner for Krylov iterative methods
+		else if (precond_type == PREC_ILU) {
+			if (print_level > PRINT_NONE) fasp_param_ilu_print(&iluparam);
+			status = fasp_solver_dcsr_krylov_ilu(&A_Fasp, &b_Fasp, &x_Fasp, &itparam, &iluparam);
+		}
+
+		// Undefined iterative methods
+		else {
+			printf("### ERROR: Wrong preconditioner type %d!!!\n", precond_type);
+			status = ERROR_SOLVER_PRECTYPE;
+		}
+
+	}
+
+	// AMG as the iterative solver
+	else if (solver_type == SOLVER_AMG) {
+		if (print_level > PRINT_NONE) fasp_param_amg_print(&amgparam);
+		fasp_solver_amg(&A_Fasp, &b_Fasp, &x_Fasp, &amgparam);
+	}
+
+	// Full AMG as the iterative solver 
+	else if (solver_type == SOLVER_FMG) {
+		if (print_level > PRINT_NONE) fasp_param_amg_print(&amgparam);
+		fasp_solver_famg(&A_Fasp, &b_Fasp, &x_Fasp, &amgparam);
+	}
+
+#if WITH_MUMPS // use MUMPS directly
+	else if (solver_type == SOLVER_MUMPS) {
+		status = fasp_solver_mumps(&A_Fasp, &b_Fasp, &x_Fasp, print_level);
+		if (status >= 0) status = 1; // Direct solver returns 1
+	}
+#endif
+
+#if WITH_SuperLU // use SuperLU directly
+	else if (solver_type == SOLVER_SUPERLU) {
+		status = fasp_solver_superlu(&A_Fasp, &b_Fasp, &x_Fasp, print_level);
+		if (status >= 0) status = 1; // Direct solver returns 1
+	}
+#endif	 
+
+#if WITH_UMFPACK // use UMFPACK directly
+	else if (solver_type == SOLVER_UMFPACK) {
+		// Need to sort the matrix A for UMFPACK to work
+		dCSRmat A_trans = fasp_dcsr_create(A_Fasp.row, A_Fasp.col, A_Fasp.nnz);
+		fasp_dcsr_transz(&A_Fasp, NULL, &A_trans);
+		fasp_dcsr_sort(&A_trans);
+		status = fasp_solver_umfpack(&A_trans, &b_Fasp, &x_Fasp, print_level);
+		fasp_dcsr_free(&A_trans);
+		if (status >= 0) status = 1; // Direct solver returns 1
+	}
+#endif	 
+
+#ifdef WITH_PARDISO // use PARDISO directly
+	else if (solver_type == SOLVER_PARDISO) {
+		fasp_dcsr_sort(&A_Fasp);
+		status = fasp_solver_pardiso(&A_Fasp, &b_Fasp, &x_Fasp, print_level);
+		if (status >= 0) status = 1; // Direct solver returns 1
+	}
+#endif
+
+	else {
+		printf("### ERROR: Wrong solver type %d!!!\n", solver_type);
+		status = ERROR_SOLVER_TYPE;
+	}
+
+	if (status < 0) {
+		printf("### ERROR: Solver failed! Exit status = %d.\n\n", status);
+	}
+
+	if (output_type) fclose(stdout);
+	return status;
 }
 
 template <typename T>
@@ -165,6 +273,20 @@ void Solver<T>::showMat_CSR(string fileA, string fileb)
 	for (int i = 0; i < b_Fasp.row; i++)
 	    outb << b_Fasp.val[i] << endl;
 	outb.close();
+}
+
+
+template <typename T>
+void Solver<T>::showSolution(string fileU)
+{
+	string FileU = SolveDir + fileU;
+	ofstream outu(FileU);
+	if (!outu.is_open())
+		cout << "Can not open " <<FileU << endl;
+	outu << Dim << endl;
+	for (int i = 0; i < Dim; i++)
+		outu << u[i] << endl;
+	outu.close();
 }
 
 

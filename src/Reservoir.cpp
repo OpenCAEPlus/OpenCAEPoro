@@ -28,15 +28,20 @@ void Reservoir::init()
 	bulk.calVporo();
 	bulk.flash_Sj();
 	bulk.calKrPc();
+	bulk.setLastStep();
 	conn.calFlux(bulk);
-
 	wellgroup.init(bulk);
+
 }
 
 
 double Reservoir::calCFL(double dt)
 {
+	double cflB = conn.calCFL(bulk, dt);
+	double cflW = wellgroup.calCFL(bulk, dt);
+	double cfl = max(cflB, cflW);
 
+	return cfl;
 }
 
 // assemble mat
@@ -47,8 +52,8 @@ void Reservoir::assembleMat(Solver<double>& mysolver, double dt)
 	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
 }
 
-void Reservoir::getP_IMPES(vector<double>& u)
+void Reservoir::getSol_IMPES(vector<double>& u)
 {
-	bulk.getP_IMPES(u);
-	wellgroup.getP_IMPES(u, bulk.getBulkNum());
+	bulk.getSol_IMPES(u);
+	wellgroup.getSol_IMPES(u, bulk.getBulkNum());
 }

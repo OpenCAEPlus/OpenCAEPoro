@@ -1,6 +1,10 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 #include "Reservoir.hpp"
 #include "ParamOutput.hpp"
+
+using namespace std;
 
 class CAEIJK
 {
@@ -18,6 +22,7 @@ public:
 	CAETypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
 	bool				activity{ false };
 	vector<string>		obj;
+	vector<int>			index;
 };
 
 class CAETypeB
@@ -26,6 +31,7 @@ public:
 	CAETypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
 	bool				activity{ false };
 	vector<CAEIJK>		obj;
+	vector<int>			index;
 };
 
 class SumPair
@@ -44,7 +50,9 @@ class Summary
 public:
 	void inputParam(OutputSummary& summary_param);
 	void setup(Reservoir& reservoir);
-	void setVal(Reservoir& reservoir);
+	void setVal(Reservoir& reservoir, CAEControl& ctrl);
+	void printInfo(string& dir);
+
 
 private:
 
@@ -85,9 +93,12 @@ class CAEOutput
 public:
 
 	void inputParam(ParamOutput& Output_param);
-	void setup(Reservoir& reservoir);
+	void setup(Reservoir& reservoir, string& dir);
+	void setVal(Reservoir& reservoir, CAEControl& ctrl);
+	void printInfo();
 
 private:
+	string		Dir;
 	Summary		summary;
 
 };

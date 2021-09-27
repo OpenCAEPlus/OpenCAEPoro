@@ -10,7 +10,7 @@ void OpenCAEPoro::inputParam(ParamRead& param)
 void OpenCAEPoro::setup()
 {
 	reservoir.setup();
-	output.setup(reservoir);
+	output.setup(reservoir, control.Dir);
 }
 
 void OpenCAEPoro::allocateMat()
@@ -36,11 +36,16 @@ void OpenCAEPoro::SolveP(double dt)
 #ifdef __SOLVER_FASP__
 	
 	solver.assemble_Fasp();
-	solver.showMat_CSR("testA.dat", "testb.dat");
+	// solver.showMat_CSR("testA.dat", "testb.dat");
+	int status = solver.faspsolve();
+	// solver.showSolution("testx.dat");
 	solver.free_Fasp();
+
+	control.LS_iter = status;
+	control.LS_iter_total += status;
 	
 #endif // __SOLVER_FASP__
-	reservoir.getP_IMPES(solver.getSol());
+	reservoir.getSol_IMPES(solver.getSol());
 	solver.clearData();
 }
 
@@ -58,16 +63,38 @@ void OpenCAEPoro::run()
 		}
 
 	}
+	output.printInfo();
 }
 
 void OpenCAEPoro::runIMPES(double& dt)
 {
+	double cfl = 1;
 	while (true) {
 		reservoir.wellgroup.prepareWell(reservoir.bulk);
-		reservoir.calCFL(dt);
-		SolveP(dt);
+		
+		cfl = reservoir.calCFL(dt);
+		if (cfl > 1)
+			dt /= (cfl + 1);
 
-		cout << "stop" << endl;
+		SolveP(dt);
+		reservoir.conn.calFlux(reservoir.bulk);
+		reservoir.wellgroup.calFlux(reservoir.bulk);
+		reservoir.conn.massConserve(reservoir.bulk, dt);
+		reservoir.wellgroup.massConserve(reservoir.bulk, dt);
+
+		reservoir.bulk.flash_Ni();
+		reservoir.bulk.calKrPc();
+
+		break;
+		
 	}
 	
+	reservoir.bulk.setLastStep();
+	reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
+
+	control.Tstep += 1;
+	control.NR_iter = 1;
+	control.NR_iter_total += 1;
+	output.setVal(reservoir, control);
+
 }

@@ -45,14 +45,24 @@ public:
 	// init
 	void init(const Bulk& myBulk);
 
+	double calCFL(const Bulk& myBulk, double dt);
+
 	// calculate dG
+	void caldG(const Bulk& myBulk);
 	void calInjdG(const Bulk& myBulk);
 	void calProddG(const Bulk& myBulk);
 
+	void calTrans(const Bulk& myBulk);
+	// cal flux ---- perf: qt_ft3 & qi_lbmol
+	void calFlux(const Bulk& myBulk);
+	void massConserve(Bulk& myBulk, double dt);
+	
+
 	// calculate rate -- zi, uesd to check well opt mode and calculate well rate
-	double calInjRate_blk(const Bulk& myBulk, int flag = 0);
+	double calInjRate_blk(const Bulk& myBulk);
 	double calProdRate_blk(const Bulk& myBulk);
-	void calProdqi_blk(const Bulk& myBulk);
+	void calInjqi_blk(const Bulk& myBulk, double dt);
+	void calProdqi_blk(const Bulk& myBulk, double dt);
 
 
 
@@ -88,11 +98,11 @@ private:
 
 	// production rate and injection rate
 	std::vector<double>			Qi_lbmol;
-	double						WOPR;
-	double						WGPR;
-	double						WWPR;
-	double						WGIR;
-	double						WWIR;
+	double						WOPR{ 0 }, WOPT{ 0 };
+	double						WGPR{ 0 }, WGPT{ 0 };
+	double						WWPR{ 0 }, WWPT{ 0 };
+	double						WGIR{ 0 }, WGIT{ 0 };
+	double						WWIR{ 0 }, WWIT{ 0 };
 
 };
 

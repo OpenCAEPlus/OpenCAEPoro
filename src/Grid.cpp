@@ -87,3 +87,15 @@ void Grid::inputParam(ParamReservoir& rs_param)
 	}
 	cout << "Grid::inputParam" << endl;
 }
+
+
+int Grid::getIndex(int i, int j, int k)
+{
+	int id = k * Nx * Ny + j * Nx + i;
+	id = ActiveMap_G2B[id];
+	if (id == -1) {
+		ERRORcheck("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) + ") is inactive");
+		exit(0);
+	}
+	return id;
+}

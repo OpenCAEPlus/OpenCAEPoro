@@ -11,7 +11,7 @@ public:
 	WellOptParam(string type, vector<string>& vbuf);
 	// WCONINJE & WCONPROD
 	string				Type;
-	string				FluidType;
+	string				FluidType;   // inj
 	string				State;
 	string				OptMode;
 

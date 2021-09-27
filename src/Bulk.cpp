@@ -11,23 +11,23 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 	T = rs_param.RTEMP;
 	BLACKOIL = rs_param.BLACKOIL;
 	COMPS = rs_param.COMPS;
-	OIL = rs_param.OIL;
-	GAS = rs_param.GAS;
-	WATER = rs_param.WATER;
-	DISGAS = rs_param.DISGAS;
+	Oil = rs_param.OIL;
+	Gas = rs_param.GAS;
+	Water = rs_param.WATER;
+	DisGas = rs_param.DISGAS;
 
 	EQUIL.Dref = rs_param.EQUIL[0];
 	EQUIL.Pref = rs_param.EQUIL[1];
 	EQUIL.PBVD.setup(rs_param.PBVD_T.data[0]);
 	
 	if (BLACKOIL) {
-		if (WATER && !OIL && !GAS) {
+		if (Water && !Oil && !Gas) {
 			// water
 			Np = 1;	Nc = 1;
 			SATmode = PHASE_W;
 			PVTmode = PHASE_W;
 		}
-		else if (WATER && OIL && !GAS) {
+		else if (Water && Oil && !Gas) {
 			// water, dead oil
 			Np = 2;	Nc = 2;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -35,7 +35,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 			SATmode = PHASE_OW;
 			PVTmode = PHASE_OW;
 		}
-		else if (WATER && OIL && GAS && !DISGAS) {
+		else if (Water && Oil && Gas && !DisGas) {
 			// water, dead oil, dry gas
 			Np = 3;	Nc = 3;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -45,7 +45,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 			SATmode = PHASE_OGW;
 			PVTmode = PHASE_OGW;      // maybe it should be added later
 		}
-		else if (WATER && OIL && GAS && DISGAS) {
+		else if (Water && Oil && Gas && DisGas) {
 			// water, live oil, dry gas
 			Np = 3;	Nc = 3;
 			EQUIL.DOWC = rs_param.EQUIL[2];
@@ -59,7 +59,7 @@ void Bulk::inputParam(ParamReservoir& rs_param)
 		rs_param.Nc = Nc;
 		for (int i = 0; i < rs_param.NTSFUN; i++)
 			Flow.push_back(new FlowUnit(rs_param, SATmode, i));
-		if (OIL & GAS & WATER) {
+		if (Oil & Gas & Water) {
 			for (int i = 0; i < rs_param.NTSFUN; i++) {
 				Flow[i]->generate_SWPCWG();
 			}
@@ -103,8 +103,8 @@ void Bulk::setup(const Grid& myGrid)
 		Rock_VpInit[bIdb] = myGrid.V[bIdg] * myGrid.Ntg[bIdg] * myGrid.Poro[bIdg];
 		// Rock_PoroInit[bIdb] = myGrid.Poro[bIdg];
 		Rock_KxInit[bIdb] = myGrid.Kx[bIdg];
-		Rock_KyInit[bIdb] = myGrid.Kx[bIdg];
-		Rock_KzInit[bIdb] = myGrid.Kx[bIdg];
+		Rock_KyInit[bIdb] = myGrid.Ky[bIdg];
+		Rock_KzInit[bIdb] = myGrid.Kz[bIdg];
 
 		SATNUM[bIdb] = myGrid.SATNUM[bIdg];
 		PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
@@ -127,13 +127,15 @@ void Bulk::setup(const Grid& myGrid)
 	Rho.resize(Num * Np);
 	Mu.resize(Num * Np);
 	Kr.resize(Num * Np);
+	Vj.resize(Num * Np);
 
 	Vf.resize(Num, 0);
 	Vfi.resize(Num * Nc, 0);
 	Vfp.resize(Num, 0);
 
-	lP = P;
-	lNi = Ni;
+	lP.resize(Num, 0);
+	lNi.resize(Num * Nc);
+	lS.resize(Num * Np);
 
 	if (BLACKOIL) {
 		switch (PVTmode)
@@ -559,8 +561,42 @@ void Bulk::initSjPc_blk(int tabrow)
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
-		lP[n] = Po;
+
+		if (Depth[n] < DOGC) {
+			Pbb = Po;
+		}
+		else if (!EQUIL.PBVD.isempty()) {
+			Pbb = EQUIL.PBVD.eval(0, Depth[n], 1);
+		}	
 		Pbub[n] = Pbb;
+
+		// cal Sg and Sw
+		Sw = 0;
+		Sg = 0;
+		int ncut = 10;
+
+		for (int k = 0; k < ncut; k++) {
+			double tmpSw = 0;
+			double tmpSg = 0;
+			double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+			DepthP.eval_all(0, depth, data, cdata);
+			Po = data[1]; Pg = data[2]; Pw = data[3];
+			Pcow = Po - Pw;	Pcgo = Pg - Po;
+			tmpSw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+			if (!Flow[0]->empty_SGOF()) {
+				tmpSg = Flow[0]->eval_SGOF(3, Pcgo, 0);
+			}
+			if (tmpSw + tmpSg > 1) {
+				// should me modified
+				double Pcgw = Pcow + Pcgo;
+				tmpSw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
+				tmpSg = 1 - tmpSw;
+			}
+			Sw += tmpSw;
+			Sg += tmpSg;
+		}
+		Sw /= ncut;
+		Sg /= ncut;
 		S[n * Np + Np - 1] = Sw;
 		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
@@ -904,7 +940,35 @@ void Bulk::initSjPc_comp(int tabrow)
 			// Pw = Po - Flow->eval_SWOF(0, Sw, 3);
 		}
 		P[n] = Po;
-		lP[n] = Po;
+
+		// cal Sg and Sw
+		Sw = 0;
+		Sg = 0;
+		int ncut = 10;
+
+		for (int k = 0; k < ncut; k++) {
+			double tmpSw = 0;
+			double tmpSg = 0;
+			double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+			DepthP.eval_all(0, depth, data, cdata);
+			Po = data[1]; Pg = data[2]; Pw = data[3];
+			Pcow = Po - Pw;	Pcgo = Pg - Po;
+			tmpSw = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+			if (!Flow[0]->empty_SGOF()) {
+				tmpSg = Flow[0]->eval_SGOF(3, Pcgo, 0);
+			}
+			if (tmpSw + tmpSg > 1) {
+				// should me modified
+				double Pcgw = Pcow + Pcgo;
+				tmpSw = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
+				tmpSg = 1 - tmpSw;
+			}
+			Sw += tmpSw;
+			Sg += tmpSg;
+		}
+		Sw /= ncut;
+		Sg /= ncut;
+
 		S[n * Np + Np - 1] = Sw;
 		if (!Flow[0]->empty_SGOF()) {
 			S[n * Np + Np - 2] = Sg;
@@ -947,6 +1011,7 @@ void Bulk::passFlashValue(int n)
 			Xi[bId + j]		= Flashcal[pvtnum]->Xi[j];
 			Rho[bId + j]	= Flashcal[pvtnum]->Rho[j];
 			Mu[bId + j]		= Flashcal[pvtnum]->Mu[j];
+			Vj[bId+j]		= Flashcal[pvtnum]->V[j];
 		}
 	}
 	Vf[n] = Flashcal[pvtnum]->Vf;
@@ -985,8 +1050,81 @@ int Bulk::mixMode()
 		return EoS_PVTW;
 }
 
-void Bulk::getP_IMPES(vector<double>& u)
+void Bulk::getSol_IMPES(vector<double>& u)
 {
-	for (int n = 0; n < Num; n++)
+	for (int n = 0; n < Num; n++) {
 		P[n] = u[n];
+		for (int j = 0; j < Np; j++) {
+			int id = n * Np + j;
+			if (PhaseExist[id]) {
+				Pj[id] = P[n] + Pc[id];
+			}
+		}
+	}
+		
+}
+
+void Bulk::calMaxChange()
+{
+	dPmax = 0;
+	dNmax = 0;
+	dSmax = 0;
+	dVmax = 0;
+	double tmp = 0;
+	int id;
+	
+	for (int n = 0; n < Num; n++) {
+
+		// dP
+		tmp = fabs(P[n] - lP[n]);
+		dPmax = dPmax < tmp ? tmp : dPmax;
+
+		// dS
+		for (int j = 0; j < Np; j++) {
+			id = n * Np + j;
+			tmp = fabs(S[id] - lS[id]);
+			dSmax = dSmax < tmp ? tmp : dSmax;
+		}
+
+		// dN
+		for (int i = 0; i < Nc; i++) {
+			id = n * Nc + i;
+
+			tmp = fabs(max(Ni[id], lNi[id]));
+			if (tmp > TINY) {
+				tmp = fabs(Ni[id] - lNi[id]) / tmp;
+				dNmax = dNmax < tmp ? tmp : dNmax;
+			}
+		}
+
+		tmp = fabs(Vf[n] - Rock_Vp[n]) / Rock_Vp[n];
+		dVmax = dVmax < tmp ? tmp : dVmax;
+	}
+}
+
+double Bulk::calFPR()
+{
+	double ptmp = 0;
+	double vtmp = 0;
+	double tmp = 0;
+
+	if (Np == 3) {
+		for (int n = 0; n < Num; n++) {
+			tmp = Rock_Vp[n] * (1 - S[n * Np + 2]);
+			ptmp += P[n] * tmp;
+			vtmp += tmp;
+		}
+	}
+	else if (Np < 3) {
+		for (int n = 0; n < Num; n++) {
+			tmp = Rock_Vp[n] * (S[n * Np]);
+			ptmp += P[n] * tmp;
+			vtmp += tmp;
+		}
+	}
+	else {
+		ERRORcheck("Np is out of range!");
+		exit(0);
+	}
+	return ptmp / vtmp;
 }
