@@ -46,7 +46,12 @@ private:
 	ReservoirTable<double>				PVCO;
 	ReservoirTable<double>				PVDG;
 	ReservoirTable<double>				PVTW;
-	ReservoirTable<double>				PVDO;
+    ReservoirTable<double>              PVDO;
+
+	// Auxiliary parameters for Table interpolation
+	int									len{ 0 };
+	vector<double>						data;
+	vector<double>						cdata;
 
 
 	// Std_Gamma* = Std_Rho* * GRAVITY_FACTOR

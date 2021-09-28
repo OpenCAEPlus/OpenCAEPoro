@@ -34,16 +34,22 @@ BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
 
 	if (rs_param.PVTW_T.data.size() != 0) {
 		PVTW.setup(rs_param.PVTW_T.data[i]);
+		len = max(len, PVTW.getCol());
 	}
 	if (rs_param.PVCO_T.data.size() != 0) {
 		PVCO.setup(rs_param.PVCO_T.data[i]);
+		len = max(len, PVCO.getCol());
 	}
 	if (rs_param.PVDO_T.data.size() != 0) {
 		PVDO.setup(rs_param.PVDO_T.data[i]);
+		len = max(len, PVDO.getCol());
 	}
 	if (rs_param.PVDG_T.data.size() != 0) {
 		PVDG.setup(rs_param.PVDG_T.data[i]);
+		len = max(len, PVDG.getCol());
 	}
+	data.resize(len, 0);
+	cdata.resize(len, 0);
 }
 
 void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin, const double* Sjin, double Vpore, const double* Ziin)
@@ -167,8 +173,6 @@ double BOMixture::gammaPhaseO_OW(double Pin)
 
 double BOMixture::gammaPhaseW(double Pin)
 {
-	std::vector<double>		data(5, 0);
-	std::vector<double>		cdata(5, 0);
 
 	PVTW.eval_all(0, Pin, data, cdata);
 	double Pw0 = data[0];

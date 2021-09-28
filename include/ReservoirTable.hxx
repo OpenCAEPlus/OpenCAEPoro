@@ -11,8 +11,10 @@ public:
 	void setup(std::vector<std::vector<T>>& src);
 	bool isempty() { return data.empty(); }
 
+	int getCol() { return NCol; }
 	void pushCol(std::vector<T>& v) { data.push_back(v); }
 	std::vector<T>& getCol(int j) { return data[j]; }
+	
 
 	void setRowCol() { NRow = data[0].size(); NCol = data.size(); BId = NRow / 2; }
 	

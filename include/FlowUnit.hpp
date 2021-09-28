@@ -39,6 +39,11 @@ private:
 	ReservoirTable<double>			SWPCWG;
 
 	double							KroMax;		// oil relative permeability in the presence of connate water only
+
+	// Auxiliary parameters for Table interpolation
+    int                             len{0};
+    vector<double>					data;
+    vector<double>					cdata;
 };
 
 

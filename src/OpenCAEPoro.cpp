@@ -63,6 +63,8 @@ void OpenCAEPoro::run()
 		}
 
 	}
+    cout << "Total linear steps:  " << control.LS_iter_total << endl;
+    cout << "Total time steps:    " << control.NR_iter_total << endl;
 	output.printInfo();
 }
 
@@ -97,7 +99,7 @@ void OpenCAEPoro::runIMPES(double& dt)
 	control.setNextTstep(reservoir);
 	reservoir.bulk.setLastStep();
 
-	cout << fixed << setprecision(3) << control.Current_time << "Days \n";
+	// cout << fixed << setprecision(3) << control.Current_time << "Days \n";
 
 	output.setVal(reservoir, control);
 

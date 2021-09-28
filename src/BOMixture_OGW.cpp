@@ -11,8 +11,6 @@ void BOMixture::BOFlash_Sj_OGW(const double Pin, const double Pbbin, const doubl
 	for (int j = 0; j < Np; j++)
 		S[j] = Sjin[j];
 
-	std::vector<double>		data(6, 0);
-	std::vector<double>		cdata(6, 0);
 	// Water Property
 	PVTW.eval_all(0, P, data, cdata);
 	double Pw0 = data[0];
@@ -201,8 +199,6 @@ void BOMixture::BOFlash_Ni_OGW(const double Pin, const double* Niin)
 		NT += Ni[i];
 	}
 
-	std::vector<double>		data(6, 0);
-	std::vector<double>		cdata(6, 0);
 
 	// Water property
 	PVTW.eval_all(0, P, data, cdata);
@@ -383,8 +379,7 @@ double BOMixture::xiPhase_OGW(double Pin, double* Ziin)
 	}
 	else if (Ziin[2] > 1 - TINY) {
 		// inj fluid is water
-		vector<double>		data(6, 0);
-		vector<double>		cdata(6, 0);
+
 		PVTW.eval_all(0, Pin, data, cdata);
 		double Pw0 = data[0];
 		double bw0 = data[1];
@@ -409,8 +404,7 @@ double BOMixture::rhoPhase_OGW(double Pin, double* Ziin)
 	}
 	else if (Ziin[2] > 1 - TINY) {
 		// inj fluid is water
-		vector<double>		data(6, 0);
-		vector<double>		cdata(6, 0);
+
 		PVTW.eval_all(0, Pin, data, cdata);
 		double Pw0 = data[0];
 		double bw0 = data[1];
@@ -428,8 +422,6 @@ double BOMixture::rhoPhase_OGW(double Pin, double* Ziin)
 
 double BOMixture::gammaPhaseO_OGW(double Pin, double Pbbin)
 {
-	std::vector<double>		data(6, 0);
-	std::vector<double>		cdata(6, 0);
 
 	PVCO.eval_all(0, Pbbin, data, cdata);
 	double rs = data[1];
