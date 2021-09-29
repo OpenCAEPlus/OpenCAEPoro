@@ -61,6 +61,10 @@ public:
 
 	void getSol_IMPES(vector<double>& u, int bid);
 
+	void setLastStep() { for (auto& w : WellG)	w.ldG = w.dG; }
+
+	int checkP(const Bulk& myBulk);
+
 private:
 	int							WellNum;
 	std::vector<Well>			WellG;

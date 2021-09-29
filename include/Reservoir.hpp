@@ -29,6 +29,10 @@ public:
 	void assembleMat(Solver<double>& mysolver, double dt);
 	void getSol_IMPES(vector<double>& u);
 
+	int checkP();
+	bool checkNi() { return bulk.checkNi(); }
+	void resetVal();
+
 private:
 	Grid					grid;
 	Bulk					bulk;

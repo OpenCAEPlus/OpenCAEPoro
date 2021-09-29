@@ -75,6 +75,11 @@ public:
 	void assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double dt);
 	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, double dt);
 
+
+	void updatePerfP(){ for (int p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
+    int checkP(const Bulk& myBulk);
+	bool checkCrossFlow(const Bulk& myBulk);
+
 private:
 
 	double						Radius;			// well radius
@@ -95,6 +100,7 @@ private:
 	int							PerfNum;
 	std::vector<Perforation>	Perf;
 	std::vector<double>			dG;
+	std::vector<double>			ldG;
 
 	// production rate and injection rate
 	std::vector<double>			Qi_lbmol;

@@ -129,11 +129,12 @@ void Bulk::setup(const Grid& myGrid)
     Kr.resize(Num * Np);
     Vj.resize(Num * Np);
 
-    Vf.resize(Num, 0);
-    Vfi.resize(Num * Nc, 0);
-    Vfp.resize(Num, 0);
+    Vf.resize(Num);
+    Vfi.resize(Num * Nc);
+    Vfp.resize(Num);
 
-    lP.resize(Num, 0);
+    lP.resize(Num);
+    lPj.resize(Num * Np);
     lNi.resize(Num * Nc);
     lS.resize(Num * Np);
 
@@ -1114,4 +1115,24 @@ double Bulk::calFPR()
         exit(0);
     }
     return ptmp / vtmp;
+}
+
+
+bool Bulk::checkP() 
+{
+    // true  : all correct
+    // false : negetive P occurs, cut timestep and resolve
+    for (auto p : P) {
+        if (p < 0) return false;
+    }
+    return true;
+}
+bool Bulk::checkNi() 
+{   
+    // true  : all correct
+    // false : negetive Ni occurs, cut timestep and resolve
+    for (auto ni : Ni) {
+        if (ni < 0) return false;
+    }
+    return true;
 }

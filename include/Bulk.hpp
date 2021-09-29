@@ -39,7 +39,7 @@ public:
 
 	void initSjPc_blk(int depnum);
 	void initSjPc_comp(int depnum);
-	void setLastStep() { lP = P; lNi = Ni; lS = S; }
+	void setLastStep() { lP = P; lPj = Pj; lNi = Ni; lS = S; }
 	void calMaxChange();
 
 	// Flash
@@ -63,6 +63,9 @@ public:
 	// calculate FPR
 	double calFPR();
 	double getP(int n) { return P[n]; }
+    bool   checkP();
+    bool   checkNi();
+	void   resetVal() { P = lP; Pj = lPj; Ni = lNi; }
 
 	double getdPmax() { return dPmax; }
 	double getdNmax() { return dNmax; }
@@ -105,6 +108,7 @@ private:
 
 	// last STEP
 	std::vector<double>		lP;
+	std::vector<double>		lPj;
 	std::vector<double>		lNi;
 	std::vector<double>		lS;
 

@@ -71,6 +71,7 @@ void OpenCAEPoro::run()
 void OpenCAEPoro::runIMPES(double& dt)
 {
 	double cfl = 1;
+	int	   flagCheck = 0;
 
 	reservoir.wellgroup.prepareWell(reservoir.bulk);
 
@@ -78,16 +79,47 @@ void OpenCAEPoro::runIMPES(double& dt)
 	if (cfl > 1)
 		dt /= (cfl + 1);
 
-	SolveP(dt);
-	reservoir.conn.calFlux(reservoir.bulk);
-	reservoir.wellgroup.calFlux(reservoir.bulk);
-	reservoir.conn.massConserve(reservoir.bulk, dt);
-	reservoir.wellgroup.massConserve(reservoir.bulk, dt);
+	while (true)
+	{
+		SolveP(dt);
 
-	reservoir.bulk.flash_Ni();
-	reservoir.bulk.calKrPc();
-	reservoir.bulk.calVporo();
-	reservoir.conn.calFlux(reservoir.bulk);
+		// first check : Pressure check
+		flagCheck = reservoir.checkP();
+		if (flagCheck == 1) {
+			dt /= 2;
+			continue;
+		}
+		else if (flagCheck == 2) {
+			continue;
+		}
+
+		reservoir.conn.calFlux(reservoir.bulk);
+		reservoir.wellgroup.calFlux(reservoir.bulk);
+
+		// second check : cfl check
+		cfl = reservoir.calCFL(dt);
+		if (cfl > 1) {
+			dt /= 2;
+			reservoir.resetVal();
+			continue;
+		}
+
+		reservoir.conn.massConserve(reservoir.bulk, dt);
+		reservoir.wellgroup.massConserve(reservoir.bulk, dt);
+
+		// third check: Ni check
+		if (!reservoir.checkNi()) {
+			dt /= 2;
+			reservoir.resetVal();
+			continue;
+		}
+
+		reservoir.bulk.flash_Ni();
+		reservoir.bulk.calKrPc();
+		reservoir.bulk.calVporo();
+		reservoir.conn.calFlux(reservoir.bulk);
+	}
+	
 
 
 	reservoir.wellgroup.calIPRT(reservoir.bulk, dt);
@@ -98,6 +130,7 @@ void OpenCAEPoro::runIMPES(double& dt)
 	reservoir.bulk.calMaxChange();
 	control.setNextTstep(reservoir);
 	reservoir.bulk.setLastStep();
+	reservoir.wellgroup.setLastStep();
 
 	// cout << fixed << setprecision(3) << control.Current_time << "Days \n";
 

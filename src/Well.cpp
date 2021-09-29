@@ -130,6 +130,7 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 	// perf
 	PerfNum = K2 - K1 + 1;
 	dG.resize(PerfNum, 0);
+	ldG = dG;
 	Perf.resize(PerfNum);
 	for (int p = 0; p < PerfNum; p++) {
 		Perf[p].State = OPEN;
@@ -822,4 +823,103 @@ void Well::checkOptMode(const Bulk& myBulk)
 			Opt.OptMode = BHP_MODE;
 		}
 	}
+}
+
+int Well::checkP(const Bulk& myBulk)
+{
+	// 0 : all correct
+	// 1 : negative P    
+	// 2 : outlimited P
+	// 3 : crossflow happens
+
+	if (BHP < 0) 
+		return 1;
+	for (auto p : Perf) {
+		if (p.State == OPEN && p.P < 0) 
+			return 1;
+	}
+
+
+	if (Opt.Type == INJ) {
+		if (Opt.OptMode != BHP_MODE && BHP > Opt.MaxBHP) {
+			Opt.OptMode = BHP_MODE;
+			return 2;
+		} 
+	}
+	else {
+		if (Opt.OptMode != BHP_MODE && BHP < Opt.MinBHP) {
+			Opt.OptMode = BHP_MODE;
+			return 2;
+		}
+	}
+
+	if (!checkCrossFlow(myBulk))
+		return 3;
+
+	return 0;
+}
+
+bool Well::checkCrossFlow(const Bulk& myBulk)
+{
+	int k;
+	bool flag;
+	if (Opt.Type == PROD) {
+		int np = myBulk.Np;
+		for (int p = 0; p < PerfNum; p++) {
+			k = Perf[p].Location;
+			double minP = myBulk.P[k];
+			for (int j = 0; j < np; j++) {
+				minP = minP < myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];
+			}
+			if (Perf[p].State == OPEN && minP < Perf[p].P) {
+				Perf[p].State = CLOSE;
+				Perf[p].Multiplier = 0;
+				flag = false;
+			}
+			else if (Perf[p].State == CLOSE && minP > Perf[p].P) {
+				Perf[p].State = OPEN;
+				Perf[p].Multiplier = 1;
+			}
+		}
+	}
+	else {
+		for (int p = 0; p < PerfNum; p++) {
+			k = Perf[p].Location;
+			if (Perf[p].State == OPEN && myBulk.P[k] > Perf[p].P) {
+				Perf[p].State = CLOSE;
+				Perf[p].Multiplier = 0;
+				flag = false;
+			}
+			else if (Perf[p].State == CLOSE && myBulk.P[k] < Perf[p].P) {
+				Perf[p].State = OPEN;
+				Perf[p].Multiplier = 1;
+			}
+		}
+	}
+
+	if (!flag) {
+		dG = ldG;
+		calTrans(myBulk);
+		calFlux(myBulk);
+		caldG(myBulk);
+		checkOptMode(myBulk);
+		return false;
+	}
+
+	flag = false;
+	// check well
+	for (int p = 0; p < PerfNum; p++) {
+		if (Perf[p].State == OPEN) {
+			flag = true;
+			break;
+		}
+			
+	}
+	if (!flag) {
+		// open the depthest Perf
+		Perf.back().State = OPEN;
+		Perf.back().Multiplier = 1;
+	}
+
+	return true;
 }

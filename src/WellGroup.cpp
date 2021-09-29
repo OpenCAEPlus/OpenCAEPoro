@@ -145,6 +145,7 @@ void WellGroup::getSol_IMPES(vector<double>& u, int bid)
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
 			WellG[w].BHP = u[bid + w];
+            WellG[w].updatePerfP();
 		}
 	}
 }
@@ -184,6 +185,41 @@ void WellGroup::calIPRT(const Bulk& myBulk, double dt)
 	FWPT += FWPR * dt;
 }
 
+
+int WellGroup::checkP(const Bulk& myBulk)
+{
+	// 0 : All correct
+	// 1   : negative P, cut the timestep and resolve
+	// 2.1 : change well mode to BHP, resolve
+	// 2.2 : crossflow happens, then close corresponding Perf, resolve
+	bool flag2 = false;
+	bool flag3 = false;
+	for (int w = 0; w < WellNum; w++) {
+		if (WellG[w].WellState()) {
+			switch (WellG[w].checkP(myBulk))
+			{
+			case 1:
+				return 1;
+			case 2:
+				flag2 = true;
+				break;
+			case 3:
+				flag3 = true;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	if (flag2 || flag3)
+		return 2;
+
+	return 0;
+}
+
+
+
 // return the index of Specified well name
 int WellGroup::getIndex(string name)
 {
@@ -195,3 +231,4 @@ int WellGroup::getIndex(string name)
 	ERRORcheck("No such well name!");
 	exit(0);
 }
+

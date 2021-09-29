@@ -57,3 +57,17 @@ void Reservoir::getSol_IMPES(vector<double>& u)
 	bulk.getSol_IMPES(u);
 	wellgroup.getSol_IMPES(u, bulk.getBulkNum());
 }
+
+int Reservoir::checkP()
+{
+	if (!bulk.checkP())
+		return 1;
+	return wellgroup.checkP(bulk);
+}
+
+
+void Reservoir::resetVal()
+{
+	bulk.resetVal();
+	conn.calFlux(bulk);
+}
