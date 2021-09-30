@@ -45,6 +45,7 @@
     <ClInclude Include="include\WellGroup.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Main\Main.cpp" />
     <ClCompile Include="src\BOMixture.cpp" />
     <ClCompile Include="src\BOMixture_OGW.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
@@ -53,7 +54,6 @@
     <ClCompile Include="src\Connection_BB.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\Grid.cpp" />
-    <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\OpenCAEPoro.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
     <ClCompile Include="src\ParamOutput.cpp" />
