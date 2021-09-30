@@ -33,24 +33,43 @@ void OpenCAEPoro::init()
 void OpenCAEPoro::SolveP(double dt)
 {
 	reservoir.assembleMat(solver, dt);
+
+#ifdef _DEBUG
+	solver.checkVal();
+#endif // _DEBUG
+
 #ifdef __SOLVER_FASP__
 	
 	solver.assemble_Fasp();
-	// solver.showMat_CSR("testA.dat", "testb.dat");
+	
+
+	GetWallTime Timer;
+	Timer.Start();
 	int status = solver.faspsolve();
+	control.LS_time += Timer.Stop() / 1000;
+
+#ifdef _DEBUG
+	// solver.showMat_CSR("testA.dat", "testb.dat");
 	// solver.showSolution("testx.dat");
+#endif // _DEBUG
+
+	
 	solver.free_Fasp();
 
 	control.LS_iter = status;
 	control.LS_iter_total += status;
 	
 #endif // __SOLVER_FASP__
+
 	reservoir.getSol_IMPES(solver.getSol());
 	solver.clearData();
 }
 
 void OpenCAEPoro::run()
 {
+	GetWallTime Timer;
+	Timer.Start();
+
 	double  numdates = control.CriticalTime.size();
 	for (int d = 0; d < numdates - 1; d++) {
 		reservoir.wellgroup.applyControl(d);
@@ -63,8 +82,15 @@ void OpenCAEPoro::run()
 		}
 
 	}
+
+	double endtime = Timer.Stop();
+
+	cout << endl;
+	cout << "Final time:          " << control.Current_time << " Days" << endl;
     cout << "Total linear steps:  " << control.LS_iter_total << endl;
+	cout << "Linear solve time:   " << control.LS_time << "s" << endl;
     cout << "Total time steps:    " << control.NR_iter_total << endl;
+	cout << "Simulation time:     " << endtime / 1000 << "s" << endl;
 	output.printInfo();
 }
 
@@ -118,6 +144,8 @@ void OpenCAEPoro::runIMPES(double& dt)
 		reservoir.bulk.calKrPc();
 		reservoir.bulk.calVporo();
 		reservoir.conn.calFlux(reservoir.bulk);
+
+		break;
 	}
 	
 
@@ -132,8 +160,10 @@ void OpenCAEPoro::runIMPES(double& dt)
 	reservoir.bulk.setLastStep();
 	reservoir.wellgroup.setLastStep();
 
-	// cout << fixed << setprecision(3) << control.Current_time << "Days \n";
-
 	output.setVal(reservoir, control);
+
+#ifdef _DEBUG
+	cout << fixed << setprecision(3) << control.Current_time << "Days \n";
+#endif // _DEBUG
 
 }

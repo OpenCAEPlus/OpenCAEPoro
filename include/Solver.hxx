@@ -38,6 +38,9 @@ public:
 
 	std::vector<T>& getSol() { return u; }
 
+	// check
+	void checkVal();
+
 private:
 	int									MaxDim;
 	int									Dim;
@@ -300,6 +303,23 @@ void Solver<T>::initSolver(string& dir, string& file)
 #endif //  __SOLVER_FASP__
 
 }
+
+
+template <typename T>
+void Solver<T>::checkVal()
+{
+	int count = 0;
+	for (int n = 0; n < Dim; n++) {
+		for (auto v : Val[n]) {
+			if (!isfinite(v)) {
+				cout << "###ERROR   ";
+				ERRORcheck("NAN or INF in MAT");
+				exit(0);
+			}
+		}
+	}
+}
+
 
 template <typename T>
 void Solver<T>::read_param_Fasp()

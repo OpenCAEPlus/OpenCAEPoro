@@ -62,7 +62,10 @@ int Reservoir::checkP()
 {
 	if (!bulk.checkP())
 		return 1;
-	return wellgroup.checkP(bulk);
+
+	int flag = 0;
+	flag = wellgroup.checkP(bulk);
+	return flag;
 }
 
 

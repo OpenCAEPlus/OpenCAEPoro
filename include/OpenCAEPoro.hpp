@@ -3,6 +3,7 @@
 #include "OpenCAEControl.hpp"
 #include "CAEOutput.hpp"
 #include "ParamRead.hpp"
+#include "Timing.hxx"
 
 class OpenCAEPoro
 {

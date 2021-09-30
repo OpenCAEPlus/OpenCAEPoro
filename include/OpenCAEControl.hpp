@@ -81,6 +81,7 @@ private:
 	int							NR_iter{ 0 };
 	int							NR_iter_total{ 0 };
 
+	double						LS_time{ 0 };
 
 	ControlTime					CtrlTime;
 	vector<ControlTime>			CtrlTimeSet;

@@ -51,6 +51,8 @@ public:
 	void caldG(const Bulk& myBulk);
 	void calInjdG(const Bulk& myBulk);
 	void calProddG(const Bulk& myBulk);
+	// test
+	void smoothdG();
 
 	void calTrans(const Bulk& myBulk);
 	// cal flux ---- perf: qt_ft3 & qi_lbmol
@@ -78,7 +80,10 @@ public:
 
 	void updatePerfP(){ for (int p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
     int checkP(const Bulk& myBulk);
-	bool checkCrossFlow(const Bulk& myBulk);
+	int checkCrossFlow(const Bulk& myBulk);
+
+	// show info
+	void showPerfStatus();
 
 private:
 

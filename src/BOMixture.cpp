@@ -77,6 +77,10 @@ void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin,
 
 void BOMixture::Flash_Ni(const double Pin, const double Tin, const double* Niin)
 {
+#ifdef _DEBUG
+	// checkNi(Niin);
+#endif // _DEBUG
+
 	switch (Mode)
 	{
 	case PHASE_W:

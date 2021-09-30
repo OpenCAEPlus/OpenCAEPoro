@@ -114,6 +114,8 @@ void WellGroup::prepareWell(const Bulk& myBulk)
 			WellG[w].calTrans(myBulk);
 			WellG[w].calFlux(myBulk, true);
 			WellG[w].caldG(myBulk);
+			// test
+			WellG[w].smoothdG();
 			WellG[w].checkOptMode(myBulk);
 		}
 	}
@@ -194,9 +196,15 @@ int WellGroup::checkP(const Bulk& myBulk)
 	// 2.2 : crossflow happens, then close corresponding Perf, resolve
 	bool flag2 = false;
 	bool flag3 = false;
+
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
-			switch (WellG[w].checkP(myBulk))
+
+			int flag = WellG[w].checkP(myBulk);
+#ifdef _DEBUG
+			WellG[w].showPerfStatus();
+#endif // _DEBUG
+			switch (flag)
 			{
 			case 1:
 				return 1;

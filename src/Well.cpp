@@ -402,6 +402,14 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, do
 	}
 }
 
+void Well::smoothdG()
+{
+	for (int p = 0; p < PerfNum; p++) {
+		dG[p] = (ldG[p] + dG[p]) / 2;      // seems better
+		// dG[p] = ldG[p] + 0.618 * (dG[p] - ldG[p]);
+	}
+}
+
 void Well::caldG(const Bulk& myBulk)
 {
 	if (Opt.Type == INJ)
@@ -489,9 +497,25 @@ void Well::calProddG(const Bulk& myBulk)
 	double	rhoacc = 0;
 	double	rhotmp = 0;
 
+	
+
 	if (Depth <= Perf.front().Depth) {
 		// Well is higher
+
+		// check qi_lbmol   ----   test
+		if (Perf[PerfNum - 1].State == CLOSE) {
+			for (int p = PerfNum - 2; p >= 0; p--) {
+				if (Perf[p].State == OPEN) {
+					for (int i = 0; i < nc; i++) {
+						Perf[PerfNum - 1].qi_lbmol[i] = Perf[p].qi_lbmol[i];
+					}
+					break;
+				}
+			}
+		}
+
 		for (int p = PerfNum - 1; p >= 0; p--) {
+
 			if (p == 0) {
 				seg_num = ceil((Perf[0].Depth - Depth) / maxlen);
 				seg_len = (Perf[0].Depth - Depth) / seg_num;
@@ -518,8 +542,8 @@ void Well::calProddG(const Bulk& myBulk)
 				for (int j = 0; j < myBulk.Np; j++) {
 					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
 						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
-						qtacc += myBulk.Flashcal[pvtnum]->V[j];
-						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR;
+						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
+						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR / seg_num;
 					}
 				}
 				Ptmp -= rhoacc / qtacc * seg_len;
@@ -560,8 +584,8 @@ void Well::calProddG(const Bulk& myBulk)
 				for (int j = 0; j < np; j++) {
 					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
 						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
-						qtacc += myBulk.Flashcal[pvtnum]->V[j];
-						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR;
+						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
+						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR / seg_num;
 					}
 				}
 				Ptmp += rhoacc / qtacc * seg_len;
@@ -834,9 +858,14 @@ int Well::checkP(const Bulk& myBulk)
 
 	if (BHP < 0) 
 		return 1;
-	for (auto p : Perf) {
-		if (p.State == OPEN && p.P < 0) 
+	for (int p = 0; p < PerfNum; p++) {
+		if (Perf[p].State == OPEN && Perf[p].P < 0) {
+#ifdef _DEBUG
+			cout << "WARNING: Well " << Name << " Perf[" << p << "].P = " << Perf[p].P << endl;
+#endif // _DEBUG
 			return 1;
+		}
+			
 	}
 
 
@@ -844,7 +873,7 @@ int Well::checkP(const Bulk& myBulk)
 		if (Opt.OptMode != BHP_MODE && BHP > Opt.MaxBHP) {
 			Opt.OptMode = BHP_MODE;
 			return 2;
-		} 
+		}
 	}
 	else {
 		if (Opt.OptMode != BHP_MODE && BHP < Opt.MinBHP) {
@@ -852,29 +881,31 @@ int Well::checkP(const Bulk& myBulk)
 			return 2;
 		}
 	}
+	int flag = 0;
+	flag = checkCrossFlow(myBulk);
 
-	if (!checkCrossFlow(myBulk))
-		return 3;
-
-	return 0;
+	return flag;
 }
 
-bool Well::checkCrossFlow(const Bulk& myBulk)
+int Well::checkCrossFlow(const Bulk& myBulk)
 {
 	int k;
-	bool flag;
+	bool flagC = true;
+
 	if (Opt.Type == PROD) {
 		int np = myBulk.Np;
 		for (int p = 0; p < PerfNum; p++) {
 			k = Perf[p].Location;
 			double minP = myBulk.P[k];
-			for (int j = 0; j < np; j++) {
-				minP = minP < myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];
-			}
+			// THINK MORE !!!
+			//for (int j = 0; j < np; j++) {
+			//	if (myBulk.PhaseExist[k * np + j])
+			//		minP = minP < myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];
+			//}
 			if (Perf[p].State == OPEN && minP < Perf[p].P) {
 				Perf[p].State = CLOSE;
 				Perf[p].Multiplier = 0;
-				flag = false;
+				flagC = false;
 			}
 			else if (Perf[p].State == CLOSE && minP > Perf[p].P) {
 				Perf[p].State = OPEN;
@@ -888,7 +919,7 @@ bool Well::checkCrossFlow(const Bulk& myBulk)
 			if (Perf[p].State == OPEN && myBulk.P[k] > Perf[p].P) {
 				Perf[p].State = CLOSE;
 				Perf[p].Multiplier = 0;
-				flag = false;
+				flagC = false;
 			}
 			else if (Perf[p].State == CLOSE && myBulk.P[k] < Perf[p].P) {
 				Perf[p].State = OPEN;
@@ -897,17 +928,9 @@ bool Well::checkCrossFlow(const Bulk& myBulk)
 		}
 	}
 
-	if (!flag) {
-		dG = ldG;
-		calTrans(myBulk);
-		calFlux(myBulk);
-		caldG(myBulk);
-		checkOptMode(myBulk);
-		return false;
-	}
 
-	flag = false;
-	// check well
+	bool flag = false;
+	// check well --  if all perf are closed, open the depthest Perf
 	for (int p = 0; p < PerfNum; p++) {
 		if (Perf[p].State == OPEN) {
 			flag = true;
@@ -916,10 +939,30 @@ bool Well::checkCrossFlow(const Bulk& myBulk)
 			
 	}
 	if (!flag) {
+		return 1;
 		// open the depthest Perf
 		Perf.back().State = OPEN;
 		Perf.back().Multiplier = 1;
 	}
 
-	return true;
+	if (!flagC) {
+		dG = ldG;
+		calTrans(myBulk);
+		calFlux(myBulk);
+		caldG(myBulk);
+		smoothdG();
+		// checkOptMode(myBulk);
+		return 3;
+	}
+
+	return 0;
+}
+
+void Well::showPerfStatus()
+{
+	cout << "----------------------------" << endl;
+	cout << Name << ":    " << Opt.OptMode << endl; 
+	for (int p = 0; p < PerfNum; p++) {
+		cout << "Perf[" << p << "].State = " << Perf[p].State << endl;
+	}
 }

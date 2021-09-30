@@ -9,7 +9,7 @@ public:
 	 void setState(bool flag) { State = flag; };
 
 private:
-	int						State;
+	bool					State;
 	int						Location;
 	double					Depth;
 	double					Trans;

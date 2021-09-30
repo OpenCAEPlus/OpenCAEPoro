@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include "OpenCAEPoro_consts.hpp"
+
+using namespace std;
 
 // total fluid, contains all phase
 class Mixture
@@ -34,6 +37,26 @@ public:
 	virtual double gammaPhaseG(double Pin) = 0;
 	virtual double gammaPhaseOG(double Pin, double Tin, double* Ziin) = 0;
 
+	// check
+	void checkNi(const double* Ni) {
+		bool flag = false;
+		for (int i = 0; i < Nc; i++) {
+			if (Ni[i] < 0) {
+				cout << "###WARNING:  ";
+				ERRORcheck("Ni < 0 ");
+			}
+
+			if (Ni[i] > 0)
+				flag = true;
+		}
+		if (!flag) {
+			cout << "###ERROR:  ";
+			ERRORcheck("All Ni <= 0 ");
+			exit(0);
+		}
+	}
+
+
 protected:
 
 	int								MixtureType;
@@ -58,3 +81,5 @@ protected:
 	std::vector<double>				Vfi;		// dVf / dNi   : Nc
 
 };
+
+

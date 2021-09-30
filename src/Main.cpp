@@ -18,6 +18,7 @@ int main(int argc, const char* argv[])
 		exit(0);
 	}
 
+
 	string myfile = argv[1];
 	ParamRead rp;
 	rp.readInputFile(myfile);
