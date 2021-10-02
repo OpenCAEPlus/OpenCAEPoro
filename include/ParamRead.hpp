@@ -23,7 +23,7 @@ public:
 	ParamOutput				Output_param;
 
 	void readInputFile(string& file);
-	void getDirAndName(string& file);
+	void getDirAndName();
 	void readFile(string file);
 
 	// init

@@ -1,13 +1,13 @@
 #pragma once
-#include<vector>
-#include <iostream>
-#include "Grid.hpp"
-#include "Mixture.hpp"
 #include "BOMixture.hpp"
 #include "FlowUnit.hpp"
-#include "Solver.hxx"
+#include "Grid.hpp"
+#include "Mixture.hpp"
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamReservoir.hpp"
+#include "Solver.hxx"
+#include <iostream>
+#include <vector>
 
 using namespace std;
 // Bulk contains the infomation of each bulk
@@ -15,137 +15,147 @@ using namespace std;
 
 class ParamEQUIL
 {
-	friend class Bulk;
-private:
-	//! EQUIL 6 items
-	double  Dref, Pref, DOWC, PcOWC, DGOC, PcGOC;
-	//! PBVD
-	ReservoirTable<double> PBVD;
-};
+    friend class Bulk;
 
+private:
+    //! EQUIL 6 items
+    double Dref, Pref, DOWC, PcOWC, DGOC, PcGOC;
+    //! PBVD
+    ReservoirTable<double> PBVD;
+};
 
 class Bulk
 {
-	friend class	Connection_BB;
-	friend class	Well;
+    friend class Connection_BB;
+    friend class Well;
 
 public:
-	Bulk() = default;
+    Bulk() = default;
 
-	int getBulkNum() { return Num; }
+    int getBulkNum() { return Num; }
 
-	void inputParam(ParamReservoir& rs_param);
-	void setup(const Grid& myGrid);
+    void inputParam(ParamReservoir& rs_param);
+    void setup(const Grid& myGrid);
 
-	void initSjPc_blk(int depnum);
-	void initSjPc_comp(int depnum);
-	void setLastStep() { lP = P; lPj = Pj; lNi = Ni; lS = S; }
-	void calMaxChange();
+    void initSjPc_blk(int depnum);
+    void initSjPc_comp(int depnum);
+    void setLastStep()
+    {
+        lP  = P;
+        lPj = Pj;
+        lNi = Ni;
+        lS  = S;
+    }
+    void calMaxChange();
 
-	// Flash
-	void flash_Sj();
-	void flash_Ni();
-	void passFlashValue(int n);
+    // Flash
+    void flash_Sj();
+    void flash_Ni();
+    void passFlashValue(int n);
 
-	// relative permeability and capillary pressure
-	void calKrPc();
-	// Rock
-	void calVporo();
+    // relative permeability and capillary pressure
+    void calKrPc();
+    // Rock
+    void calVporo();
 
-	// get flash -- pass it to well
-	std::vector<Mixture*>& getMixture() { return Flashcal; }
+    // get flash -- pass it to well
+    std::vector<Mixture*>& getMixture() { return Flashcal; }
 
-	int mixMode();
+    int mixMode();
 
-	// solver
-	void getSol_IMPES(vector<double>& u);
+    // solver
+    void getSol_IMPES(vector<double>& u);
 
-	// calculate FPR
-	double calFPR();
-	double getP(int n) { return P[n]; }
+    // calculate FPR
+    double calFPR();
+    double getP(int n) { return P[n]; }
     bool   checkP();
     bool   checkNi();
-	void   resetVal() { P = lP; Pj = lPj; Ni = lNi; }
+    void   resetVal()
+    {
+        P  = lP;
+        Pj = lPj;
+        Ni = lNi;
+    }
 
-	double getdPmax() { return dPmax; }
-	double getdNmax() { return dNmax; }
-	double getdSmax() { return dSmax; }
-	double getdVmax() { return dVmax; }
+    double getdPmax() { return dPmax; }
+    double getdNmax() { return dNmax; }
+    double getdSmax() { return dSmax; }
+    double getdVmax() { return dVmax; }
 
 private:
-	int						Num;			// num of active bulk
-	// Physical infomation
-	int						Np;				// num of phase
-	int						Nc;				// num of component
+    int Num; // num of active bulk
+    // Physical infomation
+    int Np; // num of phase
+    int Nc; // num of component
 
-	double					T;				// temperature : Num
-	std::vector<double>		Pbub;			// buble point pressere: Num
-	std::vector<double>		P;				// pressure: Num
-	std::vector<double>		Pj;				// phase pressure: Np*Num		
-	std::vector<double>		Pc;				// capillary pressure of phase: Np*Num
-	std::vector<bool>		PhaseExist;		// existence of phase 
-	std::vector<double>		Ni;				// molar of ith component in bulk: NC*Num
-	std::vector<double>		S;				// saturation of phase j
-	std::vector<double>		Xi;				// molar density of phase: Np*Num
-	std::vector<double>		Cij;			// Nij / Nj : Np*Nc*Num 
-	std::vector<double>		Rho;			// mass density of phase: Np*Num
-	std::vector<double>		Mu;				// viscosity of phase: Np*Num
-	std::vector<double>		Kr;				// relative permeability of phase: Np*Num
+    double              T;          // temperature : Num
+    std::vector<double> Pbub;       // buble point pressere: Num
+    std::vector<double> P;          // pressure: Num
+    std::vector<double> Pj;         // phase pressure: Np*Num
+    std::vector<double> Pc;         // capillary pressure of phase: Np*Num
+    std::vector<bool>   PhaseExist; // existence of phase
+    std::vector<double> Ni;         // molar of ith component in bulk: NC*Num
+    std::vector<double> S;          // saturation of phase j
+    std::vector<double> Xi;         // molar density of phase: Np*Num
+    std::vector<double> Cij;        // Nij / Nj : Np*Nc*Num
+    std::vector<double> Rho;        // mass density of phase: Np*Num
+    std::vector<double> Mu;         // viscosity of phase: Np*Num
+    std::vector<double> Kr;         // relative permeability of phase: Np*Num
 
-	std::vector<double>		Vj;
-	std::vector<double>		Vf;				// total fluid volume
-	std::vector<double>		Vfi;			// dVt / dNi
-	std::vector<double>		Vfp;			// dVt / dP
+    std::vector<double> Vj;
+    std::vector<double> Vf;  // total fluid volume
+    std::vector<double> Vfi; // dVt / dNi
+    std::vector<double> Vfp; // dVt / dP
 
-	vector<int>				PhaseLabel;
-	std::vector<double>		InitZi;			// initial component for EoS : Nc - 1
-	int						PVTmode;
-	std::vector<int>		PVTNUM;
-	std::vector<Mixture*>	Flashcal;
-	int						SATmode;
-	std::vector<int>		SATNUM;
-	std::vector<FlowUnit*>	Flow;
+    vector<int>            PhaseLabel;
+    std::vector<double>    InitZi; // initial component for EoS : Nc - 1
+    int                    PVTmode;
+    std::vector<int>       PVTNUM;
+    std::vector<Mixture*>  Flashcal;
+    int                    SATmode;
+    std::vector<int>       SATNUM;
+    std::vector<FlowUnit*> Flow;
 
-	// last STEP
-	std::vector<double>		lP;
-	std::vector<double>		lPj;
-	std::vector<double>		lNi;
-	std::vector<double>		lS;
+    // last STEP
+    std::vector<double> lP;
+    std::vector<double> lPj;
+    std::vector<double> lNi;
+    std::vector<double> lS;
 
-	// max change
-	double					dPmax;
-	double					dNmax;
-	double					dVmax;
-	double					dSmax;
-	
-	// Bulk rock infomation
-	std::vector<double>		Dx;					// dx
-	std::vector<double>		Dy;					// dy
-	std::vector<double>		Dz;					// dz
-	std::vector<double>		Depth;				// depth: Num
-	std::vector<double>		Ntg;				// Ntg: Num
-	std::vector<double>		Rock_VpInit;		// Vgrid * ntg * poro_init
-	std::vector<double>		Rock_Vp;			// Vgrid * ntg * poro
+    // max change
+    double dPmax;
+    double dNmax;
+    double dVmax;
+    double dSmax;
 
-	//std::vector<double>		Rock_Poro;			// current porosity
-	//std::vector<double>		Rock_PoroInit;		// initial porosity
-	double					Rock_Pref;
-	double					Rock_C1;
-	double					Rock_C2;
-	std::vector<double>		Rock_KxInit;
-	std::vector<double>		Rock_Kx;
-	std::vector<double>		Rock_KyInit;
-	std::vector<double>		Rock_Ky;
-	std::vector<double>		Rock_KzInit;
-	std::vector<double>		Rock_Kz;
+    // Bulk rock infomation
+    std::vector<double> Dx;          // dx
+    std::vector<double> Dy;          // dy
+    std::vector<double> Dz;          // dz
+    std::vector<double> Depth;       // depth: Num
+    std::vector<double> Ntg;         // Ntg: Num
+    std::vector<double> Rock_VpInit; // Vgrid * ntg * poro_init
+    std::vector<double> Rock_Vp;     // Vgrid * ntg * poro
 
-	// Reservoir information
-	ParamEQUIL				EQUIL;
-	bool					BLACKOIL;
-	bool					COMPS;
-	bool					Oil;
-	bool					Gas;
-	bool					Water;
-	bool					DisGas;
+    // std::vector<double>		Rock_Poro;			// current porosity
+    // std::vector<double>		Rock_PoroInit;		// initial porosity
+    double              Rock_Pref;
+    double              Rock_C1;
+    double              Rock_C2;
+    std::vector<double> Rock_KxInit;
+    std::vector<double> Rock_Kx;
+    std::vector<double> Rock_KyInit;
+    std::vector<double> Rock_Ky;
+    std::vector<double> Rock_KzInit;
+    std::vector<double> Rock_Kz;
 
+    // Reservoir information
+    ParamEQUIL EQUIL;
+    bool       BLACKOIL;
+    bool       COMPS;
+    bool       Oil;
+    bool       Gas;
+    bool       Water;
+    bool       DisGas;
 };
