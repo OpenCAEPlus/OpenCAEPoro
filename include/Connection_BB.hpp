@@ -22,7 +22,7 @@ private:
 
 class Connection_BB
 {
-	friend class Solver<double>;
+	friend class Solver<OCP_DBL>;
 
 public:
 
@@ -39,11 +39,11 @@ public:
 	void initActive(const Grid& myGrid, int np);
 	void getIteratorActive();
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);
-	double calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
+	OCP_DBL calAkd(const Grid&myGrid, const Bulk& myBulk, int bIdb, int eIdb);
 
-	double calCFL(Bulk& myBulk, double dt);
+	OCP_DBL calCFL(Bulk& myBulk, OCP_DBL dt);
 	void calFlux(const Bulk& myBulk);
-	void massConserve(Bulk& myBulk, double dt);
+	void massConserve(Bulk& myBulk, OCP_DBL dt);
 
 	// Assemble Mat
 	template<typename T>
@@ -51,7 +51,7 @@ public:
 	template<typename T>
 	void initAssembleMat(Solver<T>& mySolver);
 
-	void assembleMat(Solver<double>& mySolver, const Bulk& myBulk, double dt);
+	void assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt);
 
 
 private:
@@ -64,11 +64,11 @@ private:
 	std::vector<int>				SelfPtr;				// ptr for self in every row of Neighbor
 	std::vector<int>				NeighborNum;
 	std::vector<BB_Pair>			Iterator;
-	std::vector<double>				Area;					// effective area for each CONN
+	std::vector<OCP_DBL>				Area;					// effective area for each CONN
 	std::vector<int>				Upblock;				// upblock of connection
-	std::vector<double>				Upblock_Rho;			// rhoj in flux
-	std::vector<double>				Upblock_Trans;
-	std::vector<double>				Upblock_Velocity;       // volume rate
+	std::vector<OCP_DBL>				Upblock_Rho;			// rhoj in flux
+	std::vector<OCP_DBL>				Upblock_Trans;
+	std::vector<OCP_DBL>				Upblock_Velocity;       // volume rate
 };
 
 

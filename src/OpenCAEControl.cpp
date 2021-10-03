@@ -1,6 +1,6 @@
 #include "OpenCAEControl.hpp"
 
-ControlTime::ControlTime(vector<double>& src)
+ControlTime::ControlTime(vector<OCP_DBL>& src)
 {
 	TimeInit = src[0];
 	TimeMax = src[1];
@@ -12,7 +12,7 @@ ControlTime::ControlTime(vector<double>& src)
 	TimeMaxIncre_F = src[7];
 }
 
-ControlError::ControlError(vector<double>& src)
+ControlError::ControlError(vector<OCP_DBL>& src)
 {
 	ErrorNL_T = src[1];
 	ErrorMB_T = src[2];
@@ -22,7 +22,7 @@ ControlError::ControlError(vector<double>& src)
 	ErrorLS_M = src[7];
 }
 
-ControlIter::ControlIter(vector<double>& src)
+ControlIter::ControlIter(vector<OCP_DBL>& src)
 {
 	ItMax_NT = src[0];
 	ItMin_NT = src[1];
@@ -86,7 +86,7 @@ void CAEControl::ApplyControl(int i)
 
 void CAEControl::initTime(int i)
 {
-	double dt = CriticalTime[i + 1] - Current_time;
+	OCP_DBL dt = CriticalTime[i + 1] - Current_time;
 	if (dt < 0) {
 		ERRORcheck("Wrong Time Step");
 		exit(0);
@@ -98,22 +98,22 @@ void CAEControl::setNextTstep(Reservoir& reservoir)
 {
 	Current_time += Current_dt;
 
-	double dPmax = reservoir.bulk.getdPmax();
-	double dNmax = reservoir.bulk.getdNmax();
-	double dSmax = reservoir.bulk.getdSmax();
-	double dVmax = reservoir.bulk.getdVmax();
+	OCP_DBL dPmax = reservoir.bulk.getdPmax();
+	OCP_DBL dNmax = reservoir.bulk.getdNmax();
+	OCP_DBL dSmax = reservoir.bulk.getdSmax();
+	OCP_DBL dVmax = reservoir.bulk.getdVmax();
 
-	double dPlim = 300;
-	double dNlim = 0.3;
-	double dSlim = 0.3;
-	double dVlim = 0.001;
+	OCP_DBL dPlim = 300;
+	OCP_DBL dNlim = 0.3;
+	OCP_DBL dSlim = 0.3;
+	OCP_DBL dVlim = 0.001;
 
-	double c1 = dPmax / dPlim;
-	double c2 = dNmax / dNlim;
-	double c3 = dSmax / dSlim;
-	double c4 = dVmax / dVlim;
+	OCP_DBL c1 = dPmax / dPlim;
+	OCP_DBL c2 = dNmax / dNlim;
+	OCP_DBL c3 = dSmax / dSlim;
+	OCP_DBL c4 = dVmax / dVlim;
 
-	double c = max(max(c1, c2), max(c3, c4));
+	OCP_DBL c = max(max(c1, c2), max(c3, c4));
 	c = max(1.0 / 3, c);
 	c = min(10.0 / 3, c);
 
@@ -124,7 +124,7 @@ void CAEControl::setNextTstep(Reservoir& reservoir)
 	if (Current_dt < CtrlTime.TimeMin)
 		Current_dt = CtrlTime.TimeMin;
 
-	double dt = End_time - Current_time;
+	OCP_DBL dt = End_time - Current_time;
 	if (Current_dt > dt)
 		Current_dt = dt;
 }

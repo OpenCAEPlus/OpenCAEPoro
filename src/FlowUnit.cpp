@@ -12,11 +12,11 @@ void FlowUnit::generate_SWPCWG()
 		exit(0);
 	}
 
-	std::vector<double>		Sw(SWOF.getCol(0));
-	std::vector<double>		Pcw(SWOF.getCol(3));
+	std::vector<OCP_DBL>		Sw(SWOF.getCol(0));
+	std::vector<OCP_DBL>		Pcw(SWOF.getCol(3));
 	int n = Sw.size();
 	for (int i = 0; i < n; i++) {
-		double Pcg = SGOF.eval(0, 1 - Sw[i], 3);
+		OCP_DBL Pcg = SGOF.eval(0, 1 - Sw[i], 3);
 		Pcw[i] += Pcg;
 	}
 
@@ -27,7 +27,7 @@ void FlowUnit::generate_SWPCWG()
 
 
 
-void FlowUnit::calKrPc(const double* S_in, double* kr_out, double* pc_out)
+void FlowUnit::calKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
 	switch (Mode)
 	{
@@ -50,69 +50,69 @@ void FlowUnit::calKrPc(const double* S_in, double* kr_out, double* pc_out)
 }
 
 
-void FlowUnit::calKrPc_W(double* kr_out, double* pc_out)
+void FlowUnit::calKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
 	kr_out[0] = 1;
 	pc_out[0] = 0;
 }
 
 
-void FlowUnit::calKrPc_OW(const double* S_in, double* kr_out, double* pc_out)
+void FlowUnit::calKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
-	double Sw = S_in[1];
+	OCP_DBL Sw = S_in[1];
 
 	//three phase black oil model using stone 2
 	SWOF.eval_all(0, Sw, data, cdata);
-	double krw = data[1];
-	double kro = data[2];
-	double Pcw = -data[3];
+	OCP_DBL krw = data[1];
+	OCP_DBL kro = data[2];
+	OCP_DBL Pcw = -data[3];
 
 	kr_out[0] = kro;	kr_out[1] = krw;
 	pc_out[0] = 0;		pc_out[1] = Pcw;
 }
 
-void FlowUnit::calKrPc_OG(const double* S_in, double* kr_out, double* pc_out)
+void FlowUnit::calKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
-	double Sg = S_in[1];
+	OCP_DBL Sg = S_in[1];
 
 	//three phase black oil model using stone 2
 	SGOF.eval_all(0, Sg, data, cdata);
-	double krg = data[1];
-	double kro = data[2];
-	double Pcg = data[3];
+	OCP_DBL krg = data[1];
+	OCP_DBL kro = data[2];
+	OCP_DBL Pcg = data[3];
 
 	kr_out[0] = kro;	kr_out[1] = krg;
 	pc_out[0] = 0;		pc_out[1] = Pcg;
 }
 
-void FlowUnit::calKrPc_OGW(const double* S_in, double* kr_out, double* pc_out)
+void FlowUnit::calKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
-	double Sg = S_in[1]; 
-	double Sw = S_in[2];
+	OCP_DBL Sg = S_in[1]; 
+	OCP_DBL Sw = S_in[2];
 
 	//three phase black oil model using stone 2
 	SWOF.eval_all(0, Sw, data, cdata);
-	double krw = data[1];
-	double krow = data[2];
-	double Pcw = -data[3];
+	OCP_DBL krw = data[1];
+	OCP_DBL krow = data[2];
+	OCP_DBL Pcw = -data[3];
 
 	SGOF.eval_all(0, Sg, data, cdata);
-	double krg = data[1];
-	double krog = data[2];
-	double Pcg = data[3];
+	OCP_DBL krg = data[1];
+	OCP_DBL krog = data[2];
+	OCP_DBL Pcg = data[3];
 
-	double kro = kro_stone2(krow, krog, krw, krg);
+	OCP_DBL kro = kro_stone2(krow, krog, krw, krg);
 
 	kr_out[0] = kro;  kr_out[1] = krg;  kr_out[2] = krw;
 	pc_out[0] = 0;    pc_out[1] = Pcg;  pc_out[2] = Pcw;
 }
 
-double FlowUnit::kro_stone2(double krow, double krog, double krw, double krg)
+OCP_DBL FlowUnit::kro_stone2(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg)
 {
 	// krog : oil relative permeability for a system with oil, gas and connate water
 	// krow : oil relative permeability for a system with oil and water only
 
-	double kro = KroMax * ((krow / KroMax + krw) * (krog / KroMax + krg) - (krw + krg));
+	OCP_DBL kro = KroMax * ((krow / KroMax + krw) * (krog / KroMax + krg) - (krw + krg));
 	if (kro < 0)
 		kro = 0;
 

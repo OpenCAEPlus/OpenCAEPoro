@@ -2,8 +2,9 @@
 #include <fstream>
 #include <vector>
 #include "ReadTool.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
-typedef vector<vector<double>>				TUNING;
+typedef vector<vector<OCP_DBL>>				TUNING;
 
 class TuningPair
 {
@@ -22,7 +23,7 @@ public:
 	string									LinearSolve;
 	vector<TuningPair>						Tuning_T;
 	TUNING									Tuning;
-	vector<double>							CriticalTime;
+	vector<OCP_DBL>							CriticalTime;
 	
 	void init(string& dir);
 	void initTime() { CriticalTime.push_back(0); };

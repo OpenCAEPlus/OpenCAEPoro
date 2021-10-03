@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "ReadTool.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
 	}
 	string								Name;
 	int									colNum;
-	vector<vector<vector<double>>>		data;
+	vector<vector<vector<OCP_DBL>>>		data;
 };
 
 class DIMENS
@@ -38,8 +39,8 @@ public:
 class ROCK
 {
 public:
-	double	Pref;
-	double	Cr;
+	OCP_DBL	Pref;
+	OCP_DBL	Cr;
 };
 
 template<typename T>
@@ -58,28 +59,28 @@ public:
 	// Cartesian
 	DIMENS								Dimens;
 	int									Num;
-	std::vector<double>					Tops;
-	std::vector<double>					Dx;
-	std::vector<double>					Dy;
-	std::vector<double>					Dz;
+	std::vector<OCP_DBL>					Tops;
+	std::vector<OCP_DBL>					Dx;
+	std::vector<OCP_DBL>					Dy;
+	std::vector<OCP_DBL>					Dz;
 
-	double								RTEMP;
+	OCP_DBL								RTEMP;
 
 	// Rock
-	std::vector<double>					Ntg;
-	std::vector<double>					Poro;
-	std::vector<double>					PermX;
-	std::vector<double>					PermY;
-	std::vector<double>					PermZ;
+	std::vector<OCP_DBL>					Ntg;
+	std::vector<OCP_DBL>					Poro;
+	std::vector<OCP_DBL>					PermX;
+	std::vector<OCP_DBL>					PermY;
+	std::vector<OCP_DBL>					PermZ;
 	ROCK								Rock;
 
 	// Restart
-	std::vector<double>					Pressure;
-	std::vector<double>					Ni;
+	std::vector<OCP_DBL>					Pressure;
+	std::vector<OCP_DBL>					Ni;
 
 	// phase property
-	Type_A_r<double>					Density;
-	Type_A_r<double>					Gravity;
+	Type_A_r<OCP_DBL>					Density;
+	Type_A_r<OCP_DBL>					Gravity;
 
 	// Model and Phase
 	bool								BLACKOIL{ false };
@@ -90,20 +91,20 @@ public:
 	bool								DISGAS{ false };
 
 	// Eos
-	std::vector<double>					InitZi;
+	std::vector<OCP_DBL>					InitZi;
 
 	// SAT Region & PVT Region
 	int									NTSFUN{ 1 };	// SAT num
 	int									NTPVT{ 1 };		// PVT num
-	Type_A_r<double>					SATNUM;
-	Type_A_r<double>					PVTNUM;
+	Type_A_r<OCP_DBL>					SATNUM;
+	Type_A_r<OCP_DBL>					PVTNUM;
 
 
 	// Saturation table & buble point pressure 
 	TableSet							SWOF_T;
 	TableSet							SGOF_T;
 	TableSet							PBVD_T;
-	std::vector<double>					EQUIL;
+	std::vector<OCP_DBL>					EQUIL;
 	
 	// PVT property
 	int									Np;		// num of phase
@@ -114,7 +115,7 @@ public:
 	TableSet							PVTW_T;
 
 	// internal method
-	vector<double>* FindPtr(string& varName);
+	vector<OCP_DBL>* FindPtr(string& varName);
 
 	TableSet* FindPtr_T(string& varName);
 
@@ -128,7 +129,7 @@ public:
 	template<typename T>
 	void copyVal(vector<T>& obj, vector<T>& src, vector<int>& index);
 
-	void multiplyVal(vector<double>& obj, double val, vector<int>& index);
+	void multiplyVal(vector<OCP_DBL>& obj, OCP_DBL val, vector<int>& index);
 
 	// COMPS
 	void inputCOMPS(ifstream& ifs);

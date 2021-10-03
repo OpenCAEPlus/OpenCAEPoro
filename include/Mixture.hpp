@@ -20,26 +20,26 @@ public:
     // black oil
     virtual bool empty_PVDG() = 0;
 
-    virtual void Flash_Sj(const double Pin, const double Pbbin, const double Tin,
-                          const double* Sjin, double Vpore, const double* Ziin)   = 0;
-    virtual void Flash_Ni(const double Pin, const double Tin, const double* Niin) = 0;
+    virtual void Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL Tin,
+                          const OCP_DBL* Sjin, OCP_DBL Vpore, const OCP_DBL* Ziin)   = 0;
+    virtual void Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Niin) = 0;
 
     virtual void getProp(){};
 
     // return xi
-    virtual double xiPhase(double Pin, double T, double* Ziin) = 0;
+    virtual OCP_DBL xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) = 0;
 
     // return rho
-    virtual double rhoPhase(double Pin, double T, double* Ziin) = 0;
+    virtual OCP_DBL rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) = 0;
 
     // return gamma
-    virtual double gammaPhaseO(double Pin, double Pbbin)              = 0;
-    virtual double gammaPhaseW(double Pin)                            = 0;
-    virtual double gammaPhaseG(double Pin)                            = 0;
-    virtual double gammaPhaseOG(double Pin, double Tin, double* Ziin) = 0;
+    virtual OCP_DBL gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin)              = 0;
+    virtual OCP_DBL gammaPhaseW(OCP_DBL Pin)                            = 0;
+    virtual OCP_DBL gammaPhaseG(OCP_DBL Pin)                            = 0;
+    virtual OCP_DBL gammaPhaseOG(OCP_DBL Pin, OCP_DBL Tin, OCP_DBL* Ziin) = 0;
 
     // check
-    void checkNi(const double* Ni)
+    void checkNi(const OCP_DBL* Ni)
     {
         bool flag = false;
         for (int i = 0; i < Nc; i++) {
@@ -62,19 +62,19 @@ protected:
 
     int    Np; // num of phase
     int    Nc; // num of component
-    double P;  // Pressure
-    double T;  // Temperature
+    OCP_DBL P;  // Pressure
+    OCP_DBL T;  // Temperature
 
-    std::vector<double> Ni;         // molar of component : Nc
+    std::vector<OCP_DBL> Ni;         // molar of component : Nc
     std::vector<bool>   PhaseExist; // existence of phase : Np
-    std::vector<double> S;          // saturation of phase : Np
-    std::vector<double> Rho;        // mass density of phase : Np
-    std::vector<double> Xi;         // molar density of phase: Np
-    std::vector<double> Cij;        // Nij / Nj : Np*Nc
-    std::vector<double> Mu;         // viscosity of phase: Np
-    std::vector<double> V;          // volume of phase
+    std::vector<OCP_DBL> S;          // saturation of phase : Np
+    std::vector<OCP_DBL> Rho;        // mass density of phase : Np
+    std::vector<OCP_DBL> Xi;         // molar density of phase: Np
+    std::vector<OCP_DBL> Cij;        // Nij / Nj : Np*Nc
+    std::vector<OCP_DBL> Mu;         // viscosity of phase: Np
+    std::vector<OCP_DBL> V;          // volume of phase
 
-    double              Vf;  // volume of fluids
-    double              Vfp; //
-    std::vector<double> Vfi; // dVf / dNi   : Nc
+    OCP_DBL              Vf;  // volume of fluids
+    OCP_DBL              Vfp; //
+    std::vector<OCP_DBL> Vfi; // dVf / dNi   : Nc
 };

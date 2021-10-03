@@ -74,10 +74,10 @@ void WellGroup::applyControl(int i)
 	}
 }
 
-double WellGroup::calCFL(const Bulk& myBulk, double dt)
+OCP_DBL WellGroup::calCFL(const Bulk& myBulk, OCP_DBL dt)
 {
-	double cflw = 0;
-	double tmp = 0;
+	OCP_DBL cflw = 0;
+	OCP_DBL tmp = 0;
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
 			tmp = WellG[w].calCFL(myBulk, dt);
@@ -97,7 +97,7 @@ void WellGroup::calFlux(const Bulk& myBulk)
 	}
 }
 
-void WellGroup::massConserve(Bulk& myBulk, double dt)
+void WellGroup::massConserve(Bulk& myBulk, OCP_DBL dt)
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
@@ -121,7 +121,7 @@ void WellGroup::prepareWell(const Bulk& myBulk)
 	}
 }
 
-void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, double dt)
+void WellGroup::assemblaMat_WB(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt)
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
@@ -142,7 +142,7 @@ void WellGroup::assemblaMat_WB(Solver<double>& mySolver, const Bulk& myBulk, dou
 	}
 }
 
-void WellGroup::getSol_IMPES(vector<double>& u, int bid)
+void WellGroup::getSol_IMPES(vector<OCP_DBL>& u, int bid)
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
@@ -152,7 +152,7 @@ void WellGroup::getSol_IMPES(vector<double>& u, int bid)
 	}
 }
 
-void WellGroup::calIPRT(const Bulk& myBulk, double dt)
+void WellGroup::calIPRT(const Bulk& myBulk, OCP_DBL dt)
 {
 	FGIR = 0;
 	FWIR = 0;

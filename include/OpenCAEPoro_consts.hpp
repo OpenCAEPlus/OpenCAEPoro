@@ -5,23 +5,28 @@
     std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
               << __FILE__ << std::endl;
 
+// data Type
+typedef unsigned int OCP_INT;
+typedef double       OCP_DBL;
+
+
 // Method
 const int IMPES = 0;
 const int FIM   = 1;
 
 // general consts
-const double TINY = 1E-8;
-const double PI   = 3.141592653;
+const OCP_DBL TINY = 1E-8;
+const OCP_DBL PI   = 3.141592653;
 
 // pysical consts
-const double GRAVITY_FACTOR = 0.00694444; // 0.00694444 ft2 psi / lb
-const double RHOW_STD       = 62.3664;    // lb / ft3
-const double RHOAIR_STD     = 0.076362;   // lb / ft3
-const double PRESSURE_STD   = 14.6959;    // psia   =   1 atm
+const OCP_DBL GRAVITY_FACTOR = 0.00694444; // 0.00694444 ft2 psi / lb
+const OCP_DBL RHOW_STD       = 62.3664;    // lb / ft3
+const OCP_DBL RHOAIR_STD     = 0.076362;   // lb / ft3
+const OCP_DBL PRESSURE_STD   = 14.6959;    // psia   =   1 atm
 
 // Units consts
-const double CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
-const double CONV2 = 1.12712E-3; // Darcy constant in Field
+const OCP_DBL CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
+const OCP_DBL CONV2 = 1.12712E-3; // Darcy constant in Field
 
 // Mixture Type
 const int BLKOIL   = 1;

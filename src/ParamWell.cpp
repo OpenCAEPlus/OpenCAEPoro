@@ -1,4 +1,5 @@
 #include "ParamWell.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 WellOptParam::WellOptParam(string type, vector<string>& vbuf)
 {
@@ -176,11 +177,11 @@ void ParamWell::inputTSTEP(ifstream& ifs)
 		DealDefault(vbuf);
 		int len = vbuf.size();
 		for (int i = 0; i < len - 1; i++) {
-			double t = CriticalTime.back() + stod(vbuf[i]);
+			OCP_DBL t = CriticalTime.back() + stod(vbuf[i]);
 			CriticalTime.push_back(t);
 		}
 		if (vbuf.back() != "/") {
-			double t = CriticalTime.back() + stod(vbuf.back());
+			OCP_DBL t = CriticalTime.back() + stod(vbuf.back());
 			CriticalTime.push_back(t);
 		}
 	}
@@ -216,7 +217,7 @@ void ParamWell::inputWELTARG(ifstream& ifs)
 				WellOptPair tar = well[w].OptParam.back();
 				tar.d = d;
 				tar.Opt.OptMode = vbuf[1];
-				double val = stod(vbuf[2]);
+				OCP_DBL val = stod(vbuf[2]);
 				if (vbuf[1] == "BHP") {
 					if (tar.Opt.Type == "INJ")
 						tar.Opt.MaxBHP = val;

@@ -42,7 +42,7 @@ public:
 	string				Item;
 	string				Obj;
 	string				Unit;
-	vector<double>		val;
+	vector<OCP_DBL>		val;
 };
 
 

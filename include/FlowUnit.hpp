@@ -14,36 +14,36 @@ public:
 
 	void generate_SWPCWG();
 
-	double eval_SWOF(int j, double val, int destj) { return SWOF.eval(j, val, destj); }
-	double evalinv_SWOF(int j, double val, int destj) { return SWOF.eval_inv(j, val, destj); }
-	double eval_SGOF(int j, double val, int destj) { return SGOF.eval(j, val, destj); }
-	double evalinv_SGOF(int j, double val, int destj) { return SGOF.eval_inv(j, val, destj); }
-	double eval_SWPCWG(int j, double val, int destj) { return SWPCWG.eval(j, val, destj); }
-	double evalinv_SWPCWG(int j, double val, int destj) { return SWPCWG.eval_inv(j, val, destj); }
+	OCP_DBL eval_SWOF(int j, OCP_DBL val, int destj) { return SWOF.eval(j, val, destj); }
+	OCP_DBL evalinv_SWOF(int j, OCP_DBL val, int destj) { return SWOF.eval_inv(j, val, destj); }
+	OCP_DBL eval_SGOF(int j, OCP_DBL val, int destj) { return SGOF.eval(j, val, destj); }
+	OCP_DBL evalinv_SGOF(int j, OCP_DBL val, int destj) { return SGOF.eval_inv(j, val, destj); }
+	OCP_DBL eval_SWPCWG(int j, OCP_DBL val, int destj) { return SWPCWG.eval(j, val, destj); }
+	OCP_DBL evalinv_SWPCWG(int j, OCP_DBL val, int destj) { return SWPCWG.eval_inv(j, val, destj); }
 
 
-	void calKrPc(const double* S_in, double* kr_out, double* pc_out);
-	void calKrPc_W(double* kr_out, double* pc_out);
-	void calKrPc_OW(const double* S_in, double* kr_out, double* pc_out);
-	void calKrPc_OG(const double* S_in, double* kr_out, double* pc_out);
-	void calKrPc_OGW(const double* S_in, double* kr_out, double* pc_out);
+	void calKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void calKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void calKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void calKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void calKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
 
 	// FlowUnits Model
-	double kro_stone2(double krow, double krog, double krw, double krg);
+	OCP_DBL kro_stone2(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg);
 
 private:
 	int								Mode;
-	ReservoirTable<double>			SWOF;
-	ReservoirTable<double>			SGOF;
-	ReservoirTable<double>			SWPCWG;
+	ReservoirTable<OCP_DBL>			SWOF;
+	ReservoirTable<OCP_DBL>			SGOF;
+	ReservoirTable<OCP_DBL>			SWPCWG;
 
-	double							KroMax;		// oil relative permeability in the presence of connate water only
+	OCP_DBL							KroMax;		// oil relative permeability in the presence of connate water only
 
 	// Auxiliary parameters for Table interpolation
     int                             len{0};
-    vector<double>					data;
-    vector<double>					cdata;
+    vector<OCP_DBL>					data;
+    vector<OCP_DBL>					cdata;
 };
 
 

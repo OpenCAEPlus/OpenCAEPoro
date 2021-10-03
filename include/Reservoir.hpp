@@ -18,7 +18,7 @@ public:
 
 	void init();
 
-	double calCFL(double dt);
+	OCP_DBL calCFL(OCP_DBL dt);
 	// assemble mat
 	template<typename T>
 	void allocateMat(Solver<T>& mySolver);
@@ -26,13 +26,13 @@ public:
 	template<typename T>
 	void initAssembleMat(Solver<T>& mySolver);
 
-	void assembleMat(Solver<double>& mysolver, double dt);
-	void getSol_IMPES(vector<double>& u);
+	void assembleMat(Solver<OCP_DBL>& mysolver, OCP_DBL dt);
+	void getSol_IMPES(vector<OCP_DBL>& u);
 
 	int checkP();
 	bool checkNi() { return bulk.checkNi(); }
 	void resetVal01();
-	bool checkVe(const double Vlim) { return bulk.checkVe(Vlim); }
+	bool checkVe(const OCP_DBL Vlim) { return bulk.checkVe(Vlim); }
 	void resetVal02();
 
 private:

@@ -176,29 +176,29 @@ void Bulk::initSjPc_blk(int tabrow)
 {
     Pbub.resize(Num);
 
-    double Dref  = EQUIL.Dref;
-    double Pref  = EQUIL.Pref;
-    double DOWC  = EQUIL.DOWC;
-    double PcOWC = EQUIL.PcOWC;
-    double DOGC  = EQUIL.DGOC;
-    double PcGOC = EQUIL.PcGOC;
+    OCP_DBL Dref  = EQUIL.Dref;
+    OCP_DBL Pref  = EQUIL.Pref;
+    OCP_DBL DOWC  = EQUIL.DOWC;
+    OCP_DBL PcOWC = EQUIL.PcOWC;
+    OCP_DBL DOGC  = EQUIL.DGOC;
+    OCP_DBL PcGOC = EQUIL.PcGOC;
 
-    double Zmin = 1E8;
-    double Zmax = 0;
+    OCP_DBL Zmin = 1E8;
+    OCP_DBL Zmax = 0;
     for (int n = 0; n < Num; n++) {
-        double temp1 = Depth[n] - Dz[n] / 2;
-        double temp2 = Depth[n] + Dz[n] / 2;
+        OCP_DBL temp1 = Depth[n] - Dz[n] / 2;
+        OCP_DBL temp2 = Depth[n] + Dz[n] / 2;
         Zmin         = Zmin < temp1 ? Zmin : temp1;
         Zmax         = Zmax > temp2 ? Zmax : temp2;
     }
-    double tabdz = (Zmax - Zmin) / (tabrow - 1);
+    OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    ReservoirTable<double> DepthP(tabrow, 4);
-    vector<double>&        Ztmp  = DepthP.getCol(0);
-    vector<double>&        Potmp = DepthP.getCol(1);
-    vector<double>&        Pgtmp = DepthP.getCol(2);
-    vector<double>&        Pwtmp = DepthP.getCol(3);
+    ReservoirTable<OCP_DBL> DepthP(tabrow, 4);
+    vector<OCP_DBL>&        Ztmp  = DepthP.getCol(0);
+    vector<OCP_DBL>&        Potmp = DepthP.getCol(1);
+    vector<OCP_DBL>&        Pgtmp = DepthP.getCol(2);
+    vector<OCP_DBL>&        Pwtmp = DepthP.getCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -219,13 +219,13 @@ void Bulk::initSjPc_blk(int tabrow)
     }
 
     // begin calculating oil pressure:
-    double Pbb = Pref;
-    double gammaOtmp, gammaWtmp, gammaGtmp;
-    double Ptmp;
+    OCP_DBL Pbb = Pref;
+    OCP_DBL gammaOtmp, gammaWtmp, gammaGtmp;
+    OCP_DBL Ptmp;
     int    mynum = 10;
-    double mydz  = 0;
-    double Poref, Pgref, Pwref;
-    double Pbegin = 0;
+    OCP_DBL mydz  = 0;
+    OCP_DBL Poref, Pgref, Pwref;
+    OCP_DBL Pbegin = 0;
 
     if (Dref < DOGC) {
         // reference pressure is gas pressure
@@ -521,23 +521,23 @@ void Bulk::initSjPc_blk(int tabrow)
     DepthP.display();
 
     // calculate Pc from DepthP to calculate Sj
-    std::vector<double> data(4, 0);
-    std::vector<double> cdata(4, 0);
+    std::vector<OCP_DBL> data(4, 0);
+    std::vector<OCP_DBL> cdata(4, 0);
     for (int n = 0; n < Num; n++) {
         DepthP.eval_all(0, Depth[n], data, cdata);
-        double Po   = data[1];
-        double Pg   = data[2];
-        double Pw   = data[3];
-        double Pcgo = Pg - Po;
-        double Pcow = Po - Pw;
-        double Sw   = Flow[0]->evalinv_SWOF(3, Pcow, 0);
-        double Sg   = 0;
+        OCP_DBL Po   = data[1];
+        OCP_DBL Pg   = data[2];
+        OCP_DBL Pw   = data[3];
+        OCP_DBL Pcgo = Pg - Po;
+        OCP_DBL Pcow = Po - Pw;
+        OCP_DBL Sw   = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+        OCP_DBL Sg   = 0;
         if (!Flow[0]->empty_SGOF()) {
             Sg = Flow[0]->eval_SGOF(3, Pcgo, 0);
         }
         if (Sw + Sg > 1) {
             // should me modified
-            double Pcgw = Pcow + Pcgo;
+            OCP_DBL Pcgw = Pcow + Pcgo;
             Sw          = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
             Sg          = 1 - Sw;
         }
@@ -570,9 +570,9 @@ void Bulk::initSjPc_blk(int tabrow)
         int ncut = 10;
 
         for (int k = 0; k < ncut; k++) {
-            double tmpSw = 0;
-            double tmpSg = 0;
-            double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL tmpSw = 0;
+            OCP_DBL tmpSg = 0;
+            OCP_DBL depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
             DepthP.eval_all(0, depth, data, cdata);
             Po    = data[1];
             Pg    = data[2];
@@ -585,7 +585,7 @@ void Bulk::initSjPc_blk(int tabrow)
             }
             if (tmpSw + tmpSg > 1) {
                 // should me modified
-                double Pcgw = Pcow + Pcgo;
+                OCP_DBL Pcgw = Pcow + Pcgo;
                 tmpSw       = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
                 tmpSg       = 1 - tmpSw;
             }
@@ -605,29 +605,29 @@ void Bulk::initSjPc_comp(int tabrow)
 {
     InitZi.resize(Num * Nc);
 
-    double Dref  = EQUIL.Dref;
-    double Pref  = EQUIL.Pref;
-    double DOWC  = EQUIL.DOWC;
-    double PcOWC = EQUIL.PcOWC;
-    double DOGC  = EQUIL.DGOC;
-    double PcGOC = EQUIL.PcGOC;
+    OCP_DBL Dref  = EQUIL.Dref;
+    OCP_DBL Pref  = EQUIL.Pref;
+    OCP_DBL DOWC  = EQUIL.DOWC;
+    OCP_DBL PcOWC = EQUIL.PcOWC;
+    OCP_DBL DOGC  = EQUIL.DGOC;
+    OCP_DBL PcGOC = EQUIL.PcGOC;
 
-    double Zmin = 1E8;
-    double Zmax = 0;
+    OCP_DBL Zmin = 1E8;
+    OCP_DBL Zmax = 0;
     for (int n = 0; n < Num; n++) {
-        double temp1 = Depth[n] - Dz[n] / 2;
-        double temp2 = Depth[n] + Dz[n] / 2;
+        OCP_DBL temp1 = Depth[n] - Dz[n] / 2;
+        OCP_DBL temp2 = Depth[n] + Dz[n] / 2;
         Zmin         = Zmin < temp1 ? Zmin : temp1;
         Zmax         = Zmax > temp2 ? Zmax : temp2;
     }
-    double tabdz = (Zmax - Zmin) / (tabrow - 1);
+    OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    ReservoirTable<double> DepthP(tabrow, 4);
-    vector<double>&        Ztmp  = DepthP.getCol(0);
-    vector<double>&        Potmp = DepthP.getCol(1);
-    vector<double>&        Pgtmp = DepthP.getCol(2);
-    vector<double>&        Pwtmp = DepthP.getCol(3);
+    ReservoirTable<OCP_DBL> DepthP(tabrow, 4);
+    vector<OCP_DBL>&        Ztmp  = DepthP.getCol(0);
+    vector<OCP_DBL>&        Potmp = DepthP.getCol(1);
+    vector<OCP_DBL>&        Pgtmp = DepthP.getCol(2);
+    vector<OCP_DBL>&        Pwtmp = DepthP.getCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -648,13 +648,13 @@ void Bulk::initSjPc_comp(int tabrow)
     }
 
     // begin calculating oil pressure:
-    double mytemp = T;
-    double gammaOtmp, gammaWtmp, gammaGtmp;
-    double Ptmp;
+    OCP_DBL mytemp = T;
+    OCP_DBL gammaOtmp, gammaWtmp, gammaGtmp;
+    OCP_DBL Ptmp;
     int    mynum = 10;
-    double mydz  = 0;
-    double Poref, Pgref, Pwref;
-    double Pbegin = 0;
+    OCP_DBL mydz  = 0;
+    OCP_DBL Poref, Pgref, Pwref;
+    OCP_DBL Pbegin = 0;
 
     if (Dref < DOGC) {
         // reference pressure is gas pressure
@@ -896,23 +896,23 @@ void Bulk::initSjPc_comp(int tabrow)
     DepthP.display();
 
     // calculate Pc from DepthP to calculate Sj
-    std::vector<double> data(4, 0);
-    std::vector<double> cdata(4, 0);
+    std::vector<OCP_DBL> data(4, 0);
+    std::vector<OCP_DBL> cdata(4, 0);
     for (int n = 0; n < Num; n++) {
         DepthP.eval_all(0, Depth[n], data, cdata);
-        double Po   = data[1];
-        double Pg   = data[2];
-        double Pw   = data[3];
-        double Pcgo = Pg - Po;
-        double Pcow = Po - Pw;
-        double Sw   = Flow[0]->evalinv_SWOF(3, Pcow, 0);
-        double Sg   = 0;
+        OCP_DBL Po   = data[1];
+        OCP_DBL Pg   = data[2];
+        OCP_DBL Pw   = data[3];
+        OCP_DBL Pcgo = Pg - Po;
+        OCP_DBL Pcow = Po - Pw;
+        OCP_DBL Sw   = Flow[0]->evalinv_SWOF(3, Pcow, 0);
+        OCP_DBL Sg   = 0;
         if (!Flow[0]->empty_SGOF()) {
             Sg = Flow[0]->eval_SGOF(3, Pcgo, 0);
         }
         if (Sw + Sg > 1) {
             // should me modified
-            double Pcgw = Pcow + Pcgo;
+            OCP_DBL Pcgw = Pcow + Pcgo;
             Sw          = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
             Sg          = 1 - Sw;
         }
@@ -938,9 +938,9 @@ void Bulk::initSjPc_comp(int tabrow)
         int ncut = 10;
 
         for (int k = 0; k < ncut; k++) {
-            double tmpSw = 0;
-            double tmpSg = 0;
-            double depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL tmpSw = 0;
+            OCP_DBL tmpSg = 0;
+            OCP_DBL depth = Depth[n] + Dz[n] / ncut * (k - (ncut - 1) / 2.0);
             DepthP.eval_all(0, depth, data, cdata);
             Po    = data[1];
             Pg    = data[2];
@@ -953,7 +953,7 @@ void Bulk::initSjPc_comp(int tabrow)
             }
             if (tmpSw + tmpSg > 1) {
                 // should me modified
-                double Pcgw = Pcow + Pcgo;
+                OCP_DBL Pcgw = Pcow + Pcgo;
                 tmpSw       = Flow[0]->evalinv_SWPCWG(1, Pcgw, 0);
                 tmpSg       = 1 - tmpSw;
             }
@@ -1030,7 +1030,7 @@ void Bulk::calKrPc()
 void Bulk::calVporo()
 {
 	for (int n = 0; n < Num; n++) {
-		double dP = Rock_C1 * (P[n] - Rock_Pref);
+		OCP_DBL dP = Rock_C1 * (P[n] - Rock_Pref);
 		Rock_Vp[n] = Rock_VpInit[n] * (1 + dP + dP * dP / 2);
         // Rock_Vp[n] = Rock_VpInit[n] * (1 + dP);
 	}
@@ -1042,7 +1042,7 @@ int Bulk::mixMode()
     if (COMPS) return EoS_PVTW;
 }
 
-void Bulk::getSol_IMPES(vector<double>& u)
+void Bulk::getSol_IMPES(vector<OCP_DBL>& u)
 {
     for (int n = 0; n < Num; n++) {
         P[n] = u[n];
@@ -1061,7 +1061,7 @@ void Bulk::calMaxChange()
     dNmax      = 0;
     dSmax      = 0;
     dVmax      = 0;
-    double tmp = 0;
+    OCP_DBL tmp = 0;
     int    id;
 
     for (int n = 0; n < Num; n++) {
@@ -1093,11 +1093,11 @@ void Bulk::calMaxChange()
     }
 }
 
-double Bulk::calFPR()
+OCP_DBL Bulk::calFPR()
 {
-    double ptmp = 0;
-    double vtmp = 0;
-    double tmp  = 0;
+    OCP_DBL ptmp = 0;
+    OCP_DBL vtmp = 0;
+    OCP_DBL tmp  = 0;
 
     if (Np == 3) {
         for (int n = 0; n < Num; n++) {
@@ -1139,11 +1139,11 @@ bool Bulk::checkNi()
 }
 
 
-bool Bulk::checkVe(const double Vlim)
+bool Bulk::checkVe(const OCP_DBL Vlim)
 {
     // true : all correct
     // false : Volume error is too big
-    double tmp = 0;
+    OCP_DBL tmp = 0;
     for (unsigned int n = 0; n < Num; n++) {
         tmp = fabs(Vf[n] - Rock_Vp[n]) / Rock_Vp[n];
         if (tmp > Vlim)

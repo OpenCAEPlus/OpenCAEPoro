@@ -23,10 +23,10 @@ private:
 	int							FluidType{ -1 };
 	bool						State{ false };
 	int							OptMode{ -1 };
-	double						MaxRate;
-	double						MaxBHP;
-	double						MinBHP;
-	std::vector<double>			Zi;			// inj or prod
+	OCP_DBL						MaxRate;
+	OCP_DBL						MaxBHP;
+	OCP_DBL						MinBHP;
+	std::vector<OCP_DBL>			Zi;			// inj or prod
 };
 
 class Well
@@ -45,7 +45,7 @@ public:
 	// init
 	void init(const Bulk& myBulk);
 
-	double calCFL(const Bulk& myBulk, double dt);
+	OCP_DBL calCFL(const Bulk& myBulk, OCP_DBL dt);
 
 	// calculate dG
 	void caldG(const Bulk& myBulk);
@@ -57,14 +57,14 @@ public:
 	void calTrans(const Bulk& myBulk);
 	// cal flux ---- perf: qt_ft3 & qi_lbmol
 	void calFlux(const Bulk& myBulk, bool flag = false);
-	void massConserve(Bulk& myBulk, double dt);
+	void massConserve(Bulk& myBulk, OCP_DBL dt);
 	
 
 	// calculate rate -- zi, uesd to check well opt mode and calculate well rate
-	double calInjRate_blk(const Bulk& myBulk);
-	double calProdRate_blk(const Bulk& myBulk);
-	void calInjqi_blk(const Bulk& myBulk, double dt);
-	void calProdqi_blk(const Bulk& myBulk, double dt);
+	OCP_DBL calInjRate_blk(const Bulk& myBulk);
+	OCP_DBL calProdRate_blk(const Bulk& myBulk);
+	void calInjqi_blk(const Bulk& myBulk, OCP_DBL dt);
+	void calProdqi_blk(const Bulk& myBulk, OCP_DBL dt);
 
 
 
@@ -74,8 +74,8 @@ public:
 	// Assemble Mat
 	template <typename T>
 	void allocateMat(Solver<T>& mySolver);
-	void assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double dt);
-	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver<double>& mySolver, double dt);
+	void assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt);
+	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt);
 
 
 	void updatePerfP(){ for (int p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
@@ -87,10 +87,10 @@ public:
 
 private:
 
-	double						Radius;			// well radius
-	double						Kh;
-	double						SkinFactor;		// skin factor
-	double						WI;				// connection factor
+	OCP_DBL						Radius;			// well radius
+	OCP_DBL						Kh;
+	OCP_DBL						SkinFactor;		// skin factor
+	OCP_DBL						WI;				// connection factor
 	
 	string						Name;
 	int							I, J;
@@ -100,20 +100,20 @@ private:
 	std::vector<WellOpt>		OptSet;
 
 	
-	double						BHP;			// pressure in reference depth
-	double						Depth;			// reference depth
+	OCP_DBL						BHP;			// pressure in reference depth
+	OCP_DBL						Depth;			// reference depth
 	int							PerfNum;
 	std::vector<Perforation>	Perf;
-	std::vector<double>			dG;
-	std::vector<double>			ldG;
+	std::vector<OCP_DBL>			dG;
+	std::vector<OCP_DBL>			ldG;
 
 	// production rate and injection rate
-	std::vector<double>			Qi_lbmol;
-	double						WOPR{ 0 }, WOPT{ 0 };
-	double						WGPR{ 0 }, WGPT{ 0 };
-	double						WWPR{ 0 }, WWPT{ 0 };
-	double						WGIR{ 0 }, WGIT{ 0 };
-	double						WWIR{ 0 }, WWIT{ 0 };
+	std::vector<OCP_DBL>			Qi_lbmol;
+	OCP_DBL						WOPR{ 0 }, WOPT{ 0 };
+	OCP_DBL						WGPR{ 0 }, WGPT{ 0 };
+	OCP_DBL						WWPR{ 0 }, WWPT{ 0 };
+	OCP_DBL						WGIR{ 0 }, WGIT{ 0 };
+	OCP_DBL						WWIR{ 0 }, WWIT{ 0 };
 
 };
 

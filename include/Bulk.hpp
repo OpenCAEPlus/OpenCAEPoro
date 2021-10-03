@@ -19,9 +19,9 @@ class ParamEQUIL
 
 private:
     //! EQUIL 6 items
-    double Dref, Pref, DOWC, PcOWC, DGOC, PcGOC;
+    OCP_DBL Dref, Pref, DOWC, PcOWC, DGOC, PcGOC;
     //! PBVD
-    ReservoirTable<double> PBVD;
+    ReservoirTable<OCP_DBL> PBVD;
 };
 
 class Bulk
@@ -65,24 +65,24 @@ public:
     int mixMode();
 
     // solver
-    void getSol_IMPES(vector<double>& u);
+    void getSol_IMPES(vector<OCP_DBL>& u);
 
     // calculate FPR
-    double calFPR();
-    double getP(int n) { return P[n]; }
+    OCP_DBL calFPR();
+    OCP_DBL getP(int n) { return P[n]; }
     bool   checkP();
     bool   checkNi();
-    bool   checkVe(const double Vlim);
+    bool   checkVe(const OCP_DBL Vlim);
     void   resetP() { P = lP; }
     void   resetPj(){ Pj = lPj; }
     void   resetNi() { Ni = lNi; }
     void   resetVp() { Rock_Vp = Rock_lVp; }
 
 
-    double getdPmax() { return dPmax; }
-    double getdNmax() { return dNmax; }
-    double getdSmax() { return dSmax; }
-    double getdVmax() { return dVmax; }
+    OCP_DBL getdPmax() { return dPmax; }
+    OCP_DBL getdNmax() { return dNmax; }
+    OCP_DBL getdSmax() { return dSmax; }
+    OCP_DBL getdVmax() { return dVmax; }
 
 private:
     int Num; // num of active bulk
@@ -90,27 +90,27 @@ private:
     int Np; // num of phase
     int Nc; // num of component
 
-    double              T;          // temperature : Num
-    std::vector<double> Pbub;       // buble point pressere: Num
-    std::vector<double> P;          // pressure: Num
-    std::vector<double> Pj;         // phase pressure: Np*Num
-    std::vector<double> Pc;         // capillary pressure of phase: Np*Num
+    OCP_DBL              T;          // temperature : Num
+    std::vector<OCP_DBL> Pbub;       // buble point pressere: Num
+    std::vector<OCP_DBL> P;          // pressure: Num
+    std::vector<OCP_DBL> Pj;         // phase pressure: Np*Num
+    std::vector<OCP_DBL> Pc;         // capillary pressure of phase: Np*Num
     std::vector<bool>   PhaseExist; // existence of phase
-    std::vector<double> S;          // saturation of phase j
-    std::vector<double> Rho;        // mass density of phase: Np*Num
-    std::vector<double> Xi;         // molar density of phase: Np*Num
-    std::vector<double> Cij;        // Nij / Nj : Np*Nc*Num
-    std::vector<double> Ni;         // molar of ith component in bulk: NC*Num
-    std::vector<double> Mu;         // viscosity of phase: Np*Num
-    std::vector<double> Kr;         // relative permeability of phase: Np*Num
+    std::vector<OCP_DBL> S;          // saturation of phase j
+    std::vector<OCP_DBL> Rho;        // mass density of phase: Np*Num
+    std::vector<OCP_DBL> Xi;         // molar density of phase: Np*Num
+    std::vector<OCP_DBL> Cij;        // Nij / Nj : Np*Nc*Num
+    std::vector<OCP_DBL> Ni;         // molar of ith component in bulk: NC*Num
+    std::vector<OCP_DBL> Mu;         // viscosity of phase: Np*Num
+    std::vector<OCP_DBL> Kr;         // relative permeability of phase: Np*Num
 
-    std::vector<double> Vj;
-    std::vector<double> Vf;  // total fluid volume
-    std::vector<double> Vfi; // dVt / dNi
-    std::vector<double> Vfp; // dVt / dP
+    std::vector<OCP_DBL> Vj;
+    std::vector<OCP_DBL> Vf;  // total fluid volume
+    std::vector<OCP_DBL> Vfi; // dVt / dNi
+    std::vector<OCP_DBL> Vfp; // dVt / dP
 
     vector<int>            PhaseLabel;
-    std::vector<double>    InitZi; // initial component for EoS : Nc - 1
+    std::vector<OCP_DBL>    InitZi; // initial component for EoS : Nc - 1
     int                    PVTmode;
     std::vector<int>       PVTNUM;
     std::vector<Mixture*>  Flashcal;
@@ -119,38 +119,38 @@ private:
     std::vector<FlowUnit*> Flow;
 
     // last STEP
-    std::vector<double> lP;
-    std::vector<double> lPj;
-    std::vector<double> lNi;
-    std::vector<double> lS;
-    std::vector<double> Rock_lVp;
+    std::vector<OCP_DBL> lP;
+    std::vector<OCP_DBL> lPj;
+    std::vector<OCP_DBL> lNi;
+    std::vector<OCP_DBL> lS;
+    std::vector<OCP_DBL> Rock_lVp;
 
     // max change
-    double dPmax;
-    double dNmax;
-    double dVmax;
-    double dSmax;
+    OCP_DBL dPmax;
+    OCP_DBL dNmax;
+    OCP_DBL dVmax;
+    OCP_DBL dSmax;
 
     // Bulk rock infomation
-    std::vector<double> Dx;          // dx
-    std::vector<double> Dy;          // dy
-    std::vector<double> Dz;          // dz
-    std::vector<double> Depth;       // depth: Num
-    std::vector<double> Ntg;         // Ntg: Num
-    std::vector<double> Rock_VpInit; // Vgrid * ntg * poro_init
-    std::vector<double> Rock_Vp;     // Vgrid * ntg * poro
+    std::vector<OCP_DBL> Dx;          // dx
+    std::vector<OCP_DBL> Dy;          // dy
+    std::vector<OCP_DBL> Dz;          // dz
+    std::vector<OCP_DBL> Depth;       // depth: Num
+    std::vector<OCP_DBL> Ntg;         // Ntg: Num
+    std::vector<OCP_DBL> Rock_VpInit; // Vgrid * ntg * poro_init
+    std::vector<OCP_DBL> Rock_Vp;     // Vgrid * ntg * poro
 
-    // std::vector<double>		Rock_Poro;			// current porosity
-    // std::vector<double>		Rock_PoroInit;		// initial porosity
-    double              Rock_Pref;
-    double              Rock_C1;
-    double              Rock_C2;
-    std::vector<double> Rock_KxInit;
-    std::vector<double> Rock_Kx;
-    std::vector<double> Rock_KyInit;
-    std::vector<double> Rock_Ky;
-    std::vector<double> Rock_KzInit;
-    std::vector<double> Rock_Kz;
+    // std::vector<OCP_DBL>		Rock_Poro;			// current porosity
+    // std::vector<OCP_DBL>		Rock_PoroInit;		// initial porosity
+    OCP_DBL              Rock_Pref;
+    OCP_DBL              Rock_C1;
+    OCP_DBL              Rock_C2;
+    std::vector<OCP_DBL> Rock_KxInit;
+    std::vector<OCP_DBL> Rock_Kx;
+    std::vector<OCP_DBL> Rock_KyInit;
+    std::vector<OCP_DBL> Rock_Ky;
+    std::vector<OCP_DBL> Rock_KzInit;
+    std::vector<OCP_DBL> Rock_Kz;
 
     // Reservoir information
     ParamEQUIL EQUIL;

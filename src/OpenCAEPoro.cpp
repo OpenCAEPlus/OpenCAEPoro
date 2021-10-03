@@ -30,7 +30,7 @@ void OpenCAEPoro::init()
 	solver.initSolver(control.Dir, control.SolveFile);
 }
 
-void OpenCAEPoro::SolveP(double dt)
+void OpenCAEPoro::SolveP(OCP_DBL dt)
 {
 	reservoir.assembleMat(solver, dt);
 
@@ -70,7 +70,7 @@ void OpenCAEPoro::run()
 	GetWallTime Timer;
 	Timer.Start();
 
-	double  numdates = control.CriticalTime.size();
+	OCP_DBL  numdates = control.CriticalTime.size();
 	for (int d = 0; d < numdates - 1; d++) {
 		reservoir.wellgroup.applyControl(d);
 		control.ApplyControl(d);
@@ -83,7 +83,7 @@ void OpenCAEPoro::run()
 
 	}
 
-	double endtime = Timer.Stop();
+	OCP_DBL endtime = Timer.Stop();
 
 	cout << endl;
 	cout << "Final time:          " << control.Current_time << " Days" << endl;
@@ -94,10 +94,10 @@ void OpenCAEPoro::run()
 	output.printInfo();
 }
 
-void OpenCAEPoro::runIMPES(double& dt)
+void OpenCAEPoro::runIMPES(OCP_DBL& dt)
 {
-	double ve = 0.01;
-	double cfl = 1;
+	OCP_DBL ve = 0.01;
+	OCP_DBL cfl = 1;
 	int	   flagCheck = 0;
 
 	reservoir.wellgroup.prepareWell(reservoir.bulk);

@@ -34,7 +34,7 @@ void Grid::calDepthV()
 	cout << "Grid::calDepthV" << endl;
 }
 
-void Grid::calActiveBulk(double e1, double e2)
+void Grid::calActiveBulk(OCP_DBL e1, OCP_DBL e2)
 {
 	ActiveMap_B2G.reserve(Num);
 	ActiveMap_G2B.resize(Num);

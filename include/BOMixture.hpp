@@ -12,50 +12,50 @@ public:
 	bool empty_PVDG() override{ return PVDG.isempty(); }
 
 	// Flash
-	void Flash_Sj(const double Pin, const double Pbbin, const double Tin, const double* Sjin, double Vpore, const double* Ziin) override;
-	void BOFlash_Sj_W(const double Pin, const double* Sjin, double Vpore);
-	void BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore);
-	void BOFlash_Sj_OGW(const double Pin, const double Pbbin, const double* Sjin, double Vpore);
+	void Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL Tin, const OCP_DBL* Sjin, OCP_DBL Vpore, const OCP_DBL* Ziin) override;
+	void BOFlash_Sj_W(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore);
+	void BOFlash_Sj_OW(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore);
+	void BOFlash_Sj_OGW(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL* Sjin, OCP_DBL Vpore);
 
-	void Flash_Ni(const double Pin, const double Tin, const double* Niin) override;
-	void BOFlash_Ni_W(const double Pin, const double* Niin);
-	void BOFlash_Ni_OW(const double Pin, const double* Niin);
-	void BOFlash_Ni_OGW(const double Pin, const double* Niin);
+	void Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Niin) override;
+	void BOFlash_Ni_W(const OCP_DBL Pin, const OCP_DBL* Niin);
+	void BOFlash_Ni_OW(const OCP_DBL Pin, const OCP_DBL* Niin);
+	void BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin);
 
 	// return Xi  molar density
-	double xiPhase(double Pin, double T, double* Ziin) override;
-	double xiPhase_OGW(double Pin, double* Ziin);
+	OCP_DBL xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) override;
+	OCP_DBL xiPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin);
 
 	// return rho
-	double rhoPhase(double Pin, double T, double* Ziin) override;
-	double rhoPhase_OGW(double Pin, double* Ziin);
+	OCP_DBL rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) override;
+	OCP_DBL rhoPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin);
 
 
 	// return gamma
-	double gammaPhaseO(double Pin, double Pbbin) override;
-	double gammaPhaseG(double Pin) override;
-	double gammaPhaseW(double Pin) override;
-	double gammaPhaseO_OW(double Pin);
-	double gammaPhaseO_OGW(double Pin, double Pbbin);
-	double gammaPhaseOG(double Pin, double Tin, double* Ziin) override { ERRORcheck("should not be used in BLKOIL"); exit(0); };
+	OCP_DBL gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin) override;
+	OCP_DBL gammaPhaseG(OCP_DBL Pin) override;
+	OCP_DBL gammaPhaseW(OCP_DBL Pin) override;
+	OCP_DBL gammaPhaseO_OW(OCP_DBL Pin);
+	OCP_DBL gammaPhaseO_OGW(OCP_DBL Pin, OCP_DBL Pbbin);
+	OCP_DBL gammaPhaseOG(OCP_DBL Pin, OCP_DBL Tin, OCP_DBL* Ziin) override { ERRORcheck("should not be used in BLKOIL"); exit(0); };
 
 private:
 
 	int									Mode;
-	ReservoirTable<double>				PVCO;
-	ReservoirTable<double>				PVDG;
-	ReservoirTable<double>				PVTW;
-    ReservoirTable<double>              PVDO;
+	ReservoirTable<OCP_DBL>				PVCO;
+	ReservoirTable<OCP_DBL>				PVDG;
+	ReservoirTable<OCP_DBL>				PVTW;
+    ReservoirTable<OCP_DBL>              PVDO;
 
 	// Auxiliary parameters for Table interpolation
 	int									len{ 0 };
-	vector<double>						data;
-	vector<double>						cdata;
+	vector<OCP_DBL>						data;
+	vector<OCP_DBL>						cdata;
 
 
 	// Std_Gamma* = Std_Rho* * GRAVITY_FACTOR
-	double								Std_RhoO, Std_GammaO;
-	double								Std_RhoG, Std_GammaG;
-	double								Std_RhoW, Std_GammaW;
+	OCP_DBL								Std_RhoO, Std_GammaO;
+	OCP_DBL								Std_RhoG, Std_GammaG;
+	OCP_DBL								Std_RhoW, Std_GammaW;
 
 };

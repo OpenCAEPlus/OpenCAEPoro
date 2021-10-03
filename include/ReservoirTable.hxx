@@ -110,7 +110,7 @@ inline T ReservoirTable<T>::eval(int j, T val, int destj)
 		for (int i = BId + 1; i < NRow; i++) {
 			if (val < data[j][i]) {
 				BId = i - 1;
-				double k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
+				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
 				return (data[destj][BId] + k * (val - data[j][BId]));
 			}
 		}
@@ -120,7 +120,7 @@ inline T ReservoirTable<T>::eval(int j, T val, int destj)
 		for (int i = BId - 1; i >= 0; i--) {
 			if (val >= data[j][i]) {
 				BId = i;
-				double k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
+				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
 				return (data[destj][BId] + k * (val - data[j][BId]));
 			}
 		}
@@ -137,7 +137,7 @@ inline T ReservoirTable<T>::eval_inv(int j, T val, int destj)
 		for (int i = BId - 1; i >= 0; i--) {
 			if (val <= data[j][i]) {
 				BId = i;
-				double k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
+				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
 				return (data[destj][BId] + k * (val - data[j][BId]));
 			}
 		}
@@ -147,7 +147,7 @@ inline T ReservoirTable<T>::eval_inv(int j, T val, int destj)
 		for (int i = BId + 1; i < NRow; i++) {
 			if (val >= data[j][i]) {
 				BId = i;
-				double k = (data[destj][BId] - data[destj][BId - 1]) / (data[j][BId] - data[j][BId - 1]);
+				OCP_DBL k = (data[destj][BId] - data[destj][BId - 1]) / (data[j][BId] - data[j][BId - 1]);
 				return (data[destj][BId - 1] + k * (val - data[j][BId - 1]));
 			}
 		}

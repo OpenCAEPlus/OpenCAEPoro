@@ -52,7 +52,7 @@ BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
 	cdata.resize(len, 0);
 }
 
-void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin, const double* Sjin, double Vpore, const double* Ziin)
+void BOMixture::Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL Tin, const OCP_DBL* Sjin, OCP_DBL Vpore, const OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -75,7 +75,7 @@ void BOMixture::Flash_Sj(const double Pin, const double Pbbin, const double Tin,
 	}
 }
 
-void BOMixture::Flash_Ni(const double Pin, const double Tin, const double* Niin)
+void BOMixture::Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
 	// checkNi(Niin);
@@ -102,27 +102,27 @@ void BOMixture::Flash_Ni(const double Pin, const double Tin, const double* Niin)
 }
 
 
-void BOMixture::BOFlash_Ni_W(const double Pin, const double* Niin)
+void BOMixture::BOFlash_Ni_W(const OCP_DBL Pin, const OCP_DBL* Niin)
 {
 
 }
 
-void BOMixture::BOFlash_Ni_OW(const double Pin, const double* Niin)
+void BOMixture::BOFlash_Ni_OW(const OCP_DBL Pin, const OCP_DBL* Niin)
 {
 
 }
 
-void BOMixture::BOFlash_Sj_W(const double Pin, const double* Sjin, double Vpore)
+void BOMixture::BOFlash_Sj_W(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore)
 {
 
 }
 
-void BOMixture::BOFlash_Sj_OW(const double Pin, const double* Sjin, double Vpore)
+void BOMixture::BOFlash_Sj_OW(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore)
 {
 
 }
 
-double BOMixture::xiPhase(double Pin, double T, double* Ziin)
+OCP_DBL BOMixture::xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -138,7 +138,7 @@ double BOMixture::xiPhase(double Pin, double T, double* Ziin)
 	}
 }
 
-double BOMixture::rhoPhase(double Pin, double T, double* Ziin)
+OCP_DBL BOMixture::rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -155,7 +155,7 @@ double BOMixture::rhoPhase(double Pin, double T, double* Ziin)
 }
 
 
-double BOMixture::gammaPhaseO(double Pin, double Pbbin)
+OCP_DBL BOMixture::gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin)
 {
 	switch (Mode)
 	{
@@ -169,30 +169,30 @@ double BOMixture::gammaPhaseO(double Pin, double Pbbin)
 	}
 }
 
-double BOMixture::gammaPhaseO_OW(double Pin)
+OCP_DBL BOMixture::gammaPhaseO_OW(OCP_DBL Pin)
 {
 
 	return 0;
 }
 
-double BOMixture::gammaPhaseW(double Pin)
+OCP_DBL BOMixture::gammaPhaseW(OCP_DBL Pin)
 {
 
 	PVTW.eval_all(0, Pin, data, cdata);
-	double Pw0 = data[0];
-	double bw0 = data[1];
-	double cbw = data[2];
-	double bw = (bw0 * (1 - cbw * (Pin - Pw0)));
+	OCP_DBL Pw0 = data[0];
+	OCP_DBL bw0 = data[1];
+	OCP_DBL cbw = data[2];
+	OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
 
 	return Std_GammaW / bw;
 }
 
-double BOMixture::gammaPhaseG(double Pin)
+OCP_DBL BOMixture::gammaPhaseG(OCP_DBL Pin)
 {
 	if (PVDG.isempty()) {
 		ERRORcheck("PVDG is missing");
 	}
-	double bg = (CONV1 / 1000) * PVDG.eval(0, Pin, 1);
+	OCP_DBL bg = (CONV1 / 1000) * PVDG.eval(0, Pin, 1);
 
 	return Std_GammaG / bg;
 }

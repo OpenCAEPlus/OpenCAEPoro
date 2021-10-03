@@ -1,8 +1,8 @@
 #include "ParamReservoir.hpp"
 
-vector<double>* ParamReservoir::FindPtr(string& varName)
+vector<OCP_DBL>* ParamReservoir::FindPtr(string& varName)
 {
-	vector<double>*		myPtr = nullptr;
+	vector<OCP_DBL>*		myPtr = nullptr;
 
 	switch (Map_str2int(&varName[0], varName.size()))
 	{
@@ -169,7 +169,7 @@ void ParamReservoir::copyVal(vector<T>& obj, vector<T>& src, vector<int>& index)
 	}
 }
 
-void ParamReservoir::multiplyVal(vector<double>& obj, double val, vector<int>& index)
+void ParamReservoir::multiplyVal(vector<OCP_DBL>& obj, OCP_DBL val, vector<int>& index)
 {
 	int Nx = Dimens.Nx;
 	int Ny = Dimens.Ny;
@@ -238,7 +238,7 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 		index[4] = 0, index[5] = Dimens.Nz - 1;
 
 		string objName = vbuf[0];
-		double val = stod(vbuf[1]);
+		OCP_DBL val = stod(vbuf[1]);
 
 		DealDefault(vbuf);
 
@@ -247,7 +247,7 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
 
-		vector<double>* objPtr = FindPtr(objName);
+		vector<OCP_DBL>* objPtr = FindPtr(objName);
 
 		if (objPtr != nullptr) {
 			if (objName == "TOPS") {
@@ -280,7 +280,7 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 
 void ParamReservoir::inputGRID(ifstream& ifs, string& keyword)
 {
-	vector<double>* objPtr = nullptr;
+	vector<OCP_DBL>* objPtr = nullptr;
 	objPtr = FindPtr(keyword);
 	if (objPtr == nullptr) {
 		Paramcheck("unmatched keyword!");
@@ -329,8 +329,8 @@ void ParamReservoir::inputCOPY(ifstream& ifs)
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
 
-		vector<double>* srcPtr = FindPtr(srcName);
-		vector<double>* objPtr = FindPtr(objName);
+		vector<OCP_DBL>* srcPtr = FindPtr(srcName);
+		vector<OCP_DBL>* objPtr = FindPtr(objName);
 		if (srcPtr != nullptr && objPtr != nullptr) {
 			objPtr->resize(srcPtr->size());
 			copyVal(*objPtr, *srcPtr, index);
@@ -360,7 +360,7 @@ void ParamReservoir::inputMULTIPLY(ifstream& ifs)
 		index[4] = 0, index[5] = Dimens.Nz - 1;
 
 		string objName = vbuf[0];
-		double val = stod(vbuf[1]);
+		OCP_DBL val = stod(vbuf[1]);
 
 		DealDefault(vbuf);
 		for (int n = 2; n < 8; n++) {
@@ -368,7 +368,7 @@ void ParamReservoir::inputMULTIPLY(ifstream& ifs)
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
 
-		vector<double>* objPtr = FindPtr(objName);
+		vector<OCP_DBL>* objPtr = FindPtr(objName);
 		if (objPtr != nullptr) {
 			if (objName == "TOPS") {
 				index[4] = index[5] = 0;
@@ -395,7 +395,7 @@ void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
 	}
 	
 	int col = obj->colNum;
-	vector<vector<double>> tmpTab(col);
+	vector<vector<OCP_DBL>> tmpTab(col);
 
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
@@ -503,7 +503,7 @@ void ParamReservoir::inputTABDIMS(ifstream& ifs)
 
 void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
 {
-	Type_A_r<double>* ptr = nullptr;
+	Type_A_r<OCP_DBL>* ptr = nullptr;
 	int	lim = 0;
 	if (keyword == "SATNUM") {
 		ptr = &SATNUM; 

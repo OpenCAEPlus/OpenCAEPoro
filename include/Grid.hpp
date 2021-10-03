@@ -21,7 +21,7 @@ public:
 	int getActiveBulkNum() { return ActiveBulkNum; }
 
 	void calDepthV();
-	void calActiveBulk(double e1, double e2);		// fill ActiveMap_B2G and ActiveMap_G2B
+	void calActiveBulk(OCP_DBL e1, OCP_DBL e2);		// fill ActiveMap_B2G and ActiveMap_G2B
 
 	void inputParam(ParamReservoir& rs_param);
 
@@ -35,17 +35,17 @@ private:
 	int					ConnNum;			// num of connection
 
 
-	vector<double>		Tops;
-	vector<double>		Depth;				// depth: Num
-	vector<double>		Dx;					// dx: Num
-	vector<double>		Dy;					// dy: Num
-	vector<double>		Dz;					// dz: Num
-	vector<double>		V;					// volume : Num
-	vector<double>		Ntg;				// net to gross
-	vector<double>		Poro;				// initial porosity
-	vector<double>		Kx;					// Absolute permeability in x direction
-	vector<double>		Ky;					// Absolute permeability in y direction
-	vector<double>		Kz;					// Absolute permeability in z direction
+	vector<OCP_DBL>		Tops;
+	vector<OCP_DBL>		Depth;				// depth: Num
+	vector<OCP_DBL>		Dx;					// dx: Num
+	vector<OCP_DBL>		Dy;					// dy: Num
+	vector<OCP_DBL>		Dz;					// dz: Num
+	vector<OCP_DBL>		V;					// volume : Num
+	vector<OCP_DBL>		Ntg;				// net to gross
+	vector<OCP_DBL>		Poro;				// initial porosity
+	vector<OCP_DBL>		Kx;					// Absolute permeability in x direction
+	vector<OCP_DBL>		Ky;					// Absolute permeability in y direction
+	vector<OCP_DBL>		Kz;					// Absolute permeability in z direction
 
 	// Region
 	vector<int>			SATNUM;

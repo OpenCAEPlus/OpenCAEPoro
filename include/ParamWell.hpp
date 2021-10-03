@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "ReadTool.hpp"
+#include "OpenCAEPoro_consts.hpp"
 
 
 
@@ -15,11 +16,11 @@ public:
 	string				State;
 	string				OptMode;
 
-	double				MaxRate;		
-	double				MaxBHP;	
-	double				MinBHP;
+	OCP_DBL				MaxRate;		
+	OCP_DBL				MaxBHP;	
+	OCP_DBL				MinBHP;
 
-	vector<double>		Zi;
+	vector<OCP_DBL>		Zi;
 };
 
 class WellOptPair
@@ -41,16 +42,16 @@ public:
 	string		Direction{ "z" };
 	int			I;
 	int			J;
-	double		Dref{ -1.0 };
+	OCP_DBL		Dref{ -1.0 };
 	// COMPDAT
 	int			I_perf;
 	int			J_perf;
 	int			K1;
 	int			K2;
-	double		WI{ -1.0 };		// connection factor
-	double		Diameter{ 1.0 };
-	double		Kh{ -1.0 };
-	double		SkinFactor{ 0.0 };
+	OCP_DBL		WI{ -1.0 };		// connection factor
+	OCP_DBL		Diameter{ 1.0 };
+	OCP_DBL		Kh{ -1.0 };
+	OCP_DBL		SkinFactor{ 0.0 };
 
 	// dynamic infomation
 	vector<WellOptPair>		OptParam;
@@ -62,7 +63,7 @@ class ParamWell
 public:
 
 	std::vector<WellParam>			well;
-	std::vector<double>				CriticalTime;
+	std::vector<OCP_DBL>				CriticalTime;
 
 	void init() { initTime(); };
 	void initTime() { CriticalTime.push_back(0); };

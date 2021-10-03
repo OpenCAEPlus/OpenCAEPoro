@@ -145,7 +145,7 @@ void Connection_BB::calAreaActive(const Grid& myGrid, const Bulk& myBulk)
     assert(Area.size() == ActiveConnNum);
 }
 
-double Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, int eIdb)
+OCP_DBL Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, int eIdb)
 {
     int bIdg = myGrid.ActiveMap_B2G[bIdb];
     int eIdg = myGrid.ActiveMap_B2G[eIdb];
@@ -154,23 +154,23 @@ double Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, i
 
     if (diff == 1) {
         // x - direction
-        double T1 = myBulk.Rock_Kx[bIdb] * myBulk.Ntg[bIdb] * myBulk.Dy[bIdb] *
+        OCP_DBL T1 = myBulk.Rock_Kx[bIdb] * myBulk.Ntg[bIdb] * myBulk.Dy[bIdb] *
                     myBulk.Dz[bIdb] / myBulk.Dx[bIdb];
-        double T2 = myBulk.Rock_Kx[eIdb] * myBulk.Ntg[eIdb] * myBulk.Dy[eIdb] *
+        OCP_DBL T2 = myBulk.Rock_Kx[eIdb] * myBulk.Ntg[eIdb] * myBulk.Dy[eIdb] *
                     myBulk.Dz[eIdb] / myBulk.Dx[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else if (diff == myGrid.Nx) {
         // y - direction
-        double T1 = myBulk.Rock_Ky[bIdb] * myBulk.Ntg[bIdb] * myBulk.Dz[bIdb] *
+        OCP_DBL T1 = myBulk.Rock_Ky[bIdb] * myBulk.Ntg[bIdb] * myBulk.Dz[bIdb] *
                     myBulk.Dx[bIdb] / myBulk.Dy[bIdb];
-        double T2 = myBulk.Rock_Ky[eIdb] * myBulk.Ntg[eIdb] * myBulk.Dz[eIdb] *
+        OCP_DBL T2 = myBulk.Rock_Ky[eIdb] * myBulk.Ntg[eIdb] * myBulk.Dz[eIdb] *
                     myBulk.Dx[eIdb] / myBulk.Dy[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else if (diff == myGrid.Nx * myGrid.Ny) {
         // z - direction  ----  no Ntg
-        double T1 =
+        OCP_DBL T1 =
             myBulk.Rock_Kz[bIdb] * myBulk.Dx[bIdb] * myBulk.Dy[bIdb] / myBulk.Dz[bIdb];
-        double T2 =
+        OCP_DBL T2 =
             myBulk.Rock_Kz[eIdb] * myBulk.Dx[eIdb] * myBulk.Dy[eIdb] / myBulk.Dz[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else {
@@ -182,11 +182,11 @@ double Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, int bIdb, i
 
 // Connection function, no matter what grid is
 
-double Connection_BB::calCFL(Bulk& myBulk, double dt)
+OCP_DBL Connection_BB::calCFL(Bulk& myBulk, OCP_DBL dt)
 {
     int    np   = myBulk.Np;
-    double cfl  = 0;
-    double temp = 0;
+    OCP_DBL cfl  = 0;
+    OCP_DBL temp = 0;
     for (int c = 0; c < ActiveConnNum; c++) {
 
         for (int j = 0; j < np; j++) {
@@ -207,13 +207,13 @@ void Connection_BB::calFlux(const Bulk& myBulk)
     // calculate a step flux using Iterator
     int    bId, eId, uId;
     int    bId_np_j, eId_np_j;
-    double Pbegin, Pend, rho;
+    OCP_DBL Pbegin, Pend, rho;
     int    np = myBulk.Np;
 
     for (int c = 0; c < ActiveConnNum; c++) {
         bId        = Iterator[c].BId;
         eId        = Iterator[c].EId;
-        double Akd = Area[c];
+        OCP_DBL Akd = Area[c];
 
         for (int j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -241,7 +241,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
 
             uId         = bId;
             bool   exup = exbegin;
-            double dP   = (Pbegin - GRAVITY_FACTOR * rho * myBulk.Depth[bId]) -
+            OCP_DBL dP   = (Pbegin - GRAVITY_FACTOR * rho * myBulk.Depth[bId]) -
                         (Pend - GRAVITY_FACTOR * rho * myBulk.Depth[eId]);
             if (dP < 0) {
                 uId  = eId;
@@ -250,7 +250,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
             Upblock_Rho[c * np + j] = rho;
             Upblock[c * np + j]     = uId;
             int    uId_np_j         = uId * np + j;
-            double trans =
+            OCP_DBL trans =
                 CONV1 * CONV2 * Akd * myBulk.Kr[uId_np_j] / myBulk.Mu[uId_np_j];
             Upblock_Trans[c * np + j] = trans;
 
@@ -263,7 +263,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
     }
 }
 
-void Connection_BB::massConserve(Bulk& myBulk, double dt)
+void Connection_BB::massConserve(Bulk& myBulk, OCP_DBL dt)
 {
     int np = myBulk.Np;
     int nc = myBulk.Nc;
@@ -277,9 +277,9 @@ void Connection_BB::massConserve(Bulk& myBulk, double dt)
             if (!myBulk.PhaseExist[uId * np + j]) continue;
 
             int    uId_np_j      = uId * np + j;
-            double phaseVelocity = Upblock_Velocity[c * np + j];
+            OCP_DBL phaseVelocity = Upblock_Velocity[c * np + j];
             for (int i = 0; i < nc; i++) {
-                double dNi = dt * phaseVelocity * myBulk.Xi[uId_np_j] *
+                OCP_DBL dNi = dt * phaseVelocity * myBulk.Xi[uId_np_j] *
                              myBulk.Cij[uId_np_j * nc + i];
                 myBulk.Ni[eId * nc + i] += dNi;
                 myBulk.Ni[bId * nc + i] -= dNi;
@@ -288,11 +288,11 @@ void Connection_BB::massConserve(Bulk& myBulk, double dt)
     }
 }
 
-void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, double dt)
+void Connection_BB::assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt)
 {
     // accumulate term
-    double Vp0, Vp, Vf, Vfp, P;
-    double cr = myBulk.Rock_C1;
+    OCP_DBL Vp0, Vp, Vf, Vfp, P;
+    OCP_DBL cr = myBulk.Rock_C1;
     for (int n = 0; n < ActiveBulkNum; n++) {
         Vp0 = myBulk.Rock_VpInit[n];
         Vp  = myBulk.Rock_Vp[n];
@@ -301,7 +301,7 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
         Vf  = myBulk.Vf[n];
 
 
-		double temp = cr * Vp0 - Vfp;
+		OCP_DBL temp = cr * Vp0 - Vfp;
 		mySolver.DiagVal[n] = temp;
 		mySolver.b[n] = temp * P + dt * (Vf - Vp);
 	}
@@ -319,8 +319,8 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
     int    bId, eId, uId;
     int    np = myBulk.Np;
     int    nc = myBulk.Nc;
-    double valupi, valdowni;
-    double valup, rhsup, valdown, rhsdown;
+    OCP_DBL valupi, valdowni;
+    OCP_DBL valup, rhsup, valdown, rhsdown;
     int    lastbId = -1;
     for (int c = 0; c < ActiveConnNum; c++) {
         bId = Iterator[c].BId;
@@ -343,9 +343,9 @@ void Connection_BB::assembleMat(Solver<double>& mySolver, const Bulk& myBulk, do
                 valdowni +=
                     myBulk.Vfi[eId * nc + i] * myBulk.Cij[uId * np * nc + j * nc + i];
             }
-            double dD   = myBulk.Depth[bId] - myBulk.Depth[eId];
-            double dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
-            double temp = myBulk.Xi[uId * np + j] * Upblock_Trans[c * np + j] * dt;
+            OCP_DBL dD   = myBulk.Depth[bId] - myBulk.Depth[eId];
+            OCP_DBL dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
+            OCP_DBL temp = myBulk.Xi[uId * np + j] * Upblock_Trans[c * np + j] * dt;
             valup += temp * valupi;
             valdown += temp * valdowni;
             temp *= Upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;

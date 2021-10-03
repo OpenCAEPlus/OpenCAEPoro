@@ -15,8 +15,8 @@ public:
 	void init();
 
 	void run();
-	void runIMPES(double& dt);
-	void SolveP(double dt);
+	void runIMPES(OCP_DBL& dt);
+	void SolveP(OCP_DBL dt);
 
 private:
 
@@ -24,7 +24,7 @@ private:
 	Reservoir			reservoir;
 
 	// linear solver
-	Solver<double>		solver;
+	Solver<OCP_DBL>		solver;
 
 	// control
 	CAEControl			control;

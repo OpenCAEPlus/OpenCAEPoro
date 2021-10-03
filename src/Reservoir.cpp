@@ -35,24 +35,24 @@ void Reservoir::init()
 }
 
 
-double Reservoir::calCFL(double dt)
+OCP_DBL Reservoir::calCFL(OCP_DBL dt)
 {
-	double cflB = conn.calCFL(bulk, dt);
-	double cflW = wellgroup.calCFL(bulk, dt);
-	double cfl = max(cflB, cflW);
+	OCP_DBL cflB = conn.calCFL(bulk, dt);
+	OCP_DBL cflW = wellgroup.calCFL(bulk, dt);
+	OCP_DBL cfl = max(cflB, cflW);
 
 	return cfl;
 }
 
 // assemble mat
-void Reservoir::assembleMat(Solver<double>& mysolver, double dt)
+void Reservoir::assembleMat(Solver<OCP_DBL>& mysolver, OCP_DBL dt)
 {
 	conn.initAssembleMat(mysolver);
 	conn.assembleMat(mysolver, bulk, dt);
 	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
 }
 
-void Reservoir::getSol_IMPES(vector<double>& u)
+void Reservoir::getSol_IMPES(vector<OCP_DBL>& u)
 {
 	bulk.getSol_IMPES(u);
 	wellgroup.getSol_IMPES(u, bulk.getBulkNum());
