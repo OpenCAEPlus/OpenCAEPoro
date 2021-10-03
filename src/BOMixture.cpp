@@ -122,7 +122,7 @@ void BOMixture::BOFlash_Sj_OW(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vp
 
 }
 
-OCP_DBL BOMixture::xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin)
+OCP_DBL BOMixture::xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{

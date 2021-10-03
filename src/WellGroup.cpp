@@ -121,7 +121,7 @@ void WellGroup::prepareWell(const Bulk& myBulk)
 	}
 }
 
-void WellGroup::assemblaMat_WB(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt)
+void WellGroup::assemblaMat_WB(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt) const
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
@@ -142,7 +142,7 @@ void WellGroup::assemblaMat_WB(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OC
 	}
 }
 
-void WellGroup::getSol_IMPES(vector<OCP_DBL>& u, int bid)
+void WellGroup::getSol_IMPES(const vector<OCP_DBL>& u, int bid)
 {
 	for (int w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {

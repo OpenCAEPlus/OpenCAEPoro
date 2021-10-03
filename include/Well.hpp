@@ -35,8 +35,8 @@ class Well
 public:
 	Well() = default;
 
-	bool WellState() { return Opt.State; }
-	int  WellType() { return Opt.Type; }
+	bool WellState() const { return Opt.State; }
+	int  WellType() const { return Opt.Type; }
 
 	void setup(Grid& myGrid, Bulk& myBulk);
 	// cal Well Index
@@ -73,9 +73,9 @@ public:
 
 	// Assemble Mat
 	template <typename T>
-	void allocateMat(Solver<T>& mySolver);
-	void assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt);
-	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt);
+	void allocateMat(Solver<T>& mySolver) const;
+	void assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const;
+	void assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const;
 
 
 	void updatePerfP(){ for (int p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
@@ -118,7 +118,7 @@ private:
 };
 
 template <typename T>
-void Well::allocateMat(Solver<T>& mySolver)
+void Well::allocateMat(Solver<T>& mySolver) const
 {
 	for (int p = 0; p < PerfNum; p++) {
 		mySolver.RowCapacity[Perf[p].Location]++;

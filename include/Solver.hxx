@@ -22,7 +22,7 @@ public:
     void allocate(int dimMax);
     void allocateColVal();
 
-    void initSolver(string& dir, string& file);
+    void initSolver(const string& dir, const string& file);
     void showSolution(string fileX);
     // FASP
     void init_param_Fasp();
@@ -269,7 +269,7 @@ template <typename T> void Solver<T>::showSolution(string fileU)
     outu.close();
 }
 
-template <typename T> void Solver<T>::initSolver(string& dir, string& file)
+template <typename T> void Solver<T>::initSolver(const string& dir, const string& file)
 {
     SolveDir  = dir;
     SolveFile = file;

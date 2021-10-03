@@ -1,34 +1,37 @@
 #pragma once
 #include "Reservoir.hpp"
 #include "OpenCAEControl.hpp"
-#include "CAEOutput.hpp"
+#include "OpenCAEOutput.hpp"
 #include "ParamRead.hpp"
+#include "Method.hpp"
 #include "Timing.hxx"
+
+
 
 class OpenCAEPoro
 {
 public:
 	void inputParam(ParamRead& param);
-	void setup();
-	void allocateMat();
+	void setup(ParamRead& param);
+	void setupSolver();
 
 	void init();
-
 	void run();
-	void runIMPES(OCP_DBL& dt);
-	void SolveP(OCP_DBL dt);
+	void out();
 
 private:
 
 	// main component
 	Reservoir			reservoir;
 
-	// linear solver
-	Solver<OCP_DBL>		solver;
+	// Method
+	OCP_IMPES			Impes;
+
+	OCP_FIM				Fim;
 
 	// control
-	CAEControl			control;
+	OCP_Control			control;
 
 	// output file
-	CAEOutput			output;
+	OCP_Output			output;
 };

@@ -23,8 +23,8 @@ public:
 	void BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin);
 
 	// return Xi  molar density
-	OCP_DBL xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) override;
-	OCP_DBL xiPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin);
+	OCP_DBL xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Ziin) override;
+	OCP_DBL xiPhase_OGW(const OCP_DBL Pin, const OCP_DBL* Ziin);
 
 	// return rho
 	OCP_DBL rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) override;

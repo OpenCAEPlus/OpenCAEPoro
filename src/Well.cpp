@@ -202,7 +202,7 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 }
 
 
-void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt)
+void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
 {
 	int nc = myBulk.Nc;
 	int wId = mySolver.Dim;
@@ -296,7 +296,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DB
 }
 
 
-void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt)
+void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
 {
 	int np = myBulk.Np;
 	int nc = myBulk.Nc;

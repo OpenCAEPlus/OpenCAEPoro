@@ -18,7 +18,7 @@ private:
 	OCP_DBL					WI;
 	OCP_DBL					Multiplier;
 
-	OCP_DBL					Xi;			// inj  single phase
+	mutable OCP_DBL					Xi;			// inj  single phase
 	std::vector<OCP_DBL>		qi_lbmol;
 	std::vector<OCP_DBL>		transj;
 	OCP_DBL					qt_ft3;

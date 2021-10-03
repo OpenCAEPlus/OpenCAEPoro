@@ -49,9 +49,10 @@ public:
     OCP_DBL Dpre_M;    // Target maximum pressure change in a timestep
 };
 
-class CAEControl
+class OCP_Control
 {
     friend class OpenCAEPoro;
+    friend class OCP_IMPES;
 
 public:
     void inputParam(ParamControl& CtrlParam);
@@ -59,9 +60,10 @@ public:
 
     void initTime(int i);
 
-    OCP_DBL getCurTime() { return Current_time; }
-    int    getLSiter() { return LS_iter; }
-    int    getNRiter() { return NR_iter; }
+    unsigned int getNumDates() { return CriticalTime.size(); }
+    OCP_DBL getCurTime() const { return Current_time; }
+    int    getLSiter() const { return LS_iter; }
+    int    getNRiter() const { return NR_iter; }
 
     void setNextTstep(Reservoir& reservoir);
 
@@ -73,6 +75,7 @@ private:
     OCP_DBL         Current_dt;
     OCP_DBL         Current_time{0};
     OCP_DBL         End_time;
+    OCP_DBL         TotalTime{ 0 };
     int            Tstep{0};
     int            LS_iter{0};
     int            LS_iter_total{0};

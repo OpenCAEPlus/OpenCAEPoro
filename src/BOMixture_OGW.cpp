@@ -369,7 +369,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin)
 }
 
 
-OCP_DBL BOMixture::xiPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin)
+OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL Pin, const OCP_DBL* Ziin)
 {
 	if (Ziin[1] > 1 - TINY) {
 		// inj fluid is gas

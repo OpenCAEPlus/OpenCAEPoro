@@ -21,12 +21,13 @@ int main(int argc, const char* argv[])
     rp.readInputFile(myfile);
 
     OpenCAEPoro simulator;
-    simulator.inputParam(rp);
-    simulator.setup();
-    simulator.allocateMat();
+    simulator.setup(rp);
 
     simulator.init();
+
     simulator.run();
+
+    simulator.out();
 
     return 0;
 }

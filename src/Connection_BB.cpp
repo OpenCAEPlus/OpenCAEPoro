@@ -288,7 +288,7 @@ void Connection_BB::massConserve(Bulk& myBulk, OCP_DBL dt)
     }
 }
 
-void Connection_BB::assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt)
+void Connection_BB::assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt) const
 {
     // accumulate term
     OCP_DBL Vp0, Vp, Vf, Vfp, P;

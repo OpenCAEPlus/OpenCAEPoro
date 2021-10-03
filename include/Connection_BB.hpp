@@ -47,11 +47,11 @@ public:
 
 	// Assemble Mat
 	template<typename T>
-	void allocateMat(Solver<T>& mySolver);
+	void allocateMat(Solver<T>& mySolver) const;
 	template<typename T>
-	void initAssembleMat(Solver<T>& mySolver);
+	void initAssembleMat(Solver<T>& mySolver) const;
 
-	void assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt);
+	void assembleMat(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt) const;
 
 
 private:
@@ -73,7 +73,7 @@ private:
 
 
 template<typename T>
-void Connection_BB::allocateMat(Solver<T>& MySolver)
+void Connection_BB::allocateMat(Solver<T>& MySolver)  const
 {
 	for (int n = 0; n < ActiveBulkNum; n++) {
 		MySolver.RowCapacity[n] += NeighborNum[n];
@@ -81,7 +81,7 @@ void Connection_BB::allocateMat(Solver<T>& MySolver)
 }
 
 template<typename T>
-void Connection_BB::initAssembleMat(Solver<T>& mySolver)
+void Connection_BB::initAssembleMat(Solver<T>& mySolver) const
 {
 	mySolver.Dim = ActiveBulkNum;
 	for (int n = 0; n < ActiveBulkNum; n++) {

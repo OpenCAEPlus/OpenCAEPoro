@@ -32,7 +32,7 @@ class Bulk
 public:
     Bulk() = default;
 
-    int getBulkNum() { return Num; }
+    int getBulkNum() const { return Num; }
 
     void inputParam(ParamReservoir& rs_param);
     void setup(const Grid& myGrid);
@@ -65,24 +65,24 @@ public:
     int mixMode();
 
     // solver
-    void getSol_IMPES(vector<OCP_DBL>& u);
+    void getSol_IMPES(const vector<OCP_DBL>& u);
 
     // calculate FPR
-    OCP_DBL calFPR();
-    OCP_DBL getP(int n) { return P[n]; }
-    bool   checkP();
-    bool   checkNi();
-    bool   checkVe(const OCP_DBL Vlim);
-    void   resetP() { P = lP; }
-    void   resetPj(){ Pj = lPj; }
+    OCP_DBL calFPR() const;
+    OCP_DBL getP(int n) const { return P[n]; }
+    bool   checkP() const;
+    bool   checkNi() const;
+    bool   checkVe(const OCP_DBL Vlim) const;
+    void   resetP(){ P = lP; }
+    void   resetPj() { Pj = lPj; }
     void   resetNi() { Ni = lNi; }
     void   resetVp() { Rock_Vp = Rock_lVp; }
 
 
-    OCP_DBL getdPmax() { return dPmax; }
-    OCP_DBL getdNmax() { return dNmax; }
-    OCP_DBL getdSmax() { return dSmax; }
-    OCP_DBL getdVmax() { return dVmax; }
+    OCP_DBL getdPmax() const { return dPmax; }
+    OCP_DBL getdNmax() const { return dNmax; }
+    OCP_DBL getdSmax() const { return dSmax; }
+    OCP_DBL getdVmax() const { return dVmax; }
 
 private:
     int Num; // num of active bulk

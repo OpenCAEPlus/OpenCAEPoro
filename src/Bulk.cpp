@@ -1042,7 +1042,7 @@ int Bulk::mixMode()
     if (COMPS) return EoS_PVTW;
 }
 
-void Bulk::getSol_IMPES(vector<OCP_DBL>& u)
+void Bulk::getSol_IMPES(const vector<OCP_DBL>& u)
 {
     for (int n = 0; n < Num; n++) {
         P[n] = u[n];
@@ -1093,7 +1093,7 @@ void Bulk::calMaxChange()
     }
 }
 
-OCP_DBL Bulk::calFPR()
+OCP_DBL Bulk::calFPR() const
 {
     OCP_DBL ptmp = 0;
     OCP_DBL vtmp = 0;
@@ -1119,7 +1119,7 @@ OCP_DBL Bulk::calFPR()
 }
 
 
-bool Bulk::checkP() 
+bool Bulk::checkP()  const
 {
     // true  : all correct
     // false : negetive P occurs, cut timestep and resolve
@@ -1128,7 +1128,7 @@ bool Bulk::checkP()
     }
     return true;
 }
-bool Bulk::checkNi() 
+bool Bulk::checkNi()  const
 {   
     // true  : all correct
     // false : negetive Ni occurs, cut timestep and resolve
@@ -1139,7 +1139,7 @@ bool Bulk::checkNi()
 }
 
 
-bool Bulk::checkVe(const OCP_DBL Vlim)
+bool Bulk::checkVe(const OCP_DBL Vlim) const
 {
     // true : all correct
     // false : Volume error is too big

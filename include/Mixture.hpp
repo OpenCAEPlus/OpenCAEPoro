@@ -27,7 +27,7 @@ public:
     virtual void getProp(){};
 
     // return xi
-    virtual OCP_DBL xiPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) = 0;
+    virtual OCP_DBL xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Ziin) = 0;
 
     // return rho
     virtual OCP_DBL rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) = 0;

@@ -36,7 +36,7 @@ ControlIter::ControlIter(vector<OCP_DBL>& src)
 		Dpre_M = DPreNT_M;
 }
 
-void CAEControl::inputParam(ParamControl& CtrlParam)
+void OCP_Control::inputParam(ParamControl& CtrlParam)
 {
 	Dir = CtrlParam.Dir;
 	if (CtrlParam.Method == "IMPES") {
@@ -71,10 +71,10 @@ void CAEControl::inputParam(ParamControl& CtrlParam)
 		}
 	}
 
-	cout << "CAEControl::input" << endl;
+	cout << "OCP_Control::input" << endl;
 }
 
-void CAEControl::ApplyControl(int i)
+void OCP_Control::ApplyControl(int i)
 {
 	CtrlTime = CtrlTimeSet[i];
 	CtrlError = CtrlErrorSet[i];
@@ -84,7 +84,7 @@ void CAEControl::ApplyControl(int i)
 }
 
 
-void CAEControl::initTime(int i)
+void OCP_Control::initTime(int i)
 {
 	OCP_DBL dt = CriticalTime[i + 1] - Current_time;
 	if (dt < 0) {
@@ -94,7 +94,7 @@ void CAEControl::initTime(int i)
 	Current_dt = min(dt, CtrlTime.TimeInit);
 }
 
-void CAEControl::setNextTstep(Reservoir& reservoir)
+void OCP_Control::setNextTstep(Reservoir& reservoir)
 {
 	Current_time += Current_dt;
 

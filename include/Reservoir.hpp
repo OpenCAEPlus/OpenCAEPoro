@@ -10,7 +10,8 @@ class Reservoir
 {
 	friend class OpenCAEPoro;
 	friend class Summary;
-	friend class CAEControl;
+	friend class OCP_Control;
+	friend class OCP_IMPES;
 public:
 
 	void inputParam(ParamRead& param);
@@ -26,8 +27,8 @@ public:
 	template<typename T>
 	void initAssembleMat(Solver<T>& mySolver);
 
-	void assembleMat(Solver<OCP_DBL>& mysolver, OCP_DBL dt);
-	void getSol_IMPES(vector<OCP_DBL>& u);
+	void assembleMat(Solver<OCP_DBL>& mysolver, const OCP_DBL& dt) const;
+	void getSol_IMPES(const vector<OCP_DBL>& u);
 
 	int checkP();
 	bool checkNi() { return bulk.checkNi(); }

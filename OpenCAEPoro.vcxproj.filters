@@ -78,13 +78,16 @@
     <ClInclude Include="include\OpenCAEControl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CAEOutput.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Solver.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MAT.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Method.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OpenCAEOutput.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,10 +149,13 @@
     <ClCompile Include="src\OpenCAEControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CAEOutput.cpp">
+    <ClCompile Include="Main\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main\Main.cpp">
+    <ClCompile Include="src\OpenCAEOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Method.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,7 @@
               << __FILE__ << std::endl;
 
 // data Type
-typedef unsigned int OCP_INT;
+typedef unsigned int OCP_USI;
 typedef double       OCP_DBL;
 
 
