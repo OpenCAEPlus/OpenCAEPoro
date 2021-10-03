@@ -137,6 +137,7 @@ void Bulk::setup(const Grid& myGrid)
     lPj.resize(Num * Np);
     lNi.resize(Num * Nc);
     lS.resize(Num * Np);
+    Rock_lVp.resize(Num);
 
     if (BLACKOIL) {
         switch (PVTmode) {
@@ -997,12 +998,12 @@ void Bulk::passFlashValue(int n)
     for (int j = 0; j < Np; j++) {
         PhaseExist[bId + j] = Flashcal[pvtnum]->PhaseExist[j];
         if (PhaseExist[j]) {
+            S[bId + j]   = Flashcal[pvtnum]->S[j];
+            Rho[bId + j] = Flashcal[pvtnum]->Rho[j];
+            Xi[bId + j]  = Flashcal[pvtnum]->Xi[j];
             for (int i = 0; i < Nc; i++) {
                 Cij[bId * Nc + j * Nc + i] = Flashcal[pvtnum]->Cij[j * Nc + i];
-            }
-            S[bId + j]   = Flashcal[pvtnum]->S[j];
-            Xi[bId + j]  = Flashcal[pvtnum]->Xi[j];
-            Rho[bId + j] = Flashcal[pvtnum]->Rho[j];
+            } 
             Mu[bId + j]  = Flashcal[pvtnum]->Mu[j];
             Vj[bId + j]  = Flashcal[pvtnum]->V[j];
         }
@@ -1133,6 +1134,20 @@ bool Bulk::checkNi()
     // false : negetive Ni occurs, cut timestep and resolve
     for (auto ni : Ni) {
         if (ni < 0) return false;
+    }
+    return true;
+}
+
+
+bool Bulk::checkVe(const double Vlim)
+{
+    // true : all correct
+    // false : Volume error is too big
+    double tmp = 0;
+    for (unsigned int n = 0; n < Num; n++) {
+        tmp = fabs(Vf[n] - Rock_Vp[n]) / Rock_Vp[n];
+        if (tmp > Vlim)
+            return false;
     }
     return true;
 }

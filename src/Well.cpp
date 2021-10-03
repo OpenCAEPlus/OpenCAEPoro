@@ -204,7 +204,6 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 
 void Well::assembleMat_INJ(const Bulk& myBulk, Solver<double>& mySolver, double dt)
 {
-	int np = myBulk.Np;
 	int nc = myBulk.Nc;
 	int wId = mySolver.Dim;
 	// important !
@@ -423,9 +422,6 @@ void Well::calInjdG(const Bulk& myBulk)
 	double maxlen = 10;
 	int seg_num = 0;
 	double seg_len = 0;
-	double	qtacc = 0;
-	double	rhoacc = 0;
-	double	rhotmp = 0;
 	vector<double>		dGperf(PerfNum, 0);
 	
 	if (Depth <= Perf.front().Depth) {
@@ -757,7 +753,6 @@ double Well::calProdRate_blk(const Bulk& myBulk)
 
 void Well::calInjqi_blk(const Bulk& myBulk, double dt)
 {
-	int np = myBulk.Np;
 	int nc = myBulk.Nc;
 	double qj = 0;
 

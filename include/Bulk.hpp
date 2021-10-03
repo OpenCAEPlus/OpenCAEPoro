@@ -45,6 +45,7 @@ public:
         lPj = Pj;
         lNi = Ni;
         lS  = S;
+        Rock_lVp = Rock_Vp;
     }
     void calMaxChange();
 
@@ -71,12 +72,12 @@ public:
     double getP(int n) { return P[n]; }
     bool   checkP();
     bool   checkNi();
-    void   resetVal()
-    {
-        P  = lP;
-        Pj = lPj;
-        Ni = lNi;
-    }
+    bool   checkVe(const double Vlim);
+    void   resetP() { P = lP; }
+    void   resetPj(){ Pj = lPj; }
+    void   resetNi() { Ni = lNi; }
+    void   resetVp() { Rock_Vp = Rock_lVp; }
+
 
     double getdPmax() { return dPmax; }
     double getdNmax() { return dNmax; }
@@ -95,11 +96,11 @@ private:
     std::vector<double> Pj;         // phase pressure: Np*Num
     std::vector<double> Pc;         // capillary pressure of phase: Np*Num
     std::vector<bool>   PhaseExist; // existence of phase
-    std::vector<double> Ni;         // molar of ith component in bulk: NC*Num
     std::vector<double> S;          // saturation of phase j
+    std::vector<double> Rho;        // mass density of phase: Np*Num
     std::vector<double> Xi;         // molar density of phase: Np*Num
     std::vector<double> Cij;        // Nij / Nj : Np*Nc*Num
-    std::vector<double> Rho;        // mass density of phase: Np*Num
+    std::vector<double> Ni;         // molar of ith component in bulk: NC*Num
     std::vector<double> Mu;         // viscosity of phase: Np*Num
     std::vector<double> Kr;         // relative permeability of phase: Np*Num
 
@@ -122,6 +123,7 @@ private:
     std::vector<double> lPj;
     std::vector<double> lNi;
     std::vector<double> lS;
+    std::vector<double> Rock_lVp;
 
     // max change
     double dPmax;

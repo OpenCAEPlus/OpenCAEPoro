@@ -31,7 +31,9 @@ public:
 
 	int checkP();
 	bool checkNi() { return bulk.checkNi(); }
-	void resetVal();
+	void resetVal01();
+	bool checkVe(const double Vlim) { return bulk.checkVe(Vlim); }
+	void resetVal02();
 
 private:
 	Grid					grid;

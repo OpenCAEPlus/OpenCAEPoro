@@ -67,12 +67,12 @@ protected:
 
     std::vector<double> Ni;         // molar of component : Nc
     std::vector<bool>   PhaseExist; // existence of phase : Np
-    std::vector<double> V;          // volume of phase
     std::vector<double> S;          // saturation of phase : Np
+    std::vector<double> Rho;        // mass density of phase : Np
     std::vector<double> Xi;         // molar density of phase: Np
     std::vector<double> Cij;        // Nij / Nj : Np*Nc
-    std::vector<double> Rho;        // mass density of phase : Np
     std::vector<double> Mu;         // viscosity of phase: Np
+    std::vector<double> V;          // volume of phase
 
     double              Vf;  // volume of fluids
     double              Vfp; //

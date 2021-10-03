@@ -96,6 +96,7 @@ void OpenCAEPoro::run()
 
 void OpenCAEPoro::runIMPES(double& dt)
 {
+	double ve = 0.01;
 	double cfl = 1;
 	int	   flagCheck = 0;
 
@@ -126,7 +127,7 @@ void OpenCAEPoro::runIMPES(double& dt)
 		cfl = reservoir.calCFL(dt);
 		if (cfl > 1) {
 			dt /= 2;
-			reservoir.resetVal();
+			reservoir.resetVal01();
 			continue;
 		}
 
@@ -136,13 +137,20 @@ void OpenCAEPoro::runIMPES(double& dt)
 		// third check: Ni check
 		if (!reservoir.checkNi()) {
 			dt /= 2;
-			reservoir.resetVal();
+			reservoir.resetVal01();
 			continue;
 		}
 
 		reservoir.bulk.flash_Ni();
-		reservoir.bulk.calKrPc();
 		reservoir.bulk.calVporo();
+
+		if (!reservoir.checkVe(ve)) {
+			dt /= 2;
+			reservoir.resetVal02();
+			continue;
+		}
+
+		reservoir.bulk.calKrPc();
 		reservoir.conn.calFlux(reservoir.bulk);
 
 		break;

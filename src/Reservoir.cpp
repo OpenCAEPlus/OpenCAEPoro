@@ -69,8 +69,21 @@ int Reservoir::checkP()
 }
 
 
-void Reservoir::resetVal()
+void Reservoir::resetVal01()
 {
-	bulk.resetVal();
+	bulk.resetP();
+	bulk.resetPj();
 	conn.calFlux(bulk);
+}
+
+void Reservoir::resetVal02()
+{
+	bulk.resetP();
+	bulk.resetPj();
+	conn.calFlux(bulk);
+
+	bulk.resetNi();
+	bulk.flash_Ni();
+
+	bulk.resetVp();
 }
