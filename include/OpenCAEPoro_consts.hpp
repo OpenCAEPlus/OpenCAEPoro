@@ -6,13 +6,14 @@
               << __FILE__ << std::endl;
 
 // data Type
+typedef unsigned int USI;
 typedef unsigned int OCP_USI;
 typedef double       OCP_DBL;
 
 
 // Method
-const int IMPES = 0;
-const int FIM   = 1;
+const USI IMPES = 0;
+const USI FIM   = 1;
 
 // general consts
 const OCP_DBL TINY = 1E-8;
@@ -29,32 +30,32 @@ const OCP_DBL CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
 const OCP_DBL CONV2 = 1.12712E-3; // Darcy constant in Field
 
 // Mixture Type
-const int BLKOIL   = 1;
-const int EoS_PVTW = 2;
+const USI BLKOIL   = 1;
+const USI EoS_PVTW = 2;
 
 // Phase
-const int PHASE_W   = 1;
-const int PHASE_GW  = 2;
-const int PHASE_OW  = 3;
-const int PHASE_OGW = 4;
-const int PHASE_OG  = 5;
+const USI PHASE_W   = 1;
+const USI PHASE_GW  = 2;
+const USI PHASE_OW  = 3;
+const USI PHASE_OGW = 4;
+const USI PHASE_OG  = 5;
 
 // Well params
-const int  INJ        = 0;
-const int  PROD       = 1;
+const USI  INJ        = 0;
+const USI  PROD       = 1;
 const bool CLOSE      = 0;
 const bool OPEN       = 1;
-const int  HORIZONTAL = 0;
-const int  VERTICAL   = 1;
+const USI  HORIZONTAL = 0;
+const USI  VERTICAL   = 1;
 // Well opt param
-const int RATE_MODE  = 0;
-const int ORATE_MODE = 1;
-const int GRATE_MODE = 2;
-const int WRATE_MODE = 3;
-const int LRATE_MODE = 4;
-const int BHP_MODE   = 5;
+const USI RATE_MODE  = 0;
+const USI ORATE_MODE = 1;
+const USI GRATE_MODE = 2;
+const USI WRATE_MODE = 3;
+const USI LRATE_MODE = 4;
+const USI BHP_MODE   = 5;
 // Fluid type
-const int OIL     = 0;
-const int GAS     = 1;
-const int WATER   = 2;
-const int SOLVENT = 3;
+const USI OIL     = 0;
+const USI GAS     = 1;
+const USI WATER   = 2;
+const USI SOLVENT = 3;

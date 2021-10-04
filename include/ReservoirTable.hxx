@@ -1,4 +1,5 @@
 #pragma once
+#include "OpenCAEPoro_consts.hpp"
 #include <iostream>
 #include <vector>
 
@@ -8,7 +9,7 @@ class ReservoirTable
 public:
 	ReservoirTable() = default;
 	ReservoirTable(int row, int col);
-	void setup(std::vector<std::vector<T>>& src);
+	void setup(const std::vector<std::vector<T>>& src);
 	bool isempty() { return data.empty(); }
 
 	int getCol() { return NCol; }
@@ -46,7 +47,7 @@ ReservoirTable<T>::ReservoirTable(int row, int col)
 }
 
 template <typename T>
-void ReservoirTable<T>::setup(std::vector<std::vector<T>>& src)
+void ReservoirTable<T>::setup(const std::vector<std::vector<T>>& src)
 {
 	data = src;
 	NCol = data.size();

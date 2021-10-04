@@ -3,7 +3,7 @@
 
 void OCP_IMPES::setupParam(const string& dir, const string& file)
 {
-	solver.initSolver(dir, file);
+	solver.setupParam(dir, file);
 }
 
 void OCP_IMPES::allocateMat(const Reservoir& rs)
@@ -82,6 +82,7 @@ void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
 		rs.bulk.flash_Ni();
 		rs.bulk.calVporo();
 
+		// fouth check: Volume error check
 		if (!rs.checkVe(ve)) {
 			dt /= 2;
 			rs.resetVal02();
