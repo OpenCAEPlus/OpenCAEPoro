@@ -48,7 +48,7 @@ OCP_DBL Reservoir::calCFL(OCP_DBL dt)
 void Reservoir::assembleMat(Solver<OCP_DBL>& mysolver, const OCP_DBL& dt) const
 {
 	conn.initAssembleMat(mysolver);
-	conn.assembleMat(mysolver, bulk, dt);
+	conn.assembleMat_IMPES(mysolver, bulk, dt);
 	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
 }
 

@@ -43,7 +43,7 @@ private:
 };
 
 
-/// contains main infomation of reservoir, only active grids are storaged.
+/// contains main physical infomation of reservoir, only active grids are storaged.
 ///
 /// bulks are ordered with the X axis index cycling fastest, followed by the Y and Z axis indices defaulted.
 class Bulk

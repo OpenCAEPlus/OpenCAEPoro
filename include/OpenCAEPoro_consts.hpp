@@ -8,6 +8,7 @@
 // data Type
 typedef unsigned int USI;
 typedef unsigned int OCP_USI;
+typedef int          OCP_INT;
 typedef double       OCP_DBL;
 
 

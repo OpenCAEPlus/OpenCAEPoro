@@ -76,13 +76,13 @@ void Grid::inputParam(ParamReservoir& rs_param)
 	SATNUM.resize(Num, 0);
 	if (rs_param.SATNUM.activity) {
 		for (OCP_USI i = 0; i < Num; i++) {
-			SATNUM[i] = (int)(rs_param.SATNUM.data[i]) - 1;
+			SATNUM[i] = (USI)(rs_param.SATNUM.data[i]) - 1;
 		}
 	}
 	PVTNUM.resize(Num, 0);
 	if (rs_param.PVTNUM.activity) {
 		for (OCP_USI i = 0; i < Num; i++) {
-			PVTNUM[i] = (int)(rs_param.PVTNUM.data[i]) - 1;
+			PVTNUM[i] = (USI)(rs_param.PVTNUM.data[i]) - 1;
 		}
 	}
 	cout << "Grid::inputParam" << endl;

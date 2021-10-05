@@ -35,6 +35,7 @@ private:
 	OCP_USI		index;			///< active index of grid if active
 };
 
+/// contains Grid information, all grids are stored.
 class Grid
 {	
 	friend class Bulk;
