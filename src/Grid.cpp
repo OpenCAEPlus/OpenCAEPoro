@@ -9,27 +9,27 @@ void Grid::setup()
 void Grid::calDepthV()
 {
 	Depth.resize(Num, 0);
-	int nxny = Nx * Ny;
+	OCP_USI nxny = Nx * Ny;
 	// 0th layer
-	for (int j = 0; j < Ny; j++) {
-		for (int i = 0; i < Nx; i++) {
-			int id = j * Nx + i;
+	for (USI j = 0; j < Ny; j++) {
+		for (USI i = 0; i < Nx; i++) {
+			OCP_USI id = j * Nx + i;
 			Depth[id] = Tops[id] + Dz[id] / 2;
 		}
 	}
 	// 1th - (Nz-1)th layer
-	for (int k = 1; k < Nz; k++) {
-		int knxny = k * nxny;
-		for (int j = 0; j < Ny; j++) {
-			for (int i = 0; i < Nx; i++) {
-				int id = knxny + j * Nx + i;
+	for (USI k = 1; k < Nz; k++) {
+		OCP_USI knxny = k * nxny;
+		for (USI j = 0; j < Ny; j++) {
+			for (USI i = 0; i < Nx; i++) {
+				OCP_USI id = knxny + j * Nx + i;
 				Depth[id] = Depth[id - nxny] + Dz[id - nxny] / 2 + Dz[id] / 2;
 			}
 		}
 	}
 
 	V.resize(Num);
-	for (int i = 0; i < Num; i++)
+	for (OCP_USI i = 0; i < Num; i++)
 		V[i] = Dx[i] * Dy[i] * Dz[i];
 	cout << "Grid::calDepthV" << endl;
 }
@@ -38,14 +38,14 @@ void Grid::calActiveBulk(OCP_DBL e1, OCP_DBL e2)
 {
 	ActiveMap_B2G.reserve(Num);
 	ActiveMap_G2B.resize(Num);
-	int count = 0;
-	for (int n = 0; n < Num; n++) {
+	OCP_USI count = 0;
+	for (OCP_USI n = 0; n < Num; n++) {
 		if (Poro[n] * Ntg[n] < e1 || Dx[n] * Dy[n] * Dz[n] < e2) {
-			ActiveMap_G2B[n] = -1;
+			ActiveMap_G2B[n] = GB_Pair(false, 0);
 			continue;
 		}
 		ActiveMap_B2G.push_back(n);
-		ActiveMap_G2B[n] = count;
+		ActiveMap_G2B[n] = GB_Pair(true, count);
 		count++;
 	}
 	ActiveBulkNum = count;
@@ -75,13 +75,13 @@ void Grid::inputParam(ParamReservoir& rs_param)
 
 	SATNUM.resize(Num, 0);
 	if (rs_param.SATNUM.activity) {
-		for (int i = 0; i < Num; i++) {
+		for (OCP_USI i = 0; i < Num; i++) {
 			SATNUM[i] = (int)(rs_param.SATNUM.data[i]) - 1;
 		}
 	}
 	PVTNUM.resize(Num, 0);
 	if (rs_param.PVTNUM.activity) {
-		for (int i = 0; i < Num; i++) {
+		for (OCP_USI i = 0; i < Num; i++) {
 			PVTNUM[i] = (int)(rs_param.PVTNUM.data[i]) - 1;
 		}
 	}
@@ -89,13 +89,14 @@ void Grid::inputParam(ParamReservoir& rs_param)
 }
 
 
-int Grid::getIndex(int i, int j, int k)
+OCP_USI Grid::getIndex(USI i, USI j, USI k)
 {
-	int id = k * Nx * Ny + j * Nx + i;
-	id = ActiveMap_G2B[id];
-	if (id == -1) {
+	OCP_USI id = k * Nx * Ny + j * Nx + i;
+	bool activity = ActiveMap_G2B[id].getAct();
+	if (!activity) {
 		ERRORcheck("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) + ") is inactive");
 		exit(0);
 	}
+	id = ActiveMap_G2B[id].getId();
 	return id;
 }

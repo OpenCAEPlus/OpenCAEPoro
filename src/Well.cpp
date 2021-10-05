@@ -135,7 +135,7 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 	for (int p = 0; p < PerfNum; p++) {
 		Perf[p].State = OPEN;
 		int Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
-		Perf[p].Location = myGrid.ActiveMap_G2B[Idg];
+		Perf[p].Location = myGrid.ActiveMap_G2B[Idg].getId();
 		Perf[p].Depth = myBulk.Depth[Perf[p].Location];
 		Perf[p].Multiplier = 1;
 		Perf[p].qi_lbmol.resize(myBulk.Nc);

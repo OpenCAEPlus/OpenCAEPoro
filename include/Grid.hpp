@@ -1,10 +1,39 @@
-#pragma once
+/*! \file    Grid.hpp
+ *  \brief   Grid class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/04/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __GRID_HEADER__
+#define __GRID_HEADER__
+
+
 #include <vector>
 #include <iostream>
 #include "ParamReservoir.hpp"
 #include "OpenCAEPoro_consts.hpp"
 
 using namespace std;
+
+/// indicate if a grid is active and what its active index is if active.
+class GB_Pair
+{
+public:
+	GB_Pair() = default;
+	GB_Pair(bool act, OCP_USI i) : activity(act), index(i) {};
+	/// return activity of some grid.
+	bool getAct() const  { return activity; }
+	/// return active index of some grid if active.
+	OCP_USI getId() const { return index; }
+private:
+	bool		activity;		///< activity of grid
+	OCP_USI		index;			///< active index of grid if active
+};
 
 class Grid
 {	
@@ -16,43 +45,46 @@ public:
 
 	void setup();
 
-	int getBulkNum() { return Num; }
-	int getConnNum() { return ConnNum; }
-	int getActiveBulkNum() { return ActiveBulkNum; }
+	OCP_USI getBulkNum() { return Num; }
+	OCP_USI getConnNum() { return ConnNum; }
+	OCP_USI getActiveBulkNum() { return ActiveBulkNum; }
 
 	void calDepthV();
 	void calActiveBulk(OCP_DBL e1, OCP_DBL e2);		// fill ActiveMap_B2G and ActiveMap_G2B
 
 	void inputParam(ParamReservoir& rs_param);
 
-	int getIndex(int i, int j, int k);
+	OCP_USI getIndex(USI i, USI j, USI k);
 
 private:
-	int					Nx;					// num of bulks along x-aixs
-	int					Ny;					// num of bulks along y-aixs
-	int					Nz;					// num of bulks along z-aixs
-	int					Num;				// Nx * Ny * Nz
-	int					ConnNum;			// num of connection
+	USI					Nx;					///< num of bulks along x-direction
+	USI					Ny;					///< num of bulks along y-direction
+	USI					Nz;					///< num of bulks along z-direction
+	OCP_USI				Num;				///< num of grids, Nx * Ny * Nz
+	OCP_USI				ConnNum;			///< num of connection
 
 
-	vector<OCP_DBL>		Tops;
-	vector<OCP_DBL>		Depth;				// depth: Num
-	vector<OCP_DBL>		Dx;					// dx: Num
-	vector<OCP_DBL>		Dy;					// dy: Num
-	vector<OCP_DBL>		Dz;					// dz: Num
-	vector<OCP_DBL>		V;					// volume : Num
-	vector<OCP_DBL>		Ntg;				// net to gross
-	vector<OCP_DBL>		Poro;				// initial porosity
-	vector<OCP_DBL>		Kx;					// Absolute permeability in x direction
-	vector<OCP_DBL>		Ky;					// Absolute permeability in y direction
-	vector<OCP_DBL>		Kz;					// Absolute permeability in z direction
+	vector<OCP_DBL>		Tops;				///< depth of top face of topest gird: Nx*Ny
+	vector<OCP_DBL>		Depth;				///< depth of center of grid: Num.
+	vector<OCP_DBL>		Dx;					///< size of gird along the x direction: Num.
+	vector<OCP_DBL>		Dy;					///< size of grid along the y direction: Num.
+	vector<OCP_DBL>		Dz;					///< size of grid along the z direction: Num.
+	vector<OCP_DBL>		V;					///< volume of grid: Num.
+	vector<OCP_DBL>		Ntg;				///< net to gross of grid: Num
+	vector<OCP_DBL>		Poro;				///< initial porosity of rock: Num
+	vector<OCP_DBL>		Kx;					///< Absolute permeability of rock along x direction: Num
+	vector<OCP_DBL>		Ky;					///< Absolute permeability of rock along y direction: Num
+	vector<OCP_DBL>		Kz;					///< Absolute permeability of rock along z direction: Num
 
 	// Region
-	vector<int>			SATNUM;
-	vector<int>			PVTNUM;
+	vector<USI>			SATNUM;				///< used to identify SAT region: Num.
+	vector<USI>			PVTNUM;             ///< used to identify PVT region in blackoil model: Num.
 
-	int					ActiveBulkNum;
-	vector<int>			ActiveMap_B2G;		// size: Active Num
-	vector<int>			ActiveMap_G2B;		// size: Num
+	OCP_USI				ActiveBulkNum;		///< num of active grid.
+	vector<OCP_USI>		ActiveMap_B2G;		///< a index map form active grid to grid: ActiveBulkNum.
+	vector<GB_Pair>		ActiveMap_G2B;		///< a index map form grid to active grid: Num.
 	
 };
+
+
+#endif

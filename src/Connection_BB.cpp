@@ -35,18 +35,20 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
     // bIdb : begin id in bulk
     // bIdg : begin id in grid
     // eIdb : end id in bulk
-    int eIdb;
-    for (int bIdb = 0; bIdb < ActiveBulkNum; bIdb++) {
-        int bIdg = myGrid.ActiveMap_B2G[bIdb];
-        int k    = bIdg / nxny;
-        int j    = (bIdg - k * nxny) / nx;
-        int i    = bIdg - k * nxny - j * nx;
+    bool activity;
+    OCP_USI eIdb;
+    for (OCP_USI bIdb = 0; bIdb < ActiveBulkNum; bIdb++) {
+        OCP_USI bIdg = myGrid.ActiveMap_B2G[bIdb];
+        USI k    = bIdg / nxny;
+        USI j    = (bIdg - k * nxny) / nx;
+        USI i    = bIdg - k * nxny - j * nx;
 
-        int count = 0;
+        USI count = 0;
         // up
         if (k > 0) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg - nxny];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg - nxny].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg - nxny].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }
@@ -54,8 +56,9 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
 
         // back
         if (j > 0) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg - nx];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg - nx].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg - nx].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }
@@ -63,8 +66,9 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
 
         // left
         if (i > 0) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg - 1];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg - 1].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg - 1].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }
@@ -78,8 +82,9 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
 
         // right
         if (i < nx - 1) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg + 1];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg + 1].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg + 1].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }
@@ -87,8 +92,9 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
 
         // front
         if (j < ny - 1) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg + nx];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg + nx].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg + nx].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }
@@ -96,8 +102,9 @@ void Connection_BB::initActive(const Grid& myGrid, int np)
 
         // down
         if (k < nz - 1) {
-            eIdb = myGrid.ActiveMap_G2B[bIdg + nxny];
-            if (eIdb != -1) {
+            activity = myGrid.ActiveMap_G2B[bIdg + nxny].getAct();
+            if (activity) {
+                eIdb = myGrid.ActiveMap_G2B[bIdg + nxny].getId();
                 Neighbor[bIdb].push_back(eIdb);
                 count++;
             }

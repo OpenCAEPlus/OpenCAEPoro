@@ -1,12 +1,12 @@
-/*!
- * @file Bulk.hpp
- * @brief Bulk class declaration
- * @author Shizhe Li
- * @version 1.0
- * @date 10/04/2021
+/*! \file    Bulk.hpp
+ *  \brief   Bulk class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/04/2021
  *
- * @copyright Copyright (c) 2021  OpenCAEPoro TeamAll rights reserved.
- * Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
  */
 
 #ifndef __BULK_HEADER__
@@ -43,7 +43,7 @@ private:
 };
 
 
-/// contains main infomation of reservoir, only active bulks are storaged.
+/// contains main infomation of reservoir, only active grids are storaged.
 ///
 /// bulks are ordered with the X axis index cycling fastest, followed by the Y and Z axis indices defaulted.
 class Bulk
