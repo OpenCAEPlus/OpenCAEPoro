@@ -24,9 +24,9 @@ OCP_IMPES_1
 
 Final time:          3655.5 Days
 Total linear steps:  20877
-Linear solve time:   1.31805s
+Linear solve time:   1.29674s
 Total time steps:    5533
-Simulation time:     1.83184s
+Simulation time:     1.80172s
 
 -----------------------------------------
 OCP_IMPES_0.1
@@ -67,9 +67,9 @@ OCP_IMPES_1
 
 Final time:          3655.5 Days
 Total linear steps:  15348
-Linear solve time:   1.00494s
+Linear solve time:   0.98449s
 Total time steps:    3847
-Simulation time:     1.37295s
+Simulation time:     1.33861s
 
 -----------------------------------------
 OCP_IMPES_0.1
@@ -188,9 +188,9 @@ Simulation time:     115.601s
 OCP_IMPES_1    with well control and Volume error control
 Final time:          900 Days
 Total linear steps:  16617
-Linear solve time:   48.3633s
+Linear solve time:   47.8777s
 Total time steps:    3979
-Simulation time:     63.1099s
+Simulation time:     62.0819s
 
 
 

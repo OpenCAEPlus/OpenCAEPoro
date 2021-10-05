@@ -25,7 +25,7 @@ void Connection_BB::initSize(const Bulk& myBulk)
     NeighborNum.resize(ActiveBulkNum);
 }
 
-void Connection_BB::initActive(const Grid& myGrid, USI np)
+void Connection_BB::initActive(const Grid& myGrid, const USI& np)
 {
     USI nx   = myGrid.Nx;
     USI ny   = myGrid.Ny;
@@ -152,7 +152,7 @@ void Connection_BB::calAreaActive(const Grid& myGrid, const Bulk& myBulk)
     assert(Area.size() == ActiveConnNum);
 }
 
-OCP_DBL Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, OCP_USI bIdb, OCP_USI eIdb)
+OCP_DBL Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_USI& bIdb, const OCP_USI& eIdb) const
 {
     OCP_USI bIdg = myGrid.ActiveMap_B2G[bIdb];
     OCP_USI eIdg = myGrid.ActiveMap_B2G[eIdb];
@@ -189,7 +189,7 @@ OCP_DBL Connection_BB::calAkd(const Grid& myGrid, const Bulk& myBulk, OCP_USI bI
 
 // Connection function, no matter what grid is
 
-OCP_DBL Connection_BB::calCFL(Bulk& myBulk, OCP_DBL dt)
+OCP_DBL Connection_BB::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI    np   = myBulk.Np;
     OCP_DBL cfl  = 0;
@@ -270,7 +270,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
     }
 }
 
-void Connection_BB::massConserve(Bulk& myBulk, OCP_DBL dt)
+void Connection_BB::massConserve(Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI np = myBulk.Np;
     USI nc = myBulk.Nc;
@@ -295,7 +295,7 @@ void Connection_BB::massConserve(Bulk& myBulk, OCP_DBL dt)
     }
 }
 
-void Connection_BB::assembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt) const
+void Connection_BB::assembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
 {
     // accumulate term
     OCP_DBL Vp0, Vp, Vf, Vfp, P;
@@ -385,7 +385,7 @@ void Connection_BB::assembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
     }
 }
 
-void Connection_BB::getConnectionInfo()
+void Connection_BB::getConnectionInfo() const
 {
     for (OCP_USI i = 0; i < ActiveBulkNum; i++) {
         cout << "(" << i << ")"

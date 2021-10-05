@@ -89,7 +89,7 @@ public:
     void calVporo();
 
     /// pass flash to well, it hasn't been used now.
-    std::vector<Mixture*>& getMixture() { return Flashcal; }
+    const std::vector<Mixture*>& getMixture() const { return Flashcal; }
 
     /// return the mixture mode.
     USI mixMode() const;

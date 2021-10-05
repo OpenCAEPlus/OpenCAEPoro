@@ -49,7 +49,7 @@ void Reservoir::assembleMat(Solver<OCP_DBL>& mysolver, const OCP_DBL& dt) const
 {
 	conn.initAssembleMat(mysolver);
 	conn.assembleMat_IMPES(mysolver, bulk, dt);
-	wellgroup.assemblaMat_WB(mysolver, bulk, dt);
+	wellgroup.assemblaMat_WB_IMPES(mysolver, bulk, dt);
 }
 
 void Reservoir::getSol_IMPES(const vector<OCP_DBL>& u)

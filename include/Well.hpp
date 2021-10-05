@@ -15,7 +15,7 @@ class WellOpt
 	friend class Well;
 public:
 	WellOpt() = default;
-	WellOpt(WellOptParam& Optparam);
+	WellOpt(const WellOptParam& Optparam);
 
 private:
 
@@ -38,14 +38,14 @@ public:
 	bool WellState() const { return Opt.State; }
 	int  WellType() const { return Opt.Type; }
 
-	void setup(Grid& myGrid, Bulk& myBulk);
+	void setup(const Grid& myGrid, const Bulk& myBulk);
 	// cal Well Index
 	void calWI_Peaceman_Vertical(const Bulk& myBulk);
 
 	// init
 	void init(const Bulk& myBulk);
 
-	OCP_DBL calCFL(const Bulk& myBulk, OCP_DBL dt);
+	OCP_DBL calCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 
 	// calculate dG
 	void caldG(const Bulk& myBulk);

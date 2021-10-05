@@ -1,4 +1,18 @@
-#pragma once
+/*! \file    OpenCAEPoro_consts.hpp
+ *  \brief   datatype, consts
+ *  \author  Shizhe Li
+ *  \date    Oct/05/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __OPENCAEPORO_CONSTS_HEADER__
+#define __OPENCAEPORO_CONSTS_HEADER__
+
+
 #include <iostream>
 
 #define ERRORcheck(exp)                                                                \
@@ -60,3 +74,6 @@ const USI OIL     = 0;
 const USI GAS     = 1;
 const USI WATER   = 2;
 const USI SOLVENT = 3;
+
+
+#endif

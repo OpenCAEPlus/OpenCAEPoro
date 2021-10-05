@@ -26,7 +26,7 @@ class BB_Pair
 	friend class Connection_BB;
 public:
 	BB_Pair() = default;
-	BB_Pair(OCP_USI bId, OCP_USI eId) : BId(bId), EId(eId) {};
+	BB_Pair(const OCP_USI bId, const OCP_USI eId) : BId(bId), EId(eId) {};
 
 private:
 	OCP_USI			BId;
@@ -43,9 +43,9 @@ public:
 	Connection_BB() = default;
 
 	/// print information about connection on screen.
-	void getConnectionInfo();
+	void getConnectionInfo() const;
 	/// return ActiveBulkNum.
-	OCP_USI getActiveBulkNum() { return ActiveBulkNum; }
+	OCP_USI getActiveBulkNum() const { return ActiveBulkNum; }
 
 	/// setup active connections and calculate necessary property from Grid and Bulk.
 	/// it should be called after Grid and Bulk setup.
@@ -53,19 +53,19 @@ public:
 	/// initialize the size of variable related to Neighbor.
 	void initSize(const Bulk& myBulk);
 	/// setup variable related to Neighbor.
-	void initActive(const Grid& myGrid, USI np);
+	void initActive(const Grid& myGrid, const USI& np);
 	/// generate Iterator of active connections from Neighbor.
 	void getIteratorActive();
 	/// calculate all effective area of active connections.
 	void calAreaActive(const Grid& myGrid, const Bulk& myBulk);
 	/// calculate effective area of active connections.
-	OCP_DBL calAkd(const Grid&myGrid, const Bulk& myBulk, OCP_USI bIdb, OCP_USI eIdb);
+	OCP_DBL calAkd(const Grid&myGrid, const Bulk& myBulk, const OCP_USI& bIdb, const OCP_USI& eIdb) const;
 	/// calculate the CFL number of flow between bulks.
-	OCP_DBL calCFL(Bulk& myBulk, OCP_DBL dt);
+	OCP_DBL calCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 	/// calculate main information about flow between bulks.
 	void calFlux(const Bulk& myBulk);
 	/// update moles of component in each bulk according to mass conserve equations at current timestep.
-	void massConserve(Bulk& myBulk, OCP_DBL dt);
+	void massConserve(Bulk& myBulk, const OCP_DBL& dt) const;
 
 	// Assemble Mat
 	/// allocate memory for Matrix, it should be called only once at the beginning.
@@ -76,7 +76,7 @@ public:
 	template<typename T>
 	void initAssembleMat(Solver<T>& mySolver) const;
 	/// assmeble Matrix, parts only related to bulks are considered.
-	void assembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, OCP_DBL dt) const;
+	void assembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const;
 
 
 private:

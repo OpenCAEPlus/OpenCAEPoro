@@ -1,7 +1,7 @@
 #include <cmath>
 #include "Well.hpp"
 
-WellOpt::WellOpt(WellOptParam& Optparam)
+WellOpt::WellOpt(const WellOptParam& Optparam)
 {
 	if (Optparam.Type == "INJ") {
 		Type = INJ;
@@ -71,7 +71,7 @@ WellOpt::WellOpt(WellOptParam& Optparam)
 
 }
 
-void Well::setup(Grid& myGrid, Bulk& myBulk)
+void Well::setup(const Grid& myGrid, const Bulk& myBulk)
 {
 	// zi
 	if (myBulk.BLACKOIL) {
@@ -134,7 +134,11 @@ void Well::setup(Grid& myGrid, Bulk& myBulk)
 	Perf.resize(PerfNum);
 	for (int p = 0; p < PerfNum; p++) {
 		Perf[p].State = OPEN;
-		int Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
+		OCP_USI Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
+		if (!myGrid.ActiveMap_G2B[Idg].getAct()) {
+			ERRORcheck("Perforation is in inactive bulk !");
+			exit(0);
+		}
 		Perf[p].Location = myGrid.ActiveMap_G2B[Idg].getId();
 		Perf[p].Depth = myBulk.Depth[Perf[p].Location];
 		Perf[p].Multiplier = 1;
@@ -152,7 +156,7 @@ void Well::init(const Bulk& myBulk) {
 	BHP = myBulk.P[Perf[0].Location];
 }
 
-OCP_DBL Well::calCFL(const Bulk& myBulk, OCP_DBL dt)
+OCP_DBL Well::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
 	OCP_DBL cfl = 0;
 	OCP_DBL tmp = 0;
