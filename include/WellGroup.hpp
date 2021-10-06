@@ -109,7 +109,7 @@ public:
 	/// reset dG to ldG for each well, dG is a array where the pressure difference between well and perforation are stored.
 	void setLastStep() { for (auto& w : WellG)	w.ldG = w.dG; }
 	/// check if unreasonable well pressure or perforation pressure occurs.
-	int checkP(const Bulk& myBulk);
+	OCP_INT checkP(const Bulk& myBulk);
 
 private:
 

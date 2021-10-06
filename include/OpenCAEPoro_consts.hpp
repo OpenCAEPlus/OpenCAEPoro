@@ -27,8 +27,8 @@ typedef double       OCP_DBL;
 
 
 // Method
-const USI IMPES = 0;
-const USI FIM   = 1;
+const USI IMPES = 1;
+const USI FIM   = 2;
 
 // general consts
 const OCP_DBL TINY = 1E-8;
@@ -56,24 +56,24 @@ const USI PHASE_OGW = 4;
 const USI PHASE_OG  = 5;
 
 // Well params
-const USI  INJ        = 0;
-const USI  PROD       = 1;
-const bool CLOSE      = 0;
-const bool OPEN       = 1;
-const USI  HORIZONTAL = 0;
-const USI  VERTICAL   = 1;
+const USI  INJ        = 1;
+const USI  PROD       = 2;
+const bool CLOSE      = false;
+const bool OPEN       = true;
+const USI  HORIZONTAL = 1;
+const USI  VERTICAL   = 2;
 // Well opt param
-const USI RATE_MODE  = 0;
-const USI ORATE_MODE = 1;
-const USI GRATE_MODE = 2;
-const USI WRATE_MODE = 3;
-const USI LRATE_MODE = 4;
-const USI BHP_MODE   = 5;
+const USI RATE_MODE  = 1;
+const USI ORATE_MODE = 2;
+const USI GRATE_MODE = 3;
+const USI WRATE_MODE = 4;
+const USI LRATE_MODE = 5;
+const USI BHP_MODE   = 6;
 // Fluid type
-const USI OIL     = 0;
-const USI GAS     = 1;
-const USI WATER   = 2;
-const USI SOLVENT = 3;
+const USI OIL     = 1;
+const USI GAS     = 2;
+const USI WATER   = 3;
+const USI SOLVENT = 4;
 
 
 #endif

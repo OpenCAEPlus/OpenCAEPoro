@@ -60,9 +60,11 @@ public:
     void inputParam(ParamReservoir& rs_param);
     /// setup basic data from grid, setup of grid must be finished before. 
     void setup(const Grid& myGrid);
-    /// calculate initial equilibration for blkoil model according to EQUIL, tabrow is maximum number of depth nodes in table of depth vs pressure.
+    /// calculate initial equilibration for blkoil model according to EQUIL.
+    /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void initSjPc_blk(const USI& tabrow);
-    /// calculate initial equilibration for compositional model according to EQUIL, tabrow is maximum number of depth nodes in table of depth vs pressure.
+    /// calculate initial equilibration for compositional model according to EQUIL.
+    /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void initSjPc_comp(const USI& tabrow);
     /// assignment value for some variable, it's called when one time step finished.
     void setLastStep()

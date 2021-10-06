@@ -129,10 +129,10 @@ void WellGroup::assemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBu
 			switch (WellG[w].WellType())
 			{
 			case INJ:
-				WellG[w].assembleMat_INJ(myBulk, mySolver, dt);
+				WellG[w].assembleMat_INJ_IMPES(myBulk, mySolver, dt);
 				break;
 			case PROD:
-				WellG[w].assembleMat_PROD_BLK(myBulk, mySolver, dt);
+				WellG[w].assembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);
 				break;
 			default:
 				ERRORcheck("Wrong Well Type in function");
@@ -188,7 +188,7 @@ void WellGroup::calIPRT(const Bulk& myBulk, OCP_DBL dt)
 }
 
 
-int WellGroup::checkP(const Bulk& myBulk)
+OCP_INT WellGroup::checkP(const Bulk& myBulk)
 {
 	// 0 : All correct
 	// 1   : negative P, cut the timestep and resolve
@@ -200,7 +200,7 @@ int WellGroup::checkP(const Bulk& myBulk)
 	for (USI w = 0; w < WellNum; w++) {
 		if (WellG[w].WellState()) {
 
-			int flag = WellG[w].checkP(myBulk);
+			OCP_INT flag = WellG[w].checkP(myBulk);
 #ifdef _DEBUG
 			WellG[w].showPerfStatus();
 #endif // _DEBUG

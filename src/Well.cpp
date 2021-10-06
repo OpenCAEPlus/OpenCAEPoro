@@ -132,7 +132,7 @@ void Well::setup(const Grid& myGrid, const Bulk& myBulk)
 	dG.resize(PerfNum, 0);
 	ldG = dG;
 	Perf.resize(PerfNum);
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 		Perf[p].State = OPEN;
 		OCP_USI Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
 		if (!myGrid.ActiveMap_G2B[Idg].getAct()) {
@@ -160,8 +160,8 @@ OCP_DBL Well::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
 	OCP_DBL cfl = 0;
 	OCP_DBL tmp = 0;
-	for (int p = 0; p < PerfNum; p++) {
-		int k = Perf[p].Location;
+	for (USI p = 0; p < PerfNum; p++) {
+		OCP_USI k = Perf[p].Location;
 		tmp = fabs(Perf[p].qt_ft3) * dt;
 		tmp /= myBulk.Rock_Vp[k];
 		if (cfl < tmp)
@@ -175,13 +175,13 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 	// this fomular needs to be carefully checked !
 	// especially the dz
 	if (WI > 0) {
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			Perf[p].WI = WI;
 		}
 	}
 	else {
-		for (int p = 0; p < PerfNum; p++) {
-			int Idb = Perf[p].Location;
+		for (USI p = 0; p < PerfNum; p++) {
+			OCP_USI Idb = Perf[p].Location;
 			OCP_DBL kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
 			OCP_DBL kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
 			assert(kx_ky > 0);
@@ -206,22 +206,22 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 }
 
 
-void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
+void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
 {
-	int nc = myBulk.Nc;
-	int wId = mySolver.Dim;
+	USI nc = myBulk.Nc;
+	OCP_USI wId = mySolver.Dim;
 	// important !
 	mySolver.Dim++;
 
-	for (int p = 0; p < PerfNum; p++) {
-		int k = Perf[p].Location; 
+	for (USI p = 0; p < PerfNum; p++) {
+		OCP_USI k = Perf[p].Location; 
 
 		OCP_DBL Vfi_zi = 0;
-		for (int i = 0; i < nc; i++) {
+		for (USI i = 0; i < nc; i++) {
 			Vfi_zi += myBulk.Vfi[k * nc + i] * Opt.Zi[i];
 		}
 		
-		int pvtnum = myBulk.PVTNUM[k];
+		USI pvtnum = myBulk.PVTNUM[k];
 		Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
 		OCP_DBL valw = dt * Perf[p].Xi * Perf[p].transj[0];
 		OCP_DBL bw = valw * dG[p];
@@ -231,7 +231,7 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DB
 		// Bulk to Well
 		
 		// diag
-		int ptr = mySolver.DiagPtr[k];
+		USI ptr = mySolver.DiagPtr[k];
 		mySolver.Val[k][ptr] += valb;
 		// off diag
 		mySolver.ColId[k].push_back(wId);
@@ -300,28 +300,28 @@ void Well::assembleMat_INJ(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DB
 }
 
 
-void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
+void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
-	int wId = mySolver.Dim;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
+	OCP_USI wId = mySolver.Dim;
 	// important !
 	mySolver.Dim++;
 
-	for (int p = 0; p < PerfNum; p++) {
-		int k = Perf[p].Location;
+	for (USI p = 0; p < PerfNum; p++) {
+		OCP_USI k = Perf[p].Location;
 
 		OCP_DBL valb = 0;	OCP_DBL bb = 0;
 		OCP_DBL valw = 0;	OCP_DBL bw = 0;
 		
-		for (int j = 0; j < np; j++) {
+		for (USI j = 0; j < np; j++) {
 			if (!myBulk.PhaseExist[k * np + j])
 				continue;
 
 			OCP_DBL tempb = 0;	
 			OCP_DBL tempw = 0;
 			
-			for (int i = 0; i < nc; i++) {
+			for (USI i = 0; i < nc; i++) {
 				tempb += myBulk.Vfi[k * nc + i] * myBulk.Cij[k * np * nc + j * nc + i];
 				tempw += Opt.Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
 			}
@@ -336,7 +336,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, O
 
 		// Bulk to Well
 		// diag
-		int ptr = mySolver.DiagPtr[k];
+		USI ptr = mySolver.DiagPtr[k];
 		mySolver.Val[k][ptr] += valb;
 		// off diag
 		mySolver.ColId[k].push_back(wId);
@@ -407,7 +407,7 @@ void Well::assembleMat_PROD_BLK(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, O
 
 void Well::smoothdG()
 {
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 		dG[p] = (ldG[p] + dG[p]) / 2;      // seems better
 		// dG[p] = ldG[p] + 0.618 * (dG[p] - ldG[p]);
 	}
@@ -424,13 +424,13 @@ void Well::caldG(const Bulk& myBulk)
 void Well::calInjdG(const Bulk& myBulk)
 {
 	OCP_DBL maxlen = 10;
-	int seg_num = 0;
+	USI seg_num = 0;
 	OCP_DBL seg_len = 0;
 	vector<OCP_DBL>		dGperf(PerfNum, 0);
 	
 	if (Depth <= Perf.front().Depth) {
 		// Well is higher
-		for (int p = PerfNum - 1; p >= 0; p--) {
+		for (OCP_INT p = PerfNum - 1; p >= 0; p--) {
 			if (p == 0) {
 				seg_num = ceil((Perf[0].Depth - Depth) / maxlen);
 				seg_len = (Perf[0].Depth - Depth) / seg_num;
@@ -439,25 +439,25 @@ void Well::calInjdG(const Bulk& myBulk)
 				seg_num = ceil((Perf[p].Depth - Perf[p - 1].Depth) / maxlen);
 				seg_len = (Perf[p].Depth - Perf[p - 1].Depth) / seg_num;
 			}
-			int n = Perf[p].Location;
+			OCP_USI n = Perf[p].Location;
 			Perf[p].P = BHP + dG[p];
 			OCP_DBL Pperf = Perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
-			int pvtnum = myBulk.PVTNUM[n];
-			for (int i = 0; i < seg_num; i++) {
+			USI pvtnum = myBulk.PVTNUM[n];
+			for (USI i = 0; i < seg_num; i++) {
 				Ptmp -= myBulk.Flashcal[pvtnum]->rhoPhase(Ptmp, myBulk.T, Opt.Zi.data()) * GRAVITY_FACTOR * seg_len;
 			}
 			dGperf[p] = Pperf - Ptmp;
 		}
 		dG[0] = dGperf[0];
-		for (int p = 1; p < PerfNum; p++) {
+		for (USI p = 1; p < PerfNum; p++) {
 			dG[p] = dG[p - 1] + dGperf[p];
 		}
 	}
 	else if (Depth >= Perf[PerfNum - 1].Depth) {
 		// Well is lower
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			if (p == PerfNum - 1) {
 				seg_num = ceil((Depth - Perf[PerfNum - 1].Depth) / maxlen);
 				seg_len = (Depth - Perf[PerfNum - 1].Depth) / seg_num;
@@ -466,19 +466,19 @@ void Well::calInjdG(const Bulk& myBulk)
 				seg_num = ceil((Perf[p + 1].Depth - Perf[p].Depth) / maxlen);
 				seg_len = (Perf[p + 1].Depth - Perf[p].Depth) / seg_num;
 			}
-			int n = Perf[p].Location;
+			OCP_USI n = Perf[p].Location;
 			Perf[p].P = BHP + dG[p];
 			OCP_DBL Pperf = Perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
-			int pvtnum = myBulk.PVTNUM[n];
-			for (int i = 0; i < seg_num; i++) {
+			USI pvtnum = myBulk.PVTNUM[n];
+			for (USI i = 0; i < seg_num; i++) {
 				Ptmp += myBulk.Flashcal[pvtnum]->rhoPhase(Ptmp, myBulk.T, Opt.Zi.data()) * GRAVITY_FACTOR * seg_len;
 			}
 			dGperf[p] = Ptmp - Pperf;
 		}
 		dG[PerfNum - 1] = dGperf[PerfNum - 1];
-		for (int p = PerfNum - 2; p >= 0; p--) {
+		for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
 			dG[p] = dG[p + 1] + dGperf[p];
 		}
 	}
@@ -486,10 +486,10 @@ void Well::calInjdG(const Bulk& myBulk)
 
 void Well::calProddG(const Bulk& myBulk)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 	OCP_DBL maxlen = 10;
-	int seg_num = 0;
+	USI seg_num = 0;
 	OCP_DBL seg_len = 0;
 	vector<OCP_DBL>		tmpNi(nc, 0);
 	vector<OCP_DBL>		dGperf(PerfNum, 0);
@@ -504,9 +504,9 @@ void Well::calProddG(const Bulk& myBulk)
 
 		// check qi_lbmol   ----   test
 		if (Perf[PerfNum - 1].State == CLOSE) {
-			for (int p = PerfNum - 2; p >= 0; p--) {
+			for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
 				if (Perf[p].State == OPEN) {
-					for (int i = 0; i < nc; i++) {
+					for (USI i = 0; i < nc; i++) {
 						Perf[PerfNum - 1].qi_lbmol[i] = Perf[p].qi_lbmol[i];
 					}
 					break;
@@ -514,7 +514,7 @@ void Well::calProddG(const Bulk& myBulk)
 			}
 		}
 
-		for (int p = PerfNum - 1; p >= 0; p--) {
+		for (OCP_INT p = PerfNum - 1; p >= 0; p--) {
 
 			if (p == 0) {
 				seg_num = ceil((Perf[0].Depth - Depth) / maxlen);
@@ -525,21 +525,21 @@ void Well::calProddG(const Bulk& myBulk)
 				seg_len = (Perf[p].Depth - Perf[p - 1].Depth) / seg_num;
 			}
 
-			int n = Perf[p].Location;
+			OCP_USI n = Perf[p].Location;
 			Perf[p].P = BHP + dG[p];
 			OCP_DBL Pperf = Perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
-			int pvtnum = myBulk.PVTNUM[n];
+			USI pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
-			for (int p1 = PerfNum - 1; p1 >= p; p1--) {
-				for (int i = 0; i < nc; i++) {
+			for (OCP_INT p1 = PerfNum - 1; p1 >= p; p1--) {
+				for (USI i = 0; i < nc; i++) {
 					tmpNi[i] += Perf[p1].qi_lbmol[i];
 				}
 			}
-			for (int k = 0; k < seg_num; k++) {
+			for (USI k = 0; k < seg_num; k++) {
 				myBulk.Flashcal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
-				for (int j = 0; j < myBulk.Np; j++) {
+				for (USI j = 0; j < myBulk.Np; j++) {
 					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
 						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
 						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
@@ -551,13 +551,26 @@ void Well::calProddG(const Bulk& myBulk)
 			dGperf[p] = Pperf - Ptmp;
 		}
 		dG[0] = dGperf[0];
-		for (int p = 1; p < PerfNum; p++) {
+		for (USI p = 1; p < PerfNum; p++) {
 			dG[p] = dG[p - 1] + dGperf[p];
 		}
 	}
 	else if (Depth >= Perf.back().Depth) {
 		// Well is lower
-		for (int p = 0; p < PerfNum; p++) {
+
+		// check qi_lbmol   ----   test
+		if (Perf[0].State == CLOSE) {
+			for (USI p = 1; p <= PerfNum; p++) {
+				if (Perf[p].State == OPEN) {
+					for (USI i = 0; i < nc; i++) {
+						Perf[PerfNum - 1].qi_lbmol[i] = Perf[p].qi_lbmol[i];
+					}
+					break;
+				}
+			}
+		}
+
+		for (USI p = 0; p < PerfNum; p++) {
 			if (p == PerfNum - 1) {
 				seg_num = ceil((Depth - Perf[PerfNum - 1].Depth) / maxlen);
 				seg_len = (Depth - Perf[PerfNum - 1].Depth) / seg_num;
@@ -567,21 +580,21 @@ void Well::calProddG(const Bulk& myBulk)
 				seg_len = (Perf[p + 1].Depth - Perf[p].Depth) / seg_num;
 			}
 
-			int n = Perf[p].Location;
+			OCP_USI n = Perf[p].Location;
 			Perf[p].P = BHP + dG[p];
 			OCP_DBL Pperf = Perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
-			int pvtnum = myBulk.PVTNUM[n];
+			USI pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
-			for (int p1 = PerfNum - 1; p1 >= p; p1--) {
-				for (int i = 0; i < nc; i++) {
+			for (OCP_INT p1 = PerfNum - 1; p1 >= p; p1--) {
+				for (USI i = 0; i < nc; i++) {
 					tmpNi[i] += Perf[p1].qi_lbmol[i];
 				}
 			}
-			for (int k = 0; k < seg_num; k++) {
+			for (USI k = 0; k < seg_num; k++) {
 				myBulk.Flashcal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
-				for (int j = 0; j < np; j++) {
+				for (USI j = 0; j < np; j++) {
 					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
 						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
 						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
@@ -593,7 +606,7 @@ void Well::calProddG(const Bulk& myBulk)
 			dGperf[p] = Ptmp - Pperf;
 		}
 		dG[PerfNum - 1] = dGperf[PerfNum - 1];
-		for (int p = PerfNum - 2; p >= 0; p--) {
+		for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
 			dG[p] = dG[p + 1] + dGperf[p];
 		}
 
@@ -606,18 +619,18 @@ void Well::calProddG(const Bulk& myBulk)
 
 void Well::calTrans(const Bulk& myBulk)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 
 	if (Opt.Type == INJ) {
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			Perf[p].transj.assign(np, 0);
-			int k = Perf[p].Location;
+			OCP_USI k = Perf[p].Location;
 			OCP_DBL temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
 			
 			// single phase
-			for (int j = 0; j < np; j++) {
-				int id = k * np + j;
+			for (USI j = 0; j < np; j++) {
+				OCP_USI id = k * np + j;
 				if (myBulk.PhaseExist[id]) {
 					Perf[p].transj[0] += myBulk.Kr[id] / myBulk.Mu[id];
 				}		
@@ -626,14 +639,14 @@ void Well::calTrans(const Bulk& myBulk)
 		}
 	}
 	else{
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			Perf[p].transj.assign(np, 0);
-			int k = Perf[p].Location;
+			OCP_USI k = Perf[p].Location;
 			OCP_DBL temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
 
 			// multi phase
-			for (int j = 0; j < np; j++) {
-				int id = k * np + j;
+			for (USI j = 0; j < np; j++) {
+				OCP_USI id = k * np + j;
 				if (myBulk.PhaseExist[id]) {
 					Perf[p].transj[j] = temp * myBulk.Kr[id] / myBulk.Mu[id];
 				}	
@@ -644,38 +657,38 @@ void Well::calTrans(const Bulk& myBulk)
 
 void Well::calFlux(const Bulk& myBulk, bool flag)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 
 	if (Opt.Type == INJ) {
 
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			Perf[p].P = BHP + dG[p];
-			int k = Perf[p].Location;
+			OCP_USI k = Perf[p].Location;
 			OCP_DBL dP = Perf[p].P - myBulk.P[k];
 			dP *= -1.0;
 
 			Perf[p].qt_ft3 = Perf[p].transj[0] * dP;
 
-			int pvtnum = myBulk.PVTNUM[k];
+			USI pvtnum = myBulk.PVTNUM[k];
 			if (flag)
 				Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
 			OCP_DBL xi = Perf[p].Xi;
-			for (int i = 0; i < nc; i++) {
+			for (USI i = 0; i < nc; i++) {
 				Perf[p].qi_lbmol[i] = Perf[p].qt_ft3 * xi * Opt.Zi[i];
 			}
 		}
 	}
 	else {
 
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			Perf[p].P = BHP + dG[p];
-			int k = Perf[p].Location;
+			OCP_USI k = Perf[p].Location;
 			Perf[p].qt_ft3 = 0;
 			Perf[p].qi_lbmol.assign(nc, 0);
 
-			for (int j = 0; j < np; j++) {
-				int id = k * np + j;
+			for (USI j = 0; j < np; j++) {
+				OCP_USI id = k * np + j;
 				if (myBulk.PhaseExist[id]) {
 					OCP_DBL dP = myBulk.Pj[id] - Perf[p].P;
 					Perf[p].qt_ft3 += Perf[p].transj[j] * dP;
@@ -685,7 +698,7 @@ void Well::calFlux(const Bulk& myBulk, bool flag)
 
 					OCP_DBL xi = myBulk.Xi[id];
 					OCP_DBL xij;
-					for (int i = 0; i < nc; i++) {
+					for (USI i = 0; i < nc; i++) {
 						xij = myBulk.Cij[id * nc + i];
 						Perf[p].qi_lbmol[i] += Perf[p].transj[j] * dP * xi * xij;
 					}
@@ -693,16 +706,15 @@ void Well::calFlux(const Bulk& myBulk, bool flag)
 			}
 		}
 	}
-
 }
 
 void Well::massConserve(Bulk& myBulk, OCP_DBL dt)
 {
-	int nc = myBulk.Nc;
+	USI nc = myBulk.Nc;
 
-	for (int p = 0; p < PerfNum; p++) {
-		int k = Perf[p].Location;
-		for (int i = 0; i < nc; i++) {
+	for (USI p = 0; p < PerfNum; p++) {
+		OCP_USI k = Perf[p].Location;
+		for (USI i = 0; i < nc; i++) {
 			myBulk.Ni[k * nc + i] -= Perf[p].qi_lbmol[i] * dt;
 		}
 	}
@@ -711,16 +723,16 @@ void Well::massConserve(Bulk& myBulk, OCP_DBL dt)
 
 OCP_DBL Well::calInjRate_blk(const Bulk& myBulk)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 	OCP_DBL qj = 0;
 
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 
 		OCP_DBL Pperf = Opt.MaxBHP + dG[p];
-		int k = Perf[p].Location;
+		OCP_USI k = Perf[p].Location;
 
-		int pvtnum = myBulk.PVTNUM[k];
+		USI pvtnum = myBulk.PVTNUM[k];
 		OCP_DBL xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
 		OCP_DBL dP = Pperf - myBulk.P[k];
 		qj += Perf[p].transj[0] * xi * dP;
@@ -730,20 +742,20 @@ OCP_DBL Well::calInjRate_blk(const Bulk& myBulk)
 
 OCP_DBL Well::calProdRate_blk(const Bulk& myBulk)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 	OCP_DBL qj = 0;
 
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 
 		OCP_DBL Pperf = Opt.MinBHP + dG[p];
-		int k = Perf[p].Location;
+		OCP_USI k = Perf[p].Location;
 
-		for (int j = 0; j < np; j++) {
-			int id = k * np + j;
+		for (USI j = 0; j < np; j++) {
+			OCP_USI id = k * np + j;
 			if (myBulk.PhaseExist[id]) {	
 				OCP_DBL temp = 0;
-				for (int i = 0; i < nc; i++) {
+				for (USI i = 0; i < nc; i++) {
 					temp += Opt.Zi[i] * myBulk.Cij[id * nc + i];
 				}
 				OCP_DBL xi = myBulk.Xi[id];
@@ -757,19 +769,19 @@ OCP_DBL Well::calProdRate_blk(const Bulk& myBulk)
 
 void Well::calInjqi_blk(const Bulk& myBulk, OCP_DBL dt)
 {
-	int nc = myBulk.Nc;
+	USI nc = myBulk.Nc;
 	OCP_DBL qj = 0;
 
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 
 		Perf[p].P = BHP + dG[p];
-		int k = Perf[p].Location;
+		OCP_USI k = Perf[p].Location;
 
 		//OCP_DBL xi = Perf[p].Xi;
 		//OCP_DBL dP = Perf[p].P - myBulk.P[k];
 		//qj += Perf[p].transj[0] * xi * dP;
 
-		for (int i = 0; i < nc; i++)
+		for (USI i = 0; i < nc; i++)
 			qj += Perf[p].qi_lbmol[i];
 	}
 	if (Opt.FluidType == WATER) {
@@ -784,12 +796,12 @@ void Well::calInjqi_blk(const Bulk& myBulk, OCP_DBL dt)
 
 void Well::calProdqi_blk(const Bulk& myBulk, OCP_DBL dt)
 {
-	int np = myBulk.Np;
-	int nc = myBulk.Nc;
+	USI np = myBulk.Np;
+	USI nc = myBulk.Nc;
 
 	Qi_lbmol.assign(nc, 0);
 
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 
 		//Perf[p].qi_lbmol.assign(nc, 0);
 		//Perf[p].P = BHP + dG[p];
@@ -807,12 +819,12 @@ void Well::calProdqi_blk(const Bulk& myBulk, OCP_DBL dt)
 		//		}
 		//	}
 		//}
-		for (int i = 0; i < nc; i++) {
+		for (USI i = 0; i < nc; i++) {
 			Qi_lbmol[i] += Perf[p].qi_lbmol[i];
 		}
 	}
 
-	for (int i = 0; i < nc; i++) {
+	for (USI i = 0; i < nc; i++) {
 		if (myBulk.PhaseLabel[i] == OIL) {
 			WOPR = Qi_lbmol[i];
 			WOPT += WOPR * dt;
@@ -848,7 +860,7 @@ void Well::checkOptMode(const Bulk& myBulk)
 	}
 }
 
-int Well::checkP(const Bulk& myBulk)
+OCP_INT Well::checkP(const Bulk& myBulk)
 {
 	// 0 : all correct
 	// 1 : negative P    
@@ -857,7 +869,7 @@ int Well::checkP(const Bulk& myBulk)
 
 	if (BHP < 0) 
 		return 1;
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 		if (Perf[p].State == OPEN && Perf[p].P < 0) {
 #ifdef _DEBUG
 			cout << "WARNING: Well " << Name << " Perf[" << p << "].P = " << Perf[p].P << endl;
@@ -880,20 +892,20 @@ int Well::checkP(const Bulk& myBulk)
 			return 2;
 		}
 	}
-	int flag = 0;
+	OCP_INT flag = 0;
 	flag = checkCrossFlow(myBulk);
 
 	return flag;
 }
 
-int Well::checkCrossFlow(const Bulk& myBulk)
+OCP_INT Well::checkCrossFlow(const Bulk& myBulk)
 {
-	int k;
+	OCP_USI  k;
 	bool flagC = true;
 
 	if (Opt.Type == PROD) {
-		int np = myBulk.Np;
-		for (int p = 0; p < PerfNum; p++) {
+		USI np = myBulk.Np;
+		for (USI p = 0; p < PerfNum; p++) {
 			k = Perf[p].Location;
 			OCP_DBL minP = myBulk.P[k];
 			// THINK MORE !!!
@@ -913,7 +925,7 @@ int Well::checkCrossFlow(const Bulk& myBulk)
 		}
 	}
 	else {
-		for (int p = 0; p < PerfNum; p++) {
+		for (USI p = 0; p < PerfNum; p++) {
 			k = Perf[p].Location;
 			if (Perf[p].State == OPEN && myBulk.P[k] > Perf[p].P) {
 				Perf[p].State = CLOSE;
@@ -930,7 +942,7 @@ int Well::checkCrossFlow(const Bulk& myBulk)
 
 	bool flag = false;
 	// check well --  if all perf are closed, open the depthest Perf
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 		if (Perf[p].State == OPEN) {
 			flag = true;
 			break;
@@ -961,7 +973,7 @@ void Well::showPerfStatus()
 {
 	cout << "----------------------------" << endl;
 	cout << Name << ":    " << Opt.OptMode << endl; 
-	for (int p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < PerfNum; p++) {
 		cout << "Perf[" << p << "].State = " << Perf[p].State << endl;
 	}
 }
