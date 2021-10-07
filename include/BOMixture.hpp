@@ -48,7 +48,7 @@ private:
     ReservoirTable<OCP_DBL>              PVDO;
 
 	// Auxiliary parameters for Table interpolation
-	int									len{ 0 };
+	USI									len{ 0 };
 	vector<OCP_DBL>						data;
 	vector<OCP_DBL>						cdata;
 

@@ -14,8 +14,8 @@ void FlowUnit::generate_SWPCWG()
 
 	std::vector<OCP_DBL>		Sw(SWOF.getCol(0));
 	std::vector<OCP_DBL>		Pcw(SWOF.getCol(3));
-	int n = Sw.size();
-	for (int i = 0; i < n; i++) {
+	USI n = Sw.size();
+	for (USI i = 0; i < n; i++) {
 		OCP_DBL Pcg = SGOF.eval(0, 1 - Sw[i], 3);
 		Pcw[i] += Pcg;
 	}
@@ -107,7 +107,7 @@ void FlowUnit::calKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out
 	pc_out[0] = 0;    pc_out[1] = Pcg;  pc_out[2] = Pcw;
 }
 
-OCP_DBL FlowUnit::kro_stone2(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg)
+OCP_DBL FlowUnit::kro_stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw, const OCP_DBL& krg) const
 {
 	// krog : oil relative permeability for a system with oil, gas and connate water
 	// krow : oil relative permeability for a system with oil and water only
@@ -119,7 +119,7 @@ OCP_DBL FlowUnit::kro_stone2(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL kr
 	return kro;
 }
 
-FlowUnit::FlowUnit(ParamReservoir& rs_param, int mode, int i)
+FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& mode, const USI& i)
 {
 	Mode = mode;
 	if (rs_param.WATER) {

@@ -206,7 +206,7 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 }
 
 
-void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
+void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
 {
 	USI nc = myBulk.Nc;
 	OCP_USI wId = mySolver.Dim;
@@ -300,7 +300,7 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 }
 
 
-void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const
+void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
 {
 	USI np = myBulk.Np;
 	USI nc = myBulk.Nc;
@@ -655,7 +655,7 @@ void Well::calTrans(const Bulk& myBulk)
 	}
 }
 
-void Well::calFlux(const Bulk& myBulk, bool flag)
+void Well::calFlux(const Bulk& myBulk, const bool flag)
 {
 	USI np = myBulk.Np;
 	USI nc = myBulk.Nc;
@@ -708,7 +708,7 @@ void Well::calFlux(const Bulk& myBulk, bool flag)
 	}
 }
 
-void Well::massConserve(Bulk& myBulk, OCP_DBL dt)
+void Well::massConserve(Bulk& myBulk, const OCP_DBL& dt) const
 {
 	USI nc = myBulk.Nc;
 
@@ -767,7 +767,7 @@ OCP_DBL Well::calProdRate_blk(const Bulk& myBulk)
 	return qj;
 }
 
-void Well::calInjqi_blk(const Bulk& myBulk, OCP_DBL dt)
+void Well::calInjqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
 {
 	USI nc = myBulk.Nc;
 	OCP_DBL qj = 0;
@@ -794,7 +794,7 @@ void Well::calInjqi_blk(const Bulk& myBulk, OCP_DBL dt)
 	}
 }
 
-void Well::calProdqi_blk(const Bulk& myBulk, OCP_DBL dt)
+void Well::calProdqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
 {
 	USI np = myBulk.Np;
 	USI nc = myBulk.Nc;
@@ -969,7 +969,7 @@ OCP_INT Well::checkCrossFlow(const Bulk& myBulk)
 	return 0;
 }
 
-void Well::showPerfStatus()
+void Well::showPerfStatus() const
 {
 	cout << "----------------------------" << endl;
 	cout << Name << ":    " << Opt.OptMode << endl; 

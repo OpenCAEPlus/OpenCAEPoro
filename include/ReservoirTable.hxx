@@ -1,4 +1,18 @@
-#pragma once
+/*! \file    ReservoirTable.hpp
+ *  \brief   ReservoirTable class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/07/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __RESERVOIRTABLE_HEADER__
+#define __RESERVOIRTABLE_HEADER__
+
+
 #include "OpenCAEPoro_consts.hpp"
 #include <iostream>
 #include <vector>
@@ -8,18 +22,18 @@ class ReservoirTable
 {
 public:
 	ReservoirTable() = default;
-	ReservoirTable(int row, int col);
+	ReservoirTable(const USI row, const USI col);
 	void setup(const std::vector<std::vector<T>>& src);
-	bool isempty() { return data.empty(); }
+	bool isempty()const { return data.empty(); }
 
-	int getCol() { return NCol; }
+	USI getCol() { return NCol; }
 	void pushCol(std::vector<T>& v) { data.push_back(v); }
 	std::vector<T>& getCol(int j) { return data[j]; }
 	
 
 	void setRowCol() { NRow = data[0].size(); NCol = data.size(); BId = NRow / 2; }
 	
-	int eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope);
+	USI eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope);
 	T eval(int j, T val, int destj);
 	T eval_inv(int j, T val, int destj);
 
@@ -27,21 +41,21 @@ public:
 
 private:
 
-	int									NRow;
-	int									NCol;
-	int									BId;		// search from BId
+	USI									NRow;
+	USI									NCol;
+	USI									BId;		// search from BId
 	std::vector<std::vector<T>>			data;
 };
 
 
 template <typename T>
-ReservoirTable<T>::ReservoirTable(int row, int col)
+ReservoirTable<T>::ReservoirTable(const USI row, const USI col)
 {
 	NRow = row;
 	NCol = col;
 	BId = 0;
 	data.resize(NCol);
-	for (int j = 0; j < NCol; j++) {
+	for (USI j = 0; j < NCol; j++) {
 		data[j].resize(NRow);
 	}
 }
@@ -55,15 +69,9 @@ void ReservoirTable<T>::setup(const std::vector<std::vector<T>>& src)
 	BId = NRow / 2;
 }
 
-//template <typename T>
-//inline bool ReservoirTable<T>::isempty()
-//{
-//	return data.empty();
-//}
-
 
 template <typename T>
-inline int ReservoirTable<T>::eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope)
+inline USI ReservoirTable<T>::eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope)
 {
 	// becareful when the memory outdata and slope have not be allocated before
 
@@ -167,3 +175,5 @@ void ReservoirTable<T>::display()
 		std::cout << "\n";
 	}
 }
+
+#endif

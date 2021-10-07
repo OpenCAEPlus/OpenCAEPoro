@@ -23,7 +23,7 @@
 
 using namespace std;
 
-/// a class describe the operation mode of a well.
+/// describes the operation mode of a well.
 /// usually it changes over time, specifically, each attributes could be changed including the well type.
 class WellOpt
 {
@@ -93,9 +93,9 @@ public:
 	/// calculate transmissibility for each phase in perforations.
 	void calTrans(const Bulk& myBulk);
 	/// calculate the flow rate of moles of components and total flow rate of volume in each perforations.
-	void calFlux(const Bulk& myBulk, bool flag = false);
+	void calFlux(const Bulk& myBulk, const bool flag = false);
 	/// update moles of components in those bulks who connects to the well.
-	void massConserve(Bulk& myBulk, OCP_DBL dt);
+	void massConserve(Bulk& myBulk, const OCP_DBL& dt) const;
 	
 
 	/// calculate flow rate of moles of components for injection well in black oil model,
@@ -107,10 +107,9 @@ public:
 	/// this function is used to check if operation mode of well shoubld be swtched.
 	OCP_DBL calProdRate_blk(const Bulk& myBulk);
 	/// calculate flow rate of moles of components for injection well in black oil model.
-	void calInjqi_blk(const Bulk& myBulk, OCP_DBL dt);
+	void calInjqi_blk(const Bulk& myBulk, const OCP_DBL& dt);
 	/// calculate flow rate of moles of components for production well in black oil model.
-	void calProdqi_blk(const Bulk& myBulk, OCP_DBL dt);
-
+	void calProdqi_blk(const Bulk& myBulk, const OCP_DBL& dt);
 
 
 	/// check if well operation mode would be changed.
@@ -123,20 +122,20 @@ public:
 	template <typename T>
 	void allocateMat(Solver<T>& mySolver) const;
 	/// assemble matrix, parts related to injection well are included.
-	void assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const;
+	void assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const;
 	/// assemble matrix, parts related to production well are included.
 	/// this function can only applied in Black Oil model now.
-	void assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, OCP_DBL dt) const;
+	void assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const;
 
 	/// update pressure in Perforation after well pressure updates.
-	void updatePerfP(){ for (int p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
+	void updatePerfP(){ for (USI p = 0; p < PerfNum; p++) Perf[p].P = BHP + dG[p]; }
     /// check if abnormal Pressure occurs.
 	OCP_INT checkP(const Bulk& myBulk);
 	/// check if crossflow happens.
 	OCP_INT checkCrossFlow(const Bulk& myBulk);
 
 	/// display operation mode of well and state of perforations.
-	void showPerfStatus();
+	void showPerfStatus() const;
 
 private:
 
