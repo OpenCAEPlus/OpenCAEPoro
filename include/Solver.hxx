@@ -1,7 +1,21 @@
-#pragma once
+/*! \file    Solver.hpp
+ *  \brief   Solver class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/07/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __SOLVER_HEADER__
+#define __SOLVER_HEADER__
+
 #include <fstream>
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 #include "MAT.hxx"
@@ -12,6 +26,9 @@ extern "C" {
 #include "fasp_functs.h"
 }
 
+/// A template class designed to stores and solves linear system derived from discrete method.
+/// the maxtrix is stored in the form of row-segmented CSRX internaly, whose sparsity pattern is almost the same as Neighbor in Connection_BB.
+/// if martix is block matrix, then the T will be a vector.
 template <typename T> class Solver
 {
     friend class OpenCAEPoro;
@@ -19,38 +36,55 @@ template <typename T> class Solver
     friend class Well;
 
 public:
-    void allocate(int dimMax);
+    /// allocate memory for linear system where possible maximum numbers of row are used.
+    void allocate(const OCP_USI& dimMax);
+    /// allocate memory for each row of matrix where the most terrible condition was considered.
     void allocateColVal();
-
+    /// read solver param from input file which is supplied by user.
     void setupParam(const string& dir, const string& file);
-    void showSolution(string fileX);
+    /// output the solution to fileX.
+    void showSolution(const string& fileX) const;
+
     // FASP
+    /// initialize the sover param for FASP.
     void init_param_Fasp();
+    /// read the sover param for FASP.
     void read_param_Fasp();
+    /// convert the internal matrix structure into the the format required by FASP.
     void assemble_Fasp();
+    /// solve the linear system by FASP and return the status.
     int  faspsolve();
-    void free_Fasp();
-    void showMat_CSR(string fileA, string fileb);
-
+    /// free the matrix used for FASP.
+    void free_Fasp() { fasp_dcsr_free(&A_Fasp); };
+    /// output the mat and rhs to fileA and fileb.
+    void showMat_CSR(const string& fileA, const string& fileb) const;
+    /// clear the internal matrix.
     void clearData();
+    /// return the solution.
+    vector<T>& getSol() { return u; }
 
-    std::vector<T>& getSol() { return u; }
-
-    // check
-    void checkVal();
+    /// check if NAN or INF occurs, used in debug mode.
+    void checkVal() const;
 
 private:
-    int MaxDim;
-    int Dim;
-    // for Mat assemble
-    std::vector<int>              RowCapacity;
-    std::vector<std::vector<int>> ColId;
-    std::vector<std::vector<T>>   Val;
-    std::vector<int>              DiagPtr;
-    std::vector<T>                DiagVal; // just for assembling: intermediate variable
+    // internal mat structure.
+    /// the maximum dimens matrix could have, it's fixed, always memory saving.
+    /// it's used to allocate memory for the mat at the beginning of simulation. 
+    OCP_USI     MaxDim;     
+    OCP_USI     Dim; ///< the actual dimens of mat, it may changed all the time but always a little less than MaxDim.
+    /// the maximum possible capacity of each row of the mat.
+    /// it's just a little greater than actual sizes, so it's very memory saving.
+    /// it's used to allocate memory for the mat at the beginning of simulation. 
+    vector<USI>            RowCapacity; 
+    vector<vector<OCP_USI>> ColId; ///< column-index of nonzero entry in the format of row-segmented.
+    vector<vector<T>>   Val;    ///< values of nonzero entry in the format of row-segmented.
+    vector<USI>              DiagPtr;   ///< the ith entry indicates the location of diagal entry of the ith row in Val.
+    /// an auxiliary variable used to help setup entry in diagnal line.
+    /// it will only be used when matrix is being assembling.
+    vector<T>                DiagVal; 
+    vector<T> b;        ///< right hands of linear system.
+    vector<T> u;        ///< solutiom of linear system.
 
-    std::vector<T> b;
-    std::vector<T> u;
 
     // for FASP solver
     string  SolveDir;
@@ -65,9 +99,11 @@ private:
     AMG_param amgparam; // parameters for AMG
     ILU_param iluparam; // parameters for ILU
     SWZ_param swzparam; // parameters for Schwarz method
+
+    // for other solver
 };
 
-template <typename T> void Solver<T>::allocate(int dimMax)
+template <typename T> void Solver<T>::allocate(const OCP_USI& dimMax)
 {
     MaxDim = dimMax;
     RowCapacity.resize(MaxDim, 0);
@@ -81,7 +117,7 @@ template <typename T> void Solver<T>::allocate(int dimMax)
 
 template <typename T> void Solver<T>::allocateColVal()
 {
-    for (int n = 0; n < MaxDim; n++) {
+    for (OCP_USI n = 0; n < MaxDim; n++) {
         ColId[n].reserve(RowCapacity[n]);
         Val[n].reserve(RowCapacity[n]);
     }
@@ -89,11 +125,11 @@ template <typename T> void Solver<T>::allocateColVal()
 
 template <typename T> void Solver<T>::clearData()
 {
-    for (int i = 0; i < MaxDim; i++) {
+    for (OCP_USI i = 0; i < MaxDim; i++) {
         ColId[i].clear();
         Val[i].clear();
     }
-    DiagPtr.assign(MaxDim, -1);
+    DiagPtr.assign(MaxDim, 0);
     DiagVal.assign(MaxDim, 0);
     b.assign(MaxDim, 0);
     u.assign(MaxDim, 0);
@@ -107,19 +143,19 @@ template <typename T> void Solver<T>::assemble_Fasp()
     x_Fasp.row = Dim;
     x_Fasp.val = u.data();
     // A
-    int nnz = 0;
-    for (int i = 0; i < Dim; i++) {
+    OCP_USI nnz = 0;
+    for (OCP_USI i = 0; i < Dim; i++) {
         nnz += ColId[i].size();
     }
     A_Fasp = fasp_dcsr_create(Dim, Dim, nnz);
     // IA
 
-    int count = 0;
-    for (int i = 1; i < Dim + 1; i++) {
-        int nnz_Row  = ColId[i - 1].size();
+    OCP_USI count = 0;
+    for (OCP_USI i = 1; i < Dim + 1; i++) {
+        USI nnz_Row  = ColId[i - 1].size();
         A_Fasp.IA[i] = A_Fasp.IA[i - 1] + nnz_Row;
 
-        for (int j = 0; j < nnz_Row; j++) {
+        for (USI j = 0; j < nnz_Row; j++) {
             A_Fasp.JA[count]  = ColId[i - 1][j];
             A_Fasp.val[count] = Val[i - 1][j];
             count++;
@@ -127,7 +163,6 @@ template <typename T> void Solver<T>::assemble_Fasp()
     }
 }
 
-template <typename T> void Solver<T>::free_Fasp() { fasp_dcsr_free(&A_Fasp); }
 
 template <typename T> int Solver<T>::faspsolve()
 {
@@ -238,7 +273,7 @@ template <typename T> int Solver<T>::faspsolve()
     return status;
 }
 
-template <typename T> void Solver<T>::showMat_CSR(string fileA, string fileb)
+template <typename T> void Solver<T>::showMat_CSR(const string& fileA, const string& fileb) const
 {
     string FileA = SolveDir + fileA;
     string Fileb = SolveDir + fileb;
@@ -246,26 +281,26 @@ template <typename T> void Solver<T>::showMat_CSR(string fileA, string fileb)
     ofstream outA(FileA);
     if (!outA.is_open()) cout << "Can not open " << FileA << endl;
     outA << A_Fasp.row << endl;
-    int nnz0 = A_Fasp.nnz;
-    for (int i = 0; i < A_Fasp.row + 1; i++) outA << A_Fasp.IA[i] + 1 << endl;
-    for (int i = 0; i < nnz0; i++) outA << A_Fasp.JA[i] + 1 << endl;
-    for (int i = 0; i < nnz0; i++) outA << A_Fasp.val[i] << endl;
+    OCP_USI nnz0 = A_Fasp.nnz;
+    for (OCP_USI i = 0; i < A_Fasp.row + 1; i++) outA << A_Fasp.IA[i] + 1 << endl;
+    for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.JA[i] + 1 << endl;
+    for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.val[i] << endl;
     outA.close();
     // out rhs
     ofstream outb(Fileb);
     if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
     outb << b_Fasp.row << endl;
-    for (int i = 0; i < b_Fasp.row; i++) outb << b_Fasp.val[i] << endl;
+    for (OCP_USI i = 0; i < b_Fasp.row; i++) outb << b_Fasp.val[i] << endl;
     outb.close();
 }
 
-template <typename T> void Solver<T>::showSolution(string fileU)
+template <typename T> void Solver<T>::showSolution(const string& fileU) const
 {
     string   FileU = SolveDir + fileU;
     ofstream outu(FileU);
     if (!outu.is_open()) cout << "Can not open " << FileU << endl;
     outu << Dim << endl;
-    for (int i = 0; i < Dim; i++) outu << u[i] << endl;
+    for (OCP_USI i = 0; i < Dim; i++) outu << u[i] << endl;
     outu.close();
 }
 
@@ -278,10 +313,9 @@ template <typename T> void Solver<T>::setupParam(const string& dir, const string
 #endif //  __SOLVER_FASP__
 }
 
-template <typename T> void Solver<T>::checkVal()
+template <typename T> void Solver<T>::checkVal() const
 {
-    int count = 0;
-    for (int n = 0; n < Dim; n++) {
+    for (OCP_USI n = 0; n < Dim; n++) {
         for (auto v : Val[n]) {
             if (!isfinite(v)) {
                 cout << "###ERROR   ";
@@ -383,3 +417,5 @@ template <typename T> void Solver<T>::init_param_Fasp()
     inparam.AMG_smooth_filter      = ON;
     inparam.AMG_smooth_restriction = ON;
 }
+
+#endif

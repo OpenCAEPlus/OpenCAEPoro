@@ -27,20 +27,24 @@ class ReservoirTable
 public:
 	ReservoirTable() = default;
 	ReservoirTable(const USI& row, const USI& col);
+	/// setup tables from existing data of table.
 	void setup(const vector<vector<T>>& src);
+	/// judge if table is empty.
 	bool isempty() const { return data.empty(); }
-
+	/// return the column num of table.
 	USI getCol() const { return NCol; }
+	/// push v into the last column of table.
 	void pushCol(const vector<T>& v) { data.push_back(v); }
+	/// return the jth column in table to modify or use.
 	vector<T>& getCol(const USI& j) { return data[j]; }
-	
-
+	/// setup row nums and col nums of tables, initialize the BId.
 	void setRowCol() { NRow = data[0].size(); NCol = data.size(); BId = NRow / 2; }
-	
+	/// interpolate the specified monotonically increasing column in table to evaluate all columns.
 	USI eval_all(const USI& j, const T& val, vector<T>& outdata, vector<T>& slope);
+	/// interpolate the specified monotonically increasing column in table to evaluate the target column.
 	T eval(const USI& j, const T& val, const USI& destj);
+	/// interpolate the specified monotonically decreasing column in table to evaluate the target column.
 	T eval_inv(const USI& j, const T& val, const USI& destj);
-
 	/// display the data of table on screen.
 	void display() const;
 
