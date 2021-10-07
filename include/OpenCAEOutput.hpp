@@ -17,24 +17,26 @@ public:
 	int			I, J, K;
 };
 
-class CAETypeA
+class OCPTypeA
 {
 public:
-	CAETypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
+	OCPTypeA& operator= (Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
 	bool				activity{ false };
 	vector<string>		obj;
 	vector<int>			index;
 };
 
-class CAETypeB
+/// 
+class OCPTypeB
 {
 public:
-	CAETypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
+	OCPTypeB& operator= (Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
 	bool				activity{ false };
 	vector<CAEIJK>		obj;
 	vector<int>			index;
 };
 
+/// SumPair is an auxiliary structure storing summary data to output.
 class SumPair
 {
 public:
@@ -46,6 +48,8 @@ public:
 };
 
 
+/// Summary manages the output for summary file, it contains the most interested information
+/// in each time step. usually these data will be convert to chart for analysing following.
 class Summary
 {
 public:
@@ -71,23 +75,27 @@ private:
 	bool		FWIR{ false };
 	bool		FWIT{ false };
 
-	CAETypeA		WOPR;
-	CAETypeA		WOPT;
-	CAETypeA		WGPR;
-	CAETypeA		WGPT;
-	CAETypeA		WWPR;
-	CAETypeA		WWPT;
-	CAETypeA		WGIR;
-	CAETypeA		WGIT;
-	CAETypeA		WWIR;
-	CAETypeA		WWIT;
-	CAETypeA		WBHP;
+	OCPTypeA		WOPR;
+	OCPTypeA		WOPT;
+	OCPTypeA		WGPR;
+	OCPTypeA		WGPT;
+	OCPTypeA		WWPR;
+	OCPTypeA		WWPT;
+	OCPTypeA		WGIR;
+	OCPTypeA		WGIT;
+	OCPTypeA		WWIR;
+	OCPTypeA		WWIT;
+	OCPTypeA		WBHP;
 
-	CAETypeB		BPR;
+	OCPTypeB		BPR;
 };
 
 
-
+/// OCP_Output manages different kinds of ways to output. the most commonly used is summary file.
+/// which usually give the information of bulks and wells in each timestep, such as average bulks pressure,
+/// oil production rate of wells. if other information at critical time is interested in, you can chose
+/// the PRT file(to do). also, some infomation will be printed on the screen at the critical time to make sure
+/// the program is at the right way. 
 class OCP_Output
 {
 	friend class OpenCAEPoro;

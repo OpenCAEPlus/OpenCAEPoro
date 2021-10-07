@@ -1,6 +1,6 @@
 #include "BOMixture.hpp"
 
-BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
+BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const USI& i)
 {
 	MixtureType = BLKOIL;
 	Mode = PVTmode;
@@ -52,7 +52,7 @@ BOMixture::BOMixture(ParamReservoir& rs_param, int PVTmode, int i)
 	cdata.resize(len, 0);
 }
 
-void BOMixture::Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL Tin, const OCP_DBL* Sjin, OCP_DBL Vpore, const OCP_DBL* Ziin)
+void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore, const OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -75,7 +75,7 @@ void BOMixture::Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL T
 	}
 }
 
-void BOMixture::Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Niin)
+void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
 	// checkNi(Niin);
@@ -102,27 +102,27 @@ void BOMixture::Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Ni
 }
 
 
-void BOMixture::BOFlash_Ni_W(const OCP_DBL Pin, const OCP_DBL* Niin)
+void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
 
 }
 
-void BOMixture::BOFlash_Ni_OW(const OCP_DBL Pin, const OCP_DBL* Niin)
+void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
 
 }
 
-void BOMixture::BOFlash_Sj_W(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore)
+void BOMixture::BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
 
 }
 
-void BOMixture::BOFlash_Sj_OW(const OCP_DBL Pin, const OCP_DBL* Sjin, OCP_DBL Vpore)
+void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
 
 }
 
-OCP_DBL BOMixture::xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::xiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -138,7 +138,7 @@ OCP_DBL BOMixture::xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Zi
 	}
 }
 
-OCP_DBL BOMixture::rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin)
+OCP_DBL BOMixture::rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
 	switch (Mode)
 	{
@@ -155,7 +155,7 @@ OCP_DBL BOMixture::rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin)
 }
 
 
-OCP_DBL BOMixture::gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin)
+OCP_DBL BOMixture::gammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
 	switch (Mode)
 	{
@@ -169,13 +169,13 @@ OCP_DBL BOMixture::gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin)
 	}
 }
 
-OCP_DBL BOMixture::gammaPhaseO_OW(OCP_DBL Pin)
+OCP_DBL BOMixture::gammaPhaseO_OW(const OCP_DBL& Pin)
 {
 
 	return 0;
 }
 
-OCP_DBL BOMixture::gammaPhaseW(OCP_DBL Pin)
+OCP_DBL BOMixture::gammaPhaseW(const OCP_DBL& Pin)
 {
 
 	PVTW.eval_all(0, Pin, data, cdata);
@@ -187,7 +187,7 @@ OCP_DBL BOMixture::gammaPhaseW(OCP_DBL Pin)
 	return Std_GammaW / bw;
 }
 
-OCP_DBL BOMixture::gammaPhaseG(OCP_DBL Pin)
+OCP_DBL BOMixture::gammaPhaseG(const OCP_DBL& Pin)
 {
 	if (PVDG.isempty()) {
 		ERRORcheck("PVDG is missing");

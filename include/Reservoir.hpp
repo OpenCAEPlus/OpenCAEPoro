@@ -13,17 +13,15 @@
 #define __RESERVOIR_HEADER__
 
 
-
-
 #include "Grid.hpp"
 #include "Bulk.hpp"
 #include "Connection_BB.hpp"
 #include "WellGroup.hpp"
 #include "ParamRead.hpp"
 
-/// contains the all reservoir information including Grids, Bulk, WellGroup, Connection_BB.
+/// Reservoir contains the all reservoir information, it has four Core components.
 /// 
-/// Grids contains the basic informations of all grids.
+/// Grids contains the basic informations of all grids as a database of reservoir.
 /// Bulk only stores active grids, which defines the area used for calculation.
 /// WellGroup contains the well information, it's used to manage operations related to wells.
 /// Connection_BB contains connections between bulks(active grids).

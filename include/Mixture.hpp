@@ -1,11 +1,27 @@
-#pragma once
+/*! \file    Mixture.hpp
+ *  \brief   Mixture class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/07/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __MIXTURE_HEADER__
+#define __MIXTURE_HEADER__
+
+
+
 #include "OpenCAEPoro_consts.hpp"
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-// total fluid, contains all phase
+/// Mixture is an abstract class, who contains all information used for flash calculation including variables, functions.
+/// it has the same data structure as the ones in bulks.
 class Mixture
 {
     friend class Bulk;
@@ -15,34 +31,37 @@ public:
     Mixture() = default;
     virtual ~Mixture(){};
 
-    // return type
-    int getType() { return MixtureType; }
-    // black oil
-    virtual bool empty_PVDG() = 0;
+    /// return type of mixture.
+    USI getType() const { return MixtureType; }
+    /// judge if table PVDG is empty, it will only be used in black oil model.
+    virtual bool empty_PVDG() const = 0;
+    /// flash calculation with saturation of phases.
+    virtual void Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+                          const OCP_DBL* Sjin, const OCP_DBL& Vpore, const OCP_DBL* Ziin)   = 0;
+    /// flash calculation with moles of components.
+    virtual void Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) = 0;
 
-    virtual void Flash_Sj(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL Tin,
-                          const OCP_DBL* Sjin, OCP_DBL Vpore, const OCP_DBL* Ziin)   = 0;
-    virtual void Flash_Ni(const OCP_DBL Pin, const OCP_DBL Tin, const OCP_DBL* Niin) = 0;
+    /// return molar density of phase, it's used to calculate the molar density of injection fluids in injection wells.
+    virtual OCP_DBL xiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) = 0;
 
-    virtual void getProp(){};
+    /// return mass density of phase.
+    virtual OCP_DBL rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) = 0;
 
-    // return xi
-    virtual OCP_DBL xiPhase(const OCP_DBL Pin, const OCP_DBL T, const OCP_DBL* Ziin) = 0;
+    /// return gamma of oil phase, gamma equals to mass density times gravity factor.
+    virtual OCP_DBL gammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)              = 0;
+    /// return gamma of water phase, gamma equals to mass density times gravity factor.
+    virtual OCP_DBL gammaPhaseW(const OCP_DBL& Pin)                            = 0;
+    /// return gamma of gas phase, gamma equals to mass density times gravity factor.
+    virtual OCP_DBL gammaPhaseG(const OCP_DBL& Pin)                            = 0;
+    /// return gamma of hydrocarbon mixture, gamma equals to mass density times gravity factor.
+    virtual OCP_DBL gammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) = 0;
 
-    // return rho
-    virtual OCP_DBL rhoPhase(OCP_DBL Pin, OCP_DBL T, OCP_DBL* Ziin) = 0;
-
-    // return gamma
-    virtual OCP_DBL gammaPhaseO(OCP_DBL Pin, OCP_DBL Pbbin)              = 0;
-    virtual OCP_DBL gammaPhaseW(OCP_DBL Pin)                            = 0;
-    virtual OCP_DBL gammaPhaseG(OCP_DBL Pin)                            = 0;
-    virtual OCP_DBL gammaPhaseOG(OCP_DBL Pin, OCP_DBL Tin, OCP_DBL* Ziin) = 0;
-
-    // check
+    /// check if Ni input from param is negative, it's used in debug mode to check Hidden trouble.
+    /// actually, very small error in very short time may not make trouble.
     void checkNi(const OCP_DBL* Ni)
     {
         bool flag = false;
-        for (int i = 0; i < Nc; i++) {
+        for (USI i = 0; i < Nc; i++) {
             if (Ni[i] < 0) {
                 cout << "###WARNING:  ";
                 ERRORcheck("Ni < 0 ");
@@ -58,23 +77,26 @@ public:
     }
 
 protected:
-    int MixtureType;
+    USI         MixtureType;        ///< indicates the type of mixture, black oil or compositional or others. 
 
-    int    Np; // num of phase
-    int    Nc; // num of component
-    OCP_DBL P;  // Pressure
-    OCP_DBL T;  // Temperature
+    USI    Np;                      ///< num of phases.
+    USI    Nc;                      ///< num of components.
+    OCP_DBL P;                      ///< pressure when flash calculation.
+    OCP_DBL T;                      ///< temperature when flash calculation.
 
-    std::vector<OCP_DBL> Ni;         // molar of component : Nc
-    std::vector<bool>   PhaseExist; // existence of phase : Np
-    std::vector<OCP_DBL> S;          // saturation of phase : Np
-    std::vector<OCP_DBL> Rho;        // mass density of phase : Np
-    std::vector<OCP_DBL> Xi;         // molar density of phase: Np
-    std::vector<OCP_DBL> Cij;        // Nij / Nj : Np*Nc
-    std::vector<OCP_DBL> Mu;         // viscosity of phase: Np
-    std::vector<OCP_DBL> V;          // volume of phase
+    vector<OCP_DBL> Ni;        ///< moles of component: Nc
+    vector<bool>   PhaseExist; ///< existence of phase: Np
+    vector<OCP_DBL> S;         ///< saturation of phase: Np
+    vector<OCP_DBL> Rho;       ///< mass density of phase: Np
+    vector<OCP_DBL> Xi;        ///< molar density of phase: Np
+    vector<OCP_DBL> Cij;       ///< Nij / Nj: Np*Nc, Nij is the moles of component i in phase j, Nj is the moles of phase j.
+    vector<OCP_DBL> Mu;        ///< viscosity of phase: Np
+    vector<OCP_DBL> V;         ///< volume of phase: Np;
 
-    OCP_DBL              Vf;  // volume of fluids
-    OCP_DBL              Vfp; //
-    std::vector<OCP_DBL> Vfi; // dVf / dNi   : Nc
+    OCP_DBL              Vf;   ///< volume of total fluids.
+    OCP_DBL              Vfp;  ///< dVf / dP, the derivative of volume of total fluids with respect to pressure.
+    vector<OCP_DBL>      Vfi;  ///< dVf / dNi: Nc  the derivative of volume of total fluids with respect to moles of components.
 };
+
+
+#endif

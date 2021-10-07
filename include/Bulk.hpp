@@ -25,7 +25,8 @@
 using namespace std;
 
 
-/// contains initial reservoir infomation to calculate initial Equilibration.
+/// ParamEQUIL contains some initial reservoir infomation used to calculate initial Equilibration,
+/// including reference depth and pressure at it, depth of contacts between phases, and capillary at them.
 class ParamEQUIL
 {
     friend class Bulk;
@@ -43,9 +44,10 @@ private:
 };
 
 
-/// contains main physical infomation of reservoir, only active grids are storaged.
-///
-/// bulks are ordered with the X axis index cycling fastest, followed by the Y and Z axis indices defaulted.
+/// Bulk contains main physical infomation of reservoir, only active grids are stored.
+/// variables here are stored bulks by bulks, and then phases by phases, components by components.
+/// the bulks are ordered with the X axis index cycling fastest, followed by the Y and Z axis indices defaulted.
+/// operations refered to single bulk are included here.
 class Bulk
 {
     friend class Connection_BB;
@@ -56,7 +58,7 @@ public:
 
     /// return the num of active bulk.
     OCP_USI getBulkNum() const { return Num; }
-    /// input param from internal ParamReservoir.
+    /// input param from internal data structure of param: ParamReservoir.
     void inputParam(ParamReservoir& rs_param);
     /// setup basic data from grid, setup of grid must be finished before. 
     void setup(const Grid& myGrid);
@@ -144,7 +146,7 @@ private:
     std::vector<OCP_DBL> S;          ///< saturation of phase j: Np*Num.
     std::vector<OCP_DBL> Rho;        ///< mass density of phase: Np*Num.
     std::vector<OCP_DBL> Xi;         ///< moles density of phase: Np*Num.
-    std::vector<OCP_DBL> Cij;        ///< Nij / Nj: Np*Nc*Num.
+    std::vector<OCP_DBL> Cij;        ///< Nij / Nj: Np*Nc*Num. Nij is the moles of component i in phase j, Nj is the moles of phase j.
     std::vector<OCP_DBL> Ni;         ///< moles of component: Nc*Num.
     std::vector<OCP_DBL> Mu;         ///< viscosity of phase: Np*Num.
     std::vector<OCP_DBL> Kr;         ///< relative permeability of phase: Np*Num.

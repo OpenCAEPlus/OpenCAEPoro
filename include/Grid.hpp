@@ -20,7 +20,7 @@
 
 using namespace std;
 
-/// indicate if a grid is active and what its active index is if active.
+/// GB_Pair contains two variables, which indicates if a grid is active and what its active index is if active.
 class GB_Pair
 {
 public:
@@ -35,7 +35,11 @@ private:
 	OCP_USI		index;			///< active index of grid if active
 };
 
-/// contains Grid information, all grids are stored.
+/// Grid contains basic information of grids of reservoir, the rock properties in grids are
+/// also included. all grids are stored here, you can regard it as a database of reservoir.
+/// considering the existence of inactive grids(whose volume of pores is too small or effective resource is too little)
+/// or switch of activity of grid, Grid class is necessary. Grid class is static while simulating, active grids
+/// will be stored in bulks, which is "area" for calculating.
 class Grid
 {	
 	friend class Bulk;

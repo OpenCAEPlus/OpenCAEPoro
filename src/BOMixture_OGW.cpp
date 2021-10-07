@@ -1,6 +1,6 @@
 #include "BOMixture.hpp"
 
-void BOMixture::BOFlash_Sj_OGW(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP_DBL* Sjin, OCP_DBL Vpore)
+void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
 	// initialize    Np = 3, Nc = 3
 	PhaseExist.assign(Np, false);
@@ -8,7 +8,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP
 	Ni.assign(Nc, 0);
 
 	P = Pin;
-	for (int j = 0; j < Np; j++)
+	for (USI j = 0; j < Np; j++)
 		S[j] = Sjin[j];
 
 	// Water Property
@@ -25,7 +25,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP
 	Ni[2] = Vpore * S[2] * Xi[2];
 	
 
-	int phasecae;
+	USI phasecae;
 
 	if (1 - S[1] - S[2] < TINY) {
 		if (S[1] < TINY)		phasecae = PHASE_W;		// case 1 : water, no oil, no gas
@@ -186,7 +186,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL Pin, const OCP_DBL Pbbin, const OCP
 }
 
 
-void BOMixture::BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin)
+void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
 	// initialize    Np = 3, Nc = 3
 	PhaseExist.assign(Np, false);
@@ -194,7 +194,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin)
 
 	P = Pin;
 	OCP_DBL NT = 0;
-	for (int i = 0; i < Nc; i++) {
+	for (USI i = 0; i < Nc; i++) {
 		Ni[i] = Niin[i];
 		NT += Ni[i];
 	}
@@ -212,7 +212,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin)
 	Xi[2] = 1 / (CONV1 * bw);
 	Rho[2] = Std_RhoW / bw;
 	
-	int phasecase;
+	USI phasecase;
 	OCP_DBL Rs_sat = PVCO.eval(0, P, 1);
 
 	if (Ni[0] < NT * TINY) {
@@ -369,7 +369,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL Pin, const OCP_DBL* Niin)
 }
 
 
-OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
 	if (Ziin[1] > 1 - TINY) {
 		// inj fluid is gas
@@ -394,7 +394,7 @@ OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL Pin, const OCP_DBL* Ziin)
 	}
 }
 
-OCP_DBL BOMixture::rhoPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin)
+OCP_DBL BOMixture::rhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
 	if (Ziin[1] > 1 - TINY) {
 		// inj fluid is gas
@@ -420,7 +420,7 @@ OCP_DBL BOMixture::rhoPhase_OGW(OCP_DBL Pin, OCP_DBL* Ziin)
 }
 
 
-OCP_DBL BOMixture::gammaPhaseO_OGW(OCP_DBL Pin, OCP_DBL Pbbin)
+OCP_DBL BOMixture::gammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
 
 	PVCO.eval_all(0, Pbbin, data, cdata);
