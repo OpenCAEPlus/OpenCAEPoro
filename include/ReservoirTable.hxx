@@ -17,39 +17,44 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
+/// A template Table class, which used to deal with everything about table in OpenCAEPoro
+/// such as PVT table, saturation table.
 template <typename T>
 class ReservoirTable
 {
 public:
 	ReservoirTable() = default;
-	ReservoirTable(const USI row, const USI col);
-	void setup(const std::vector<std::vector<T>>& src);
-	bool isempty()const { return data.empty(); }
+	ReservoirTable(const USI& row, const USI& col);
+	void setup(const vector<vector<T>>& src);
+	bool isempty() const { return data.empty(); }
 
-	USI getCol() { return NCol; }
-	void pushCol(std::vector<T>& v) { data.push_back(v); }
-	std::vector<T>& getCol(int j) { return data[j]; }
+	USI getCol() const { return NCol; }
+	void pushCol(const vector<T>& v) { data.push_back(v); }
+	vector<T>& getCol(const USI& j) { return data[j]; }
 	
 
 	void setRowCol() { NRow = data[0].size(); NCol = data.size(); BId = NRow / 2; }
 	
-	USI eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope);
-	T eval(int j, T val, int destj);
-	T eval_inv(int j, T val, int destj);
+	USI eval_all(const USI& j, const T& val, vector<T>& outdata, vector<T>& slope);
+	T eval(const USI& j, const T& val, const USI& destj);
+	T eval_inv(const USI& j, const T& val, const USI& destj);
 
-	void display();
+	/// display the data of table on screen.
+	void display() const;
 
 private:
 
-	USI									NRow;
-	USI									NCol;
-	USI									BId;		// search from BId
-	std::vector<std::vector<T>>			data;
+	USI									NRow;		///< number of rows of the table
+	USI									NCol;		///< number of columns of the table
+	USI									BId;		///< the starting point of rows when interpolating
+	vector<vector<T>>					data;		///< stores the data of table, data[i] contains the ith column of table.
 };
 
 
 template <typename T>
-ReservoirTable<T>::ReservoirTable(const USI row, const USI col)
+ReservoirTable<T>::ReservoirTable(const USI& row, const USI& col)
 {
 	NRow = row;
 	NCol = col;
@@ -71,38 +76,38 @@ void ReservoirTable<T>::setup(const std::vector<std::vector<T>>& src)
 
 
 template <typename T>
-inline USI ReservoirTable<T>::eval_all(int j, T val, std::vector<T>& outdata, std::vector<T>& slope)
+inline USI ReservoirTable<T>::eval_all(const USI& j, const T& val, vector<T>& outdata, vector<T>& slope)
 {
 	// becareful when the memory outdata and slope have not be allocated before
 
 	if (val >= data[j][BId]) {
-		for (int i = BId + 1; i < NRow; i++) {
+		for (USI i = BId + 1; i < NRow; i++) {
 			if (val < data[j][i]) {
 				BId = i - 1;
-				for (int k = 0; k < NCol; k++) {
+				for (USI k = 0; k < NCol; k++) {
 					slope[k] = (data[k][BId + 1] - data[k][BId]) / (data[j][BId + 1] - data[j][BId]);
 					outdata[k] = data[k][BId] + slope[k] * (val - data[j][BId]);
 				}
 				return BId;
 			}	
 		}
-		for (int k = 0; k < NCol; k++) {
+		for (USI k = 0; k < NCol; k++) {
 			slope[k] = 0;
 			outdata[k] = data[k].back();
 		}
 	}
 	else {
-		for (int i = BId - 1; i >= 0; i--) {
+		for (OCP_INT i = BId - 1; i >= 0; i--) {
 			if (val >= data[j][i]) {
 				BId = i;
-				for (int k = 0; k < NCol; k++) {
+				for (USI k = 0; k < NCol; k++) {
 					slope[k] = (data[k][BId + 1] - data[k][BId]) / (data[j][BId + 1] - data[j][BId]);
 					outdata[k] = data[k][BId] + slope[k] * (val - data[j][BId]);
 				}
 				return BId;
 			}		
 		}
-		for (int k = 0; k < NCol; k++) {
+		for (USI k = 0; k < NCol; k++) {
 			slope[k] = 0;
 			outdata[k] = data[k].front();
 		}
@@ -111,12 +116,12 @@ inline USI ReservoirTable<T>::eval_all(int j, T val, std::vector<T>& outdata, st
 }
 
 template <typename T>
-inline T ReservoirTable<T>::eval(int j, T val, int destj)
+inline T ReservoirTable<T>::eval(const USI& j, const T& val, const USI& destj)
 {
 	// becareful when the memory outdata and slope have not be allocated before
 
 	if (val >= data[j][BId]) {
-		for (int i = BId + 1; i < NRow; i++) {
+		for (USI i = BId + 1; i < NRow; i++) {
 			if (val < data[j][i]) {
 				BId = i - 1;
 				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
@@ -126,7 +131,7 @@ inline T ReservoirTable<T>::eval(int j, T val, int destj)
 		return data[destj].back();
 	}
 	else {
-		for (int i = BId - 1; i >= 0; i--) {
+		for (OCP_INT i = BId - 1; i >= 0; i--) {
 			if (val >= data[j][i]) {
 				BId = i;
 				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
@@ -138,12 +143,12 @@ inline T ReservoirTable<T>::eval(int j, T val, int destj)
 }
 
 template <typename T>
-inline T ReservoirTable<T>::eval_inv(int j, T val, int destj)
+inline T ReservoirTable<T>::eval_inv(const USI& j, const T& val, const USI& destj)
 {
 	// becareful when the memory outdata and slope have not be allocated before
 
 	if (val > data[j][BId]) {
-		for (int i = BId - 1; i >= 0; i--) {
+		for (OCP_INT i = BId - 1; i >= 0; i--) {
 			if (val <= data[j][i]) {
 				BId = i;
 				OCP_DBL k = (data[destj][BId + 1] - data[destj][BId]) / (data[j][BId + 1] - data[j][BId]);
@@ -153,7 +158,7 @@ inline T ReservoirTable<T>::eval_inv(int j, T val, int destj)
 		return data[destj].front();
 	}
 	else {
-		for (int i = BId + 1; i < NRow; i++) {
+		for (USI i = BId + 1; i < NRow; i++) {
 			if (val >= data[j][i]) {
 				BId = i;
 				OCP_DBL k = (data[destj][BId] - data[destj][BId - 1]) / (data[j][BId] - data[j][BId - 1]);
@@ -166,13 +171,13 @@ inline T ReservoirTable<T>::eval_inv(int j, T val, int destj)
 
 
 template <typename T>
-void ReservoirTable<T>::display()
+void ReservoirTable<T>::display() const
 {
-	for (int i = 0; i < NRow; i++) {
-		for (int j = 0; j < NCol; j++) {
-			std::cout << data[j][i] << "\t";
+	for (USI i = 0; i < NRow; i++) {
+		for (USI j = 0; j < NCol; j++) {
+			cout << data[j][i] << "\t";
 		}
-		std::cout << "\n";
+		cout << "\n";
 	}
 }
 

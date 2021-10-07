@@ -620,7 +620,6 @@ void Well::calProddG(const Bulk& myBulk)
 void Well::calTrans(const Bulk& myBulk)
 {
 	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
 
 	if (Opt.Type == INJ) {
 		for (USI p = 0; p < PerfNum; p++) {
@@ -775,8 +774,8 @@ void Well::calInjqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
 	for (USI p = 0; p < PerfNum; p++) {
 
 		Perf[p].P = BHP + dG[p];
-		OCP_USI k = Perf[p].Location;
 
+		// OCP_USI k = Perf[p].Location;
 		//OCP_DBL xi = Perf[p].Xi;
 		//OCP_DBL dP = Perf[p].P - myBulk.P[k];
 		//qj += Perf[p].transj[0] * xi * dP;
@@ -952,8 +951,8 @@ OCP_INT Well::checkCrossFlow(const Bulk& myBulk)
 	if (!flag) {
 		return 1;
 		// open the depthest Perf
-		Perf.back().State = OPEN;
-		Perf.back().Multiplier = 1;
+		/*Perf.back().State = OPEN;
+		Perf.back().Multiplier = 1;*/
 	}
 
 	if (!flagC) {

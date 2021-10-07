@@ -67,9 +67,9 @@ OCP_IMPES_1
 
 Final time:          3655.5 Days
 Total linear steps:  15348
-Linear solve time:   0.98449s
+Linear solve time:   0.977343s
 Total time steps:    3847
-Simulation time:     1.33861s
+Simulation time:     1.32726s
 
 -----------------------------------------
 OCP_IMPES_0.1
