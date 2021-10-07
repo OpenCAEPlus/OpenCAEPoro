@@ -53,7 +53,7 @@ public:
 	void calDepthV();
 	void calActiveBulk(OCP_DBL e1, OCP_DBL e2);		// fill ActiveMap_B2G and ActiveMap_G2B
 
-	void inputParam(ParamReservoir& rs_param);
+	void inputParam(const ParamReservoir& rs_param);
 
 	OCP_USI getIndex(USI i, USI j, USI k);
 

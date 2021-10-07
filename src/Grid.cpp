@@ -54,7 +54,7 @@ void Grid::calActiveBulk(OCP_DBL e1, OCP_DBL e2)
 }
 
 
-void Grid::inputParam(ParamReservoir& rs_param)
+void Grid::inputParam(const ParamReservoir& rs_param)
 {
 	Nx = rs_param.Dimens.Nx;
 	Ny = rs_param.Dimens.Ny;

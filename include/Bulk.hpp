@@ -108,7 +108,7 @@ public:
     /// check if negative Ni occurs, return false if so.
     bool    checkNi() const;
     /// check if relative volume error is outranged, return false if so.
-    bool    checkVe(const OCP_DBL Vlim) const;
+    bool    checkVe(const OCP_DBL& Vlim) const;
     /// reset P to the ones at last time step.
     void    resetP() { P = lP; }
     /// reset Pj to the ones at last time step.

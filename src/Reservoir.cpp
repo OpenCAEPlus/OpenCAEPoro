@@ -16,10 +16,8 @@ void Reservoir::setup()
 }
 
 
-
 void Reservoir::init()
 {
-	
 	if (bulk.mixMode() == BLKOIL)
 		bulk.initSjPc_blk(50);
 	else if (bulk.mixMode() == EoS_PVTW)
@@ -35,7 +33,7 @@ void Reservoir::init()
 }
 
 
-OCP_DBL Reservoir::calCFL(OCP_DBL dt)
+OCP_DBL Reservoir::calCFL(const OCP_DBL& dt) const
 {
 	OCP_DBL cflB = conn.calCFL(bulk, dt);
 	OCP_DBL cflW = wellgroup.calCFL(bulk, dt);
@@ -58,12 +56,12 @@ void Reservoir::getSol_IMPES(const vector<OCP_DBL>& u)
 	wellgroup.getSol_IMPES(u, bulk.getBulkNum());
 }
 
-int Reservoir::checkP()
+OCP_INT Reservoir::checkP()
 {
 	if (!bulk.checkP())
 		return 1;
 
-	int flag = 0;
+	OCP_INT flag = 0;
 	flag = wellgroup.checkP(bulk);
 	return flag;
 }

@@ -1140,7 +1140,7 @@ bool Bulk::checkNi() const
     return true;
 }
 
-bool Bulk::checkVe(const OCP_DBL Vlim) const
+bool Bulk::checkVe(const OCP_DBL& Vlim) const
 {
     // true : all correct
     // false : Volume error is too big

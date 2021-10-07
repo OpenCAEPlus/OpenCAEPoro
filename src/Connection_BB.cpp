@@ -256,7 +256,7 @@ void Connection_BB::calFlux(const Bulk& myBulk)
             }
             Upblock_Rho[c * np + j] = rho;
             Upblock[c * np + j]     = uId;
-            OCP_USI    uId_np_j         = uId * np + j;
+            OCP_USI    uId_np_j     = uId * np + j;
             OCP_DBL trans =
                 CONV1 * CONV2 * Akd * myBulk.Kr[uId_np_j] / myBulk.Mu[uId_np_j];
             Upblock_Trans[c * np + j] = trans;

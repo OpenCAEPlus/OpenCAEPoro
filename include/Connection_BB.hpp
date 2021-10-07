@@ -26,7 +26,7 @@ class BB_Pair
 	friend class Connection_BB;
 public:
 	BB_Pair() = default;
-	BB_Pair(const OCP_USI bId, const OCP_USI eId) : BId(bId), EId(eId) {};
+	BB_Pair(const OCP_USI& bId, const OCP_USI& eId) : BId(bId), EId(eId) {};
 
 private:
 	OCP_USI			BId;
