@@ -33,7 +33,10 @@ private:
 	OCP_USI			EId;
 };
 
-/// contains information about connectivity between bulks (active grids).
+/// Connection_BB is a core component of reservoir, it contains all properties and operations about
+/// connections between bulks(active grids). due to the activity of bulks, almost all connections are 
+/// meaningful. you can traverse all the connections through the iterator in it, which is effective.
+/// flow calculation between active bulks, matrix assembling contributed only by bulks are included in it.
 class Connection_BB
 {
 	friend class Solver<OCP_DBL>;

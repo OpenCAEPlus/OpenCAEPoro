@@ -57,6 +57,10 @@ private:
 	std::vector<OCP_DBL>			Zi;
 };
 
+/// Well class defines well, and any operations referred to wells are in it.
+/// well connects to the bulks by perforations, which serve as source and sink.
+/// due to practical difficulties in production, a good treatment for well is important,
+/// excellent treatment will make the flow rate in well more stable. 
 class Well
 {
 	friend class WellGroup;

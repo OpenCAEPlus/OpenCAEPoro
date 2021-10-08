@@ -19,8 +19,10 @@
 #include "WellGroup.hpp"
 #include "ParamRead.hpp"
 
-/// Reservoir contains the all reservoir information, it has four Core components.
+/// Reservoir is the core component in our simulator, it contains the all reservoir information, 
+/// and all operations on it.
 /// 
+/// Reservoir has four Core components.
 /// Grids contains the basic informations of all grids as a database of reservoir.
 /// Bulk only stores active grids, which defines the area used for calculation.
 /// WellGroup contains the well information, it's used to manage operations related to wells.

@@ -5,7 +5,8 @@
 #include "OpenCAEOutput.hpp"
 #include "Timing.hxx"
 
-
+/// OCP_IMPES is IMPES(implict pressure explict saturation) method in our simulator(OpenCAEPoro),
+/// which consists of the functions in Reservoir.
 class OCP_IMPES
 {
 public:
@@ -20,6 +21,8 @@ private:
 };
 
 
+/// (to do) OCP_FIM is FIM(fully implict method) method in our simulator(OpenCAEPoro),
+/// which consists of the functions in Reservoir.
 class OCP_FIM
 {
 public:

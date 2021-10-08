@@ -22,7 +22,8 @@ int main(int argc, const char* argv[])
     }
 
     // first step.
-    // read params from input file to internal params data structure.
+    // read params from input file to internal params data structure. 
+    // the format of keyword is almost compatible with Eclipse.
     // the data structure is independent of main program.
     string    myfile = argv[1];
     ParamRead rp;
@@ -31,13 +32,13 @@ int main(int argc, const char* argv[])
     OpenCAEPoro simulator;
 
     // second step.
-    // read param from internal params data structure to each modules.
+    // read param from internal params data structure to each modules. and then 
     // setup static information, such as active grids, and connections between them,
     // memory allocating for linear system will also be done at this time.
     simulator.setup(rp);
 
     // third step.
-    // initialize reservoir, which finishs the first step in iterations.
+    // initialize the reservoir, which finishs the first step in iterations.
     // for example, initial pressure, saturation and moles of components will be calculated.
     // initial well pressure will also be given here ---- it's a simple guess now.
     simulator.init();

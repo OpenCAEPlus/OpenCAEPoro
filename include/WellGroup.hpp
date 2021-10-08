@@ -18,7 +18,8 @@
 
 using namespace std;
 
-/// contains all wells, all operations related to the well will be managed here.
+/// WellGroups contains all wells now, it's used to manages all wells uniformly in reservoirs.
+/// actually, you can regard it as an interface between wells and other modules.
 class WellGroup
 {
 public:

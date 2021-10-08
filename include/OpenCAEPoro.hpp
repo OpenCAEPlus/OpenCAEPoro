@@ -7,7 +7,10 @@
 #include "Timing.hxx"
 
 
-
+/// OpenCAEPoro is the topest structure in our simulator, in which there are Reservoir class,
+/// which stroes all the properties of reservoir, and Method class such as IMPES, and OCP_Control class
+/// which manages the params of method and time step, and OCP_output class, in which you can output the
+/// results you are interested in.
 class OpenCAEPoro
 {
 public:
@@ -21,7 +24,7 @@ public:
 
 private:
 
-	// main component
+	/// the core component.
 	Reservoir			reservoir;
 
 	// Method

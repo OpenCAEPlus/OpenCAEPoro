@@ -44,7 +44,8 @@ private:
 };
 
 
-/// Bulk contains main physical infomation of reservoir, only active grids are stored.
+/// Bulk contains main physical infomation of reservoir, but only active grids are stored.
+/// acturally is's real geometric "area" for simulating.
 /// variables here are stored bulks by bulks, and then phases by phases, components by components.
 /// the bulks are ordered with the X axis index cycling fastest, followed by the Y and Z axis indices defaulted.
 /// operations refered to single bulk are included here.

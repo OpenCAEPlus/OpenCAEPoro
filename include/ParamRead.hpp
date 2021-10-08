@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/// ParamRead is pre-processing part in our simulator, which is responsible for inputting params
+/// from files supplied by users, it's almost compatible with Eclipse but has own rules for easy to use. 
+/// it is extensible friendly.
 class ParamRead
 {
 public:
