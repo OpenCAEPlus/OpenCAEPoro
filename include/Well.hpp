@@ -13,17 +13,20 @@
 #define __WELL_HEADER__
 
 
+// Standard header files
+#include <cassert>
+
+// OpenCAEPoro header files
 #include "Perforation.hpp"
 #include "Solver.hxx"
 #include "Bulk.hpp"
 #include "Grid.hpp"
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamWell.hpp"
-#include <cassert>
 
 using namespace std;
 
-/// describes the operation mode of a well.
+/// WellOpt describes the operation mode of a well.
 /// usually it changes over time, specifically, each attributes could be changed including the well type.
 class WellOpt
 {
@@ -54,12 +57,12 @@ private:
 	/// it's decided by users input.
 	/// for injection well, it describes the components of injected fluids.
 	/// for production well, it gives the the components of fluids which we are interested in.
-	std::vector<OCP_DBL>			Zi;
+	vector<OCP_DBL>			Zi;
 };
 
 /// Well class defines well, and any operations referred to wells are in it.
-/// well connects to the bulks by perforations, which serve as source and sink.
-/// due to practical difficulties in production, a good treatment for well is important,
+/// Well connects to the bulks by perforations, which serve as source and sink.
+/// Due to practical difficulties in production, a good treatment for well is important,
 /// excellent treatment will make the flow rate in well more stable. 
 class Well
 {
@@ -155,18 +158,18 @@ private:
 	USI							K2;				///< K-location of lower connecting block in this set of data.
 	string						Direction;		///< direction of well: x, y, z.
 	WellOpt						Opt;			///< well control parameters, contains current control parameters.
-	std::vector<WellOpt>		OptSet;			///< well control parameters set, contains control parameters in all critical time.
+	vector<WellOpt>		OptSet;			///< well control parameters set, contains control parameters in all critical time.
 
 	
 	OCP_DBL						BHP;			///< well pressure in reference depth.
 	OCP_DBL						Depth;			///< reference depth of well.
 	USI							PerfNum;		///< num of perforations belonging to this well.
-	std::vector<Perforation>	Perf;			///< information of perforation belonging to this well.
-	std::vector<OCP_DBL>			dG;			///< difference of pressure between well and perforation: PerfNum.
-	std::vector<OCP_DBL>			ldG;		///< difference of pressure between well and perforation at last time step: PerfNum.
+	vector<Perforation>	Perf;			///< information of perforation belonging to this well.
+	vector<OCP_DBL>			dG;			///< difference of pressure between well and perforation: PerfNum.
+	vector<OCP_DBL>			ldG;		///< difference of pressure between well and perforation at last time step: PerfNum.
 
 	// production rate and injection rate
-	std::vector<OCP_DBL>			Qi_lbmol;	///< flow rate of moles of component inflowing/outflowing well: num of components.
+	vector<OCP_DBL>			Qi_lbmol;	///< flow rate of moles of component inflowing/outflowing well: num of components.
 	OCP_DBL						WOPR{ 0 };		///< well oil production rate.
 	OCP_DBL						WOPT{ 0 };		///< well total oil production.
 	OCP_DBL						WGPR{ 0 };		///< well gas production rate.

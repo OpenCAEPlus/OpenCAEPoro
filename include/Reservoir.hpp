@@ -12,7 +12,7 @@
 #ifndef __RESERVOIR_HEADER__
 #define __RESERVOIR_HEADER__
 
-
+// OpenCAEPoro header files
 #include "Grid.hpp"
 #include "Bulk.hpp"
 #include "Connection_BB.hpp"

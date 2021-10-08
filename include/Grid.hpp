@@ -12,9 +12,11 @@
 #ifndef __GRID_HEADER__
 #define __GRID_HEADER__
 
-
+// Standard header files
 #include <vector>
 #include <iostream>
+
+// OpenCAEPoro header files
 #include "ParamReservoir.hpp"
 #include "OpenCAEPoro_consts.hpp"
 

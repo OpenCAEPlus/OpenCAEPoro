@@ -12,7 +12,7 @@
 #ifndef __OPENCAEPORO_CONSTS_HEADER__
 #define __OPENCAEPORO_CONSTS_HEADER__
 
-
+ // Standard header files
 #include <iostream>
 
 #define ERRORcheck(exp)                                                                \

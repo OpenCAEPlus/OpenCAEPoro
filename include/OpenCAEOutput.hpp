@@ -1,6 +1,10 @@
 #pragma once
+
+// Standard header files
 #include <iostream>
 #include <iomanip>
+
+// OpenCAEPoro header files
 #include "Reservoir.hpp"
 #include "ParamOutput.hpp"
 #include "OpenCAEControl.hpp"

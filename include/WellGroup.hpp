@@ -12,7 +12,7 @@
 #ifndef __WELLGROUP_HEADER__
 #define __WELLGROUP_HEADER__
 
-
+// OpenCAEPoro header files
 #include "Well.hpp"
 #include "ParamWell.hpp"
 

@@ -1,6 +1,10 @@
 #pragma once
+
+// Standard header files
 #include <fstream>
 #include <vector>
+
+// OpenCAEPoro header files
 #include "ReadTool.hpp"
 
 class COOIJK

@@ -12,8 +12,10 @@
 #ifndef __CONNECTION_BB_HEADER__
 #define __CONNECTION_BB_HEADER__
 
-
+ // Standard header files
 #include <vector>
+
+// OpenCAEPoro header files
 #include "Grid.hpp"
 #include "Bulk.hpp"
 #include "Solver.hxx"

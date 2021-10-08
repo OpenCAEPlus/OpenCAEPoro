@@ -12,15 +12,18 @@
 #ifndef __MIXTURE_HEADER__
 #define __MIXTURE_HEADER__
 
-
-
-#include "OpenCAEPoro_consts.hpp"
+// Standard header files
 #include <iostream>
 #include <vector>
+
+// OpenCAEPoro header files
+#include "OpenCAEPoro_consts.hpp"
+
 
 using namespace std;
 
 /// Mixture is an abstract class, who contains all information used for flash calculation including variables, functions.
+/// any properties of phases such as mass density can calculated by it.
 /// it has the same data structure as the ones in bulks.
 class Mixture
 {

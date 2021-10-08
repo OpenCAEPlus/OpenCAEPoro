@@ -13,9 +13,12 @@
 #define __RESERVOIRTABLE_HEADER__
 
 
-#include "OpenCAEPoro_consts.hpp"
+// Standard header files
 #include <iostream>
 #include <vector>
+
+// OpenCAEPoro header files
+#include "OpenCAEPoro_consts.hpp"
 
 using namespace std;
 

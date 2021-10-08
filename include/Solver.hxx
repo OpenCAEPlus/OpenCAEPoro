@@ -12,19 +12,25 @@
 #ifndef __SOLVER_HEADER__
 #define __SOLVER_HEADER__
 
+// Standard header files
 #include <fstream>
 #include <iostream>
 #include <string>
 
-using namespace std;
 
+
+// OpenCAEPoro header files
 #include "MAT.hxx"
 #include "OpenCAEPoro_consts.hpp"
 #include "fasp.h"
 
+
+// Fasp header files
 extern "C" {
 #include "fasp_functs.h"
 }
+
+using namespace std;
 
 /// A template class designed to stores and solves linear system derived from discrete method.
 /// the maxtrix is stored in the form of row-segmented CSRX internaly, whose sparsity pattern is almost the same as Neighbor in Connection_BB.

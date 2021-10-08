@@ -12,6 +12,11 @@
 #ifndef __BULK_HEADER__
 #define __BULK_HEADER__
 
+// Standard header files
+#include <iostream>
+#include <vector>
+
+// OpenCAEPoro header files
 #include "BOMixture.hpp"
 #include "FlowUnit.hpp"
 #include "Grid.hpp"
@@ -19,8 +24,7 @@
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamReservoir.hpp"
 #include "Solver.hxx"
-#include <iostream>
-#include <vector>
+
 
 using namespace std;
 

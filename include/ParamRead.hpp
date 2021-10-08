@@ -1,7 +1,11 @@
 #pragma once
+
+// Standard header files
 #include <fstream>
 #include <iostream>
 #include <string>
+
+// OpenCAEPoro header files
 #include "ParamReservoir.hpp"
 #include "ParamWell.hpp"
 #include "ParamControl.hpp"
