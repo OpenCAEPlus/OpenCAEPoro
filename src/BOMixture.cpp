@@ -136,6 +136,8 @@ OCP_DBL BOMixture::xiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
 	default:
 		break;
 	}
+
+    return 0.0; // TODO: Make sure code does not reach here!
 }
 
 OCP_DBL BOMixture::rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
@@ -152,6 +154,8 @@ OCP_DBL BOMixture::rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL*
 	default:
 		break;
 	}
+
+    return 0.0; // TODO: Make sure code does not reach here!
 }
 
 

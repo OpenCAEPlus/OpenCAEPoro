@@ -1041,8 +1041,12 @@ void Bulk::calVporo()
 
 USI Bulk::mixMode() const
 {
-    if (BLACKOIL) return BLKOIL;
-    if (COMPS) return EoS_PVTW;
+    if (BLACKOIL)
+        return BLKOIL;
+    else if (COMPS)
+        return EoS_PVTW;
+    else
+        return 0; // TODO: Make sure code does not reach here!
 }
 
 void Bulk::getSol_IMPES(const vector<OCP_DBL>& u)
@@ -1065,7 +1069,7 @@ void Bulk::calMaxChange()
     dSmax       = 0;
     dVmax       = 0;
     OCP_DBL tmp = 0;
-    OCP_USI     id;
+    OCP_USI id;
 
     for (OCP_USI n = 0; n < Num; n++) {
 
