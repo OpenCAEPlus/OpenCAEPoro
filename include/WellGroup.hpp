@@ -1,7 +1,7 @@
 /*! \file    WellGroup.hpp
  *  \brief   WellGroup class declaration
  *  \author  Shizhe Li
- *  \date    Oct/04/2021
+ *  \date    Oct/01/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -25,99 +25,99 @@ class WellGroup
 public:
 	WellGroup() = default;
 	/// input param from ParamWell.
-	void inputParam(const ParamWell& Well_param);
-	/// setup well and mixture in wellgroup.
-	void setup(const Grid& myGrid, const Bulk& myBulk);
+	void InputParam(const ParamWell& param_Well);
+	/// Setup well and mixture in wellgroup.
+	void Setup(const Grid& myGrid, const Bulk& myBulk);
 	/// complete the information of well according to Grid and Bulk.
-	void setupWell(const Grid& myGrid, const Bulk& myBulk);
+	void SetupWell(const Grid& myGrid, const Bulk& myBulk);
 	/// get the mixture from bulk.
-	void setupMixture(const Bulk& myBulk);
+	void SetupMixture(const Bulk& myBulk);
 	/// calculate the CFL number for each perforation and return the maximum one.
-	OCP_DBL calCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
+	OCP_DBL CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 	/// calculate volume flow rate and moles flow rate of each perforation.
-	void calFlux(const Bulk& myBulk);
+	void CalFlux(const Bulk& myBulk);
 	/// update moles of components in bulk which connects to well, according to the well flow rate.
-	void massConserve(Bulk& myBulk, OCP_DBL dt);
+	void MassConserve(Bulk& myBulk, OCP_DBL dt);
 	/// calculate memory needed to assemble matrix, only parts related to well are considered here.
 	template<typename T>
-	void allocateMat(Solver<T>& mySolver) const;
+	void AllocateMat(Solver<T>& mySolver) const;
 	/// guess the initial well pressure, it equals pressure in bulks where topest perforation locates.
-	void init(const Bulk& myBulk);
+	void Init(const Bulk& myBulk);
 	/// change operation mode of well at the ith critical time point, which decided by user input.
-	void applyControl(USI i);
+	void ApplyControl(USI i);
 	/// calculate well properties at the beginning of each time step.
-	void prepareWell(const Bulk& myBulk);
+	void PrepareWell(const Bulk& myBulk);
 	/// calculate injection rate, total injection, production rate, total production for each well.
-	void calIPRT(const Bulk& myBulk, OCP_DBL dt);
+	void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
 	/// assemble matrix, parts related to well are included. only for IMPES method.
 	/// it should be called after parts related to bulks setups.
-	void assemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const;
+	void AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const;
 	/// return the num of wells.
-	USI getWellNum() const { return WellNum; }
+	USI GetWellNum() const { return numWell; }
 	/// return the name of specified well.
-	const string& getWellName(const USI& i) const { return WellG[i].Name; }
+	string GetWellName(const USI& i) const { return wellGroup[i].name; }
 	/// return the index of specified well.
-	USI getIndex(const string& name) const;
+	USI GetIndex(const string& name) const;
 
 	// Field injection / production
 	/// return oil production rate in field.
-	OCP_DBL getFOPR() const { return FOPR; }
+	OCP_DBL GetFOPR() const { return FOPR; }
 	/// return total oil production in field.
-	OCP_DBL getFOPT() const { return FOPT; }
+	OCP_DBL GetFOPT() const { return FOPT; }
 	/// return gas production rate in field.
-	OCP_DBL getFGPR() const { return FGPR; }
+	OCP_DBL GetFGPR() const { return FGPR; }
 	/// return total gas production in field.
-	OCP_DBL getFGPT() const { return FGPt; }
+	OCP_DBL GetFGPT() const { return FGPt; }
 	/// return water production rate in field.
-	OCP_DBL getFWPR() const { return FWPR; }
+	OCP_DBL GetFWPR() const { return FWPR; }
 	/// return total water production in field.
-	OCP_DBL getFWPT() const { return FWPT; }
+	OCP_DBL GetFWPT() const { return FWPT; }
 	/// return gas injection rate in field.
-	OCP_DBL getFGIR() const { return FGIR; }
+	OCP_DBL GetFGIR() const { return FGIR; }
 	/// return gas water injection in field.
-	OCP_DBL getFGIT() const { return FGIT; }
+	OCP_DBL GetFGIT() const { return FGIT; }
 	/// return water injection rate in field.
-	OCP_DBL getFWIR() const { return FWIR; }
+	OCP_DBL GetFWIR() const { return FWIR; }
 	/// return total water injection in field.
-	OCP_DBL getFWIT() const { return FWIT; }
+	OCP_DBL GetFWIT() const { return FWIT; }
 
 	// Well injection / production
 	/// return oil production rate of the wth well.
-	OCP_DBL getWOPR(USI w) const { return WellG[w].WOPR; }
+	OCP_DBL GetWOPR(const USI& w) const { return wellGroup[w].WOPR; }
 	/// return total oil production of the wth well.
-	OCP_DBL getWOPT(USI w) const { return WellG[w].WOPT; }
+	OCP_DBL GetWOPT(const USI& w) const { return wellGroup[w].WOPT; }
 	/// return gas production rate of the wth well.
-	OCP_DBL getWGPR(USI w) const { return WellG[w].WGPR; }
+	OCP_DBL GetWGPR(const USI& w) const { return wellGroup[w].WGPR; }
 	/// return total gas production of the wth well.
-	OCP_DBL getWGPT(USI w) const { return WellG[w].WGPT; }
+	OCP_DBL GetWGPT(const USI& w) const { return wellGroup[w].WGPT; }
 	/// return water production rate of the wth well.
-	OCP_DBL getWWPR(USI w) const { return WellG[w].WWPR; }
+	OCP_DBL GetWWPR(const USI& w) const { return wellGroup[w].WWPR; }
 	/// return total water production of the wth well.
-	OCP_DBL getWWPT(USI w) const { return WellG[w].WWPT; }
+	OCP_DBL GetWWPT(const USI& w) const { return wellGroup[w].WWPT; }
 	/// return gas injection rate of the wth well.
-	OCP_DBL getWGIR(USI w) const { return WellG[w].WGIR; }
+	OCP_DBL GetWGIR(const USI& w) const { return wellGroup[w].WGIR; }
 	/// return total gas injection of the wth well.
-	OCP_DBL getWGIT(USI w) const { return WellG[w].WGIT; }
+	OCP_DBL GetWGIT(const USI& w) const { return wellGroup[w].WGIT; }
 	/// return water injection rate of the wth well.
-	OCP_DBL getWWIR(USI w) const { return WellG[w].WWIR; }
+	OCP_DBL GetWWIR(const USI& w) const { return wellGroup[w].WWIR; }
 	/// return total water injection of the wth well.
-	OCP_DBL getWWIT(USI w) const { return WellG[w].WWIT; }
+	OCP_DBL GetWWIT(const USI& w) const { return wellGroup[w].WWIT; }
 	// BHP
 	/// return the BHP of wth well.
-	OCP_DBL getWBHP(USI w) const { return WellG[w].BHP; }
+	OCP_DBL GetWBHP(const USI& w) const { return wellGroup[w].BHP; }
 	/// update pressure in well and well perforation with solution of linear system.
-	void getSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bid);
+	void GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bId);
 	/// reset dG to ldG for each well, dG is a array where the pressure difference between well and perforation are stored.
-	void setLastStep() { for (auto& w : WellG)	w.ldG = w.dG; }
+	void SetLastStep() { for (auto& w : wellGroup)	w.ldG = w.dG; }
 	/// check if unreasonable well pressure or perforation pressure occurs.
-	OCP_INT checkP(const Bulk& myBulk);
+	OCP_INT CheckP(const Bulk& myBulk);
 
 private:
 
-	USI							WellNum;		///< num of wells.
-	std::vector<Well>			WellG;			///< well set.
+	USI						numWell;		///< num of wells.
+	vector<Well>			wellGroup;			///< well set.
 	
-	std::vector<Mixture*>		Flashcal;		///< used to flash calculation for well, uesless now.
+	vector<Mixture*>		flashCal;		///< used to flash calculation for well, uesless now.
 	
 	OCP_DBL						FGIR{ 0 };		///< gas injection rate in field.
 	OCP_DBL						FGIT{ 0 };		///< gas total injection in field.
@@ -132,19 +132,19 @@ private:
 };
 
 template<typename T>
-void WellGroup::allocateMat(Solver<T>& mySolver) const
+void WellGroup::AllocateMat(Solver<T>& mySolver) const
 {
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].allocateMat(mySolver);
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].AllocateMat(mySolver);
 	}
 }
 
-#endif
+#endif  /* end if __WELLGROUP_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

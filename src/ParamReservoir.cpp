@@ -1,61 +1,61 @@
 #include "ParamReservoir.hpp"
 
-vector<OCP_DBL>* ParamReservoir::FindPtr(string& varName)
+vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
 {
 	vector<OCP_DBL>*		myPtr = nullptr;
 
-	switch (Map_str2int(&varName[0], varName.size()))
+	switch (Map_Str2Int(&varName[0], varName.size()))
 	{
-	case Map_str2int("DX", 2):
-		myPtr = &Dx;
+	case Map_Str2Int("DX", 2):
+		myPtr = &dx;
 		break;
 
-	case Map_str2int("DY", 2):
-		myPtr = &Dy;
+	case Map_Str2Int("DY", 2):
+		myPtr = &dy;
 		break;
 
-	case Map_str2int("DZ", 2):
-		myPtr = &Dz;
+	case Map_Str2Int("DZ", 2):
+		myPtr = &dz;
 		break;
 
-	case Map_str2int("PORO", 4):
-		myPtr = &Poro;
+	case Map_Str2Int("PORO", 4):
+		myPtr = &poro;
 		break;
 
-	case Map_str2int("NTG", 3):
-		myPtr = &Ntg;
+	case Map_Str2Int("NTG", 3):
+		myPtr = &ntg;
 		break;
 
-	case Map_str2int("PERMX", 5):
-		myPtr = &PermX;
+	case Map_Str2Int("PERMX", 5):
+		myPtr = &permX;
 		break;
 
-	case Map_str2int("PERMY", 5):
-		myPtr = &PermY;
+	case Map_Str2Int("PERMY", 5):
+		myPtr = &permY;
 		break;
 
-	case Map_str2int("PERMZ", 5):
-		myPtr = &PermZ;
+	case Map_Str2Int("PERMZ", 5):
+		myPtr = &permZ;
 		break;
 
-	case Map_str2int("TOPS", 4):
-		myPtr = &Tops;
+	case Map_Str2Int("TOPS", 4):
+		myPtr = &tops;
 		break;
 
-	case Map_str2int("PRESSURE", 8):
-		myPtr = &Pressure;
+	case Map_Str2Int("PRESSURE", 8):
+		myPtr = &P;
 		break;
 
-	case Map_str2int("Ni", 2):
+	case Map_Str2Int("Ni", 2):
 		myPtr = &Ni;
 		break;
 
-	case Map_str2int("SATNUM", 6):
+	case Map_Str2Int("SATNUM", 6):
 		SATNUM.activity = true;
 		myPtr = &SATNUM.data;
 		break;
 
-	case Map_str2int("PVTNUM", 6):
+	case Map_Str2Int("PVTNUM", 6):
 		PVTNUM.activity = true;
 		myPtr = &PVTNUM.data;
 		break;
@@ -64,86 +64,86 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(string& varName)
 	return myPtr;
 }
 
-TableSet* ParamReservoir::FindPtr_T(string& varName)
+TableSet* ParamReservoir::FindPtr_T(const string& varName)
 {
 	TableSet*	myPtr = nullptr;
 
-	switch (Map_str2int(&varName[0], varName.size()))
+	switch (Map_Str2Int(&varName[0], varName.size()))
 	{
-	case Map_str2int("SWOF", 4):
+	case Map_Str2Int("SWOF", 4):
 		myPtr = &SWOF_T;
 		break;
 
-	case Map_str2int("SGOF", 4):
+	case Map_Str2Int("SGOF", 4):
 		myPtr = &SGOF_T;
 		break;
 
-	case Map_str2int("PBVD", 4):
+	case Map_Str2Int("PBVD", 4):
 		myPtr = &PBVD_T;
 		break;
 
-	case Map_str2int("PVCO", 4):
+	case Map_Str2Int("PVCO", 4):
 		myPtr = &PVCO_T;
 		break;
 
-	case Map_str2int("PVDO", 4):
+	case Map_Str2Int("PVDO", 4):
 		myPtr = &PVDO_T;
 		break;
 
-	case Map_str2int("PVDG", 4):
+	case Map_Str2Int("PVDG", 4):
 		myPtr = &PVDG_T;
 		break;
 	
-	case Map_str2int("PVTW", 4):
+	case Map_Str2Int("PVTW", 4):
 		myPtr = &PVTW_T;
 		break;
 	}
 	return myPtr;
 }
 
-void ParamReservoir::init()
+void ParamReservoir::Init()
 {
-	initTab();
+	InitTable();
 
-	RTEMP = 60;
+	rsTemp = 60;
 
-	Gravity.data.resize(3);
-	Gravity.data[0] = 45.5;			// oil
-	Gravity.data[1] = 1.0;			// pure water
-	Gravity.data[2] = 0.7773;		// air
+	gravity.data.resize(3);
+	gravity.data[0] = 45.5;			// oil
+	gravity.data[1] = 1.0;			// pure water
+	gravity.data[2] = 0.7773;		// air
 
-	Density.data.resize(3);
-	Density.data[0] = 37.457;		// oil
-	Density.data[1] = 62.366416;	// pure water
-	Density.data[2] = 0.062428;		// air
+	density.data.resize(3);
+	density.data[0] = 37.457;		// oil
+	density.data[1] = 62.366416;	// pure water
+	density.data[2] = 0.062428;		// air
 
-	Rock.Pref	= 14.7;
-	Rock.Cr		= 3.406E-6;
+	rock.Pref	= 14.7;
+	rock.Cr		= 3.406E-6;
 }
 
 
-void ParamReservoir::initTab()
+void ParamReservoir::InitTable()
 {
-	SWOF_T.Name = "SWOF";   SWOF_T.colNum = 4;
-	SGOF_T.Name = "SGOF";	SGOF_T.colNum = 4;
-	PBVD_T.Name = "PBVD";	PBVD_T.colNum = 2;
-	PVCO_T.Name = "PVCO";	PVCO_T.colNum = 6;
-	PVDO_T.Name = "PVDO";	PVDO_T.colNum = 3;
-	PVDG_T.Name = "PVDG";	PVDG_T.colNum = 3;
-	PVTW_T.Name = "PVTW";	PVTW_T.colNum = 5;
+	SWOF_T.name = "SWOF";   SWOF_T.colNum = 4;
+	SGOF_T.name = "SGOF";	SGOF_T.colNum = 4;
+	PBVD_T.name = "PBVD";	PBVD_T.colNum = 2;
+	PVCO_T.name = "PVCO";	PVCO_T.colNum = 6;
+	PVDO_T.name = "PVDO";	PVDO_T.colNum = 3;
+	PVDG_T.name = "PVDG";	PVDG_T.colNum = 3;
+	PVTW_T.name = "PVTW";	PVTW_T.colNum = 5;
 }
 
 template<typename T>
-void ParamReservoir::setVal(vector<T>& obj, T val, vector<int>& index)
+void ParamReservoir::setVal(vector<T>& obj, const T& val, const vector<USI>& index)
 {
-	int Nx = Dimens.Nx;
-	int Ny = Dimens.Ny;
-	int NxNy = Nx * Ny;
-	int id = 0;
+	USI Nx = dimens.nx;
+	USI Ny = dimens.ny;
+	OCP_USI NxNy = Nx * Ny;
+	OCP_USI id = 0;
 
-	for (int k = index[4]; k <= index[5]; k++) {
-		for (int j = index[2]; j <= index[3]; j++) {
-			for (int i = index[0]; i <= index[1]; i++) {
+	for (USI k = index[4]; k <= index[5]; k++) {
+		for (USI j = index[2]; j <= index[3]; j++) {
+			for (USI i = index[0]; i <= index[1]; i++) {
 				id = k * NxNy + j * Nx + i;
 				obj[id] = val;		
 			}
@@ -152,16 +152,16 @@ void ParamReservoir::setVal(vector<T>& obj, T val, vector<int>& index)
 }
 
 template<typename T>
-void ParamReservoir::copyVal(vector<T>& obj, vector<T>& src, vector<int>& index)
+void ParamReservoir::CopyVal(vector<T>& obj, const  vector<T>& src, const vector<USI>& index)
 {
-	int Nx = Dimens.Nx;
-	int Ny = Dimens.Ny;
-	int NxNy = Nx * Ny;
-	int id = 0;
+	USI Nx = dimens.nx;
+	USI Ny = dimens.ny;
+	OCP_USI NxNy = Nx * Ny;
+	OCP_USI id = 0;
 
-	for (int k = index[4]; k <= index[5]; k++) {
-		for (int j = index[2]; j <= index[3]; j++) {
-			for (int i = index[0]; i <= index[1]; i++) {
+	for (USI k = index[4]; k <= index[5]; k++) {
+		for (USI j = index[2]; j <= index[3]; j++) {
+			for (USI i = index[0]; i <= index[1]; i++) {
 				id = k * NxNy + j * Nx + i;
 				obj[id] = src[id];
 			}
@@ -169,16 +169,16 @@ void ParamReservoir::copyVal(vector<T>& obj, vector<T>& src, vector<int>& index)
 	}
 }
 
-void ParamReservoir::multiplyVal(vector<OCP_DBL>& obj, OCP_DBL val, vector<int>& index)
+void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val, const vector<USI>& index)
 {
-	int Nx = Dimens.Nx;
-	int Ny = Dimens.Ny;
-	int NxNy = Nx * Ny;
-	int id = 0;
+	USI Nx = dimens.nx;
+	USI Ny = dimens.ny;
+	OCP_USI NxNy = Nx * Ny;
+	OCP_USI id = 0;
 
-	for (int k = index[4]; k <= index[5]; k++) {
-		for (int j = index[2]; j <= index[3]; j++) {
-			for (int i = index[0]; i <= index[1]; i++) {
+	for (USI k = index[4]; k <= index[5]; k++) {
+		for (USI j = index[2]; j <= index[3]; j++) {
+			for (USI i = index[0]; i <= index[1]; i++) {
 				id = k * NxNy + j * Nx + i;
 				obj[id] *= val;
 			}
@@ -186,46 +186,46 @@ void ParamReservoir::multiplyVal(vector<OCP_DBL>& obj, OCP_DBL val, vector<int>&
 	}
 }
 
-void ParamReservoir::inputCOMPS(ifstream& ifs)
+void ParamReservoir::InputCOMPS(ifstream& ifs)
 {
-	COMPS = true;
+	comps = true;
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
-	Nc = stoi(vbuf[0]);
+	numCom = stoi(vbuf[0]);
 }
 
 
-void ParamReservoir::inputDIMENS(ifstream& ifs)
+void ParamReservoir::InputDIMENS(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
-	Dimens.Nx = stoi(vbuf[0]);
-	Dimens.Ny = stoi(vbuf[1]);
-	Dimens.Nz = stoi(vbuf[2]);
-	Num = Dimens.Nx * Dimens.Ny * Dimens.Nz;
+	dimens.nx = stoi(vbuf[0]);
+	dimens.ny = stoi(vbuf[1]);
+	dimens.nz = stoi(vbuf[2]);
+	numGrid = dimens.nx * dimens.ny * dimens.nz;
 }
 
-void ParamReservoir::outputDIMENS()
+void ParamReservoir::DisplayDIMENS()
 {
 	std::cout << "DIMENS" << endl;
-	std::cout << Dimens.Nx << "  " << Dimens.Ny << "  " << Dimens.Nz << endl;
+	std::cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
 }
 
-void ParamReservoir::inputRTEMP(ifstream& ifs)
+void ParamReservoir::InputRTEMP(ifstream& ifs)
 {
 	vector<string>		vbuf;
 	ReadLine(ifs, vbuf);
 	if (vbuf[0] == "/")
 		return;
 
-	RTEMP = stod(vbuf[0]);
+	rsTemp = stod(vbuf[0]);
 	cout << "RTEMP" << endl;
-	cout << RTEMP << endl;
+	cout << rsTemp << endl;
 }
 
-void ParamReservoir::inputEQUALS(ifstream& ifs)
+void ParamReservoir::InputEQUALS(ifstream& ifs)
 {
-	vector<int>		index(6, 0);
+	vector<USI>		index(6, 0);
 	vector<string>		vbuf;
 
 	while (ReadLine(ifs, vbuf))
@@ -233,16 +233,16 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 		if (vbuf[0] == "/")
 			break;
 
-		index[0] = 0, index[1] = Dimens.Nx - 1;
-		index[2] = 0, index[3] = Dimens.Ny - 1;
-		index[4] = 0, index[5] = Dimens.Nz - 1;
+		index[0] = 0, index[1] = dimens.nx - 1;
+		index[2] = 0, index[3] = dimens.ny - 1;
+		index[4] = 0, index[5] = dimens.nz - 1;
 
 		string objName = vbuf[0];
 		OCP_DBL val = stod(vbuf[1]);
 
 		DealDefault(vbuf);
 
-		for (int n = 2; n < 8; n++) {
+		for (USI n = 2; n < 8; n++) {
 			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
@@ -251,11 +251,11 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 
 		if (objPtr != nullptr) {
 			if (objName == "TOPS") {
-				objPtr->resize(Dimens.Nx * Dimens.Ny);
+				objPtr->resize(dimens.nx * dimens.ny);
 				index[4] = index[5] = 0;
 			}
 			else {
-				objPtr->resize(Num);
+				objPtr->resize(numGrid);
 			}
 			setVal(*objPtr, val, index);
 		}
@@ -264,21 +264,21 @@ void ParamReservoir::inputEQUALS(ifstream& ifs)
 			exit(0);
 		}
 	}	
-	std::cout << &Dx << endl;
-	std::cout << &Dy << endl;
-	std::cout << &Dz << endl;
-	std::cout << &Poro << endl;
-	std::cout << &Ntg << endl;
-	std::cout << &PermX << endl;
-	std::cout << &PermY << endl;
-	std::cout << &PermZ << endl;
-	std::cout << &Tops << endl;
+	std::cout << &dx << endl;
+	std::cout << &dy << endl;
+	std::cout << &dz << endl;
+	std::cout << &poro << endl;
+	std::cout << &ntg << endl;
+	std::cout << &permX << endl;
+	std::cout << &permY << endl;
+	std::cout << &permZ << endl;
+	std::cout << &tops << endl;
 	std::cout << SATNUM.activity << endl;
 	std::cout << PVTNUM.activity << endl;
 	cout << "EQUALS" << endl;
 }
 
-void ParamReservoir::inputGRID(ifstream& ifs, string& keyword)
+void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 {
 	vector<OCP_DBL>* objPtr = nullptr;
 	objPtr = FindPtr(keyword);
@@ -288,9 +288,9 @@ void ParamReservoir::inputGRID(ifstream& ifs, string& keyword)
 	}
 	else {
 		if (keyword == "TOPS")
-			objPtr->reserve(Dimens.Nx * Dimens.Ny);
+			objPtr->reserve(dimens.nx * dimens.ny);
 		else
-			objPtr->reserve(Num);
+			objPtr->reserve(numGrid);
 	}
 
 	vector<string>		vbuf;
@@ -302,29 +302,29 @@ void ParamReservoir::inputGRID(ifstream& ifs, string& keyword)
 			objPtr->push_back(stod(str));
 		}
 	}
-	std::cout << &PermX << endl;
-	std::cout << &PermY << endl;
-	std::cout << &PermZ << endl;
+	std::cout << &permX << endl;
+	std::cout << &permY << endl;
+	std::cout << &permZ << endl;
 }
 
-void ParamReservoir::inputCOPY(ifstream& ifs)
+void ParamReservoir::InputCOPY(ifstream& ifs)
 {
 	vector<string>		vbuf;
-	vector<int>			index(6, 0);
+	vector<USI>			index(6, 0);
 
 	while (ReadLine(ifs, vbuf))
 	{
 		if (vbuf[0] == "/")
 			break;
 
-		index[0] = 0, index[1] = Dimens.Nx - 1;
-		index[2] = 0, index[3] = Dimens.Ny - 1;
-		index[4] = 0, index[5] = Dimens.Nz - 1;
+		index[0] = 0, index[1] = dimens.nx - 1;
+		index[2] = 0, index[3] = dimens.ny - 1;
+		index[4] = 0, index[5] = dimens.nz - 1;
 
 		string srcName = vbuf[0];
 		string objName = vbuf[1];
 		DealDefault(vbuf);
-		for (int n = 2; n < 8; n++) {
+		for (USI n = 2; n < 8; n++) {
 			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
@@ -333,37 +333,37 @@ void ParamReservoir::inputCOPY(ifstream& ifs)
 		vector<OCP_DBL>* objPtr = FindPtr(objName);
 		if (srcPtr != nullptr && objPtr != nullptr) {
 			objPtr->resize(srcPtr->size());
-			copyVal(*objPtr, *srcPtr, index);
+			CopyVal(*objPtr, *srcPtr, index);
 		}
 		else{
 			Paramcheck("Wrong Var Name: " + srcName + " " + objName);
 			exit(0);
 		}
 	}
-	std::cout << PermX[0] << endl;
-	std::cout << PermY[0] << endl;
-	std::cout << PermZ[0] << endl;
+	std::cout << permX[0] << endl;
+	std::cout << permY[0] << endl;
+	std::cout << permZ[0] << endl;
 }
 
-void ParamReservoir::inputMULTIPLY(ifstream& ifs)
+void ParamReservoir::InputMULTIPLY(ifstream& ifs)
 {
 	vector<string>		vbuf;
-	vector<int>			index(6, 0);
+	vector<USI>			index(6, 0);
 
 	while (ReadLine(ifs, vbuf))
 	{
 		if (vbuf[0] == "/")
 			break;
 
-		index[0] = 0, index[1] = Dimens.Nx - 1;
-		index[2] = 0, index[3] = Dimens.Ny - 1;
-		index[4] = 0, index[5] = Dimens.Nz - 1;
+		index[0] = 0, index[1] = dimens.nx - 1;
+		index[2] = 0, index[3] = dimens.ny - 1;
+		index[4] = 0, index[5] = dimens.nz - 1;
 
 		string objName = vbuf[0];
 		OCP_DBL val = stod(vbuf[1]);
 
 		DealDefault(vbuf);
-		for (int n = 2; n < 8; n++) {
+		for (USI n = 2; n < 8; n++) {
 			if (vbuf[n] != "DEFAULT")
 				index[n - 2] = stoi(vbuf[n]) - 1;
 		}
@@ -373,19 +373,19 @@ void ParamReservoir::inputMULTIPLY(ifstream& ifs)
 			if (objName == "TOPS") {
 				index[4] = index[5] = 0;
 			}
-			multiplyVal(*objPtr, val, index);
+			MultiplyVal(*objPtr, val, index);
 		}
 		else {
 			Paramcheck("Wrong Var Name: " + objName);
 			exit(0);
 		}
 	}
-	std::cout << PermX[0] << endl;
-	std::cout << PermY[0] << endl;
-	std::cout << PermZ[0] << endl;
+	std::cout << permX[0] << endl;
+	std::cout << permY[0] << endl;
+	std::cout << permZ[0] << endl;
 }
 
-void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
+void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
 {
 	TableSet*	obj;
 	obj = FindPtr_T(tabName);
@@ -394,7 +394,7 @@ void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
 		exit(0);
 	}
 	
-	int col = obj->colNum;
+	USI col = obj->colNum;
 	vector<vector<OCP_DBL>> tmpTab(col);
 
 	vector<string>		vbuf;
@@ -403,13 +403,13 @@ void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
 		if (vbuf[0] == "/")
 			break;
 
-		for (int i = 0; i < col; i++) {
+		for (USI i = 0; i < col; i++) {
 			tmpTab[i].push_back(stod(vbuf[i]));
 		}
 
 		if (vbuf.back() == "/") {
 			obj->data.push_back(tmpTab);
-			for (int j = 0; j < col; j++) {
+			for (USI j = 0; j < col; j++) {
 				tmpTab[j].clear();
 			}		
 		}	
@@ -417,43 +417,43 @@ void ParamReservoir::inputTABLE(ifstream& ifs, string& tabName)
 	if (!tmpTab[0].empty())
 		obj->data.push_back(tmpTab);
 
-	obj->showTab();
+	obj->DisplayTable();
 	std::cout << "TABLE" << endl;
 }
 
-void ParamReservoir::inputROCK(ifstream& ifs)
+void ParamReservoir::InputROCK(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
 	if (vbuf[0] == "/")
 		return;
 
-	Rock.Pref	= stod(vbuf[0]);
-	Rock.Cr		= stod(vbuf[1]);
+	rock.Pref	= stod(vbuf[0]);
+	rock.Cr		= stod(vbuf[1]);
 
 	std::cout << "ROCK" << endl;
-	std::cout << Rock.Pref << "  " << Rock.Cr << endl;
+	std::cout << rock.Pref << "  " << rock.Cr << endl;
 }
 
-void ParamReservoir::inputGRAVITY(ifstream& ifs)
+void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
 	if (vbuf[0] == "/")
 		return;
 
-	for (int i = 0; i < 3; i++) {
+	for (USI i = 0; i < 3; i++) {
 		if (vbuf[i] != "DEFAULT") {
-			Gravity.activity = true;
-			Gravity.data[i] = stod(vbuf[i]);
+			gravity.activity = true;
+			gravity.data[i] = stod(vbuf[i]);
 		}		
 	}
 
 	std::cout << "GRAVITY" << endl;
-	std::cout << Gravity.data[0] << "  " <<  Gravity.data[1] << "  "  << Gravity.data[2] << endl;
+	std::cout << gravity.data[0] << "  " <<  gravity.data[1] << "  "  << gravity.data[2] << endl;
 }
 
-void ParamReservoir::inputDENSITY(ifstream& ifs)
+void ParamReservoir::InputDENSITY(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
@@ -461,18 +461,18 @@ void ParamReservoir::inputDENSITY(ifstream& ifs)
 		return;
 
 	DealDefault(vbuf);
-	for (int i = 0; i < 3; i++) {
+	for (USI i = 0; i < 3; i++) {
 		if (vbuf[i] != "DEFAULT") {
-			Density.activity = true;
-			Density.data[i] = stod(vbuf[i]);
+			density.activity = true;
+			density.data[i] = stod(vbuf[i]);
 		}	
 	}
 
 	std::cout << "DENSITY" << endl;
-	std::cout << Density.data[0] << "  " << Density.data[1] << "  " << Density.data[2] << endl;
+	std::cout << density.data[0] << "  " << density.data[1] << "  " << density.data[2] << endl;
 }
 
-void ParamReservoir::inputEQUIL(ifstream& ifs)
+void ParamReservoir::InputEQUIL(ifstream& ifs)
 {
 	vector<string>	vbuf;
 	ReadLine(ifs, vbuf);
@@ -481,18 +481,18 @@ void ParamReservoir::inputEQUIL(ifstream& ifs)
 
 	EQUIL.resize(6, 0);
 	DealDefault(vbuf);
-	for (int i = 0; i < 6; i++) {
+	for (USI i = 0; i < 6; i++) {
 		if (vbuf[i] != "DEFAULT")
 			EQUIL[i] = stod(vbuf[i]);
 	}
 	
 	std::cout << "EQUIL" << endl;
-	for (int i = 0; i < 6; i++)
+	for (USI i = 0; i < 6; i++)
 		std::cout << EQUIL[i] << "  ";
 	std::cout << endl;
 }
 
-void ParamReservoir::inputTABDIMS(ifstream& ifs)
+void ParamReservoir::InputTABDIMS(ifstream& ifs)
 {
 	vector<string>  vbuf;
 	ReadLine(ifs, vbuf);
@@ -501,10 +501,10 @@ void ParamReservoir::inputTABDIMS(ifstream& ifs)
 	cout << "TABDIMS" << endl;
 }
 
-void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
+void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
 {
 	Type_A_r<OCP_DBL>* ptr = nullptr;
-	int	lim = 0;
+	USI	lim = 0;
 	if (keyword == "SATNUM") {
 		ptr = &SATNUM; 
 		lim = NTSFUN;
@@ -515,10 +515,10 @@ void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
 	}
 		
 	ptr->activity = true;
-	ptr->data.reserve(Num);
+	ptr->data.reserve(numGrid);
 	vector<string>	vbuf;
-	vector<int>		obj;
-	vector<int>		region;
+	vector<OCP_USI>	obj;
+	vector<USI>		region;
 
 	while (ReadLine(ifs, vbuf))
 	{
@@ -527,6 +527,7 @@ void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
 
 		DealData(vbuf, obj, region);
 
+#ifdef _DEBUG
 		// check region
 		for (auto r : region) {
 			if (r > lim) {
@@ -534,10 +535,11 @@ void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
 				exit(0);
 			}
 		}
+#endif // _DEBUG
 
-		int len = obj.size();
-		for (int i = 0; i < len; i++) {
-			for (int j = 0; j < obj[i]; j++) {
+		USI len = obj.size();
+		for (USI i = 0; i < len; i++) {
+			for (OCP_USI j = 0; j < obj[i]; j++) {
 				ptr->data.push_back(region[i]);
 			}
 		}
@@ -549,57 +551,57 @@ void ParamReservoir::inputRegion(ifstream& ifs, string keyword)
 
 
 // check
-void ParamReservoir::checkParam()
+void ParamReservoir::CheckParam()
 {
-	checkGrid();
-	checkEQUIL();
-	checkDenGra();
-	checkPhase();
-	checkPhaseTab();
-	checkRegion();
+	CheckGrid();
+	CheckEQUIL();
+	CheckDenGra();
+	CheckPhase();
+	CheckPhaseTab();
+	CheckRegion();
 }
 
-void ParamReservoir::checkGrid()
+void ParamReservoir::CheckGrid()
 {
-	if (Tops.size() != Dimens.Nx * Dimens.Ny) {
+	if (tops.size() != dimens.nx * dimens.ny) {
 		Paramcheck("Mistakes in Tops !");
 		exit(0);
 	}
-	if (Dx.size() != Num) {
+	if (dx.size() != numGrid) {
 		Paramcheck("Mistakes in Dx !");
 		exit(0);
 	}
-	if (Dy.size() != Num) {
+	if (dy.size() != numGrid) {
 		Paramcheck("Mistakes in Dy !");
 		exit(0);
 	}
-	if (Dz.size() != Num) {
+	if (dz.size() != numGrid) {
 		Paramcheck("Mistakes in Dz !");
 		exit(0);
 	}
-	if (Ntg.size() != Num) {
+	if (ntg.size() != numGrid) {
 		Paramcheck("WARNING: Mistakes in Ntg, set to 1 .");
-		Ntg.resize(Num, 1);
+		ntg.resize(numGrid, 1);
 	}
-	if (Poro.size() != Num) {
+	if (poro.size() != numGrid) {
 		Paramcheck("Mistakes in Poro !");
 		exit(0);
 	}
-	if (PermX.size() != Num) {
+	if (permX.size() != numGrid) {
 		Paramcheck("Mistakes in PermX !");
 		exit(0);
 	}
-	if (PermY.size() != Num) {
+	if (permY.size() != numGrid) {
 		Paramcheck("Mistakes in PermY !");
 		exit(0);
 	}
-	if (PermZ.size() != Num) {
+	if (permZ.size() != numGrid) {
 		Paramcheck("Mistakes in PermZ !");
 		exit(0);
 	}
 }
 
-void ParamReservoir::checkEQUIL()
+void ParamReservoir::CheckEQUIL() const
 {
 	if (EQUIL.empty()) {
 		Paramcheck("EQUIL is missing !");
@@ -607,74 +609,74 @@ void ParamReservoir::checkEQUIL()
 	}
 }
 
-void ParamReservoir::checkDenGra()
+void ParamReservoir::CheckDenGra() const
 {
-	if (Density.activity && Gravity.activity) {
+	if (density.activity && gravity.activity) {
 		Paramcheck("Density and Gravity have been conflict, just one of them is needed !");
 		exit(0);
 	}	
 }
 
-void ParamReservoir::checkPhase()
+void ParamReservoir::CheckPhase() const
 {
-	if (DISGAS && (!GAS && !OIL)) {
+	if (disGas && (!gas && !oil)) {
 		Paramcheck("DISGAS can only be used only if OIL and GAS are both present");
 		exit(0);
 	}
 }
 
-void ParamReservoir::checkPhaseTab()
+void ParamReservoir::CheckPhaseTab() const
 {
-	if (!BLACKOIL && !COMPS) {
+	if (!blackOil && !comps) {
 		Paramcheck("WRONG MODEl: choose BLACKOIL or COMPS !");
 		exit(0);
 	}
 
-	if (WATER && OIL && SWOF_T.data.empty()) {
+	if (water && oil && SWOF_T.data.empty()) {
 		Paramcheck("SWOF is missing !");
 		exit(0);
 	}
 
-	if (GAS && OIL && SGOF_T.data.empty()) {
+	if (gas && oil && SGOF_T.data.empty()) {
 		Paramcheck("SGOF is missing !");
 		exit(0);
 	}
 
-	if (WATER && PVTW_T.data.empty()) {
+	if (water && PVTW_T.data.empty()) {
 		Paramcheck("PVTW is missing !");
 		exit(0);
 	}
 
-	if (BLACKOIL) {
-		if (OIL && DISGAS && PVCO_T.data.empty()) {
+	if (blackOil) {
+		if (oil && disGas && PVCO_T.data.empty()) {
 			Paramcheck("PVCO is missing !");
 			exit(0);
 		}
 
-		if (OIL && (!DISGAS) && PVDO_T.data.empty()) {
+		if (oil && (!disGas) && PVDO_T.data.empty()) {
 			Paramcheck("PVDO is missing !");
 			exit(0);
 		}
 
-		if (GAS && PVDG_T.data.empty()) {
+		if (gas && PVDG_T.data.empty()) {
 			Paramcheck("PVDG is missing !");
 			exit(0);
 		}
 	}
 }
 
-void ParamReservoir::checkRegion()
+void ParamReservoir::CheckRegion() const
 {
-	if (SATNUM.activity && SATNUM.data.size() != Num) {
+	if (SATNUM.activity && SATNUM.data.size() != numGrid) {
 		Paramcheck("missing data in SATNUM");
 		exit(0);
 	}
-	if (PVTNUM.activity && PVTNUM.data.size() != Num) {
+	if (PVTNUM.activity && PVTNUM.data.size() != numGrid) {
 		Paramcheck("missing data in PVTNUM");
 		exit(0);
 	}
 }
-void ParamReservoir::checkEqlRegion()
+void ParamReservoir::CheckEqlRegion() const
 {
 	if (PBVD_T.data.size() > 1) {
 		Paramcheck("Only one equilibration region is supported now !");
@@ -683,10 +685,25 @@ void ParamReservoir::checkEqlRegion()
 }
 
 
+void TableSet::DisplayTable() const
+{
+    cout << name << "\n";
+    for (auto v : data) {
+        USI len = v[0].size();
+        for (USI i = 0; i < len; i++) {
+            for (USI j = 0; j < colNum; j++) {
+                cout << v[j][i] << "\t";
+            }
+            cout << "\n";
+        }
+        cout << "----------------\n";
+    }
+}
+
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

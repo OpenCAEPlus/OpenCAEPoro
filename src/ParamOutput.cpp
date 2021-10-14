@@ -1,6 +1,6 @@
 #include "ParamOutput.hpp"
 
-void ParamOutput::inputSUMMARY(ifstream& ifs) 
+void ParamOutput::InputSUMMARY(ifstream& ifs) 
 {
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
@@ -9,100 +9,100 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 			break;
 		string keyword = vbuf[0];
 
-		switch (Map_str2int(&keyword[0], keyword.size()))
+		switch (Map_Str2Int(&keyword[0], keyword.size()))
 		{
-		case Map_str2int("FPR", 3):
-			Summary.FPR = true;
+		case Map_Str2Int("FPR", 3):
+			summary.FPR = true;
 			break;
 
 		// Field
-		case Map_str2int("FOPR", 4):
-			Summary.FOPR = true;
+		case Map_Str2Int("FOPR", 4):
+			summary.FOPR = true;
 			break;
 
-		case Map_str2int("FOPT", 4):
-			Summary.FOPT = true;
+		case Map_Str2Int("FOPT", 4):
+			summary.FOPT = true;
 			break;
 
-		case Map_str2int("FGPR", 4):
-			Summary.FGPR = true;
+		case Map_Str2Int("FGPR", 4):
+			summary.FGPR = true;
 			break;
 
-		case Map_str2int("FGPT", 4):
-			Summary.FGPt = true;
+		case Map_Str2Int("FGPT", 4):
+			summary.FGPt = true;
 			break;
 
-		case Map_str2int("FWPR", 4):
-			Summary.FWPR = true;
+		case Map_Str2Int("FWPR", 4):
+			summary.FWPR = true;
 			break;
 
-		case Map_str2int("FWPT", 4):
-			Summary.FWPT = true;
+		case Map_Str2Int("FWPT", 4):
+			summary.FWPT = true;
 			break;
 
-		case Map_str2int("FGIR", 4):
-			Summary.FGIR = true;
+		case Map_Str2Int("FGIR", 4):
+			summary.FGIR = true;
 			break;
 
-		case Map_str2int("FGIT", 4):
-			Summary.FGIT = true;
+		case Map_Str2Int("FGIT", 4):
+			summary.FGIT = true;
 			break;
 
-		case Map_str2int("FWIR", 4):
-			Summary.FWIR = true;
+		case Map_Str2Int("FWIR", 4):
+			summary.FWIR = true;
 			break;
 
-		case Map_str2int("FWIT", 4):
-			Summary.FWIT = true;
+		case Map_Str2Int("FWIT", 4):
+			summary.FWIT = true;
 			break;
 
 		// Well
-		case Map_str2int("WOPR", 4):
-			inputType_A(ifs, Summary.WOPR);
+		case Map_Str2Int("WOPR", 4):
+			InputType_A(ifs, summary.WOPR);
 			break;
 
-		case Map_str2int("WOPT", 4):
-			inputType_A(ifs, Summary.WOPT);
+		case Map_Str2Int("WOPT", 4):
+			InputType_A(ifs, summary.WOPT);
 			break;
 
-		case Map_str2int("WGPR", 4):
-			inputType_A(ifs, Summary.WGPR);
+		case Map_Str2Int("WGPR", 4):
+			InputType_A(ifs, summary.WGPR);
 			break;
 
-		case Map_str2int("WGPT", 4):
-			inputType_A(ifs, Summary.WGPT);
+		case Map_Str2Int("WGPT", 4):
+			InputType_A(ifs, summary.WGPT);
 			break;
 
-		case Map_str2int("WWPR", 4):
-			inputType_A(ifs, Summary.WWPR);
+		case Map_Str2Int("WWPR", 4):
+			InputType_A(ifs, summary.WWPR);
 			break;
 
-		case Map_str2int("WWPT", 4):
-			inputType_A(ifs, Summary.WWPT);
+		case Map_Str2Int("WWPT", 4):
+			InputType_A(ifs, summary.WWPT);
 			break;
 
-		case Map_str2int("WGIR", 4):
-			inputType_A(ifs, Summary.WGIR);
+		case Map_Str2Int("WGIR", 4):
+			InputType_A(ifs, summary.WGIR);
 			break;
 
-		case Map_str2int("WGIT", 4):
-			inputType_A(ifs, Summary.WGIT);
+		case Map_Str2Int("WGIT", 4):
+			InputType_A(ifs, summary.WGIT);
 			break;
 
-		case Map_str2int("WWIR", 4):
-			inputType_A(ifs, Summary.WWIR);
+		case Map_Str2Int("WWIR", 4):
+			InputType_A(ifs, summary.WWIR);
 			break;
 
-		case Map_str2int("WWIT", 4):
-			inputType_A(ifs, Summary.WWIT);
+		case Map_Str2Int("WWIT", 4):
+			InputType_A(ifs, summary.WWIT);
 			break;
 
-		case Map_str2int("WBHP", 4):
-			inputType_A(ifs, Summary.WBHP);
+		case Map_Str2Int("WBHP", 4):
+			InputType_A(ifs, summary.WBHP);
 			break;
 
-		case Map_str2int("BPR", 3):
-			inputType_B(ifs, Summary.BPR);
+		case Map_Str2Int("BPR", 3):
+			InputType_B(ifs, summary.BPR);
 			break;
 		}
 	}
@@ -110,7 +110,7 @@ void ParamOutput::inputSUMMARY(ifstream& ifs)
 }
 
 
-void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
+void ParamOutput::InputType_A(ifstream& ifs, Type_A_o& obj)
 {
 	obj.activity = true;
 	vector<string>		vbuf;
@@ -119,8 +119,8 @@ void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
 		obj.obj.push_back("All");
 	}
 	else {
-		int len = vbuf.size();
-		for (int i = 0; i < len - 1; i++) {
+		OCP_INT len = vbuf.size();
+		for (OCP_INT i = 0; i < len - 1; i++) {
 			obj.obj.push_back(vbuf[i]);
 		}
 		if (vbuf.back() != "/")
@@ -130,8 +130,8 @@ void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
 			if (vbuf[0] == "/")
 				break;
 
-			int len = vbuf.size();
-			for (int i = 0; i < len - 1; i++) {
+			OCP_INT len = vbuf.size();
+			for (OCP_INT i = 0; i < len - 1; i++) {
 				obj.obj.push_back(vbuf[i]);
 			}
 			if (vbuf.back() != "/")
@@ -141,7 +141,7 @@ void ParamOutput::inputType_A(ifstream& ifs, Type_A_o& obj)
 	cout << "Type_A" << endl;
 }
 
-void ParamOutput::inputType_B(ifstream& ifs, Type_B_o& obj)
+void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
 {
 
 	vector<string>		vbuf;
@@ -151,9 +151,9 @@ void ParamOutput::inputType_B(ifstream& ifs, Type_B_o& obj)
 
 		obj.activity = true;
 		DealDefault(vbuf);
-		int i = stoi(vbuf[0]);
-		int j = stoi(vbuf[1]);
-		int k = stoi(vbuf[2]);
+		USI i = stoi(vbuf[0]);
+		USI j = stoi(vbuf[1]);
+		USI k = stoi(vbuf[2]);
 
 		obj.obj.push_back(COOIJK(i, j, k));
 	}
@@ -166,5 +166,5 @@ void ParamOutput::inputType_B(ifstream& ifs, Type_B_o& obj)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

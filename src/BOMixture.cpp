@@ -2,51 +2,51 @@
 
 BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const USI& i)
 {
-	MixtureType = BLKOIL;
-	Mode = PVTmode;
-	Np = rs_param.Np;
-	Nc = rs_param.Nc;
+	mixtureType = BLKOIL;
+	mode = PVTmode;
+	numPhase = rs_param.numPhase;
+	numCom = rs_param.numCom;
 
-	Ni.resize(Nc);
-	PhaseExist.resize(Np);
-	V.resize(Np);
-	S.resize(Np);
-	Xi.resize(Np);
-	Cij.resize(Np * Nc);
-	Rho.resize(Np);
-	Mu.resize(Np);
-	Vfi.resize(Nc);
+	Ni.resize(numCom);
+	phaseExist.resize(numPhase);
+	v.resize(numPhase);
+	S.resize(numPhase);
+	xi.resize(numPhase);
+	cij.resize(numPhase * numCom);
+	rho.resize(numPhase);
+	mu.resize(numPhase);
+	vfi.resize(numCom);
 
-	if (rs_param.Density.activity) {
-		Std_RhoO = rs_param.Density.data[0];
-		Std_RhoW = rs_param.Density.data[1];
-		Std_RhoG = rs_param.Density.data[2];
+	if (rs_param.density.activity) {
+		std_RhoO = rs_param.density.data[0];
+		std_RhoW = rs_param.density.data[1];
+		std_RhoG = rs_param.density.data[2];
 	}
 	else {
-		Std_RhoO = (141.5 * RHOW_STD) / (rs_param.Gravity.data[0] + 131.5);
-		Std_RhoW = RHOW_STD * rs_param.Gravity.data[1];
-		Std_RhoG = RHOAIR_STD * rs_param.Gravity.data[2];
+		std_RhoO = (141.5 * RHOW_STD) / (rs_param.gravity.data[0] + 131.5);
+		std_RhoW = RHOW_STD * rs_param.gravity.data[1];
+		std_RhoG = RHOAIR_STD * rs_param.gravity.data[2];
 	}
 
-	Std_GammaO = GRAVITY_FACTOR * Std_RhoO;
-	Std_GammaG = GRAVITY_FACTOR * Std_RhoG;
-	Std_GammaW = GRAVITY_FACTOR * Std_RhoW;
+	std_GammaO = GRAVITY_FACTOR * std_RhoO;
+	std_GammaG = GRAVITY_FACTOR * std_RhoG;
+	std_GammaW = GRAVITY_FACTOR * std_RhoW;
 
 	if (rs_param.PVTW_T.data.size() != 0) {
-		PVTW.setup(rs_param.PVTW_T.data[i]);
-		len = max(len, PVTW.getCol());
+		PVTW.Setup(rs_param.PVTW_T.data[i]);
+		len = max(len, PVTW.GetCol());
 	}
 	if (rs_param.PVCO_T.data.size() != 0) {
-		PVCO.setup(rs_param.PVCO_T.data[i]);
-		len = max(len, PVCO.getCol());
+		PVCO.Setup(rs_param.PVCO_T.data[i]);
+		len = max(len, PVCO.GetCol());
 	}
 	if (rs_param.PVDO_T.data.size() != 0) {
-		PVDO.setup(rs_param.PVDO_T.data[i]);
-		len = max(len, PVDO.getCol());
+		PVDO.Setup(rs_param.PVDO_T.data[i]);
+		len = max(len, PVDO.GetCol());
 	}
 	if (rs_param.PVDG_T.data.size() != 0) {
-		PVDG.setup(rs_param.PVDG_T.data[i]);
-		len = max(len, PVDG.getCol());
+		PVDG.Setup(rs_param.PVDG_T.data[i]);
+		len = max(len, PVDG.GetCol());
 	}
 	data.resize(len, 0);
 	cdata.resize(len, 0);
@@ -54,7 +54,7 @@ BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const U
 
 void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore, const OCP_DBL* Ziin)
 {
-	switch (Mode)
+	switch (mode)
 	{
 	case PHASE_W:
 		BOFlash_Sj_W(Pin, Sjin, Vpore);
@@ -78,10 +78,10 @@ void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
 void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
-	// checkNi(Niin);
+	// CheckNi(Niin);
 #endif // _DEBUG
 
-	switch (Mode)
+	switch (mode)
 	{
 	case PHASE_W:
 		BOFlash_Ni_W(Pin, Niin);
@@ -122,16 +122,16 @@ void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin, const OCP
 
 }
 
-OCP_DBL BOMixture::xiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
-	switch (Mode)
+	switch (mode)
 	{
 	case PHASE_W:
 		break;
 	case PHASE_OW:
 		break;
 	case PHASE_OGW:
-		return xiPhase_OGW(Pin, Ziin);
+		return XiPhase_OGW(Pin, Ziin);
 		break;
 	default:
 		break;
@@ -140,16 +140,16 @@ OCP_DBL BOMixture::xiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
     return 0.0; // TODO: Make sure code does not reach here!
 }
 
-OCP_DBL BOMixture::rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
-	switch (Mode)
+	switch (mode)
 	{
 	case PHASE_W:
 		break;
 	case PHASE_OW:
 		break;
 	case PHASE_OGW:
-		return rhoPhase_OGW(Pin, Ziin);
+		return RhoPhase_OGW(Pin, Ziin);
 		break;
 	default:
 		break;
@@ -159,46 +159,46 @@ OCP_DBL BOMixture::rhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL*
 }
 
 
-OCP_DBL BOMixture::gammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
+OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
-	switch (Mode)
+	switch (mode)
 	{
 	case PHASE_OW:
-		return gammaPhaseO_OW(Pin);
+		return GammaPhaseO_OW(Pin);
 	case PHASE_OGW:
-		return gammaPhaseO_OGW(Pin, Pbbin);
+		return GammaPhaseO_OGW(Pin, Pbbin);
 	default:
 		ERRORcheck("Wrong Mode");
 		exit(0);
 	}
 }
 
-OCP_DBL BOMixture::gammaPhaseO_OW(const OCP_DBL& Pin)
+OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin)
 {
 
 	return 0;
 }
 
-OCP_DBL BOMixture::gammaPhaseW(const OCP_DBL& Pin)
+OCP_DBL BOMixture::GammaPhaseW(const OCP_DBL& Pin)
 {
 
-	PVTW.eval_all(0, Pin, data, cdata);
+	PVTW.Eval_All(0, Pin, data, cdata);
 	OCP_DBL Pw0 = data[0];
 	OCP_DBL bw0 = data[1];
 	OCP_DBL cbw = data[2];
 	OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
 
-	return Std_GammaW / bw;
+	return std_GammaW / bw;
 }
 
-OCP_DBL BOMixture::gammaPhaseG(const OCP_DBL& Pin)
+OCP_DBL BOMixture::GammaPhaseG(const OCP_DBL& Pin)
 {
-	if (PVDG.isempty()) {
+	if (PVDG.IsEmpty()) {
 		ERRORcheck("PVDG is missing");
 	}
-	OCP_DBL bg = (CONV1 / 1000) * PVDG.eval(0, Pin, 1);
+	OCP_DBL bg = (CONV1 / 1000) * PVDG.Eval(0, Pin, 1);
 
-	return Std_GammaG / bg;
+	return std_GammaG / bg;
 }
 
 
@@ -207,5 +207,5 @@ OCP_DBL BOMixture::gammaPhaseG(const OCP_DBL& Pin)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

@@ -1,31 +1,31 @@
-#include "Method.hpp"
+#include "OCP_Method.hpp"
 
 
-void OCP_IMPES::setupParam(const string& dir, const string& file)
+void OCP_IMPES::SetupParam(const string& dir, const string& file)
 {
-	solver.setupParam(dir, file);
+	solver.SetupParam(dir, file);
 }
 
-void OCP_IMPES::allocateMat(const Reservoir& rs)
+void OCP_IMPES::AllocateMat(const Reservoir& rs)
 {
-	solver.allocate(rs.bulk.getBulkNum() + rs.wellgroup.getWellNum());
-	rs.conn.allocateMat(solver);
-	rs.wellgroup.allocateMat(solver);
-	solver.allocateColVal();
+	solver.AllocateMem(rs.bulk.GetBulkNum() + rs.wellgroup.GetWellNum());
+	rs.conn.AllocateMat(solver);
+	rs.wellgroup.AllocateMat(solver);
+	solver.AllocateColValMem();
 }
 
 void OCP_IMPES::run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 {
 
-	unsigned int numdates = ctrl.getNumDates();
-	for (unsigned int d = 0; d < numdates - 1; d++) {
-		rs.wellgroup.applyControl(d);
+	USI numdates = ctrl.getNumDates();
+	for (USI d = 0; d < numdates - 1; d++) {
+		rs.wellgroup.ApplyControl(d);
 		ctrl.ApplyControl(d);
-		ctrl.initTime(d);
-		while (ctrl.CriticalTime[d + 1] - ctrl.Current_time > TINY) {
+		ctrl.InitTime(d);
+		while (ctrl.criticalTime[d + 1] - ctrl.Current_time > TINY) {
 
 			goOneStep(rs, ctrl);
-			output.setVal(rs, ctrl);
+			output.SetVal(rs, ctrl);
 
 		}
 	}
@@ -38,9 +38,9 @@ void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
 	int	   flagCheck = 0;
 	double& dt = ctrl.Current_dt;
 
-	rs.wellgroup.prepareWell(rs.bulk);
+	rs.wellgroup.PrepareWell(rs.bulk);
 
-	cfl = rs.calCFL(dt);
+	cfl = rs.CalCFL(dt);
 	if (cfl > 1)
 		dt /= (cfl + 1);
 
@@ -49,7 +49,7 @@ void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
 		SolveP(rs, ctrl, dt);
 
 		// first check : Pressure check
-		flagCheck = rs.checkP();
+		flagCheck = rs.CheckP();
 		if (flagCheck == 1) {
 			dt /= 2;
 			continue;
@@ -58,87 +58,87 @@ void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
 			continue;
 		}
 
-		rs.conn.calFlux(rs.bulk);
-		rs.wellgroup.calFlux(rs.bulk);
+		rs.conn.CalFlux(rs.bulk);
+		rs.wellgroup.CalFlux(rs.bulk);
 
 		// second check : cfl check
-		cfl = rs.calCFL(dt);
+		cfl = rs.CalCFL(dt);
 		if (cfl > 1) {
 			dt /= 2;
-			rs.resetVal01();
+			rs.ResetVal01();
 			continue;
 		}
 
-		rs.conn.massConserve(rs.bulk, dt);
-		rs.wellgroup.massConserve(rs.bulk, dt);
+		rs.conn.MassConserve(rs.bulk, dt);
+		rs.wellgroup.MassConserve(rs.bulk, dt);
 
 		// third check: Ni check
-		if (!rs.checkNi()) {
+		if (!rs.CheckNi()) {
 			dt /= 2;
-			rs.resetVal01();
+			rs.ResetVal01();
 			continue;
 		}
 
-		rs.bulk.flash_Ni();
-		rs.bulk.calVporo();
+		rs.bulk.FlashNi();
+		rs.bulk.CalVporo();
 
 		// fouth check: Volume error check
-		if (!rs.checkVe(ve)) {
+		if (!rs.CheckVe(ve)) {
 			dt /= 2;
-			rs.resetVal02();
+			rs.ResetVal02();
 			continue;
 		}
 
-		rs.bulk.calKrPc();
-		rs.conn.calFlux(rs.bulk);
+		rs.bulk.CalKrPc();
+		rs.conn.CalFlux(rs.bulk);
 
 		break;
 	}
 
 
-	rs.wellgroup.calIPRT(rs.bulk, dt);
+	rs.wellgroup.CalIPRT(rs.bulk, dt);
 	ctrl.Tstep += 1;
 	ctrl.NR_iter = 1;
 	ctrl.NR_iter_total += 1;
 
-	rs.bulk.calMaxChange();
+	rs.bulk.CalMaxChange();
 	ctrl.setNextTstep(rs);
-	rs.bulk.setLastStep();
-	rs.wellgroup.setLastStep();
+	rs.bulk.SetLastStep();
+	rs.wellgroup.SetLastStep();
 }
 
 
 void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
-	rs.assembleMat(solver, dt);
+	rs.AssembleMat(solver, dt);
 
 #ifdef _DEBUG
-	solver.checkVal();
+	solver.CheckVal();
 #endif // _DEBUG
 
 #ifdef __SOLVER_FASP__
 
-	solver.assemble_Fasp();
+	solver.AssembleMat_Fasp();
 	GetWallTime Timer;
 	Timer.Start();
-	int status = solver.faspsolve();
+	int status = solver.FaspSolve();
 	ctrl.LS_time += Timer.Stop() / 1000;
 
 #ifdef _DEBUG
-	// solver.showMat_CSR("testA.dat", "testb.dat");
-	// solver.showSolution("testx.dat");
+	// solver.PrintfMatCSR("testA.dat", "testb.dat");
+	// solver.PrintfSolution("testx.dat");
 #endif // _DEBUG
 
 
-	solver.free_Fasp();
+	solver.Free_Fasp();
 
 	ctrl.LS_iter = status;
 	ctrl.LS_iter_total += status;
 
 #endif // __SOLVER_FASP__
 
-	rs.getSol_IMPES(solver.getSol());
-	solver.clearData();
+	rs.GetSolution_IMPES(solver.GetSolution());
+	solver.ClearData();
 }
 
 
@@ -147,5 +147,5 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

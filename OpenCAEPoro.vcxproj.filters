@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ReservoirTable.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Timing.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -75,19 +72,22 @@
     <ClInclude Include="include\ReadTool.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OpenCAEControl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Solver.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MAT.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Method.hpp">
+    <ClInclude Include="include\OCP_Table.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OpenCAEOutput.hpp">
+    <ClInclude Include="include\OCP_Output.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OCP_Control.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OCP_Method.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -108,9 +108,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Perforation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Timing.cxx">
@@ -146,16 +143,16 @@
     <ClCompile Include="src\OpenCAEPoro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenCAEControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenCAEOutput.cpp">
+    <ClCompile Include="src\OCP_Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Method.cpp">
+    <ClCompile Include="src\OCP_Output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCP_Method.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

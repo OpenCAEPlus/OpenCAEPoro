@@ -1,21 +1,21 @@
 #include "ParamWell.hpp"
 #include "OpenCAEPoro_consts.hpp"
 
-WellOptParam::WellOptParam(string type, vector<string>& vbuf)
+WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
 {
-	Type = type;
-	if (Type == "INJ") {
-		FluidType = vbuf[1];
-		State = vbuf[2];
-		OptMode = vbuf[3];
-		MaxRate = stod(vbuf[4]);
-		MaxBHP = stod(vbuf[5]);
+	type = intype;
+	if (type == "INJ") {
+		fluidType = vbuf[1];
+		state = vbuf[2];
+		optMode = vbuf[3];
+		maxRate = stod(vbuf[4]);
+		maxBHP = stod(vbuf[5]);
 	}
-	else if (Type == "PROD"){
-		State = vbuf[1];
-		OptMode = vbuf[2];
-		MaxRate = stod(vbuf[3]);
-		MinBHP = stod(vbuf[4]);
+	else if (type == "PROD"){
+		state = vbuf[1];
+		optMode = vbuf[2];
+		maxRate = stod(vbuf[3]);
+		minBHP = stod(vbuf[4]);
 	}
 	else {
 		Paramcheck("WRONG Well Type");
@@ -25,16 +25,16 @@ WellOptParam::WellOptParam(string type, vector<string>& vbuf)
 
 WellParam::WellParam(vector<string>& info)
 {
-	Name = info[0];
+	name = info[0];
 	if (info[1] != "DEFAULT")
-		Group = info[1];
+		group = info[1];
 	I = stoi(info[2]);
 	J = stoi(info[3]);
 	if (info[4] != "DEFAULT")
-		Dref = stod(info[4]);
+		depth = stod(info[4]);
 }
 
-void ParamWell::inputWELSPECS(ifstream& ifs)
+void ParamWell::InputWELSPECS(ifstream& ifs)
 {
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
@@ -48,9 +48,9 @@ void ParamWell::inputWELSPECS(ifstream& ifs)
 	cout << "WELSPECS" << endl;
 }
 
-void ParamWell::inputCOMPDAT(ifstream& ifs)
+void ParamWell::InputCOMPDAT(ifstream& ifs)
 {
-	int num = well.size();
+	USI num = well.size();
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
@@ -65,11 +65,11 @@ void ParamWell::inputCOMPDAT(ifstream& ifs)
 		}
 		bool tmp = false;
 
-		for (int w = 0; w < num; w++) {
+		for (USI w = 0; w < num; w++) {
 			if (match)
-				tmp = (well[w].Name.find(src) != string::npos);
+				tmp = (well[w].name.find(src) != string::npos);
 			else
-				tmp = (well[w].Name == src);
+				tmp = (well[w].name == src);
 
 			if (tmp) {
 				if (vbuf[1] == "DEFAULT" || vbuf[2] == "DEFAULT") {
@@ -85,22 +85,23 @@ void ParamWell::inputCOMPDAT(ifstream& ifs)
 				if (vbuf[5] != "DEFAULT")
 					well[w].WI = stod(vbuf[5]);
 				if (vbuf[6] != "DEFAULT")
-					well[w].Diameter = stod(vbuf[6]);
+					well[w].diameter = stod(vbuf[6]);
 				if (vbuf[7] != "DEFAULT")
-					well[w].Kh = stod(vbuf[7]);
+					well[w].kh = stod(vbuf[7]);
 				if (vbuf[8] != "DEFAULT")
-					well[w].SkinFactor = stod(vbuf[8]);
+					well[w].skinFactor = stod(vbuf[8]);
 			}
 		}
 	}
 	cout << "COMPDAT" << endl;
 }
 
-void ParamWell::inputWCONINJE(ifstream& ifs)
+void ParamWell::InputWCONINJE(ifstream& ifs)
 {
+	assert(criticalTime.size() > 0);
 
-	int d = CriticalTime.size() - 1;
-	int num = well.size();
+	USI d = criticalTime.size() - 1;
+	USI num = well.size();
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
@@ -115,16 +116,16 @@ void ParamWell::inputWCONINJE(ifstream& ifs)
 		}
 
 		if (match) {
-			for (int w = 0; w < num; w++) {
-				if (well[w].Name.find(src) != string::npos) {
-					well[w].OptParam.push_back(WellOptPair(d, "INJ", vbuf));
+			for (USI w = 0; w < num; w++) {
+				if (well[w].name.find(src) != string::npos) {
+					well[w].optParam.push_back(WellOptPair(d, "INJ", vbuf));
 				}
 			}
 		}
 		else {
-			for (int w = 0; w < num; w++) {
-				if (well[w].Name == src) {
-					well[w].OptParam.push_back(WellOptPair(d, "INJ", vbuf));
+			for (USI w = 0; w < num; w++) {
+				if (well[w].name == src) {
+					well[w].optParam.push_back(WellOptPair(d, "INJ", vbuf));
 				}
 			}
 		}
@@ -133,11 +134,12 @@ void ParamWell::inputWCONINJE(ifstream& ifs)
 	cout << "WCONINJE" << endl;
 }
 
-void ParamWell::inputWCONPROD(ifstream& ifs)
+void ParamWell::InputWCONPROD(ifstream& ifs)
 {
+	assert(criticalTime.size() > 0);
 
-	int d = CriticalTime.size() - 1;
-	int num = well.size();
+	USI d = criticalTime.size() - 1;
+	USI num = well.size();
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
@@ -152,22 +154,24 @@ void ParamWell::inputWCONPROD(ifstream& ifs)
 		}
 
 		if (match) {
-			for (int w = 0; w < num; w++)
-				if (well[w].Name.find(src) != string::npos)
-					well[w].OptParam.push_back(WellOptPair(d, "PROD", vbuf));
+			for (USI w = 0; w < num; w++)
+				if (well[w].name.find(src) != string::npos)
+					well[w].optParam.push_back(WellOptPair(d, "PROD", vbuf));
 		}
 		else {
-			for (int w = 0; w < num; w++)
-				if (well[w].Name == src)
-					well[w].OptParam.push_back(WellOptPair(d, "PROD", vbuf));
+			for (USI w = 0; w < num; w++)
+				if (well[w].name == src)
+					well[w].optParam.push_back(WellOptPair(d, "PROD", vbuf));
 		}
 
 	}
 	cout << "WCONPROD" << endl;
 }
 
-void ParamWell::inputTSTEP(ifstream& ifs)
+void ParamWell::InputTSTEP(ifstream& ifs)
 {
+	assert(criticalTime.size() > 0);
+
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
@@ -175,23 +179,25 @@ void ParamWell::inputTSTEP(ifstream& ifs)
 			break;
 
 		DealDefault(vbuf);
-		int len = vbuf.size();
-		for (int i = 0; i < len - 1; i++) {
-			OCP_DBL t = CriticalTime.back() + stod(vbuf[i]);
-			CriticalTime.push_back(t);
+		OCP_INT len = vbuf.size();
+		for (OCP_INT i = 0; i < len - 1; i++) {
+			OCP_DBL t = criticalTime.back() + stod(vbuf[i]);
+			criticalTime.push_back(t);
 		}
 		if (vbuf.back() != "/") {
-			OCP_DBL t = CriticalTime.back() + stod(vbuf.back());
-			CriticalTime.push_back(t);
+			OCP_DBL t = criticalTime.back() + stod(vbuf.back());
+			criticalTime.push_back(t);
 		}
 	}
 	cout << "TSTEP" << endl;
 }
 
-void ParamWell::inputWELTARG(ifstream& ifs)
+void ParamWell::InputWELTARG(ifstream& ifs)
 {
-	int d = CriticalTime.size() - 1;
-	int num = well.size();
+	assert(criticalTime.size() > 0);
+
+	USI d = criticalTime.size() - 1;
+	USI num = well.size();
 	vector<string>		vbuf;
 	while (ReadLine(ifs, vbuf))
 	{
@@ -206,28 +212,28 @@ void ParamWell::inputWELTARG(ifstream& ifs)
 		}
 		bool tmp = false;
 
-		for (int w = 0; w < num; w++) {
+		for (USI w = 0; w < num; w++) {
 			if (match)
-				tmp = (well[w].Name.find(src) != string::npos);
+				tmp = (well[w].name.find(src) != string::npos);
 			else
-				tmp = (well[w].Name == src);
+				tmp = (well[w].name == src);
 
 			if (tmp) {
 
-				WellOptPair tar = well[w].OptParam.back();
+				WellOptPair tar = well[w].optParam.back();
 				tar.d = d;
-				tar.Opt.OptMode = vbuf[1];
+				tar.opt.optMode = vbuf[1];
 				OCP_DBL val = stod(vbuf[2]);
 				if (vbuf[1] == "BHP") {
-					if (tar.Opt.Type == "INJ")
-						tar.Opt.MaxBHP = val;
+					if (tar.opt.type == "INJ")
+						tar.opt.maxBHP = val;
 					else
-						tar.Opt.MinBHP = val;
+						tar.opt.minBHP = val;
 				}
 				else {
-					tar.Opt.MaxRate = val;
+					tar.opt.maxRate = val;
 				}
-				well[w].OptParam.push_back(tar);
+				well[w].optParam.push_back(tar);
 			}
 		}
 	}
@@ -235,14 +241,14 @@ void ParamWell::inputWELTARG(ifstream& ifs)
 }
 
 // check
-void ParamWell::checkParam()
+void ParamWell::CheckParam() const
 {
-	checkPerf();
+	CheckPerf();
 }
-void ParamWell::checkPerf()
+void ParamWell::CheckPerf() const
 {
-	int wellnum = well.size();
-	for (int w = 0; w < wellnum; w++) {
+	USI wellnum = well.size();
+	for (USI w = 0; w < wellnum; w++) {
 		if ((well[w].I != well[w].I_perf) || (well[w].J != well[w].J_perf)) {
 			Paramcheck("This situation have not been supported!");
 			exit(0);
@@ -256,5 +262,5 @@ void ParamWell::checkPerf()
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

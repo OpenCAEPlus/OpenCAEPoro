@@ -1,86 +1,85 @@
 #include "WellGroup.hpp"
 
-void WellGroup::inputParam(const ParamWell& Well_param)
+void WellGroup::InputParam(const ParamWell& param_Well)
 {
-	WellNum = Well_param.well.size();
-	WellG.resize(WellNum);
-	USI t = Well_param.CriticalTime.size();
+	numWell = param_Well.well.size();
+	wellGroup.resize(numWell);
+	USI t = param_Well.criticalTime.size();
 	vector<USI>		wellCriticalTime;
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].Name = Well_param.well[w].Name;
-		WellG[w].Direction = Well_param.well[w].Direction;
-		WellG[w].Depth = Well_param.well[w].Dref;
-		WellG[w].Radius = Well_param.well[w].Diameter / 2;
-		WellG[w].Kh = Well_param.well[w].Kh;
-		WellG[w].SkinFactor = Well_param.well[w].SkinFactor;
-		WellG[w].WI = Well_param.well[w].WI;
-		WellG[w].I = Well_param.well[w].I - 1;
-		WellG[w].J = Well_param.well[w].J - 1;
-		WellG[w].K1 = Well_param.well[w].K1 - 1;
-		WellG[w].K2 = Well_param.well[w].K2 - 1;
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].name = param_Well.well[w].name;
+		wellGroup[w].depth = param_Well.well[w].depth;
+		wellGroup[w].radius = param_Well.well[w].diameter / 2;
+		wellGroup[w].kh = param_Well.well[w].kh;
+		wellGroup[w].skinFactor = param_Well.well[w].skinFactor;
+		wellGroup[w].WI = param_Well.well[w].WI;
+		wellGroup[w].I = param_Well.well[w].I - 1;
+		wellGroup[w].J = param_Well.well[w].J - 1;
+		wellGroup[w].K1 = param_Well.well[w].K1 - 1;
+		wellGroup[w].K2 = param_Well.well[w].K2 - 1;
 		
-		// Opt
-		WellG[w].OptSet.resize(t);
-		USI n = Well_param.well[w].OptParam.size();
+		// opt
+		wellGroup[w].optSet.resize(t);
+		USI n = param_Well.well[w].optParam.size();
 		wellCriticalTime.clear();
 		wellCriticalTime.resize(n + 1);
 		for (USI i = 0; i < n; i++) {
-			wellCriticalTime[i] = Well_param.well[w].OptParam[i].d;
+			wellCriticalTime[i] = param_Well.well[w].optParam[i].d;
 		}
 		wellCriticalTime.back() = t;
 		for (USI i = 0; i < n; i++) {
 			for (USI d = wellCriticalTime[i]; d < wellCriticalTime[i + 1]; d++) {
-				WellG[w].OptSet[d] = WellOpt(Well_param.well[w].OptParam[i].Opt);
+				wellGroup[w].optSet[d] = WellOpt(param_Well.well[w].optParam[i].opt);
 			}
 		}
 	}
 
-	cout << "WellGroup::inputParam" << endl;
+	cout << "WellGroup::InputParam" << endl;
 }
 
-void WellGroup::setup(const Grid& myGrid, const Bulk& myBulk)
+void WellGroup::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
-	setupWell(myGrid, myBulk);
-	setupMixture(myBulk);
+	SetupWell(myGrid, myBulk);
+	SetupMixture(myBulk);
 }
 
-void WellGroup::setupWell(const Grid& myGrid, const Bulk& myBulk)
+void WellGroup::SetupWell(const Grid& myGrid, const Bulk& myBulk)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].setup(myGrid, myBulk);
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].Setup(myGrid, myBulk);
 	}
 }
 
-void WellGroup::setupMixture(const Bulk& myBulk)
+void WellGroup::SetupMixture(const Bulk& myBulk)
 {
 
-	Flashcal = myBulk.getMixture();
+	flashCal = myBulk.GetMixture();
 	cout << "WellGroup::setupMixture" << endl;
 }
 
 
 
-void WellGroup::init(const Bulk& myBulk)
+void WellGroup::Init(const Bulk& myBulk)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].init(myBulk);
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].Init(myBulk);
 	}
 }
 
-void WellGroup::applyControl(USI i)
+void WellGroup::ApplyControl(USI i)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].Opt = WellG[w].OptSet[i];
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].opt = wellGroup[w].optSet[i];
 	}
 }
 
-OCP_DBL WellGroup::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL WellGroup::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
 	OCP_DBL cflw = 0;
 	OCP_DBL tmp = 0;
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			tmp = WellG[w].calCFL(myBulk, dt);
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
+			tmp = wellGroup[w].CalCFL(myBulk, dt);
 			if (cflw < tmp)
 				cflw = tmp;
 		}
@@ -88,51 +87,51 @@ OCP_DBL WellGroup::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 	return cflw;
 }
 
-void WellGroup::calFlux(const Bulk& myBulk)
+void WellGroup::CalFlux(const Bulk& myBulk)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			WellG[w].calFlux(myBulk);
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
+			wellGroup[w].CalFlux(myBulk);
 		}
 	}
 }
 
-void WellGroup::massConserve(Bulk& myBulk, OCP_DBL dt)
+void WellGroup::MassConserve(Bulk& myBulk, OCP_DBL dt)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			WellG[w].massConserve(myBulk, dt);
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
+			wellGroup[w].MassConserve(myBulk, dt);
 		}
 	}
 }
 
-void WellGroup::prepareWell(const Bulk& myBulk)
+void WellGroup::PrepareWell(const Bulk& myBulk)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
 
-			WellG[w].calTrans(myBulk);
-			WellG[w].calFlux(myBulk, true);
-			WellG[w].caldG(myBulk);
+			wellGroup[w].CalTrans(myBulk);
+			wellGroup[w].CalFlux(myBulk, true);
+			wellGroup[w].CaldG(myBulk);
 			// test
-			WellG[w].smoothdG();
-			WellG[w].checkOptMode(myBulk);
+			wellGroup[w].SmoothdG();
+			wellGroup[w].CheckOptMode(myBulk);
 		}
 	}
 }
 
-void WellGroup::assemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
+void WellGroup::AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
 
-			switch (WellG[w].WellType())
+			switch (wellGroup[w].WellType())
 			{
 			case INJ:
-				WellG[w].assembleMat_INJ_IMPES(myBulk, mySolver, dt);
+				wellGroup[w].AssembleMat_INJ_IMPES(myBulk, mySolver, dt);
 				break;
 			case PROD:
-				WellG[w].assembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);
+				wellGroup[w].AssembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);
 				break;
 			default:
 				ERRORcheck("Wrong Well Type in function");
@@ -142,43 +141,43 @@ void WellGroup::assemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBu
 	}
 }
 
-void WellGroup::getSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bid)
+void WellGroup::GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bid)
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
-			WellG[w].BHP = u[bid + w];
-            WellG[w].updatePerfP();
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
+			wellGroup[w].BHP = u[bid + w];
+            wellGroup[w].UpdatePerfP();
 		}
 	}
 }
 
-void WellGroup::calIPRT(const Bulk& myBulk, OCP_DBL dt)
+void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
 {
 	FGIR = 0;
 	FWIR = 0;
 	FOPR = 0;
 	FGPR = 0;
 	FWPR = 0;
-	for (USI w = 0; w < WellNum; w++) {
-		WellG[w].WGIR = 0;
-		WellG[w].WWIR = 0;
-		WellG[w].WOPR = 0;
-		WellG[w].WGPR = 0;
-		WellG[w].WWPR = 0;
+	for (USI w = 0; w < numWell; w++) {
+		wellGroup[w].WGIR = 0;
+		wellGroup[w].WWIR = 0;
+		wellGroup[w].WOPR = 0;
+		wellGroup[w].WGPR = 0;
+		wellGroup[w].WWPR = 0;
 
-		if (WellG[w].WellState()) {
-			if (WellG[w].WellType() == PROD) {
-				WellG[w].calProdqi_blk(myBulk, dt);
+		if (wellGroup[w].WellState()) {
+			if (wellGroup[w].WellType() == PROD) {
+				wellGroup[w].CalProdQi_Blk(myBulk, dt);
 			}
 			else {
-				WellG[w].calInjqi_blk(myBulk, dt);
+				wellGroup[w].CalInjQi_Blk(myBulk, dt);
 			}
 		}
-		FGIR += WellG[w].WGIR;
-		FWIR += WellG[w].WWIR;
-		FOPR += WellG[w].WOPR;
-		FGPR += WellG[w].WGPR;
-		FWPR += WellG[w].WWPR;
+		FGIR += wellGroup[w].WGIR;
+		FWIR += wellGroup[w].WWIR;
+		FOPR += wellGroup[w].WOPR;
+		FGPR += wellGroup[w].WGPR;
+		FWPR += wellGroup[w].WWPR;
 	}
 	FGIT += FGIR * dt;
 	FWIT += FWIR * dt;
@@ -188,21 +187,21 @@ void WellGroup::calIPRT(const Bulk& myBulk, OCP_DBL dt)
 }
 
 
-OCP_INT WellGroup::checkP(const Bulk& myBulk)
+OCP_INT WellGroup::CheckP(const Bulk& myBulk)
 {
 	// 0 : All correct
 	// 1   : negative P, cut the timestep and resolve
 	// 2.1 : change well mode to BHP, resolve
-	// 2.2 : crossflow happens, then close corresponding Perf, resolve
+	// 2.2 : crossflow happens, then close corresponding perf, resolve
 	bool flag2 = false;
 	bool flag3 = false;
 
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].WellState()) {
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].WellState()) {
 
-			OCP_INT flag = WellG[w].checkP(myBulk);
+			OCP_INT flag = wellGroup[w].CheckP(myBulk);
 #ifdef _DEBUG
-			WellG[w].showPerfStatus();
+			wellGroup[w].ShowPerfStatus();
 #endif // _DEBUG
 			switch (flag)
 			{
@@ -229,10 +228,10 @@ OCP_INT WellGroup::checkP(const Bulk& myBulk)
 
 
 // return the index of Specified well name
-USI WellGroup::getIndex(const string& name) const
+USI WellGroup::GetIndex(const string& name) const
 {
-	for (USI w = 0; w < WellNum; w++) {
-		if (WellG[w].Name == name) {
+	for (USI w = 0; w < numWell; w++) {
+		if (wellGroup[w].name == name) {
 			return w;
 		}
 	}
@@ -247,5 +246,5 @@ USI WellGroup::getIndex(const string& name) const
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

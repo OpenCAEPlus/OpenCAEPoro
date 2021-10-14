@@ -1,4 +1,16 @@
-#pragma once
+/*! \file    OCP_Control.hpp
+ *  \brief   OCP_Control class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __OCP_CONTROL_HEADER__
+#define __OCP_CONTROL_HEADER__
 
 // Standard header files
 #include <vector>
@@ -18,7 +30,7 @@ class ControlTime
 public:
     ControlTime() = default;
     ControlTime(vector<OCP_DBL>& src);
-    OCP_DBL TimeInit;       ///< Maximum init step length of next timestep
+    OCP_DBL TimeInit;       ///< Maximum Init step length of next timestep
     OCP_DBL TimeMax;        ///< Maximum time step during running
     OCP_DBL TimeMin;        ///< Minmum time step during running
     OCP_DBL TimeMinChop;    ///< Minimum choppable timestep
@@ -48,11 +60,11 @@ class ControlIter
 {
 public:
     ControlIter() = default;
-    ControlIter(vector<OCP_DBL>& src);
-    int    ItMax_NT;  // Maximum number of Newton iterations in a timestep
-    int    ItMin_NT;  // Minimum number of Newton iterations in a timestep
-    int    ItMax_NTL; // Maximum number of linear iterations in a Newton iteration
-    int    ItMin_NTL; // Minimum number of linear iterations in a Newton iteration
+    ControlIter(const vector<OCP_DBL>& src);
+    USI    ItMax_NT;  // Maximum number of Newton iterations in a timestep
+    USI    ItMin_NT;  // Minimum number of Newton iterations in a timestep
+    USI    ItMax_NTL; // Maximum number of linear iterations in a Newton iteration
+    USI    ItMin_NTL; // Minimum number of linear iterations in a Newton iteration
     OCP_DBL DPreNT_M;  // Maximum pressure change at last Newton iteration
     OCP_DBL DSatNT_M;  // Maximum saturation change at last Newton iteration
     OCP_DBL DPreNT_T;  // Target pressure change at last Newton iteration
@@ -69,12 +81,12 @@ class OCP_Control
     friend class OCP_IMPES;
 
 public:
-    void inputParam(ParamControl& CtrlParam);
-    void ApplyControl(int i);
+    void InputParam(ParamControl& CtrlParam);
+    void ApplyControl(const USI& i);
 
-    void initTime(int i);
+    void InitTime(const USI& i);
 
-    unsigned int getNumDates() { return CriticalTime.size(); }
+    USI getNumDates() const { return criticalTime.size(); }
     OCP_DBL getCurTime() const { return Current_time; }
     USI    getLSiter() const { return LS_iter; }
     USI    getNRiter() const { return NR_iter; }
@@ -84,8 +96,8 @@ public:
 private:
     USI            Method;
     string         Dir;
-    string         SolveFile;
-    vector<OCP_DBL> CriticalTime;
+    string         solveFile;
+    vector<OCP_DBL> criticalTime;
     OCP_DBL         Current_dt;
     OCP_DBL         Current_time{0};
     OCP_DBL         End_time;
@@ -98,20 +110,22 @@ private:
 
     OCP_DBL LS_time{0};
 
-    ControlTime         CtrlTime;
-    vector<ControlTime> CtrlTimeSet;
+    ControlTime         ctrlTime;
+    vector<ControlTime> ctrlTimeSet;
 
-    ControlError         CtrlError;
-    vector<ControlError> CtrlErrorSet;
+    ControlError         ctrlError;
+    vector<ControlError> ctrlErrorSet;
 
-    ControlIter         CtrlIter;
-    vector<ControlIter> CtrlIterSet;
+    ControlIter         ctrlIter;
+    vector<ControlIter> ctrlIterSet;
 };
+
+#endif  /* end if __OCP_Control_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

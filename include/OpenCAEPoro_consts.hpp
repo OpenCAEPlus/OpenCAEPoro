@@ -1,7 +1,7 @@
 /*! \file    OpenCAEPoro_consts.hpp
  *  \brief   datatype, consts
  *  \author  Shizhe Li
- *  \date    Oct/05/2021
+ *  \date    Oct/01/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -19,14 +19,14 @@
     std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
               << __FILE__ << std::endl;
 
-// data Type
+// data type
 typedef unsigned int USI;
 typedef unsigned int OCP_USI;
 typedef int          OCP_INT;
 typedef double       OCP_DBL;
 
 
-// Method
+// method
 const USI IMPES = 1;
 const USI FIM   = 2;
 
@@ -44,7 +44,7 @@ const OCP_DBL PRESSURE_STD   = 14.6959;    // psia   =   1 atm
 const OCP_DBL CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
 const OCP_DBL CONV2 = 1.12712E-3; // Darcy constant in Field
 
-// Mixture Type
+// Mixture type
 const USI BLKOIL   = 1;
 const USI EoS_PVTW = 2;
 
@@ -84,5 +84,5 @@ const USI SOLVENT = 4;
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

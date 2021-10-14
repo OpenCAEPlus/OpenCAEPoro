@@ -1,20 +1,22 @@
 #pragma once
 #include<vector>
 
+#include "OpenCAEPoro_consts.hpp"
+
 // CSRX
 template <typename T>
 class MAT_Faspxx
 {
 public:
-	void clearData();
+	void ClearData();
 
-	int						NRow;
-	int						NCol;
-	int						Nnz;		
-	std::vector<T>			Val;		
-	std::vector<int>		ColId;
-	std::vector<int>		RowPtr;
-	std::vector<int>		DiagPtr;
+	OCP_USI						NRow;
+	OCP_USI						NCol;
+	OCP_USI						Nnz;
+	std::vector<T>			val;		
+	std::vector<OCP_USI>		colId;
+	std::vector<OCP_USI>		RowPtr;
+	std::vector<USI>		diagPtr;
 
 };
 
@@ -24,5 +26,5 @@ public:
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

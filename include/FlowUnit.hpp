@@ -1,7 +1,7 @@
 /*! \file    FlowUnit.hpp
  *  \brief   FlowUnit class declaration
  *  \author  Shizhe Li
- *  \date    Oct/06/2021
+ *  \date    Oct/01/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -13,7 +13,7 @@
 #define __FLOWUNIT_HEADER__
 
 // OpenCAEPoro header files
-#include "ReservoirTable.hxx"
+#include "OCP_Table.hxx"
 #include "OpenCAEPoro_consts.hpp"
 #include "ParamReservoir.hpp"
 
@@ -23,55 +23,55 @@ class FlowUnit
 {
 public:
 	FlowUnit() = default;
-	FlowUnit(const ParamReservoir& rs_param, const USI& mode, const USI& i);
+	FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI& i);
 
 	/// judge if SGOF is empty.
-	bool empty_SGOF() { return SGOF.isempty(); }
+	bool IsEmpty_SGOF() { return SGOF.IsEmpty(); }
 	/// judge if SWOF is empty.
-	bool empty_SWOF() { return SWOF.isempty(); }
+	bool IsEmpty_SWOF() { return SWOF.IsEmpty(); }
 
 	/// generate the table of saturation of water vs. capillary between water and gas by SGOF and SWOF.
-	void generate_SWPCWG();
+	void Generate_SWPCWG();
 	/// interpolate the specified monotonically increasing column in SWOF to evaluate the target column.
-	OCP_DBL eval_SWOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SWOF.eval(j, val, destj); }
+	OCP_DBL Eval_SWOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SWOF.Eval(j, val, destj); }
 	/// interpolate the specified monotonically decreasing column in SWOF to evaluate the target column.
-	OCP_DBL evalinv_SWOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SWOF.eval_inv(j, val, destj); }
+	OCP_DBL EvalInv_SWOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SWOF.Eval_Inv(j, val, destj); }
 	/// interpolate the specified monotonically increasing column in SGOF to evaluate the target column.
-	OCP_DBL eval_SGOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SGOF.eval(j, val, destj); }
+	OCP_DBL Eval_SGOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SGOF.Eval(j, val, destj); }
 	/// interpolate the specified monotonically decreasing column in SGOF to evaluate the target column.
-	OCP_DBL evalinv_SGOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SGOF.eval_inv(j, val, destj); }
+	OCP_DBL EvalInv_SGOF(const USI& j, const OCP_DBL& val, const USI& destj) { return SGOF.Eval_Inv(j, val, destj); }
 	/// interpolate the specified monotonically increasing column in SWPCWG to evaluate the target column.
-	OCP_DBL eval_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj) { return SWPCWG.eval(j, val, destj); }
+	OCP_DBL Eval_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj) { return SWPCWG.Eval(j, val, destj); }
 	/// interpolate the specified monotonically decreasing column in SWPCWG to evaluate the target column.
-	OCP_DBL evalinv_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj) { return SWPCWG.eval_inv(j, val, destj); }
+	OCP_DBL EvalInv_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj) { return SWPCWG.Eval_Inv(j, val, destj); }
 
 	/// calculate relative permeability and capillary pressure.
-	void calKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 	/// calculate relative permeability and capillary pressure for water.
 	/// it will be used if water exists or could be exist.
-	void calKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void CalKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out);
 	/// calculate relative permeability and capillary pressure for oil and water.
 	/// it will be used if oil and water exist or could be exist.
-	void calKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void CalKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 	/// calculate relative permeability and capillary pressure for oil and gas.
 	/// it will be used if oil and gas exist or could be exist. 
-	void calKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void CalKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 	/// calculate relative permeability and capillary pressure for oil, gas and water.
 	/// it will be used if oil, gas and water exist or could be exist. 
-	void calKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+	void CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
 
 	// FlowUnits Model
 	/// calculate relative permeability of oil phase with stone2 method.
-	OCP_DBL kro_stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw, const OCP_DBL& krg) const;
+	OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw, const OCP_DBL& krg) const;
 
 private:
-	USI								Mode;		///< decide which saturation table will be uesd.
-	ReservoirTable<OCP_DBL>			SWOF;		///< saturation table about water and oil.
-	ReservoirTable<OCP_DBL>			SGOF;		///< saturation table about gas and oil.
-	ReservoirTable<OCP_DBL>			SWPCWG;		///< auxiliary table: saturation of water vs. capillary pressure between water and gas.
+	USI							mode;		///< decide which saturation table will be uesd.
+	OCP_Table<OCP_DBL>			SWOF;		///< saturation table about water and oil.
+	OCP_Table<OCP_DBL>			SGOF;		///< saturation table about gas and oil.
+	OCP_Table<OCP_DBL>			SWPCWG;		///< auxiliary table: saturation of water vs. capillary pressure between water and gas.
 
-	OCP_DBL							KroMax;		///< oil relative permeability in the presence of connate water only.
+	OCP_DBL						kroMax;		///< oil relative permeability in the presence of connate water only.
 
 	// Auxiliary parameters for Table interpolation
     USI                             len{0};		///< maximum number of columns of tables among all above.
@@ -80,7 +80,7 @@ private:
 };
 
 
-#endif
+#endif  /* end if __FLOWUNIT_HEADER__ */
 
 
 /*----------------------------------------------------------------------------*/
@@ -88,5 +88,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

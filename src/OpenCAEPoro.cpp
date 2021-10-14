@@ -1,25 +1,25 @@
 #include "OpenCAEPoro.hpp"
 
-void OpenCAEPoro::inputParam(ParamRead& param)
+void OpenCAEPoro::InputParam(ParamRead& param)
 {
-	reservoir.inputParam(param);
-	control.inputParam(param.Control_param);
-	output.inputParam(param.Output_param);
+	reservoir.InputParam(param);
+	control.InputParam(param.param_Control);
+	output.InputParam(param.param_Output);
 }
 
-void OpenCAEPoro::setup(ParamRead& param)
+void OpenCAEPoro::SetupReservoir(ParamRead& param)
 {
-	inputParam(param);
-	reservoir.setup();
-	output.setup(reservoir, control.Dir);
-	setupSolver();
+	InputParam(param);
+	reservoir.Setup();
+	output.Setup(reservoir, control.Dir);
+	SetupSolver();
 }
 
-void OpenCAEPoro::setupSolver()
+void OpenCAEPoro::SetupSolver()
 {
 	if (control.Method == IMPES) {
-		Impes.setupParam(control.Dir, control.SolveFile);
-		Impes.allocateMat(reservoir);
+		impes.SetupParam(control.Dir, control.solveFile);
+		impes.AllocateMat(reservoir);
 		cout << "IMPES Method Applys !" << endl;
 	}
 	else if (control.Method == FIM) {
@@ -27,12 +27,12 @@ void OpenCAEPoro::setupSolver()
 	}
 }
 
-void OpenCAEPoro::init()
+void OpenCAEPoro::InitReservoir()
 {
-	reservoir.init();
+	reservoir.Init();
 }
 
-void OpenCAEPoro::run()
+void OpenCAEPoro::RunSimulation()
 {
 	GetWallTime Timer;
 	Timer.Start();
@@ -41,7 +41,7 @@ void OpenCAEPoro::run()
 	switch (control.Method)
 	{
 	case IMPES:
-		Impes.run(reservoir, control, output);
+		impes.run(reservoir, control, output);
 	default:
 		break;
 	}
@@ -50,7 +50,7 @@ void OpenCAEPoro::run()
 	control.TotalTime = Timer.Stop() / 1000;
 }
 
-void OpenCAEPoro::out() {
+void OpenCAEPoro::OutputResults() {
 
 	cout << endl;
 	cout << "Final time:          " << control.Current_time << " Days" << endl;
@@ -58,7 +58,7 @@ void OpenCAEPoro::out() {
 	cout << "Linear solve time:   " << control.LS_time << "s" << endl;
 	cout << "Total time steps:    " << control.NR_iter_total << endl;
 	cout << "Simulation time:     " << control.TotalTime << "s" << endl;
-	output.printInfo();
+	output.PrintInfo();
 }
 
 
@@ -67,5 +67,5 @@ void OpenCAEPoro::out() {
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

@@ -1,7 +1,7 @@
 /*! \file    Main.cpp
- *  \brief   Main for an example to display main steps in our simulator
+ *  \brief   Main for an example to Display main steps in our simulator
  *  \author  Shizhe Li
- *  \date    Oct/08/2021
+ *  \date    Oct/01/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -30,6 +30,7 @@ using namespace std;
 // --> (5) Output the results
 int main(int argc, const char* argv[])
 {
+
     if (argc == 1) {
         cout << "Input file is missing. Usage: ./OpenCAEPoro <filename>" << endl;
         exit(0);
@@ -39,29 +40,29 @@ int main(int argc, const char* argv[])
     // Note: The keywords are almost compatible with Ecl simulator.
     string    myfile = argv[1];
     ParamRead rp;
-    rp.readInputFile(myfile);
+    rp.ReadInputFile(myfile);
 
     OpenCAEPoro simulator;
 
     // Step 2. Read param from internal params data structure to each modules, and
-    // setup static information, such as active grids, and connections between them.
+    // Setup static information, such as active grids, and connections between them.
     // Note: Memory allocation for linear systems will also be done at this time.
-    simulator.setup(rp);
+    simulator.SetupReservoir(rp);
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturation, and moles of components will be
     // calculated. Initial well pressure will also be given here ---- it's a simple
     // guess now.
-    simulator.init();
+    simulator.InitReservoir();
 
     // Step 4. Run dynamic simulation using methods like IMPES and FIM. It's a
     // combination of functions of various modules which you could make changes
     // whenever necessary.
-    simulator.run();
+    simulator.RunSimulation();
 
     // Step 5. Output the results according to params users give. It will generate
     // a summary file in your input data directory.
-    simulator.out();
+    simulator.OutputResults();
 
     return 0;
 }
@@ -71,5 +72,5 @@ int main(int argc, const char* argv[])
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

@@ -1,37 +1,37 @@
 #include "ParamRead.hpp"
 
-void ParamRead::readInputFile(string& file)
+void ParamRead::ReadInputFile(const string& file)
 {
-    File = file;
-    getDirAndName();
-    init();
-    readFile(File);
-    checkParam();
+    inputFile = file;
+    GetDirAndName();
+    Init();
+    ReadFile(inputFile);
+    CheckParam();
 }
 
-void ParamRead::init()
+void ParamRead::Init()
 {
-    Rs_param.init();
-    Well_param.init();
-    Control_param.init(FileDir);
+    param_Rs.Init();
+    param_Well.Init();
+    param_Control.Init(workDir);
 }
 
-void ParamRead::getDirAndName()
+void ParamRead::GetDirAndName()
 {
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
     // for Window file system
-    int pos  = File.find_last_of('\\') + 1;
-    FileDir  = File.substr(0, pos);
-    FileName = File.substr(pos, File.size() - pos);
+    OCP_INT pos  = inputFile.find_last_of('\\') + 1;
+    workDir  = inputFile.substr(0, pos);
+    fileName = inputFile.substr(pos, inputFile.size() - pos);
 #else
     // for Linux and Mac OSX file system
-    int pos  = File.find_last_of('/') + 1;
-    FileDir  = File.substr(0, pos);
-    FileName = File.substr(pos, File.size() - pos);
+    OCP_INT pos  = inputFile.find_last_of('/') + 1;
+    workDir  = inputFile.substr(0, pos);
+    fileName = inputFile.substr(pos, inputFile.size() - pos);
 #endif
 }
 
-void ParamRead::readFile(string file)
+void ParamRead::ReadFile(const string& file)
 {
     ifstream ifs(file, ios::in);
     if (!ifs) {
@@ -44,140 +44,140 @@ void ParamRead::readFile(string file)
         if (!ReadLine(ifs, vbuf)) break;
         string keyword = vbuf[0];
 
-        switch (Map_str2int(&keyword[0], keyword.size())) {
-            case Map_str2int("BLACKOIL", 8):
-                Rs_param.BLACKOIL = true;
+        switch (Map_Str2Int(&keyword[0], keyword.size())) {
+            case Map_Str2Int("BLACKOIL", 8):
+                param_Rs.blackOil = true;
                 break;
 
-            case Map_str2int("COMPS", 5):
-                Rs_param.inputCOMPS(ifs);
+            case Map_Str2Int("COMPS", 5):
+                param_Rs.InputCOMPS(ifs);
                 break;
 
-            case Map_str2int("OIL", 3):
-                Rs_param.OIL = true;
+            case Map_Str2Int("OIL", 3):
+                param_Rs.oil = true;
                 break;
 
-            case Map_str2int("GAS", 3):
-                Rs_param.GAS = true;
+            case Map_Str2Int("GAS", 3):
+                param_Rs.gas = true;
                 break;
 
-            case Map_str2int("WATER", 5):
-                Rs_param.WATER = true;
+            case Map_Str2Int("WATER", 5):
+                param_Rs.water = true;
                 break;
 
-            case Map_str2int("DISGAS", 6):
-                Rs_param.DISGAS = true;
+            case Map_Str2Int("DISGAS", 6):
+                param_Rs.disGas = true;
                 break;
 
-            case Map_str2int("DIMENS", 6):
-                Rs_param.inputDIMENS(ifs);
-                Rs_param.outputDIMENS();
+            case Map_Str2Int("DIMENS", 6):
+                param_Rs.InputDIMENS(ifs);
+                param_Rs.DisplayDIMENS();
                 break;
 
-            case Map_str2int("RTEMP", 5):
-                Rs_param.inputRTEMP(ifs);
+            case Map_Str2Int("RTEMP", 5):
+                param_Rs.InputRTEMP(ifs);
                 break;
 
-            case Map_str2int("EQUALS", 6):
-                Rs_param.inputEQUALS(ifs);
+            case Map_Str2Int("EQUALS", 6):
+                param_Rs.InputEQUALS(ifs);
                 break;
 
-            case Map_str2int("DX", 2):
-            case Map_str2int("DY", 2):
-            case Map_str2int("DZ", 2):
-            case Map_str2int("NTG", 3):
-            case Map_str2int("PORO", 4):
-            case Map_str2int("TOPS", 4):
-            case Map_str2int("PERMX", 5):
-            case Map_str2int("PERMY", 5):
-            case Map_str2int("PERMZ", 5):
-            case Map_str2int("PRESSURE", 8):
-            case Map_str2int("Ni", 2):
-                Rs_param.inputGRID(ifs, keyword);
+            case Map_Str2Int("DX", 2):
+            case Map_Str2Int("DY", 2):
+            case Map_Str2Int("DZ", 2):
+            case Map_Str2Int("NTG", 3):
+            case Map_Str2Int("PORO", 4):
+            case Map_Str2Int("TOPS", 4):
+            case Map_Str2Int("PERMX", 5):
+            case Map_Str2Int("PERMY", 5):
+            case Map_Str2Int("PERMZ", 5):
+            case Map_Str2Int("PRESSURE", 8):
+            case Map_Str2Int("Ni", 2):
+                param_Rs.InputGRID(ifs, keyword);
                 break;
 
-            case Map_str2int("COPY", 4):
-                Rs_param.inputCOPY(ifs);
+            case Map_Str2Int("COPY", 4):
+                param_Rs.InputCOPY(ifs);
                 break;
 
-            case Map_str2int("MULTIPLY", 8):
-                Rs_param.inputMULTIPLY(ifs);
+            case Map_Str2Int("MULTIPLY", 8):
+                param_Rs.InputMULTIPLY(ifs);
                 break;
 
-            case Map_str2int("SWOF", 4):
-            case Map_str2int("SGOF", 4):
-            case Map_str2int("PVCO", 4):
-            case Map_str2int("PVDG", 4):
-            case Map_str2int("PVTW", 4):
-            case Map_str2int("PBVD", 4):
-                Rs_param.inputTABLE(ifs, keyword);
+            case Map_Str2Int("SWOF", 4):
+            case Map_Str2Int("SGOF", 4):
+            case Map_Str2Int("PVCO", 4):
+            case Map_Str2Int("PVDG", 4):
+            case Map_Str2Int("PVTW", 4):
+            case Map_Str2Int("PBVD", 4):
+                param_Rs.InputTABLE(ifs, keyword);
                 break;
 
-            case Map_str2int("ROCK", 4):
-                Rs_param.inputROCK(ifs);
+            case Map_Str2Int("ROCK", 4):
+                param_Rs.InputROCK(ifs);
                 break;
 
-            case Map_str2int("GRAVITY", 7):
-                Rs_param.inputGRAVITY(ifs);
+            case Map_Str2Int("GRAVITY", 7):
+                param_Rs.InputGRAVITY(ifs);
                 break;
 
-            case Map_str2int("DENSITY", 7):
-                Rs_param.inputDENSITY(ifs);
+            case Map_Str2Int("DENSITY", 7):
+                param_Rs.InputDENSITY(ifs);
                 break;
 
-            case Map_str2int("EQUIL", 5):
-                Rs_param.inputEQUIL(ifs);
+            case Map_Str2Int("EQUIL", 5):
+                param_Rs.InputEQUIL(ifs);
                 break;
 
-            case Map_str2int("TABDIMS", 7):
-                Rs_param.inputTABDIMS(ifs);
+            case Map_Str2Int("TABDIMS", 7):
+                param_Rs.InputTABDIMS(ifs);
                 break;
 
-            case Map_str2int("SATNUM", 6):
-            case Map_str2int("PVTNUM", 6):
-                Rs_param.inputRegion(ifs, keyword);
+            case Map_Str2Int("SATNUM", 6):
+            case Map_Str2Int("PVTNUM", 6):
+                param_Rs.InputRegion(ifs, keyword);
                 break;
 
-            case Map_str2int("INCLUDE", 7):
-                inputINCLUDE(ifs);
+            case Map_Str2Int("INCLUDE", 7):
+                InputINCLUDE(ifs);
                 break;
 
-            case Map_str2int("METHOD", 6):
-                Control_param.inputMETHOD(ifs);
+            case Map_Str2Int("METHOD", 6):
+                param_Control.InputMETHOD(ifs);
                 break;
 
-            case Map_str2int("TUNING", 6):
-                Control_param.inputTUNING(ifs);
+            case Map_Str2Int("TUNING", 6):
+                param_Control.InputTUNING(ifs);
                 break;
 
-            case Map_str2int("WELSPECS", 8):
-                Well_param.inputWELSPECS(ifs);
+            case Map_Str2Int("WELSPECS", 8):
+                param_Well.InputWELSPECS(ifs);
                 break;
 
-            case Map_str2int("COMPDAT", 7):
-                Well_param.inputCOMPDAT(ifs);
+            case Map_Str2Int("COMPDAT", 7):
+                param_Well.InputCOMPDAT(ifs);
                 break;
 
-            case Map_str2int("WCONINJE", 8):
-                Well_param.inputWCONINJE(ifs);
+            case Map_Str2Int("WCONINJE", 8):
+                param_Well.InputWCONINJE(ifs);
                 break;
 
-            case Map_str2int("WCONPROD", 8):
-                Well_param.inputWCONPROD(ifs);
+            case Map_Str2Int("WCONPROD", 8):
+                param_Well.InputWCONPROD(ifs);
                 break;
 
-            case Map_str2int("TSTEP", 5):
-                Well_param.inputTSTEP(ifs);
-                Control_param.CriticalTime = Well_param.CriticalTime;
+            case Map_Str2Int("TSTEP", 5):
+                param_Well.InputTSTEP(ifs);
+                param_Control.criticalTime = param_Well.criticalTime;
                 break;
 
-            case Map_str2int("WELTARG", 7):
-            case Map_str2int("WELLTARG", 8):
-                Well_param.inputWELTARG(ifs);
+            case Map_Str2Int("WELTARG", 7):
+            case Map_Str2Int("WELLTARG", 8):
+                param_Well.InputWELTARG(ifs);
                 break;
 
-            case Map_str2int("SUMMARY", 7):
-                Output_param.inputSUMMARY(ifs);
+            case Map_Str2Int("SUMMARY", 7):
+                param_Output.InputSUMMARY(ifs);
                 break;
 
             default:
@@ -188,19 +188,19 @@ void ParamRead::readFile(string file)
     ifs.close();
 }
 
-void ParamRead::inputINCLUDE(ifstream& ifs)
+void ParamRead::InputINCLUDE(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     DealDefault(vbuf);
-    readFile(FileDir + vbuf[0]);
+    ReadFile(workDir + vbuf[0]);
 }
 
 // check
-void ParamRead::checkParam()
+void ParamRead::CheckParam()
 {
-    Rs_param.checkParam();
-    Well_param.checkParam();
+    param_Rs.CheckParam();
+    param_Well.CheckParam();
 }
 
 
@@ -209,5 +209,5 @@ void ParamRead::checkParam()
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

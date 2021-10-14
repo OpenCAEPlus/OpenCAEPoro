@@ -2,27 +2,27 @@
 
 void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
-	// initialize    Np = 3, Nc = 3
-	PhaseExist.assign(Np, false);
-	Cij.assign(Np * Nc, 0);   // 
-	Ni.assign(Nc, 0);
+	// initialize    numPhase = 3, numCom = 3
+	phaseExist.assign(numPhase, false);
+	cij.assign(numPhase * numCom, 0);   // 
+	Ni.assign(numCom, 0);
 
 	P = Pin;
-	for (USI j = 0; j < Np; j++)
+	for (USI j = 0; j < numPhase; j++)
 		S[j] = Sjin[j];
 
 	// Water Property
-	PVTW.eval_all(0, P, data, cdata);
+	PVTW.Eval_All(0, P, data, cdata);
 	OCP_DBL Pw0 = data[0];
 	OCP_DBL bw0 = data[1];
 	OCP_DBL cbw = data[2];
 	OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0)); 
 	OCP_DBL bwp = -cbw * bw0;
 
-	Mu[2] = data[3];
-	Rho[2] = Std_RhoW / bw;
-	Xi[2] = 1 / (CONV1 * bw);
-	Ni[2] = Vpore * S[2] * Xi[2];
+	mu[2] = data[3];
+	rho[2] = std_RhoW / bw;
+	xi[2] = 1 / (CONV1 * bw);
+	Ni[2] = Vpore * S[2] * xi[2];
 	
 
 	USI phasecae;
@@ -39,26 +39,26 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
 	case PHASE_W:
 	{
 		// water
-		PhaseExist[2] = true;
+		phaseExist[2] = true;
 		S[0] = 0; S[1] = 0; S[2] = 1;
-		Cij[8] = 1;
+		cij[8] = 1;
 
 		// hypothetical Oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 
 		// hypothetical Gas property
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 
 		// total
-		V[0] = 0;	V[1] = 0;	V[2] = CONV1 * Ni[2] * bw;
-		Vf = V[2];
-		Vfp = CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		v[0] = 0;	v[1] = 0;	v[2] = CONV1 * Ni[2] * bw;
+		vf = v[2];
+		vfp = CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 		
 
 		break;
@@ -66,45 +66,45 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
 	case PHASE_GW:
 	{
 		// water, gas
-		PhaseExist[1] = true;		PhaseExist[2] = true;
-		Cij[4] = 1;					Cij[8] = 1;
+		phaseExist[1] = true;		phaseExist[2] = true;
+		cij[4] = 1;					cij[8] = 1;
 
 		// hypothetical Oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 
 		// gas property	
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 		OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
-		Mu[1] = data[2];
-		Xi[1] = 1 / bg / 1000;
-		Rho[1] = Std_RhoG / bg;
-		Ni[1] = Vpore * S[1] * Xi[1];
+		mu[1] = data[2];
+		xi[1] = 1 / bg / 1000;
+		rho[1] = std_RhoG / bg;
+		Ni[1] = Vpore * S[1] * xi[1];
 
-		V[0] = 0;
-		V[1] = 1000 * Ni[1] * bg;   // Ni[0] = 0;
-		V[2] = CONV1 * Ni[2] * bw;
+		v[0] = 0;
+		v[1] = 1000 * Ni[1] * bg;   // Ni[0] = 0;
+		v[2] = CONV1 * Ni[2] * bw;
 		// total
-		Vf = V[1] + V[2];
-		S[0] = 0;	S[1] = V[1] / Vf;	  S[2] = V[2] / Vf;
-		Vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		vf = v[1] + v[2];
+		S[0] = 0;	S[1] = v[1] / vf;	  S[2] = v[2] / vf;
+		vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 
 		break;
 	}
 	case PHASE_OW:
 	{
 		// water, oil
-		PhaseExist[0] = true;		PhaseExist[2] = true;
+		phaseExist[0] = true;		phaseExist[2] = true;
 
 		// oil property
 		OCP_DBL Pbb = Pbbin;
-		PVCO.eval_all(0, Pbb, data, cdata);
+		PVCO.Eval_All(0, Pbb, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bosat = data[2];
 		OCP_DBL muosat = data[3];
@@ -117,68 +117,68 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
 
 		Ni[0] = Vpore * (1 - S[1] - S[2]) / (CONV1 * bo);
 		Ni[1] = Ni[0] * rs;
-		Xi[0] = (1 + rs) / (CONV1 * bo);
-		Rho[0] = (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
-		Mu[0] = muosat * (1 + cmuosat * (P - Pbb));
+		xi[0] = (1 + rs) / (CONV1 * bo);
+		rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
+		mu[0] = muosat * (1 + cmuosat * (P - Pbb));
 
-		Cij[0] = Ni[0] / (Ni[0] + Ni[1]);
-		Cij[1] = 1 - Cij[0];
-		Cij[4] = 1;
-		Cij[8] = 1;
+		cij[0] = Ni[0] / (Ni[0] + Ni[1]);
+		cij[1] = 1 - cij[0];
+		cij[4] = 1;
+		cij[8] = 1;
 
 		// total
-		V[0] = CONV1 * Ni[0] * bo;
-		V[2] = CONV1 * Ni[2] * bw;
-		Vf = V[0] + V[2];
-		S[0] = V[0] / Vf;		S[1] = 0;		S[2] = V[2] / Vf;
-		Vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
-		Vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
-		Vfi[1] = CONV1 * dBo_drs;
-		Vfi[2] = CONV1 * bw;
+		v[0] = CONV1 * Ni[0] * bo;
+		v[2] = CONV1 * Ni[2] * bw;
+		vf = v[0] + v[2];
+		S[0] = v[0] / vf;		S[1] = 0;		S[2] = v[2] / vf;
+		vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
+		vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
+		vfi[1] = CONV1 * dBo_drs;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
 	case PHASE_OGW:
 	{
-		PhaseExist.assign(3, true);
+		phaseExist.assign(3, true);
 
 		// oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 		OCP_DBL crs = cdata[1];
 		OCP_DBL cbosat = cdata[2];
 
-		Mu[0] = data[3];
+		mu[0] = data[3];
 		Ni[0] = Vpore * (1 - S[1] - S[2]) / (CONV1 * bo);
-		Xi[0] = (1 + rs) / bo / CONV1;
-		Rho[0] = (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
+		xi[0] = (1 + rs) / bo / CONV1;
+		rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 		
 		// gas property
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 		OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 		Ni[1] = Vpore * S[1] / bg / 1000 + Ni[0] * rs;
-		Xi[1] = 1 / data[1] / CONV1;
-		Rho[1] = Std_RhoG / bg;
-		Mu[1] = data[2];
+		xi[1] = 1 / data[1] / CONV1;
+		rho[1] = std_RhoG / bg;
+		mu[1] = data[2];
 
-		Cij[0] = 1 / (1 + rs);
-		Cij[1] = 1 - Cij[0];
-		Cij[4] = 1;
-		Cij[8] = 1;
+		cij[0] = 1 / (1 + rs);
+		cij[1] = 1 - cij[0];
+		cij[4] = 1;
+		cij[8] = 1;
 
 		// total
-		V[0] = CONV1 * Ni[0] * bo;
-		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		V[2] = CONV1 * Ni[2] * bw;
+		v[0] = CONV1 * Ni[0] * bo;
+		v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		v[2] = CONV1 * Ni[2] * bw;
 
-		Vf = V[0] + V[1] + V[2];
-		S[0] = V[0] / Vf;		S[1] = V[1] / Vf;		S[2] = V[2] / Vf;
-		Vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		vf = v[0] + v[1] + v[2];
+		S[0] = v[0] / vf;		S[1] = v[1] / vf;		S[2] = v[2] / vf;
+		vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
@@ -188,32 +188,32 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
 
 void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-	// initialize    Np = 3, Nc = 3
-	PhaseExist.assign(Np, false);
-	Cij.assign(Np * Nc, 0);   // 
+	// initialize    numPhase = 3, numCom = 3
+	phaseExist.assign(numPhase, false);
+	cij.assign(numPhase * numCom, 0);   // 
 
 	P = Pin;
 	OCP_DBL NT = 0;
-	for (USI i = 0; i < Nc; i++) {
+	for (USI i = 0; i < numCom; i++) {
 		Ni[i] = Niin[i];
 		NT += Ni[i];
 	}
 
 
 	// Water property
-	PVTW.eval_all(0, P, data, cdata);
+	PVTW.Eval_All(0, P, data, cdata);
 	OCP_DBL Pw0 = data[0];
 	OCP_DBL bw0 = data[1];
 	OCP_DBL cbw = data[2];
 	OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
 	OCP_DBL bwp = -cbw * bw0;
 
-	Mu[2] = data[3];
-	Xi[2] = 1 / (CONV1 * bw);
-	Rho[2] = Std_RhoW / bw;
+	mu[2] = data[3];
+	xi[2] = 1 / (CONV1 * bw);
+	rho[2] = std_RhoW / bw;
 	
 	USI phasecase;
-	OCP_DBL Rs_sat = PVCO.eval(0, P, 1);
+	OCP_DBL Rs_sat = PVCO.Eval(0, P, 1);
 
 	if (Ni[0] < NT * TINY) {
 		if (Ni[1] < Ni[0] * Rs_sat)		phasecase = PHASE_W;		// water, no oil, no gas
@@ -227,77 +227,77 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 	case PHASE_W:
 	{
 		// water
-		PhaseExist[2] = true;
+		phaseExist[2] = true;
 		S[0] = 0; S[1] = 0; S[2] = 1;
-		Cij[8] = 1;
+		cij[8] = 1;
 
 		// hypothetical Oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 
 		// hypothetical Gas property
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 
 		// total
-		V[0] = 0;	V[1] = 0;
-		V[2] = CONV1 * Ni[2] * bw;
-		Vf = V[2];
-		Vfp = CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		v[0] = 0;	v[1] = 0;
+		v[2] = CONV1 * Ni[2] * bw;
+		vf = v[2];
+		vfp = CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
 	case PHASE_GW:
 	{
 		// water, gas
-		PhaseExist[1] = true;		PhaseExist[2] = true;
-		Cij[4] = 1;					Cij[8] = 1;
+		phaseExist[1] = true;		phaseExist[2] = true;
+		cij[4] = 1;					cij[8] = 1;
 
 		// hypothetical Oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 
 		// gas property
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 		OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
-		Mu[1] = data[2];
-		Xi[1] = 1 / bg / 1000;
-		Rho[1] = Std_RhoG / bg;
+		mu[1] = data[2];
+		xi[1] = 1 / bg / 1000;
+		rho[1] = std_RhoG / bg;
 
 		// total
-		V[0] = 0;
-		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		V[2] = CONV1 * Ni[2] * bw;
-		if (V[1] < 0)
-			V[1] = 0;
-		Vf = V[1] + V[2];
-		S[0] = 0;	S[1] = V[1] / Vf;	S[2] = V[2] / Vf;
-		Vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		v[0] = 0;
+		v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		v[2] = CONV1 * Ni[2] * bw;
+		if (v[1] < 0)
+			v[1] = 0;
+		vf = v[1] + v[2];
+		S[0] = 0;	S[1] = v[1] / vf;	S[2] = v[2] / vf;
+		vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
 	case PHASE_OW:
 	{
 		// water, oil
-		PhaseExist[0] = true;			PhaseExist[2] = true;
-		Cij[0] = Ni[0] / (Ni[0] + Ni[1]);
-		Cij[1] = 1 - Cij[0];
-		Cij[4] = 1;
-		Cij[8] = 1;
+		phaseExist[0] = true;			phaseExist[2] = true;
+		cij[0] = Ni[0] / (Ni[0] + Ni[1]);
+		cij[1] = 1 - cij[0];
+		cij[4] = 1;
+		cij[8] = 1;
 
 		// oil property
 		OCP_DBL rs = Ni[1] / Ni[0];
-		PVCO.eval_all(1, rs, data, cdata);
+		PVCO.Eval_All(1, rs, data, cdata);
 		OCP_DBL pbb = data[0];
 		OCP_DBL bosat = data[2];
 		OCP_DBL muosat = data[3];
@@ -307,61 +307,61 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 		OCP_DBL bop = -bosat * cbosat;
 		OCP_DBL dBo_drs = bo / bosat * cdata[2] + bosat * (cdata[4] * (pbb - P) + cbosat * cdata[0]);
 
-		Mu[0] = muosat * (1 + cmuosat * (P - pbb));
-		Xi[0] = (1 + rs) / (CONV1 * bo);
-		Rho[0] = (Std_RhoO + (1000/CONV1) * rs * Std_RhoG) / bo;
+		mu[0] = muosat * (1 + cmuosat * (P - pbb));
+		xi[0] = (1 + rs) / (CONV1 * bo);
+		rho[0] = (std_RhoO + (1000/CONV1) * rs * std_RhoG) / bo;
 
 		// total
-		V[0] = CONV1 * Ni[0] * bo;
-		V[2] = CONV1 * Ni[2] * bw;
-		Vf = V[0] + V[2];
-		S[0] = V[0] / Vf; S[1] = 0; S[2] = V[2] / Vf;
-		Vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
-		Vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
-		Vfi[1] = CONV1 * dBo_drs;
-		Vfi[2] = CONV1 * bw;
+		v[0] = CONV1 * Ni[0] * bo;
+		v[2] = CONV1 * Ni[2] * bw;
+		vf = v[0] + v[2];
+		S[0] = v[0] / vf; S[1] = 0; S[2] = v[2] / vf;
+		vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
+		vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
+		vfi[1] = CONV1 * dBo_drs;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
 	case PHASE_OGW:
 	{
-		PhaseExist.assign(3, true);
+		phaseExist.assign(3, true);
 
 		// oil property
-		PVCO.eval_all(0, P, data, cdata);
+		PVCO.Eval_All(0, P, data, cdata);
 		OCP_DBL rs = data[1];
 		OCP_DBL bo = data[2];
 		OCP_DBL crs = cdata[1];
 		OCP_DBL cbosat = cdata[2];
 
-		Mu[0] = data[3];
-		Xi[0] = (1 + rs) / bo / CONV1;
-		Rho[0] = (Std_RhoO + (1000 / CONV1) * rs * Std_RhoG) / bo;
+		mu[0] = data[3];
+		xi[0] = (1 + rs) / bo / CONV1;
+		rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
 		// gas property
-		PVDG.eval_all(0, P, data, cdata);
+		PVDG.Eval_All(0, P, data, cdata);
 		OCP_DBL bg = data[1] * (CONV1 / 1000);
 		OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
-		Mu[1] = data[2];
-		Xi[1] = 1 / data[1] / CONV1;
-		Rho[1] = Std_RhoG / bg;
+		mu[1] = data[2];
+		xi[1] = 1 / data[1] / CONV1;
+		rho[1] = std_RhoG / bg;
 
 		// total
-		Cij[0] = 1 / (1 + rs);
-		Cij[1] = 1 - Cij[0];
-		Cij[4] = 1;
-		Cij[8] = 1;
+		cij[0] = 1 / (1 + rs);
+		cij[1] = 1 - cij[0];
+		cij[4] = 1;
+		cij[8] = 1;
 
-		V[0] = CONV1 * Ni[0] * bo;
-		V[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
-		V[2] = CONV1 * Ni[2] * bw;
-		Vf = V[0] + V[1] + V[2];
-		S[0] = V[0] / Vf;  S[1] = V[1] / Vf;  S[2] = V[2] / Vf;
-		Vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
-		Vfi[0] = CONV1 * bo - 1000 * rs * bg;
-		Vfi[1] = 1000 * bg;
-		Vfi[2] = CONV1 * bw;
+		v[0] = CONV1 * Ni[0] * bo;
+		v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+		v[2] = CONV1 * Ni[2] * bw;
+		vf = v[0] + v[1] + v[2];
+		S[0] = v[0] / vf;  S[1] = v[1] / vf;  S[2] = v[2] / vf;
+		vfp = CONV1 * Ni[0] * cbosat + 1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) + CONV1 * Ni[2] * bwp;
+		vfi[0] = CONV1 * bo - 1000 * rs * bg;
+		vfi[1] = 1000 * bg;
+		vfi[2] = CONV1 * bw;
 		
 		break;
 	}
@@ -369,18 +369,18 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 }
 
 
-OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
 	if (Ziin[1] > 1 - TINY) {
 		// inj fluid is gas
-		OCP_DBL bg = PVDG.eval(0, Pin, 1);
+		OCP_DBL bg = PVDG.Eval(0, Pin, 1);
 		OCP_DBL xig = (1 / CONV1) / bg;
 		return xig;
 	}
 	else if (Ziin[2] > 1 - TINY) {
 		// inj fluid is water
 
-		PVTW.eval_all(0, Pin, data, cdata);
+		PVTW.Eval_All(0, Pin, data, cdata);
 		OCP_DBL Pw0 = data[0];
 		OCP_DBL bw0 = data[1];
 		OCP_DBL cbw = data[2];
@@ -394,23 +394,23 @@ OCP_DBL BOMixture::xiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 	}
 }
 
-OCP_DBL BOMixture::rhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::RhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
 	if (Ziin[1] > 1 - TINY) {
 		// inj fluid is gas
-		OCP_DBL bg = PVDG.eval(0, Pin, 1);
-		OCP_DBL rhog = (1000 / CONV1) * Std_RhoG / bg;
+		OCP_DBL bg = PVDG.Eval(0, Pin, 1);
+		OCP_DBL rhog = (1000 / CONV1) * std_RhoG / bg;
 		return rhog;
 	}
 	else if (Ziin[2] > 1 - TINY) {
 		// inj fluid is water
 
-		PVTW.eval_all(0, Pin, data, cdata);
+		PVTW.Eval_All(0, Pin, data, cdata);
 		OCP_DBL Pw0 = data[0];
 		OCP_DBL bw0 = data[1];
 		OCP_DBL cbw = data[2];
 		OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
-		OCP_DBL rhow = Std_RhoW / bw;
+		OCP_DBL rhow = std_RhoW / bw;
 		return rhow;
 	}
 	else {
@@ -420,15 +420,15 @@ OCP_DBL BOMixture::rhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 }
 
 
-OCP_DBL BOMixture::gammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
+OCP_DBL BOMixture::GammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
 
-	PVCO.eval_all(0, Pbbin, data, cdata);
+	PVCO.Eval_All(0, Pbbin, data, cdata);
 	OCP_DBL rs = data[1];
 	OCP_DBL bosat = data[2];
 	OCP_DBL cbosat = data[4];
 	OCP_DBL bo = bosat * (1 - cbosat * (Pin - Pbbin));
-	OCP_DBL gammaO = (Std_GammaO + (1000 / CONV1) * rs * Std_GammaG) / bo;
+	OCP_DBL gammaO = (std_GammaO + (1000 / CONV1) * rs * std_GammaG) / bo;
 	
 	return gammaO;
 }
@@ -439,5 +439,5 @@ OCP_DBL BOMixture::gammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

@@ -13,9 +13,9 @@
 #define __OPENCAEPORO_HEADER__
 
 // OpenCAEPoro header files
-#include "Method.hpp"
-#include "OpenCAEControl.hpp"
-#include "OpenCAEOutput.hpp"
+#include "OCP_Method.hpp"
+#include "OCP_Control.hpp"
+#include "OCP_Output.hpp"
 #include "ParamRead.hpp"
 #include "Reservoir.hpp"
 #include "Timing.hxx"
@@ -49,7 +49,7 @@ private:
     /// The IMplicit Pressure Explicit Saturation method class.
     OCP_IMPES impes;
 
-    /// The Fully Implicit Method class.
+    /// The Fully Implicit method class.
     OCP_FIM fim;
 
     /// Control class manages the params of method and time step.

@@ -47,8 +47,7 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 
 void DealDefault(vector<string>& result)
 {
-	// m*n  -> <n,...,n> size m
-	// m*   -> <DEFAULT,..., DEFAULT> size m
+	
 	vector<string>  tmp;
 	for (auto str : result) {
 		auto pos = str.find('*');
@@ -56,8 +55,8 @@ void DealDefault(vector<string>& result)
 			tmp.push_back(str);
 		}
 		else {
-			int num = atoi(str.substr(0, pos).c_str());  // non number -> 0
-			int len = str.size();
+			USI num = atoi(str.substr(0, pos).c_str());  // non number -> 0
+			USI len = str.size();
 			string val = "DEFAULT";
 			if (num == 0) {
 				tmp.push_back(str);
@@ -66,7 +65,7 @@ void DealDefault(vector<string>& result)
 				if (pos != len - 1) {
 					val = str.substr(pos + 1, len - (pos + 1));
 				}
-				for (int i = 0; i < num; i++)
+				for (USI i = 0; i < num; i++)
 					tmp.push_back(val);
 			}			
 		}
@@ -79,5 +78,5 @@ void DealDefault(vector<string>& result)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

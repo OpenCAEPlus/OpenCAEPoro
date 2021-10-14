@@ -3,29 +3,29 @@
 
 WellOpt::WellOpt(const WellOptParam& Optparam)
 {
-	if (Optparam.Type == "INJ") {
-		Type = INJ;
+	if (Optparam.type == "INJ") {
+		type = INJ;
 	}
-	else if (Optparam.Type == "PROD") {
-		Type = PROD;
+	else if (Optparam.type == "PROD") {
+		type = PROD;
 	}	
 	else {
 		ERRORcheck("WRONG Well Type");
 		exit(0);
 	}
 	
-	if (Type == INJ) {
-		if (Optparam.FluidType == "OIL") {
-			FluidType = OIL;
+	if (type == INJ) {
+		if (Optparam.fluidType == "OIL") {
+			fluidType = OIL;
 		}
-		else if (Optparam.FluidType == "GAS") {
-			FluidType = GAS;
+		else if (Optparam.fluidType == "GAS") {
+			fluidType = GAS;
 		}
-		else if (Optparam.FluidType == "WATER") {
-			FluidType = WATER;
+		else if (Optparam.fluidType == "WATER") {
+			fluidType = WATER;
 		}
-		else if (Optparam.FluidType == "SOLVENT") {
-			FluidType = SOLVENT;
+		else if (Optparam.fluidType == "SOLVENT") {
+			fluidType = SOLVENT;
 		}
 		else {
 			ERRORcheck("WRONG Fluid type");
@@ -34,61 +34,61 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
 	}
 	
 	
-	if (Optparam.State == "OPEN") {
-		State = OPEN;
+	if (Optparam.state == "OPEN") {
+		state = OPEN;
 	}
-	else if (Optparam.State == "CLOSE") {
-		State = CLOSE;
+	else if (Optparam.state == "CLOSE") {
+		state = CLOSE;
 	}
 	else {
 		ERRORcheck("WRONG State type");
 		exit(0);
 	}
 		
-	if (Optparam.OptMode == "RATE") {
-		OptMode = RATE_MODE;
+	if (Optparam.optMode == "RATE") {
+		optMode = RATE_MODE;
 	}
-	else if (Optparam.OptMode == "ORAT") {
-		OptMode = ORATE_MODE;
+	else if (Optparam.optMode == "ORAT") {
+		optMode = ORATE_MODE;
 	}
-	else if (Optparam.OptMode == "GRAT") {
-		OptMode = GRATE_MODE;
+	else if (Optparam.optMode == "GRAT") {
+		optMode = GRATE_MODE;
 	}
-	else if (Optparam.OptMode == "WRAT") {
-		OptMode = WRATE_MODE;
+	else if (Optparam.optMode == "WRAT") {
+		optMode = WRATE_MODE;
 	}
-	else if (Optparam.OptMode == "BHP") {
-		OptMode = BHP_MODE;
+	else if (Optparam.optMode == "BHP") {
+		optMode = BHP_MODE;
 	}
 	else {
 		ERRORcheck("WRONG Well Opt Mode");
 		exit(0);
 	}
 
-	MaxRate = Optparam.MaxRate;
-	MaxBHP = Optparam.MaxBHP;
-	MinBHP = Optparam.MinBHP;
+	maxRate = Optparam.maxRate;
+	maxBHP = Optparam.maxBHP;
+	minBHP = Optparam.minBHP;
 
 }
 
-void Well::setup(const Grid& myGrid, const Bulk& myBulk)
+void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
 	// zi
-	if (myBulk.BLACKOIL) {
-		for (auto& opt : OptSet) {
+	if (myBulk.blackOil) {
+		for (auto& opt : optSet) {
 
-			opt.Zi.resize(myBulk.Nc, 0);
-			if (opt.Type == INJ) {
+			opt.zi.resize(myBulk.numCom, 0);
+			if (opt.type == INJ) {
 				// INJ
 				switch (myBulk.PVTmode)
 				{
 				case PHASE_W:
 				case PHASE_OW:
-					opt.Zi.back() = 1;
+					opt.zi.back() = 1;
 					break;
 				case PHASE_OGW:
-					if (opt.FluidType == GAS)		opt.Zi[1] = 1;
-					else							opt.Zi[2] = 1;
+					if (opt.fluidType == GAS)		opt.zi[1] = 1;
+					else							opt.zi[2] = 1;
 					break;
 				default:
 					ERRORcheck("WRONG Blackoil type!");
@@ -100,16 +100,16 @@ void Well::setup(const Grid& myGrid, const Bulk& myBulk)
 				switch (myBulk.PVTmode)
 				{
 				case PHASE_W:
-					opt.Zi.back() = 1;
+					opt.zi.back() = 1;
 					break;
 				case PHASE_OW:
-					if (opt.OptMode == ORATE_MODE)			opt.Zi[0] = 1;
-					else									opt.Zi[1] = 1;
+					if (opt.optMode == ORATE_MODE)			opt.zi[0] = 1;
+					else									opt.zi[1] = 1;
 					break;
 				case PHASE_OGW:
-					if (opt.OptMode == ORATE_MODE)			opt.Zi[0] = 1;
-					else if (opt.OptMode == GRATE_MODE)		opt.Zi[1] = 1;
-					else									opt.Zi[2] = 1;
+					if (opt.optMode == ORATE_MODE)			opt.zi[0] = 1;
+					else if (opt.optMode == GRATE_MODE)		opt.zi[1] = 1;
+					else									opt.zi[2] = 1;
 					break;
 				default:
 					ERRORcheck("WRONG Blackoil type!");
@@ -118,7 +118,7 @@ void Well::setup(const Grid& myGrid, const Bulk& myBulk)
 			}
 		}
 	}
-	else if (myBulk.COMPS) {
+	else if (myBulk.comps) {
 		
 	} 
 	else {
@@ -126,78 +126,78 @@ void Well::setup(const Grid& myGrid, const Bulk& myBulk)
 		exit(0);
 	}
 
-	Qi_lbmol.resize(myBulk.Nc);
+	qi_lbmol.resize(myBulk.numCom);
 	// perf
-	PerfNum = K2 - K1 + 1;
-	dG.resize(PerfNum, 0);
+	numPerf = K2 - K1 + 1;
+	dG.resize(numPerf, 0);
 	ldG = dG;
-	Perf.resize(PerfNum);
-	for (USI p = 0; p < PerfNum; p++) {
-		Perf[p].State = OPEN;
-		OCP_USI Idg = (K1 + p) * myGrid.Nx * myGrid.Ny + J * myGrid.Nx + I;
-		if (!myGrid.ActiveMap_G2B[Idg].getAct()) {
+	perf.resize(numPerf);
+	for (USI p = 0; p < numPerf; p++) {
+		perf[p].state = OPEN;
+		OCP_USI Idg = (K1 + p) * myGrid.nx * myGrid.ny + J * myGrid.nx + I;
+		if (!myGrid.activeMap_G2B[Idg].GetAct()) {
 			ERRORcheck("Perforation is in inactive bulk !");
 			exit(0);
 		}
-		Perf[p].Location = myGrid.ActiveMap_G2B[Idg].getId();
-		Perf[p].Depth = myBulk.Depth[Perf[p].Location];
-		Perf[p].Multiplier = 1;
-		Perf[p].qi_lbmol.resize(myBulk.Nc);
-		Perf[p].transj.resize(myBulk.Np);
+		perf[p].location = myGrid.activeMap_G2B[Idg].GetId();
+		perf[p].depth = myBulk.depth[perf[p].location];
+		perf[p].multiplier = 1;
+		perf[p].qi_lbmol.resize(myBulk.numCom);
+		perf[p].transj.resize(myBulk.numPhase);
 	}
-	if (Depth < 0)
-		Depth = Perf[0].Depth;
+	if (depth < 0)
+		depth = perf[0].depth;
 
-	calWI_Peaceman_Vertical(myBulk);
-	cout << "Well::setup" << endl;
+	CalWI_Peaceman_Vertical(myBulk);
+	cout << "Well::Setup" << endl;
 }
 
-void Well::init(const Bulk& myBulk) {
-	BHP = myBulk.P[Perf[0].Location];
+void Well::Init(const Bulk& myBulk) {
+	BHP = myBulk.P[perf[0].location];
 }
 
-OCP_DBL Well::calCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
 	OCP_DBL cfl = 0;
 	OCP_DBL tmp = 0;
-	for (USI p = 0; p < PerfNum; p++) {
-		OCP_USI k = Perf[p].Location;
-		tmp = fabs(Perf[p].qt_ft3) * dt;
-		tmp /= myBulk.Rock_Vp[k];
+	for (USI p = 0; p < numPerf; p++) {
+		OCP_USI k = perf[p].location;
+		tmp = fabs(perf[p].qt_ft3) * dt;
+		tmp /= myBulk.rockVp[k];
 		if (cfl < tmp)
 			cfl = tmp;
 	}
 	return cfl;
 }
 
-void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
+void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
 {
 	// this fomular needs to be carefully checked !
 	// especially the dz
 	if (WI > 0) {
-		for (USI p = 0; p < PerfNum; p++) {
-			Perf[p].WI = WI;
+		for (USI p = 0; p < numPerf; p++) {
+			perf[p].WI = WI;
 		}
 	}
 	else {
-		for (USI p = 0; p < PerfNum; p++) {
-			OCP_USI Idb = Perf[p].Location;
-			OCP_DBL kxky = myBulk.Rock_Kx[Idb] * myBulk.Rock_Ky[Idb];
-			OCP_DBL kx_ky = myBulk.Rock_Kx[Idb] / myBulk.Rock_Ky[Idb];
+		for (USI p = 0; p < numPerf; p++) {
+			OCP_USI Idb = perf[p].location;
+			OCP_DBL kxky = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];
+			OCP_DBL kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];
 			assert(kx_ky > 0);
 
 
-			OCP_DBL dx = myBulk.Dx[Idb];
-			OCP_DBL dy = myBulk.Dy[Idb];
-			OCP_DBL dz = myBulk.Dz[Idb] * myBulk.Ntg[Idb];
+			OCP_DBL dx = myBulk.dx[Idb];
+			OCP_DBL dy = myBulk.dy[Idb];
+			OCP_DBL dz = myBulk.dz[Idb] * myBulk.ntg[Idb];
 
 			OCP_DBL ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
 			ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
-			if (Kh < 0) {
-				Perf[p].WI = (2 * PI) * (dz * pow(kxky, 0.5)) / (log(ro / Radius) + SkinFactor);
+			if (kh < 0) {
+				perf[p].WI = (2 * PI) * (dz * pow(kxky, 0.5)) / (log(ro / radius) + skinFactor);
 			}
 			else {
-				Perf[p].WI = (2 * PI) * Kh / (log(ro / Radius) + SkinFactor);
+				perf[p].WI = (2 * PI) * kh / (log(ro / radius) + skinFactor);
 			}
 			
 		}
@@ -206,24 +206,24 @@ void Well::calWI_Peaceman_Vertical(const Bulk& myBulk)
 }
 
 
-void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
+void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
 {
-	USI nc = myBulk.Nc;
-	OCP_USI wId = mySolver.Dim;
+	USI nc = myBulk.numCom;
+	OCP_USI wId = mySolver.dim;
 	// important !
-	mySolver.Dim++;
+	mySolver.dim++;
 
-	for (USI p = 0; p < PerfNum; p++) {
-		OCP_USI k = Perf[p].Location; 
+	for (USI p = 0; p < numPerf; p++) {
+		OCP_USI k = perf[p].location; 
 
 		OCP_DBL Vfi_zi = 0;
 		for (USI i = 0; i < nc; i++) {
-			Vfi_zi += myBulk.Vfi[k * nc + i] * Opt.Zi[i];
+			Vfi_zi += myBulk.vfi[k * nc + i] * opt.zi[i];
 		}
 		
 		USI pvtnum = myBulk.PVTNUM[k];
-		Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
-		OCP_DBL valw = dt * Perf[p].Xi * Perf[p].transj[0];
+		perf[p].xi = myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
+		OCP_DBL valw = dt * perf[p].xi * perf[p].transj[0];
 		OCP_DBL bw = valw * dG[p];
 		OCP_DBL valb = valw * Vfi_zi;
 		OCP_DBL bb = valb * dG[p];
@@ -231,17 +231,17 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 		// Bulk to Well
 		
 		// diag
-		USI ptr = mySolver.DiagPtr[k];
-		mySolver.Val[k][ptr] += valb;
+		USI ptr = mySolver.diagPtr[k];
+		mySolver.val[k][ptr] += valb;
 		// off diag
-		mySolver.ColId[k].push_back(wId);
-		mySolver.Val[k].push_back(-valb);
+		mySolver.colId[k].push_back(wId);
+		mySolver.val[k].push_back(-valb);
 		// b
 		mySolver.b[k] += bb;
 
 
 		// Well to Bulk
-		switch (Opt.OptMode)
+		switch (opt.optMode)
 		{
 		case RATE_MODE:
 		case ORATE_MODE:
@@ -249,16 +249,16 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 		case WRATE_MODE:
 		case LRATE_MODE:
 			// diag
-			mySolver.DiagVal[wId] += valw;
+			mySolver.diagVal[wId] += valw;
 			// off diag
-			mySolver.ColId[wId].push_back(k);
-			mySolver.Val[wId].push_back(-valw);
+			mySolver.colId[wId].push_back(k);
+			mySolver.val[wId].push_back(-valw);
 			// b
 			mySolver.b[wId] -= bw;
 			break;
 		case BHP_MODE:
-			mySolver.ColId[wId].push_back(k);
-			mySolver.Val[wId].push_back(0);
+			mySolver.colId[wId].push_back(k);
+			mySolver.val[wId].push_back(0);
 			break;
 		default:
 			ERRORcheck("Wrong Well Opt mode");
@@ -267,9 +267,9 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 	}
 
 	// Well Self
-	assert(mySolver.Val[wId].size() == PerfNum);
+	assert(mySolver.val[wId].size() == numPerf);
 	// the order of perforation is not necessarily in order
-	switch (Opt.OptMode)
+	switch (opt.optMode)
 	{
 	case RATE_MODE:
 	case ORATE_MODE:
@@ -277,21 +277,21 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 	case WRATE_MODE:
 	case LRATE_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(wId);
-		mySolver.DiagPtr[wId] = PerfNum;
-		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
+		mySolver.colId[wId].push_back(wId);
+		mySolver.diagPtr[wId] = numPerf;
+		mySolver.val[wId].push_back(mySolver.diagVal[wId]);
 		// b
-		mySolver.b[wId] += dt * Opt.MaxRate;
+		mySolver.b[wId] += dt * opt.maxRate;
 		break;
 	case BHP_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(wId);
-		mySolver.DiagPtr[wId] = PerfNum;
-		mySolver.Val[wId].push_back(dt);
+		mySolver.colId[wId].push_back(wId);
+		mySolver.diagPtr[wId] = numPerf;
+		mySolver.val[wId].push_back(dt);
 		// b
-		mySolver.b[wId] += dt * Opt.MaxBHP;
+		mySolver.b[wId] += dt * opt.maxBHP;
 		// u   initial value
-		mySolver.u[wId] = Opt.MaxBHP;
+		mySolver.u[wId] = opt.maxBHP;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode in function");
@@ -300,32 +300,32 @@ void Well::assembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, 
 }
 
 
-void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
+void Well::AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver, const OCP_DBL& dt) const
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
-	OCP_USI wId = mySolver.Dim;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
+	OCP_USI wId = mySolver.dim;
 	// important !
-	mySolver.Dim++;
+	mySolver.dim++;
 
-	for (USI p = 0; p < PerfNum; p++) {
-		OCP_USI k = Perf[p].Location;
+	for (USI p = 0; p < numPerf; p++) {
+		OCP_USI k = perf[p].location;
 
 		OCP_DBL valb = 0;	OCP_DBL bb = 0;
 		OCP_DBL valw = 0;	OCP_DBL bw = 0;
 		
 		for (USI j = 0; j < np; j++) {
-			if (!myBulk.PhaseExist[k * np + j])
+			if (!myBulk.phaseExist[k * np + j])
 				continue;
 
 			OCP_DBL tempb = 0;	
 			OCP_DBL tempw = 0;
 			
 			for (USI i = 0; i < nc; i++) {
-				tempb += myBulk.Vfi[k * nc + i] * myBulk.Cij[k * np * nc + j * nc + i];
-				tempw += Opt.Zi[i] * myBulk.Cij[k * np * nc + j * nc + i];
+				tempb += myBulk.vfi[k * nc + i] * myBulk.cij[k * np * nc + j * nc + i];
+				tempw += opt.zi[i] * myBulk.cij[k * np * nc + j * nc + i];
 			}
-			OCP_DBL trans = dt * Perf[p].transj[j] * myBulk.Xi[k * np + j];
+			OCP_DBL trans = dt * perf[p].transj[j] * myBulk.xi[k * np + j];
 			valb += tempb * trans;
 			valw += tempw * trans;
 
@@ -336,17 +336,17 @@ void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySol
 
 		// Bulk to Well
 		// diag
-		USI ptr = mySolver.DiagPtr[k];
-		mySolver.Val[k][ptr] += valb;
+		USI ptr = mySolver.diagPtr[k];
+		mySolver.val[k][ptr] += valb;
 		// off diag
-		mySolver.ColId[k].push_back(wId);
-		mySolver.Val[k].push_back(-valb);
+		mySolver.colId[k].push_back(wId);
+		mySolver.val[k].push_back(-valb);
 		// b
 		mySolver.b[k] += bb;
 
 
 		// Well to Bulk
-		switch (Opt.OptMode)
+		switch (opt.optMode)
 		{
 		case RATE_MODE:
 		case ORATE_MODE:
@@ -354,17 +354,17 @@ void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySol
 		case WRATE_MODE:
 		case LRATE_MODE:
 			// diag  !!! attention! sign is -
-			mySolver.DiagVal[wId] -= valw;
+			mySolver.diagVal[wId] -= valw;
 			// off diag
-			mySolver.ColId[wId].push_back(k);
-			mySolver.Val[wId].push_back(valw);
+			mySolver.colId[wId].push_back(k);
+			mySolver.val[wId].push_back(valw);
 			// b
 			mySolver.b[wId] += bw;
 			break;
 		case BHP_MODE:
 			// off diag
-			mySolver.ColId[wId].push_back(k);
-			mySolver.Val[wId].push_back(0);
+			mySolver.colId[wId].push_back(k);
+			mySolver.val[wId].push_back(0);
 			break;
 		default:
 			ERRORcheck("Wrong Well Opt mode");
@@ -373,9 +373,9 @@ void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySol
 	}
 
 	// Well Self
-	assert(mySolver.Val[wId].size() == PerfNum);
+	assert(mySolver.val[wId].size() == numPerf);
 	// the order of perforation is not necessarily in order
-	switch (Opt.OptMode)
+	switch (opt.optMode)
 	{
 	case RATE_MODE:
 	case ORATE_MODE:
@@ -383,21 +383,21 @@ void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySol
 	case WRATE_MODE:
 	case LRATE_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(wId);
-		mySolver.DiagPtr[wId] = PerfNum;
-		mySolver.Val[wId].push_back(mySolver.DiagVal[wId]);
+		mySolver.colId[wId].push_back(wId);
+		mySolver.diagPtr[wId] = numPerf;
+		mySolver.val[wId].push_back(mySolver.diagVal[wId]);
 		// b
-		mySolver.b[wId] += dt * Opt.MaxRate;
+		mySolver.b[wId] += dt * opt.maxRate;
 		break;
 	case BHP_MODE:
 		// diag
-		mySolver.ColId[wId].push_back(wId);
-		mySolver.DiagPtr[wId] = PerfNum;
-		mySolver.Val[wId].push_back(dt);
+		mySolver.colId[wId].push_back(wId);
+		mySolver.diagPtr[wId] = numPerf;
+		mySolver.val[wId].push_back(dt);
 		// b
-		mySolver.b[wId] += dt * Opt.MinBHP;
+		mySolver.b[wId] += dt * opt.minBHP;
 		// u   initial value
-		mySolver.u[wId] = Opt.MinBHP;
+		mySolver.u[wId] = opt.minBHP;
 		break;
 	default:
 		ERRORcheck("Wrong Well Opt mode");
@@ -405,145 +405,145 @@ void Well::assembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySol
 	}
 }
 
-void Well::smoothdG()
+void Well::SmoothdG()
 {
-	for (USI p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < numPerf; p++) {
 		dG[p] = (ldG[p] + dG[p]) / 2;      // seems better
 		// dG[p] = ldG[p] + 0.618 * (dG[p] - ldG[p]);
 	}
 }
 
-void Well::caldG(const Bulk& myBulk)
+void Well::CaldG(const Bulk& myBulk)
 {
-	if (Opt.Type == INJ)
-		calInjdG(myBulk);
+	if (opt.type == INJ)
+		CalInjdG(myBulk);
 	else
-		calProddG(myBulk);
+		CalProddG(myBulk);
 }
 
-void Well::calInjdG(const Bulk& myBulk)
+void Well::CalInjdG(const Bulk& myBulk)
 {
 	OCP_DBL maxlen = 10;
 	USI seg_num = 0;
 	OCP_DBL seg_len = 0;
-	vector<OCP_DBL>		dGperf(PerfNum, 0);
+	vector<OCP_DBL>		dGperf(numPerf, 0);
 	
-	if (Depth <= Perf.front().Depth) {
+	if (depth <= perf.front().depth) {
 		// Well is higher
-		for (OCP_INT p = PerfNum - 1; p >= 0; p--) {
+		for (OCP_INT p = numPerf - 1; p >= 0; p--) {
 			if (p == 0) {
-				seg_num = ceil((Perf[0].Depth - Depth) / maxlen);
-				seg_len = (Perf[0].Depth - Depth) / seg_num;
+				seg_num = ceil((perf[0].depth - depth) / maxlen);
+				seg_len = (perf[0].depth - depth) / seg_num;
 			}
 			else {
-				seg_num = ceil((Perf[p].Depth - Perf[p - 1].Depth) / maxlen);
-				seg_len = (Perf[p].Depth - Perf[p - 1].Depth) / seg_num;
+				seg_num = ceil((perf[p].depth - perf[p - 1].depth) / maxlen);
+				seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
 			}
-			OCP_USI n = Perf[p].Location;
-			Perf[p].P = BHP + dG[p];
-			OCP_DBL Pperf = Perf[p].P;
+			OCP_USI n = perf[p].location;
+			perf[p].P = BHP + dG[p];
+			OCP_DBL Pperf = perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
 			USI pvtnum = myBulk.PVTNUM[n];
 			for (USI i = 0; i < seg_num; i++) {
-				Ptmp -= myBulk.Flashcal[pvtnum]->rhoPhase(Ptmp, myBulk.T, Opt.Zi.data()) * GRAVITY_FACTOR * seg_len;
+				Ptmp -= myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, opt.zi.data()) * GRAVITY_FACTOR * seg_len;
 			}
 			dGperf[p] = Pperf - Ptmp;
 		}
 		dG[0] = dGperf[0];
-		for (USI p = 1; p < PerfNum; p++) {
+		for (USI p = 1; p < numPerf; p++) {
 			dG[p] = dG[p - 1] + dGperf[p];
 		}
 	}
-	else if (Depth >= Perf[PerfNum - 1].Depth) {
+	else if (depth >= perf[numPerf - 1].depth) {
 		// Well is lower
-		for (USI p = 0; p < PerfNum; p++) {
-			if (p == PerfNum - 1) {
-				seg_num = ceil((Depth - Perf[PerfNum - 1].Depth) / maxlen);
-				seg_len = (Depth - Perf[PerfNum - 1].Depth) / seg_num;
+		for (USI p = 0; p < numPerf; p++) {
+			if (p == numPerf - 1) {
+				seg_num = ceil((depth - perf[numPerf - 1].depth) / maxlen);
+				seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
 			}
 			else {
-				seg_num = ceil((Perf[p + 1].Depth - Perf[p].Depth) / maxlen);
-				seg_len = (Perf[p + 1].Depth - Perf[p].Depth) / seg_num;
+				seg_num = ceil((perf[p + 1].depth - perf[p].depth) / maxlen);
+				seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
 			}
-			OCP_USI n = Perf[p].Location;
-			Perf[p].P = BHP + dG[p];
-			OCP_DBL Pperf = Perf[p].P;
+			OCP_USI n = perf[p].location;
+			perf[p].P = BHP + dG[p];
+			OCP_DBL Pperf = perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
 			USI pvtnum = myBulk.PVTNUM[n];
 			for (USI i = 0; i < seg_num; i++) {
-				Ptmp += myBulk.Flashcal[pvtnum]->rhoPhase(Ptmp, myBulk.T, Opt.Zi.data()) * GRAVITY_FACTOR * seg_len;
+				Ptmp += myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, opt.zi.data()) * GRAVITY_FACTOR * seg_len;
 			}
 			dGperf[p] = Ptmp - Pperf;
 		}
-		dG[PerfNum - 1] = dGperf[PerfNum - 1];
-		for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
+		dG[numPerf - 1] = dGperf[numPerf - 1];
+		for (OCP_INT p = numPerf - 2; p >= 0; p--) {
 			dG[p] = dG[p + 1] + dGperf[p];
 		}
 	}
 }
 
-void Well::calProddG(const Bulk& myBulk)
+void Well::CalProddG(const Bulk& myBulk)
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
 	OCP_DBL maxlen = 10;
 	USI seg_num = 0;
 	OCP_DBL seg_len = 0;
 	vector<OCP_DBL>		tmpNi(nc, 0);
-	vector<OCP_DBL>		dGperf(PerfNum, 0);
+	vector<OCP_DBL>		dGperf(numPerf, 0);
 	OCP_DBL	qtacc = 0;
 	OCP_DBL	rhoacc = 0;
 	OCP_DBL	rhotmp = 0;
 
 	
 
-	if (Depth <= Perf.front().Depth) {
+	if (depth <= perf.front().depth) {
 		// Well is higher
 
 		// check qi_lbmol   ----   test
-		if (Perf[PerfNum - 1].State == CLOSE) {
-			for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
-				if (Perf[p].State == OPEN) {
+		if (perf[numPerf - 1].state == CLOSE) {
+			for (OCP_INT p = numPerf - 2; p >= 0; p--) {
+				if (perf[p].state == OPEN) {
 					for (USI i = 0; i < nc; i++) {
-						Perf[PerfNum - 1].qi_lbmol[i] = Perf[p].qi_lbmol[i];
+						perf[numPerf - 1].qi_lbmol[i] = perf[p].qi_lbmol[i];
 					}
 					break;
 				}
 			}
 		}
 
-		for (OCP_INT p = PerfNum - 1; p >= 0; p--) {
+		for (OCP_INT p = numPerf - 1; p >= 0; p--) {
 
 			if (p == 0) {
-				seg_num = ceil((Perf[0].Depth - Depth) / maxlen);
-				seg_len = (Perf[0].Depth - Depth) / seg_num;
+				seg_num = ceil((perf[0].depth - depth) / maxlen);
+				seg_len = (perf[0].depth - depth) / seg_num;
 			}
 			else {
-				seg_num = ceil((Perf[p].Depth - Perf[p - 1].Depth) / maxlen);
-				seg_len = (Perf[p].Depth - Perf[p - 1].Depth) / seg_num;
+				seg_num = ceil((perf[p].depth - perf[p - 1].depth) / maxlen);
+				seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
 			}
 
-			OCP_USI n = Perf[p].Location;
-			Perf[p].P = BHP + dG[p];
-			OCP_DBL Pperf = Perf[p].P;
+			OCP_USI n = perf[p].location;
+			perf[p].P = BHP + dG[p];
+			OCP_DBL Pperf = perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
 			USI pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
-			for (OCP_INT p1 = PerfNum - 1; p1 >= p; p1--) {
+			for (OCP_INT p1 = numPerf - 1; p1 >= p; p1--) {
 				for (USI i = 0; i < nc; i++) {
-					tmpNi[i] += Perf[p1].qi_lbmol[i];
+					tmpNi[i] += perf[p1].qi_lbmol[i];
 				}
 			}
 			for (USI k = 0; k < seg_num; k++) {
-				myBulk.Flashcal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
-				for (USI j = 0; j < myBulk.Np; j++) {
-					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
-						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
-						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
-						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR / seg_num;
+				myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
+				for (USI j = 0; j < myBulk.numPhase; j++) {
+					if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+						rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+						qtacc += myBulk.flashCal[pvtnum]->v[j] / seg_num;
+						rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp * GRAVITY_FACTOR / seg_num;
 					}
 				}
 				Ptmp -= rhoacc / qtacc * seg_len;
@@ -551,62 +551,62 @@ void Well::calProddG(const Bulk& myBulk)
 			dGperf[p] = Pperf - Ptmp;
 		}
 		dG[0] = dGperf[0];
-		for (USI p = 1; p < PerfNum; p++) {
+		for (USI p = 1; p < numPerf; p++) {
 			dG[p] = dG[p - 1] + dGperf[p];
 		}
 	}
-	else if (Depth >= Perf.back().Depth) {
+	else if (depth >= perf.back().depth) {
 		// Well is lower
 
 		// check qi_lbmol   ----   test
-		if (Perf[0].State == CLOSE) {
-			for (USI p = 1; p <= PerfNum; p++) {
-				if (Perf[p].State == OPEN) {
+		if (perf[0].state == CLOSE) {
+			for (USI p = 1; p <= numPerf; p++) {
+				if (perf[p].state == OPEN) {
 					for (USI i = 0; i < nc; i++) {
-						Perf[PerfNum - 1].qi_lbmol[i] = Perf[p].qi_lbmol[i];
+						perf[numPerf - 1].qi_lbmol[i] = perf[p].qi_lbmol[i];
 					}
 					break;
 				}
 			}
 		}
 
-		for (USI p = 0; p < PerfNum; p++) {
-			if (p == PerfNum - 1) {
-				seg_num = ceil((Depth - Perf[PerfNum - 1].Depth) / maxlen);
-				seg_len = (Depth - Perf[PerfNum - 1].Depth) / seg_num;
+		for (USI p = 0; p < numPerf; p++) {
+			if (p == numPerf - 1) {
+				seg_num = ceil((depth - perf[numPerf - 1].depth) / maxlen);
+				seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
 			}
 			else {
-				seg_num = ceil((Perf[p + 1].Depth - Perf[p].Depth) / maxlen);
-				seg_len = (Perf[p + 1].Depth - Perf[p].Depth) / seg_num;
+				seg_num = ceil((perf[p + 1].depth - perf[p].depth) / maxlen);
+				seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
 			}
 
-			OCP_USI n = Perf[p].Location;
-			Perf[p].P = BHP + dG[p];
-			OCP_DBL Pperf = Perf[p].P;
+			OCP_USI n = perf[p].location;
+			perf[p].P = BHP + dG[p];
+			OCP_DBL Pperf = perf[p].P;
 			OCP_DBL Ptmp = Pperf;
 
 			USI pvtnum = myBulk.PVTNUM[n];
 			tmpNi.assign(nc, 0);
-			for (OCP_INT p1 = PerfNum - 1; p1 >= p; p1--) {
+			for (OCP_INT p1 = numPerf - 1; p1 >= p; p1--) {
 				for (USI i = 0; i < nc; i++) {
-					tmpNi[i] += Perf[p1].qi_lbmol[i];
+					tmpNi[i] += perf[p1].qi_lbmol[i];
 				}
 			}
 			for (USI k = 0; k < seg_num; k++) {
-				myBulk.Flashcal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
+				myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
 				for (USI j = 0; j < np; j++) {
-					if (myBulk.Flashcal[pvtnum]->PhaseExist[j]) {
-						rhotmp = myBulk.Flashcal[pvtnum]->Rho[j];
-						qtacc += myBulk.Flashcal[pvtnum]->V[j] / seg_num;
-						rhoacc += myBulk.Flashcal[pvtnum]->V[j] * rhotmp * GRAVITY_FACTOR / seg_num;
+					if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+						rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+						qtacc += myBulk.flashCal[pvtnum]->v[j] / seg_num;
+						rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp * GRAVITY_FACTOR / seg_num;
 					}
 				}
 				Ptmp += rhoacc / qtacc * seg_len;
 			}
 			dGperf[p] = Ptmp - Pperf;
 		}
-		dG[PerfNum - 1] = dGperf[PerfNum - 1];
-		for (OCP_INT p = PerfNum - 2; p >= 0; p--) {
+		dG[numPerf - 1] = dGperf[numPerf - 1];
+		for (OCP_INT p = numPerf - 2; p >= 0; p--) {
 			dG[p] = dG[p + 1] + dGperf[p];
 		}
 
@@ -617,89 +617,89 @@ void Well::calProddG(const Bulk& myBulk)
 	}
 }
 
-void Well::calTrans(const Bulk& myBulk)
+void Well::CalTrans(const Bulk& myBulk)
 {
-	USI np = myBulk.Np;
+	USI np = myBulk.numPhase;
 
-	if (Opt.Type == INJ) {
-		for (USI p = 0; p < PerfNum; p++) {
-			Perf[p].transj.assign(np, 0);
-			OCP_USI k = Perf[p].Location;
-			OCP_DBL temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+	if (opt.type == INJ) {
+		for (USI p = 0; p < numPerf; p++) {
+			perf[p].transj.assign(np, 0);
+			OCP_USI k = perf[p].location;
+			OCP_DBL temp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier;
 			
 			// single phase
 			for (USI j = 0; j < np; j++) {
 				OCP_USI id = k * np + j;
-				if (myBulk.PhaseExist[id]) {
-					Perf[p].transj[0] += myBulk.Kr[id] / myBulk.Mu[id];
+				if (myBulk.phaseExist[id]) {
+					perf[p].transj[0] += myBulk.kr[id] / myBulk.mu[id];
 				}		
 			}
-			Perf[p].transj[0] *= temp;
+			perf[p].transj[0] *= temp;
 		}
 	}
 	else{
-		for (USI p = 0; p < PerfNum; p++) {
-			Perf[p].transj.assign(np, 0);
-			OCP_USI k = Perf[p].Location;
-			OCP_DBL temp = CONV1 * CONV2 * Perf[p].WI * Perf[p].Multiplier;
+		for (USI p = 0; p < numPerf; p++) {
+			perf[p].transj.assign(np, 0);
+			OCP_USI k = perf[p].location;
+			OCP_DBL temp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier;
 
 			// multi phase
 			for (USI j = 0; j < np; j++) {
 				OCP_USI id = k * np + j;
-				if (myBulk.PhaseExist[id]) {
-					Perf[p].transj[j] = temp * myBulk.Kr[id] / myBulk.Mu[id];
+				if (myBulk.phaseExist[id]) {
+					perf[p].transj[j] = temp * myBulk.kr[id] / myBulk.mu[id];
 				}	
 			}
 		}
 	}
 }
 
-void Well::calFlux(const Bulk& myBulk, const bool flag)
+void Well::CalFlux(const Bulk& myBulk, const bool flag)
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
 
-	if (Opt.Type == INJ) {
+	if (opt.type == INJ) {
 
-		for (USI p = 0; p < PerfNum; p++) {
-			Perf[p].P = BHP + dG[p];
-			OCP_USI k = Perf[p].Location;
-			OCP_DBL dP = Perf[p].P - myBulk.P[k];
+		for (USI p = 0; p < numPerf; p++) {
+			perf[p].P = BHP + dG[p];
+			OCP_USI k = perf[p].location;
+			OCP_DBL dP = perf[p].P - myBulk.P[k];
 			dP *= -1.0;
 
-			Perf[p].qt_ft3 = Perf[p].transj[0] * dP;
+			perf[p].qt_ft3 = perf[p].transj[0] * dP;
 
 			USI pvtnum = myBulk.PVTNUM[k];
 			if (flag)
-				Perf[p].Xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
-			OCP_DBL xi = Perf[p].Xi;
+				perf[p].xi = myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
+			OCP_DBL xi = perf[p].xi;
 			for (USI i = 0; i < nc; i++) {
-				Perf[p].qi_lbmol[i] = Perf[p].qt_ft3 * xi * Opt.Zi[i];
+				perf[p].qi_lbmol[i] = perf[p].qt_ft3 * xi * opt.zi[i];
 			}
 		}
 	}
 	else {
 
-		for (USI p = 0; p < PerfNum; p++) {
-			Perf[p].P = BHP + dG[p];
-			OCP_USI k = Perf[p].Location;
-			Perf[p].qt_ft3 = 0;
-			Perf[p].qi_lbmol.assign(nc, 0);
+		for (USI p = 0; p < numPerf; p++) {
+			perf[p].P = BHP + dG[p];
+			OCP_USI k = perf[p].location;
+			perf[p].qt_ft3 = 0;
+			perf[p].qi_lbmol.assign(nc, 0);
 
 			for (USI j = 0; j < np; j++) {
 				OCP_USI id = k * np + j;
-				if (myBulk.PhaseExist[id]) {
-					OCP_DBL dP = myBulk.Pj[id] - Perf[p].P;
-					Perf[p].qt_ft3 += Perf[p].transj[j] * dP;
-					//cout << p << " P[" << j << "] = " << myBulk.Pj[id] << endl;
-					//cout << p << " Perf = " << Perf[p].P << endl;
+				if (myBulk.phaseExist[id]) {
+					OCP_DBL dP = myBulk.Pj[id] - perf[p].P;
+					perf[p].qt_ft3 += perf[p].transj[j] * dP;
+					//cout << p << " p[" << j << "] = " << myBulk.Pj[id] << endl;
+					//cout << p << " perf = " << perf[p].p << endl;
 
 
-					OCP_DBL xi = myBulk.Xi[id];
+					OCP_DBL xi = myBulk.xi[id];
 					OCP_DBL xij;
 					for (USI i = 0; i < nc; i++) {
-						xij = myBulk.Cij[id * nc + i];
-						Perf[p].qi_lbmol[i] += Perf[p].transj[j] * dP * xi * xij;
+						xij = myBulk.cij[id * nc + i];
+						perf[p].qi_lbmol[i] += perf[p].transj[j] * dP * xi * xij;
 					}
 				}
 			}
@@ -707,83 +707,83 @@ void Well::calFlux(const Bulk& myBulk, const bool flag)
 	}
 }
 
-void Well::massConserve(Bulk& myBulk, const OCP_DBL& dt) const
+void Well::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
 {
-	USI nc = myBulk.Nc;
+	USI nc = myBulk.numCom;
 
-	for (USI p = 0; p < PerfNum; p++) {
-		OCP_USI k = Perf[p].Location;
+	for (USI p = 0; p < numPerf; p++) {
+		OCP_USI k = perf[p].location;
 		for (USI i = 0; i < nc; i++) {
-			myBulk.Ni[k * nc + i] -= Perf[p].qi_lbmol[i] * dt;
+			myBulk.Ni[k * nc + i] -= perf[p].qi_lbmol[i] * dt;
 		}
 	}
 }
 
 
-OCP_DBL Well::calInjRate_blk(const Bulk& myBulk)
+OCP_DBL Well::CalInjRate_Blk(const Bulk& myBulk)
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
 	OCP_DBL qj = 0;
 
-	for (USI p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < numPerf; p++) {
 
-		OCP_DBL Pperf = Opt.MaxBHP + dG[p];
-		OCP_USI k = Perf[p].Location;
+		OCP_DBL Pperf = opt.maxBHP + dG[p];
+		OCP_USI k = perf[p].location;
 
 		USI pvtnum = myBulk.PVTNUM[k];
-		OCP_DBL xi = myBulk.Flashcal[pvtnum]->xiPhase(myBulk.P[k], myBulk.T, &Opt.Zi[0]);
+		OCP_DBL xi = myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
 		OCP_DBL dP = Pperf - myBulk.P[k];
-		qj += Perf[p].transj[0] * xi * dP;
+		qj += perf[p].transj[0] * xi * dP;
 	}
 	return qj;
 }
 
-OCP_DBL Well::calProdRate_blk(const Bulk& myBulk)
+OCP_DBL Well::CalProdRate_Blk(const Bulk& myBulk)
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
 	OCP_DBL qj = 0;
 
-	for (USI p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < numPerf; p++) {
 
-		OCP_DBL Pperf = Opt.MinBHP + dG[p];
-		OCP_USI k = Perf[p].Location;
+		OCP_DBL Pperf = opt.minBHP + dG[p];
+		OCP_USI k = perf[p].location;
 
 		for (USI j = 0; j < np; j++) {
 			OCP_USI id = k * np + j;
-			if (myBulk.PhaseExist[id]) {	
+			if (myBulk.phaseExist[id]) {	
 				OCP_DBL temp = 0;
 				for (USI i = 0; i < nc; i++) {
-					temp += Opt.Zi[i] * myBulk.Cij[id * nc + i];
+					temp += opt.zi[i] * myBulk.cij[id * nc + i];
 				}
-				OCP_DBL xi = myBulk.Xi[id];
+				OCP_DBL xi = myBulk.xi[id];
 				OCP_DBL dP = myBulk.Pj[id] - Pperf;
-				qj += Perf[p].transj[j] * xi * dP * temp;
+				qj += perf[p].transj[j] * xi * dP * temp;
 			}
 		}
 	}
 	return qj;
 }
 
-void Well::calInjqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
+void Well::CalInjQi_Blk(const Bulk& myBulk, const OCP_DBL& dt)
 {
-	USI nc = myBulk.Nc;
+	USI nc = myBulk.numCom;
 	OCP_DBL qj = 0;
 
-	for (USI p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < numPerf; p++) {
 
-		Perf[p].P = BHP + dG[p];
+		perf[p].P = BHP + dG[p];
 
-		// OCP_USI k = Perf[p].Location;
-		//OCP_DBL xi = Perf[p].Xi;
-		//OCP_DBL dP = Perf[p].P - myBulk.P[k];
-		//qj += Perf[p].transj[0] * xi * dP;
+		// OCP_USI k = perf[p].location;
+		//OCP_DBL xi = perf[p].xi;
+		//OCP_DBL dP = perf[p].p - myBulk.p[k];
+		//qj += perf[p].transj[0] * xi * dP;
 
 		for (USI i = 0; i < nc; i++)
-			qj += Perf[p].qi_lbmol[i];
+			qj += perf[p].qi_lbmol[i];
 	}
-	if (Opt.FluidType == WATER) {
+	if (opt.fluidType == WATER) {
 		WWIR = -qj;
 		WWIT += WWIR * dt;
 	}
@@ -793,73 +793,73 @@ void Well::calInjqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
 	}
 }
 
-void Well::calProdqi_blk(const Bulk& myBulk, const OCP_DBL& dt)
+void Well::CalProdQi_Blk(const Bulk& myBulk, const OCP_DBL& dt)
 {
-	USI np = myBulk.Np;
-	USI nc = myBulk.Nc;
+	USI np = myBulk.numPhase;
+	USI nc = myBulk.numCom;
 
-	Qi_lbmol.assign(nc, 0);
+	qi_lbmol.assign(nc, 0);
 
-	for (USI p = 0; p < PerfNum; p++) {
+	for (USI p = 0; p < numPerf; p++) {
 
-		//Perf[p].qi_lbmol.assign(nc, 0);
-		//Perf[p].P = BHP + dG[p];
-		//int k = Perf[p].Location;
+		//perf[p].qi_lbmol.assign(nc, 0);
+		//perf[p].p = BHP + dG[p];
+		//int k = perf[p].location;
 
 		//for (int j = 0; j < np; j++) {
 		//	int id = k * np + j;
-		//	if (myBulk.PhaseExist[id]) {
-		//		OCP_DBL xi = myBulk.Xi[id];
-		//		OCP_DBL dP = myBulk.Pj[id] - Perf[p].P;
+		//	if (myBulk.phaseExist[id]) {
+		//		OCP_DBL xi = myBulk.xi[id];
+		//		OCP_DBL dP = myBulk.Pj[id] - perf[p].p;
 		//		OCP_DBL xij;
 		//		for (int i = 0; i < nc; i++) {
-		//			xij = myBulk.Cij[id * nc + i];
-		//			Perf[p].qi_lbmol[i] += Perf[p].transj[j] * xi * xij * dP;
+		//			xij = myBulk.cij[id * nc + i];
+		//			perf[p].qi_lbmol[i] += perf[p].transj[j] * xi * xij * dP;
 		//		}
 		//	}
 		//}
 		for (USI i = 0; i < nc; i++) {
-			Qi_lbmol[i] += Perf[p].qi_lbmol[i];
+			qi_lbmol[i] += perf[p].qi_lbmol[i];
 		}
 	}
 
 	for (USI i = 0; i < nc; i++) {
-		if (myBulk.PhaseLabel[i] == OIL) {
-			WOPR = Qi_lbmol[i];
+		if (myBulk.phaseLabel[i] == OIL) {
+			WOPR = qi_lbmol[i];
 			WOPT += WOPR * dt;
 		}
-		else if (myBulk.PhaseLabel[i] == GAS) {
-			WGPR = Qi_lbmol[i];
+		else if (myBulk.phaseLabel[i] == GAS) {
+			WGPR = qi_lbmol[i];
 			WGPT += WGPR * dt;
 		}
-		else if (myBulk.PhaseLabel[i] == WATER) {
-			WWPR = Qi_lbmol[i];
+		else if (myBulk.phaseLabel[i] == WATER) {
+			WWPR = qi_lbmol[i];
 			WWPT += WWPR * dt;
 		}
 	}
 }
 
-void Well::checkOptMode(const Bulk& myBulk)
+void Well::CheckOptMode(const Bulk& myBulk)
 {
-	if (Opt.Type == INJ) {
-		if (calInjRate_blk(myBulk) > Opt.MaxRate) {
-			Opt.OptMode = RATE_MODE;
+	if (opt.type == INJ) {
+		if (CalInjRate_Blk(myBulk) > opt.maxRate) {
+			opt.optMode = RATE_MODE;
 		}
 		else {
-			Opt.OptMode = BHP_MODE;
+			opt.optMode = BHP_MODE;
 		}
 	}
 	else {
-		if (calProdRate_blk(myBulk) > Opt.MaxRate) {
-			Opt.OptMode = RATE_MODE;
+		if (CalProdRate_Blk(myBulk) > opt.maxRate) {
+			opt.optMode = RATE_MODE;
 		}
 		else {
-			Opt.OptMode = BHP_MODE;
+			opt.optMode = BHP_MODE;
 		}
 	}
 }
 
-OCP_INT Well::checkP(const Bulk& myBulk)
+OCP_INT Well::CheckP(const Bulk& myBulk)
 {
 	// 0 : all correct
 	// 1 : negative P    
@@ -868,10 +868,10 @@ OCP_INT Well::checkP(const Bulk& myBulk)
 
 	if (BHP < 0) 
 		return 1;
-	for (USI p = 0; p < PerfNum; p++) {
-		if (Perf[p].State == OPEN && Perf[p].P < 0) {
+	for (USI p = 0; p < numPerf; p++) {
+		if (perf[p].state == OPEN && perf[p].P < 0) {
 #ifdef _DEBUG
-			cout << "WARNING: Well " << Name << " Perf[" << p << "].P = " << Perf[p].P << endl;
+			cout << "WARNING: Well " << name << " Perf[" << p << "].P = " << perf[p].P << endl;
 #endif // _DEBUG
 			return 1;
 		}
@@ -879,70 +879,70 @@ OCP_INT Well::checkP(const Bulk& myBulk)
 	}
 
 
-	if (Opt.Type == INJ) {
-		if (Opt.OptMode != BHP_MODE && BHP > Opt.MaxBHP) {
-			Opt.OptMode = BHP_MODE;
+	if (opt.type == INJ) {
+		if (opt.optMode != BHP_MODE && BHP > opt.maxBHP) {
+			opt.optMode = BHP_MODE;
 			return 2;
 		}
 	}
 	else {
-		if (Opt.OptMode != BHP_MODE && BHP < Opt.MinBHP) {
-			Opt.OptMode = BHP_MODE;
+		if (opt.optMode != BHP_MODE && BHP < opt.minBHP) {
+			opt.optMode = BHP_MODE;
 			return 2;
 		}
 	}
 	OCP_INT flag = 0;
-	flag = checkCrossFlow(myBulk);
+	flag = CheckCrossFlow(myBulk);
 
 	return flag;
 }
 
-OCP_INT Well::checkCrossFlow(const Bulk& myBulk)
+OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
 {
 	OCP_USI  k;
 	bool flagC = true;
 
-	if (Opt.Type == PROD) {
-		USI np = myBulk.Np;
-		for (USI p = 0; p < PerfNum; p++) {
-			k = Perf[p].Location;
+	if (opt.type == PROD) {
+		USI np = myBulk.numPhase;
+		for (USI p = 0; p < numPerf; p++) {
+			k = perf[p].location;
 			OCP_DBL minP = myBulk.P[k];
 			// THINK MORE !!!
-			//for (int j = 0; j < np; j++) {
-			//	if (myBulk.PhaseExist[k * np + j])
+			//for (USI j = 0; j < np; j++) {
+			//	if (myBulk.phaseExist[k * np + j])
 			//		minP = minP < myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];
 			//}
-			if (Perf[p].State == OPEN && minP < Perf[p].P) {
-				Perf[p].State = CLOSE;
-				Perf[p].Multiplier = 0;
+			if (perf[p].state == OPEN && minP < perf[p].P) {
+				perf[p].state = CLOSE;
+				perf[p].multiplier = 0;
 				flagC = false;
 			}
-			else if (Perf[p].State == CLOSE && minP > Perf[p].P) {
-				Perf[p].State = OPEN;
-				Perf[p].Multiplier = 1;
+			else if (perf[p].state == CLOSE && minP > perf[p].P) {
+				perf[p].state = OPEN;
+				perf[p].multiplier = 1;
 			}
 		}
 	}
 	else {
-		for (USI p = 0; p < PerfNum; p++) {
-			k = Perf[p].Location;
-			if (Perf[p].State == OPEN && myBulk.P[k] > Perf[p].P) {
-				Perf[p].State = CLOSE;
-				Perf[p].Multiplier = 0;
+		for (USI p = 0; p < numPerf; p++) {
+			k = perf[p].location;
+			if (perf[p].state == OPEN && myBulk.P[k] > perf[p].P) {
+				perf[p].state = CLOSE;
+				perf[p].multiplier = 0;
 				flagC = false;
 			}
-			else if (Perf[p].State == CLOSE && myBulk.P[k] < Perf[p].P) {
-				Perf[p].State = OPEN;
-				Perf[p].Multiplier = 1;
+			else if (perf[p].state == CLOSE && myBulk.P[k] < perf[p].P) {
+				perf[p].state = OPEN;
+				perf[p].multiplier = 1;
 			}
 		}
 	}
 
 
 	bool flag = false;
-	// check well --  if all perf are closed, open the depthest Perf
-	for (USI p = 0; p < PerfNum; p++) {
-		if (Perf[p].State == OPEN) {
+	// check well --  if all perf are closed, open the depthest perf
+	for (USI p = 0; p < numPerf; p++) {
+		if (perf[p].state == OPEN) {
 			flag = true;
 			break;
 		}
@@ -950,30 +950,30 @@ OCP_INT Well::checkCrossFlow(const Bulk& myBulk)
 	}
 	if (!flag) {
 		return 1;
-		// open the depthest Perf
-		/*Perf.back().State = OPEN;
-		Perf.back().Multiplier = 1;*/
+		// open the depthest perf
+		/*perf.back().state = OPEN;
+		perf.back().multiplier = 1;*/
 	}
 
 	if (!flagC) {
 		dG = ldG;
-		calTrans(myBulk);
-		calFlux(myBulk);
-		caldG(myBulk);
-		smoothdG();
-		// checkOptMode(myBulk);
+		CalTrans(myBulk);
+		CalFlux(myBulk);
+		CaldG(myBulk);
+		SmoothdG();
+		// CheckOptMode(myBulk);
 		return 3;
 	}
 
 	return 0;
 }
 
-void Well::showPerfStatus() const
+void Well::ShowPerfStatus() const
 {
 	cout << "----------------------------" << endl;
-	cout << Name << ":    " << Opt.OptMode << endl; 
-	for (USI p = 0; p < PerfNum; p++) {
-		cout << "Perf[" << p << "].State = " << Perf[p].State << endl;
+	cout << name << ":    " << opt.optMode << endl; 
+	for (USI p = 0; p < numPerf; p++) {
+		cout << "Perf[" << p << "].State = " << perf[p].state << endl;
 	}
 }
 
@@ -983,5 +983,5 @@ void Well::showPerfStatus() const
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

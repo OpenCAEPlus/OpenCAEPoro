@@ -1,43 +1,75 @@
-#pragma once
+/*! \file    ParamControl.hpp
+ *  \brief   ParamControl class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __PARAMCONTROL_HEADER__
+#define __PARAMCONTROL_HEADER__
+
 
 // Standard header files
 #include <fstream>
 #include <vector>
+#include <cassert>
 
 // OpenCAEPoro header files
 #include "ReadTool.hpp"
 #include "OpenCAEPoro_consts.hpp"
 
+/// Tuning is a set of param of control, which contains three main parts
+/// 1. Timestepping controls.
+/// 2. Time truncation and convergence controls.
+/// 3. Newton and linear iterations controls.
+/// But most of these have not been applied to current program.
 typedef vector<vector<OCP_DBL>>				TUNING;
 
 class TuningPair
 {
 public:
-	TuningPair(int t, TUNING& tmp) :d(t), Tuning(tmp) {};
-	int				d;
+	TuningPair(const USI& t, const TUNING& tmp) :d(t), Tuning(tmp) {};
+	USI				d;
 	TUNING			Tuning;
 };
 
+/// ParamControl contains the param referred to control of simulation, for example,
+/// which discrete method will be used, which linear solve file will be used, how will the
+/// timestep change.
 class ParamControl
 {
 public:
 
-	string									Dir;
-	string									Method;
-	string									LinearSolve;
-	vector<TuningPair>						Tuning_T;
-	TUNING									Tuning;
-	vector<OCP_DBL>							CriticalTime;
+	string									dir;		 ///< Current work directory.
+	string									method;		 ///< Decide which method to use to discrete the fluid equations.
+	string									linearSolve; ///< Fasp file.
+	vector<TuningPair>						tuning_T;	 ///< Tuning set.
+	TUNING									tuning;		 ///< Tuning.
+	/// Critical time records the important time points, at those times, the process of simulation
+	/// should be carefully treated, for example, the boundary conditions will be changed.
+	vector<OCP_DBL>							criticalTime;
 	
-	void init(string& dir);
-	void initTime() { CriticalTime.push_back(0); };
-	void initMethod();
-	void initTuning();
-	void inputMETHOD(ifstream& ifs);
-	void inputTUNING(ifstream& ifs);
-	void showTuning();
+	/// Assign default values to parameters.
+	void Init(string& indir);
+	/// Init the critical time.
+	void InitTime() { criticalTime.push_back(0); };
+	/// Determine the default discrete method.
+	void InitMethod();
+	/// Determine the default Tuning.
+	void InitTuning();
+	/// Input the Keyword: METHOD.
+	void InputMETHOD(ifstream& ifs);
+	/// Input the Keyword: TUNING.
+	void InputTUNING(ifstream& ifs);
+	/// Display the Tuning.
+	void DisplayTuning() const;
 };
 
+#endif  /* end if __ParamControl_HEADER__ */
 
 
 /*----------------------------------------------------------------------------*/
@@ -45,5 +77,5 @@ public:
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

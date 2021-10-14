@@ -1,4 +1,16 @@
-#pragma once
+/*! \file    Perforation.hpp
+ *  \brief   Perforation class declaration
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+#ifndef __PERFORATION_HEADER__
+#define __PERFORATION_HEADER__
 
 // Standard header files
 #include <vector>
@@ -6,33 +18,44 @@
 // OpenCAEPoro header files
 #include "OpenCAEPoro_consts.hpp"
 
+using namespace std;
+
+/// Perforation describe the connections between wells and bulks. 
 class Perforation
 {
-	friend class Well;
+    friend class Well;
+
 public:
-	 Perforation() = default;
-	 void setState(bool flag) { State = flag; };
+    Perforation() = default;
+    void setState(const bool& flag) { state = flag; };
 
 private:
-	bool					State;
-	int						Location;
-	OCP_DBL					Depth;
-	OCP_DBL					Trans;
-	OCP_DBL					P;
-	OCP_DBL					WI;
-	OCP_DBL					Multiplier;
-
-	mutable OCP_DBL					Xi;			// inj  single phase
-	std::vector<OCP_DBL>		qi_lbmol;
-	std::vector<OCP_DBL>		transj;
-	OCP_DBL					qt_ft3;
+    bool    state;    ///< True: perforation is open. False: perforation is close.
+    OCP_USI location; ///< Index of bulks which connects to current perforation.
+    OCP_DBL depth;    ///< Depth of bulks which connects to current perforation.
+    OCP_DBL trans;    ///< Transmissibility factor of current perforation, not used now.
+    OCP_DBL P;        ///< Pressure in current perforation.
+    OCP_DBL WI;       ///< Well index (transmissibility factor of current perforation).
+    /// Multiplier factor for transmissibility of current perforation.
+    /// It equals to 0 (close) or 1 (open) now.
+    OCP_DBL multiplier;
+    /// Molar density of fluid in current perforation. It's used in injection well,
+    /// where the fluid consists only single phase.
+    mutable OCP_DBL xi;
+    vector<OCP_DBL> qi_lbmol; ///< Flow rate of moles of components from into/out
+                              ///< current perforation.
+    vector<OCP_DBL> transj;   ///< Transmissibility of phase in current perforation.
+    OCP_DBL         qt_ft3; ///< Flow rate of volume of fluids from into/out current
+                            ///< perforation.
 };
 
+
+#endif  /* end if __PERFORATION_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/

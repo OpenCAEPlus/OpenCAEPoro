@@ -1,4 +1,4 @@
-#include "OpenCAEControl.hpp"
+#include "OCP_Control.hpp"
 
 ControlTime::ControlTime(vector<OCP_DBL>& src)
 {
@@ -22,7 +22,7 @@ ControlError::ControlError(vector<OCP_DBL>& src)
 	ErrorLS_M = src[7];
 }
 
-ControlIter::ControlIter(vector<OCP_DBL>& src)
+ControlIter::ControlIter(const vector<OCP_DBL>& src)
 {
 	ItMax_NT = src[0];
 	ItMin_NT = src[1];
@@ -36,72 +36,72 @@ ControlIter::ControlIter(vector<OCP_DBL>& src)
 		Dpre_M = DPreNT_M;
 }
 
-void OCP_Control::inputParam(ParamControl& CtrlParam)
+void OCP_Control::InputParam(ParamControl& CtrlParam)
 {
-	Dir = CtrlParam.Dir;
-	if (CtrlParam.Method == "IMPES") {
+	Dir = CtrlParam.dir;
+	if (CtrlParam.method == "IMPES") {
 		Method = IMPES;
 	}
-	else if (CtrlParam.Method == "FIM") {
+	else if (CtrlParam.method == "FIM") {
 		Method = FIM;
 	}
 	else {
 		ERRORcheck("Wrong Method !");
 		exit(0);
 	}
-	SolveFile = CtrlParam.LinearSolve;
-	CriticalTime = CtrlParam.CriticalTime;
+	solveFile = CtrlParam.linearSolve;
+	criticalTime = CtrlParam.criticalTime;
 
-	int t = CtrlParam.CriticalTime.size();
-	CtrlTimeSet.resize(t);
-	CtrlErrorSet.resize(t);
-	CtrlIterSet.resize(t);
+	USI t = CtrlParam.criticalTime.size();
+	ctrlTimeSet.resize(t);
+	ctrlErrorSet.resize(t);
+	ctrlIterSet.resize(t);
 
-	int n = CtrlParam.Tuning_T.size();
-	vector<int>		ctrlCriticalTime(n + 1);
-	for (int i = 0; i < n; i++) {
-		ctrlCriticalTime[i] = CtrlParam.Tuning_T[i].d;
+	USI n = CtrlParam.tuning_T.size();
+	vector<USI>		ctrlCriticalTime(n + 1);
+	for (USI i = 0; i < n; i++) {
+		ctrlCriticalTime[i] = CtrlParam.tuning_T[i].d;
 	}
 	ctrlCriticalTime.back() = t;
-	for (int i = 0; i < n; i++) {
-		for (int d = ctrlCriticalTime[i]; d < ctrlCriticalTime[i + 1]; d++) {
-			CtrlTimeSet[d] = ControlTime(CtrlParam.Tuning_T[i].Tuning[0]);
-			CtrlErrorSet[d] = ControlError(CtrlParam.Tuning_T[i].Tuning[1]);
-			CtrlIterSet[d] = ControlIter(CtrlParam.Tuning_T[i].Tuning[2]);
+	for (USI i = 0; i < n; i++) {
+		for (USI d = ctrlCriticalTime[i]; d < ctrlCriticalTime[i + 1]; d++) {
+			ctrlTimeSet[d] = ControlTime(CtrlParam.tuning_T[i].Tuning[0]);
+			ctrlErrorSet[d] = ControlError(CtrlParam.tuning_T[i].Tuning[1]);
+			ctrlIterSet[d] = ControlIter(CtrlParam.tuning_T[i].Tuning[2]);
 		}
 	}
 
 	cout << "OCP_Control::input" << endl;
 }
 
-void OCP_Control::ApplyControl(int i)
+void OCP_Control::ApplyControl(const USI& i)
 {
-	CtrlTime = CtrlTimeSet[i];
-	CtrlError = CtrlErrorSet[i];
-	CtrlIter = CtrlIterSet[i];
+	ctrlTime = ctrlTimeSet[i];
+	ctrlError = ctrlErrorSet[i];
+	ctrlIter = ctrlIterSet[i];
 
-	End_time = CriticalTime[i + 1];
+	End_time = criticalTime[i + 1];
 }
 
 
-void OCP_Control::initTime(int i)
+void OCP_Control::InitTime(const USI& i)
 {
-	OCP_DBL dt = CriticalTime[i + 1] - Current_time;
+	OCP_DBL dt = criticalTime[i + 1] - Current_time;
 	if (dt < 0) {
 		ERRORcheck("Wrong Time Step");
 		exit(0);
 	}
-	Current_dt = min(dt, CtrlTime.TimeInit);
+	Current_dt = min(dt, ctrlTime.TimeInit);
 }
 
 void OCP_Control::setNextTstep(Reservoir& reservoir)
 {
 	Current_time += Current_dt;
 
-	OCP_DBL dPmax = reservoir.bulk.getdPmax();
-	OCP_DBL dNmax = reservoir.bulk.getdNmax();
-	OCP_DBL dSmax = reservoir.bulk.getdSmax();
-	OCP_DBL dVmax = reservoir.bulk.getdVmax();
+	OCP_DBL dPmax = reservoir.bulk.GetdPmax();
+	OCP_DBL dNmax = reservoir.bulk.GetdNmax();
+	OCP_DBL dSmax = reservoir.bulk.GetdSmax();
+	OCP_DBL dVmax = reservoir.bulk.GetdVmax();
 
 	OCP_DBL dPlim = 300;
 	OCP_DBL dNlim = 0.3;
@@ -119,10 +119,10 @@ void OCP_Control::setNextTstep(Reservoir& reservoir)
 
 	Current_dt /= c;
 
-	if (Current_dt > CtrlTime.TimeMax)
-		Current_dt = CtrlTime.TimeMax;
-	if (Current_dt < CtrlTime.TimeMin)
-		Current_dt = CtrlTime.TimeMin;
+	if (Current_dt > ctrlTime.TimeMax)
+		Current_dt = ctrlTime.TimeMax;
+	if (Current_dt < ctrlTime.TimeMin)
+		Current_dt = ctrlTime.TimeMin;
 
 	OCP_DBL dt = End_time - Current_time;
 	if (Current_dt > dt)
@@ -135,5 +135,5 @@ void OCP_Control::setNextTstep(Reservoir& reservoir)
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/08/2021      Create file                          */
+/*  Shizhe Li           Oct/01/2021      Create file                          */
 /*----------------------------------------------------------------------------*/
