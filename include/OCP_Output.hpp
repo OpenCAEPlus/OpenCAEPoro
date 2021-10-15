@@ -47,35 +47,17 @@ public:
     USI I, J, K;
 };
 
-class OCPTypeA
+template <typename T>
+class OCPType_Sum
 {
 public:
-    OCPTypeA& operator=(const Type_A_o& src)
-    {
-        activity = src.activity;
-        obj      = src.obj;
-        return *this;
-    }
-    bool           activity{false};
-    vector<string> obj; ///<
-    vector<USI>
-        index; ///< Records the index of bulk or well, whose properties will be printed.
+	OCPType_Sum& operator= (const Type_A_o& src) { activity = src.activity; obj = src.obj; return *this; }
+	OCPType_Sum& operator= (const Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
+	bool				activity{ false };
+	vector<T>		    obj;
+	vector<USI>			index; ///< Records the index of bulk or well, whose properties will be printed.
 };
 
-class OCPTypeB
-{
-public:
-    OCPTypeB& operator=(const Type_B_o& src)
-    {
-        activity = src.activity;
-        obj.assign(src.obj.begin(), src.obj.end());
-        return *this;
-    }
-    bool           activity{false};
-    vector<OCPIJK> obj;
-    vector<USI>
-        index; ///< Records the index of bulk or well, whose properties will be printed.
-};
 
 /// SumPair is an auxiliary structure storing summary data to output.
 class SumPair
@@ -103,33 +85,34 @@ public:
     void PrintInfo(const string& dir);
 
 private:
-    vector<SumPair> Sumdata; ///< Contains all information to be printed.
 
-    bool FPR{false};  ///< Field average Pressure.
-    bool FOPR{false}; ///< Field oil production rate.
-    bool FOPT{false}; ///< Field total oil production.
-    bool FGPR{false}; ///< Field gas production rate.
-    bool FGPt{false}; ///< Field total gas production.
-    bool FWPR{false}; ///< Field water production rate.
-    bool FWPT{false}; ///< Field total water production.
-    bool FGIR{false}; ///< Field gas injection rate.
-    bool FGIT{false}; ///< Field total gas injection.
-    bool FWIR{false}; ///< Field water injection rate.
-    bool FWIT{false}; ///< Field total water injection.
+	vector<SumPair>		Sumdata; ///< Contains all information to be printed.
 
-    OCPTypeA WOPR; ///< Well oil production rate.
-    OCPTypeA WOPT; ///< Well total oil production.
-    OCPTypeA WGPR; ///< Well gas production rate.
-    OCPTypeA WGPT; ///< Well total gas production.
-    OCPTypeA WWPR; ///< Well water production rate.
-    OCPTypeA WWPT; ///< Well total water production.
-    OCPTypeA WGIR; ///< Well gas injection rate.
-    OCPTypeA WGIT; ///< Well total gas injection.
-    OCPTypeA WWIR; ///< Well water injection rate.
-    OCPTypeA WWIT; ///< Well total water injection.
-    OCPTypeA WBHP; ///< Well pressure.
+	bool		FPR{ false };	///< Field average Pressure.
+	bool		FOPR{ false };	///< Field oil production rate.
+	bool		FOPT{ false };	///< Field total oil production.
+	bool		FGPR{ false };	///< Field gas production rate.
+	bool		FGPt{ false };	///< Field total gas production.
+	bool		FWPR{ false };	///< Field water production rate.
+	bool		FWPT{ false };	///< Field total water production.
+	bool		FGIR{ false };	///< Field gas injection rate.
+	bool		FGIT{ false };	///< Field total gas injection.
+	bool		FWIR{ false };	///< Field water injection rate.
+	bool		FWIT{ false };	///< Field total water injection.
 
-    OCPTypeB BPR; ///< Bulk pressure.
+	OCPType_Sum<string>		WOPR;	///< Well oil production rate.
+	OCPType_Sum<string>		WOPT;	///< Well total oil production.
+	OCPType_Sum<string>		WGPR;	///< Well gas production rate.
+	OCPType_Sum<string>		WGPT;	///< Well total gas production.
+	OCPType_Sum<string>		WWPR;	///< Well water production rate.
+	OCPType_Sum<string>		WWPT;	///< Well total water production.
+	OCPType_Sum<string>		WGIR;	///< Well gas injection rate.
+	OCPType_Sum<string>		WGIT;	///< Well total gas injection.
+	OCPType_Sum<string>		WWIR;	///< Well water injection rate.
+	OCPType_Sum<string>		WWIT;	///< Well total water injection.
+	OCPType_Sum<string>		WBHP;	///< Well pressure.
+
+	OCPType_Sum<OCPIJK>		BPR;	///< Bulk pressure.
 };
 
 /// OCP_Output manages different kinds of ways to output. the most commonly used is

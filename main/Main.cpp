@@ -33,7 +33,7 @@ int main(int argc, const char* argv[])
     if (argc != 2) {
         cout << "Input file is missing. Usage: " << argv[0] << " <InputFileName>"
              << endl;
-        exit(0);
+        exit(-1);
     }
 
     OpenCAEPoro simulator;

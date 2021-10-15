@@ -67,86 +67,112 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     minBHP  = Optparam.minBHP;
 }
 
+void Well::InputPerfo(const WellParam& well)
+{
+	numPerf = well.I_perf.size();
+	perf.resize(numPerf);
+	for (USI p = 0; p < numPerf; p++) {
+		perf[p].I = well.I_perf[p] - 1;
+		perf[p].J = well.J_perf[p] - 1;
+		perf[p].K = well.K_perf[p] - 1;
+		perf[p].WI = well.WI[p];
+		perf[p].radius = well.diameter[p] / 2.0;
+		perf[p].kh = well.kh[p];
+		perf[p].skinFactor = well.skinFactor[p];
+		if (well.direction[p] == "X" || well.direction[p] == "x") {
+			perf[p].direction = X_DIRECTION;
+		}
+		else if (well.direction[p] == "Y" || well.direction[p] == "y") {
+			perf[p].direction = Y_DIRECTION;
+		}
+		else if (well.direction[p] == "Z" || well.direction[p] == "z") {
+			perf[p].direction = Z_DIRECTION;
+		}
+		else {
+			ERRORcheck("Wrong direction of perforations");
+			exit(0);
+		}
+	}
+}
+
+
 void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
-    // zi
-    if (myBulk.blackOil) {
-        for (auto& opt : optSet) {
+	// zi
+	if (myBulk.blackOil) {
+		for (auto& opt : optSet) {
 
-            opt.zi.resize(myBulk.numCom, 0);
-            if (opt.type == INJ) {
-                // INJ
-                switch (myBulk.PVTmode) {
-                    case PHASE_W:
-                    case PHASE_OW:
-                        opt.zi.back() = 1;
-                        break;
-                    case PHASE_OGW:
-                        if (opt.fluidType == GAS)
-                            opt.zi[1] = 1;
-                        else
-                            opt.zi[2] = 1;
-                        break;
-                    default:
-                        ERRORcheck("WRONG Blackoil type!");
-                        exit(0);
-                }
-            } else {
-                // PROD
-                switch (myBulk.PVTmode) {
-                    case PHASE_W:
-                        opt.zi.back() = 1;
-                        break;
-                    case PHASE_OW:
-                        if (opt.optMode == ORATE_MODE)
-                            opt.zi[0] = 1;
-                        else
-                            opt.zi[1] = 1;
-                        break;
-                    case PHASE_OGW:
-                        if (opt.optMode == ORATE_MODE)
-                            opt.zi[0] = 1;
-                        else if (opt.optMode == GRATE_MODE)
-                            opt.zi[1] = 1;
-                        else
-                            opt.zi[2] = 1;
-                        break;
-                    default:
-                        ERRORcheck("WRONG Blackoil type!");
-                        exit(0);
-                }
-            }
-        }
-    } else if (myBulk.comps) {
+			opt.zi.resize(myBulk.numCom, 0);
+			if (opt.type == INJ) {
+				// INJ
+				switch (myBulk.PVTmode)
+				{
+				case PHASE_W:
+				case PHASE_OW:
+					opt.zi.back() = 1;
+					break;
+				case PHASE_OGW:
+					if (opt.fluidType == GAS)		opt.zi[1] = 1;
+					else							opt.zi[2] = 1;
+					break;
+				default:
+					ERRORcheck("WRONG Blackoil type!");
+					exit(0);
+				}
+			}
+			else {
+				// PROD
+				switch (myBulk.PVTmode)
+				{
+				case PHASE_W:
+					opt.zi.back() = 1;
+					break;
+				case PHASE_OW:
+					if (opt.optMode == ORATE_MODE)			opt.zi[0] = 1;
+					else									opt.zi[1] = 1;
+					break;
+				case PHASE_OGW:
+					if (opt.optMode == ORATE_MODE)			opt.zi[0] = 1;
+					else if (opt.optMode == GRATE_MODE)		opt.zi[1] = 1;
+					else									opt.zi[2] = 1;
+					break;
+				default:
+					ERRORcheck("WRONG Blackoil type!");
+					exit(0);
+				}
+			}
+		}
+	}
+	else if (myBulk.comps) {
+		
+	} 
+	else {
+		ERRORcheck("Wrong Mixture Type !");
+		exit(0);
+	}
 
-    } else {
-        ERRORcheck("Wrong Mixture Type !");
-        exit(0);
-    }
+	qi_lbmol.resize(myBulk.numCom);
+	// perf
+	dG.resize(numPerf, 0);
+	ldG = dG;
+	for (USI p = 0; p < numPerf; p++) {
+		perf[p].state = OPEN;
+		OCP_USI Idg = perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
+		if (!myGrid.activeMap_G2B[Idg].GetAct()) {
+			ERRORcheck("Perforation is in inactive bulk !");
+			exit(0);
+		}
+		perf[p].location = myGrid.activeMap_G2B[Idg].GetId();
+		perf[p].depth = myBulk.depth[perf[p].location];
+		perf[p].multiplier = 1;
+		perf[p].qi_lbmol.resize(myBulk.numCom);
+		perf[p].transj.resize(myBulk.numPhase);
+	}
+	if (depth < 0)
+		depth = perf[0].depth;
 
-    qi_lbmol.resize(myBulk.numCom);
-    // perf
-    numPerf = K2 - K1 + 1;
-    dG.resize(numPerf, 0);
-    ldG = dG;
-    perf.resize(numPerf);
-    for (USI p = 0; p < numPerf; p++) {
-        perf[p].state = OPEN;
-        OCP_USI Idg   = (K1 + p) * myGrid.nx * myGrid.ny + J * myGrid.nx + I;
-        if (!myGrid.activeMap_G2B[Idg].GetAct()) {
-            ERRORcheck("Perforation is in inactive bulk !");
-            exit(0);
-        }
-        perf[p].location   = myGrid.activeMap_G2B[Idg].GetId();
-        perf[p].depth      = myBulk.depth[perf[p].location];
-        perf[p].multiplier = 1;
-        perf[p].qi_lbmol.resize(myBulk.numCom);
-        perf[p].transj.resize(myBulk.numPhase);
-    }
-    if (depth < 0) depth = perf[0].depth;
-
-    CalWI_Peaceman_Vertical(myBulk);
-    cout << "Well::Setup" << endl;
+	CalWI_Peaceman_Vertical(myBulk);
+	cout << "Well::Setup" << endl;
 }
 
 void Well::Init(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }
@@ -166,35 +192,50 @@ OCP_DBL Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 
 void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
 {
-    // this fomular needs to be carefully checked !
-    // especially the dz
-    if (WI > 0) {
-        for (USI p = 0; p < numPerf; p++) {
-            perf[p].WI = WI;
-        }
-    } else {
-        for (USI p = 0; p < numPerf; p++) {
-            OCP_USI Idb   = perf[p].location;
-            OCP_DBL kxky  = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];
-            OCP_DBL kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];
-            assert(kx_ky > 0);
+	// this fomular needs to be carefully checked !
+	// especially the dz
 
-            OCP_DBL dx = myBulk.dx[Idb];
-            OCP_DBL dy = myBulk.dy[Idb];
-            OCP_DBL dz = myBulk.dz[Idb] * myBulk.ntg[Idb];
+	for (USI p = 0; p < numPerf; p++) {
+		if (perf[p].WI > 0) {
+			break;
+		}
+		else {
+			OCP_USI Idb = perf[p].location;
+			OCP_DBL dx = myBulk.dx[Idb];
+			OCP_DBL dy = myBulk.dy[Idb];
+			OCP_DBL dz = myBulk.dz[Idb] * myBulk.ntg[Idb];
+			switch (perf[p].direction)
+			{
+			case X_DIRECTION:
+				break;
+			case Y_DIRECTION:
+				break;
+			case Z_DIRECTION:
+			{
+				OCP_DBL kxky = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];
+				OCP_DBL kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];
+				assert(kx_ky > 0);
 
-            OCP_DBL ro =
-                0.28 *
-                pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
-            ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
-            if (kh < 0) {
-                perf[p].WI =
-                    (2 * PI) * (dz * pow(kxky, 0.5)) / (log(ro / radius) + skinFactor);
-            } else {
-                perf[p].WI = (2 * PI) * kh / (log(ro / radius) + skinFactor);
-            }
-        }
-    }
+				OCP_DBL ro =
+					0.28 *
+					pow((dx * dx * pow(1 / kx_ky, 0.5) + dy * dy * pow(kx_ky, 0.5)), 0.5);
+				ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));
+
+				if (perf[p].kh < 0) {
+					perf[p].WI =
+						(2 * PI) * (dz * pow(kxky, 0.5)) / (log(ro / perf[p].radius) + perf[p].skinFactor);
+				}
+				else {
+					perf[p].WI = (2 * PI) * perf[p].kh / (log(ro / perf[p].radius) + perf[p].skinFactor);
+				}
+				break;
+			}
+			default:
+				ERRORcheck("Wrong direction of perforations!");
+				exit(0);
+			}
+		}
+	}
 }
 
 void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
