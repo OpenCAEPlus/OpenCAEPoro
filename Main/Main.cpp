@@ -30,19 +30,19 @@ using namespace std;
 // --> (5) Output the results
 int main(int argc, const char* argv[])
 {
-
     if (argc == 1) {
-        cout << "Input file is missing. Usage: ./OpenCAEPoro <filename>" << endl;
+        cout << "Input file is missing. Usage: " << argv[0] << " <InputFileName>" << endl;
         exit(0);
     }
+
+    OpenCAEPoro simulator;
+    simulator.PrintVersion();
 
     // Step 1. Read params from an input file to internal params data structure.
     // Note: The keywords are almost compatible with Ecl simulator.
     string    myfile = argv[1];
     ParamRead rp;
     rp.ReadInputFile(myfile);
-
-    OpenCAEPoro simulator;
 
     // Step 2. Read param from internal params data structure to each modules, and
     // Setup static information, such as active grids, and connections between them.

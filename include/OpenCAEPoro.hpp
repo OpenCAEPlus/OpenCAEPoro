@@ -20,10 +20,20 @@
 #include "Reservoir.hpp"
 #include "Timing.hxx"
 
+#define OCPVersion "0.1.0"
+
 /// Top level data structure in the OpenCAEPoro simulator
 class OpenCAEPoro
 {
 public:
+    /// Output OpenCAEPoro version information.
+    void PrintVersion(){
+        std::cout << "-------------------------\n"
+                  << "|   OpenCAEPoro " << OCPVersion << "   |\n"
+                  << "-------------------------\n"
+                  << std::endl;
+    };
+
     /// Read input parameters to an internal structure.
     void InputParam(ParamRead& param);
 
