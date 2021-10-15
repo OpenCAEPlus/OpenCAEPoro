@@ -18,7 +18,7 @@
 // OpenCAEPoro header files
 #include "Bulk.hpp"
 #include "Grid.hpp"
-#include "OpenCAEPoro_consts.hpp"
+#include "OpenCAEPoroConsts.hpp"
 #include "ParamWell.hpp"
 #include "Perforation.hpp"
 #include "Solver.hxx"
@@ -165,12 +165,12 @@ private:
     OCP_DBL WI; ///< connection transmissibility factor, it can be provided directly
                 ///< from the users.
 
-    string  name;      ///< well name
-    USI     I;         ///< I-index of the well header.
-    USI     J;         ///< J-index of the well header.
-    USI     K1;        ///< K-location of upper connecting block in this set of data.
-    USI     K2;        ///< K-location of lower connecting block in this set of data.
-    WellOpt opt; ///< well control parameters, contains current control parameters.
+    string  name; ///< well name
+    USI     I;    ///< I-index of the well header.
+    USI     J;    ///< J-index of the well header.
+    USI     K1;   ///< K-location of upper connecting block in this set of data.
+    USI     K2;   ///< K-location of lower connecting block in this set of data.
+    WellOpt opt;  ///< well control parameters, contains current control parameters.
     vector<WellOpt> optSet; ///< well control parameters set, contains control
                             ///< parameters in all critical time.
 
@@ -179,7 +179,7 @@ private:
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.
     vector<OCP_DBL>
-                    dG; ///< difference of pressure between well and perforation: numPerf.
+        dG; ///< difference of pressure between well and perforation: numPerf.
     vector<OCP_DBL> ldG; ///< difference of pressure between well and perforation at
                          ///< last time step: numPerf.
 

@@ -16,7 +16,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoro_consts.hpp"
+#include "OpenCAEPoroConsts.hpp"
 #include "ParamControl.hpp"
 #include "Reservoir.hpp"
 
@@ -65,10 +65,10 @@ public:
     USI     iterMin_NT;  // Minimum number of Newton iterations in a timestep
     USI     iterMax_NTL; // Maximum number of linear iterations in a Newton iteration
     USI     iterMin_NTL; // Minimum number of linear iterations in a Newton iteration
-    OCP_DBL dPreNT_M;  // Maximum pressure change at last Newton iteration
-    OCP_DBL dSatNT_M;  // Maximum saturation change at last Newton iteration
-    OCP_DBL dPreNT_T;  // Target pressure change at last Newton iteration
-    OCP_DBL dpre_M;    // Target maximum pressure change in a timestep
+    OCP_DBL dPreNT_M;    // Maximum pressure change at last Newton iteration
+    OCP_DBL dSatNT_M;    // Maximum saturation change at last Newton iteration
+    OCP_DBL dPreNT_T;    // Target pressure change at last Newton iteration
+    OCP_DBL dpre_M;      // Target maximum pressure change in a timestep
 };
 
 /// OCP_Control is responsible for all of the controller except well controler.
@@ -85,14 +85,14 @@ public:
     void ApplyControl(const USI& i);
 
     void InitTime(const USI& i);
-    /// Return 
-    USI     GetNumDates() const { return criticalTime.size(); }
+    /// Return
+    USI GetNumDates() const { return criticalTime.size(); }
     /// Return the current time.
     OCP_DBL GetCurTime() const { return current_time; }
     /// Return the number of linear solver iterations in one time step.
-    USI     GetLSiter() const { return iterLS; }
+    USI GetLSiter() const { return iterLS; }
     /// Return the number of Newton iterations in one time step.
-    USI     GetNRiter() const { return iterNR; }
+    USI GetNRiter() const { return iterNR; }
 
     /// Calculate the next time step according to max change of some variables.
     void SetNextTstep(const Reservoir& reservoir);

@@ -13,8 +13,8 @@
 #define __OPENCAEPORO_HEADER__
 
 // OpenCAEPoro header files
-#include "OCP_Method.hpp"
 #include "OCP_Control.hpp"
+#include "OCP_Method.hpp"
 #include "OCP_Output.hpp"
 #include "ParamRead.hpp"
 #include "Reservoir.hpp"
@@ -27,7 +27,8 @@ class OpenCAEPoro
 {
 public:
     /// Output OpenCAEPoro version information.
-    void PrintVersion(){
+    void PrintVersion()
+    {
         std::cout << "-------------------------\n"
                   << "|   OpenCAEPoro " << OCPVersion << "   |\n"
                   << "-------------------------\n"
