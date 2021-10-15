@@ -5,8 +5,7 @@
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
- *  Released under the terms of the GNU Lesser General Public License 3.0 or
- *later.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
  *-----------------------------------------------------------------------------------
  */
 
