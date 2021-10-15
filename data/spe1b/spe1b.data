@@ -174,10 +174,10 @@ WPI
 
 SCHEDULE  =======================================
 
-RPTSCHED
+--RPTSCHED
 'VWAT=1' /
 
-RPTSCHED
+--RPTSCHED
 'PRES' 'SOIL' 'SWAT' 'RESTART=2' 'FIP=1' 'WELLS=1' 'SUMMARY=1' 
 /
 

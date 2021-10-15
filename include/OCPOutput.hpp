@@ -174,7 +174,7 @@ public:
     void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
     void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
     void PrintInfo() const;
-    void PrintInfoSched(const Reservoir& rs, const OCP_DBL& days) const;
+    void PrintInfoSched(const Reservoir& rs, const OCP_Control& ctrl, const OCP_DBL& time) const;
 
 private:
     string       wordDir;

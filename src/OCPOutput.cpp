@@ -555,8 +555,13 @@ void OCP_Output::PrintInfo() const
     crtInfo.PrintInfo(wordDir);
 }
 
-void OCP_Output::PrintInfoSched(const Reservoir& rs, const OCP_DBL& days) const
-{
+void OCP_Output::PrintInfoSched(const Reservoir& rs, const OCP_Control& ctrl, const OCP_DBL& time) const
+{   
+    OCP_DBL days = ctrl.current_time;
+    cout << fixed << setprecision(3) << days << " Days\t";
+    cout << ctrl.tstep << "\t";
+    cout << time / 1000 << "s";
+    cout << "\n";
     dtlInfo.PrintInfo(wordDir, rs, days);
 }
 

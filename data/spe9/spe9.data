@@ -2559,7 +2559,7 @@ BPR
 
 SCHEDULE   =====================================================================
   
-RPTSCHED
+--RPTSCHED
 'PRES' 'SWAT' 'RESTART=2' 'FIP=2' 'WELLS=2' 'VFPPROD=1' 'CPU=2' 'WELSPECS' 'FIPTR=2' 
 /
   

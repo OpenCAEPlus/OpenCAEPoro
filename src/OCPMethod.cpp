@@ -26,19 +26,21 @@ void OCP_IMPES::AllocateMat(const Reservoir& rs)
 
 void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 {
+    GetWallTime timer;
+    timer.Start();
 
     USI numdates = ctrl.GetNumDates();
+    output.PrintInfoSched(rs, ctrl, timer.Stop());
     for (USI d = 0; d < numdates - 1; d++) {
         rs.wellgroup.ApplyControl(d);
         ctrl.ApplyControl(d);
         ctrl.InitTime(d);
-        // output.PrintInfoSched(rs, ctrl.current_time);
         while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
 
             GoOneStep(rs, ctrl);
             output.SetVal(rs, ctrl);
         }
-        // output.PrintInfoSched(rs, ctrl.current_time);
+        output.PrintInfoSched(rs, ctrl, timer.Stop());
     }
 }
 
