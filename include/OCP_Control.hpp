@@ -79,6 +79,7 @@ class OCP_Control
 {
     friend class OpenCAEPoro;
     friend class OCP_IMPES;
+    friend class OCP_Output;
 
 public:
     void InputParam(const ParamControl& CtrlParam);

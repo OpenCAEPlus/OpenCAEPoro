@@ -22,7 +22,7 @@ void OpenCAEPoro::SetupReservoir(ParamRead& param)
 {
 	InputParam(param);
 	reservoir.Setup();
-	output.Setup(reservoir, control.workDir);
+	output.Setup(reservoir, control);
 	SetupSolver();
 }
 

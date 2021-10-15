@@ -79,10 +79,11 @@ public:
 class Summary
 {
 public:
-    void InputParam(const OutputSummary& summary_param);
-    void Setup(const Reservoir& reservoir);
-    void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
-    void PrintInfo(const string& dir);
+	void InputParam(const OutputSummary& summary_param);
+	void Setup(const Reservoir& reservoir, const OCP_DBL& totalTime);
+	void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+	void PrintInfo(const string& dir) const;
+
 
 private:
 
@@ -115,25 +116,41 @@ private:
 	OCPType_Sum<OCPIJK>		BPR;	///< Bulk pressure.
 };
 
-/// OCP_Output manages different kinds of ways to output. the most commonly used is
-/// summary file. which usually give the information of bulks and wells in each
-/// timestep, such as average bulks pressure, oil production rate of wells. if other
-/// information at critical time is interested in, you can chose the PRT file(to do).
-/// also, some infomation will be printed on the screen at the critical time to make
-/// sure the program is at the right way.
+/// CriticalInfo print some important index of each time step for fast review.
+class CriticalInfo
+{
+public:
+	void Setup(const Reservoir& reservoir, const OCP_DBL& totalTime);
+	void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+	void PrintInfo(const string& dir) const;
+private:
+	vector<OCP_DBL>		time;
+	vector<OCP_DBL>		dPmax;
+	vector<OCP_DBL>		dVmax;
+	vector<OCP_DBL>		dSmax;
+	vector<OCP_DBL>		dNmax;
+	vector<OCP_DBL>		cfl;
+};
+
+/// OCP_Output manages different kinds of ways to output. the most commonly used is summary file.
+/// which usually give the information of bulks and wells in each timestep, such as average bulks pressure,
+/// oil production rate of wells. if other information at critical time is interested in, you can chose
+/// the PRT file(to do). also, some infomation will be printed on the screen at the critical time to make sure
+/// the program is at the right way. 
 class OCP_Output
 {
     friend class OpenCAEPoro;
 
-public:
-    void InputParam(ParamOutput& param_Output);
-    void Setup(Reservoir& reservoir, string& dir);
-    void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
-    void PrintInfo();
+	void InputParam(const ParamOutput& param_Output);
+	void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
+	void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+	void PrintInfo() const;
 
 private:
-    string  Dir;
-    Summary summary;
+	string		wordDir;
+	Summary		summary;
+	CriticalInfo crtInfo;
+
 };
 
 #endif /* end if __OCPOUTPUT_HEADER__ */

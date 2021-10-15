@@ -44,7 +44,7 @@ void Summary::InputParam(const OutputSummary& summary_param)
 	cout << "Summary::InputParam" << endl;
 }
 
-void Summary::Setup(const Reservoir& reservoir)
+void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 {
 	Sumdata.push_back(SumPair("TIME", "  ", "DAY"));
 	Sumdata.push_back(SumPair("NRiter", "  ", "  "));
@@ -264,6 +264,13 @@ void Summary::Setup(const Reservoir& reservoir)
 		}
 	}
 
+	// Allocate memory
+	USI rs = totalTime / 0.1;
+	USI cs = Sumdata.size();
+	for (USI i = 0; i < cs; i++) {
+		Sumdata[i].val.reserve(rs);
+	}
+
 	cout << "Summary::Setup" << endl;
 
 }
@@ -356,7 +363,7 @@ void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
 
 }
 
-void Summary::PrintInfo(const string& dir)
+void Summary::PrintInfo(const string& dir) const
 {
 	string FileOut = dir + "SUMMARY.dat";
 	ofstream outF(FileOut);
@@ -439,26 +446,85 @@ void Summary::PrintInfo(const string& dir)
 	outF.close();
 }
 
-void OCP_Output::InputParam(ParamOutput& param_Output)
+void CriticalInfo::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
+{
+	// Allocate memory
+	USI rc = totalTime / 0.1;
+	time.reserve(rc);
+	dPmax.reserve(rc);
+	dVmax.reserve(rc);
+	dSmax.reserve(rc);
+	dNmax.reserve(rc);
+	cfl.reserve(rc);
+}
+
+void CriticalInfo::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
+{
+	time.push_back(ctrl.GetCurTime());
+	dPmax.push_back(reservoir.bulk.GetdPmax());
+	dVmax.push_back(reservoir.bulk.GetdVmax());
+	dSmax.push_back(reservoir.bulk.GetdSmax());
+	dNmax.push_back(reservoir.bulk.GetdNmax());
+	cfl.push_back(reservoir.cfl);
+}
+
+void CriticalInfo::PrintInfo(const string& dir) const
+{
+	string FileOut = dir + "FastReview.dat";
+	ofstream outF(FileOut);
+	if (!outF.is_open()) {
+		ERRORcheck("Can not open " + FileOut);
+		exit(0);
+	}
+
+	// Time
+	outF << "\t" << setw(10) << "Time";
+	outF << "\t" << setw(10) << "dPmax";
+	outF << "\t" << setw(10) << "dVmax";
+	outF << "\t" << setw(10) << "dSmax";
+	outF << "\t" << setw(10) << "dNmax";
+	outF << "\t" << setw(10) << "CFL\n\n";
+	USI n = time.size();
+	for (USI i = 0; i < n; i++) {
+		outF << "\t" << setw(10) << time[i];
+		outF << "\t" << setw(10) << dPmax[i];
+		outF << "\t" << setw(10) << dVmax[i];
+		outF << "\t" << setw(10) << dSmax[i];
+		outF << "\t" << setw(10) << dNmax[i];
+		outF << "\t" << setw(10) << cfl[i];
+		outF << "\n";
+	}
+
+	outF.close();
+}
+
+void OCP_Output::InputParam(const ParamOutput& param_Output)
 {
 	summary.InputParam(param_Output.summary);
 }
 
-void OCP_Output::Setup(Reservoir& reservoir, string& dir)
+void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
 {
-	Dir = dir;
-	summary.Setup(reservoir);
+	wordDir = ctrl.workDir;
+	summary.Setup(reservoir, ctrl.criticalTime.back());
+	crtInfo.Setup(reservoir, ctrl.criticalTime.back());
+
 }
 
 void OCP_Output::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
 {
 	summary.SetVal(reservoir, ctrl);
+	crtInfo.SetVal(reservoir, ctrl);
 }
 
-void OCP_Output::PrintInfo()
+void OCP_Output::PrintInfo() const
 {
-	summary.PrintInfo(Dir);
+	summary.PrintInfo(wordDir);
+	crtInfo.PrintInfo(wordDir);
 }
+
+
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
