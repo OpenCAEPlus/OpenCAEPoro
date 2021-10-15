@@ -86,7 +86,8 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 set(INC_FILES ${PROJECT_SOURCE_DIR}/include/)
 
 # Find source code from src
-file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c[px][px] ${PROJECT_SOURCE_DIR}/main/*.c[px][px]) 
+file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c[px][px] 
+                            ${PROJECT_SOURCE_DIR}/main/*.c[px][px]) 
 
 # The OpenCAEPoro library target
 add_library(OpenCAEPoro STATIC ${SRC_FILES})
