@@ -17,7 +17,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoroConsts.hpp"
+#include "OCPConst.hpp"
 
 using namespace std;
 
@@ -120,4 +120,5 @@ protected:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

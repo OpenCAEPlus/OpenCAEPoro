@@ -13,8 +13,8 @@
 #define __FLOWUNIT_HEADER__
 
 // OpenCAEPoro header files
-#include "OCP_Table.hxx"
-#include "OpenCAEPoroConsts.hpp"
+#include "OCPConst.hpp"
+#include "OCPTable.hpp"
 #include "ParamReservoir.hpp"
 
 /// designed to deal with matters related to saturation table.
@@ -127,4 +127,5 @@ private:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

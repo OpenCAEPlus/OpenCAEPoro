@@ -17,13 +17,13 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "BOMixture.hpp"
 #include "FlowUnit.hpp"
 #include "Grid.hpp"
+#include "LinearSolver.hpp"
 #include "Mixture.hpp"
-#include "OpenCAEPoroConsts.hpp"
+#include "MixtureBO.hpp"
+#include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
-#include "Solver.hxx"
 
 using namespace std;
 
@@ -234,4 +234,5 @@ private:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

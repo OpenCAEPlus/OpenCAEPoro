@@ -18,8 +18,8 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoroConsts.hpp"
-#include "ReadTool.hpp"
+#include "OCPConst.hpp"
+#include "UtilInput.hpp"
 
 /// Tuning is a set of param of control, which contains three main parts
 /// 1. Timestepping controls.
@@ -78,4 +78,5 @@ public:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

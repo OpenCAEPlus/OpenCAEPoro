@@ -31,14 +31,14 @@ void ParamRead::GetDirAndName()
 {
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
     // for Window file system
-    OCP_INT pos  = inputFile.find_last_of('\\') + 1;
-    workDir  = inputFile.substr(0, pos);
-    fileName = inputFile.substr(pos, inputFile.size() - pos);
+    OCP_INT pos = inputFile.find_last_of('\\') + 1;
+    workDir     = inputFile.substr(0, pos);
+    fileName    = inputFile.substr(pos, inputFile.size() - pos);
 #else
     // for Linux and Mac OSX file system
-    OCP_INT pos  = inputFile.find_last_of('/') + 1;
-    workDir  = inputFile.substr(0, pos);
-    fileName = inputFile.substr(pos, inputFile.size() - pos);
+    OCP_INT pos = inputFile.find_last_of('/') + 1;
+    workDir     = inputFile.substr(0, pos);
+    fileName    = inputFile.substr(pos, inputFile.size() - pos);
 #endif
 }
 
@@ -217,11 +217,11 @@ void ParamRead::CheckParam()
     param_Well.CheckParam();
 }
 
-
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

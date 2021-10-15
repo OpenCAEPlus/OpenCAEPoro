@@ -1,5 +1,5 @@
-/*! \file    Bluk.cpp
- *  \brief   Bluk class definition
+/*! \file    Bulk.cpp
+ *  \brief   Bulk class definition
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -1175,4 +1175,5 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

@@ -18,10 +18,10 @@
 // OpenCAEPoro header files
 #include "Bulk.hpp"
 #include "Grid.hpp"
-#include "OpenCAEPoroConsts.hpp"
+#include "LinearSolver.hpp"
+#include "OCPConst.hpp"
 #include "ParamWell.hpp"
-#include "Perforation.hpp"
-#include "Solver.hxx"
+#include "WellPerf.hpp"
 
 using namespace std;
 
@@ -162,13 +162,12 @@ public:
     void ShowPerfStatus() const;
 
 private:
-
-    string  name;      ///< well name
-    USI     I;         ///< I-index of the well header.
-    USI     J;         ///< J-index of the well header.
-    WellOpt opt; ///< well control parameters, contains current control parameters.
-    vector<WellOpt> optSet; ///< well control parameters set, contains control
-                            ///< parameters in all critical time.
+    string  name; ///< well name
+    USI     I;    ///< I-index of the well header.
+    USI     J;    ///< J-index of the well header.
+    WellOpt opt;  ///< well control parameters, contains current control parameters.
+    vector<WellOpt> optSet;      ///< well control parameters set, contains control
+                                 ///< parameters in all critical time.
     OCP_DBL             BHP;     ///< well pressure in reference depth.
     OCP_DBL             depth;   ///< reference depth of well.
     USI                 numPerf; ///< num of perforations belonging to this well.
@@ -208,4 +207,5 @@ template <typename T> void Well::AllocateMat(Solver<T>& mySolver) const
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

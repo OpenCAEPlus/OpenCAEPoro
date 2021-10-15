@@ -1,5 +1,5 @@
-/*! \file    ParamRead.hpp
- *  \brief   ParamRead class declaration
+/*! \file    ParamReservoir.hpp
+ *  \brief   ParamReservoir class declaration
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -17,8 +17,8 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoroConsts.hpp"
-#include "ReadTool.hpp"
+#include "OCPConst.hpp"
+#include "UtilInput.hpp"
 
 using namespace std;
 
@@ -237,4 +237,5 @@ public:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

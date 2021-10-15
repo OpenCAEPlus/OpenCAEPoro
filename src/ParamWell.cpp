@@ -10,7 +10,7 @@
  */
 
 #include "ParamWell.hpp"
-#include "ErrorLog.hxx"
+#include "UtilError.hpp"
 
 WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
 {
@@ -296,4 +296,5 @@ void ParamWell::CheckPerf() const
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

@@ -10,7 +10,7 @@
  */
 
 #include "FlowUnit.hpp"
-#include "ErrorLog.hxx"
+#include "UtilError.hpp"
 
 void FlowUnit::Generate_SWPCWG()
 {
@@ -157,4 +157,5 @@ FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI&
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*----------------------------------------------------------------------------*/

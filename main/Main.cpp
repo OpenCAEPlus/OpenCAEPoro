@@ -15,10 +15,8 @@
 #include <string>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoro.hpp"
-#include "OpenCAEPoroConsts.hpp"
+#include "OCP.hpp"
 #include "ParamRead.hpp"
-#include "Timing.hxx"
 
 using namespace std;
 
