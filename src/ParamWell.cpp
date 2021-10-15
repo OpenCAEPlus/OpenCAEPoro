@@ -72,24 +72,46 @@ void ParamWell::InputCOMPDAT(ifstream& ifs)
 				tmp = (well[w].name == src);
 
 			if (tmp) {
-				if (vbuf[1] == "DEFAULT" || vbuf[2] == "DEFAULT") {
-					well[w].I_perf = well[w].I;
-					well[w].J_perf = well[w].J;
-				}
-				else {
-					well[w].I_perf = stoi(vbuf[1]);
-					well[w].J_perf = stoi(vbuf[2]);
-				}
-				well[w].K1 = stoi(vbuf[3]);
-				well[w].K2 = stoi(vbuf[4]);
-				if (vbuf[5] != "DEFAULT")
-					well[w].WI = stod(vbuf[5]);
-				if (vbuf[6] != "DEFAULT")
-					well[w].diameter = stod(vbuf[6]);
-				if (vbuf[7] != "DEFAULT")
-					well[w].kh = stod(vbuf[7]);
-				if (vbuf[8] != "DEFAULT")
-					well[w].skinFactor = stod(vbuf[8]);
+
+				USI k1 = stoi(vbuf[3]);
+				USI k2 = stoi(vbuf[4]);
+
+				for (USI k = k1; k <= k2; k++) {
+					if (vbuf[1] == "DEFAULT" || vbuf[2] == "DEFAULT") {
+						well[w].I_perf.push_back(well[w].I);
+						well[w].J_perf.push_back(well[w].J);
+					}
+					else {
+						well[w].I_perf.push_back(stoi(vbuf[1]));
+						well[w].J_perf.push_back(stoi(vbuf[2]));
+					}
+					well[w].K_perf.push_back(k);
+
+					if (vbuf[5] != "DEFAULT")
+						well[w].WI.push_back(stod(vbuf[5]));
+					else
+						well[w].WI.push_back(-1.0);
+
+					if (vbuf[6] != "DEFAULT")
+						well[w].diameter.push_back(stod(vbuf[6]));
+					else
+						well[w].diameter.push_back(1.0);
+
+					if (vbuf[7] != "DEFAULT")
+						well[w].kh.push_back(stod(vbuf[7]));
+					else
+						well[w].kh.push_back(-1.0);
+
+					if (vbuf[8] != "DEFAULT")
+						well[w].skinFactor.push_back(stod(vbuf[8]));
+					else
+						well[w].skinFactor.push_back(0.0);
+
+					if (vbuf[9] != "DEFAULT")
+						well[w].direction.push_back(vbuf[9]);
+					else
+						well[w].direction.push_back("z");
+				}	
 			}
 		}
 	}
@@ -248,9 +270,35 @@ void ParamWell::CheckParam() const
 void ParamWell::CheckPerf() const
 {
 	USI wellnum = well.size();
+	USI perfnum;
 	for (USI w = 0; w < wellnum; w++) {
-		if ((well[w].I != well[w].I_perf) || (well[w].J != well[w].J_perf)) {
-			Paramcheck("This situation have not been supported!");
+		perfnum = well[w].I_perf.size();
+		if (well[w].J_perf.size() != perfnum) {
+			Paramcheck("Wrong Perforations J_perf!");
+			exit(0);
+		}
+		if (well[w].K_perf.size() != perfnum) {
+			Paramcheck("Wrong Perforations K_perf!");
+			exit(0);
+		}
+		if (well[w].diameter.size() != perfnum) {
+			Paramcheck("Wrong Perforations diameter!");
+			exit(0);
+		}
+		if (well[w].WI.size() != perfnum) {
+			Paramcheck("Wrong Perforations WI!");
+			exit(0);
+		}
+		if (well[w].kh.size() != perfnum) {
+			Paramcheck("Wrong Perforations kh!");
+			exit(0);
+		}
+		if (well[w].skinFactor.size() != perfnum) {
+			Paramcheck("Wrong Perforations skinFactor!");
+			exit(0);
+		}
+		if (well[w].direction.size() != perfnum) {
+			Paramcheck("Wrong Perforations direction!");
 			exit(0);
 		}
 	}

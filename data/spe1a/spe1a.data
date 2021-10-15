@@ -182,8 +182,8 @@ WELSPECS
 /
 
 COMPDAT
-'INJE1'   2*   1   1     1*   0.5   2*   /
-'PROD1'   2*   3   3     1*   0.5   2*   /
+'INJE1'   2*   1   1     1*   0.5   3*   /
+'PROD1'   2*   3   3     1*   0.5   3*   /
 /
 
 WCONINJE

@@ -80,6 +80,9 @@ public:
     /// return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; }
 
+    /// Input the param of perforations.
+    void InputPerfo(const WellParam& well);
+
     /// Setup the well, it will be called when Grid and Bulk finish setupping.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// cal Well Index with Peaceman model for vertical well.
@@ -159,21 +162,13 @@ public:
     void ShowPerfStatus() const;
 
 private:
-    OCP_DBL radius; ///< well radius.
-    OCP_DBL kh;     ///< effective permeability times net thickness of the connection.
-    OCP_DBL skinFactor; ///< skin factor.
-    OCP_DBL WI; ///< connection transmissibility factor, it can be provided directly
-                ///< from the users.
 
     string  name;      ///< well name
     USI     I;         ///< I-index of the well header.
     USI     J;         ///< J-index of the well header.
-    USI     K1;        ///< K-location of upper connecting block in this set of data.
-    USI     K2;        ///< K-location of lower connecting block in this set of data.
     WellOpt opt; ///< well control parameters, contains current control parameters.
     vector<WellOpt> optSet; ///< well control parameters set, contains control
                             ///< parameters in all critical time.
-
     OCP_DBL             BHP;     ///< well pressure in reference depth.
     OCP_DBL             depth;   ///< reference depth of well.
     USI                 numPerf; ///< num of perforations belonging to this well.

@@ -56,6 +56,11 @@ const USI PHASE_OGW = 4;
 const USI PHASE_OG  = 5;
 
 // Well params
+// perforation direction
+const USI X_DIRECTION = 1;
+const USI Y_DIRECTION = 2;
+const USI Z_DIRECTION = 3;
+
 const USI  INJ        = 1;
 const USI  PROD       = 2;
 const bool CLOSE      = false;

@@ -29,13 +29,23 @@ public:
     Perforation() = default;
     void setState(const bool& flag) { state = flag; };
 
+
 private:
+    USI I;  ///< I-index of Perforation in grid.
+    USI J;  ///< J-index of Perforation in grid.
+    USI K;  ///< K-index of Perforation in grid.
     bool    state;    ///< True: perforation is open. False: perforation is close.
     OCP_USI location; ///< Index of bulks which connects to current perforation.
     OCP_DBL depth;    ///< Depth of bulks which connects to current perforation.
     OCP_DBL trans;    ///< Transmissibility factor of current perforation, not used now.
     OCP_DBL P;        ///< Pressure in current perforation.
-    OCP_DBL WI;       ///< Well index (transmissibility factor of current perforation).
+
+    OCP_DBL WI; ///< Connection transmissibility factor, it can be provided directly from the users.
+    OCP_DBL radius; ///< Well radius.
+    OCP_DBL kh;     ///< Effective permeability times net thickness of the connection.
+    OCP_DBL skinFactor; ///< Skin factor.
+    USI  direction;  ///< Direction of the well penetrating the grid block
+
     /// Multiplier factor for transmissibility of current perforation.
     /// It equals to 0 (close) or 1 (open) now.
     OCP_DBL multiplier;

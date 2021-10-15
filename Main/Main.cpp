@@ -30,6 +30,7 @@ using namespace std;
 // --> (5) Output the results
 int main(int argc, const char* argv[])
 {
+
     if (argc == 1) {
         cout << "Input file is missing. Usage: " << argv[0] << " <InputFileName>" << endl;
         exit(0);

@@ -9,14 +9,10 @@ void WellGroup::InputParam(const ParamWell& param_Well)
 	for (USI w = 0; w < numWell; w++) {
 		wellGroup[w].name = param_Well.well[w].name;
 		wellGroup[w].depth = param_Well.well[w].depth;
-		wellGroup[w].radius = param_Well.well[w].diameter / 2;
-		wellGroup[w].kh = param_Well.well[w].kh;
-		wellGroup[w].skinFactor = param_Well.well[w].skinFactor;
-		wellGroup[w].WI = param_Well.well[w].WI;
 		wellGroup[w].I = param_Well.well[w].I - 1;
 		wellGroup[w].J = param_Well.well[w].J - 1;
-		wellGroup[w].K1 = param_Well.well[w].K1 - 1;
-		wellGroup[w].K2 = param_Well.well[w].K2 - 1;
+
+		wellGroup[w].InputPerfo(param_Well.well[w]);
 		
 		// opt
 		wellGroup[w].optSet.resize(t);

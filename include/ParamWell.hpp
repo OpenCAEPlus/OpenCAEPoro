@@ -64,15 +64,16 @@ public:
 	USI			I;					///< I index of well.
 	USI			J;					///< J index of well.
 	OCP_DBL		depth{ -1.0 };		///< Depth of well.
-	// COMPDAT
-	USI			I_perf;
-	USI			J_perf;
-	USI			K1;
-	USI			K2;
-	OCP_DBL		WI{ -1.0 };		// connection factor
-	OCP_DBL		diameter{ 1.0 };
-	OCP_DBL		kh{ -1.0 };
-	OCP_DBL		skinFactor{ 0.0 };
+
+	// COMPDAT ---- for all perforation.
+	vector<USI>			I_perf;		///< I-index of perforation in grid.
+	vector<USI>			J_perf;		///< J-index of perforation in grid.
+	vector<USI>			K_perf;		///< K-index of perforation in grid.
+	vector<OCP_DBL>		WI;			///< Transmissiblity connection factor.
+	vector<OCP_DBL>		diameter;	///< Diameter of perforations.
+	vector<OCP_DBL>		kh;
+	vector<OCP_DBL>		skinFactor;	///< Skin factor.
+	vector<string>		direction;	///< Direction of perforations.
 
 	// dynamic infomation
 	vector<WellOptPair>		optParam;
