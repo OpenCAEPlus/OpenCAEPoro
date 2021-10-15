@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\BOMixture.hpp" />
     <ClInclude Include="include\Bulk.hpp" />
+    <ClInclude Include="include\ErrorLog.hxx" />
     <ClInclude Include="include\OCP_Output.hpp" />
     <ClInclude Include="include\Connection_BB.hpp" />
     <ClInclude Include="include\MAT.hxx" />
@@ -46,7 +47,7 @@
     <ClInclude Include="include\WellGroup.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main\Main.cpp" />
+    <ClCompile Include="main\Main.cpp" />
     <ClCompile Include="src\BOMixture.cpp" />
     <ClCompile Include="src\BOMixture_OGW.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
