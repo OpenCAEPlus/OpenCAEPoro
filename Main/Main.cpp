@@ -40,9 +40,8 @@ int main(int argc, const char* argv[])
 
     // Step 1. Read params from an input file to internal params data structure.
     // Note: The keywords are almost compatible with Ecl simulator.
-    string    myfile = argv[1];
     ParamRead rp;
-    rp.ReadInputFile(myfile);
+    rp.ReadInputFile(argv[1]);
 
     // Step 2. Read param from internal params data structure to each modules, and
     // Setup static information, such as active grids, and connections between them.
