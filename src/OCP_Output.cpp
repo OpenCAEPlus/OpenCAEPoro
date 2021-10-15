@@ -498,9 +498,73 @@ void CriticalInfo::PrintInfo(const string& dir) const
 	outF.close();
 }
 
+void DetailInfo::InputParam(const OutputDetail& detail_param)
+{
+	PRE = detail_param.PRE;
+	PGAS = detail_param.PGAS;
+	PWAT = detail_param.PWAT;
+	SOIL = detail_param.SOIL;
+	SGAS = detail_param.SGAS;
+	SWAT = detail_param.SWAT;
+	DENO = detail_param.DENO;
+	DENG = detail_param.DENG;
+	DENW = detail_param.DENW;
+}
+
+void DetailInfo::Setup(const string& dir)
+{
+	string FileOut = dir + "RPT.dat";
+	ofstream outF(FileOut);
+	if (!outF.is_open()) {
+		ERRORcheck("Can not open " + FileOut);
+		exit(0);
+	}
+	outF.close();
+}
+
+void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
+{
+	string FileOut = dir + "RPT.dat";
+	ofstream outF;
+	outF.open(FileOut, ios::app);
+	if (!outF.is_open()) {
+		ERRORcheck("Can not open " + FileOut);
+		exit(0);
+	}
+
+	USI nx = rs.grid.GetGridNx();
+	USI ny = rs.grid.GetGridNy();
+	OCP_USI num = rs.grid.GetGridNum();
+	OCP_USI bId;
+
+	// PRESSURE
+	if (PRE) {
+		outF << "PRESSURE : psia" << "                   ";
+		outF << fixed << setprecision(3) << days << "  DAYS";
+		for (OCP_USI i = 0; i < num; i++)
+		{
+			if (i % nx == 0)
+				outF << "\n";
+			if (i % (nx * ny) == 0)
+				outF << "\n";
+			if (rs.grid.MapG2B(i).GetAct()) {
+				bId = rs.grid.MapG2B(i).GetId();
+				outF << fixed << setprecision(3) << rs.bulk.P[bId] << "   ";
+			}
+			else {
+				outF << "N   ";
+			}
+		}
+		outF << "\n\n";
+	}
+
+	outF.close();
+}
+
 void OCP_Output::InputParam(const ParamOutput& param_Output)
 {
 	summary.InputParam(param_Output.summary);
+	dtlInfo.InputParam(param_Output.detailInfo);
 }
 
 void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
@@ -508,7 +572,7 @@ void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
 	wordDir = ctrl.workDir;
 	summary.Setup(reservoir, ctrl.criticalTime.back());
 	crtInfo.Setup(reservoir, ctrl.criticalTime.back());
-
+	dtlInfo.Setup(wordDir);
 }
 
 void OCP_Output::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
@@ -521,6 +585,11 @@ void OCP_Output::PrintInfo() const
 {
 	summary.PrintInfo(wordDir);
 	crtInfo.PrintInfo(wordDir);
+}
+
+void OCP_Output::PrintInfoSched(const Reservoir& rs, const OCP_DBL& days) const
+{
+	dtlInfo.PrintInfo(wordDir, rs, days);
 }
 
 

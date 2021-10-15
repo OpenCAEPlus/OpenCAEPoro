@@ -132,6 +132,26 @@ private:
 	vector<OCP_DBL>		cfl;
 };
 
+class DetailInfo
+{
+public:
+	void InputParam(const OutputDetail& detail_param);
+	void Setup(const string& dir);
+	void PrintInfo(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
+
+private:
+	bool    PRE{ false };   ///< Pressure of grids.
+	bool    PGAS{ false };  ///< Gas pressure of grids.
+	bool    PWAT{ false };  ///< Water pressure of grids.
+	bool    SOIL{ false };  ///< Oil saturation of grids.
+	bool    SGAS{ false };  ///< Gas saturation of grids.
+	bool    SWAT{ false };  ///< Water saturation of grids.
+	bool    DENO{ false };  ///< Oil density saturation of grids.
+	bool    DENG{ false };  ///< Gas density saturation of grids.
+	bool    DENW{ false };  ///< Water density saturation of grids.
+
+};
+
 /// OCP_Output manages different kinds of ways to output. the most commonly used is summary file.
 /// which usually give the information of bulks and wells in each timestep, such as average bulks pressure,
 /// oil production rate of wells. if other information at critical time is interested in, you can chose
@@ -145,11 +165,13 @@ public:
 	void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
 	void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
 	void PrintInfo() const;
+	void PrintInfoSched(const Reservoir& rs, const OCP_DBL& days) const;
 
 private:
 	string		wordDir;
 	Summary		summary;
 	CriticalInfo crtInfo;
+	DetailInfo dtlInfo;
 
 };
 

@@ -32,11 +32,13 @@ void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
         rs.wellgroup.ApplyControl(d);
         ctrl.ApplyControl(d);
         ctrl.InitTime(d);
+        // output.PrintInfoSched(rs, ctrl.current_time);
         while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
 
             GoOneStep(rs, ctrl);
             output.SetVal(rs, ctrl);
         }
+        // output.PrintInfoSched(rs, ctrl.current_time);
     }
 }
 

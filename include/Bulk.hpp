@@ -54,6 +54,7 @@ class Bulk
 {
     friend class Connection_BB;
     friend class Well;
+    friend class DetailInfo;
 
 public:
     Bulk() = default;

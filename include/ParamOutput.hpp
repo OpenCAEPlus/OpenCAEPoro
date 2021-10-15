@@ -82,6 +82,24 @@ public:
     Type_B_o BPR; ///< Bulk pressure.
 };
 
+/// OutputDetail is a part of ParamOutput, it's used to control the output of detailed
+/// information of reservoir. For example, pressure in every grid, due to excessive data
+/// volume, this option is usually used in Debug Model.
+class OutputDetail
+{
+public:
+    bool    PRE{ false };   ///< Pressure of grids.
+    bool    PGAS{ false };  ///< Gas pressure of grids.
+    bool    PWAT{ false };  ///< Water pressure of grids.
+    bool    SOIL{ false };  ///< Oil saturation of grids.
+    bool    SGAS{ false };  ///< Gas saturation of grids.
+    bool    SWAT{ false };  ///< Water saturation of grids.
+    bool    DENO{ false };  ///< Oil density saturation of grids.
+    bool    DENG{ false };  ///< Gas density saturation of grids.
+    bool    DENW{ false };  ///< Water density saturation of grids.
+};
+
+
 /// ParamOutput is an internal structure used to stores the information of outputting
 /// from input files. It is an intermediate interface and independent of the main
 /// simulator. After all file inputting finishs, the params in it will pass to
@@ -89,7 +107,8 @@ public:
 class ParamOutput
 {
 public:
-    OutputSummary summary; ///< Contains all information about summary.
+    OutputSummary summary; ///< See OutputSummary.
+    OutputDetail detailInfo;    ///< See OutputDetail.
 
     /// Input the keyword SUMMARY, which contains many subkeyword, indicating which
     /// results are interested by user. After the simulation, these results will be
@@ -101,6 +120,10 @@ public:
     /// Input the subkeyword in SUMMARY, the contents in these keyword is in the form of
     /// coordinates.
     void InputType_B(ifstream& ifs, Type_B_o& obj);
+
+    /// Input the keyword RPTSCHED, which tells which detailed information will be output
+    /// to the RPTfile.
+    void InputRPTSCHED(ifstream& ifs);
 };
 
 #endif /* end if __PARAMOUTPUT_HEADER__ */

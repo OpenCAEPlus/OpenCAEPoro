@@ -60,12 +60,18 @@ public:
     Grid() = default;
     /// calculate the properties of Grid.
     void Setup();
+    /// Return nx of grid.
+    OCP_USI GetGridNx() const { return nx; }
+    /// Return ny of grid.
+    OCP_USI GetGridNy()const { return ny; }
+    /// Return nz of grid.
+    OCP_USI GetGridNz() const { return nz; }
     /// Return the num of all grids.
-    OCP_USI GetGridNum() { return numGrid; }
+    OCP_USI GetGridNum()const { return numGrid; }
     /// Return the num of all connections.
-    OCP_USI GetConnNum() { return numConn; }
+    OCP_USI GetConnNum() const { return numConn; }
     /// Return thr num of bulks(active grids)
-    OCP_USI GetActiveGridNum() { return activeGridNum; }
+    OCP_USI GetActiveGridNum()const { return activeGridNum; }
     /// Calculate the depth and volume of grids.
     void CalDepthV();
     /// Calculate the active grid. If the volume, or the proportion of the effective
@@ -76,6 +82,8 @@ public:
     void InputParam(const ParamReservoir& rs_param);
     /// Return the index of active grid with (i, j, k).
     OCP_USI GetActIndex(const USI& i, const USI& j, const USI& k) const;
+    /// Mapping from grids to bulks.
+    const GB_Pair& MapG2B(const OCP_USI& i)const { return activeMap_G2B[i]; }
 
 private:
     USI     nx;      ///< num of bulks along x-direction

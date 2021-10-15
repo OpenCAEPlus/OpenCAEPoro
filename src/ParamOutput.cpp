@@ -115,6 +115,8 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
 		case Map_Str2Int("BPR", 3):
 			InputType_B(ifs, summary.BPR);
 			break;
+		default:
+			break;
 		}
 	}
 	cout << "SUMMARY" << endl;
@@ -169,6 +171,58 @@ void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
 		obj.obj.push_back(COOIJK(i, j, k));
 	}
 	cout << "Type_B" << endl;
+}
+
+void ParamOutput::InputRPTSCHED(ifstream& ifs)
+{
+	vector<string>		vbuf;
+	while (ReadLine(ifs, vbuf))
+	{
+		if (vbuf[0] == "/")
+			break;
+
+		USI len = vbuf.size();
+
+		for (USI i = 0; i < len; i++) {
+
+			string keyword = vbuf[i];
+
+			switch (Map_Str2Int(&keyword[0], keyword.size()))
+			{
+			case Map_Str2Int("PRES", 4):
+			case Map_Str2Int("PRESSURE", 8):
+				detailInfo.PRE = true;
+				break;
+			case Map_Str2Int("PGAS", 4):
+				detailInfo.PGAS = true;
+				break;
+			case Map_Str2Int("PWAT", 4):
+				detailInfo.PWAT = true;
+				break;
+			case Map_Str2Int("SOIL", 4):
+				detailInfo.SOIL = true;
+				break;
+			case Map_Str2Int("SGAS", 4):
+				detailInfo.SGAS = true;
+				break;
+			case Map_Str2Int("SWAT", 4):
+				detailInfo.SWAT = true;
+				break;
+			case Map_Str2Int("DENO", 4):
+				detailInfo.DENO = true;
+				break;
+			case Map_Str2Int("DENG", 4):
+				detailInfo.DENG = true;
+				break;
+			case Map_Str2Int("DENW", 4):
+				detailInfo.DENW = true;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	cout << "RPTSCHDE" << endl;
 }
 
 

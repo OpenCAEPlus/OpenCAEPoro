@@ -34,6 +34,8 @@ class Reservoir
 	friend class OCP_IMPES;
 	friend class Summary;
 	friend class CriticalInfo;
+	friend class DetailInfo;
+
 public:
 	/// Input param from internal param data structure, which stores the params from input files.
 	void InputParam(ParamRead& param);

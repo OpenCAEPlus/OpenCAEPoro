@@ -191,6 +191,9 @@ void ParamRead::ReadFile(const string& file)
                 param_Output.InputSUMMARY(ifs);
                 break;
 
+            case Map_Str2Int("RPTSCHED", 8):
+                param_Output.InputRPTSCHED(ifs);
+                break;
             default:
                 break;
         }
