@@ -128,34 +128,34 @@ OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
 {
     switch (mode) {
         case PHASE_W:
-            break;
+            OCP_ABORT("Will be added!");
         case PHASE_OW:
-            break;
+            OCP_ABORT("Will be added!");
         case PHASE_OGW:
             return XiPhase_OGW(Pin, Ziin);
             break;
         default:
-            break;
+            OCP_ABORT("Not implemented yet!");
     }
 
-    return 0.0; // TODO: Make sure code does not reach here!
+    return 0.0; // Should not reach here!
 }
 
 OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
     switch (mode) {
         case PHASE_W:
-            break;
+            OCP_ABORT("Will be added!");
         case PHASE_OW:
-            break;
+            OCP_ABORT("Will be added!");
         case PHASE_OGW:
             return RhoPhase_OGW(Pin, Ziin);
             break;
         default:
-            break;
+            OCP_ABORT("Not implemented yet!");
     }
 
-    return 0.0; // TODO: Make sure code does not reach here!
+    return 0.0; // Should not reach here!
 }
 
 OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
