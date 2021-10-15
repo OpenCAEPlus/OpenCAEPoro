@@ -140,7 +140,7 @@ private:
 class OCP_Output
 {
     friend class OpenCAEPoro;
-
+public:
 	void InputParam(const ParamOutput& param_Output);
 	void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
 	void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);

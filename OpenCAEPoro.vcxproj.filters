@@ -90,6 +90,9 @@
     <ClInclude Include="include\OCP_Control.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ErrorLog.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BOMixture.cpp">
@@ -143,9 +146,6 @@
     <ClCompile Include="src\OpenCAEPoro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OCP_Output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OCP_Control.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
