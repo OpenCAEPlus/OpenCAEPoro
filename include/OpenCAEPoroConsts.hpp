@@ -12,6 +12,9 @@
 #ifndef __OPENCAEPORO_CONSTS_HEADER__
 #define __OPENCAEPORO_CONSTS_HEADER__
 
+// OpenCAEPoro header files
+#include "ErrorLog.hxx"
+
 // Standard header files
 #include <iostream>
 

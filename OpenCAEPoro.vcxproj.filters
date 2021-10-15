@@ -42,9 +42,6 @@
     <ClInclude Include="include\OpenCAEPoro.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OpenCAEPoro_consts.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Perforation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -91,6 +88,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ErrorLog.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OpenCAEPoroConsts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

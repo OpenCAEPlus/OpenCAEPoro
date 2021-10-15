@@ -30,6 +30,7 @@
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\Grid.hpp" />
     <ClInclude Include="include\Mixture.hpp" />
+    <ClInclude Include="include\OpenCAEPoroConsts.hpp" />
     <ClInclude Include="include\ParamControl.hpp" />
     <ClInclude Include="include\ParamOutput.hpp" />
     <ClInclude Include="include\ParamRead.hpp" />
@@ -38,7 +39,6 @@
     <ClInclude Include="include\ReadTool.hpp" />
     <ClInclude Include="include\Reservoir.hpp" />
     <ClInclude Include="include\OpenCAEPoro.hpp" />
-    <ClInclude Include="include\OpenCAEPoro_consts.hpp" />
     <ClInclude Include="include\Perforation.hpp" />
     <ClInclude Include="include\OCP_Table.hxx" />
     <ClInclude Include="include\Solver.hxx" />
