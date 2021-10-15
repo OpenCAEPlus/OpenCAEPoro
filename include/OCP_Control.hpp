@@ -20,7 +20,6 @@
 #include "ParamControl.hpp"
 #include "Reservoir.hpp"
 
-
 using namespace std;
 
 /// ControlTime contains params used to control the size of time step.
@@ -29,46 +28,47 @@ class ControlTime
 {
 public:
     ControlTime() = default;
-    ControlTime(vector<OCP_DBL>& src);
-    OCP_DBL TimeInit;       ///< Maximum Init step length of next timestep
-    OCP_DBL TimeMax;        ///< Maximum time step during running
-    OCP_DBL TimeMin;        ///< Minmum time step during running
-    OCP_DBL TimeMinChop;    ///< Minimum choppable timestep
-    OCP_DBL TimeMaxIncr;    ///< Maximum timestep increase factor
-    OCP_DBL TimeMinCut;     ///< Minimum timestep cutback factor
-    OCP_DBL TimeCut_F;      ///< Minimum timestep cutback factor after convergence failure
-    OCP_DBL TimeMaxIncre_F; ///< Maximum increase factor after a convergence failure
+    ControlTime(const vector<OCP_DBL>& src);
+    OCP_DBL timeInit;    ///< Maximum Init step length of next timestep
+    OCP_DBL timeMax;     ///< Maximum time step during running
+    OCP_DBL timeMin;     ///< Minmum time step during running
+    OCP_DBL timeMinChop; ///< Minimum choppable timestep
+    OCP_DBL timeMaxIncr; ///< Maximum timestep increase factor
+    OCP_DBL timeMinCut;  ///< Minimum timestep cutback factor
+    OCP_DBL timeCut_F;   ///< Minimum timestep cutback factor after convergence failure
+    OCP_DBL timeMaxIncre_F; ///< Maximum increase factor after a convergence failure
 };
 
-/// ControlError contains params used to control the convergence error or material balance error during the simulation.
+/// ControlError contains params used to control the convergence error or material
+/// balance error during the simulation.
 class ControlError
 {
 public:
     ControlError() = default;
-    ControlError(vector<OCP_DBL>& src);
-    OCP_DBL ErrorNL_T; ///< Target non-linear convergence error
-    OCP_DBL ErrorMB_T; ///< Target material balance error
-    OCP_DBL ErrorLS_T; ///< Target linear convergence error
-    OCP_DBL ErrorNL_M; ///< Maximum non-linear convergence error
-    OCP_DBL ErrorMB_M; ///< Maximum material balance error
-    OCP_DBL ErrorLS_M; ///< Maximum linear convergence error
+    ControlError(const vector<OCP_DBL>& src);
+    OCP_DBL errorNL_T; ///< Target non-linear convergence error
+    OCP_DBL errorMB_T; ///< Target material balance error
+    OCP_DBL errorLS_T; ///< Target linear convergence error
+    OCP_DBL errorNL_M; ///< Maximum non-linear convergence error
+    OCP_DBL errorMB_M; ///< Maximum material balance error
+    OCP_DBL errorLS_M; ///< Maximum linear convergence error
 };
 
-/// ControlIter contains params used to control the number of Newton iterations or linear iterations.
-/// whether a iteration is satisfied will also determined here.
+/// ControlIter contains params used to control the number of Newton iterations or
+/// linear iterations. whether a iteration is satisfied will also determined here.
 class ControlIter
 {
 public:
     ControlIter() = default;
     ControlIter(const vector<OCP_DBL>& src);
-    USI    ItMax_NT;  // Maximum number of Newton iterations in a timestep
-    USI    ItMin_NT;  // Minimum number of Newton iterations in a timestep
-    USI    ItMax_NTL; // Maximum number of linear iterations in a Newton iteration
-    USI    ItMin_NTL; // Minimum number of linear iterations in a Newton iteration
-    OCP_DBL DPreNT_M;  // Maximum pressure change at last Newton iteration
-    OCP_DBL DSatNT_M;  // Maximum saturation change at last Newton iteration
-    OCP_DBL DPreNT_T;  // Target pressure change at last Newton iteration
-    OCP_DBL Dpre_M;    // Target maximum pressure change in a timestep
+    USI     iterMax_NT;  // Maximum number of Newton iterations in a timestep
+    USI     iterMin_NT;  // Minimum number of Newton iterations in a timestep
+    USI     iterMax_NTL; // Maximum number of linear iterations in a Newton iteration
+    USI     iterMin_NTL; // Minimum number of linear iterations in a Newton iteration
+    OCP_DBL dPreNT_M;  // Maximum pressure change at last Newton iteration
+    OCP_DBL dSatNT_M;  // Maximum saturation change at last Newton iteration
+    OCP_DBL dPreNT_T;  // Target pressure change at last Newton iteration
+    OCP_DBL dpre_M;    // Target maximum pressure change in a timestep
 };
 
 /// OCP_Control is responsible for all of the controller except well controler.
@@ -81,34 +81,38 @@ class OCP_Control
     friend class OCP_IMPES;
 
 public:
-    void InputParam(ParamControl& CtrlParam);
+    void InputParam(const ParamControl& CtrlParam);
     void ApplyControl(const USI& i);
 
     void InitTime(const USI& i);
+    /// Return 
+    USI     GetNumDates() const { return criticalTime.size(); }
+    /// Return the current time.
+    OCP_DBL GetCurTime() const { return current_time; }
+    /// Return the number of linear solver iterations in one time step.
+    USI     GetLSiter() const { return iterLS; }
+    /// Return the number of Newton iterations in one time step.
+    USI     GetNRiter() const { return iterNR; }
 
-    USI getNumDates() const { return criticalTime.size(); }
-    OCP_DBL getCurTime() const { return Current_time; }
-    USI    getLSiter() const { return LS_iter; }
-    USI    getNRiter() const { return NR_iter; }
-
-    void setNextTstep(Reservoir& reservoir);
+    /// Calculate the next time step according to max change of some variables.
+    void SetNextTstep(const Reservoir& reservoir);
 
 private:
-    USI            Method;
-    string         Dir;
-    string         solveFile;
+    USI             method;
+    string          workDir;
+    string          solveFile;
     vector<OCP_DBL> criticalTime;
-    OCP_DBL         Current_dt;
-    OCP_DBL         Current_time{0};
-    OCP_DBL         End_time;
-    OCP_DBL         TotalTime{ 0 };
-    USI            Tstep{0};
-    USI            LS_iter{0};
-    USI            LS_iter_total{0};
-    USI            NR_iter{0};
-    USI            NR_iter_total{0};
+    OCP_DBL         current_dt;
+    OCP_DBL         current_time{0};
+    OCP_DBL         end_time;
+    OCP_DBL         totalTime{0};
+    USI             tstep{0};
+    USI             iterLS{0};
+    USI             iterLS_total{0};
+    USI             iterNR{0};
+    USI             iterNR_total{0};
 
-    OCP_DBL LS_time{0};
+    OCP_DBL timeLS{0};
 
     ControlTime         ctrlTime;
     vector<ControlTime> ctrlTimeSet;
@@ -120,7 +124,7 @@ private:
     vector<ControlIter> ctrlIterSet;
 };
 
-#endif  /* end if __OCP_Control_HEADER__ */
+#endif /* end if __OCP_Control_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

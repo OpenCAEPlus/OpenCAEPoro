@@ -26,8 +26,8 @@ class OCP_IMPES
 public:
 	void SetupParam(const string& dir, const string& file);
 	void AllocateMat(const Reservoir& rs);
-	void run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
-	void goOneStep(Reservoir& rs, OCP_Control& ctrl);
+	void Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
+	void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
 	void SolveP(Reservoir& rs,OCP_Control& ctrl, const OCP_DBL& dt);
 
 private:

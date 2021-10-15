@@ -30,6 +30,7 @@ public:
 	USI		K;
 };
 
+/// Used to stores the contents of keyword whose contents are in form of coordinates.
 class Type_B_o
 {
 public:
@@ -42,10 +43,11 @@ class Type_A_o
 {
 public:
 	bool				activity{ false };
-	vector<string>		obj;
+	vector<string>		obj;				
 };
 
-/// Used to stores the contents of keyword whose contents are in form of coordinates.
+/// OutputSummary contains all information about SUMMARY, these information tells
+/// which results will be print to the summary output file.
 class OutputSummary 
 {
 

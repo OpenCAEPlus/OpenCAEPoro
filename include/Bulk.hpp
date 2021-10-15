@@ -108,7 +108,7 @@ public:
     void GetSolIMPES(const vector<OCP_DBL>& u);
 
     /// calculate average pressure in reservoir.
-    OCP_DBL CalFPR() const;
+    OCP_DBL CalFPR() const; 
     /// return pressure in ith bulk.
     OCP_DBL GetP(const OCP_USI& n) const { return P[n]; }
     /// check if negative P occurs, return false if so.

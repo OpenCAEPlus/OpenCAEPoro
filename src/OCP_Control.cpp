@@ -1,49 +1,49 @@
 #include "OCP_Control.hpp"
 
-ControlTime::ControlTime(vector<OCP_DBL>& src)
+ControlTime::ControlTime(const vector<OCP_DBL>& src)
 {
-	TimeInit = src[0];
-	TimeMax = src[1];
-	TimeMin = src[2];
-	TimeMinChop = src[3];
-	TimeMaxIncr = src[4];
-	TimeMinCut = src[5];
-	TimeCut_F = src[6];
-	TimeMaxIncre_F = src[7];
+	timeInit = src[0];
+	timeMax = src[1];
+	timeMin = src[2];
+	timeMinChop = src[3];
+	timeMaxIncr = src[4];
+	timeMinCut = src[5];
+	timeCut_F = src[6];
+	timeMaxIncre_F = src[7];
 }
 
-ControlError::ControlError(vector<OCP_DBL>& src)
+ControlError::ControlError(const vector<OCP_DBL>& src)
 {
-	ErrorNL_T = src[1];
-	ErrorMB_T = src[2];
-	ErrorLS_T = src[3];
-	ErrorNL_M = src[5];
-	ErrorMB_M = src[6];
-	ErrorLS_M = src[7];
+	errorNL_T = src[1];
+	errorMB_T = src[2];
+	errorLS_T = src[3];
+	errorNL_M = src[5];
+	errorMB_M = src[6];
+	errorLS_M = src[7];
 }
 
 ControlIter::ControlIter(const vector<OCP_DBL>& src)
 {
-	ItMax_NT = src[0];
-	ItMin_NT = src[1];
-	ItMax_NTL = src[2];
-	ItMin_NTL = src[3];
-	DPreNT_M = src[6];
-	DSatNT_M = src[7];
-	DPreNT_T = src[8];
-	Dpre_M = src[9];
-	if (Dpre_M < 0)
-		Dpre_M = DPreNT_M;
+	iterMax_NT = src[0];
+	iterMin_NT = src[1];
+	iterMax_NTL = src[2];
+	iterMin_NTL = src[3];
+	dPreNT_M = src[6];
+	dSatNT_M = src[7];
+	dPreNT_T = src[8];
+	dpre_M = src[9];
+	if (dpre_M < 0)
+		dpre_M = dPreNT_M;
 }
 
-void OCP_Control::InputParam(ParamControl& CtrlParam)
+void OCP_Control::InputParam(const ParamControl& CtrlParam)
 {
-	Dir = CtrlParam.dir;
+	workDir = CtrlParam.dir;
 	if (CtrlParam.method == "IMPES") {
-		Method = IMPES;
+		method = IMPES;
 	}
 	else if (CtrlParam.method == "FIM") {
-		Method = FIM;
+		method = FIM;
 	}
 	else {
 		ERRORcheck("Wrong Method !");
@@ -80,23 +80,23 @@ void OCP_Control::ApplyControl(const USI& i)
 	ctrlError = ctrlErrorSet[i];
 	ctrlIter = ctrlIterSet[i];
 
-	End_time = criticalTime[i + 1];
+	end_time = criticalTime[i + 1];
 }
 
 
 void OCP_Control::InitTime(const USI& i)
 {
-	OCP_DBL dt = criticalTime[i + 1] - Current_time;
+	OCP_DBL dt = criticalTime[i + 1] - current_time;
 	if (dt < 0) {
 		ERRORcheck("Wrong Time Step");
 		exit(0);
 	}
-	Current_dt = min(dt, ctrlTime.TimeInit);
+	current_dt = min(dt, ctrlTime.timeInit);
 }
 
-void OCP_Control::setNextTstep(Reservoir& reservoir)
+void OCP_Control::SetNextTstep(const Reservoir& reservoir)
 {
-	Current_time += Current_dt;
+	current_time += current_dt;
 
 	OCP_DBL dPmax = reservoir.bulk.GetdPmax();
 	OCP_DBL dNmax = reservoir.bulk.GetdNmax();
@@ -117,16 +117,16 @@ void OCP_Control::setNextTstep(Reservoir& reservoir)
 	c = max(1.0 / 3, c);
 	c = min(10.0 / 3, c);
 
-	Current_dt /= c;
+	current_dt /= c;
 
-	if (Current_dt > ctrlTime.TimeMax)
-		Current_dt = ctrlTime.TimeMax;
-	if (Current_dt < ctrlTime.TimeMin)
-		Current_dt = ctrlTime.TimeMin;
+	if (current_dt > ctrlTime.timeMax)
+		current_dt = ctrlTime.timeMax;
+	if (current_dt < ctrlTime.timeMin)
+		current_dt = ctrlTime.timeMin;
 
-	OCP_DBL dt = End_time - Current_time;
-	if (Current_dt > dt)
-		Current_dt = dt;
+	OCP_DBL dt = end_time - current_time;
+	if (current_dt > dt)
+		current_dt = dt;
 }
 
 

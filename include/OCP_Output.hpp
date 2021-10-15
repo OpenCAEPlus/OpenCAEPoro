@@ -23,13 +23,13 @@
 
 using namespace std;
 
-class CAEIJK
+class OCPIJK
 {
 public:
-	CAEIJK() = default;
-	CAEIJK(const USI& i, const USI& j, const USI& k) :I(i), J(j), K(k) {};
-	CAEIJK(const COOIJK& src) { I = src.I; J = src.J; K = src.K; };
-	CAEIJK& operator= (const COOIJK& src) { I = src.I; J = src.J; K = src.K; return*this; }
+	OCPIJK() = default;
+	OCPIJK(const USI& i, const USI& j, const USI& k) :I(i), J(j), K(k) {};
+	OCPIJK(const COOIJK& src) { I = src.I; J = src.J; K = src.K; };
+	OCPIJK& operator= (const COOIJK& src) { I = src.I; J = src.J; K = src.K; return*this; }
 	USI			I, J, K;
 };
 
@@ -48,7 +48,7 @@ class OCPTypeB
 public:
 	OCPTypeB& operator= (const Type_B_o& src) { activity = src.activity; obj.assign(src.obj.begin(), src.obj.end()); return *this; }
 	bool				activity{ false };
-	vector<CAEIJK>		obj;
+	vector<OCPIJK>		obj;
 	vector<USI>			index;	///< Records the index of bulk or well, whose properties will be printed.
 };
 

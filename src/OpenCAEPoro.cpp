@@ -11,18 +11,18 @@ void OpenCAEPoro::SetupReservoir(ParamRead& param)
 {
 	InputParam(param);
 	reservoir.Setup();
-	output.Setup(reservoir, control.Dir);
+	output.Setup(reservoir, control.workDir);
 	SetupSolver();
 }
 
 void OpenCAEPoro::SetupSolver()
 {
-	if (control.Method == IMPES) {
-		impes.SetupParam(control.Dir, control.solveFile);
+	if (control.method == IMPES) {
+		impes.SetupParam(control.workDir, control.solveFile);
 		impes.AllocateMat(reservoir);
 		cout << "IMPES Method Applys !" << endl;
 	}
-	else if (control.Method == FIM) {
+	else if (control.method == FIM) {
 		cout << "FIM Method Applys !" << endl;
 	}
 }
@@ -38,26 +38,26 @@ void OpenCAEPoro::RunSimulation()
 	Timer.Start();
 
 
-	switch (control.Method)
+	switch (control.method)
 	{
 	case IMPES:
-		impes.run(reservoir, control, output);
+		impes.Run(reservoir, control, output);
 	default:
 		break;
 	}
 
 
-	control.TotalTime = Timer.Stop() / 1000;
+	control.totalTime = Timer.Stop() / 1000;
 }
 
 void OpenCAEPoro::OutputResults() {
 
 	cout << endl;
-	cout << "Final time:          " << control.Current_time << " Days" << endl;
-	cout << "Total linear steps:  " << control.LS_iter_total << endl;
-	cout << "Linear solve time:   " << control.LS_time << "s" << endl;
-	cout << "Total time steps:    " << control.NR_iter_total << endl;
-	cout << "Simulation time:     " << control.TotalTime << "s" << endl;
+	cout << "Final time:          " << control.current_time << " Days" << endl;
+	cout << "Total linear steps:  " << control.iterLS_total << endl;
+	cout << "Linear solve time:   " << control.timeLS << "s" << endl;
+	cout << "Total time steps:    " << control.iterNR_total << endl;
+	cout << "Simulation time:     " << control.totalTime << "s" << endl;
 	output.PrintInfo();
 }
 

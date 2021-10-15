@@ -84,10 +84,10 @@
     <ClInclude Include="include\OCP_Output.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OCP_Control.hpp">
+    <ClInclude Include="include\OCP_Method.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OCP_Method.hpp">
+    <ClInclude Include="include\OCP_Control.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,13 +146,13 @@
     <ClCompile Include="Main\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OCP_Control.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OCP_Output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OCP_Method.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCP_Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

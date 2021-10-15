@@ -262,11 +262,11 @@ void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
 	USI n = 0;
 
 	// TIME
-	Sumdata[n++].val.push_back(ctrl.getCurTime());
+	Sumdata[n++].val.push_back(ctrl.GetCurTime());
 	// NRiter
-	Sumdata[n++].val.push_back(ctrl.getNRiter());
+	Sumdata[n++].val.push_back(ctrl.GetNRiter());
 	// LSiter
-	Sumdata[n++].val.push_back(ctrl.getLSiter());
+	Sumdata[n++].val.push_back(ctrl.GetLSiter());
 
 	// FPR
 	if (FPR)

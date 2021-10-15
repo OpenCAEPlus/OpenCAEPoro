@@ -14,29 +14,29 @@ void OCP_IMPES::AllocateMat(const Reservoir& rs)
 	solver.AllocateColValMem();
 }
 
-void OCP_IMPES::run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
+void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 {
 
-	USI numdates = ctrl.getNumDates();
+	USI numdates = ctrl.GetNumDates();
 	for (USI d = 0; d < numdates - 1; d++) {
 		rs.wellgroup.ApplyControl(d);
 		ctrl.ApplyControl(d);
 		ctrl.InitTime(d);
-		while (ctrl.criticalTime[d + 1] - ctrl.Current_time > TINY) {
+		while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
 
-			goOneStep(rs, ctrl);
+			GoOneStep(rs, ctrl);
 			output.SetVal(rs, ctrl);
 
 		}
 	}
 }
 
-void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
+void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
 	OCP_DBL ve = 0.01;
 	OCP_DBL cfl = 1;
 	int	   flagCheck = 0;
-	double& dt = ctrl.Current_dt;
+	double& dt = ctrl.current_dt;
 
 	rs.wellgroup.PrepareWell(rs.bulk);
 
@@ -97,12 +97,12 @@ void OCP_IMPES::goOneStep(Reservoir& rs, OCP_Control& ctrl)
 
 
 	rs.wellgroup.CalIPRT(rs.bulk, dt);
-	ctrl.Tstep += 1;
-	ctrl.NR_iter = 1;
-	ctrl.NR_iter_total += 1;
+	ctrl.tstep += 1;
+	ctrl.iterNR = 1;
+	ctrl.iterNR_total += 1;
 
 	rs.bulk.CalMaxChange();
-	ctrl.setNextTstep(rs);
+	ctrl.SetNextTstep(rs);
 	rs.bulk.SetLastStep();
 	rs.wellgroup.SetLastStep();
 }
@@ -122,7 +122,7 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 	GetWallTime Timer;
 	Timer.Start();
 	int status = solver.FaspSolve();
-	ctrl.LS_time += Timer.Stop() / 1000;
+	ctrl.timeLS += Timer.Stop() / 1000;
 
 #ifdef _DEBUG
 	// solver.PrintfMatCSR("testA.dat", "testb.dat");
@@ -132,8 +132,8 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 
 	solver.Free_Fasp();
 
-	ctrl.LS_iter = status;
-	ctrl.LS_iter_total += status;
+	ctrl.iterLS = status;
+	ctrl.iterLS_total += status;
 
 #endif // __SOLVER_FASP__
 
