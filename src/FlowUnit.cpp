@@ -10,17 +10,12 @@
  */
 
 #include "FlowUnit.hpp"
+#include "ErrorLog.hxx"
 
 void FlowUnit::Generate_SWPCWG()
 {
-    if (SGOF.IsEmpty()) {
-        ERRORcheck("SGOF is missing!");
-        exit(0);
-    }
-    if (SWOF.IsEmpty()) {
-        ERRORcheck("SWOF is missing!");
-        exit(0);
-    }
+    if (SGOF.IsEmpty()) OCP_ABORT("SGOF is missing!");
+    if (SWOF.IsEmpty()) OCP_ABORT("SWOF is missing!");
 
     std::vector<OCP_DBL> Sw(SWOF.GetCol(0));
     std::vector<OCP_DBL> Pcw(SWOF.GetCol(3));

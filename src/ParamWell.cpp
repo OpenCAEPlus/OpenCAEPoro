@@ -10,6 +10,7 @@
  */
 
 #include "ParamWell.hpp"
+#include "ErrorLog.hxx"
 
 WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
 {
@@ -26,8 +27,7 @@ WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
         maxRate = stod(vbuf[3]);
         minBHP  = stod(vbuf[4]);
     } else {
-        ParamCheck("WRONG Well Type");
-        exit(0);
+        OCP_ABORT("Wrong Well Type!");
     }
 }
 
@@ -54,72 +54,69 @@ void ParamWell::InputWELSPECS(ifstream& ifs)
 
 void ParamWell::InputCOMPDAT(ifstream& ifs)
 {
-	USI num = well.size();
-	vector<string>		vbuf;
-	while (ReadLine(ifs, vbuf))
-	{
-		if (vbuf[0] == "/")
-			break;
+    USI            num = well.size();
+    vector<string> vbuf;
+    while (ReadLine(ifs, vbuf)) {
+        if (vbuf[0] == "/") break;
 
-		DealDefault(vbuf);
-		string src = vbuf[0];
-		bool match = (src.find("*") != string::npos);
-		if (match) {
-			src.pop_back();
-		}
-		bool tmp = false;
+        DealDefault(vbuf);
+        string src   = vbuf[0];
+        bool   match = (src.find("*") != string::npos);
+        if (match) {
+            src.pop_back();
+        }
+        bool tmp = false;
 
-		for (USI w = 0; w < num; w++) {
-			if (match)
-				tmp = (well[w].name.find(src) != string::npos);
-			else
-				tmp = (well[w].name == src);
+        for (USI w = 0; w < num; w++) {
+            if (match)
+                tmp = (well[w].name.find(src) != string::npos);
+            else
+                tmp = (well[w].name == src);
 
-			if (tmp) {
+            if (tmp) {
 
-				USI k1 = stoi(vbuf[3]);
-				USI k2 = stoi(vbuf[4]);
+                USI k1 = stoi(vbuf[3]);
+                USI k2 = stoi(vbuf[4]);
 
-				for (USI k = k1; k <= k2; k++) {
-					if (vbuf[1] == "DEFAULT" || vbuf[2] == "DEFAULT") {
-						well[w].I_perf.push_back(well[w].I);
-						well[w].J_perf.push_back(well[w].J);
-					}
-					else {
-						well[w].I_perf.push_back(stoi(vbuf[1]));
-						well[w].J_perf.push_back(stoi(vbuf[2]));
-					}
-					well[w].K_perf.push_back(k);
+                for (USI k = k1; k <= k2; k++) {
+                    if (vbuf[1] == "DEFAULT" || vbuf[2] == "DEFAULT") {
+                        well[w].I_perf.push_back(well[w].I);
+                        well[w].J_perf.push_back(well[w].J);
+                    } else {
+                        well[w].I_perf.push_back(stoi(vbuf[1]));
+                        well[w].J_perf.push_back(stoi(vbuf[2]));
+                    }
+                    well[w].K_perf.push_back(k);
 
-					if (vbuf[5] != "DEFAULT")
-						well[w].WI.push_back(stod(vbuf[5]));
-					else
-						well[w].WI.push_back(-1.0);
+                    if (vbuf[5] != "DEFAULT")
+                        well[w].WI.push_back(stod(vbuf[5]));
+                    else
+                        well[w].WI.push_back(-1.0);
 
-					if (vbuf[6] != "DEFAULT")
-						well[w].diameter.push_back(stod(vbuf[6]));
-					else
-						well[w].diameter.push_back(1.0);
+                    if (vbuf[6] != "DEFAULT")
+                        well[w].diameter.push_back(stod(vbuf[6]));
+                    else
+                        well[w].diameter.push_back(1.0);
 
-					if (vbuf[7] != "DEFAULT")
-						well[w].kh.push_back(stod(vbuf[7]));
-					else
-						well[w].kh.push_back(-1.0);
+                    if (vbuf[7] != "DEFAULT")
+                        well[w].kh.push_back(stod(vbuf[7]));
+                    else
+                        well[w].kh.push_back(-1.0);
 
-					if (vbuf[8] != "DEFAULT")
-						well[w].skinFactor.push_back(stod(vbuf[8]));
-					else
-						well[w].skinFactor.push_back(0.0);
+                    if (vbuf[8] != "DEFAULT")
+                        well[w].skinFactor.push_back(stod(vbuf[8]));
+                    else
+                        well[w].skinFactor.push_back(0.0);
 
-					if (vbuf[9] != "DEFAULT")
-						well[w].direction.push_back(vbuf[9]);
-					else
-						well[w].direction.push_back("z");
-				}	
-			}
-		}
-	}
-	cout << "COMPDAT" << endl;
+                    if (vbuf[9] != "DEFAULT")
+                        well[w].direction.push_back(vbuf[9]);
+                    else
+                        well[w].direction.push_back("z");
+                }
+            }
+        }
+    }
+    cout << "COMPDAT" << endl;
 }
 
 void ParamWell::InputWCONINJE(ifstream& ifs)
@@ -258,39 +255,39 @@ void ParamWell::CheckParam() const { CheckPerf(); }
 
 void ParamWell::CheckPerf() const
 {
-	USI wellnum = well.size();
-	USI perfnum;
-	for (USI w = 0; w < wellnum; w++) {
-		perfnum = well[w].I_perf.size();
-		if (well[w].J_perf.size() != perfnum) {
-			ParamCheck("Wrong Perforations J_perf!");
-			exit(0);
-		}
-		if (well[w].K_perf.size() != perfnum) {
-			ParamCheck("Wrong Perforations K_perf!");
-			exit(0);
-		}
-		if (well[w].diameter.size() != perfnum) {
-			ParamCheck("Wrong Perforations diameter!");
-			exit(0);
-		}
-		if (well[w].WI.size() != perfnum) {
-			ParamCheck("Wrong Perforations WI!");
-			exit(0);
-		}
-		if (well[w].kh.size() != perfnum) {
-			ParamCheck("Wrong Perforations kh!");
-			exit(0);
-		}
-		if (well[w].skinFactor.size() != perfnum) {
-			ParamCheck("Wrong Perforations skinFactor!");
-			exit(0);
-		}
-		if (well[w].direction.size() != perfnum) {
-			ParamCheck("Wrong Perforations direction!");
-			exit(0);
-		}
-	}
+    USI wellnum = well.size();
+    USI perfnum;
+    for (USI w = 0; w < wellnum; w++) {
+        perfnum = well[w].I_perf.size();
+        if (well[w].J_perf.size() != perfnum) {
+            ParamCheck("Wrong Perforations J_perf!");
+            exit(0);
+        }
+        if (well[w].K_perf.size() != perfnum) {
+            ParamCheck("Wrong Perforations K_perf!");
+            exit(0);
+        }
+        if (well[w].diameter.size() != perfnum) {
+            ParamCheck("Wrong Perforations diameter!");
+            exit(0);
+        }
+        if (well[w].WI.size() != perfnum) {
+            ParamCheck("Wrong Perforations WI!");
+            exit(0);
+        }
+        if (well[w].kh.size() != perfnum) {
+            ParamCheck("Wrong Perforations kh!");
+            exit(0);
+        }
+        if (well[w].skinFactor.size() != perfnum) {
+            ParamCheck("Wrong Perforations skinFactor!");
+            exit(0);
+        }
+        if (well[w].direction.size() != perfnum) {
+            ParamCheck("Wrong Perforations direction!");
+            exit(0);
+        }
+    }
 }
 
 /*----------------------------------------------------------------------------*/
