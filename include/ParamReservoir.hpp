@@ -17,7 +17,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoro_consts.hpp"
+#include "OpenCAEPoroConsts.hpp"
 #include "ReadTool.hpp"
 
 using namespace std;
@@ -28,9 +28,9 @@ class TableSet
 {
 public:
     void                            DisplayTable() const;
-    string                          name;       ///< Name of table.
-    USI                             colNum;     ///< Number of columns of table.
-    vector<vector<vector<OCP_DBL>>> data;       ///< All table with the same name.
+    string                          name;   ///< Name of table.
+    USI                             colNum; ///< Number of columns of table.
+    vector<vector<vector<OCP_DBL>>> data;   ///< All table with the same name.
 };
 
 /// Dimens contains the dimensions of grids.

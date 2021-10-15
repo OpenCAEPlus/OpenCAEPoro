@@ -14,8 +14,8 @@
 
 // OpenCAEPoro header files
 #include "Mixture.hpp"
-#include "ParamReservoir.hpp"
 #include "OCP_Table.hxx"
+#include "ParamReservoir.hpp"
 
 /// BOMixture is inherited class of Mixture, it's used for black oil model.
 class BOMixture : public Mixture
@@ -85,7 +85,7 @@ private:
     /// indicates the case of black oil, it's decided by user input.
     /// for example, PHASE_OW implies that only water phase and oil phase could be
     /// existing, which will determine which PVT tables will be used.
-    USI                     mode;
+    USI                mode;
     OCP_Table<OCP_DBL> PVCO; ///< PVT table for live oil (with dissolved gas).
     OCP_Table<OCP_DBL> PVDG; ///< PVT table for dry gas.
     OCP_Table<OCP_DBL> PVTW; ///< PVT table for water.
@@ -108,7 +108,7 @@ private:
     OCP_DBL std_GammaW; ///< std_RhoW * gravity factor.
 };
 
-#endif  /* end if __BOMIXTURE_HEADER__ */
+#endif /* end if __BOMIXTURE_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

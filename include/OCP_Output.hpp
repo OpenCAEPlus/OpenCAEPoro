@@ -13,24 +13,38 @@
 #define __OCP_OUTPUT_HEADER__
 
 // Standard header files
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 // OpenCAEPoro header files
-#include "Reservoir.hpp"
-#include "ParamOutput.hpp"
 #include "OCP_Control.hpp"
+#include "ParamOutput.hpp"
+#include "Reservoir.hpp"
 
 using namespace std;
 
 class OCPIJK
 {
 public:
-	OCPIJK() = default;
-	OCPIJK(const USI& i, const USI& j, const USI& k) :I(i), J(j), K(k) {};
-	OCPIJK(const COOIJK& src) { I = src.I; J = src.J; K = src.K; };
-	OCPIJK& operator= (const COOIJK& src) { I = src.I; J = src.J; K = src.K; return*this; }
-	USI			I, J, K;
+    OCPIJK() = default;
+    OCPIJK(const USI& i, const USI& j, const USI& k)
+        : I(i)
+        , J(j)
+        , K(k){};
+    OCPIJK(const COOIJK& src)
+    {
+        I = src.I;
+        J = src.J;
+        K = src.K;
+    };
+    OCPIJK& operator=(const COOIJK& src)
+    {
+        I = src.I;
+        J = src.J;
+        K = src.K;
+        return *this;
+    }
+    USI I, J, K;
 };
 
 template <typename T>
@@ -49,16 +63,19 @@ public:
 class SumPair
 {
 public:
-	SumPair(const string& item, const string& obj, const string& unit) :Item(item), Obj(obj), Unit(unit) {};
-	string				Item;
-	string				Obj;
-	string				Unit;
-	vector<OCP_DBL>		val;
+    SumPair(const string& item, const string& obj, const string& unit)
+        : Item(item)
+        , Obj(obj)
+        , Unit(unit){};
+    string          Item;
+    string          Obj;
+    string          Unit;
+    vector<OCP_DBL> val;
 };
 
-
-/// Summary manages the output for summary file, it contains the most interested information
-/// in each time step. usually these data will be convert to chart for analysing following.
+/// Summary manages the output for summary file, it contains the most interested
+/// information in each time step. usually these data will be convert to chart for
+/// analysing following.
 class Summary
 {
 public:
@@ -122,8 +139,7 @@ private:
 /// the program is at the right way. 
 class OCP_Output
 {
-	friend class OpenCAEPoro;
-public:
+    friend class OpenCAEPoro;
 
 	void InputParam(const ParamOutput& param_Output);
 	void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
@@ -138,7 +154,6 @@ private:
 };
 
 #endif /* end if __OCPOUTPUT_HEADER__ */
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

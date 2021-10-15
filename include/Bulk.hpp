@@ -21,7 +21,7 @@
 #include "FlowUnit.hpp"
 #include "Grid.hpp"
 #include "Mixture.hpp"
-#include "OpenCAEPoro_consts.hpp"
+#include "OpenCAEPoroConsts.hpp"
 #include "ParamReservoir.hpp"
 #include "Solver.hxx"
 
@@ -108,7 +108,7 @@ public:
     void GetSolIMPES(const vector<OCP_DBL>& u);
 
     /// calculate average pressure in reservoir.
-    OCP_DBL CalFPR() const; 
+    OCP_DBL CalFPR() const;
     /// return pressure in ith bulk.
     OCP_DBL GetP(const OCP_USI& n) const { return P[n]; }
     /// check if negative P occurs, return false if so.
@@ -163,7 +163,7 @@ private:
     vector<OCP_DBL> vfp; ///< dVf / dP.
 
     vector<USI>
-                    phaseLabel; ///< used to identify phase according to its index: numPhase.
+        phaseLabel; ///< used to identify phase according to its index: numPhase.
     vector<OCP_DBL> initZi; ///< initial proportion of each component for EoS : numCom -
                             ///< 1, water is excluded.
     USI         PVTmode;    ///< used to identify PVT mode in blackoil model.
@@ -195,8 +195,8 @@ private:
     vector<OCP_DBL> depth; ///< depth of center of bulk: numBulk.
     vector<OCP_DBL> ntg;   ///< net to gross of bulk: numBulk.
     vector<OCP_DBL>
-                    rockVpInit; ///< initial pore volume: Vgrid * ntg * poro_init: numBulk.
-    vector<OCP_DBL> rockVp;     ///< pore volume: Vgrid * ntg * poro: numBulk.
+        rockVpInit;         ///< initial pore volume: Vgrid * ntg * poro_init: numBulk.
+    vector<OCP_DBL> rockVp; ///< pore volume: Vgrid * ntg * poro: numBulk.
     OCP_DBL         rockPref; ///< reference pressure for initial rock volume.
     OCP_DBL         rockC1;   ///< rock compressibility.
     OCP_DBL         rockC2;   ///< rock compressibility.
@@ -225,7 +225,7 @@ private:
     bool       disGas;   ///< if true, dissolve gas in live oil could exist.
 };
 
-#endif  /* end if __BULK_HEADER__ */
+#endif /* end if __BULK_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

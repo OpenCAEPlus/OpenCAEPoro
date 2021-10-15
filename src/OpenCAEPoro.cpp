@@ -1,3 +1,14 @@
+/*! \file    OpenCAEPoro.cpp
+ *  \brief   OpenCAEPoro class definition
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
 #include "OpenCAEPoro.hpp"
 
 void OpenCAEPoro::InputParam(ParamRead& param)

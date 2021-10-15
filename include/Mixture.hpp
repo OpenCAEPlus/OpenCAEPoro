@@ -17,7 +17,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "OpenCAEPoro_consts.hpp"
+#include "OpenCAEPoroConsts.hpp"
 
 using namespace std;
 
@@ -112,7 +112,7 @@ protected:
                          ///< fluids with respect to moles of components.
 };
 
-#endif  /* end if __MIXTURE_HEADER__ */
+#endif /* end if __MIXTURE_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

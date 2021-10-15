@@ -1,9 +1,19 @@
+/*! \file    Connection_BB.cpp
+ *  \brief   Connection_BB class definition
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
 #include <cassert>
 #include <cmath>
 #include <ctime>
 
 #include "Connection_BB.hpp"
-#include "OpenCAEPoro_consts.hpp"
 
 // Active Conn & Active Bulk
 
@@ -27,21 +37,21 @@ void Connection_BB::InitSize(const Bulk& myBulk)
 
 void Connection_BB::CalConn(const Grid& myGrid, const USI& np)
 {
-    USI nx   = myGrid.nx;
-    USI ny   = myGrid.ny;
-    USI nz   = myGrid.nz;
+    USI     nx   = myGrid.nx;
+    USI     ny   = myGrid.ny;
+    USI     nz   = myGrid.nz;
     OCP_USI nxny = nx * ny;
 
     // bIdb : begin id in bulk
     // bIdg : begin id in grid
     // eIdb : end id in bulk
-    bool activity;
+    bool    activity;
     OCP_USI eIdb;
     for (OCP_USI bIdb = 0; bIdb < numBulk; bIdb++) {
         OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
-        USI k    = bIdg / nxny;
-        USI j    = (bIdg - k * nxny) / nx;
-        USI i    = bIdg - k * nxny - j * nx;
+        USI     k    = bIdg / nxny;
+        USI     j    = (bIdg - k * nxny) / nx;
+        USI     i    = bIdg - k * nxny - j * nx;
 
         USI count = 0;
         // up
@@ -152,7 +162,8 @@ void Connection_BB::CalArea(const Grid& myGrid, const Bulk& myBulk)
     assert(area.size() == numConn);
 }
 
-OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_USI& bIdb, const OCP_USI& eIdb) const
+OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk,
+                              const OCP_USI& bIdb, const OCP_USI& eIdb) const
 {
     OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
     OCP_USI eIdg = myGrid.activeMap_B2G[eIdb];
@@ -162,16 +173,16 @@ OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_
     if (diff == 1) {
         // x - direction
         OCP_DBL T1 = myBulk.rockKx[bIdb] * myBulk.ntg[bIdb] * myBulk.dy[bIdb] *
-                    myBulk.dz[bIdb] / myBulk.dx[bIdb];
+                     myBulk.dz[bIdb] / myBulk.dx[bIdb];
         OCP_DBL T2 = myBulk.rockKx[eIdb] * myBulk.ntg[eIdb] * myBulk.dy[eIdb] *
-                    myBulk.dz[eIdb] / myBulk.dx[eIdb];
+                     myBulk.dz[eIdb] / myBulk.dx[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else if (diff == myGrid.nx) {
         // y - direction
         OCP_DBL T1 = myBulk.rockKy[bIdb] * myBulk.ntg[bIdb] * myBulk.dz[bIdb] *
-                    myBulk.dx[bIdb] / myBulk.dy[bIdb];
+                     myBulk.dx[bIdb] / myBulk.dy[bIdb];
         OCP_DBL T2 = myBulk.rockKy[eIdb] * myBulk.ntg[eIdb] * myBulk.dz[eIdb] *
-                    myBulk.dx[eIdb] / myBulk.dy[eIdb];
+                     myBulk.dx[eIdb] / myBulk.dy[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else if (diff == myGrid.nx * myGrid.ny) {
         // z - direction  ----  no ntg
@@ -191,7 +202,7 @@ OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_
 
 OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
-    USI    np   = myBulk.numPhase;
+    USI     np   = myBulk.numPhase;
     OCP_DBL cfl  = 0;
     OCP_DBL temp = 0;
     for (OCP_USI c = 0; c < numConn; c++) {
@@ -212,14 +223,14 @@ OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 void Connection_BB::CalFlux(const Bulk& myBulk)
 {
     // calculate a step flux using iteratorConn
-    OCP_USI    bId, eId, uId;
-    OCP_USI    bId_np_j, eId_np_j;
+    OCP_USI bId, eId, uId;
+    OCP_USI bId_np_j, eId_np_j;
     OCP_DBL Pbegin, Pend, rho;
-    USI    np = myBulk.numPhase;
+    USI     np = myBulk.numPhase;
 
     for (OCP_USI c = 0; c < numConn; c++) {
-        bId        = iteratorConn[c].BId;
-        eId        = iteratorConn[c].EId;
+        bId         = iteratorConn[c].BId;
+        eId         = iteratorConn[c].EId;
         OCP_DBL Akd = area[c];
 
         for (USI j = 0; j < np; j++) {
@@ -246,17 +257,17 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
                 continue;
             }
 
-            uId         = bId;
-            bool   exup = exbegin;
+            uId          = bId;
+            bool    exup = exbegin;
             OCP_DBL dP   = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                        (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+                         (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
                 uId  = eId;
                 exup = exend;
             }
             upblock_Rho[c * np + j] = rho;
             upblock[c * np + j]     = uId;
-            OCP_USI    uId_np_j     = uId * np + j;
+            OCP_USI uId_np_j        = uId * np + j;
             OCP_DBL trans =
                 CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
             upblock_Trans[c * np + j] = trans;
@@ -283,11 +294,11 @@ void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
             OCP_USI uId = upblock[c * np + j];
             if (!myBulk.phaseExist[uId * np + j]) continue;
 
-            OCP_USI    uId_np_j      = uId * np + j;
+            OCP_USI uId_np_j      = uId * np + j;
             OCP_DBL phaseVelocity = upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {
                 OCP_DBL dNi = dt * phaseVelocity * myBulk.xi[uId_np_j] *
-                             myBulk.cij[uId_np_j * nc + i];
+                              myBulk.cij[uId_np_j * nc + i];
                 myBulk.Ni[eId * nc + i] += dNi;
                 myBulk.Ni[bId * nc + i] -= dNi;
             }
@@ -295,7 +306,8 @@ void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
+void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
+                                      const OCP_DBL& dt) const
 {
     // accumulate term
     OCP_DBL Vp0, Vp, vf, vfp, P;
@@ -307,34 +319,33 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
         P   = myBulk.P[n];
         vf  = myBulk.vf[n];
 
+        OCP_DBL temp        = cr * Vp0 - vfp;
+        mySolver.diagVal[n] = temp;
+        mySolver.b[n]       = temp * P + dt * (vf - Vp);
+    }
 
-		OCP_DBL temp = cr * Vp0 - vfp;
-		mySolver.diagVal[n] = temp;
-		mySolver.b[n] = temp * P + dt * (vf - Vp);
-	}
-
-	// check 
-	//ofstream outb("testb.dat");
-	//if (!outb.is_open())
-	//	cout << "Can not open " << "testb.dat" << endl;
-	//outb << mySolver.dim << endl;
-	//for (int i = 0; i < mySolver.dim; i++)
-	//	outb << mySolver.b[i] << endl;
-	//outb.close();
+    // check
+    // ofstream outb("testb.dat");
+    // if (!outb.is_open())
+    //	cout << "Can not open " << "testb.dat" << endl;
+    // outb << mySolver.dim << endl;
+    // for (int i = 0; i < mySolver.dim; i++)
+    //	outb << mySolver.b[i] << endl;
+    // outb.close();
 
     // flux term
-    OCP_USI    bId, eId, uId;
-    USI    np = myBulk.numPhase;
-    USI    nc = myBulk.numCom;
+    OCP_USI bId, eId, uId;
+    USI     np = myBulk.numPhase;
+    USI     nc = myBulk.numCom;
     OCP_DBL valupi, valdowni;
     OCP_DBL valup, rhsup, valdown, rhsdown;
     // OCP_USI    lastbId = -1;
-    OCP_USI    lastbId = iteratorConn[0].EId;
+    OCP_USI lastbId = iteratorConn[0].EId;
     for (OCP_USI c = 0; c < numConn; c++) {
-        bId = iteratorConn[c].BId;
-        eId = iteratorConn[c].EId;
-        valup = 0;
-        rhsup = 0;
+        bId     = iteratorConn[c].BId;
+        eId     = iteratorConn[c].EId;
+        valup   = 0;
+        rhsup   = 0;
         valdown = 0;
         rhsdown = 0;
 
@@ -403,7 +414,6 @@ void Connection_BB::GetConnectionInfo() const
         cout << iteratorConn[i].BId << "\t" << iteratorConn[i].EId << "\n";
     }
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -1,146 +1,148 @@
-#include "OCP_Method.hpp"
+/*! \file    OCP_Method.cpp
+ *  \brief   OCP_Method class definition
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
 
+#include "OCP_Method.hpp"
 
 void OCP_IMPES::SetupParam(const string& dir, const string& file)
 {
-	solver.SetupParam(dir, file);
+    solver.SetupParam(dir, file);
 }
 
 void OCP_IMPES::AllocateMat(const Reservoir& rs)
 {
-	solver.AllocateMem(rs.bulk.GetBulkNum() + rs.wellgroup.GetWellNum());
-	rs.conn.AllocateMat(solver);
-	rs.wellgroup.AllocateMat(solver);
-	solver.AllocateColValMem();
+    solver.AllocateMem(rs.bulk.GetBulkNum() + rs.wellgroup.GetWellNum());
+    rs.conn.AllocateMat(solver);
+    rs.wellgroup.AllocateMat(solver);
+    solver.AllocateColValMem();
 }
 
 void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 {
 
-	USI numdates = ctrl.GetNumDates();
-	for (USI d = 0; d < numdates - 1; d++) {
-		rs.wellgroup.ApplyControl(d);
-		ctrl.ApplyControl(d);
-		ctrl.InitTime(d);
-		while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
+    USI numdates = ctrl.GetNumDates();
+    for (USI d = 0; d < numdates - 1; d++) {
+        rs.wellgroup.ApplyControl(d);
+        ctrl.ApplyControl(d);
+        ctrl.InitTime(d);
+        while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
 
-			GoOneStep(rs, ctrl);
-			output.SetVal(rs, ctrl);
-
-		}
-	}
+            GoOneStep(rs, ctrl);
+            output.SetVal(rs, ctrl);
+        }
+    }
 }
 
 void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
-	OCP_DBL ve = 0.01;
-	OCP_DBL cfl = 1;
-	int	   flagCheck = 0;
-	double& dt = ctrl.current_dt;
+    OCP_DBL ve        = 0.01;
+    OCP_DBL cfl       = 1;
+    int     flagCheck = 0;
+    double& dt        = ctrl.current_dt;
 
-	rs.wellgroup.PrepareWell(rs.bulk);
+    rs.wellgroup.PrepareWell(rs.bulk);
 
-	cfl = rs.CalCFL(dt);
-	if (cfl > 1)
-		dt /= (cfl + 1);
+    cfl = rs.CalCFL(dt);
+    if (cfl > 1) dt /= (cfl + 1);
 
-	while (true)
-	{
-		SolveP(rs, ctrl, dt);
+    while (true) {
+        SolveP(rs, ctrl, dt);
 
-		// first check : Pressure check
-		flagCheck = rs.CheckP();
-		if (flagCheck == 1) {
-			dt /= 2;
-			continue;
-		}
-		else if (flagCheck == 2) {
-			continue;
-		}
+        // first check : Pressure check
+        flagCheck = rs.CheckP();
+        if (flagCheck == 1) {
+            dt /= 2;
+            continue;
+        } else if (flagCheck == 2) {
+            continue;
+        }
 
-		rs.conn.CalFlux(rs.bulk);
-		rs.wellgroup.CalFlux(rs.bulk);
+        rs.conn.CalFlux(rs.bulk);
+        rs.wellgroup.CalFlux(rs.bulk);
 
-		// second check : cfl check
-		cfl = rs.CalCFL(dt);
-		if (cfl > 1) {
-			dt /= 2;
-			rs.ResetVal01();
-			continue;
-		}
+        // second check : cfl check
+        cfl = rs.CalCFL(dt);
+        if (cfl > 1) {
+            dt /= 2;
+            rs.ResetVal01();
+            continue;
+        }
 
-		rs.conn.MassConserve(rs.bulk, dt);
-		rs.wellgroup.MassConserve(rs.bulk, dt);
+        rs.conn.MassConserve(rs.bulk, dt);
+        rs.wellgroup.MassConserve(rs.bulk, dt);
 
-		// third check: Ni check
-		if (!rs.CheckNi()) {
-			dt /= 2;
-			rs.ResetVal01();
-			continue;
-		}
+        // third check: Ni check
+        if (!rs.CheckNi()) {
+            dt /= 2;
+            rs.ResetVal01();
+            continue;
+        }
 
-		rs.bulk.FlashNi();
-		rs.bulk.CalVporo();
+        rs.bulk.FlashNi();
+        rs.bulk.CalVporo();
 
-		// fouth check: Volume error check
-		if (!rs.CheckVe(ve)) {
-			dt /= 2;
-			rs.ResetVal02();
-			continue;
-		}
+        // fouth check: Volume error check
+        if (!rs.CheckVe(ve)) {
+            dt /= 2;
+            rs.ResetVal02();
+            continue;
+        }
 
-		rs.bulk.CalKrPc();
-		rs.conn.CalFlux(rs.bulk);
+        rs.bulk.CalKrPc();
+        rs.conn.CalFlux(rs.bulk);
 
-		break;
-	}
+        break;
+    }
 
+    rs.wellgroup.CalIPRT(rs.bulk, dt);
+    ctrl.tstep += 1;
+    ctrl.iterNR = 1;
+    ctrl.iterNR_total += 1;
 
-	rs.wellgroup.CalIPRT(rs.bulk, dt);
-	ctrl.tstep += 1;
-	ctrl.iterNR = 1;
-	ctrl.iterNR_total += 1;
-
-	rs.bulk.CalMaxChange();
-	ctrl.SetNextTstep(rs);
-	rs.bulk.SetLastStep();
-	rs.wellgroup.SetLastStep();
+    rs.bulk.CalMaxChange();
+    ctrl.SetNextTstep(rs);
+    rs.bulk.SetLastStep();
+    rs.wellgroup.SetLastStep();
 }
-
 
 void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
-	rs.AssembleMat(solver, dt);
+    rs.AssembleMat(solver, dt);
 
 #ifdef _DEBUG
-	solver.CheckVal();
+    solver.CheckVal();
 #endif // _DEBUG
 
 #ifdef __SOLVER_FASP__
 
-	solver.AssembleMat_Fasp();
-	GetWallTime Timer;
-	Timer.Start();
-	int status = solver.FaspSolve();
-	ctrl.timeLS += Timer.Stop() / 1000;
+    solver.AssembleMat_Fasp();
+    GetWallTime Timer;
+    Timer.Start();
+    int status = solver.FaspSolve();
+    ctrl.timeLS += Timer.Stop() / 1000;
 
 #ifdef _DEBUG
-	// solver.PrintfMatCSR("testA.dat", "testb.dat");
-	// solver.PrintfSolution("testx.dat");
+    // solver.PrintfMatCSR("testA.dat", "testb.dat");
+    // solver.PrintfSolution("testx.dat");
 #endif // _DEBUG
 
+    solver.Free_Fasp();
 
-	solver.Free_Fasp();
-
-	ctrl.iterLS = status;
-	ctrl.iterLS_total += status;
+    ctrl.iterLS = status;
+    ctrl.iterLS_total += status;
 
 #endif // __SOLVER_FASP__
 
-	rs.GetSolution_IMPES(solver.GetSolution());
-	solver.ClearData();
+    rs.GetSolution_IMPES(solver.GetSolution());
+    solver.ClearData();
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

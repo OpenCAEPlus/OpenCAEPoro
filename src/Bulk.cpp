@@ -1,3 +1,14 @@
+/*! \file    Bluk.cpp
+ *  \brief   Bluk class definition
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
 #include <algorithm>
 #include <cmath>
 #include <ctime>
@@ -25,22 +36,22 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     if (blackOil) {
         if (water && !oil && !gas) {
             // water
-            numPhase      = 1;
-            numCom      = 1;
-            SATmode = PHASE_W;
-            PVTmode = PHASE_W;
+            numPhase = 1;
+            numCom   = 1;
+            SATmode  = PHASE_W;
+            PVTmode  = PHASE_W;
         } else if (water && oil && !gas) {
             // water, dead oil
-            numPhase          = 2;
-            numCom          = 2;
+            numPhase    = 2;
+            numCom      = 2;
             EQUIL.DOWC  = rs_param.EQUIL[2];
             EQUIL.PcOWC = rs_param.EQUIL[3];
             SATmode     = PHASE_OW;
             PVTmode     = PHASE_OW;
         } else if (water && oil && gas && !disGas) {
             // water, dead oil, dry gas
-            numPhase          = 3;
-            numCom          = 3;
+            numPhase    = 3;
+            numCom      = 3;
             EQUIL.DOWC  = rs_param.EQUIL[2];
             EQUIL.PcOWC = rs_param.EQUIL[3];
             EQUIL.DGOC  = rs_param.EQUIL[4];
@@ -49,8 +60,8 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             PVTmode     = PHASE_OGW; // maybe it should be added later
         } else if (water && oil && gas && disGas) {
             // water, live oil, dry gas
-            numPhase          = 3;
-            numCom          = 3;
+            numPhase    = 3;
+            numCom      = 3;
             EQUIL.DOWC  = rs_param.EQUIL[2];
             EQUIL.PcOWC = rs_param.EQUIL[3];
             EQUIL.DGOC  = rs_param.EQUIL[4];
@@ -59,7 +70,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             PVTmode     = PHASE_OGW;
         }
         rs_param.numPhase = numPhase;
-        rs_param.numCom = numCom;
+        rs_param.numCom   = numCom;
         for (USI i = 0; i < rs_param.NTSFUN; i++)
             flow.push_back(new FlowUnit(rs_param, SATmode, i));
         if (oil & gas & water) {
@@ -196,10 +207,10 @@ void Bulk::InitSjPcBlk(const USI& tabrow)
 
     // creater table
     OCP_Table<OCP_DBL> DepthP(tabrow, 4);
-    vector<OCP_DBL>&        Ztmp  = DepthP.GetCol(0);
-    vector<OCP_DBL>&        Potmp = DepthP.GetCol(1);
-    vector<OCP_DBL>&        Pgtmp = DepthP.GetCol(2);
-    vector<OCP_DBL>&        Pwtmp = DepthP.GetCol(3);
+    vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
+    vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
+    vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>&   Pwtmp = DepthP.GetCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -573,7 +584,7 @@ void Bulk::InitSjPcBlk(const USI& tabrow)
         for (USI k = 0; k < ncut; k++) {
             OCP_DBL tmpSw = 0;
             OCP_DBL tmpSg = 0;
-            OCP_DBL dep = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL dep   = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
             DepthP.Eval_All(0, dep, data, cdata);
             Po    = data[1];
             Pg    = data[2];
@@ -626,10 +637,10 @@ void Bulk::InitSjPcComp(const USI& tabrow)
 
     // creater table
     OCP_Table<OCP_DBL> DepthP(tabrow, 4);
-    vector<OCP_DBL>&        Ztmp  = DepthP.GetCol(0);
-    vector<OCP_DBL>&        Potmp = DepthP.GetCol(1);
-    vector<OCP_DBL>&        Pgtmp = DepthP.GetCol(2);
-    vector<OCP_DBL>&        Pwtmp = DepthP.GetCol(3);
+    vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
+    vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
+    vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>&   Pwtmp = DepthP.GetCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -943,7 +954,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
         for (USI k = 0; k < ncut; k++) {
             OCP_DBL tmpSw = 0;
             OCP_DBL tmpSg = 0;
-            OCP_DBL dep = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL dep   = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
             DepthP.Eval_All(0, dep, data, cdata);
             Po    = data[1];
             Pg    = data[2];
@@ -1005,7 +1016,8 @@ void Bulk::PassFlashValue(const OCP_USI& n)
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j]  = flashCal[pvtnum]->xi[j];
             for (USI i = 0; i < numCom; i++) {
-                cij[bId * numCom + j * numCom + i] = flashCal[pvtnum]->cij[j * numCom + i];
+                cij[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->cij[j * numCom + i];
             }
             mu[bId + j] = flashCal[pvtnum]->mu[j];
             vj[bId + j] = flashCal[pvtnum]->v[j];
@@ -1025,7 +1037,8 @@ void Bulk::CalKrPc()
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_USI bId = n * numPhase;
         flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId]);
-        for (USI j = 0; j < numPhase; j++) Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        for (USI j = 0; j < numPhase; j++)
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
     }
 }
 
@@ -1034,7 +1047,7 @@ void Bulk::CalVporo()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_DBL dP = rockC1 * (P[n] - rockPref);
-        rockVp[n] = rockVpInit[n] * (1 + dP + dP * dP / 2);
+        rockVp[n]  = rockVpInit[n] * (1 + dP + dP * dP / 2);
         // Rock_Vp[n] = Rock_VpInit[n] * (1 + dP);
     }
 }

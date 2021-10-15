@@ -13,20 +13,20 @@
 #define __RESERVOIR_HEADER__
 
 // OpenCAEPoro header files
-#include "Grid.hpp"
 #include "Bulk.hpp"
 #include "Connection_BB.hpp"
-#include "WellGroup.hpp"
+#include "Grid.hpp"
 #include "ParamRead.hpp"
+#include "WellGroup.hpp"
 
-/// Reservoir is the core component in our simulator, it contains the all reservoir information, 
-/// and all operations on it.
-/// 
+/// Reservoir is the core component in our simulator, it contains the all reservoir
+/// information, and all operations on it.
+///
 /// Reservoir has four Core components.
 /// Grids contains the basic informations of all grids as a database of reservoir.
 /// Bulk only stores active grids, which defines the area used for calculation.
-/// WellGroup contains the well information, it's used to manage operations related to wells.
-/// Connection_BB contains connections between bulks(active grids).
+/// WellGroup contains the well information, it's used to manage operations related to
+/// wells. Connection_BB contains connections between bulks(active grids).
 class Reservoir
 {
 	friend class OpenCAEPoro;
@@ -77,17 +77,14 @@ private:
 	OCP_DBL					cfl;			///< CFL number.
 };
 
-
 // allocate memory
-template<typename T>
-void Reservoir::AllocateMat(Solver<T>& mySolver) const
+template <typename T> void Reservoir::AllocateMat(Solver<T>& mySolver) const
 {
-	mySolver.AllocateMem(conn.GetBulkNum() + wellgroup.GetWellNum());
-	conn.AllocateMat(mySolver);
-	wellgroup.AllocateMat(mySolver);
-	mySolver.AllocateColValMem();
+    mySolver.AllocateMem(conn.GetBulkNum() + wellgroup.GetWellNum());
+    conn.AllocateMat(mySolver);
+    wellgroup.AllocateMat(mySolver);
+    mySolver.AllocateColValMem();
 }
-
 
 #endif /* end if __RESERVOIR_HEADER__ */
 

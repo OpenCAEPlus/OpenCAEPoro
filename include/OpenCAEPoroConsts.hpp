@@ -1,5 +1,5 @@
-/*! \file    OpenCAEPoro_consts.hpp
- *  \brief   datatype, consts
+/*! \file    OpenCAEPoroConsts.hpp
+ *  \brief   Definition of build-in datatypes and consts
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -12,43 +12,44 @@
 #ifndef __OPENCAEPORO_CONSTS_HEADER__
 #define __OPENCAEPORO_CONSTS_HEADER__
 
- // Standard header files
+// Standard header files
 #include <iostream>
 
+// Check and reprot
 #define ERRORcheck(exp)                                                                \
     std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
               << __FILE__ << std::endl;
 
-// data type
-typedef unsigned int USI;
-typedef unsigned int OCP_USI;
-typedef int          OCP_INT;
-typedef double       OCP_DBL;
+// Build-in data type
+typedef unsigned int USI;     ///< Unsigned integer
+typedef unsigned int OCP_USI; ///< Long unsigned integer
+typedef int          OCP_INT; ///< Long integer
+typedef double       OCP_DBL; ///< Double precision
+typedef float        OCP_SIN; ///< Single precision
 
-
-// method
+// Solution methods
 const USI IMPES = 1;
 const USI FIM   = 2;
 
-// general consts
+// General consts
 const OCP_DBL TINY = 1E-8;
 const OCP_DBL PI   = 3.141592653;
 
-// pysical consts
+// Physical consts
 const OCP_DBL GRAVITY_FACTOR = 0.00694444; // 0.00694444 ft2 psi / lb
 const OCP_DBL RHOW_STD       = 62.3664;    // lb / ft3
 const OCP_DBL RHOAIR_STD     = 0.076362;   // lb / ft3
-const OCP_DBL PRESSURE_STD   = 14.6959;    // psia   =   1 atm
+const OCP_DBL PRESSURE_STD   = 14.6959;    // psia = 1 atm
 
-// Units consts
+// Unit conversion consts
 const OCP_DBL CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
 const OCP_DBL CONV2 = 1.12712E-3; // Darcy constant in Field
 
-// Mixture type
+// Mixture types
 const USI BLKOIL   = 1;
 const USI EoS_PVTW = 2;
 
-// Phase
+// Phase types
 const USI PHASE_W   = 1;
 const USI PHASE_GW  = 2;
 const USI PHASE_OW  = 3;
@@ -67,22 +68,22 @@ const bool CLOSE      = false;
 const bool OPEN       = true;
 const USI  HORIZONTAL = 1;
 const USI  VERTICAL   = 2;
-// Well opt param
+
+// Well option params
 const USI RATE_MODE  = 1;
 const USI ORATE_MODE = 2;
 const USI GRATE_MODE = 3;
 const USI WRATE_MODE = 4;
 const USI LRATE_MODE = 5;
 const USI BHP_MODE   = 6;
-// Fluid type
+
+// Fluid types
 const USI OIL     = 1;
 const USI GAS     = 2;
 const USI WATER   = 3;
 const USI SOLVENT = 4;
 
-
 #endif
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

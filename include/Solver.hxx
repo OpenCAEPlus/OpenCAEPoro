@@ -17,12 +17,9 @@
 #include <iostream>
 #include <string>
 
-
-
 // OpenCAEPoro header files
 #include "MAT.hxx"
-#include "OpenCAEPoro_consts.hpp"
-
+#include "OpenCAEPoroConsts.hpp"
 
 // Fasp header files
 #include "fasp.h"
@@ -32,9 +29,10 @@ extern "C" {
 
 using namespace std;
 
-/// A template class designed to stores and solves linear system derived from discrete method.
-/// the maxtrix is stored in the form of row-segmented CSRX internaly, whose sparsity pattern is almost the same as neighbor in Connection_BB.
-/// if martix is block matrix, then the T will be a vector.
+/// A template class designed to stores and solves linear system derived from discrete
+/// method. the maxtrix is stored in the form of row-segmented CSRX internaly, whose
+/// sparsity pattern is almost the same as neighbor in Connection_BB. if martix is block
+/// matrix, then the T will be a vector.
 template <typename T> class Solver
 {
     friend class OpenCAEPoro;
@@ -42,9 +40,11 @@ template <typename T> class Solver
     friend class Well;
 
 public:
-    /// Allocate memory for linear system where possible maximum numbers of row are used.
+    /// Allocate memory for linear system where possible maximum numbers of row are
+    /// used.
     void AllocateMem(const OCP_USI& dimMax);
-    /// Allocate memory for each row of matrix where the most terrible condition was considered.
+    /// Allocate memory for each row of matrix where the most terrible condition was
+    /// considered.
     void AllocateColValMem();
     /// read solver param from input file which is supplied by user.
     void SetupParam(const string& dir, const string& file);
@@ -59,7 +59,7 @@ public:
     /// convert the internal matrix structure into the the format required by FASP.
     void AssembleMat_Fasp();
     /// solve the linear system by FASP and return the status.
-    int  FaspSolve();
+    int FaspSolve();
     /// free the matrix used for FASP.
     void Free_Fasp() { fasp_dcsr_free(&A_Fasp); };
     /// output the mat and rhs to fileA and fileb.
@@ -75,22 +75,24 @@ public:
 private:
     // internal mat structure.
     /// the maximum dimens matrix could have, it's fixed, always memory saving.
-    /// it's used to allocate memory for the mat at the beginning of simulation. 
-    OCP_USI     maxDim;     
-    OCP_USI     dim; ///< the actual dimens of mat, it may changed all the time but always a little less than maxDim.
+    /// it's used to allocate memory for the mat at the beginning of simulation.
+    OCP_USI maxDim;
+    OCP_USI dim; ///< the actual dimens of mat, it may changed all the time but always a
+                 ///< little less than maxDim.
     /// the maximum possible capacity of each row of the mat.
     /// it's just a little greater than actual sizes, so it's very memory saving.
-    /// it's used to allocate memory for the mat at the beginning of simulation. 
-    vector<USI>            rowCapacity; 
-    vector<vector<OCP_USI>> colId; ///< column-index of nonzero entry in the format of row-segmented.
-    vector<vector<T>>   val;    ///< values of nonzero entry in the format of row-segmented.
-    vector<USI>              diagPtr;   ///< the ith entry indicates the location of diagal entry of the ith row in val.
+    /// it's used to allocate memory for the mat at the beginning of simulation.
+    vector<USI> rowCapacity;
+    vector<vector<OCP_USI>>
+        colId; ///< column-index of nonzero entry in the format of row-segmented.
+    vector<vector<T>> val; ///< values of nonzero entry in the format of row-segmented.
+    vector<USI> diagPtr;   ///< the ith entry indicates the location of diagal entry of
+                           ///< the ith row in val.
     /// an auxiliary variable used to help Setup entry in diagnal line.
     /// it will only be used when matrix is being assembling.
-    vector<T>                diagVal; 
-    vector<T> b;        ///< right hands of linear system.
-    vector<T> u;        ///< solutiom of linear system.
-
+    vector<T> diagVal;
+    vector<T> b; ///< right hands of linear system.
+    vector<T> u; ///< solutiom of linear system.
 
     // for FASP solver
     string  solveDir;
@@ -168,7 +170,6 @@ template <typename T> void Solver<T>::AssembleMat_Fasp()
         }
     }
 }
-
 
 template <typename T> int Solver<T>::FaspSolve()
 {
@@ -279,7 +280,8 @@ template <typename T> int Solver<T>::FaspSolve()
     return status;
 }
 
-template <typename T> void Solver<T>::PrintfMatCSR(const string& fileA, const string& fileb) const
+template <typename T>
+void Solver<T>::PrintfMatCSR(const string& fileA, const string& fileb) const
 {
     string FileA = solveDir + fileA;
     string Fileb = solveDir + fileb;
