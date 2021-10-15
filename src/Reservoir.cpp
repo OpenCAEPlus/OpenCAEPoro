@@ -33,11 +33,12 @@ void Reservoir::Init()
 }
 
 
-OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
+OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
 	OCP_DBL cflB = conn.CalCFL(bulk, dt);
 	OCP_DBL cflW = wellgroup.CalCFL(bulk, dt);
-	OCP_DBL cfl = max(cflB, cflW);
+
+	cfl = max(cflB, cflW);
 
 	return cfl;
 }

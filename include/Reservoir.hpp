@@ -30,9 +30,10 @@
 class Reservoir
 {
 	friend class OpenCAEPoro;
-	friend class Summary;
 	friend class OCP_Control;
 	friend class OCP_IMPES;
+	friend class Summary;
+	friend class CriticalInfo;
 public:
 	/// Input param from internal param data structure, which stores the params from input files.
 	void InputParam(ParamRead& param);
@@ -41,7 +42,7 @@ public:
 	/// Initialize the reservoir, actually it gives the first step in iterations.
 	void Init();
 	/// Calcluate the CFL number, including bulks and wells. 
-	OCP_DBL CalCFL(const OCP_DBL& dt) const;
+	OCP_DBL CalCFL(const OCP_DBL& dt);
 	/// Allocate memory for linear system, it should be called at the beginning of simulation only once.
 	/// It's accessible for both IMPES and FIM.
 	template<typename T>
@@ -71,6 +72,9 @@ private:
 	Bulk					bulk;			///< Bulk class.
 	WellGroup				wellgroup;		///< WellGroup class.
 	Connection_BB			conn;			///< Connection_BB class.
+
+	
+	OCP_DBL					cfl;			///< CFL number.
 };
 
 
