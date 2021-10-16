@@ -340,7 +340,7 @@ void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
 
 void Summary::PrintInfo(const string& dir) const
 {
-    string   FileOut = dir + "SUMMARY.dat";
+    string   FileOut = dir + "SUMMARY.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
         ERRORcheck("Can not open " + FileOut);
@@ -440,7 +440,7 @@ void CriticalInfo::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
 
 void CriticalInfo::PrintInfo(const string& dir) const
 {
-    string   FileOut = dir + "FastReview.dat";
+    string   FileOut = dir + "FastReview.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
         ERRORcheck("Can not open " + FileOut);
@@ -483,7 +483,7 @@ void DetailInfo::InputParam(const OutputDetail& detail_param)
 
 void DetailInfo::Setup(const string& dir)
 {
-    string   FileOut = dir + "RPT.dat";
+    string   FileOut = dir + "RPT.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
         ERRORcheck("Can not open " + FileOut);
@@ -495,7 +495,7 @@ void DetailInfo::Setup(const string& dir)
 void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
                            const OCP_DBL& days) const
 {
-    string   FileOut = dir + "RPT.dat";
+    string   FileOut = dir + "RPT.out";
     ofstream outF;
     outF.open(FileOut, ios::app);
     if (!outF.is_open()) {
