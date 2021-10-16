@@ -10,7 +10,7 @@ var searchData=
   ['ocp_5fimpes_7',['OCP_IMPES',['../classOCP__IMPES.html',1,'']]],
   ['ocp_5fint_8',['OCP_INT',['../OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3',1,'OCPConst.hpp']]],
   ['ocp_5flocation_9',['OCP_LOCATION',['../UtilError_8hpp.html#a2fd9249ac0b2a23326cd037b9e351ce1',1,'UtilError.hpp']]],
-  ['ocp_5fmassage_10',['OCP_MASSAGE',['../UtilError_8hpp.html#a18baecd9060e2582c0c4147f58aa3645',1,'UtilError.hpp']]],
+  ['ocp_5fmessage_10',['OCP_MESSAGE',['../UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d',1,'UtilError.hpp']]],
   ['ocp_5foutput_11',['OCP_Output',['../classOCP__Output.html',1,'']]],
   ['ocp_5fsin_12',['OCP_SIN',['../OCPConst_8hpp.html#a4cf987f6993b48c88ec4970ad351b100',1,'OCPConst.hpp']]],
   ['ocp_5ftable_13',['OCP_Table',['../classOCP__Table.html',1,'']]],

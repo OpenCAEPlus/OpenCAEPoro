@@ -88,9 +88,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a2fd9249ac0b2a23326cd037b9e351ce1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilError_8hpp.html#a2fd9249ac0b2a23326cd037b9e351ce1">OCP_LOCATION</a></td></tr>
 <tr class="memdesc:a2fd9249ac0b2a23326cd037b9e351ce1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print out location at (file, line) and function name.  <a href="UtilError_8hpp.html#a2fd9249ac0b2a23326cd037b9e351ce1">More...</a><br /></td></tr>
 <tr class="separator:a2fd9249ac0b2a23326cd037b9e351ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18baecd9060e2582c0c4147f58aa3645"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilError_8hpp.html#a18baecd9060e2582c0c4147f58aa3645">OCP_MASSAGE</a>(msg)</td></tr>
-<tr class="memdesc:a18baecd9060e2582c0c4147f58aa3645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log error messages.  <a href="UtilError_8hpp.html#a18baecd9060e2582c0c4147f58aa3645">More...</a><br /></td></tr>
-<tr class="separator:a18baecd9060e2582c0c4147f58aa3645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f6d22c963ff0b81d79ba13bb6dda78d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d">OCP_MESSAGE</a>(msg)</td></tr>
+<tr class="memdesc:a8f6d22c963ff0b81d79ba13bb6dda78d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log error messages.  <a href="UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d">More...</a><br /></td></tr>
+<tr class="separator:a8f6d22c963ff0b81d79ba13bb6dda78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9873f9158c73c6b79a8e3cb9c0dc8e4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a>(msg)</td></tr>
 <tr class="memdesc:a9873f9158c73c6b79a8e3cb9c0dc8e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log warning messages.  <a href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">More...</a><br /></td></tr>
 <tr class="separator:a9873f9158c73c6b79a8e3cb9c0dc8e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,7 +145,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                                               \</div>
-<div class="line">        OCP_MASSAGE(<span class="stringliteral">&quot;### ABORT: &quot;</span> &lt;&lt; (msg));                                           \</div>
+<div class="line">        OCP_MESSAGE(<span class="stringliteral">&quot;### ABORT: &quot;</span> &lt;&lt; (msg));                                           \</div>
 <div class="line">        std::abort();                                                                  \</div>
 <div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
 </div><!-- fragment -->
@@ -209,14 +209,14 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 </div>
 </div>
-<a id="a18baecd9060e2582c0c4147f58aa3645" name="a18baecd9060e2582c0c4147f58aa3645"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18baecd9060e2582c0c4147f58aa3645">&#9670;&nbsp;</a></span>OCP_MASSAGE</h2>
+<a id="a8f6d22c963ff0b81d79ba13bb6dda78d" name="a8f6d22c963ff0b81d79ba13bb6dda78d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6d22c963ff0b81d79ba13bb6dda78d">&#9670;&nbsp;</a></span>OCP_MESSAGE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OCP_MASSAGE</td>
+          <td class="memname">#define OCP_MESSAGE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">msg</td><td>)</td>
@@ -254,7 +254,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                                               \</div>
-<div class="line">        OCP_MASSAGE(<span class="stringliteral">&quot;### WARNING: &quot;</span> &lt;&lt; (msg));                                         \</div>
+<div class="line">        OCP_MESSAGE(<span class="stringliteral">&quot;### WARNING: &quot;</span> &lt;&lt; (msg));                                         \</div>
 <div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
 </div><!-- fragment -->
 <p>Log warning messages. </p>

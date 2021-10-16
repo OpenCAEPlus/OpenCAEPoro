@@ -25,7 +25,7 @@
 /// Log error messages
 //  msg: user-defined error message
 //  We use do-while to allow the macro to be ended with ";"
-#define OCP_MASSAGE(msg)                                                               \
+#define OCP_MESSAGE(msg)                                                               \
     do {                                                                               \
         std::ostringstream info;                                                       \
         info << std::setprecision(16);                                                 \
@@ -38,7 +38,7 @@
 //  We use do-while to allow the macro to be ended with ";"
 #define OCP_WARNING(msg)                                                               \
     do {                                                                               \
-        OCP_MASSAGE("### WARNING: " << (msg));                                         \
+        OCP_MESSAGE("### WARNING: " << (msg));                                         \
     } while (false)
 
 /// Abort if critical error happens
@@ -46,7 +46,7 @@
 //  We use do-while to allow the macro to be ended with ";"
 #define OCP_ABORT(msg)                                                                 \
     do {                                                                               \
-        OCP_MASSAGE("### ABORT: " << (msg));                                           \
+        OCP_MESSAGE("### ABORT: " << (msg));                                           \
         std::abort();                                                                  \
     } while (false)
 
@@ -62,7 +62,7 @@
 #define OCP_ASSERT(cond, msg)                                                          \
     do {                                                                               \
         if (!(cond)) {                                                                 \
-            FASPXX_MASSAGE("### ASSERT: " << msg << " (" << #cond << ")");             \
+            FASPXX_MESSAGE("### ASSERT: " << msg << " (" << #cond << ")");             \
             std::abort();                                                              \
         }                                                                              \
     } while (false)

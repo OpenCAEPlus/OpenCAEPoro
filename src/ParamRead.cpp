@@ -10,16 +10,9 @@
  */
 
 #include "ParamRead.hpp"
+#include "UtilError.hpp"
 
-void ParamRead::ReadInputFile(const string& file)
-{
-    inputFile = file;
-    GetDirAndName();
-    Init();
-    ReadFile(inputFile);
-    CheckParam();
-}
-
+/// Initialize param_Rs, param_Well, and param_Control.
 void ParamRead::Init()
 {
     param_Rs.Init();
@@ -27,6 +20,7 @@ void ParamRead::Init()
     param_Control.Init(workDir);
 }
 
+/// Get workDir and fileName from inputFile.
 void ParamRead::GetDirAndName()
 {
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
@@ -42,12 +36,23 @@ void ParamRead::GetDirAndName()
 #endif
 }
 
+/// The general interface for reading input file.
+void ParamRead::ReadInputFile(const string& file)
+{
+    inputFile = file;
+    GetDirAndName();
+    Init();
+    ReadFile(inputFile);
+    CheckParam();
+}
+
+// TODO: What's this?
 void ParamRead::ReadFile(const string& file)
 {
     ifstream ifs(file, ios::in);
     if (!ifs) {
-        cout << "can not open " << file << "\n";
-        exit(0);
+        OCP_MESSAGE("Trying to open input file: " << (file));
+        OCP_ABORT("Cannot open the input file!");
     }
 
     while (!ifs.eof()) {
@@ -150,7 +155,7 @@ void ParamRead::ReadFile(const string& file)
                 break;
 
             case Map_Str2Int("INCLUDE", 7):
-                InputINCLUDE(ifs);
+                ReadINCLUDE(ifs);
                 break;
 
             case Map_Str2Int("METHOD", 6):
@@ -194,7 +199,9 @@ void ParamRead::ReadFile(const string& file)
             case Map_Str2Int("RPTSCHED", 8):
                 param_Output.InputRPTSCHED(ifs);
                 break;
+
             default:
+                OCP_WARNING("Skipping unknonw keywords!");
                 break;
         }
     }
@@ -202,7 +209,8 @@ void ParamRead::ReadFile(const string& file)
     ifs.close();
 }
 
-void ParamRead::InputINCLUDE(ifstream& ifs)
+/// Read INCLUDE files; these files should have identical format.
+void ParamRead::ReadINCLUDE(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -210,7 +218,7 @@ void ParamRead::InputINCLUDE(ifstream& ifs)
     ReadFile(workDir + vbuf[0]);
 }
 
-// check
+/// Check param_Rs and param_Well parameters.
 void ParamRead::CheckParam()
 {
     param_Rs.CheckParam();

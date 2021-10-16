@@ -83,8 +83,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa9241b955f508bb2c5199c48401cc42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a941ab5c56e766771b61b64e7b6af5fe3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__Output.html#a941ab5c56e766771b61b64e7b6af5fe3">PrintInfo</a> () const</td></tr>
 <tr class="separator:a941ab5c56e766771b61b64e7b6af5fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75a459600696196a3172b615c545a426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__Output.html#a75a459600696196a3172b615c545a426">PrintInfoSched</a> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;days) const</td></tr>
-<tr class="separator:a75a459600696196a3172b615c545a426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50462246e8c9cf2bfaf27817bc3f3bc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__Output.html#a50462246e8c9cf2bfaf27817bc3f3bc0">PrintInfoSched</a> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="classOCP__Control.html">OCP_Control</a> &amp;ctrl, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;time) const</td></tr>
+<tr class="separator:a50462246e8c9cf2bfaf27817bc3f3bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -145,8 +145,8 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a75a459600696196a3172b615c545a426" name="a75a459600696196a3172b615c545a426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75a459600696196a3172b615c545a426">&#9670;&nbsp;</a></span>PrintInfoSched()</h2>
+<a id="a50462246e8c9cf2bfaf27817bc3f3bc0" name="a50462246e8c9cf2bfaf27817bc3f3bc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50462246e8c9cf2bfaf27817bc3f3bc0">&#9670;&nbsp;</a></span>PrintInfoSched()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,8 +160,14 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="classOCP__Control.html">OCP_Control</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
-          <td class="paramname"><em>days</em>&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -172,9 +178,15 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00558">558</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>{</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    dtlInfo.PrintInfo(wordDir, rs, days);</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>}</div>
+<div class="fragment"><div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>{   </div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    cout &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days\t&quot;</span>;</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    cout &lt;&lt; ctrl.tstep &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    cout &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>;</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    dtlInfo.PrintInfo(wordDir, rs, days);</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
