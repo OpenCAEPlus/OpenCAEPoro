@@ -109,8 +109,24 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
                 InputType_A(ifs, summary.WBHP);
                 break;
 
+            case Map_Str2Int("DG", 2):
+                InputType_A(ifs, summary.DG);
+                break;
+
             case Map_Str2Int("BPR", 3):
                 InputType_B(ifs, summary.BPR);
+                break;
+
+            case Map_Str2Int("SOIL", 4):
+                InputType_B(ifs, summary.SOIL);
+                break;
+
+            case Map_Str2Int("SGAS", 4):
+                InputType_B(ifs, summary.SGAS);
+                break;
+
+            case Map_Str2Int("SWAT", 4):
+                InputType_B(ifs, summary.SWAT);
                 break;
             default:
                 break;

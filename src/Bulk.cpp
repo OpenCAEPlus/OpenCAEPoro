@@ -150,32 +150,50 @@ void Bulk::Setup(const Grid& myGrid)
     lS.resize(numBulk * numPhase);
     rockLVp.resize(numBulk);
 
+    phase2Index.resize(3);
+
     if (blackOil) {
         switch (PVTmode) {
             case PHASE_W:
-                phaseLabel.resize(1);
-                phaseLabel[0] = WATER;
+                index2Phase.resize(1);
+                index2Phase[0] = WATER;
+
+                phase2Index[WATER] = 0;
+
                 break;
             case PHASE_OW:
-                phaseLabel.resize(2);
-                phaseLabel[0] = OIL;
-                phaseLabel[1] = WATER;
+                index2Phase.resize(2);
+                index2Phase[0] = OIL;
+                index2Phase[1] = WATER;
+
+                phase2Index[OIL] = 0;
+                phase2Index[WATER] = 1;
                 break;
             case PHASE_OG:
-                phaseLabel.resize(2);
-                phaseLabel[0] = OIL;
-                phaseLabel[1] = GAS;
+                index2Phase.resize(2);
+                index2Phase[0] = OIL;
+                index2Phase[1] = GAS;
+
+                phase2Index[OIL] = 0;
+                phase2Index[GAS] = 1;
                 break;
             case PHASE_GW:
-                phaseLabel.resize(2);
-                phaseLabel[0] = GAS;
-                phaseLabel[1] = WATER;
+                index2Phase.resize(2);
+                index2Phase[0] = GAS;
+                index2Phase[1] = WATER;
+
+                phase2Index[GAS] = 0;
+                phase2Index[WATER] = 1;
                 break;
             case PHASE_OGW:
-                phaseLabel.resize(3);
-                phaseLabel[0] = OIL;
-                phaseLabel[1] = GAS;
-                phaseLabel[2] = WATER;
+                index2Phase.resize(3);
+                index2Phase[0] = OIL;
+                index2Phase[1] = GAS;
+                index2Phase[2] = WATER;
+
+                phase2Index[OIL] = 0;
+                phase2Index[GAS] = 1;
+                phase2Index[WATER] = 2;
                 break;
             default:
                 break;

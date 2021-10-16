@@ -15,9 +15,9 @@
 /// Initialize param_Rs, param_Well, and param_Control.
 void ParamRead::Init()
 {
-    param_Rs.Init();
-    param_Well.Init();
-    param_Control.Init(workDir);
+    paramRs.Init();
+    paramWell.Init();
+    paramControl.Init(workDir);
 }
 
 /// Get workDir and fileName from inputFile.
@@ -62,40 +62,40 @@ void ParamRead::ReadFile(const string& file)
 
         switch (Map_Str2Int(&keyword[0], keyword.size())) {
             case Map_Str2Int("BLACKOIL", 8):
-                param_Rs.blackOil = true;
+                paramRs.blackOil = true;
                 break;
 
             case Map_Str2Int("COMPS", 5):
-                param_Rs.InputCOMPS(ifs);
+                paramRs.InputCOMPS(ifs);
                 break;
 
             case Map_Str2Int("OIL", 3):
-                param_Rs.oil = true;
+                paramRs.oil = true;
                 break;
 
             case Map_Str2Int("GAS", 3):
-                param_Rs.gas = true;
+                paramRs.gas = true;
                 break;
 
             case Map_Str2Int("WATER", 5):
-                param_Rs.water = true;
+                paramRs.water = true;
                 break;
 
             case Map_Str2Int("DISGAS", 6):
-                param_Rs.disGas = true;
+                paramRs.disGas = true;
                 break;
 
             case Map_Str2Int("DIMENS", 6):
-                param_Rs.InputDIMENS(ifs);
-                param_Rs.DisplayDIMENS();
+                paramRs.InputDIMENS(ifs);
+                paramRs.DisplayDIMENS();
                 break;
 
             case Map_Str2Int("RTEMP", 5):
-                param_Rs.InputRTEMP(ifs);
+                paramRs.InputRTEMP(ifs);
                 break;
 
             case Map_Str2Int("EQUALS", 6):
-                param_Rs.InputEQUALS(ifs);
+                paramRs.InputEQUALS(ifs);
                 break;
 
             case Map_Str2Int("DX", 2):
@@ -109,15 +109,15 @@ void ParamRead::ReadFile(const string& file)
             case Map_Str2Int("PERMZ", 5):
             case Map_Str2Int("PRESSURE", 8):
             case Map_Str2Int("Ni", 2):
-                param_Rs.InputGRID(ifs, keyword);
+                paramRs.InputGRID(ifs, keyword);
                 break;
 
             case Map_Str2Int("COPY", 4):
-                param_Rs.InputCOPY(ifs);
+                paramRs.InputCOPY(ifs);
                 break;
 
             case Map_Str2Int("MULTIPLY", 8):
-                param_Rs.InputMULTIPLY(ifs);
+                paramRs.InputMULTIPLY(ifs);
                 break;
 
             case Map_Str2Int("SWOF", 4):
@@ -126,32 +126,32 @@ void ParamRead::ReadFile(const string& file)
             case Map_Str2Int("PVDG", 4):
             case Map_Str2Int("PVTW", 4):
             case Map_Str2Int("PBVD", 4):
-                param_Rs.InputTABLE(ifs, keyword);
+                paramRs.InputTABLE(ifs, keyword);
                 break;
 
             case Map_Str2Int("ROCK", 4):
-                param_Rs.InputROCK(ifs);
+                paramRs.InputROCK(ifs);
                 break;
 
             case Map_Str2Int("GRAVITY", 7):
-                param_Rs.InputGRAVITY(ifs);
+                paramRs.InputGRAVITY(ifs);
                 break;
 
             case Map_Str2Int("DENSITY", 7):
-                param_Rs.InputDENSITY(ifs);
+                paramRs.InputDENSITY(ifs);
                 break;
 
             case Map_Str2Int("EQUIL", 5):
-                param_Rs.InputEQUIL(ifs);
+                paramRs.InputEQUIL(ifs);
                 break;
 
             case Map_Str2Int("TABDIMS", 7):
-                param_Rs.InputTABDIMS(ifs);
+                paramRs.InputTABDIMS(ifs);
                 break;
 
             case Map_Str2Int("SATNUM", 6):
             case Map_Str2Int("PVTNUM", 6):
-                param_Rs.InputRegion(ifs, keyword);
+                paramRs.InputRegion(ifs, keyword);
                 break;
 
             case Map_Str2Int("INCLUDE", 7):
@@ -159,45 +159,45 @@ void ParamRead::ReadFile(const string& file)
                 break;
 
             case Map_Str2Int("METHOD", 6):
-                param_Control.InputMETHOD(ifs);
+                paramControl.InputMETHOD(ifs);
                 break;
 
             case Map_Str2Int("TUNING", 6):
-                param_Control.InputTUNING(ifs);
+                paramControl.InputTUNING(ifs);
                 break;
 
             case Map_Str2Int("WELSPECS", 8):
-                param_Well.InputWELSPECS(ifs);
+                paramWell.InputWELSPECS(ifs);
                 break;
 
             case Map_Str2Int("COMPDAT", 7):
-                param_Well.InputCOMPDAT(ifs);
+                paramWell.InputCOMPDAT(ifs);
                 break;
 
             case Map_Str2Int("WCONINJE", 8):
-                param_Well.InputWCONINJE(ifs);
+                paramWell.InputWCONINJE(ifs);
                 break;
 
             case Map_Str2Int("WCONPROD", 8):
-                param_Well.InputWCONPROD(ifs);
+                paramWell.InputWCONPROD(ifs);
                 break;
 
             case Map_Str2Int("TSTEP", 5):
-                param_Well.InputTSTEP(ifs);
-                param_Control.criticalTime = param_Well.criticalTime;
+                paramWell.InputTSTEP(ifs);
+                paramControl.criticalTime = paramWell.criticalTime;
                 break;
 
             case Map_Str2Int("WELTARG", 7):
             case Map_Str2Int("WELLTARG", 8):
-                param_Well.InputWELTARG(ifs);
+                paramWell.InputWELTARG(ifs);
                 break;
 
             case Map_Str2Int("SUMMARY", 7):
-                param_Output.InputSUMMARY(ifs);
+                paramOutput.InputSUMMARY(ifs);
                 break;
 
             case Map_Str2Int("RPTSCHED", 8):
-                param_Output.InputRPTSCHED(ifs);
+                paramOutput.InputRPTSCHED(ifs);
                 break;
 
             default:
@@ -221,8 +221,8 @@ void ParamRead::ReadINCLUDE(ifstream& ifs)
 /// Check param_Rs and param_Well parameters.
 void ParamRead::CheckParam()
 {
-    param_Rs.CheckParam();
-    param_Well.CheckParam();
+    paramRs.CheckParam();
+    paramWell.CheckParam();
 }
 
 /*----------------------------------------------------------------------------*/

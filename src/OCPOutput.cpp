@@ -37,8 +37,12 @@ void Summary::InputParam(const OutputSummary& summary_param)
     WWIT = summary_param.WWIT;
 
     WBHP = summary_param.WBHP;
+    DG = summary_param.DG;
 
     BPR = summary_param.BPR;
+    SOIL = summary_param.SOIL;
+    SGAS = summary_param.SGAS;
+    SWAT = summary_param.SWAT;
 
     cout << "Summary::InputParam" << endl;
 }
@@ -61,12 +65,15 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
     if (FWIT) Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
     USI wellnum = reservoir.wellgroup.GetWellNum();
+    string wellname;
 
     if (WOPR.activity) {
         if (WOPR.obj[0] == "All") {
+            WOPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WOPR", reservoir.wellgroup.GetWellName(w), "STB/DAY"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WOPR.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WOPR", wellname, "STB/DAY"));
                 WOPR.index.push_back(w);
             }
         } else {
@@ -80,9 +87,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WOPT.activity) {
         if (WOPT.obj[0] == "All") {
+            WOPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WOPT", reservoir.wellgroup.GetWellName(w), "STB"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WOPT.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WOPT", wellname, "STB"));
                 WOPT.index.push_back(w);
             }
         } else {
@@ -96,9 +105,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WGPR.activity) {
         if (WGPR.obj[0] == "All") {
+            WGPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WGPR", reservoir.wellgroup.GetWellName(w), "MSCF/DAY"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WGPR.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WGPR", wellname, "MSCF/DAY"));
                 WGPR.index.push_back(w);
             }
         } else {
@@ -112,9 +123,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WGPT.activity) {
         if (WGPT.obj[0] == "All") {
+            WGPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WGPT", reservoir.wellgroup.GetWellName(w), "MSCF"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WGPT.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WGPT", wellname, "MSCF"));
                 WGPT.index.push_back(w);
             }
         } else {
@@ -128,9 +141,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WWPR.activity) {
         if (WWPR.obj[0] == "All") {
+            WWPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WWPR", reservoir.wellgroup.GetWellName(w), "STB/DAY"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WWPR.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WWPR", wellname, "STB/DAY"));
                 WWPR.index.push_back(w);
             }
         } else {
@@ -144,9 +159,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WWPT.activity) {
         if (WWPT.obj[0] == "All") {
+            WWPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WWPT", reservoir.wellgroup.GetWellName(w), "STB"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WWPT.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WWPT", wellname, "STB"));
                 WWPT.index.push_back(w);
             }
         } else {
@@ -160,9 +177,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WGIR.activity) {
         if (WGIR.obj[0] == "All") {
+            WGIR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WGIR", reservoir.wellgroup.GetWellName(w), "MSCF/DAY"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WGIR.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WGIR", wellname, "MSCF/DAY"));
                 WGIR.index.push_back(w);
             }
         } else {
@@ -176,9 +195,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WGIT.activity) {
         if (WGIT.obj[0] == "All") {
+            WGIT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WGIT", reservoir.wellgroup.GetWellName(w), "MSCF"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WGIT.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WGIT", wellname, "MSCF"));
                 WGIT.index.push_back(w);
             }
         } else {
@@ -192,9 +213,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WWIR.activity) {
         if (WWIR.obj[0] == "All") {
+            WWIR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WWIR", reservoir.wellgroup.GetWellName(w), "STB/DAY"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WWIR.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WWIR", wellname, "STB/DAY"));
                 WWIR.index.push_back(w);
             }
         } else {
@@ -208,9 +231,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WWIT.activity) {
         if (WWIT.obj[0] == "All") {
+            WWIT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WWIT", reservoir.wellgroup.GetWellName(w), "STB"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WWIT.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WWIT", wellname, "STB"));
                 WWIT.index.push_back(w);
             }
         } else {
@@ -224,9 +249,11 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
     if (WBHP.activity) {
         if (WBHP.obj[0] == "All") {
+            WBHP.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                Sumdata.push_back(
-                    SumPair("WBHP", reservoir.wellgroup.GetWellName(w), "PSIA"));
+                wellname = reservoir.wellgroup.GetWellName(w);
+                WBHP.obj.push_back(wellname);
+                Sumdata.push_back(SumPair("WBHP", wellname, "PSIA"));
                 WBHP.index.push_back(w);
             }
         } else {
@@ -238,17 +265,85 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         }
     }
 
+    if (DG.activity) {
+        if (DG.obj[0] == "All") {
+            DG.obj.clear();
+            for (USI w = 0; w < wellnum; w++) {
+                string wellname = reservoir.wellgroup.GetWellName(w);
+                DG.obj.push_back(wellname);
+                USI perfnum = reservoir.wellgroup.GetWellPerfNum(w);
+                for (USI p = 0; p < perfnum; p++) {
+                    Sumdata.push_back(SumPair("DG", wellname + " Perf" + to_string(p), "PSIA"));
+                    DG.index.push_back(w);
+                }
+            }
+        }
+        else {
+            USI num = DG.obj.size();
+            for (USI w = 0; w < num; w++) {
+                USI wId = reservoir.wellgroup.GetIndex(DG.obj[w]);
+                USI perfnum = reservoir.wellgroup.GetWellPerfNum(wId);
+                for (USI p = 0; p < perfnum; p++) {
+                    Sumdata.push_back(SumPair("DG", DG.obj[w] + " P" + to_string(p), "PSIA"));
+                    DG.index.push_back(wId);
+                }
+            }
+        }
+    }
+
     if (BPR.activity) {
         USI n = BPR.obj.size();
         for (USI i = 0; i < n; i++) {
-            string temp = "( " + to_string(BPR.obj[i].I) + ", " +
-                          to_string(BPR.obj[i].J) + ", " + to_string(BPR.obj[i].K) +
-                          " )";
+            string temp = "(" + to_string(BPR.obj[i].I) + "," +
+                          to_string(BPR.obj[i].J) + "," + to_string(BPR.obj[i].K) +
+                          ")";
             Sumdata.push_back(SumPair("BPR", temp, "PSIA"));
             USI I = BPR.obj[i].I - 1;
             USI J = BPR.obj[i].J - 1;
             USI K = BPR.obj[i].K - 1;
             BPR.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+        }
+    }
+
+    if (SOIL.activity) {
+        USI n = SOIL.obj.size();
+        for (USI i = 0; i < n; i++) {
+            string temp = "(" + to_string(SOIL.obj[i].I) + "," +
+                to_string(SOIL.obj[i].J) + "," + to_string(SOIL.obj[i].K) +
+                ")";
+            Sumdata.push_back(SumPair("SOIL", temp, "   "));
+            USI I = SOIL.obj[i].I - 1;
+            USI J = SOIL.obj[i].J - 1;
+            USI K = SOIL.obj[i].K - 1;
+            SOIL.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+        }
+    }
+
+    if (SGAS.activity) {
+        USI n = SGAS.obj.size();
+        for (USI i = 0; i < n; i++) {
+            string temp = "(" + to_string(SGAS.obj[i].I) + "," +
+                to_string(SGAS.obj[i].J) + "," + to_string(SGAS.obj[i].K) +
+                ")";
+            Sumdata.push_back(SumPair("SGAS", temp, "   "));
+            USI I = SGAS.obj[i].I - 1;
+            USI J = SGAS.obj[i].J - 1;
+            USI K = SGAS.obj[i].K - 1;
+            SGAS.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+        }
+    }
+
+    if (SWAT.activity) {
+        USI n = SWAT.obj.size();
+        for (USI i = 0; i < n; i++) {
+            string temp = "(" + to_string(SWAT.obj[i].I) + "," +
+                to_string(SWAT.obj[i].J) + "," + to_string(SWAT.obj[i].K) +
+                ")";
+            Sumdata.push_back(SumPair("SWAT", temp, "   "));
+            USI I = SWAT.obj[i].I - 1;
+            USI J = SWAT.obj[i].J - 1;
+            USI K = SWAT.obj[i].K - 1;
+            SWAT.index.push_back(reservoir.grid.GetActIndex(I, J, K));
         }
     }
 
@@ -291,51 +386,86 @@ void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
     len = WOPR.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWOPR(WOPR.index[w]));
+
     // WOPT
     len = WOPT.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWOPT(WOPT.index[w]));
+
     // WGPR
     len = WGPR.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWGPR(WGPR.index[w]));
+
     // WGPT
     len = WGPT.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWGPT(WGPT.index[w]));
+
     // WWPR
     len = WWPR.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWWPR(WWPR.index[w]));
+
     // WWPT
     len = WWPT.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWWPT(WWPT.index[w]));
+
     // WGIR
     len = WGIR.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWGIR(WGIR.index[w]));
+
     // WGIT
     len = WGIT.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWGIT(WGIT.index[w]));
+
     // WWIR
     len = WWIR.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWWIR(WWIR.index[w]));
+
     // WWIT
     len = WWIT.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWWIT(WWIT.index[w]));
+
     // WBHP
     len = WBHP.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWBHP(WBHP.index[w]));
+    
+    // DG
+    len = DG.obj.size();
+    for (USI w = 0; w < len; w++) {
+        USI numperf = rs.wellgroup.GetWellPerfNum(DG.index[w]);
+        for (USI p = 0; p < numperf; p++) {
+            Sumdata[n++].val.push_back(rs.wellgroup.GetWellDg(w, p));
+        }
+    }
 
     // BPR
     len = BPR.index.size();
     for (USI i = 0; i < len; i++)
         Sumdata[n++].val.push_back(rs.bulk.GetP(BPR.index[i]));
+
+    // SOIL
+    len = SOIL.index.size();
+    for (USI i = 0; i < len; i++)
+        Sumdata[n++].val.push_back(rs.bulk.GetSOIL(SOIL.index[i]));
+
+    // SGAS
+    len = SGAS.index.size();
+    for (USI i = 0; i < len; i++)
+        Sumdata[n++].val.push_back(rs.bulk.GetSGAS(SGAS.index[i]));
+
+    // SWAT
+    len = SWAT.index.size();
+    for (USI i = 0; i < len; i++)
+        Sumdata[n++].val.push_back(rs.bulk.GetSWAT(SWAT.index[i]));
+
 }
 
 void Summary::PrintInfo(const string& dir) const
@@ -529,10 +659,10 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     outF.close();
 }
 
-void OCP_Output::InputParam(const ParamOutput& param_Output)
+void OCP_Output::InputParam(const ParamOutput& paramOutput)
 {
-    summary.InputParam(param_Output.summary);
-    dtlInfo.InputParam(param_Output.detailInfo);
+    summary.InputParam(paramOutput.summary);
+    dtlInfo.InputParam(paramOutput.detailInfo);
 }
 
 void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)

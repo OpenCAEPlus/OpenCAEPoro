@@ -78,8 +78,12 @@ public:
     Type_A_o WWIR; ///< Well water injection rate.
     Type_A_o WWIT; ///< Well total water injection.
     Type_A_o WBHP; ///< Well pressure.
+    Type_A_o DG;    ///< Pressure difference between wells and perforations.
 
     Type_B_o BPR; ///< Bulk pressure.
+    Type_B_o SOIL; ///< Oil saturation of bulk.
+    Type_B_o SGAS; ///< Gas saturation of bulk.
+    Type_B_o SWAT; ///< Water saturation of bulk.
 };
 
 /// OutputDetail is a part of ParamOutput, it's used to control the output of detailed

@@ -842,13 +842,13 @@ void Well::CalProdQi_Blk(const Bulk& myBulk, const OCP_DBL& dt)
     }
 
     for (USI i = 0; i < nc; i++) {
-        if (myBulk.phaseLabel[i] == OIL) {
+        if (myBulk.index2Phase[i] == OIL) {
             WOPR = qi_lbmol[i];
             WOPT += WOPR * dt;
-        } else if (myBulk.phaseLabel[i] == GAS) {
+        } else if (myBulk.index2Phase[i] == GAS) {
             WGPR = qi_lbmol[i];
             WGPT += WGPR * dt;
-        } else if (myBulk.phaseLabel[i] == WATER) {
+        } else if (myBulk.index2Phase[i] == WATER) {
             WWPR = qi_lbmol[i];
             WWPT += WWPR * dt;
         }

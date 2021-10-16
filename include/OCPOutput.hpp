@@ -119,8 +119,13 @@ private:
     OCPType_Sum<string> WWIR; ///< Well water injection rate.
     OCPType_Sum<string> WWIT; ///< Well total water injection.
     OCPType_Sum<string> WBHP; ///< Well pressure.
+    OCPType_Sum<string> DG;  ///< Pressure difference between wells and perforations.
 
     OCPType_Sum<OCPIJK> BPR; ///< Bulk pressure.
+    OCPType_Sum<OCPIJK> SOIL; ///< Oil saturation of bulk.
+    OCPType_Sum<OCPIJK> SGAS; ///< Gas saturation of bulk.
+    OCPType_Sum<OCPIJK> SWAT; ///< Water saturation of bulk.
+
 };
 
 /// CriticalInfo print some important index of each time step for fast review.
@@ -170,7 +175,7 @@ class OCP_Output
     friend class OpenCAEPoro;
 
 public:
-    void InputParam(const ParamOutput& param_Output);
+    void InputParam(const ParamOutput& paramOutput);
     void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
     void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
     void PrintInfo() const;

@@ -14,8 +14,8 @@
 void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
-    control.InputParam(param.param_Control);
-    output.InputParam(param.param_Output);
+    control.InputParam(param.paramControl);
+    output.InputParam(param.paramOutput);
 }
 
 void OpenCAEPoro::SetupReservoir(ParamRead& param)

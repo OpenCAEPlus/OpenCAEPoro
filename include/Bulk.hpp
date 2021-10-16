@@ -112,6 +112,12 @@ public:
     OCP_DBL CalFPR() const;
     /// return pressure in ith bulk.
     OCP_DBL GetP(const OCP_USI& n) const { return P[n]; }
+    /// Return oil saturation in ith bulk.
+    OCP_DBL GetSOIL(const OCP_USI& n) const { return S[n * numPhase + phase2Index[OIL]]; }
+    /// Return gas saturation in ith bulk.
+    OCP_DBL GetSGAS(const OCP_USI& n) const { return S[n * numPhase + phase2Index[GAS]]; }
+    /// Return water saturation in ith bulk.
+    OCP_DBL GetSWAT(const OCP_USI& n) const { return S[n * numPhase + phase2Index[WATER]]; }
     /// check if negative P occurs, return false if so.
     bool CheckP() const;
     /// Check if negative Ni occurs, return false if so.
@@ -163,8 +169,14 @@ private:
     vector<OCP_DBL> vfi; ///< dVf / dNi: numBulk.
     vector<OCP_DBL> vfp; ///< dVf / dP.
 
-    vector<USI>
-        phaseLabel; ///< used to identify phase according to its index: numPhase.
+    /// used to identify phase name according to its index: numPhase.
+    /// For example, 0th phase is Oil.
+    vector<USI> index2Phase; 
+    /// used to tell the location of phase according to its name: numPhase.
+    /// For example, Oil is in ith location.
+    vector<USI> phase2Index;
+
+
     vector<OCP_DBL> initZi; ///< initial proportion of each component for EoS : numCom -
                             ///< 1, water is excluded.
     USI         PVTmode;    ///< used to identify PVT mode in blackoil model.

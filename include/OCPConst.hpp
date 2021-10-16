@@ -81,10 +81,10 @@ const USI LRATE_MODE = 5;
 const USI BHP_MODE   = 6;
 
 // Fluid types
-const USI OIL     = 1;
-const USI GAS     = 2;
-const USI WATER   = 3;
-const USI SOLVENT = 4;
+const USI OIL     = 0;
+const USI GAS     = 1;
+const USI WATER   = 2;
+const USI SOLVENT = 3;
 
 #endif
 

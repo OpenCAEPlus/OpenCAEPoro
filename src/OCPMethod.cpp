@@ -59,6 +59,10 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     while (true) {
         SolveP(rs, ctrl, dt);
 
+        if (dt < 1E-6) {
+            OCP_ABORT("tstep is too small!");
+        }
+
         // first check : Pressure check
         flagCheck = rs.CheckP();
         if (flagCheck == 1) {

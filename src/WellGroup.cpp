@@ -11,32 +11,32 @@
 
 #include "WellGroup.hpp"
 
-void WellGroup::InputParam(const ParamWell& param_Well)
+void WellGroup::InputParam(const ParamWell& paramWell)
 {
-    numWell = param_Well.well.size();
+    numWell = paramWell.well.size();
     wellGroup.resize(numWell);
-    USI         t = param_Well.criticalTime.size();
+    USI         t = paramWell.criticalTime.size();
     vector<USI> wellCriticalTime;
     for (USI w = 0; w < numWell; w++) {
-        wellGroup[w].name  = param_Well.well[w].name;
-        wellGroup[w].depth = param_Well.well[w].depth;
-        wellGroup[w].I     = param_Well.well[w].I - 1;
-        wellGroup[w].J     = param_Well.well[w].J - 1;
+        wellGroup[w].name  = paramWell.well[w].name;
+        wellGroup[w].depth = paramWell.well[w].depth;
+        wellGroup[w].I     = paramWell.well[w].I - 1;
+        wellGroup[w].J     = paramWell.well[w].J - 1;
 
-        wellGroup[w].InputPerfo(param_Well.well[w]);
+        wellGroup[w].InputPerfo(paramWell.well[w]);
 
         // opt
         wellGroup[w].optSet.resize(t);
-        USI n = param_Well.well[w].optParam.size();
+        USI n = paramWell.well[w].optParam.size();
         wellCriticalTime.clear();
         wellCriticalTime.resize(n + 1);
         for (USI i = 0; i < n; i++) {
-            wellCriticalTime[i] = param_Well.well[w].optParam[i].d;
+            wellCriticalTime[i] = paramWell.well[w].optParam[i].d;
         }
         wellCriticalTime.back() = t;
         for (USI i = 0; i < n; i++) {
             for (USI d = wellCriticalTime[i]; d < wellCriticalTime[i + 1]; d++) {
-                wellGroup[w].optSet[d] = WellOpt(param_Well.well[w].optParam[i].opt);
+                wellGroup[w].optSet[d] = WellOpt(paramWell.well[w].optParam[i].opt);
             }
         }
     }
@@ -203,7 +203,7 @@ OCP_INT WellGroup::CheckP(const Bulk& myBulk)
 
             OCP_INT flag = wellGroup[w].CheckP(myBulk);
 #ifdef _DEBUG
-            wellGroup[w].ShowPerfStatus();
+            // wellGroup[w].ShowPerfStatus();
 #endif // _DEBUG
             switch (flag) {
                 case 1:

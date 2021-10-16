@@ -26,7 +26,7 @@ class WellGroup
 public:
     WellGroup() = default;
     /// input param from ParamWell.
-    void InputParam(const ParamWell& param_Well);
+    void InputParam(const ParamWell& paramWell);
     /// Setup well and mixture in wellgroup.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// complete the information of well according to Grid and Bulk.
@@ -58,12 +58,14 @@ public:
     /// it should be called after parts related to bulks setups.
     void AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
                               const OCP_DBL& dt) const;
-    /// return the num of wells.
+    /// Return the num of wells.
     USI GetWellNum() const { return numWell; }
-    /// return the name of specified well.
+    /// Return the name of specified well.
     string GetWellName(const USI& i) const { return wellGroup[i].name; }
-    /// return the index of specified well.
+    /// Return the index of specified well.
     USI GetIndex(const string& name) const;
+    /// Return the num of perforations of well i.
+    USI GetWellPerfNum(const USI& i)const { return wellGroup[i].numPerf; }
 
     // Field injection / production
     /// return oil production rate in field.
@@ -111,6 +113,9 @@ public:
     // BHP
     /// return the BHP of wth well.
     OCP_DBL GetWBHP(const USI& w) const { return wellGroup[w].BHP; }
+    /// Return the pth dG of wth well.
+    OCP_DBL GetWellDg(const USI& w, const USI& p)const { return wellGroup[w].dG[p]; }
+
     /// update pressure in well and well perforation with solution of linear system.
     void GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bId);
     /// reset dG to ldG for each well, dG is a array where the pressure difference

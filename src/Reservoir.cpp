@@ -13,9 +13,9 @@
 
 void Reservoir::InputParam(ParamRead& param)
 {
-    grid.InputParam(param.param_Rs);
-    bulk.InputParam(param.param_Rs);
-    wellgroup.InputParam(param.param_Well);
+    grid.InputParam(param.paramRs);
+    bulk.InputParam(param.paramRs);
+    wellgroup.InputParam(param.paramWell);
 }
 
 void Reservoir::Setup()

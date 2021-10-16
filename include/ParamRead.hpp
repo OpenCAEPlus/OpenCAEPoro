@@ -40,10 +40,10 @@ public:
     // Main workloads for ParamRead: read reservoir params, read well params,
     // read control params, and read output param. These workloads are assigned
     // to the following classes, respectively.
-    ParamReservoir param_Rs;      ///< Read the reservoir params.
-    ParamWell      param_Well;    ///< Read the well params.
-    ParamControl   param_Control; ///< Read the control params.
-    ParamOutput    param_Output;  ///< Read the output params.
+    ParamReservoir paramRs;      ///< Read the reservoir params.
+    ParamWell      paramWell;    ///< Read the well params.
+    ParamControl   paramControl; ///< Read the control params.
+    ParamOutput    paramOutput;  ///< Read the output params.
     // TODO: Change names from snake to camel
 
 public:
