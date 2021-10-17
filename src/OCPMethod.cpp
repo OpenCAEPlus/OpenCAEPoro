@@ -47,21 +47,20 @@ void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
     OCP_DBL ve        = 0.01;
-    OCP_DBL cfl       = 1;
-    int     flagCheck = 0;
     double& dt        = ctrl.current_dt;
+    int     flagCheck = 0;
 
-    rs.wellgroup.PrepareWell(rs.bulk);
-
-    cfl = rs.CalCFL(dt);
+    // Init CFL number and dt
+    OCP_DBL cfl = rs.CalCFL(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
-    while (true) {
-        SolveP(rs, ctrl, dt);
+    // Init wells
+    rs.wellgroup.PrepareWell(rs.bulk);
 
-        if (dt < 1E-6) {
-            OCP_ABORT("tstep is too small!");
-        }
+    while (true) {
+        if (dt < MIN_TIME_STEP) OCP_ABORT("Time stepsize is too small!");
+
+        SolveP(rs, ctrl, dt); // TODO: Why Solver needs dt?
 
         // first check : Pressure check
         flagCheck = rs.CheckP();
@@ -75,7 +74,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         rs.conn.CalFlux(rs.bulk);
         rs.wellgroup.CalFlux(rs.bulk);
 
-        // second check : cfl check
+        // second check : CFL check
         cfl = rs.CalCFL(dt);
         if (cfl > 1) {
             dt /= 2;
@@ -124,9 +123,9 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
     rs.AssembleMat(solver, dt);
 
-#ifdef _DEBUG
+#ifdef DEBUG
     solver.CheckVal();
-#endif // _DEBUG
+#endif // DEBUG
 
 #ifdef __SOLVER_FASP__
 

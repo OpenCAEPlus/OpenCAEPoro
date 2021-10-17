@@ -1155,10 +1155,10 @@ template&lt;typename T &gt; </div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                    ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                    <span class="keywordflow">if</span> (perf[p].kh &lt; 0) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                        perf[p].WI = (2 * PI) * (dz * pow(kxky, 0.5)) /</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                        perf[p].WI = (2 * <a class="code hl_variable" href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a>) * (dz * pow(kxky, 0.5)) /</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                                     (log(ro / perf[p].radius) + perf[p].skinFactor);</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                        perf[p].WI = (2 * PI) * perf[p].kh /</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                        perf[p].WI = (2 * <a class="code hl_variable" href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a>) * perf[p].kh /</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                                     (log(ro / perf[p].radius) + perf[p].skinFactor);</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                    }</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                    <span class="keywordflow">break</span>;</div>
@@ -1170,6 +1170,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        }</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_adf2a24350253e533be022fb87ae13b8d"><div class="ttname"><a href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a></div><div class="ttdeci">const OCP_DBL PI</div><div class="ttdoc">Pi.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00041">OCPConst.hpp:41</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -296,7 +296,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span>            <span class="keywordtype">id</span> = n * numCom + i;</div>
 <div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span> </div>
 <div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span>            tmp = fabs(max(Ni[<span class="keywordtype">id</span>], lNi[<span class="keywordtype">id</span>]));</div>
-<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>            <span class="keywordflow">if</span> (tmp &gt; TINY) {</div>
+<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>            <span class="keywordflow">if</span> (tmp &gt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span>                tmp   = fabs(Ni[<span class="keywordtype">id</span>] - lNi[<span class="keywordtype">id</span>]) / tmp;</div>
 <div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>                dNmax = dNmax &lt; tmp ? tmp : dNmax;</div>
 <div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span>            }</div>
@@ -306,7 +306,10 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>        dVmax = dVmax &lt; tmp ? tmp : dVmax;</div>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span>    }</div>
 <div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00040">OCPConst.hpp:40</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00040">TINY</a>.</p>
+
 </div>
 </div>
 <a id="a14e0696a20871b4cae17988a8d532ae0" name="a14e0696a20871b4cae17988a8d532ae0"></a>
@@ -1242,15 +1245,15 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>            Sg           = 1 - Sw;</div>
 <div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        }</div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span> </div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        <span class="keywordflow">if</span> (1 - Sw &lt; TINY) {</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        <span class="keywordflow">if</span> (1 - Sw &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>            <span class="comment">// all water</span></div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>            Po = Pw + flow[0]-&gt;Eval_SWOF(0, 1.0, 3);</div>
 <div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>            <span class="comment">// Pg = Po + flow-&gt;Eval_SGOF(0, 0.0, 3);</span></div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sg &lt; TINY) {</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sg &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>            <span class="comment">// all gas</span></div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>            Po = Pg - flow[0]-&gt;Eval_SGOF(0, 1.0, 3);</div>
 <div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>            <span class="comment">// Pw = Po - flow-&gt;Eval_SWOF(0, 0.0, 3);</span></div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sw - Sg &lt; TINY) {</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sw - Sg &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            <span class="comment">// water and gas</span></div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            Po = Pg - flow[0]-&gt;Eval_SGOF(0, Sg, 3);</div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>            <span class="comment">// Pw = Po - flow-&gt;Eval_SWOF(0, Sw, 3);</span></div>
@@ -1641,15 +1644,15 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>            Sg           = 1 - Sw;</div>
 <div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>        }</div>
 <div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span> </div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>        <span class="keywordflow">if</span> (1 - Sw &lt; TINY) {</div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>        <span class="keywordflow">if</span> (1 - Sw &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            <span class="comment">// all water</span></div>
 <div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>            Po = Pw + flow[0]-&gt;Eval_SWOF(0, 1.0, 3);</div>
 <div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>            <span class="comment">// Pg = Po + flow-&gt;Eval_SGOF(0, 0.0, 3);</span></div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sg &lt; TINY) {</div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sg &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>            <span class="comment">// all gas</span></div>
 <div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>            Po = Pg - flow[0]-&gt;Eval_SGOF(0, 1.0, 3);</div>
 <div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>            <span class="comment">// Pw = Po - flow-&gt;Eval_SWOF(0, 0.0, 3);</span></div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sw - Sg &lt; TINY) {</div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (1 - Sw - Sg &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>            <span class="comment">// water and gas</span></div>
 <div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>            Po = Pg - flow[0]-&gt;Eval_SGOF(0, Sg, 3);</div>
 <div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>            <span class="comment">// Pw = Po - flow-&gt;Eval_SWOF(0, Sw, 3);</span></div>
@@ -1694,7 +1697,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>    }</div>
 <div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPTable_8hpp_source.html#l00185">OCP_Table&lt; T &gt;::Display()</a>, <a class="el" href="OCPTable_8hpp_source.html#l00088">OCP_Table&lt; T &gt;::Eval_All()</a>, and <a class="el" href="OCPTable_8hpp_source.html#l00036">OCP_Table&lt; T &gt;::GetCol()</a>.</p>
+<p class="reference">References <a class="el" href="OCPTable_8hpp_source.html#l00185">OCP_Table&lt; T &gt;::Display()</a>, <a class="el" href="OCPTable_8hpp_source.html#l00088">OCP_Table&lt; T &gt;::Eval_All()</a>, <a class="el" href="OCPTable_8hpp_source.html#l00036">OCP_Table&lt; T &gt;::GetCol()</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00040">TINY</a>.</p>
 
 </div>
 </div>
