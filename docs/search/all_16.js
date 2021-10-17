@@ -9,7 +9,7 @@ var searchData=
   ['wellgroup_6',['WellGroup',['../classWellGroup.html',1,'']]],
   ['wellgroup_2ecpp_7',['WellGroup.cpp',['../WellGroup_8cpp.html',1,'']]],
   ['wellgroup_2ehpp_8',['WellGroup.hpp',['../WellGroup_8hpp.html',1,'']]],
-  ['wellopt_9',['WellOpt',['../classWellOpt.html',1,'']]],
+  ['wellopt_9',['WellOpt',['../classWellOpt.html',1,'WellOpt'],['../classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2',1,'WellOpt::WellOpt()=default'],['../classWellOpt.html#a93515bcbbec17851a81911122eb82505',1,'WellOpt::WellOpt(const WellOptParam &amp;Optparam)']]],
   ['welloptpair_10',['WellOptPair',['../classWellOptPair.html',1,'']]],
   ['welloptparam_11',['WellOptParam',['../classWellOptParam.html',1,'']]],
   ['wellparam_12',['WellParam',['../classWellParam.html',1,'']]],

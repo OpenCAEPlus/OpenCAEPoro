@@ -27,8 +27,10 @@ using namespace std;
 class GB_Pair
 {
 public:
+    /// Default constructor.
     GB_Pair() = default;
 
+    /// TODO: Add Doxygen
     GB_Pair(bool act, OCP_USI i)
         : activity(act)
         , index(i){};

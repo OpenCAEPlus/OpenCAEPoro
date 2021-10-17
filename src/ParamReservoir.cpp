@@ -11,6 +11,7 @@
 
 #include "ParamReservoir.hpp"
 
+/// TODO: Add Doxygen
 vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
 {
     vector<OCP_DBL>* myPtr = nullptr;
@@ -74,6 +75,7 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
     return myPtr;
 }
 
+/// TODO: Add Doxygen
 TableSet* ParamReservoir::FindPtr_T(const string& varName)
 {
     TableSet* myPtr = nullptr;
@@ -110,6 +112,7 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
     return myPtr;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::Init()
 {
     InitTable();
@@ -130,6 +133,7 @@ void ParamReservoir::Init()
     rock.Cr   = 3.406E-6;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InitTable()
 {
     SWOF_T.name   = "SWOF";
@@ -148,6 +152,7 @@ void ParamReservoir::InitTable()
     PVTW_T.colNum = 5;
 }
 
+/// TODO: Add Doxygen
 template <typename T>
 void ParamReservoir::setVal(vector<T>& obj, const T& val, const vector<USI>& index)
 {
@@ -166,6 +171,7 @@ void ParamReservoir::setVal(vector<T>& obj, const T& val, const vector<USI>& ind
     }
 }
 
+/// TODO: Add Doxygen
 template <typename T>
 void ParamReservoir::CopyVal(vector<T>& obj, const vector<T>& src,
                              const vector<USI>& index)
@@ -185,6 +191,7 @@ void ParamReservoir::CopyVal(vector<T>& obj, const vector<T>& src,
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
                                  const vector<USI>& index)
 {
@@ -203,6 +210,7 @@ void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputCOMPS(ifstream& ifs)
 {
     comps = true;
@@ -211,6 +219,7 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     numCom = stoi(vbuf[0]);
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputDIMENS(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -221,12 +230,14 @@ void ParamReservoir::InputDIMENS(ifstream& ifs)
     numGrid   = dimens.nx * dimens.ny * dimens.nz;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::DisplayDIMENS()
 {
     std::cout << "DIMENS" << endl;
     std::cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputRTEMP(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -238,6 +249,7 @@ void ParamReservoir::InputRTEMP(ifstream& ifs)
     cout << rsTemp << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputEQUALS(ifstream& ifs)
 {
     vector<USI>    index(6, 0);
@@ -288,6 +300,7 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
     cout << "EQUALS" << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 {
     vector<OCP_DBL>* objPtr = nullptr;
@@ -315,6 +328,7 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
     std::cout << &permZ << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputCOPY(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -349,6 +363,7 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
     std::cout << permZ[0] << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputMULTIPLY(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -385,6 +400,7 @@ void ParamReservoir::InputMULTIPLY(ifstream& ifs)
     std::cout << permZ[0] << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
 {
     TableSet* obj;
@@ -415,9 +431,9 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
     if (!tmpTab[0].empty()) obj->data.push_back(tmpTab);
 
     obj->DisplayTable();
-    std::cout << "TABLE" << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputROCK(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -431,6 +447,7 @@ void ParamReservoir::InputROCK(ifstream& ifs)
     std::cout << rock.Pref << "  " << rock.Cr << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -449,6 +466,7 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
               << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputDENSITY(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -468,6 +486,7 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
               << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputEQUIL(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -485,6 +504,7 @@ void ParamReservoir::InputEQUIL(ifstream& ifs)
     std::cout << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputTABDIMS(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -494,6 +514,7 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     cout << "TABDIMS" << endl;
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
 {
     Type_A_r<OCP_DBL>* ptr = &PVTNUM;
@@ -537,7 +558,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
     cout << &SATNUM << endl << &PVTNUM << endl;
 }
 
-// check
+/// TODO: Add Doxygen
 void ParamReservoir::CheckParam()
 {
     CheckGrid();
@@ -548,6 +569,7 @@ void ParamReservoir::CheckParam()
     CheckRegion();
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckGrid()
 {
     if (tops.size() != dimens.nx * dimens.ny) {
@@ -588,6 +610,7 @@ void ParamReservoir::CheckGrid()
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckEQUIL() const
 {
     if (EQUIL.empty()) {
@@ -596,6 +619,7 @@ void ParamReservoir::CheckEQUIL() const
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckDenGra() const
 {
     if (density.activity && gravity.activity) {
@@ -605,6 +629,7 @@ void ParamReservoir::CheckDenGra() const
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckPhase() const
 {
     if (disGas && (!gas && !oil)) {
@@ -613,6 +638,7 @@ void ParamReservoir::CheckPhase() const
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckPhaseTab() const
 {
     if (!blackOil && !comps) {
@@ -653,6 +679,7 @@ void ParamReservoir::CheckPhaseTab() const
     }
 }
 
+/// TODO: Add Doxygen
 void ParamReservoir::CheckRegion() const
 {
     if (SATNUM.activity && SATNUM.data.size() != numGrid) {
@@ -664,6 +691,8 @@ void ParamReservoir::CheckRegion() const
         exit(0);
     }
 }
+
+/// TODO: Add Doxygen
 void ParamReservoir::CheckEqlRegion() const
 {
     if (PBVD_T.data.size() > 1) {
@@ -672,18 +701,20 @@ void ParamReservoir::CheckEqlRegion() const
     }
 }
 
+/// TODO: Add Doxygen
 void TableSet::DisplayTable() const
 {
-    cout << name << "\n";
+    cout << "---------------------\n";
+    cout << "TABLE: " << name << "\n";
+    cout << "---------------------\n";
     for (auto v : data) {
-        USI len = v[0].size();
+        const USI len = v[0].size();
         for (USI i = 0; i < len; i++) {
             for (USI j = 0; j < colNum; j++) {
                 cout << v[j][i] << "\t";
             }
             cout << "\n";
         }
-        cout << "----------------\n";
     }
 }
 

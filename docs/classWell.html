@@ -153,7 +153,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classWell.html">Well</a> class defines well, and any operations referred to wells are in it. <a class="el" href="classWell.html">Well</a> connects to the bulks by perforations, which serve as source and sink. Due to practical difficulties in production, a good treatment for well is important, excellent treatment will make the flow rate in well more stable. </p>
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00072">72</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00075">75</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3db9d7cfc10dc04d587cf442f4cf3a92" name="a3db9d7cfc10dc04d587cf442f4cf3a92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3db9d7cfc10dc04d587cf442f4cf3a92">&#9670;&nbsp;</a></span>AllocateMat()</h2>
@@ -175,12 +175,12 @@ template&lt;typename T &gt; </div>
 
 <p>allocate memory for matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00195">195</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>{</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        mySolver.rowCapacity[perf[p].location]++;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00198">198</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>{</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        mySolver.rowCapacity[perf[p].location]++;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    }</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1419,15 +1419,15 @@ template&lt;typename T &gt; </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
-<div class="ttc" id="aclassWellParam_html_a161b69a0b54f11ebb716865d4f8ebcc5"><div class="ttname"><a href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">WellParam::direction</a></div><div class="ttdeci">vector&lt; string &gt; direction</div><div class="ttdoc">Direction of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00079">ParamWell.hpp:79</a></div></div>
-<div class="ttc" id="aclassWellParam_html_a5ec4f1ee1812092a5e0c01832ab57660"><div class="ttname"><a href="classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660">WellParam::diameter</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; diameter</div><div class="ttdoc">Diameter of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00076">ParamWell.hpp:76</a></div></div>
-<div class="ttc" id="aclassWellParam_html_a8260948f9a4255d068f8b95c7b6b2191"><div class="ttname"><a href="classWellParam.html#a8260948f9a4255d068f8b95c7b6b2191">WellParam::skinFactor</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; skinFactor</div><div class="ttdoc">Skin factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00078">ParamWell.hpp:78</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ab119452e566772ff6f8471c6f1be06dd"><div class="ttname"><a href="classWellParam.html#ab119452e566772ff6f8471c6f1be06dd">WellParam::I_perf</a></div><div class="ttdeci">vector&lt; USI &gt; I_perf</div><div class="ttdoc">I-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00072">ParamWell.hpp:72</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ab7060969e2b87291282f9e11b3942dcf"><div class="ttname"><a href="classWellParam.html#ab7060969e2b87291282f9e11b3942dcf">WellParam::WI</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; WI</div><div class="ttdoc">Transmissiblity connection factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00075">ParamWell.hpp:75</a></div></div>
-<div class="ttc" id="aclassWellParam_html_abc0da124d89dc98dd657bea0e45b5c1c"><div class="ttname"><a href="classWellParam.html#abc0da124d89dc98dd657bea0e45b5c1c">WellParam::J_perf</a></div><div class="ttdeci">vector&lt; USI &gt; J_perf</div><div class="ttdoc">J-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00073">ParamWell.hpp:73</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ac634948e8516ee00d89a5f6644654d5e"><div class="ttname"><a href="classWellParam.html#ac634948e8516ee00d89a5f6644654d5e">WellParam::K_perf</a></div><div class="ttdeci">vector&lt; USI &gt; K_perf</div><div class="ttdoc">K-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00074">ParamWell.hpp:74</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a161b69a0b54f11ebb716865d4f8ebcc5"><div class="ttname"><a href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">WellParam::direction</a></div><div class="ttdeci">vector&lt; string &gt; direction</div><div class="ttdoc">Direction of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00080">ParamWell.hpp:80</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a5ec4f1ee1812092a5e0c01832ab57660"><div class="ttname"><a href="classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660">WellParam::diameter</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; diameter</div><div class="ttdoc">Diameter of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00077">ParamWell.hpp:77</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a8260948f9a4255d068f8b95c7b6b2191"><div class="ttname"><a href="classWellParam.html#a8260948f9a4255d068f8b95c7b6b2191">WellParam::skinFactor</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; skinFactor</div><div class="ttdoc">Skin factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00079">ParamWell.hpp:79</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ab119452e566772ff6f8471c6f1be06dd"><div class="ttname"><a href="classWellParam.html#ab119452e566772ff6f8471c6f1be06dd">WellParam::I_perf</a></div><div class="ttdeci">vector&lt; USI &gt; I_perf</div><div class="ttdoc">I-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00073">ParamWell.hpp:73</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ab7060969e2b87291282f9e11b3942dcf"><div class="ttname"><a href="classWellParam.html#ab7060969e2b87291282f9e11b3942dcf">WellParam::WI</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; WI</div><div class="ttdoc">Transmissiblity connection factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00076">ParamWell.hpp:76</a></div></div>
+<div class="ttc" id="aclassWellParam_html_abc0da124d89dc98dd657bea0e45b5c1c"><div class="ttname"><a href="classWellParam.html#abc0da124d89dc98dd657bea0e45b5c1c">WellParam::J_perf</a></div><div class="ttdeci">vector&lt; USI &gt; J_perf</div><div class="ttdoc">J-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00074">ParamWell.hpp:74</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ac634948e8516ee00d89a5f6644654d5e"><div class="ttname"><a href="classWellParam.html#ac634948e8516ee00d89a5f6644654d5e">WellParam::K_perf</a></div><div class="ttdeci">vector&lt; USI &gt; K_perf</div><div class="ttdoc">K-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00075">ParamWell.hpp:75</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00076">WellParam::diameter</a>, <a class="el" href="ParamWell_8hpp_source.html#l00079">WellParam::direction</a>, <a class="el" href="ParamWell_8hpp_source.html#l00072">WellParam::I_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00073">WellParam::J_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00074">WellParam::K_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00078">WellParam::skinFactor</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00075">WellParam::WI</a>.</p>
+<p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00077">WellParam::diameter</a>, <a class="el" href="ParamWell_8hpp_source.html#l00080">WellParam::direction</a>, <a class="el" href="ParamWell_8hpp_source.html#l00073">WellParam::I_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00074">WellParam::J_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00075">WellParam::K_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00079">WellParam::skinFactor</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00076">WellParam::WI</a>.</p>
 
 </div>
 </div>
@@ -1664,10 +1664,10 @@ template&lt;typename T &gt; </div>
 
 <p>update pressure in <a class="el" href="classPerforation.html" title="Perforation describe the connections between wells and bulks.">Perforation</a> after well pressure updates. </p>
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00152">152</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) perf[p].P = BHP + dG[p];</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00155">155</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) perf[p].P = BHP + dG[p];</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1696,8 +1696,8 @@ template&lt;typename T &gt; </div>
 
 <p>return the state of the well, Open or Close. </p>
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00079">79</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{ <span class="keywordflow">return</span> opt.state; }</div>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00082">82</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{ <span class="keywordflow">return</span> opt.state; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1726,8 +1726,8 @@ template&lt;typename T &gt; </div>
 
 <p>return the type of well, Inj or Prod. </p>
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00081">81</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{ <span class="keywordflow">return</span> opt.type; }</div>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00084">84</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>{ <span class="keywordflow">return</span> opt.type; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1752,7 +1752,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00074">74</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00077">77</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
 
 </div>
 </div>

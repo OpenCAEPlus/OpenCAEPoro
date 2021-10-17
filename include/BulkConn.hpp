@@ -22,14 +22,16 @@
 
 using namespace std;
 
-/// BB_Pair represents a connection betwenn bulks, it contains the index of
-/// two bulks. Usually, BId > EId.
+/// Connection between indices of two bulks (BId, EId); usually, BId > EId.
 class BB_Pair
 {
     friend class Connection_BB;
 
 public:
+    /// Default constructor.
     BB_Pair() = default;
+
+    /// Setup BB_Pair with bId and eId.
     BB_Pair(const OCP_USI& bId, const OCP_USI& eId)
         : BId(bId)
         , EId(eId){};

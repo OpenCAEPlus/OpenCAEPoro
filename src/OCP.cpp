@@ -68,7 +68,7 @@ void OpenCAEPoro::RunSimulation()
 }
 
 /// Print summary information to cout and SUMMARY.out file.
-void OpenCAEPoro::OutputResults()
+void OpenCAEPoro::OutputResults() const
 {
     cout << "=========================================" << endl;
     cout << "Final time:          " << control.current_time << " Days" << endl;

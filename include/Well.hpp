@@ -33,7 +33,10 @@ class WellOpt
     friend class Well;
 
 public:
+    /// Default constructor.
     WellOpt() = default;
+
+    /// Constructor well operation mode using params.
     WellOpt(const WellOptParam& Optparam);
 
 private:

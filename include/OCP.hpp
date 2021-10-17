@@ -20,18 +20,17 @@
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.1.0"
+#define OCPVersion "0.1.0"  ///< Software version number
 
 /// Top level data structure in the OpenCAEPoro simulator
 class OpenCAEPoro
 {
 public:
     /// Output OpenCAEPoro version information.
-    void PrintVersion()
+    void PrintVersion() const
     {
-        std::cout << "OpenCAEPoro Version-" << OCPVersion
-                  << "\n=========================\n"
-                  << std::endl;
+        std::cout << "OpenCAEPoro Version-" << OCPVersion << std::endl
+                  << "=========================" << std::endl;
     };
 
     /// Read input parameters to an internal structure.
@@ -47,9 +46,9 @@ public:
     void RunSimulation();
 
     /// Output necessary information for post-processing.
-    void OutputResults();
+    void OutputResults() const;
 
-private: 
+private:
     /// Setup linear solution method.
     void SetupLinearSolver();
 
@@ -58,7 +57,7 @@ private:
     Reservoir reservoir;
 
     /// The IMplicit Pressure Explicit Saturation (IMPES) method.
-    OCP_IMPES impes;
+    OCP_IMPES impes; // TODO: Change IMPES to IMPEC.
 
     /// The Fully Implicit Method (FIM).
     OCP_FIM fim;

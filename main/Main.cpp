@@ -28,13 +28,14 @@ using namespace std;
 // --> (5) Output the results
 int main(int argc, const char* argv[])
 {
-    if (argc != 2) {
-        cout << "Input file is missing. Usage: " << argv[0] << " <InputFileName>"
-             << endl;
-        exit(-1);
-    }
-
     OpenCAEPoro simulator;
+
+    // Step 0. Check number of arguments and print current version information.
+    if (argc != 2) {
+        cout << "Wrong number of arguments. Usage: " << argv[0] << " <InputFileName>"
+             << endl;
+        return(-1);
+    }
     simulator.PrintVersion();
 
     // Step 1. Read params from an input file to internal params data structure.

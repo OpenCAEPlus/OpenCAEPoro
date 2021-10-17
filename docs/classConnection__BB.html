@@ -125,7 +125,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classConnection__BB.html">Connection_BB</a> is a core component of reservoir, it contains all properties and operations about connections between bulks(active grids). due to the activity of bulks, almost all connections are meaningful. you can traverse all the connections through the iterator in it, which is effective. flow calculation between active bulks, matrix assembling contributed only by bulks are included in it. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00047">47</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00049">49</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a44d12c0fb81505cf34a8c1f40af5a31d" name="a44d12c0fb81505cf34a8c1f40af5a31d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a44d12c0fb81505cf34a8c1f40af5a31d">&#9670;&nbsp;</a></span>AllocateMat()</h2>
@@ -147,12 +147,12 @@ template&lt;typename T &gt; </div>
 
 <p>Allocate memory for Matrix, it should be called only once at the beginning. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00121">121</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        MySolver.rowCapacity[n] += neighborNum[n];</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00123">123</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        MySolver.rowCapacity[n] += neighborNum[n];</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -701,7 +701,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    assert(iteratorConn.size() == numConn);</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
-<div class="ttc" id="aclassBB__Pair_html"><div class="ttname"><a href="classBB__Pair.html">BB_Pair</a></div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00027">BulkConn.hpp:28</a></div></div>
+<div class="ttc" id="aclassBB__Pair_html"><div class="ttname"><a href="classBB__Pair.html">BB_Pair</a></div><div class="ttdoc">Connection between indices of two bulks (BId, EId); usually, BId &gt; EId.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00026">BulkConn.hpp:27</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -730,8 +730,8 @@ template&lt;typename T &gt; </div>
 
 <p>Return num of bulk. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00057">57</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{ <span class="keywordflow">return</span> numBulk; }</div>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00059">59</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{ <span class="keywordflow">return</span> numBulk; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -792,14 +792,14 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >Setup sparsity pattern of Matrix, it should be called before every time the linear system setups. actually, part from wells is neglect, which is much less than bulks. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00128">128</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>{</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    mySolver.dim = numBulk;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        mySolver.colId[n].assign(neighbor[n].begin(), neighbor[n].end());</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        mySolver.diagPtr[n] = selfPtr[n];</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00130">130</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>{</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    mySolver.dim = numBulk;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        mySolver.colId[n].assign(neighbor[n].begin(), neighbor[n].end());</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        mySolver.diagPtr[n] = selfPtr[n];</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -951,7 +951,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00039">39</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00041">41</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
 
 </div>
 </div>

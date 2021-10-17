@@ -5,7 +5,7 @@ var searchData=
   ['gammaphaseog_2',['GammaPhaseOG',['../classMixture.html#a489c10ddf83a8856fb492476bdc10c37',1,'Mixture::GammaPhaseOG()'],['../classBOMixture.html#a7248a81d7db7cf7ffc3bdc2797ddd5a2',1,'BOMixture::GammaPhaseOG(const OCP_DBL &amp;Pin, const OCP_DBL &amp;Tin, const OCP_DBL *Ziin) override']]],
   ['gammaphasew_3',['GammaPhaseW',['../classBOMixture.html#ab357e2d5e60bef190eb74f7944c4b0c3',1,'BOMixture::GammaPhaseW()'],['../classMixture.html#a01d078d68a0a09d1cbb7f69a92090a56',1,'Mixture::GammaPhaseW()']]],
   ['gas_4',['gas',['../classParamReservoir.html#a4970717b39944245ad1cd0b28fcf61c5',1,'ParamReservoir']]],
-  ['gb_5fpair_5',['GB_Pair',['../classGB__Pair.html',1,'']]],
+  ['gb_5fpair_5',['GB_Pair',['../classGB__Pair.html',1,'GB_Pair'],['../classGB__Pair.html#a0dc326ccc092d40826b8f4273de28845',1,'GB_Pair::GB_Pair(bool act, OCP_USI i)'],['../classGB__Pair.html#a1c255484dcd6479565123d8a06ce9ab7',1,'GB_Pair::GB_Pair()=default']]],
   ['generate_5fswpcwg_6',['Generate_SWPCWG',['../classFlowUnit.html#af0c3fbdc83dfc850738a09bfa55e8100',1,'FlowUnit']]],
   ['getact_7',['GetAct',['../classGB__Pair.html#a71d81f49426b76d9fbac9b12d7982d78',1,'GB_Pair']]],
   ['getactindex_8',['GetActIndex',['../classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae',1,'Grid']]],

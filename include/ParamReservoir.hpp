@@ -27,7 +27,9 @@ using namespace std;
 class TableSet
 {
 public:
-    void                            DisplayTable() const;
+    void DisplayTable() const; ///< Print table
+
+public:
     string                          name;   ///< Name of table.
     USI                             colNum; ///< Number of columns of table.
     vector<vector<vector<OCP_DBL>>> data;   ///< All table with the same name.
@@ -120,8 +122,8 @@ public:
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 
     // PVT property
-    USI      numPhase; // Num of phase
-    USI      numCom;   // Num of comp, used for Eos or Restart
+    USI      numPhase; ///< Number of phases
+    USI      numCom;   ///< Number of components
     TableSet PVCO_T;   ///< Table set of PVCO.
     TableSet PVDO_T;   ///< Table set of PVDO.
     TableSet PVDG_T;   ///< Table set of PVDG.

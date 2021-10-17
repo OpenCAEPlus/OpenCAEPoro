@@ -7,5 +7,6 @@ var searchData=
   ['flash_5fsj_4',['Flash_Sj',['../classMixture.html#a14a8c33a328a0073cfbc28371927817d',1,'Mixture::Flash_Sj()'],['../classBOMixture.html#ac76a1284b79fc9cd7b70e484c47dea53',1,'BOMixture::Flash_Sj()']]],
   ['flashni_5',['FlashNi',['../classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521',1,'Bulk']]],
   ['flashsj_6',['FlashSj',['../classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002',1,'Bulk']]],
-  ['free_5ffasp_7',['Free_Fasp',['../classSolver.html#a59495ede313ccdbd497ef414c97e97ed',1,'Solver']]]
+  ['flowunit_7',['FlowUnit',['../classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1',1,'FlowUnit::FlowUnit()=default'],['../classFlowUnit.html#aa92c8e871ab399c94946bf995cfbab3f',1,'FlowUnit::FlowUnit(const ParamReservoir &amp;rs_param, const USI &amp;inmode, const USI &amp;i)']]],
+  ['free_5ffasp_8',['Free_Fasp',['../classSolver.html#a59495ede313ccdbd497ef414c97e97ed',1,'Solver']]]
 ];
