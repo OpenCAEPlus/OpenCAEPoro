@@ -119,6 +119,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     rs.wellgroup.SetLastStep();
 }
 
+/// First assemble linear, then solve and return solution
 void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
     rs.AssembleMat(solver, dt);
@@ -135,10 +136,10 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
     int status = solver.FaspSolve();
     ctrl.timeLS += Timer.Stop() / 1000;
 
-#ifdef _DEBUG
-    // solver.PrintfMatCSR("testA.out", "testb.out");
-    // solver.PrintfSolution("testx.out");
-#endif // _DEBUG
+#ifdef DEBUG
+    solver.PrintfMatCSR("testA.out", "testb.out");
+    solver.PrintfSolution("testx.out");
+#endif // DEBUG
 
     solver.Free_Fasp();
 

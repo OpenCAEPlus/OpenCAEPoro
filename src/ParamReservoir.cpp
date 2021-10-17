@@ -496,14 +496,12 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
 
 void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
 {
-    Type_A_r<OCP_DBL>* ptr = nullptr;
-    USI                lim = 0;
+    Type_A_r<OCP_DBL>* ptr = &PVTNUM;
+    USI                lim = NTPVT;
+
     if (keyword == "SATNUM") {
         ptr = &SATNUM;
         lim = NTSFUN;
-    } else {
-        ptr = &PVTNUM;
-        lim = NTPVT;
     }
 
     ptr->activity = true;
@@ -517,7 +515,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
 
         DealData(vbuf, obj, region);
 
-#ifdef _DEBUG
+#ifdef DEBUG
         // check region
         for (auto r : region) {
             if (r > lim) {
@@ -525,7 +523,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
                 exit(0);
             }
         }
-#endif // _DEBUG
+#endif // DEBUG
 
         USI len = obj.size();
         for (USI i = 0; i < len; i++) {
@@ -534,9 +532,9 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
             }
         }
     }
-    cout << &SATNUM << endl;
-    cout << &PVTNUM << endl;
-    cout << "Region" << endl;
+
+    cout << "Number of tables = " << lim << endl;
+    cout << &SATNUM << endl << &PVTNUM << endl;
 }
 
 // check

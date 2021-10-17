@@ -609,7 +609,7 @@ void Well::CalProddG(const Bulk& myBulk)
 
             USI pvtnum = myBulk.PVTNUM[n];
             tmpNi.assign(nc, 0);
-            for (OCP_INT p1 = numPerf - 1; p1 >= p; p1--) {
+            for (OCP_INT p1 = numPerf - 1; p1 - p >= 0; p1--) {
                 for (USI i = 0; i < nc; i++) {
                     tmpNi[i] += perf[p1].qi_lbmol[i];
                 }
@@ -741,8 +741,6 @@ void Well::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
 
 OCP_DBL Well::CalInjRate_Blk(const Bulk& myBulk)
 {
-    USI     np = myBulk.numPhase;
-    USI     nc = myBulk.numCom;
     OCP_DBL qj = 0;
 
     for (USI p = 0; p < numPerf; p++) {
@@ -813,7 +811,6 @@ void Well::CalInjQi_Blk(const Bulk& myBulk, const OCP_DBL& dt)
 
 void Well::CalProdQi_Blk(const Bulk& myBulk, const OCP_DBL& dt)
 {
-    USI np = myBulk.numPhase;
     USI nc = myBulk.numCom;
 
     qi_lbmol.assign(nc, 0);
@@ -913,7 +910,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
     bool    flagC = true;
 
     if (opt.type == PROD) {
-        USI np = myBulk.numPhase;
+        // USI np = myBulk.numPhase;
         for (USI p = 0; p < numPerf; p++) {
             k            = perf[p].location;
             OCP_DBL minP = myBulk.P[k];

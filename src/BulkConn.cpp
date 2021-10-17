@@ -177,14 +177,14 @@ OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk,
         OCP_DBL T2 = myBulk.rockKx[eIdb] * myBulk.ntg[eIdb] * myBulk.dy[eIdb] *
                      myBulk.dz[eIdb] / myBulk.dx[eIdb];
         return (2 / (1 / T1 + 1 / T2));
-    } else if (diff == myGrid.nx) {
+    } else if (diff - myGrid.nx == 0) {
         // y - direction
         OCP_DBL T1 = myBulk.rockKy[bIdb] * myBulk.ntg[bIdb] * myBulk.dz[bIdb] *
                      myBulk.dx[bIdb] / myBulk.dy[bIdb];
         OCP_DBL T2 = myBulk.rockKy[eIdb] * myBulk.ntg[eIdb] * myBulk.dz[eIdb] *
                      myBulk.dx[eIdb] / myBulk.dy[eIdb];
         return (2 / (1 / T1 + 1 / T2));
-    } else if (diff == myGrid.nx * myGrid.ny) {
+    } else if (diff - myGrid.nx * myGrid.ny == 0) {
         // z - direction  ----  no ntg
         OCP_DBL T1 =
             myBulk.rockKz[bIdb] * myBulk.dx[bIdb] * myBulk.dy[bIdb] / myBulk.dz[bIdb];
@@ -192,9 +192,8 @@ OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk,
             myBulk.rockKz[eIdb] * myBulk.dx[eIdb] * myBulk.dy[eIdb] / myBulk.dz[eIdb];
         return (2 / (1 / T1 + 1 / T2));
     } else {
-        // Wrong
-        ERRORcheck("Wrong bId and eId in function");
-        exit(0);
+        cout << "bIdg = " << bIdg << "eIdg = " << eIdg << endl;
+        OCP_ABORT("Wrong bIdg and eIdg in function");
     }
 }
 

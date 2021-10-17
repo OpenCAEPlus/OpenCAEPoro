@@ -35,7 +35,7 @@ public:
     /// One time step of simulation.
     void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
 
-    /// Linear solver interface. // TODO: Only difference as an interface?
+    /// Assemble linear system and solve. // TODO: Only difference as an interface?
     void SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
 
 private:
