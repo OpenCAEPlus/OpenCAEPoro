@@ -40,9 +40,6 @@ public:
     /// Setup reservoir based on an internal structure.
     void SetupReservoir(ParamRead& param);
 
-    /// Setup linear solution method.
-    void SetupSolver();
-
     /// Initialize or get intitial status of reserovir.
     void InitReservoir();
 
@@ -51,6 +48,10 @@ public:
 
     /// Output necessary information for post-processing.
     void OutputResults();
+
+private: 
+    /// Setup linear solution method.
+    void SetupLinearSolver();
 
 private:
     /// The core properties of a reservoir.

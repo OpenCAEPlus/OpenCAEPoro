@@ -25,11 +25,11 @@ void OpenCAEPoro::SetupReservoir(ParamRead& param)
     InputParam(param);
     reservoir.Setup();
     output.Setup(reservoir, control);
-    SetupSolver();
+    SetupLinearSolver();
 }
 
 /// Call SetupParm and AllocateMat to prepare the linear solver
-void OpenCAEPoro::SetupSolver()
+void OpenCAEPoro::SetupLinearSolver()
 {
     switch (control.method) {
         case FIM: // Fully Implicite Method
