@@ -75,7 +75,8 @@ void OpenCAEPoro::OutputResults()
     cout << "Total time steps:    " << control.iterNR_total << endl;
     cout << "Simulation time:     " << control.totalTime << "s" << endl;
     cout << "Total linear steps:  " << control.iterLS_total << endl;
-    cout << "Linear solve time:   " << control.timeLS << "s" << endl;
+    cout << "Linear solve time:   " << control.timeLS << "s"
+         << " (" << 100.0 * control.timeLS / control.totalTime << "%)" << endl;
 
     output.PrintInfo();
 }
