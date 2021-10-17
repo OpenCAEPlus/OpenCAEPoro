@@ -19,5 +19,6 @@ var searchData=
   ['rock_16',['Rock',['../classRock.html',1,'']]],
   ['rock_17',['rock',['../classParamReservoir.html#a3a90a576943de890b0604f375c528dd8',1,'ParamReservoir']]],
   ['rstemp_18',['rsTemp',['../classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37',1,'ParamReservoir']]],
-  ['runsimulation_19',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro']]]
+  ['run_19',['Run',['../classOCP__IMPES.html#a5b132eca7fd24953d665155ebe448af7',1,'OCP_IMPES']]],
+  ['runsimulation_20',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro']]]
 ];

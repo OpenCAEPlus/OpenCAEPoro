@@ -12,5 +12,6 @@ var searchData=
   ['resetval02_9',['ResetVal02',['../classReservoir.html#a090c9a40fcb5b8680bc2026d83204833',1,'Reservoir']]],
   ['resetvp_10',['ResetVp',['../classBulk.html#a55f13cb160e20197cc45d8f1201b9fa6',1,'Bulk']]],
   ['rhophase_11',['RhoPhase',['../classMixture.html#a6f4cd110a6935604b21ad76dd431cc5c',1,'Mixture::RhoPhase()'],['../classBOMixture.html#a3714b906abbd95d75c3741f18b69cc06',1,'BOMixture::RhoPhase()']]],
-  ['runsimulation_12',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro']]]
+  ['run_12',['Run',['../classOCP__IMPES.html#a5b132eca7fd24953d665155ebe448af7',1,'OCP_IMPES']]],
+  ['runsimulation_13',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro']]]
 ];

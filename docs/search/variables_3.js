@@ -7,12 +7,13 @@ var searchData=
   ['denw_4',['DENW',['../classOutputDetail.html#a4741df107436488e50fbb34b685fe6d2',1,'OutputDetail']]],
   ['depth_5',['depth',['../classWellParam.html#a1b5ce75b3c01283aa5839398b92ed29b',1,'WellParam']]],
   ['detailinfo_6',['detailInfo',['../classParamOutput.html#a11ca7571876e60e0f4b7201da7fa15b2',1,'ParamOutput']]],
-  ['diameter_7',['diameter',['../classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660',1,'WellParam']]],
-  ['dimens_8',['dimens',['../classParamReservoir.html#acc73f1908d007c155a6677d472774f2a',1,'ParamReservoir']]],
-  ['dir_9',['dir',['../classParamControl.html#a8db5196bf69caf71fb7a2d73eb1695f1',1,'ParamControl']]],
-  ['direction_10',['direction',['../classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5',1,'WellParam']]],
-  ['disgas_11',['disGas',['../classParamReservoir.html#a0c7182c60189dd5972ad2e961555c588',1,'ParamReservoir']]],
-  ['dx_12',['dx',['../classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856',1,'ParamReservoir']]],
-  ['dy_13',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
-  ['dz_14',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
+  ['dg_7',['DG',['../classOutputSummary.html#a3ec1c70f7547266b27a0258f0f4bea6e',1,'OutputSummary']]],
+  ['diameter_8',['diameter',['../classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660',1,'WellParam']]],
+  ['dimens_9',['dimens',['../classParamReservoir.html#acc73f1908d007c155a6677d472774f2a',1,'ParamReservoir']]],
+  ['dir_10',['dir',['../classParamControl.html#a8db5196bf69caf71fb7a2d73eb1695f1',1,'ParamControl']]],
+  ['direction_11',['direction',['../classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5',1,'WellParam']]],
+  ['disgas_12',['disGas',['../classParamReservoir.html#a0c7182c60189dd5972ad2e961555c588',1,'ParamReservoir']]],
+  ['dx_13',['dx',['../classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856',1,'ParamReservoir']]],
+  ['dy_14',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
+  ['dz_15',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
 ];
