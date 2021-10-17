@@ -29,9 +29,8 @@ public:
     /// Output OpenCAEPoro version information.
     void PrintVersion()
     {
-        std::cout << "-------------------------\n"
-                  << "|   OpenCAEPoro " << OCPVersion << "   |\n"
-                  << "-------------------------\n"
+        std::cout << "OpenCAEPoro Version-" << OCPVersion
+                  << "\n=========================\n"
                   << std::endl;
     };
 
@@ -57,16 +56,16 @@ private:
     /// The core properties of a reservoir.
     Reservoir reservoir;
 
-    /// The IMplicit Pressure Explicit Saturation method class.
+    /// The IMplicit Pressure Explicit Saturation (IMPES) method.
     OCP_IMPES impes;
 
-    /// The Fully Implicit method class.
+    /// The Fully Implicit Method (FIM).
     OCP_FIM fim;
 
-    /// Control class manages the params of method and time step.
+    /// Control class handles algorithm params and time steping.
     OCP_Control control;
 
-    /// Output class outputs the results you are interested in.
+    /// Output class handles output level of the program.
     OCP_Output output;
 };
 

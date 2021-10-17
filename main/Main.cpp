@@ -49,8 +49,7 @@ int main(int argc, const char* argv[])
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturation, and moles of components will be
-    // calculated. Initial well pressure will also be given here ---- it's a simple
-    // guess now.
+    // calculated. Initial guess of well pressure will also be given here.
     simulator.InitReservoir();
 
     // Step 4. Run dynamic simulation using methods like IMPES and FIM. It's a

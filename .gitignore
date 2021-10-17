@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+
+*.out
 .DS_Store
 .VSCode**
 [Bb]uild/

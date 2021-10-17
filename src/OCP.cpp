@@ -26,6 +26,7 @@ void OpenCAEPoro::SetupReservoir(ParamRead& param)
     SetupSolver();
 }
 
+/// Call SetupParm and AllocateMat to prepare the linear solver
 void OpenCAEPoro::SetupSolver()
 {
     if (control.method == IMPES) {
