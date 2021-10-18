@@ -166,6 +166,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
         perf[p].multiplier = 1;
         perf[p].qi_lbmol.resize(myBulk.numCom);
         perf[p].transj.resize(myBulk.numPhase);
+        perf[p].qj_ft3.resize(myBulk.numPhase);
     }
     if (depth < 0) depth = perf[0].depth;
 
@@ -186,6 +187,22 @@ OCP_DBL Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
         if (cfl < tmp) cfl = tmp;
     }
     return cfl;
+}
+
+void Well::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    if (opt.type == PROD) {
+        USI np = myBulk.numPhase;
+        for (USI p = 0; p < numPerf; p++) {
+            if (perf[p].state == OPEN) {
+                OCP_USI k = perf[p].location;
+
+                for (USI j = 0; j < np; j++) {
+                    myBulk.cfl[k * np + j] += fabs(perf[p].qj_ft3[j]) * dt;
+                }
+            }
+        }
+    }
 }
 
 void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
@@ -706,12 +723,15 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
             OCP_USI k      = perf[p].location;
             perf[p].qt_ft3 = 0;
             perf[p].qi_lbmol.assign(nc, 0);
+            perf[p].qj_ft3.assign(np, 0);
 
             for (USI j = 0; j < np; j++) {
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
                     OCP_DBL dP = myBulk.Pj[id] - perf[p].P;
-                    perf[p].qt_ft3 += perf[p].transj[j] * dP;
+                    
+                    perf[p].qj_ft3[j] = perf[p].transj[j] * dP;
+                    perf[p].qt_ft3 += perf[p].qj_ft3[j];
                     // cout << p << " p[" << j << "] = " << myBulk.Pj[id] << endl;
                     // cout << p << " perf = " << perf[p].p << endl;
 

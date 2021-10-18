@@ -46,6 +46,8 @@ public:
     void Init();
     /// Calcluate the CFL number, including bulks and wells.
     OCP_DBL CalCFL(const OCP_DBL& dt);
+    /// Calcluate the CFL number, including bulks and wells.
+    OCP_DBL CalCFL01(const OCP_DBL& dt);
     /// Allocate memory for linear system, it should be called at the beginning of
     /// simulation only once. It's accessible for both IMPES and FIM.
     template <typename T> void AllocateMat(Solver<T>& mySolver) const;

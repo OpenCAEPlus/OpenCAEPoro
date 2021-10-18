@@ -46,7 +46,29 @@ OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
     OCP_DBL cflB = conn.CalCFL(bulk, dt);
     OCP_DBL cflW = wellgroup.CalCFL(bulk, dt);
 
+
+    cout << dt << "Days\t" << cflB << "\t" << cflW << endl;
+
     cfl = max(cflB, cflW);
+
+    return cfl;
+}
+
+OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt) 
+{
+    bulk.InitCFL();
+    
+    conn.CalCFL01(bulk, dt);
+
+    if (cfl > 1) {
+        cout << "bkCFL:\t" << bulk.cfl[2686] << "\t";
+    }
+    wellgroup.CalCFL01(bulk, dt);
+
+    if (cfl > 1) {
+        cout << "wellCFL:\t" << bulk.cfl[2686] << endl;
+    }
+    cfl = bulk.CalCFL(false);
 
     return cfl;
 }

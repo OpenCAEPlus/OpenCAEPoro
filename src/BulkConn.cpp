@@ -210,14 +210,33 @@ OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
         for (USI j = 0; j < np; j++) {
             OCP_USI uId = upblock[c * np + j];
 
-            if (myBulk.phaseExist[uId]) {
+            if (myBulk.phaseExist[uId * np + j]) {  // uId -> uId * np + j  fix bugs.
                 temp = fabs(upblock_Velocity[c * np + j]) * dt;
                 temp /= myBulk.vj[uId * np + j];
                 if (cfl < temp) cfl = temp;
+
+                if (cfl > 0.03) {
+                    cout << "get it" << endl;
+                }
             }
         }
     }
     return cfl;
+}
+
+void Connection_BB::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    USI     np = myBulk.numPhase;
+    for (OCP_USI c = 0; c < numConn; c++) {
+
+        for (USI j = 0; j < np; j++) {
+            OCP_USI uId = upblock[c * np + j];
+
+            if (myBulk.phaseExist[uId * np + j]) {
+                myBulk.cfl[uId * np + j] += fabs(upblock_Velocity[c * np + j]) * dt;
+            }
+        }
+    }
 }
 
 void Connection_BB::CalFlux(const Bulk& myBulk)
@@ -232,6 +251,10 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
         bId         = iteratorConn[c].BId;
         eId         = iteratorConn[c].EId;
         OCP_DBL Akd = area[c];
+
+        //if (c == 3016) {
+        //    cout << "get it" << endl;
+        //}
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -254,6 +277,12 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
                 rho    = myBulk.rho[eId_np_j];
             } else {
                 upblock[c * np + j] = bId;
+                upblock_Trans[c * np + j] = 0;
+                upblock_Velocity[c * np + j] = 0;
+                //if (!isfinite(upblock_Trans[c * np + j])) {
+                //    cout << "###ERROR   ";
+                //    ERRORcheck("NAN or INF in MAT");
+                //}
                 continue;
             }
 
@@ -265,16 +294,19 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
                 uId  = eId;
                 exup = exend;
             }
+
             upblock_Rho[c * np + j] = rho;
             upblock[c * np + j]     = uId;
-            OCP_USI uId_np_j        = uId * np + j;
-            OCP_DBL trans =
-                CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
-            upblock_Trans[c * np + j] = trans;
-
+            
+            // (fix bugs) if exup is false, then trans and vec are zero.
             if (exup) {
+                OCP_USI uId_np_j = uId * np + j;
+                OCP_DBL trans =
+                    CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
+                upblock_Trans[c * np + j] = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
             } else {
+                upblock_Trans[c * np + j] = 0;
                 upblock_Velocity[c * np + j] = 0;
             }
         }
@@ -349,6 +381,10 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
         valdown = 0;
         rhsdown = 0;
 
+        //if (bId == 1027 || eId == 1027) {
+        //    cout << "get it" << endl;
+        //}
+
         for (USI j = 0; j < np; j++) {
             uId = upblock[c * np + j];
             if (!myBulk.phaseExist[uId * np + j]) continue;
@@ -366,6 +402,12 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
             OCP_DBL dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
             OCP_DBL temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;
             valup += temp * valupi;
+
+            //if (!isfinite(valup)) {
+            //    cout << "###ERROR   ";
+            //    ERRORcheck("NAN or INF in MAT");
+            //}
+
             valdown += temp * valdowni;
             temp *= upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;
             rhsup += temp * valupi;

@@ -52,6 +52,10 @@ private:
 /// axis indices defaulted. operations refered to single bulk are included here.
 class Bulk
 {
+    // for test
+    friend class Reservoir;
+
+
     friend class Connection_BB;
     friend class Well;
     friend class DetailInfo;
@@ -141,6 +145,10 @@ public:
     OCP_DBL GetdSmax() const { return dSmax; }
     /// Return dVmax.
     OCP_DBL GetdVmax() const { return dVmax; }
+    /// Initialize cfl number.
+    void InitCFL() const { cfl.assign(numBulk * numPhase, 0); }
+    /// Calculate the cfl number.
+    OCP_DBL CalCFL(bool flag) const;
 
 private:
     OCP_USI numBulk; ///< num of bulks (active grids).
@@ -193,6 +201,9 @@ private:
     vector<OCP_DBL> lNi; ///< moles of component at last time step: numCom*numBulk.
     vector<OCP_DBL> lS;  ///< saturation of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> rockLVp; ///< volume of pore at last time step: numBulk.
+
+    // CFL number
+    mutable vector<OCP_DBL> cfl;
 
     // max change
     OCP_DBL dPmax; ///< max change in pressure during current time step.

@@ -93,7 +93,8 @@ public:
     void Init(const Bulk& myBulk);
     /// calculate the CFL number, only parts related to wells are considered.
     OCP_DBL CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
-
+    /// calculate the CFL number, only parts related to wells are considered.
+    void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate pressure difference between well and perforations.
     /// it calculates pressure difference between perforations iteratively.
     /// this function can be used in both black oil model and compositional model.

@@ -96,7 +96,7 @@ public:
     USI GetNRiter() const { return iterNR; }
 
     /// Calculate the next time step according to max change of some variables.
-    void SetNextTstep(const Reservoir& reservoir);
+    void CalNextTstep(const Reservoir& reservoir);
 
 private:
     USI             method;

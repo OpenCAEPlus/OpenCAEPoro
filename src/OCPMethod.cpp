@@ -53,13 +53,16 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
     rs.wellgroup.PrepareWell(rs.bulk);
 
-    cfl = rs.CalCFL(dt);
+    cout << ctrl.current_time << " Days" << endl;
+    cfl = rs.CalCFL01(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
     while (true) {
         SolveP(rs, ctrl, dt);
 
         if (dt < 1E-6) {
+            cout << fixed << setprecision(6);
+            cout << "CFL: " << cfl << "\t dt: " << dt << endl;
             OCP_ABORT("tstep is too small!");
         }
 
@@ -76,10 +79,11 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         rs.wellgroup.CalFlux(rs.bulk);
 
         // second check : cfl check
-        cfl = rs.CalCFL(dt);
+        cfl = rs.CalCFL01(dt);
         if (cfl > 1) {
             dt /= 2;
             rs.ResetVal01();
+            cout << "CFL is too big" << endl;
             continue;
         }
 
@@ -90,6 +94,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         if (!rs.CheckNi()) {
             dt /= 2;
             rs.ResetVal01();
+            cout << "Negative Ni occurs" << endl;
             continue;
         }
 
@@ -98,6 +103,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
         // fouth check: Volume error check
         if (!rs.CheckVe(ve)) {
+            cout << "###WARNING: volume error is too big\n";
             dt /= 2;
             rs.ResetVal02();
             continue;
@@ -115,7 +121,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     ctrl.iterNR_total += 1;
 
     rs.bulk.CalMaxChange();
-    ctrl.SetNextTstep(rs);
+    ctrl.CalNextTstep(rs);
     rs.bulk.SetLastStep();
     rs.wellgroup.SetLastStep();
 }

@@ -72,6 +72,8 @@ public:
                    const OCP_USI& eIdb) const;
     /// calculate the CFL number of flow between bulks.
     OCP_DBL CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// calculate the CFL number of flow between bulks.
+    void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate main information about flow between bulks.
     void CalFlux(const Bulk& myBulk);
     /// update moles of component in each bulk according to mass conserve equations at

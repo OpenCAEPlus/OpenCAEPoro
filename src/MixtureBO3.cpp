@@ -237,11 +237,11 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     OCP_DBL Rs_sat = PVCO.Eval(0, P, 1);
 
     if (Ni[0] < NT * TINY) {
-        if (Ni[1] < Ni[0] * Rs_sat)
+        if (Ni[1] <= Ni[0] * Rs_sat)
             phasecase = PHASE_W; // water, no oil, no gas
         else
             phasecase = PHASE_GW; // water, gas, no oil
-    } else if (Ni[1] < Ni[0] * Rs_sat)
+    } else if (Ni[1] <= Ni[0] * Rs_sat)
         phasecase = PHASE_OW; // water, oil, no gas
     else
         phasecase = PHASE_OGW; // water, oil ,gas
@@ -301,7 +301,13 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             v[0] = 0;
             v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
             v[2] = CONV1 * Ni[2] * bw;
-            if (v[1] < 0) v[1] = 0;
+
+#ifdef _DEBUG
+            if (v[1] <= 0) {
+                OCP_ABORT("gas volume <= 0");
+            }
+#endif // _DEBUG
+
             vf     = v[1] + v[2];
             S[0]   = 0;
             S[1]   = v[1] / vf;

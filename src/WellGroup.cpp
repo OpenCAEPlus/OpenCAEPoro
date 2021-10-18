@@ -91,6 +91,15 @@ OCP_DBL WellGroup::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     return cflw;
 }
 
+void WellGroup::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].CalCFL01(myBulk, dt);
+        }
+    }
+}
+
 void WellGroup::CalFlux(const Bulk& myBulk)
 {
     for (USI w = 0; w < numWell; w++) {

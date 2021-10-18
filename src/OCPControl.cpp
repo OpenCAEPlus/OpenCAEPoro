@@ -101,7 +101,7 @@ void OCP_Control::InitTime(const USI& i)
     current_dt = min(dt, ctrlTime.timeInit);
 }
 
-void OCP_Control::SetNextTstep(const Reservoir& reservoir)
+void OCP_Control::CalNextTstep(const Reservoir& reservoir)
 {
     current_time += current_dt;
 

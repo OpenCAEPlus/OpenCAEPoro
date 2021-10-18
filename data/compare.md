@@ -22,11 +22,11 @@ OCP_IMPES_1
 
 0.1  1  0.1
 
-Final time:          3655.5 Days
-Total linear steps:  20877
-Linear solve time:   1.29674s
-Total time steps:    5533
-Simulation time:     1.80172s
+Final time:          3655.500 Days
+Total linear steps:  20568
+Linear solve time:   1.262s
+Total time steps:    5413
+Simulation time:     1.787s
 
 -----------------------------------------
 OCP_IMPES_0.1
@@ -65,11 +65,11 @@ OCP_IMPES_1
 
 0.1  1  0.1
 
-Final time:          3655.5 Days
-Total linear steps:  15348
-Linear solve time:   0.977343s
-Total time steps:    3847
-Simulation time:     1.32726s
+Final time:          3655.500 Days
+Total linear steps:  15634
+Linear solve time:   0.960s
+Total time steps:    3914
+Simulation time:     1.337s
 
 -----------------------------------------
 OCP_IMPES_0.1
@@ -156,41 +156,39 @@ Simulation time:     116.621s
 ![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\0928\spe9\well_control_p3_Ve\compare.png)
 
 ```
------------------------------------------
-PS_IMPES_1
+OCP_IMPES_1_cfl
+Final time:          900.000 Days
+Total linear steps:  16673
+Linear solve time:   52.001s
+Total time steps:    3988
+Simulation time:     67.740s
 
-TMARCH
-0.1 1 0.1 5 0.3 0.3 300 0.3 0.3 0.001
+OCP_IMPES_0.1_cfl
 
--------------------
-Summary
--------------------
-Final time:          900 Days
-Total time steps:    7767
-Total nonlin steps:  7767
-Total linear steps:  12465
-Linear solver time:  57.9099s
-Simulation time:     276.62s
-
-
-
------------------------------------------
-OCP_IMPES_0.1       with well control and Volume error control
-
-Final time:          900 Days
+Final time:          900.000 Days
 Total linear steps:  32151
-Linear solve time:   82.9865s
+Linear solve time:   85.534s
 Total time steps:    9005
-Simulation time:     115.601s
+Simulation time:     120.182s
 
 
------------------------------------------
-OCP_IMPES_1    with well control and Volume error control
-Final time:          900 Days
-Total linear steps:  16617
-Linear solve time:   47.8777s
-Total time steps:    3979
-Simulation time:     62.0819s
+OCP_IMPES_1_cfl01
+
+Final time:          900.000 Days
+Total linear steps:  18834
+Linear solve time:   59.581s
+Total time steps:    4443
+Simulation time:     78.552s
+
+
+OCP_IMPES_0.1_cfl01
+
+Final time:          900.000 Days
+Total linear steps:  32151
+Linear solve time:   85.911s
+Total time steps:    9005
+Simulation time:     122.428s
+
 
 
 

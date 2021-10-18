@@ -35,6 +35,8 @@ public:
     void SetupMixture(const Bulk& myBulk);
     /// calculate the CFL number for each perforation and return the maximum one.
     OCP_DBL CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// calculate the CFL number for each perforation and return the maximum one.
+    void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
     /// update moles of components in bulk which connects to well, according to the well

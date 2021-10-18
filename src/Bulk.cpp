@@ -150,6 +150,8 @@ void Bulk::Setup(const Grid& myGrid)
     lS.resize(numBulk * numPhase);
     rockLVp.resize(numBulk);
 
+    cfl.resize(numBulk * numPhase);
+
     phase2Index.resize(3);
 
     if (blackOil) {
@@ -1029,7 +1031,7 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     USI     pvtnum = PVTNUM[n];
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
-        if (phaseExist[j]) {
+        if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
             S[bId + j]   = flashCal[pvtnum]->S[j];
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j]  = flashCal[pvtnum]->xi[j];
@@ -1039,6 +1041,11 @@ void Bulk::PassFlashValue(const OCP_USI& n)
             }
             mu[bId + j] = flashCal[pvtnum]->mu[j];
             vj[bId + j] = flashCal[pvtnum]->v[j];
+
+            if (vj[bId + j] == 0) {
+                cout << "zero" << endl;
+            }
+
         }
     }
     vf[n]  = flashCal[pvtnum]->vf;
@@ -1156,6 +1163,37 @@ OCP_DBL Bulk::CalFPR() const
     return ptmp / vtmp;
 }
 
+OCP_DBL Bulk::CalCFL(bool flag) const
+{
+    OCP_DBL tmp = 0;
+    OCP_USI tmpId = 0;
+    OCP_USI id;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        for (USI j = 0; j < numPhase; j++) {
+            id = n * numPhase + j;
+            if (phaseExist[id]) {
+
+                cfl[id] /= vj[id];
+#ifdef _DEBUG
+                if (!isfinite(cfl[id])) {
+                    OCP_ABORT("cfl is nan!");
+                }
+#endif // _DEBUG
+
+                if (tmp < cfl[id]) {
+                    tmp = cfl[id];
+                    tmpId = id;
+                }
+
+                if (flag)
+                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] << endl;
+            }
+        }
+    }
+    cout << "CFLnum = " << tmp << "\t" << tmpId << "\t" << vj[tmpId] << endl;
+    return tmp;
+}
+
 bool Bulk::CheckP() const
 {
     // true  : all correct
@@ -1182,7 +1220,10 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
     OCP_DBL tmp = 0;
     for (OCP_USI n = 0; n < numBulk; n++) {
         tmp = fabs(vf[n] - rockVp[n]) / rockVp[n];
-        if (tmp > Vlim) return false;
+        if (tmp > Vlim) {
+            cout << "Bulk " << n << "   ";
+            return false;
+        }
     }
     return true;
 }
