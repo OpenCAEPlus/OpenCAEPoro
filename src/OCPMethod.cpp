@@ -67,7 +67,9 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
             cout << "CFL: " << cfl << "\t dt: " << dt << endl;
             OCP_ABORT("tstep is too small!");
         }
-        SolveP(rs, ctrl, dt); // TODO: Why Solver needs dt?
+
+        rs.AssembleMat(solver, dt);
+        SolveP(rs, ctrl);
 
         // first check : Pressure check
         flagCheck = rs.CheckP();
@@ -106,7 +108,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
         // fouth check: Volume error check
         if (!rs.CheckVe(ve)) {
-            // cout << "###WARNING: volume error is too big\n";
+            cout << "###WARNING: volume error is too big\n";
             dt /= 2;
             rs.ResetVal02();
             continue;
@@ -131,9 +133,8 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 }
 
 /// First assemble linear, then solve and return solution
-void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
+void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl)
 {
-    rs.AssembleMat(solver, dt);
 
 #ifdef DEBUG
     solver.CheckVal();

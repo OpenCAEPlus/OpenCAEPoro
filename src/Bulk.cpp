@@ -1221,7 +1221,7 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
     for (OCP_USI n = 0; n < numBulk; n++) {
         tmp = fabs(vf[n] - rockVp[n]) / rockVp[n];
         if (tmp > Vlim) {
-            // cout << "Bulk " << n << "   ";
+            cout << "Bulk " << n << "   ";
             return false;
         }
     }

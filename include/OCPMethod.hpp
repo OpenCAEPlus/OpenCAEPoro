@@ -36,7 +36,7 @@ public:
     void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
 
     /// Assemble linear system and solve. // TODO: Only difference as an interface?
-    void SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
+    void SolveP(Reservoir& rs, OCP_Control& ctrl);
 
 private:
     Solver<OCP_DBL> solver;

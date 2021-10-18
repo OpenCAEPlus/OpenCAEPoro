@@ -577,6 +577,12 @@ void Well::CalProddG(const Bulk& myBulk)
                     tmpNi[i] += perf[p1].qi_lbmol[i];
                 }
             }
+
+            // check tmpNi
+            for (auto& v : tmpNi) {
+                v = fabs(v);
+            }
+
             for (USI k = 0; k < seg_num; k++) {
                 myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
                 for (USI j = 0; j < myBulk.numPhase; j++) {
@@ -590,6 +596,9 @@ void Well::CalProddG(const Bulk& myBulk)
                 Ptmp -= rhoacc / qtacc * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
+            //if (dGperf[p] < -100) {
+            //    cout << "get it" << endl;
+            //}
         }
         dG[0] = dGperf[0];
         for (USI p = 1; p < numPerf; p++) {
@@ -631,6 +640,12 @@ void Well::CalProddG(const Bulk& myBulk)
                     tmpNi[i] += perf[p1].qi_lbmol[i];
                 }
             }
+
+            // check tmpNi
+            for (auto& v : tmpNi) {
+                v = fabs(v);
+            }
+
             for (USI k = 0; k < seg_num; k++) {
                 myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
                 for (USI j = 0; j < np; j++) {
@@ -903,6 +918,7 @@ OCP_INT Well::CheckP(const Bulk& myBulk)
             cout << "WARNING: Well " << name << " Perf[" << p << "].P = " << perf[p].P
                  << endl;
 #endif // _DEBUG
+            cout << "###WARNING: negative perforation P occurs!\n";
             return 1;
         }
     }
@@ -971,10 +987,12 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
         }
     }
     if (!flag) {
-        return 1;
+         cout << "###WARNING: All perfs are closed, reset and cut timestep!\n";
+         return 1;
         // open the depthest perf
-        /*perf.back().state = OPEN;
-        perf.back().multiplier = 1;*/
+        //perf.back().state = OPEN;
+        //perf.back().multiplier = 1;
+        //cout << "###WARNING: All perfs are closed, open the last perf!\n";
     }
 
     if (!flagC) {
