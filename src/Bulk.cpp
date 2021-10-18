@@ -1185,12 +1185,12 @@ OCP_DBL Bulk::CalCFL(bool flag) const
                     tmpId = id;
                 }
 
-                if (flag)
-                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] << endl;
+                /*if (flag)
+                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] << endl;*/
             }
         }
     }
-    cout << "CFLnum = " << tmp << "\t" << tmpId << "\t" << vj[tmpId] << endl;
+    // cout << "CFLnum = " << tmp << "\t" << tmpId << "\t" << vj[tmpId] << endl;
     return tmp;
 }
 
