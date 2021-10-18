@@ -60,14 +60,14 @@ OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt)
     
     conn.CalCFL01(bulk, dt);
 
-    if (cfl > 1) {
-        cout << "bkCFL:\t" << bulk.cfl[2686] << "\t";
-    }
+    //if (cfl > 1) {
+    //    cout << "bkCFL:\t" << bulk.cfl[2686] << "\t";
+    //}
     wellgroup.CalCFL01(bulk, dt);
 
-    if (cfl > 1) {
-        cout << "wellCFL:\t" << bulk.cfl[2686] << endl;
-    }
+    //if (cfl > 1) {
+    //    cout << "wellCFL:\t" << bulk.cfl[2686] << endl;
+    //}
     cfl = bulk.CalCFL(false);
 
     return cfl;

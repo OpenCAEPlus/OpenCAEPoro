@@ -213,10 +213,6 @@ OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
                 temp = fabs(upblock_Velocity[c * np + j]) * dt;
                 temp /= myBulk.vj[uId * np + j];
                 if (cfl < temp) cfl = temp;
-
-                if (cfl > 0.03) {
-                    cout << "get it" << endl;
-                }
             }
         }
     }
@@ -379,10 +375,6 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
         rhsup   = 0;
         valdown = 0;
         rhsdown = 0;
-
-        //if (bId == 1027 || eId == 1027) {
-        //    cout << "get it" << endl;
-        //}
 
         for (USI j = 0; j < np; j++) {
             uId = upblock[c * np + j];

@@ -52,8 +52,8 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
     rs.wellgroup.PrepareWell(rs.bulk);
 
-    cout << ctrl.current_time << " Days" << endl;
-    cfl = rs.CalCFL01(dt);
+    // cout << ctrl.current_time << " Days" << endl;
+    OCP_DBL cfl = rs.CalCFL01(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
     // Init wells
@@ -82,7 +82,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         rs.wellgroup.CalFlux(rs.bulk);
 
         // second check : CFL check
-        cfl = rs.CalCFL(dt);
+        cfl = rs.CalCFL01(dt);
         if (cfl > 1) {
             dt /= 2;
             rs.ResetVal01();

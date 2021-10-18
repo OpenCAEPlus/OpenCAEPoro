@@ -33,6 +33,7 @@ int main(int argc, const char* argv[])
              << endl;
         return(-1);
     }
+    OpenCAEPoro simulator;
     simulator.PrintVersion();
 
     // Step 1. Read params from an input file to internal params data structure.
