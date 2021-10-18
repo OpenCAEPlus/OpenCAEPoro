@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['bb_5fpair_0',['BB_Pair',['../classBB__Pair.html',1,'']]],
+  ['bb_5fpair_0',['BB_Pair',['../classBB__Pair.html',1,'BB_Pair'],['../classBB__Pair.html#a50782357e28c21543dccb81343bd9e57',1,'BB_Pair::BB_Pair()=default'],['../classBB__Pair.html#a9c85354a771470832d8e272762368cf0',1,'BB_Pair::BB_Pair(const OCP_USI &amp;bId, const OCP_USI &amp;eId)']]],
   ['blackoil_1',['blackOil',['../classParamReservoir.html#ac5209bd071906af24dbbae8b0677c081',1,'ParamReservoir']]],
   ['boflash_5fni_5fogw_2',['BOFlash_Ni_OGW',['../classBOMixture.html#a9fdd490d6316a73a9f1bae14508a5ee6',1,'BOMixture']]],
   ['boflash_5fni_5fow_3',['BOFlash_Ni_OW',['../classBOMixture.html#a5218994ea261203397a1125255cb8a8c',1,'BOMixture']]],

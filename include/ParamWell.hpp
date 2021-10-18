@@ -56,6 +56,7 @@ public:
     WellOptParam opt;
 };
 
+/// TODO: Add Doxygen
 class WellParam
 {
 public:

@@ -23,6 +23,7 @@
 
 using namespace std;
 
+/// TODO: Add Doxygen
 class OCPIJK
 {
 public:
@@ -47,6 +48,7 @@ public:
     USI I, J, K;
 };
 
+/// TODO: Add Doxygen
 template <typename T> class OCPType_Sum
 {
 public:
@@ -145,6 +147,7 @@ private:
     vector<OCP_DBL> cfl;
 };
 
+/// TODO: Add Doxygen 
 class DetailInfo
 {
 public:

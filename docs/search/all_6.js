@@ -12,7 +12,7 @@ var searchData=
   ['flash_5fsj_9',['Flash_Sj',['../classMixture.html#a14a8c33a328a0073cfbc28371927817d',1,'Mixture::Flash_Sj()'],['../classBOMixture.html#ac76a1284b79fc9cd7b70e484c47dea53',1,'BOMixture::Flash_Sj()']]],
   ['flashni_10',['FlashNi',['../classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521',1,'Bulk']]],
   ['flashsj_11',['FlashSj',['../classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002',1,'Bulk']]],
-  ['flowunit_12',['FlowUnit',['../classFlowUnit.html',1,'']]],
+  ['flowunit_12',['FlowUnit',['../classFlowUnit.html',1,'FlowUnit'],['../classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1',1,'FlowUnit::FlowUnit()=default'],['../classFlowUnit.html#aa92c8e871ab399c94946bf995cfbab3f',1,'FlowUnit::FlowUnit(const ParamReservoir &amp;rs_param, const USI &amp;inmode, const USI &amp;i)']]],
   ['flowunit_2ecpp_13',['FlowUnit.cpp',['../FlowUnit_8cpp.html',1,'']]],
   ['flowunit_2ehpp_14',['FlowUnit.hpp',['../FlowUnit_8hpp.html',1,'']]],
   ['fluidtype_15',['fluidType',['../classWellOptParam.html#a414dd5dee7fc04e403eb8311dfc91d11',1,'WellOptParam']]],

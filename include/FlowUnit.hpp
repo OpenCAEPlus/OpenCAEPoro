@@ -22,18 +22,19 @@
 class FlowUnit
 {
 public:
+    /// Default constructor.
     FlowUnit() = default;
 
+    /// TODO: Add Doxygen
     FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI& i);
 
-    /// judge if SGOF is empty.
+    /// Check whether SGOF is empty.
     bool IsEmpty_SGOF() { return SGOF.IsEmpty(); }
 
-    /// judge if SWOF is empty.
+    /// Check whether SWOF is empty.
     bool IsEmpty_SWOF() { return SWOF.IsEmpty(); }
 
-    /// generate the table of saturation of water vs. capillary between water and gas by
-    /// SGOF and SWOF.
+    /// Generate the table of water saturation vs. capillary between water and gas.
     void Generate_SWPCWG();
 
     /// interpolate the specified monotonically increasing column in SWOF to evaluate

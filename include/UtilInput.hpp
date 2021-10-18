@@ -22,6 +22,7 @@
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 
+/// TODO: Replace it with error log
 #define ParamCheck(exp)                                                                \
     std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
               << __FILE__;

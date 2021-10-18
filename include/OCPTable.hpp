@@ -26,18 +26,27 @@ using namespace std;
 template <typename T> class OCP_Table
 {
 public:
+    /// Default constructor.
     OCP_Table() = default;
+
+    /// Constructor a table of fixed size.
     OCP_Table(const USI& row, const USI& col);
+
     /// Setup tables from existing data of table.
     void Setup(const vector<vector<T>>& src);
+
     /// judge if table is empty.
     bool IsEmpty() const { return data.empty(); }
+
     /// return the column num of table.
     USI GetCol() const { return nCol; }
+
     /// push v into the last column of table.
     void PushCol(const vector<T>& v) { data.push_back(v); }
+
     /// return the jth column in table to modify or use.
     vector<T>& GetCol(const USI& j) { return data[j]; }
+
     /// Setup row nums and col nums of tables, initialize the bId.
     void SetRowCol()
     {
@@ -45,24 +54,28 @@ public:
         nCol = data.size();
         bId  = nRow / 2;
     }
+
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// all columns.
     USI Eval_All(const USI& j, const T& val, vector<T>& outdata, vector<T>& slope);
+
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// the target column.
     T Eval(const USI& j, const T& val, const USI& destj);
+
     /// interpolate the specified monotonically decreasing column in table to evaluate
     /// the target column.
+
     T Eval_Inv(const USI& j, const T& val, const USI& destj);
+
     /// Display the data of table on screen.
     void Display() const;
 
 private:
-    USI nRow; ///< number of rows of the table
-    USI nCol; ///< number of columns of the table
-    USI bId;  ///< the starting point of rows when interpolating
-    vector<vector<T>>
-        data; ///< stores the data of table, data[i] contains the ith column of table.
+    USI               nRow; ///< number of rows of the table
+    USI               nCol; ///< number of columns of the table
+    USI               bId;  ///< the starting point of rows when interpolating
+    vector<vector<T>> data; ///< data of the table, data[i] is the ith column.
 };
 
 template <typename T> OCP_Table<T>::OCP_Table(const USI& row, const USI& col)

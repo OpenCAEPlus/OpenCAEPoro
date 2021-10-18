@@ -47,9 +47,8 @@ void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
     OCP_DBL ve        = 0.01;
-    OCP_DBL cfl       = 1;
-    int     flagCheck = 0;
     double& dt        = ctrl.current_dt;
+    int     flagCheck = 0;
 
     rs.wellgroup.PrepareWell(rs.bulk);
 
@@ -57,14 +56,18 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     cfl = rs.CalCFL01(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
+    // Init wells
+    rs.wellgroup.PrepareWell(rs.bulk);
+
     while (true) {
-        SolveP(rs, ctrl, dt);
+        if (dt < MIN_TIME_STEP) OCP_ABORT("Time stepsize is too small!");
 
         if (dt < 1E-6) {
             cout << fixed << setprecision(6);
             cout << "CFL: " << cfl << "\t dt: " << dt << endl;
             OCP_ABORT("tstep is too small!");
         }
+        SolveP(rs, ctrl, dt); // TODO: Why Solver needs dt?
 
         // first check : Pressure check
         flagCheck = rs.CheckP();
@@ -78,8 +81,8 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         rs.conn.CalFlux(rs.bulk);
         rs.wellgroup.CalFlux(rs.bulk);
 
-        // second check : cfl check
-        cfl = rs.CalCFL01(dt);
+        // second check : CFL check
+        cfl = rs.CalCFL(dt);
         if (cfl > 1) {
             dt /= 2;
             rs.ResetVal01();
@@ -126,13 +129,14 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     rs.wellgroup.SetLastStep();
 }
 
+/// First assemble linear, then solve and return solution
 void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
     rs.AssembleMat(solver, dt);
 
-#ifdef _DEBUG
+#ifdef DEBUG
     solver.CheckVal();
-#endif // _DEBUG
+#endif // DEBUG
 
 #ifdef __SOLVER_FASP__
 
@@ -142,10 +146,10 @@ void OCP_IMPES::SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
     int status = solver.FaspSolve();
     ctrl.timeLS += Timer.Stop() / 1000;
 
-#ifdef _DEBUG
-    // solver.PrintfMatCSR("testA.out", "testb.out");
-    // solver.PrintfSolution("testx.out");
-#endif // _DEBUG
+#ifdef DEBUG
+    solver.PrintfMatCSR("testA.out", "testb.out");
+    solver.PrintfSolution("testx.out");
+#endif // DEBUG
 
     solver.Free_Fasp();
 

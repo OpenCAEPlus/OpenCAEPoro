@@ -28,14 +28,11 @@ using namespace std;
 // --> (5) Output the results
 int main(int argc, const char* argv[])
 {
-
     if (argc != 2) {
-        cout << "Input file is missing. Usage: " << argv[0] << " <InputFileName>"
+        cout << "Wrong number of arguments. Usage: " << argv[0] << " <InputFileName>"
              << endl;
-        exit(-1);
+        return(-1);
     }
-
-    OpenCAEPoro simulator;
     simulator.PrintVersion();
 
     // Step 1. Read params from an input file to internal params data structure.
@@ -50,8 +47,7 @@ int main(int argc, const char* argv[])
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturation, and moles of components will be
-    // calculated. Initial well pressure will also be given here ---- it's a simple
-    // guess now.
+    // calculated. Initial guess of well pressure will also be given here.
     simulator.InitReservoir();
 
     // Step 4. Run dynamic simulation using methods like IMPES and FIM. It's a

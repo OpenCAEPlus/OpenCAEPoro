@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="Well_8hpp.html">Well.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>WellOpt::WellOpt(<span class="keyword">const</span> <a class="code hl_class" href="classWellOptParam.html">WellOptParam</a>&amp; Optparam)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classWellOpt.html#a93515bcbbec17851a81911122eb82505">   15</a></span><a class="code hl_function" href="classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2">WellOpt::WellOpt</a>(<span class="keyword">const</span> <a class="code hl_class" href="classWellOptParam.html">WellOptParam</a>&amp; Optparam)</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (Optparam.<a class="code hl_variable" href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">type</a> == <span class="stringliteral">&quot;INJ&quot;</span>) {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        type = INJ;</div>
@@ -280,10 +280,10 @@ $(function() {
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                    ro /= (pow(kx_ky, 0.25) + pow(1 / kx_ky, 0.25));</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                    <span class="keywordflow">if</span> (perf[p].kh &lt; 0) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                        perf[p].WI = (2 * PI) * (dz * pow(kxky, 0.5)) /</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                        perf[p].WI = (2 * <a class="code hl_variable" href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a>) * (dz * pow(kxky, 0.5)) /</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                                     (log(ro / perf[p].radius) + perf[p].skinFactor);</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                        perf[p].WI = (2 * PI) * perf[p].kh /</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                        perf[p].WI = (2 * <a class="code hl_variable" href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a>) * perf[p].kh /</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                                     (log(ro / perf[p].radius) + perf[p].skinFactor);</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                    }</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                    <span class="keywordflow">break</span>;</div>
@@ -671,7 +671,7 @@ $(function() {
 <div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span> </div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> pvtnum = myBulk.PVTNUM[n];</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>            tmpNi.assign(nc, 0);</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> p1 = numPerf - 1; p1 &gt;= p; p1--) {</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> p1 = numPerf - 1; p1 - p &gt;= 0; p1--) {</div>
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>                    tmpNi[i] += perf[p1].qi_lbmol[i];</div>
 <div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>                }</div>
@@ -803,262 +803,260 @@ $(function() {
 <div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
 <div class="line"><a id="l00742" name="l00742"></a><span class="lineno"><a class="line" href="classWell.html#ae3b9eb3c86378e65b9bad809946d2f4f">  742</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classWell.html#ae3b9eb3c86378e65b9bad809946d2f4f">Well::CalInjRate_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
 <div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>{</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     np = myBulk.numPhase;</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pperf = opt.maxBHP + dG[p];</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k     = perf[p].location;</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span> </div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     pvtnum = myBulk.PVTNUM[k];</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi =</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>            myBulk.flashCal[pvtnum]-&gt;XiPhase(myBulk.P[k], myBulk.T, &amp;opt.zi[0]);</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = Pperf - myBulk.P[k];</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>        qj += perf[p].transj[0] * xi * dP;</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    }</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    <span class="keywordflow">return</span> qj;</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>}</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span> </div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno"><a class="line" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">  762</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">Well::CalProdRate_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>{</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     np = myBulk.numPhase;</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pperf = opt.maxBHP + dG[p];</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k     = perf[p].location;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     pvtnum = myBulk.PVTNUM[k];</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi =</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>            myBulk.flashCal[pvtnum]-&gt;XiPhase(myBulk.P[k], myBulk.T, &amp;opt.zi[0]);</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = Pperf - myBulk.P[k];</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>        qj += perf[p].transj[0] * xi * dP;</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    }</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    <span class="keywordflow">return</span> qj;</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>}</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span> </div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno"><a class="line" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">  760</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">Well::CalProdRate_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>{</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     np = myBulk.numPhase;</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span> </div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pperf = opt.minBHP + dG[p];</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k     = perf[p].location;</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span> </div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = k * np + j;</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>            <span class="keywordflow">if</span> (myBulk.phaseExist[<span class="keywordtype">id</span>]) {</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp = 0;</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                    temp += opt.zi[i] * myBulk.cij[<span class="keywordtype">id</span> * nc + i];</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                }</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi = myBulk.xi[id];</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = myBulk.Pj[id] - Pperf;</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>                qj += perf[p].transj[j] * xi * dP * temp;</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>            }</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        }</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>    }</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>    <span class="keywordflow">return</span> qj;</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>}</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span> </div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno"><a class="line" href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">  789</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">Well::CalInjQi_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>{</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pperf = opt.minBHP + dG[p];</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k     = perf[p].location;</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span> </div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = k * np + j;</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>            <span class="keywordflow">if</span> (myBulk.phaseExist[<span class="keywordtype">id</span>]) {</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp = 0;</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                    temp += opt.zi[i] * myBulk.cij[<span class="keywordtype">id</span> * nc + i];</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                }</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi = myBulk.xi[id];</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = myBulk.Pj[id] - Pperf;</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                qj += perf[p].transj[j] * xi * dP * temp;</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>            }</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        }</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>    }</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    <span class="keywordflow">return</span> qj;</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>}</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span> </div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno"><a class="line" href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">  787</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">Well::CalInjQi_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>{</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qj = 0;</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span> </div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        perf[p].P = BHP + dG[p];</div>
 <div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span> </div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        perf[p].P = BHP + dG[p];</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span> </div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        <span class="comment">// OCP_USI k = perf[p].location;</span></div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="comment">// OCP_DBL xi = perf[p].xi;</span></div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        <span class="comment">// OCP_DBL dP = perf[p].p - myBulk.p[k];</span></div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>        <span class="comment">// qj += perf[p].transj[0] * xi * dP;</span></div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span> </div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) qj += perf[p].qi_lbmol[i];</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    }</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keywordflow">if</span> (opt.fluidType == WATER) {</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>        WWIR = -qj;</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>        WWIT += WWIR * dt;</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>        WGIR = -qj;</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>        WGIT += WGIR * dt;</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    }</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>}</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno"><a class="line" href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">  814</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">Well::CalProdQi_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>{</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc = myBulk.numCom;</div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span> </div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    qi_lbmol.assign(nc, 0);</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span> </div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span> </div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>        <span class="comment">// perf[p].qi_lbmol.assign(nc, 0);</span></div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="comment">// perf[p].p = BHP + dG[p];</span></div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        <span class="comment">// int k = perf[p].location;</span></div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span> </div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>        <span class="comment">// for (int j = 0; j &lt; np; j++) {</span></div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        <span class="comment">//  int id = k * np + j;</span></div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>        <span class="comment">//  if (myBulk.phaseExist[id]) {</span></div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>        <span class="comment">//      OCP_DBL xi = myBulk.xi[id];</span></div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>        <span class="comment">//      OCP_DBL dP = myBulk.Pj[id] - perf[p].p;</span></div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>        <span class="comment">//      OCP_DBL xij;</span></div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>        <span class="comment">//      for (int i = 0; i &lt; nc; i++) {</span></div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>        <span class="comment">//          xij = myBulk.cij[id * nc + i];</span></div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>        <span class="comment">//          perf[p].qi_lbmol[i] += perf[p].transj[j] * xi * xij * dP;</span></div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>        <span class="comment">//      }</span></div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>        <span class="comment">//  }</span></div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>        <span class="comment">//}</span></div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>            qi_lbmol[i] += perf[p].qi_lbmol[i];</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>        }</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    }</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span> </div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        <span class="keywordflow">if</span> (myBulk.phaseLabel[i] == OIL) {</div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>            WOPR = qi_lbmol[i];</div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>            WOPT += WOPR * dt;</div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.phaseLabel[i] == GAS) {</div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>            WGPR = qi_lbmol[i];</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>            WGPT += WGPR * dt;</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.phaseLabel[i] == WATER) {</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>            WWPR = qi_lbmol[i];</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>            WWPT += WWPR * dt;</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>        }</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>    }</div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>}</div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span> </div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno"><a class="line" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">  858</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">Well::CheckOptMode</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>{</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classWell.html#ae3b9eb3c86378e65b9bad809946d2f4f">CalInjRate_Blk</a>(myBulk) &gt; opt.maxRate) {</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>            opt.optMode = RATE_MODE;</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>            opt.optMode = BHP_MODE;</div>
-<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>        }</div>
-<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">CalProdRate_Blk</a>(myBulk) &gt; opt.maxRate) {</div>
-<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>            opt.optMode = RATE_MODE;</div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>            opt.optMode = BHP_MODE;</div>
-<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>        }</div>
-<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>    }</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>}</div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span> </div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno"><a class="line" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">  875</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code hl_function" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">Well::CheckP</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>{</div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>    <span class="comment">// 0 : all correct</span></div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>    <span class="comment">// 1 : negative P</span></div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>    <span class="comment">// 2 : outlimited P</span></div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>    <span class="comment">// 3 : crossflow happens</span></div>
-<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span> </div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    <span class="keywordflow">if</span> (BHP &lt; 0) <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; perf[p].P &lt; 0) {</div>
-<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span><span class="preprocessor">#ifdef _DEBUG</span></div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Well &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; Perf[&quot;</span> &lt;&lt; p &lt;&lt; <span class="stringliteral">&quot;].P = &quot;</span> &lt;&lt; perf[p].P</div>
-<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                 &lt;&lt; endl;</div>
-<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
-<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>            <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>        }</div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>    }</div>
-<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span> </div>
-<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &gt; opt.maxBHP) {</div>
-<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>            opt.optMode = BHP_MODE;</div>
-<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>            <span class="keywordflow">return</span> 2;</div>
-<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>        }</div>
-<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &lt; opt.minBHP) {</div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>            opt.optMode = BHP_MODE;</div>
-<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>            <span class="keywordflow">return</span> 2;</div>
-<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>        }</div>
-<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>    }</div>
-<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = 0;</div>
-<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>    flag         = <a class="code hl_function" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">CheckCrossFlow</a>(myBulk);</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        <span class="comment">// OCP_USI k = perf[p].location;</span></div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>        <span class="comment">// OCP_DBL xi = perf[p].xi;</span></div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        <span class="comment">// OCP_DBL dP = perf[p].p - myBulk.p[k];</span></div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="comment">// qj += perf[p].transj[0] * xi * dP;</span></div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span> </div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) qj += perf[p].qi_lbmol[i];</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>    }</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>    <span class="keywordflow">if</span> (opt.fluidType == WATER) {</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>        WWIR = -qj;</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>        WWIT += WWIR * dt;</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>        WGIR = -qj;</div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>        WGIT += WGIR * dt;</div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>    }</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>}</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span> </div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno"><a class="line" href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">  812</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">Well::CalProdQi_Blk</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>{</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc = myBulk.numCom;</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span> </div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    qi_lbmol.assign(nc, 0);</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span> </div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span> </div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>        <span class="comment">// perf[p].qi_lbmol.assign(nc, 0);</span></div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>        <span class="comment">// perf[p].p = BHP + dG[p];</span></div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        <span class="comment">// int k = perf[p].location;</span></div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span> </div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="comment">// for (int j = 0; j &lt; np; j++) {</span></div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        <span class="comment">//  int id = k * np + j;</span></div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>        <span class="comment">//  if (myBulk.phaseExist[id]) {</span></div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>        <span class="comment">//      OCP_DBL xi = myBulk.xi[id];</span></div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        <span class="comment">//      OCP_DBL dP = myBulk.Pj[id] - perf[p].p;</span></div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>        <span class="comment">//      OCP_DBL xij;</span></div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>        <span class="comment">//      for (int i = 0; i &lt; nc; i++) {</span></div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>        <span class="comment">//          xij = myBulk.cij[id * nc + i];</span></div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>        <span class="comment">//          perf[p].qi_lbmol[i] += perf[p].transj[j] * xi * xij * dP;</span></div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>        <span class="comment">//      }</span></div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>        <span class="comment">//  }</span></div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>        <span class="comment">//}</span></div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>            qi_lbmol[i] += perf[p].qi_lbmol[i];</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>        }</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    }</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span> </div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>        <span class="keywordflow">if</span> (myBulk.index2Phase[i] == OIL) {</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>            WOPR = qi_lbmol[i];</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>            WOPT += WOPR * dt;</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == GAS) {</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>            WGPR = qi_lbmol[i];</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>            WGPT += WGPR * dt;</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == WATER) {</div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>            WWPR = qi_lbmol[i];</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>            WWPT += WWPR * dt;</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>        }</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    }</div>
+<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>}</div>
+<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span> </div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno"><a class="line" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">  855</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">Well::CheckOptMode</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>{</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classWell.html#ae3b9eb3c86378e65b9bad809946d2f4f">CalInjRate_Blk</a>(myBulk) &gt; opt.maxRate) {</div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>            opt.optMode = RATE_MODE;</div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>        }</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">CalProdRate_Blk</a>(myBulk) &gt; opt.maxRate) {</div>
+<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>            opt.optMode = RATE_MODE;</div>
+<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>        }</div>
+<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>    }</div>
+<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>}</div>
+<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span> </div>
+<div class="line"><a id="l00872" name="l00872"></a><span class="lineno"><a class="line" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">  872</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code hl_function" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">Well::CheckP</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>{</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>    <span class="comment">// 0 : all correct</span></div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>    <span class="comment">// 1 : negative P</span></div>
+<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>    <span class="comment">// 2 : outlimited P</span></div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>    <span class="comment">// 3 : crossflow happens</span></div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span> </div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>    <span class="keywordflow">if</span> (BHP &lt; 0) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; perf[p].P &lt; 0) {</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span><span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>            cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Well &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; Perf[&quot;</span> &lt;&lt; p &lt;&lt; <span class="stringliteral">&quot;].P = &quot;</span> &lt;&lt; perf[p].P</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>                 &lt;&lt; endl;</div>
+<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>        }</div>
+<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>    }</div>
+<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span> </div>
+<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &gt; opt.maxBHP) {</div>
+<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>            <span class="keywordflow">return</span> 2;</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>        }</div>
+<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &lt; opt.minBHP) {</div>
+<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>            <span class="keywordflow">return</span> 2;</div>
+<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>        }</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>    }</div>
+<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = 0;</div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>    flag         = <a class="code hl_function" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">CheckCrossFlow</a>(myBulk);</div>
+<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span> </div>
+<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>    <span class="keywordflow">return</span> flag;</div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>}</div>
 <div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span> </div>
-<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>    <span class="keywordflow">return</span> flag;</div>
-<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>}</div>
-<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span> </div>
-<div class="line"><a id="l00910" name="l00910"></a><span class="lineno"><a class="line" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">  910</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code hl_function" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well::CheckCrossFlow</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span>{</div>
-<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k;</div>
-<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>    <span class="keywordtype">bool</span>    flagC = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span> </div>
-<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>    <span class="keywordflow">if</span> (opt.type == PROD) {</div>
-<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
-<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>            k            = perf[p].location;</div>
-<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> minP = myBulk.P[k];</div>
-<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>            <span class="comment">// THINK MORE !!!</span></div>
-<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>            <span class="comment">// for (USI j = 0; j &lt; np; j++) {</span></div>
-<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>            <span class="comment">//  if (myBulk.phaseExist[k * np + j])</span></div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>            <span class="comment">//      minP = minP &lt; myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];</span></div>
-<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>            <span class="comment">//}</span></div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; minP &lt; perf[p].P) {</div>
-<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>                perf[p].state      = CLOSE;</div>
-<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>                perf[p].multiplier = 0;</div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>                flagC              = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; minP &gt; perf[p].P) {</div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>                perf[p].state      = OPEN;</div>
-<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>                perf[p].multiplier = 1;</div>
-<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span>            }</div>
-<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>        }</div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>            k = perf[p].location;</div>
-<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; myBulk.P[k] &gt; perf[p].P) {</div>
-<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>                perf[p].state      = CLOSE;</div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>                perf[p].multiplier = 0;</div>
-<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>                flagC              = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; myBulk.P[k] &lt; perf[p].P) {</div>
-<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>                perf[p].state      = OPEN;</div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>                perf[p].multiplier = 1;</div>
-<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>            }</div>
-<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>        }</div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>    }</div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span> </div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>    <span class="keywordtype">bool</span> flag = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>    <span class="comment">// check well --  if all perf are closed, open the depthest perf</span></div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>            flag = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>        }</div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>    }</div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>    <span class="keywordflow">if</span> (!flag) {</div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>        <span class="comment">// open the depthest perf</span></div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>        <span class="comment">/*perf.back().state = OPEN;</span></div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span><span class="comment">        perf.back().multiplier = 1;*/</span></div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>    }</div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span> </div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>    <span class="keywordflow">if</span> (!flagC) {</div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>        dG = ldG;</div>
-<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>        <a class="code hl_function" href="classWell.html#a869e7fb570c02e1c9999576bcc12ba5e">CalTrans</a>(myBulk);</div>
-<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>        <a class="code hl_function" href="classWell.html#a874b5ec76145d0c252c953d809c9de77">CalFlux</a>(myBulk);</div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>        <a class="code hl_function" href="classWell.html#a98c5c54987ca460ab025504f014ce96e">CaldG</a>(myBulk);</div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>        <a class="code hl_function" href="classWell.html#abf45c0fc2455e809a3505f327e1afcb7">SmoothdG</a>();</div>
-<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>        <span class="comment">// CheckOptMode(myBulk);</span></div>
-<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>        <span class="keywordflow">return</span> 3;</div>
-<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>    }</div>
+<div class="line"><a id="l00907" name="l00907"></a><span class="lineno"><a class="line" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">  907</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code hl_function" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well::CheckCrossFlow</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>{</div>
+<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k;</div>
+<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>    <span class="keywordtype">bool</span>    flagC = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span> </div>
+<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>    <span class="keywordflow">if</span> (opt.type == PROD) {</div>
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>        <span class="comment">// USI np = myBulk.numPhase;</span></div>
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>            k            = perf[p].location;</div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> minP = myBulk.P[k];</div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>            <span class="comment">// THINK MORE !!!</span></div>
+<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>            <span class="comment">// for (USI j = 0; j &lt; np; j++) {</span></div>
+<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>            <span class="comment">//  if (myBulk.phaseExist[k * np + j])</span></div>
+<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>            <span class="comment">//      minP = minP &lt; myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];</span></div>
+<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>            <span class="comment">//}</span></div>
+<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; minP &lt; perf[p].P) {</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>                perf[p].state      = CLOSE;</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>                perf[p].multiplier = 0;</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>                flagC              = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; minP &gt; perf[p].P) {</div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>                perf[p].state      = OPEN;</div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>                perf[p].multiplier = 1;</div>
+<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>            }</div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>        }</div>
+<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>            k = perf[p].location;</div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; myBulk.P[k] &gt; perf[p].P) {</div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>                perf[p].state      = CLOSE;</div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>                perf[p].multiplier = 0;</div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>                flagC              = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; myBulk.P[k] &lt; perf[p].P) {</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>                perf[p].state      = OPEN;</div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>                perf[p].multiplier = 1;</div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>            }</div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        }</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>    }</div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span> </div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>    <span class="keywordtype">bool</span> flag = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>    <span class="comment">// check well --  if all perf are closed, open the depthest perf</span></div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
+<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>            flag = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>        }</div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>    }</div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>    <span class="keywordflow">if</span> (!flag) {</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>        <span class="comment">// open the depthest perf</span></div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>        <span class="comment">/*perf.back().state = OPEN;</span></div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span><span class="comment">        perf.back().multiplier = 1;*/</span></div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>    }</div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span> </div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>    <span class="keywordflow">if</span> (!flagC) {</div>
+<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>        dG = ldG;</div>
+<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>        <a class="code hl_function" href="classWell.html#a869e7fb570c02e1c9999576bcc12ba5e">CalTrans</a>(myBulk);</div>
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>        <a class="code hl_function" href="classWell.html#a874b5ec76145d0c252c953d809c9de77">CalFlux</a>(myBulk);</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>        <a class="code hl_function" href="classWell.html#a98c5c54987ca460ab025504f014ce96e">CaldG</a>(myBulk);</div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>        <a class="code hl_function" href="classWell.html#abf45c0fc2455e809a3505f327e1afcb7">SmoothdG</a>();</div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>        <span class="comment">// CheckOptMode(myBulk);</span></div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>        <span class="keywordflow">return</span> 3;</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>    }</div>
+<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span> </div>
+<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>}</div>
 <div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span> </div>
-<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>}</div>
-<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span> </div>
-<div class="line"><a id="l00976" name="l00976"></a><span class="lineno"><a class="line" href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">  976</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">Well::ShowPerfStatus</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>    cout &lt;&lt; <span class="stringliteral">&quot;----------------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>    cout &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;:    &quot;</span> &lt;&lt; opt.optMode &lt;&lt; endl;</div>
-<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>        cout &lt;&lt; <span class="stringliteral">&quot;Perf[&quot;</span> &lt;&lt; p &lt;&lt; <span class="stringliteral">&quot;].State = &quot;</span> &lt;&lt; perf[p].state &lt;&lt; endl;</div>
-<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>    }</div>
-<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>}</div>
-<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span> </div>
-<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a id="l00973" name="l00973"></a><span class="lineno"><a class="line" href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">  973</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">Well::ShowPerfStatus</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>    cout &lt;&lt; <span class="stringliteral">&quot;----------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>    cout &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;:    &quot;</span> &lt;&lt; opt.optMode &lt;&lt; endl;</div>
+<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>        cout &lt;&lt; <span class="stringliteral">&quot;Perf[&quot;</span> &lt;&lt; p &lt;&lt; <span class="stringliteral">&quot;].State = &quot;</span> &lt;&lt; perf[p].state &lt;&lt; endl;</div>
+<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>    }</div>
+<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>}</div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span> </div>
+<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
 <div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_adf2a24350253e533be022fb87ae13b8d"><div class="ttname"><a href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a></div><div class="ttdeci">const OCP_DBL PI</div><div class="ttdoc">Pi.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00041">OCPConst.hpp:41</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
 <div class="ttc" id="aWell_8hpp_html"><div class="ttname"><a href="Well_8hpp.html">Well.hpp</a></div><div class="ttdoc">Well class declaration.</div></div>
 <div class="ttc" id="aclassBulk_html"><div class="ttname"><a href="classBulk.html">Bulk</a></div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00053">Bulk.hpp:54</a></div></div>
-<div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00053">Grid.hpp:54</a></div></div>
+<div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00055">Grid.hpp:56</a></div></div>
 <div class="ttc" id="aclassSolver_html"><div class="ttname"><a href="classSolver.html">Solver</a></div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00036">LinearSolver.hpp:37</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html"><div class="ttname"><a href="classWellOptParam.html">WellOptParam</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00028">ParamWell.hpp:29</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a144f37940d5f85961f915fddeb560b40"><div class="ttname"><a href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">WellOptParam::maxBHP</a></div><div class="ttdeci">OCP_DBL maxBHP</div><div class="ttdoc">Maximum allowable pressure in the injection well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00039">ParamWell.hpp:39</a></div></div>
@@ -1068,20 +1066,21 @@ $(function() {
 <div class="ttc" id="aclassWellOptParam_html_ac3827b1c01ceb126e7b7fbb738765539"><div class="ttname"><a href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">WellOptParam::optMode</a></div><div class="ttdeci">string optMode</div><div class="ttdoc">Mode of well, Rate or BHP?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00036">ParamWell.hpp:36</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_af0ad9a5c5f25d0284d05813d6d0eba21"><div class="ttname"><a href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">WellOptParam::minBHP</a></div><div class="ttdeci">OCP_DBL minBHP</div><div class="ttdoc">Minimum allowable pressure in the production well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00040">ParamWell.hpp:40</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_af84616d229f5c4420f57f9f3d1278391"><div class="ttname"><a href="classWellOptParam.html#af84616d229f5c4420f57f9f3d1278391">WellOptParam::state</a></div><div class="ttdeci">string state</div><div class="ttdoc">State of well, open or close?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00035">ParamWell.hpp:35</a></div></div>
-<div class="ttc" id="aclassWellParam_html"><div class="ttname"><a href="classWellParam.html">WellParam</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00059">ParamWell.hpp:60</a></div></div>
-<div class="ttc" id="aclassWellParam_html_a161b69a0b54f11ebb716865d4f8ebcc5"><div class="ttname"><a href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">WellParam::direction</a></div><div class="ttdeci">vector&lt; string &gt; direction</div><div class="ttdoc">Direction of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00079">ParamWell.hpp:79</a></div></div>
-<div class="ttc" id="aclassWellParam_html_a5ec4f1ee1812092a5e0c01832ab57660"><div class="ttname"><a href="classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660">WellParam::diameter</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; diameter</div><div class="ttdoc">Diameter of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00076">ParamWell.hpp:76</a></div></div>
-<div class="ttc" id="aclassWellParam_html_a8260948f9a4255d068f8b95c7b6b2191"><div class="ttname"><a href="classWellParam.html#a8260948f9a4255d068f8b95c7b6b2191">WellParam::skinFactor</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; skinFactor</div><div class="ttdoc">Skin factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00078">ParamWell.hpp:78</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ab119452e566772ff6f8471c6f1be06dd"><div class="ttname"><a href="classWellParam.html#ab119452e566772ff6f8471c6f1be06dd">WellParam::I_perf</a></div><div class="ttdeci">vector&lt; USI &gt; I_perf</div><div class="ttdoc">I-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00072">ParamWell.hpp:72</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ab7060969e2b87291282f9e11b3942dcf"><div class="ttname"><a href="classWellParam.html#ab7060969e2b87291282f9e11b3942dcf">WellParam::WI</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; WI</div><div class="ttdoc">Transmissiblity connection factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00075">ParamWell.hpp:75</a></div></div>
-<div class="ttc" id="aclassWellParam_html_abc0da124d89dc98dd657bea0e45b5c1c"><div class="ttname"><a href="classWellParam.html#abc0da124d89dc98dd657bea0e45b5c1c">WellParam::J_perf</a></div><div class="ttdeci">vector&lt; USI &gt; J_perf</div><div class="ttdoc">J-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00073">ParamWell.hpp:73</a></div></div>
-<div class="ttc" id="aclassWellParam_html_ac634948e8516ee00d89a5f6644654d5e"><div class="ttname"><a href="classWellParam.html#ac634948e8516ee00d89a5f6644654d5e">WellParam::K_perf</a></div><div class="ttdeci">vector&lt; USI &gt; K_perf</div><div class="ttdoc">K-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00074">ParamWell.hpp:74</a></div></div>
+<div class="ttc" id="aclassWellOpt_html_a64ff78f7c017859428ca03027b8cfea2"><div class="ttname"><a href="classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2">WellOpt::WellOpt</a></div><div class="ttdeci">WellOpt()=default</div><div class="ttdoc">Default constructor.</div></div>
+<div class="ttc" id="aclassWellParam_html"><div class="ttname"><a href="classWellParam.html">WellParam</a></div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00060">ParamWell.hpp:61</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a161b69a0b54f11ebb716865d4f8ebcc5"><div class="ttname"><a href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">WellParam::direction</a></div><div class="ttdeci">vector&lt; string &gt; direction</div><div class="ttdoc">Direction of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00080">ParamWell.hpp:80</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a5ec4f1ee1812092a5e0c01832ab57660"><div class="ttname"><a href="classWellParam.html#a5ec4f1ee1812092a5e0c01832ab57660">WellParam::diameter</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; diameter</div><div class="ttdoc">Diameter of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00077">ParamWell.hpp:77</a></div></div>
+<div class="ttc" id="aclassWellParam_html_a8260948f9a4255d068f8b95c7b6b2191"><div class="ttname"><a href="classWellParam.html#a8260948f9a4255d068f8b95c7b6b2191">WellParam::skinFactor</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; skinFactor</div><div class="ttdoc">Skin factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00079">ParamWell.hpp:79</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ab119452e566772ff6f8471c6f1be06dd"><div class="ttname"><a href="classWellParam.html#ab119452e566772ff6f8471c6f1be06dd">WellParam::I_perf</a></div><div class="ttdeci">vector&lt; USI &gt; I_perf</div><div class="ttdoc">I-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00073">ParamWell.hpp:73</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ab7060969e2b87291282f9e11b3942dcf"><div class="ttname"><a href="classWellParam.html#ab7060969e2b87291282f9e11b3942dcf">WellParam::WI</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; WI</div><div class="ttdoc">Transmissiblity connection factor.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00076">ParamWell.hpp:76</a></div></div>
+<div class="ttc" id="aclassWellParam_html_abc0da124d89dc98dd657bea0e45b5c1c"><div class="ttname"><a href="classWellParam.html#abc0da124d89dc98dd657bea0e45b5c1c">WellParam::J_perf</a></div><div class="ttdeci">vector&lt; USI &gt; J_perf</div><div class="ttdoc">J-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00074">ParamWell.hpp:74</a></div></div>
+<div class="ttc" id="aclassWellParam_html_ac634948e8516ee00d89a5f6644654d5e"><div class="ttname"><a href="classWellParam.html#ac634948e8516ee00d89a5f6644654d5e">WellParam::K_perf</a></div><div class="ttdeci">vector&lt; USI &gt; K_perf</div><div class="ttdoc">K-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00075">ParamWell.hpp:75</a></div></div>
 <div class="ttc" id="aclassWell_html_a0654767d227788ef21edc111c4383710"><div class="ttname"><a href="classWell.html#a0654767d227788ef21edc111c4383710">Well::MassConserve</a></div><div class="ttdeci">void MassConserve(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">update moles of components in those bulks who connects to the well.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00730">Well.cpp:730</a></div></div>
-<div class="ttc" id="aclassWell_html_a0a83f4e4723d6bee71c9f9d16119dd35"><div class="ttname"><a href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">Well::CalInjQi_Blk</a></div><div class="ttdeci">void CalInjQi_Blk(const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00789">Well.cpp:789</a></div></div>
+<div class="ttc" id="aclassWell_html_a0a83f4e4723d6bee71c9f9d16119dd35"><div class="ttname"><a href="classWell.html#a0a83f4e4723d6bee71c9f9d16119dd35">Well::CalInjQi_Blk</a></div><div class="ttdeci">void CalInjQi_Blk(const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00787">Well.cpp:787</a></div></div>
 <div class="ttc" id="aclassWell_html_a137e72feecbbb28b5a70515a85f7db5d"><div class="ttname"><a href="classWell.html#a137e72feecbbb28b5a70515a85f7db5d">Well::Init</a></div><div class="ttdeci">void Init(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00176">Well.cpp:176</a></div></div>
-<div class="ttc" id="aclassWell_html_a1dcdd933eca7605282cc48f8a870eedb"><div class="ttname"><a href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">Well::CheckOptMode</a></div><div class="ttdeci">void CheckOptMode(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00858">Well.cpp:858</a></div></div>
+<div class="ttc" id="aclassWell_html_a1dcdd933eca7605282cc48f8a870eedb"><div class="ttname"><a href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">Well::CheckOptMode</a></div><div class="ttdeci">void CheckOptMode(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00855">Well.cpp:855</a></div></div>
 <div class="ttc" id="aclassWell_html_a2e894e0c7d9960483db283add94d34f4"><div class="ttname"><a href="classWell.html#a2e894e0c7d9960483db283add94d34f4">Well::CalWI_Peaceman_Vertical</a></div><div class="ttdeci">void CalWI_Peaceman_Vertical(const Bulk &amp;myBulk)</div><div class="ttdoc">cal Well Index with Peaceman model for vertical well.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00191">Well.cpp:191</a></div></div>
-<div class="ttc" id="aclassWell_html_a2f1d44fd7586866a902cfc90e3538e8a"><div class="ttname"><a href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">Well::CheckP</a></div><div class="ttdeci">OCP_INT CheckP(const Bulk &amp;myBulk)</div><div class="ttdoc">check if abnormal Pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00875">Well.cpp:875</a></div></div>
+<div class="ttc" id="aclassWell_html_a2f1d44fd7586866a902cfc90e3538e8a"><div class="ttname"><a href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">Well::CheckP</a></div><div class="ttdeci">OCP_INT CheckP(const Bulk &amp;myBulk)</div><div class="ttdoc">check if abnormal Pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00872">Well.cpp:872</a></div></div>
 <div class="ttc" id="aclassWell_html_a4001451f9c2d30df21980af227cc411a"><div class="ttname"><a href="classWell.html#a4001451f9c2d30df21980af227cc411a">Well::CalInjdG</a></div><div class="ttdeci">void CalInjdG(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate pressure difference between well and perforations for injection.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00449">Well.cpp:449</a></div></div>
 <div class="ttc" id="aclassWell_html_a636823f28ad32f39e9f519815f7cec4f"><div class="ttname"><a href="classWell.html#a636823f28ad32f39e9f519815f7cec4f">Well::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number, only parts related to wells are considered.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00178">Well.cpp:178</a></div></div>
 <div class="ttc" id="aclassWell_html_a6a7325e7ccce6aed4f469e06d598066d"><div class="ttname"><a href="classWell.html#a6a7325e7ccce6aed4f469e06d598066d">Well::InputPerfo</a></div><div class="ttdeci">void InputPerfo(const WellParam &amp;well)</div><div class="ttdoc">Input the param of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00070">Well.cpp:70</a></div></div>
@@ -1090,13 +1089,13 @@ $(function() {
 <div class="ttc" id="aclassWell_html_a874b5ec76145d0c252c953d809c9de77"><div class="ttname"><a href="classWell.html#a874b5ec76145d0c252c953d809c9de77">Well::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk, const bool flag=false)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00678">Well.cpp:678</a></div></div>
 <div class="ttc" id="aclassWell_html_a9694b4878637482973e4acd418f011d4"><div class="ttname"><a href="classWell.html#a9694b4878637482973e4acd418f011d4">Well::CalProddG</a></div><div class="ttdeci">void CalProddG(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate pressure difference between well and perforations for prodcution.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00513">Well.cpp:513</a></div></div>
 <div class="ttc" id="aclassWell_html_a98c5c54987ca460ab025504f014ce96e"><div class="ttname"><a href="classWell.html#a98c5c54987ca460ab025504f014ce96e">Well::CaldG</a></div><div class="ttdeci">void CaldG(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00441">Well.cpp:441</a></div></div>
-<div class="ttc" id="aclassWell_html_a9d134cb63650ae6dc9ce0b00a370a796"><div class="ttname"><a href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">Well::CalProdRate_Blk</a></div><div class="ttdeci">OCP_DBL CalProdRate_Blk(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00762">Well.cpp:762</a></div></div>
-<div class="ttc" id="aclassWell_html_ab166b401ceae3c2290de9eb5f85c2c51"><div class="ttname"><a href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well::CheckCrossFlow</a></div><div class="ttdeci">OCP_INT CheckCrossFlow(const Bulk &amp;myBulk)</div><div class="ttdoc">check if crossflow happens.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00910">Well.cpp:910</a></div></div>
+<div class="ttc" id="aclassWell_html_a9d134cb63650ae6dc9ce0b00a370a796"><div class="ttname"><a href="classWell.html#a9d134cb63650ae6dc9ce0b00a370a796">Well::CalProdRate_Blk</a></div><div class="ttdeci">OCP_DBL CalProdRate_Blk(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00760">Well.cpp:760</a></div></div>
+<div class="ttc" id="aclassWell_html_ab166b401ceae3c2290de9eb5f85c2c51"><div class="ttname"><a href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well::CheckCrossFlow</a></div><div class="ttdeci">OCP_INT CheckCrossFlow(const Bulk &amp;myBulk)</div><div class="ttdoc">check if crossflow happens.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00907">Well.cpp:907</a></div></div>
 <div class="ttc" id="aclassWell_html_ab883d41c3842854f9c2fb15919d9880b"><div class="ttname"><a href="classWell.html#ab883d41c3842854f9c2fb15919d9880b">Well::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup the well, it will be called when Grid and Bulk finish setupping.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00095">Well.cpp:95</a></div></div>
 <div class="ttc" id="aclassWell_html_abf45c0fc2455e809a3505f327e1afcb7"><div class="ttname"><a href="classWell.html#abf45c0fc2455e809a3505f327e1afcb7">Well::SmoothdG</a></div><div class="ttdeci">void SmoothdG()</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00433">Well.cpp:433</a></div></div>
 <div class="ttc" id="aclassWell_html_aca4cd158d56cbd633a05ae327af30fa2"><div class="ttname"><a href="classWell.html#aca4cd158d56cbd633a05ae327af30fa2">Well::AssembleMat_INJ_IMPES</a></div><div class="ttdeci">void AssembleMat_INJ_IMPES(const Bulk &amp;myBulk, Solver&lt; OCP_DBL &gt; &amp;mySolver, const OCP_DBL &amp;dt) const</div><div class="ttdoc">assemble matrix, parts related to injection well are included.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00237">Well.cpp:237</a></div></div>
-<div class="ttc" id="aclassWell_html_acb6d978c3d4453d4a9170cce3a35b5ca"><div class="ttname"><a href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">Well::CalProdQi_Blk</a></div><div class="ttdeci">void CalProdQi_Blk(const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00814">Well.cpp:814</a></div></div>
-<div class="ttc" id="aclassWell_html_adb515fe5c49dd0ef3ca54d97cd1cb56e"><div class="ttname"><a href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">Well::ShowPerfStatus</a></div><div class="ttdeci">void ShowPerfStatus() const</div><div class="ttdoc">Display operation mode of well and state of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00976">Well.cpp:976</a></div></div>
+<div class="ttc" id="aclassWell_html_acb6d978c3d4453d4a9170cce3a35b5ca"><div class="ttname"><a href="classWell.html#acb6d978c3d4453d4a9170cce3a35b5ca">Well::CalProdQi_Blk</a></div><div class="ttdeci">void CalProdQi_Blk(const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00812">Well.cpp:812</a></div></div>
+<div class="ttc" id="aclassWell_html_adb515fe5c49dd0ef3ca54d97cd1cb56e"><div class="ttname"><a href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">Well::ShowPerfStatus</a></div><div class="ttdeci">void ShowPerfStatus() const</div><div class="ttdoc">Display operation mode of well and state of perforations.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00973">Well.cpp:973</a></div></div>
 <div class="ttc" id="aclassWell_html_ae3b9eb3c86378e65b9bad809946d2f4f"><div class="ttname"><a href="classWell.html#ae3b9eb3c86378e65b9bad809946d2f4f">Well::CalInjRate_Blk</a></div><div class="ttdeci">OCP_DBL CalInjRate_Blk(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00742">Well.cpp:742</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

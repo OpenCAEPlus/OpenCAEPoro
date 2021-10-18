@@ -88,6 +88,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a190d23033428c880dddcc7e0143d0dc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(exp)</td></tr>
+<tr class="memdesc:a190d23033428c880dddcc7e0143d0dc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: Replace it with error log.  <a href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">More...</a><br /></td></tr>
 <tr class="separator:a190d23033428c880dddcc7e0143d0dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -131,7 +132,9 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <b>Value:</b><div class="fragment"><div class="line">    std::cout &lt;&lt; exp &lt;&lt; <span class="stringliteral">&quot; in &quot;</span> &lt;&lt; __func__ &lt;&lt; <span class="stringliteral">&quot;() in &quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot; in &quot;</span>           \</div>
 <div class="line">              &lt;&lt; __FILE__;</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00025">25</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
+<p>TODO: Replace it with error log. </p>
+
+<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00026">26</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
 
 </div>
 </div>
@@ -171,22 +174,22 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >DealData change a series of product of integers into two arrays. For example, 8*1 16*2 8*3 16*4 -&gt; obj &lt;8, 16, 8, 16&gt; &amp; val &lt;1, 2, 3, 4&gt;. </p>
 
-<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00058">58</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    obj.resize(0);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    region.resize(0);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> str : vbuf) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">auto</span> pos = str.find(<span class="charliteral">&#39;*&#39;</span>);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">if</span> (pos != string::npos) {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     len = str.size();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> num = stoi(str.substr(0, pos));</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     val = stoi(str.substr(pos + 1, len - (pos + 1)));</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            obj.push_back(num);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            region.push_back(val);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00059">59</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    obj.resize(0);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    region.resize(0);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> str : vbuf) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">auto</span> pos = str.find(<span class="charliteral">&#39;*&#39;</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (pos != string::npos) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     len = str.size();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> num = stoi(str.substr(0, pos));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     val = stoi(str.substr(pos + 1, len - (pos + 1)));</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            obj.push_back(num);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            region.push_back(val);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 </div><!-- fragment -->
@@ -271,16 +274,16 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >Map_str2int is used to map string to integer, which used to match the keyword efficiently in input file in the switch structure. </p>
 
-<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00033">33</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> res = 0;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> t   = 100;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        res += (int)mystr[len - 1 - i] * t;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        t *= 100;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<p class="definition">Definition at line <a class="el" href="UtilInput_8hpp_source.html#l00034">34</a> of file <a class="el" href="UtilInput_8hpp_source.html">UtilInput.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> res = 0;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> t   = 100;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        res += (int)mystr[len - 1 - i] * t;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        t *= 100;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

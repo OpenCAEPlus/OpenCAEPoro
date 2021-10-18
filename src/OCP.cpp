@@ -11,6 +11,7 @@
 
 #include "OCP.hpp"
 
+/// Read from input file and set control and output params.
 void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
@@ -18,27 +19,37 @@ void OpenCAEPoro::InputParam(ParamRead& param)
     output.InputParam(param.paramOutput);
 }
 
+/// Call setup processdures for reservoir, output, and linear solver.
 void OpenCAEPoro::SetupReservoir(ParamRead& param)
 {
     InputParam(param);
     reservoir.Setup();
     output.Setup(reservoir, control);
-    SetupSolver();
+    SetupLinearSolver();
 }
 
-void OpenCAEPoro::SetupSolver()
+/// Call SetupParm and AllocateMat to prepare the linear solver
+void OpenCAEPoro::SetupLinearSolver()
 {
-    if (control.method == IMPES) {
-        impes.SetupParam(control.workDir, control.solveFile);
-        impes.AllocateMat(reservoir);
-        cout << "IMPES Method Applys !" << endl;
-    } else if (control.method == FIM) {
-        cout << "FIM Method Applys !" << endl;
+    switch (control.method) {
+        case FIM: // Fully Implicite Method
+            cout << "Applying the FIM Method ..." << endl;
+            break;
+        case IMPES: // IMplicit Pressure Explicit Composition
+            cout << "Applying the IMPES Method ..." << endl;
+            impes.SetupParam(control.workDir, control.solveFile);
+            impes.AllocateMat(reservoir);
+            break;
+        default:
+            OCP_MESSAGE("Trying to call " << control.method);
+            OCP_ABORT("Solution method not supported!");
     }
 }
 
+/// Initialize the reservoir class.
 void OpenCAEPoro::InitReservoir() { reservoir.Init(); }
 
+/// Call IMPES, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()
 {
     GetWallTime Timer;
@@ -47,22 +58,26 @@ void OpenCAEPoro::RunSimulation()
     switch (control.method) {
         case IMPES:
             impes.Run(reservoir, control, output);
-        default:
             break;
+        default:
+            OCP_MESSAGE("Trying to call " << control.method);
+            OCP_ABORT("Solution method not supported!");
     }
 
     control.totalTime = Timer.Stop() / 1000;
 }
 
-void OpenCAEPoro::OutputResults()
+/// Print summary information to cout and SUMMARY.out file.
+void OpenCAEPoro::OutputResults() const
 {
-
-    cout << endl;
+    cout << "=========================================" << endl;
     cout << "Final time:          " << control.current_time << " Days" << endl;
-    cout << "Total linear steps:  " << control.iterLS_total << endl;
-    cout << "Linear solve time:   " << control.timeLS << "s" << endl;
     cout << "Total time steps:    " << control.iterNR_total << endl;
     cout << "Simulation time:     " << control.totalTime << "s" << endl;
+    cout << "Total linear steps:  " << control.iterLS_total << endl;
+    cout << "Linear solve time:   " << control.timeLS << "s"
+         << " (" << 100.0 * control.timeLS / control.totalTime << "%)" << endl;
+
     output.PrintInfo();
 }
 

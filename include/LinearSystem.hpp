@@ -15,7 +15,7 @@
 
 #include "OCPConst.hpp"
 
-// CSRX
+/// CSRx matrix type based on FASP++
 template <typename T> class MAT_Faspxx
 {
 public:

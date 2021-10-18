@@ -28,6 +28,7 @@
 /// But most of these have not been applied to current program.
 typedef vector<vector<OCP_DBL>> TUNING;
 
+/// TODO: Add Doxygen
 class TuningPair
 {
 public:

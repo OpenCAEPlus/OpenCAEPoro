@@ -12,6 +12,7 @@
 #include "FlowUnit.hpp"
 #include "UtilError.hpp"
 
+/// Generate the table of Sw vs. Pcwg using SGOF and SWOF.
 void FlowUnit::Generate_SWPCWG()
 {
     if (SGOF.IsEmpty()) OCP_ABORT("SGOF is missing!");
@@ -30,6 +31,7 @@ void FlowUnit::Generate_SWPCWG()
     SWPCWG.SetRowCol();
 }
 
+/// TODO: Add Doxygen
 void FlowUnit::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     switch (mode) {
@@ -51,12 +53,14 @@ void FlowUnit::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
     }
 }
 
+/// TODO: Add Doxygen
 void FlowUnit::CalKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     kr_out[0] = 1;
     pc_out[0] = 0;
 }
 
+/// TODO: Add Doxygen
 void FlowUnit::CalKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     OCP_DBL Sw = S_in[1];
@@ -73,6 +77,7 @@ void FlowUnit::CalKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
     pc_out[1] = Pcw;
 }
 
+/// TODO: Add Doxygen
 void FlowUnit::CalKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     OCP_DBL Sg = S_in[1];
@@ -89,6 +94,7 @@ void FlowUnit::CalKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
     pc_out[1] = Pcg;
 }
 
+/// TODO: Add Doxygen
 void FlowUnit::CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     OCP_DBL Sg = S_in[1];
@@ -115,6 +121,7 @@ void FlowUnit::CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out
     pc_out[2] = Pcw;
 }
 
+/// TODO: Add Doxygen
 OCP_DBL FlowUnit::CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog,
                                 const OCP_DBL& krw, const OCP_DBL& krg) const
 {
@@ -128,6 +135,7 @@ OCP_DBL FlowUnit::CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog,
     return kro;
 }
 
+/// TODO: Add Doxygen
 FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI& i)
 {
     mode = inmode;

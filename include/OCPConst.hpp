@@ -35,8 +35,10 @@ const USI IMPES = 1;
 const USI FIM   = 2;
 
 // General consts
-const OCP_DBL TINY = 1E-8;
-const OCP_DBL PI   = 3.141592653;
+const OCP_DBL MAX_TIME_STEP = 365;         ///< Maximal time stepsize
+const OCP_DBL MIN_TIME_STEP = 1E-6;        ///< Minimal time stepsize
+const OCP_DBL TINY          = 1E-8;        ///< Small constant
+const OCP_DBL PI            = 3.141592653; ///< Pi
 
 // Physical consts
 const OCP_DBL GRAVITY_FACTOR = 0.00694444; // 0.00694444 ft2 psi / lb

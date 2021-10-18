@@ -26,7 +26,10 @@ class Perforation
     friend class Well;
 
 public:
+    /// Default constuctor. 
     Perforation() = default;
+
+    /// TODO: Add Doxygen
     void setState(const bool& flag) { state = flag; };
 
 private:

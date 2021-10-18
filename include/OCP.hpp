@@ -20,19 +20,17 @@
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.1.0"
+#define OCPVersion "0.1.0"  ///< Software version number
 
 /// Top level data structure in the OpenCAEPoro simulator
 class OpenCAEPoro
 {
 public:
     /// Output OpenCAEPoro version information.
-    void PrintVersion()
+    void PrintVersion() const
     {
-        std::cout << "-------------------------\n"
-                  << "|   OpenCAEPoro " << OCPVersion << "   |\n"
-                  << "-------------------------\n"
-                  << std::endl;
+        std::cout << "OpenCAEPoro Version-" << OCPVersion << std::endl
+                  << "=========================" << std::endl;
     };
 
     /// Read input parameters to an internal structure.
@@ -41,9 +39,6 @@ public:
     /// Setup reservoir based on an internal structure.
     void SetupReservoir(ParamRead& param);
 
-    /// Setup linear solution method.
-    void SetupSolver();
-
     /// Initialize or get intitial status of reserovir.
     void InitReservoir();
 
@@ -51,22 +46,26 @@ public:
     void RunSimulation();
 
     /// Output necessary information for post-processing.
-    void OutputResults();
+    void OutputResults() const;
+
+private:
+    /// Setup linear solution method.
+    void SetupLinearSolver();
 
 private:
     /// The core properties of a reservoir.
     Reservoir reservoir;
 
-    /// The IMplicit Pressure Explicit Saturation method class.
-    OCP_IMPES impes;
+    /// The IMplicit Pressure Explicit Saturation (IMPES) method.
+    OCP_IMPES impes; // TODO: Change IMPES to IMPEC.
 
-    /// The Fully Implicit method class.
+    /// The Fully Implicit Method (FIM).
     OCP_FIM fim;
 
-    /// Control class manages the params of method and time step.
+    /// Control class handles algorithm params and time steping.
     OCP_Control control;
 
-    /// Output class outputs the results you are interested in.
+    /// Output class handles output level of the program.
     OCP_Output output;
 };
 

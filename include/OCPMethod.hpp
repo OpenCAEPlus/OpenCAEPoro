@@ -19,23 +19,30 @@
 #include "LinearSolver.hpp"
 #include "UtilTiming.hpp"
 
-/// OCP_IMPES is IMPES(implict pressure explict saturation) method in our
-/// simulator(OpenCAEPoro), which consists of the functions in Reservoir.
+/// OCP_IMPES is IMPES (implict pressure explict saturation) method.
 class OCP_IMPES
 {
 public:
+    /// Setup parameters needed for IMPES.
     void SetupParam(const string& dir, const string& file);
+
+    /// Allocate maximal possible memory needed by linear solver.
     void AllocateMat(const Reservoir& rs);
+
+    /// Start dynamic simulation. // TODO: ???
     void Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
+
+    /// One time step of simulation.
     void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
+
+    /// Assemble linear system and solve. // TODO: Only difference as an interface?
     void SolveP(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
 
 private:
     Solver<OCP_DBL> solver;
 };
 
-/// (to do) OCP_FIM is FIM(fully implict method) method in our simulator(OpenCAEPoro),
-/// which consists of the functions in Reservoir.
+/// OCP_FIM is FIM (fully implict method) method.
 class OCP_FIM
 {
 public:
