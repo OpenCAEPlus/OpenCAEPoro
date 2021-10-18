@@ -127,6 +127,11 @@ void Connection_BB::CalConn(const Grid& myGrid, const USI& np)
     upblock_Rho.resize(numConn * np);
     upblock_Trans.resize(numConn * np);
     upblock_Velocity.resize(numConn * np);
+
+    lastUpblock.resize(numConn * np);
+    lastUpblock_Rho.resize(numConn * np);
+    lastUpblock_Trans.resize(numConn * np);
+    lastUpblock_Velocity.resize(numConn * np);
 }
 
 void Connection_BB::CalIteratorConn()
@@ -428,6 +433,24 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
             mySolver.val[n].push_back(mySolver.diagVal[n]);
     }
 }
+
+void Connection_BB::SetLastStep()
+{
+    lastUpblock = upblock;
+    lastUpblock_Rho = upblock_Rho;
+    lastUpblock_Trans = upblock_Trans;
+    lastUpblock_Velocity = upblock_Velocity;
+
+}
+
+void Connection_BB::Reset()
+{
+    upblock = lastUpblock;
+    upblock_Rho = lastUpblock_Rho;
+    upblock_Trans = lastUpblock_Trans;
+    upblock_Velocity = lastUpblock_Velocity;
+}
+
 
 void Connection_BB::GetConnectionInfo() const
 {

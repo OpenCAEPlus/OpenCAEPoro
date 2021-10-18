@@ -93,6 +93,9 @@ public:
     void AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
                            const OCP_DBL& dt) const;
 
+    void SetLastStep();
+    void Reset();
+
 private:
     // Bulk to Bulk
     OCP_USI numBulk; ///< num of bulks (active grids).
@@ -120,6 +123,12 @@ private:
                                    ///< * nums of phase.
     vector<OCP_DBL> upblock_Velocity; ///< flow rate of volume of phase from upblock:
                                       ///< numConn * nums of phase.
+    // For last time step
+    vector<OCP_USI> lastUpblock;
+    vector<OCP_DBL> lastUpblock_Rho;
+    vector<OCP_DBL> lastUpblock_Trans;
+    vector<OCP_DBL> lastUpblock_Velocity;
+                                      
 };
 
 template <typename T> void Connection_BB::AllocateMat(Solver<T>& MySolver) const

@@ -38,6 +38,7 @@ void Reservoir::Init()
     bulk.CalKrPc();
     bulk.SetLastStep();
     conn.CalFlux(bulk);
+    conn.SetLastStep();
     wellgroup.Init(bulk);
 }
 
@@ -100,18 +101,17 @@ void Reservoir::ResetVal01()
 {
     bulk.ResetP();
     bulk.ResetPj();
-    conn.CalFlux(bulk);
+    conn.Reset();
 }
 
 void Reservoir::ResetVal02()
 {
     bulk.ResetP();
     bulk.ResetPj();
-    conn.CalFlux(bulk);
-
     bulk.ResetNi();
     bulk.FlashNi();
 
+    conn.CalFlux(bulk);
     bulk.ResetVp();
 }
 

@@ -106,7 +106,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
         // fouth check: Volume error check
         if (!rs.CheckVe(ve)) {
-            cout << "###WARNING: volume error is too big\n";
+            // cout << "###WARNING: volume error is too big\n";
             dt /= 2;
             rs.ResetVal02();
             continue;
@@ -126,6 +126,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     rs.bulk.CalMaxChange();
     ctrl.CalNextTstep(rs);
     rs.bulk.SetLastStep();
+    rs.conn.SetLastStep();
     rs.wellgroup.SetLastStep();
 }
 
