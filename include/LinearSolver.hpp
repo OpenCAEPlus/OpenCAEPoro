@@ -140,7 +140,9 @@ template <typename T> void Solver<T>::ClearData()
     diagPtr.assign(maxDim, 0);
     diagVal.assign(maxDim, 0);
     b.assign(maxDim, 0);
-    u.assign(maxDim, 0);
+    // In fact, for linear system the current solution is a good initial solution for next step,
+    // so u will not be set to zero.
+    // u.assign(maxDim, 0);
 }
 
 template <typename T> void Solver<T>::AssembleMat_Fasp()
