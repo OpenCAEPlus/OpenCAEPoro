@@ -53,6 +53,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     rs.wellgroup.PrepareWell(rs.bulk);
 
     // cout << ctrl.current_time << " Days" << endl;
+
     OCP_DBL cfl = rs.CalCFL01(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
@@ -61,12 +62,6 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
     while (true) {
         if (dt < MIN_TIME_STEP) OCP_ABORT("Time stepsize is too small!");
-
-        if (dt < 1E-6) {
-            cout << fixed << setprecision(6);
-            cout << "CFL: " << cfl << "\t dt: " << dt << endl;
-            OCP_ABORT("tstep is too small!");
-        }
 
         rs.AssembleMat(solver, dt);
         SolveP(rs, ctrl);
@@ -87,7 +82,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         cfl = rs.CalCFL01(dt);
         if (cfl > 1) {
             dt /= 2;
-            rs.ResetVal01();
+            rs.ResetVal();
             cout << "CFL is too big" << endl;
             continue;
         }
@@ -99,7 +94,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
         if (!rs.CheckNi()) {
             dt /= 2;
             rs.ResetVal01();
-            cout << "Negative Ni occurs" << endl;
+            cout << "Negative Ni occurs\n";
             continue;
         }
 

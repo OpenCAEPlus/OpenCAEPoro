@@ -266,10 +266,7 @@ void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
         for (USI i = 0; i < nc; i++) {
             Vfi_zi += myBulk.vfi[k * nc + i] * opt.zi[i];
         }
-
-        USI pvtnum = myBulk.PVTNUM[k];
-        perf[p].xi =
-            myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
+        
         OCP_DBL valw = dt * perf[p].xi * perf[p].transj[0];
         OCP_DBL bw   = valw * dG[p];
         OCP_DBL valb = valw * Vfi_zi;
@@ -722,10 +719,13 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
 
             perf[p].qt_ft3 = perf[p].transj[0] * dP;
 
-            USI pvtnum = myBulk.PVTNUM[k];
-            if (flag)
+            
+            if (flag) {
+                USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
                     myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
+            }
+                
             OCP_DBL xi = perf[p].xi;
             for (USI i = 0; i < nc; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * xi * opt.zi[i];
@@ -783,11 +783,8 @@ OCP_DBL Well::CalInjRate_Blk(const Bulk& myBulk)
         OCP_DBL Pperf = opt.maxBHP + dG[p];
         OCP_USI k     = perf[p].location;
 
-        USI     pvtnum = myBulk.PVTNUM[k];
-        OCP_DBL xi =
-            myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
         OCP_DBL dP = Pperf - myBulk.P[k];
-        qj += perf[p].transj[0] * xi * dP;
+        qj += perf[p].transj[0] * perf[p].xi * dP;
     }
     return qj;
 }

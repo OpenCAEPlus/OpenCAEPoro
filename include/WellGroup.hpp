@@ -50,7 +50,7 @@ public:
     void Init(const Bulk& myBulk);
     /// change operation mode of well at the ith critical time point, which decided by
     /// user input.
-    void ApplyControl(USI i);
+    void ApplyControl(const USI& i);
     /// calculate well properties at the beginning of each time step.
     void PrepareWell(const Bulk& myBulk);
     /// calculate injection rate, total injection, production rate, total production for

@@ -41,14 +41,14 @@ const OCP_DBL TINY          = 1E-8;        ///< Small constant
 const OCP_DBL PI            = 3.141592653; ///< Pi
 
 // Physical consts
-const OCP_DBL GRAVITY_FACTOR = 0.00694444; // 0.00694444 ft2 psi / lb
+const OCP_DBL GRAVITY_FACTOR = 0.00694444; ///< 0.00694444 ft2 psi / lb
 const OCP_DBL RHOW_STD       = 62.3664;    // lb / ft3
 const OCP_DBL RHOAIR_STD     = 0.076362;   // lb / ft3
-const OCP_DBL PRESSURE_STD   = 14.6959;    // psia = 1 atm
+const OCP_DBL PRESSURE_STD   = 14.6959;    ///< 14.6959 psia = 1 atm
 
 // Unit conversion consts
-const OCP_DBL CONV1 = 5.61458;    // 1 bbl = 5.61458 ft3
-const OCP_DBL CONV2 = 1.12712E-3; // Darcy constant in Field
+const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = 5.61458 ft3
+const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in Field
 
 // Mixture types
 const USI BLKOIL   = 1;

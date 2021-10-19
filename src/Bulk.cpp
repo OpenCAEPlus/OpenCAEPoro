@@ -131,23 +131,33 @@ void Bulk::Setup(const Grid& myGrid)
     Pj.resize(numBulk * numPhase);
     Pc.resize(numBulk * numPhase);
     phaseExist.resize(numBulk * numPhase);
-    Ni.resize(numBulk * numCom);
     S.resize(numBulk * numPhase);
+    rho.resize(numBulk * numPhase);
     xi.resize(numBulk * numPhase);
     cij.resize(numBulk * numPhase * numCom);
-    rho.resize(numBulk * numPhase);
+    Ni.resize(numBulk * numCom); 
     mu.resize(numBulk * numPhase);
     kr.resize(numBulk * numPhase);
     vj.resize(numBulk * numPhase);
-
     vf.resize(numBulk);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
 
     lP.resize(numBulk);
     lPj.resize(numBulk * numPhase);
-    lNi.resize(numBulk * numCom);
+    lPc.resize(numBulk * numPhase);
+    lphaseExist.resize(numBulk * numPhase);
     lS.resize(numBulk * numPhase);
+    lrho.resize(numBulk * numPhase);
+    lxi.resize(numBulk * numPhase);
+    lcij.resize(numBulk * numPhase * numCom);
+    lNi.resize(numBulk * numCom);
+    lmu.resize(numBulk * numPhase);
+    lkr.resize(numBulk * numPhase);
+    lvj.resize(numBulk * numPhase);
+    lvf.resize(numBulk);
+    lvfi.resize(numBulk * numCom);
+    lvfp.resize(numBulk);
     rockLVp.resize(numBulk);
 
     cfl.resize(numBulk * numPhase);
@@ -1031,8 +1041,11 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     USI     pvtnum = PVTNUM[n];
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
+        // Important! Saturation must be pass no matter if the phase exists.
+        // Because it will be used to calculate relative permeability and capillary pressure in
+        // every time step, be sure saturation is updated every step.
+        S[bId + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
-            S[bId + j]   = flashCal[pvtnum]->S[j];
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j]  = flashCal[pvtnum]->xi[j];
             for (USI i = 0; i < numCom; i++) {
@@ -1041,11 +1054,15 @@ void Bulk::PassFlashValue(const OCP_USI& n)
             }
             mu[bId + j] = flashCal[pvtnum]->mu[j];
             vj[bId + j] = flashCal[pvtnum]->v[j];
-
-            if (vj[bId + j] == 0) {
-                cout << "zero" << endl;
+        }
+        else {
+            rho[bId + j] = INFINITY;
+            xi[bId + j] = INFINITY;
+            for (USI i = 0; i < numCom; i++) {
+                cij[bId * numCom + j * numCom + i] = INFINITY;
             }
-
+            mu[bId + j] = INFINITY;
+            vj[bId + j] = INFINITY;
         }
     }
     vf[n]  = flashCal[pvtnum]->vf;
@@ -1098,6 +1115,26 @@ void Bulk::GetSolIMPES(const vector<OCP_DBL>& u)
             }
         }
     }
+}
+
+void Bulk::SetLastStep()
+{
+    lP      = P;
+    lPj     = Pj;
+    lPc = Pc;
+    lphaseExist = phaseExist;
+    lS = S;
+    lrho = rho;
+    lxi = xi;
+    lcij = cij;
+    lNi = Ni;
+    lmu = mu;
+    lkr = kr;
+    lvj = vj;
+    lvf = vf;
+    lvfi = vfi;
+    lvfp = vfp;
+    rockLVp = rockVp;
 }
 
 void Bulk::CalMaxChange()
@@ -1221,12 +1258,57 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
     for (OCP_USI n = 0; n < numBulk; n++) {
         tmp = fabs(vf[n] - rockVp[n]) / rockVp[n];
         if (tmp > Vlim) {
-            cout << "Bulk " << n << "   ";
+            cout << "Bulk " << n << "   " << setprecision(6) << tmp << "   ";
             return false;
         }
     }
     return true;
 }
+
+void Bulk::CheckDiff()
+{
+    OCP_DBL tmp;
+    OCP_USI id;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        for (USI j = 0; j < numPhase; j++) {
+            id = n * numPhase + j;
+            tmp = fabs(phaseExist[id] - lphaseExist[id]);
+            if (tmp != 0.0) {
+                cout << "Difference in phaseExist\t" << tmp << "\n";
+            }
+            if (lphaseExist[id] || phaseExist[id]) {
+                tmp = fabs(S[id] - lS[id]);
+                if (tmp != 0.0) {
+                    cout << "Difference in S\t" << tmp << "  " << phaseExist[id] << "\n";
+                }
+                tmp = fabs(xi[id] - lxi[id]);
+                if (tmp != 0.0) {
+                    cout << "Difference in Xi\t" << tmp << "  " << phaseExist[id] << "\n";
+                }
+                tmp = fabs(rho[id] - lrho[id]);
+                if (tmp != 0.0) {
+                    cout << "Difference in rho\t" << tmp << "  " << phaseExist[id] << "\n";
+                }
+            }
+        }
+    }
+}
+
+
+void Bulk::ResetFlash()
+{
+    phaseExist = lphaseExist;
+    S = lS;
+    rho = lrho;
+    xi = lxi;
+    cij = lcij;
+    mu = lmu;
+    vj = lvj;
+    vf = lvf;
+    vfp = lvfp;
+    vfi = lvfi;
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

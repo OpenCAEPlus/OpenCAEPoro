@@ -71,7 +71,7 @@ void WellGroup::Init(const Bulk& myBulk)
     }
 }
 
-void WellGroup::ApplyControl(USI i)
+void WellGroup::ApplyControl(const USI& i)
 {
     for (USI w = 0; w < numWell; w++) {
         wellGroup[w].opt = wellGroup[w].optSet[i];
@@ -147,7 +147,7 @@ void WellGroup::AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBu
                     wellGroup[w].AssembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);
                     break;
                 default:
-                    ERRORcheck("Wrong Well Type in function");
+                    ERRORcheck("Wrong Well Type");
                     exit(0);
             }
         }

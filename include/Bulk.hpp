@@ -76,14 +76,8 @@ public:
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcComp(const USI& tabrow);
     /// Assignment value for some variable, it's called when one time step finished.
-    void SetLastStep()
-    {
-        lP      = P;
-        lPj     = Pj;
-        lNi     = Ni;
-        lS      = S;
-        rockLVp = rockVp;
-    }
+    void SetLastStep();
+
     /// calculate max change of some physical variables to predict the size of next time
     /// step.
     void CalMaxChange();
@@ -136,7 +130,10 @@ public:
     void ResetNi() { Ni = lNi; }
     /// Reset Vp to the ones at last time step.
     void ResetVp() { rockVp = rockLVp; }
-
+    /// Reset variables in flash calculations.
+    void ResetFlash();
+    /// Check difference from last time step.
+    void CheckDiff();
     /// Return dPmax.
     OCP_DBL GetdPmax() const { return dPmax; }
     /// Return dNmax.
@@ -174,8 +171,8 @@ private:
 
     vector<OCP_DBL> vj;  ///< volume of phase: numPhase*numBulk.
     vector<OCP_DBL> vf;  ///< total fluid volume: numBulk.
-    vector<OCP_DBL> vfi; ///< dVf / dNi: numBulk.
-    vector<OCP_DBL> vfp; ///< dVf / dP.
+    vector<OCP_DBL> vfi; ///< dVf / dNi: numCom*numBulk.
+    vector<OCP_DBL> vfp; ///< dVf / dP: numBulk.
 
     /// used to identify phase name according to its index: numPhase.
     /// For example, 0th phase is Oil.
@@ -195,11 +192,22 @@ private:
     vector<FlowUnit*> flow;     ///< a flow class used to calculate capillary pressure,
                                 ///< relative permeability.
 
-    // infomation at last STEP
-    vector<OCP_DBL> lP;  ///< pressure at last time step: numBulk.
-    vector<OCP_DBL> lPj; ///< capillary pressure at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lNi; ///< moles of component at last time step: numCom*numBulk.
-    vector<OCP_DBL> lS;  ///< saturation of phase at last time step: numPhase*numBulk.
+    // Properties at last STEP
+    vector<OCP_DBL> lP;  ///< Pressure at last time step: numBulk.
+    vector<OCP_DBL> lPj; ///< Pressure of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lPc; ///< Capillary pressure of phase at last time step: numPhase*numBulk.
+    vector<bool>    lphaseExist; ///< existence of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lS;  ///< Saturation of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lrho; ///< Mass density of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lxi; ///< Moles density of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lcij; ///< Nij / Nj at last time step: numPhase*numCom*numBulk.
+    vector<OCP_DBL> lNi; ///< Moles of component at last time step: numCom*numBulk.
+    vector<OCP_DBL> lmu; ///< Viscosity of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lkr; ///< Relative permeability of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lvj; ///< Volume of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lvf; ///< Total fluid volume at last time step: numBulk.
+    vector<OCP_DBL> lvfi; ///< dVf / dNi at last time step: numCom*numBulk.
+    vector<OCP_DBL> lvfp; ///< dVf / dP at last time step: numBulk.
     vector<OCP_DBL> rockLVp; ///< volume of pore at last time step: numBulk.
 
     // CFL number

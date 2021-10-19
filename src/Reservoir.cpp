@@ -97,10 +97,18 @@ OCP_INT Reservoir::CheckP()
     return flag;
 }
 
+void Reservoir::ResetVal()
+{
+    bulk.ResetP();
+    bulk.ResetPj();
+    conn.Reset();
+}
+
 void Reservoir::ResetVal01()
 {
     bulk.ResetP();
     bulk.ResetPj();
+    bulk.ResetNi();
     conn.Reset();
 }
 
@@ -109,10 +117,18 @@ void Reservoir::ResetVal02()
     bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();
-    bulk.FlashNi();
-
-    conn.CalFlux(bulk);
+    bulk.ResetFlash();
     bulk.ResetVp();
+    conn.Reset();
+
+    // bulk.FlashNi();
+    // bulk.CheckDiff();
+
+    // conn.CalFlux(bulk);
+    // conn.CheckDiff();
+    // Becareful! if recalculate the flash, result may be different because the initial
+    // flash was calculated by FlashSj not FlashNi.
+     
 }
 
 /*----------------------------------------------------------------------------*/

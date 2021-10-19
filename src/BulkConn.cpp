@@ -123,15 +123,15 @@ void Connection_BB::CalConn(const Grid& myGrid, const USI& np)
         neighborNum[bIdb] = count;
     }
 
-    upblock.resize(numConn * np);
-    upblock_Rho.resize(numConn * np);
-    upblock_Trans.resize(numConn * np);
-    upblock_Velocity.resize(numConn * np);
+    upblock.resize(numConn * np, 0);
+    upblock_Rho.resize(numConn * np, 0);
+    upblock_Trans.resize(numConn * np, 0);
+    upblock_Velocity.resize(numConn * np, 0);
 
-    lastUpblock.resize(numConn * np);
-    lastUpblock_Rho.resize(numConn * np);
-    lastUpblock_Trans.resize(numConn * np);
-    lastUpblock_Velocity.resize(numConn * np);
+    lastUpblock.resize(numConn * np, 0);
+    lastUpblock_Rho.resize(numConn * np, 0);
+    lastUpblock_Trans.resize(numConn * np, 0);
+    lastUpblock_Velocity.resize(numConn * np, 0);
 }
 
 void Connection_BB::CalIteratorConn()
@@ -252,10 +252,6 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
         eId         = iteratorConn[c].EId;
         OCP_DBL Akd = area[c];
 
-        //if (c == 3016) {
-        //    cout << "get it" << endl;
-        //}
-
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
@@ -324,9 +320,10 @@ void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
 
         for (USI j = 0; j < np; j++) {
             OCP_USI uId = upblock[c * np + j];
-            if (!myBulk.phaseExist[uId * np + j]) continue;
+            OCP_USI uId_np_j = uId * np + j;
 
-            OCP_USI uId_np_j      = uId * np + j;
+            if (!myBulk.phaseExist[uId_np_j]) continue;
+
             OCP_DBL phaseVelocity = upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {
                 OCP_DBL dNi = dt * phaseVelocity * myBulk.xi[uId_np_j] *
@@ -449,6 +446,31 @@ void Connection_BB::Reset()
     upblock_Rho = lastUpblock_Rho;
     upblock_Trans = lastUpblock_Trans;
     upblock_Velocity = lastUpblock_Velocity;
+}
+
+void Connection_BB::CheckDiff() const
+{
+    // upblock
+    OCP_DBL tmp;
+    cout << setprecision(18);
+    for (OCP_USI c = 0; c < numConn; c++) {
+        tmp = fabs(upblock[c] - lastUpblock[c]);
+        if (tmp != 0.0) {
+            cout << "Difference in upblock\t" << tmp << "\n";
+        }
+        tmp = fabs(upblock_Rho[c] - lastUpblock_Rho[c]);
+        if ( tmp != 0.0) {
+            cout << "Difference in upblock_Rho\t" << tmp << "\n";
+        }
+        tmp = fabs(upblock_Trans[c] - lastUpblock_Trans[c]);
+        if ( tmp != 0.0) {
+            cout << "Difference in upblock_Trans\t" << tmp << "\n";
+        }
+        tmp = fabs(upblock_Velocity[c] - lastUpblock_Velocity[c]);
+        if ( tmp != 0.0) {
+            cout << "Difference in upblock_Velocity\t" << tmp << "\n";
+        }
+    }
 }
 
 

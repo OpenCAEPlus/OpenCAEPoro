@@ -67,11 +67,13 @@ public:
     /// equtions.
     bool CheckNi() const { return bulk.CheckNi(); }
     /// reset pressure, capillary pressure, flux.
+    void ResetVal();
+    /// reset pressure, capillary pressure, moles of componnets, flux.
     void ResetVal01();
     /// check if relative error between fluids volume and pore volume is too large.
     /// if so, cut the timestep, reset with function resetval02 and resolve the linear
     /// equtions.
-    bool CheckVe(const OCP_DBL& Vlim) { return bulk.CheckVe(Vlim); }
+    bool CheckVe(const OCP_DBL& Vlim) const { return bulk.CheckVe(Vlim); }
     /// reset pressure, capillary pressure, flux, moles of components, volume of pores.
     void ResetVal02();
 

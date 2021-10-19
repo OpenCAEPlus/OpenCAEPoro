@@ -95,6 +95,9 @@ public:
 
     void SetLastStep();
     void Reset();
+    // for test
+    /// Check the difference from last step.
+    void CheckDiff() const;
 
 private:
     // Bulk to Bulk
