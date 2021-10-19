@@ -1025,6 +1025,9 @@ void Bulk::FlashSj()
         }
         PassFlashValue(n);
     }
+#ifdef _DEBUG
+    CheckSat();
+#endif // _DEBUG
 }
 
 void Bulk::FlashNi()
@@ -1033,6 +1036,10 @@ void Bulk::FlashNi()
         flashCal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * numCom]);
         PassFlashValue(n);
     }
+#ifdef _DEBUG
+    CheckSat();
+#endif // _DEBUG
+
 }
 
 void Bulk::PassFlashValue(const OCP_USI& n)
@@ -1042,8 +1049,8 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be pass no matter if the phase exists.
-        // Because it will be used to calculate relative permeability and capillary pressure in
-        // every time step, be sure saturation is updated every step.
+        // Because it will be used to calculate relative permeability and capillary pressure at
+        // every time step, be sure all saturation are updated at every step.
         S[bId + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
             rho[bId + j] = flashCal[pvtnum]->rho[j];
@@ -1290,6 +1297,20 @@ void Bulk::CheckDiff()
                     cout << "Difference in rho\t" << tmp << "  " << phaseExist[id] << "\n";
                 }
             }
+        }
+    }
+}
+
+void Bulk::CheckSat() const
+{
+    OCP_DBL tmp;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        tmp = 0;
+        for (USI j = 0; j < numPhase; j++) {
+            tmp += S[n * numPhase + j];
+        }
+        if (fabs(tmp - 1) > TINY) {
+            OCP_ABORT("Saturation greater than 1");
         }
     }
 }

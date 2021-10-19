@@ -35,6 +35,7 @@ void Reservoir::Init()
 
     bulk.CalVporo();
     bulk.FlashSj();
+    // bulk.FlashNi();
     bulk.CalKrPc();
     bulk.SetLastStep();
     conn.CalFlux(bulk);

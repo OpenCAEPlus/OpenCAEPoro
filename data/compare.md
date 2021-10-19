@@ -16,10 +16,10 @@ Simulation time:     2.44659s
 OCP_IMPES_1
 
 Final time:          3655.500 Days
-Total time steps:    4974
-Simulation time:     1.346s
-Total linear steps:  8119
-Linear solve time:   0.829s (61.615%)
+Total time steps:    5123
+Simulation time:     1.387s
+Total linear steps:  8300
+Linear solve time:   0.843s (60.742%)
 
 
 
@@ -27,9 +27,9 @@ OCP_IMPES_0.1
 
 Final time:          3655.500 Days
 Total time steps:    36563
-Simulation time:     8.056s
+Simulation time:     8.157s
 Total linear steps:  36621
-Linear solve time:   4.429s (54.975%)
+Linear solve time:   4.448s (54.529%)
 
 ```
 
@@ -55,19 +55,19 @@ Simulation time:     1.99241s
 OCP_IMPES_1
 
 Final time:          3655.500 Days
-Total time steps:    3869
-Simulation time:     1.077s
-Total linear steps:  7229
-Linear solve time:   0.683s (63.399%)
+Total time steps:    3848
+Simulation time:     1.071s
+Total linear steps:  7223
+Linear solve time:   0.669s (62.510%)
 
 
 OCP_IMPES_0.1
 
 Final time:          3655.500 Days
 Total time steps:    36563
-Simulation time:     7.540s
+Simulation time:     7.542s
 Total linear steps:  36621
-Linear solve time:   4.009s (53.175%)
+Linear solve time:   3.964s (52.556%)
 ```
 
 
@@ -90,18 +90,18 @@ Simulation time:     276.62s
 OCP_IMPES_1
 
 Final time:          900.000 Days
-Total time steps:    6378
-Simulation time:     77.808s
-Total linear steps:  9039
-Linear solve time:   50.493s (64.894%)
+Total time steps:    6397
+Simulation time:     78.235s
+Total linear steps:  9058
+Linear solve time:   50.155s (64.108%)
 
 
 OCP_IMPES_0.1
 
 Final time:          900.000 Days
 Total time steps:    9006
-Simulation time:     102.030s
-Total linear steps:  11621
-Linear solve time:   64.911s (63.619%)
+Simulation time:     103.108s
+Total linear steps:  11619
+Linear solve time:   64.271s (62.334%)
 ```
 

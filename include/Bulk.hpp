@@ -92,11 +92,11 @@ public:
     /// in bulk class.
     void PassFlashValue(const OCP_USI& n);
 
-    /// calculate relative permeability and capillary pressure with saturation.
+    /// Calculate relative permeability and capillary pressure with saturation.
     void CalKrPc();
-    /// calculate volume of pore with pressure.
+    /// Calculate volume of pore with pressure.
     void CalVporo();
-
+    
     /// pass flash to well, it hasn't been used now.
     const vector<Mixture*>& GetMixture() const { return flashCal; }
 
@@ -134,6 +134,8 @@ public:
     void ResetFlash();
     /// Check difference from last time step.
     void CheckDiff();
+    /// Check if the sum of saturations is one.
+    void CheckSat() const;
     /// Return dPmax.
     OCP_DBL GetdPmax() const { return dPmax; }
     /// Return dNmax.
