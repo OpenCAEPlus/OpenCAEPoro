@@ -48,7 +48,7 @@ private:
 /// bulks, matrix assembling contributed only by bulks are included in it.
 class Connection_BB
 {
-    friend class Solver<OCP_DBL>;
+    friend class LinearSolver;
 
 public:
     Connection_BB() = default;
@@ -84,13 +84,13 @@ public:
 
     // Assemble Mat
     /// Allocate memory for Matrix, it should be called only once at the beginning.
-    template <typename T> void AllocateMat(Solver<T>& mySolver) const;
+    void AllocateMat(LinearSolver& mySolver) const;
     /// Setup sparsity pattern of Matrix, it should be called before every time the
     /// linear system setups. actually, part from wells is neglect, which is much less
     /// than bulks.
-    template <typename T> void InitAssembleMat(Solver<T>& mySolver) const;
+    void InitAssembleMat(LinearSolver& mySolver) const;
     /// assmeble Matrix, parts only related to bulks are considered.
-    void AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
+    void AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
                            const OCP_DBL& dt) const;
 
     void UpdateLastStep();
@@ -134,21 +134,6 @@ private:
                                       
 };
 
-template <typename T> void Connection_BB::AllocateMat(Solver<T>& MySolver) const
-{
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        MySolver.rowCapacity[n] += neighborNum[n];
-    }
-}
-
-template <typename T> void Connection_BB::InitAssembleMat(Solver<T>& mySolver) const
-{
-    mySolver.dim = numBulk;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        mySolver.colId[n].assign(neighbor[n].begin(), neighbor[n].end());
-        mySolver.diagPtr[n] = selfPtr[n];
-    }
-}
 
 #endif
 

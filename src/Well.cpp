@@ -251,7 +251,16 @@ void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
     }
 }
 
-void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
+
+void Well::AllocateMat(LinearSolver& mySolver) const
+{
+    for (USI p = 0; p < numPerf; p++) {
+        mySolver.rowCapacity[perf[p].location]++;
+    }
+}
+
+
+void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
                                  const OCP_DBL& dt) const
 {
     USI     nc  = myBulk.numCom;
@@ -340,7 +349,7 @@ void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
     }
 }
 
-void Well::AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
+void Well::AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
                                       const OCP_DBL& dt) const
 {
     USI     np  = myBulk.numPhase;

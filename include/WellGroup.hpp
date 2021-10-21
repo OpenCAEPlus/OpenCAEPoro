@@ -46,7 +46,7 @@ public:
     void MassConserve(Bulk& myBulk, OCP_DBL dt);
     /// calculate memory needed to assemble matrix, only parts related to well are
     /// considered here.
-    template <typename T> void AllocateMat(Solver<T>& mySolver) const;
+    void AllocateMat(LinearSolver& mySolver) const;
     /// guess the initial well pressure, it equals pressure in bulks where topest
     /// perforation locates.
     void Init(const Bulk& myBulk);
@@ -60,7 +60,7 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// assemble matrix, parts related to well are included. only for IMPES method.
     /// it should be called after parts related to bulks setups.
-    void AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
+    void AssemblaMat_WB_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
                               const OCP_DBL& dt) const;
     /// Return the num of wells.
     USI GetWellNum() const { return numWell; }
@@ -150,12 +150,6 @@ private:
     OCP_DBL FWPT{0}; ///< water total production in field.
 };
 
-template <typename T> void WellGroup::AllocateMat(Solver<T>& mySolver) const
-{
-    for (USI w = 0; w < numWell; w++) {
-        wellGroup[w].AllocateMat(mySolver);
-    }
-}
 
 #endif /* end if __WELLGROUP_HEADER__ */
 

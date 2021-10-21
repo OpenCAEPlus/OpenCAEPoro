@@ -143,13 +143,13 @@ public:
 
     // Assemble Mat
     /// allocate memory for matrix.
-    template <typename T> void AllocateMat(Solver<T>& mySolver) const;
+    void AllocateMat(LinearSolver& mySolver) const;
     /// assemble matrix, parts related to injection well are included.
-    void AssembleMat_INJ_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
+    void AssembleMat_INJ_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
                                const OCP_DBL& dt) const;
     /// assemble matrix, parts related to production well are included.
     /// this function can only applied in Black Oil model now.
-    void AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, Solver<OCP_DBL>& mySolver,
+    void AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
                                     const OCP_DBL& dt) const;
 
     /// update pressure in Perforation after well pressure updates.
@@ -196,12 +196,6 @@ private:
     OCP_DBL WWIT{0};          ///< well total water injection.
 };
 
-template <typename T> void Well::AllocateMat(Solver<T>& mySolver) const
-{
-    for (USI p = 0; p < numPerf; p++) {
-        mySolver.rowCapacity[perf[p].location]++;
-    }
-}
 
 #endif /* end if __WELL_HEADER__ */
 

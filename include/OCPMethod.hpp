@@ -39,7 +39,7 @@ public:
     void SolveP(Reservoir& rs, OCP_Control& ctrl);
 
 private:
-    Solver<OCP_DBL> solver;
+    LinearSolver solver;
 };
 
 /// OCP_FIM is FIM (fully implict method) method.
@@ -47,7 +47,7 @@ class OCP_FIM
 {
 public:
 private:
-    Solver<vector<OCP_DBL>> solver;
+    LinearSolver solver;
 };
 
 #endif /* end if __OCP_METHOD_HEADER__ */

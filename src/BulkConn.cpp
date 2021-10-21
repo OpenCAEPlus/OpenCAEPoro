@@ -335,7 +335,23 @@ void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
+void Connection_BB::AllocateMat(LinearSolver& MySolver) const
+{
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        MySolver.rowCapacity[n] += neighborNum[n];
+    }
+}
+
+void Connection_BB::InitAssembleMat(LinearSolver& mySolver) const
+{
+    mySolver.dim = numBulk;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        mySolver.colId[n].assign(neighbor[n].begin(), neighbor[n].end());
+        mySolver.diagPtr[n] = selfPtr[n];
+    }
+}
+
+void Connection_BB::AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
                                       const OCP_DBL& dt) const
 {
     // accumulate term

@@ -16,7 +16,7 @@
 #include "OCPConst.hpp"
 
 /// CSRx matrix type based on FASP++
-template <typename T> class MAT_Faspxx
+class MAT_Faspxx
 {
 public:
     void ClearData();
@@ -24,7 +24,7 @@ public:
     OCP_USI              NRow;
     OCP_USI              NCol;
     OCP_USI              Nnz;
-    std::vector<T>       val;
+    std::vector<OCP_USI>       val;
     std::vector<OCP_USI> colId;
     std::vector<OCP_USI> RowPtr;
     std::vector<USI>     diagPtr;

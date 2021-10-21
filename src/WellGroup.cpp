@@ -142,7 +142,16 @@ void WellGroup::PrepareWell(const Bulk& myBulk)
     }
 }
 
-void WellGroup::AssemblaMat_WB_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
+
+void WellGroup::AllocateMat(LinearSolver& mySolver) const
+{
+    for (USI w = 0; w < numWell; w++) {
+        wellGroup[w].AllocateMat(mySolver);
+    }
+}
+
+
+void WellGroup::AssemblaMat_WB_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
                                      const OCP_DBL& dt) const
 {
     for (USI w = 0; w < numWell; w++) {

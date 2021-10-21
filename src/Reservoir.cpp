@@ -74,8 +74,19 @@ OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt)
     return cfl;
 }
 
+
+// allocate memory
+void Reservoir::AllocateMat(LinearSolver& mySolver) const
+{
+    mySolver.AllocateMem(conn.GetBulkNum() + wellgroup.GetWellNum());
+    conn.AllocateMat(mySolver);
+    wellgroup.AllocateMat(mySolver);
+    mySolver.AllocateColValMem();
+}
+
+
 // assemble mat
-void Reservoir::AssembleMat(Solver<OCP_DBL>& mysolver, const OCP_DBL& dt) const
+void Reservoir::AssembleMat(LinearSolver& mysolver, const OCP_DBL& dt) const
 {
     conn.InitAssembleMat(mysolver);
     conn.AssembleMat_IMPES(mysolver, bulk, dt);

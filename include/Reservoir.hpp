@@ -50,13 +50,13 @@ public:
     OCP_DBL CalCFL01(const OCP_DBL& dt);
     /// Allocate memory for linear system, it should be called at the beginning of
     /// simulation only once. It's accessible for both IMPES and FIM.
-    template <typename T> void AllocateMat(Solver<T>& mySolver) const;
+    void AllocateMat(LinearSolver& mySolver) const;
     /// assemble the matrix
     /// Setup most of sparsity pattern first, and then Setup the value only related to
     /// the bulks. finally, assemble the parts related to wells, which will complete the
     /// rest sparsity pattern simultaneously
-    void AssembleMat(Solver<OCP_DBL>& mysolver, const OCP_DBL& dt) const;
-    /// get the solution from Solver after the linear system is solved.
+    void AssembleMat(LinearSolver& mysolver, const OCP_DBL& dt) const;
+    /// get the solution from LinearSolver after the linear system is solved.
     void GetSolution_IMPES(const vector<OCP_DBL>& u);
     /// check if abnormal pressure occurs including pressure in bulks, wells,
     /// perforations. if so, take corresponding measures and then resolve the linear
@@ -86,14 +86,6 @@ private:
     OCP_DBL cfl; ///< CFL number.
 };
 
-// allocate memory
-template <typename T> void Reservoir::AllocateMat(Solver<T>& mySolver) const
-{
-    mySolver.AllocateMem(conn.GetBulkNum() + wellgroup.GetWellNum());
-    conn.AllocateMat(mySolver);
-    wellgroup.AllocateMat(mySolver);
-    mySolver.AllocateColValMem();
-}
 
 #endif /* end if __RESERVOIR_HEADER__ */
 
