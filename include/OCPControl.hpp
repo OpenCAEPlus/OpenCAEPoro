@@ -80,6 +80,7 @@ class OCP_Control
     friend class OpenCAEPoro;
     friend class OCP_IMPES;
     friend class OCP_Output;
+    friend class DetailInfo;
 
 public:
     void InputParam(const ParamControl& CtrlParam);
@@ -90,6 +91,8 @@ public:
     USI GetNumDates() const { return criticalTime.size(); }
     /// Return the current time.
     OCP_DBL GetCurTime() const { return current_time; }
+    /// Return last dt
+    OCP_DBL GetLastCurDt()const { return lcurrent_dt; }
     /// Return the number of linear solver iterations in one time step.
     USI GetLSiter() const { return iterLS; }
     /// Return the number of Newton iterations in one time step.
@@ -104,6 +107,7 @@ private:
     string          solveFile;
     vector<OCP_DBL> criticalTime;
     OCP_DBL         current_dt;
+    OCP_DBL         lcurrent_dt;
     OCP_DBL         current_time{0};
     OCP_DBL         end_time;
     OCP_DBL         totalTime{0};

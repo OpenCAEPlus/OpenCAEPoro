@@ -140,6 +140,7 @@ public:
 
 private:
     vector<OCP_DBL> time;
+    vector<OCP_DBL> dt;
     vector<OCP_DBL> dPmax;
     vector<OCP_DBL> dVmax;
     vector<OCP_DBL> dSmax;

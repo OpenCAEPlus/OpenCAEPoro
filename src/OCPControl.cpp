@@ -103,6 +103,8 @@ void OCP_Control::InitTime(const USI& i)
 
 void OCP_Control::CalNextTstep(const Reservoir& reservoir)
 {
+    lcurrent_dt = current_dt;
+
     current_time += current_dt;
 
     OCP_DBL dPmax = reservoir.bulk.GetdPmax();

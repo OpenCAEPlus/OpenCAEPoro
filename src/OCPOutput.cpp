@@ -552,6 +552,7 @@ void CriticalInfo::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
     // Allocate memory
     USI rc = totalTime / 0.1;
     time.reserve(rc);
+    dt.reserve(rc);
     dPmax.reserve(rc);
     dVmax.reserve(rc);
     dSmax.reserve(rc);
@@ -562,6 +563,7 @@ void CriticalInfo::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 void CriticalInfo::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
 {
     time.push_back(ctrl.GetCurTime());
+    dt.push_back(ctrl.GetLastCurDt());
     dPmax.push_back(reservoir.bulk.GetdPmax());
     dVmax.push_back(reservoir.bulk.GetdVmax());
     dSmax.push_back(reservoir.bulk.GetdSmax());
@@ -578,16 +580,27 @@ void CriticalInfo::PrintInfo(const string& dir) const
         exit(0);
     }
 
-    // Time
+    // Item
     outF << "\t" << setw(10) << "Time";
+    outF << "\t" << setw(10) << "dt";
     outF << "\t" << setw(10) << "dPmax";
     outF << "\t" << setw(10) << "dVmax";
     outF << "\t" << setw(10) << "dSmax";
     outF << "\t" << setw(10) << "dNmax";
-    outF << "\t" << setw(10) << "CFL\n\n";
+    outF << "\t" << setw(10) << "CFL\n";
+    // Unit
+    outF << "\t" << setw(10) << "Days";
+    outF << "\t" << setw(10) << "Days";
+    outF << "\t" << setw(10) << "Psia";
+    outF << "\t" << setw(10) << "    ";
+    outF << "\t" << setw(10) << "    ";
+    outF << "\t" << setw(10) << "    ";
+    outF << "\t" << setw(10) << "    \n\n";
+
     USI n = time.size();
     for (USI i = 0; i < n; i++) {
         outF << "\t" << setw(10) << time[i];
+        outF << "\t" << setw(10) << dt[i];
         outF << "\t" << setw(10) << dPmax[i];
         outF << "\t" << setw(10) << dVmax[i];
         outF << "\t" << setw(10) << dSmax[i];
