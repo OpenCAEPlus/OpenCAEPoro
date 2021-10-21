@@ -124,11 +124,6 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     rs.conn.UpdateLastStep();
     rs.wellgroup.UpdateLastStep();
 
-    //cout << ctrl.current_time << "\t";
-    //for (USI p = 0; p < 3; p++) {
-    //    cout << rs.wellgroup.GetWellDg(8, p) << "\t";
-    //}
-    //cout << "\n";
 }
 
 /// First assemble linear, then solve and return solution

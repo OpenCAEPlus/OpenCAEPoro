@@ -105,9 +105,9 @@ public:
 
 private:
     USI                mode;   ///< decide which saturation table will be uesd.
-    OCP_Table<OCP_DBL> SWOF;   ///< saturation table about water and oil.
-    OCP_Table<OCP_DBL> SGOF;   ///< saturation table about gas and oil.
-    OCP_Table<OCP_DBL> SWPCWG; ///< auxiliary table: saturation of water vs. capillary
+    OCPTable SWOF;   ///< saturation table about water and oil.
+    OCPTable SGOF;   ///< saturation table about gas and oil.
+    OCPTable SWPCWG; ///< auxiliary table: saturation of water vs. capillary
                                ///< pressure between water and gas.
     OCP_DBL
     kroMax; ///< oil relative permeability in the presence of connate water only.

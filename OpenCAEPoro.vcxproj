@@ -34,6 +34,7 @@
     <ClCompile Include="src\OCPControl.cpp" />
     <ClCompile Include="src\OCPMethod.cpp" />
     <ClCompile Include="src\OCPOutput.cpp" />
+    <ClCompile Include="src\OCPTable.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
     <ClCompile Include="src\ParamOutput.cpp" />
     <ClCompile Include="src\ParamRead.cpp" />

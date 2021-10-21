@@ -86,10 +86,10 @@ private:
     /// for example, PHASE_OW implies that only water phase and oil phase could be
     /// existing, which will determine which PVT tables will be used.
     USI                mode;
-    OCP_Table<OCP_DBL> PVCO; ///< PVT table for live oil (with dissolved gas).
-    OCP_Table<OCP_DBL> PVDG; ///< PVT table for dry gas.
-    OCP_Table<OCP_DBL> PVTW; ///< PVT table for water.
-    OCP_Table<OCP_DBL> PVDO; ///< PVT table for dead oil (without dissolved gas).
+    OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).
+    OCPTable PVDG; ///< PVT table for dry gas.
+    OCPTable PVTW; ///< PVT table for water.
+    OCPTable PVDO; ///< PVT table for dead oil (without dissolved gas).
 
     // Auxiliary parameters for Table interpolation
     USI             len{0}; ///< maximum number of columns of tables among all above.

@@ -42,7 +42,7 @@ private:
     OCP_DBL DGOC;  ///< depth of gas-oil contact.
     OCP_DBL PcGOC; ///< capillary pressure in gas-oil contact: Pg - Po.
 
-    OCP_Table<OCP_DBL> PBVD; ///< PBVD Table: buble point pressere vs depth.
+    OCPTable PBVD; ///< PBVD Table: buble point pressere vs depth.
 };
 
 /// Bulk contains main physical infomation of reservoir, but only active grids are
@@ -52,10 +52,6 @@ private:
 /// axis indices defaulted. operations refered to single bulk are included here.
 class Bulk
 {
-    // for test
-    friend class Reservoir;
-
-
     friend class BulkConn;
     friend class Well;
     friend class DetailInfo;

@@ -547,17 +547,6 @@ void Well::CalProddG(const Bulk& myBulk)
     OCP_DBL         rhoacc = 0;
     OCP_DBL         rhotmp = 0;
 
-
-    // test 
-    //if (name == "PROD17") {
-    //    for (USI p = 0; p < numPerf; p++) {
-    //        for (USI i = 0; i < nc; i++) {
-    //            cout << setprecision(1) << perf[p].qi_lbmol[i] << "   ";
-    //        }
-    //    }
-    //    cout << "\n";
-    //}
-
     if (depth <= perf.front().depth) {
         // Well is higher
 

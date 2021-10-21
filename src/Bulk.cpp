@@ -236,7 +236,7 @@ void Bulk::InitSjPcBlk(const USI& tabrow)
     OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    OCP_Table<OCP_DBL> DepthP(tabrow, 4);
+    OCPTable DepthP(tabrow, 4);
     vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
     vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
     vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
@@ -666,7 +666,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
     OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    OCP_Table<OCP_DBL> DepthP(tabrow, 4);
+    OCPTable DepthP(tabrow, 4);
     vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
     vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
     vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
