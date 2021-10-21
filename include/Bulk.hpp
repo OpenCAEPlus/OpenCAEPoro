@@ -56,7 +56,7 @@ class Bulk
     friend class Reservoir;
 
 
-    friend class Connection_BB;
+    friend class BulkConn;
     friend class Well;
     friend class DetailInfo;
 

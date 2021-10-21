@@ -26,7 +26,7 @@
 /// Grids contains the basic informations of all grids as a database of reservoir.
 /// Bulk only stores active grids, which defines the area used for calculation.
 /// WellGroup contains the well information, it's used to manage operations related to
-/// wells. Connection_BB contains connections between bulks(active grids).
+/// wells. BulkConn contains connections between bulks(active grids).
 class Reservoir
 {
     friend class OpenCAEPoro;
@@ -81,7 +81,7 @@ private:
     Grid          grid;      ///< Grid class.
     Bulk          bulk;      ///< Bulk class.
     WellGroup     wellgroup; ///< WellGroup class.
-    Connection_BB conn;      ///< Connection_BB class.
+    BulkConn conn;      ///< BulkConn class.
 
     OCP_DBL cfl; ///< CFL number.
 };

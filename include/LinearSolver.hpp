@@ -9,8 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __SOLVER_HEADER__
-#define __SOLVER_HEADER__
+#ifndef __LINEARSOLVER_HEADER__
+#define __LINEARSOLVER_HEADER__
 
 // Standard header files
 #include <fstream>
@@ -31,11 +31,11 @@ using namespace std;
 
 /// A template class designed to stores and solves linear system derived from discrete
 /// method. the maxtrix is stored in the form of row-segmented CSRX internaly, whose
-/// sparsity pattern is almost the same as neighbor in Connection_BB.
+/// sparsity pattern is almost the same as neighbor in BulkConn.
 class LinearSolver
 {
     friend class OpenCAEPoro;
-    friend class Connection_BB;
+    friend class BulkConn;
     friend class Well;
 
 public:

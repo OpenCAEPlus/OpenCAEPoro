@@ -9,8 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __CONNECTION_BB_HEADER__
-#define __CONNECTION_BB_HEADER__
+#ifndef __BULKCONN_HEADER__
+#define __BULKCONN_HEADER__
 
 // Standard header files
 #include <vector>
@@ -23,16 +23,16 @@
 using namespace std;
 
 /// Connection between indices of two bulks (BId, EId); usually, BId > EId.
-class BB_Pair
+class BulkPair
 {
-    friend class Connection_BB;
+    friend class BulkConn;
 
 public:
     /// Default constructor.
-    BB_Pair() = default;
+    BulkPair() = default;
 
-    /// Setup BB_Pair with bId and eId.
-    BB_Pair(const OCP_USI& bId, const OCP_USI& eId)
+    /// Setup BulkPair with bId and eId.
+    BulkPair(const OCP_USI& bId, const OCP_USI& eId)
         : BId(bId)
         , EId(eId){};
 
@@ -41,17 +41,17 @@ private:
     OCP_USI EId;
 };
 
-/// Connection_BB is a core component of reservoir, it contains all properties and
+/// BulkConn is a core component of reservoir, it contains all properties and
 /// operations about connections between bulks(active grids). due to the activity of
 /// bulks, almost all connections are meaningful. you can traverse all the connections
 /// through the iterator in it, which is effective. flow calculation between active
 /// bulks, matrix assembling contributed only by bulks are included in it.
-class Connection_BB
+class BulkConn
 {
     friend class LinearSolver;
 
 public:
-    Connection_BB() = default;
+    BulkConn() = default;
 
     /// Print information about connection on screen.
     void GetConnectionInfo() const;
@@ -113,7 +113,7 @@ private:
                              ///< activeGridNum.
     /// contains all the connections, in which the index of first bulk is greater than
     /// the ones of second bulk. the iteratorConn is generated from neighbor: numConn.
-    vector<BB_Pair> iteratorConn;
+    vector<BulkPair> iteratorConn;
     vector<OCP_DBL> area; ///< effective area for each connections, which are ordered
                           ///< the same as iteratorConn: numConn.
     /// upblock of connections.

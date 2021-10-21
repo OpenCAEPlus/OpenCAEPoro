@@ -55,7 +55,7 @@ private:
 class Grid
 {
     friend class Bulk;
-    friend class Connection_BB;
+    friend class BulkConn;
     friend class Well;
 
 public:

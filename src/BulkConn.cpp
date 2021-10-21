@@ -17,7 +17,7 @@
 
 // Active Conn & Active Bulk
 
-void Connection_BB::Setup(const Grid& myGrid, const Bulk& myBulk)
+void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
     InitSize(myBulk);
     CalConn(myGrid, myBulk.numPhase);
@@ -25,7 +25,7 @@ void Connection_BB::Setup(const Grid& myGrid, const Bulk& myBulk)
     CalArea(myGrid, myBulk);
 }
 
-void Connection_BB::InitSize(const Bulk& myBulk)
+void BulkConn::InitSize(const Bulk& myBulk)
 {
     numConn = 0;
     numBulk = myBulk.numBulk;
@@ -35,7 +35,7 @@ void Connection_BB::InitSize(const Bulk& myBulk)
     neighborNum.resize(numBulk);
 }
 
-void Connection_BB::CalConn(const Grid& myGrid, const USI& np)
+void BulkConn::CalConn(const Grid& myGrid, const USI& np)
 {
     USI     nx   = myGrid.nx;
     USI     ny   = myGrid.ny;
@@ -134,7 +134,7 @@ void Connection_BB::CalConn(const Grid& myGrid, const USI& np)
     lastUpblock_Velocity.resize(numConn * np, 0);
 }
 
-void Connection_BB::CalIteratorConn()
+void BulkConn::CalIteratorConn()
 {
     iteratorConn.reserve(numConn);
     // generate iterator for BB from iteratorConn
@@ -144,14 +144,14 @@ void Connection_BB::CalIteratorConn()
 
         for (USI c = beginIt; c < nbc; c++) {
             OCP_USI eId = neighbor[bId][c];
-            iteratorConn.push_back(BB_Pair(bId, eId));
+            iteratorConn.push_back(BulkPair(bId, eId));
         }
     }
 
     assert(iteratorConn.size() == numConn);
 }
 
-void Connection_BB::CalArea(const Grid& myGrid, const Bulk& myBulk)
+void BulkConn::CalArea(const Grid& myGrid, const Bulk& myBulk)
 {
     // calculate efficient area of interface of bulk to bulk
     // using iteratorConn
@@ -167,7 +167,7 @@ void Connection_BB::CalArea(const Grid& myGrid, const Bulk& myBulk)
     assert(area.size() == numConn);
 }
 
-OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk,
+OCP_DBL BulkConn::CalAkd(const Grid& myGrid, const Bulk& myBulk,
                               const OCP_USI& bIdb, const OCP_USI& eIdb) const
 {
     OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
@@ -204,7 +204,7 @@ OCP_DBL Connection_BB::CalAkd(const Grid& myGrid, const Bulk& myBulk,
 
 // Connection function, no matter what grid is
 
-OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI     np   = myBulk.numPhase;
     OCP_DBL cfl  = 0;
@@ -224,7 +224,7 @@ OCP_DBL Connection_BB::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     return cfl;
 }
 
-void Connection_BB::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI     np = myBulk.numPhase;
     for (OCP_USI c = 0; c < numConn; c++) {
@@ -239,7 +239,7 @@ void Connection_BB::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void Connection_BB::CalFlux(const Bulk& myBulk)
+void BulkConn::CalFlux(const Bulk& myBulk)
 {
     // calculate a step flux using iteratorConn
     OCP_USI bId, eId, uId;
@@ -309,7 +309,7 @@ void Connection_BB::CalFlux(const Bulk& myBulk)
     }
 }
 
-void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI np = myBulk.numPhase;
     USI nc = myBulk.numCom;
@@ -335,14 +335,14 @@ void Connection_BB::MassConserve(Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void Connection_BB::AllocateMat(LinearSolver& MySolver) const
+void BulkConn::AllocateMat(LinearSolver& MySolver) const
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         MySolver.rowCapacity[n] += neighborNum[n];
     }
 }
 
-void Connection_BB::InitAssembleMat(LinearSolver& mySolver) const
+void BulkConn::InitAssembleMat(LinearSolver& mySolver) const
 {
     mySolver.dim = numBulk;
     for (OCP_USI n = 0; n < numBulk; n++) {
@@ -351,7 +351,7 @@ void Connection_BB::InitAssembleMat(LinearSolver& mySolver) const
     }
 }
 
-void Connection_BB::AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
+void BulkConn::AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
                                       const OCP_DBL& dt) const
 {
     // accumulate term
@@ -447,7 +447,7 @@ void Connection_BB::AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk
     }
 }
 
-void Connection_BB::UpdateLastStep()
+void BulkConn::UpdateLastStep()
 {
     lastUpblock = upblock;
     lastUpblock_Rho = upblock_Rho;
@@ -456,7 +456,7 @@ void Connection_BB::UpdateLastStep()
 
 }
 
-void Connection_BB::Reset()
+void BulkConn::Reset()
 {
     upblock = lastUpblock;
     upblock_Rho = lastUpblock_Rho;
@@ -464,7 +464,7 @@ void Connection_BB::Reset()
     upblock_Velocity = lastUpblock_Velocity;
 }
 
-void Connection_BB::CheckDiff() const
+void BulkConn::CheckDiff() const
 {
     // upblock
     OCP_DBL tmp;
@@ -490,7 +490,7 @@ void Connection_BB::CheckDiff() const
 }
 
 
-void Connection_BB::GetConnectionInfo() const
+void BulkConn::GetConnectionInfo() const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
         cout << "(" << i << ")"
