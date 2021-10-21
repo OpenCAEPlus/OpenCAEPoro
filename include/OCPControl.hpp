@@ -78,7 +78,7 @@ public:
 class OCP_Control
 {
     friend class OpenCAEPoro;
-    friend class OCP_IMPES;
+    friend class OCP_IMPEC;
     friend class OCP_Output;
     friend class DetailInfo;
 
@@ -91,15 +91,27 @@ public:
     USI GetNumDates() const { return criticalTime.size(); }
     /// Return the current time.
     OCP_DBL GetCurTime() const { return current_time; }
+    /// Return current dt.
+    OCP_DBL& GetCurDt() { return current_dt; }
     /// Return last dt
     OCP_DBL GetLastCurDt()const { return lcurrent_dt; }
     /// Return the number of linear solver iterations in one time step.
     USI GetLSiter() const { return iterLS; }
     /// Return the number of Newton iterations in one time step.
     USI GetNRiter() const { return iterNR; }
-
+    /// Update num of iterations.
+    void UpdateIters();
+    /// Update num of linear solver steps.
+    void UpdateIterLS(const USI& num) { iterLS = num; iterLS_total += num; }
+    /// Update time used for linear solver.
+    void UpdateTimeLS(const OCP_DBL& t) { timeLS += t; }
+    /// Record the total time of simulation.
+    void RecordTotalTime(const OCP_DBL& t) { totalTime = t; }
     /// Calculate the next time step according to max change of some variables.
     void CalNextTstep(const Reservoir& reservoir);
+    /// Determine whether the critical time point has been reached.
+    bool IfCriticalTime(const USI& d) { return ((criticalTime[d] - current_time) < TINY);}
+    
 
 private:
     USI             method;

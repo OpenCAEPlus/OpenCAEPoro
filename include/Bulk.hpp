@@ -91,7 +91,7 @@ public:
     /// Calculate relative permeability and capillary pressure with saturation.
     void CalKrPc();
     /// Calculate volume of pore with pressure.
-    void CalVporo();
+    void CalVpore();
     
     /// pass flash to well, it hasn't been used now.
     const vector<Mixture*>& GetMixture() const { return flashCal; }

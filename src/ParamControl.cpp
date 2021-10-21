@@ -21,7 +21,7 @@ void ParamControl::Init(string& indir)
 
 void ParamControl::InitMethod()
 {
-    method      = "IMPES";
+    method      = "IMPEC";
     linearSolve = "./csr.dat";
 }
 
@@ -40,25 +40,25 @@ void ParamControl::InitTuning()
     tuning[0][6] = 0.1;   // Factor by which timestep is cut after convergence failure
     tuning[0][7] = 1.25;  // Maximum increase factor after a convergence failure
     // Maximum throughput ratio
-    tuning[0][8] = method == "IMPES" ? 0.2 : 1E20;
+    tuning[0][8] = method == "IMPEC" ? 0.2 : 1E20;
     tuning[0][9] = -1; // Maximum length of the next timestep following a well
                        // modification : no limit
 
     // Time truncation and convergence controls
     tuning[1].resize(13);
     // Target time truncation error
-    tuning[1][0] = method == "IMPES" ? 1.0 : 0.1;
+    tuning[1][0] = method == "IMPEC" ? 1.0 : 0.1;
     // Target non-linear convergence error
-    tuning[1][1] = method == "IMPES" ? 0.5 : 1E-3;
+    tuning[1][1] = method == "IMPEC" ? 0.5 : 1E-3;
     tuning[1][2] = 1E-7; // Target material balance error
     // Target linear convergence error
-    tuning[1][3] = method == "IMPES" ? 1E-5 : 1E-4;
+    tuning[1][3] = method == "IMPEC" ? 1E-5 : 1E-4;
     tuning[1][4] = 10.0; // Maximum time truncation error
     // Maximum non-linear convergence error
-    tuning[1][5] = method == "IMPES" ? 0.75 : 0.01;
+    tuning[1][5] = method == "IMPEC" ? 0.75 : 0.01;
     tuning[1][6] = 1E-6; // Maximum material balance error
     // Maximum linear convergence error
-    tuning[1][7]  = method == "IMPES" ? 1E-4 : 1E-3;
+    tuning[1][7]  = method == "IMPEC" ? 1E-4 : 1E-3;
     tuning[1][8]  = 1E-3;  // Maximum well flow rate convergence error
     tuning[1][9]  = 0.025; // Target Fluid-in-place error for LGR runs
     tuning[1][10] = -1;    // Target surfactant change (Surfactant Model only)
@@ -70,7 +70,7 @@ void ParamControl::InitTuning()
     // Control of Newton and linear iterations
     tuning[2].resize(10);
     // Maximum number of Newton iterations in a timestep
-    tuning[2][0] = method == "IMPES" ? 4 : 12;
+    tuning[2][0] = method == "IMPEC" ? 4 : 12;
     tuning[2][1] = 1;   // Minimum number of Newton iterations in a timestep
     tuning[2][2] = 25;  // Maximum number of linear iterations in a Newton iteration
     tuning[2][3] = 1;   // Minimum number of linear iterations in a Newton iteration
@@ -79,7 +79,7 @@ void ParamControl::InitTuning()
     tuning[2][6] = 1E6; // Maximum pressure change at last Newton iteration
     tuning[2][7] = 1E6; // Maximum saturation change at last Newton iteration
     // Target maximum pressure change in a timestep
-    tuning[2][8] = method == "IMPES" ? 100 : 1E6;
+    tuning[2][8] = method == "IMPEC" ? 100 : 1E6;
     tuning[2][9] = -1; // Maximum tolerable pressure change in a timestep
 }
 

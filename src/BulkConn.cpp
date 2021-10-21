@@ -351,7 +351,7 @@ void BulkConn::InitAssembleMat(LinearSolver& mySolver) const
     }
 }
 
-void BulkConn::AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
+void BulkConn::AssembleMat_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                                       const OCP_DBL& dt) const
 {
     // accumulate term

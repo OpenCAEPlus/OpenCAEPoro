@@ -112,7 +112,7 @@ private:
 
 
 
-#endif
+#endif   /* end if __LINEARSOLVER_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

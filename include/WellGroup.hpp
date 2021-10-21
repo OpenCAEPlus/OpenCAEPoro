@@ -58,9 +58,9 @@ public:
     /// calculate injection rate, total injection, production rate, total production for
     /// each well.
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
-    /// assemble matrix, parts related to well are included. only for IMPES method.
+    /// assemble matrix, parts related to well are included. only for IMPEC method.
     /// it should be called after parts related to bulks setups.
-    void AssemblaMat_WB_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssemblaMat_WB_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                               const OCP_DBL& dt) const;
     /// Return the num of wells.
     USI GetWellNum() const { return numWell; }
@@ -121,7 +121,7 @@ public:
     OCP_DBL GetWellDg(const USI& w, const USI& p)const { return wellGroup[w].dG[p]; }
 
     /// update pressure in well and well perforation with solution of linear system.
-    void GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bId);
+    void GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
     /// reset dG to ldG for each well, dG is a array where the pressure difference
     /// between well and perforation are stored.
     void UpdateLastStep()

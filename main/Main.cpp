@@ -51,7 +51,7 @@ int main(int argc, const char* argv[])
     // calculated. Initial guess of well pressure will also be given here.
     simulator.InitReservoir();
 
-    // Step 4. Run dynamic simulation using methods like IMPES and FIM. It's a
+    // Step 4. Run dynamic simulation using methods like IMPEC and FIM. It's a
     // combination of functions of various modules which you could make changes
     // whenever necessary.
     simulator.RunSimulation();

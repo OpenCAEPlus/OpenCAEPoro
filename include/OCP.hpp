@@ -18,6 +18,7 @@
 #include "OCPOutput.hpp"
 #include "ParamRead.hpp"
 #include "Reservoir.hpp"
+#include "Solver.hpp"
 #include "UtilTiming.hpp"
 
 #define OCPVersion "0.1.0"  ///< Software version number
@@ -56,11 +57,8 @@ private:
     /// The core properties of a reservoir.
     Reservoir reservoir;
 
-    /// The IMplicit Pressure Explicit Saturation (IMPES) method.
-    OCP_IMPES impes; // TODO: Change IMPES to IMPEC.
-
-    /// The Fully Implicit Method (FIM).
-    OCP_FIM fim;
+    /// Contains discrete methods and linear system solver.
+    Solver solver;
 
     /// Control class handles algorithm params and time steping.
     OCP_Control control;

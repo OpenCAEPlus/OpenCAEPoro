@@ -31,7 +31,7 @@ class Reservoir
 {
     friend class OpenCAEPoro;
     friend class OCP_Control;
-    friend class OCP_IMPES;
+    friend class OCP_IMPEC;
     friend class Summary;
     friend class CriticalInfo;
     friend class DetailInfo;
@@ -44,20 +44,43 @@ public:
     void Setup();
     /// Initialize the reservoir, actually it gives the first step in iterations.
     void Init();
+    /// Prepare for assembling matrix
+    void Prepare(OCP_DBL& dt);
+    /// Apply the control of ith critical time point.
+    void ApplyControl(const USI& i) { wellgroup.ApplyControl(i); }
     /// Calcluate the CFL number, including bulks and wells.
     OCP_DBL CalCFL(const OCP_DBL& dt);
     /// Calcluate the CFL number, including bulks and wells.
     OCP_DBL CalCFL01(const OCP_DBL& dt);
+    /// Calculate flux between bulks, bulks and wells.
+    void CalFLux() { conn.CalFlux(bulk); wellgroup.CalFlux(bulk); };
+    /// Calculate flux between bulks.
+    void CalConnFlux() { conn.CalFlux(bulk); }
+    /// Calculate mass conserve.
+    void MassConseve(const OCP_DBL& dt) { conn.MassConserve(bulk, dt); wellgroup.MassConserve(bulk, dt); }
+    /// Calculate Flash for IMPEC Method.
+    void CalFlashIMPEC() { bulk.FlashNi(); }
+    /// Calculate pore of bulks.
+    void CalVpore() { bulk.CalVpore(); }
+    /// Calculate relative permeability and capillary.
+    void CalKrPc() { bulk.CalKrPc(); }
+    /// Calculate IPRT.
+    void CalIPRT(const OCP_DBL& dt) { wellgroup.CalIPRT(bulk, dt); }
+    /// Calculate maximum change
+    void CalMaxChange() { bulk.CalMaxChange(); }
+    /// Update value of last step.
+    void UpdateLastStep() { bulk.UpdateLastStep(); conn.UpdateLastStep(); wellgroup.UpdateLastStep(); };
+
     /// Allocate memory for linear system, it should be called at the beginning of
-    /// simulation only once. It's accessible for both IMPES and FIM.
+    /// simulation only once. It's accessible for both IMPEC and FIM.
     void AllocateMat(LinearSolver& mySolver) const;
     /// assemble the matrix
     /// Setup most of sparsity pattern first, and then Setup the value only related to
     /// the bulks. finally, assemble the parts related to wells, which will complete the
     /// rest sparsity pattern simultaneously
-    void AssembleMat(LinearSolver& mysolver, const OCP_DBL& dt) const;
+    void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// get the solution from LinearSolver after the linear system is solved.
-    void GetSolution_IMPES(const vector<OCP_DBL>& u);
+    void GetSolution_IMPEC(const vector<OCP_DBL>& u);
     /// check if abnormal pressure occurs including pressure in bulks, wells,
     /// perforations. if so, take corresponding measures and then resolve the linear
     /// equations.

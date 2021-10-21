@@ -1092,7 +1092,7 @@ void Bulk::CalKrPc()
 }
 
 // Rock
-void Bulk::CalVporo()
+void Bulk::CalVpore()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_DBL dP = rockC1 * (P[n] - rockPref);

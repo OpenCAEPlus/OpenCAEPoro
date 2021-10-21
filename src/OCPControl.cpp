@@ -49,8 +49,8 @@ ControlIter::ControlIter(const vector<OCP_DBL>& src)
 void OCP_Control::InputParam(const ParamControl& CtrlParam)
 {
     workDir = CtrlParam.dir;
-    if (CtrlParam.method == "IMPES") {
-        method = IMPES;
+    if (CtrlParam.method == "IMPEC") {
+        method = IMPEC;
     } else if (CtrlParam.method == "FIM") {
         method = FIM;
     } else {
@@ -134,6 +134,14 @@ void OCP_Control::CalNextTstep(const Reservoir& reservoir)
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
 }
+
+void OCP_Control::UpdateIters()
+{
+    tstep += 1;
+    iterNR = 1;
+    iterNR_total += 1;
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

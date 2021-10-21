@@ -33,13 +33,19 @@ void Reservoir::Init()
     else if (bulk.GetMixMode() == EoS_PVTW)
         bulk.InitSjPcComp(50);
 
-    bulk.CalVporo();
+    bulk.CalVpore();
     bulk.FlashSj();
     bulk.CalKrPc();
     bulk.UpdateLastStep();
     conn.CalFlux(bulk);
     conn.UpdateLastStep();
     wellgroup.Init(bulk);
+}
+
+void Reservoir::Prepare(OCP_DBL& dt) {
+    wellgroup.PrepareWell(bulk);
+    OCP_DBL cfl = CalCFL01(dt);
+    if (cfl > 1) dt /= (cfl + 1);
 }
 
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
@@ -86,17 +92,17 @@ void Reservoir::AllocateMat(LinearSolver& mySolver) const
 
 
 // assemble mat
-void Reservoir::AssembleMat(LinearSolver& mysolver, const OCP_DBL& dt) const
+void Reservoir::AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const
 {
     conn.InitAssembleMat(mysolver);
-    conn.AssembleMat_IMPES(mysolver, bulk, dt);
-    wellgroup.AssemblaMat_WB_IMPES(mysolver, bulk, dt);
+    conn.AssembleMat_IMPEC(mysolver, bulk, dt);
+    wellgroup.AssemblaMat_WB_IMPEC(mysolver, bulk, dt);
 }
 
-void Reservoir::GetSolution_IMPES(const vector<OCP_DBL>& u)
+void Reservoir::GetSolution_IMPEC(const vector<OCP_DBL>& u)
 {
     bulk.GetSolIMPES(u);
-    wellgroup.GetSol_IMPES(u, bulk.GetBulkNum());
+    wellgroup.GetSol_IMPEC(u, bulk.GetBulkNum());
 }
 
 OCP_INT Reservoir::CheckP()

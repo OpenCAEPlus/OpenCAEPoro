@@ -151,7 +151,7 @@ void WellGroup::AllocateMat(LinearSolver& mySolver) const
 }
 
 
-void WellGroup::AssemblaMat_WB_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
+void WellGroup::AssemblaMat_WB_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                                      const OCP_DBL& dt) const
 {
     for (USI w = 0; w < numWell; w++) {
@@ -172,7 +172,7 @@ void WellGroup::AssemblaMat_WB_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
     }
 }
 
-void WellGroup::GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bid)
+void WellGroup::GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bid)
 {
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {

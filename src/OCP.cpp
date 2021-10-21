@@ -31,40 +31,17 @@ void OpenCAEPoro::SetupReservoir(ParamRead& param)
 /// Call SetupParm and AllocateMat to prepare the linear solver
 void OpenCAEPoro::SetupLinearSolver()
 {
-    switch (control.method) {
-        case FIM: // Fully Implicite Method
-            cout << "Applying the FIM Method ..." << endl;
-            break;
-        case IMPES: // IMplicit Pressure Explicit Composition
-            cout << "Applying the IMPES Method ..." << endl;
-            impes.SetupParam(control.workDir, control.solveFile);
-            impes.AllocateMat(reservoir);
-            break;
-        default:
-            OCP_MESSAGE("Trying to call " << control.method);
-            OCP_ABORT("Solution method not supported!");
-    }
+    solver.SetupParamLS(control.workDir, control.solveFile);
+    solver.AllocateMat(reservoir);
 }
 
 /// Initialize the reservoir class.
 void OpenCAEPoro::InitReservoir() { reservoir.Init(); }
 
-/// Call IMPES, FIM, etc for dynamic simulation.
+/// Call IMPEC, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()
 {
-    GetWallTime Timer;
-    Timer.Start();
-
-    switch (control.method) {
-        case IMPES:
-            impes.Run(reservoir, control, output);
-            break;
-        default:
-            OCP_MESSAGE("Trying to call " << control.method);
-            OCP_ABORT("Solution method not supported!");
-    }
-
-    control.totalTime = Timer.Stop() / 1000;
+    solver.RunSimulation(reservoir, control, output);
 }
 
 /// Print summary information to cout and SUMMARY.out file.

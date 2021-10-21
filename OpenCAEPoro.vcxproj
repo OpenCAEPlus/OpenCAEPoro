@@ -26,13 +26,13 @@
     <ClCompile Include="src\Bulk.cpp" />
     <ClCompile Include="src\BulkConn.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
+    <ClCompile Include="src\FluidSolver.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\LinearSolver.cpp" />
     <ClCompile Include="src\MixtureBO.cpp" />
     <ClCompile Include="src\MixtureBO3.cpp" />
     <ClCompile Include="src\OCP.cpp" />
     <ClCompile Include="src\OCPControl.cpp" />
-    <ClCompile Include="src\OCPMethod.cpp" />
     <ClCompile Include="src\OCPOutput.cpp" />
     <ClCompile Include="src\OCPTable.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
@@ -41,6 +41,7 @@
     <ClCompile Include="src\ParamReservoir.cpp" />
     <ClCompile Include="src\ParamWell.cpp" />
     <ClCompile Include="src\Reservoir.cpp" />
+    <ClCompile Include="src\Solver.cpp" />
     <ClCompile Include="src\UtilInput.cpp" />
     <ClCompile Include="src\UtilTiming.cpp" />
     <ClCompile Include="src\Well.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="include\BulkConn.hpp" />
     <ClInclude Include="include\Doxygen.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
+    <ClInclude Include="include\FluidSolver.hpp" />
     <ClInclude Include="include\Grid.hpp" />
     <ClInclude Include="include\LinearSolver.hpp" />
     <ClInclude Include="include\LinearSystem.hpp" />
@@ -59,7 +61,6 @@
     <ClInclude Include="include\OCP.hpp" />
     <ClInclude Include="include\OCPConst.hpp" />
     <ClInclude Include="include\OCPControl.hpp" />
-    <ClInclude Include="include\OCPMethod.hpp" />
     <ClInclude Include="include\OCPOutput.hpp" />
     <ClInclude Include="include\OCPTable.hpp" />
     <ClInclude Include="include\ParamControl.hpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="include\ParamReservoir.hpp" />
     <ClInclude Include="include\ParamWell.hpp" />
     <ClInclude Include="include\Reservoir.hpp" />
+    <ClInclude Include="include\Solver.hpp" />
     <ClInclude Include="include\UtilError.hpp" />
     <ClInclude Include="include\UtilInput.hpp" />
     <ClInclude Include="include\UtilTiming.hpp" />

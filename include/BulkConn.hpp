@@ -90,7 +90,7 @@ public:
     /// than bulks.
     void InitAssembleMat(LinearSolver& mySolver) const;
     /// assmeble Matrix, parts only related to bulks are considered.
-    void AssembleMat_IMPES(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssembleMat_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                            const OCP_DBL& dt) const;
 
     void UpdateLastStep();

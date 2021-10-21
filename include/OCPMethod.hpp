@@ -12,43 +12,9 @@
 #ifndef __OCP_METHOD_HEADER__
 #define __OCP_METHOD_HEADER__
 
-// OpenCAEPoro header files
-#include "OCPControl.hpp"
-#include "OCPOutput.hpp"
-#include "Reservoir.hpp"
-#include "LinearSolver.hpp"
-#include "UtilTiming.hpp"
 
-/// OCP_IMPES is IMPES (implict pressure explict saturation) method.
-class OCP_IMPES
-{
-public:
-    /// Setup parameters needed for IMPES.
-    void SetupParam(const string& dir, const string& file);
 
-    /// Allocate maximal possible memory needed by linear solver.
-    void AllocateMat(const Reservoir& rs);
 
-    /// Start dynamic simulation. // TODO: ???
-    void Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
-
-    /// One time step of simulation.
-    void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
-
-    /// Assemble linear system and solve. // TODO: Only difference as an interface?
-    void SolveP(Reservoir& rs, OCP_Control& ctrl);
-
-private:
-    LinearSolver solver;
-};
-
-/// OCP_FIM is FIM (fully implict method) method.
-class OCP_FIM
-{
-public:
-private:
-    LinearSolver solver;
-};
 
 #endif /* end if __OCP_METHOD_HEADER__ */
 

@@ -31,7 +31,7 @@ typedef double       OCP_DBL; ///< Double precision
 typedef float        OCP_SIN; ///< Single precision
 
 // Solution methods
-const USI IMPES = 1;
+const USI IMPEC = 1;
 const USI FIM   = 2;
 
 // General consts
