@@ -36,7 +36,6 @@ void OCP_IMPES::Run(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
         ctrl.ApplyControl(d);
         ctrl.InitTime(d);
         while (ctrl.criticalTime[d + 1] - ctrl.current_time > TINY) {
-
             GoOneStep(rs, ctrl);
             output.SetVal(rs, ctrl);
         }
@@ -50,15 +49,13 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     double& dt        = ctrl.current_dt;
     int     flagCheck = 0;
 
-    rs.wellgroup.PrepareWell(rs.bulk);
-
-    // cout << ctrl.current_time << " Days" << endl;
-
-    OCP_DBL cfl = rs.CalCFL01(dt);
-    if (cfl > 1) dt /= (cfl + 1);
+    // cout << setprecision(3) << ctrl.current_time << " Days\n";
 
     // Init wells
     rs.wellgroup.PrepareWell(rs.bulk);
+
+    OCP_DBL cfl = rs.CalCFL01(dt);
+    if (cfl > 1) dt /= (cfl + 1);
 
     while (true) {
         if (dt < MIN_TIME_STEP) OCP_ABORT("Time stepsize is too small!");
@@ -72,6 +69,7 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
             dt /= 2;
             continue;
         } else if (flagCheck == 2) {
+            dt /= 2;
             continue;
         }
 
@@ -122,9 +120,15 @@ void OCP_IMPES::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 
     rs.bulk.CalMaxChange();
     ctrl.CalNextTstep(rs);
-    rs.bulk.SetLastStep();
-    rs.conn.SetLastStep();
-    rs.wellgroup.SetLastStep();
+    rs.bulk.UpdateLastStep();
+    rs.conn.UpdateLastStep();
+    rs.wellgroup.UpdateLastStep();
+
+    //cout << ctrl.current_time << "\t";
+    //for (USI p = 0; p < 3; p++) {
+    //    cout << rs.wellgroup.GetWellDg(8, p) << "\t";
+    //}
+    //cout << "\n";
 }
 
 /// First assemble linear, then solve and return solution

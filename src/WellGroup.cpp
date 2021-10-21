@@ -109,6 +109,15 @@ void WellGroup::CalFlux(const Bulk& myBulk)
     }
 }
 
+void WellGroup::CaldG(const Bulk& myBulk)
+{
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].CaldG(myBulk);
+        }
+    }
+}
+
 void WellGroup::MassConserve(Bulk& myBulk, OCP_DBL dt)
 {
     for (USI w = 0; w < numWell; w++) {

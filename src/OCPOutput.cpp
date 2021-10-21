@@ -443,7 +443,7 @@ void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
     for (USI w = 0; w < len; w++) {
         USI numperf = rs.wellgroup.GetWellPerfNum(DG.index[w]);
         for (USI p = 0; p < numperf; p++) {
-            Sumdata[n++].val.push_back(rs.wellgroup.GetWellDg(w, p));
+            Sumdata[n++].val.push_back(rs.wellgroup.GetWellDg(DG.index[w], p));
         }
     }
 

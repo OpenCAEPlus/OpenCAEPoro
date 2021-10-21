@@ -1124,7 +1124,7 @@ void Bulk::GetSolIMPES(const vector<OCP_DBL>& u)
     }
 }
 
-void Bulk::SetLastStep()
+void Bulk::UpdateLastStep()
 {
     lP      = P;
     lPj     = Pj;

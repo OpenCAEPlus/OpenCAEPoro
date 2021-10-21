@@ -431,7 +431,7 @@ void Connection_BB::AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myB
     }
 }
 
-void Connection_BB::SetLastStep()
+void Connection_BB::UpdateLastStep()
 {
     lastUpblock = upblock;
     lastUpblock_Rho = upblock_Rho;

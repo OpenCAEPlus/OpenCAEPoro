@@ -526,6 +526,7 @@ void Well::CalInjdG(const Bulk& myBulk)
 
 void Well::CalProddG(const Bulk& myBulk)
 {
+
     USI             np      = myBulk.numPhase;
     USI             nc      = myBulk.numCom;
     OCP_DBL         maxlen  = 10;
@@ -536,6 +537,17 @@ void Well::CalProddG(const Bulk& myBulk)
     OCP_DBL         qtacc  = 0;
     OCP_DBL         rhoacc = 0;
     OCP_DBL         rhotmp = 0;
+
+
+    // test 
+    //if (name == "PROD17") {
+    //    for (USI p = 0; p < numPerf; p++) {
+    //        for (USI i = 0; i < nc; i++) {
+    //            cout << setprecision(1) << perf[p].qi_lbmol[i] << "   ";
+    //        }
+    //    }
+    //    cout << "\n";
+    //}
 
     if (depth <= perf.front().depth) {
         // Well is higher
@@ -573,7 +585,7 @@ void Well::CalProddG(const Bulk& myBulk)
                 for (USI i = 0; i < nc; i++) {
                     tmpNi[i] += perf[p1].qi_lbmol[i];
                 }
-            }
+            }     
 
             // check tmpNi
             for (auto& v : tmpNi) {
@@ -744,7 +756,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
                     OCP_DBL dP = myBulk.Pj[id] - perf[p].P;
-                    
+
                     perf[p].qj_ft3[j] = perf[p].transj[j] * dP;
                     perf[p].qt_ft3 += perf[p].qj_ft3[j];
                     // cout << p << " p[" << j << "] = " << myBulk.Pj[id] << endl;
@@ -984,8 +996,8 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
         }
     }
     if (!flag) {
-         cout << "###WARNING: All perfs are closed, reset and cut timestep!\n";
-         return 1;
+        cout << "###WARNING: All perfs are closed, reset and cut timestep!\n";
+        return 1;
         // open the depthest perf
         //perf.back().state = OPEN;
         //perf.back().multiplier = 1;

@@ -35,11 +35,10 @@ void Reservoir::Init()
 
     bulk.CalVporo();
     bulk.FlashSj();
-    // bulk.FlashNi();
     bulk.CalKrPc();
-    bulk.SetLastStep();
+    bulk.UpdateLastStep();
     conn.CalFlux(bulk);
-    conn.SetLastStep();
+    conn.UpdateLastStep();
     wellgroup.Init(bulk);
 }
 
@@ -49,7 +48,7 @@ OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
     OCP_DBL cflW = wellgroup.CalCFL(bulk, dt);
 
 
-    cout << dt << "Days\t" << cflB << "\t" << cflW << endl;
+    // cout << dt << "Days\t" << cflB << "\t" << cflW << endl;
 
     cfl = max(cflB, cflW);
 

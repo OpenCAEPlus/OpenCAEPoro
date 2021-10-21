@@ -76,7 +76,7 @@ public:
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcComp(const USI& tabrow);
     /// Assignment value for some variable, it's called when one time step finished.
-    void SetLastStep();
+    void UpdateLastStep();
 
     /// calculate max change of some physical variables to predict the size of next time
     /// step.

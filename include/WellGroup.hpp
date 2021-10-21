@@ -39,6 +39,8 @@ public:
     void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
+    /// calculate dG.
+    void CaldG(const Bulk& myBulk);
     /// update moles of components in bulk which connects to well, according to the well
     /// flow rate.
     void MassConserve(Bulk& myBulk, OCP_DBL dt);
@@ -122,10 +124,11 @@ public:
     void GetSol_IMPES(const vector<OCP_DBL>& u, const OCP_USI& bId);
     /// reset dG to ldG for each well, dG is a array where the pressure difference
     /// between well and perforation are stored.
-    void SetLastStep()
+    void UpdateLastStep()
     {
         for (auto& w : wellGroup) w.ldG = w.dG;
     }
+    void ResetDg(){ for (auto& w : wellGroup) w.dG = w.ldG; }
     /// check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
 

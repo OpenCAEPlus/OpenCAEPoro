@@ -93,7 +93,7 @@ public:
     void AssembleMat_IMPES(Solver<OCP_DBL>& mySolver, const Bulk& myBulk,
                            const OCP_DBL& dt) const;
 
-    void SetLastStep();
+    void UpdateLastStep();
     void Reset();
     // for test
     /// Check the difference from last step.
