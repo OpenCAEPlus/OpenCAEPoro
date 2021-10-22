@@ -13,6 +13,7 @@
 #define __LINEARSOLVER_HEADER__
 
 // Standard header files
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <string>
