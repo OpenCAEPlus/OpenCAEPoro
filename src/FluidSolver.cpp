@@ -126,11 +126,13 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     // first check : Pressure check
     OCP_INT flagCheck = rs.CheckP();
-    switch (rs.CheckP()) {
+    switch (flagCheck) {
         case 1:
+            cout << "well change" << endl;
             dt /= 2;
             return false;
         case 2:
+            cout << "well change" << endl;
             dt /= 2;
             return false;
         default:

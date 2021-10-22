@@ -1210,7 +1210,7 @@ OCP_DBL Bulk::CalFPR() const
 OCP_DBL Bulk::CalCFL(bool flag) const
 {
     OCP_DBL tmp = 0;
-    OCP_USI tmpId = 0;
+    // OCP_USI tmpId = 0;
     OCP_USI id;
     for (OCP_USI n = 0; n < numBulk; n++) {
         for (USI j = 0; j < numPhase; j++) {
@@ -1226,7 +1226,7 @@ OCP_DBL Bulk::CalCFL(bool flag) const
 
                 if (tmp < cfl[id]) {
                     tmp = cfl[id];
-                    tmpId = id;
+                    // tmpId = id;
                 }
 
                 /*if (flag)

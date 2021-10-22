@@ -23,13 +23,15 @@ void Solver::RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 
 void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
-	// cout << ctrl.GetCurTime() << endl;
+	// cout << setprecision(3) << ctrl.GetCurTime() << "days\n";
 
 	double& dt = ctrl.GetCurDt();
 	Prepare(rs, dt);
 	
 	while (true)
 	{
+		if (dt < MIN_TIME_STEP) OCP_ABORT("Time stepsize is too small!");
+
 		AssembleSolve(rs, ctrl, dt);
 		if (!UpdateProperty(rs, dt)) {
 			continue;

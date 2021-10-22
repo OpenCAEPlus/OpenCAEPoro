@@ -530,7 +530,7 @@ void Summary::PrintInfo(const string& dir) const
         for (USI l = 0; l < len; l++) {
 
             // Time
-            outF << "\t" << setw(ns) << Sumdata[0].val[l];
+            outF << "\t" << setw(ns)  << Sumdata[0].val[l];
 
             id = ID;
             for (USI i = 1; i < col; i++) {
