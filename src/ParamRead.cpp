@@ -201,7 +201,7 @@ void ParamRead::ReadFile(const string& file)
                 break;
 
             default:
-                OCP_WARNING("Skipping unknonw keywords!");
+                OCP_ASSERT(true, "Skipping unknonw keywords!");
                 break;
         }
     }

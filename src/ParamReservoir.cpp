@@ -286,15 +286,7 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
             exit(0);
         }
     }
-    std::cout << &dx << endl;
-    std::cout << &dy << endl;
-    std::cout << &dz << endl;
-    std::cout << &poro << endl;
-    std::cout << &ntg << endl;
-    std::cout << &permX << endl;
-    std::cout << &permY << endl;
-    std::cout << &permZ << endl;
-    std::cout << &tops << endl;
+
     std::cout << SATNUM.activity << endl;
     std::cout << PVTNUM.activity << endl;
     cout << "EQUALS" << endl;
