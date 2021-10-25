@@ -2,16 +2,16 @@
 
 ## For users
 
-- Switch to a new EOS model
-- Switch to another **Flash Calculation** algorithm
-- Add a new IMPES/IMPEC method
+- Easy to switch to a new EOS model
+- Easy to switch to another **Flash Calculation** algorithm
+- Easy to add a new IMPES/IMPEC method
 
 ## For developers
-- Change to a different grid structure
-- Add a new spatial discretization
-- Add a new temporal discretization
+- Easy to change to a different grid structure
+- Easy to add a new spatial discretization
+- Easy to add a new temporal discretization
   
 ## For optimzation
-- Add a new linear solver 
-- Parallelize linear solver
-- Optimize certain steps
+- Easy to add a new linear solution method
+- Easy to parallelize linear solvers
+- Easy to optimize code at certain steps
