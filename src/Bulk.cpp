@@ -1023,7 +1023,7 @@ void Bulk::FlashSj()
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
         }
-        PassFlashValue(n);
+        PassFlashValueIMPEC(n);
     }
 #ifdef _DEBUG
     CheckSat();
@@ -1034,15 +1034,15 @@ void Bulk::FlashNi()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * numCom]);
-        PassFlashValue(n);
+        PassFlashValueIMPEC(n);
     }
 #ifdef _DEBUG
     CheckSat();
 #endif // _DEBUG
-
 }
 
-void Bulk::PassFlashValue(const OCP_USI& n)
+
+void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
 {
     OCP_USI bId    = n * numPhase;
     USI     pvtnum = PVTNUM[n];
@@ -1062,15 +1062,6 @@ void Bulk::PassFlashValue(const OCP_USI& n)
             mu[bId + j] = flashCal[pvtnum]->mu[j];
             vj[bId + j] = flashCal[pvtnum]->v[j];
         }
-        else {
-            rho[bId + j] = INFINITY;
-            xi[bId + j] = INFINITY;
-            for (USI i = 0; i < numCom; i++) {
-                cij[bId * numCom + j * numCom + i] = INFINITY;
-            }
-            mu[bId + j] = INFINITY;
-            vj[bId + j] = INFINITY;
-        }
     }
     vf[n]  = flashCal[pvtnum]->vf;
     vfp[n] = flashCal[pvtnum]->vfp;
@@ -1080,12 +1071,71 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     }
 }
 
+void Bulk::FlashNiDeriv()
+{
+    dSec_dPri.clear();
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
+        PassFlashValueFIM(n);
+    }
+#ifdef _DEBUG
+    CheckSat();
+#endif // _DEBUG
+}
+
+void Bulk::PassFlashValueFIM(const OCP_USI& n)
+{
+    OCP_USI bId = n * numPhase;
+    USI     pvtnum = PVTNUM[n];
+    for (USI j = 0; j < numPhase; j++) {
+        phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
+        // Important! Saturation must be pass no matter if the phase exists.
+        // Because it will be used to calculate relative permeability and capillary pressure at
+        // every time step, be sure all saturation are updated at every step.
+        S[bId + j] = flashCal[pvtnum]->S[j];
+        if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
+            rho[bId + j] = flashCal[pvtnum]->rho[j];
+            xi[bId + j] = flashCal[pvtnum]->xi[j];
+            mu[bId + j] = flashCal[pvtnum]->mu[j];
+            vj[bId + j] = flashCal[pvtnum]->v[j];
+
+            // Derivatives
+            muP[bId + j] = flashCal[pvtnum]->muP[j];
+            xiP[bId + j] = flashCal[pvtnum]->xiP[j];
+            rhoP[bId + j] = flashCal[pvtnum]->rhoP[j];
+            for (USI i = 0; i < numCom; i++) {
+                cij[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->cij[j * numCom + i];
+                muC[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->muC[j * numCom + i];
+                xiC[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xiC[j * numCom + i];
+                rhoC[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->rhoC[j * numCom + i];
+            }
+        }
+    }
+    vf[n] = flashCal[pvtnum]->vf;
+    dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dSec_dPri.begin(),
+        flashCal[pvtnum]->dSec_dPri.end());
+}
+
 // relative permeability and capillary pressure
 void Bulk::CalKrPc()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_USI bId = n * numPhase;
         flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId]);
+        for (USI j = 0; j < numPhase; j++)
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+    }
+}
+
+void Bulk::CalKrPcDeriv()
+{
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase], &dPcj_dS[bId * numPhase]);
         for (USI j = 0; j < numPhase; j++)
             Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
     }
@@ -1111,7 +1161,7 @@ USI Bulk::GetMixMode() const
         return 0; // TODO: Make sure code does not reach here!
 }
 
-void Bulk::GetSolIMPES(const vector<OCP_DBL>& u)
+void Bulk::GetSolIMPEC(const vector<OCP_DBL>& u)
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         P[n] = u[n];
@@ -1123,6 +1173,22 @@ void Bulk::GetSolIMPES(const vector<OCP_DBL>& u)
         }
     }
 }
+
+
+void Bulk::GetSolFIM(const vector<OCP_DBL>& u)
+{
+    USI len = numCom + 1;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        P[n] += u[n * len];
+        for (USI i = 0; i < numCom; i++) {
+            Ni[n * numCom + i] += u[n * len + i];
+        }
+        for (USI j = 0; j < numPhase; j++) {
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }
+    }
+}
+
 
 void Bulk::UpdateLastStep()
 {

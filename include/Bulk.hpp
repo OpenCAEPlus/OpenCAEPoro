@@ -84,12 +84,14 @@ public:
     /// Flash calculation, moles of component and pressure are needed both in blackoil
     /// model and compositional model.
     void FlashNi();
+    void FlashNiDeriv();
     /// when flash calculation finished, values in flash class should be passed to ones
     /// in bulk class.
-    void PassFlashValue(const OCP_USI& n);
-
+    void PassFlashValueIMPEC(const OCP_USI& n);
+    void PassFlashValueFIM(const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure with saturation.
     void CalKrPc();
+    void CalKrPcDeriv();
     /// Calculate volume of pore with pressure.
     void CalVpore();
     
@@ -99,8 +101,10 @@ public:
     /// return the mixture mode.
     USI GetMixMode() const;
 
+    USI GetComNum()const { return numCom; }
     /// get solution from solver class after linear system is solved.
-    void GetSolIMPES(const vector<OCP_DBL>& u);
+    void GetSolIMPEC(const vector<OCP_DBL>& u);
+    void GetSolFIM(const vector<OCP_DBL>& u);
 
     /// calculate average pressure in reservoir.
     OCP_DBL CalFPR() const;
@@ -169,8 +173,21 @@ private:
 
     vector<OCP_DBL> vj;  ///< volume of phase: numPhase*numBulk.
     vector<OCP_DBL> vf;  ///< total fluid volume: numBulk.
+    // Derivatives
+    // For IMPEC
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom*numBulk.
     vector<OCP_DBL> vfp; ///< dVf / dP: numBulk.
+    // For FIM
+    vector<OCP_DBL> muP;    ///< dMu / dP: numPhase*numBulk.
+    vector<OCP_DBL> xiP;    ///< dXi / dP: numPhase*numBulk.
+    vector<OCP_DBL> rhoP;   ///< dRho / dP: numPhase*numBulk.
+    vector<OCP_DBL> muC;    ///< dMuj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> xiC;    ///< dXi_j / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> rhoC;   ///< dRhoj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> dSec_dPri; ///< d Second var / d Primary var: (numPhase + numPhase*numCom)*(numCom + 1)*numBulk
+    vector<OCP_DBL> dPcj_dS; ///< d Pcj / dSk: numPhase * numPhase * bulk.
+    vector<OCP_DBL> dKr_dS; ///< d Krj / dSk: numPhase * numPhase * bulk.
+    mutable vector<OCP_DBL> resFIM; /// Resiual of FIM: (numCom + 1) * numBulk.
 
     /// used to identify phase name according to its index: numPhase.
     /// For example, 0th phase is Oil.

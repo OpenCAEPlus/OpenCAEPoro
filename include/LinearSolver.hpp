@@ -28,6 +28,18 @@ extern "C" {
 #include "fasp_functs.h"
 }
 
+#define  PC_NULL         60 // no preconditioner
+#define  PC_FASP1        61 // default preconditioner for FIM from 2020
+#define  PC_FASP2        62
+#define  PC_FASP3        63
+#define  PC_FASP4        64 // default preconditioner for FIM from 2015
+#define  PC_FASP5        65
+#define  PC_DIAG         68 // diagonal preconditioner
+#define  PC_BILU         69 // block incomplete factorization preconditioner
+#define  PC_FASP1_SHARE  71 // Share the setup stage for PC_FASP1
+#define  PC_FASP4_SHARE  74 // Share the setup stage for PC_FASP4
+#define  RESET_CONST     35 // Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
+
 using namespace std;
 
 /// A template class designed to stores and solves linear system derived from discrete
@@ -60,6 +72,10 @@ public:
     void AssembleMat_Fasp();
     /// solve the linear system by FASP and return the status.
     int FaspSolve();
+    // Block Fasp
+    void InitParam_BFasp();
+    int BFaspSolve();
+
     /// free the matrix used for FASP.
     void Free_Fasp() { fasp_dcsr_free(&A_Fasp); };
     /// output the mat and rhs to fileA and fileb.
@@ -74,6 +90,7 @@ public:
 
 private:
     // internal mat structure.
+    USI nb;  ///< dimens of small block matrix.
     /// the maximum dimens matrix could have, it's fixed, always memory saving.
     /// it's used to allocate memory for the mat at the beginning of simulation.
     OCP_USI maxDim;
@@ -100,6 +117,14 @@ private:
     dCSRmat A_Fasp;
     dvector b_Fasp;
     dvector x_Fasp;
+    // for Block FASP solver
+    dBSRmat A_BFasp;
+    dvector b_BFasp;
+    dvector x_BFasp;
+    dBSRmat Asc;
+    dvector fsc;
+    ivector order;
+    OCP_DBL* Dmat;
 
     input_param inParam; // parameters from input files
     ITS_param   itParam; // parameters for itsolver

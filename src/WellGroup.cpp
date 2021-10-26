@@ -172,15 +172,63 @@ void WellGroup::AssemblaMat_WB_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
     }
 }
 
-void WellGroup::GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bid)
+void WellGroup::AssemblaMat_WB_FIM(LinearSolver& mySolver, const Bulk& myBulk,
+    const OCP_DBL& dt) const
 {
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
-            wellGroup[w].BHP = u[bid + w];
-            wellGroup[w].UpdatePerfP();
+
+            switch (wellGroup[w].WellType()) {
+            case INJ:
+                wellGroup[w].AssembleMat_INJ_FIM(myBulk, mySolver, dt);
+                break;
+            case PROD:
+                wellGroup[w].AssembleMat_PROD_BLK_FIM(myBulk, mySolver, dt);
+                break;
+            default:
+                ERRORcheck("Wrong Well Type");
+                exit(0);
+            }
         }
     }
 }
+
+void WellGroup::GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId)
+{
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].BHP = u[bId + wId];
+            wellGroup[w].UpdatePerfP();
+            wId++;
+        }
+    }
+}
+
+void WellGroup::GetSol_FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len)
+{
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].BHP += u[(bId + wId)*len];
+            wellGroup[w].UpdatePerfP();
+            wId++;
+        }
+    }
+}
+
+
+void WellGroup::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].CalResFIM(myBulk, dt, wId);
+            wId++;
+        }
+    }
+}
+
 
 void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
 {

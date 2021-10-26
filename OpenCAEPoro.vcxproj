@@ -25,6 +25,7 @@
     <ClCompile Include="main\Main.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
     <ClCompile Include="src\BulkConn.cpp" />
+    <ClCompile Include="src\DenseMat.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\FluidSolver.cpp" />
     <ClCompile Include="src\Grid.cpp" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <ClInclude Include="include\Bulk.hpp" />
     <ClInclude Include="include\BulkConn.hpp" />
+    <ClInclude Include="include\DenseMat.hpp" />
     <ClInclude Include="include\Doxygen.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\FluidSolver.hpp" />

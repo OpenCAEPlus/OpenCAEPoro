@@ -19,6 +19,7 @@
 #include "Bulk.hpp"
 #include "Grid.hpp"
 #include "LinearSolver.hpp"
+#include "DenseMat.hpp"
 
 using namespace std;
 
@@ -92,6 +93,9 @@ public:
     /// assmeble Matrix, parts only related to bulks are considered.
     void AssembleMat_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                            const OCP_DBL& dt) const;
+    void AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
+    void CalResFIM(const Bulk& myBulk, const OCP_DBL& dt);
 
     void UpdateLastStep();
     void Reset();
@@ -119,6 +123,7 @@ private:
     /// upblock of connections.
     /// upblock is identified by difference of pressure between phases: numConn * nums
     /// of phase.
+    // ToDo : add flux existence!
     vector<OCP_USI> upblock;
     vector<OCP_DBL>
         upblock_Rho; ///< mass density of phase from upblock: numConn * nums of phase.

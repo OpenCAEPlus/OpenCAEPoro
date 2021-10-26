@@ -98,10 +98,20 @@ public:
     /// it will be used if oil, gas and water exist or could be exist.
     void CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+
+    void CalKrPcDeriv_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+
     // FlowUnits Model
     /// calculate relative permeability of oil phase with stone2 method.
     OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw,
                           const OCP_DBL& krg) const;
+
+    OCP_DBL kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
+        OCP_DBL krw, OCP_DBL krg,
+        OCP_DBL dkrwSw, OCP_DBL dkrowSw,
+        OCP_DBL dkrgSg, OCP_DBL dkrogSg,
+        OCP_DBL* out_dkrodSw, OCP_DBL* dkrodSg);
 
 private:
     USI                mode;   ///< decide which saturation table will be uesd.

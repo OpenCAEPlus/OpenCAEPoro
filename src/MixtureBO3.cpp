@@ -14,7 +14,7 @@
 void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                                const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
-    // initialize    numPhase = 3, numCom = 3
+
     phaseExist.assign(numPhase, false);
     cij.assign(numPhase * numCom, 0); //
     Ni.assign(numCom, 0);
@@ -54,7 +54,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             S[0]          = 0;
             S[1]          = 0;
             S[2]          = 1;
-            cij[8]        = 1;
+            cij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -81,8 +81,8 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             // water, gas
             phaseExist[1] = true;
             phaseExist[2] = true;
-            cij[4]        = 1;
-            cij[8]        = 1;
+            cij[1 * 3 + 1] = 1;
+            cij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -139,10 +139,10 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
             mu[0]  = muosat * (1 + cmuosat * (P - Pbb));
 
-            cij[0] = Ni[0] / (Ni[0] + Ni[1]);
-            cij[1] = 1 - cij[0];
-            cij[4] = 1;
-            cij[8] = 1;
+            cij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
+            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
+            cij[1 * 3 + 1] = 1;
+            cij[2 * 3 + 2] = 1;
 
             // total
             v[0]   = CONV1 * Ni[0] * bo;
@@ -182,10 +182,10 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             rho[1]      = std_RhoG / bg;
             mu[1]       = data[2];
 
-            cij[0] = 1 / (1 + rs);
-            cij[1] = 1 - cij[0];
-            cij[4] = 1;
-            cij[8] = 1;
+            cij[0 * 3 + 0] = 1 / (1 + rs);
+            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
+            cij[1 * 3 + 1] = 1;
+            cij[2 * 3 + 2] = 1;
 
             // total
             v[0] = CONV1 * Ni[0] * bo;
@@ -210,7 +210,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 
 void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-    // initialize    numPhase = 3, numCom = 3
+
     phaseExist.assign(numPhase, false);
     cij.assign(numPhase * numCom, 0); //
 
@@ -253,7 +253,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             S[0]          = 0;
             S[1]          = 0;
             S[2]          = 1;
-            cij[8]        = 1;
+            cij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -280,8 +280,8 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             // water, gas
             phaseExist[1] = true;
             phaseExist[2] = true;
-            cij[4]        = 1;
-            cij[8]        = 1;
+            cij[1 * 3 + 1] = 1;
+            cij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -323,10 +323,10 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             // water, oil
             phaseExist[0] = true;
             phaseExist[2] = true;
-            cij[0]        = Ni[0] / (Ni[0] + Ni[1]);
-            cij[1]        = 1 - cij[0];
-            cij[4]        = 1;
-            cij[8]        = 1;
+            cij[0 * 3 + 0]        = Ni[0] / (Ni[0] + Ni[1]);
+            cij[0 * 3 + 1]        = 1 - cij[0 * 3 + 0];
+            cij[1 * 3 + 1]        = 1;
+            cij[2 * 3 + 2]        = 1;
 
             // oil property
             OCP_DBL rs = Ni[1] / Ni[0];
@@ -383,10 +383,10 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             rho[1] = std_RhoG / bg;
 
             // total
-            cij[0] = 1 / (1 + rs);
-            cij[1] = 1 - cij[0];
-            cij[4] = 1;
-            cij[8] = 1;
+            cij[0 * 3 + 0] = 1 / (1 + rs);
+            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
+            cij[1 * 3 + 1] = 1;
+            cij[2 * 3 + 2] = 1;
 
             v[0] = CONV1 * Ni[0] * bo;
             v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
@@ -404,6 +404,310 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 
             break;
         }
+    }
+}
+
+
+void BOMixture::BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
+{
+    phaseExist.assign(numPhase, false);
+    cij.assign(numPhase * numCom, 0);
+    rhoP.assign(numPhase, 0);
+    xiP.assign(numPhase, 0);
+    muP.assign(numPhase, 0);
+    rhoC.assign(numPhase * numCom, 0);
+    xiC.assign(numPhase * numCom, 0);
+    muC.assign(numPhase * numCom, 0);
+    dSec_dPri.assign(dSec_dPri.size(), 0);
+
+    P = Pin;
+    OCP_DBL NT = 0;
+    for (USI i = 0; i < numCom; i++) {
+        Ni[i] = Niin[i];
+        NT += Ni[i];
+    }
+
+    // Water property
+    PVTW.Eval_All(0, P, data, cdata);
+    OCP_DBL Pw0 = data[0];
+    OCP_DBL bw0 = data[1];
+    OCP_DBL cbw = data[2];
+    OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+    OCP_DBL bwp = -cbw * bw0;
+
+    mu[2] = data[3];
+    xi[2] = 1 / (CONV1 * bw);
+    rho[2] = std_RhoW / bw;
+
+    muP[2] = cdata[3];
+    xiP[2] = -bwp / (bw * bw * CONV1);
+    rhoP[2] = CONV1 * xiP[2] * std_RhoW;
+
+    USI     phasecase;
+    OCP_DBL Rs_sat = PVCO.Eval(0, P, 1);
+
+    if (Ni[0] < NT * TINY) {
+        if (Ni[1] <= Ni[0] * Rs_sat)
+            phasecase = PHASE_W; // water, no oil, no gas
+        else
+            phasecase = PHASE_GW; // water, gas, no oil
+    }
+    else if (Ni[1] <= Ni[0] * Rs_sat)
+        phasecase = PHASE_OW; // water, oil, no gas
+    else
+        phasecase = PHASE_OGW; // water, oil ,gas
+
+    switch (phasecase) {
+    case PHASE_W: {
+        // water
+        phaseExist[2] = true;
+        S[0] = 0;
+        S[1] = 0;
+        S[2] = 1;
+        cij[2 * 3 + 2] = 1;
+
+        // hypothetical Oil property
+        PVCO.Eval_All(0, P, data, cdata);
+        OCP_DBL rs = data[1];
+        OCP_DBL bo = data[2];
+
+        // hypothetical Gas property
+        PVDG.Eval_All(0, P, data, cdata);
+        OCP_DBL bg = data[1] * (CONV1 / 1000);
+
+        // total
+        v[0] = 0;
+        v[1] = 0;
+        v[2] = CONV1 * Ni[2] * bw;
+        vf = v[2];
+        vfp = CONV1 * Ni[2] * bwp;
+        vfi[0] = CONV1 * bo - 1000 * rs * bg;
+        vfi[1] = 1000 * bg;
+        vfi[2] = CONV1 * bw;
+
+        // dSec_dPri[0] = 0; // dSo / dP
+        dSec_dPri[1] = CONV1 * bo / vf;  // dSo / dNo
+        // dSec_dPri[2] = 0;   // dSo / dNg;
+        // dSec_dPri[3] = 0;   // dSo / dNw;
+
+        // dSec_dPri[1 * 4 + 0] = 0;   // dSg / dP
+        // dSec_dPri[1 * 4 + 1] = 0;   // dSg / dNo
+        dSec_dPri[1 * 4 + 2] = 1000 * bg / vf;  // dSg / dNg
+        // dSec_dPri[1 * 4 + 3] = 0;   // dSg / dNw
+
+        dSec_dPri[2 * 4 + 0] = Ni[2] / vf * bwp * CONV1 - S[2] / vf * vfp; // dSw / dP
+        dSec_dPri[2 * 4 + 1] = -S[2] / vf * vfi[0]; // dSw / dNo
+        dSec_dPri[2 * 4 + 2] = -S[2] / vf * vfi[1]; // dSw / dNg
+        dSec_dPri[2 * 4 + 3] = CONV1 * bw / vf - S[2] / vf * vfi[2]; // dSw / dNw
+
+        break;
+    }
+    case PHASE_GW: {
+        // water, gas
+        phaseExist[1] = true;
+        phaseExist[2] = true;
+        cij[1 * 3 + 1] = 1;
+        cij[2 * 3 + 2] = 1;
+
+        // hypothetical Oil property
+        PVCO.Eval_All(0, P, data, cdata);
+        OCP_DBL rs = data[1];
+        OCP_DBL bo = data[2];
+
+        // gas property
+        PVDG.Eval_All(0, P, data, cdata);
+        OCP_DBL bg = data[1] * (CONV1 / 1000);
+        OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
+
+        mu[1] = data[2];
+        xi[1] = 1 / bg / 1000;
+        rho[1] = std_RhoG / bg;
+
+        muP[1] = cdata[2];
+        xiP[1] = -cdata[1] / (CONV1 * data[1] * data[1]);
+        rhoP[1] = 1000 * std_RhoG * xiP[1];
+
+        // total
+        v[0] = 0;
+        v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+        v[2] = CONV1 * Ni[2] * bw;
+
+#ifdef _DEBUG
+        if (v[1] <= 0) {
+            OCP_ABORT("gas volume <= 0");
+        }
+#endif // _DEBUG
+
+        vf = v[1] + v[2];
+        S[0] = 0;
+        S[1] = v[1] / vf;
+        S[2] = v[2] / vf;
+        vfp = 1000 * Ni[1] * cbg + CONV1 * Ni[2] * bwp;
+        vfi[0] = CONV1 * bo - 1000 * rs * bg;
+        vfi[1] = 1000 * bg;
+        vfi[2] = CONV1 * bw;
+
+        // dSec_dPri[0] = 0; // dSo / dP
+        dSec_dPri[1] = CONV1 * bo / vf; // dSo / dNo
+        // dSec_dPri[2] = 0;   // dSo / dNg
+        // dSec_dPri[3] = 0;   // dSo / dNw
+
+        dSec_dPri[1 * 4 + 0] = 1000 * Ni[1] / vf * cbg - S[1] / vf * vfp;   // dSg / dP
+        dSec_dPri[1 * 4 + 1] = -1000 * rs / vf * bg - S[1] / vf * vfi[0]; // dSg / dNo
+        dSec_dPri[1 * 4 + 2] = 1000 * bg / vf - S[1] / vf * vfi[1]; // dSg / dNg
+        dSec_dPri[1 * 4 + 3] = -S[1] / vf * vfi[2]; // dSg / dNw
+
+        dSec_dPri[2 * 4 + 0] = Ni[2] / vf * bwp * CONV1 - S[2] / vf * vfp; // dSw / dP
+        dSec_dPri[2 * 4 + 1] = -S[2] / vf * vfi[0]; // dSw / dNo
+        dSec_dPri[2 * 4 + 2] = -S[2] / vf * vfi[1]; // dSw / dNg
+        dSec_dPri[2 * 4 + 3] = CONV1 * bw / vf - S[2] / vf * vfi[2]; // dSw / dNw
+
+        break;
+    }
+    case PHASE_OW: {
+        // water, oil
+        phaseExist[0] = true;
+        phaseExist[2] = true;
+        cij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
+        cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
+        cij[1 * 3 + 1] = 1;
+        cij[2 * 3 + 2] = 1;
+
+        // oil property
+        OCP_DBL rs = Ni[1] / Ni[0];
+        PVCO.Eval_All(1, rs, data, cdata);
+        OCP_DBL pbb = data[0];
+        OCP_DBL bosat = data[2];
+        OCP_DBL muosat = data[3];
+        OCP_DBL cbosat = data[4];
+        OCP_DBL cmuosat = data[5];
+        OCP_DBL bo = bosat * (1 - cbosat * (P - pbb));
+        OCP_DBL bop = -bosat * cbosat;
+        OCP_DBL dBo_drs = bo / bosat * cdata[2] +
+            bosat * (cdata[4] * (pbb - P) + cbosat * cdata[0]);
+
+        mu[0] = muosat * (1 + cmuosat * (P - pbb));
+        xi[0] = (1 + rs) / (CONV1 * bo);
+        rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
+
+        muP[0] = muosat * cmuosat;
+        xiP[0] = -(1 + rs) * bop / (CONV1 * bo * bo);
+        rhoP[0] = -(std_RhoO + (1000/CONV1) * rs * std_RhoG) / (bo * bo) * bop;
+
+        OCP_DBL muo_rs = mu[0] / muosat * cdata[3] + muosat * (cdata[5] * (P - pbb) - cmuosat * cdata[0]);
+        OCP_DBL xio_rs = 1 / (CONV1 * bo) - (1 + rs) * dBo_drs / (CONV1 * bo * bo);
+        OCP_DBL rhoo_rs = (1000 / CONV1) * std_RhoG / bo - (std_RhoO + (1000 / CONV1) * rs * std_RhoG) * dBo_drs / (bo * bo);
+
+        // total
+        v[0] = CONV1 * Ni[0] * bo;
+        v[2] = CONV1 * Ni[2] * bw;
+        vf = v[0] + v[2];
+        S[0] = v[0] / vf;
+        S[1] = 0;
+        S[2] = v[2] / vf;
+        vfp = CONV1 * (Ni[0] * bop + Ni[2] * bwp);
+        vfi[0] = CONV1 * (bo - dBo_drs * (Ni[1] / Ni[0]));
+        vfi[1] = CONV1 * dBo_drs;
+        vfi[2] = CONV1 * bw;
+
+
+        dSec_dPri[0] = -CONV1 * Ni[0] / vf * cbosat * bosat - S[0] / vf * vfp;  // dSo / dP
+        dSec_dPri[1] = CONV1 * bo / vf - CONV1 / vf * dBo_drs * (Ni[1] / Ni[0]) - S[0] / vf * vfi[0]; // dSg / dNo
+        dSec_dPri[2] = CONV1 * Ni[0] / vf * dBo_drs / Ni[0] - S[0] / vf * vfi[1]; // dSg / dNg
+        dSec_dPri[3] = -S[0] / vf * vfi[2]; // dSg / dNw
+
+        dSec_dPri[2 * 4 + 0] = Ni[2] / vf * bwp * CONV1 - S[2] / vf * vfp; // dSw / dP
+        dSec_dPri[2 * 4 + 1] = -S[2] / vf * vfi[0]; // dSw / dNo
+        dSec_dPri[2 * 4 + 2] = -S[2] / vf * vfi[1]; // dSw / dNg
+        dSec_dPri[2 * 4 + 3] = CONV1 * bw / vf - S[2] / vf * vfi[2]; // dSw / dNw
+
+        dSec_dPri[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Coo / d No
+        dSec_dPri[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Coo / d Ng
+        dSec_dPri[4 * 4 + 1] = -dSec_dPri[3 * 4 + 1]; // d Cgo / d No
+        dSec_dPri[4 * 4 + 2] = -dSec_dPri[3 * 4 + 2]; // d Cgo / d Ng
+
+        OCP_DBL tmp = cij[0] * cij[0];
+
+        muC[0] = -muo_rs * cij[1] / tmp;    // dMuo / dCoo
+        muC[1] = muo_rs / cij[0];           // dMuo / dCgo
+
+        xiC[0] = -xio_rs * cij[1] / tmp;    // dXio / dCoo
+        xiC[1] = xio_rs / cij[0];           // dXio / dCgo
+
+        rhoC[0] = -rhoo_rs * cij[1] / tmp;  // dRhoo / dCoo
+        rhoC[1] = rhoo_rs / cij[0];         // dRhoo / dCgo
+
+        break;
+    }
+    case PHASE_OGW: {
+        phaseExist.assign(3, true);
+
+        // oil property
+        PVCO.Eval_All(0, P, data, cdata);
+        OCP_DBL rs = data[1];
+        OCP_DBL bo = data[2];
+        OCP_DBL crs = cdata[1];
+        OCP_DBL cbosat = cdata[2];
+
+        mu[0] = data[3];
+        xi[0] = (1 + rs) / bo / CONV1;
+        rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
+
+        muP[0] = cdata[3];
+        xiP[0] = crs / (CONV1 * bo) + -(1 + rs) * cbosat / (CONV1 * bo * bo);
+        rhoP[0] = (1000 / CONV1) * std_RhoG * crs / bo  - (std_RhoO + (1000/CONV1) * rs * std_RhoG) * cbosat / (bo * bo);
+
+        // gas property
+        PVDG.Eval_All(0, P, data, cdata);
+        OCP_DBL bg = data[1] * (CONV1 / 1000);
+        OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
+
+        mu[1] = data[2];
+        xi[1] = 1 / data[1] / CONV1;
+        rho[1] = std_RhoG / bg;
+
+        muP[1] = cdata[2];
+        xiP[1] = -cdata[1] / (CONV1 * data[1] * data[1]);
+        rhoP[1] = 1000 * std_RhoG * xiP[1];
+
+        // total
+        cij[0 * 3 + 0] = 1 / (1 + rs);
+        cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
+        cij[1 * 3 + 1] = 1;
+        cij[2 * 3 + 2] = 1;
+
+        v[0] = CONV1 * Ni[0] * bo;
+        v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
+        v[2] = CONV1 * Ni[2] * bw;
+        vf = v[0] + v[1] + v[2];
+        S[0] = v[0] / vf;
+        S[1] = v[1] / vf;
+        S[2] = v[2] / vf;
+        vfp = CONV1 * Ni[0] * cbosat +
+            1000 * (-crs * Ni[0] * bg + (Ni[1] - rs * Ni[0]) * cbg) +
+            CONV1 * Ni[2] * bwp;
+        vfi[0] = CONV1 * bo - 1000 * rs * bg;
+        vfi[1] = 1000 * bg;
+        vfi[2] = CONV1 * bw;
+
+
+        dSec_dPri[0] = (CONV1 * Ni[0] * cbosat - S[0] * vfp)/ vf; // dSo / dP
+        dSec_dPri[1] = (CONV1 * bo - S[0] * vfi[0]) / vf; // dSo / dNo
+        dSec_dPri[2] = -S[0] * vfi[1] / vf; // dSo / dNg
+        dSec_dPri[3] = -S[0] * vfi[2] / vf; // dSo / dNw
+
+        dSec_dPri[1 * 4 + 0] = (1000 * (Ni[1] - rs * Ni[0]) * cbg - 1000 * Ni[0] * bg * crs - S[1] * vfp) / vf; // dSg / dP
+        dSec_dPri[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
+        dSec_dPri[1 * 4 + 2] = (1000 * bg - S[1] * vfi[1]) / vf;  // dSg / dNg
+        dSec_dPri[1 * 4 + 3] = -S[1] * vfi[2] / vf; // dSg / dNw
+
+        dSec_dPri[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
+        dSec_dPri[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
+        dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
+        dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
+
+        break;
+    }
     }
 }
 

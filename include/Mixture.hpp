@@ -41,11 +41,12 @@ public:
     virtual void Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                           const OCP_DBL* Ziin) = 0;
-    /// flash calculation with moles of components.
+    /// Flash calculation with moles of components.
     virtual void Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin,
                           const OCP_DBL* Niin) = 0;
-
-    /// return molar density of phase, it's used to calculate the molar density of
+    /// Flash calculation with moles of components and Calculate the derivative
+    virtual void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) = 0;
+    /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
     virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T,
                             const OCP_DBL* Ziin) = 0;
@@ -106,10 +107,25 @@ protected:
     vector<OCP_DBL> v;   ///< volume of phase: numPhase;
 
     OCP_DBL vf;  ///< volume of total fluids.
+
+    /// Derivatives
+
+    // For IMPEC
     OCP_DBL vfp; ///< dVf / dP, the derivative of volume of total fluids with respect to
                  ///< pressure.
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom  the derivative of volume of total
                          ///< fluids with respect to moles of components.
+    
+    // For FIM
+    vector<OCP_DBL> muP;
+    vector<OCP_DBL> xiP;
+    vector<OCP_DBL> rhoP;
+    vector<OCP_DBL> muC;
+    vector<OCP_DBL> xiC;
+    vector<OCP_DBL> rhoC;
+    
+    
+    vector<OCP_DBL> dSec_dPri;
 };
 
 #endif /* end if __MIXTURE_HEADER__ */

@@ -59,6 +59,12 @@ public:
     /// where if dissolved gas exists should be distinguished.
     void BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
+    void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin) override;
+    void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
+    void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
+    void BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
+
     // return xi  molar density
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) override;
     OCP_DBL XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);

@@ -113,12 +113,8 @@ void FlowUnit::CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out
 
     OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
 
-    kr_out[0] = kro;
-    kr_out[1] = krg;
-    kr_out[2] = krw;
-    pc_out[0] = 0;
-    pc_out[1] = Pcg;
-    pc_out[2] = Pcw;
+    kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;
+    pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;
 }
 
 /// TODO: Add Doxygen
@@ -134,6 +130,74 @@ OCP_DBL FlowUnit::CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog,
 
     return kro;
 }
+
+void FlowUnit::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
+{
+    switch (mode)
+    {
+    case PHASE_OGW:
+        CalKrPcDeriv_OGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);
+        break;
+    default:
+        break;
+    }
+}
+
+void FlowUnit::CalKrPcDeriv_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
+{
+    OCP_DBL Sg = S_in[1];
+    OCP_DBL Sw = S_in[2];
+
+    // three phase black oil model using stone 2
+    SWOF.Eval_All(0, Sw, data, cdata);
+    OCP_DBL krw = data[1];   OCP_DBL dKrwdSw = cdata[1];
+    OCP_DBL krow = data[2];  OCP_DBL dKrowdSw = cdata[2];
+    OCP_DBL Pcw = -data[3];  OCP_DBL dPcwdSw = -cdata[3];
+
+    SGOF.Eval_All(0, Sg, data, cdata);
+    OCP_DBL krg = data[1];   OCP_DBL dKrgdSg = cdata[1];
+    OCP_DBL krog = data[2];  OCP_DBL dKrogdSg = cdata[2];
+    OCP_DBL Pcg = data[3];   OCP_DBL dPcgdSg = cdata[3];
+
+    OCP_DBL dKrodSg, dKrodSw;
+
+    OCP_DBL kro = kro_stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, &dKrodSw, &dKrodSg);
+
+    kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;
+    pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;
+
+    dkrdS[0] = 0;    dkrdS[1] = dKrodSg;    dkrdS[2] = dKrodSw;
+    dkrdS[3] = 0;    dkrdS[4] = dKrgdSg;    dkrdS[5] = 0;
+    dkrdS[6] = 0;    dkrdS[7] = 0;          dkrdS[8] = dKrwdSw;
+
+    dPcjdS[0] = 0;   dPcjdS[1] = 0;         dPcjdS[2] = 0;
+    dPcjdS[3] = 0;   dPcjdS[4] = dPcgdSg;   dPcjdS[5] = 0;
+    dPcjdS[6] = 0;   dPcjdS[7] = 0;         dPcjdS[8] = dPcwdSw;
+}
+
+
+OCP_DBL FlowUnit::kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
+    OCP_DBL krw, OCP_DBL krg,
+    OCP_DBL dkrwdSw, OCP_DBL dkrowdSw,
+    OCP_DBL dkrgdSg, OCP_DBL dkrogdSg,
+    OCP_DBL* out_dkrodSw, OCP_DBL* out_dkrodSg) {
+    OCP_DBL kro, dkrodSw, dkrodSg;
+    kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));
+
+    dkrodSw = kroMax * ((dkrowdSw / kroMax + dkrwdSw) * (krog / kroMax + krg)
+        - (dkrwdSw));
+    dkrodSg = kroMax * ((krow / kroMax + krw) * (dkrogdSg / kroMax + dkrgdSg) - (dkrgdSg));
+
+    if (kro < 0) {
+        kro = 0;
+        dkrodSg = 0;
+        dkrodSw = 0;
+    }
+    out_dkrodSw[0] = dkrodSw;
+    out_dkrodSg[0] = dkrodSg;
+    return kro;
+}
+
 
 /// TODO: Add Doxygen
 FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI& i)

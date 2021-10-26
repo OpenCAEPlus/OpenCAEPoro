@@ -27,6 +27,15 @@ BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const U
     rho.resize(numPhase);
     mu.resize(numPhase);
     vfi.resize(numCom);
+    // Derivatives for FIM
+    rhoP.resize(numPhase);
+    xiP.resize(numPhase);
+    muP.resize(numPhase);
+    rhoC.resize(numPhase * numCom);
+    xiC.resize(numPhase * numCom);
+    muC.resize(numPhase * numCom);
+    dSec_dPri.resize((numCom + 1) * (numPhase + numPhase * numCom));
+
 
     if (rs_param.density.activity) {
         std_RhoO = rs_param.density.data[0];
@@ -109,6 +118,35 @@ void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
             exit(0);
     }
 }
+
+void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+{
+#ifdef _DEBUG
+    // CheckNi(Niin);
+#endif // _DEBUG
+
+    switch (mode) {
+    case PHASE_W:
+        BOFlash_Ni_W_Deriv(Pin, Niin);
+        break;
+
+    case PHASE_OW:
+        BOFlash_Ni_OW_Deriv(Pin, Niin);
+        break;
+
+    case PHASE_OGW:
+        BOFlash_Ni_OGW_Deriv(Pin, Niin);
+        break;
+
+    default:
+        ERRORcheck("Wrong Mode");
+        exit(0);
+    }
+}
+
+void BOMixture::BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin){}
+
+void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
 
 void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
 

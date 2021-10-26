@@ -101,9 +101,23 @@ void Reservoir::AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) cons
 
 void Reservoir::GetSolution_IMPEC(const vector<OCP_DBL>& u)
 {
-    bulk.GetSolIMPES(u);
+    bulk.GetSolIMPEC(u);
     wellgroup.GetSol_IMPEC(u, bulk.GetBulkNum());
 }
+
+
+void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
+{
+    bulk.GetSolFIM(u);
+    wellgroup.GetSol_FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+}
+
+void Reservoir::CalResFIM(const OCP_DBL& dt)
+{
+    conn.CalResFIM(bulk, dt);
+    wellgroup.CalResFIM(bulk, dt);
+}
+
 
 OCP_INT Reservoir::CheckP()
 {
