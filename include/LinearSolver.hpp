@@ -21,11 +21,14 @@
 // OpenCAEPoro header files
 #include "LinearSystem.hpp"
 #include "OCPConst.hpp"
+#include "DenseMat.hpp"
 
 // Fasp header files
 #include "fasp.h"
 extern "C" {
 #include "fasp_functs.h"
+#include "fasp4blkoil.h"
+#include "fasp4blkoil_functs.h"
 }
 
 #define  PC_NULL         60 // no preconditioner
@@ -74,15 +77,57 @@ public:
     void InitParam_Fasp();
     /// read the sover param for Block FASP.
     void ReadParam_Fasp();
-    void ReadParam_BFasp();
     /// convert the internal matrix structure into the the format required by FASP.
     void AssembleMat_Fasp();
-    void AssembleMat_BFasp();
     /// solve the linear system by FASP and return the status.
     int FaspSolve();
     // Block Fasp
     void InitParam_BFasp();
+    void ReadParam_BFasp();
+    void AssembleMat_BFasp();
     int BFaspSolve();
+    void decoupling(dBSRmat* Absr, dvector* b, int scal_type,
+        dBSRmat* Asc, dvector* fsc, ivector* order,
+        double* Dmatvec, int decouple_type);
+    void decouple_abf(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_anl(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_truetrans_alg(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_truetrans(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_quasi(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_trueabf(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_rowsum(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_abftrue(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* Asc);
+
+    void decouple_true_scale(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* B);
+
+    void decouple_rotate(dBSRmat* A,
+        REAL* diaginv,
+        dBSRmat* B);
 
     /// output the mat and rhs to fileA and fileb.
     void PrintfMatCSR(const string& fileA, const string& fileb) const;
@@ -131,6 +176,7 @@ private:
     dBSRmat Asc;
     dvector fsc;
     ivector order;
+    vector<OCP_DBL> Dmat;
 
     input_param inParam; // parameters from input files
     ITS_param   itParam; // parameters for itsolver
