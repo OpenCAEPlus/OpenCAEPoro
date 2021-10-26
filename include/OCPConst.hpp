@@ -41,6 +41,7 @@ const OCP_DBL PI   = 3.141592653; ///< Pi
 // Control consts
 const OCP_DBL MAX_TIME_STEP     = 365.0; ///< Maximal time stepsize
 const OCP_DBL MIN_TIME_STEP     = 0.01;  ///< Minimal time stepsize
+const OCP_DBL MIN_TIME_CURSTEP  = 1E-6;  ///< Minimal time stepsize of current step
 const OCP_DBL TIME_STEP_CUT     = 0.5;   ///< Time stepsize cut ratio
 const OCP_DBL TIME_STEP_AMPLIFY = 2.0;   ///< Time stepsize amplify ratio
 const OCP_DBL MAX_VOLUME_ERR    = 0.01;  ///< Maximal volume error
