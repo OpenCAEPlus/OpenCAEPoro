@@ -4,62 +4,54 @@
 
 void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impes.Prepare(rs, dt);
-        break;
-    case FIM:
-        break;
-    default:
-        OCP_ABORT("Wrong method!");
-        break;
+    switch (method) {
+        case IMPEC:
+            impes.Prepare(rs, dt);
+            break;
+        case FIM:
+            break;
+        default:
+            OCP_ABORT("Wrong method!");
     }
 }
 
-
 void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impes.AssembleMat(FLSolver, rs, dt);
-        break;
-    case FIM:
-        break;
-    default:
-        OCP_ABORT("Wrong method!");
-        break;
+    switch (method) {
+        case IMPEC:
+            impes.AssembleMat(FLSolver, rs, dt);
+            break;
+        case FIM:
+            break;
+        default:
+            OCP_ABORT("Wrong method!");
     }
 }
 
 void FluidSolver::SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impes.SolveLinearSystem(FLSolver, rs, ctrl);
-        break;
-    case FIM:
-        break;
-    default:
-        OCP_ABORT("Wrong method!");
-        break;
+    switch (method) {
+        case IMPEC:
+            impes.SolveLinearSystem(FLSolver, rs, ctrl);
+            break;
+        case FIM:
+            break;
+        default:
+            OCP_ABORT("Wrong method!");
     }
 }
 
 bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
-    switch (method)
-    {
-    case IMPEC:
-        return impes.UpdateProperty(rs, dt);
-    case FIM:
-        break;
-    default:
-        OCP_ABORT("Wrong method!");
-        break;
+    switch (method) {
+        case IMPEC:
+            return impes.UpdateProperty(rs, dt);
+        case FIM:
+            break;
+        default:
+            OCP_ABORT("Wrong method!");
     }
+    return true; // Should not reach here!
 }
 
 void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
@@ -71,29 +63,23 @@ void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
     ctrl.UpdateIters();
 }
 
-void FluidSolver::AllocateMat(const Reservoir& rs) 
-{
-    rs.AllocateMat(FLSolver);
-}
-
+void FluidSolver::AllocateMat(const Reservoir& rs) { rs.AllocateMat(FLSolver); }
 
 void FluidSolver::SetupParamLS(const string& dir, const string& file)
 {
     FLSolver.SetupParam(dir, file);
 }
 
+void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt) { rs.Prepare(dt); }
 
-void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
-{
-    rs.Prepare(dt);
-}
-
-void OCP_IMPEC::AssembleMat(LinearSolver& lsolver, const Reservoir& rs, const OCP_DBL& dt)
+void OCP_IMPEC::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
+                            const OCP_DBL& dt)
 {
     rs.AssembleMatIMPEC(lsolver, dt);
 }
 
-void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl)
+void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
+                                  OCP_Control& ctrl)
 {
 #ifdef DEBUG
     solver.CheckVal();
@@ -175,7 +161,6 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     rs.CalConnFlux();
     return true;
 }
-
 
 void OCP_IMPEC::SetupParam(LinearSolver& lsolver, const string& dir, const string& file)
 {
