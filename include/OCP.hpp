@@ -38,7 +38,7 @@ public:
     void InputParam(ParamRead& param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupReservoir(ParamRead& param);
+    void SetupSimulator(ParamRead& param);
 
     /// Initialize or get intitial status of reserovir.
     void InitReservoir();

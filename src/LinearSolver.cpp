@@ -1,24 +1,35 @@
 #include "LinearSolver.hpp"
 
-void LinearSolver::AllocateMem(const OCP_USI& dimMax)
+void LinearSolver::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
 {
+    blockSize = nb * nb;
+    blockDim = nb;
     maxDim = dimMax;
     rowCapacity.resize(maxDim, 0);
     colId.resize(maxDim);
     val.resize(maxDim);
     diagPtr.resize(maxDim, 0);
-    diagVal.resize(maxDim, 0);
-    b.resize(maxDim, 0);
-    u.resize(maxDim, 0);
+    diagVal.resize(maxDim * blockSize, 0);
+    b.resize(maxDim * blockSize, 0);
+    u.resize(maxDim * blockSize, 0);
 }
 
 
-void LinearSolver::AllocateColValMem()
+void LinearSolver::AllocateColMem()
 {
     for (OCP_USI n = 0; n < maxDim; n++) {
-        colId[n].reserve(rowCapacity[n]);
-        val[n].reserve(rowCapacity[n]);
+        colId[n].reserve(rowCapacity[n] * blockSize);
+        val[n].reserve(rowCapacity[n] * blockSize);
     }
+}
+
+void LinearSolver::AllocateFasp()
+{
+    OCP_USI nnz = 0;
+    for (OCP_USI n = 0; n < maxDim; n++) {
+        nnz += rowCapacity[n];
+    }
+    A_Fasp = fasp_dcsr_create(maxDim, maxDim, nnz);
 }
 
 
@@ -49,10 +60,10 @@ void LinearSolver::AssembleMat_Fasp()
     for (OCP_USI i = 0; i < dim; i++) {
         nnz += colId[i].size();
     }
-    A_Fasp = fasp_dcsr_create(dim, dim, nnz);
-    // IA
 
+    // IA
     OCP_USI count = 0;
+    A_Fasp.IA[0] = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
         USI nnz_Row = colId[i - 1].size();
         A_Fasp.IA[i] = A_Fasp.IA[i - 1] + nnz_Row;
@@ -64,6 +75,44 @@ void LinearSolver::AssembleMat_Fasp()
         }
     }
 }
+
+
+void LinearSolver::AssembleMat_BFasp()
+{
+    OCP_USI nrow = dim * blockSize;
+    // b & x
+    b_BFasp.row = nrow;
+    b_BFasp.val = b.data();
+    x_Fasp.row = nrow;
+    x_Fasp.val = u.data();
+    // fsc & order
+    fsc.row = nrow;
+    order.row = nrow;
+    // A & Asc
+    OCP_USI nnz = 0;
+    for (OCP_USI i = 0; i < dim; i++) {
+        nnz += colId[i].size();
+    }
+    A_BFasp = fasp_dbsr_create(dim, dim, nnz, blockDim, 0);
+    Asc = fasp_dbsr_create(dim, dim, nnz, blockDim, 0);
+
+    // IA
+
+    OCP_USI count = 0;
+    A_BFasp.IA[0] = 0;
+    for (OCP_USI i = 1; i < dim + 1; i++) {
+        USI nnz_Row = colId[i - 1].size();
+        A_BFasp.IA[i] = A_BFasp.IA[i - 1] + nnz_Row;
+
+        for (USI j = 0; j < nnz_Row; j++) {
+            A_BFasp.JA[count] = colId[i - 1][j];
+
+            A_BFasp.val[count] = val[i - 1][j];
+            count++;
+        }
+    }
+}
+
 
 
 int LinearSolver::FaspSolve()
@@ -219,17 +268,40 @@ void LinearSolver::SetupParam(const string& dir, const string& file)
 }
 
 
-void LinearSolver::CheckVal() const
+void LinearSolver::SetupParamB(const string& dir, const string& file)
 {
-    for (OCP_USI n = 0; n < dim; n++) {
-        for (auto v : val[n]) {
-            if (!isfinite(v)) {
-                cout << "###ERROR   ";
-                ERRORcheck("NAN or INF in MAT");
-                exit(0);
-            }
+    solveDir = dir;
+    solveFile = file;
+#ifdef __SOLVER_FASP__
+    ReadParam_BFasp();
+#endif //  __SOLVER_FASP__
+}
+
+
+void LinearSolver::ReadParam_BFasp()
+{
+    string file = solveDir + solveFile;
+    InitParam_BFasp(); // Set default solver parameters
+    std::ifstream ifs(file);
+    if (!ifs.is_open()) {
+        std::cout << "The input file " << file << " is missing!" << std::endl;
+        file = solveDir + "../conf/csr.dat";
+        ifs.open(file);
+        if (!ifs.is_open()) {
+            std::cout << "The input file " << file << " is missing!" << std::endl;
+            std::cout << "Using the default parameters of FASP" << std::endl;
+        }
+        else {
+            ifs.close();
+            std::cout << "Using the input file " << file << std::endl;
+            fasp_param_input(file.data(), &inParam);
         }
     }
+    else {
+        ifs.close(); // if file has been opened, close it first
+        fasp_param_input(file.data(), &inParam);
+    }
+    fasp_param_init(&inParam, &itParam, &amgParam, &iluParam, &swzParam);
 }
 
 
@@ -331,7 +403,7 @@ void LinearSolver::InitParam_Fasp()
 int LinearSolver::BFaspSolve()
 {
 //    int status = FASP_SUCCESS;
-//    int scal_type = A_BFasp.nb;
+//    int scal_type = A_BFasp.blockDim;
 //
 //    // Set local parameters
 //    const int print_level = inParam.print_level;
@@ -455,6 +527,20 @@ int LinearSolver::BFaspSolve()
 //    if (output_type) fclose(stdout);
 //
 //    return status;
+}
+
+
+void LinearSolver::CheckVal() const
+{
+    for (OCP_USI n = 0; n < dim; n++) {
+        for (auto v : val[n]) {
+            if (!isfinite(v)) {
+                cout << "###ERROR   ";
+                ERRORcheck("NAN or INF in MAT");
+                exit(0);
+            }
+        }
+    }
 }
 
 

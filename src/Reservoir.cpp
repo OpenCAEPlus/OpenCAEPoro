@@ -26,7 +26,7 @@ void Reservoir::Setup()
     wellgroup.Setup(grid, bulk);
 }
 
-void Reservoir::Init()
+void Reservoir::InitIMPEC()
 {
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBlk(50);
@@ -41,6 +41,24 @@ void Reservoir::Init()
     conn.UpdateLastStep();
     wellgroup.Init(bulk);
 }
+
+void Reservoir::InitFIM()
+{
+    if (bulk.GetMixMode() == BLKOIL)
+        bulk.InitSjPcBlk(50);
+    else if (bulk.GetMixMode() == EoS_PVTW)
+        bulk.InitSjPcComp(50);
+
+    bulk.CalVpore();
+    bulk.FlashSj();
+    bulk.FlashNiDeriv();
+    bulk.CalKrPcDeriv();
+    bulk.UpdateLastStep();
+    conn.CalFlux(bulk);
+    conn.UpdateLastStep();
+    wellgroup.Init(bulk);
+}
+
 
 void Reservoir::Prepare(OCP_DBL& dt) {
     wellgroup.PrepareWell(bulk);
@@ -82,12 +100,21 @@ OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt)
 
 
 // allocate memory
-void Reservoir::AllocateMat(LinearSolver& mySolver) const
+void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const
 {
-    mySolver.AllocateMem(conn.GetBulkNum() + wellgroup.GetWellNum());
+    mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), 1);
     conn.AllocateMat(mySolver);
-    wellgroup.AllocateMat(mySolver);
-    mySolver.AllocateColValMem();
+    wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
+    mySolver.AllocateColMem();
+    mySolver.AllocateFasp();
+}
+
+void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const
+{
+    mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), bulk.GetComNum() + 1);
+    conn.AllocateMat(mySolver);
+    wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
+    mySolver.AllocateColMem();
 }
 
 
@@ -97,6 +124,13 @@ void Reservoir::AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) cons
     conn.InitAssembleMat(mysolver);
     conn.AssembleMat_IMPEC(mysolver, bulk, dt);
     wellgroup.AssemblaMat_WB_IMPEC(mysolver, bulk, dt);
+}
+
+void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const
+{
+    conn.InitAssembleMat(mysolver);
+    conn.AssembleMat_FIM(mysolver, bulk, dt);
+    wellgroup.AssemblaMat_WB_FIM(mysolver, bulk, dt);
 }
 
 void Reservoir::GetSolution_IMPEC(const vector<OCP_DBL>& u)

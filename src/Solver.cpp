@@ -91,3 +91,8 @@ void Solver::AllocateMat(const Reservoir& rs)
 {
 	FSolver.AllocateMat(rs);
 }
+
+void Solver::InitReservoir(Reservoir& rs) const
+{
+	FSolver.InitReservoir(rs);
+}

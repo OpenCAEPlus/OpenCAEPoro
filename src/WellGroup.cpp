@@ -143,10 +143,12 @@ void WellGroup::PrepareWell(const Bulk& myBulk)
 }
 
 
-void WellGroup::AllocateMat(LinearSolver& mySolver) const
+void WellGroup::AllocateMat(LinearSolver& mySolver, const USI& bulknum) const
 {
+    USI maxNum= GetMaxWellPerNum() + 1;
     for (USI w = 0; w < numWell; w++) {
         wellGroup[w].AllocateMat(mySolver);
+        mySolver.RowCapPlus(bulknum + w, maxNum);
     }
 }
 
@@ -298,6 +300,16 @@ OCP_INT WellGroup::CheckP(const Bulk& myBulk)
     if (flag2 || flag3) return 2;
 
     return 0;
+}
+
+
+USI WellGroup::GetMaxWellPerNum() const
+{
+    USI m = 0;
+    for (USI w = 0; w < numWell; w++) {
+        m = max(m, wellGroup[w].numPerf);
+    }
+    return m;
 }
 
 // return the index of Specified well name

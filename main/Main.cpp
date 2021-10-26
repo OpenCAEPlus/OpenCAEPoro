@@ -44,7 +44,7 @@ int main(int argc, const char* argv[])
     // Step 2. Read param from internal params data structure to each modules, and
     // Setup static information, such as active grids, and connections between them.
     // Note: Memory allocation for linear systems will also be done at this time.
-    simulator.SetupReservoir(rp);
+    simulator.SetupSimulator(rp);
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturation, and moles of components will be

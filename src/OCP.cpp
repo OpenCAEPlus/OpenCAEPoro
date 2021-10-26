@@ -20,7 +20,7 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup processdures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupReservoir(ParamRead& param)
+void OpenCAEPoro::SetupSimulator(ParamRead& param)
 {
     InputParam(param);
     reservoir.Setup();
@@ -36,7 +36,10 @@ void OpenCAEPoro::SetupLinearSolver()
 }
 
 /// Initialize the reservoir class.
-void OpenCAEPoro::InitReservoir() { reservoir.Init(); }
+void OpenCAEPoro::InitReservoir()
+{ 
+    solver.InitReservoir(reservoir);
+}
 
 /// Call IMPEC, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()

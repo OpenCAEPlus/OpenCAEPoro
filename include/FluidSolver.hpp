@@ -28,23 +28,25 @@ class OCP_IMPEC
 {
 public:
 
-    /// Prepare and assemble the mat.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-
-    /// Assemble Mat.
-    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs, const OCP_DBL& dt);
-
     /// Solve the linear system.
     void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
 
-    /// Setup parameters needed for IMPEC.
-    void SetupParam(LinearSolver& lsolver, const string& dir, const string& file);
+};
 
-    /// Allocate maximal possible memory needed by linear solver.
-    void AllocateMat(LinearSolver& lsolver, const Reservoir& rs);
+
+/// OCP_FIM is FIM (Fully Implicit Method).
+class OCP_FIM
+{
+public:
+
+    /// Solve the linear system.
+    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
+
+    /// Update properties of fluids.
+    bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
 
 
 };
@@ -71,10 +73,13 @@ public:
     /// Setup linear solver params.
     void SetupParamLS(const string& dir, const string& file);
 
+    void InitReservoir(Reservoir& rs) const;
+
 private:
     USI             method = IMPEC;
 	LinearSolver	FLSolver;
     OCP_IMPEC       impes;
+    OCP_FIM         fim;
 
 };
 

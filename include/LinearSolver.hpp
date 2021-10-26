@@ -54,22 +54,30 @@ class LinearSolver
 public:
     /// Allocate memory for linear system where possible maximum numbers of row are
     /// used.
-    void AllocateMem(const OCP_USI& dimMax);
+    void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
     /// Allocate memory for each row of matrix where the most terrible condition was
     /// considered.
-    void AllocateColValMem();
-    /// read solver param from input file which is supplied by user.
+    void AllocateColMem();
+    void AllocateFasp();
+    void AllocateBFasp();
+
+    void RowCapPlus(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
+    /// Read solver param from input file which is supplied by user.
     void SetupParam(const string& dir, const string& file);
+    /// Read solver param for Block matrix from input file which is supplied by user.
+    void SetupParamB(const string& dir, const string& file);
     /// output the solution to fileX.
     void PrintfSolution(const string& fileX) const;
 
     // FASP
     /// initialize the sover param for FASP.
     void InitParam_Fasp();
-    /// read the sover param for FASP.
+    /// read the sover param for Block FASP.
     void ReadParam_Fasp();
+    void ReadParam_BFasp();
     /// convert the internal matrix structure into the the format required by FASP.
     void AssembleMat_Fasp();
+    void AssembleMat_BFasp();
     /// solve the linear system by FASP and return the status.
     int FaspSolve();
     // Block Fasp
@@ -90,7 +98,8 @@ public:
 
 private:
     // internal mat structure.
-    USI nb;  ///< dimens of small block matrix.
+    USI blockDim;  ///< Dimens of small block matrix.
+    USI blockSize; ///< Size of small block matrix.
     /// the maximum dimens matrix could have, it's fixed, always memory saving.
     /// it's used to allocate memory for the mat at the beginning of simulation.
     OCP_USI maxDim;

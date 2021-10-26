@@ -31,7 +31,6 @@ class Reservoir
 {
     friend class OpenCAEPoro;
     friend class OCP_Control;
-    friend class OCP_IMPEC;
     friend class Summary;
     friend class CriticalInfo;
     friend class DetailInfo;
@@ -43,7 +42,8 @@ public:
     /// Setup static information for reservoir with input params.
     void Setup();
     /// Initialize the reservoir, actually it gives the first step in iterations.
-    void Init();
+    void InitIMPEC();
+    void InitFIM();
     /// Prepare for assembling matrix
     void Prepare(OCP_DBL& dt);
     /// Apply the control of ith critical time point.
@@ -72,13 +72,16 @@ public:
     void UpdateLastStep() { bulk.UpdateLastStep(); conn.UpdateLastStep(); wellgroup.UpdateLastStep(); };
 
     /// Allocate memory for linear system, it should be called at the beginning of
-    /// simulation only once. It's accessible for both IMPEC and FIM.
-    void AllocateMat(LinearSolver& mySolver) const;
+    /// simulation only once.
+    void AllocateMatIMPEC(LinearSolver& mySolver) const;
+    void AllocateMatFIM(LinearSolver& mySolver) const;
+
     /// assemble the matrix
     /// Setup most of sparsity pattern first, and then Setup the value only related to
     /// the bulks. finally, assemble the parts related to wells, which will complete the
     /// rest sparsity pattern simultaneously
     void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
+    void AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// get the solution from LinearSolver after the linear system is solved.
     void GetSolution_IMPEC(const vector<OCP_DBL>& u);
     void GetSolution_FIM(const vector<OCP_DBL>& u);

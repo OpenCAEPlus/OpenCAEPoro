@@ -1035,9 +1035,9 @@ void Well::CalTrans(const Bulk& myBulk)
                 if (myBulk.phaseExist[id]) {
                     perf[p].transj[j] += myBulk.kr[id] / myBulk.mu[id];
                     // perf[p].transINJ += perf[p].transj[j];
+                    perf[p].transINJ += perf[p].transj[j];
+                    perf[p].transj[j] *= temp;
                 }
-                perf[p].transINJ += perf[p].transj[j];
-                perf[p].transj[j] *= temp;
             }
             perf[p].transINJ *= temp;
         }

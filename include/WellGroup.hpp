@@ -46,7 +46,7 @@ public:
     void MassConserve(Bulk& myBulk, OCP_DBL dt);
     /// calculate memory needed to assemble matrix, only parts related to well are
     /// considered here.
-    void AllocateMat(LinearSolver& mySolver) const;
+    void AllocateMat(LinearSolver& mySolver, const USI& bulknum) const;
     /// guess the initial well pressure, it equals pressure in bulks where topest
     /// perforation locates.
     void Init(const Bulk& myBulk);
@@ -72,7 +72,7 @@ public:
     USI GetIndex(const string& name) const;
     /// Return the num of perforations of well i.
     USI GetWellPerfNum(const USI& i)const { return wellGroup[i].numPerf; }
-
+    USI GetMaxWellPerNum() const;
     // Field injection / production
     /// return oil production rate in field.
     OCP_DBL GetFOPR() const { return FOPR; }

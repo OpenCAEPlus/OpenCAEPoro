@@ -38,6 +38,8 @@ public:
 	void SetupParamLS(const string& dir, const string& file);
 	/// Allocate mat mem
 	void AllocateMat(const Reservoir& rs);
+	/// Initialize the reservoir
+	void InitReservoir(Reservoir& rs) const;
 
 
 private:
