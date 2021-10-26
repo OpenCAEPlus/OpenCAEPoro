@@ -115,6 +115,7 @@ void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const
     conn.AllocateMat(mySolver);
     wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
     mySolver.AllocateColMem();
+    mySolver.AllocateBFasp();
 }
 
 

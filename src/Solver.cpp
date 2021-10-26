@@ -42,8 +42,6 @@ void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 	
 }
 
-
-
 void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
 	FSolver.Prepare(rs, dt);

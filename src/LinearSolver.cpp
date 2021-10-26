@@ -10,18 +10,19 @@ void LinearSolver::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
     val.resize(maxDim);
     diagPtr.resize(maxDim, 0);
     diagVal.resize(maxDim * blockSize, 0);
-    b.resize(maxDim * blockSize, 0);
-    u.resize(maxDim * blockSize, 0);
+    b.resize(maxDim * blockDim, 0);
+    u.resize(maxDim * blockDim, 0);
 }
 
 
 void LinearSolver::AllocateColMem()
 {
     for (OCP_USI n = 0; n < maxDim; n++) {
-        colId[n].reserve(rowCapacity[n] * blockSize);
+        colId[n].reserve(rowCapacity[n]);
         val[n].reserve(rowCapacity[n] * blockSize);
     }
 }
+
 
 void LinearSolver::AllocateFasp()
 {
@@ -33,15 +34,28 @@ void LinearSolver::AllocateFasp()
 }
 
 
+void LinearSolver::AllocateBFasp()
+{
+    OCP_USI nnz = 0;
+    for (OCP_USI n = 0; n < maxDim; n++) {
+        nnz += rowCapacity[n];
+    }
+    A_BFasp = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
+    Asc = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
+    fsc = fasp_dvec_create(maxDim * blockDim);
+    order = fasp_ivec_create(maxDim);
+}
+
+
 void LinearSolver::ClearData()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
         colId[i].clear();
         val[i].clear();
     }
-    diagPtr.assign(maxDim, 0);
-    diagVal.assign(maxDim, 0);
-    b.assign(maxDim, 0);
+    // diagPtr.assign(maxDim, 0);
+    diagVal.assign(maxDim * blockSize, 0);
+    b.assign(maxDim * blockDim, 0);
     // In fact, for linear system the current solution is a good initial solution for next step,
     // so u will not be set to zero.
     // u.assign(maxDim, 0);
@@ -79,7 +93,7 @@ void LinearSolver::AssembleMat_Fasp()
 
 void LinearSolver::AssembleMat_BFasp()
 {
-    OCP_USI nrow = dim * blockSize;
+    OCP_USI nrow = dim * blockDim;
     // b & x
     b_BFasp.row = nrow;
     b_BFasp.val = b.data();
@@ -88,27 +102,36 @@ void LinearSolver::AssembleMat_BFasp()
     // fsc & order
     fsc.row = nrow;
     order.row = nrow;
-    // A & Asc
+
+    // nnz
     OCP_USI nnz = 0;
     for (OCP_USI i = 0; i < dim; i++) {
         nnz += colId[i].size();
     }
-    A_BFasp = fasp_dbsr_create(dim, dim, nnz, blockDim, 0);
-    Asc = fasp_dbsr_create(dim, dim, nnz, blockDim, 0);
 
-    // IA
+    // Asc
+    Asc.ROW = dim;
+    Asc.COL = dim;
+    Asc.nb = blockDim;
+    Asc.NNZ = nnz;
 
+    // A
     OCP_USI count = 0;
+    OCP_USI count2 = 0;
+    OCP_USI size_row;
     A_BFasp.IA[0] = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
-        USI nnz_Row = colId[i - 1].size();
-        A_BFasp.IA[i] = A_BFasp.IA[i - 1] + nnz_Row;
+        USI nnb_Row = colId[i - 1].size();
+        A_BFasp.IA[i] = A_BFasp.IA[i - 1] + nnb_Row;
 
-        for (USI j = 0; j < nnz_Row; j++) {
+        for (USI j = 0; j < nnb_Row; j++) {
             A_BFasp.JA[count] = colId[i - 1][j];
-
-            A_BFasp.val[count] = val[i - 1][j];
             count++;
+        }
+        size_row = nnb_Row * blockSize;
+        for (USI k = 0; k < size_row; k++) {
+            A_BFasp.val[count2] = val[i - 1][k];
+            count2++;
         }
     }
 }

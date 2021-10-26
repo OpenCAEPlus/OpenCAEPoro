@@ -84,8 +84,6 @@ public:
     void InitParam_BFasp();
     int BFaspSolve();
 
-    /// free the matrix used for FASP.
-    void Free_Fasp() { fasp_dcsr_free(&A_Fasp); };
     /// output the mat and rhs to fileA and fileb.
     void PrintfMatCSR(const string& fileA, const string& fileb) const;
     /// clear the internal matrix.
@@ -133,7 +131,6 @@ private:
     dBSRmat Asc;
     dvector fsc;
     ivector order;
-    OCP_DBL* Dmat;
 
     input_param inParam; // parameters from input files
     ITS_param   itParam; // parameters for itsolver
