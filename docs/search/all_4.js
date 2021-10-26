@@ -18,7 +18,7 @@ var searchData=
   ['dir_15',['dir',['../classParamControl.html#a8db5196bf69caf71fb7a2d73eb1695f1',1,'ParamControl']]],
   ['direction_16',['direction',['../classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5',1,'WellParam']]],
   ['disgas_17',['disGas',['../classParamReservoir.html#a0c7182c60189dd5972ad2e961555c588',1,'ParamReservoir']]],
-  ['display_18',['Display',['../classOCP__Table.html#afdbf91f23a1baaf86a3199f666eb4c50',1,'OCP_Table']]],
+  ['display_18',['Display',['../classOCPTable.html#a08c7c8e36129cc9dd8de8a1cfee1906f',1,'OCPTable']]],
   ['displaydimens_19',['DisplayDIMENS',['../classParamReservoir.html#a73984483d8ad19607e21c7f6c0d079d3',1,'ParamReservoir']]],
   ['displaytable_20',['DisplayTable',['../classTableSet.html#ae8323f7eb0d7de220946a9dab04f9c63',1,'TableSet']]],
   ['displaytuning_21',['DisplayTuning',['../classParamControl.html#a4a4fee2d05f3bedddc3dbf28d838d945',1,'ParamControl']]],

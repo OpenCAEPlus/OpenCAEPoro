@@ -83,26 +83,64 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab44755133c6afbc65bd5894266674f94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#ab44755133c6afbc65bd5894266674f94">Init</a> ()</td></tr>
 <tr class="memdesc:ab44755133c6afbc65bd5894266674f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the reservoir, actually it gives the first step in iterations.  <a href="classReservoir.html#ab44755133c6afbc65bd5894266674f94">More...</a><br /></td></tr>
 <tr class="separator:ab44755133c6afbc65bd5894266674f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83be94e2a5c5e6cbe6b040dd7e82bf2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a83be94e2a5c5e6cbe6b040dd7e82bf2d">Prepare</a> (<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="memdesc:a83be94e2a5c5e6cbe6b040dd7e82bf2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare for assembling matrix.  <a href="classReservoir.html#a83be94e2a5c5e6cbe6b040dd7e82bf2d">More...</a><br /></td></tr>
+<tr class="separator:a83be94e2a5c5e6cbe6b040dd7e82bf2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e77991deeaaa5fba43a98f79251e0f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">ApplyControl</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i)</td></tr>
+<tr class="memdesc:a9e77991deeaaa5fba43a98f79251e0f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the control of ith critical time point.  <a href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">More...</a><br /></td></tr>
+<tr class="separator:a9e77991deeaaa5fba43a98f79251e0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3c47ee0d3b82b14e20b8fb85c24c5fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#ad3c47ee0d3b82b14e20b8fb85c24c5fb">CalCFL</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:ad3c47ee0d3b82b14e20b8fb85c24c5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcluate the CFL number, including bulks and wells.  <a href="classReservoir.html#ad3c47ee0d3b82b14e20b8fb85c24c5fb">More...</a><br /></td></tr>
 <tr class="separator:ad3c47ee0d3b82b14e20b8fb85c24c5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3ad8d49e6aca59e94628cf5fcf64b5f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad3ad8d49e6aca59e94628cf5fcf64b5f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classReservoir.html#ad3ad8d49e6aca59e94628cf5fcf64b5f">AllocateMat</a> (<a class="el" href="classSolver.html">Solver</a>&lt; T &gt; &amp;mySolver) const</td></tr>
-<tr class="separator:ad3ad8d49e6aca59e94628cf5fcf64b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d71e594eee324c141be2118abce4480"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a3d71e594eee324c141be2118abce4480">AssembleMat</a> (<a class="el" href="classSolver.html">Solver</a>&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;mysolver, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="separator:a3d71e594eee324c141be2118abce4480"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1395d905f6968b70552a36144c042d6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a1395d905f6968b70552a36144c042d6d">GetSolution_IMPES</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u)</td></tr>
-<tr class="memdesc:a1395d905f6968b70552a36144c042d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the solution from <a class="el" href="classSolver.html">Solver</a> after the linear system is solved.  <a href="classReservoir.html#a1395d905f6968b70552a36144c042d6d">More...</a><br /></td></tr>
-<tr class="separator:a1395d905f6968b70552a36144c042d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a5fe58e16b00c5eeccaafcfb593f46f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">CalCFL01</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="memdesc:a7a5fe58e16b00c5eeccaafcfb593f46f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcluate the CFL number, including bulks and wells.  <a href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">More...</a><br /></td></tr>
+<tr class="separator:a7a5fe58e16b00c5eeccaafcfb593f46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a5d1870a1c5aeef64717928f160204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a23a5d1870a1c5aeef64717928f160204">CalFLux</a> ()</td></tr>
+<tr class="memdesc:a23a5d1870a1c5aeef64717928f160204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate flux between bulks, bulks and wells.  <a href="classReservoir.html#a23a5d1870a1c5aeef64717928f160204">More...</a><br /></td></tr>
+<tr class="separator:a23a5d1870a1c5aeef64717928f160204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa362ca0e09df55324c5f5c8b597b817e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#aa362ca0e09df55324c5f5c8b597b817e">CalConnFlux</a> ()</td></tr>
+<tr class="memdesc:aa362ca0e09df55324c5f5c8b597b817e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate flux between bulks.  <a href="classReservoir.html#aa362ca0e09df55324c5f5c8b597b817e">More...</a><br /></td></tr>
+<tr class="separator:aa362ca0e09df55324c5f5c8b597b817e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1624746b7de762b4b12b2647413afbfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a1624746b7de762b4b12b2647413afbfb">MassConseve</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="memdesc:a1624746b7de762b4b12b2647413afbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate mass conserve.  <a href="classReservoir.html#a1624746b7de762b4b12b2647413afbfb">More...</a><br /></td></tr>
+<tr class="separator:a1624746b7de762b4b12b2647413afbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3151b6c43cd6e24eb483d2ad467ea1a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">CalFlashIMPEC</a> ()</td></tr>
+<tr class="memdesc:a3151b6c43cd6e24eb483d2ad467ea1a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Flash for IMPEC Method.  <a href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">More...</a><br /></td></tr>
+<tr class="separator:a3151b6c43cd6e24eb483d2ad467ea1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a537cc8f6816f874a2b3170e3d6c79b3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">CalVpore</a> ()</td></tr>
+<tr class="memdesc:a537cc8f6816f874a2b3170e3d6c79b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate pore of bulks.  <a href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">More...</a><br /></td></tr>
+<tr class="separator:a537cc8f6816f874a2b3170e3d6c79b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2822b8803a1c36d6adc3567fba06a673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">CalKrPc</a> ()</td></tr>
+<tr class="memdesc:a2822b8803a1c36d6adc3567fba06a673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate relative permeability and capillary.  <a href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">More...</a><br /></td></tr>
+<tr class="separator:a2822b8803a1c36d6adc3567fba06a673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04b82ae53ea6f0b60e800a50341e6d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">CalIPRT</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="memdesc:ad04b82ae53ea6f0b60e800a50341e6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate IPRT.  <a href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">More...</a><br /></td></tr>
+<tr class="separator:ad04b82ae53ea6f0b60e800a50341e6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e050f9b8ed0aa28c9e488d6634b5d9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">CalMaxChange</a> ()</td></tr>
+<tr class="memdesc:a7e050f9b8ed0aa28c9e488d6634b5d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate maximum change.  <a href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">More...</a><br /></td></tr>
+<tr class="separator:a7e050f9b8ed0aa28c9e488d6634b5d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8cbaa043dcad625fa68c3a807a171a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#ae8cbaa043dcad625fa68c3a807a171a7">UpdateLastStep</a> ()</td></tr>
+<tr class="memdesc:ae8cbaa043dcad625fa68c3a807a171a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update value of last step.  <a href="classReservoir.html#ae8cbaa043dcad625fa68c3a807a171a7">More...</a><br /></td></tr>
+<tr class="separator:ae8cbaa043dcad625fa68c3a807a171a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc9953f16c888d0f5bda0778e55334e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#abc9953f16c888d0f5bda0778e55334e4">AllocateMat</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mySolver) const</td></tr>
+<tr class="separator:abc9953f16c888d0f5bda0778e55334e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab324af4acd1329d43ca1a63d4847fc8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#ab324af4acd1329d43ca1a63d4847fc8a">AssembleMatIMPEC</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mysolver, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:ab324af4acd1329d43ca1a63d4847fc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050992a946cb8dc18da1f297ebfde28b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a050992a946cb8dc18da1f297ebfde28b">GetSolution_IMPEC</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u)</td></tr>
+<tr class="memdesc:a050992a946cb8dc18da1f297ebfde28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the solution from <a class="el" href="classLinearSolver.html">LinearSolver</a> after the linear system is solved.  <a href="classReservoir.html#a050992a946cb8dc18da1f297ebfde28b">More...</a><br /></td></tr>
+<tr class="separator:a050992a946cb8dc18da1f297ebfde28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a586bddb833e5716e15c961170ce72e3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a586bddb833e5716e15c961170ce72e3f">CheckP</a> ()</td></tr>
 <tr class="separator:a586bddb833e5716e15c961170ce72e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a284a66318459ff1ff38baa8e2bdca933"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">CheckNi</a> () const</td></tr>
 <tr class="separator:a284a66318459ff1ff38baa8e2bdca933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d837330e2e2bbf89792b6fd24edb4f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a5d837330e2e2bbf89792b6fd24edb4f5">ResetVal</a> ()</td></tr>
+<tr class="memdesc:a5d837330e2e2bbf89792b6fd24edb4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset pressure, capillary pressure, flux.  <a href="classReservoir.html#a5d837330e2e2bbf89792b6fd24edb4f5">More...</a><br /></td></tr>
+<tr class="separator:a5d837330e2e2bbf89792b6fd24edb4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa63155e973afb4ef0ac427a579b5d1d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#aa63155e973afb4ef0ac427a579b5d1d4">ResetVal01</a> ()</td></tr>
-<tr class="memdesc:aa63155e973afb4ef0ac427a579b5d1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset pressure, capillary pressure, flux.  <a href="classReservoir.html#aa63155e973afb4ef0ac427a579b5d1d4">More...</a><br /></td></tr>
+<tr class="memdesc:aa63155e973afb4ef0ac427a579b5d1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset pressure, capillary pressure, moles of componnets, flux.  <a href="classReservoir.html#aa63155e973afb4ef0ac427a579b5d1d4">More...</a><br /></td></tr>
 <tr class="separator:aa63155e973afb4ef0ac427a579b5d1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c3adceb3072fea108cd99e99a3fc28"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a34c3adceb3072fea108cd99e99a3fc28">CheckVe</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vlim)</td></tr>
-<tr class="separator:a34c3adceb3072fea108cd99e99a3fc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e4f6bc0a4d390bc0c5e0670e29a123"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123">CheckVe</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vlim) const</td></tr>
+<tr class="separator:a01e4f6bc0a4d390bc0c5e0670e29a123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a090c9a40fcb5b8680bc2026d83204833"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a090c9a40fcb5b8680bc2026d83204833">ResetVal02</a> ()</td></tr>
 <tr class="memdesc:a090c9a40fcb5b8680bc2026d83204833"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset pressure, capillary pressure, flux, moles of components, volume of pores.  <a href="classReservoir.html#a090c9a40fcb5b8680bc2026d83204833">More...</a><br /></td></tr>
 <tr class="separator:a090c9a40fcb5b8680bc2026d83204833"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,8 +151,8 @@ Friends</h2></td></tr>
 <tr class="separator:ab1679e1c0e4df5390dbb4171b7720848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25fe16907d5ac898d4e7ae78240ade78"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a25fe16907d5ac898d4e7ae78240ade78">OCP_Control</a></td></tr>
 <tr class="separator:a25fe16907d5ac898d4e7ae78240ade78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca146edc034ae05795de167cea43f51c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#aca146edc034ae05795de167cea43f51c">OCP_IMPES</a></td></tr>
-<tr class="separator:aca146edc034ae05795de167cea43f51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb26f18bf05c3b77574563df8d2009c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a5cb26f18bf05c3b77574563df8d2009c">OCP_IMPEC</a></td></tr>
+<tr class="separator:a5cb26f18bf05c3b77574563df8d2009c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f200553929234adb2879f8b6bb8c6ab"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a1f200553929234adb2879f8b6bb8c6ab">Summary</a></td></tr>
 <tr class="separator:a1f200553929234adb2879f8b6bb8c6ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abecfc7d1dfd678072ac64e0fb8c0446d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#abecfc7d1dfd678072ac64e0fb8c0446d">CriticalInfo</a></td></tr>
@@ -124,57 +162,89 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classReservoir.html">Reservoir</a> is the core component in our simulator, it contains the all reservoir information, and all operations on it.</p>
-<p ><a class="el" href="classReservoir.html">Reservoir</a> has four Core components. Grids contains the basic informations of all grids as a database of reservoir. <a class="el" href="classBulk.html">Bulk</a> only stores active grids, which defines the area used for calculation. <a class="el" href="classWellGroup.html">WellGroup</a> contains the well information, it's used to manage operations related to wells. <a class="el" href="classConnection__BB.html">Connection_BB</a> contains connections between bulks(active grids). </p>
+<p ><a class="el" href="classReservoir.html">Reservoir</a> has four Core components. Grids contains the basic informations of all grids as a database of reservoir. <a class="el" href="classBulk.html">Bulk</a> only stores active grids, which defines the area used for calculation. <a class="el" href="classWellGroup.html">WellGroup</a> contains the well information, it's used to manage operations related to wells. <a class="el" href="classBulkConn.html">BulkConn</a> contains connections between bulks(active grids). </p>
 
 <p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00030">30</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad3ad8d49e6aca59e94628cf5fcf64b5f" name="ad3ad8d49e6aca59e94628cf5fcf64b5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ad8d49e6aca59e94628cf5fcf64b5f">&#9670;&nbsp;</a></span>AllocateMat()</h2>
+<a id="abc9953f16c888d0f5bda0778e55334e4" name="abc9953f16c888d0f5bda0778e55334e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc9953f16c888d0f5bda0778e55334e4">&#9670;&nbsp;</a></span>AllocateMat()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void Reservoir::AllocateMat </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classSolver.html">Solver</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;&#160;</td>
           <td class="paramname"><em>mySolver</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Allocate memory for linear system, it should be called at the beginning of simulation only once. It's accessible for both IMPES and FIM. </p>
+<p >Allocate memory for linear system, it should be called at the beginning of simulation only once. It's accessible for both IMPEC and FIM. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00086">86</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    mySolver.<a class="code hl_function" href="classSolver.html#a91486152ca4c66725e058703198e2df5">AllocateMem</a>(conn.<a class="code hl_function" href="classConnection__BB.html#ae4c0f85f6bcff384909ff5e7ee40b400">GetBulkNum</a>() + wellgroup.<a class="code hl_function" href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">GetWellNum</a>());</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    conn.<a class="code hl_function" href="classConnection__BB.html#a44d12c0fb81505cf34a8c1f40af5a31d">AllocateMat</a>(mySolver);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a0f60861aac1cbd44a3de383b358db565">AllocateMat</a>(mySolver);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    mySolver.<a class="code hl_function" href="classSolver.html#ab8833877e95f1b1b1eabb7aea7780573">AllocateColValMem</a>();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="ttc" id="aclassConnection__BB_html_a44d12c0fb81505cf34a8c1f40af5a31d"><div class="ttname"><a href="classConnection__BB.html#a44d12c0fb81505cf34a8c1f40af5a31d">Connection_BB::AllocateMat</a></div><div class="ttdeci">void AllocateMat(Solver&lt; T &gt; &amp;mySolver) const</div><div class="ttdoc">Allocate memory for Matrix, it should be called only once at the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00123">BulkConn.hpp:123</a></div></div>
-<div class="ttc" id="aclassConnection__BB_html_ae4c0f85f6bcff384909ff5e7ee40b400"><div class="ttname"><a href="classConnection__BB.html#ae4c0f85f6bcff384909ff5e7ee40b400">Connection_BB::GetBulkNum</a></div><div class="ttdeci">OCP_USI GetBulkNum() const</div><div class="ttdoc">Return num of bulk.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00059">BulkConn.hpp:59</a></div></div>
-<div class="ttc" id="aclassSolver_html_a91486152ca4c66725e058703198e2df5"><div class="ttname"><a href="classSolver.html#a91486152ca4c66725e058703198e2df5">Solver::AllocateMem</a></div><div class="ttdeci">void AllocateMem(const OCP_USI &amp;dimMax)</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00114">LinearSolver.hpp:114</a></div></div>
-<div class="ttc" id="aclassSolver_html_ab8833877e95f1b1b1eabb7aea7780573"><div class="ttname"><a href="classSolver.html#ab8833877e95f1b1b1eabb7aea7780573">Solver::AllocateColValMem</a></div><div class="ttdeci">void AllocateColValMem()</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00126">LinearSolver.hpp:126</a></div></div>
-<div class="ttc" id="aclassWellGroup_html_a0f60861aac1cbd44a3de383b358db565"><div class="ttname"><a href="classWellGroup.html#a0f60861aac1cbd44a3de383b358db565">WellGroup::AllocateMat</a></div><div class="ttdeci">void AllocateMat(Solver&lt; T &gt; &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8hpp_source.html#l00148">WellGroup.hpp:148</a></div></div>
-<div class="ttc" id="aclassWellGroup_html_a3b9a367d413dbdf5ef7abc32b36ec121"><div class="ttname"><a href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">WellGroup::GetWellNum</a></div><div class="ttdeci">USI GetWellNum() const</div><div class="ttdoc">Return the num of wells.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8hpp_source.html#l00062">WellGroup.hpp:62</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00085">85</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    mySolver.<a class="code hl_function" href="classLinearSolver.html#a72f93bb525c536c805f966e2ae9be538">AllocateMem</a>(conn.<a class="code hl_function" href="classBulkConn.html#a053e197b2713ce047a4ff697bb6cab34">GetBulkNum</a>() + wellgroup.<a class="code hl_function" href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">GetWellNum</a>());</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    conn.<a class="code hl_function" href="classBulkConn.html#afe3a5a53f1e7f9ba94d3edc7c2c9302a">AllocateMat</a>(mySolver);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a92d8b55e1c424b5b018fdb0e4ef9ae05">AllocateMat</a>(mySolver);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    mySolver.<a class="code hl_function" href="classLinearSolver.html#a23161a2ff33c4935078c5eefd8ca3ac9">AllocateColValMem</a>();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+<div class="ttc" id="aclassBulkConn_html_a053e197b2713ce047a4ff697bb6cab34"><div class="ttname"><a href="classBulkConn.html#a053e197b2713ce047a4ff697bb6cab34">BulkConn::GetBulkNum</a></div><div class="ttdeci">OCP_USI GetBulkNum() const</div><div class="ttdoc">Return num of bulk.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00059">BulkConn.hpp:59</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_afe3a5a53f1e7f9ba94d3edc7c2c9302a"><div class="ttname"><a href="classBulkConn.html#afe3a5a53f1e7f9ba94d3edc7c2c9302a">BulkConn::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSolver &amp;mySolver) const</div><div class="ttdoc">Allocate memory for Matrix, it should be called only once at the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00338">BulkConn.cpp:338</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a23161a2ff33c4935078c5eefd8ca3ac9"><div class="ttname"><a href="classLinearSolver.html#a23161a2ff33c4935078c5eefd8ca3ac9">LinearSolver::AllocateColValMem</a></div><div class="ttdeci">void AllocateColValMem()</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00016">LinearSolver.cpp:16</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a72f93bb525c536c805f966e2ae9be538"><div class="ttname"><a href="classLinearSolver.html#a72f93bb525c536c805f966e2ae9be538">LinearSolver::AllocateMem</a></div><div class="ttdeci">void AllocateMem(const OCP_USI &amp;dimMax)</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00003">LinearSolver.cpp:3</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a3b9a367d413dbdf5ef7abc32b36ec121"><div class="ttname"><a href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">WellGroup::GetWellNum</a></div><div class="ttdeci">USI GetWellNum() const</div><div class="ttdoc">Return the num of wells.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8hpp_source.html#l00066">WellGroup.hpp:66</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a92d8b55e1c424b5b018fdb0e4ef9ae05"><div class="ttname"><a href="classWellGroup.html#a92d8b55e1c424b5b018fdb0e4ef9ae05">WellGroup::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSolver &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00146">WellGroup.cpp:146</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LinearSolver_8hpp_source.html#l00126">Solver&lt; T &gt;::AllocateColValMem()</a>, <a class="el" href="BulkConn_8hpp_source.html#l00123">Connection_BB::AllocateMat()</a>, <a class="el" href="WellGroup_8hpp_source.html#l00148">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8hpp_source.html#l00114">Solver&lt; T &gt;::AllocateMem()</a>, <a class="el" href="BulkConn_8hpp_source.html#l00059">Connection_BB::GetBulkNum()</a>, and <a class="el" href="WellGroup_8hpp_source.html#l00062">WellGroup::GetWellNum()</a>.</p>
+<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00016">LinearSolver::AllocateColValMem()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00338">BulkConn::AllocateMat()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00146">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00003">LinearSolver::AllocateMem()</a>, <a class="el" href="BulkConn_8hpp_source.html#l00059">BulkConn::GetBulkNum()</a>, and <a class="el" href="WellGroup_8hpp_source.html#l00066">WellGroup::GetWellNum()</a>.</p>
 
 </div>
 </div>
-<a id="a3d71e594eee324c141be2118abce4480" name="a3d71e594eee324c141be2118abce4480"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d71e594eee324c141be2118abce4480">&#9670;&nbsp;</a></span>AssembleMat()</h2>
+<a id="a9e77991deeaaa5fba43a98f79251e0f1" name="a9e77991deeaaa5fba43a98f79251e0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e77991deeaaa5fba43a98f79251e0f1">&#9670;&nbsp;</a></span>ApplyControl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::ApplyControl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply the control of ith critical time point. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00050">50</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{ wellgroup.<a class="code hl_function" href="classWellGroup.html#a548a9aaba9f7d86860c0a7750e3f5986">ApplyControl</a>(i); }</div>
+<div class="ttc" id="aclassWellGroup_html_a548a9aaba9f7d86860c0a7750e3f5986"><div class="ttname"><a href="classWellGroup.html#a548a9aaba9f7d86860c0a7750e3f5986">WellGroup::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00074">WellGroup.cpp:74</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="WellGroup_8cpp_source.html#l00074">WellGroup::ApplyControl()</a>.</p>
+
+</div>
+</div>
+<a id="ab324af4acd1329d43ca1a63d4847fc8a" name="ab324af4acd1329d43ca1a63d4847fc8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab324af4acd1329d43ca1a63d4847fc8a">&#9670;&nbsp;</a></span>AssembleMatIMPEC()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Reservoir::AssembleMat </td>
+          <td class="memname">void Reservoir::AssembleMatIMPEC </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classSolver.html">Solver</a>&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;&#160;</td>
           <td class="paramname"><em>mysolver</em>, </td>
         </tr>
         <tr>
@@ -192,17 +262,17 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >assemble the matrix Setup most of sparsity pattern first, and then Setup the value only related to the bulks. finally, assemble the parts related to wells, which will complete the rest sparsity pattern simultaneously </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00055">55</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    conn.<a class="code hl_function" href="classConnection__BB.html#a4dc6c281ce0ce52fc3ae248503aec285">InitAssembleMat</a>(mysolver);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    conn.<a class="code hl_function" href="classConnection__BB.html#a02d18ea8aed0d42c6d9b5696a4eef900">AssembleMat_IMPES</a>(mysolver, bulk, dt);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a0f4f4f078ea679c4400754976efaa126">AssemblaMat_WB_IMPES</a>(mysolver, bulk, dt);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
-<div class="ttc" id="aclassConnection__BB_html_a02d18ea8aed0d42c6d9b5696a4eef900"><div class="ttname"><a href="classConnection__BB.html#a02d18ea8aed0d42c6d9b5696a4eef900">Connection_BB::AssembleMat_IMPES</a></div><div class="ttdeci">void AssembleMat_IMPES(Solver&lt; OCP_DBL &gt; &amp;mySolver, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">assmeble Matrix, parts only related to bulks are considered.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00308">BulkConn.cpp:308</a></div></div>
-<div class="ttc" id="aclassConnection__BB_html_a4dc6c281ce0ce52fc3ae248503aec285"><div class="ttname"><a href="classConnection__BB.html#a4dc6c281ce0ce52fc3ae248503aec285">Connection_BB::InitAssembleMat</a></div><div class="ttdeci">void InitAssembleMat(Solver&lt; T &gt; &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00130">BulkConn.hpp:130</a></div></div>
-<div class="ttc" id="aclassWellGroup_html_a0f4f4f078ea679c4400754976efaa126"><div class="ttname"><a href="classWellGroup.html#a0f4f4f078ea679c4400754976efaa126">WellGroup::AssemblaMat_WB_IMPES</a></div><div class="ttdeci">void AssemblaMat_WB_IMPES(Solver&lt; OCP_DBL &gt; &amp;mySolver, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00127">WellGroup.cpp:127</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00095">95</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    conn.<a class="code hl_function" href="classBulkConn.html#a4a12fa7d8b127350bbd7150c3d80fa21">InitAssembleMat</a>(mysolver);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    conn.<a class="code hl_function" href="classBulkConn.html#a48a7e0a9c491ab050d7baa3485874e82">AssembleMat_IMPEC</a>(mysolver, bulk, dt);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a2738cb9c4999664ff9aac668c40001f4">AssemblaMat_WB_IMPEC</a>(mysolver, bulk, dt);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="ttc" id="aclassBulkConn_html_a48a7e0a9c491ab050d7baa3485874e82"><div class="ttname"><a href="classBulkConn.html#a48a7e0a9c491ab050d7baa3485874e82">BulkConn::AssembleMat_IMPEC</a></div><div class="ttdeci">void AssembleMat_IMPEC(LinearSolver &amp;mySolver, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">assmeble Matrix, parts only related to bulks are considered.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00354">BulkConn.cpp:354</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a4a12fa7d8b127350bbd7150c3d80fa21"><div class="ttname"><a href="classBulkConn.html#a4a12fa7d8b127350bbd7150c3d80fa21">BulkConn::InitAssembleMat</a></div><div class="ttdeci">void InitAssembleMat(LinearSolver &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00345">BulkConn.cpp:345</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a2738cb9c4999664ff9aac668c40001f4"><div class="ttname"><a href="classWellGroup.html#a2738cb9c4999664ff9aac668c40001f4">WellGroup::AssemblaMat_WB_IMPEC</a></div><div class="ttdeci">void AssemblaMat_WB_IMPEC(LinearSolver &amp;mySolver, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00154">WellGroup.cpp:154</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="WellGroup_8cpp_source.html#l00127">WellGroup::AssemblaMat_WB_IMPES()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00308">Connection_BB::AssembleMat_IMPES()</a>, and <a class="el" href="BulkConn_8hpp_source.html#l00130">Connection_BB::InitAssembleMat()</a>.</p>
+<p class="reference">References <a class="el" href="WellGroup_8cpp_source.html#l00154">WellGroup::AssemblaMat_WB_IMPEC()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00354">BulkConn::AssembleMat_IMPEC()</a>, and <a class="el" href="BulkConn_8cpp_source.html#l00345">BulkConn::InitAssembleMat()</a>.</p>
 
 </div>
 </div>
@@ -224,20 +294,300 @@ template&lt;typename T &gt; </div>
 
 <p>Calcluate the CFL number, including bulks and wells. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00044">44</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cflB = conn.<a class="code hl_function" href="classConnection__BB.html#a31d67e88a223ea350e6dc2df098218ee">CalCFL</a>(bulk, dt);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cflW = wellgroup.<a class="code hl_function" href="classWellGroup.html#a631a4d78037919c65d9c1aae3a288727">CalCFL</a>(bulk, dt);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    cfl = max(cflB, cflW);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> cfl;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00051">51</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cflB = conn.<a class="code hl_function" href="classBulkConn.html#aabb33a22c8a86b1dbe0f861a941024e9">CalCFL</a>(bulk, dt);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cflW = wellgroup.<a class="code hl_function" href="classWellGroup.html#a631a4d78037919c65d9c1aae3a288727">CalCFL</a>(bulk, dt);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// cout &lt;&lt; dt &lt;&lt; &quot;Days\t&quot; &lt;&lt; cflB &lt;&lt; &quot;\t&quot; &lt;&lt; cflW &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    cfl = max(cflB, cflW);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> cfl;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
-<div class="ttc" id="aclassConnection__BB_html_a31d67e88a223ea350e6dc2df098218ee"><div class="ttname"><a href="classConnection__BB.html#a31d67e88a223ea350e6dc2df098218ee">Connection_BB::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number of flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00202">BulkConn.cpp:202</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aabb33a22c8a86b1dbe0f861a941024e9"><div class="ttname"><a href="classBulkConn.html#aabb33a22c8a86b1dbe0f861a941024e9">BulkConn::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number of flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00207">BulkConn.cpp:207</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a631a4d78037919c65d9c1aae3a288727"><div class="ttname"><a href="classWellGroup.html#a631a4d78037919c65d9c1aae3a288727">WellGroup::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number for each perforation and return the maximum one.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00081">WellGroup.cpp:81</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00202">Connection_BB::CalCFL()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00081">WellGroup::CalCFL()</a>.</p>
+<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00207">BulkConn::CalCFL()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00081">WellGroup::CalCFL()</a>.</p>
+
+</div>
+</div>
+<a id="a7a5fe58e16b00c5eeccaafcfb593f46f" name="a7a5fe58e16b00c5eeccaafcfb593f46f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a5fe58e16b00c5eeccaafcfb593f46f">&#9670;&nbsp;</a></span>CalCFL01()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Reservoir::CalCFL01 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcluate the CFL number, including bulks and wells. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00064">64</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    bulk.<a class="code hl_function" href="classBulk.html#a64ba27a111e278311e5e8b541bf7d4e3">InitCFL</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    conn.<a class="code hl_function" href="classBulkConn.html#a97d5b26decdef71b7f098cfcadb338b2">CalCFL01</a>(bulk, dt);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">//if (cfl &gt; 1) {</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">//    cout &lt;&lt; &quot;bkCFL:\t&quot; &lt;&lt; bulk.cfl[2686] &lt;&lt; &quot;\t&quot;;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">//}</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a7364d09cf316ab21747259ce08fcdef9">CalCFL01</a>(bulk, dt);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">//if (cfl &gt; 1) {</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">//    cout &lt;&lt; &quot;wellCFL:\t&quot; &lt;&lt; bulk.cfl[2686] &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">//}</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    cfl = bulk.<a class="code hl_function" href="classBulk.html#a251e6799a06ea5a113da56ce17e7f857">CalCFL</a>(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span> cfl;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="ttc" id="aclassBulkConn_html_a97d5b26decdef71b7f098cfcadb338b2"><div class="ttname"><a href="classBulkConn.html#a97d5b26decdef71b7f098cfcadb338b2">BulkConn::CalCFL01</a></div><div class="ttdeci">void CalCFL01(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number of flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00227">BulkConn.cpp:227</a></div></div>
+<div class="ttc" id="aclassBulk_html_a251e6799a06ea5a113da56ce17e7f857"><div class="ttname"><a href="classBulk.html#a251e6799a06ea5a113da56ce17e7f857">Bulk::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL(bool flag) const</div><div class="ttdoc">Calculate the cfl number.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01210">Bulk.cpp:1210</a></div></div>
+<div class="ttc" id="aclassBulk_html_a64ba27a111e278311e5e8b541bf7d4e3"><div class="ttname"><a href="classBulk.html#a64ba27a111e278311e5e8b541bf7d4e3">Bulk::InitCFL</a></div><div class="ttdeci">void InitCFL() const</div><div class="ttdoc">Initialize cfl number.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00144">Bulk.hpp:144</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a7364d09cf316ab21747259ce08fcdef9"><div class="ttname"><a href="classWellGroup.html#a7364d09cf316ab21747259ce08fcdef9">WellGroup::CalCFL01</a></div><div class="ttdeci">void CalCFL01(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number for each perforation and return the maximum one.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00094">WellGroup.cpp:94</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01210">Bulk::CalCFL()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00227">BulkConn::CalCFL01()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00094">WellGroup::CalCFL01()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00144">Bulk::InitCFL()</a>.</p>
+
+</div>
+</div>
+<a id="aa362ca0e09df55324c5f5c8b597b817e" name="aa362ca0e09df55324c5f5c8b597b817e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa362ca0e09df55324c5f5c8b597b817e">&#9670;&nbsp;</a></span>CalConnFlux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalConnFlux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate flux between bulks. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00058">58</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{ conn.<a class="code hl_function" href="classBulkConn.html#ad3fe7979191f0130d0acc29e9d26ad00">CalFlux</a>(bulk); }</div>
+<div class="ttc" id="aclassBulkConn_html_ad3fe7979191f0130d0acc29e9d26ad00"><div class="ttname"><a href="classBulkConn.html#ad3fe7979191f0130d0acc29e9d26ad00">BulkConn::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate main information about flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00242">BulkConn.cpp:242</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00242">BulkConn::CalFlux()</a>.</p>
+
+</div>
+</div>
+<a id="a3151b6c43cd6e24eb483d2ad467ea1a8" name="a3151b6c43cd6e24eb483d2ad467ea1a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3151b6c43cd6e24eb483d2ad467ea1a8">&#9670;&nbsp;</a></span>CalFlashIMPEC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalFlashIMPEC </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate Flash for IMPEC Method. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00062">62</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{ bulk.<a class="code hl_function" href="classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521">FlashNi</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a31df9fd4bdc72c2abdbaff30786e9521"><div class="ttname"><a href="classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521">Bulk::FlashNi</a></div><div class="ttdeci">void FlashNi()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01033">Bulk.cpp:1033</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01033">Bulk::FlashNi()</a>.</p>
+
+</div>
+</div>
+<a id="a23a5d1870a1c5aeef64717928f160204" name="a23a5d1870a1c5aeef64717928f160204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a5d1870a1c5aeef64717928f160204">&#9670;&nbsp;</a></span>CalFLux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalFLux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate flux between bulks, bulks and wells. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00056">56</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{ conn.<a class="code hl_function" href="classBulkConn.html#ad3fe7979191f0130d0acc29e9d26ad00">CalFlux</a>(bulk); wellgroup.<a class="code hl_function" href="classWellGroup.html#a4d42dd38deb45a4d68dc7548ed7b1a6f">CalFlux</a>(bulk); };</div>
+<div class="ttc" id="aclassWellGroup_html_a4d42dd38deb45a4d68dc7548ed7b1a6f"><div class="ttname"><a href="classWellGroup.html#a4d42dd38deb45a4d68dc7548ed7b1a6f">WellGroup::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate volume flow rate and moles flow rate of each perforation.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00103">WellGroup.cpp:103</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00242">BulkConn::CalFlux()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00103">WellGroup::CalFlux()</a>.</p>
+
+</div>
+</div>
+<a id="ad04b82ae53ea6f0b60e800a50341e6d5" name="ad04b82ae53ea6f0b60e800a50341e6d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04b82ae53ea6f0b60e800a50341e6d5">&#9670;&nbsp;</a></span>CalIPRT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalIPRT </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate IPRT. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00068">68</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{ wellgroup.<a class="code hl_function" href="classWellGroup.html#aa7d800aae6d10e731ef2962b5cf1b0ea">CalIPRT</a>(bulk, dt); }</div>
+<div class="ttc" id="aclassWellGroup_html_aa7d800aae6d10e731ef2962b5cf1b0ea"><div class="ttname"><a href="classWellGroup.html#aa7d800aae6d10e731ef2962b5cf1b0ea">WellGroup::CalIPRT</a></div><div class="ttdeci">void CalIPRT(const Bulk &amp;myBulk, OCP_DBL dt)</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00185">WellGroup.cpp:185</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="WellGroup_8cpp_source.html#l00185">WellGroup::CalIPRT()</a>.</p>
+
+</div>
+</div>
+<a id="a2822b8803a1c36d6adc3567fba06a673" name="a2822b8803a1c36d6adc3567fba06a673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2822b8803a1c36d6adc3567fba06a673">&#9670;&nbsp;</a></span>CalKrPc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalKrPc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate relative permeability and capillary. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00066">66</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{ bulk.<a class="code hl_function" href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">CalKrPc</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_ac34533e9d254ef485eb57ff3537fbe4a"><div class="ttname"><a href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">Bulk::CalKrPc</a></div><div class="ttdeci">void CalKrPc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure with saturation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01084">Bulk.cpp:1084</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01084">Bulk::CalKrPc()</a>.</p>
+
+</div>
+</div>
+<a id="a7e050f9b8ed0aa28c9e488d6634b5d9b" name="a7e050f9b8ed0aa28c9e488d6634b5d9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e050f9b8ed0aa28c9e488d6634b5d9b">&#9670;&nbsp;</a></span>CalMaxChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalMaxChange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate maximum change. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00070">70</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{ bulk.<a class="code hl_function" href="classBulk.html#a3d26a907b0e9e276cdd7b3279f7872d8">CalMaxChange</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a3d26a907b0e9e276cdd7b3279f7872d8"><div class="ttname"><a href="classBulk.html#a3d26a907b0e9e276cdd7b3279f7872d8">Bulk::CalMaxChange</a></div><div class="ttdeci">void CalMaxChange()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01147">Bulk.cpp:1147</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01147">Bulk::CalMaxChange()</a>.</p>
+
+</div>
+</div>
+<a id="a537cc8f6816f874a2b3170e3d6c79b3f" name="a537cc8f6816f874a2b3170e3d6c79b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a537cc8f6816f874a2b3170e3d6c79b3f">&#9670;&nbsp;</a></span>CalVpore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::CalVpore </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate pore of bulks. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00064">64</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{ bulk.<a class="code hl_function" href="classBulk.html#a64db443dbb4fe11d3989e30235df770f">CalVpore</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a64db443dbb4fe11d3989e30235df770f"><div class="ttname"><a href="classBulk.html#a64db443dbb4fe11d3989e30235df770f">Bulk::CalVpore</a></div><div class="ttdeci">void CalVpore()</div><div class="ttdoc">Calculate volume of pore with pressure.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01095">Bulk.cpp:1095</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01095">Bulk::CalVpore()</a>.</p>
 
 </div>
 </div>
@@ -265,11 +615,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >check if mole of components occurs if so, cut the timestep, reset with function ResetVal01 and resolve the linear equtions. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00066">66</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a591a556f17e45d359d267be82c4a5e3c">CheckNi</a>(); }</div>
-<div class="ttc" id="aclassBulk_html_a591a556f17e45d359d267be82c4a5e3c"><div class="ttname"><a href="classBulk.html#a591a556f17e45d359d267be82c4a5e3c">Bulk::CheckNi</a></div><div class="ttdeci">bool CheckNi() const</div><div class="ttdoc">Check if negative Ni occurs, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01168">Bulk.cpp:1168</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00091">91</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a591a556f17e45d359d267be82c4a5e3c">CheckNi</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a591a556f17e45d359d267be82c4a5e3c"><div class="ttname"><a href="classBulk.html#a591a556f17e45d359d267be82c4a5e3c">Bulk::CheckNi</a></div><div class="ttdeci">bool CheckNi() const</div><div class="ttdoc">Check if negative Ni occurs, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01250">Bulk.cpp:1250</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01168">Bulk::CheckNi()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01250">Bulk::CheckNi()</a>.</p>
 
 </div>
 </div>
@@ -289,24 +639,24 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >check if abnormal pressure occurs including pressure in bulks, wells, perforations. if so, take corresponding measures and then resolve the linear equations. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00068">68</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (!bulk.<a class="code hl_function" href="classBulk.html#af7d51290f40683d3268d9cf64433e034">CheckP</a>()) <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    flag         = wellgroup.<a class="code hl_function" href="classWellGroup.html#a61db63a01f6d6781b05f169b14629c13">CheckP</a>(bulk);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> flag;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00108">108</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>{</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> (!bulk.<a class="code hl_function" href="classBulk.html#af7d51290f40683d3268d9cf64433e034">CheckP</a>()) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = 0;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    flag         = wellgroup.<a class="code hl_function" href="classWellGroup.html#a61db63a01f6d6781b05f169b14629c13">CheckP</a>(bulk);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> flag;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
-<div class="ttc" id="aclassBulk_html_af7d51290f40683d3268d9cf64433e034"><div class="ttname"><a href="classBulk.html#af7d51290f40683d3268d9cf64433e034">Bulk::CheckP</a></div><div class="ttdeci">bool CheckP() const</div><div class="ttdoc">check if negative P occurs, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01159">Bulk.cpp:1159</a></div></div>
-<div class="ttc" id="aclassWellGroup_html_a61db63a01f6d6781b05f169b14629c13"><div class="ttname"><a href="classWellGroup.html#a61db63a01f6d6781b05f169b14629c13">WellGroup::CheckP</a></div><div class="ttdeci">OCP_INT CheckP(const Bulk &amp;myBulk)</div><div class="ttdoc">check if unreasonable well pressure or perforation pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00192">WellGroup.cpp:192</a></div></div>
+<div class="ttc" id="aclassBulk_html_af7d51290f40683d3268d9cf64433e034"><div class="ttname"><a href="classBulk.html#af7d51290f40683d3268d9cf64433e034">Bulk::CheckP</a></div><div class="ttdeci">bool CheckP() const</div><div class="ttdoc">check if negative P occurs, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01241">Bulk.cpp:1241</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a61db63a01f6d6781b05f169b14629c13"><div class="ttname"><a href="classWellGroup.html#a61db63a01f6d6781b05f169b14629c13">WellGroup::CheckP</a></div><div class="ttdeci">OCP_INT CheckP(const Bulk &amp;myBulk)</div><div class="ttdoc">check if unreasonable well pressure or perforation pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00219">WellGroup.cpp:219</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01159">Bulk::CheckP()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00192">WellGroup::CheckP()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01241">Bulk::CheckP()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00219">WellGroup::CheckP()</a>.</p>
 
 </div>
 </div>
-<a id="a34c3adceb3072fea108cd99e99a3fc28" name="a34c3adceb3072fea108cd99e99a3fc28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34c3adceb3072fea108cd99e99a3fc28">&#9670;&nbsp;</a></span>CheckVe()</h2>
+<a id="a01e4f6bc0a4d390bc0c5e0670e29a123" name="a01e4f6bc0a4d390bc0c5e0670e29a123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e4f6bc0a4d390bc0c5e0670e29a123">&#9670;&nbsp;</a></span>CheckVe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +669,7 @@ template&lt;typename T &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
           <td class="paramname"><em>Vlim</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -330,22 +680,22 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >check if relative error between fluids volume and pore volume is too large. if so, cut the timestep, reset with function resetval02 and resolve the linear equtions. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00072">72</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a38fe3999ea9aa54d5597ee743a851835">CheckVe</a>(Vlim); }</div>
-<div class="ttc" id="aclassBulk_html_a38fe3999ea9aa54d5597ee743a851835"><div class="ttname"><a href="classBulk.html#a38fe3999ea9aa54d5597ee743a851835">Bulk::CheckVe</a></div><div class="ttdeci">bool CheckVe(const OCP_DBL &amp;Vlim) const</div><div class="ttdoc">Check if relative volume error is outranged, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01178">Bulk.cpp:1178</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00099">99</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a38fe3999ea9aa54d5597ee743a851835">CheckVe</a>(Vlim); }</div>
+<div class="ttc" id="aclassBulk_html_a38fe3999ea9aa54d5597ee743a851835"><div class="ttname"><a href="classBulk.html#a38fe3999ea9aa54d5597ee743a851835">Bulk::CheckVe</a></div><div class="ttdeci">bool CheckVe(const OCP_DBL &amp;Vlim) const</div><div class="ttdoc">Check if relative volume error is outranged, return false if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01260">Bulk.cpp:1260</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01178">Bulk::CheckVe()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01260">Bulk::CheckVe()</a>.</p>
 
 </div>
 </div>
-<a id="a1395d905f6968b70552a36144c042d6d" name="a1395d905f6968b70552a36144c042d6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1395d905f6968b70552a36144c042d6d">&#9670;&nbsp;</a></span>GetSolution_IMPES()</h2>
+<a id="a050992a946cb8dc18da1f297ebfde28b" name="a050992a946cb8dc18da1f297ebfde28b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a050992a946cb8dc18da1f297ebfde28b">&#9670;&nbsp;</a></span>GetSolution_IMPEC()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Reservoir::GetSolution_IMPES </td>
+          <td class="memname">void Reservoir::GetSolution_IMPEC </td>
           <td>(</td>
           <td class="paramtype">const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>u</em></td><td>)</td>
@@ -354,18 +704,18 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>get the solution from <a class="el" href="classSolver.html">Solver</a> after the linear system is solved. </p>
+<p>get the solution from <a class="el" href="classLinearSolver.html">LinearSolver</a> after the linear system is solved. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00062">62</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    bulk.<a class="code hl_function" href="classBulk.html#afaafa1428c446db7d371096175c3d91e">GetSolIMPES</a>(u);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a49bba70acbf00d4e57cb804888d0d457">GetSol_IMPES</a>(u, bulk.<a class="code hl_function" href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">GetBulkNum</a>());</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00102">102</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    bulk.<a class="code hl_function" href="classBulk.html#afaafa1428c446db7d371096175c3d91e">GetSolIMPES</a>(u);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a7cfa157c014ee97b5eca36c7b01aac86">GetSol_IMPEC</a>(u, bulk.<a class="code hl_function" href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">GetBulkNum</a>());</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
 <div class="ttc" id="aclassBulk_html_ad1fe116878b1f29b28515f4692a9d2c9"><div class="ttname"><a href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">Bulk::GetBulkNum</a></div><div class="ttdeci">OCP_USI GetBulkNum() const</div><div class="ttdoc">Return the num of active bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00063">Bulk.hpp:63</a></div></div>
-<div class="ttc" id="aclassBulk_html_afaafa1428c446db7d371096175c3d91e"><div class="ttname"><a href="classBulk.html#afaafa1428c446db7d371096175c3d91e">Bulk::GetSolIMPES</a></div><div class="ttdeci">void GetSolIMPES(const vector&lt; OCP_DBL &gt; &amp;u)</div><div class="ttdoc">get solution from solver class after linear system is solved.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01083">Bulk.cpp:1083</a></div></div>
-<div class="ttc" id="aclassWellGroup_html_a49bba70acbf00d4e57cb804888d0d457"><div class="ttname"><a href="classWellGroup.html#a49bba70acbf00d4e57cb804888d0d457">WellGroup::GetSol_IMPES</a></div><div class="ttdeci">void GetSol_IMPES(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId)</div><div class="ttdoc">update pressure in well and well perforation with solution of linear system.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00148">WellGroup.cpp:148</a></div></div>
+<div class="ttc" id="aclassBulk_html_afaafa1428c446db7d371096175c3d91e"><div class="ttname"><a href="classBulk.html#afaafa1428c446db7d371096175c3d91e">Bulk::GetSolIMPES</a></div><div class="ttdeci">void GetSolIMPES(const vector&lt; OCP_DBL &gt; &amp;u)</div><div class="ttdoc">get solution from solver class after linear system is solved.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01114">Bulk.cpp:1114</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_a7cfa157c014ee97b5eca36c7b01aac86"><div class="ttname"><a href="classWellGroup.html#a7cfa157c014ee97b5eca36c7b01aac86">WellGroup::GetSol_IMPEC</a></div><div class="ttdeci">void GetSol_IMPEC(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId)</div><div class="ttdoc">update pressure in well and well perforation with solution of linear system.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00175">WellGroup.cpp:175</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00063">Bulk::GetBulkNum()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00148">WellGroup::GetSol_IMPES()</a>, and <a class="el" href="Bulk_8cpp_source.html#l01083">Bulk::GetSolIMPES()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00063">Bulk::GetBulkNum()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00175">WellGroup::GetSol_IMPEC()</a>, and <a class="el" href="Bulk_8cpp_source.html#l01114">Bulk::GetSolIMPES()</a>.</p>
 
 </div>
 </div>
@@ -393,24 +743,22 @@ template&lt;typename T &gt; </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bulk.<a class="code hl_function" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">GetMixMode</a>() == EoS_PVTW)</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        bulk.<a class="code hl_function" href="classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724">InitSjPcComp</a>(50);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    bulk.<a class="code hl_function" href="classBulk.html#a14e0696a20871b4cae17988a8d532ae0">CalVporo</a>();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    bulk.<a class="code hl_function" href="classBulk.html#a64db443dbb4fe11d3989e30235df770f">CalVpore</a>();</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    bulk.<a class="code hl_function" href="classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002">FlashSj</a>();</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    bulk.<a class="code hl_function" href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">CalKrPc</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    bulk.<a class="code hl_function" href="classBulk.html#af553e0bb8c80a01b8d5d27956a05de95">SetLastStep</a>();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    conn.<a class="code hl_function" href="classConnection__BB.html#aef278d97aa292fa4ecbb634a545a88b0">CalFlux</a>(bulk);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a72a39cbc53502e290a63e1df12787f66">Init</a>(bulk);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
-<div class="ttc" id="aclassBulk_html_a14e0696a20871b4cae17988a8d532ae0"><div class="ttname"><a href="classBulk.html#a14e0696a20871b4cae17988a8d532ae0">Bulk::CalVporo</a></div><div class="ttdeci">void CalVporo()</div><div class="ttdoc">calculate volume of pore with pressure.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01064">Bulk.cpp:1064</a></div></div>
-<div class="ttc" id="aclassBulk_html_a3b15396b21c7a80a3fd781d7ddb81002"><div class="ttname"><a href="classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002">Bulk::FlashSj</a></div><div class="ttdeci">void FlashSj()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01006">Bulk.cpp:1006</a></div></div>
-<div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01073">Bulk.cpp:1073</a></div></div>
-<div class="ttc" id="aclassBulk_html_a4a0c5f2e9aa2eb0a6e8f0fe1d9489724"><div class="ttname"><a href="classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724">Bulk::InitSjPcComp</a></div><div class="ttdeci">void InitSjPcComp(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00634">Bulk.cpp:634</a></div></div>
-<div class="ttc" id="aclassBulk_html_ac34533e9d254ef485eb57ff3537fbe4a"><div class="ttname"><a href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">Bulk::CalKrPc</a></div><div class="ttdeci">void CalKrPc()</div><div class="ttdoc">calculate relative permeability and capillary pressure with saturation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01053">Bulk.cpp:1053</a></div></div>
-<div class="ttc" id="aclassBulk_html_aefeaef371f1fb6e775c3124f2f9685ba"><div class="ttname"><a href="classBulk.html#aefeaef371f1fb6e775c3124f2f9685ba">Bulk::InitSjPcBlk</a></div><div class="ttdeci">void InitSjPcBlk(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00204">Bulk.cpp:204</a></div></div>
-<div class="ttc" id="aclassBulk_html_af553e0bb8c80a01b8d5d27956a05de95"><div class="ttname"><a href="classBulk.html#af553e0bb8c80a01b8d5d27956a05de95">Bulk::SetLastStep</a></div><div class="ttdeci">void SetLastStep()</div><div class="ttdoc">Assignment value for some variable, it's called when one time step finished.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00075">Bulk.hpp:75</a></div></div>
-<div class="ttc" id="aclassConnection__BB_html_aef278d97aa292fa4ecbb634a545a88b0"><div class="ttname"><a href="classConnection__BB.html#aef278d97aa292fa4ecbb634a545a88b0">Connection_BB::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate main information about flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00222">BulkConn.cpp:222</a></div></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    bulk.<a class="code hl_function" href="classBulk.html#af491fb22030405e13b5e3a573a392322">UpdateLastStep</a>();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    conn.<a class="code hl_function" href="classBulkConn.html#ad3fe7979191f0130d0acc29e9d26ad00">CalFlux</a>(bulk);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    conn.UpdateLastStep();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a72a39cbc53502e290a63e1df12787f66">Init</a>(bulk);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="ttc" id="aclassBulk_html_a3b15396b21c7a80a3fd781d7ddb81002"><div class="ttname"><a href="classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002">Bulk::FlashSj</a></div><div class="ttdeci">void FlashSj()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01018">Bulk.cpp:1018</a></div></div>
+<div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01104">Bulk.cpp:1104</a></div></div>
+<div class="ttc" id="aclassBulk_html_a4a0c5f2e9aa2eb0a6e8f0fe1d9489724"><div class="ttname"><a href="classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724">Bulk::InitSjPcComp</a></div><div class="ttdeci">void InitSjPcComp(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00646">Bulk.cpp:646</a></div></div>
+<div class="ttc" id="aclassBulk_html_aefeaef371f1fb6e775c3124f2f9685ba"><div class="ttname"><a href="classBulk.html#aefeaef371f1fb6e775c3124f2f9685ba">Bulk::InitSjPcBlk</a></div><div class="ttdeci">void InitSjPcBlk(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00216">Bulk.cpp:216</a></div></div>
+<div class="ttc" id="aclassBulk_html_af491fb22030405e13b5e3a573a392322"><div class="ttname"><a href="classBulk.html#af491fb22030405e13b5e3a573a392322">Bulk::UpdateLastStep</a></div><div class="ttdeci">void UpdateLastStep()</div><div class="ttdoc">Assignment value for some variable, it's called when one time step finished.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01127">Bulk.cpp:1127</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a72a39cbc53502e290a63e1df12787f66"><div class="ttname"><a href="classWellGroup.html#a72a39cbc53502e290a63e1df12787f66">WellGroup::Init</a></div><div class="ttdeci">void Init(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00067">WellGroup.cpp:67</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01073">Bulk::GetMixMode()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01104">Bulk::GetMixMode()</a>.</p>
 
 </div>
 </div>
@@ -447,6 +795,102 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a1624746b7de762b4b12b2647413afbfb" name="a1624746b7de762b4b12b2647413afbfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1624746b7de762b4b12b2647413afbfb">&#9670;&nbsp;</a></span>MassConseve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::MassConseve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate mass conserve. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00060">60</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{ conn.<a class="code hl_function" href="classBulkConn.html#a3a5e14f66df95aa03270219e53c3243f">MassConserve</a>(bulk, dt); wellgroup.<a class="code hl_function" href="classWellGroup.html#adda9c66f6903206376e5765351a9e4d2">MassConserve</a>(bulk, dt); }</div>
+<div class="ttc" id="aclassBulkConn_html_a3a5e14f66df95aa03270219e53c3243f"><div class="ttname"><a href="classBulkConn.html#a3a5e14f66df95aa03270219e53c3243f">BulkConn::MassConserve</a></div><div class="ttdeci">void MassConserve(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00312">BulkConn.cpp:312</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_adda9c66f6903206376e5765351a9e4d2"><div class="ttname"><a href="classWellGroup.html#adda9c66f6903206376e5765351a9e4d2">WellGroup::MassConserve</a></div><div class="ttdeci">void MassConserve(Bulk &amp;myBulk, OCP_DBL dt)</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00121">WellGroup.cpp:121</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00312">BulkConn::MassConserve()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00121">WellGroup::MassConserve()</a>.</p>
+
+</div>
+</div>
+<a id="a83be94e2a5c5e6cbe6b040dd7e82bf2d" name="a83be94e2a5c5e6cbe6b040dd7e82bf2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83be94e2a5c5e6cbe6b040dd7e82bf2d">&#9670;&nbsp;</a></span>Prepare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::Prepare </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepare for assembling matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00045">45</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                   {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#ae18bcc9e8f6f397e97645b2556851d8e">PrepareWell</a>(bulk);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cfl = <a class="code hl_function" href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">CalCFL01</a>(dt);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (cfl &gt; 1) dt /= (cfl + 1);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="ttc" id="aclassReservoir_html_a7a5fe58e16b00c5eeccaafcfb593f46f"><div class="ttname"><a href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">Reservoir::CalCFL01</a></div><div class="ttdeci">OCP_DBL CalCFL01(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calcluate the CFL number, including bulks and wells.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00064">Reservoir.cpp:64</a></div></div>
+<div class="ttc" id="aclassWellGroup_html_ae18bcc9e8f6f397e97645b2556851d8e"><div class="ttname"><a href="classWellGroup.html#ae18bcc9e8f6f397e97645b2556851d8e">WellGroup::PrepareWell</a></div><div class="ttdeci">void PrepareWell(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate well properties at the beginning of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00130">WellGroup.cpp:130</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00064">CalCFL01()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00130">WellGroup::PrepareWell()</a>.</p>
+
+</div>
+</div>
+<a id="a5d837330e2e2bbf89792b6fd24edb4f5" name="a5d837330e2e2bbf89792b6fd24edb4f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d837330e2e2bbf89792b6fd24edb4f5">&#9670;&nbsp;</a></span>ResetVal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::ResetVal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>reset pressure, capillary pressure, flux. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00117">117</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    bulk.<a class="code hl_function" href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">ResetP</a>();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    bulk.<a class="code hl_function" href="classBulk.html#a1ceffac15770674f078378dd7034eebd">ResetPj</a>();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    conn.Reset();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="ttc" id="aclassBulk_html_a1ceffac15770674f078378dd7034eebd"><div class="ttname"><a href="classBulk.html#a1ceffac15770674f078378dd7034eebd">Bulk::ResetPj</a></div><div class="ttdeci">void ResetPj()</div><div class="ttdoc">Reset Pj to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00124">Bulk.hpp:124</a></div></div>
+<div class="ttc" id="aclassBulk_html_aab9940f55a3aa7af47d05f12a5a9388f"><div class="ttname"><a href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">Bulk::ResetP</a></div><div class="ttdeci">void ResetP()</div><div class="ttdoc">Reset P to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00122">Bulk.hpp:122</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00122">Bulk::ResetP()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00124">Bulk::ResetPj()</a>.</p>
+
+</div>
+</div>
 <a id="aa63155e973afb4ef0ac427a579b5d1d4" name="aa63155e973afb4ef0ac427a579b5d1d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa63155e973afb4ef0ac427a579b5d1d4">&#9670;&nbsp;</a></span>ResetVal01()</h2>
 
@@ -462,18 +906,18 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>reset pressure, capillary pressure, flux. </p>
+<p>reset pressure, capillary pressure, moles of componnets, flux. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00077">77</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    bulk.<a class="code hl_function" href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">ResetP</a>();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    bulk.<a class="code hl_function" href="classBulk.html#a1ceffac15770674f078378dd7034eebd">ResetPj</a>();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    conn.<a class="code hl_function" href="classConnection__BB.html#aef278d97aa292fa4ecbb634a545a88b0">CalFlux</a>(bulk);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="ttc" id="aclassBulk_html_a1ceffac15770674f078378dd7034eebd"><div class="ttname"><a href="classBulk.html#a1ceffac15770674f078378dd7034eebd">Bulk::ResetPj</a></div><div class="ttdeci">void ResetPj()</div><div class="ttdoc">Reset Pj to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00130">Bulk.hpp:130</a></div></div>
-<div class="ttc" id="aclassBulk_html_aab9940f55a3aa7af47d05f12a5a9388f"><div class="ttname"><a href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">Bulk::ResetP</a></div><div class="ttdeci">void ResetP()</div><div class="ttdoc">Reset P to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00128">Bulk.hpp:128</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00124">124</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>{</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    bulk.<a class="code hl_function" href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">ResetP</a>();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    bulk.<a class="code hl_function" href="classBulk.html#a1ceffac15770674f078378dd7034eebd">ResetPj</a>();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    bulk.<a class="code hl_function" href="classBulk.html#a51d41760525158a55fb071273f74c195">ResetNi</a>();</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    conn.Reset();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
+<div class="ttc" id="aclassBulk_html_a51d41760525158a55fb071273f74c195"><div class="ttname"><a href="classBulk.html#a51d41760525158a55fb071273f74c195">Bulk::ResetNi</a></div><div class="ttdeci">void ResetNi()</div><div class="ttdoc">Reset Ni to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00126">Bulk.hpp:126</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00222">Connection_BB::CalFlux()</a>, <a class="el" href="Bulk_8hpp_source.html#l00128">Bulk::ResetP()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00130">Bulk::ResetPj()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00126">Bulk::ResetNi()</a>, <a class="el" href="Bulk_8hpp_source.html#l00122">Bulk::ResetP()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00124">Bulk::ResetPj()</a>.</p>
 
 </div>
 </div>
@@ -494,22 +938,28 @@ template&lt;typename T &gt; </div>
 
 <p>reset pressure, capillary pressure, flux, moles of components, volume of pores. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00084">84</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    bulk.<a class="code hl_function" href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">ResetP</a>();</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    bulk.<a class="code hl_function" href="classBulk.html#a1ceffac15770674f078378dd7034eebd">ResetPj</a>();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    conn.<a class="code hl_function" href="classConnection__BB.html#aef278d97aa292fa4ecbb634a545a88b0">CalFlux</a>(bulk);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    bulk.<a class="code hl_function" href="classBulk.html#a51d41760525158a55fb071273f74c195">ResetNi</a>();</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    bulk.<a class="code hl_function" href="classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521">FlashNi</a>();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    bulk.<a class="code hl_function" href="classBulk.html#a55f13cb160e20197cc45d8f1201b9fa6">ResetVp</a>();</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
-<div class="ttc" id="aclassBulk_html_a31df9fd4bdc72c2abdbaff30786e9521"><div class="ttname"><a href="classBulk.html#a31df9fd4bdc72c2abdbaff30786e9521">Bulk::FlashNi</a></div><div class="ttdeci">void FlashNi()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01018">Bulk.cpp:1018</a></div></div>
-<div class="ttc" id="aclassBulk_html_a51d41760525158a55fb071273f74c195"><div class="ttname"><a href="classBulk.html#a51d41760525158a55fb071273f74c195">Bulk::ResetNi</a></div><div class="ttdeci">void ResetNi()</div><div class="ttdoc">Reset Ni to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00132">Bulk.hpp:132</a></div></div>
-<div class="ttc" id="aclassBulk_html_a55f13cb160e20197cc45d8f1201b9fa6"><div class="ttname"><a href="classBulk.html#a55f13cb160e20197cc45d8f1201b9fa6">Bulk::ResetVp</a></div><div class="ttdeci">void ResetVp()</div><div class="ttdoc">Reset Vp to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00134">Bulk.hpp:134</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00132">132</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>{</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    bulk.<a class="code hl_function" href="classBulk.html#aab9940f55a3aa7af47d05f12a5a9388f">ResetP</a>();</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    bulk.<a class="code hl_function" href="classBulk.html#a1ceffac15770674f078378dd7034eebd">ResetPj</a>();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    bulk.<a class="code hl_function" href="classBulk.html#a51d41760525158a55fb071273f74c195">ResetNi</a>();</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    bulk.<a class="code hl_function" href="classBulk.html#ab10e3d5483e295cc0a54d2764f1d2c57">ResetFlash</a>();</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    bulk.<a class="code hl_function" href="classBulk.html#a55f13cb160e20197cc45d8f1201b9fa6">ResetVp</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    conn.Reset();</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="comment">// bulk.FlashNi();</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">// bulk.CheckDiff();</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="comment">// conn.CalFlux(bulk);</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="comment">// conn.CheckDiff();</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="comment">// Becareful! if recalculate the flash, result may be different because the initial</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">// flash was calculated by FlashSj not FlashNi.</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>     </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
+<div class="ttc" id="aclassBulk_html_a55f13cb160e20197cc45d8f1201b9fa6"><div class="ttname"><a href="classBulk.html#a55f13cb160e20197cc45d8f1201b9fa6">Bulk::ResetVp</a></div><div class="ttdeci">void ResetVp()</div><div class="ttdoc">Reset Vp to the ones at last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00128">Bulk.hpp:128</a></div></div>
+<div class="ttc" id="aclassBulk_html_ab10e3d5483e295cc0a54d2764f1d2c57"><div class="ttname"><a href="classBulk.html#ab10e3d5483e295cc0a54d2764f1d2c57">Bulk::ResetFlash</a></div><div class="ttdeci">void ResetFlash()</div><div class="ttdoc">Reset variables in flash calculations.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01319">Bulk.cpp:1319</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="BulkConn_8cpp_source.html#l00222">Connection_BB::CalFlux()</a>, <a class="el" href="Bulk_8cpp_source.html#l01018">Bulk::FlashNi()</a>, <a class="el" href="Bulk_8hpp_source.html#l00132">Bulk::ResetNi()</a>, <a class="el" href="Bulk_8hpp_source.html#l00128">Bulk::ResetP()</a>, <a class="el" href="Bulk_8hpp_source.html#l00130">Bulk::ResetPj()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00134">Bulk::ResetVp()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01319">Bulk::ResetFlash()</a>, <a class="el" href="Bulk_8hpp_source.html#l00126">Bulk::ResetNi()</a>, <a class="el" href="Bulk_8hpp_source.html#l00122">Bulk::ResetP()</a>, <a class="el" href="Bulk_8hpp_source.html#l00124">Bulk::ResetPj()</a>, and <a class="el" href="Bulk_8hpp_source.html#l00128">Bulk::ResetVp()</a>.</p>
 
 </div>
 </div>
@@ -534,15 +984,48 @@ template&lt;typename T &gt; </div>
 <div class="fragment"><div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    grid.<a class="code hl_function" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Setup</a>();</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    bulk.<a class="code hl_function" href="classBulk.html#aa1635a832129794590e4801d6316230d">Setup</a>(grid);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    conn.<a class="code hl_function" href="classConnection__BB.html#a8599ec24cd2d6b177078ce6ee8c21986">Setup</a>(grid, bulk);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    conn.<a class="code hl_function" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">Setup</a>(grid, bulk);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#ac27bf83ce1174734bb59b3f8e95defdf">Setup</a>(grid, bulk);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="ttc" id="aclassBulkConn_html_a02929d17cdc2fa1cc2c3b9f7a05dcf86"><div class="ttname"><a href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">BulkConn::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00020">BulkConn.cpp:20</a></div></div>
 <div class="ttc" id="aclassBulk_html_aa1635a832129794590e4801d6316230d"><div class="ttname"><a href="classBulk.html#aa1635a832129794590e4801d6316230d">Bulk::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid)</div><div class="ttdoc">Setup basic data from grid, Setup of grid must be finished before.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00089">Bulk.cpp:89</a></div></div>
-<div class="ttc" id="aclassConnection__BB_html_a8599ec24cd2d6b177078ce6ee8c21986"><div class="ttname"><a href="classConnection__BB.html#a8599ec24cd2d6b177078ce6ee8c21986">Connection_BB::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00020">BulkConn.cpp:20</a></div></div>
 <div class="ttc" id="aclassGrid_html_ab42e1172203f3dbeb09b9943361f0a57"><div class="ttname"><a href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Grid::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">calculate the properties of Grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00014">Grid.cpp:14</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_ac27bf83ce1174734bb59b3f8e95defdf"><div class="ttname"><a href="classWellGroup.html#ac27bf83ce1174734bb59b3f8e95defdf">WellGroup::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup well and mixture in wellgroup.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00047">WellGroup.cpp:47</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00014">Grid::Setup()</a>, <a class="el" href="Bulk_8cpp_source.html#l00089">Bulk::Setup()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00020">Connection_BB::Setup()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00047">WellGroup::Setup()</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00014">Grid::Setup()</a>, <a class="el" href="Bulk_8cpp_source.html#l00089">Bulk::Setup()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00020">BulkConn::Setup()</a>, and <a class="el" href="WellGroup_8cpp_source.html#l00047">WellGroup::Setup()</a>.</p>
+
+</div>
+</div>
+<a id="ae8cbaa043dcad625fa68c3a807a171a7" name="ae8cbaa043dcad625fa68c3a807a171a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cbaa043dcad625fa68c3a807a171a7">&#9670;&nbsp;</a></span>UpdateLastStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Reservoir::UpdateLastStep </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update value of last step. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00072">72</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{ bulk.<a class="code hl_function" href="classBulk.html#af491fb22030405e13b5e3a573a392322">UpdateLastStep</a>(); conn.UpdateLastStep(); wellgroup.<a class="code hl_function" href="classWellGroup.html#ad7cee4a6521b88c7f36555e225437753">UpdateLastStep</a>(); };</div>
+<div class="ttc" id="aclassWellGroup_html_ad7cee4a6521b88c7f36555e225437753"><div class="ttname"><a href="classWellGroup.html#ad7cee4a6521b88c7f36555e225437753">WellGroup::UpdateLastStep</a></div><div class="ttdeci">void UpdateLastStep()</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8hpp_source.html#l00127">WellGroup.hpp:127</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01127">Bulk::UpdateLastStep()</a>, and <a class="el" href="WellGroup_8hpp_source.html#l00127">WellGroup::UpdateLastStep()</a>.</p>
 
 </div>
 </div>
@@ -619,8 +1102,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aca146edc034ae05795de167cea43f51c" name="aca146edc034ae05795de167cea43f51c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca146edc034ae05795de167cea43f51c">&#9670;&nbsp;</a></span>OCP_IMPES</h2>
+<a id="a5cb26f18bf05c3b77574563df8d2009c" name="a5cb26f18bf05c3b77574563df8d2009c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb26f18bf05c3b77574563df8d2009c">&#9670;&nbsp;</a></span>OCP_IMPEC</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,7 +1112,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="classOCP__IMPES.html">OCP_IMPES</a></td>
+          <td class="memname">friend class <a class="el" href="classOCP__IMPEC.html">OCP_IMPEC</a></td>
         </tr>
       </table>
   </td>
