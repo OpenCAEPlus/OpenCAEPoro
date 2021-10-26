@@ -12,6 +12,8 @@
 #ifndef __BOMIXTURE_HEADER__
 #define __BOMIXTURE_HEADER__
 
+#include <cmath>
+
 // OpenCAEPoro header files
 #include "Mixture.hpp"
 #include "OCPTable.hpp"
