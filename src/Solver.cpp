@@ -25,7 +25,7 @@ void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
 	// cout << setprecision(3) << ctrl.GetCurTime() << "days\n";
 
-	double& dt = ctrl.GetCurDt();
+	OCP_DBL& dt = ctrl.GetCurDt();
 	Prepare(rs, dt);
 	
 	while (true)

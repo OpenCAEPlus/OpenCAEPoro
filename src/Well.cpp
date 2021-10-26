@@ -1033,10 +1033,13 @@ void Well::CalTrans(const Bulk& myBulk)
             for (USI j = 0; j < np; j++) {
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
-                    perf[p].transj[j] = temp * myBulk.kr[id] / myBulk.mu[id];
-                    perf[p].transINJ += perf[p].transj[j];
+                    perf[p].transj[j] += myBulk.kr[id] / myBulk.mu[id];
+                    // perf[p].transINJ += perf[p].transj[j];
                 }
+                perf[p].transINJ += perf[p].transj[j];
+                perf[p].transj[j] *= temp;
             }
+            perf[p].transINJ *= temp;
         }
     } else {
         for (USI p = 0; p < numPerf; p++) {
@@ -1071,7 +1074,6 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
 
             perf[p].qt_ft3 = perf[p].transINJ * dP;
 
-            
             if (flag) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
@@ -1108,10 +1110,11 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
                     for (USI i = 0; i < nc; i++) {
                         xij = myBulk.cij[id * nc + i];
                         perf[p].qi_lbmol[i] += perf[p].transj[j] * dP * xi * xij;
-                        qi_lbmol[i] += perf[p].qi_lbmol[i];
                     }
                 }
             }
+            for (USI i = 0; i < nc; i++)
+                qi_lbmol[i] += perf[p].qi_lbmol[i];
         }
     }
 }
