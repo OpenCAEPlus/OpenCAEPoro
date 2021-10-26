@@ -18,7 +18,6 @@ void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
     }
 }
 
-
 void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
 {
     switch (method)
@@ -64,6 +63,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
         OCP_ABORT("Wrong method!");
         break;
     }
+    return true; // Should not reach here!
 }
 
 void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
@@ -125,7 +125,8 @@ void FluidSolver::InitReservoir(Reservoir& rs) const
 }
 
 
-void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl)
+void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
+                                  OCP_Control& ctrl)
 {
 #ifdef DEBUG
     solver.CheckVal();
@@ -212,7 +213,6 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     rs.CalConnFlux();
     return true;
 }
-
 
 
 

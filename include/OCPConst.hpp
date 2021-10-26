@@ -24,7 +24,7 @@
               << __FILE__ << std::endl;
 
 // Build-in data type
-typedef unsigned int USI;     ///< Unsigned integer
+typedef unsigned int USI;     ///< Generic unsigned integer
 typedef unsigned int OCP_USI; ///< Long unsigned integer
 typedef int          OCP_INT; ///< Long integer
 typedef double       OCP_DBL; ///< Double precision
@@ -35,10 +35,20 @@ const USI IMPEC = 1;
 const USI FIM   = 2;
 
 // General consts
-const OCP_DBL MAX_TIME_STEP = 365;         ///< Maximal time stepsize
-const OCP_DBL MIN_TIME_STEP = 1E-6;        ///< Minimal time stepsize
-const OCP_DBL TINY          = 1E-8;        ///< Small constant
-const OCP_DBL PI            = 3.141592653; ///< Pi
+const OCP_DBL TINY = 1E-8;        ///< Small constant
+const OCP_DBL PI   = 3.141592653; ///< Pi
+
+// Control consts
+const OCP_DBL MAX_TIME_STEP     = 365.0; ///< Maximal time stepsize
+const OCP_DBL MIN_TIME_STEP     = 0.01;  ///< Minimal time stepsize
+const OCP_DBL TIME_STEP_CUT     = 0.5;   ///< Time stepsize cut ratio
+const OCP_DBL TIME_STEP_AMPLIFY = 2.0;   ///< Time stepsize amplify ratio
+const OCP_DBL MAX_VOLUME_ERR    = 0.01;  ///< Maximal volume error
+const OCP_DBL MAX_DP_LIMIT      = 200;   ///< Maximal pressure change
+const OCP_DBL MAX_DS_LIMIT      = 0.1;   ///< Maximal saturation change
+const OCP_DBL TARGET_DP         = 50;    ///< Target pressure change
+const OCP_DBL TARGET_DS         = 0.01;  ///< Target saturation change
+// TODO: Use consts in the code instead of numbers
 
 // Physical consts
 const OCP_DBL GRAVITY_FACTOR = 0.00694444; ///< 0.00694444 ft2 psi / lb
