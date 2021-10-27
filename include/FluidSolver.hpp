@@ -101,7 +101,7 @@ public:
 private:
     USI             method = IMPEC;
 	LinearSolver	FLSolver;
-    OCP_IMPEC       impes;
+    OCP_IMPEC       impec;
     OCP_FIM         fim;
 
 };

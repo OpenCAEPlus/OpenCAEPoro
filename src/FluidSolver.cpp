@@ -7,7 +7,7 @@ void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
     switch (method)
     {
     case IMPEC:
-        impes.Prepare(rs, dt);
+        impec.Prepare(rs, dt);
         break;
     case FIM:
         fim.Prepare(rs, dt);
@@ -39,7 +39,7 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl)
     switch (method)
     {
     case IMPEC:
-        impes.SolveLinearSystem(FLSolver, rs, ctrl);
+        impec.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     case FIM:
         fim.SolveLinearSystem(FLSolver, rs, ctrl);
@@ -55,7 +55,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     switch (method)
     {
     case IMPEC:
-        return impes.UpdateProperty(rs, dt);
+        return impec.UpdateProperty(rs, dt);
     case FIM:
         return fim.UpdateProperty(rs, dt);
         break;
@@ -70,7 +70,7 @@ bool FluidSolver::FinishNR()
     switch (method)
     {
     case IMPEC:
-        return impes.FinishNR();
+        return impec.FinishNR();
     case FIM:
         return fim.FinishNR();
         break;
