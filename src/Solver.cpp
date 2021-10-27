@@ -12,6 +12,13 @@
 // OpenCAEPoro header files
 #include "Solver.hpp"
 
+/// Initialize the reservoir setting for different solution methods.
+void Solver::InitReservoir(Reservoir& rs) const
+{
+    // Initialize the fluid part
+    FSolver.InitReservoir(rs);
+}
+
 /// Simulation will go through all time steps and call GoOneStep at each step.
 void Solver::RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 {
@@ -55,8 +62,22 @@ void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
     FinishStep(rs, ctrl);
 }
 
-void Solver::Prepare(Reservoir& rs, OCP_DBL& dt) { FSolver.Prepare(rs, dt); }
+/// Get ready for assembling the linear system of this time step.
+void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    // Prepare for the fluid part
+    FSolver.Prepare(rs, dt);
+}
 
+void Solver::AllocateMat(const Reservoir& rs) { FSolver.AllocateMat(rs); }
+
+/// Get linear solver params from a disk file.
+void Solver::SetupParamLS(const string& dir, const string& file)
+{
+    FSolver.SetupParamLS(dir, file);
+}
+
+/// Assemble linear system and then solve it.
 void Solver::AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
 {
     // Assemble linear system
@@ -65,26 +86,26 @@ void Solver::AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
     FSolver.SolveLinearSystem(rs, ctrl);
 }
 
+/// Update properties after solving.
 bool Solver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
+    // Update for the fluid part
     return FSolver.UpdateProperty(rs, dt);
 }
 
-bool Solver::FinishNR() { return FSolver.FinishNR(); }
+/// Clean up Newton-Raphson iteration if there is any.
+bool Solver::FinishNR()
+{
+    // Clean up the fluid part
+    return FSolver.FinishNR();
+}
 
+/// Clean up time step.
 void Solver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
 {
+    // Clean up the fluid part
     FSolver.FinishStep(rs, ctrl);
 }
-
-void Solver::SetupParamLS(const string& dir, const string& file)
-{
-    FSolver.SetupParamLS(dir, file);
-}
-
-void Solver::AllocateMat(const Reservoir& rs) { FSolver.AllocateMat(rs); }
-
-void Solver::InitReservoir(Reservoir& rs) const { FSolver.InitReservoir(rs); }
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

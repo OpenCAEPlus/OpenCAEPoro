@@ -19,22 +19,23 @@
 class Solver
 {
 public:
-    /// Allocate memory for linear system.
-    void AllocateMat(const Reservoir& rs);
     /// Initialize the reservoir.
     void InitReservoir(Reservoir& rs) const;
     /// Start simulation.
     void RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
-
-    /// Before solve: prepare for assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    /// Allocate memory for linear system.
+    void AllocateMat(const Reservoir& rs);
     /// Setup linear solver params.
     void SetupParamLS(const string& dir, const string& file);
+
+private:
+    /// Before solve: prepare for assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble and Solve: assemble linear system parts together then solve.
     void AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
-    /// Update properties after solving.
+    /// Update reservoir properties after solving for primary variables.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
     /// Determine if Newton iteration is finished.
     bool FinishNR();
@@ -55,4 +56,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Shizhe Li           Oct/21/2021      Change from OCPMethod to Solver      */
+/*  Chensong Zhang      Oct/27/2021      Rearrange and add comments           */
 /*----------------------------------------------------------------------------*/
