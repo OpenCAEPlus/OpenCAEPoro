@@ -109,6 +109,7 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
             myPtr = &PVTW_T;
             break;
     }
+
     return myPtr;
 }
 
@@ -282,8 +283,7 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
             }
             setVal(*objPtr, val, index);
         } else {
-            ParamCheck("Wrong Var Name: " + objName);
-            exit(0);
+            OCP_ABORT("Wrong object name: " + objName);
         }
     }
 
@@ -296,10 +296,10 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
 void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 {
     vector<OCP_DBL>* objPtr = nullptr;
-    objPtr                  = FindPtr(keyword);
+
+    objPtr = FindPtr(keyword);
     if (objPtr == nullptr) {
-        ParamCheck("unmatched keyword!");
-        exit(0);
+        OCP_ABORT("Unmatched keyword!");
     } else {
         if (keyword == "TOPS")
             objPtr->reserve(dimens.nx * dimens.ny);
@@ -346,8 +346,7 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
             objPtr->resize(srcPtr->size());
             CopyVal(*objPtr, *srcPtr, index);
         } else {
-            ParamCheck("Wrong Var Name: " + srcName + " " + objName);
-            exit(0);
+            OCP_ABORT("Wrong object names: " + srcName + ", " + objName);
         }
     }
     std::cout << permX[0] << endl;
@@ -383,8 +382,7 @@ void ParamReservoir::InputMULTIPLY(ifstream& ifs)
             }
             MultiplyVal(*objPtr, val, index);
         } else {
-            ParamCheck("Wrong Var Name: " + objName);
-            exit(0);
+            OCP_ABORT("Wrong object name: " + objName);
         }
     }
     std::cout << permX[0] << endl;
@@ -398,8 +396,7 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
     TableSet* obj;
     obj = FindPtr_T(tabName);
     if (obj == nullptr) {
-        ParamCheck("Wrong Tab Name :" + tabName);
-        exit(0);
+        OCP_ABORT("Wrong table name :" + tabName);
     }
 
     USI                     col = obj->colNum;
@@ -532,8 +529,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         // check region
         for (auto r : region) {
             if (r > lim) {
-                ParamCheck("Region is out of Range!");
-                exit(0);
+                OCP_ABORT("Region is out of range!");
             }
         }
 #endif // DEBUG
@@ -561,63 +557,34 @@ void ParamReservoir::CheckParam()
     CheckRegion();
 }
 
-/// TODO: Add Doxygen
+/// Check data dimension for potential problems.
 void ParamReservoir::CheckGrid()
 {
-    if (tops.size() != dimens.nx * dimens.ny) {
-        ParamCheck("Mistakes in Tops !");
-        exit(0);
-    }
-    if (dx.size() != numGrid) {
-        ParamCheck("Mistakes in Dx !");
-        exit(0);
-    }
-    if (dy.size() != numGrid) {
-        ParamCheck("Mistakes in Dy !");
-        exit(0);
-    }
-    if (dz.size() != numGrid) {
-        ParamCheck("Mistakes in Dz !");
-        exit(0);
-    }
+    if (tops.size() != dimens.nx * dimens.ny) OCP_ABORT("Wrong TOPS size!");
+    if (dx.size() != numGrid) OCP_ABORT("Wrong DX size!");
+    if (dy.size() != numGrid) OCP_ABORT("Wrong DY size!");
+    if (dz.size() != numGrid) OCP_ABORT("Wrong DZ size!");
+    if (poro.size() != numGrid) OCP_ABORT("Wrong PORO size!");
+    if (permX.size() != numGrid) OCP_ABORT("Wrong PERMX size!");
+    if (permY.size() != numGrid) OCP_ABORT("Wrong PERMY size!");
+    if (permZ.size() != numGrid) OCP_ABORT("Wrong PERMZ size!");
     if (ntg.size() != numGrid) {
-        ParamCheck("WARNING: Mistakes in Ntg, set to 1 .");
+        OCP_WARNING("Wrong Ntg size; set it to 1."); // TODO: Should not appear every time!
         ntg.resize(numGrid, 1);
-    }
-    if (poro.size() != numGrid) {
-        ParamCheck("Mistakes in Poro !");
-        exit(0);
-    }
-    if (permX.size() != numGrid) {
-        ParamCheck("Mistakes in PermX !");
-        exit(0);
-    }
-    if (permY.size() != numGrid) {
-        ParamCheck("Mistakes in PermY !");
-        exit(0);
-    }
-    if (permZ.size() != numGrid) {
-        ParamCheck("Mistakes in PermZ !");
-        exit(0);
     }
 }
 
 /// TODO: Add Doxygen
 void ParamReservoir::CheckEQUIL() const
 {
-    if (EQUIL.empty()) {
-        ParamCheck("EQUIL is missing !");
-        exit(0);
-    }
+    if (EQUIL.empty()) OCP_ABORT("EQUIL is missing!");
 }
 
 /// TODO: Add Doxygen
 void ParamReservoir::CheckDenGra() const
 {
     if (density.activity && gravity.activity) {
-        ParamCheck(
-            "Density and Gravity have been conflict, just one of them is needed !");
-        exit(0);
+        OCP_ABORT("Both DENSITY and GRAVITY have been given, just one can be used!");
     }
 }
 
@@ -625,49 +592,23 @@ void ParamReservoir::CheckDenGra() const
 void ParamReservoir::CheckPhase() const
 {
     if (disGas && (!gas && !oil)) {
-        ParamCheck("DISGAS can only be used only if OIL and GAS are both present");
-        exit(0);
+        OCP_ABORT("DISGAS can only be used only if OIL and GAS are both present!");
     }
 }
 
 /// TODO: Add Doxygen
 void ParamReservoir::CheckPhaseTab() const
 {
-    if (!blackOil && !comps) {
-        ParamCheck("WRONG MODEl: choose BLACKOIL or COMPS !");
-        exit(0);
-    }
+    if (!blackOil && !comps) OCP_ABORT("Unknown model: choose BLACKOIL or COMPS!");
 
-    if (water && oil && SWOF_T.data.empty()) {
-        ParamCheck("SWOF is missing !");
-        exit(0);
-    }
-
-    if (gas && oil && SGOF_T.data.empty()) {
-        ParamCheck("SGOF is missing !");
-        exit(0);
-    }
-
-    if (water && PVTW_T.data.empty()) {
-        ParamCheck("PVTW is missing !");
-        exit(0);
-    }
+    if (water && oil && SWOF_T.data.empty()) OCP_ABORT("SWOF is missing!");
+    if (gas && oil && SGOF_T.data.empty()) OCP_ABORT("SGOF is missing!");
+    if (water && PVTW_T.data.empty()) OCP_ABORT("PVTW is missing!");
 
     if (blackOil) {
-        if (oil && disGas && PVCO_T.data.empty()) {
-            ParamCheck("PVCO is missing !");
-            exit(0);
-        }
-
-        if (oil && (!disGas) && PVDO_T.data.empty()) {
-            ParamCheck("PVDO is missing !");
-            exit(0);
-        }
-
-        if (gas && PVDG_T.data.empty()) {
-            ParamCheck("PVDG is missing !");
-            exit(0);
-        }
+        if (oil && disGas && PVCO_T.data.empty()) OCP_ABORT("PVCO is missing!");
+        if (oil && (!disGas) && PVDO_T.data.empty()) OCP_ABORT("PVDO is missing!");
+        if (gas && PVDG_T.data.empty()) OCP_ABORT("PVDG is missing!");
     }
 }
 
@@ -675,12 +616,10 @@ void ParamReservoir::CheckPhaseTab() const
 void ParamReservoir::CheckRegion() const
 {
     if (SATNUM.activity && SATNUM.data.size() != numGrid) {
-        ParamCheck("missing data in SATNUM");
-        exit(0);
+        OCP_ABORT("Missing data in SATNUM!");
     }
     if (PVTNUM.activity && PVTNUM.data.size() != numGrid) {
-        ParamCheck("missing data in PVTNUM");
-        exit(0);
+        OCP_ABORT("Missing data in PVTNUM!");
     }
 }
 
@@ -688,8 +627,7 @@ void ParamReservoir::CheckRegion() const
 void ParamReservoir::CheckEqlRegion() const
 {
     if (PBVD_T.data.size() > 1) {
-        ParamCheck("Only one equilibration region is supported now !");
-        exit(0);
+        OCP_ABORT("Only one equilibration region is supported!");
     }
 }
 

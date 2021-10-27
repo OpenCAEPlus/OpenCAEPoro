@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -71,6 +71,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Params for controlling time stepsized in time marching.  
+ <a href="classControlTime.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -106,9 +109,9 @@ Public Attributes</h2></td></tr>
 <tr class="separator:acda486795e91185930290d4b95090cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p ><a class="el" href="classControlTime.html">ControlTime</a> contains params used to control the size of time step. the most commonly used params are the first three. the others are under development. </p>
+<div class="textblock"><p >Params for controlling time stepsized in time marching. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00027">27</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00026">26</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9724c16bd7af55cd04ca63feb404fe18" name="a9724c16bd7af55cd04ca63feb404fe18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9724c16bd7af55cd04ca63feb404fe18">&#9670;&nbsp;</a></span>ControlTime()</h2>
@@ -137,14 +140,14 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_variable" href="classControlTime.html#a3affc100a35f78e50887801d1bfafe8f">timeCut_F</a>      = src[6];</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_variable" href="classControlTime.html#acda486795e91185930290d4b95090cc4">timeMaxIncre_F</a> = src[7];</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
-<div class="ttc" id="aclassControlTime_html_a3affc100a35f78e50887801d1bfafe8f"><div class="ttname"><a href="classControlTime.html#a3affc100a35f78e50887801d1bfafe8f">ControlTime::timeCut_F</a></div><div class="ttdeci">OCP_DBL timeCut_F</div><div class="ttdoc">Minimum timestep cutback factor after convergence failure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00038">OCPControl.hpp:38</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a3dba3d2d971174110703f6435c98b4c8"><div class="ttname"><a href="classControlTime.html#a3dba3d2d971174110703f6435c98b4c8">ControlTime::timeMinChop</a></div><div class="ttdeci">OCP_DBL timeMinChop</div><div class="ttdoc">Minimum choppable timestep.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00035">OCPControl.hpp:35</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a54e908798b199c6a3da0e7db07c53d17"><div class="ttname"><a href="classControlTime.html#a54e908798b199c6a3da0e7db07c53d17">ControlTime::timeMinCut</a></div><div class="ttdeci">OCP_DBL timeMinCut</div><div class="ttdoc">Minimum timestep cutback factor.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00037">OCPControl.hpp:37</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a567c47ef8d0937c6641b312ac60ec2ad"><div class="ttname"><a href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">ControlTime::timeMax</a></div><div class="ttdeci">OCP_DBL timeMax</div><div class="ttdoc">Maximum time step during running.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00033">OCPControl.hpp:33</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a57282bf9d11ea12249b5fff4443d3b9f"><div class="ttname"><a href="classControlTime.html#a57282bf9d11ea12249b5fff4443d3b9f">ControlTime::timeInit</a></div><div class="ttdeci">OCP_DBL timeInit</div><div class="ttdoc">Maximum Init step length of next timestep.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00032">OCPControl.hpp:32</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a577dda3f8deed75eb9961705863b722f"><div class="ttname"><a href="classControlTime.html#a577dda3f8deed75eb9961705863b722f">ControlTime::timeMaxIncr</a></div><div class="ttdeci">OCP_DBL timeMaxIncr</div><div class="ttdoc">Maximum timestep increase factor.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00036">OCPControl.hpp:36</a></div></div>
-<div class="ttc" id="aclassControlTime_html_a722ddfd2753f459a404058702d983a9f"><div class="ttname"><a href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">ControlTime::timeMin</a></div><div class="ttdeci">OCP_DBL timeMin</div><div class="ttdoc">Minmum time step during running.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00034">OCPControl.hpp:34</a></div></div>
-<div class="ttc" id="aclassControlTime_html_acda486795e91185930290d4b95090cc4"><div class="ttname"><a href="classControlTime.html#acda486795e91185930290d4b95090cc4">ControlTime::timeMaxIncre_F</a></div><div class="ttdeci">OCP_DBL timeMaxIncre_F</div><div class="ttdoc">Maximum increase factor after a convergence failure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00039">OCPControl.hpp:39</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a3affc100a35f78e50887801d1bfafe8f"><div class="ttname"><a href="classControlTime.html#a3affc100a35f78e50887801d1bfafe8f">ControlTime::timeCut_F</a></div><div class="ttdeci">OCP_DBL timeCut_F</div><div class="ttdoc">Minimum timestep cutback factor after convergence failure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00040">OCPControl.hpp:40</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a3dba3d2d971174110703f6435c98b4c8"><div class="ttname"><a href="classControlTime.html#a3dba3d2d971174110703f6435c98b4c8">ControlTime::timeMinChop</a></div><div class="ttdeci">OCP_DBL timeMinChop</div><div class="ttdoc">Minimum choppable timestep.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00037">OCPControl.hpp:37</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a54e908798b199c6a3da0e7db07c53d17"><div class="ttname"><a href="classControlTime.html#a54e908798b199c6a3da0e7db07c53d17">ControlTime::timeMinCut</a></div><div class="ttdeci">OCP_DBL timeMinCut</div><div class="ttdoc">Minimum timestep cutback factor.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00039">OCPControl.hpp:39</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a567c47ef8d0937c6641b312ac60ec2ad"><div class="ttname"><a href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">ControlTime::timeMax</a></div><div class="ttdeci">OCP_DBL timeMax</div><div class="ttdoc">Maximum time step during running.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00035">OCPControl.hpp:35</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a57282bf9d11ea12249b5fff4443d3b9f"><div class="ttname"><a href="classControlTime.html#a57282bf9d11ea12249b5fff4443d3b9f">ControlTime::timeInit</a></div><div class="ttdeci">OCP_DBL timeInit</div><div class="ttdoc">Maximum Init step length of next timestep.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00034">OCPControl.hpp:34</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a577dda3f8deed75eb9961705863b722f"><div class="ttname"><a href="classControlTime.html#a577dda3f8deed75eb9961705863b722f">ControlTime::timeMaxIncr</a></div><div class="ttdeci">OCP_DBL timeMaxIncr</div><div class="ttdoc">Maximum timestep increase factor.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00038">OCPControl.hpp:38</a></div></div>
+<div class="ttc" id="aclassControlTime_html_a722ddfd2753f459a404058702d983a9f"><div class="ttname"><a href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">ControlTime::timeMin</a></div><div class="ttdeci">OCP_DBL timeMin</div><div class="ttdoc">Minmum time step during running.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00036">OCPControl.hpp:36</a></div></div>
+<div class="ttc" id="aclassControlTime_html_acda486795e91185930290d4b95090cc4"><div class="ttname"><a href="classControlTime.html#acda486795e91185930290d4b95090cc4">ControlTime::timeMaxIncre_F</a></div><div class="ttdeci">OCP_DBL timeMaxIncre_F</div><div class="ttdoc">Maximum increase factor after a convergence failure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00041">OCPControl.hpp:41</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -163,7 +166,7 @@ Public Attributes</h2></td></tr>
 
 <p>Minimum timestep cutback factor after convergence failure. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00038">38</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00040">40</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -181,7 +184,7 @@ Public Attributes</h2></td></tr>
 
 <p>Maximum Init step length of next timestep. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00032">32</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00034">34</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -199,7 +202,7 @@ Public Attributes</h2></td></tr>
 
 <p>Maximum time step during running. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00033">33</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00035">35</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -217,7 +220,7 @@ Public Attributes</h2></td></tr>
 
 <p>Maximum timestep increase factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00036">36</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00038">38</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -235,7 +238,7 @@ Public Attributes</h2></td></tr>
 
 <p>Maximum increase factor after a convergence failure. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00039">39</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00041">41</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -253,7 +256,7 @@ Public Attributes</h2></td></tr>
 
 <p>Minmum time step during running. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00034">34</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00036">36</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -271,7 +274,7 @@ Public Attributes</h2></td></tr>
 
 <p>Minimum choppable timestep. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00035">35</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00037">37</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>
@@ -289,7 +292,7 @@ Public Attributes</h2></td></tr>
 
 <p>Minimum timestep cutback factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00037">37</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00039">39</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 
 </div>
 </div>

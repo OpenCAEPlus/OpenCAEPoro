@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -100,8 +100,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a159aabae47f57b8507a500aa96075102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adda9c66f6903206376e5765351a9e4d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#adda9c66f6903206376e5765351a9e4d2">MassConserve</a> (<a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt)</td></tr>
 <tr class="separator:adda9c66f6903206376e5765351a9e4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92d8b55e1c424b5b018fdb0e4ef9ae05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a92d8b55e1c424b5b018fdb0e4ef9ae05">AllocateMat</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mySolver) const</td></tr>
-<tr class="separator:a92d8b55e1c424b5b018fdb0e4ef9ae05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29ab57b4401f4ac9d2323e7b6f208185"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a29ab57b4401f4ac9d2323e7b6f208185">AllocateMat</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mySolver, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;bulknum) const</td></tr>
+<tr class="separator:a29ab57b4401f4ac9d2323e7b6f208185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72a39cbc53502e290a63e1df12787f66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a72a39cbc53502e290a63e1df12787f66">Init</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="separator:a72a39cbc53502e290a63e1df12787f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a548a9aaba9f7d86860c0a7750e3f5986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a548a9aaba9f7d86860c0a7750e3f5986">ApplyControl</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i)</td></tr>
@@ -113,6 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa7d800aae6d10e731ef2962b5cf1b0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2738cb9c4999664ff9aac668c40001f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a2738cb9c4999664ff9aac668c40001f4">AssemblaMat_WB_IMPEC</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mySolver, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="separator:a2738cb9c4999664ff9aac668c40001f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07aeb0a0377f6b907a052ae934ca0d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a07aeb0a0377f6b907a052ae934ca0d71">AssemblaMat_WB_FIM</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mySolver, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:a07aeb0a0377f6b907a052ae934ca0d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b9a367d413dbdf5ef7abc32b36ec121"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">GetWellNum</a> () const</td></tr>
 <tr class="memdesc:a3b9a367d413dbdf5ef7abc32b36ec121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the num of wells.  <a href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">More...</a><br /></td></tr>
 <tr class="separator:a3b9a367d413dbdf5ef7abc32b36ec121"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1b4a950cecfa089c7e79ce39255eae72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a1b4a950cecfa089c7e79ce39255eae72">GetWellPerfNum</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
 <tr class="memdesc:a1b4a950cecfa089c7e79ce39255eae72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the num of perforations of well i.  <a href="classWellGroup.html#a1b4a950cecfa089c7e79ce39255eae72">More...</a><br /></td></tr>
 <tr class="separator:a1b4a950cecfa089c7e79ce39255eae72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda1198021609a4b72aff430c5daa8fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#afda1198021609a4b72aff430c5daa8fd">GetMaxWellPerNum</a> () const</td></tr>
+<tr class="separator:afda1198021609a4b72aff430c5daa8fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e6fe21f4bea849b32f29ec2fbbd44a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a53e6fe21f4bea849b32f29ec2fbbd44a">GetFOPR</a> () const</td></tr>
 <tr class="memdesc:a53e6fe21f4bea849b32f29ec2fbbd44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return oil production rate in field.  <a href="classWellGroup.html#a53e6fe21f4bea849b32f29ec2fbbd44a">More...</a><br /></td></tr>
 <tr class="separator:a53e6fe21f4bea849b32f29ec2fbbd44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,6 +198,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7cfa157c014ee97b5eca36c7b01aac86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a7cfa157c014ee97b5eca36c7b01aac86">GetSol_IMPEC</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)</td></tr>
 <tr class="memdesc:a7cfa157c014ee97b5eca36c7b01aac86"><td class="mdescLeft">&#160;</td><td class="mdescRight">update pressure in well and well perforation with solution of linear system.  <a href="classWellGroup.html#a7cfa157c014ee97b5eca36c7b01aac86">More...</a><br /></td></tr>
 <tr class="separator:a7cfa157c014ee97b5eca36c7b01aac86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6ca0b30f6b0baa8717127649d26cf6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#ae6ca0b30f6b0baa8717127649d26cf6e">GetSol_FIM</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;len)</td></tr>
+<tr class="separator:ae6ca0b30f6b0baa8717127649d26cf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ae04de33fa76f334a798cf373718db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a16ae04de33fa76f334a798cf373718db">CalResFIM</a> (vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;res, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:a16ae04de33fa76f334a798cf373718db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7cee4a6521b88c7f36555e225437753"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#ad7cee4a6521b88c7f36555e225437753">UpdateLastStep</a> ()</td></tr>
 <tr class="separator:ad7cee4a6521b88c7f36555e225437753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dfd754cb9cf2f827b8009ff8a58e9a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellGroup.html#a3dfd754cb9cf2f827b8009ff8a58e9a6">ResetDg</a> ()</td></tr>
@@ -207,8 +215,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00024">24</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a92d8b55e1c424b5b018fdb0e4ef9ae05" name="a92d8b55e1c424b5b018fdb0e4ef9ae05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92d8b55e1c424b5b018fdb0e4ef9ae05">&#9670;&nbsp;</a></span>AllocateMat()</h2>
+<a id="a29ab57b4401f4ac9d2323e7b6f208185" name="a29ab57b4401f4ac9d2323e7b6f208185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29ab57b4401f4ac9d2323e7b6f208185">&#9670;&nbsp;</a></span>AllocateMat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,8 +225,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void WellGroup::AllocateMat </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;&#160;</td>
-          <td class="paramname"><em>mySolver</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>mySolver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>bulknum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,11 +244,13 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00146">146</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>{</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        wellGroup[w].AllocateMat(mySolver);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> maxNum= GetMaxWellPerNum() + 1;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        wellGroup[w].AllocateMat(mySolver);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        mySolver.RowCapPlus(bulknum + w, maxNum);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -257,6 +277,60 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        wellGroup[w].opt = wellGroup[w].optSet[i];</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a07aeb0a0377f6b907a052ae934ca0d71" name="a07aeb0a0377f6b907a052ae934ca0d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07aeb0a0377f6b907a052ae934ca0d71">&#9670;&nbsp;</a></span>AssemblaMat_WB_FIM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WellGroup::AssemblaMat_WB_FIM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;&#160;</td>
+          <td class="paramname"><em>mySolver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classBulk.html">Bulk</a> &amp;&#160;</td>
+          <td class="paramname"><em>myBulk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00176">176</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>{</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="keywordflow">switch</span> (wellGroup[w].WellType()) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">case</span> INJ:</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                wellGroup[w].AssembleMat_INJ_FIM(myBulk, mySolver, dt);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordflow">case</span> PROD:</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                wellGroup[w].AssembleMat_PROD_BLK_FIM(myBulk, mySolver, dt);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
+<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,25 +367,24 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p >assemble matrix, parts related to well are included. only for IMPEC method. it should be called after parts related to bulks setups. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00154">154</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>{</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">switch</span> (wellGroup[w].WellType()) {</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">case</span> INJ:</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                    wellGroup[w].AssembleMat_INJ_IMPES(myBulk, mySolver, dt);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                <span class="keywordflow">case</span> PROD:</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                    wellGroup[w].AssembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                    ERRORcheck(<span class="stringliteral">&quot;Wrong Well Type&quot;</span>);</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                    exit(0);</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            }</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        }</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00156">156</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>{</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">switch</span> (wellGroup[w].WellType()) {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <span class="keywordflow">case</span> INJ:</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                    wellGroup[w].AssembleMat_INJ_IMPEC(myBulk, mySolver, dt);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="keywordflow">case</span> PROD:</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                    wellGroup[w].AssembleMat_PROD_BLK_IMPEC(myBulk, mySolver, dt);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                    <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    }</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -355,7 +428,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> cflw;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -483,39 +556,84 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p >calculate injection rate, total injection, production rate, total production for each well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00185">185</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>{</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    FGIR = 0;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    FWIR = 0;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    FOPR = 0;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    FGPR = 0;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    FWPR = 0;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        wellGroup[w].WGIR = 0;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        wellGroup[w].WWIR = 0;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        wellGroup[w].WOPR = 0;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        wellGroup[w].WGPR = 0;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        wellGroup[w].WWPR = 0;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">if</span> (wellGroup[w].WellType() == PROD) {</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                wellGroup[w].CalProdQi_Blk(myBulk, dt);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                wellGroup[w].CalInjQi_Blk(myBulk, dt);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            }</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        }</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        FGIR += wellGroup[w].WGIR;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        FWIR += wellGroup[w].WWIR;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        FOPR += wellGroup[w].WOPR;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        FGPR += wellGroup[w].WGPR;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        FWPR += wellGroup[w].WWPR;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    }</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    FGIT += FGIR * dt;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    FWIT += FWIR * dt;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    FOPT += FOPR * dt;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    FGPt += FGPR * dt;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    FWPT += FWPR * dt;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>}</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00233">233</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>{</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    FGIR = 0;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    FWIR = 0;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    FOPR = 0;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    FGPR = 0;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    FWPR = 0;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        wellGroup[w].WGIR = 0;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        wellGroup[w].WWIR = 0;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        wellGroup[w].WOPR = 0;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        wellGroup[w].WGPR = 0;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        wellGroup[w].WWPR = 0;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            <span class="keywordflow">if</span> (wellGroup[w].WellType() == PROD) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                wellGroup[w].CalProdQi_Blk(myBulk, dt);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                wellGroup[w].CalInjQi_Blk(myBulk, dt);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        FGIR += wellGroup[w].WGIR;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        FWIR += wellGroup[w].WWIR;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        FOPR += wellGroup[w].WOPR;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        FGPR += wellGroup[w].WGPR;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        FWPR += wellGroup[w].WWPR;</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    FGIT += FGIR * dt;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    FWIT += FWIR * dt;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    FOPT += FOPR * dt;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    FGPt += FGPR * dt;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    FWPT += FWPR * dt;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a16ae04de33fa76f334a798cf373718db" name="a16ae04de33fa76f334a798cf373718db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ae04de33fa76f334a798cf373718db">&#9670;&nbsp;</a></span>CalResFIM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WellGroup::CalResFIM </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>res</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classBulk.html">Bulk</a> &amp;&#160;</td>
+          <td class="paramname"><em>myBulk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00221">221</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>{</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            wellGroup[w].CalResFIM(res, myBulk, dt, wId);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            wId++;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        }</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -537,42 +655,42 @@ Public Member Functions</h2></td></tr>
 
 <p>check if unreasonable well pressure or perforation pressure occurs. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00219">219</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>{</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">// 0 : All correct</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">// 1   : negative P, cut the timestep and resolve</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="comment">// 2.1 : change well mode to BHP, resolve</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">// 2.2 : crossflow happens, then close corresponding perf, resolve</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">bool</span> flag2 = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordtype">bool</span> flag3 = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = wellGroup[w].CheckP(myBulk);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">#ifdef _DEBUG</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            <span class="comment">// wellGroup[w].ShowPerfStatus();</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            <span class="keywordflow">switch</span> (flag) {</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                    flag2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                    flag3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            }</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordflow">if</span> (flag2 || flag3) <span class="keywordflow">return</span> 2;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00267">267</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>{</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="comment">// 0 : All correct</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="comment">// 1   : negative P, cut the timestep and resolve</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="comment">// 2.1 : change well mode to BHP, resolve</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment">// 2.2 : crossflow happens, then close corresponding perf, resolve</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">bool</span> flag2 = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordtype">bool</span> flag3 = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flag = wellGroup[w].CheckP(myBulk);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <span class="comment">// wellGroup[w].ShowPerfStatus();</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <span class="keywordflow">switch</span> (flag) {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>                    flag2 = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                    flag3 = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            }</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    }</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">if</span> (flag2 || flag3) <span class="keywordflow">return</span> 2;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -601,8 +719,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return gas injection rate in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00088">88</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>{ <span class="keywordflow">return</span> FGIR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00090">90</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{ <span class="keywordflow">return</span> FGIR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -631,8 +749,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return gas water injection in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00090">90</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{ <span class="keywordflow">return</span> FGIT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00092">92</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{ <span class="keywordflow">return</span> FGIT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -661,8 +779,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return gas production rate in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00080">80</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{ <span class="keywordflow">return</span> FGPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00082">82</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{ <span class="keywordflow">return</span> FGPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -691,8 +809,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total gas production in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00082">82</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{ <span class="keywordflow">return</span> FGPt; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00084">84</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>{ <span class="keywordflow">return</span> FGPt; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -721,8 +839,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return oil production rate in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00076">76</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{ <span class="keywordflow">return</span> FOPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00078">78</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{ <span class="keywordflow">return</span> FOPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -751,8 +869,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total oil production in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00078">78</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{ <span class="keywordflow">return</span> FOPT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00080">80</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{ <span class="keywordflow">return</span> FOPT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -781,8 +899,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return water injection rate in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00092">92</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{ <span class="keywordflow">return</span> FWIR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00094">94</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{ <span class="keywordflow">return</span> FWIR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -811,8 +929,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total water injection in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00094">94</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{ <span class="keywordflow">return</span> FWIT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00096">96</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{ <span class="keywordflow">return</span> FWIT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -841,8 +959,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return water production rate in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00084">84</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>{ <span class="keywordflow">return</span> FWPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00086">86</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{ <span class="keywordflow">return</span> FWPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -871,8 +989,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total water production in field. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00086">86</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{ <span class="keywordflow">return</span> FWPT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00088">88</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>{ <span class="keywordflow">return</span> FWPT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -894,16 +1012,89 @@ Public Member Functions</h2></td></tr>
 
 <p>Return the index of specified well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00256">256</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>{</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">if</span> (wellGroup[w].name == name) {</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keywordflow">return</span> w;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    ERRORcheck(<span class="stringliteral">&quot;No such well name!&quot;</span>);</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    exit(0);</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00314">314</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>{</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="keywordflow">if</span> (wellGroup[w].name == name) {</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            <span class="keywordflow">return</span> w;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Well name not found!&quot;</span>);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
+
+</div>
+</div>
+<a id="afda1198021609a4b72aff430c5daa8fd" name="afda1198021609a4b72aff430c5daa8fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda1198021609a4b72aff430c5daa8fd">&#9670;&nbsp;</a></span>GetMaxWellPerNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> WellGroup::GetMaxWellPerNum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00304">304</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>{</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> m = 0;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        m = max(m, wellGroup[w].numPerf);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">return</span> m;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae6ca0b30f6b0baa8717127649d26cf6e" name="ae6ca0b30f6b0baa8717127649d26cf6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6ca0b30f6b0baa8717127649d26cf6e">&#9670;&nbsp;</a></span>GetSol_FIM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WellGroup::GetSol_FIM </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>bId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00208">208</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>{</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            wellGroup[w].BHP += u[(bId + wId)*len];</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            wellGroup[w].UpdatePerfP();</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            wId++;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        }</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -935,15 +1126,17 @@ Public Member Functions</h2></td></tr>
 
 <p>update pressure in well and well perforation with solution of linear system. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00175">175</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>{</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            wellGroup[w].BHP = u[bid + w];</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            wellGroup[w].UpdatePerfP();</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8cpp_source.html#l00196">196</a> of file <a class="el" href="WellGroup_8cpp_source.html">WellGroup.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>{</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">if</span> (wellGroup[w].WellState()) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            wellGroup[w].BHP = u[bId + wId];</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            wellGroup[w].UpdatePerfP();</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            wId++;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        }</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    }</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -973,8 +1166,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return the BHP of wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00119">119</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>{ <span class="keywordflow">return</span> wellGroup[w].BHP; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00121">121</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>{ <span class="keywordflow">return</span> wellGroup[w].BHP; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1014,8 +1207,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Return the pth dG of wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00121">121</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>{ <span class="keywordflow">return</span> wellGroup[w].dG[p]; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00123">123</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>{ <span class="keywordflow">return</span> wellGroup[w].dG[p]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1045,8 +1238,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Return the name of specified well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00068">68</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{ <span class="keywordflow">return</span> wellGroup[i].name; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00070">70</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{ <span class="keywordflow">return</span> wellGroup[i].name; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1075,8 +1268,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Return the num of wells. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00066">66</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{ <span class="keywordflow">return</span> numWell; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00068">68</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{ <span class="keywordflow">return</span> numWell; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1106,8 +1299,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Return the num of perforations of well i. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00072">72</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{ <span class="keywordflow">return</span> wellGroup[i].numPerf; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00074">74</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{ <span class="keywordflow">return</span> wellGroup[i].numPerf; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1137,8 +1330,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return gas injection rate of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00110">110</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>{ <span class="keywordflow">return</span> wellGroup[w].WGIR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00112">112</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{ <span class="keywordflow">return</span> wellGroup[w].WGIR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1168,8 +1361,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total gas injection of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00112">112</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{ <span class="keywordflow">return</span> wellGroup[w].WGIT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00114">114</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>{ <span class="keywordflow">return</span> wellGroup[w].WGIT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1199,8 +1392,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return gas production rate of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00102">102</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>{ <span class="keywordflow">return</span> wellGroup[w].WGPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00104">104</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>{ <span class="keywordflow">return</span> wellGroup[w].WGPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1230,8 +1423,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total gas production of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00104">104</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>{ <span class="keywordflow">return</span> wellGroup[w].WGPT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00106">106</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>{ <span class="keywordflow">return</span> wellGroup[w].WGPT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1261,8 +1454,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return oil production rate of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00098">98</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{ <span class="keywordflow">return</span> wellGroup[w].WOPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00100">100</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{ <span class="keywordflow">return</span> wellGroup[w].WOPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1292,8 +1485,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total oil production of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00100">100</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{ <span class="keywordflow">return</span> wellGroup[w].WOPT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00102">102</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>{ <span class="keywordflow">return</span> wellGroup[w].WOPT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1323,8 +1516,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return water injection rate of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00114">114</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>{ <span class="keywordflow">return</span> wellGroup[w].WWIR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00116">116</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>{ <span class="keywordflow">return</span> wellGroup[w].WWIR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1354,8 +1547,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total water injection of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00116">116</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>{ <span class="keywordflow">return</span> wellGroup[w].WWIT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00118">118</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{ <span class="keywordflow">return</span> wellGroup[w].WWIT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1385,8 +1578,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return water production rate of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00106">106</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>{ <span class="keywordflow">return</span> wellGroup[w].WWPR; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00108">108</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>{ <span class="keywordflow">return</span> wellGroup[w].WWPR; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1416,8 +1609,8 @@ Public Member Functions</h2></td></tr>
 
 <p>return total water production of the wth well. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00108">108</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>{ <span class="keywordflow">return</span> wellGroup[w].WWPT; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00110">110</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>{ <span class="keywordflow">return</span> wellGroup[w].WWPT; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1499,7 +1692,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 <div class="ttc" id="aclassParamWell_html_a679ceef70a150007d5646fcf3cef52c2"><div class="ttname"><a href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">ParamWell::criticalTime</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; criticalTime</div><div class="ttdoc">Records the critical time given by users.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00095">ParamWell.hpp:95</a></div></div>
 <div class="ttc" id="aclassParamWell_html_af52a7884b9642e12a58c7695403977d2"><div class="ttname"><a href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">ParamWell::well</a></div><div class="ttdeci">vector&lt; WellParam &gt; well</div><div class="ttdoc">Contains all the information of wells.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00094">ParamWell.hpp:94</a></div></div>
-<div class="ttc" id="aclassWellOpt_html"><div class="ttname"><a href="classWellOpt.html">WellOpt</a></div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00031">Well.hpp:32</a></div></div>
+<div class="ttc" id="aclassWellOpt_html"><div class="ttname"><a href="classWellOpt.html">WellOpt</a></div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00032">Well.hpp:33</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00095">ParamWell::criticalTime</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00094">ParamWell::well</a>.</p>
 
@@ -1601,8 +1794,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00131">131</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>{ <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wellGroup) w.dG = w.ldG; }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00135">135</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>{ <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wellGroup) w.dG = w.ldG; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1670,9 +1863,9 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    flashCal = myBulk.<a class="code hl_function" href="classBulk.html#a6b3f82ebd26550c3a6abcd88f35525d8">GetMixture</a>();</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    cout &lt;&lt; <span class="stringliteral">&quot;WellGroup::setupMixture&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
-<div class="ttc" id="aclassBulk_html_a6b3f82ebd26550c3a6abcd88f35525d8"><div class="ttname"><a href="classBulk.html#a6b3f82ebd26550c3a6abcd88f35525d8">Bulk::GetMixture</a></div><div class="ttdeci">const vector&lt; Mixture * &gt; &amp; GetMixture() const</div><div class="ttdoc">pass flash to well, it hasn't been used now.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00097">Bulk.hpp:97</a></div></div>
+<div class="ttc" id="aclassBulk_html_a6b3f82ebd26550c3a6abcd88f35525d8"><div class="ttname"><a href="classBulk.html#a6b3f82ebd26550c3a6abcd88f35525d8">Bulk::GetMixture</a></div><div class="ttdeci">const vector&lt; Mixture * &gt; &amp; GetMixture() const</div><div class="ttdoc">pass flash to well, it hasn't been used now.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00099">Bulk.hpp:99</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00097">Bulk::GetMixture()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00099">Bulk::GetMixture()</a>.</p>
 
 </div>
 </div>
@@ -1737,10 +1930,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p >reset dG to ldG for each well, dG is a array where the pressure difference between well and perforation are stored. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00127">127</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wellGroup) w.ldG = w.dG;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="WellGroup_8hpp_source.html#l00131">131</a> of file <a class="el" href="WellGroup_8hpp_source.html">WellGroup.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wellGroup) w.ldG = w.dG;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

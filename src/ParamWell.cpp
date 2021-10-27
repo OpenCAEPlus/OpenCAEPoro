@@ -260,32 +260,25 @@ void ParamWell::CheckPerf() const
     for (USI w = 0; w < wellnum; w++) {
         perfnum = well[w].I_perf.size();
         if (well[w].J_perf.size() != perfnum) {
-            ParamCheck("Wrong Perforations J_perf!");
-            exit(0);
+            OCP_ABORT("Wrong perforation size J_perf!");
         }
         if (well[w].K_perf.size() != perfnum) {
-            ParamCheck("Wrong Perforations K_perf!");
-            exit(0);
+            OCP_ABORT("Wrong perforation size K_perf!");
         }
         if (well[w].diameter.size() != perfnum) {
-            ParamCheck("Wrong Perforations diameter!");
-            exit(0);
+            OCP_ABORT("Wrong perforation diameter size!");
         }
         if (well[w].WI.size() != perfnum) {
-            ParamCheck("Wrong Perforations WI!");
-            exit(0);
+            OCP_ABORT("Wrong perforation WI size!");
         }
         if (well[w].kh.size() != perfnum) {
-            ParamCheck("Wrong Perforations kh!");
-            exit(0);
+            OCP_ABORT("Wrong perforation kh size!");
         }
         if (well[w].skinFactor.size() != perfnum) {
-            ParamCheck("Wrong Perforations skinFactor!");
-            exit(0);
+            OCP_ABORT("Wrong perforation skinFactor size!");
         }
         if (well[w].direction.size() != perfnum) {
-            ParamCheck("Wrong Perforations direction!");
-            exit(0);
+            OCP_ABORT("Wrong perforation direction size!");
         }
     }
 }
@@ -297,4 +290,5 @@ void ParamWell::CheckPerf() const
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Oct/27/2021      Unify error messages                 */
 /*----------------------------------------------------------------------------*/

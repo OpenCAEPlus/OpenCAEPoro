@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -75,6 +75,8 @@ $(function() {
   <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">CalKrPc_OGW</a>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">CalKrPc_OW</a>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">CalKrPc_W</a>(OCP_DBL *kr_out, OCP_DBL *pc_out)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>CalKrPcDeriv</b>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out, OCP_DBL *dkrdS, OCP_DBL *dPcjdS) (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>CalKrPcDeriv_OGW</b>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out, OCP_DBL *dkrdS, OCP_DBL *dPcjdS) (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a28fc5cd10db98c7047068c5840e1cdad">Eval_SGOF</a>(const USI &amp;j, const OCP_DBL &amp;val, const USI &amp;destj)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#a2af66c5618a29b76fc8105920dae321b">Eval_SWOF</a>(const USI &amp;j, const OCP_DBL &amp;val, const USI &amp;destj)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a26821368f699b3b0019abf56d95e083e">Eval_SWPCWG</a>(const USI &amp;j, const OCP_DBL &amp;val, const USI &amp;destj)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -86,6 +88,7 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#af0c3fbdc83dfc850738a09bfa55e8100">Generate_SWPCWG</a>()</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#ae5cce0f7761b9630c4cdb04ee90f5771">IsEmpty_SGOF</a>()</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a2885f501d3bd4ea8cb5dad30ee6d102a">IsEmpty_SWOF</a>()</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>kro_stone2Der</b>(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg, OCP_DBL dkrwSw, OCP_DBL dkrowSw, OCP_DBL dkrgSg, OCP_DBL dkrogSg, OCP_DBL *out_dkrodSw, OCP_DBL *dkrodSg) (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

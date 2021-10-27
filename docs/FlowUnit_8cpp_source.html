@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -108,130 +108,193 @@ $(function() {
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_function" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">CalKrPc_OGW</a>(S_in, kr_out, pc_out);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            ERRORcheck(<span class="stringliteral">&quot;Wrong Mode&quot;</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">FlowUnit::CalKrPc_W</a>(<a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    kr_out[0] = 1;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    pc_out[0] = 0;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">   64</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">FlowUnit::CalKrPc_OW</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sw = S_in[1];</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    SWOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sw, data, cdata);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw = data[1];</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = data[2];</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcw = -data[3];</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    kr_out[0] = kro;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    kr_out[1] = krw;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    pc_out[0] = 0;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    pc_out[1] = Pcw;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">   81</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">FlowUnit::CalKrPc_OG</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sg = S_in[1];</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    SGOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sg, data, cdata);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg = data[1];</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = data[2];</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcg = data[3];</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    kr_out[0] = kro;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    kr_out[1] = krg;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    pc_out[0] = 0;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    pc_out[1] = Pcg;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">   98</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">FlowUnit::CalKrPc_OGW</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>{</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sg = S_in[1];</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sw = S_in[2];</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    SWOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sw, data, cdata);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw  = data[1];</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krow = data[2];</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcw  = -data[3];</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    SGOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sg, data, cdata);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg  = data[1];</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krog = data[2];</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcg  = data[3];</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = <a class="code hl_function" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">CalKro_Stone2</a>(krow, krog, krw, krg);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    kr_out[0] = kro;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    kr_out[1] = krg;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    kr_out[2] = krw;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    pc_out[0] = 0;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    pc_out[1] = Pcg;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    pc_out[2] = Pcw;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">  125</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">FlowUnit::CalKro_Stone2</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krow, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krog,</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                                <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krw, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krg)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="comment">// krog : oil relative permeability for a system with oil, gas and connate water</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="comment">// krow : oil relative permeability for a system with oil and water only</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro =</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">if</span> (kro &lt; 0) kro = 0;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">return</span> kro;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classFlowUnit.html#aa92c8e871ab399c94946bf995cfbab3f">  139</a></span><a class="code hl_function" href="classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1">FlowUnit::FlowUnit</a>(<span class="keyword">const</span> <a class="code hl_class" href="classParamReservoir.html">ParamReservoir</a>&amp; rs_param, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; inmode, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; i)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    mode = inmode;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#af88aa6b393dad59d7d979cbc6f8265e4">water</a>) {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        SWOF.<a class="code hl_function" href="classOCPTable.html#a7ecb972ce9d42e0a05f5031984414335">Setup</a>(rs_param.<a class="code hl_variable" href="classParamReservoir.html#ad949d1493d96c2ce67275030644f2ef2">SWOF_T</a>.<a class="code hl_variable" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[i]);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        len = max(len, SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>());</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a4970717b39944245ad1cd0b28fcf61c5">gas</a>) {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        SGOF.<a class="code hl_function" href="classOCPTable.html#a7ecb972ce9d42e0a05f5031984414335">Setup</a>(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6c7e693692766123ac79f87dac3fa319">SGOF_T</a>.<a class="code hl_variable" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[i]);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        len = max(len, SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>());</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    data.resize(len, 0);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    cdata.resize(len, 0);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    kroMax = 0;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#af88aa6b393dad59d7d979cbc6f8265e4">water</a>) {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        kroMax = SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>(2)[0];</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a4970717b39944245ad1cd0b28fcf61c5">gas</a>) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        kroMax = SGOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>(2)[0];</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong mode specified!&quot;</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">   56</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">FlowUnit::CalKrPc_W</a>(<a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    kr_out[0] = 1;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    pc_out[0] = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">   63</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">FlowUnit::CalKrPc_OW</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sw = S_in[1];</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    SWOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sw, data, cdata);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw = data[1];</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = data[2];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcw = -data[3];</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    kr_out[0] = kro;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    kr_out[1] = krw;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    pc_out[0] = 0;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    pc_out[1] = Pcw;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">   80</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">FlowUnit::CalKrPc_OG</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sg = S_in[1];</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    SGOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sg, data, cdata);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg = data[1];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = data[2];</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcg = data[3];</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    kr_out[0] = kro;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    kr_out[1] = krg;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    pc_out[0] = 0;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    pc_out[1] = Pcg;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">   97</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">FlowUnit::CalKrPc_OGW</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sg = S_in[1];</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sw = S_in[2];</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    SWOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sw, data, cdata);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw  = data[1];</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krow = data[2];</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcw  = -data[3];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    SGOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sg, data, cdata);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg  = data[1];</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krog = data[2];</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcg  = data[3];</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = <a class="code hl_function" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">CalKro_Stone2</a>(krow, krog, krw, krg);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">  120</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">FlowUnit::CalKro_Stone2</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krow, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krog,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                                <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krw, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; krg)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="comment">// krog : oil relative permeability for a system with oil, gas and connate water</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// krow : oil relative permeability for a system with oil and water only</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro =</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (kro &lt; 0) kro = 0;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">return</span> kro;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">void</span> FlowUnit::CalKrPcDeriv(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* dkrdS, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* dPcjdS)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">switch</span> (mode)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">case</span> PHASE_OGW:</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        CalKrPcDeriv_OGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">void</span> FlowUnit::CalKrPcDeriv_OGW(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* S_in, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* kr_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* pc_out, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* dkrdS, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* dPcjdS)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>{</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sg = S_in[1];</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Sw = S_in[2];</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="comment">// three phase black oil model using stone 2</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    SWOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sw, data, cdata);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw = data[1];   <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dKrwdSw = cdata[1];</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krow = data[2];  <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dKrowdSw = cdata[2];</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcw = -data[3];  <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPcwdSw = -cdata[3];</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    SGOF.<a class="code hl_function" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Sg, data, cdata);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg = data[1];   <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dKrgdSg = cdata[1];</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krog = data[2];  <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dKrogdSg = cdata[2];</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pcg = data[3];   <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPcgdSg = cdata[3];</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dKrodSg, dKrodSw;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro = kro_stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, &amp;dKrodSw, &amp;dKrodSg);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    dkrdS[0] = 0;    dkrdS[1] = dKrodSg;    dkrdS[2] = dKrodSw;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    dkrdS[3] = 0;    dkrdS[4] = dKrgdSg;    dkrdS[5] = 0;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    dkrdS[6] = 0;    dkrdS[7] = 0;          dkrdS[8] = dKrwdSw;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    dPcjdS[0] = 0;   dPcjdS[1] = 0;         dPcjdS[2] = 0;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    dPcjdS[3] = 0;   dPcjdS[4] = dPcgdSg;   dPcjdS[5] = 0;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    dPcjdS[6] = 0;   dPcjdS[7] = 0;         dPcjdS[8] = dPcwdSw;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>}</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> FlowUnit::kro_stone2Der(<a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krow, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krog,</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krw, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> krg,</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dkrwdSw, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dkrowdSw,</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dkrgdSg, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dkrogdSg,</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* out_dkrodSw, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* out_dkrodSg) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kro, dkrodSw, dkrodSg;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    dkrodSw = kroMax * ((dkrowdSw / kroMax + dkrwdSw) * (krog / kroMax + krg)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        - (dkrwdSw));</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    dkrodSg = kroMax * ((krow / kroMax + krw) * (dkrogdSg / kroMax + dkrgdSg) - (dkrgdSg));</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">if</span> (kro &lt; 0) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        kro = 0;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        dkrodSg = 0;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        dkrodSw = 0;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    out_dkrodSw[0] = dkrodSw;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    out_dkrodSg[0] = dkrodSg;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">return</span> kro;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classFlowUnit.html#aa92c8e871ab399c94946bf995cfbab3f">  202</a></span><a class="code hl_function" href="classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1">FlowUnit::FlowUnit</a>(<span class="keyword">const</span> <a class="code hl_class" href="classParamReservoir.html">ParamReservoir</a>&amp; rs_param, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; inmode, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; i)</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>{</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    mode = inmode;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#af88aa6b393dad59d7d979cbc6f8265e4">water</a>) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        SWOF.<a class="code hl_function" href="classOCPTable.html#a7ecb972ce9d42e0a05f5031984414335">Setup</a>(rs_param.<a class="code hl_variable" href="classParamReservoir.html#ad949d1493d96c2ce67275030644f2ef2">SWOF_T</a>.<a class="code hl_variable" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[i]);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        len = max(len, SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>());</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a4970717b39944245ad1cd0b28fcf61c5">gas</a>) {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        SGOF.<a class="code hl_function" href="classOCPTable.html#a7ecb972ce9d42e0a05f5031984414335">Setup</a>(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6c7e693692766123ac79f87dac3fa319">SGOF_T</a>.<a class="code hl_variable" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[i]);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        len = max(len, SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>());</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    data.resize(len, 0);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    cdata.resize(len, 0);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    kroMax = 0;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#af88aa6b393dad59d7d979cbc6f8265e4">water</a>) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        kroMax = SWOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>(2)[0];</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a4970717b39944245ad1cd0b28fcf61c5">gas</a>) {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        kroMax = SGOF.<a class="code hl_function" href="classOCPTable.html#a2f2f1d348e7c456977a0656020ce8278">GetCol</a>(2)[0];</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aFlowUnit_8hpp_html"><div class="ttname"><a href="FlowUnit_8hpp.html">FlowUnit.hpp</a></div><div class="ttdoc">FlowUnit class declaration.</div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html"><div class="ttname"><a href="UtilError_8hpp.html">UtilError.hpp</a></div><div class="ttdoc">Logging error and warning messages.</div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassFlowUnit_html_a2a71792943a42657deeb56a14e3cc7db"><div class="ttname"><a href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">FlowUnit::CalKrPc_OG</a></div><div class="ttdeci">void CalKrPc_OG(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00081">FlowUnit.cpp:81</a></div></div>
+<div class="ttc" id="aclassFlowUnit_html_a2a71792943a42657deeb56a14e3cc7db"><div class="ttname"><a href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">FlowUnit::CalKrPc_OG</a></div><div class="ttdeci">void CalKrPc_OG(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00080">FlowUnit.cpp:80</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_a35da23199a15e9a48c4052150d8175f1"><div class="ttname"><a href="classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1">FlowUnit::FlowUnit</a></div><div class="ttdeci">FlowUnit()=default</div><div class="ttdoc">Default constructor.</div></div>
-<div class="ttc" id="aclassFlowUnit_html_a661ff5236b6bdd982797777b3e07f068"><div class="ttname"><a href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">FlowUnit::CalKrPc_OW</a></div><div class="ttdeci">void CalKrPc_OW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00064">FlowUnit.cpp:64</a></div></div>
-<div class="ttc" id="aclassFlowUnit_html_a7170fb0ad573f48ebbad0556c853ddd8"><div class="ttname"><a href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">FlowUnit::CalKrPc_OGW</a></div><div class="ttdeci">void CalKrPc_OGW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00098">FlowUnit.cpp:98</a></div></div>
-<div class="ttc" id="aclassFlowUnit_html_aa6dc40cfdea89e66969e498a7d80a77a"><div class="ttname"><a href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">FlowUnit::CalKro_Stone2</a></div><div class="ttdeci">OCP_DBL CalKro_Stone2(const OCP_DBL &amp;krow, const OCP_DBL &amp;krog, const OCP_DBL &amp;krw, const OCP_DBL &amp;krg) const</div><div class="ttdoc">calculate relative permeability of oil phase with stone2 method.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00125">FlowUnit.cpp:125</a></div></div>
-<div class="ttc" id="aclassFlowUnit_html_ab00dc147b993e958c9e9716f92b23daa"><div class="ttname"><a href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">FlowUnit::CalKrPc_W</a></div><div class="ttdeci">void CalKrPc_W(OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00057">FlowUnit.cpp:57</a></div></div>
+<div class="ttc" id="aclassFlowUnit_html_a661ff5236b6bdd982797777b3e07f068"><div class="ttname"><a href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">FlowUnit::CalKrPc_OW</a></div><div class="ttdeci">void CalKrPc_OW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00063">FlowUnit.cpp:63</a></div></div>
+<div class="ttc" id="aclassFlowUnit_html_a7170fb0ad573f48ebbad0556c853ddd8"><div class="ttname"><a href="classFlowUnit.html#a7170fb0ad573f48ebbad0556c853ddd8">FlowUnit::CalKrPc_OGW</a></div><div class="ttdeci">void CalKrPc_OGW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00097">FlowUnit.cpp:97</a></div></div>
+<div class="ttc" id="aclassFlowUnit_html_aa6dc40cfdea89e66969e498a7d80a77a"><div class="ttname"><a href="classFlowUnit.html#aa6dc40cfdea89e66969e498a7d80a77a">FlowUnit::CalKro_Stone2</a></div><div class="ttdeci">OCP_DBL CalKro_Stone2(const OCP_DBL &amp;krow, const OCP_DBL &amp;krog, const OCP_DBL &amp;krw, const OCP_DBL &amp;krg) const</div><div class="ttdoc">calculate relative permeability of oil phase with stone2 method.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00120">FlowUnit.cpp:120</a></div></div>
+<div class="ttc" id="aclassFlowUnit_html_ab00dc147b993e958c9e9716f92b23daa"><div class="ttname"><a href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">FlowUnit::CalKrPc_W</a></div><div class="ttdeci">void CalKrPc_W(OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00056">FlowUnit.cpp:56</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_af0c3fbdc83dfc850738a09bfa55e8100"><div class="ttname"><a href="classFlowUnit.html#af0c3fbdc83dfc850738a09bfa55e8100">FlowUnit::Generate_SWPCWG</a></div><div class="ttdeci">void Generate_SWPCWG()</div><div class="ttdoc">Generate the table of water saturation vs. capillary between water and gas.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00016">FlowUnit.cpp:16</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_af1f68245892075f590cffcb2bb2f788d"><div class="ttname"><a href="classFlowUnit.html#af1f68245892075f590cffcb2bb2f788d">FlowUnit::CalKrPc</a></div><div class="ttdeci">void CalKrPc(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">calculate relative permeability and capillary pressure.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00035">FlowUnit.cpp:35</a></div></div>
 <div class="ttc" id="aclassOCPTable_html_a047b61a09961d8a5015ba8b071320b7b"><div class="ttname"><a href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">OCPTable::Eval_All</a></div><div class="ttdeci">USI Eval_All(const USI &amp;j, const OCP_DBL &amp;val, vector&lt; OCP_DBL &gt; &amp;outdata, vector&lt; OCP_DBL &gt; &amp;slope)</div><div class="ttdef"><b>Definition:</b> <a href="OCPTable_8cpp_source.html#l00024">OCPTable.cpp:24</a></div></div>

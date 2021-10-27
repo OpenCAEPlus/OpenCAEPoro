@@ -44,7 +44,6 @@ public:
     ParamWell      paramWell;    ///< Read the well params.
     ParamControl   paramControl; ///< Read the control params.
     ParamOutput    paramOutput;  ///< Read the output params.
-    // TODO: Change names from snake to camel
 
 public:
     /// Get current work dir and input file name from the full file path.

@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -84,6 +84,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b1332f997a485b023a404a5a2a49396"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFluidSolver.html#a3b1332f997a485b023a404a5a2a49396">UpdateProperty</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:a3b1332f997a485b023a404a5a2a49396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update properties of fluid.  <a href="classFluidSolver.html#a3b1332f997a485b023a404a5a2a49396">More...</a><br /></td></tr>
 <tr class="separator:a3b1332f997a485b023a404a5a2a49396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a948a49d6115c5791aa40464176bf58ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFluidSolver.html#a948a49d6115c5791aa40464176bf58ac">FinishNR</a> ()</td></tr>
+<tr class="memdesc:a948a49d6115c5791aa40464176bf58ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if NR iteration finishes.  <a href="classFluidSolver.html#a948a49d6115c5791aa40464176bf58ac">More...</a><br /></td></tr>
+<tr class="separator:a948a49d6115c5791aa40464176bf58ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8c8b74bb5990f8e05fb45315016341d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFluidSolver.html#ae8c8b74bb5990f8e05fb45315016341d">FinishStep</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCP__Control.html">OCP_Control</a> &amp;ctrl)</td></tr>
 <tr class="memdesc:ae8c8b74bb5990f8e05fb45315016341d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish current time step.  <a href="classFluidSolver.html#ae8c8b74bb5990f8e05fb45315016341d">More...</a><br /></td></tr>
 <tr class="separator:ae8c8b74bb5990f8e05fb45315016341d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,10 +96,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a669d1ea50bef647e458e9197e54ba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFluidSolver.html#a4a669d1ea50bef647e458e9197e54ba4">SetupParamLS</a> (const string &amp;dir, const string &amp;file)</td></tr>
 <tr class="memdesc:a4a669d1ea50bef647e458e9197e54ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup linear solver params.  <a href="classFluidSolver.html#a4a669d1ea50bef647e458e9197e54ba4">More...</a><br /></td></tr>
 <tr class="separator:a4a669d1ea50bef647e458e9197e54ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5cde1e67a36b8652453472f4a4b106"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">InitReservoir</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
+<tr class="separator:a7c5cde1e67a36b8652453472f4a4b106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8hpp_source.html#l00054">54</a> of file <a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8hpp_source.html#l00067">67</a> of file <a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6f670e4beb9bd73eb282f41c5c246bff" name="a6f670e4beb9bd73eb282f41c5c246bff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f670e4beb9bd73eb282f41c5c246bff">&#9670;&nbsp;</a></span>AllocateMat()</h2>
@@ -116,14 +121,22 @@ Public Member Functions</h2></td></tr>
 
 <p>Allocate Mat. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00074">74</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    rs.<a class="code hl_function" href="classReservoir.html#abc9953f16c888d0f5bda0778e55334e4">AllocateMat</a>(FLSolver);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
-<div class="ttc" id="aclassReservoir_html_abc9953f16c888d0f5bda0778e55334e4"><div class="ttname"><a href="classReservoir.html#abc9953f16c888d0f5bda0778e55334e4">Reservoir::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSolver &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00085">Reservoir.cpp:85</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00082">82</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            rs.<a class="code hl_function" href="classReservoir.html#a9e161f766b326f7cca3f4e20861160ce">AllocateMatIMPEC</a>(FLSolver);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            rs.AllocateMatFIM(FLSolver);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a9e161f766b326f7cca3f4e20861160ce"><div class="ttname"><a href="classReservoir.html#a9e161f766b326f7cca3f4e20861160ce">Reservoir::AllocateMatIMPEC</a></div><div class="ttdeci">void AllocateMatIMPEC(LinearSolver &amp;mySolver) const</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00103">Reservoir.cpp:103</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00085">Reservoir::AllocateMat()</a>.</p>
-
 </div>
 </div>
 <a id="a9d25fa150340570e7d4cde9005534068" name="a9d25fa150340570e7d4cde9005534068"></a>
@@ -154,22 +167,55 @@ Public Member Functions</h2></td></tr>
 
 <p>Assemble Mat. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00021">21</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">switch</span> (method)</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">case</span> IMPEC:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        impes.<a class="code hl_function" href="classOCP__IMPEC.html#af56adc850d898fdcbdbcef800b2be99e">AssembleMat</a>(FLSolver, rs, dt);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">case</span> FIM:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
-<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassOCP__IMPEC_html_af56adc850d898fdcbdbcef800b2be99e"><div class="ttname"><a href="classOCP__IMPEC.html#af56adc850d898fdcbdbcef800b2be99e">OCP_IMPEC::AssembleMat</a></div><div class="ttdeci">void AssembleMat(LinearSolver &amp;lsolver, const Reservoir &amp;rs, const OCP_DBL &amp;dt)</div><div class="ttdoc">Assemble Mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00091">FluidSolver.cpp:91</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00019">19</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            rs.<a class="code hl_function" href="classReservoir.html#ab324af4acd1329d43ca1a63d4847fc8a">AssembleMatIMPEC</a>(FLSolver, dt);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            fim.<a class="code hl_function" href="classOCP__FIM.html#a6d1eb9acb65373f1d3650ece95b78219">AssembleMat</a>(FLSolver, rs, dt);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="ttc" id="aclassOCP__FIM_html_a6d1eb9acb65373f1d3650ece95b78219"><div class="ttname"><a href="classOCP__FIM.html#a6d1eb9acb65373f1d3650ece95b78219">OCP_FIM::AssembleMat</a></div><div class="ttdeci">void AssembleMat(LinearSolver &amp;lsolver, const Reservoir &amp;rs, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble Matrix.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00240">FluidSolver.cpp:240</a></div></div>
+<div class="ttc" id="aclassReservoir_html_ab324af4acd1329d43ca1a63d4847fc8a"><div class="ttname"><a href="classReservoir.html#ab324af4acd1329d43ca1a63d4847fc8a">Reservoir::AssembleMatIMPEC</a></div><div class="ttdeci">void AssembleMatIMPEC(LinearSolver &amp;mysolver, const OCP_DBL &amp;dt) const</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00123">Reservoir.cpp:123</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a948a49d6115c5791aa40464176bf58ac" name="a948a49d6115c5791aa40464176bf58ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a948a49d6115c5791aa40464176bf58ac">&#9670;&nbsp;</a></span>FinishNR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FluidSolver::FinishNR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determine if NR iteration finishes. </p>
+
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00060">60</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">return</span> impec.<a class="code hl_function" href="classOCP__IMPEC.html#ad4bfe4c2860cf0b81e264b279123a3c6">FinishNR</a>();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">return</span> fim.<a class="code hl_function" href="classOCP__FIM.html#a225901344db04376ca218ef4138883b5">FinishNR</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+<div class="ttc" id="aclassOCP__FIM_html_a225901344db04376ca218ef4138883b5"><div class="ttname"><a href="classOCP__FIM.html#a225901344db04376ca218ef4138883b5">OCP_FIM::FinishNR</a></div><div class="ttdeci">bool FinishNR()</div><div class="ttdoc">Determine if NR iteration finishes.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00249">FluidSolver.cpp:249</a></div></div>
+<div class="ttc" id="aclassOCP__IMPEC_html_ad4bfe4c2860cf0b81e264b279123a3c6"><div class="ttname"><a href="classOCP__IMPEC.html#ad4bfe4c2860cf0b81e264b279123a3c6">OCP_IMPEC::FinishNR</a></div><div class="ttdeci">bool FinishNR()</div><div class="ttdoc">Determine if NR iteration finishes.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8hpp_source.html#l00036">FluidSolver.hpp:36</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -201,23 +247,56 @@ Public Member Functions</h2></td></tr>
 
 <p>Finish current time step. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00065">65</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    rs.<a class="code hl_function" href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">CalIPRT</a>(ctrl.<a class="code hl_function" href="classOCP__Control.html#a05c8c1dc17df928d0afb1ed9cd18e863">GetCurDt</a>());</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    rs.<a class="code hl_function" href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">CalMaxChange</a>();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    rs.<a class="code hl_function" href="classReservoir.html#ae8cbaa043dcad625fa68c3a807a171a7">UpdateLastStep</a>();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a974f025733fb36a4062ad390d2969562">CalNextTstep</a>(rs);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a62b6e129402a9cc1c6d1ff5b3b869a97">UpdateIters</a>();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-<div class="ttc" id="aclassOCP__Control_html_a05c8c1dc17df928d0afb1ed9cd18e863"><div class="ttname"><a href="classOCP__Control.html#a05c8c1dc17df928d0afb1ed9cd18e863">OCP_Control::GetCurDt</a></div><div class="ttdeci">OCP_DBL &amp; GetCurDt()</div><div class="ttdoc">Return current dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00095">OCPControl.hpp:95</a></div></div>
-<div class="ttc" id="aclassOCP__Control_html_a62b6e129402a9cc1c6d1ff5b3b869a97"><div class="ttname"><a href="classOCP__Control.html#a62b6e129402a9cc1c6d1ff5b3b869a97">OCP_Control::UpdateIters</a></div><div class="ttdeci">void UpdateIters()</div><div class="ttdoc">Update num of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00138">OCPControl.cpp:138</a></div></div>
-<div class="ttc" id="aclassOCP__Control_html_a974f025733fb36a4062ad390d2969562"><div class="ttname"><a href="classOCP__Control.html#a974f025733fb36a4062ad390d2969562">OCP_Control::CalNextTstep</a></div><div class="ttdeci">void CalNextTstep(const Reservoir &amp;reservoir)</div><div class="ttdoc">Calculate the next time step according to max change of some variables.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00104">OCPControl.cpp:104</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00073">73</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    rs.<a class="code hl_function" href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">CalIPRT</a>(ctrl.<a class="code hl_function" href="classOCP__Control.html#a05c8c1dc17df928d0afb1ed9cd18e863">GetCurDt</a>());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    rs.<a class="code hl_function" href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">CalMaxChange</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    rs.<a class="code hl_function" href="classReservoir.html#ae8cbaa043dcad625fa68c3a807a171a7">UpdateLastStep</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a974f025733fb36a4062ad390d2969562">CalNextTstep</a>(rs);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a62b6e129402a9cc1c6d1ff5b3b869a97">UpdateIters</a>();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="ttc" id="aclassOCP__Control_html_a05c8c1dc17df928d0afb1ed9cd18e863"><div class="ttname"><a href="classOCP__Control.html#a05c8c1dc17df928d0afb1ed9cd18e863">OCP_Control::GetCurDt</a></div><div class="ttdeci">OCP_DBL &amp; GetCurDt()</div><div class="ttdoc">Return current dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00101">OCPControl.hpp:101</a></div></div>
+<div class="ttc" id="aclassOCP__Control_html_a62b6e129402a9cc1c6d1ff5b3b869a97"><div class="ttname"><a href="classOCP__Control.html#a62b6e129402a9cc1c6d1ff5b3b869a97">OCP_Control::UpdateIters</a></div><div class="ttdeci">void UpdateIters()</div><div class="ttdoc">Update num of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00133">OCPControl.cpp:133</a></div></div>
+<div class="ttc" id="aclassOCP__Control_html_a974f025733fb36a4062ad390d2969562"><div class="ttname"><a href="classOCP__Control.html#a974f025733fb36a4062ad390d2969562">OCP_Control::CalNextTstep</a></div><div class="ttdeci">void CalNextTstep(const Reservoir &amp;reservoir)</div><div class="ttdoc">Calculate the next time step according to max change of some variables.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00099">OCPControl.cpp:99</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a7e050f9b8ed0aa28c9e488d6634b5d9b"><div class="ttname"><a href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">Reservoir::CalMaxChange</a></div><div class="ttdeci">void CalMaxChange()</div><div class="ttdoc">Calculate maximum change.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00070">Reservoir.hpp:70</a></div></div>
 <div class="ttc" id="aclassReservoir_html_ad04b82ae53ea6f0b60e800a50341e6d5"><div class="ttname"><a href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">Reservoir::CalIPRT</a></div><div class="ttdeci">void CalIPRT(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate IPRT.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00068">Reservoir.hpp:68</a></div></div>
 <div class="ttc" id="aclassReservoir_html_ae8cbaa043dcad625fa68c3a807a171a7"><div class="ttname"><a href="classReservoir.html#ae8cbaa043dcad625fa68c3a807a171a7">Reservoir::UpdateLastStep</a></div><div class="ttdeci">void UpdateLastStep()</div><div class="ttdoc">Update value of last step.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00072">Reservoir.hpp:72</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Reservoir_8hpp_source.html#l00068">Reservoir::CalIPRT()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00070">Reservoir::CalMaxChange()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00104">OCP_Control::CalNextTstep()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00095">OCP_Control::GetCurDt()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00138">OCP_Control::UpdateIters()</a>, and <a class="el" href="Reservoir_8hpp_source.html#l00072">Reservoir::UpdateLastStep()</a>.</p>
+<p class="reference">References <a class="el" href="Reservoir_8hpp_source.html#l00068">Reservoir::CalIPRT()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00070">Reservoir::CalMaxChange()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00099">OCP_Control::CalNextTstep()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00101">OCP_Control::GetCurDt()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00133">OCP_Control::UpdateIters()</a>, and <a class="el" href="Reservoir_8hpp_source.html#l00072">Reservoir::UpdateLastStep()</a>.</p>
 
+</div>
+</div>
+<a id="a7c5cde1e67a36b8652453472f4a4b106" name="a7c5cde1e67a36b8652453472f4a4b106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c5cde1e67a36b8652453472f4a4b106">&#9670;&nbsp;</a></span>InitReservoir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FluidSolver::InitReservoir </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classReservoir.html">Reservoir</a> &amp;&#160;</td>
+          <td class="paramname"><em>rs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00110">110</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>{</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            rs.<a class="code hl_function" href="classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba">InitIMPEC</a>();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            rs.InitFIM();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="ttc" id="aclassReservoir_html_a5c7f38bc2fe311fbf19d8a14b58a4fba"><div class="ttname"><a href="classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba">Reservoir::InitIMPEC</a></div><div class="ttdeci">void InitIMPEC()</div><div class="ttdoc">Initialize the reservoir, actually it gives the first step in iterations.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00029">Reservoir.cpp:29</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a747ba13d80e0f58e78e338e636268333" name="a747ba13d80e0f58e78e338e636268333"></a>
@@ -250,19 +329,19 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00005">5</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">switch</span> (method)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">case</span> IMPEC:</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        impes.<a class="code hl_function" href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">Prepare</a>(rs, dt);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">case</span> FIM:</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    }</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
-<div class="ttc" id="aclassOCP__IMPEC_html_aae0637215f124a63787ea19d2528fef1"><div class="ttname"><a href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">OCP_IMPEC::Prepare</a></div><div class="ttdeci">void Prepare(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare and assemble the mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00086">FluidSolver.cpp:86</a></div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>            impec.<a class="code hl_function" href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">Prepare</a>(rs, dt);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            fim.<a class="code hl_function" href="classOCP__FIM.html#a22855a69a9358ccb6d459d04b78ed299">Prepare</a>(rs, dt);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="ttc" id="aclassOCP__FIM_html_a22855a69a9358ccb6d459d04b78ed299"><div class="ttname"><a href="classOCP__FIM.html#a22855a69a9358ccb6d459d04b78ed299">OCP_FIM::Prepare</a></div><div class="ttdeci">void Prepare(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare for Assembling matrix.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00234">FluidSolver.cpp:234</a></div></div>
+<div class="ttc" id="aclassOCP__IMPEC_html_aae0637215f124a63787ea19d2528fef1"><div class="ttname"><a href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">OCP_IMPEC::Prepare</a></div><div class="ttdeci">void Prepare(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare for Assembling matrix.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00124">FluidSolver.cpp:124</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -294,14 +373,22 @@ Public Member Functions</h2></td></tr>
 
 <p>Setup linear solver params. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00080">80</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    FLSolver.<a class="code hl_function" href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">SetupParam</a>(dir, file);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-<div class="ttc" id="aclassLinearSolver_html_a1986aea0c43abfe5f8be3abb3a553342"><div class="ttname"><a href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">LinearSolver::SetupParam</a></div><div class="ttdeci">void SetupParam(const string &amp;dir, const string &amp;file)</div><div class="ttdoc">read solver param from input file which is supplied by user.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00212">LinearSolver.cpp:212</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00096">96</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            FLSolver.<a class="code hl_function" href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">SetupParam</a>(dir, file);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            FLSolver.<a class="code hl_function" href="classLinearSolver.html#a4be6de164abcdcbbc7de0f81924268a8">SetupParamB</a>(dir, file);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="ttc" id="aclassLinearSolver_html_a1986aea0c43abfe5f8be3abb3a553342"><div class="ttname"><a href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">LinearSolver::SetupParam</a></div><div class="ttdeci">void SetupParam(const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Read solver param from input file which is supplied by user.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00311">LinearSolver.cpp:311</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a4be6de164abcdcbbc7de0f81924268a8"><div class="ttname"><a href="classLinearSolver.html#a4be6de164abcdcbbc7de0f81924268a8">LinearSolver::SetupParamB</a></div><div class="ttdeci">void SetupParamB(const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Read solver param for Block matrix from input file which is supplied by user.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00320">LinearSolver.cpp:320</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00212">LinearSolver::SetupParam()</a>.</p>
-
 </div>
 </div>
 <a id="ab21922b4025c19e604250fd73da61bcf" name="ab21922b4025c19e604250fd73da61bcf"></a>
@@ -332,21 +419,21 @@ Public Member Functions</h2></td></tr>
 
 <p>Solve the linear system in single problem. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00036">36</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">switch</span> (method)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">case</span> IMPEC:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        impes.<a class="code hl_function" href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">SolveLinearSystem</a>(FLSolver, rs, ctrl);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">case</span> FIM:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-<div class="ttc" id="aclassOCP__IMPEC_html_ac655a9a94742235bee6c44c46b436980"><div class="ttname"><a href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">OCP_IMPEC::SolveLinearSystem</a></div><div class="ttdeci">void SolveLinearSystem(LinearSolver &amp;lsolver, Reservoir &amp;rs, OCP_Control &amp;ctrl)</div><div class="ttdoc">Solve the linear system.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00096">FluidSolver.cpp:96</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00033">33</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            impec.<a class="code hl_function" href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">SolveLinearSystem</a>(FLSolver, rs, ctrl);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            fim.<a class="code hl_function" href="classOCP__FIM.html#a8fe9b1b6b9e01f65bbfc2984dea0c1d2">SolveLinearSystem</a>(FLSolver, rs, ctrl);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="ttc" id="aclassOCP__FIM_html_a8fe9b1b6b9e01f65bbfc2984dea0c1d2"><div class="ttname"><a href="classOCP__FIM.html#a8fe9b1b6b9e01f65bbfc2984dea0c1d2">OCP_FIM::SolveLinearSystem</a></div><div class="ttdeci">void SolveLinearSystem(LinearSolver &amp;lsolver, Reservoir &amp;rs, OCP_Control &amp;ctrl)</div><div class="ttdoc">Solve the linear system.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00154">FluidSolver.cpp:154</a></div></div>
+<div class="ttc" id="aclassOCP__IMPEC_html_ac655a9a94742235bee6c44c46b436980"><div class="ttname"><a href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">OCP_IMPEC::SolveLinearSystem</a></div><div class="ttdeci">void SolveLinearSystem(LinearSolver &amp;lsolver, Reservoir &amp;rs, OCP_Control &amp;ctrl)</div><div class="ttdoc">Solve the linear system.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00126">FluidSolver.cpp:126</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -378,20 +465,20 @@ Public Member Functions</h2></td></tr>
 
 <p>Update properties of fluid. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00051">51</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">switch</span> (method)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">case</span> IMPEC:</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">return</span> impes.<a class="code hl_function" href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">UpdateProperty</a>(rs, dt);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">case</span> FIM:</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
-<div class="ttc" id="aclassOCP__IMPEC_html_a28c06665ed6b187d9c38dc214b575cd7"><div class="ttname"><a href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">OCP_IMPEC::UpdateProperty</a></div><div class="ttdeci">bool UpdateProperty(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Update properties of fluids.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00125">FluidSolver.cpp:125</a></div></div>
+<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00047">47</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">switch</span> (method) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">return</span> impec.<a class="code hl_function" href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">UpdateProperty</a>(rs, dt);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">return</span> fim.<a class="code hl_function" href="classOCP__FIM.html#aeda651fda89a49afcf32bf8c8d68e68f">UpdateProperty</a>(rs, dt);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method!&quot;</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="ttc" id="aclassOCP__FIM_html_aeda651fda89a49afcf32bf8c8d68e68f"><div class="ttname"><a href="classOCP__FIM.html#aeda651fda89a49afcf32bf8c8d68e68f">OCP_FIM::UpdateProperty</a></div><div class="ttdeci">bool UpdateProperty(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Update properties of fluids.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00247">FluidSolver.cpp:247</a></div></div>
+<div class="ttc" id="aclassOCP__IMPEC_html_a28c06665ed6b187d9c38dc214b575cd7"><div class="ttname"><a href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">OCP_IMPEC::UpdateProperty</a></div><div class="ttdeci">bool UpdateProperty(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Update properties of fluids.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00181">FluidSolver.cpp:181</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

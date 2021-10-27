@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.0 Oct/15/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
    </div>
    <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
   </td>
@@ -163,40 +163,33 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; wellnum; w++) {</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        perfnum = <a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].I_perf.size();</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].J_perf.size() != perfnum) {</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations J_perf!&quot;</span>);</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            exit(0);</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        }</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].K_perf.size() != perfnum) {</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations K_perf!&quot;</span>);</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            exit(0);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].diameter.size() != perfnum) {</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations diameter!&quot;</span>);</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            exit(0);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation size J_perf!&quot;</span>);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].K_perf.size() != perfnum) {</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation size K_perf!&quot;</span>);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].diameter.size() != perfnum) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation diameter size!&quot;</span>);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        }</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].WI.size() != perfnum) {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation WI size!&quot;</span>);</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        }</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].WI.size() != perfnum) {</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations WI!&quot;</span>);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            exit(0);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        }</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].kh.size() != perfnum) {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations kh!&quot;</span>);</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            exit(0);</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        }</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].skinFactor.size() != perfnum) {</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations skinFactor!&quot;</span>);</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            exit(0);</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        }</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].direction.size() != perfnum) {</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            <a class="code hl_define" href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a>(<span class="stringliteral">&quot;Wrong Perforations direction!&quot;</span>);</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            exit(0);</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    }</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
-<div class="ttc" id="aUtilInput_8hpp_html_a190d23033428c880dddcc7e0143d0dc7"><div class="ttname"><a href="UtilInput_8hpp.html#a190d23033428c880dddcc7e0143d0dc7">ParamCheck</a></div><div class="ttdeci">#define ParamCheck(exp)</div><div class="ttdoc">TODO: Replace it with error log.</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8hpp_source.html#l00026">UtilInput.hpp:26</a></div></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].kh.size() != perfnum) {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation kh size!&quot;</span>);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].skinFactor.size() != perfnum) {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation skinFactor size!&quot;</span>);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].direction.size() != perfnum) {</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong perforation direction size!&quot;</span>);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        }</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
+<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassParamWell_html_af52a7884b9642e12a58c7695403977d2"><div class="ttname"><a href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">ParamWell::well</a></div><div class="ttdeci">vector&lt; WellParam &gt; well</div><div class="ttdoc">Contains all the information of wells.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00094">ParamWell.hpp:94</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilInput_8hpp_source.html#l00026">ParamCheck</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00094">well</a>.</p>
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00094">well</a>.</p>
 
 </div>
 </div>
@@ -394,8 +387,8 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    cout &lt;&lt; <span class="stringliteral">&quot;TSTEP&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00095">criticalTime</a>, <a class="el" href="UtilInput_8cpp_source.html#l00050">DealDefault()</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 

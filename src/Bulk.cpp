@@ -1275,7 +1275,6 @@ OCP_DBL Bulk::CalFPR() const
 OCP_DBL Bulk::CalCFL(bool flag) const
 {
     OCP_DBL tmp = 0;
-    // OCP_USI tmpId = 0;
     OCP_USI id;
     for (OCP_USI n = 0; n < numBulk; n++) {
         for (USI j = 0; j < numPhase; j++) {
@@ -1289,49 +1288,40 @@ OCP_DBL Bulk::CalCFL(bool flag) const
                 }
 #endif // _DEBUG
 
-                if (tmp < cfl[id]) {
-                    tmp = cfl[id];
-                    // tmpId = id;
-                }
-
-                /*if (flag)
-                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] <<
-                   endl;*/
+                if (tmp < cfl[id]) tmp = cfl[id];
             }
         }
     }
-    // cout << "CFLnum = " << tmp << "\t" << tmpId << "\t" << vj[tmpId] << endl;
     return tmp;
 }
 
+/// Return true if no negative pressure and false otherwise.
 bool Bulk::CheckP() const
 {
-    // true  : all correct
-    // false : negetive P occurs, cut timestep and resolve
     for (auto p : P) {
-        if (p < 0) return false;
-    }
-    return true;
-}
-bool Bulk::CheckNi() const
-{
-    // true  : all correct
-    // false : negetive Ni occurs, cut timestep and resolve
-    for (auto Ni : Ni) {
-        if (Ni < 0) return false;
+        if (p < 0.0) return false;
     }
     return true;
 }
 
+/// Return true if no negative Ni and false otherwise.
+bool Bulk::CheckNi() const
+{
+    for (auto Ni : Ni) {
+        if (Ni < 0.0) return false;
+    }
+    return true;
+}
+
+/// Return true if all Ve < Vlim and false otherwise.
 bool Bulk::CheckVe(const OCP_DBL& Vlim) const
 {
-    // true : all correct
-    // false : Volume error is too big
-    OCP_DBL tmp = 0;
+    OCP_DBL tmp = 0.0;
     for (OCP_USI n = 0; n < numBulk; n++) {
         tmp = fabs(vf[n] - rockVp[n]) / rockVp[n];
         if (tmp > Vlim) {
-            cout << "Bulk " << n << "   " << setprecision(6) << tmp << "   ";
+            cout << "Volume error at Bulk[" << n << "] = " << setprecision(6) << tmp
+                 << " is too big!" << endl;
             return false;
         }
     }

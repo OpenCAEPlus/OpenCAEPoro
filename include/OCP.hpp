@@ -21,7 +21,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.1.0"  ///< Software version number
+#define OCPVersion "0.1.1"  ///< Software version number
 
 /// Top level data structure in the OpenCAEPoro simulator
 class OpenCAEPoro
