@@ -9,25 +9,20 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #ifndef __FLUIDSOLVER_HEADER__
 #define __FLUIDSOLVER_HEADER__
 
-
- // OpenCAEPoro header files
+// OpenCAEPoro header files
+#include "LinearSolver.hpp"
 #include "OCPControl.hpp"
 #include "OCPOutput.hpp"
 #include "Reservoir.hpp"
-#include "LinearSolver.hpp"
 #include "UtilTiming.hpp"
-#include "LinearSolver.hpp"
 
-
- /// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
+/// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
 class OCP_IMPEC
 {
 public:
-
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
@@ -39,9 +34,7 @@ public:
 
     /// Determine if NR iteration finishes.
     bool FinishNR() { return true; }
-
 };
-
 
 /// OCP_FIM is FIM (Fully Implicit Method).
 class OCP_FIM
@@ -51,7 +44,8 @@ public:
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Assemble Matrix
-    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs, const OCP_DBL& dt) const;
+    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
+                     const OCP_DBL& dt) const;
 
     /// Solve the linear system.
     void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
@@ -66,13 +60,9 @@ public:
     void CalMaxRes();
 
 private:
-
     vector<OCP_DBL> resV;
     OCP_DBL         resMaxRel;
-
 };
-
-
 
 class FluidSolver
 {
@@ -99,12 +89,10 @@ public:
     void InitReservoir(Reservoir& rs) const;
 
 private:
-    USI             method = IMPEC;
-	LinearSolver	FLSolver;
-    OCP_IMPEC       impec;
-    OCP_FIM         fim;
-
+    USI          method = IMPEC;
+    LinearSolver FLSolver;
+    OCP_IMPEC    impec;
+    OCP_FIM      fim;
 };
-
 
 #endif /* end if __FLUIDSOLVER_HEADER__ */

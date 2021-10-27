@@ -71,20 +71,15 @@ public:
     /// trouble.
     void CheckNi(const OCP_DBL* Ni)
     {
-        bool flag = false;
+        bool flag = true;
         for (USI i = 0; i < numCom; i++) {
             if (Ni[i] < 0) {
-                cout << "###WARNING:  ";
-                ERRORcheck("Ni < 0 ");
+                cout << "Ni[" << i << "] = " << Ni[i] << endl;
+                flag = false;
+                break; // skip the rest checks
             }
-
-            if (Ni[i] > 0) flag = true;
         }
-        if (!flag) {
-            cout << "###ERROR:  ";
-            ERRORcheck("All Ni <= 0 ");
-            exit(0);
-        }
+        if (!flag) OCP_ABORT("Ni is negative!");
     }
 
 protected:

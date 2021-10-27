@@ -474,8 +474,7 @@ void Summary::PrintInfo(const string& dir) const
     string   FileOut = dir + "SUMMARY.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
-        ERRORcheck("Can not open " + FileOut);
-        exit(0);
+        OCP_ABORT("Can not open " + FileOut);
     }
 
     USI ns  = 10;
@@ -576,8 +575,7 @@ void CriticalInfo::PrintInfo(const string& dir) const
     string   FileOut = dir + "FastReview.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
-        ERRORcheck("Can not open " + FileOut);
-        exit(0);
+        OCP_ABORT("Can not open " + FileOut);
     }
 
     // Item
@@ -630,8 +628,7 @@ void DetailInfo::Setup(const string& dir)
     string   FileOut = dir + "RPT.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
-        ERRORcheck("Can not open " + FileOut);
-        exit(0);
+        OCP_ABORT("Can not open " + FileOut);
     }
     outF.close();
 }
@@ -643,8 +640,7 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     ofstream outF;
     outF.open(FileOut, ios::app);
     if (!outF.is_open()) {
-        ERRORcheck("Can not open " + FileOut);
-        exit(0);
+        OCP_ABORT("Can not open " + FileOut);
     }
 
     USI     nx  = rs.grid.GetGridNx();

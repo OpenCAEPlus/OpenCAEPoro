@@ -729,8 +729,7 @@ OCP_DBL BOMixture::XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
         OCP_DBL xiw = (1 / CONV1) / bw;
         return xiw;
     } else {
-        ERRORcheck("Wrong Zi!");
-        exit(0);
+        OCP_ABORT("Wrong Zi!");
     }
 }
 
@@ -752,8 +751,7 @@ OCP_DBL BOMixture::RhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
         OCP_DBL rhow = std_RhoW / bw;
         return rhow;
     } else {
-        ERRORcheck("Wrong Zi!");
-        exit(0);
+        OCP_ABORT("Wrong Zi!");
     }
 }
 

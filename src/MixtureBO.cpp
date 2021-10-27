@@ -88,9 +88,7 @@ void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
             break;
 
         default:
-            ERRORcheck("Wrong Mode");
-            exit(0);
-            break;
+            OCP_ABORT("Wrong mode specified!");
     }
 }
 
@@ -114,8 +112,7 @@ void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
             break;
 
         default:
-            ERRORcheck("Wrong Mode");
-            exit(0);
+            OCP_ABORT("Wrong mode specified!");
     }
 }
 
@@ -139,8 +136,7 @@ void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP
         break;
 
     default:
-        ERRORcheck("Wrong Mode");
-        exit(0);
+        OCP_ABORT("Wrong mode specified!");
     }
 }
 
@@ -204,8 +200,7 @@ OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
         case PHASE_OGW:
             return GammaPhaseO_OGW(Pin, Pbbin);
         default:
-            ERRORcheck("Wrong Mode");
-            exit(0);
+            OCP_ABORT("Wrong Mode");
     }
 }
 
@@ -226,7 +221,7 @@ OCP_DBL BOMixture::GammaPhaseW(const OCP_DBL& Pin)
 OCP_DBL BOMixture::GammaPhaseG(const OCP_DBL& Pin)
 {
     if (PVDG.IsEmpty()) {
-        ERRORcheck("PVDG is missing");
+        OCP_ABORT("PVDG is missing!");
     }
     OCP_DBL bg = (CONV1 / 1000) * PVDG.Eval(0, Pin, 1);
 

@@ -18,21 +18,12 @@
 // OpenCAEPoro header files
 #include "UtilError.hpp"
 
-// Check and reprot
-#define ERRORcheck(exp)                                                                \
-    std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
-              << __FILE__ << std::endl;
-
 // Build-in data type
 typedef unsigned int USI;     ///< Generic unsigned integer
 typedef unsigned int OCP_USI; ///< Long unsigned integer
 typedef int          OCP_INT; ///< Long integer
 typedef double       OCP_DBL; ///< Double precision
 typedef float        OCP_SIN; ///< Single precision
-
-// Solution methods
-const USI IMPEC = 1;
-const USI FIM   = 2;
 
 // General consts
 const OCP_DBL TINY = 1E-8;        ///< Small constant
@@ -61,6 +52,12 @@ const OCP_DBL PRESSURE_STD   = 14.6959;    ///< 14.6959 psia = 1 atm
 const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = 5.61458 ft3
 const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in Field
 
+// Fluid types
+const USI OIL     = 0;
+const USI GAS     = 1;
+const USI WATER   = 2;
+const USI SOLVENT = 3;
+
 // Mixture types
 const USI BLKOIL   = 1;
 const USI EoS_PVTW = 2;
@@ -73,11 +70,6 @@ const USI PHASE_OGW = 4;
 const USI PHASE_OG  = 5;
 
 // Well params
-// perforation direction
-const USI X_DIRECTION = 1;
-const USI Y_DIRECTION = 2;
-const USI Z_DIRECTION = 3;
-
 const USI  INJ        = 1;
 const USI  PROD       = 2;
 const bool CLOSE      = false;
@@ -93,11 +85,14 @@ const USI WRATE_MODE = 4;
 const USI LRATE_MODE = 5;
 const USI BHP_MODE   = 6;
 
-// Fluid types
-const USI OIL     = 0;
-const USI GAS     = 1;
-const USI WATER   = 2;
-const USI SOLVENT = 3;
+// Perforation direction
+const USI X_DIRECTION = 1;
+const USI Y_DIRECTION = 2;
+const USI Z_DIRECTION = 3;
+
+// Solution methods
+const USI IMPEC = 1;
+const USI FIM   = 2;
 
 #endif
 
@@ -108,4 +103,5 @@ const USI SOLVENT = 3;
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Oct/27/2021      Unify error check                    */
 /*----------------------------------------------------------------------------*/

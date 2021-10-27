@@ -48,8 +48,7 @@ void FlowUnit::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
             CalKrPc_OGW(S_in, kr_out, pc_out);
             break;
         default:
-            ERRORcheck("Wrong Mode");
-            break;
+            OCP_ABORT("Wrong mode specified!");
     }
 }
 

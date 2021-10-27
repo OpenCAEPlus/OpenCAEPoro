@@ -85,8 +85,7 @@ public:
     OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
                          const OCP_DBL* Ziin) override
     {
-        ERRORcheck("should not be used in BLKOIL");
-        exit(0);
+        OCP_ABORT("Should not be used in BLKOIL mode!");
     };
 
 private:

@@ -135,7 +135,7 @@ void Bulk::Setup(const Grid& myGrid)
     rho.resize(numBulk * numPhase);
     xi.resize(numBulk * numPhase);
     cij.resize(numBulk * numPhase * numCom);
-    Ni.resize(numBulk * numCom); 
+    Ni.resize(numBulk * numCom);
     mu.resize(numBulk * numPhase);
     kr.resize(numBulk * numPhase);
     vj.resize(numBulk * numPhase);
@@ -178,7 +178,7 @@ void Bulk::Setup(const Grid& myGrid)
                 index2Phase[0] = OIL;
                 index2Phase[1] = WATER;
 
-                phase2Index[OIL] = 0;
+                phase2Index[OIL]   = 0;
                 phase2Index[WATER] = 1;
                 break;
             case PHASE_OG:
@@ -194,7 +194,7 @@ void Bulk::Setup(const Grid& myGrid)
                 index2Phase[0] = GAS;
                 index2Phase[1] = WATER;
 
-                phase2Index[GAS] = 0;
+                phase2Index[GAS]   = 0;
                 phase2Index[WATER] = 1;
                 break;
             case PHASE_OGW:
@@ -203,8 +203,8 @@ void Bulk::Setup(const Grid& myGrid)
                 index2Phase[1] = GAS;
                 index2Phase[2] = WATER;
 
-                phase2Index[OIL] = 0;
-                phase2Index[GAS] = 1;
+                phase2Index[OIL]   = 0;
+                phase2Index[GAS]   = 1;
                 phase2Index[WATER] = 2;
                 break;
             default:
@@ -236,11 +236,11 @@ void Bulk::InitSjPcBlk(const USI& tabrow)
     OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    OCPTable DepthP(tabrow, 4);
-    vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
-    vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
-    vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
-    vector<OCP_DBL>&   Pwtmp = DepthP.GetCol(3);
+    OCPTable         DepthP(tabrow, 4);
+    vector<OCP_DBL>& Ztmp  = DepthP.GetCol(0);
+    vector<OCP_DBL>& Potmp = DepthP.GetCol(1);
+    vector<OCP_DBL>& Pgtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>& Pwtmp = DepthP.GetCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -272,8 +272,7 @@ void Bulk::InitSjPcBlk(const USI& tabrow)
     if (Dref < DOGC) {
         // reference pressure is gas pressure
         if (flow[0]->IsEmpty_SGOF()) {
-            ERRORcheck("SGOF is missing !");
-            exit(0);
+            OCP_ABORT("SGOF is missing !");
         }
 
         Pgref          = Pref;
@@ -666,11 +665,11 @@ void Bulk::InitSjPcComp(const USI& tabrow)
     OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
     // creater table
-    OCPTable DepthP(tabrow, 4);
-    vector<OCP_DBL>&   Ztmp  = DepthP.GetCol(0);
-    vector<OCP_DBL>&   Potmp = DepthP.GetCol(1);
-    vector<OCP_DBL>&   Pgtmp = DepthP.GetCol(2);
-    vector<OCP_DBL>&   Pwtmp = DepthP.GetCol(3);
+    OCPTable         DepthP(tabrow, 4);
+    vector<OCP_DBL>& Ztmp  = DepthP.GetCol(0);
+    vector<OCP_DBL>& Potmp = DepthP.GetCol(1);
+    vector<OCP_DBL>& Pgtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>& Pwtmp = DepthP.GetCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -1041,7 +1040,6 @@ void Bulk::FlashNi()
 #endif // _DEBUG
 }
 
-
 void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
 {
     OCP_USI bId    = n * numPhase;
@@ -1049,8 +1047,9 @@ void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be pass no matter if the phase exists.
-        // Because it will be used to calculate relative permeability and capillary pressure at
-        // every time step, be sure all saturation are updated at every step.
+        // Because it will be used to calculate relative permeability and capillary
+        // pressure at every time step, be sure all saturation are updated at every
+        // step.
         S[bId + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
             rho[bId + j] = flashCal[pvtnum]->rho[j];
@@ -1085,23 +1084,24 @@ void Bulk::FlashNiDeriv()
 
 void Bulk::PassFlashValueFIM(const OCP_USI& n)
 {
-    OCP_USI bId = n * numPhase;
+    OCP_USI bId    = n * numPhase;
     USI     pvtnum = PVTNUM[n];
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be pass no matter if the phase exists.
-        // Because it will be used to calculate relative permeability and capillary pressure at
-        // every time step, be sure all saturation are updated at every step.
+        // Because it will be used to calculate relative permeability and capillary
+        // pressure at every time step, be sure all saturation are updated at every
+        // step.
         S[bId + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
             rho[bId + j] = flashCal[pvtnum]->rho[j];
-            xi[bId + j] = flashCal[pvtnum]->xi[j];
-            mu[bId + j] = flashCal[pvtnum]->mu[j];
-            vj[bId + j] = flashCal[pvtnum]->v[j];
+            xi[bId + j]  = flashCal[pvtnum]->xi[j];
+            mu[bId + j]  = flashCal[pvtnum]->mu[j];
+            vj[bId + j]  = flashCal[pvtnum]->v[j];
 
             // Derivatives
-            muP[bId + j] = flashCal[pvtnum]->muP[j];
-            xiP[bId + j] = flashCal[pvtnum]->xiP[j];
+            muP[bId + j]  = flashCal[pvtnum]->muP[j];
+            xiP[bId + j]  = flashCal[pvtnum]->xiP[j];
             rhoP[bId + j] = flashCal[pvtnum]->rhoP[j];
             for (USI i = 0; i < numCom; i++) {
                 cij[bId * numCom + j * numCom + i] =
@@ -1117,7 +1117,7 @@ void Bulk::PassFlashValueFIM(const OCP_USI& n)
     }
     vf[n] = flashCal[pvtnum]->vf;
     dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dSec_dPri.begin(),
-        flashCal[pvtnum]->dSec_dPri.end());
+                     flashCal[pvtnum]->dSec_dPri.end());
 }
 
 // relative permeability and capillary pressure
@@ -1135,7 +1135,9 @@ void Bulk::CalKrPcDeriv()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_USI bId = n * numPhase;
-        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase], &dPcj_dS[bId * numPhase]);
+        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+                                      &dKr_dS[bId * numPhase],
+                                      &dPcj_dS[bId * numPhase]);
         for (USI j = 0; j < numPhase; j++)
             Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
     }
@@ -1174,7 +1176,6 @@ void Bulk::GetSolIMPEC(const vector<OCP_DBL>& u)
     }
 }
 
-
 void Bulk::GetSolFIM(const vector<OCP_DBL>& u)
 {
     USI len = numCom + 1;
@@ -1189,25 +1190,24 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u)
     }
 }
 
-
 void Bulk::UpdateLastStep()
 {
-    lP      = P;
-    lPj     = Pj;
-    lPc = Pc;
+    lP          = P;
+    lPj         = Pj;
+    lPc         = Pc;
     lphaseExist = phaseExist;
-    lS = S;
-    lrho = rho;
-    lxi = xi;
-    lcij = cij;
-    lNi = Ni;
-    lmu = mu;
-    lkr = kr;
-    lvj = vj;
-    lvf = vf;
-    lvfi = vfi;
-    lvfp = vfp;
-    rockLVp = rockVp;
+    lS          = S;
+    lrho        = rho;
+    lxi         = xi;
+    lcij        = cij;
+    lNi         = Ni;
+    lmu         = mu;
+    lkr         = kr;
+    lvj         = vj;
+    lvf         = vf;
+    lvfi        = vfi;
+    lvfp        = vfp;
+    rockLVp     = rockVp;
 }
 
 void Bulk::CalMaxChange()
@@ -1267,8 +1267,7 @@ OCP_DBL Bulk::CalFPR() const
             vtmp += tmp;
         }
     } else {
-        ERRORcheck("numPhase is out of range!");
-        exit(0);
+        OCP_ABORT("Number of phases is out of range!");
     }
     return ptmp / vtmp;
 }
@@ -1296,7 +1295,8 @@ OCP_DBL Bulk::CalCFL(bool flag) const
                 }
 
                 /*if (flag)
-                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] << endl;*/
+                    cout << "tmp" << tmp << "\tcfl = " << cfl[id] << "\t" << vj[id] <<
+                   endl;*/
             }
         }
     }
@@ -1344,7 +1344,7 @@ void Bulk::CheckDiff()
     OCP_USI id;
     for (OCP_USI n = 0; n < numBulk; n++) {
         for (USI j = 0; j < numPhase; j++) {
-            id = n * numPhase + j;
+            id  = n * numPhase + j;
             tmp = fabs(phaseExist[id] - lphaseExist[id]);
             if (tmp != 0.0) {
                 cout << "Difference in phaseExist\t" << tmp << "\n";
@@ -1352,15 +1352,18 @@ void Bulk::CheckDiff()
             if (lphaseExist[id] || phaseExist[id]) {
                 tmp = fabs(S[id] - lS[id]);
                 if (tmp != 0.0) {
-                    cout << "Difference in S\t" << tmp << "  " << phaseExist[id] << "\n";
+                    cout << "Difference in S\t" << tmp << "  " << phaseExist[id]
+                         << "\n";
                 }
                 tmp = fabs(xi[id] - lxi[id]);
                 if (tmp != 0.0) {
-                    cout << "Difference in Xi\t" << tmp << "  " << phaseExist[id] << "\n";
+                    cout << "Difference in Xi\t" << tmp << "  " << phaseExist[id]
+                         << "\n";
                 }
                 tmp = fabs(rho[id] - lrho[id]);
                 if (tmp != 0.0) {
-                    cout << "Difference in rho\t" << tmp << "  " << phaseExist[id] << "\n";
+                    cout << "Difference in rho\t" << tmp << "  " << phaseExist[id]
+                         << "\n";
                 }
             }
         }
@@ -1381,21 +1384,19 @@ void Bulk::CheckSat() const
     }
 }
 
-
 void Bulk::ResetFlash()
 {
     phaseExist = lphaseExist;
-    S = lS;
-    rho = lrho;
-    xi = lxi;
-    cij = lcij;
-    mu = lmu;
-    vj = lvj;
-    vf = lvf;
-    vfp = lvfp;
-    vfi = lvfi;
+    S          = lS;
+    rho        = lrho;
+    xi         = lxi;
+    cij        = lcij;
+    mu         = lmu;
+    vj         = lvj;
+    vf         = lvf;
+    vfp        = lvfp;
+    vfi        = lvfi;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

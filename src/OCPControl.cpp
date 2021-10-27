@@ -54,8 +54,7 @@ void OCP_Control::InputParam(const ParamControl& CtrlParam)
     } else if (CtrlParam.method == "FIM") {
         method = FIM;
     } else {
-        ERRORcheck("Wrong Method !");
-        exit(0);
+        OCP_ABORT("Wrong method specified!");
     }
     solveFile    = CtrlParam.linearSolve;
     criticalTime = CtrlParam.criticalTime;

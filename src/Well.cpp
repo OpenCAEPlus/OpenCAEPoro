@@ -19,8 +19,7 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     } else if (Optparam.type == "PROD") {
         type = PROD;
     } else {
-        ERRORcheck("WRONG Well Type");
-        exit(0);
+        OCP_ABORT("Wrong well type!");
     }
 
     if (type == INJ) {
@@ -33,8 +32,7 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
         } else if (Optparam.fluidType == "SOLVENT") {
             fluidType = SOLVENT;
         } else {
-            ERRORcheck("WRONG Fluid type");
-            exit(0);
+            OCP_ABORT("Wrong fluid type!");
         }
     }
 
@@ -43,8 +41,7 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     } else if (Optparam.state == "CLOSE") {
         state = CLOSE;
     } else {
-        ERRORcheck("WRONG State type");
-        exit(0);
+        OCP_ABORT("Wrong state type!");
     }
 
     if (Optparam.optMode == "RATE") {
@@ -58,8 +55,7 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     } else if (Optparam.optMode == "BHP") {
         optMode = BHP_MODE;
     } else {
-        ERRORcheck("WRONG Well Opt Mode");
-        exit(0);
+        OCP_ABORT("Wrong well option mode!");
     }
 
     maxRate = Optparam.maxRate;
@@ -86,8 +82,7 @@ void Well::InputPerfo(const WellParam& well)
         } else if (well.direction[p] == "Z" || well.direction[p] == "z") {
             perf[p].direction = Z_DIRECTION;
         } else {
-            ERRORcheck("Wrong direction of perforations");
-            exit(0);
+            OCP_ABORT("Wrong direction of perforations!");
         }
     }
 }
@@ -113,8 +108,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
                             opt.zi[2] = 1;
                         break;
                     default:
-                        ERRORcheck("WRONG Blackoil type!");
-                        exit(0);
+                        OCP_ABORT("Wrong blackoil type!");
                 }
             } else {
                 // PROD
@@ -137,16 +131,14 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
                             opt.zi[2] = 1;
                         break;
                     default:
-                        ERRORcheck("WRONG Blackoil type!");
-                        exit(0);
+                        OCP_ABORT("Wrong blackoil type!");
                 }
             }
         }
     } else if (myBulk.comps) {
 
     } else {
-        ERRORcheck("Wrong Mixture Type !");
-        exit(0);
+        OCP_ABORT("Wrong mixture type!");
     }
 
     qi_lbmol.resize(myBulk.numCom);
@@ -158,8 +150,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
         OCP_USI Idg =
             perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
         if (!myGrid.activeMap_G2B[Idg].GetAct()) {
-            ERRORcheck("Perforation is in inactive bulk !");
-            exit(0);
+            OCP_ABORT("Perforation is in inactive bulk!");
         }
         perf[p].location   = myGrid.activeMap_G2B[Idg].GetId();
         perf[p].depth      = myBulk.depth[perf[p].location];
@@ -244,8 +235,7 @@ void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
                     break;
                 }
                 default:
-                    ERRORcheck("Wrong direction of perforations!");
-                    exit(0);
+                    OCP_ABORT("Wrong direction of perforations!");
             }
         }
     }
@@ -312,8 +302,7 @@ void Well::AssembleMat_INJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
                 mySolver.val[wId].push_back(0);
                 break;
             default:
-                ERRORcheck("Wrong Well Opt mode");
-                exit(0);
+                OCP_ABORT("Wrong well option mode!");
         }
     }
 
@@ -344,8 +333,7 @@ void Well::AssembleMat_INJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
             mySolver.u[wId] = opt.maxBHP;
             break;
         default:
-            ERRORcheck("Wrong Well Opt mode in function");
-            exit(0);
+            OCP_ABORT("Wrong well option mode!");
     }
 }
 
@@ -416,8 +404,7 @@ void Well::AssembleMat_PROD_BLK_IMPEC(const Bulk& myBulk, LinearSolver& mySolver
                 mySolver.val[wId].push_back(0);
                 break;
             default:
-                ERRORcheck("Wrong Well Opt mode");
-                exit(0);
+                OCP_ABORT("Wrong well option mode!");
         }
     }
 
@@ -448,8 +435,7 @@ void Well::AssembleMat_PROD_BLK_IMPEC(const Bulk& myBulk, LinearSolver& mySolver
             mySolver.u[wId] = opt.minBHP;
             break;
         default:
-            ERRORcheck("Wrong Well Opt mode");
-            exit(0);
+            OCP_ABORT("Wrong well option mode!");
     }
 }
 
@@ -1013,8 +999,7 @@ void Well::CalProddG(const Bulk& myBulk)
         }
 
     } else {
-        ERRORcheck("Wrong Well position");
-        exit(0);
+        OCP_ABORT("Wrong well position!");
     }
 }
 

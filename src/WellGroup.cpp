@@ -167,8 +167,7 @@ void WellGroup::AssemblaMat_WB_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
                     wellGroup[w].AssembleMat_PROD_BLK_IMPEC(myBulk, mySolver, dt);
                     break;
                 default:
-                    ERRORcheck("Wrong Well Type");
-                    exit(0);
+                    OCP_ABORT("Wrong well type");
             }
         }
     }
@@ -188,8 +187,7 @@ void WellGroup::AssemblaMat_WB_FIM(LinearSolver& mySolver, const Bulk& myBulk,
                 wellGroup[w].AssembleMat_PROD_BLK_FIM(myBulk, mySolver, dt);
                 break;
             default:
-                ERRORcheck("Wrong Well Type");
-                exit(0);
+                OCP_ABORT("Wrong well type");
             }
         }
     }
@@ -320,8 +318,7 @@ USI WellGroup::GetIndex(const string& name) const
             return w;
         }
     }
-    ERRORcheck("No such well name!");
-    exit(0);
+    OCP_ABORT("Well name not found!");
 }
 
 /*----------------------------------------------------------------------------*/

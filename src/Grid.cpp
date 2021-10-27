@@ -102,9 +102,8 @@ OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
     OCP_USI id       = k * nx * ny + j * nx + i;
     bool    activity = activeMap_G2B[id].GetAct();
     if (!activity) {
-        ERRORcheck("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) +
+        OCP_ABORT("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) +
                    ") is inactive");
-        exit(0);
     }
     id = activeMap_G2B[id].GetId();
     return id;

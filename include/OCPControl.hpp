@@ -22,13 +22,15 @@
 
 using namespace std;
 
-/// ControlTime contains params used to control the size of time step.
-/// the most commonly used params are the first three. the others are under development.
+/// Params for controlling time stepsized in time marching.
 class ControlTime
 {
 public:
     ControlTime() = default;
     ControlTime(const vector<OCP_DBL>& src);
+
+public:
+    // Note: Most commonly used params are the first three.
     OCP_DBL timeInit;    ///< Maximum Init step length of next timestep
     OCP_DBL timeMax;     ///< Maximum time step during running
     OCP_DBL timeMin;     ///< Minmum time step during running
@@ -39,13 +41,14 @@ public:
     OCP_DBL timeMaxIncre_F; ///< Maximum increase factor after a convergence failure
 };
 
-/// ControlError contains params used to control the convergence error or material
-/// balance error during the simulation.
+/// Params for controlling convergence and material balance error checks.
 class ControlError
 {
 public:
     ControlError() = default;
     ControlError(const vector<OCP_DBL>& src);
+
+public:
     OCP_DBL errorNL_T; ///< Target non-linear convergence error
     OCP_DBL errorMB_T; ///< Target material balance error
     OCP_DBL errorLS_T; ///< Target linear convergence error
@@ -54,13 +57,15 @@ public:
     OCP_DBL errorLS_M; ///< Maximum linear convergence error
 };
 
-/// ControlIter contains params used to control the number of Newton iterations or
-/// linear iterations. whether a iteration is satisfied will also determined here.
+/// Params for controlling Newton iterations and linear iterations.
 class ControlIter
 {
 public:
     ControlIter() = default;
     ControlIter(const vector<OCP_DBL>& src);
+
+public:
+    // Note: Important for convergence of solution methods
     USI     iterMax_NT;  // Maximum number of Newton iterations in a timestep
     USI     iterMin_NT;  // Minimum number of Newton iterations in a timestep
     USI     iterMax_NTL; // Maximum number of linear iterations in a Newton iteration
@@ -71,10 +76,8 @@ public:
     OCP_DBL dpre_M;      // Target maximum pressure change in a timestep
 };
 
-/// OCP_Control is responsible for all of the controller except well controler.
-/// these controler includes time controler, error controler and iteration controler,
-/// all of which could change at different critical time point, it's up to users.
-/// which discrete method will be used is determined here.
+/// All control parameters except for well controlers.
+//  Note: Which discrete method will be used is determined here!
 class OCP_Control
 {
     friend class OpenCAEPoro;
@@ -141,6 +144,8 @@ private: // TODO: Add doxygen!
 
     OCP_DBL timeLS{0};
 
+    // Includes time controler, error controler, and iteration controler, all of which
+    // could change at different critical time step.
     ControlTime         ctrlTime;
     vector<ControlTime> ctrlTimeSet;
 
