@@ -63,8 +63,24 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
         OCP_ABORT("Wrong method!");
         break;
     }
-    return true; // Should not reach here!
 }
+
+bool FluidSolver::FinishNR()
+{
+    switch (method)
+    {
+    case IMPEC:
+        return impes.FinishNR();
+    case FIM:
+        return fim.FinishNR();
+        break;
+    default:
+        OCP_ABORT("Wrong method!");
+        break;
+    }
+}
+
+
 
 void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
 {
@@ -218,6 +234,11 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 
 
 bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
+{
+
+}
+
+bool OCP_FIM::FinishNR()
 {
 
 }

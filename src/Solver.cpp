@@ -36,10 +36,11 @@ void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 		if (!UpdateProperty(rs, dt)) {
 			continue;
 		}
-		FinishStep(rs, ctrl);
-		break;
+
+		if (FinishNR())
+			break;
 	}
-	
+	FinishStep(rs, ctrl);
 }
 
 void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -71,6 +72,13 @@ bool Solver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 
 	return true;
 }
+
+
+bool Solver::FinishNR()
+{
+	return FSolver.FinishNR();
+}
+
 
 void Solver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
 {

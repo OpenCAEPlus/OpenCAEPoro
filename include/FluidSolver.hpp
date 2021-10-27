@@ -34,6 +34,9 @@ public:
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
 
+    /// Determine if NR iteration finishes.
+    bool FinishNR() { return true; }
+
 };
 
 
@@ -48,6 +51,8 @@ public:
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
 
+    /// Determine if NR iteration finishes.
+    bool FinishNR();
 
 };
 
@@ -64,6 +69,8 @@ public:
     void SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl);
     /// Update properties of fluid.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
+    /// Determine if NR iteration finishes.
+    bool FinishNR();
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCP_Control& ctrl);
 

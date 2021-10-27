@@ -31,6 +31,8 @@ public:
 	void AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
 	/// Update properties after solving.
 	bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
+	/// Determine if Newton iteration is finished.
+	bool FinishNR();
 	/// Finish current timestep.
 	void FinishStep(Reservoir& rs, OCP_Control& ctrl);
 
