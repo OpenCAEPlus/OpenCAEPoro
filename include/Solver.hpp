@@ -9,6 +9,7 @@
  *-----------------------------------------------------------------------------------
  */
 
+// OpenCAEPoro header files
 #include "FluidSolver.hpp"
 #include "LinearSolver.hpp"
 
@@ -18,7 +19,7 @@
 class Solver
 {
 public:
-    /// Allocate mat memory.
+    /// Allocate memory for linear system.
     void AllocateMat(const Reservoir& rs);
     /// Initialize the reservoir.
     void InitReservoir(Reservoir& rs) const;
