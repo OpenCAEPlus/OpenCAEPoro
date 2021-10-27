@@ -76,6 +76,10 @@ void LinearSolver::AssembleMat_Fasp()
         nnz += colId[i].size();
     }
 
+    A_Fasp.row = dim;
+    A_Fasp.col = dim;
+    A_Fasp.nnz = nnz;
+    
     // IA
     OCP_USI count = 0;
     A_Fasp.IA[0] = 0;
@@ -117,6 +121,11 @@ void LinearSolver::AssembleMat_BFasp()
     Asc.NNZ = nnz;
 
     // A
+    A_BFasp.ROW = dim;
+    A_BFasp.COL = dim;
+    A_BFasp.nb = blockDim;
+    A_BFasp.NNZ = nnz;
+
     OCP_USI count = 0;
     OCP_USI count2 = 0;
     OCP_USI size_row;
@@ -253,21 +262,42 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
 {
     string FileA = solveDir + fileA;
     string Fileb = solveDir + fileb;
-    // csr format
-    ofstream outA(FileA);
-    if (!outA.is_open()) cout << "Can not open " << FileA << endl;
-    outA << A_Fasp.row << endl;
-    OCP_USI nnz0 = A_Fasp.nnz;
-    for (OCP_USI i = 0; i < A_Fasp.row + 1; i++) outA << A_Fasp.IA[i] + 1 << endl;
-    for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.JA[i] + 1 << endl;
-    for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.val[i] << endl;
-    outA.close();
-    // out rhs
-    ofstream outb(Fileb);
-    if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
-    outb << b_Fasp.row << endl;
-    for (OCP_USI i = 0; i < b_Fasp.row; i++) outb << b_Fasp.val[i] << endl;
-    outb.close();
+
+    if (blockDim == 1) {
+        // csr format
+        ofstream outA(FileA);
+        if (!outA.is_open()) cout << "Can not open " << FileA << endl;
+        outA << A_Fasp.row << endl;
+        OCP_USI nnz0 = A_Fasp.nnz;
+        for (OCP_USI i = 0; i < A_Fasp.row + 1; i++) outA << A_Fasp.IA[i] + 1 << endl;
+        for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.JA[i] + 1 << endl;
+        for (OCP_USI i = 0; i < nnz0; i++) outA << A_Fasp.val[i] << endl;
+        outA.close();
+        // out rhs
+        ofstream outb(Fileb);
+        if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
+        outb << b_Fasp.row << endl;
+        for (OCP_USI i = 0; i < b_Fasp.row; i++) outb << b_Fasp.val[i] << endl;
+        outb.close();
+    }
+    else {
+        // bsr mat
+        ofstream outA(FileA);
+        if (!outA.is_open()) cout << "Can not open " << FileA << endl;
+        outA << A_BFasp.ROW << endl;
+        OCP_USI nnz0 = A_BFasp.NNZ;
+        for (OCP_USI i = 0; i < A_BFasp.ROW + 1; i++) outA << A_BFasp.IA[i] + 1 << endl;
+        for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.JA[i] + 1 << endl;
+        for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.val[i] << endl;
+        outA.close();
+        // out rhs
+        ofstream outb(Fileb);
+        if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
+        outb << b_BFasp.row << endl;
+        OCP_USI nrow = b_BFasp.row * blockDim;
+        for (OCP_USI i = 0; i < nrow; i++) outb << b_BFasp.val[i] << endl;
+        outb.close();
+    }
 }
 
 
@@ -277,7 +307,8 @@ void LinearSolver::PrintfSolution(const string& fileU) const
     ofstream outu(FileU);
     if (!outu.is_open()) cout << "Can not open " << FileU << endl;
     outu << dim << endl;
-    for (OCP_USI i = 0; i < dim; i++) outu << u[i] << endl;
+    OCP_USI nrow = dim * blockDim;
+    for (OCP_USI i = 0; i < nrow; i++) outu << u[i] << endl;
     outu.close();
 }
 

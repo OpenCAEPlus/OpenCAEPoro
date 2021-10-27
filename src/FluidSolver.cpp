@@ -161,8 +161,6 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
     lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
-    // lsolver.Free_Fasp();
-
     ctrl.UpdateIterLS(status);
 
 #endif // __SOLVER_FASP__
@@ -173,7 +171,29 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
 
 void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl)
 {
+#ifdef DEBUG
+    solver.CheckVal();
+#endif // DEBUG
 
+#ifdef __SOLVER_FASP__
+
+    lsolver.AssembleMat_BFasp();
+    GetWallTime Timer;
+    Timer.Start();
+    int status = lsolver.BFaspSolve();
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+
+#ifdef DEBUG
+    lsolver.PrintfMatCSR("testA.out", "testb.out");
+    lsolver.PrintfSolution("testx.out");
+#endif // DEBUG
+
+    ctrl.UpdateIterLS(status);
+
+#endif // __SOLVER_FASP__
+
+    rs.GetSolution_FIM(lsolver.GetSolution());
+    lsolver.ClearData();
 }
 
 bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
