@@ -31,7 +31,7 @@ int main(int argc, const char* argv[])
     if (argc != 2) {
         cout << "Wrong number of arguments. Usage: " << argv[0] << " <InputFileName>"
              << endl;
-        return(-1);
+        return -1;
     }
     OpenCAEPoro simulator;
     simulator.PrintVersion();

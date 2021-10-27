@@ -22,9 +22,13 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 /// Call setup processdures for reservoir, output, and linear solver.
 void OpenCAEPoro::SetupSimulator(ParamRead& param)
 {
+    // Read parameters from input file
     InputParam(param);
+    // Setup static infomation for reservoir
     reservoir.Setup();
+    // Setup output for dynamic simulation
     output.Setup(reservoir, control);
+    // Setup static information for linear solver
     SetupLinearSolver();
 }
 
@@ -36,16 +40,10 @@ void OpenCAEPoro::SetupLinearSolver()
 }
 
 /// Initialize the reservoir class.
-void OpenCAEPoro::InitReservoir()
-{ 
-    solver.InitReservoir(reservoir);
-}
+void OpenCAEPoro::InitReservoir() { solver.InitReservoir(reservoir); }
 
 /// Call IMPEC, FIM, etc for dynamic simulation.
-void OpenCAEPoro::RunSimulation()
-{
-    solver.RunSimulation(reservoir, control, output);
-}
+void OpenCAEPoro::RunSimulation() { solver.RunSimulation(reservoir, control, output); }
 
 /// Print summary information to cout and SUMMARY.out file.
 void OpenCAEPoro::OutputResults() const

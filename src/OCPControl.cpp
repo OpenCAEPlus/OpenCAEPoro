@@ -87,17 +87,13 @@ void OCP_Control::ApplyControl(const USI& i)
     ctrlTime  = ctrlTimeSet[i];
     ctrlError = ctrlErrorSet[i];
     ctrlIter  = ctrlIterSet[i];
-
-    end_time = criticalTime[i + 1];
+    end_time  = criticalTime[i + 1];
 }
 
 void OCP_Control::InitTime(const USI& i)
 {
     OCP_DBL dt = criticalTime[i + 1] - current_time;
-    if (dt < 0) {
-        ERRORcheck("Wrong Time Step");
-        exit(0);
-    }
+    if (dt < 0) OCP_ABORT("Negative time stepsize!");
     current_dt = min(dt, ctrlTime.timeInit);
 }
 
@@ -141,7 +137,6 @@ void OCP_Control::UpdateIters()
     iterNR = 1;
     iterNR_total += 1;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

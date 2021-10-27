@@ -5,13 +5,13 @@ void Solver::RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 	GetWallTime timer;
 	timer.Start();
 
-	USI numdates = ctrl.GetNumDates();
+	USI numdates = ctrl.GetNumTSteps();
 	output.PrintInfoSched(rs, ctrl, timer.Stop());
 	for (USI d = 0; d < numdates - 1; d++) {
 		rs.ApplyControl(d);
 		ctrl.ApplyControl(d);
 		ctrl.InitTime(d);
-		while (!ctrl.IfCriticalTime(d+1)) {
+		while (!ctrl.IsCriticalTime(d+1)) {
 			GoOneStep(rs, ctrl);
 			output.SetVal(rs, ctrl);
 		}
