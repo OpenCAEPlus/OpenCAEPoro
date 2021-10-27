@@ -187,7 +187,6 @@ private:
     vector<OCP_DBL> dSec_dPri; ///< d Second var / d Primary var: (numPhase + numPhase*numCom)*(numCom + 1)*numBulk
     vector<OCP_DBL> dPcj_dS; ///< d Pcj / dSk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dKr_dS; ///< d Krj / dSk: numPhase * numPhase * bulk.
-    mutable vector<OCP_DBL> resFIM; /// Resiual of FIM: (numCom + 1) * numBulk.
 
     /// used to identify phase name according to its index: numPhase.
     /// For example, 0th phase is Oil.

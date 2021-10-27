@@ -125,7 +125,7 @@ public:
     /// update pressure in well and well perforation with solution of linear system.
     void GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
     void GetSol_FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
-    void CalResFIM(const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// reset dG to ldG for each well, dG is a array where the pressure difference
     /// between well and perforation are stored.
     void UpdateLastStep()

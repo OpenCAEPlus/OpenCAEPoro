@@ -733,7 +733,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
 
 }
 
-void Well::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const
+void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const
 {
     // Well to Bulk
     USI nc = myBulk.numCom;
@@ -743,7 +743,7 @@ void Well::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) 
     for (USI p = 0; p < numPerf; p++) {
         k = perf[p].location;
         for (USI i = 0; i < nc; i++) {
-            myBulk.resFIM[k * len + 1 + i] += perf[p].qi_lbmol[i] * dt;
+            res[k * len + 1 + i] += perf[p].qi_lbmol[i] * dt;
         }
     }
     OCP_USI bId = (myBulk.numBulk + wId) * len;
@@ -753,16 +753,16 @@ void Well::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) 
         switch (opt.optMode)
         {
         case BHP_MODE:
-            myBulk.resFIM[bId] = BHP - opt.maxBHP;
+            res[bId] = BHP - opt.maxBHP;
             break;
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            myBulk.resFIM[bId] = opt.maxRate;
+            res[bId] = opt.maxRate;
             for (USI i = 0; i < nc; i++) {
-                myBulk.resFIM[bId] += qi_lbmol[i];
+                res[bId] += qi_lbmol[i];
             }
         default:
             OCP_ABORT("Wrong well opt mode!");
@@ -774,16 +774,16 @@ void Well::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) 
         switch (opt.optMode)
         {
         case BHP_MODE:
-            myBulk.resFIM[(myBulk.numBulk + wId) * len] = BHP - opt.minBHP;
+            res[(myBulk.numBulk + wId) * len] = BHP - opt.minBHP;
             break;
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            myBulk.resFIM[bId] = -opt.maxRate;
+            res[bId] = -opt.maxRate;
             for (USI i = 0; i < nc; i++) {
-                myBulk.resFIM[bId] += qi_lbmol[i] * opt.zi[i];
+                res[bId] += qi_lbmol[i] * opt.zi[i];
             }
         default:
             OCP_ABORT("Wrong well opt mode!");

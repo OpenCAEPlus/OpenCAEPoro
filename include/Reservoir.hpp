@@ -85,7 +85,7 @@ public:
     /// get the solution from LinearSolver after the linear system is solved.
     void GetSolution_IMPEC(const vector<OCP_DBL>& u);
     void GetSolution_FIM(const vector<OCP_DBL>& u);
-    void CalResFIM(const OCP_DBL& dt);
+    void CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt);
     /// check if abnormal pressure occurs including pressure in bulks, wells,
     /// perforations. if so, take corresponding measures and then resolve the linear
     /// equations.

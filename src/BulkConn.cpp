@@ -611,7 +611,7 @@ void BulkConn::AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk, const
     }
 }
 
-void BulkConn::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt)
+void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
 {
     USI np = myBulk.numPhase;
     USI nc = myBulk.numCom;
@@ -620,9 +620,9 @@ void BulkConn::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt)
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
         bId = n * len;
-        myBulk.resFIM[bId] = myBulk.rockVp[n] - myBulk.vf[n];
+        res[bId] = myBulk.rockVp[n] - myBulk.vf[n];
         for (USI i = 0; i < nc; i++) {
-            myBulk.resFIM[bId + i + 1] = myBulk.Ni[bId + i] - myBulk.lNi[bId + i];
+            res[bId + 1 + i] = myBulk.Ni[bId + i] - myBulk.lNi[bId + i];
         }
     }
 
@@ -680,8 +680,8 @@ void BulkConn::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt)
             tmp = CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
                 tmp *= myBulk.cij[uId_np_j * nc + i];
-                myBulk.resFIM[bId * len + 1 + i] -= tmp;
-                myBulk.resFIM[eId * len + 1 + i] += tmp;
+                res[bId * len + 1 + i] -= tmp;
+                res[eId * len + 1 + i] += tmp;
             }
         }
     }

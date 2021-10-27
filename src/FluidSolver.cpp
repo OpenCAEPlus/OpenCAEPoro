@@ -7,10 +7,10 @@ void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
     switch (method)
     {
     case IMPEC:
-        rs.Prepare(dt);
+        impes.Prepare(rs, dt);
         break;
     case FIM:
-        rs.Prepare(dt);
+        fim.Prepare(rs, dt);
         break;
     default:
         OCP_ABORT("Wrong method!");
@@ -26,7 +26,7 @@ void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
         rs.AssembleMatIMPEC(FLSolver, dt);
         break;
     case FIM:
-        rs.AssembleMatFIM(FLSolver, dt);
+        fim.AssembleMat(FLSolver, rs, dt);
         break;
     default:
         OCP_ABORT("Wrong method!");
@@ -141,6 +141,12 @@ void FluidSolver::InitReservoir(Reservoir& rs) const
 }
 
 
+void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.Prepare(dt);
+}
+
+
 void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
                                   OCP_Control& ctrl)
 {
@@ -250,7 +256,17 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     return true;
 }
 
+void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.Prepare(dt);
+    rs.CalResFIM(resV, dt);
+}
 
+void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs, const OCP_DBL& dt) const
+{
+    rs.AssembleMatFIM(lsolver, dt);
+    lsolver.AssembleRhs_BFasp(resV);
+}
 
 
 bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)

@@ -28,6 +28,9 @@ class OCP_IMPEC
 {
 public:
 
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+
     /// Solve the linear system.
     void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
 
@@ -44,6 +47,11 @@ public:
 class OCP_FIM
 {
 public:
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+
+    /// Assemble Matrix
+    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs, const OCP_DBL& dt) const;
 
     /// Solve the linear system.
     void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
@@ -53,6 +61,14 @@ public:
 
     /// Determine if NR iteration finishes.
     bool FinishNR();
+
+    /// Calculate maximum Res.
+    void CalMaxRes();
+
+private:
+
+    vector<OCP_DBL> resV;
+    OCP_DBL         resMaxRel;
 
 };
 

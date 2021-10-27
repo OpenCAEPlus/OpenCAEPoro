@@ -85,6 +85,7 @@ public:
     void InitParam_BFasp();
     void ReadParam_BFasp();
     void AssembleMat_BFasp();
+    void AssembleRhs_BFasp(const vector<OCP_DBL>& rhs);
     int BFaspSolve();
     void decoupling(dBSRmat* Absr, dvector* b, int scal_type,
         dBSRmat* Asc, dvector* fsc, ivector* order,

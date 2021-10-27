@@ -147,10 +147,10 @@ void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
     wellgroup.GetSol_FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
-void Reservoir::CalResFIM(const OCP_DBL& dt)
+void Reservoir::CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt)
 {
-    conn.CalResFIM(bulk, dt);
-    wellgroup.CalResFIM(bulk, dt);
+    conn.CalResFIM(res, bulk, dt);
+    wellgroup.CalResFIM(res, bulk, dt);
 }
 
 

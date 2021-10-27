@@ -95,7 +95,7 @@ public:
                            const OCP_DBL& dt) const;
     void AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk,
         const OCP_DBL& dt) const;
-    void CalResFIM(const Bulk& myBulk, const OCP_DBL& dt);
+    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 
     void UpdateLastStep();
     void Reset();

@@ -220,12 +220,12 @@ void WellGroup::GetSol_FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const U
 }
 
 
-void WellGroup::CalResFIM(const Bulk& myBulk, const OCP_DBL& dt) const
+void WellGroup::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
-            wellGroup[w].CalResFIM(myBulk, dt, wId);
+            wellGroup[w].CalResFIM(res, myBulk, dt, wId);
             wId++;
         }
     }

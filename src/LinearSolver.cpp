@@ -147,6 +147,15 @@ void LinearSolver::AssembleMat_BFasp()
 }
 
 
+void LinearSolver::AssembleRhs_BFasp(const vector<OCP_DBL>& rhs)
+{
+    OCP_USI nrow = dim * blockDim;
+    for (OCP_USI i = 0; i < nrow; i++) {
+        b[i] = rhs[i];
+    }
+}
+
+
 
 int LinearSolver::FaspSolve()
 {
