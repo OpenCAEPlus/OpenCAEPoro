@@ -161,10 +161,10 @@ void WellGroup::AssemblaMat_WB_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
 
             switch (wellGroup[w].WellType()) {
                 case INJ:
-                    wellGroup[w].AssembleMat_INJ_IMPES(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMat_INJ_IMPEC(myBulk, mySolver, dt);
                     break;
                 case PROD:
-                    wellGroup[w].AssembleMat_PROD_BLK_IMPES(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMat_PROD_BLK_IMPEC(myBulk, mySolver, dt);
                     break;
                 default:
                     ERRORcheck("Wrong Well Type");

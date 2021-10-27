@@ -260,7 +260,7 @@ void Well::AllocateMat(LinearSolver& mySolver) const
 }
 
 
-void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMat_INJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
                                  const OCP_DBL& dt) const
 {
     USI     nc  = myBulk.numCom;
@@ -349,7 +349,7 @@ void Well::AssembleMat_INJ_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
     }
 }
 
-void Well::AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMat_PROD_BLK_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
                                       const OCP_DBL& dt) const
 {
     USI     np  = myBulk.numPhase;

@@ -146,11 +146,11 @@ public:
     /// allocate memory for matrix.
     void AllocateMat(LinearSolver& mySolver) const;
     /// assemble matrix, parts related to injection well are included.
-    void AssembleMat_INJ_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMat_INJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
                                const OCP_DBL& dt) const;
     /// assemble matrix, parts related to production well are included.
     /// this function can only applied in Black Oil model now.
-    void AssembleMat_PROD_BLK_IMPES(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMat_PROD_BLK_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
                                     const OCP_DBL& dt) const;
 
     void AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
