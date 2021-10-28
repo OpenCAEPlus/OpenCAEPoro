@@ -47,6 +47,7 @@ void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
+    cout << ctrl.GetCurTime() << "  Days\n";
     // Prepare for time marching
     Prepare(rs, dt);
 
@@ -68,6 +69,13 @@ void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
     // Prepare for the fluid part
     FSolver.Prepare(rs, dt);
 }
+
+
+void Solver::SetupMethod(const Reservoir& rs, const OCP_Control& ctrl)
+{
+    FSolver.SetupMethod(rs, ctrl);
+}
+
 
 void Solver::AllocateMat(const Reservoir& rs) { FSolver.AllocateMat(rs); }
 

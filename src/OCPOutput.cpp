@@ -546,7 +546,7 @@ void Summary::PrintInfo(const string& dir) const
     outF.close();
 }
 
-void CriticalInfo::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
+void CriticalInfo::Setup(const OCP_DBL& totalTime)
 {
     // Allocate memory
     USI rc = totalTime / 0.1;
@@ -679,7 +679,7 @@ void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
 {
     wordDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
-    crtInfo.Setup(reservoir, ctrl.criticalTime.back());
+    crtInfo.Setup(ctrl.criticalTime.back());
     dtlInfo.Setup(wordDir);
 }
 

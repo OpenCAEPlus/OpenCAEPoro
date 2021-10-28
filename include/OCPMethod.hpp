@@ -9,9 +9,20 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __OCP_METHOD_HEADER__
-#define __OCP_METHOD_HEADER__
+#ifndef __OCPMETHOD_HEADER__
+#define __OCPMETHOD_HEADER__
 
+class OCPMethod
+{
+public:
+	// IMPEC
+	//void SetupIMPEC(Reservoir& rs);
+
+	//// FIM
+	//void SetupFIM(Reservoir& rs);
+
+	//virtual ~OCPMethod() = 0;
+};
 
 
 

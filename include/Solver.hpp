@@ -25,6 +25,8 @@ public:
     void RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
+    /// Setup Mehod
+    void SetupMethod(const Reservoir& rs, const OCP_Control& ctrl);
     /// Allocate memory for linear system.
     void AllocateMat(const Reservoir& rs);
     /// Setup linear solver params.

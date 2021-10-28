@@ -140,8 +140,21 @@ void Bulk::Setup(const Grid& myGrid)
     kr.resize(numBulk * numPhase);
     vj.resize(numBulk * numPhase);
     vf.resize(numBulk);
-    vfi.resize(numBulk * numCom);
+    // IMPEC
+    vfi.resize(numBulk * numCom); // FIM also
     vfp.resize(numBulk);
+    // FIM
+    if (true) {
+        muP.resize(numBulk * numPhase);
+        xiP.resize(numBulk * numPhase);
+        rhoP.resize(numBulk * numPhase);
+        muC.resize(numBulk * numPhase * numPhase);
+        xiC.resize(numBulk * numPhase * numPhase);
+        rhoC.resize(numBulk * numPhase * numPhase);
+        dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
+        dKr_dS.resize(numBulk * numPhase * numPhase);
+        dPcj_dS.resize(numBulk * numPhase * numPhase);
+    }
 
     lP.resize(numBulk);
     lPj.resize(numBulk * numPhase);
@@ -1022,7 +1035,7 @@ void Bulk::FlashSj()
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
         }
-        PassFlashValueIMPEC(n);
+        PassFlashValue(n);
     }
 #ifdef _DEBUG
     CheckSat();
@@ -1033,14 +1046,14 @@ void Bulk::FlashNi()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * numCom]);
-        PassFlashValueIMPEC(n);
+        PassFlashValue(n);
     }
 #ifdef _DEBUG
     CheckSat();
 #endif // _DEBUG
 }
 
-void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
+void Bulk::PassFlashValue(const OCP_USI& n)
 {
     OCP_USI bId    = n * numPhase;
     USI     pvtnum = PVTNUM[n];
@@ -1075,14 +1088,14 @@ void Bulk::FlashNiDeriv()
     dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
-        PassFlashValueFIM(n);
+        PassFlashValueDeriv(n);
     }
 #ifdef _DEBUG
     CheckSat();
 #endif // _DEBUG
 }
 
-void Bulk::PassFlashValueFIM(const OCP_USI& n)
+void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 {
     OCP_USI bId    = n * numPhase;
     USI     pvtnum = PVTNUM[n];

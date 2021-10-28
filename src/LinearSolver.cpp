@@ -95,8 +95,8 @@ void LinearSolver::AssembleMat_BFasp()
     // b & x
     b_BFasp.row = nrow;
     b_BFasp.val = b.data();
-    x_Fasp.row  = nrow;
-    x_Fasp.val  = u.data();
+    x_BFasp.row  = nrow;
+    x_BFasp.val  = u.data();
     // fsc & order
     fsc.row   = nrow;
     order.row = nrow;
@@ -282,16 +282,18 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
         ofstream outA(FileA);
         if (!outA.is_open()) cout << "Can not open " << FileA << endl;
         outA << A_BFasp.ROW << endl;
+        outA << A_BFasp.nb << endl;
         OCP_USI nnz0 = A_BFasp.NNZ;
+        OCP_USI nnz = A_BFasp.NNZ * blockSize;
         for (OCP_USI i = 0; i < A_BFasp.ROW + 1; i++) outA << A_BFasp.IA[i] + 1 << endl;
         for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.JA[i] + 1 << endl;
-        for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.val[i] << endl;
+        for (OCP_USI i = 0; i < nnz; i++) outA << A_BFasp.val[i] << endl;
         outA.close();
         // out rhs
         ofstream outb(Fileb);
         if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
         outb << b_BFasp.row << endl;
-        OCP_USI nrow = b_BFasp.row * blockDim;
+        OCP_USI nrow = b_BFasp.row;
         for (OCP_USI i = 0; i < nrow; i++) outb << b_BFasp.val[i] << endl;
         outb.close();
     }

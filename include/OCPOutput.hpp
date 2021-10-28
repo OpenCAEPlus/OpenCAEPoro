@@ -134,7 +134,7 @@ private:
 class CriticalInfo
 {
 public:
-    void Setup(const Reservoir& reservoir, const OCP_DBL& totalTime);
+    void Setup(const OCP_DBL& totalTime);
     void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
     void PrintInfo(const string& dir) const;
 

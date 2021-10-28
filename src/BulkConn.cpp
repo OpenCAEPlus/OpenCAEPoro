@@ -461,7 +461,7 @@ void BulkConn::AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk, const
 
     // Accumulation term
     for (USI i = 1; i < nc + 1; i++) {
-        bmat[i * nc + i] = 1;
+        bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
         bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
@@ -616,13 +616,14 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     USI np = myBulk.numPhase;
     USI nc = myBulk.numCom;
     USI len = nc + 1;
-    OCP_USI bId, eId, uId;
+    OCP_USI bId, eId, uId, bIdb;
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
         bId = n * len;
+        bIdb = n * nc;
         res[bId] = myBulk.rockVp[n] - myBulk.vf[n];
         for (USI i = 0; i < nc; i++) {
-            res[bId + 1 + i] = myBulk.Ni[bId + i] - myBulk.lNi[bId + i];
+            res[bId + 1 + i] = myBulk.Ni[bIdb + i] - myBulk.lNi[bIdb + i];
         }
     }
 

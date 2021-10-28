@@ -51,7 +51,7 @@ public:
 
 private:
     /// Setup linear solution method.
-    void SetupLinearSolver();
+    void SetupSolver();
 
 private:
     /// The core properties of a reservoir.

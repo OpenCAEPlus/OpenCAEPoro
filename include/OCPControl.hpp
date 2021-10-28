@@ -93,6 +93,9 @@ public:
     /// Initialize time step i.
     void InitTime(const USI& i);
 
+    /// Return the method
+    USI GetMethod()const { return method; }
+
     /// Return number of TSTEPs.
     USI GetNumTSteps() const { return criticalTime.size(); }
     /// Return the current time.

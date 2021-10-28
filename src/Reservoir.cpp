@@ -149,8 +149,10 @@ void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
 
 void Reservoir::CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt)
 {
+    res.assign(res.size(), 0);
     conn.CalResFIM(res, bulk, dt);
     wellgroup.CalResFIM(res, bulk, dt);
+    Dscalar(res.size(), -1, res.data());
 }
 
 

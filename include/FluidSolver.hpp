@@ -40,6 +40,10 @@ public:
 class OCP_FIM
 {
 public:
+
+    /// Setup FIM
+    void Setup(const Reservoir& rs);
+
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
@@ -57,11 +61,14 @@ public:
     bool FinishNR();
 
     /// Calculate maximum Res.
-    void CalMaxRes();
+    void CalMaxRes(const Reservoir& rs);
 
 private:
-    vector<OCP_DBL> resV;
-    OCP_DBL         resMaxRel;
+    vector<OCP_DBL> res;
+    vector<OCP_DBL> relRes;
+    OCP_DBL         maxRes0;
+    OCP_DBL         maxRes;
+    OCP_DBL         maxRelRes;
 };
 
 class FluidSolver
@@ -80,6 +87,9 @@ public:
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCP_Control& ctrl);
 
+    /// Setup Method
+    void SetupMethod(const Reservoir& rs, const OCP_Control& ctrl);
+
     /// Allocate Mat
     void AllocateMat(const Reservoir& rs);
 
@@ -89,7 +99,7 @@ public:
     void InitReservoir(Reservoir& rs) const;
 
 private:
-    USI          method = IMPEC;
+    USI          method = FIM;
     LinearSolver FLSolver;
     OCP_IMPEC    impec;
     OCP_FIM      fim;

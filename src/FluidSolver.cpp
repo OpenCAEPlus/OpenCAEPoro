@@ -16,6 +16,7 @@ void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
     }
 }
 
+
 void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
 {
     switch (method) {
@@ -29,6 +30,7 @@ void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
             OCP_ABORT("Wrong method!");
     }
 }
+
 
 void FluidSolver::SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl)
 {
@@ -44,6 +46,7 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl)
     }
 }
 
+
 bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     switch (method) {
@@ -56,6 +59,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
             OCP_ABORT("Wrong method!");
     }
 }
+
 
 bool FluidSolver::FinishNR()
 {
@@ -70,6 +74,7 @@ bool FluidSolver::FinishNR()
     }
 }
 
+
 void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
@@ -78,6 +83,24 @@ void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
     ctrl.CalNextTstep(rs);
     ctrl.UpdateIters();
 }
+
+
+void FluidSolver::SetupMethod(const Reservoir& rs, const OCP_Control& ctrl)
+{
+    method = ctrl.GetMethod();
+    switch (method)
+    {
+    case IMPEC:
+        break;
+    case FIM:
+        fim.Setup(rs);
+        break;
+    default:
+        OCP_ABORT("Wrong Method!");
+        break;
+    }
+}
+
 
 void FluidSolver::AllocateMat(const Reservoir& rs)
 {
@@ -93,6 +116,7 @@ void FluidSolver::AllocateMat(const Reservoir& rs)
     }
 }
 
+
 void FluidSolver::SetupParamLS(const string& dir, const string& file)
 {
     switch (method) {
@@ -106,6 +130,7 @@ void FluidSolver::SetupParamLS(const string& dir, const string& file)
             OCP_ABORT("Wrong method!");
     }
 }
+
 
 void FluidSolver::InitReservoir(Reservoir& rs) const
 {
@@ -121,7 +146,9 @@ void FluidSolver::InitReservoir(Reservoir& rs) const
     }
 }
 
+
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt) { rs.Prepare(dt); }
+
 
 void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
                                   OCP_Control& ctrl)
@@ -151,6 +178,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
     lsolver.ClearData();
 }
 
+
 void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl)
 {
 #ifdef DEBUG
@@ -160,16 +188,20 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Contro
 #ifdef __SOLVER_FASP__
 
     lsolver.AssembleMat_BFasp();
-    GetWallTime Timer;
-    Timer.Start();
-    int status = lsolver.BFaspSolve();
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
 
 #ifdef DEBUG
     lsolver.PrintfMatCSR("testA.out", "testb.out");
+#endif // DEBUG
+
+    GetWallTime Timer;
+    Timer.Start();
+    int status = lsolver.BFaspSolve();
+
+#ifdef DEBUG
     lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
 
 #endif // __SOLVER_FASP__
@@ -177,6 +209,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Contro
     rs.GetSolution_FIM(lsolver.GetSolution());
     lsolver.ClearData();
 }
+
 
 bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
@@ -216,7 +249,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
         return false;
     }
 
-    rs.CalFlashIMPEC();
+    rs.CalFlash();
     rs.CalVpore();
 
     // fouth check: Volume error check
@@ -231,19 +264,79 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     return true;
 }
 
+
+void OCP_FIM::Setup(const Reservoir& rs)
+{
+    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
+    res.resize(num, 0);
+    relRes.resize(num, 0);
+}
+
+
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
-    rs.Prepare(dt);
-    rs.CalResFIM(resV, dt);
+    rs.PrepareWell();
+    rs.CalResFIM(res, dt);
+    CalMaxRes(rs);
+    maxRes0 = maxRes;
 }
+
 
 void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
                           const OCP_DBL& dt) const
 {
     rs.AssembleMatFIM(lsolver, dt);
-    lsolver.AssembleRhs_BFasp(resV);
+    lsolver.AssembleRhs_BFasp(res);
 }
 
-bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt) {}
 
-bool OCP_FIM::FinishNR() {}
+bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
+{
+
+    // first check : Pressure check.
+    OCP_INT flagCheck = rs.CheckP();
+    switch (flagCheck) {
+    case 1:
+        cout << "well change" << endl;
+        dt /= 2;
+        return false;
+    case 2:
+        cout << "well change" << endl;
+        dt /= 2;
+        return false;
+    default:
+        break;
+    }
+    // Second check: Ni check.
+    if (!rs.CheckNi()) {
+        dt /= 2;
+        rs.ResetVal01();
+        cout << "Negative Ni occurs\n";
+        return false;
+    }
+    rs.CalFlashDeriv();
+    rs.CalKrPcDeriv();
+    rs.CalVpore();
+    rs.CalResFIM(res, dt);
+    CalMaxRes(rs);
+}
+
+
+bool OCP_FIM::FinishNR()
+{
+    if (maxRes < 1E-3 * maxRes0 || maxRes < 1E-3 || maxRelRes < 1E-3)
+        return true;
+}
+
+
+void OCP_FIM::CalMaxRes(const Reservoir& rs)
+{
+    maxRes = 0;
+    maxRelRes = 0;
+    OCP_USI num = res.size();
+
+    for (OCP_USI n = 0; n < num; n++) {
+        maxRes = max(res[n], maxRes);
+        maxRelRes = max(relRes[n], maxRelRes);
+    }
+}

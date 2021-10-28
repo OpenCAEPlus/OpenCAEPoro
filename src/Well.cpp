@@ -529,7 +529,7 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
                 bmat[(i + 1) * ncol + i + 1] = 1;
             }
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize] += bmat[i];
+                mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
             
             // OffDiag
@@ -537,7 +537,8 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
             bmat2.assign(bsize, 0);
             for (USI i = 0; i < nc; i++) {
-                Daxpy(ncol, 1, bmat.data() + (i + 1) * ncol, bmat2.data());
+                // Daxpy(ncol, 1, bmat.data() + (i + 1) * ncol, bmat2.data());
+                Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
             mySolver.colId[wId].push_back(k);
@@ -551,7 +552,7 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             }
             // Add
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize] += bmat[i];
+                mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
             // OffDiag
             bmat.assign(bsize, 0);
@@ -565,7 +566,7 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             break;
         }
     }
-    assert(mySolver.val[wId].size() == numPerf);
+    assert(mySolver.val[wId].size() == numPerf * bsize);
     // Well self
     mySolver.colId[wId].push_back(wId);
     mySolver.diagPtr[wId] = numPerf;
@@ -674,7 +675,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
                 bmat[(i + 1) * ncol + i + 1] = 1;
             }
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize] += bmat[i];
+                mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
 
             // OffDiag
@@ -682,7 +683,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
             bmat2.assign(bsize, 0);
             for (USI i = 0; i < nc; i++) {
-                Daxpy(ncol, 1, bmat.data() + (i + 1) * ncol, bmat2.data());
+                Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
             mySolver.colId[wId].push_back(k);
@@ -696,7 +697,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             }
             // Add
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize] += bmat[i];
+                mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
             // OffDiag
             bmat.assign(bsize, 0);
@@ -710,12 +711,17 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             break;
         }
     }
-    assert(mySolver.val[wId].size() == numPerf);
+    assert(mySolver.val[wId].size() == numPerf * bsize);
     // Well self
     mySolver.colId[wId].push_back(wId);
     mySolver.diagPtr[wId] = numPerf;
     mySolver.val[wId].insert(mySolver.val[wId].end(),
         mySolver.diagVal.data() + wId * bsize, mySolver.diagVal.data() + wId * bsize + bsize);
+
+    // test
+    //for (USI i = 0; i < bsize; i++) {
+    //    cout << mySolver.diagVal[wId * bsize + i] << endl;
+    //}
 
 }
 
@@ -750,6 +756,7 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
             for (USI i = 0; i < nc; i++) {
                 res[bId] += qi_lbmol[i];
             }
+            break;
         default:
             OCP_ABORT("Wrong well opt mode!");
             break;
@@ -760,7 +767,7 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
         switch (opt.optMode)
         {
         case BHP_MODE:
-            res[(myBulk.numBulk + wId) * len] = BHP - opt.minBHP;
+            res[bId] = BHP - opt.minBHP;
             break;
         case RATE_MODE:
         case ORATE_MODE:
@@ -771,6 +778,7 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
             for (USI i = 0; i < nc; i++) {
                 res[bId] += qi_lbmol[i] * opt.zi[i];
             }
+            break;
         default:
             OCP_ABORT("Wrong well opt mode!");
             break;

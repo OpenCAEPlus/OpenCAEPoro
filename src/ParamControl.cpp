@@ -91,7 +91,7 @@ void ParamControl::InputMETHOD(ifstream& ifs)
 
     if (vbuf[0] == "FIM") {
         method      = "FIM";
-        linearSolve = "./brs.dat";
+        linearSolve = "./bsr.dat";
     }
 
     if (vbuf.size() > 1) linearSolve = vbuf[1];

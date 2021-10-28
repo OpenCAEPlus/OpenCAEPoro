@@ -87,8 +87,8 @@ public:
     void FlashNiDeriv();
     /// when flash calculation finished, values in flash class should be passed to ones
     /// in bulk class.
-    void PassFlashValueIMPEC(const OCP_USI& n);
-    void PassFlashValueFIM(const OCP_USI& n);
+    void PassFlashValue(const OCP_USI& n);
+    void PassFlashValueDeriv(const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure with saturation.
     void CalKrPc();
     void CalKrPcDeriv();

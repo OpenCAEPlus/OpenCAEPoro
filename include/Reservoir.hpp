@@ -46,6 +46,7 @@ public:
     void InitFIM();
     /// Prepare for assembling matrix
     void Prepare(OCP_DBL& dt);
+    void PrepareWell() { wellgroup.PrepareWell(bulk); }
     /// Apply the control of ith critical time point.
     void ApplyControl(const USI& i) { wellgroup.ApplyControl(i); }
     /// Calcluate the CFL number, including bulks and wells.
@@ -59,11 +60,14 @@ public:
     /// Calculate mass conserve.
     void MassConseve(const OCP_DBL& dt) { conn.MassConserve(bulk, dt); wellgroup.MassConserve(bulk, dt); }
     /// Calculate Flash for IMPEC Method.
-    void CalFlashIMPEC() { bulk.FlashNi(); }
+    void CalFlash() { bulk.FlashNi(); }
+    /// Calculate Flash for IMPEC Method.
+    void CalFlashDeriv() { bulk.FlashNiDeriv(); }
     /// Calculate pore of bulks.
     void CalVpore() { bulk.CalVpore(); }
     /// Calculate relative permeability and capillary.
     void CalKrPc() { bulk.CalKrPc(); }
+    void CalKrPcDeriv() { bulk.CalKrPcDeriv(); }
     /// Calculate IPRT.
     void CalIPRT(const OCP_DBL& dt) { wellgroup.CalIPRT(bulk, dt); }
     /// Calculate maximum change
@@ -86,6 +90,9 @@ public:
     void GetSolution_IMPEC(const vector<OCP_DBL>& u);
     void GetSolution_FIM(const vector<OCP_DBL>& u);
     void CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt);
+    OCP_USI GetBulkNum()const { return bulk.GetBulkNum(); }
+    USI GetWellNum()const { return wellgroup.GetWellNum(); }
+    USI GetComNum()const { return bulk.GetComNum(); }
     /// check if abnormal pressure occurs including pressure in bulks, wells,
     /// perforations. if so, take corresponding measures and then resolve the linear
     /// equations.
