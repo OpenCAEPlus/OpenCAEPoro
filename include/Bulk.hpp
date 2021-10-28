@@ -56,6 +56,8 @@ class Bulk
     friend class Well;
     friend class DetailInfo;
 
+    friend class OCPMethod;
+
 public:
     Bulk() = default;
 
@@ -167,12 +169,13 @@ private:
     vector<OCP_DBL> xi;         ///< moles density of phase: numPhase*numBulk.
     vector<OCP_DBL> cij; ///< Nij / Nj: numPhase*numCom*numBulk. Nij is the moles of
                          ///< component i in phase j, Nj is the moles of phase j.
-    vector<OCP_DBL> Ni;  ///< moles of component: numCom*numBulk.
-    vector<OCP_DBL> mu;  ///< viscosity of phase: numPhase*numBulk.
-    vector<OCP_DBL> kr;  ///< relative permeability of phase: numPhase*numBulk.
+    vector<OCP_DBL> Ni;  ///< Moles of component: numCom*numBulk.
+    vector<OCP_DBL> mu;  ///< Viscosity of phase: numPhase*numBulk.
+    vector<OCP_DBL> kr;  ///< Relative permeability of phase: numPhase*numBulk.
 
-    vector<OCP_DBL> vj;  ///< volume of phase: numPhase*numBulk.
-    vector<OCP_DBL> vf;  ///< total fluid volume: numBulk.
+    vector<OCP_DBL> vj;  ///< Volume of phase: numPhase*numBulk.
+    vector<OCP_DBL> vf;  ///< Total fluid volume: numBulk.
+    vector<OCP_DBL> Nt;  ///< Total moles of components in bulks: numBulk.
     // Derivatives
     // For IMPEC
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom*numBulk.

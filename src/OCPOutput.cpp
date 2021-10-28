@@ -358,7 +358,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
     cout << "Summary::Setup" << endl;
 }
 
-void Summary::SetVal(const Reservoir& rs, const OCP_Control& ctrl)
+void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
     USI n = 0;
 
@@ -559,7 +559,7 @@ void CriticalInfo::Setup(const OCP_DBL& totalTime)
     cfl.reserve(rc);
 }
 
-void CriticalInfo::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
+void CriticalInfo::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     time.push_back(ctrl.GetCurTime());
     dt.push_back(ctrl.GetLastCurDt());
@@ -669,13 +669,13 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     outF.close();
 }
 
-void OCP_Output::InputParam(const ParamOutput& paramOutput)
+void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
     summary.InputParam(paramOutput.summary);
     dtlInfo.InputParam(paramOutput.detailInfo);
 }
 
-void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
+void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     wordDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
@@ -683,19 +683,19 @@ void OCP_Output::Setup(const Reservoir& reservoir, const OCP_Control& ctrl)
     dtlInfo.Setup(wordDir);
 }
 
-void OCP_Output::SetVal(const Reservoir& reservoir, const OCP_Control& ctrl)
+void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     summary.SetVal(reservoir, ctrl);
     crtInfo.SetVal(reservoir, ctrl);
 }
 
-void OCP_Output::PrintInfo() const
+void OCPOutput::PrintInfo() const
 {
     summary.PrintInfo(wordDir);
     crtInfo.PrintInfo(wordDir);
 }
 
-void OCP_Output::PrintInfoSched(const Reservoir& rs, const OCP_Control& ctrl, const OCP_DBL& time) const
+void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl, const OCP_DBL& time) const
 {   
     OCP_DBL days = ctrl.current_time;
     cout << fixed << setprecision(3) << days << " Days\t";

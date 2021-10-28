@@ -22,11 +22,11 @@ public:
     /// Initialize the reservoir.
     void InitReservoir(Reservoir& rs) const;
     /// Start simulation.
-    void RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output);
+    void RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output);
     /// Run one time step.
-    void GoOneStep(Reservoir& rs, OCP_Control& ctrl);
+    void GoOneStep(Reservoir& rs, OCPControl& ctrl);
     /// Setup Mehod
-    void SetupMethod(const Reservoir& rs, const OCP_Control& ctrl);
+    void SetupMethod(const Reservoir& rs, const OCPControl& ctrl);
     /// Allocate memory for linear system.
     void AllocateMat(const Reservoir& rs);
     /// Setup linear solver params.
@@ -36,13 +36,13 @@ private:
     /// Before solve: prepare for assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble and Solve: assemble linear system parts together then solve.
-    void AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt);
+    void AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt);
     /// Update reservoir properties after solving for primary variables.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
     /// Determine if Newton iteration is finished.
     bool FinishNR();
     /// Finish current time step.
-    void FinishStep(Reservoir& rs, OCP_Control& ctrl);
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
     FluidSolver  FSolver;

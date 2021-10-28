@@ -37,6 +37,9 @@ public:
         : BId(bId)
         , EId(eId){};
 
+    OCP_USI GetBId()const { return BId; }
+    OCP_USI GetEId()const { return EId; }
+
 private:
     OCP_USI BId;
     OCP_USI EId;
@@ -50,6 +53,8 @@ private:
 class BulkConn
 {
     friend class LinearSolver;
+
+    friend class OCPMethod;
 
 public:
     BulkConn() = default;

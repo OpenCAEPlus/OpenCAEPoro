@@ -30,10 +30,12 @@
 class Reservoir
 {
     friend class OpenCAEPoro;
-    friend class OCP_Control;
+    friend class OCPControl;
     friend class Summary;
     friend class CriticalInfo;
     friend class DetailInfo;
+
+    friend class OCPMethod;
 
 public:
     /// Input param from internal param data structure, which stores the params from

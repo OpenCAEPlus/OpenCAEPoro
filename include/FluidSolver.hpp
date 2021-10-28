@@ -27,7 +27,7 @@ public:
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
+    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
@@ -52,7 +52,7 @@ public:
                      const OCP_DBL& dt) const;
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl);
+    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
@@ -79,16 +79,16 @@ public:
     /// Assemble Mat.
     void AssembleMat(const Reservoir& rs, const OCP_DBL& dt);
     /// Solve the linear system in single problem.
-    void SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl);
+    void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluid.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
     /// Determine if NR iteration finishes.
     bool FinishNR();
     /// Finish current time step.
-    void FinishStep(Reservoir& rs, OCP_Control& ctrl);
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
     /// Setup Method
-    void SetupMethod(const Reservoir& rs, const OCP_Control& ctrl);
+    void SetupMethod(const Reservoir& rs, const OCPControl& ctrl);
 
     /// Allocate Mat
     void AllocateMat(const Reservoir& rs);

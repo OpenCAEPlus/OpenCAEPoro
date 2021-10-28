@@ -5,13 +5,13 @@ void LinearSolver::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
     blockSize = nb * nb;
     blockDim  = nb;
     maxDim    = dimMax;
-    rowCapacity.resize(maxDim, 0);
+    rowCapacity.resize(maxDim);
     colId.resize(maxDim);
     val.resize(maxDim);
-    diagPtr.resize(maxDim, 0);
-    diagVal.resize(maxDim * blockSize, 0);
-    b.resize(maxDim * blockDim, 0);
-    u.resize(maxDim * blockDim, 0);
+    diagPtr.resize(maxDim);
+    diagVal.resize(maxDim * blockSize);
+    b.resize(maxDim * blockDim);
+    u.resize(maxDim * blockDim);
 }
 
 void LinearSolver::AllocateColMem()

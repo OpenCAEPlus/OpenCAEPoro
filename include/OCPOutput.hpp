@@ -92,7 +92,7 @@ class Summary
 public:
     void InputParam(const OutputSummary& summary_param);
     void Setup(const Reservoir& reservoir, const OCP_DBL& totalTime);
-    void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+    void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
     void PrintInfo(const string& dir) const;
 
 private:
@@ -135,7 +135,7 @@ class CriticalInfo
 {
 public:
     void Setup(const OCP_DBL& totalTime);
-    void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+    void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
     void PrintInfo(const string& dir) const;
 
 private:
@@ -168,22 +168,22 @@ private:
     bool DENW{false}; ///< Water density saturation of grids.
 };
 
-/// OCP_Output manages different kinds of ways to output. the most commonly used is
+/// OCPOutput manages different kinds of ways to output. the most commonly used is
 /// summary file. which usually give the information of bulks and wells in each
 /// timestep, such as average bulks pressure, oil production rate of wells. if other
 /// information at critical time is interested in, you can chose the PRT file(to do).
 /// also, some infomation will be printed on the screen at the critical time to make
 /// sure the program is at the right way.
-class OCP_Output
+class OCPOutput
 {
     friend class OpenCAEPoro;
 
 public:
     void InputParam(const ParamOutput& paramOutput);
-    void Setup(const Reservoir& reservoir, const OCP_Control& ctrl);
-    void SetVal(const Reservoir& reservoir, const OCP_Control& ctrl);
+    void Setup(const Reservoir& reservoir, const OCPControl& ctrl);
+    void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
     void PrintInfo() const;
-    void PrintInfoSched(const Reservoir& rs, const OCP_Control& ctrl, const OCP_DBL& time) const;
+    void PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl, const OCP_DBL& time) const;
 
 private:
     string       wordDir;

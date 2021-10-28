@@ -61,10 +61,10 @@ private:
     Solver solver;
 
     /// Control class handles algorithm params and time steping.
-    OCP_Control control;
+    OCPControl control;
 
     /// Output class handles output level of the program.
-    OCP_Output output;
+    OCPOutput output;
 };
 
 #endif /* end if __OCP_HEADER__ */

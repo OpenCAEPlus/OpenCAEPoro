@@ -32,7 +32,7 @@ void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
 }
 
 
-void FluidSolver::SolveLinearSystem(Reservoir& rs, OCP_Control& ctrl)
+void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -75,7 +75,7 @@ bool FluidSolver::FinishNR()
 }
 
 
-void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
+void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
@@ -85,7 +85,7 @@ void FluidSolver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
 }
 
 
-void FluidSolver::SetupMethod(const Reservoir& rs, const OCP_Control& ctrl)
+void FluidSolver::SetupMethod(const Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
     switch (method)
@@ -151,7 +151,7 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt) { rs.Prepare(dt); }
 
 
 void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
-                                  OCP_Control& ctrl)
+                                  OCPControl& ctrl)
 {
 #ifdef DEBUG
     solver.CheckVal();
@@ -179,7 +179,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
 }
 
 
-void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCP_Control& ctrl)
+void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl)
 {
 #ifdef DEBUG
     solver.CheckVal();

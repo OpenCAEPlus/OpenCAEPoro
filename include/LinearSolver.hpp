@@ -54,6 +54,8 @@ class LinearSolver
     friend class BulkConn;
     friend class Well;
 
+    friend class OCPMethod;
+
 public:
     /// Allocate memory for linear system where possible maximum numbers of row are
     /// used.

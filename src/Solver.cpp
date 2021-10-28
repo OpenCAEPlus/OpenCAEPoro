@@ -20,7 +20,7 @@ void Solver::InitReservoir(Reservoir& rs) const
 }
 
 /// Simulation will go through all time steps and call GoOneStep at each step.
-void Solver::RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
+void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
 {
     GetWallTime timer;
     timer.Start();
@@ -43,11 +43,11 @@ void Solver::RunSimulation(Reservoir& rs, OCP_Control& ctrl, OCP_Output& output)
 }
 
 /// This is one time step of dynamic simulation in an abstract setting.
-void Solver::GoOneStep(Reservoir& rs, OCP_Control& ctrl)
+void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-    cout << ctrl.GetCurTime() << "  Days\n";
+    // cout << ctrl.GetCurTime() << "  Days\n";
     // Prepare for time marching
     Prepare(rs, dt);
 
@@ -71,7 +71,7 @@ void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-void Solver::SetupMethod(const Reservoir& rs, const OCP_Control& ctrl)
+void Solver::SetupMethod(const Reservoir& rs, const OCPControl& ctrl)
 {
     FSolver.SetupMethod(rs, ctrl);
 }
@@ -86,7 +86,7 @@ void Solver::SetupParamLS(const string& dir, const string& file)
 }
 
 /// Assemble linear system and then solve it.
-void Solver::AssembleSolve(Reservoir& rs, OCP_Control& ctrl, const OCP_DBL& dt)
+void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt)
 {
     // Assemble linear system
     FSolver.AssembleMat(rs, dt);
@@ -109,7 +109,7 @@ bool Solver::FinishNR()
 }
 
 /// Clean up time step.
-void Solver::FinishStep(Reservoir& rs, OCP_Control& ctrl)
+void Solver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     // Clean up the fluid part
     FSolver.FinishStep(rs, ctrl);

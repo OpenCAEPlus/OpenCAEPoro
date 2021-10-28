@@ -32,6 +32,7 @@ using namespace std;
 class WellOpt
 {
     friend class Well;
+    friend class OCPMethod;
 
 public:
     /// Default constructor.
@@ -76,6 +77,7 @@ private:
 class Well
 {
     friend class WellGroup;
+    friend class OCPMethod;
 
 public:
     Well() = default;

@@ -148,9 +148,9 @@ void Bulk::Setup(const Grid& myGrid)
         muP.resize(numBulk * numPhase);
         xiP.resize(numBulk * numPhase);
         rhoP.resize(numBulk * numPhase);
-        muC.resize(numBulk * numPhase * numPhase);
-        xiC.resize(numBulk * numPhase * numPhase);
-        rhoC.resize(numBulk * numPhase * numPhase);
+        muC.resize(numBulk * numCom * numPhase);
+        xiC.resize(numBulk * numCom * numPhase);
+        rhoC.resize(numBulk * numCom * numPhase);
         dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
         dKr_dS.resize(numBulk * numPhase * numPhase);
         dPcj_dS.resize(numBulk * numPhase * numPhase);

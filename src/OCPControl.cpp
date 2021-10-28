@@ -46,7 +46,7 @@ ControlIter::ControlIter(const vector<OCP_DBL>& src)
     if (dpre_M < 0) dpre_M = dPreNT_M;
 }
 
-void OCP_Control::InputParam(const ParamControl& CtrlParam)
+void OCPControl::InputParam(const ParamControl& CtrlParam)
 {
     workDir = CtrlParam.dir;
     if (CtrlParam.method == "IMPEC") {
@@ -56,7 +56,7 @@ void OCP_Control::InputParam(const ParamControl& CtrlParam)
     } else {
         OCP_ABORT("Wrong method specified!");
     }
-    solveFile    = CtrlParam.linearSolve;
+    lsFile = CtrlParam.linearSolve;
     criticalTime = CtrlParam.criticalTime;
 
     USI t = CtrlParam.criticalTime.size();
@@ -78,10 +78,10 @@ void OCP_Control::InputParam(const ParamControl& CtrlParam)
         }
     }
 
-    cout << "OCP_Control::input" << endl;
+    cout << "OCPControl::input" << endl;
 }
 
-void OCP_Control::ApplyControl(const USI& i)
+void OCPControl::ApplyControl(const USI& i)
 {
     ctrlTime  = ctrlTimeSet[i];
     ctrlError = ctrlErrorSet[i];
@@ -89,14 +89,14 @@ void OCP_Control::ApplyControl(const USI& i)
     end_time  = criticalTime[i + 1];
 }
 
-void OCP_Control::InitTime(const USI& i)
+void OCPControl::InitTime(const USI& i)
 {
     OCP_DBL dt = criticalTime[i + 1] - current_time;
     if (dt < 0) OCP_ABORT("Negative time stepsize!");
     current_dt = min(dt, ctrlTime.timeInit);
 }
 
-void OCP_Control::CalNextTstep(const Reservoir& reservoir)
+void OCPControl::CalNextTstep(const Reservoir& reservoir)
 {
     lcurrent_dt = current_dt;
 
@@ -130,7 +130,7 @@ void OCP_Control::CalNextTstep(const Reservoir& reservoir)
     if (current_dt > dt) current_dt = dt;
 }
 
-void OCP_Control::UpdateIters()
+void OCPControl::UpdateIters()
 {
     tstep += 1;
     iterNR = 1;

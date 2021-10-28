@@ -78,12 +78,14 @@ public:
 
 /// All control parameters except for well controlers.
 //  Note: Which discrete method will be used is determined here!
-class OCP_Control
+class OCPControl
 {
     friend class OpenCAEPoro;
-    friend class OCP_IMPEC;
-    friend class OCP_Output;
+    friend class OCPOutput;
     friend class DetailInfo;
+
+    friend class OCPMethod;
+    friend class OCP_IMPEC;
 
 public:
     /// Input parameters for control.
@@ -132,7 +134,7 @@ public:
 private: // TODO: Add doxygen!
     USI             method;
     string          workDir;
-    string          solveFile;
+    string          lsFile;
     vector<OCP_DBL> criticalTime;
     OCP_DBL         current_dt;
     OCP_DBL         lcurrent_dt;

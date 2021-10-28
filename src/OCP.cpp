@@ -38,7 +38,7 @@ void OpenCAEPoro::SetupSolver()
     // Setup Method
     solver.SetupMethod(reservoir, control);
     // Setup Linear Solver
-    solver.SetupParamLS(control.workDir, control.solveFile);
+    solver.SetupParamLS(control.workDir, control.lsFile);
     solver.AllocateMat(reservoir);
 }
 
