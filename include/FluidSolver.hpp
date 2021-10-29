@@ -23,6 +23,9 @@
 class OCP_IMPEC
 {
 public:
+
+    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
+
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
@@ -42,7 +45,7 @@ class OCP_FIM
 public:
 
     /// Setup FIM
-    void Setup(const Reservoir& rs);
+    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
@@ -88,7 +91,7 @@ public:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
     /// Setup Method
-    void SetupMethod(const Reservoir& rs, const OCPControl& ctrl);
+    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
 
     /// Allocate Mat
     void AllocateMat(const Reservoir& rs);

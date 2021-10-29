@@ -457,11 +457,12 @@ void OCPMethod::AllocateLsFIM(LinearSolver& ls, const Reservoir& rs)
 }
 
 
-void OCPMethod::AssembleMatFIM(LinearSolver& ls, const Reservoir& rs, const OCP_DBL& dt)
+void OCPMethod::AssembleLsFIM(LinearSolver& ls, const Reservoir& rs, const OCP_DBL& dt)
 {
 	InitMatSparsity(ls, rs.conn);
 	AssembleMatConnFIM(ls, rs.conn, rs.bulk, dt);
 	AssembleMatWellFIM(ls, rs.wellgroup, rs.bulk, dt);
+	ls.AssembleRhs_BFasp(resFIM);
 }
 
 

@@ -140,21 +140,7 @@ void Bulk::Setup(const Grid& myGrid)
     kr.resize(numBulk * numPhase);
     vj.resize(numBulk * numPhase);
     vf.resize(numBulk);
-    // IMPEC
-    vfi.resize(numBulk * numCom); // FIM also
-    vfp.resize(numBulk);
-    // FIM
-    if (true) {
-        muP.resize(numBulk * numPhase);
-        xiP.resize(numBulk * numPhase);
-        rhoP.resize(numBulk * numPhase);
-        muC.resize(numBulk * numCom * numPhase);
-        xiC.resize(numBulk * numCom * numPhase);
-        rhoC.resize(numBulk * numCom * numPhase);
-        dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
-        dKr_dS.resize(numBulk * numPhase * numPhase);
-        dPcj_dS.resize(numBulk * numPhase * numPhase);
-    }
+
 
     lP.resize(numBulk);
     lPj.resize(numBulk * numPhase);
@@ -169,11 +155,9 @@ void Bulk::Setup(const Grid& myGrid)
     lkr.resize(numBulk * numPhase);
     lvj.resize(numBulk * numPhase);
     lvf.resize(numBulk);
-    lvfi.resize(numBulk * numCom);
-    lvfp.resize(numBulk);
     rockLVp.resize(numBulk);
 
-    cfl.resize(numBulk * numPhase);
+    
 
     phase2Index.resize(3);
 
@@ -225,6 +209,31 @@ void Bulk::Setup(const Grid& myGrid)
         }
     }
 }
+
+void Bulk::AllocateRsIMPEC()
+{
+    vfi.resize(numBulk * numCom);
+    vfp.resize(numBulk);
+    lvfi.resize(numBulk * numCom);
+    lvfp.resize(numBulk);
+    cfl.resize(numBulk * numPhase);
+}
+
+
+void Bulk::AllocateRsFIM()
+{
+    muP.resize(numBulk * numPhase);
+    xiP.resize(numBulk * numPhase);
+    rhoP.resize(numBulk * numPhase);
+    muC.resize(numBulk * numCom * numPhase);
+    xiC.resize(numBulk * numCom * numPhase);
+    rhoC.resize(numBulk * numCom * numPhase);
+    dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    dKr_dS.resize(numBulk * numPhase * numPhase);
+    dPcj_dS.resize(numBulk * numPhase * numPhase);
+}
+
+
 
 void Bulk::InitSjPcBlk(const USI& tabrow)
 {

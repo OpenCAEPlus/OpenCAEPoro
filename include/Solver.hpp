@@ -19,20 +19,20 @@
 class Solver
 {
 public:
+    /// Setup Solver
+    void Setup(Reservoir& rs, const OCPControl& ctrl);
     /// Initialize the reservoir.
     void InitReservoir(Reservoir& rs) const;
     /// Start simulation.
     void RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output);
+
+
+private:
+
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCPControl& ctrl);
     /// Setup Mehod
-    void SetupMethod(const Reservoir& rs, const OCPControl& ctrl);
-    /// Allocate memory for linear system.
-    void AllocateMat(const Reservoir& rs);
-    /// Setup linear solver params.
-    void SetupParamLS(const string& dir, const string& file);
-
-private:
+    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     /// Before solve: prepare for assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble and Solve: assemble linear system parts together then solve.

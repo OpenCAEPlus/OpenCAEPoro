@@ -36,18 +36,22 @@ public:
 	void AssembleLsINJWellIMPEC(LinearSolver& ls, const Well& well, const Bulk& bulk, const OCP_DBL& dt);
 	void AssembleLsPRODWellIMPEC(LinearSolver& ls, const Well& well, const Bulk& bulk, const OCP_DBL& dt);
 
-	//// FIM
+	// FIM
 	void SetupFIM(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
 	void AllocateRsFIM(Reservoir& rs);
 	void SetupLsFIM(LinearSolver& ls, const Reservoir& rs, const OCPControl& ctrl);
 	void AllocateLsFIM(LinearSolver& ls, const Reservoir& rs);
-	void AssembleMatFIM(LinearSolver& ls, const Reservoir& rs, const OCP_DBL& dt);
+	void AssembleLsFIM(LinearSolver& ls, const Reservoir& rs, const OCP_DBL& dt);
 	void AssembleMatConnFIM(LinearSolver& ls, const BulkConn& conn, const Bulk& bulk, const OCP_DBL& dt);
 	void AssembleMatWellFIM(LinearSolver& ls, const WellGroup& wellG, const Bulk& bulk, const OCP_DBL& dt);
 	void AssembleMatINJWellFIM(LinearSolver& ls, const Well& well, const Bulk& bulk, const OCP_DBL& dt);
 	void AssembleMatPRODWellFIM(LinearSolver& ls, const Well& well, const Bulk& bulk, const OCP_DBL& dt);
 
 	virtual ~OCPMethod() = 0;
+	
+	// Variable
+	// FIM
+	vector<OCP_DBL> resFIM;
 };
 
 

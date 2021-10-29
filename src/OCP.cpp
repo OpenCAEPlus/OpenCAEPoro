@@ -29,18 +29,9 @@ void OpenCAEPoro::SetupSimulator(ParamRead& param)
     // Setup output for dynamic simulation
     output.Setup(reservoir, control);
     // Setup static information for solver
-    SetupSolver();
+    solver.Setup(reservoir, control);
 }
 
-/// Call SetupParm and AllocateMat to prepare the linear solver
-void OpenCAEPoro::SetupSolver()
-{
-    // Setup Method
-    solver.SetupMethod(reservoir, control);
-    // Setup Linear Solver
-    solver.SetupParamLS(control.workDir, control.lsFile);
-    solver.AllocateMat(reservoir);
-}
 
 /// Initialize the reservoir class.
 void OpenCAEPoro::InitReservoir() { solver.InitReservoir(reservoir); }

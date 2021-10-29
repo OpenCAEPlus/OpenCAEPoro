@@ -131,6 +131,9 @@ public:
         return ((criticalTime[d] - current_time) < TINY);
     }
 
+    string GetWorkDir() const { return workDir; }
+    string GetLsFile() const { return lsFile; }
+
 private: // TODO: Add doxygen!
     USI             method;
     string          workDir;

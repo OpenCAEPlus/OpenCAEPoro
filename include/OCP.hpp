@@ -49,9 +49,6 @@ public:
     /// Output necessary information for post-processing.
     void OutputResults() const;
 
-private:
-    /// Setup linear solution method.
-    void SetupSolver();
 
 private:
     /// The core properties of a reservoir.

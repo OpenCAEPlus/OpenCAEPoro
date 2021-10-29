@@ -12,6 +12,12 @@
 // OpenCAEPoro header files
 #include "Solver.hpp"
 
+
+void Solver::Setup(Reservoir& rs, const OCPControl& ctrl)
+{
+    SetupMethod(rs, ctrl);
+}
+
 /// Initialize the reservoir setting for different solution methods.
 void Solver::InitReservoir(Reservoir& rs) const
 {
@@ -71,19 +77,11 @@ void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-void Solver::SetupMethod(const Reservoir& rs, const OCPControl& ctrl)
+void Solver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     FSolver.SetupMethod(rs, ctrl);
 }
 
-
-void Solver::AllocateMat(const Reservoir& rs) { FSolver.AllocateMat(rs); }
-
-/// Get linear solver params from a disk file.
-void Solver::SetupParamLS(const string& dir, const string& file)
-{
-    FSolver.SetupParamLS(dir, file);
-}
 
 /// Assemble linear system and then solve it.
 void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt)

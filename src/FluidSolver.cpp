@@ -85,15 +85,16 @@ void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 }
 
 
-void FluidSolver::SetupMethod(const Reservoir& rs, const OCPControl& ctrl)
+void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
     switch (method)
     {
     case IMPEC:
+        impec.Setup(rs, FLSolver, ctrl);
         break;
     case FIM:
-        fim.Setup(rs);
+        fim.Setup(rs, FLSolver, ctrl);
         break;
     default:
         OCP_ABORT("Wrong Method!");
@@ -144,6 +145,14 @@ void FluidSolver::InitReservoir(Reservoir& rs) const
         default:
             OCP_ABORT("Wrong method!");
     }
+}
+
+void OCP_IMPEC::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
+{
+    // Allocate Memory
+    rs.AllocateRsIMPEC();
+    ls.SetupParam(ctrl.GetWorkDir(), ctrl.GetLsFile());
+    rs.AllocateMatIMPEC(ls);
 }
 
 
@@ -265,8 +274,12 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-void OCP_FIM::Setup(const Reservoir& rs)
+void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
+    // Allocate Memory
+    rs.AllocateRsFIM();
+    ls.SetupParamB(ctrl.GetWorkDir(), ctrl.GetLsFile());
+    rs.AllocateMatFIM(ls);
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
     res.resize(num, 0);
     relRes.resize(num, 0);
