@@ -13,14 +13,7 @@
 #define __FLUIDSOLVER_HEADER__
 
 // OpenCAEPoro header files
-#include "LinearSolver.hpp"
-#include "OCPControl.hpp"
-#include "OCPOutput.hpp"
-#include "Reservoir.hpp"
 #include "OCPFluidMethod.hpp"
-#include "UtilTiming.hpp"
-
-
 
 class FluidSolver
 {

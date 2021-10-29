@@ -11,7 +11,7 @@
 
 // OpenCAEPoro header files
 #include "FluidSolver.hpp"
-#include "LinearSolver.hpp"
+#include "OCPOutput.hpp"
 
 #ifndef __SOLVER_HEADER__
 #define __SOLVER_HEADER__
