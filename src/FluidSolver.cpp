@@ -1,6 +1,38 @@
 #include "FluidSolver.hpp"
 
-// FluidSolver
+
+void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
+{
+    method = ctrl.GetMethod();
+    switch (method)
+    {
+    case IMPEC:
+        impec.Setup(rs, FLSolver, ctrl);
+        break;
+    case FIM:
+        fim.Setup(rs, FLSolver, ctrl);
+        break;
+    default:
+        OCP_ABORT("Wrong Method!");
+        break;
+    }
+}
+
+
+void FluidSolver::InitReservoir(Reservoir& rs) const
+{
+    switch (method) {
+    case IMPEC:
+        rs.InitIMPEC();
+        break;
+    case FIM:
+        rs.InitFIM();
+        break;
+    default:
+        OCP_ABORT("Wrong method!");
+    }
+}
+
 
 void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
@@ -47,16 +79,19 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
 }
 
 
+
+
+
 bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     switch (method) {
-        case IMPEC:
-            return impec.UpdateProperty(rs, dt);
-        case FIM:
-            return fim.UpdateProperty(rs, dt);
-            break;
-        default:
-            OCP_ABORT("Wrong method!");
+    case IMPEC:
+        return impec.UpdateProperty(rs, dt);
+    case FIM:
+        return fim.UpdateProperty(rs, dt);
+        break;
+    default:
+        OCP_ABORT("Wrong method!");
     }
 }
 
@@ -64,13 +99,13 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 bool FluidSolver::FinishNR()
 {
     switch (method) {
-        case IMPEC:
-            return impec.FinishNR();
-        case FIM:
-            return fim.FinishNR();
-            break;
-        default:
-            OCP_ABORT("Wrong method!");
+    case IMPEC:
+        return impec.FinishNR();
+    case FIM:
+        return fim.FinishNR();
+        break;
+    default:
+        OCP_ABORT("Wrong method!");
     }
 }
 
@@ -83,38 +118,3 @@ void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.CalNextTstep(rs);
     ctrl.UpdateIters();
 }
-
-
-void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
-{
-    method = ctrl.GetMethod();
-    switch (method)
-    {
-    case IMPEC:
-        impec.Setup(rs, FLSolver, ctrl);
-        break;
-    case FIM:
-        fim.Setup(rs, FLSolver, ctrl);
-        break;
-    default:
-        OCP_ABORT("Wrong Method!");
-        break;
-    }
-}
-
-
-
-void FluidSolver::InitReservoir(Reservoir& rs) const
-{
-    switch (method) {
-        case IMPEC:
-            rs.InitIMPEC();
-            break;
-        case FIM:
-            rs.InitFIM();
-            break;
-        default:
-            OCP_ABORT("Wrong method!");
-    }
-}
-

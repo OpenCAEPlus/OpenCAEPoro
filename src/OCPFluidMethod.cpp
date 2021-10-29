@@ -49,38 +49,6 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
 }
 
 
-void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl)
-{
-#ifdef DEBUG
-    solver.CheckVal();
-#endif // DEBUG
-
-#ifdef __SOLVER_FASP__
-
-    lsolver.AssembleMat_BFasp();
-
-#ifdef DEBUG
-    lsolver.PrintfMatCSR("testA.out", "testb.out");
-#endif // DEBUG
-
-    GetWallTime Timer;
-    Timer.Start();
-    int status = lsolver.BFaspSolve();
-
-#ifdef DEBUG
-    lsolver.PrintfSolution("testx.out");
-#endif // DEBUG
-
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
-    ctrl.UpdateIterLS(status);
-
-#endif // __SOLVER_FASP__
-
-    rs.GetSolution_FIM(lsolver.GetSolution());
-    lsolver.ClearData();
-}
-
-
 bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     // first check : Pressure check
@@ -144,14 +112,14 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
     // For Block Fasp
     ls.AllocateBFasp();
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-
+    res.resize(num);
 }
 
 
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResFIM(res.res, dt);
+    rs.CalResFIM(res, dt);
 }
 
 
@@ -159,7 +127,39 @@ void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
     const OCP_DBL& dt) const
 {
     rs.AssembleMatFIM(lsolver, dt);
-    lsolver.AssembleRhs_BFasp(res.res);
+    lsolver.AssembleRhs_BFasp(res);
+}
+
+
+void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl)
+{
+#ifdef DEBUG
+    solver.CheckVal();
+#endif // DEBUG
+
+#ifdef __SOLVER_FASP__
+
+    lsolver.AssembleMat_BFasp();
+
+#ifdef DEBUG
+    lsolver.PrintfMatCSR("testA.out", "testb.out");
+#endif // DEBUG
+
+    GetWallTime Timer;
+    Timer.Start();
+    int status = lsolver.BFaspSolve();
+
+#ifdef DEBUG
+    lsolver.PrintfSolution("testx.out");
+#endif // DEBUG
+
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.UpdateIterLS(status);
+
+#endif // __SOLVER_FASP__
+
+    rs.GetSolution_FIM(lsolver.GetSolution());
+    lsolver.ClearData();
 }
 
 
@@ -190,7 +190,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     rs.CalFlashDeriv();
     rs.CalKrPcDeriv();
     rs.CalVpore();
-    rs.CalResFIM(res.res, dt);
+    rs.CalResFIM(res, dt);
 }
 
 

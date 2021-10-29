@@ -60,35 +60,22 @@ void Reservoir::InitFIM()
 }
 
 
-
-
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
     OCP_DBL cflB = conn.CalCFL(bulk, dt);
     OCP_DBL cflW = wellgroup.CalCFL(bulk, dt);
-
-
-    // cout << dt << "Days\t" << cflB << "\t" << cflW << endl;
 
     cfl = max(cflB, cflW);
 
     return cfl;
 }
 
+
 OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt) 
 {
     bulk.InitCFL();
-    
     conn.CalCFL01(bulk, dt);
-
-    //if (cfl > 1) {
-    //    cout << "bkCFL:\t" << bulk.cfl[2686] << "\t";
-    //}
     wellgroup.CalCFL01(bulk, dt);
-
-    //if (cfl > 1) {
-    //    cout << "wellCFL:\t" << bulk.cfl[2686] << endl;
-    //}
     cfl = bulk.CalCFL(false);
 
     return cfl;
@@ -103,6 +90,7 @@ void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const
     wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
     mySolver.AllocateColMem();
 }
+
 
 void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const
 {
@@ -128,6 +116,7 @@ void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const
     wellgroup.AssemblaMat_WB_FIM(mysolver, bulk, dt);
 }
 
+
 void Reservoir::GetSolution_IMPEC(const vector<OCP_DBL>& u)
 {
     bulk.GetSolIMPEC(u);
@@ -140,6 +129,7 @@ void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
     bulk.GetSolFIM(u);
     wellgroup.GetSol_FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
+
 
 void Reservoir::CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt)
 {
@@ -166,6 +156,7 @@ void Reservoir::ResetVal()
     conn.Reset();
 }
 
+
 void Reservoir::ResetVal01()
 {
     bulk.ResetP();
@@ -173,6 +164,7 @@ void Reservoir::ResetVal01()
     bulk.ResetNi();
     conn.Reset();
 }
+
 
 void Reservoir::ResetVal02()
 {
@@ -183,14 +175,8 @@ void Reservoir::ResetVal02()
     bulk.ResetVp();
     conn.Reset();
 
-    // bulk.FlashNi();
-    // bulk.CheckDiff();
-
-    // conn.CalFlux(bulk);
-    // conn.CheckDiff();
     // Becareful! if recalculate the flash, result may be different because the initial
     // flash was calculated by FlashSj not FlashNi.
-     
 }
 
 /*----------------------------------------------------------------------------*/

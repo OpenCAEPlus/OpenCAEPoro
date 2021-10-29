@@ -18,6 +18,10 @@
 class FluidSolver
 {
 public:
+    /// Setup Method
+    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
+    /// Initialize the Reservoir and prepare variables for some method.
+    void InitReservoir(Reservoir& rs) const;
     /// Prepare for assembling Mat.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble Mat.
@@ -30,11 +34,7 @@ public:
     bool FinishNR();
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
-    /// Setup Method
-    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
-    /// Initialize the Reservoir and prepare variables for some method.
-    void InitReservoir(Reservoir& rs) const;
-
+    
 private:
     USI          method = FIM;
     LinearSolver FLSolver;

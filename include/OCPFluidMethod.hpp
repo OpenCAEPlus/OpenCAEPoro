@@ -39,12 +39,6 @@ public:
     bool FinishNR() { return true; }
 };
 
-class ResFIM
-{
-public:
-    vector<OCP_DBL>  res;
-};
-
 
 
 /// OCP_FIM is FIM (Fully Implicit Method).
@@ -74,9 +68,11 @@ public:
 
 private:
     /// Resiual for FIM
-    ResFIM          res;
+    vector<OCP_DBL>          res;
+    OCP_DBL                  maxRes0;
+    OCP_DBL                  maxRes;
+    OCP_DBL                  maxRelRes;
 };
-
 
 
 

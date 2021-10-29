@@ -222,6 +222,7 @@ void Bulk::AllocateBulkIMPEC()
 
 void Bulk::AllocateBulkFIM()
 {
+    Nt.resize(numBulk);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
     muP.resize(numBulk * numPhase);
@@ -1094,17 +1095,23 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     }
 }
 
+
 void Bulk::FlashNiDeriv()
 {
     dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
         PassFlashValueDeriv(n);
+        // Nt
+        Nt[n] = 0;
+        for (USI i = 0; i < numCom; i++)
+            Nt[n] += Ni[n * numCom + i];
     }
 #ifdef _DEBUG
     CheckSat();
 #endif // _DEBUG
 }
+
 
 void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 {
@@ -1140,6 +1147,11 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
         }
     }
     vf[n] = flashCal[pvtnum]->vf;
+    vfp[n] = flashCal[pvtnum]->vfp;
+    bId = n * numCom;
+    for (USI i = 0; i < numCom; i++) {
+        vfi[bId + i] = flashCal[pvtnum]->vfi[i];
+    }
     dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dSec_dPri.begin(),
                      flashCal[pvtnum]->dSec_dPri.end());
 }
