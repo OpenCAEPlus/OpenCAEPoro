@@ -14,7 +14,6 @@
 
 // OpenCAEPoro header files
 #include "OCPControl.hpp"
-#include "OCPMethod.hpp"
 #include "OCPOutput.hpp"
 #include "ParamRead.hpp"
 #include "Reservoir.hpp"

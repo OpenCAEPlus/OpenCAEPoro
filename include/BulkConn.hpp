@@ -54,7 +54,6 @@ class BulkConn
 {
     friend class LinearSolver;
 
-    friend class OCPMethod;
 
 public:
     BulkConn() = default;

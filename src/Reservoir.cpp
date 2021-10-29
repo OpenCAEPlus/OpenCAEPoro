@@ -60,11 +60,7 @@ void Reservoir::InitFIM()
 }
 
 
-void Reservoir::Prepare(OCP_DBL& dt) {
-    wellgroup.PrepareWell(bulk);
-    OCP_DBL cfl = CalCFL01(dt);
-    if (cfl > 1) dt /= (cfl + 1);
-}
+
 
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
@@ -106,7 +102,6 @@ void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const
     conn.AllocateMat(mySolver);
     wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
     mySolver.AllocateColMem();
-    mySolver.AllocateFasp();
 }
 
 void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const
@@ -115,7 +110,6 @@ void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const
     conn.AllocateMat(mySolver);
     wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
     mySolver.AllocateColMem();
-    mySolver.AllocateBFasp();
 }
 
 

@@ -17,62 +17,10 @@
 #include "OCPControl.hpp"
 #include "OCPOutput.hpp"
 #include "Reservoir.hpp"
+#include "OCPFluidMethod.hpp"
 #include "UtilTiming.hpp"
 
-/// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
-class OCP_IMPEC
-{
-public:
 
-    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
-
-    /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-
-    /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
-
-    /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
-
-    /// Determine if NR iteration finishes.
-    bool FinishNR() { return true; }
-};
-
-/// OCP_FIM is FIM (Fully Implicit Method).
-class OCP_FIM
-{
-public:
-
-    /// Setup FIM
-    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
-
-    /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-
-    /// Assemble Matrix
-    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
-                     const OCP_DBL& dt) const;
-
-    /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
-
-    /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
-
-    /// Determine if NR iteration finishes.
-    bool FinishNR();
-
-    /// Calculate maximum Res.
-    void CalMaxRes(const Reservoir& rs);
-
-private:
-    vector<OCP_DBL> res;
-    vector<OCP_DBL> relRes;
-    OCP_DBL         maxRes0;
-    OCP_DBL         maxRes;
-    OCP_DBL         maxRelRes;
-};
 
 class FluidSolver
 {
@@ -89,16 +37,9 @@ public:
     bool FinishNR();
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
-
     /// Setup Method
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
-
-    /// Allocate Mat
-    void AllocateMat(const Reservoir& rs);
-
-    /// Setup linear solver params.
-    void SetupParamLS(const string& dir, const string& file);
-
+    /// Initialize the Reservoir and prepare variables for some method.
     void InitReservoir(Reservoir& rs) const;
 
 private:

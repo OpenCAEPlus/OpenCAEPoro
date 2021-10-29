@@ -222,6 +222,8 @@ void Bulk::AllocateBulkIMPEC()
 
 void Bulk::AllocateBulkFIM()
 {
+    vfi.resize(numBulk * numCom);
+    vfp.resize(numBulk);
     muP.resize(numBulk * numPhase);
     xiP.resize(numBulk * numPhase);
     rhoP.resize(numBulk * numPhase);

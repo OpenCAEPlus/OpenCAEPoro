@@ -25,8 +25,6 @@ class Perforation
 {
     friend class Well;
 
-    friend class OCPMethod;
-
 public:
     /// Default constuctor. 
     Perforation() = default;

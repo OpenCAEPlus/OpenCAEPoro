@@ -23,7 +23,6 @@ using namespace std;
 /// modules.
 class WellGroup
 {
-    friend class OCPMethod;
 
 public:
     WellGroup() = default;

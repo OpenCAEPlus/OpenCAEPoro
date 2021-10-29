@@ -35,7 +35,7 @@
     <ClCompile Include="src\MixtureBO3.cpp" />
     <ClCompile Include="src\OCP.cpp" />
     <ClCompile Include="src\OCPControl.cpp" />
-    <ClCompile Include="src\OCPMethod.cpp" />
+    <ClCompile Include="src\OCPFluidMethod.cpp" />
     <ClCompile Include="src\OCPOutput.cpp" />
     <ClCompile Include="src\OCPTable.cpp" />
     <ClCompile Include="src\ParamControl.cpp" />
@@ -65,7 +65,7 @@
     <ClInclude Include="include\OCP.hpp" />
     <ClInclude Include="include\OCPConst.hpp" />
     <ClInclude Include="include\OCPControl.hpp" />
-    <ClInclude Include="include\OCPMethod.hpp" />
+    <ClInclude Include="include\OCPFluidMethod.hpp" />
     <ClInclude Include="include\OCPOutput.hpp" />
     <ClInclude Include="include\OCPTable.hpp" />
     <ClInclude Include="include\ParamControl.hpp" />

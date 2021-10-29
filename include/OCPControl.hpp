@@ -84,9 +84,6 @@ class OCPControl
     friend class OCPOutput;
     friend class DetailInfo;
 
-    friend class OCPMethod;
-    friend class OCP_IMPEC;
-
 public:
     /// Input parameters for control.
     void InputParam(const ParamControl& CtrlParam);

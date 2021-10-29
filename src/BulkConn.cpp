@@ -141,16 +141,6 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np)
 
         neighborNum[bIdb] = count;
     }
-
-    //upblock.resize(numConn * np, 0);
-    //upblock_Rho.resize(numConn * np, 0);
-    //upblock_Trans.resize(numConn * np, 0);
-    //upblock_Velocity.resize(numConn * np, 0);
-
-    //lastUpblock.resize(numConn * np, 0);
-    //lastUpblock_Rho.resize(numConn * np, 0);
-    //lastUpblock_Trans.resize(numConn * np, 0);
-    //lastUpblock_Velocity.resize(numConn * np, 0);
 }
 
 void BulkConn::CalIteratorConn()

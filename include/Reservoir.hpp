@@ -35,7 +35,6 @@ class Reservoir
     friend class CriticalInfo;
     friend class DetailInfo;
 
-    friend class OCPMethod;
 
 public:
     /// Input param from internal param data structure, which stores the params from
@@ -49,7 +48,6 @@ public:
     void InitIMPEC();
     void InitFIM();
     /// Prepare for assembling matrix
-    void Prepare(OCP_DBL& dt);
     void PrepareWell() { wellgroup.PrepareWell(bulk); }
     /// Apply the control of ith critical time point.
     void ApplyControl(const USI& i) { wellgroup.ApplyControl(i); }
@@ -120,8 +118,9 @@ private:
     Grid          grid;      ///< Grid class.
     Bulk          bulk;      ///< Bulk class.
     WellGroup     wellgroup; ///< WellGroup class.
-    BulkConn conn;      ///< BulkConn class.
+    BulkConn      conn;      ///< BulkConn class.
 
+    // For output
     OCP_DBL cfl; ///< CFL number.
 };
 

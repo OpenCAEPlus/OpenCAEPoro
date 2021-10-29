@@ -56,8 +56,6 @@ class Bulk
     friend class Well;
     friend class DetailInfo;
 
-    friend class OCPMethod;
-
 public:
     Bulk() = default;
 

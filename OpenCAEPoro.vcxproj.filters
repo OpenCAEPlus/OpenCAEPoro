@@ -96,7 +96,7 @@
     <ClCompile Include="src\LinearBSolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OCPMethod.cpp">
+    <ClCompile Include="src\OCPFluidMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,7 +188,7 @@
     <ClInclude Include="include\DenseMat.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OCPMethod.hpp">
+    <ClInclude Include="include\OCPFluidMethod.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
