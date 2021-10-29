@@ -25,6 +25,25 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     CalArea(myGrid, myBulk);
 }
 
+void BulkConn::AllocateConnIMPEC(const USI& np)
+{
+    upblock.resize(numConn * np);
+    upblock_Rho.resize(numConn * np);
+    upblock_Trans.resize(numConn * np);
+    upblock_Velocity.resize(numConn * np);
+    lastUpblock.resize(numConn * np);
+    lastUpblock_Rho.resize(numConn * np);
+    lastUpblock_Trans.resize(numConn * np);
+    lastUpblock_Velocity.resize(numConn * np);
+}
+
+
+void BulkConn::AllocateConnFIM(const USI& np)
+{
+    upblock.resize(numConn * np);
+    upblock_Rho.resize(numConn * np);
+}
+
 void BulkConn::InitSize(const Bulk& myBulk)
 {
     numConn = 0;
@@ -123,15 +142,15 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np)
         neighborNum[bIdb] = count;
     }
 
-    upblock.resize(numConn * np, 0);
-    upblock_Rho.resize(numConn * np, 0);
-    upblock_Trans.resize(numConn * np, 0);
-    upblock_Velocity.resize(numConn * np, 0);
+    //upblock.resize(numConn * np, 0);
+    //upblock_Rho.resize(numConn * np, 0);
+    //upblock_Trans.resize(numConn * np, 0);
+    //upblock_Velocity.resize(numConn * np, 0);
 
-    lastUpblock.resize(numConn * np, 0);
-    lastUpblock_Rho.resize(numConn * np, 0);
-    lastUpblock_Trans.resize(numConn * np, 0);
-    lastUpblock_Velocity.resize(numConn * np, 0);
+    //lastUpblock.resize(numConn * np, 0);
+    //lastUpblock_Rho.resize(numConn * np, 0);
+    //lastUpblock_Trans.resize(numConn * np, 0);
+    //lastUpblock_Velocity.resize(numConn * np, 0);
 }
 
 void BulkConn::CalIteratorConn()

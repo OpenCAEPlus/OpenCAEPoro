@@ -43,8 +43,8 @@ public:
     void InputParam(ParamRead& param);
     /// Setup static information for reservoir with input params.
     void Setup();
-    void AllocateRsIMPEC() { bulk.AllocateRsIMPEC(); }
-    void AllocateRsFIM() { bulk.AllocateRsFIM(); }
+    void AllocateRsIMPEC() { bulk.AllocateBulkIMPEC(); conn.AllocateConnIMPEC(bulk.GetPhaseNum()); }
+    void AllocateRsFIM() { bulk.AllocateBulkFIM(); conn.AllocateConnFIM(bulk.GetPhaseNum()); }
     /// Initialize the reservoir, actually it gives the first step in iterations.
     void InitIMPEC();
     void InitFIM();

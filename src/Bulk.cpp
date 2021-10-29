@@ -210,7 +210,7 @@ void Bulk::Setup(const Grid& myGrid)
     }
 }
 
-void Bulk::AllocateRsIMPEC()
+void Bulk::AllocateBulkIMPEC()
 {
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
@@ -220,7 +220,7 @@ void Bulk::AllocateRsIMPEC()
 }
 
 
-void Bulk::AllocateRsFIM()
+void Bulk::AllocateBulkFIM()
 {
     muP.resize(numBulk * numPhase);
     xiP.resize(numBulk * numPhase);

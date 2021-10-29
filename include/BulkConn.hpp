@@ -88,6 +88,9 @@ public:
     /// current timestep.
     void MassConserve(Bulk& myBulk, const OCP_DBL& dt) const;
 
+    void AllocateConnIMPEC(const USI& np);
+    void AllocateConnFIM(const USI& np);
+
     // Assemble Mat
     /// Allocate memory for Matrix, it should be called only once at the beginning.
     void AllocateMat(LinearSolver& mySolver) const;

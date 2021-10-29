@@ -67,8 +67,8 @@ public:
     void InputParam(ParamReservoir& rs_param);
     /// Setup basic data from grid, Setup of grid must be finished before.
     void Setup(const Grid& myGrid);
-    void AllocateRsIMPEC();
-    void AllocateRsFIM();
+    void AllocateBulkIMPEC();
+    void AllocateBulkFIM();
     /// Calculate initial equilibration for blkoil model according to EQUIL.
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcBlk(const USI& tabrow);
@@ -106,6 +106,7 @@ public:
     USI GetMixMode() const;
 
     USI GetComNum()const { return numCom; }
+    USI GetPhaseNum()const { return numPhase; }
     /// get solution from solver class after linear system is solved.
     void GetSolIMPEC(const vector<OCP_DBL>& u);
     void GetSolFIM(const vector<OCP_DBL>& u);
