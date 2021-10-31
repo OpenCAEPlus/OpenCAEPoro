@@ -133,6 +133,7 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
+    rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 }
@@ -157,7 +158,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     lsolver.AssembleMat_BFasp();
 
 #ifdef _DEBUG
-    //lsolver.PrintfMatCSR("testA.out", "testb.out");
+    // lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
@@ -165,7 +166,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     int status = lsolver.BFaspSolve();
 
 #ifdef _DEBUG
-    //lsolver.PrintfSolution("testx.out");
+    // lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -173,7 +174,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 
 #endif // __SOLVER_FASP__
 
-    rs.GetSolution_FIM(lsolver.GetSolution());
+    rs.GetSolution_FIM(lsolver.GetSolution(), ctrl.GetNRdSmax(), ctrl.GetNRdPmax());
     lsolver.ClearData();
 }
 
@@ -209,11 +210,12 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool OCP_FIM::FinishNR()
+bool OCP_FIM::FinishNR(const OCPControl& ctrl)
 {
     if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
         resFIM.maxRelRes_v < 1E-3 ||
-        resFIM.maxRelRes_mol < 1E-3) {
+        resFIM.maxRelRes_mol < 1E-2 ||
+        (ctrl.NRdPmax < 1 && ctrl.NRdSmax < 0.01)) {
         return true;
     }
     else {

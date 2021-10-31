@@ -168,7 +168,6 @@ void OCPControl::UpdateIters()
 {
     tstep += 1;
     iterNR_total += iterNR;
-    iterNR = 0;
 }
 
 /*----------------------------------------------------------------------------*/

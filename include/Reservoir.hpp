@@ -91,7 +91,7 @@ public:
     void AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// get the solution from LinearSolver after the linear system is solved.
     void GetSolution_IMPEC(const vector<OCP_DBL>& u);
-    void GetSolution_FIM(const vector<OCP_DBL>& u);
+    void GetSolution_FIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     OCP_USI GetBulkNum()const { return bulk.GetBulkNum(); }
     USI GetWellNum()const { return wellgroup.GetWellNum(); }

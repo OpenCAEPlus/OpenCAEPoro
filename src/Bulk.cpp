@@ -1210,16 +1210,48 @@ void Bulk::GetSolIMPEC(const vector<OCP_DBL>& u)
     }
 }
 
-void Bulk::GetSolFIM(const vector<OCP_DBL>& u)
+void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax)
 {
-    USI len = numCom + 1;
+    NRdSmax = 0;
+    NRdPmax = 0;
+    OCP_DBL dSmaxLim = 0.2;
+    OCP_DBL dPmaxLim = 200;
+    OCP_DBL dP;
+    USI row = numPhase * (numCom + 1);
+    USI col = numCom + 1;
+    USI bsize = row * col;
+    vector<OCP_DBL> dtmp(row, 0);
+    OCP_DBL chopmin = 1;
+    OCP_DBL choptmp = 0;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        P[n] += u[n * len];
-        for (USI i = 0; i < numCom; i++) {
-            Ni[n * numCom + i] += u[n * len + 1 + i];
-        }
+
+        // compute the chop
+        dtmp.assign(row, 0);
+        DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1, dtmp.data());
+
         for (USI j = 0; j < numPhase; j++) {
-            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+            if (fabs(dtmp[j]) > dSmaxLim) {
+                choptmp = dSmaxLim / fabs(dtmp[j]);
+            }
+            else if (S[n * numPhase + j] + dtmp[j] < 0) {
+                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
+            }
+            else {
+                choptmp = 1;
+            }
+            chopmin = min(chopmin, choptmp);
+            NRdSmax = max(NRdSmax, chopmin * fabs(dtmp[j]));
+        }
+        dP = u[n * col];
+        choptmp = dPmaxLim / fabs(dP);
+        chopmin = min(chopmin, choptmp);
+        chopmin = min(chopmin, 1.0);
+        NRdPmax = max(NRdPmax, chopmin * fabs(dP));
+        P[n] += dP;
+        // P[n] += dP * min(choptmp, 1.0);
+
+        for (USI i = 0; i < numCom; i++) {
+            Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
         }
     }
 }
@@ -1249,6 +1281,7 @@ void Bulk::UpdateLastStepFIM()
     lP = P;
     lPj = Pj;
     lNi = Ni;
+    lS = S;
 }
 
 void Bulk::CalMaxChange()
@@ -1348,8 +1381,9 @@ bool Bulk::CheckP() const
 /// Return true if no negative Ni and false otherwise.
 bool Bulk::CheckNi() const
 {
-    for (auto Ni : Ni) {
-        if (Ni < 0.0) return false;
+    for (auto ni : Ni) {
+        if (ni < 0.0) 
+            return false;
     }
     return true;
 }

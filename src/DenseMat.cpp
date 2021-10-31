@@ -25,3 +25,15 @@ void DaABpbC(int m, int n, int k, double alpha, const double* A, const double* B
     const char transa = 'N', transb = 'N';
     dgemm_(&transa, &transb, &n, &m, &k, &alpha, B, &n, A, &k, &beta, C, &n);
 }
+
+
+void DaAxpby(int m, int n, double a, const double* A, const double* x, double b, double* y) {
+    /*  y= aAx+by
+     */
+    for (int i = 0; i < m; i++) {
+        y[i] = b * y[i];
+        for (int j = 0; j < n; j++) {
+            y[i] += a * A[i * n + j] * x[j];
+        }
+    }
+}

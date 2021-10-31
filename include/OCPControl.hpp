@@ -84,6 +84,10 @@ class OCPControl
     friend class OCPOutput;
     friend class DetailInfo;
 
+    friend class Reservoir;
+    friend class OCP_FIM;
+    friend class Solver;  // temp
+
 public:
     /// Input parameters for control.
     void InputParam(const ParamControl& CtrlParam);
@@ -133,6 +137,9 @@ public:
     string GetWorkDir() const { return workDir; }
     string GetLsFile() const { return lsFile; }
 
+    OCP_DBL& GetNRdSmax() { return NRdSmax; }
+    OCP_DBL& GetNRdPmax() { return NRdPmax; }
+
 private: // TODO: Add doxygen!
     USI             method;
     string          workDir;
@@ -148,6 +155,9 @@ private: // TODO: Add doxygen!
     USI             iterLS_total{0};
     USI             iterNR{0};
     USI             iterNR_total{0};
+
+    OCP_DBL         NRdPmax;
+    OCP_DBL         NRdSmax;
 
     OCP_DBL timeLS{0};
 

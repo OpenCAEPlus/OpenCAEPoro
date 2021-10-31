@@ -40,7 +40,7 @@ private:
     /// Update reservoir properties after solving for primary variables.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
     /// Determine if Newton iteration is finished.
-    bool FinishNR();
+    bool FinishNR(const OCPControl& ctrl);
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 

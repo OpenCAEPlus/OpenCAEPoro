@@ -123,9 +123,9 @@ void Reservoir::GetSolution_IMPEC(const vector<OCP_DBL>& u)
 }
 
 
-void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
+void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax)
 {
-    bulk.GetSolFIM(u);
+    bulk.GetSolFIM(u, NRdSmax, NRdPmax);
     wellgroup.GetSol_FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 

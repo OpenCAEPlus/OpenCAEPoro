@@ -136,7 +136,7 @@ void WellGroup::PrepareWell(const Bulk& myBulk)
             wellGroup[w].CalFlux(myBulk, true);
             wellGroup[w].CaldG(myBulk);
             // test
-            wellGroup[w].SmoothdG();
+            // wellGroup[w].SmoothdG();
             wellGroup[w].CheckOptMode(myBulk);
         }
     }

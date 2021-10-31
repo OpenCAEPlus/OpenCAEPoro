@@ -24,6 +24,7 @@
 #include "MixtureBO.hpp"
 #include "OCPConst.hpp"
 #include "OCPStructure.hpp"
+#include "DenseMat.hpp"
 #include "ParamReservoir.hpp"
 
 using namespace std;
@@ -109,7 +110,7 @@ public:
     USI GetPhaseNum()const { return numPhase; }
     /// get solution from solver class after linear system is solved.
     void GetSolIMPEC(const vector<OCP_DBL>& u);
-    void GetSolFIM(const vector<OCP_DBL>& u);
+    void GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
 
     /// calculate average pressure in reservoir.
     OCP_DBL CalFPR() const;

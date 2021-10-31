@@ -39,6 +39,7 @@ void Daxpy(int n, double alpha, const double* x, double* y);
 
 void DaABpbC(int m, int n, int k, double alpha, const double* A, const double* B, double beta, double* C);
 
+void DaAxpby(int m, int n, double a, const double* A, const double* x, double b, double* y);
 
 
 #endif

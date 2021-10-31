@@ -458,7 +458,7 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     OCP_DBL dP;
     OCP_DBL transIJ;
 
-    OCP_USI k_np_j;
+    OCP_USI n_np_j;
 
     vector<OCP_DBL> bmat(bsize, 0);
     vector<OCP_DBL> bmat2(bsize, 0);
@@ -467,20 +467,21 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI k = perf[p].location;
+        OCP_USI n = perf[p].location;
         dQdXpB.assign(bsize, 0);
         dQdXpW.assign(bsize, 0);
         dQdXsB.assign(bsize2, 0);
 
-        dP = myBulk.P[k] - perf[p].P;
+        // dP = myBulk.P[n] - perf[p].P;
+        dP = myBulk.P[n] - BHP - dG[p];
 
         for (USI j = 0; j < np; j++) {
-            k_np_j = k * np + j;
-            if (!myBulk.phaseExist[k_np_j]) continue;
+            n_np_j = n * np + j;
+            if (!myBulk.phaseExist[n_np_j]) continue;
 
-            kr = myBulk.kr[k_np_j];
-            mu = myBulk.mu[k_np_j];
-            muP = myBulk.muP[k_np_j];
+            kr = myBulk.kr[n_np_j];
+            mu = myBulk.mu[n_np_j];
+            muP = myBulk.muP[n_np_j];
 
             for (USI i = 0; i < nc; i++) {
                 // dQ / dP
@@ -491,28 +492,28 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
                 // dQ / dS
                 for (USI k = 0; k < np; k++) {
                     dQdXsB[(i + 1) * ncol2 + k] += CONV1 * CONV2 * perf[p].WI * perf[p].multiplier * perf[p].xi
-                        * opt.zi[i] * myBulk.dKr_dS[k * np * np + j * np + k] * dP / mu;
+                        * opt.zi[i] * myBulk.dKr_dS[n * np * np + j * np + k] * dP / mu;
                 }
                 // dQ / dCij
                 for (USI k = 0; k < nc; k++) {
-                    dQdXsB[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * dP / mu * myBulk.muC[k * np * nc + j * nc + k];
+                    dQdXsB[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * dP / mu * myBulk.muC[n_np_j * nc + k];
                 }
             }
         }
         // Bulk to Well
         bmat = dQdXpB;
-        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
+        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Add
-        USI ptr = mySolver.diagPtr[k];
+        USI ptr = mySolver.diagPtr[n];
         for (USI i = 0; i < bsize; i++) {
-            mySolver.val[k][ptr * bsize + i] += bmat[i];
+            mySolver.val[n][ptr * bsize + i] += bmat[i];
         }
         // Insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        mySolver.val[k].insert(mySolver.val[k].end(), bmat.begin(), bmat.end());
-        mySolver.colId[k].push_back(wId);
+        mySolver.val[n].insert(mySolver.val[n].end(), bmat.begin(), bmat.end());
+        mySolver.colId[n].push_back(wId);
 
         // Well
         switch (opt.optMode)
@@ -534,14 +535,14 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             
             // OffDiag
             bmat = dQdXpB;
-            DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
+            DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
             bmat2.assign(bsize, 0);
             for (USI i = 0; i < nc; i++) {
                 // Daxpy(ncol, 1, bmat.data() + (i + 1) * ncol, bmat2.data());
                 Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
-            mySolver.colId[wId].push_back(k);
+            mySolver.colId[wId].push_back(n);
             break;
 
         case BHP_MODE:
@@ -558,7 +559,7 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             bmat.assign(bsize, 0);
             // Insert
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
-            mySolver.colId[wId].push_back(k);
+            mySolver.colId[wId].push_back(n);
             break;
 
         default:
@@ -594,7 +595,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     OCP_DBL transIJ;
     OCP_DBL tmp;
 
-    OCP_USI k_np_j;
+    OCP_USI n_np_j;
 
     vector<OCP_DBL> bmat(bsize, 0);
     vector<OCP_DBL> bmat2(bsize, 0);
@@ -603,26 +604,26 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI k = perf[p].location;
+        OCP_USI n = perf[p].location;
         dQdXpB.assign(bsize, 0);
         dQdXpW.assign(bsize, 0);
         dQdXsB.assign(bsize2, 0);
-
-        
+   
 
         for (USI j = 0; j < np; j++) {
-            k_np_j = k * np + j;
-            if (!myBulk.phaseExist[k_np_j]) continue;
+            n_np_j = n * np + j;
+            if (!myBulk.phaseExist[n_np_j]) continue;
 
-            dP = myBulk.Pj[k_np_j] - perf[p].P;
-            xi = myBulk.xi[k_np_j];
-            kr = myBulk.kr[k_np_j];
-            mu = myBulk.mu[k_np_j];
-            muP = myBulk.muP[k_np_j];
-            xiP = myBulk.xiP[k_np_j];
+            // dP = myBulk.Pj[n_np_j] - perf[p].P;
+            dP = myBulk.Pj[n_np_j] - BHP - dG[p];
+            xi = myBulk.xi[n_np_j];
+            kr = myBulk.kr[n_np_j];
+            mu = myBulk.mu[n_np_j];
+            muP = myBulk.muP[n_np_j];
+            xiP = myBulk.xiP[n_np_j];
 
             for (USI i = 0; i < nc; i++) {
-                cij = myBulk.cij[k_np_j * nc + i];
+                cij = myBulk.cij[n_np_j * nc + i];
                 // dQ / dP
                 transIJ = perf[p].transj[j] * xi * cij;
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu) + dP * perf[p].transj[j] * cij * xiP;
@@ -630,14 +631,14 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
 
                 // dQ / dS
                 for (USI k = 0; k < np; k++) {
-                    tmp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier * dP / mu * xi * cij * myBulk.dKr_dS[k * np * np + j * np + k];
+                    tmp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier * dP / mu * xi * cij * myBulk.dKr_dS[n * np * np + j * np + k];
                     // capillary pressure
-                    tmp += transIJ * myBulk.dPcj_dS[k * np * np + j * np + k];
+                    tmp += transIJ * myBulk.dPcj_dS[n * np * np + j * np + k];
                     dQdXsB[(i + 1) * ncol2 + k] += tmp;
                 }
                 // dQ / dCij
                 for (USI k = 0; k < nc; k++) {
-                    tmp = dP * perf[p].transj[j] * cij * (myBulk.xiC[k_np_j * nc + k] - xi / mu * myBulk.muC[k_np_j * nc + k]);
+                    tmp = dP * perf[p].transj[j] * cij * (myBulk.xiC[n_np_j * nc + k] - xi / mu * myBulk.muC[n_np_j * nc + k]);
                     if (k == i) {
                         tmp += perf[p].transj[j] * xi * dP;
                     }
@@ -647,18 +648,23 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
         }
         // Bulk to Well
         bmat = dQdXpB;
-        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
+        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
+        
+        //for (USI i = 0; i < bsize; i++) {
+        //    cout << fixed << setprecision(6) << bmat[i] << endl;
+        //}
+        
         Dscalar(bsize, dt, bmat.data());
         // Add
-        USI ptr = mySolver.diagPtr[k];
+        USI ptr = mySolver.diagPtr[n];
         for (USI i = 0; i < bsize; i++) {
-            mySolver.val[k][ptr * bsize + i] += bmat[i];
+            mySolver.val[n][ptr * bsize + i] += bmat[i];
         }
         // Insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        mySolver.val[k].insert(mySolver.val[k].end(), bmat.begin(), bmat.end());
-        mySolver.colId[k].push_back(wId);
+        mySolver.val[n].insert(mySolver.val[n].end(), bmat.begin(), bmat.end());
+        mySolver.colId[n].push_back(wId);
 
         // Well
         switch (opt.optMode)
@@ -680,13 +686,13 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
 
             // OffDiag
             bmat = dQdXpB;
-            DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[k * bsize2], 1, bmat.data());
+            DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
             bmat2.assign(bsize, 0);
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
-            mySolver.colId[wId].push_back(k);
+            mySolver.colId[wId].push_back(n);
             break;
 
         case BHP_MODE:
@@ -703,7 +709,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             bmat.assign(bsize, 0);
             // Insert
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
-            mySolver.colId[wId].push_back(k);
+            mySolver.colId[wId].push_back(n);
             break;
 
         default:
