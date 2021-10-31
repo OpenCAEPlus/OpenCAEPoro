@@ -42,6 +42,10 @@ void BulkConn::AllocateConnFIM(const USI& np)
 {
     upblock.resize(numConn * np);
     upblock_Rho.resize(numConn * np);
+    // useless
+    upblock_Trans.resize(numConn * np);
+    upblock_Velocity.resize(numConn * np);
+
 }
 
 void BulkConn::InitSize(const Bulk& myBulk)
@@ -636,9 +640,14 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
         }
     }
 
+    //cout << "----------------------------------------" << endl;
+    //for (OCP_USI i = 0; i < numBulk * (nc + 1); i++) {
+    //    cout << res[i] << endl;
+    //}
+
     OCP_USI bId_np_j, eId_np_j, uId_np_j;
     OCP_DBL Pbegin, Pend, rho, dP;
-    OCP_DBL tmp;
+    OCP_DBL tmp, dNi;
     // Flux Term
     // Calculate the upblock at the same time.
     for (OCP_USI c = 0; c < numConn; c++) {
@@ -687,11 +696,13 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             uId_np_j = uId * np + j;
             if (!myBulk.phaseExist[uId_np_j]) continue;
 
-            tmp = CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+            tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
-                tmp *= myBulk.cij[uId_np_j * nc + i];
-                res[bId * len + 1 + i] -= tmp;
-                res[eId * len + 1 + i] += tmp;
+                dNi = tmp * myBulk.cij[uId_np_j * nc + i];
+                /*res[bId * len + 1 + i] -= dNi;
+                res[eId * len + 1 + i] += dNi;*/
+                res[bId * len + 1 + i] += dNi;
+                res[eId * len + 1 + i] -= dNi;
             }
         }
     }

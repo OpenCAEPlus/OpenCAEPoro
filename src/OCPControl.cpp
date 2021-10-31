@@ -96,7 +96,7 @@ void OCPControl::InitTime(const USI& i)
     current_dt = min(dt, ctrlTime.timeInit);
 }
 
-void OCPControl::CalNextTstep(const Reservoir& reservoir)
+void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 {
     lcurrent_dt = current_dt;
 
@@ -130,11 +130,45 @@ void OCPControl::CalNextTstep(const Reservoir& reservoir)
     if (current_dt > dt) current_dt = dt;
 }
 
+void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
+{
+    lcurrent_dt = current_dt;
+
+    current_time += current_dt;
+
+
+    OCP_DBL dPmax = reservoir.bulk.GetdPmax();
+    OCP_DBL dSmax = reservoir.bulk.GetdSmax();
+    OCP_DBL dPlim = 300;
+    OCP_DBL dSlim = 0.3;
+    OCP_DBL c1 = dPmax / dPlim;
+    OCP_DBL c2 = dSmax / dSlim;
+    OCP_DBL c3 = 1.5;
+
+    if (iterNR < 3) {
+        c3 = 0.5;
+    }
+    else if (iterNR > 8) {
+        c3 = 2;
+    }
+    
+    OCP_DBL c = max(max(c1, c2), c3);
+
+    current_dt /= c;
+    if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
+    if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
+
+    OCP_DBL dt = end_time - current_time;
+    if (current_dt > dt) current_dt = dt;
+}
+
+
+
 void OCPControl::UpdateIters()
 {
     tstep += 1;
-    iterNR = 1;
-    iterNR_total += 1;
+    iterNR_total += iterNR;
+    iterNR = 0;
 }
 
 /*----------------------------------------------------------------------------*/

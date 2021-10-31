@@ -37,6 +37,8 @@ public:
 
     /// Determine if NR iteration finishes.
     bool FinishNR() { return true; }
+
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 };
 
 
@@ -65,13 +67,12 @@ public:
     /// Determine if NR iteration finishes.
     bool FinishNR();
 
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
+
 
 private:
     /// Resiual for FIM
-    vector<OCP_DBL>          res;
-    OCP_DBL                  maxRes0;
-    OCP_DBL                  maxRes;
-    OCP_DBL                  maxRelRes;
+    ResFIM                   resFIM;
 };
 
 

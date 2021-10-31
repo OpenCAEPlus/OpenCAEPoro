@@ -157,8 +157,6 @@ void Bulk::Setup(const Grid& myGrid)
     lvf.resize(numBulk);
     rockLVp.resize(numBulk);
 
-    
-
     phase2Index.resize(3);
 
     if (blackOil) {
@@ -1218,7 +1216,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u)
     for (OCP_USI n = 0; n < numBulk; n++) {
         P[n] += u[n * len];
         for (USI i = 0; i < numCom; i++) {
-            Ni[n * numCom + i] += u[n * len + i];
+            Ni[n * numCom + i] += u[n * len + 1 + i];
         }
         for (USI j = 0; j < numPhase; j++) {
             Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
@@ -1244,6 +1242,13 @@ void Bulk::UpdateLastStep()
     lvfi        = vfi;
     lvfp        = vfp;
     rockLVp     = rockVp;
+}
+
+void Bulk::UpdateLastStepFIM()
+{
+    lP = P;
+    lPj = Pj;
+    lNi = Ni;
 }
 
 void Bulk::CalMaxChange()
@@ -1308,7 +1313,7 @@ OCP_DBL Bulk::CalFPR() const
     return ptmp / vtmp;
 }
 
-OCP_DBL Bulk::CalCFL(bool flag) const
+OCP_DBL Bulk::CalCFL01() const
 {
     OCP_DBL tmp = 0;
     OCP_USI id;
@@ -1423,6 +1428,24 @@ void Bulk::ResetFlash()
     vfp        = lvfp;
     vfi        = lvfi;
 }
+
+void Bulk::CalRelResFIM(ResFIM& resFIM) const
+{
+    OCP_DBL tmp;
+    const USI len = numCom + 1;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        for (USI i = 0; i < len; i++) {
+            tmp = fabs(resFIM.res[n * len + i] / rockVp[n]);
+            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, tmp);
+        }
+        for (USI i = 0; i < numCom; i++) {
+            tmp = fabs(resFIM.res[n * len + 1 + i] / Nt[n]);
+            resFIM.maxRelRes_mol = max(resFIM.maxRelRes_mol, tmp);
+        }
+    }
+}
+
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

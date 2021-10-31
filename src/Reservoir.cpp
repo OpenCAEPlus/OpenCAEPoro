@@ -55,7 +55,6 @@ void Reservoir::InitFIM()
     bulk.CalKrPcDeriv();
     bulk.UpdateLastStep();
     conn.CalFlux(bulk);
-    conn.UpdateLastStep();
     wellgroup.Init(bulk);
 }
 
@@ -76,7 +75,7 @@ OCP_DBL Reservoir::CalCFL01(const OCP_DBL& dt)
     bulk.InitCFL();
     conn.CalCFL01(bulk, dt);
     wellgroup.CalCFL01(bulk, dt);
-    cfl = bulk.CalCFL(false);
+    cfl = bulk.CalCFL01();
 
     return cfl;
 }
@@ -131,21 +130,29 @@ void Reservoir::GetSolution_FIM(const vector<OCP_DBL>& u)
 }
 
 
-void Reservoir::CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt)
+void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
 {
-    res.assign(res.size(), 0);
-    conn.CalResFIM(res, bulk, dt);
-    wellgroup.CalResFIM(res, bulk, dt);
-    Dscalar(res.size(), -1, res.data());
+    // Initialize
+    resFIM.SetZero();
+    // Bulk to Bulk
+    conn.CalResFIM(resFIM.res, bulk, dt);
+    // Well to Bulk
+    wellgroup.CalResFIM(resFIM, bulk, dt);
+    // Calculate RelRes
+    bulk.CalRelResFIM(resFIM);
+    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
 }
 
 
 OCP_INT Reservoir::CheckP()
 {
-    if (!bulk.CheckP()) return 1;
+    if (!bulk.CheckP()) { 
+        OCP_WARNING("Negative Pressure!");
+        return 1; 
+    }
 
     OCP_INT flag = 0;
-    flag         = wellgroup.CheckP(bulk);
+    // flag         = wellgroup.CheckP(bulk);
     return flag;
 }
 

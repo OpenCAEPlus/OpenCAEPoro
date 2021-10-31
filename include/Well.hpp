@@ -22,6 +22,7 @@
 #include "OCPConst.hpp"
 #include "ParamWell.hpp"
 #include "WellPerf.hpp"
+#include "OCPStructure.hpp"
 #include "DenseMat.hpp"
 
 using namespace std;
@@ -159,7 +160,7 @@ public:
     void AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
         const OCP_DBL& dt) const;
 
-    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const;
+    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const;
     /// update pressure in Perforation after well pressure updates.
     void UpdatePerfP()
     {

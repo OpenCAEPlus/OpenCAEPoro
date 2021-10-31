@@ -112,9 +112,13 @@ bool FluidSolver::FinishNR()
 
 void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
-    rs.CalIPRT(ctrl.GetCurDt());
-    rs.CalMaxChange();
-    rs.UpdateLastStep();
-    ctrl.CalNextTstep(rs);
-    ctrl.UpdateIters();
+    switch (method) {
+    case IMPEC:
+        return impec.FinishStep(rs, ctrl);
+    case FIM:
+        return fim.FinishStep(rs, ctrl);
+        break;
+    default:
+        OCP_ABORT("Wrong method!");
+    }
 }

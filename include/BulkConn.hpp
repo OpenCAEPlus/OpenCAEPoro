@@ -19,6 +19,7 @@
 #include "Bulk.hpp"
 #include "Grid.hpp"
 #include "LinearSolver.hpp"
+#include "OCPStructure.hpp"
 #include "DenseMat.hpp"
 
 using namespace std;

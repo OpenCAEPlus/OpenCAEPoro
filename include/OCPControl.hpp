@@ -115,13 +115,15 @@ public:
     {
         iterLS = num;
         iterLS_total += num;
+        iterNR++;
     }
     /// Update time used for linear solver.
     void UpdateTimeLS(const OCP_DBL& t) { timeLS += t; }
     /// Record the total time of simulation.
     void RecordTotalTime(const OCP_DBL& t) { totalTime = t; }
     /// Calculate the next time step according to max change of some variables.
-    void CalNextTstep(const Reservoir& reservoir);
+    void CalNextTstepIMPEC(const Reservoir& reservoir);
+    void CalNextTstepFIM(const Reservoir& reservoir);
     /// Determine whether the critical time point has been reached.
     bool IsCriticalTime(const USI& d)
     {

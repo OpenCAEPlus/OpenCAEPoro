@@ -67,6 +67,7 @@
     <ClInclude Include="include\OCPControl.hpp" />
     <ClInclude Include="include\OCPFluidMethod.hpp" />
     <ClInclude Include="include\OCPOutput.hpp" />
+    <ClInclude Include="include\OCPStructure.hpp" />
     <ClInclude Include="include\OCPTable.hpp" />
     <ClInclude Include="include\ParamControl.hpp" />
     <ClInclude Include="include\ParamOutput.hpp" />

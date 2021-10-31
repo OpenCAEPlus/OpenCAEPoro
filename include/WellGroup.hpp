@@ -18,6 +18,8 @@
 
 using namespace std;
 
+class ResFIM;
+
 /// WellGroups contains all wells now, it's used to manages all wells uniformly in
 /// reservoirs. actually, you can regard it as an interface between wells and other
 /// modules.
@@ -126,7 +128,7 @@ public:
     /// update pressure in well and well perforation with solution of linear system.
     void GetSol_IMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
     void GetSol_FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
-    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// reset dG to ldG for each well, dG is a array where the pressure difference
     /// between well and perforation are stored.
     void UpdateLastStep()

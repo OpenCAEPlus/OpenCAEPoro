@@ -23,6 +23,7 @@
 #include "Mixture.hpp"
 #include "MixtureBO.hpp"
 #include "OCPConst.hpp"
+#include "OCPStructure.hpp"
 #include "ParamReservoir.hpp"
 
 using namespace std;
@@ -75,6 +76,7 @@ public:
     void InitSjPcComp(const USI& tabrow);
     /// Assignment value for some variable, it's called when one time step finished.
     void UpdateLastStep();
+    void UpdateLastStepFIM();
 
     /// calculate max change of some physical variables to predict the size of next time
     /// step.
@@ -150,7 +152,9 @@ public:
     /// Initialize cfl number.
     void InitCFL() const { cfl.assign(numBulk * numPhase, 0); }
     /// Calculate the cfl number.
-    OCP_DBL CalCFL(bool flag) const;
+    OCP_DBL CalCFL01() const;
+    /// Calculate RelRes
+    void CalRelResFIM(ResFIM& resFIM) const;
 
 private:
     OCP_USI numBulk; ///< num of bulks (active grids).

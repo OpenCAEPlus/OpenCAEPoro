@@ -19,6 +19,7 @@
 #include "ParamRead.hpp"
 #include "WellGroup.hpp"
 
+
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
 ///
@@ -34,7 +35,6 @@ class Reservoir
     friend class Summary;
     friend class CriticalInfo;
     friend class DetailInfo;
-
 
 public:
     /// Input param from internal param data structure, which stores the params from
@@ -57,6 +57,7 @@ public:
     OCP_DBL CalCFL01(const OCP_DBL& dt);
     /// Calculate flux between bulks, bulks and wells.
     void CalFLux() { conn.CalFlux(bulk); wellgroup.CalFlux(bulk); };
+    void CalWellFlux(){ wellgroup.CalFlux(bulk); }
     /// Calculate flux between bulks.
     void CalConnFlux() { conn.CalFlux(bulk); }
     /// Calculate mass conserve.
@@ -76,7 +77,7 @@ public:
     void CalMaxChange() { bulk.CalMaxChange(); }
     /// Update value of last step.
     void UpdateLastStep() { bulk.UpdateLastStep(); conn.UpdateLastStep(); wellgroup.UpdateLastStep(); };
-
+    void UpdateLastStepFIM() { bulk.UpdateLastStepFIM(); }
     /// Allocate memory for linear system, it should be called at the beginning of
     /// simulation only once.
     void AllocateMatIMPEC(LinearSolver& mySolver) const;
@@ -91,7 +92,7 @@ public:
     /// get the solution from LinearSolver after the linear system is solved.
     void GetSolution_IMPEC(const vector<OCP_DBL>& u);
     void GetSolution_FIM(const vector<OCP_DBL>& u);
-    void CalResFIM(vector<OCP_DBL>& res, const OCP_DBL& dt);
+    void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     OCP_USI GetBulkNum()const { return bulk.GetBulkNum(); }
     USI GetWellNum()const { return wellgroup.GetWellNum(); }
     USI GetComNum()const { return bulk.GetComNum(); }

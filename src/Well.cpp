@@ -725,7 +725,7 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
 
 }
 
-void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const
+void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const
 {
     // Well to Bulk
     USI nc = myBulk.numCom;
@@ -735,7 +735,7 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
     for (USI p = 0; p < numPerf; p++) {
         k = perf[p].location;
         for (USI i = 0; i < nc; i++) {
-            res[k * len + 1 + i] += perf[p].qi_lbmol[i] * dt;
+            resFIM.res[k * len + 1 + i] += perf[p].qi_lbmol[i] * dt;
         }
     }
     OCP_USI bId = (myBulk.numBulk + wId) * len;
@@ -745,17 +745,19 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
         switch (opt.optMode)
         {
         case BHP_MODE:
-            res[bId] = BHP - opt.maxBHP;
+            resFIM.res[bId] = BHP - opt.maxBHP;
+            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxBHP));
             break;
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            res[bId] = opt.maxRate;
+            resFIM.res[bId] = opt.maxRate;
             for (USI i = 0; i < nc; i++) {
-                res[bId] += qi_lbmol[i];
+                resFIM.res[bId] += qi_lbmol[i];
             }
+            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
             break;
         default:
             OCP_ABORT("Wrong well opt mode!");
@@ -767,17 +769,19 @@ void Well::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt
         switch (opt.optMode)
         {
         case BHP_MODE:
-            res[bId] = BHP - opt.minBHP;
+            resFIM.res[bId] = BHP - opt.minBHP;
+            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.minBHP));
             break;
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            res[bId] = -opt.maxRate;
+            resFIM.res[bId] = -opt.maxRate;
             for (USI i = 0; i < nc; i++) {
-                res[bId] += qi_lbmol[i] * opt.zi[i];
+                resFIM.res[bId] += qi_lbmol[i] * opt.zi[i];
             }
+            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
             break;
         default:
             OCP_ABORT("Wrong well opt mode!");

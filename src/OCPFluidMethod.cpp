@@ -103,23 +103,38 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
+void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
+{
+    rs.CalIPRT(ctrl.GetCurDt());
+    rs.CalMaxChange();
+    rs.UpdateLastStep();
+    ctrl.CalNextTstepIMPEC(rs);
+    ctrl.UpdateIters();
+}
+
+
+
 void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
-    // Allocate Memory
+    // Allocate Bulk and BulkConn Memory
     rs.AllocateRsFIM();
+    // Read Ls Params
     ls.SetupParamB(ctrl.GetWorkDir(), ctrl.GetLsFile());
+    // Allocate memory for internal matrix structure
     rs.AllocateMatFIM(ls);
-    // For Block Fasp
+    // Allocate memory for BFasp matrix structure
     ls.AllocateBFasp();
+    // Allocate memory for resiual of FIM
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-    res.resize(num);
+    resFIM.res.resize(num);
 }
 
 
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResFIM(res, dt);
+    rs.CalResFIM(resFIM, dt);
+    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 }
 
 
@@ -127,7 +142,7 @@ void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
     const OCP_DBL& dt) const
 {
     rs.AssembleMatFIM(lsolver, dt);
-    lsolver.AssembleRhs_BFasp(res);
+    lsolver.AssembleRhs_BFasp(resFIM.res);
 }
 
 
@@ -141,16 +156,16 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 
     lsolver.AssembleMat_BFasp();
 
-#ifdef DEBUG
-    lsolver.PrintfMatCSR("testA.out", "testb.out");
+#ifdef _DEBUG
+    //lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
     Timer.Start();
     int status = lsolver.BFaspSolve();
 
-#ifdef DEBUG
-    lsolver.PrintfSolution("testx.out");
+#ifdef _DEBUG
+    //lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -183,20 +198,35 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     // Second check: Ni check.
     if (!rs.CheckNi()) {
         dt /= 2;
-        rs.ResetVal01();
         cout << "Negative Ni occurs\n";
         return false;
     }
     rs.CalFlashDeriv();
     rs.CalKrPcDeriv();
     rs.CalVpore();
-    rs.CalResFIM(res, dt);
+    rs.CalWellFlux();
+    rs.CalResFIM(resFIM, dt);
 }
 
 
 bool OCP_FIM::FinishNR()
 {
-
+    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
+        resFIM.maxRelRes_v < 1E-3 ||
+        resFIM.maxRelRes_mol < 1E-3) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 
+void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
+{
+    rs.CalIPRT(ctrl.GetCurDt());
+    rs.CalMaxChange();
+    rs.UpdateLastStepFIM();
+    ctrl.CalNextTstepFIM(rs);
+    ctrl.UpdateIters();
+}
