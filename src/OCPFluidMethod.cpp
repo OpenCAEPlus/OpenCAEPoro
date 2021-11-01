@@ -158,7 +158,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     lsolver.AssembleMat_BFasp();
 
 #ifdef _DEBUG
-    lsolver.PrintfMatCSR("testA.out", "testb.out");
+    // lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
@@ -166,7 +166,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     int status = lsolver.BFaspSolve();
 
 #ifdef _DEBUG
-    lsolver.PrintfSolution("testx.out");
+    // lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -211,7 +211,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool OCP_FIM::FinishNR(const OCPControl& ctrl)
+bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 {
     if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
         resFIM.maxRelRes_v < 1E-3 ||

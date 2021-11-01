@@ -65,7 +65,7 @@ public:
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
 
     /// Determine if NR iteration finishes.
-    bool FinishNR(const OCPControl& ctrl);
+    bool FinishNR(Reservoir& rs, const OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 

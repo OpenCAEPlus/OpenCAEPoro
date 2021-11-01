@@ -1225,6 +1225,12 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
     OCP_DBL choptmp = 0;
     for (OCP_USI n = 0; n < numBulk; n++) {
 
+        chopmin = 1;
+
+        //if (n == 8999) {
+        //    cout << __FUNCTION__ << endl;
+        //}
+
         // compute the chop
         dtmp.assign(row, 0);
         DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1, dtmp.data());

@@ -53,7 +53,7 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-    cout << ctrl.GetCurTime() << "  Days\n";
+    // cout << ctrl.GetCurTime() << "  Days\n";
     // Prepare for time marching
     Prepare(rs, dt);
     ctrl.iterNR = 0; // temp;
@@ -63,7 +63,7 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
         if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
         AssembleSolve(rs, ctrl, dt);
         if (!UpdateProperty(rs, dt)) continue;
-        if (FinishNR(ctrl)) break;
+        if (FinishNR(rs, ctrl)) break;
     }
 
     // Finish current time step
@@ -101,10 +101,10 @@ bool Solver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 /// Clean up Newton-Raphson iteration if there is any.
-bool Solver::FinishNR(const OCPControl& ctrl)
+bool Solver::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 {
     // Clean up the fluid part
-    return FSolver.FinishNR(ctrl);
+    return FSolver.FinishNR(rs, ctrl);
 }
 
 /// Clean up time step.

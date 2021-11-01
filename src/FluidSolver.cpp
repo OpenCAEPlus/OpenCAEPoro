@@ -96,13 +96,13 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool FluidSolver::FinishNR(const OCPControl& ctrl)
+bool FluidSolver::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 {
     switch (method) {
     case IMPEC:
         return impec.FinishNR();
     case FIM:
-        return fim.FinishNR(ctrl);
+        return fim.FinishNR(rs, ctrl);
         break;
     default:
         OCP_ABORT("Wrong method!");

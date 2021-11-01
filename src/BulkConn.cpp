@@ -632,6 +632,11 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     OCP_USI bId, eId, uId, bIdb;
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
+
+        //if (n == 8999) {
+        //    cout << "stop" << endl;
+        //}
+
         bId = n * len;
         bIdb = n * nc;
         res[bId] = myBulk.rockVp[n] - myBulk.vf[n];
@@ -653,6 +658,12 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
+
+
+        //if (bId == 8999 || eId == 8999) {
+        //    cout << "stop" << endl;
+        //}
+
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
