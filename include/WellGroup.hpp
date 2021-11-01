@@ -42,6 +42,7 @@ public:
     void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
+    void CalTrans(const Bulk& myBulk);
     /// calculate dG.
     void CaldG(const Bulk& myBulk);
     /// update moles of components in bulk which connects to well, according to the well

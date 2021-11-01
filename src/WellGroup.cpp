@@ -109,6 +109,15 @@ void WellGroup::CalFlux(const Bulk& myBulk)
     }
 }
 
+void WellGroup::CalTrans(const Bulk& myBulk)
+{
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].CalTrans(myBulk);
+        }
+    }
+}
+
 void WellGroup::CaldG(const Bulk& myBulk)
 {
     for (USI w = 0; w < numWell; w++) {

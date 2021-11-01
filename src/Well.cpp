@@ -560,6 +560,8 @@ void Well::AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             // Insert
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
             mySolver.colId[wId].push_back(n);
+            // Solution
+            mySolver.u[wId * ncol] = opt.maxBHP - BHP;
             break;
 
         default:
@@ -710,6 +712,8 @@ void Well::AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             // Insert
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
             mySolver.colId[wId].push_back(n);
+            // Solution
+            mySolver.u[wId * ncol] = opt.minBHP - BHP;
             break;
 
         default:

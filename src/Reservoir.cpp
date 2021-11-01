@@ -152,7 +152,7 @@ OCP_INT Reservoir::CheckP()
     }
 
     OCP_INT flag = 0;
-    // flag         = wellgroup.CheckP(bulk);
+    flag         = wellgroup.CheckP(bulk);
     return flag;
 }
 

@@ -158,7 +158,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     lsolver.AssembleMat_BFasp();
 
 #ifdef _DEBUG
-    // lsolver.PrintfMatCSR("testA.out", "testb.out");
+    lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
@@ -166,7 +166,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     int status = lsolver.BFaspSolve();
 
 #ifdef _DEBUG
-    // lsolver.PrintfSolution("testx.out");
+    lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -183,19 +183,19 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
 
     // first check : Pressure check.
-    OCP_INT flagCheck = rs.CheckP();
-    switch (flagCheck) {
-    case 1:
-        cout << "well change" << endl;
-        dt /= 2;
-        return false;
-    case 2:
-        cout << "well change" << endl;
-        dt /= 2;
-        return false;
-    default:
-        break;
-    }
+    //OCP_INT flagCheck = rs.CheckP();
+    //switch (flagCheck) {
+    //case 1:
+    //    cout << "well change" << endl;
+    //    dt /= 2;
+    //    return false;
+    //case 2:
+    //    cout << "well change" << endl;
+    //    dt /= 2;
+    //    return false;
+    //default:
+    //    break;
+    //}
     // Second check: Ni check.
     if (!rs.CheckNi()) {
         dt /= 2;
@@ -205,6 +205,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     rs.CalFlashDeriv();
     rs.CalKrPcDeriv();
     rs.CalVpore();
+    rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
 }
@@ -214,7 +215,7 @@ bool OCP_FIM::FinishNR(const OCPControl& ctrl)
 {
     if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
         resFIM.maxRelRes_v < 1E-3 ||
-        resFIM.maxRelRes_mol < 1E-2 ||
+        resFIM.maxRelRes_mol < 1E-3 ||
         (ctrl.NRdPmax < 1 && ctrl.NRdSmax < 0.01)) {
         return true;
     }

@@ -58,6 +58,7 @@ public:
     /// Calculate flux between bulks, bulks and wells.
     void CalFLux() { conn.CalFlux(bulk); wellgroup.CalFlux(bulk); };
     void CalWellFlux(){ wellgroup.CalFlux(bulk); }
+    void CalWellTrans() { wellgroup.CalTrans(bulk); }
     /// Calculate flux between bulks.
     void CalConnFlux() { conn.CalFlux(bulk); }
     /// Calculate mass conserve.
