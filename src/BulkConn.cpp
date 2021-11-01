@@ -382,15 +382,6 @@ void BulkConn::AssembleMat_IMPEC(LinearSolver& mySolver, const Bulk& myBulk,
         mySolver.b[n]       = temp * P + dt * (vf - Vp);
     }
 
-    // check
-    // ofstream outb("testb.dat");
-    // if (!outb.is_open())
-    //	cout << "Can not open " << "testb.dat" << endl;
-    // outb << mySolver.dim << endl;
-    // for (int i = 0; i < mySolver.dim; i++)
-    //	outb << mySolver.b[i] << endl;
-    // outb.close();
-
     // flux term
     OCP_USI bId, eId, uId;
     USI     np = myBulk.numPhase;
