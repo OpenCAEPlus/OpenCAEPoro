@@ -36,11 +36,12 @@ class Reservoir
     friend class CriticalInfo;
     friend class DetailInfo;
 
-public:
 
     /////////////////////////////////////////////////////////////////////
     // General
     /////////////////////////////////////////////////////////////////////
+
+public:
 
     /// Input param from internal param data structure, which stores the params from
     /// input files.
@@ -74,11 +75,19 @@ public:
     /// Return the num of Components
     USI GetComNum()const { return bulk.GetComNum(); }
 
+private:
+    Grid          grid;      ///< Grid class.
+    Bulk          bulk;      ///< Bulk class.
+    WellGroup     wellgroup; ///< WellGroup class.
+    BulkConn      conn;      ///< BulkConn class.
+
 
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
+
+public:
 
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC();
@@ -114,8 +123,12 @@ public:
     /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores for IMPEC
     void ResetVal03IMPEC();
 
+private:
+    // For output
+    OCP_DBL cfl; ///< CFL number.
 
 
+public:
 
     /////////////////////////////////////////////////////////////////////
     // FIM
@@ -139,16 +152,7 @@ public:
     void GetSolutionFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System  
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
-
-
-private:
-    Grid          grid;      ///< Grid class.
-    Bulk          bulk;      ///< Bulk class.
-    WellGroup     wellgroup; ///< WellGroup class.
-    BulkConn      conn;      ///< BulkConn class.
-
-    // For output
-    OCP_DBL cfl; ///< CFL number.
+    
 };
 
 

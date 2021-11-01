@@ -61,10 +61,16 @@ class Bulk
 public:
     Bulk() = default;
 
-    /// Return the num of active bulk.
-    OCP_USI GetBulkNum() const { return numBulk; }
+    /////////////////////////////////////////////////////////////////////
+    // General
+    /////////////////////////////////////////////////////////////////////
+
     /// Input param from internal data structure of param: ParamReservoir.
     void InputParam(ParamReservoir& rs_param);
+    
+    /// Return the num of active bulk.
+    OCP_USI GetBulkNum() const { return numBulk; }
+    
     /// Setup basic data from grid, Setup of grid must be finished before.
     void Setup(const Grid& myGrid);
     void AllocateAuxIMPEC();
@@ -156,6 +162,17 @@ public:
     OCP_DBL CalCFL01IMPEC() const;
     /// Calculate RelRes
     void CalRelResFIM(ResFIM& resFIM) const;
+
+
+    /////////////////////////////////////////////////////////////////////
+    // IMPEC
+    /////////////////////////////////////////////////////////////////////
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    // FIM
+    /////////////////////////////////////////////////////////////////////
 
 private:
     OCP_USI numBulk; ///< num of bulks (active grids).
