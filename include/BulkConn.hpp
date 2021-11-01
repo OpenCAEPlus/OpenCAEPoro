@@ -79,17 +79,17 @@ public:
     OCP_DBL CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_USI& bIdb,
                    const OCP_USI& eIdb) const;
     /// calculate the CFL number of flow between bulks.
-    OCP_DBL CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
+    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate the CFL number of flow between bulks.
-    void CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate main information about flow between bulks.
     void CalFlux(const Bulk& myBulk);
     /// update moles of component in each bulk according to mass conserve equations at
     /// current timestep.
     void MassConserve(Bulk& myBulk, const OCP_DBL& dt) const;
 
-    void AllocateConnIMPEC(const USI& np);
-    void AllocateConnFIM(const USI& np);
+    void AllocateAuxIMPEC(const USI& np);
+    void AllocateAuxFIM(const USI& np);
 
     // Assemble Mat
     /// Allocate memory for Matrix, it should be called only once at the beginning.

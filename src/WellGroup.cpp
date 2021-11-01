@@ -78,24 +78,24 @@ void WellGroup::ApplyControl(const USI& i)
     }
 }
 
-OCP_DBL WellGroup::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL WellGroup::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_DBL cflw = 0;
     OCP_DBL tmp  = 0;
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
-            tmp = wellGroup[w].CalCFL(myBulk, dt);
+            tmp = wellGroup[w].CalCFLIMPEC(myBulk, dt);
             if (cflw < tmp) cflw = tmp;
         }
     }
     return cflw;
 }
 
-void WellGroup::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+void WellGroup::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
-            wellGroup[w].CalCFL01(myBulk, dt);
+            wellGroup[w].CalCFL01IMPEC(myBulk, dt);
         }
     }
 }

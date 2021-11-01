@@ -4,7 +4,7 @@
 void OCP_IMPEC::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
     // Allocate Memory
-    rs.AllocateRsIMPEC();
+    rs.AllocateAuxIMPEC();
     ls.SetupParam(ctrl.GetWorkDir(), ctrl.GetLsFile());
     rs.AllocateMatIMPEC(ls);
     // For Fasp
@@ -15,7 +15,7 @@ void OCP_IMPEC::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    OCP_DBL cfl = rs.CalCFL01(dt);
+    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
     if (cfl > 1) dt /= (cfl + 1);
 }
 
@@ -44,7 +44,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
 
 #endif // __SOLVER_FASP__
 
-    rs.GetSolution_IMPEC(lsolver.GetSolution());
+    rs.GetSolutionIMPEC(lsolver.GetSolution());
     lsolver.ClearData();
 }
 
@@ -66,39 +66,39 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
         break;
     }
 
-    rs.CalFLux();
+    rs.CalFLuxIMPEC();
 
     // second check : CFL check
-    OCP_DBL cfl = rs.CalCFL01(dt);
+    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
     if (cfl > 1) {
         dt /= 2;
-        rs.ResetVal();
+        rs.ResetVal01IMPEC();
         cout << "CFL is too big" << endl;
         return false;
     }
 
-    rs.MassConseve(dt);
+    rs.MassConseveIMPEC(dt);
 
     // third check: Ni check
     if (!rs.CheckNi()) {
         dt /= 2;
-        rs.ResetVal01();
+        rs.ResetVal02IMPEC();
         cout << "Negative Ni occurs\n";
         return false;
     }
 
-    rs.CalFlash();
+    rs.CalFlashIMPEC();
     rs.CalVpore();
 
     // fouth check: Volume error check
     if (!rs.CheckVe(0.01)) {
         dt /= 2;
-        rs.ResetVal02();
+        rs.ResetVal03IMPEC();
         return false;
     }
 
     rs.CalKrPc();
-    rs.CalConnFlux();
+    rs.CalConnFluxIMPEC();
     return true;
 }
 
@@ -106,8 +106,8 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
-    rs.CalMaxChange();
-    rs.UpdateLastStep();
+    rs.CalMaxChangeIMPEC();
+    rs.UpdateLastStepIMPEC();
     ctrl.CalNextTstepIMPEC(rs);
     ctrl.UpdateIters();
 }
@@ -117,7 +117,7 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
-    rs.AllocateRsFIM();
+    rs.AllocateAuxFIM();
     // Read Ls Params
     ls.SetupParamB(ctrl.GetWorkDir(), ctrl.GetLsFile());
     // Allocate memory for internal matrix structure
@@ -174,7 +174,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 
 #endif // __SOLVER_FASP__
 
-    rs.GetSolution_FIM(lsolver.GetSolution(), ctrl.GetNRdSmax(), ctrl.GetNRdPmax());
+    rs.GetSolutionFIM(lsolver.GetSolution(), ctrl.GetNRdSmax(), ctrl.GetNRdPmax());
     lsolver.ClearData();
 }
 
@@ -202,8 +202,8 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
         cout << "Negative Ni occurs\n";
         return false;
     }
-    rs.CalFlashDeriv();
-    rs.CalKrPcDeriv();
+    rs.CalFlashDerivFIM();
+    rs.CalKrPcDerivFIM();
     rs.CalVpore();
     rs.CalWellTrans();
     rs.CalWellFlux();
@@ -228,7 +228,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
-    rs.CalMaxChange();
+    rs.CalMaxChangeIMPEC();
     rs.UpdateLastStepFIM();
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();

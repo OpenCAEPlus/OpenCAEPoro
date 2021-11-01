@@ -208,7 +208,7 @@ void Bulk::Setup(const Grid& myGrid)
     }
 }
 
-void Bulk::AllocateBulkIMPEC()
+void Bulk::AllocateAuxIMPEC()
 {
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
@@ -218,7 +218,7 @@ void Bulk::AllocateBulkIMPEC()
 }
 
 
-void Bulk::AllocateBulkFIM()
+void Bulk::AllocateAuxFIM()
 {
     Nt.resize(numBulk);
     vfi.resize(numBulk * numCom);
@@ -1352,7 +1352,7 @@ OCP_DBL Bulk::CalFPR() const
     return ptmp / vtmp;
 }
 
-OCP_DBL Bulk::CalCFL01() const
+OCP_DBL Bulk::CalCFL01IMPEC() const
 {
     OCP_DBL tmp = 0;
     OCP_USI id;

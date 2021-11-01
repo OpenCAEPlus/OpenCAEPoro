@@ -37,84 +37,109 @@ class Reservoir
     friend class DetailInfo;
 
 public:
+
+    /////////////////////////////////////////////////////////////////////
+    // General
+    /////////////////////////////////////////////////////////////////////
+
     /// Input param from internal param data structure, which stores the params from
     /// input files.
     void InputParam(ParamRead& param);
     /// Setup static information for reservoir with input params.
     void Setup();
-    void AllocateRsIMPEC() { bulk.AllocateBulkIMPEC(); conn.AllocateConnIMPEC(bulk.GetPhaseNum()); }
-    void AllocateRsFIM() { bulk.AllocateBulkFIM(); conn.AllocateConnFIM(bulk.GetPhaseNum()); }
-    /// Initialize the reservoir, actually it gives the first step in iterations.
-    void InitIMPEC();
-    void InitFIM();
-    /// Prepare for assembling matrix
-    void PrepareWell() { wellgroup.PrepareWell(bulk); }
     /// Apply the control of ith critical time point.
-    void ApplyControl(const USI& i) { wellgroup.ApplyControl(i); }
-    /// Calcluate the CFL number, including bulks and wells.
-    OCP_DBL CalCFL(const OCP_DBL& dt);
-    /// Calcluate the CFL number, including bulks and wells.
-    OCP_DBL CalCFL01(const OCP_DBL& dt);
-    /// Calculate flux between bulks, bulks and wells.
-    void CalFLux() { conn.CalFlux(bulk); wellgroup.CalFlux(bulk); };
-    void CalWellFlux(){ wellgroup.CalFlux(bulk); }
-    void CalWellTrans() { wellgroup.CalTrans(bulk); }
-    /// Calculate flux between bulks.
-    void CalConnFlux() { conn.CalFlux(bulk); }
-    /// Calculate mass conserve.
-    void MassConseve(const OCP_DBL& dt) { conn.MassConserve(bulk, dt); wellgroup.MassConserve(bulk, dt); }
-    /// Calculate Flash for IMPEC Method.
-    void CalFlash() { bulk.FlashNi(); }
-    /// Calculate Flash for IMPEC Method.
-    void CalFlashDeriv() { bulk.FlashNiDeriv(); }
-    /// Calculate pore of bulks.
-    void CalVpore() { bulk.CalVpore(); }
-    /// Calculate relative permeability and capillary.
-    void CalKrPc() { bulk.CalKrPc(); }
-    void CalKrPcDeriv() { bulk.CalKrPcDeriv(); }
-    /// Calculate IPRT.
-    void CalIPRT(const OCP_DBL& dt) { wellgroup.CalIPRT(bulk, dt); }
-    /// Calculate maximum change
-    void CalMaxChange() { bulk.CalMaxChange(); }
-    /// Update value of last step.
-    void UpdateLastStep() { bulk.UpdateLastStep(); conn.UpdateLastStep(); wellgroup.UpdateLastStep(); };
-    void UpdateLastStepFIM() { bulk.UpdateLastStepFIM(); }
-    /// Allocate memory for linear system, it should be called at the beginning of
-    /// simulation only once.
-    void AllocateMatIMPEC(LinearSolver& mySolver) const;
-    void AllocateMatFIM(LinearSolver& mySolver) const;
-
-    /// assemble the matrix
-    /// Setup most of sparsity pattern first, and then Setup the value only related to
-    /// the bulks. finally, assemble the parts related to wells, which will complete the
-    /// rest sparsity pattern simultaneously
-    void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
-    void AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const;
-    /// get the solution from LinearSolver after the linear system is solved.
-    void GetSolution_IMPEC(const vector<OCP_DBL>& u);
-    void GetSolution_FIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
-    void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
-    OCP_USI GetBulkNum()const { return bulk.GetBulkNum(); }
-    USI GetWellNum()const { return wellgroup.GetWellNum(); }
-    USI GetComNum()const { return bulk.GetComNum(); }
-    /// check if abnormal pressure occurs including pressure in bulks, wells,
-    /// perforations. if so, take corresponding measures and then resolve the linear
-    /// equations.
+    void ApplyControl(const USI& i);
+    /// Calculate Well Properties at the beginning of each time step.
+    void PrepareWell();
+    /// Calculate Flux between Bulk and Wells.
+    void CalWellFlux();
+    /// Calculate Trans of Wells.
+    void CalWellTrans();
+    /// Calculate pore of Bulks.
+    void CalVpore();
+    /// Calculate Relative Permeability and Capillary for each Bulk
+    void CalKrPc();
+    /// Calculate num of Injection, Production
+    void CalIPRT(const OCP_DBL& dt);
+    /// Check if abnormal Pressure occurs
     OCP_INT CheckP();
-    /// check if mole of components occurs
-    /// if so, cut the timestep, reset with function ResetVal01 and resolve the linear
-    /// equtions.
-    bool CheckNi() const { return bulk.CheckNi(); }
-    /// reset pressure, capillary pressure, flux.
-    void ResetVal();
-    /// reset pressure, capillary pressure, moles of componnets, flux.
-    void ResetVal01();
-    /// check if relative error between fluids volume and pore volume is too large.
-    /// if so, cut the timestep, reset with function resetval02 and resolve the linear
-    /// equtions.
-    bool CheckVe(const OCP_DBL& Vlim) const { return bulk.CheckVe(Vlim); }
-    /// reset pressure, capillary pressure, flux, moles of components, volume of pores.
-    void ResetVal02();
+    /// Check if abnormal Pressure occurs
+    bool CheckNi() const;
+    /// Check error between Fluids and Pores
+    bool CheckVe(const OCP_DBL& Vlim) const;
+    /// Return the num of Bulk
+    OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
+    /// Return the num of Well
+    USI GetWellNum()const { return wellgroup.GetWellNum(); }
+    /// Return the num of Components
+    USI GetComNum()const { return bulk.GetComNum(); }
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    // IMPEC
+    /////////////////////////////////////////////////////////////////////
+
+    /// Allocate memory for auxiliary variables used for IMPEC
+    void AllocateAuxIMPEC();
+    /// Initialize the properties of Reservoir for IMPEC
+    void InitIMPEC();
+    /// Calcluate the CFL number, including bulks and wells for IMPEC
+    OCP_DBL CalCFLIMPEC(const OCP_DBL& dt);
+    /// Calcluate the CFL number, including bulks and wells for IMPEC
+    /// CalCFL01IMPEC is more proper
+    OCP_DBL CalCFL01IMPEC(const OCP_DBL& dt);
+    /// Calculate flux between bulks, bulks and wells
+    void CalFLuxIMPEC();
+    /// Calculate flux between bulks
+    void CalConnFluxIMPEC();
+    /// Calculate Ni according to Flux
+    void MassConseveIMPEC(const OCP_DBL& dt);
+    /// Calculate Flash For IMPEC
+    void CalFlashIMPEC();
+    /// Calculate Maximum Change of some reference variables for IMPEC
+    void CalMaxChangeIMPEC();
+    /// Update value of last step for IMPEC
+    void UpdateLastStepIMPEC();
+    /// Allocate Maxmimum memory for internal Matirx for IMPEC
+    void AllocateMatIMPEC(LinearSolver& mySolver) const;
+    /// Assemble Matrix for IMPEC
+    void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
+    /// Return the Solution to Reservoir Pressure for IMPEC
+    void GetSolutionIMPEC(const vector<OCP_DBL>& u);
+    /// Reset Pressure, Capillary Pressure, Flux for IMPEC
+    void ResetVal01IMPEC();
+    /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC
+    void ResetVal02IMPEC();    
+    /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores for IMPEC
+    void ResetVal03IMPEC();
+
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    // FIM
+    /////////////////////////////////////////////////////////////////////
+
+    /// Allocate memory for auxiliary variables used for FIM
+    void AllocateAuxFIM();
+    /// Initialize the properties of Reservoir for FIM
+    void InitFIM();
+    /// Calculate Flash for FIM, some derivatives are needed
+    void CalFlashDerivFIM();
+    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
+    void CalKrPcDerivFIM();
+    /// Update value of last step for FIM.
+    void UpdateLastStepFIM();
+    /// Allocate Maxmimum memory for internal Matirx for FIM
+    void AllocateMatFIM(LinearSolver& mySolver) const;
+    /// Assemble Matrix for FIM
+    void AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const;
+    /// Return the Solution to Reservoir Pressure and moles of Components for FIM
+    void GetSolutionFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
+    /// Calculate the Resiual for FIM, it's also RHS of Linear System  
+    void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
+
 
 private:
     Grid          grid;      ///< Grid class.

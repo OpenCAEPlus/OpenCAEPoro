@@ -68,6 +68,24 @@
     } while (false)
 #endif
 
+
+
+/// Print Function Name
+#ifndef OCPFUNCNAME
+#define OCP_FUNCNAME                                                              \
+    do {                                                                               \
+                                                                                  \
+    } while (false)
+#else
+#define OCP_FUNCNAME                                                              \
+    do {                                                                               \
+        std::cout << __FUNCTION__ << std::endl;                                        \
+    } while (false)
+#endif // !OCPFUNCNAME
+
+
+
+
 #endif /* end if for __ERRORLOG_HXX__ */
 
 /*----------------------------------------------------------------------------*/

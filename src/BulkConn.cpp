@@ -25,7 +25,7 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     CalArea(myGrid, myBulk);
 }
 
-void BulkConn::AllocateConnIMPEC(const USI& np)
+void BulkConn::AllocateAuxIMPEC(const USI& np)
 {
     upblock.resize(numConn * np);
     upblock_Rho.resize(numConn * np);
@@ -38,7 +38,7 @@ void BulkConn::AllocateConnIMPEC(const USI& np)
 }
 
 
-void BulkConn::AllocateConnFIM(const USI& np)
+void BulkConn::AllocateAuxFIM(const USI& np)
 {
     upblock.resize(numConn * np);
     upblock_Rho.resize(numConn * np);
@@ -217,7 +217,7 @@ OCP_DBL BulkConn::CalAkd(const Grid& myGrid, const Bulk& myBulk,
 
 // Connection function, no matter what grid is
 
-OCP_DBL BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI     np   = myBulk.numPhase;
     OCP_DBL cfl  = 0;
@@ -237,7 +237,7 @@ OCP_DBL BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     return cfl;
 }
 
-void BulkConn::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     USI     np = myBulk.numPhase;
     for (OCP_USI c = 0; c < numConn; c++) {

@@ -67,8 +67,8 @@ public:
     void InputParam(ParamReservoir& rs_param);
     /// Setup basic data from grid, Setup of grid must be finished before.
     void Setup(const Grid& myGrid);
-    void AllocateBulkIMPEC();
-    void AllocateBulkFIM();
+    void AllocateAuxIMPEC();
+    void AllocateAuxFIM();
     /// Calculate initial equilibration for blkoil model according to EQUIL.
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcBlk(const USI& tabrow);
@@ -153,7 +153,7 @@ public:
     /// Initialize cfl number.
     void InitCFL() const { cfl.assign(numBulk * numPhase, 0); }
     /// Calculate the cfl number.
-    OCP_DBL CalCFL01() const;
+    OCP_DBL CalCFL01IMPEC() const;
     /// Calculate RelRes
     void CalRelResFIM(ResFIM& resFIM) const;
 

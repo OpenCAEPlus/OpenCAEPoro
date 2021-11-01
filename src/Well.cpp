@@ -167,7 +167,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk)
 
 void Well::Init(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }
 
-OCP_DBL Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
+OCP_DBL Well::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_DBL cfl = 0;
     OCP_DBL tmp = 0;
@@ -180,7 +180,7 @@ OCP_DBL Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     return cfl;
 }
 
-void Well::CalCFL01(const Bulk& myBulk, const OCP_DBL& dt) const
+void Well::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     if (opt.type == PROD) {
         USI np = myBulk.numPhase;
