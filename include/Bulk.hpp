@@ -197,7 +197,7 @@ private:
 
 
     // Last Step
-    // Properties at last STEP
+    // Properties at last STEP, determined by methods.
     vector<OCP_DBL> lP;  ///< Pressure at last time step: numBulk.
     vector<OCP_DBL> lPj; ///< Pressure of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> lPc; ///< Capillary pressure of phase at last time step: numPhase*numBulk.

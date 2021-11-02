@@ -128,7 +128,7 @@ void Reservoir::InitIMPEC() { OCP_FUNCNAME;
     bulk.FlashSj();
     bulk.CalKrPc();
     bulk.UpdateLastStepIMPEC();
-    conn.CalFlux(bulk);
+    conn.CalFluxIMPEC(bulk);
     conn.UpdateLastStep();
     wellgroup.Init(bulk);
 }
@@ -157,20 +157,20 @@ OCP_DBL Reservoir::CalCFL01IMPEC(const OCP_DBL& dt) { OCP_FUNCNAME;
 
 void Reservoir::CalFLuxIMPEC() { OCP_FUNCNAME;
 
-    conn.CalFlux(bulk); 
+    conn.CalFluxIMPEC(bulk);
     wellgroup.CalFlux(bulk); 
 }
 
 
 void Reservoir::CalConnFluxIMPEC() { OCP_FUNCNAME;
 
-    conn.CalFlux(bulk); 
+    conn.CalFluxIMPEC(bulk);
 }
 
 
 void Reservoir::MassConseveIMPEC(const OCP_DBL& dt) { OCP_FUNCNAME;
 
-    conn.MassConserve(bulk, dt); 
+    conn.MassConserveIMPEC(bulk, dt);
     wellgroup.MassConserve(bulk, dt); 
 }
 
@@ -199,8 +199,8 @@ void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const { OCP_FUNCNAME;
 
 void Reservoir::AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME;
 
-    conn.InitAssembleMat(mysolver);
-    conn.AssembleMat_IMPEC(mysolver, bulk, dt);
+    conn.SetupMatSparsity(mysolver);
+    conn.AssembleMatIMPEC(mysolver, bulk, dt);
     wellgroup.AssemblaMat_WB_IMPEC(mysolver, bulk, dt);
 }
 
@@ -267,7 +267,7 @@ void Reservoir::InitFIM() {  OCP_FUNCNAME;
     bulk.FlashNiDeriv();
     bulk.CalKrPcDeriv();
     bulk.UpdateLastStepIMPEC();
-    conn.CalFlux(bulk);
+    conn.CalFluxIMPEC(bulk);
     wellgroup.Init(bulk);
 }
 
@@ -301,7 +301,7 @@ void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const { OCP_FUNCNAME;
 
 void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME; 
 
-    conn.InitAssembleMat(mysolver);
+    conn.SetupMatSparsity(mysolver);
     conn.AssembleMat_FIM(mysolver, bulk, dt);
     wellgroup.AssemblaMat_WB_FIM(mysolver, bulk, dt);
 }
