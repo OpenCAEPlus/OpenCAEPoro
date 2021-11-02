@@ -106,7 +106,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
-    rs.CalMaxChangeIMPEC();
+    rs.CalMaxChange();
     rs.UpdateLastStepIMPEC();
     ctrl.CalNextTstepIMPEC(rs);
     ctrl.UpdateIters();
@@ -228,7 +228,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
-    rs.CalMaxChangeIMPEC();
+    rs.CalMaxChange();
     rs.UpdateLastStepFIM();
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();

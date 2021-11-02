@@ -68,6 +68,12 @@ void Reservoir::CalKrPc() { OCP_FUNCNAME;
 }
 
 
+void Reservoir::CalMaxChange() {  OCP_FUNCNAME;
+
+    bulk.CalMaxChange();
+}
+
+
 void Reservoir::CalIPRT(const OCP_DBL& dt)  { OCP_FUNCNAME;
 
     wellgroup.CalIPRT(bulk, dt); 
@@ -121,7 +127,7 @@ void Reservoir::InitIMPEC() { OCP_FUNCNAME;
     bulk.CalVpore();
     bulk.FlashSj();
     bulk.CalKrPc();
-    bulk.UpdateLastStep();
+    bulk.UpdateLastStepIMPEC();
     conn.CalFlux(bulk);
     conn.UpdateLastStep();
     wellgroup.Init(bulk);
@@ -140,7 +146,7 @@ OCP_DBL Reservoir::CalCFLIMPEC(const OCP_DBL& dt) { OCP_FUNCNAME;
 
 OCP_DBL Reservoir::CalCFL01IMPEC(const OCP_DBL& dt) { OCP_FUNCNAME;
 
-    bulk.InitCFL();
+    bulk.InitCFLIMPEC();
     conn.CalCFL01IMPEC(bulk, dt);
     wellgroup.CalCFL01IMPEC(bulk, dt);
     cfl = bulk.CalCFL01IMPEC();
@@ -175,14 +181,8 @@ void Reservoir::CalFlashIMPEC() { OCP_FUNCNAME;
 }
 
 
-void Reservoir::CalMaxChangeIMPEC() { OCP_FUNCNAME;
-
-    bulk.CalMaxChange(); 
-}
-
-
 void Reservoir::UpdateLastStepIMPEC() { OCP_FUNCNAME;
-    bulk.UpdateLastStep(); 
+    bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStep(); 
     wellgroup.UpdateLastStep(); 
 }
@@ -266,7 +266,7 @@ void Reservoir::InitFIM() {  OCP_FUNCNAME;
     bulk.FlashSj();
     bulk.FlashNiDeriv();
     bulk.CalKrPcDeriv();
-    bulk.UpdateLastStep();
+    bulk.UpdateLastStepIMPEC();
     conn.CalFlux(bulk);
     wellgroup.Init(bulk);
 }

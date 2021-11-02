@@ -60,6 +60,8 @@ public:
     void CalVpore();
     /// Calculate Relative Permeability and Capillary for each Bulk
     void CalKrPc();
+    /// Calculate Maximum Change of some reference variables for IMPEC
+    void CalMaxChange();
     /// Calculate num of Injection, Production
     void CalIPRT(const OCP_DBL& dt);
     /// Check if abnormal Pressure occurs
@@ -106,8 +108,6 @@ public:
     void MassConseveIMPEC(const OCP_DBL& dt);
     /// Calculate Flash For IMPEC
     void CalFlashIMPEC();
-    /// Calculate Maximum Change of some reference variables for IMPEC
-    void CalMaxChangeIMPEC();
     /// Update value of last step for IMPEC
     void UpdateLastStepIMPEC();
     /// Allocate Maxmimum memory for internal Matirx for IMPEC
