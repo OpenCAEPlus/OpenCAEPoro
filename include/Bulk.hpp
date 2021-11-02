@@ -267,7 +267,7 @@ public:
 
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC();
-    /// get solution from solver class after linear system is solved
+    /// Get solution from solver class after linear system is solved
     void GetSolIMPEC(const vector<OCP_DBL>& u);
     /// Initialize cfl number
     void InitCFLIMPEC() const { cfl.assign(numBulk * numPhase, 0); }
