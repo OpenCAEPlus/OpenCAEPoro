@@ -64,6 +64,35 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
 }
 
 
+void Well::InputPerfo(const WellParam& well) {
+    OCP_FUNCNAME;
+
+    numPerf = well.I_perf.size();
+    perf.resize(numPerf);
+    for (USI p = 0; p < numPerf; p++) {
+        perf[p].I = well.I_perf[p] - 1;
+        perf[p].J = well.J_perf[p] - 1;
+        perf[p].K = well.K_perf[p] - 1;
+        perf[p].WI = well.WI[p];
+        perf[p].radius = well.diameter[p] / 2.0;
+        perf[p].kh = well.kh[p];
+        perf[p].skinFactor = well.skinFactor[p];
+        if (well.direction[p] == "X" || well.direction[p] == "x") {
+            perf[p].direction = X_DIRECTION;
+        }
+        else if (well.direction[p] == "Y" || well.direction[p] == "y") {
+            perf[p].direction = Y_DIRECTION;
+        }
+        else if (well.direction[p] == "Z" || well.direction[p] == "z") {
+            perf[p].direction = Z_DIRECTION;
+        }
+        else {
+            OCP_ABORT("Wrong direction of perforations!");
+        }
+    }
+}
+
+
 void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 
     // zi
@@ -123,51 +152,38 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 
     qi_lbmol.resize(myBulk.numCom);
     // perf
+    USI pp = 0;
+    for (USI p = 0; p < numPerf; p++) {       
+        OCP_USI Idg = perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
+        if (myGrid.activeMap_G2B[Idg].GetAct()) {
+
+            perf[pp] = perf[p];
+            perf[pp].state = OPEN;
+            perf[pp].location = myGrid.activeMap_G2B[Idg].GetId();
+            perf[pp].depth = myBulk.depth[perf[pp].location];
+            perf[pp].multiplier = 1;
+            perf[pp].qi_lbmol.resize(myBulk.numCom);
+            perf[pp].transj.resize(myBulk.numPhase);
+            perf[pp].qj_ft3.resize(myBulk.numPhase);
+            pp++;
+        }
+        else {
+            OCP_WARNING("Perforation is in inactive bulk!");
+        }   
+    }
+    numPerf = pp;
+    perf.resize(numPerf);
+    // dG
     dG.resize(numPerf, 0);
     ldG = dG;
-    for (USI p = 0; p < numPerf; p++) {
-        perf[p].state = OPEN;
-        OCP_USI Idg =
-            perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
-        if (!myGrid.activeMap_G2B[Idg].GetAct()) {
-            OCP_ABORT("Perforation is in inactive bulk!");
-        }
-        perf[p].location = myGrid.activeMap_G2B[Idg].GetId();
-        perf[p].depth = myBulk.depth[perf[p].location];
-        perf[p].multiplier = 1;
-        perf[p].qi_lbmol.resize(myBulk.numCom);
-        perf[p].transj.resize(myBulk.numPhase);
-        perf[p].qj_ft3.resize(myBulk.numPhase);
-    }
+
     if (depth < 0) depth = perf[0].depth;
 
     CalWI_Peaceman_Vertical(myBulk);
 }
 
 
-void Well::InputPerfo(const WellParam& well) { OCP_FUNCNAME;
 
-    numPerf = well.I_perf.size();
-    perf.resize(numPerf);
-    for (USI p = 0; p < numPerf; p++) {
-        perf[p].I          = well.I_perf[p] - 1;
-        perf[p].J          = well.J_perf[p] - 1;
-        perf[p].K          = well.K_perf[p] - 1;
-        perf[p].WI         = well.WI[p];
-        perf[p].radius     = well.diameter[p] / 2.0;
-        perf[p].kh         = well.kh[p];
-        perf[p].skinFactor = well.skinFactor[p];
-        if (well.direction[p] == "X" || well.direction[p] == "x") {
-            perf[p].direction = X_DIRECTION;
-        } else if (well.direction[p] == "Y" || well.direction[p] == "y") {
-            perf[p].direction = Y_DIRECTION;
-        } else if (well.direction[p] == "Z" || well.direction[p] == "z") {
-            perf[p].direction = Z_DIRECTION;
-        } else {
-            OCP_ABORT("Wrong direction of perforations!");
-        }
-    }
-}
 
 
 void Well::InitBHP(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }

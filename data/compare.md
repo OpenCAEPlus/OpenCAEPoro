@@ -22,7 +22,6 @@ Total linear steps:  8300
 Linear solve time:   0.839s (60.582%)
 
 
-
 OCP_IMPES_0.1
 
 Final time:          3655.500 Days
@@ -30,6 +29,18 @@ Total time steps:    36563
 Simulation time:     8.043s
 Total linear steps:  36621
 Linear solve time:   4.380s (54.456%)
+
+
+PS_FIM_10
+
+Final time:          3655.5 Days
+Total time steps:    420
+Total Newton steps:  434
+Wasted Newton steps: 1
+Total linear steps:  1235
+Linear solver time:  3.62965s
+Simulation time:     4.08421s
+
 
 OCP_FIM_10
 
@@ -78,6 +89,17 @@ Simulation time:     7.516s
 Total linear steps:  36621
 Linear solve time:   3.914s (52.078%)
 
+PS_FIM_10
+
+Final time:          3655.5 Days
+Total time steps:    420
+Total Newton steps:  437
+Wasted Newton steps: 1
+Total linear steps:  1212
+Linear solver time:  2.6363s
+Simulation time:     3.08908s
+
+
 OCP_FIM_10
 
 Final time:          3655.500 Days
@@ -121,6 +143,18 @@ Total time steps:    9027
 Simulation time:     101.900s
 Total linear steps:  11555
 Linear solve time:   63.668s (62.481%)
+
+
+PS_FIM_10
+
+Final time:          900 Days
+Total time steps:    157
+Total Newton steps:  216
+Wasted Newton steps: 53
+Total linear steps:  1061
+Linear solver time:  12.3944s
+Simulation time:     27.515s
+
 
 OCP_FIM_10
 

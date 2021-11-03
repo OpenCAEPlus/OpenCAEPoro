@@ -86,10 +86,10 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Setup the well after Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
+    /// Setup the well after Grid and Bulk finish setupping.
+    void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// Initialize the Well BHP
     void InitBHP(const Bulk& myBulk);
     /// Calculate Well Index with Peaceman model for vertical well.

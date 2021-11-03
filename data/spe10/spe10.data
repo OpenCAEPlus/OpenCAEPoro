@@ -1,0 +1,171 @@
+NOECHO
+
+RUNSPEC
+
+TITLE
+ SPE 10th Comparitive Project: Non-upscaled data
+
+-- 
+-- Note this is an Eclipse 300 dataset as the case requires 
+-- the CPR-AMG Solver to run in a respectable time.
+--
+DIMENS
+60  220  85  /
+
+--
+-- 1.2 Million Cells - needs to run in parallel really
+-- On a 8-node linux cluster (2.8Ghz processors) and a Myrinet
+-- switch the case should run in around 5 hours.
+--
+--PARALLEL
+-- 8 /
+--NPROCX
+-- 2 /
+--NPROCY
+-- 4 /
+
+--
+-- Default CPR setting run OK, this looks about the best bet
+-- at the moment.
+-- 
+--CPR
+-- 1* 'NESTED'   /
+
+--SAMG
+-- 1E-2 /
+
+OIL
+WATER
+
+NSTACK
+ 20 /
+
+FIELD
+
+START
+ 1 JAN 2000  /
+
+TABDIMS
+ 4*  5  /
+
+WELLDIMS
+ 5  85  2  5  /
+
+UNIFOUT
+
+MEMORY
+1500 /
+
+MESSAGES
+3* 100000 5* 100000 2* /
+
+GRID
+INIT
+
+EQUALS
+DX       20  6*   /
+DY       10  6*   /
+DZ        2  6*   /
+TOPS  12000     4*    1    1    /
+/
+
+INCLUDE
+    poro.inc /
+ 
+INCLUDE
+    permx.inc /
+INCLUDE 
+    permy.inc /
+INCLUDE 
+    permz.inc /
+
+RPTGRID
+ 'NNC' 'ALLNNC' /
+
+GRIDFILE
+ 0  1  /
+
+PROPS
+INCLUDE
+    pvt.inc /
+
+INCLUDE
+    scal.inc /
+
+SOLUTION
+
+EQUIL
+  12000   6000   15000   0    2370    0   0   0   0  /
+
+RPTSOL
+ RESTART=2 FIP=2 PART /
+
+SUMMARY
+
+--INCLUDE
+--'summary.inc' /
+SCHEDULE
+
+TUNING  -- min/max timestep (3 sections)
+0.01     120     0.01 /
+   /
+100 1* 1000 1* 100 /
+
+
+NLSOLVE
+10 5E-3 300 0.1 1 0.01 0.2 0.001 
+/
+
+TMARCH
+0.01 120 0.01 5 0.3 0.3 300 0.5 1 0.001 
+/
+
+
+METHOD
+FIM
+/
+
+
+RPTSCHED
+ 'WELLS=2' 'SUMMARY=2' 'fip=3' 'RESTART=1' 'WELSPECS' 'CPU=2' 'NEWTON=2' 'AQUFETP=3' 'AQUCT=3' /
+
+RPTRST
+ 'BASIC=3' 'FREQ=1' /
+
+WELSPECS
+I1  G  30  110  12000   WAT  /
+--
+P1  G   1    1  12000   OIL  /
+P2  G  60    1  12000   OIL  /
+P3  G  60  220  12000   OIL  /
+P4  G   1  220  12000   OIL  /
+/
+
+COMPDAT
+I1  2*  1   85   OPEN    1*    0.5  3* /
+--
+P1  2*  1   85   OPEN    1*    0.5  3* /
+P2  2*  1   85   OPEN    1*    0.5  3* /
+P3  2*  1   85   OPEN    1*    0.5  3* /
+P4  2*  1   85   OPEN    1*    0.5  3* /
+/
+
+WCONINJE
+I1  WATER  OPEN  RATE  5000.0  10000  /  
+/
+
+WCONPROD
+P1  OPEN  BHP  100000000  4000  /
+P2  OPEN  BHP  100000000  4000  /
+P3  OPEN  BHP  100000000  4000  /
+P4  OPEN  BHP  100000000  4000  /
+/
+
+
+
+
+TSTEP -- run it for 2000 days
+2000 /
+/
+
+END
