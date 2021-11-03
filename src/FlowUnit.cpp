@@ -44,8 +44,8 @@ void FlowUnit::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
         case PHASE_OG:
             CalKrPc_OG(S_in, kr_out, pc_out);
             break;
-        case PHASE_OGW: // should SWOF be used here?
-            CalKrPc_OGW(S_in, kr_out, pc_out);
+        case PHASE_ODGW: // should SWOF be used here?
+            CalKrPc_ODGW(S_in, kr_out, pc_out);
             break;
         default:
             OCP_ABORT("Wrong mode specified!");
@@ -94,7 +94,7 @@ void FlowUnit::CalKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 }
 
 /// TODO: Add Doxygen
-void FlowUnit::CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
+void FlowUnit::CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
     OCP_DBL Sg = S_in[1];
     OCP_DBL Sw = S_in[2];
@@ -134,15 +134,15 @@ void FlowUnit::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_ou
 {
     switch (mode)
     {
-    case PHASE_OGW:
-        CalKrPcDeriv_OGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);
+    case PHASE_ODGW:
+        CalKrPcDeriv_ODGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);
         break;
     default:
         break;
     }
 }
 
-void FlowUnit::CalKrPcDeriv_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
+void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
 {
     OCP_DBL Sg = S_in[1];
     OCP_DBL Sw = S_in[2];

@@ -32,7 +32,7 @@
     <ClCompile Include="src\LinearBSolver.cpp" />
     <ClCompile Include="src\LinearSolver.cpp" />
     <ClCompile Include="src\MixtureBO.cpp" />
-    <ClCompile Include="src\MixtureBO3.cpp" />
+    <ClCompile Include="src\MixtureBO3_ODGW.cpp" />
     <ClCompile Include="src\OCP.cpp" />
     <ClCompile Include="src\OCPControl.cpp" />
     <ClCompile Include="src\OCPFluidMethod.cpp" />

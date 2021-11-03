@@ -61,8 +61,8 @@ void Bulk::InputParam(ParamReservoir& rs_param) { OCP_FUNCNAME;
             EQUIL.PcOWC = rs_param.EQUIL[3];
             EQUIL.DGOC  = rs_param.EQUIL[4];
             EQUIL.PcGOC = rs_param.EQUIL[5];
-            SATmode     = PHASE_OGW;
-            PVTmode     = PHASE_OGW; // maybe it should be added later
+            SATmode     = PHASE_DOGW;
+            PVTmode     = PHASE_DOGW; // maybe it should be added later
         } else if (water && oil && gas && disGas) {
             // water, live oil, dry gas
             numPhase    = 3;
@@ -71,8 +71,8 @@ void Bulk::InputParam(ParamReservoir& rs_param) { OCP_FUNCNAME;
             EQUIL.PcOWC = rs_param.EQUIL[3];
             EQUIL.DGOC  = rs_param.EQUIL[4];
             EQUIL.PcGOC = rs_param.EQUIL[5];
-            SATmode     = PHASE_OGW;
-            PVTmode     = PHASE_OGW;
+            SATmode     = PHASE_ODGW;
+            PVTmode     = PHASE_ODGW;
         }
         rs_param.numPhase = numPhase;
         rs_param.numCom   = numCom;
@@ -182,7 +182,8 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
                 phase2Index[GAS]   = 0;
                 phase2Index[WATER] = 1;
                 break;
-            case PHASE_OGW:
+            case PHASE_ODGW:
+            case PHASE_DOGW:
                 index2Phase.resize(3);
                 index2Phase[0] = OIL;
                 index2Phase[1] = GAS;

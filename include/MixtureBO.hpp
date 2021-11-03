@@ -45,7 +45,7 @@ public:
     /// flash calculation with saturations while PVTmode is PHASE_OGW, where water
     /// phase, oil phase and gas phase could exist. (to do)in fact, the phasecase where
     /// if dissolved gas exists should be distinguished.
-    void BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin,
+    void BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin,
                         const OCP_DBL& Vpore);
     /// flash calculation with saturations of phase, pressure in bulks. temperature is
     /// unnecessary now.
@@ -59,29 +59,29 @@ public:
     /// flash calculation with moles of components while PVTmode is PHASE_OGW, where
     /// water phase, oil phase and gas phase could exist. (to do)in fact, the phasecase
     /// where if dissolved gas exists should be distinguished.
-    void BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
+    void BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
     void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin) override;
     void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
-    void BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
+    void BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
     // return xi  molar density
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) override;
-    OCP_DBL XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
+    OCP_DBL XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
 
     // return rho
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T,
                      const OCP_DBL* Ziin) override;
-    OCP_DBL RhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
+    OCP_DBL RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
 
     // return gamma
     OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
     OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override;
     OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
     OCP_DBL GammaPhaseO_OW(const OCP_DBL& Pin);
-    OCP_DBL GammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin);
+    OCP_DBL GammaPhaseO_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin);
     OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
                          const OCP_DBL* Ziin) override
     {

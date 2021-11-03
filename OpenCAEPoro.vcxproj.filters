@@ -33,9 +33,6 @@
     <ClCompile Include="src\MixtureBO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MixtureBO3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OCPFluidMethod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MixtureBO3_ODGW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

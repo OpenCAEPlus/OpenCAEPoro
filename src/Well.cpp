@@ -107,7 +107,8 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
                 case PHASE_OW:
                     opt.zi.back() = 1;
                     break;
-                case PHASE_OGW:
+                case PHASE_ODGW:
+                case PHASE_DOGW:
                     if (opt.fluidType == GAS)
                         opt.zi[1] = 1;
                     else
@@ -129,7 +130,8 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
                     else
                         opt.zi[1] = 1;
                     break;
-                case PHASE_OGW:
+                case PHASE_ODGW:
+                case PHASE_DOGW:
                     if (opt.optMode == ORATE_MODE)
                         opt.zi[0] = 1;
                     else if (opt.optMode == GRATE_MODE)
@@ -181,9 +183,6 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 
     CalWI_Peaceman_Vertical(myBulk);
 }
-
-
-
 
 
 void Well::InitBHP(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }

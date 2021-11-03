@@ -1,5 +1,5 @@
-/*! \file    MixtureBO3.cpp
- *  \brief   MixtureBO3 class definition
+/*! \file    MixtureBO3_ODGW.cpp
+ *  \brief   Used for the condition where oil, gas, disolve gas, water exist.
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -11,7 +11,7 @@
 
 #include "MixtureBO.hpp"
 
-void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                                const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
 
@@ -45,7 +45,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     } else if (S[1] < TINY)
         phasecae = PHASE_OW; // case 3 : water, oil, no gas
     else
-        phasecae = PHASE_OGW; // case 4 : water, oil, gas
+        phasecae = PHASE_ODGW; // case 4 : water, oil, gas
 
     switch (phasecae) {
         case PHASE_W: {
@@ -158,7 +158,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 
             break;
         }
-        case PHASE_OGW: {
+        case PHASE_ODGW: {
             phaseExist.assign(3, true);
 
             // oil property
@@ -208,7 +208,7 @@ void BOMixture::BOFlash_Sj_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     }
 }
 
-void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
 
     phaseExist.assign(numPhase, false);
@@ -244,7 +244,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     } else if (Ni[1] <= Ni[0] * Rs_sat)
         phasecase = PHASE_OW; // water, oil, no gas
     else
-        phasecase = PHASE_OGW; // water, oil ,gas
+        phasecase = PHASE_ODGW; // water, oil ,gas
 
     switch (phasecase) {
         case PHASE_W: {
@@ -359,7 +359,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 
             break;
         }
-        case PHASE_OGW: {
+        case PHASE_ODGW: {
             phaseExist.assign(3, true);
 
             // oil property
@@ -408,7 +408,7 @@ void BOMixture::BOFlash_Ni_OGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 }
 
 
-void BOMixture::BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
     phaseExist.assign(numPhase, false);
     cij.assign(numPhase * numCom, 0);
@@ -455,7 +455,7 @@ void BOMixture::BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     else if (Ni[1] <= Ni[0] * Rs_sat)
         phasecase = PHASE_OW; // water, oil, no gas
     else
-        phasecase = PHASE_OGW; // water, oil ,gas
+        phasecase = PHASE_ODGW; // water, oil ,gas
 
     switch (phasecase) {
     case PHASE_W: {
@@ -639,7 +639,7 @@ void BOMixture::BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 
         break;
     }
-    case PHASE_OGW: {
+    case PHASE_ODGW: {
         phaseExist.assign(3, true);
 
         // oil property
@@ -711,7 +711,8 @@ void BOMixture::BOFlash_Ni_OGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     }
 }
 
-OCP_DBL BOMixture::XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+
+OCP_DBL BOMixture::XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is gas
@@ -733,7 +734,8 @@ OCP_DBL BOMixture::XiPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::RhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+
+OCP_DBL BOMixture::RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is gas
@@ -755,7 +757,8 @@ OCP_DBL BOMixture::RhoPhase_OGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::GammaPhaseO_OGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
+
+OCP_DBL BOMixture::GammaPhaseO_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
 
     PVCO.Eval_All(0, Pbbin, data, cdata);

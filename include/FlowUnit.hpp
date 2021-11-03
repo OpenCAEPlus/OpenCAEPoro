@@ -96,11 +96,11 @@ public:
 
     /// calculate relative permeability and capillary pressure for oil, gas and water.
     /// it will be used if oil, gas and water exist or could be exist.
-    void CalKrPc_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+    void CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
 
-    void CalKrPcDeriv_OGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+    void CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
 
     // FlowUnits Model
     /// calculate relative permeability of oil phase with stone2 method.

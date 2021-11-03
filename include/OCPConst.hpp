@@ -63,11 +63,13 @@ const USI BLKOIL   = 1;
 const USI EoS_PVTW = 2;
 
 // Phase types
-const USI PHASE_W   = 1;
-const USI PHASE_GW  = 2;
-const USI PHASE_OW  = 3;
-const USI PHASE_OGW = 4;
-const USI PHASE_OG  = 5;
+const USI PHASE_W    = 1;
+const USI PHASE_GW   = 2;
+const USI PHASE_OW   = 3;
+const USI PHASE_OG   = 4;
+const USI PHASE_ODGW = 5;
+const USI PHASE_DOGW = 6;
+
 
 // Well params
 const USI  INJ        = 1;

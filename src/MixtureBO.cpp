@@ -83,8 +83,8 @@ void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
             BOFlash_Sj_OW(Pin, Sjin, Vpore);
             break;
 
-        case PHASE_OGW:
-            BOFlash_Sj_OGW(Pin, Pbbin, Sjin, Vpore);
+        case PHASE_ODGW:
+            BOFlash_Sj_ODGW(Pin, Pbbin, Sjin, Vpore);
             break;
 
         default:
@@ -107,8 +107,8 @@ void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
             BOFlash_Ni_OW(Pin, Niin);
             break;
 
-        case PHASE_OGW:
-            BOFlash_Ni_OGW(Pin, Niin);
+        case PHASE_ODGW:
+            BOFlash_Ni_ODGW(Pin, Niin);
             break;
 
         default:
@@ -131,8 +131,8 @@ void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP
         BOFlash_Ni_OW_Deriv(Pin, Niin);
         break;
 
-    case PHASE_OGW:
-        BOFlash_Ni_OGW_Deriv(Pin, Niin);
+    case PHASE_ODGW:
+        BOFlash_Ni_ODGW_Deriv(Pin, Niin);
         break;
 
     default:
@@ -165,8 +165,8 @@ OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
             OCP_ABORT("Will be added!");
         case PHASE_OW:
             OCP_ABORT("Will be added!");
-        case PHASE_OGW:
-            return XiPhase_OGW(Pin, Ziin);
+        case PHASE_ODGW:
+            return XiPhase_ODGW(Pin, Ziin);
             break;
         default:
             OCP_ABORT("Not implemented yet!");
@@ -182,8 +182,8 @@ OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL*
             OCP_ABORT("Will be added!");
         case PHASE_OW:
             OCP_ABORT("Will be added!");
-        case PHASE_OGW:
-            return RhoPhase_OGW(Pin, Ziin);
+        case PHASE_ODGW:
+            return RhoPhase_ODGW(Pin, Ziin);
             break;
         default:
             OCP_ABORT("Not implemented yet!");
@@ -197,8 +197,8 @@ OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
     switch (mode) {
         case PHASE_OW:
             return GammaPhaseO_OW(Pin);
-        case PHASE_OGW:
-            return GammaPhaseO_OGW(Pin, Pbbin);
+        case PHASE_ODGW:
+            return GammaPhaseO_ODGW(Pin, Pbbin);
         default:
             OCP_ABORT("Wrong Mode");
     }
