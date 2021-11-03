@@ -208,6 +208,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
+    return true;
 }
 
 
