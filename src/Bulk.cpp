@@ -214,7 +214,7 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
 }
 
 
-void Bulk::InitSjPcBlk(const USI& tabrow) { OCP_FUNCNAME;
+void Bulk::InitSjPcBo(const USI& tabrow) { OCP_FUNCNAME;
 
     Pb.resize(numBulk);
 

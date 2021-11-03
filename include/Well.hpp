@@ -17,13 +17,13 @@
 
 // OpenCAEPoro header files
 #include "Bulk.hpp"
+#include "DenseMat.hpp"
 #include "Grid.hpp"
 #include "LinearSolver.hpp"
 #include "OCPConst.hpp"
+#include "OCPStructure.hpp"
 #include "ParamWell.hpp"
 #include "WellPerf.hpp"
-#include "OCPStructure.hpp"
-#include "DenseMat.hpp"
 
 using namespace std;
 
@@ -80,97 +80,54 @@ class Well
 
 public:
     Well() = default;
-    /// return the state of the well, Open or Close.
-    bool WellState() const { return opt.state; }
-    /// return the type of well, Inj or Prod.
-    USI WellType() const { return opt.type; }
 
+    /////////////////////////////////////////////////////////////////////
+    // General
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Setup the well after Grid and Bulk finish setupping.
+    void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
-
-    /// Setup the well, it will be called when Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const Bulk& myBulk);
-    /// cal Well Index with Peaceman model for vertical well.
+    /// Initialize the Well BHP
+    void InitBHP(const Bulk& myBulk);
+    /// Calculate Well Index with Peaceman model for vertical well.
     void CalWI_Peaceman_Vertical(const Bulk& myBulk);
-
-    /// guess the well pressure at the beginning of simulation.
-    /// usually the pressure equals the ones in topest bulk which connects to the well.
-    void Init(const Bulk& myBulk);
-    /// calculate the CFL number, only parts related to wells are considered.
-    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// calculate the CFL number, only parts related to wells are considered.
-    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// calculate pressure difference between well and perforations.
-    /// it calculates pressure difference between perforations iteratively.
-    /// this function can be used in both black oil model and compositional model.
-    /// stability of this method shoule be tested.
-    void CaldG(const Bulk& myBulk);
-    /// calculate pressure difference between well and perforations for injection.
-    void CalInjdG(const Bulk& myBulk);
-    /// calculate pressure difference between well and perforations for prodcution.
-    void CalProddG(const Bulk& myBulk);
-    // test
-    /// try to smooth the dG by average it with dG at last time step.
-    /// it's just a test now to make dG more stable.
-    void SmoothdG();
-    /// calculate transmissibility for each phase in perforations.
+    /// Calculate transmissibility for each phase in perforations.
     void CalTrans(const Bulk& myBulk);
-    /// calculate the flow rate of moles of components and total flow rate of volume in
-    /// each perforations.
+    /// Calculate the flux for each perforations.
     void CalFlux(const Bulk& myBulk, const bool flag = false);
-    /// update moles of components in those bulks who connects to the well.
-    void MassConserve(Bulk& myBulk, const OCP_DBL& dt) const;
-
-    /// calculate flow rate of moles of components for injection well in black oil
-    /// model, where pressure in injection well equals minial ones in injection well,
-    /// which is input by users. this function is used to check if operation mode of
-    /// well shoubld be swtched.
-    OCP_DBL CalInjRate_Blk(const Bulk& myBulk);
-    /// calculate flow rate of moles of components for production well in black oil
-    /// model, where pressure in production well equals minial ones in production well,
-    /// which is input by users. this function is used to check if operation mode of
-    /// well shoubld be swtched.
-    OCP_DBL CalProdRate_Blk(const Bulk& myBulk);
-    /// calculate flow rate of moles of components for injection well in black oil
-    /// model.
-    void CalInjQi_Blk(const Bulk& myBulk, const OCP_DBL& dt);
-    /// calculate flow rate of moles of components for production well in black oil
-    /// model.
-    void CalProdQi_Blk(const Bulk& myBulk, const OCP_DBL& dt);
-
-    /// check if well operation mode would be changed.
-    /// constant well pressure would be applied if flow rate is too large.
-    /// constant flow rate would be applied if well pressure is outranged.
+    /// calculate flow rate of moles of components for injection well in black oil model
+    OCP_DBL CalInjRateBO(const Bulk& myBulk);
+    /// calculate flow rate of moles of components for production well in black oil model
+    OCP_DBL CalProdRateBO(const Bulk& myBulk);
+    /// Calculate flow rate of moles of components for injection well in black oil model.
+    void CalInjQiBO(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate flow rate of moles of components for Production well in black oil model.
+    void CalProdQiBO(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate pressure difference between well and perforations.
+    void CaldG(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Injection.
+    void CalInjdG(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Prodcution.
+    void CalProddG(const Bulk& myBulk);
+    /// Try to smooth the dG by average it with dG at last time step.
+    void SmoothdG();
+    /// Check if well operation mode would be changed.
     void CheckOptMode(const Bulk& myBulk);
-
-    // Assemble Mat
-    /// allocate memory for matrix.
-    void AllocateMat(LinearSolver& mySolver) const;
-    /// assemble matrix, parts related to injection well are included.
-    void AssembleMat_INJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
-                               const OCP_DBL& dt) const;
-    /// assemble matrix, parts related to production well are included.
-    /// this function can only applied in Black Oil model now.
-    void AssembleMat_PROD_BLK_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
-                                    const OCP_DBL& dt) const;
-
-    void AssembleMat_INJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
-        const OCP_DBL& dt) const;
-
-    void AssembleMat_PROD_BLK_FIM(const Bulk& myBulk, LinearSolver& mySolver,
-        const OCP_DBL& dt) const;
-
-    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt, const OCP_USI& wId) const;
-    /// update pressure in Perforation after well pressure updates.
-    void UpdatePerfP()
-    {
-        for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p];
-    }
-    /// check if abnormal Pressure occurs.
+    /// Check if abnormal Pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
-    /// check if crossflow happens.
+    /// Check if crossflow happens.
     OCP_INT CheckCrossFlow(const Bulk& myBulk);
-
+    /// Update pressure in Perforation after well pressure updates.
+    void UpdatePerfP() { for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p]; }
+    /// Allocate memory for matrix.
+    void AllocateMat(LinearSolver& mySolver) const;
+    /// Return the state of the well, Open or Close.
+    bool WellState() const { return opt.state; }
+    /// Return the type of well, Inj or Prod.
+    USI WellType() const { return opt.type; } 
     /// Display operation mode of well and state of perforations.
     void ShowPerfStatus() const;
 
@@ -186,7 +143,7 @@ private:
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.
     vector<OCP_DBL>
-        dG; ///< difference of pressure between well and perforation: numPerf.
+                    dG; ///< difference of pressure between well and perforation: numPerf.
     vector<OCP_DBL> ldG; ///< difference of pressure between well and perforation at
                          ///< last time step: numPerf.
 
@@ -203,8 +160,45 @@ private:
     OCP_DBL WGIT{0};          ///< well total gas injection.
     OCP_DBL WWIR{0};          ///< well water injection rate.
     OCP_DBL WWIT{0};          ///< well total water injection.
-};
 
+
+
+    /////////////////////////////////////////////////////////////////////
+    // IMPEC
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Calculate the CFL number, only parts related to wells are considered.
+    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Calculate the CFL number, only parts related to wells are considered.
+    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Update moles of components in those bulks who connects to the well.
+    void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Assemble matrix for IMPEC, parts related to injection well are included.
+    void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for IMPEC, parts related to production well are included.
+    void AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+        const OCP_DBL& dt) const;
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    // FIM
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Assemble matrix for FIM, parts related to Injection well are included.
+    void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for FIM, parts related to Production well are included.
+    void AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+        const OCP_DBL& dt) const;
+    /// Calculate Resiual and relative Resiual for FIM.
+    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
+        const OCP_USI& wId) const;
+
+};
 
 #endif /* end if __WELL_HEADER__ */
 

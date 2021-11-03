@@ -71,7 +71,7 @@ public:
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibration for blkoil model according to EQUIL.
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
-    void InitSjPcBlk(const USI& tabrow);
+    void InitSjPcBo(const USI& tabrow);
     /// Calculate initial equilibration for compositional model according to EQUIL.
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcComp(const USI& tabrow);

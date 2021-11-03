@@ -120,7 +120,7 @@ void Reservoir::AllocateAuxIMPEC() { OCP_FUNCNAME;
 void Reservoir::InitIMPEC() { OCP_FUNCNAME;
 
     if (bulk.GetMixMode() == BLKOIL)
-        bulk.InitSjPcBlk(50);
+        bulk.InitSjPcBo(50);
     else if (bulk.GetMixMode() == EoS_PVTW)
         bulk.InitSjPcComp(50);
 
@@ -258,7 +258,7 @@ void Reservoir::AllocateAuxFIM() {  OCP_FUNCNAME;
 void Reservoir::InitFIM() {  OCP_FUNCNAME;
 
     if (bulk.GetMixMode() == BLKOIL)
-        bulk.InitSjPcBlk(50);
+        bulk.InitSjPcBo(50);
     else if (bulk.GetMixMode() == EoS_PVTW)
         bulk.InitSjPcComp(50);
 

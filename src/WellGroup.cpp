@@ -81,7 +81,7 @@ void WellGroup::ApplyControl(const USI& i) { OCP_FUNCNAME;
 void WellGroup::InitBHP(const Bulk& myBulk) { OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        wellGroup[w].Init(myBulk);
+        wellGroup[w].InitBHP(myBulk);
     }
 }
 
@@ -148,10 +148,10 @@ void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt) {OCP_FUNCNAME;
 
         if (wellGroup[w].WellState()) {
             if (wellGroup[w].WellType() == PROD) {
-                wellGroup[w].CalProdQi_Blk(myBulk, dt);
+                wellGroup[w].CalProdQiBO(myBulk, dt);
             }
             else {
-                wellGroup[w].CalInjQi_Blk(myBulk, dt);
+                wellGroup[w].CalInjQiBO(myBulk, dt);
             }
         }
         FGIR += wellGroup[w].WGIR;
@@ -270,7 +270,7 @@ void WellGroup::MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt) { OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
-            wellGroup[w].MassConserve(myBulk, dt);
+            wellGroup[w].MassConserveIMPEC(myBulk, dt);
         }
     }
 }
@@ -284,10 +284,10 @@ void WellGroup::AssemblaMatIMPEC(LinearSolver& mySolver, const Bulk& myBulk,
 
             switch (wellGroup[w].WellType()) {
                 case INJ:
-                    wellGroup[w].AssembleMat_INJ_IMPEC(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMatINJ_IMPEC(myBulk, mySolver, dt);
                     break;
                 case PROD:
-                    wellGroup[w].AssembleMat_PROD_BLK_IMPEC(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMatPROD_BO_IMPEC(myBulk, mySolver, dt);
                     break;
                 default:
                     OCP_ABORT("Wrong well type");
@@ -323,10 +323,10 @@ void WellGroup::AssemblaMatFIM(LinearSolver& mySolver, const Bulk& myBulk,
 
             switch (wellGroup[w].WellType()) {
             case INJ:
-                wellGroup[w].AssembleMat_INJ_FIM(myBulk, mySolver, dt);
+                wellGroup[w].AssembleMatINJ_FIM(myBulk, mySolver, dt);
                 break;
             case PROD:
-                wellGroup[w].AssembleMat_PROD_BLK_FIM(myBulk, mySolver, dt);
+                wellGroup[w].AssembleMatPROD_BO_FIM(myBulk, mySolver, dt);
                 break;
             default:
                 OCP_ABORT("Wrong well type");
