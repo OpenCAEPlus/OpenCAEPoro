@@ -1049,10 +1049,6 @@ void Bulk::FlashNiDeriv() { OCP_FUNCNAME;
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
         PassFlashValueDeriv(n);
-        // Nt
-        Nt[n] = 0;
-        for (USI i = 0; i < numCom; i++)
-            Nt[n] += Ni[n * numCom + i];
     }
 #ifdef _DEBUG
     CheckSat();
@@ -1125,6 +1121,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n) { OCP_FUNCNAME;
         }
     }
     vf[n] = flashCal[pvtnum]->vf;
+    Nt[n] = flashCal[pvtnum]->Nt;
     vfp[n] = flashCal[pvtnum]->vfp;
     bId = n * numCom;
     for (USI i = 0; i < numCom; i++) {

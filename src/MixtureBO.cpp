@@ -142,7 +142,7 @@ void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP
 
 void BOMixture::BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin){}
 
-void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
+
 
 void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
 

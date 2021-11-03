@@ -215,10 +215,10 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     cij.assign(numPhase * numCom, 0); //
 
     P          = Pin;
-    OCP_DBL NT = 0;
+    Nt = 0;
     for (USI i = 0; i < numCom; i++) {
         Ni[i] = Niin[i];
-        NT += Ni[i];
+        Nt += Ni[i];
     }
 
     // Water property
@@ -236,7 +236,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     USI     phasecase;
     OCP_DBL Rs_sat = PVCO.Eval(0, P, 1);
 
-    if (Ni[0] < NT * TINY) {
+    if (Ni[0] < Nt * TINY) {
         if (Ni[1] <= Ni[0] * Rs_sat)
             phasecase = PHASE_W; // water, no oil, no gas
         else
@@ -421,10 +421,10 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     dSec_dPri.assign(dSec_dPri.size(), 0);
 
     P = Pin;
-    OCP_DBL NT = 0;
+    Nt = 0;
     for (USI i = 0; i < numCom; i++) {
         Ni[i] = Niin[i];
-        NT += Ni[i];
+        Nt += Ni[i];
     }
 
     // Water property
@@ -446,7 +446,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     USI     phasecase;
     OCP_DBL Rs_sat = PVCO.Eval(0, P, 1);
 
-    if (Ni[0] < NT * TINY) {
+    if (Ni[0] < Nt * TINY) {
         if (Ni[1] <= Ni[0] * Rs_sat)
             phasecase = PHASE_W; // water, no oil, no gas
         else

@@ -91,6 +91,7 @@ protected:
     OCP_DBL P;        ///< pressure when flash calculation.
     OCP_DBL T;        ///< temperature when flash calculation.
 
+    
     vector<OCP_DBL> Ni;         ///< moles of component: numCom
     vector<bool>    phaseExist; ///< existence of phase: numPhase
     vector<OCP_DBL> S;          ///< saturation of phase: numPhase
@@ -102,6 +103,7 @@ protected:
     vector<OCP_DBL> v;   ///< volume of phase: numPhase;
 
     OCP_DBL vf;  ///< volume of total fluids.
+    OCP_DBL         Nt;         ///< Total moles of Components.
 
     /// Derivatives
 
