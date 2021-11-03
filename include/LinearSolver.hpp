@@ -134,6 +134,7 @@ public:
     void PrintfMatCSR(const string& fileA, const string& fileb) const;
     /// clear the internal matrix.
     void ClearData();
+    void ClearDataB();
     /// return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
 

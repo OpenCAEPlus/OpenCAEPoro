@@ -195,7 +195,7 @@ WCONPROD
 'PROD*'   'OPEN'    'ORAT'   20000.0     1000    /
 /
 TUNING
-0.1   1    0.1   /
+0.1   10    0.1   /
                      /
 12     2       15    /
 /
@@ -205,7 +205,7 @@ NLSOLVE
 /
 
 METHOD
-IMPEC
+FIM
 /
 
 TSTEP

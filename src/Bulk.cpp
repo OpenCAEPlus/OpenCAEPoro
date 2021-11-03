@@ -146,25 +146,10 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
     vj.resize(numBulk * numPhase);
     vf.resize(numBulk);
 
-
-    lP.resize(numBulk);
-    lPj.resize(numBulk * numPhase);
-    lPc.resize(numBulk * numPhase);
-    lphaseExist.resize(numBulk * numPhase);
-    lS.resize(numBulk * numPhase);
-    lrho.resize(numBulk * numPhase);
-    lxi.resize(numBulk * numPhase);
-    lcij.resize(numBulk * numPhase * numCom);
-    lNi.resize(numBulk * numCom);
-    lmu.resize(numBulk * numPhase);
-    lkr.resize(numBulk * numPhase);
-    lvj.resize(numBulk * numPhase);
-    lvf.resize(numBulk);
-    rockLVp.resize(numBulk);
-
     phase2Index.resize(3);
 
     if (blackOil) {
+        Pb.resize(numBulk);
         switch (PVTmode) {
             case PHASE_W:
                 index2Phase.resize(1);
@@ -211,12 +196,14 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
                 break;
         }
     }
+    else if (comps)
+    {
+        // initZi.resize(numBulk * numCom);
+    }
 }
 
 
 void Bulk::InitSjPcBo(const USI& tabrow) { OCP_FUNCNAME;
-
-    Pb.resize(numBulk);
 
     OCP_DBL Dref = EQUIL.Dref;
     OCP_DBL Pref = EQUIL.Pref;
@@ -652,8 +639,6 @@ void Bulk::InitSjPcBo(const USI& tabrow) { OCP_FUNCNAME;
 
 
 void Bulk::InitSjPcComp(const USI& tabrow) { OCP_FUNCNAME;
-
-    initZi.resize(numBulk * numCom);
 
     OCP_DBL Dref = EQUIL.Dref;
     OCP_DBL Pref = EQUIL.Pref;
@@ -1369,9 +1354,25 @@ void Bulk::AllocateAuxIMPEC() { OCP_FUNCNAME;
 
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
+    cfl.resize(numBulk * numPhase);
+
+    // for last step
+    lP.resize(numBulk);
+    lPj.resize(numBulk * numPhase);
+    lPc.resize(numBulk * numPhase);
+    lphaseExist.resize(numBulk * numPhase);
+    lS.resize(numBulk * numPhase);
+    lrho.resize(numBulk * numPhase);
+    lxi.resize(numBulk * numPhase);
+    lcij.resize(numBulk * numPhase * numCom);
+    lNi.resize(numBulk * numCom);
+    lmu.resize(numBulk * numPhase);
+    lkr.resize(numBulk * numPhase);
+    lvj.resize(numBulk * numPhase);
+    lvf.resize(numBulk);
     lvfi.resize(numBulk * numCom);
     lvfp.resize(numBulk);
-    cfl.resize(numBulk * numPhase);
+    rockLVp.resize(numBulk);
 }
 
 
@@ -1439,7 +1440,13 @@ void Bulk::UpdateLastStepIMPEC() { OCP_FUNCNAME;
  /////////////////////////////////////////////////////////////////////
 
 
-void Bulk::AllocateAuxFIM() { OCP_FUNCNAME;
+void Bulk::AllocateAuxFIM() 
+{ 
+    OCP_FUNCNAME;
+
+    lP.resize(numBulk);
+    lS.resize(numBulk * numPhase);
+    lNi.resize(numBulk * numCom);
 
     Nt.resize(numBulk);
     vfi.resize(numBulk * numCom);
@@ -1454,7 +1461,6 @@ void Bulk::AllocateAuxFIM() { OCP_FUNCNAME;
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
 }
-
 
 
 void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax) {  OCP_FUNCNAME;
@@ -1530,9 +1536,8 @@ void Bulk::CalRelResFIM(ResFIM& resFIM) const { OCP_FUNCNAME;
 void Bulk::UpdateLastStepFIM() { OCP_FUNCNAME;
 
     lP = P;
-    lPj = Pj;
-    lNi = Ni;
     lS = S;
+    lNi = Ni; 
 }
 
 

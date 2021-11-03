@@ -200,7 +200,7 @@ WCONPROD
 /
 
 TUNING
-0.1   10    0.1   /
+0.1   1    0.1   /
                      /
 12     2       15    /
 /
@@ -210,7 +210,7 @@ NLSOLVE
 /
 
 METHOD
-FIM
+IMPEC
 /
 
 TMARCH

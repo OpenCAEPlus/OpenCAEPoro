@@ -161,6 +161,8 @@ public:
     /// Assmeble Matrix for FIM, parts only related to bulks are considered.
     void AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+    /// calculate Upblock for FIM
+    void CalFluxFIM(const Bulk& myBulk);
     /// Calculate Resiual for FIM
     void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 

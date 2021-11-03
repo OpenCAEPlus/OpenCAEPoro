@@ -535,11 +535,6 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FU
 void BulkConn::AllocateAuxFIM(const USI& np) { OCP_FUNCNAME;
 
     upblock.resize(numConn * np);
-    upblock_Rho.resize(numConn * np);
-    // useless
-    upblock_Trans.resize(numConn * np);
-    upblock_Velocity.resize(numConn * np);
-
 }
 
 
@@ -547,12 +542,12 @@ void BulkConn::AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk, const
 {
     OCP_FUNCNAME;
 
-    USI np = myBulk.numPhase;
-    USI nc = myBulk.numCom;
-    USI ncol = nc + 1;
-    USI ncol2 = np*nc + np;
-    USI bsize = ncol * ncol;
-    USI bsize2 = ncol * ncol2;
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+    const USI ncol = nc + 1;
+    const USI ncol2 = np*nc + np;
+    const USI bsize = ncol * ncol;
+    const USI bsize2 = ncol * ncol2;
 
     vector<OCP_DBL> bmat(bsize, 0);
 
@@ -708,6 +703,62 @@ void BulkConn::AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk, const
     }
 }
 
+
+void BulkConn::CalFluxFIM(const Bulk& myBulk)
+{
+    OCP_FUNCNAME;
+
+    const USI     np = myBulk.numPhase;
+    OCP_USI bId, eId, uId;
+    OCP_USI bId_np_j, eId_np_j;
+    OCP_DBL Pbegin, Pend, rho;
+    
+    for (OCP_USI c = 0; c < numConn; c++) {
+        bId = iteratorConn[c].BId;
+        eId = iteratorConn[c].EId;
+        OCP_DBL Akd = area[c];
+
+        for (USI j = 0; j < np; j++) {
+            bId_np_j = bId * np + j;
+            eId_np_j = eId * np + j;
+
+            bool exbegin = myBulk.phaseExist[bId_np_j];
+            bool exend = myBulk.phaseExist[eId_np_j];
+
+            if ((exbegin) && (exend)) {
+                Pbegin = myBulk.Pj[bId_np_j];
+                Pend = myBulk.Pj[eId_np_j];
+                rho = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
+            }
+            else if (exbegin && (!exend)) {
+                Pbegin = myBulk.Pj[bId_np_j];
+                Pend = myBulk.P[eId];
+                rho = myBulk.rho[bId_np_j];
+            }
+            else if ((!exbegin) && (exend)) {
+                Pbegin = myBulk.P[bId];
+                Pend = myBulk.Pj[eId_np_j];
+                rho = myBulk.rho[eId_np_j];
+            }
+            else {
+                upblock[c * np + j] = bId;
+                continue;
+            }
+
+            uId = bId;
+            bool    exup = exbegin;
+            OCP_DBL dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
+                (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            if (dP < 0) {
+                uId = eId;
+                exup = exend;
+            }
+            upblock[c * np + j] = uId;
+        }
+    }
+}
+
+
 void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) { OCP_FUNCNAME;
 
     USI np = myBulk.numPhase;
@@ -759,7 +810,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             }
             else {
                 upblock[c * np + j] = bId;
-                upblock_Rho[c * np + j] = rho;
+                // upblock_Rho[c * np + j] = rho;
                 continue;
             }
 
@@ -771,7 +822,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
                 uId = eId;
                 exup = exend;
             }
-            upblock_Rho[c * np + j] = rho;
+            // upblock_Rho[c * np + j] = rho;
             upblock[c * np + j] = uId;
 
             uId_np_j = uId * np + j;

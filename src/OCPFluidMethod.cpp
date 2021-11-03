@@ -175,7 +175,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 #endif // __SOLVER_FASP__
 
     rs.GetSolutionFIM(lsolver.GetSolution(), ctrl.GetNRdSmax(), ctrl.GetNRdPmax());
-    lsolver.ClearData();
+    lsolver.ClearDataB();
 }
 
 

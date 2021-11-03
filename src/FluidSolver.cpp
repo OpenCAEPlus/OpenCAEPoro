@@ -79,9 +79,6 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
 }
 
 
-
-
-
 bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     switch (method) {

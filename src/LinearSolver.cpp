@@ -53,10 +53,24 @@ void LinearSolver::ClearData()
     // diagPtr.assign(maxDim, 0);
     diagVal.assign(maxDim * blockSize, 0);
     b.assign(maxDim * blockDim, 0);
+    // In fact, for linear system the current solution is a good initial solution for
+    // next step, so u will not be set to zero. u.assign(maxDim, 0);
+}
+
+
+void LinearSolver::ClearDataB()
+{
+    for (OCP_USI i = 0; i < maxDim; i++) {
+        colId[i].clear();
+        val[i].clear();
+    }
+    // diagPtr.assign(maxDim, 0);
+    diagVal.assign(maxDim * blockSize, 0);
     Dmat.assign(Dmat.size(), 0);
     // In fact, for linear system the current solution is a good initial solution for
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
+
 
 void LinearSolver::AssembleMat_Fasp()
 {

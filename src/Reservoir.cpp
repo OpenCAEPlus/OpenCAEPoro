@@ -266,8 +266,8 @@ void Reservoir::InitFIM() {  OCP_FUNCNAME;
     bulk.FlashSj();
     bulk.FlashNiDeriv();
     bulk.CalKrPcDeriv();
-    bulk.UpdateLastStepIMPEC();
-    conn.CalFluxIMPEC(bulk);
+    bulk.UpdateLastStepFIM();
+    conn.CalFluxFIM(bulk);
     wellgroup.InitBHP(bulk);
 }
 
