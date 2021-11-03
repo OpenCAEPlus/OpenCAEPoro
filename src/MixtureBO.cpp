@@ -153,10 +153,7 @@ void BOMixture::BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin,
 {
 }
 
-void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
-                              const OCP_DBL& Vpore)
-{
-}
+
 
 OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {

@@ -115,7 +115,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             break;
         }
         case PHASE_OW: {
-            // water, oil
+            // water, oil, unsaturated
             phaseExist[0] = true;
             phaseExist[2] = true;
 
