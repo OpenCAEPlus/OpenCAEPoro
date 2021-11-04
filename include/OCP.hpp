@@ -30,7 +30,7 @@ public:
     void PrintVersion() const
     {
         std::cout << "OpenCAEPoro Version-" << OCPVersion << std::endl
-                  << "=========================" << std::endl;
+                  << "=========================================" << std::endl;
     };
 
     /// Read input parameters to an internal structure.
