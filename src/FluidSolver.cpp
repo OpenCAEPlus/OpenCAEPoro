@@ -4,6 +4,7 @@
 void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
+    cout << "Method  " << method << endl;
     switch (method)
     {
     case IMPEC:

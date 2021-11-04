@@ -4,6 +4,7 @@
 void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
 	const OCP_DBL& Vpore)
 {
+	P = Pin;
 	S[1] = Sjin[1];
 	// Water Properties
 	PVTW.Eval_All(0, P, data, cdata);
@@ -78,7 +79,7 @@ void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 	xi[0] = 1 / (CONV1 * bo);
 	rho[0] = std_RhoO / bo;
 
-	muP[0] = cdata[1];
+	muP[0] = cdata[2];
 	xiP[0] = -xi[0] * bop / bo;
 	rhoP[0] = -rho[0] * bop / bo;
 
@@ -102,4 +103,49 @@ void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 	dSec_dPri[4] = -S[1] * vfi[0] / vf;  // dSw / dNo
 	dSec_dPri[5] = (CONV1 * bw - S[1] * vfi[1]) / vf; // dSw / dNw
 
+}
+
+
+OCP_DBL BOMixture::XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+{
+	if (Ziin[1] > 1 - TINY) {
+		// inj fluid is water
+		PVTW.Eval_All(0, Pin, data, cdata);
+		OCP_DBL Pw0 = data[0];
+		OCP_DBL bw0 = data[1];
+		OCP_DBL cbw = data[2];
+		OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+		OCP_DBL xiw = 1 / (CONV1 * bw);
+		return xiw;
+	}
+	else {
+		OCP_ABORT("Wrong Zi!");
+	}
+}
+
+
+OCP_DBL BOMixture::RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+{
+	if (Ziin[1] > 1 - TINY) {
+		// inj fluid is water
+
+		PVTW.Eval_All(0, Pin, data, cdata);
+		OCP_DBL Pw0 = data[0];
+		OCP_DBL bw0 = data[1];
+		OCP_DBL cbw = data[2];
+		OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+		OCP_DBL rhow = std_RhoW / bw;
+		return rhow;
+	}
+	else {
+		OCP_ABORT("Wrong Zi!");
+	}
+}
+
+OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin)
+{ 
+	OCP_DBL bo = PVDO.Eval(0, Pin, 1);
+	OCP_DBL gammaO = std_GammaO / bo;
+
+	return gammaO;
 }

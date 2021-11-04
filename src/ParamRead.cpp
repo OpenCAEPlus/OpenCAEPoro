@@ -123,6 +123,7 @@ void ParamRead::ReadFile(const string& file)
             case Map_Str2Int("SWOF", 4):
             case Map_Str2Int("SGOF", 4):
             case Map_Str2Int("PVCO", 4):
+            case Map_Str2Int("PVDO", 4):
             case Map_Str2Int("PVDG", 4):
             case Map_Str2Int("PVTW", 4):
             case Map_Str2Int("PBVD", 4):

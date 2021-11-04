@@ -36,8 +36,10 @@ void Bulk::InputParam(ParamReservoir& rs_param) { OCP_FUNCNAME;
 
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];
-    EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
-
+    if (rs_param.PBVD_T.data.size() > 0) {
+        EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
+    }
+    
     if (blackOil) {
         if (water && !oil && !gas) {
             // water
@@ -1465,8 +1467,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
     
     NRdSmax = 0;
     NRdPmax = 0;
-    OCP_DBL dSmaxLim = 0.2;
-    OCP_DBL dPmaxLim = 200;
+    OCP_DBL dSmaxLim = 0.1;
+    OCP_DBL dPmaxLim = 300;
     OCP_DBL dP;
     USI row = numPhase * (numCom + 1);
     USI col = numCom + 1;
@@ -1477,10 +1479,6 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
     for (OCP_USI n = 0; n < numBulk; n++) {
 
         chopmin = 1;
-
-        //if (n == 8999) {
-        //    cout << __FUNCTION__ << endl;
-        //}
 
         // compute the chop
         dtmp.assign(row, 0);
@@ -1497,15 +1495,14 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
                 choptmp = 1;
             }
             chopmin = min(chopmin, choptmp);
-            NRdSmax = max(NRdSmax, chopmin * fabs(dtmp[j]));
+            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
         }
         dP = u[n * col];
         choptmp = dPmaxLim / fabs(dP);
         chopmin = min(chopmin, choptmp);
-        chopmin = min(chopmin, 1.0);
-        NRdPmax = max(NRdPmax, chopmin * fabs(dP));
+        NRdPmax = max(NRdPmax, fabs(dP));
         P[n] += dP;
-        // P[n] += dP * min(choptmp, 1.0);
+        // P[n] += dP * min(chopmin, 1.0);
 
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;

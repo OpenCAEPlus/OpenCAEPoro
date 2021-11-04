@@ -69,11 +69,13 @@ public:
 
     // return xi  molar density
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) override;
+    OCP_DBL XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
     OCP_DBL XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
 
     // return rho
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T,
                      const OCP_DBL* Ziin) override;
+    OCP_DBL RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
     OCP_DBL RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
 
     // return gamma

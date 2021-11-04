@@ -109,8 +109,10 @@ public:
     OCP_DBL GetLastCurDt() const { return lcurrent_dt; }
     /// Return the number of linear solver iterations in one time step.
     USI GetLSiter() const { return iterLS; }
+    USI GetLSiterT() const { return iterLS_total; }
     /// Return the number of Newton iterations in one time step.
     USI GetNRiter() const { return iterNR; }
+    USI GetNRiterT() const { return iterNR_total; }
 
     /// Update num of iterations.
     void UpdateIters();

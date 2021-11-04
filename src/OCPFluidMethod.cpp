@@ -214,9 +214,12 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
 {
-    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
-        resFIM.maxRelRes_v < 1E-3 ||
-        resFIM.maxRelRes_mol < 1E-3 ||
+    //cout << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_mol << "  " << ctrl.NRdPmax << "  " << ctrl.NRdSmax << endl;
+
+    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 5E-3 ||
+        resFIM.maxRelRes_v < 5E-3 ||
+        resFIM.maxRelRes_mol < 5E-3 ||
         (ctrl.NRdPmax < 1 && ctrl.NRdSmax < 0.01)) {
         return true;
     }

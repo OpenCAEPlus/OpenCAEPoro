@@ -182,6 +182,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
     if (depth < 0) depth = perf[0].depth;
 
     CalWI_Peaceman_Vertical(myBulk);
+    cout << "Well::Setup\n";
 }
 
 
@@ -725,6 +726,7 @@ void Well::CheckOptMode(const Bulk& myBulk) { OCP_FUNCNAME;
         }
         else {
             opt.optMode = BHP_MODE;
+            BHP = opt.maxBHP;
         }
     }
     else {
@@ -733,6 +735,7 @@ void Well::CheckOptMode(const Bulk& myBulk) { OCP_FUNCNAME;
         }
         else {
             opt.optMode = BHP_MODE;
+            BHP = opt.minBHP;
         }
     }
 }
@@ -1127,7 +1130,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     const USI bsize = ncol * ncol;
     const USI bsize2 = ncol * ncol2;
 
-    OCP_DBL kr, mu, muP;
+    OCP_DBL mu, muP;
     OCP_DBL dP;
     OCP_DBL transIJ;
 
@@ -1152,7 +1155,6 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             n_np_j = n * np + j;
             if (!myBulk.phaseExist[n_np_j]) continue;
 
-            kr = myBulk.kr[n_np_j];
             mu = myBulk.mu[n_np_j];
             muP = myBulk.muP[n_np_j];
 
@@ -1265,7 +1267,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
     const USI bsize = ncol * ncol;
     const USI bsize2 = ncol * ncol2;
 
-    OCP_DBL cij, xi, kr, mu, muP, xiP;
+    OCP_DBL cij, xi, mu, muP, xiP;
     OCP_DBL dP;
     OCP_DBL transIJ;
     OCP_DBL tmp;
@@ -1292,7 +1294,6 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             // dP = myBulk.Pj[n_np_j] - perf[p].P;
             dP = myBulk.Pj[n_np_j] - BHP - dG[p];
             xi = myBulk.xi[n_np_j];
-            kr = myBulk.kr[n_np_j];
             mu = myBulk.mu[n_np_j];
             muP = myBulk.muP[n_np_j];
             xiP = myBulk.xiP[n_np_j];

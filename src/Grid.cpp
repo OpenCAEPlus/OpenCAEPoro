@@ -59,7 +59,7 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
         count++;
     }
     activeGridNum = count;
-    cout << (numGrid - activeGridNum) / numGrid << "% of grid cell is inactive" << endl;
+    cout << (numGrid - activeGridNum)*1.0 / numGrid << "% (" << (numGrid - activeGridNum) << ") of grid cell is inactive" << endl;
     cout << "Grid::calActiveBulk" << endl;
 }
 

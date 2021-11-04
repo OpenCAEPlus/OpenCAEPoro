@@ -161,7 +161,8 @@ OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
         case PHASE_W:
             OCP_ABORT("Will be added!");
         case PHASE_OW:
-            OCP_ABORT("Will be added!");
+            return XiPhase_OW(Pin, Ziin);
+            break;
         case PHASE_ODGW:
             return XiPhase_ODGW(Pin, Ziin);
             break;
@@ -178,7 +179,8 @@ OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL*
         case PHASE_W:
             OCP_ABORT("Will be added!");
         case PHASE_OW:
-            OCP_ABORT("Will be added!");
+            return RhoPhase_OW(Pin, Ziin);
+            break;
         case PHASE_ODGW:
             return RhoPhase_ODGW(Pin, Ziin);
             break;
@@ -194,14 +196,16 @@ OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
     switch (mode) {
         case PHASE_OW:
             return GammaPhaseO_OW(Pin);
+            break;
         case PHASE_ODGW:
             return GammaPhaseO_ODGW(Pin, Pbbin);
+            break;
         default:
             OCP_ABORT("Wrong Mode");
     }
 }
 
-OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin) { return 0; }
+
 
 OCP_DBL BOMixture::GammaPhaseW(const OCP_DBL& Pin)
 {

@@ -134,6 +134,9 @@ void FlowUnit::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_ou
 {
     switch (mode)
     {
+    case PHASE_OW:
+        CalKrPcDeriv_OW(S_in, kr_out, pc_out, dkrdS, dPcjdS);
+        break;
     case PHASE_ODGW:
         CalKrPcDeriv_ODGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);
         break;
@@ -141,6 +144,27 @@ void FlowUnit::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_ou
         break;
     }
 }
+
+
+void FlowUnit::CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
+{
+    OCP_DBL Sw = S_in[1];
+    SWOF.Eval_All(0, Sw, data, cdata);
+    OCP_DBL krw = data[1];   OCP_DBL dKrwdSw = cdata[1];
+    OCP_DBL krow = data[2];  OCP_DBL dKrowdSw = cdata[2];
+    OCP_DBL Pcw = -data[3];  OCP_DBL dPcwdSw = -cdata[3];
+
+    kr_out[0] = krow; kr_out[1] = krw;
+    pc_out[0] = 0;    pc_out[1] = Pcw;
+
+    dkrdS[0] = 0; dkrdS[1] = dKrowdSw;
+    dkrdS[2] = 0; dkrdS[3] = dKrwdSw;
+
+    dPcjdS[0] = 0; dPcjdS[1] = 0;
+    dPcjdS[3] = 0; dPcjdS[4] = dPcwdSw;
+
+}
+
 
 void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
 {

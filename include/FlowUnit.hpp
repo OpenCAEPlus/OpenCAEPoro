@@ -99,7 +99,7 @@ public:
     void CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
-
+    void CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
     void CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
 
     // FlowUnits Model

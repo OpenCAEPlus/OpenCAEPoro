@@ -140,10 +140,10 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     OCP_DBL dPmax = reservoir.bulk.GetdPmax();
     OCP_DBL dSmax = reservoir.bulk.GetdSmax();
     OCP_DBL dPlim = 300;
-    OCP_DBL dSlim = 0.3;
+    OCP_DBL dSlim = 0.5;
     OCP_DBL c1 = dPmax / dPlim;
     OCP_DBL c2 = dSmax / dSlim;
-    OCP_DBL c3 = 1.5;
+    OCP_DBL c3 = 1 / 1.5;
 
     if (iterNR < 3) {
         c3 = 0.5;
@@ -151,6 +151,11 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     else if (iterNR > 8) {
         c3 = 2;
     }
+
+
+    //cout << dPmax << "   " << dSmax << "   " << iterNR << endl;
+    //cout << c1 << "   " << c2 << "   " << c3 << endl;
+
     
     OCP_DBL c = max(max(c1, c2), c3);
 

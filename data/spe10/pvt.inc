@@ -19,5 +19,5 @@ ROCK       -- reference Pressure and rock compressibility
 /
 
 DENSITY   -- oil wat gas @surface(lbm/scf)
-        53.0  64.00   
+        53.0  64.00   0.01078
 /

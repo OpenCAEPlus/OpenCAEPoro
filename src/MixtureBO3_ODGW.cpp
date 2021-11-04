@@ -717,7 +717,8 @@ OCP_DBL BOMixture::XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is gas
         OCP_DBL bg  = PVDG.Eval(0, Pin, 1);
-        OCP_DBL xig = (1 / CONV1) / bg;
+        // OCP_DBL xig = 1 / (CONV1 * bg);
+        OCP_DBL xig = 1 / CONV1 / bg;
         return xig;
     } else if (Ziin[2] > 1 - TINY) {
         // inj fluid is water
@@ -727,7 +728,8 @@ OCP_DBL BOMixture::XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
         OCP_DBL bw0 = data[1];
         OCP_DBL cbw = data[2];
         OCP_DBL bw  = bw0 * (1 - cbw * (P - Pw0));
-        OCP_DBL xiw = (1 / CONV1) / bw;
+        // OCP_DBL xiw = 1 / (CONV1 * bw);
+        OCP_DBL xiw = 1 / CONV1 / bw;
         return xiw;
     } else {
         OCP_ABORT("Wrong Zi!");
