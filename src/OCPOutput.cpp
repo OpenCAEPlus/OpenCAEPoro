@@ -365,9 +365,9 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
     // TIME
     Sumdata[n++].val.push_back(ctrl.GetCurTime());
     // NRiter
-    Sumdata[n++].val.push_back(ctrl.GetNRiter());
+    Sumdata[n++].val.push_back(ctrl.GetNRiterT());
     // LSiter
-    Sumdata[n++].val.push_back(ctrl.GetLSiter());
+    Sumdata[n++].val.push_back(ctrl.GetLSiterT());
 
     // FPR
     if (FPR) Sumdata[n++].val.push_back(rs.bulk.CalFPR());
