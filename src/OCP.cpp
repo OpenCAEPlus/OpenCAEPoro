@@ -32,12 +32,18 @@ void OpenCAEPoro::SetupSimulator(ParamRead& param)
     solver.Setup(reservoir, control);
 }
 
-
 /// Initialize the reservoir class.
 void OpenCAEPoro::InitReservoir() { solver.InitReservoir(reservoir); }
 
 /// Call IMPEC, FIM, etc for dynamic simulation.
-void OpenCAEPoro::RunSimulation() { solver.RunSimulation(reservoir, control, output); }
+void OpenCAEPoro::RunSimulation()
+{
+    cout << "=========================================" << endl
+         << "Dynamic simulation begins ...            " << endl
+         << "=========================================" << endl;
+
+    solver.RunSimulation(reservoir, control, output);
+}
 
 /// Print summary information to cout and SUMMARY.out file.
 void OpenCAEPoro::OutputResults() const
