@@ -77,6 +77,15 @@ FWIT
 /
 
 
+TUNING
+-- Init     max    min   incre   chop    cut
+     0.01   120    0.01      3    0.15    0.3 /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.5    1      0.001           /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       10    5E-3   300    0.1    1      0.01    0.01  /
+/
+
 
 NLSOLVE
 10 5E-3 300 0.1 1 0.01 0.2 0.001 
@@ -91,12 +100,6 @@ METHOD
 FIM
 /
 
-
-TUNING  -- min/max timestep (3 sections)
-0.01     120     0.01 /
-                      /
-                      /
-/
 
 
 WELSPECS
