@@ -99,7 +99,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Top level data structure in the <a class="el" href="classOpenCAEPoro.html" title="Top level data structure in the OpenCAEPoro simulator.">OpenCAEPoro</a> simulator. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8hpp_source.html#l00027">27</a> of file <a class="el" href="OCP_8hpp_source.html">OCP.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCP_8hpp_source.html#l00026">26</a> of file <a class="el" href="OCP_8hpp_source.html">OCP.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7b3a00bf4d031e0c427aa146428512e4" name="a7b3a00bf4d031e0c427aa146428512e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b3a00bf4d031e0c427aa146428512e4">&#9670;&nbsp;</a></span>InitReservoir()</h2>
@@ -119,11 +119,11 @@ Public Member Functions</h2></td></tr>
 <p>Initialize or get intitial status of reserovir. </p>
 <p >Initialize the reservoir class. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00043">43</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{ solver.<a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir); }</div>
-<div class="ttc" id="aclassSolver_html_ac39f1047bf3d1c2f03dfe62dd718d6ff"><div class="ttname"><a href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00016">Solver.cpp:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00036">36</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{ solver.<a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir); }</div>
+<div class="ttc" id="aclassSolver_html_ac39f1047bf3d1c2f03dfe62dd718d6ff"><div class="ttname"><a href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00022">Solver.cpp:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00016">Solver::InitReservoir()</a>.</p>
+<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00022">Solver::InitReservoir()</a>.</p>
 
 </div>
 </div>
@@ -149,15 +149,15 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00015">15</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    reservoir.<a class="code hl_function" href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">InputParam</a>(param);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    control.<a class="code hl_function" href="classOCP__Control.html#a32856a961e091e42c2c5b8ae94b67f90">InputParam</a>(param.<a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    control.<a class="code hl_function" href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">InputParam</a>(param.<a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    output.InputParam(param.<a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="ttc" id="aclassOCP__Control_html_a32856a961e091e42c2c5b8ae94b67f90"><div class="ttname"><a href="classOCP__Control.html#a32856a961e091e42c2c5b8ae94b67f90">OCP_Control::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00049">OCPControl.cpp:49</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00049">OCPControl.cpp:49</a></div></div>
 <div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00046">ParamRead.hpp:46</a></div></div>
 <div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a4f3088521df8019f73ad1861004fc1c0"><div class="ttname"><a href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00014">Reservoir.cpp:14</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a4f3088521df8019f73ad1861004fc1c0"><div class="ttname"><a href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00018">Reservoir.cpp:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00049">OCP_Control::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00014">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00046">ParamRead::paramOutput</a>.</p>
+<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00049">OCPControl::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00018">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00046">ParamRead::paramOutput</a>.</p>
 
 </div>
 </div>
@@ -183,14 +183,15 @@ Public Member Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    cout &lt;&lt; <span class="stringliteral">&quot;Final time:          &quot;</span> &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.iterNR_total &lt;&lt; endl;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total linear steps:  &quot;</span> &lt;&lt; control.iterLS_total &lt;&lt; endl;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.timeLS &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.timeLS / control.totalTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    output.PrintInfo();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.tstep &lt;&lt; endl;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total Newton steps:  &quot;</span> &lt;&lt; control.iterNR_total &lt;&lt; endl;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total linear steps:  &quot;</span> &lt;&lt; control.iterLS_total &lt;&lt; endl;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.timeLS &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.timeLS / control.totalTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    output.PrintInfo();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -219,14 +220,14 @@ Public Member Functions</h2></td></tr>
 
 <p>Output <a class="el" href="classOpenCAEPoro.html" title="Top level data structure in the OpenCAEPoro simulator.">OpenCAEPoro</a> version information. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8hpp_source.html#l00031">31</a> of file <a class="el" href="OCP_8hpp_source.html">OCP.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;OpenCAEPoro Version-&quot;</span> &lt;&lt; <a class="code hl_define" href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a> &lt;&lt; std::endl</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                  &lt;&lt; <span class="stringliteral">&quot;=========================&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
-<div class="ttc" id="aOCP_8hpp_html_ab07473bc09450555830e8819d19908a9"><div class="ttname"><a href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a></div><div class="ttdeci">#define OCPVersion</div><div class="ttdoc">Software version number.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00024">OCP.hpp:24</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCP_8hpp_source.html#l00030">30</a> of file <a class="el" href="OCP_8hpp_source.html">OCP.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;OpenCAEPoro Version-&quot;</span> &lt;&lt; <a class="code hl_define" href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a> &lt;&lt; std::endl</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                  &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    };</div>
+<div class="ttc" id="aOCP_8hpp_html_ab07473bc09450555830e8819d19908a9"><div class="ttname"><a href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a></div><div class="ttdeci">#define OCPVersion</div><div class="ttdoc">Software version number.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00023">OCP.hpp:23</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCP_8hpp_source.html#l00024">OCPVersion</a>.</p>
+<p class="reference">References <a class="el" href="OCP_8hpp_source.html#l00023">OCPVersion</a>.</p>
 
 </div>
 </div>
@@ -248,11 +249,17 @@ Public Member Functions</h2></td></tr>
 <p>Run dynamic simulation. </p>
 <p >Call IMPEC, FIM, etc for dynamic simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00046">46</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{ solver.<a class="code hl_function" href="classSolver.html#a18c270ba5d2400d121683ec8f057e948">RunSimulation</a>(reservoir, control, output); }</div>
-<div class="ttc" id="aclassSolver_html_a18c270ba5d2400d121683ec8f057e948"><div class="ttname"><a href="classSolver.html#a18c270ba5d2400d121683ec8f057e948">Solver::RunSimulation</a></div><div class="ttdeci">void RunSimulation(Reservoir &amp;rs, OCP_Control &amp;ctrl, OCP_Output &amp;output)</div><div class="ttdoc">Start simulation.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00023">Solver.cpp:23</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00039">39</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>         &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation begins ...            &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>         &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    solver.<a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(reservoir, control, output);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="ttc" id="aclassSolver_html_aa28d73a396ce4671abadf95ded8aeb34"><div class="ttname"><a href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a></div><div class="ttdeci">void RunSimulation(Reservoir &amp;rs, OCPControl &amp;ctrl, OCPOutput &amp;output)</div><div class="ttdoc">Start simulation.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00029">Solver.cpp:29</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00023">Solver::RunSimulation()</a>.</p>
+<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00029">Solver::RunSimulation()</a>.</p>
 
 </div>
 </div>
@@ -283,13 +290,14 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    reservoir.<a class="code hl_function" href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Setup</a>();</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// Setup output for dynamic simulation</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    output.Setup(reservoir, control);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// Setup static information for linear solver</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    SetupLinearSolver();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// Setup static information for solver</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    solver.<a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Setup</a>(reservoir, control);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00021">Reservoir.cpp:21</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00026">Reservoir.cpp:26</a></div></div>
+<div class="ttc" id="aclassSolver_html_a8d0439530ba5eb621ae4515168df367d"><div class="ttname"><a href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup Solver.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00016">Solver.cpp:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, and <a class="el" href="Reservoir_8cpp_source.html#l00021">Reservoir::Setup()</a>.</p>
+<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00026">Reservoir::Setup()</a>, and <a class="el" href="Solver_8cpp_source.html#l00016">Solver::Setup()</a>.</p>
 
 </div>
 </div>

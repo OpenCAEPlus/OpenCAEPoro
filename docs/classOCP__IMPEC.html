@@ -73,27 +73,31 @@ $(function() {
 <p><a class="el" href="classOCP__IMPEC.html" title="OCP_IMPEC is IMPEC (implict pressure explict saturation) method.">OCP_IMPEC</a> is IMPEC (implict pressure explict saturation) method.  
  <a href="classOCP__IMPEC.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a13a6fd5e7264861a346ed81784a7c1a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a13a6fd5e7264861a346ed81784a7c1a4">Setup</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;ls, const <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="separator:a13a6fd5e7264861a346ed81784a7c1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae0637215f124a63787ea19d2528fef1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">Prepare</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:aae0637215f124a63787ea19d2528fef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare for Assembling matrix.  <a href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">More...</a><br /></td></tr>
 <tr class="separator:aae0637215f124a63787ea19d2528fef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac655a9a94742235bee6c44c46b436980"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">SolveLinearSystem</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;lsolver, <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCP__Control.html">OCP_Control</a> &amp;ctrl)</td></tr>
-<tr class="memdesc:ac655a9a94742235bee6c44c46b436980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the linear system.  <a href="classOCP__IMPEC.html#ac655a9a94742235bee6c44c46b436980">More...</a><br /></td></tr>
-<tr class="separator:ac655a9a94742235bee6c44c46b436980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f56d9820a6c40ab36709f266b6dd3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#aa3f56d9820a6c40ab36709f266b6dd3e">SolveLinearSystem</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;lsolver, <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="memdesc:aa3f56d9820a6c40ab36709f266b6dd3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the linear system.  <a href="classOCP__IMPEC.html#aa3f56d9820a6c40ab36709f266b6dd3e">More...</a><br /></td></tr>
+<tr class="separator:aa3f56d9820a6c40ab36709f266b6dd3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28c06665ed6b187d9c38dc214b575cd7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">UpdateProperty</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:a28c06665ed6b187d9c38dc214b575cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update properties of fluids.  <a href="classOCP__IMPEC.html#a28c06665ed6b187d9c38dc214b575cd7">More...</a><br /></td></tr>
 <tr class="separator:a28c06665ed6b187d9c38dc214b575cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4bfe4c2860cf0b81e264b279123a3c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#ad4bfe4c2860cf0b81e264b279123a3c6">FinishNR</a> ()</td></tr>
 <tr class="memdesc:ad4bfe4c2860cf0b81e264b279123a3c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if NR iteration finishes.  <a href="classOCP__IMPEC.html#ad4bfe4c2860cf0b81e264b279123a3c6">More...</a><br /></td></tr>
 <tr class="separator:ad4bfe4c2860cf0b81e264b279123a3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64d89abb769a4c34d451473426e02bb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a64d89abb769a4c34d451473426e02bb9">FinishStep</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="separator:a64d89abb769a4c34d451473426e02bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classOCP__IMPEC.html" title="OCP_IMPEC is IMPEC (implict pressure explict saturation) method.">OCP_IMPEC</a> is IMPEC (implict pressure explict saturation) method. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8hpp_source.html#l00023">23</a> of file <a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8hpp_source.html#l00023">23</a> of file <a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad4bfe4c2860cf0b81e264b279123a3c6" name="ad4bfe4c2860cf0b81e264b279123a3c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4bfe4c2860cf0b81e264b279123a3c6">&#9670;&nbsp;</a></span>FinishNR()</h2>
@@ -120,8 +124,51 @@ Public Member Functions</h2></td></tr>
 
 <p>Determine if NR iteration finishes. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8hpp_source.html#l00036">36</a> of file <a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8hpp_source.html#l00039">39</a> of file <a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a64d89abb769a4c34d451473426e02bb9" name="a64d89abb769a4c34d451473426e02bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d89abb769a4c34d451473426e02bb9">&#9670;&nbsp;</a></span>FinishStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OCP_IMPEC::FinishStep </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classReservoir.html">Reservoir</a> &amp;&#160;</td>
+          <td class="paramname"><em>rs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOCPControl.html">OCPControl</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctrl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00106">106</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    rs.<a class="code hl_function" href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">CalIPRT</a>(ctrl.<a class="code hl_function" href="classOCPControl.html#a2ba2f6c8155a57bd0024faee42d563d0">GetCurDt</a>());</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    rs.<a class="code hl_function" href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">CalMaxChange</a>();</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    rs.<a class="code hl_function" href="classReservoir.html#a7a3f35afda068c6fea73fc0250aa7658">UpdateLastStepIMPEC</a>();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#a1e9225825933d72ba9c78327d1ff10b5">CalNextTstepIMPEC</a>(rs);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">UpdateIters</a>();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="ttc" id="aclassOCPControl_html_a1e9225825933d72ba9c78327d1ff10b5"><div class="ttname"><a href="classOCPControl.html#a1e9225825933d72ba9c78327d1ff10b5">OCPControl::CalNextTstepIMPEC</a></div><div class="ttdeci">void CalNextTstepIMPEC(const Reservoir &amp;reservoir)</div><div class="ttdoc">Calculate the next time step according to max change of some variables.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00099">OCPControl.cpp:99</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a2ba2f6c8155a57bd0024faee42d563d0"><div class="ttname"><a href="classOCPControl.html#a2ba2f6c8155a57bd0024faee42d563d0">OCPControl::GetCurDt</a></div><div class="ttdeci">OCP_DBL &amp; GetCurDt()</div><div class="ttdoc">Return current dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00107">OCPControl.hpp:107</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a90d96fc1a7bbb27f435c4c630694088d"><div class="ttname"><a href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">OCPControl::UpdateIters</a></div><div class="ttdeci">void UpdateIters()</div><div class="ttdoc">Update num of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00172">OCPControl.cpp:172</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a7a3f35afda068c6fea73fc0250aa7658"><div class="ttname"><a href="classReservoir.html#a7a3f35afda068c6fea73fc0250aa7658">Reservoir::UpdateLastStepIMPEC</a></div><div class="ttdeci">void UpdateLastStepIMPEC()</div><div class="ttdoc">Update value of last step for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00184">Reservoir.cpp:184</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a7e050f9b8ed0aa28c9e488d6634b5d9b"><div class="ttname"><a href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">Reservoir::CalMaxChange</a></div><div class="ttdeci">void CalMaxChange()</div><div class="ttdoc">Calculate Maximum Change of some reference variables for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00071">Reservoir.cpp:71</a></div></div>
+<div class="ttc" id="aclassReservoir_html_ad04b82ae53ea6f0b60e800a50341e6d5"><div class="ttname"><a href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">Reservoir::CalIPRT</a></div><div class="ttdeci">void CalIPRT(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate num of Injection, Production.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00077">Reservoir.cpp:77</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -153,16 +200,69 @@ Public Member Functions</h2></td></tr>
 
 <p>Prepare for Assembling matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00124">124</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>{ rs.<a class="code hl_function" href="classReservoir.html#a83be94e2a5c5e6cbe6b040dd7e82bf2d">Prepare</a>(dt); }</div>
-<div class="ttc" id="aclassReservoir_html_a83be94e2a5c5e6cbe6b040dd7e82bf2d"><div class="ttname"><a href="classReservoir.html#a83be94e2a5c5e6cbe6b040dd7e82bf2d">Reservoir::Prepare</a></div><div class="ttdeci">void Prepare(OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare for assembling matrix.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00063">Reservoir.cpp:63</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00015">15</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    rs.<a class="code hl_function" href="classReservoir.html#a53f2197e2db153378de2b64656aeb8ad">PrepareWell</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cfl = rs.<a class="code hl_function" href="classReservoir.html#a663f227336c0a9675703a81017401c68">CalCFL01IMPEC</a>(dt);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> (cfl &gt; 1) dt /= (cfl + 1);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a53f2197e2db153378de2b64656aeb8ad"><div class="ttname"><a href="classReservoir.html#a53f2197e2db153378de2b64656aeb8ad">Reservoir::PrepareWell</a></div><div class="ttdeci">void PrepareWell()</div><div class="ttdoc">Calculate Well Properties at the beginning of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00041">Reservoir.cpp:41</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a663f227336c0a9675703a81017401c68"><div class="ttname"><a href="classReservoir.html#a663f227336c0a9675703a81017401c68">Reservoir::CalCFL01IMPEC</a></div><div class="ttdeci">OCP_DBL CalCFL01IMPEC(const OCP_DBL &amp;dt)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00147">Reservoir.cpp:147</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00063">Reservoir::Prepare()</a>.</p>
+<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00147">Reservoir::CalCFL01IMPEC()</a>, and <a class="el" href="Reservoir_8cpp_source.html#l00041">Reservoir::PrepareWell()</a>.</p>
 
 </div>
 </div>
-<a id="ac655a9a94742235bee6c44c46b436980" name="ac655a9a94742235bee6c44c46b436980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac655a9a94742235bee6c44c46b436980">&#9670;&nbsp;</a></span>SolveLinearSystem()</h2>
+<a id="a13a6fd5e7264861a346ed81784a7c1a4" name="a13a6fd5e7264861a346ed81784a7c1a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13a6fd5e7264861a346ed81784a7c1a4">&#9670;&nbsp;</a></span>Setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OCP_IMPEC::Setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classReservoir.html">Reservoir</a> &amp;&#160;</td>
+          <td class="paramname"><em>rs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;&#160;</td>
+          <td class="paramname"><em>ls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classOCPControl.html">OCPControl</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctrl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00004">4</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="comment">// Allocate Memory</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    rs.<a class="code hl_function" href="classReservoir.html#a550a75111bd3bb6a0c272b09b9a06f03">AllocateAuxIMPEC</a>();</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    ls.<a class="code hl_function" href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">SetupParam</a>(ctrl.GetWorkDir(), ctrl.GetLsFile());</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    rs.<a class="code hl_function" href="classReservoir.html#a9e161f766b326f7cca3f4e20861160ce">AllocateMatIMPEC</a>(ls);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">// For Fasp</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    ls.AllocateFasp();</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<div class="ttc" id="aclassLinearSolver_html_a1986aea0c43abfe5f8be3abb3a553342"><div class="ttname"><a href="classLinearSolver.html#a1986aea0c43abfe5f8be3abb3a553342">LinearSolver::SetupParam</a></div><div class="ttdeci">void SetupParam(const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Read solver param from input file which is supplied by user.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00328">LinearSolver.cpp:328</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a550a75111bd3bb6a0c272b09b9a06f03"><div class="ttname"><a href="classReservoir.html#a550a75111bd3bb6a0c272b09b9a06f03">Reservoir::AllocateAuxIMPEC</a></div><div class="ttdeci">void AllocateAuxIMPEC()</div><div class="ttdoc">Allocate memory for auxiliary variables used for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00113">Reservoir.cpp:113</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a9e161f766b326f7cca3f4e20861160ce"><div class="ttname"><a href="classReservoir.html#a9e161f766b326f7cca3f4e20861160ce">Reservoir::AllocateMatIMPEC</a></div><div class="ttdeci">void AllocateMatIMPEC(LinearSolver &amp;mySolver) const</div><div class="ttdoc">Allocate Maxmimum memory for internal Matirx for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00191">Reservoir.cpp:191</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa3f56d9820a6c40ab36709f266b6dd3e" name="aa3f56d9820a6c40ab36709f266b6dd3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f56d9820a6c40ab36709f266b6dd3e">&#9670;&nbsp;</a></span>SolveLinearSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +282,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOCP__Control.html">OCP_Control</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classOCPControl.html">OCPControl</a> &amp;&#160;</td>
           <td class="paramname"><em>ctrl</em>&#160;</td>
         </tr>
         <tr>
@@ -195,46 +295,46 @@ Public Member Functions</h2></td></tr>
 
 <p>Solve the linear system. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00126">126</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    solver.CheckVal();</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#ifdef __SOLVER_FASP__</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a9dae4ce681b25b9aa84278254e4e2831">AssembleMat_Fasp</a>();</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <a class="code hl_class" href="classGetWallTime.html">GetWallTime</a> Timer;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    Timer.<a class="code hl_function" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordtype">int</span> status = lsolver.<a class="code hl_function" href="classLinearSolver.html#ae026c0984d1849ea711501c1a35fe6d6">FaspSolve</a>();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a879ee505c2ae77ae4534849af6d25b1c">UpdateTimeLS</a>(Timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a13075744bac8ab62b1df3e7494f47ccc">PrintfMatCSR</a>(<span class="stringliteral">&quot;testA.out&quot;</span>, <span class="stringliteral">&quot;testb.out&quot;</span>);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a987017c6e05e0593b02a4567807a9619">PrintfSolution</a>(<span class="stringliteral">&quot;testx.out&quot;</span>);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    ctrl.<a class="code hl_function" href="classOCP__Control.html#a3081f0cb9956d480cfe8013a017aac92">UpdateIterLS</a>(status);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#endif </span><span class="comment">// __SOLVER_FASP__</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    rs.<a class="code hl_function" href="classReservoir.html#a050992a946cb8dc18da1f297ebfde28b">GetSolution_IMPEC</a>(lsolver.<a class="code hl_function" href="classLinearSolver.html#a18fe5d8fd39f7464b7fc4db33dafec23">GetSolution</a>());</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#adba39905145e66b4c80190159b50be13">ClearData</a>();</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00023">23</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    solver.CheckVal();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#ifdef __SOLVER_FASP__</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a9dae4ce681b25b9aa84278254e4e2831">AssembleMat_Fasp</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="classGetWallTime.html">GetWallTime</a> Timer;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    Timer.<a class="code hl_function" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">int</span> status = lsolver.<a class="code hl_function" href="classLinearSolver.html#ae026c0984d1849ea711501c1a35fe6d6">FaspSolve</a>();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#aff50e66c2623dfe3dbe2ce34a6c78400">UpdateTimeLS</a>(Timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a13075744bac8ab62b1df3e7494f47ccc">PrintfMatCSR</a>(<span class="stringliteral">&quot;testA.out&quot;</span>, <span class="stringliteral">&quot;testb.out&quot;</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#a987017c6e05e0593b02a4567807a9619">PrintfSolution</a>(<span class="stringliteral">&quot;testx.out&quot;</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#ac6cceea4c279d1cf8b21b8174210356f">UpdateIterLS</a>(status);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif </span><span class="comment">// __SOLVER_FASP__</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    rs.<a class="code hl_function" href="classReservoir.html#a3ee1bec4aaddc971973e536ace3a0dc6">GetSolutionIMPEC</a>(lsolver.<a class="code hl_function" href="classLinearSolver.html#a18fe5d8fd39f7464b7fc4db33dafec23">GetSolution</a>());</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    lsolver.<a class="code hl_function" href="classLinearSolver.html#adba39905145e66b4c80190159b50be13">ClearData</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
 <div class="ttc" id="aclassGetWallTime_html"><div class="ttname"><a href="classGetWallTime.html">GetWallTime</a></div><div class="ttdoc">Get elapsed wall-time in millisecond.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00031">UtilTiming.hpp:32</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a6554ac2f01206c503f15a5efa39c5605"><div class="ttname"><a href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">GetWallTime::Stop</a></div><div class="ttdeci">__inline__ double Stop() const</div><div class="ttdoc">Stop the timer and return duration from start() in ms.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00054">UtilTiming.hpp:54</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a89f0126e2428cd5a45c0ebf790f96bc9"><div class="ttname"><a href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">GetWallTime::Start</a></div><div class="ttdeci">__inline__ void Start()</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00051">UtilTiming.hpp:51</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a13075744bac8ab62b1df3e7494f47ccc"><div class="ttname"><a href="classLinearSolver.html#a13075744bac8ab62b1df3e7494f47ccc">LinearSolver::PrintfMatCSR</a></div><div class="ttdeci">void PrintfMatCSR(const string &amp;fileA, const string &amp;fileb) const</div><div class="ttdoc">output the mat and rhs to fileA and fileb.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00259">LinearSolver.cpp:259</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a18fe5d8fd39f7464b7fc4db33dafec23"><div class="ttname"><a href="classLinearSolver.html#a18fe5d8fd39f7464b7fc4db33dafec23">LinearSolver::GetSolution</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; &amp; GetSolution()</div><div class="ttdoc">return the solution.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00138">LinearSolver.hpp:138</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a987017c6e05e0593b02a4567807a9619"><div class="ttname"><a href="classLinearSolver.html#a987017c6e05e0593b02a4567807a9619">LinearSolver::PrintfSolution</a></div><div class="ttdeci">void PrintfSolution(const string &amp;fileX) const</div><div class="ttdoc">output the solution to fileX.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00300">LinearSolver.cpp:300</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a9dae4ce681b25b9aa84278254e4e2831"><div class="ttname"><a href="classLinearSolver.html#a9dae4ce681b25b9aa84278254e4e2831">LinearSolver::AssembleMat_Fasp</a></div><div class="ttdeci">void AssembleMat_Fasp()</div><div class="ttdoc">convert the internal matrix structure into the the format required by FASP.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00060">LinearSolver.cpp:60</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a13075744bac8ab62b1df3e7494f47ccc"><div class="ttname"><a href="classLinearSolver.html#a13075744bac8ab62b1df3e7494f47ccc">LinearSolver::PrintfMatCSR</a></div><div class="ttdeci">void PrintfMatCSR(const string &amp;fileA, const string &amp;fileb) const</div><div class="ttdoc">output the mat and rhs to fileA and fileb.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00274">LinearSolver.cpp:274</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a18fe5d8fd39f7464b7fc4db33dafec23"><div class="ttname"><a href="classLinearSolver.html#a18fe5d8fd39f7464b7fc4db33dafec23">LinearSolver::GetSolution</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; &amp; GetSolution()</div><div class="ttdoc">return the solution.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00139">LinearSolver.hpp:139</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a987017c6e05e0593b02a4567807a9619"><div class="ttname"><a href="classLinearSolver.html#a987017c6e05e0593b02a4567807a9619">LinearSolver::PrintfSolution</a></div><div class="ttdeci">void PrintfSolution(const string &amp;fileX) const</div><div class="ttdoc">output the solution to fileX.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00317">LinearSolver.cpp:317</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a9dae4ce681b25b9aa84278254e4e2831"><div class="ttname"><a href="classLinearSolver.html#a9dae4ce681b25b9aa84278254e4e2831">LinearSolver::AssembleMat_Fasp</a></div><div class="ttdeci">void AssembleMat_Fasp()</div><div class="ttdoc">convert the internal matrix structure into the the format required by FASP.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00075">LinearSolver.cpp:75</a></div></div>
 <div class="ttc" id="aclassLinearSolver_html_adba39905145e66b4c80190159b50be13"><div class="ttname"><a href="classLinearSolver.html#adba39905145e66b4c80190159b50be13">LinearSolver::ClearData</a></div><div class="ttdeci">void ClearData()</div><div class="ttdoc">clear the internal matrix.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00047">LinearSolver.cpp:47</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_ae026c0984d1849ea711501c1a35fe6d6"><div class="ttname"><a href="classLinearSolver.html#ae026c0984d1849ea711501c1a35fe6d6">LinearSolver::FaspSolve</a></div><div class="ttdeci">int FaspSolve()</div><div class="ttdoc">solve the linear system by FASP and return the status.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00150">LinearSolver.cpp:150</a></div></div>
-<div class="ttc" id="aclassOCP__Control_html_a3081f0cb9956d480cfe8013a017aac92"><div class="ttname"><a href="classOCP__Control.html#a3081f0cb9956d480cfe8013a017aac92">OCP_Control::UpdateIterLS</a></div><div class="ttdeci">void UpdateIterLS(const USI &amp;num)</div><div class="ttdoc">Update num of linear solver steps.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00112">OCPControl.hpp:112</a></div></div>
-<div class="ttc" id="aclassOCP__Control_html_a879ee505c2ae77ae4534849af6d25b1c"><div class="ttname"><a href="classOCP__Control.html#a879ee505c2ae77ae4534849af6d25b1c">OCP_Control::UpdateTimeLS</a></div><div class="ttdeci">void UpdateTimeLS(const OCP_DBL &amp;t)</div><div class="ttdoc">Update time used for linear solver.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00118">OCPControl.hpp:118</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a050992a946cb8dc18da1f297ebfde28b"><div class="ttname"><a href="classReservoir.html#a050992a946cb8dc18da1f297ebfde28b">Reservoir::GetSolution_IMPEC</a></div><div class="ttdeci">void GetSolution_IMPEC(const vector&lt; OCP_DBL &gt; &amp;u)</div><div class="ttdoc">get the solution from LinearSolver after the linear system is solved.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00137">Reservoir.cpp:137</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_ae026c0984d1849ea711501c1a35fe6d6"><div class="ttname"><a href="classLinearSolver.html#ae026c0984d1849ea711501c1a35fe6d6">LinearSolver::FaspSolve</a></div><div class="ttdeci">int FaspSolve()</div><div class="ttdoc">solve the linear system by FASP and return the status.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00165">LinearSolver.cpp:165</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ac6cceea4c279d1cf8b21b8174210356f"><div class="ttname"><a href="classOCPControl.html#ac6cceea4c279d1cf8b21b8174210356f">OCPControl::UpdateIterLS</a></div><div class="ttdeci">void UpdateIterLS(const USI &amp;num)</div><div class="ttdoc">Update num of linear solver steps.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00120">OCPControl.hpp:120</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_aff50e66c2623dfe3dbe2ce34a6c78400"><div class="ttname"><a href="classOCPControl.html#aff50e66c2623dfe3dbe2ce34a6c78400">OCPControl::UpdateTimeLS</a></div><div class="ttdeci">void UpdateTimeLS(const OCP_DBL &amp;t)</div><div class="ttdoc">Update time used for linear solver.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00127">OCPControl.hpp:127</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a3ee1bec4aaddc971973e536ace3a0dc6"><div class="ttname"><a href="classReservoir.html#a3ee1bec4aaddc971973e536ace3a0dc6">Reservoir::GetSolutionIMPEC</a></div><div class="ttdeci">void GetSolutionIMPEC(const vector&lt; OCP_DBL &gt; &amp;u)</div><div class="ttdoc">Return the Solution to Reservoir Pressure for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00208">Reservoir.cpp:208</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00060">LinearSolver::AssembleMat_Fasp()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00047">LinearSolver::ClearData()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00150">LinearSolver::FaspSolve()</a>, <a class="el" href="LinearSolver_8hpp_source.html#l00138">LinearSolver::GetSolution()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00137">Reservoir::GetSolution_IMPEC()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00259">LinearSolver::PrintfMatCSR()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00300">LinearSolver::PrintfSolution()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00112">OCP_Control::UpdateIterLS()</a>, and <a class="el" href="OCPControl_8hpp_source.html#l00118">OCP_Control::UpdateTimeLS()</a>.</p>
+<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00075">LinearSolver::AssembleMat_Fasp()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00047">LinearSolver::ClearData()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00165">LinearSolver::FaspSolve()</a>, <a class="el" href="LinearSolver_8hpp_source.html#l00139">LinearSolver::GetSolution()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00208">Reservoir::GetSolutionIMPEC()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00274">LinearSolver::PrintfMatCSR()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00317">LinearSolver::PrintfSolution()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00120">OCPControl::UpdateIterLS()</a>, and <a class="el" href="OCPControl_8hpp_source.html#l00127">OCPControl::UpdateTimeLS()</a>.</p>
 
 </div>
 </div>
@@ -266,81 +366,79 @@ Public Member Functions</h2></td></tr>
 
 <p>Update properties of fluids. </p>
 
-<p class="definition">Definition at line <a class="el" href="FluidSolver_8cpp_source.html#l00181">181</a> of file <a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>{</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="comment">// first check : Pressure check</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flagCheck = rs.<a class="code hl_function" href="classReservoir.html#a586bddb833e5716e15c961170ce72e3f">CheckP</a>();</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">switch</span> (flagCheck) {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            cout &lt;&lt; <span class="stringliteral">&quot;well change&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            dt /= 2;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            cout &lt;&lt; <span class="stringliteral">&quot;well change&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            dt /= 2;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    rs.<a class="code hl_function" href="classReservoir.html#a23a5d1870a1c5aeef64717928f160204">CalFLux</a>();</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="comment">// second check : CFL check</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cfl = rs.<a class="code hl_function" href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">CalCFL01</a>(dt);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">if</span> (cfl &gt; 1) {</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        dt /= 2;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        rs.<a class="code hl_function" href="classReservoir.html#a5d837330e2e2bbf89792b6fd24edb4f5">ResetVal</a>();</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        cout &lt;&lt; <span class="stringliteral">&quot;CFL is too big&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    }</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    rs.<a class="code hl_function" href="classReservoir.html#a1624746b7de762b4b12b2647413afbfb">MassConseve</a>(dt);</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="comment">// third check: Ni check</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordflow">if</span> (!rs.<a class="code hl_function" href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">CheckNi</a>()) {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        dt /= 2;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        rs.<a class="code hl_function" href="classReservoir.html#aa63155e973afb4ef0ac427a579b5d1d4">ResetVal01</a>();</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        cout &lt;&lt; <span class="stringliteral">&quot;Negative Ni occurs\n&quot;</span>;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    rs.<a class="code hl_function" href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">CalFlashIMPEC</a>();</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    rs.<a class="code hl_function" href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">CalVpore</a>();</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">// fouth check: Volume error check</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">if</span> (!rs.<a class="code hl_function" href="classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123">CheckVe</a>(0.01)) {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        dt /= 2;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        rs.<a class="code hl_function" href="classReservoir.html#a090c9a40fcb5b8680bc2026d83204833">ResetVal02</a>();</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    rs.<a class="code hl_function" href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">CalKrPc</a>();</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    rs.<a class="code hl_function" href="classReservoir.html#aa362ca0e09df55324c5f5c8b597b817e">CalConnFlux</a>();</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00052">52</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// first check : Pressure check</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flagCheck = rs.<a class="code hl_function" href="classReservoir.html#a586bddb833e5716e15c961170ce72e3f">CheckP</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">switch</span> (flagCheck) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        cout &lt;&lt; <span class="stringliteral">&quot;well change&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        dt /= 2;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        cout &lt;&lt; <span class="stringliteral">&quot;well change&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        dt /= 2;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    rs.<a class="code hl_function" href="classReservoir.html#ae23bc9cad98c877717eb810cd188cc4a">CalFLuxIMPEC</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// second check : CFL check</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cfl = rs.<a class="code hl_function" href="classReservoir.html#a663f227336c0a9675703a81017401c68">CalCFL01IMPEC</a>(dt);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (cfl &gt; 1) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        dt /= 2;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        rs.<a class="code hl_function" href="classReservoir.html#a277126a5a2d0bea5e81d90cde5ea45fe">ResetVal01IMPEC</a>();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        cout &lt;&lt; <span class="stringliteral">&quot;CFL is too big&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    rs.<a class="code hl_function" href="classReservoir.html#a3185cd9882fd3e69324b45ea663a31cd">MassConseveIMPEC</a>(dt);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// third check: Ni check</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (!rs.<a class="code hl_function" href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">CheckNi</a>()) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        dt /= 2;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        rs.<a class="code hl_function" href="classReservoir.html#ad87a4dcd6cde7a7d4b0278542a28fc10">ResetVal02IMPEC</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        cout &lt;&lt; <span class="stringliteral">&quot;Negative Ni occurs\n&quot;</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    rs.<a class="code hl_function" href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">CalFlashIMPEC</a>();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    rs.<a class="code hl_function" href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">CalVpore</a>();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// fouth check: Volume error check</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (!rs.<a class="code hl_function" href="classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123">CheckVe</a>(0.01)) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        dt /= 2;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        rs.<a class="code hl_function" href="classReservoir.html#a697776822d7632b2b96849a7cf8c3546">ResetVal03IMPEC</a>();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    rs.<a class="code hl_function" href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">CalKrPc</a>();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    rs.<a class="code hl_function" href="classReservoir.html#a957448933e0b62741f14bb4963707bca">CalConnFluxIMPEC</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a01e4f6bc0a4d390bc0c5e0670e29a123"><div class="ttname"><a href="classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123">Reservoir::CheckVe</a></div><div class="ttdeci">bool CheckVe(const OCP_DBL &amp;Vlim) const</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00104">Reservoir.hpp:104</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a090c9a40fcb5b8680bc2026d83204833"><div class="ttname"><a href="classReservoir.html#a090c9a40fcb5b8680bc2026d83204833">Reservoir::ResetVal02</a></div><div class="ttdeci">void ResetVal02()</div><div class="ttdoc">reset pressure, capillary pressure, flux, moles of components, volume of pores.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00181">Reservoir.cpp:181</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a1624746b7de762b4b12b2647413afbfb"><div class="ttname"><a href="classReservoir.html#a1624746b7de762b4b12b2647413afbfb">Reservoir::MassConseve</a></div><div class="ttdeci">void MassConseve(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate mass conserve.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00060">Reservoir.hpp:60</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a23a5d1870a1c5aeef64717928f160204"><div class="ttname"><a href="classReservoir.html#a23a5d1870a1c5aeef64717928f160204">Reservoir::CalFLux</a></div><div class="ttdeci">void CalFLux()</div><div class="ttdoc">Calculate flux between bulks, bulks and wells.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00056">Reservoir.hpp:56</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a2822b8803a1c36d6adc3567fba06a673"><div class="ttname"><a href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">Reservoir::CalKrPc</a></div><div class="ttdeci">void CalKrPc()</div><div class="ttdoc">Calculate relative permeability and capillary.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00066">Reservoir.hpp:66</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a284a66318459ff1ff38baa8e2bdca933"><div class="ttname"><a href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">Reservoir::CheckNi</a></div><div class="ttdeci">bool CheckNi() const</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00096">Reservoir.hpp:96</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a3151b6c43cd6e24eb483d2ad467ea1a8"><div class="ttname"><a href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">Reservoir::CalFlashIMPEC</a></div><div class="ttdeci">void CalFlashIMPEC()</div><div class="ttdoc">Calculate Flash for IMPEC Method.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00062">Reservoir.hpp:62</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a537cc8f6816f874a2b3170e3d6c79b3f"><div class="ttname"><a href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">Reservoir::CalVpore</a></div><div class="ttdeci">void CalVpore()</div><div class="ttdoc">Calculate pore of bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00064">Reservoir.hpp:64</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a586bddb833e5716e15c961170ce72e3f"><div class="ttname"><a href="classReservoir.html#a586bddb833e5716e15c961170ce72e3f">Reservoir::CheckP</a></div><div class="ttdeci">OCP_INT CheckP()</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00157">Reservoir.cpp:157</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a5d837330e2e2bbf89792b6fd24edb4f5"><div class="ttname"><a href="classReservoir.html#a5d837330e2e2bbf89792b6fd24edb4f5">Reservoir::ResetVal</a></div><div class="ttdeci">void ResetVal()</div><div class="ttdoc">reset pressure, capillary pressure, flux.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00166">Reservoir.cpp:166</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a7a5fe58e16b00c5eeccaafcfb593f46f"><div class="ttname"><a href="classReservoir.html#a7a5fe58e16b00c5eeccaafcfb593f46f">Reservoir::CalCFL01</a></div><div class="ttdeci">OCP_DBL CalCFL01(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calcluate the CFL number, including bulks and wells.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00082">Reservoir.cpp:82</a></div></div>
-<div class="ttc" id="aclassReservoir_html_aa362ca0e09df55324c5f5c8b597b817e"><div class="ttname"><a href="classReservoir.html#aa362ca0e09df55324c5f5c8b597b817e">Reservoir::CalConnFlux</a></div><div class="ttdeci">void CalConnFlux()</div><div class="ttdoc">Calculate flux between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00058">Reservoir.hpp:58</a></div></div>
-<div class="ttc" id="aclassReservoir_html_aa63155e973afb4ef0ac427a579b5d1d4"><div class="ttname"><a href="classReservoir.html#aa63155e973afb4ef0ac427a579b5d1d4">Reservoir::ResetVal01</a></div><div class="ttdeci">void ResetVal01()</div><div class="ttdoc">reset pressure, capillary pressure, moles of componnets, flux.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00173">Reservoir.cpp:173</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a01e4f6bc0a4d390bc0c5e0670e29a123"><div class="ttname"><a href="classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123">Reservoir::CheckVe</a></div><div class="ttdeci">bool CheckVe(const OCP_DBL &amp;Vlim) const</div><div class="ttdoc">Check error between Fluids and Pores.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00102">Reservoir.cpp:102</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a277126a5a2d0bea5e81d90cde5ea45fe"><div class="ttname"><a href="classReservoir.html#a277126a5a2d0bea5e81d90cde5ea45fe">Reservoir::ResetVal01IMPEC</a></div><div class="ttdeci">void ResetVal01IMPEC()</div><div class="ttdoc">Reset Pressure, Capillary Pressure, Flux for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00215">Reservoir.cpp:215</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a2822b8803a1c36d6adc3567fba06a673"><div class="ttname"><a href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">Reservoir::CalKrPc</a></div><div class="ttdeci">void CalKrPc()</div><div class="ttdoc">Calculate Relative Permeability and Capillary for each Bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00065">Reservoir.cpp:65</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a284a66318459ff1ff38baa8e2bdca933"><div class="ttname"><a href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">Reservoir::CheckNi</a></div><div class="ttdeci">bool CheckNi() const</div><div class="ttdoc">Check if abnormal Pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00096">Reservoir.cpp:96</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a3151b6c43cd6e24eb483d2ad467ea1a8"><div class="ttname"><a href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">Reservoir::CalFlashIMPEC</a></div><div class="ttdeci">void CalFlashIMPEC()</div><div class="ttdoc">Calculate Flash For IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00178">Reservoir.cpp:178</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a3185cd9882fd3e69324b45ea663a31cd"><div class="ttname"><a href="classReservoir.html#a3185cd9882fd3e69324b45ea663a31cd">Reservoir::MassConseveIMPEC</a></div><div class="ttdeci">void MassConseveIMPEC(const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate Ni according to Flux.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00171">Reservoir.cpp:171</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a537cc8f6816f874a2b3170e3d6c79b3f"><div class="ttname"><a href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">Reservoir::CalVpore</a></div><div class="ttdeci">void CalVpore()</div><div class="ttdoc">Calculate pore of Bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00059">Reservoir.cpp:59</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a586bddb833e5716e15c961170ce72e3f"><div class="ttname"><a href="classReservoir.html#a586bddb833e5716e15c961170ce72e3f">Reservoir::CheckP</a></div><div class="ttdeci">OCP_INT CheckP()</div><div class="ttdoc">Check if abnormal Pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00083">Reservoir.cpp:83</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a697776822d7632b2b96849a7cf8c3546"><div class="ttname"><a href="classReservoir.html#a697776822d7632b2b96849a7cf8c3546">Reservoir::ResetVal03IMPEC</a></div><div class="ttdeci">void ResetVal03IMPEC()</div><div class="ttdoc">Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00231">Reservoir.cpp:231</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a957448933e0b62741f14bb4963707bca"><div class="ttname"><a href="classReservoir.html#a957448933e0b62741f14bb4963707bca">Reservoir::CalConnFluxIMPEC</a></div><div class="ttdeci">void CalConnFluxIMPEC()</div><div class="ttdoc">Calculate flux between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00165">Reservoir.cpp:165</a></div></div>
+<div class="ttc" id="aclassReservoir_html_ad87a4dcd6cde7a7d4b0278542a28fc10"><div class="ttname"><a href="classReservoir.html#ad87a4dcd6cde7a7d4b0278542a28fc10">Reservoir::ResetVal02IMPEC</a></div><div class="ttdeci">void ResetVal02IMPEC()</div><div class="ttdoc">Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00222">Reservoir.cpp:222</a></div></div>
+<div class="ttc" id="aclassReservoir_html_ae23bc9cad98c877717eb810cd188cc4a"><div class="ttname"><a href="classReservoir.html#ae23bc9cad98c877717eb810cd188cc4a">Reservoir::CalFLuxIMPEC</a></div><div class="ttdeci">void CalFLuxIMPEC()</div><div class="ttdoc">Calculate flux between bulks, bulks and wells.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00158">Reservoir.cpp:158</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00082">Reservoir::CalCFL01()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00058">Reservoir::CalConnFlux()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00062">Reservoir::CalFlashIMPEC()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00056">Reservoir::CalFLux()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00066">Reservoir::CalKrPc()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00064">Reservoir::CalVpore()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00096">Reservoir::CheckNi()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00157">Reservoir::CheckP()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00104">Reservoir::CheckVe()</a>, <a class="el" href="Reservoir_8hpp_source.html#l00060">Reservoir::MassConseve()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00166">Reservoir::ResetVal()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00173">Reservoir::ResetVal01()</a>, and <a class="el" href="Reservoir_8cpp_source.html#l00181">Reservoir::ResetVal02()</a>.</p>
+<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00147">Reservoir::CalCFL01IMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00165">Reservoir::CalConnFluxIMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00178">Reservoir::CalFlashIMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00158">Reservoir::CalFLuxIMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00065">Reservoir::CalKrPc()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00059">Reservoir::CalVpore()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00096">Reservoir::CheckNi()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00083">Reservoir::CheckP()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00102">Reservoir::CheckVe()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00171">Reservoir::MassConseveIMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00215">Reservoir::ResetVal01IMPEC()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00222">Reservoir::ResetVal02IMPEC()</a>, and <a class="el" href="Reservoir_8cpp_source.html#l00231">Reservoir::ResetVal03IMPEC()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="FluidSolver_8hpp_source.html">FluidSolver.hpp</a></li>
-<li><a class="el" href="FluidSolver_8cpp_source.html">FluidSolver.cpp</a></li>
+<li><a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a></li>
+<li><a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
