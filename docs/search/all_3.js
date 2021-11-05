@@ -64,8 +64,8 @@ var searchData=
   ['clock_5fuse_5fsec_61',['CLOCK_USE_SEC',['../UtilTiming_8hpp.html#a6cb667ae79db21af586274384f30c407',1,'UtilTiming.hpp']]],
   ['colnum_62',['colNum',['../classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9',1,'TableSet']]],
   ['comps_63',['comps',['../classParamReservoir.html#ad6718da19a7028baf1847b23fce9d558',1,'ParamReservoir']]],
-  ['controlerror_64',['ControlError',['../classControlError.html',1,'']]],
-  ['controliter_65',['ControlIter',['../classControlIter.html',1,'']]],
+  ['controlnr_64',['ControlNR',['../classControlNR.html',1,'']]],
+  ['controlpretime_65',['ControlPreTime',['../classControlPreTime.html',1,'']]],
   ['controltime_66',['ControlTime',['../classControlTime.html',1,'']]],
   ['conv1_67',['CONV1',['../OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f',1,'OCPConst.hpp']]],
   ['conv2_68',['CONV2',['../OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680',1,'OCPConst.hpp']]],
@@ -73,5 +73,6 @@ var searchData=
   ['copyval_70',['CopyVal',['../classParamReservoir.html#a6fd7d561cfbedc3e34f0a9c0a6bf291f',1,'ParamReservoir']]],
   ['cr_71',['Cr',['../classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556',1,'Rock']]],
   ['criticalinfo_72',['CriticalInfo',['../classCriticalInfo.html',1,'']]],
-  ['criticaltime_73',['criticalTime',['../classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039',1,'ParamControl::criticalTime()'],['../classParamWell.html#a679ceef70a150007d5646fcf3cef52c2',1,'ParamWell::criticalTime()']]]
+  ['criticaltime_73',['criticalTime',['../classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039',1,'ParamControl::criticalTime()'],['../classParamWell.html#a679ceef70a150007d5646fcf3cef52c2',1,'ParamWell::criticalTime()']]],
+  ['cutfacnr_74',['cutFacNR',['../classControlTime.html#a314a73a619d6a61fa5de30957edd3b55',1,'ControlTime']]]
 ];

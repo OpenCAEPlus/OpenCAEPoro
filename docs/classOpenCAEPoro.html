@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -152,12 +154,12 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    control.<a class="code hl_function" href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">InputParam</a>(param.<a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    output.InputParam(param.<a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00049">OCPControl.cpp:49</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00043">OCPControl.cpp:43</a></div></div>
 <div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00046">ParamRead.hpp:46</a></div></div>
 <div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a4f3088521df8019f73ad1861004fc1c0"><div class="ttname"><a href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00018">Reservoir.cpp:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00049">OCPControl::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00018">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00046">ParamRead::paramOutput</a>.</p>
+<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00043">OCPControl::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00018">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00046">ParamRead::paramOutput</a>.</p>
 
 </div>
 </div>
@@ -183,12 +185,12 @@ Public Member Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    cout &lt;&lt; <span class="stringliteral">&quot;Final time:          &quot;</span> &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.tstep &lt;&lt; endl;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.numTstep &lt;&lt; endl;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total Newton steps:  &quot;</span> &lt;&lt; control.iterNR_total &lt;&lt; endl;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total linear steps:  &quot;</span> &lt;&lt; control.iterLS_total &lt;&lt; endl;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.timeLS &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.timeLS / control.totalTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    output.PrintInfo();</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
@@ -308,7 +310,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Fri Nov 5 2021 17:26:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

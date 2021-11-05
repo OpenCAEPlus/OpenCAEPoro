@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -761,7 +763,7 @@ $(function() {
 <div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span><span class="keyword"></span>{   </div>
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
 <div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    cout &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days\t&quot;</span>;</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    cout &lt;&lt; ctrl.tstep &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    cout &lt;&lt; ctrl.numTstep &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
 <div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    cout &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>;</div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    dtlInfo.PrintInfo(wordDir, rs, days);</div>
@@ -796,9 +798,9 @@ $(function() {
 <div class="ttc" id="aclassGrid_html_a72d30983c3f700a840a8965d68c72728"><div class="ttname"><a href="classGrid.html#a72d30983c3f700a840a8965d68c72728">Grid::GetGridNum</a></div><div class="ttdeci">OCP_USI GetGridNum() const</div><div class="ttdoc">Return the num of all grids.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00072">Grid.hpp:72</a></div></div>
 <div class="ttc" id="aclassGrid_html_a86e180edbbee508958e2def127f89975"><div class="ttname"><a href="classGrid.html#a86e180edbbee508958e2def127f89975">Grid::GetGridNx</a></div><div class="ttdeci">OCP_USI GetGridNx() const</div><div class="ttdoc">Return nx of grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00066">Grid.hpp:66</a></div></div>
 <div class="ttc" id="aclassGrid_html_ad87d55e19bec2edb49682c610cbc6929"><div class="ttname"><a href="classGrid.html#ad87d55e19bec2edb49682c610cbc6929">Grid::MapG2B</a></div><div class="ttdeci">const GB_Pair &amp; MapG2B(const OCP_USI &amp;i) const</div><div class="ttdoc">Mapping from grids to bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00088">Grid.hpp:88</a></div></div>
-<div class="ttc" id="aclassOCPControl_html"><div class="ttname"><a href="classOCPControl.html">OCPControl</a></div><div class="ttdoc">All control parameters except for well controlers.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00081">OCPControl.hpp:82</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a0f8dc03839c295ec0d7e8837fe454d0a"><div class="ttname"><a href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">OCPControl::GetLastCurDt</a></div><div class="ttdeci">OCP_DBL GetLastCurDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00109">OCPControl.hpp:109</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00105">OCPControl.hpp:105</a></div></div>
+<div class="ttc" id="aclassOCPControl_html"><div class="ttname"><a href="classOCPControl.html">OCPControl</a></div><div class="ttdoc">All control parameters except for well controlers.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00077">OCPControl.hpp:78</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a0f8dc03839c295ec0d7e8837fe454d0a"><div class="ttname"><a href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">OCPControl::GetLastCurDt</a></div><div class="ttdeci">OCP_DBL GetLastCurDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00106">OCPControl.hpp:106</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00102">OCPControl.hpp:102</a></div></div>
 <div class="ttc" id="aclassOutputDetail_html"><div class="ttname"><a href="classOutputDetail.html">OutputDetail</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamOutput_8hpp_source.html#l00092">ParamOutput.hpp:93</a></div></div>
 <div class="ttc" id="aclassOutputDetail_html_a12995215e5afbba58004136cbff79767"><div class="ttname"><a href="classOutputDetail.html#a12995215e5afbba58004136cbff79767">OutputDetail::DENO</a></div><div class="ttdeci">bool DENO</div><div class="ttdoc">Oil density saturation of grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamOutput_8hpp_source.html#l00101">ParamOutput.hpp:101</a></div></div>
 <div class="ttc" id="aclassOutputDetail_html_a16312a6a6b0b3226f6c56b00d84b955c"><div class="ttname"><a href="classOutputDetail.html#a16312a6a6b0b3226f6c56b00d84b955c">OutputDetail::SWAT</a></div><div class="ttdeci">bool SWAT</div><div class="ttdoc">Water saturation of grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamOutput_8hpp_source.html#l00100">ParamOutput.hpp:100</a></div></div>
@@ -871,7 +873,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Fri Nov 5 2021 17:26:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
