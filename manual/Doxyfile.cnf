@@ -38,13 +38,13 @@ PROJECT_NAME           = OpenCAEPoro
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = "0.1.1 Oct/27/2021"
+PROJECT_NUMBER         = "0.1.2 Nov/05/2021"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "OpenCAE for multicomponent porous media flow"
+PROJECT_BRIEF          = "A simulator for multicomponent porous media flow"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
@@ -1293,8 +1293,8 @@ HTML_STYLESHEET        =
 # list). For an example see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  = ../docs/doxygen-awesome-css/doxygen-awesome.css \
-                         ../docs/doxygen-awesome-css/custom.css
+HTML_EXTRA_STYLESHEET  = ../doxygen-awesome-css/doxygen-awesome.css \
+                         ../doxygen-awesome-css/custom.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
