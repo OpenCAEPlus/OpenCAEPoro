@@ -1177,8 +1177,8 @@ void Bulk::CalVpore() { OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_DBL dP = rockC1 * (P[n] - rockPref);
-        rockVp[n] = rockVpInit[n] * (1 + dP + dP * dP / 2);
-        // Rock_Vp[n] = Rock_VpInit[n] * (1 + dP);
+        // rockVp[n] = rockVpInit[n] * (1 + dP + dP * dP / 2);
+        rockVp[n] = rockVpInit[n] * (1 + dP);
     }
 }
 

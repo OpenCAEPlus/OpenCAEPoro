@@ -19,12 +19,30 @@ WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
         fluidType = vbuf[1];
         state     = vbuf[2];
         optMode   = vbuf[3];
-        maxRate   = stod(vbuf[4]);
+        if (vbuf[4] == "1*") {
+            if (optMode == "BHP")
+            maxRate = 1E10;
+            else {
+                cout << "###ERROR: Inj Rate is missing in WCONINJE!" << endl;
+            }
+        }
+        else {
+            maxRate = stod(vbuf[4]);
+        }
         maxBHP    = stod(vbuf[5]);
     } else if (type == "PROD") {
         state   = vbuf[1];
         optMode = vbuf[2];
-        maxRate = stod(vbuf[3]);
+        if (vbuf[3] == "1*") {
+            if (optMode == "BHP")
+                maxRate = 1E10;
+            else {
+                cout << "###ERROR: Inj Rate is missing in WCONINJE!" << endl;
+            }
+        }
+        else {
+            maxRate = stod(vbuf[3]);
+        }
         minBHP  = stod(vbuf[4]);
     } else {
         OCP_ABORT("Wrong Well Type!");
