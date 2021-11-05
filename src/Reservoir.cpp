@@ -307,9 +307,9 @@ void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const 
 }
 
 
-void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax) { OCP_FUNCNAME; 
+void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim) { OCP_FUNCNAME;
     
-    bulk.GetSolFIM(u, NRdSmax, NRdPmax);
+    bulk.GetSolFIM(u, dPlim, dSlim);
     wellgroup.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 

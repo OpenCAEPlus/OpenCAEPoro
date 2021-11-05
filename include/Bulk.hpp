@@ -290,11 +290,15 @@ public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM();
     /// Return the Solution to Reservoir Pressure for FIM
-    void GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
+    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim);
     /// Calculate Relative Resiual for FIM
     void CalRelResFIM(ResFIM& resFIM) const;
     /// Update value of last step for FIM
     void UpdateLastStepFIM();
+    /// Return NRdPmax
+    OCP_DBL GetNRdPmax()const { return NRdPmax; }
+    /// Return NRdSmax
+    OCP_DBL GetNRdSmax()const { return NRdSmax; }
 
 private:
     // Derivatives For FIM
@@ -308,6 +312,8 @@ private:
     vector<OCP_DBL> dPcj_dS; ///< d Pcj / dSk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dKr_dS; ///< d Krj / dSk: numPhase * numPhase * bulk.
 
+    OCP_DBL  NRdPmax;
+    OCP_DBL  NRdSmax;
 };
 
 #endif /* end if __BULK_HEADER__ */

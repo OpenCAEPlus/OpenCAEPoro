@@ -16,34 +16,28 @@ ControlTime::ControlTime(const vector<OCP_DBL>& src)
     timeInit       = src[0];
     timeMax        = src[1];
     timeMin        = src[2];
-    timeMinChop    = src[3];
-    timeMaxIncr    = src[4];
-    timeMinCut     = src[5];
-    timeCut_F      = src[6];
-    timeMaxIncre_F = src[7];
+    maxIncreFac    = src[3];
+    minChopFac     = src[4];
+    cutFacNR       = src[5];
 }
 
-ControlError::ControlError(const vector<OCP_DBL>& src)
+ControlPreTime::ControlPreTime(const vector<OCP_DBL>& src)
 {
-    errorNL_T = src[1];
-    errorMB_T = src[2];
-    errorLS_T = src[3];
-    errorNL_M = src[5];
-    errorMB_M = src[6];
-    errorLS_M = src[7];
+    dPlim = src[0];
+    dSlim = src[1];
+    dNlim = src[2];
+    dVlim = src[3];
 }
 
-ControlIter::ControlIter(const vector<OCP_DBL>& src)
+ControlNR::ControlNR(const vector<OCP_DBL>& src)
 {
-    iterMax_NT  = src[0];
-    iterMin_NT  = src[1];
-    iterMax_NTL = src[2];
-    iterMin_NTL = src[3];
-    dPreNT_M    = src[6];
-    dSatNT_M    = src[7];
-    dPreNT_T    = src[8];
-    dpre_M      = src[9];
-    if (dpre_M < 0) dpre_M = dPreNT_M;
+    maxNRiter   = src[0];
+    NRtol       = src[1];
+    NRdPmax     = src[2];
+    NRdSmax     = src[3];
+    NRdPmin     = src[4];
+    NRdSmin     = src[5];
+    Verrmax     = src[6];
 }
 
 void OCPControl::InputParam(const ParamControl& CtrlParam)
@@ -61,8 +55,8 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
 
     USI t = CtrlParam.criticalTime.size();
     ctrlTimeSet.resize(t);
-    ctrlErrorSet.resize(t);
-    ctrlIterSet.resize(t);
+    ctrlPreTimeSet.resize(t);
+    ctrlNRSet.resize(t);
 
     USI         n = CtrlParam.tuning_T.size();
     vector<USI> ctrlCriticalTime(n + 1);
@@ -73,8 +67,8 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
     for (USI i = 0; i < n; i++) {
         for (USI d = ctrlCriticalTime[i]; d < ctrlCriticalTime[i + 1]; d++) {
             ctrlTimeSet[d]  = ControlTime(CtrlParam.tuning_T[i].Tuning[0]);
-            ctrlErrorSet[d] = ControlError(CtrlParam.tuning_T[i].Tuning[1]);
-            ctrlIterSet[d]  = ControlIter(CtrlParam.tuning_T[i].Tuning[2]);
+            ctrlPreTimeSet[d] = ControlPreTime(CtrlParam.tuning_T[i].Tuning[1]);
+            ctrlNRSet[d]  = ControlNR(CtrlParam.tuning_T[i].Tuning[2]);
         }
     }
 
@@ -84,8 +78,8 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
 void OCPControl::ApplyControl(const USI& i)
 {
     ctrlTime  = ctrlTimeSet[i];
-    ctrlError = ctrlErrorSet[i];
-    ctrlIter  = ctrlIterSet[i];
+    ctrlPreTime = ctrlPreTimeSet[i];
+    ctrlNR  = ctrlNRSet[i];
     end_time  = criticalTime[i + 1];
 }
 
@@ -98,30 +92,27 @@ void OCPControl::InitTime(const USI& i)
 
 void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 {
-    lcurrent_dt = current_dt;
-
+    last_dt = current_dt;
     current_time += current_dt;
+
+    OCP_DBL c1, c2, c3, c4, c;
+    c1 = c2 = c3 = c4 = 10;
 
     OCP_DBL dPmax = reservoir.bulk.GetdPmax();
     OCP_DBL dNmax = reservoir.bulk.GetdNmax();
     OCP_DBL dSmax = reservoir.bulk.GetdSmax();
     OCP_DBL dVmax = reservoir.bulk.GetdVmax();
 
-    OCP_DBL dPlim = 300;
-    OCP_DBL dNlim = 0.3;
-    OCP_DBL dSlim = 0.3;
-    OCP_DBL dVlim = 0.001;
+    if (dPmax > TINY)   c1 = ctrlPreTime.dPlim / dPmax;
+    if (dSmax > TINY)   c2 = ctrlPreTime.dSlim / dSmax;
+    if (dNmax > TINY)   c3 = ctrlPreTime.dNlim / dNmax;
+    if (dVmax > TINY)   c4 = ctrlPreTime.dVlim / dVmax;
 
-    OCP_DBL c1 = dPmax / dPlim;
-    OCP_DBL c2 = dNmax / dNlim;
-    OCP_DBL c3 = dSmax / dSlim;
-    OCP_DBL c4 = dVmax / dVlim;
+    c = min(min(c1, c2), min(c3, c4));
+    c = max(ctrlTime.minChopFac, c);
+    c = min(ctrlTime.maxIncreFac, c);
 
-    OCP_DBL c = max(max(c1, c2), max(c3, c4));
-    c         = max(1.0 / 3, c);
-    c         = min(10.0 / 3, c);
-
-    current_dt /= c;
+    current_dt *= c;
 
     if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
     if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
@@ -132,34 +123,32 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 
 void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
 {
-    lcurrent_dt = current_dt;
-
+    last_dt = current_dt;
     current_time += current_dt;
 
+    OCP_DBL c1, c2, c;
+    c1 = c2 = 10;
 
     OCP_DBL dPmax = reservoir.bulk.GetdPmax();
     OCP_DBL dSmax = reservoir.bulk.GetdSmax();
-    OCP_DBL dPlim = 300;
-    OCP_DBL dSlim = 0.5;
-    OCP_DBL c1 = dPmax / dPlim;
-    OCP_DBL c2 = dSmax / dSlim;
-    OCP_DBL c3 = 1 / 1.5;
+
+    if (dPmax > TINY)   c1 = ctrlPreTime.dPlim / dPmax;
+    if (dSmax > TINY)   c2 = ctrlPreTime.dSlim / dSmax;
+
+    OCP_DBL c3 = 1.5;
 
     if (iterNR < 3) {
-        c3 = 0.5;
-    }
-    else if (iterNR > 8) {
         c3 = 2;
     }
+    else if (iterNR > 8) {
+        c3 = 0.5;
+    }
 
+    c = min(min(c1, c2), c3);
+    c = max(ctrlTime.minChopFac, c);
+    c = min(ctrlTime.maxIncreFac, c);
 
-    //cout << dPmax << "   " << dSmax << "   " << iterNR << endl;
-    //cout << c1 << "   " << c2 << "   " << c3 << endl;
-
-    
-    OCP_DBL c = max(max(c1, c2), c3);
-
-    current_dt /= c;
+    current_dt *= c;
     if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
     if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
 
@@ -171,7 +160,7 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
 
 void OCPControl::UpdateIters()
 {
-    tstep += 1;
+    numTstep += 1;
     iterNR_total += iterNR;
 }
 

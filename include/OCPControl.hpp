@@ -34,46 +34,42 @@ public:
     OCP_DBL timeInit;    ///< Maximum Init step length of next timestep
     OCP_DBL timeMax;     ///< Maximum time step during running
     OCP_DBL timeMin;     ///< Minmum time step during running
-    OCP_DBL timeMinChop; ///< Minimum choppable timestep
-    OCP_DBL timeMaxIncr; ///< Maximum timestep increase factor
-    OCP_DBL timeMinCut;  ///< Minimum timestep cutback factor
-    OCP_DBL timeCut_F;   ///< Minimum timestep cutback factor after convergence failure
-    OCP_DBL timeMaxIncre_F; ///< Maximum increase factor after a convergence failure
+    OCP_DBL maxIncreFac;  ///< Maximum timestep increase factor
+    OCP_DBL minChopFac;   ///< Minimum choppable timestep
+    OCP_DBL cutFacNR;     ///< Factor by which timestep is cut after convergence failure
 };
 
 /// Params for controlling convergence and material balance error checks.
-class ControlError
+class ControlPreTime
 {
 public:
-    ControlError() = default;
-    ControlError(const vector<OCP_DBL>& src);
+    ControlPreTime() = default;
+    ControlPreTime(const vector<OCP_DBL>& src);
 
 public:
-    OCP_DBL errorNL_T; ///< Target non-linear convergence error
-    OCP_DBL errorMB_T; ///< Target material balance error
-    OCP_DBL errorLS_T; ///< Target linear convergence error
-    OCP_DBL errorNL_M; ///< Maximum non-linear convergence error
-    OCP_DBL errorMB_M; ///< Maximum material balance error
-    OCP_DBL errorLS_M; ///< Maximum linear convergence error
+    // Used to calculate timestep factor
+    OCP_DBL         dPlim; ///< Ideal maximum Pressure change at next time step.
+    OCP_DBL         dSlim; ///< Ideal maximum Saturation change at next time step.
+    OCP_DBL         dNlim; ///< Ideal maximum relative Ni(moles of components) change at next time step.
+    OCP_DBL         dVlim; ///< Ideal maximum relative Verr(error between fluid and pore) change at next time step.
 };
 
 /// Params for controlling Newton iterations and linear iterations.
-class ControlIter
+class ControlNR
 {
 public:
-    ControlIter() = default;
-    ControlIter(const vector<OCP_DBL>& src);
+    ControlNR() = default;
+    ControlNR(const vector<OCP_DBL>& src);
 
 public:
     // Note: Important for convergence of solution methods
-    USI     iterMax_NT;  // Maximum number of Newton iterations in a timestep
-    USI     iterMin_NT;  // Minimum number of Newton iterations in a timestep
-    USI     iterMax_NTL; // Maximum number of linear iterations in a Newton iteration
-    USI     iterMin_NTL; // Minimum number of linear iterations in a Newton iteration
-    OCP_DBL dPreNT_M;    // Maximum pressure change at last Newton iteration
-    OCP_DBL dSatNT_M;    // Maximum saturation change at last Newton iteration
-    OCP_DBL dPreNT_T;    // Target pressure change at last Newton iteration
-    OCP_DBL dpre_M;      // Target maximum pressure change in a timestep
+    USI             maxNRiter; ///< Maximum number of Newton iterations in a timestep
+    OCP_DBL         NRtol;     ///< Maximum non-linear convergence error
+    OCP_DBL         NRdPmax;   ///< Maximum Pressure change in a Newton iteration
+    OCP_DBL         NRdSmax;   ///< Maximum Saturation change in a Newton iteration
+    OCP_DBL         NRdPmin;   ///< Minimum Pressure change in a Newton iteration
+    OCP_DBL         NRdSmin;   ///< Minimum Saturation change in a Newton iteration
+    OCP_DBL         Verrmax;   ///< Maximum Verr(error between fluidand pore) change in a Newton iteration
 };
 
 /// All control parameters except for well controlers.
@@ -83,9 +79,10 @@ class OCPControl
     friend class OpenCAEPoro;
     friend class OCPOutput;
     friend class DetailInfo;
-
     friend class Reservoir;
+
     friend class OCP_FIM;
+    friend class OCP_IMPEC;
     friend class Solver;  // temp
 
 public:
@@ -106,7 +103,7 @@ public:
     /// Return current dt.
     OCP_DBL& GetCurDt() { return current_dt; }
     /// Return last dt
-    OCP_DBL GetLastCurDt() const { return lcurrent_dt; }
+    OCP_DBL GetLastCurDt() const { return last_dt; }
     /// Return the number of linear solver iterations in one time step.
     USI GetLSiter() const { return iterLS; }
     USI GetLSiterT() const { return iterLS_total; }
@@ -121,58 +118,51 @@ public:
     {
         iterLS = num;
         iterLS_total += num;
-        iterNR++;
     }
+    void UpdateIterNR(){ iterNR++; }
     /// Update time used for linear solver.
-    void UpdateTimeLS(const OCP_DBL& t) { timeLS += t; }
+    void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }
     /// Record the total time of simulation.
-    void RecordTotalTime(const OCP_DBL& t) { totalTime = t; }
+    void RecordTotalTime(const OCP_DBL& t) { totalSimTime = t; }
     /// Calculate the next time step according to max change of some variables.
     void CalNextTstepIMPEC(const Reservoir& reservoir);
     void CalNextTstepFIM(const Reservoir& reservoir);
     /// Determine whether the critical time point has been reached.
-    bool IsCriticalTime(const USI& d)
-    {
-        return ((criticalTime[d] - current_time) < TINY);
-    }
+    bool IsCriticalTime(const USI& d) { return ((criticalTime[d] - current_time) < TINY); }
 
     string GetWorkDir() const { return workDir; }
     string GetLsFile() const { return lsFile; }
 
-    OCP_DBL& GetNRdSmax() { return NRdSmax; }
-    OCP_DBL& GetNRdPmax() { return NRdPmax; }
+private:
+    USI             method;   ///< Discrete method
+    string          workDir;  ///< Current work directory
+    string          lsFile;   ///< File name of linear Solver
+    vector<OCP_DBL> criticalTime; ///< Set of Critical time by user
 
-private: // TODO: Add doxygen!
-    USI             method;
-    string          workDir;
-    string          lsFile;
-    vector<OCP_DBL> criticalTime;
-    OCP_DBL         current_dt;
-    OCP_DBL         lcurrent_dt;
-    OCP_DBL         current_time{0};
-    OCP_DBL         end_time;
-    OCP_DBL         totalTime{0};
-    USI             tstep{0};
-    USI             iterLS{0};
-    USI             iterLS_total{0};
-    USI             iterNR{0};
-    USI             iterNR_total{0};
+    OCP_DBL         current_dt; ///< Current time step
+    OCP_DBL         last_dt; ///< last time step.
+    OCP_DBL         current_time{0}; ///< Current time.
+    OCP_DBL         end_time; ///< Next Critical time
 
-    OCP_DBL         NRdPmax;
-    OCP_DBL         NRdSmax;
-
-    OCP_DBL timeLS{0};
+    // Record
+    OCP_DBL         totalSimTime{0}; ///< Total simulation time
+    OCP_DBL         totalLStime{ 0 }; ///< Total linear solver time
+    USI             numTstep{0};     ///< Num of time step
+    USI             iterLS{0};       ///< Current iterations of Linear Solve
+    USI             iterLS_total{0}; ///< Total iterations of Linear Solve
+    USI             iterNR{0};       ///< Current iterations of NR
+    USI             iterNR_total{0}; ///< Total iterations of NR
 
     // Includes time controler, error controler, and iteration controler, all of which
     // could change at different critical time step.
     ControlTime         ctrlTime;
     vector<ControlTime> ctrlTimeSet;
 
-    ControlError         ctrlError;
-    vector<ControlError> ctrlErrorSet;
+    ControlPreTime         ctrlPreTime;
+    vector<ControlPreTime> ctrlPreTimeSet;
 
-    ControlIter         ctrlIter;
-    vector<ControlIter> ctrlIterSet;
+    ControlNR         ctrlNR;
+    vector<ControlNR> ctrlNRSet;
 };
 
 #endif /* end if __OCP_Control_HEADER__ */

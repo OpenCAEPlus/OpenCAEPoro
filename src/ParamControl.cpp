@@ -29,30 +29,37 @@ void ParamControl::InitTuning()
 {
     tuning.resize(3);
 
-    // Timestepping controls
+    // Timestepping controls, * means this param is available
+    // Limits: timestep and change factor.
     tuning[0].resize(10);
-    tuning[0][0] = 1.0;   // Maximum Init step length of next timestep
-    tuning[0][1] = 365.0; // Maximum length of timesteps after the next
-    tuning[0][2] = 0.1;   // Minimum length of all timesteps
-    tuning[0][3] = 0.15;  // Minimum choppable timestep
-    tuning[0][4] = 3.0;   // Maximum timestep increase factor
-    tuning[0][5] = 0.3;   // Minimum timestep cutback factor
-    tuning[0][6] = 0.1;   // Factor by which timestep is cut after convergence failure
+    tuning[0][0] = 1.0;   //* Maximum Init step length of next timestep
+    tuning[0][1] = 365.0; //* Maximum length of timesteps after the next
+    tuning[0][2] = 0.1;   //* Minimum length of all timesteps
+    tuning[0][3] = 3.0;   //* Maximum timestep increase factor
+    tuning[0][4] = 0.15;  //* Minimum choppable timestep
+    tuning[0][5] = 0.3;   //* Factor by which timestep is cut after convergence failure
+    
+    tuning[0][6] = 0.1;   // 
     tuning[0][7] = 1.25;  // Maximum increase factor after a convergence failure
     // Maximum throughput ratio
     tuning[0][8] = method == "IMPEC" ? 0.2 : 1E20;
     tuning[0][9] = -1; // Maximum length of the next timestep following a well
                        // modification : no limit
 
-    // Time truncation and convergence controls
+    // Timestepping controls, * means this param is available
+    // Prediction: an ideal maximum change of variables at next time step.
+    // So they're used to calculate change factor of time step by predicting linearly.
     tuning[1].resize(13);
-    // Target time truncation error
-    tuning[1][0] = method == "IMPEC" ? 1.0 : 0.1;
-    // Target non-linear convergence error
-    tuning[1][1] = method == "IMPEC" ? 0.5 : 1E-3;
-    tuning[1][2] = 1E-7; // Target material balance error
-    // Target linear convergence error
-    tuning[1][3] = method == "IMPEC" ? 1E-5 : 1E-4;
+    //* dPlim: ideal maximum Pressure change at next time step.
+    tuning[1][0] = method == "IMPEC" ? 200.0 : 300.0;
+    //* dSlim: ideal maximum Saturation change at next time step.
+    tuning[1][1] = method == "IMPEC" ? 0.2 : 0.2;
+    //* dNlim: ideal maximum relative Ni(moles of components) change at next time step.
+    tuning[1][2] = 1.0; // Target material balance error
+    //* dVerrlim: ideal maximum relative Verr(error between fluid and pore) change at next time step.
+    tuning[1][3] = method == "IMPEC" ? 1E-3 : 1E-3;
+
+
     tuning[1][4] = 10.0; // Maximum time truncation error
     // Maximum non-linear convergence error
     tuning[1][5] = method == "IMPEC" ? 0.75 : 0.01;
@@ -67,16 +74,25 @@ void ParamControl::InitTuning()
     tuning[1][12] =
         1; // Weighting factor for active tracer updates when called from Newton Loop
 
-    // Control of Newton and linear iterations
+
+    // Nonlinear Solver controls, * means this param is available 
     tuning[2].resize(10);
-    // Maximum number of Newton iterations in a timestep
-    tuning[2][0] = method == "IMPEC" ? 4 : 12;
-    tuning[2][1] = 1;   // Minimum number of Newton iterations in a timestep
-    tuning[2][2] = 25;  // Maximum number of linear iterations in a Newton iteration
-    tuning[2][3] = 1;   // Minimum number of linear iterations in a Newton iteration
-    tuning[2][4] = 8;   // Maximum number of iterations within well flow calculation
-    tuning[2][5] = 8;   // Maximum number of iterations for BHP in THP controlled wells
-    tuning[2][6] = 1E6; // Maximum pressure change at last Newton iteration
+    //* Maximum number of Newton iterations in a timestep
+    tuning[2][0] = method == "IMPEC" ? 1 : 10;
+    //* Maximum non-linear convergence error
+    tuning[2][1] = 1e-3;
+    //* Maximum Pressure change in a Newton iteration
+    tuning[2][2] = 300.0;  
+    //* Maximum Saturation change in a Newton iteration
+    tuning[2][3] = 0.2; 
+    //* Minimum Pressure change in a Newton iteration
+    tuning[2][4] = 1;   
+    //* Minimum Saturation change in a Newton iteration
+    tuning[2][5] = 0.01; 
+    //* Maximum Verr(error between fluid and pore) change in a Newton iteration
+    tuning[2][6] = 0.01;
+
+
     tuning[2][7] = 1E6; // Maximum saturation change at last Newton iteration
     // Target maximum pressure change in a timestep
     tuning[2][8] = method == "IMPEC" ? 100 : 1E6;

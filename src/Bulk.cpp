@@ -1463,12 +1463,10 @@ void Bulk::AllocateAuxFIM()
 }
 
 
-void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax) {  OCP_FUNCNAME;
+void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim) {  OCP_FUNCNAME;
     
     NRdSmax = 0;
     NRdPmax = 0;
-    OCP_DBL dSmaxLim = 0.1;
-    OCP_DBL dPmaxLim = 300;
     OCP_DBL dP;
     USI row = numPhase * (numCom + 1);
     USI col = numCom + 1;
@@ -1485,8 +1483,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
         DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1, dtmp.data());
 
         for (USI j = 0; j < numPhase; j++) {
-            if (fabs(dtmp[j]) > dSmaxLim) {
-                choptmp = dSmaxLim / fabs(dtmp[j]);
+            if (fabs(dtmp[j]) > dSlim) {
+                choptmp = dSlim / fabs(dtmp[j]);
             }
             else if (S[n * numPhase + j] + dtmp[j] < 0) {
                 choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
@@ -1498,7 +1496,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPma
             NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
         }
         dP = u[n * col];
-        choptmp = dPmaxLim / fabs(dP);
+        choptmp = dPlim / fabs(dP);
         chopmin = min(chopmin, choptmp);
         NRdPmax = max(NRdPmax, fabs(dP));
         P[n] += dP;

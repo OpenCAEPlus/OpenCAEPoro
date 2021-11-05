@@ -41,6 +41,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
 #endif // DEBUG
 
     ctrl.UpdateIterLS(status);
+    ctrl.UpdateIterNR();
 
 #endif // __SOLVER_FASP__
 
@@ -171,10 +172,11 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
+    ctrl.UpdateIterNR();
 
 #endif // __SOLVER_FASP__
 
-    rs.GetSolutionFIM(lsolver.GetSolution(), ctrl.GetNRdSmax(), ctrl.GetNRdPmax());
+    rs.GetSolutionFIM(lsolver.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
     lsolver.ClearDataB();
 }
 
@@ -217,10 +219,10 @@ bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
     //cout << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes0_v << "  "
     //    << resFIM.maxRelRes_mol << "  " << ctrl.NRdPmax << "  " << ctrl.NRdSmax << endl;
 
-    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * 1E-3 ||
-        resFIM.maxRelRes_v < 1E-3 ||
-        resFIM.maxRelRes_mol < 1E-3 ||
-        (ctrl.NRdPmax < 1 && ctrl.NRdSmax < 0.01)) {
+    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_v < ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol < ctrl.ctrlNR.NRtol ||
+        (rs.GetNRdPmax() < ctrl.ctrlNR.NRdPmin && rs.GetNRdSmax() < ctrl.ctrlNR.NRdSmin)) {
         return true;
     }
     else {

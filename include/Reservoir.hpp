@@ -149,9 +149,13 @@ public:
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
-    void GetSolutionFIM(const vector<OCP_DBL>& u, OCP_DBL& NRdSmax, OCP_DBL& NRdPmax);
+    void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System  
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
+    /// Return NRdPmax
+    OCP_DBL GetNRdPmax()const { return bulk.GetNRdPmax(); }
+    /// Return NRdSmax
+    OCP_DBL GetNRdSmax()const { return bulk.GetNRdSmax(); }
     
 };
 

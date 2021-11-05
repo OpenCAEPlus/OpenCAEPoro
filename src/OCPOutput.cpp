@@ -699,7 +699,7 @@ void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl, cons
 {   
     OCP_DBL days = ctrl.current_time;
     cout << fixed << setprecision(3) << days << " Days\t";
-    cout << ctrl.tstep << "\t";
+    cout << ctrl.numTstep << "\t";
     cout << time / 1000 << "s";
     cout << "\n";
     dtlInfo.PrintInfo(wordDir, rs, days);
