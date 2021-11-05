@@ -114,6 +114,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dgesv_</b> (const int 
 <tr class="separator:a83d07a1840713187dcacd91d279aca60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c0e7a301993f0cd46114a386a60e0bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a4c0e7a301993f0cd46114a386a60e0bd">DaABpbC</a> (int m, int n, int k, double alpha, const double *A, const double *B, double beta, double *C)</td></tr>
 <tr class="separator:a4c0e7a301993f0cd46114a386a60e0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90436417489f7ca397f01955fd0d32a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a90436417489f7ca397f01955fd0d32a0">DaAxpby</a> (int m, int n, double a, const double *A, const double *x, double b, double *y)</td></tr>
+<tr class="separator:a90436417489f7ca397f01955fd0d32a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Operations about small dense mat. </p>
@@ -200,6 +202,76 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> transa = <span class="charliteral">&#39;N&#39;</span>, transb = <span class="charliteral">&#39;N&#39;</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    dgemm_(&amp;transa, &amp;transb, &amp;n, &amp;m, &amp;k, &amp;alpha, B, &amp;n, A, &amp;k, &amp;beta, C, &amp;n);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a90436417489f7ca397f01955fd0d32a0" name="a90436417489f7ca397f01955fd0d32a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90436417489f7ca397f01955fd0d32a0">&#9670;&nbsp;</a></span>DaAxpby()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DaAxpby </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00030">30</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                                                                                            {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">/*  y= aAx+by</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; i++) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        y[i] = b * y[i];</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; n; j++) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            y[i] += a * A[i * n + j] * x[j];</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
