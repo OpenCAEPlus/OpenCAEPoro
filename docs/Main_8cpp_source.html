@@ -85,13 +85,12 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">using namespace </span>std;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// The main function divided reservoir simulation into five steps:</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">//     (1) Read param from an input file</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// --&gt; (2) Setup static information with input parameters</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// --&gt; (3) Initialize the reservoir</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// --&gt; (4) Run dynamic simulation</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// --&gt; (5) Output the results</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[])</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">//      (1) Read parameters from an input file</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">//  --&gt; (2) Setup static information with input parameters</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">//  --&gt; (3) Initialize the reservoir status</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//  --&gt; (4) Run dynamic simulation</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//  --&gt; (5) Output summary file and other results</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">   29</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">main</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[])</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (argc != 2) {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        cout &lt;&lt; <span class="stringliteral">&quot;Wrong number of arguments. Usage: &quot;</span> &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; &lt;InputFileName&gt;&quot;</span></div>
@@ -135,6 +134,7 @@ $(function() {
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="ttc" id="aMain_8cpp_html_ac0f2228420376f4db7e1274f2b41667c"><div class="ttname"><a href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">main</a></div><div class="ttdeci">int main(int argc, const char *argv[])</div><div class="ttdoc">The main function performs reservoir simulation in five steps.</div><div class="ttdef"><b>Definition:</b> <a href="Main_8cpp_source.html#l00029">Main.cpp:29</a></div></div>
 <div class="ttc" id="aOCP_8hpp_html"><div class="ttname"><a href="OCP_8hpp.html">OCP.hpp</a></div><div class="ttdoc">Main header file for OpenCAEPoro simulator.</div></div>
 <div class="ttc" id="aParamRead_8hpp_html"><div class="ttname"><a href="ParamRead_8hpp.html">ParamRead.hpp</a></div><div class="ttdoc">ParamRead class declaration.</div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html"><div class="ttname"><a href="classOpenCAEPoro.html">OpenCAEPoro</a></div><div class="ttdoc">Top level data structure in the OpenCAEPoro simulator.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00026">OCP.hpp:27</a></div></div>
@@ -148,7 +148,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 6 2021 19:18:35 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Nov 6 2021 19:46:46 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
