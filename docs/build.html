@@ -69,24 +69,18 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p >This is a simple instruction on building and testing. There is a top level cmake for configuration and building of the FASPxx shared library and the test programs suite. You can use a cmake-style way to compile the package; see <a href="https://cmake.org">https://cmake.org</a> on how to use cmake for your own operating system. To compile, you alos need a C++ compiler.</p>
-<blockquote class="doxtable">
-<p >$ mkdir Build; cd Build; cmake .. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p >$ make </p>
-</blockquote>
-<p>You may config with different cmake options; for example:</p>
-<blockquote class="doxtable">
-<p >$ cmake -DCMAKE_BUILD_TYPE=Debug . // build in Debug configuration </p>
-</blockquote>
-<blockquote class="doxtable">
-<p >$ cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on </p>
-</blockquote>
-</div></div><!-- contents -->
+<div class="fragment"><div class="line">$ mkdir Build; cd Build; cmake ..</div>
+<div class="line">$ make</div>
+</div><!-- fragment --><p >You may config with different cmake options; for example:</p>
+<p >(1) Build in Debug configuration:</p>
+<div class="fragment"><div class="line">$ cmake -DCMAKE_BUILD_TYPE=Debug ..</div>
+</div><!-- fragment --><p >(2) Build with verbose on (with building messages): </p><div class="fragment"><div class="line">$ cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..</div>
+</div><!-- fragment --><p >(3) Build with UMFPACK support (requires setting SUITESPARSE_DIR variable): </p><div class="fragment"><div class="line">$ cmake -DUSE_UMFPACK=ON ..</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 5 2021 17:32:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Nov 6 2021 16:29:52 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
