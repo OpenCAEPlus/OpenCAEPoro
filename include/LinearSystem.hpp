@@ -1,5 +1,5 @@
 /*! \file    LinearSystem.hpp
- *  \brief   Class declaration for internal linear systems
+ *  \brief   Class declaration for sparse matrices
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -21,10 +21,11 @@ class MAT_Faspxx
 public:
     void ClearData();
 
-    OCP_USI              NRow;
-    OCP_USI              NCol;
-    OCP_USI              Nnz;
-    std::vector<OCP_USI>       val;
+    OCP_USI NRow;
+    OCP_USI NCol;
+    OCP_USI Nnz;
+
+    std::vector<OCP_USI> val;
     std::vector<OCP_USI> colId;
     std::vector<OCP_USI> RowPtr;
     std::vector<USI>     diagPtr;

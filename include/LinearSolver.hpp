@@ -18,30 +18,38 @@
 #include <iostream>
 #include <string>
 
-// OpenCAEPoro header files
-#include "LinearSystem.hpp"
-#include "OCPConst.hpp"
-#include "DenseMat.hpp"
-
-// Fasp header files
-#include "fasp.h"
+// faspsolver header files
 extern "C" {
+#include "fasp.h"
+#include "fasp_block.h"
 #include "fasp_functs.h"
+}
+
+// fasp4blkoil header files
+extern "C" {
 #include "fasp4blkoil.h"
 #include "fasp4blkoil_functs.h"
 }
 
-#define  PC_NULL         60 // no preconditioner
-#define  PC_FASP1        61 // default preconditioner for FIM from 2020
-#define  PC_FASP2        62
-#define  PC_FASP3        63
-#define  PC_FASP4        64 // default preconditioner for FIM from 2015
-#define  PC_FASP5        65
-#define  PC_DIAG         68 // diagonal preconditioner
-#define  PC_BILU         69 // block incomplete factorization preconditioner
-#define  PC_FASP1_SHARE  71 // Share the setup stage for PC_FASP1
-#define  PC_FASP4_SHARE  74 // Share the setup stage for PC_FASP4
-#define  RESET_CONST     35 // Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
+// OpenCAEPoro header files
+#include "DenseMat.hpp"
+#include "LinearSystem.hpp"
+#include "OCPConst.hpp"
+
+// Preconditioner types
+#define PC_NULL 60  ///< None: no preconditioner
+#define PC_FASP1 61 ///< FASP1 preconditioner: default for FIM from 2020
+#define PC_FASP2 62 ///< FASP2 preconditioner: experimental
+#define PC_FASP3 63 ///< FASP3 preconditioner: monolithic
+#define PC_FASP4 64 ///< FASP4 preconditioner: default for FIM from 2015
+#define PC_FASP5 65 ///< FASP5 preconditioner: experimental
+#define PC_DIAG 68  ///< DIAG preconditioner
+#define PC_BILU 69  ///< BILU preconditioner
+
+// Preconditioners types with shared setup
+#define PC_FASP1_SHARE 71 ///< Sharing the setup stage for PC_FASP1
+#define PC_FASP4_SHARE 74 ///< Sharing the setup stage for PC_FASP4
+#define RESET_CONST 35    ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
 
 using namespace std;
 
@@ -55,115 +63,99 @@ class LinearSolver
     friend class Well;
 
 public:
-    /// Allocate memory for linear system where possible maximum numbers of row are
-    /// used.
+    /// Allocate memory for linear system with max possible number of rows.
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
-    /// Allocate memory for each row of matrix where the most terrible condition was
-    /// considered.
+    /// Allocate memory for each matrix row with max possible number of columns.
     void AllocateColMem();
+    /// Allocate memory for scalar-value problems in FASP.
     void AllocateFasp();
+    /// Allocate memory for vector-value problems in FASP.
     void AllocateBFasp();
-
+    /// Enlarge row capacity. // TODO: maybe should be called EnlargeRowCap?
     void RowCapPlus(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
-    /// Read solver param from input file which is supplied by user.
+
+    /// Setup solver param for scalar-value problems from input file.
     void SetupParam(const string& dir, const string& file);
-    /// Read solver param for Block matrix from input file which is supplied by user.
+    /// Setup solver param for vector-value problems from input file.
     void SetupParamB(const string& dir, const string& file);
-    /// output the solution to fileX.
-    void PrintfSolution(const string& fileX) const;
 
-    // FASP
-    /// initialize the sover param for FASP.
-    void InitParam_Fasp();
-    /// read the sover param for Block FASP.
-    void ReadParam_Fasp();
-    /// convert the internal matrix structure into the the format required by FASP.
-    void AssembleMat_Fasp();
-    /// solve the linear system by FASP and return the status.
-    int FaspSolve();
-    // Block Fasp
-    void InitParam_BFasp();
-    void ReadParam_BFasp();
-    void AssembleMat_BFasp();
-    void AssembleRhs_BFasp(const vector<OCP_DBL>& rhs);
-    int BFaspSolve();
-    void decoupling(dBSRmat* Absr, dvector* b, int scal_type,
-        dBSRmat* Asc, dvector* fsc, ivector* order,
-        double* Dmatvec, int decouple_type);
-    void decouple_abf(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_anl(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_truetrans_alg(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_truetrans(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_quasi(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_trueabf(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_rowsum(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_abftrue(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* Asc);
-
-    void decouple_true_scale(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* B);
-
-    void decouple_rotate(dBSRmat* A,
-        REAL* diaginv,
-        dBSRmat* B);
-
-    /// output the mat and rhs to fileA and fileb.
-    void PrintfMatCSR(const string& fileA, const string& fileb) const;
-    /// clear the internal matrix.
-    void ClearData();
-    void ClearDataB();
-    /// return the solution.
+    /// Return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
-
-    /// check if NAN or INF occurs, used in debug mode.
+    /// Check whether NAN or INF occurs in solution, used in debug mode.
     void CheckVal() const;
+    /// Output the mat and rhs to fileA and fileb. //TODO: output to some obj?
+    void OutputLinearSystem(const string& fileA, const string& fileb) const;
+    /// Output the solution to a disk file name.
+    void OutputSolution(const string& filename) const;
+
+    //---------------------------------//
+    // FASP: for scalar-value problems //
+    //---------------------------------//
+
+    /// Initialize the solver param for FASP with default values.
+    void InitParam_Fasp();
+    /// Read the solver param for FASP from a file.
+    void ReadParam_Fasp(); // TODO: use a file name for input param?
+    /// Convert the internal matrix into FASP format.
+    void AssembleMat_Fasp(); // TODO: maybe called AssembleFaspMat? Why no RHS (copy)?
+    /// Solve the linear system using FASP and return the status.
+    int FaspSolve();
+    /// Clear the internal matrix data for scalar-value problems.
+    void ClearData();
+
+    //----------------------------------//
+    // BFASP: for vector-value problems //
+    //----------------------------------//
+
+    /// Initialize the solver param for BFASP with default values.
+    void InitParam_BFasp();
+    /// Read the solver param for BFASP from a file.
+    void ReadParam_BFasp();
+    /// Convert the internal matrix into BFASP format.
+    void AssembleMat_BFasp();
+    /// Convert the internal right-hand side into BFASP format.
+    void AssembleRhs_BFasp(const vector<OCP_DBL>& rhs);
+    /// Solve the linear system using BFASP and return the status.
+    int BFaspSolve();
+    /// Clear the internal matrix data for vector-value problems.
+    void ClearDataB();
+
+private: // TODO: Maybe should not be here?
+    void decoupling(dBSRmat* Absr, dvector* b, int scal_type, dBSRmat* Asc,
+                    dvector* fsc, ivector* order, double* Dmatvec, int decouple_type);
+    void decouple_abf(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_anl(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_quasi(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_trueabf(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_rowsum(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_abftrue(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
+    void decouple_true_scale(dBSRmat* A, REAL* diaginv, dBSRmat* B);
+    void decouple_rotate(dBSRmat* A, REAL* diaginv, dBSRmat* B);
 
 private:
-    // internal mat structure.
+    // Used for internal mat structure.
     USI blockDim;  ///< Dimens of small block matrix.
-    USI blockSize; ///< Size of small block matrix.
-    /// the maximum dimens matrix could have, it's fixed, always memory saving.
-    /// it's used to allocate memory for the mat at the beginning of simulation.
-    OCP_USI maxDim;
-    OCP_USI dim; ///< the actual dimens of mat, it may changed all the time but always a
-                 ///< little less than maxDim.
-    /// the maximum possible capacity of each row of the mat.
-    /// it's just a little greater than actual sizes, so it's very memory saving.
-    /// it's used to allocate memory for the mat at the beginning of simulation.
-    vector<USI> rowCapacity;
-    vector<vector<OCP_USI>>
-        colId; ///< column-index of nonzero entry in the format of row-segmented.
-    vector<vector<OCP_DBL>> val; ///< values of nonzero entry in the format of row-segmented.
-    vector<USI> diagPtr;   ///< the ith entry indicates the location of diagal entry of
-                           ///< the ith row in val.
-    /// an auxiliary variable used to help Setup entry in diagnal line.
-    /// it will only be used when matrix is being assembling.
-    vector<OCP_DBL> diagVal;
-    vector<OCP_DBL> b; ///< right hands of linear system.
-    vector<OCP_DBL> u; ///< solutiom of linear system.
+    USI blockSize; ///< Size of small block matrix. // TODO: Is it blockDim*blockDim?
+
+    // maxDim: fixed and used to allocate memory at the beginning of simulation;
+    // dim:    might change during simulation but always less than maxDim.
+    OCP_USI maxDim; ///< Maximal possible dimension of matrix.
+    OCP_USI dim;    ///< Actual dimension of matrix.
+
+    // The following values are stored for each row. Among them, rowCapacity is the max
+    // possible capacity of each row of the matrix. It is just a little bigger than the
+    // actual size and is used to allocate memory at the beginning of simulation.
+    // diagVal is an auxiliary variable used to help setup entries in diagnal line and
+    // it will only be used when matrix is assembled.
+    vector<USI>             rowCapacity; ///< Maximal capacity of each row.
+    vector<vector<OCP_USI>> colId;       ///< Column indices of nonzero entry.
+    vector<USI>             diagPtr;     ///< Indices of diagonal entries.
+    vector<vector<OCP_DBL>> val;         ///< Nonzero values.
+    vector<OCP_DBL>         diagVal;     ///< Diagonal values
+    vector<OCP_DBL>         b;           ///< Right-hand side of linear system.
+    vector<OCP_DBL>         u;           ///< Solution of linear system.
 
     // for FASP solver
     string  solveDir;
@@ -171,28 +163,24 @@ private:
     dCSRmat A_Fasp;
     dvector b_Fasp;
     dvector x_Fasp;
+
     // for Block FASP solver
-    dBSRmat A_BFasp;
-    dvector b_BFasp;
-    dvector x_BFasp;
-    dBSRmat Asc;
-    dvector fsc;
-    ivector order;
+    dBSRmat         A_BFasp;
+    dvector         b_BFasp;
+    dvector         x_BFasp;
+    dBSRmat         Asc;
+    dvector         fsc;
+    ivector         order;
     vector<OCP_DBL> Dmat;
 
-    input_param inParam; // parameters from input files
-    ITS_param   itParam; // parameters for itsolver
-
-    AMG_param amgParam; // parameters for AMG
-    ILU_param iluParam; // parameters for ILU
-    SWZ_param swzParam; // parameters for Schwarz method
-
-    // for other solver
+    input_param inParam;  ///< Parameters from input files.
+    ITS_param   itParam;  ///< Parameters for iterative method.
+    AMG_param   amgParam; ///< Parameters for AMG method.
+    ILU_param   iluParam; ///< Parameters for ILU method.
+    SWZ_param   swzParam; ///< Parameters for Schwarz method.
 };
 
-
-
-#endif   /* end if __LINEARSOLVER_HEADER__ */
+#endif /* end if __LINEARSOLVER_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
@@ -201,4 +189,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Nov/09/2021      Rewrite Doxygen                      */
 /*----------------------------------------------------------------------------*/

@@ -57,7 +57,6 @@ void LinearSolver::ClearData()
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
 
-
 void LinearSolver::ClearDataB()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
@@ -70,7 +69,6 @@ void LinearSolver::ClearDataB()
     // In fact, for linear system the current solution is a good initial solution for
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
-
 
 void LinearSolver::AssembleMat_Fasp()
 {
@@ -110,8 +108,8 @@ void LinearSolver::AssembleMat_BFasp()
     // b & x
     b_BFasp.row = nrow;
     b_BFasp.val = b.data();
-    x_BFasp.row  = nrow;
-    x_BFasp.val  = u.data();
+    x_BFasp.row = nrow;
+    x_BFasp.val = u.data();
     // fsc & order
     fsc.row   = nrow;
     order.row = nrow;
@@ -271,7 +269,7 @@ int LinearSolver::FaspSolve()
     return status;
 }
 
-void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
+void LinearSolver::OutputLinearSystem(const string& fileA, const string& fileb) const
 {
     string FileA = solveDir + fileA;
     string Fileb = solveDir + fileb;
@@ -299,7 +297,7 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
         outA << A_BFasp.ROW << endl;
         outA << A_BFasp.nb << endl;
         OCP_USI nnz0 = A_BFasp.NNZ;
-        OCP_USI nnz = A_BFasp.NNZ * blockSize;
+        OCP_USI nnz  = A_BFasp.NNZ * blockSize;
         for (OCP_USI i = 0; i < A_BFasp.ROW + 1; i++) outA << A_BFasp.IA[i] + 1 << endl;
         for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.JA[i] + 1 << endl;
         for (OCP_USI i = 0; i < nnz; i++) outA << A_BFasp.val[i] << endl;
@@ -314,7 +312,7 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
     }
 }
 
-void LinearSolver::PrintfSolution(const string& fileU) const
+void LinearSolver::OutputSolution(const string& fileU) const
 {
     string   FileU = solveDir + fileU;
     ofstream outu(FileU);
