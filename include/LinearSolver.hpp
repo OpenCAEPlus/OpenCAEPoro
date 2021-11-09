@@ -1,5 +1,5 @@
 /*! \file    LinearSolver.hpp
- *  \brief   Lienar solver class declaration
+ *  \brief   Linear solver class declaration
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -37,25 +37,23 @@ extern "C" {
 #include "OCPConst.hpp"
 
 // Preconditioner types
-#define PC_NULL 60  ///< None: no preconditioner
-#define PC_FASP1 61 ///< FASP1 preconditioner: default for FIM from 2020
-#define PC_FASP2 62 ///< FASP2 preconditioner: experimental
-#define PC_FASP3 63 ///< FASP3 preconditioner: monolithic
-#define PC_FASP4 64 ///< FASP4 preconditioner: default for FIM from 2015
-#define PC_FASP5 65 ///< FASP5 preconditioner: experimental
-#define PC_DIAG 68  ///< DIAG preconditioner
-#define PC_BILU 69  ///< BILU preconditioner
-
-// Preconditioners types with shared setup
+#define PC_NULL 60        ///< None: no preconditioner
+#define PC_FASP1 61       ///< FASP1 preconditioner: default for FIM from 2020
+#define PC_FASP2 62       ///< FASP2 preconditioner: experimental
+#define PC_FASP3 63       ///< FASP3 preconditioner: monolithic
+#define PC_FASP4 64       ///< FASP4 preconditioner: default for FIM from 2015
+#define PC_FASP5 65       ///< FASP5 preconditioner: experimental
+#define PC_DIAG 68        ///< DIAG preconditioner
+#define PC_BILU 69        ///< BILU preconditioner
 #define PC_FASP1_SHARE 71 ///< Sharing the setup stage for PC_FASP1
 #define PC_FASP4_SHARE 74 ///< Sharing the setup stage for PC_FASP4
 #define RESET_CONST 35    ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
 
 using namespace std;
 
-/// A template class designed to stores and solves linear system derived from discrete
-/// method. the maxtrix is stored in the form of row-segmented CSRX internaly, whose
-/// sparsity pattern is almost the same as neighbor in BulkConn.
+/// Linear solvers for discrete systems.
+//  Note: The matrix is stored in the form of row-segmented CSRx internaly, whose
+//  sparsity pattern is almost the same as neighbor in BulkConn.
 class LinearSolver
 {
     friend class OpenCAEPoro;
@@ -115,24 +113,13 @@ public:
     void AssembleMat_BFasp();
     /// Convert the internal right-hand side into BFASP format.
     void AssembleRhs_BFasp(const vector<OCP_DBL>& rhs);
+    /// Decoupling strategies for vector-value problems.
+    void Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
+                    ivector* order, double* Dmatvec, int decouple_type);
     /// Solve the linear system using BFASP and return the status.
     int BFaspSolve();
     /// Clear the internal matrix data for vector-value problems.
     void ClearDataB();
-
-private: // TODO: Maybe should not be here?
-    void decoupling(dBSRmat* Absr, dvector* b, int scal_type, dBSRmat* Asc,
-                    dvector* fsc, ivector* order, double* Dmatvec, int decouple_type);
-    void decouple_abf(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_anl(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_quasi(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_trueabf(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_rowsum(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_abftrue(dBSRmat* A, REAL* diaginv, dBSRmat* Asc);
-    void decouple_true_scale(dBSRmat* A, REAL* diaginv, dBSRmat* B);
-    void decouple_rotate(dBSRmat* A, REAL* diaginv, dBSRmat* B);
 
 private:
     // Used for internal mat structure.
@@ -157,27 +144,31 @@ private:
     vector<OCP_DBL>         b;           ///< Right-hand side of linear system.
     vector<OCP_DBL>         u;           ///< Solution of linear system.
 
-    // for FASP solver
-    string  solveDir;
-    string  solveFile;
-    dCSRmat A_Fasp;
-    dvector b_Fasp;
-    dvector x_Fasp;
+    //---------------------------------//
+    // Param for FASP solvers          //
+    //---------------------------------//
+    string      solveDir;  // TODO: Directory for input file???
+    string      solveFile; // TODO: File name for input file???
+    input_param inParam;   ///< Parameters from input files.
+    ITS_param   itParam;   ///< Parameters for iterative method.
+    AMG_param   amgParam;  ///< Parameters for AMG method.
+    ILU_param   iluParam;  ///< Parameters for ILU method.
+    SWZ_param   swzParam;  ///< Parameters for Schwarz method.
 
-    // for Block FASP solver
-    dBSRmat         A_BFasp;
-    dvector         b_BFasp;
-    dvector         x_BFasp;
-    dBSRmat         Asc;
-    dvector         fsc;
-    ivector         order;
-    vector<OCP_DBL> Dmat;
+    //---------------------------------//
+    // Data for FASP solvers           //
+    //---------------------------------//
 
-    input_param inParam;  ///< Parameters from input files.
-    ITS_param   itParam;  ///< Parameters for iterative method.
-    AMG_param   amgParam; ///< Parameters for AMG method.
-    ILU_param   iluParam; ///< Parameters for ILU method.
-    SWZ_param   swzParam; ///< Parameters for Schwarz method.
+    dCSRmat         A_Fasp;  ///< Matrix for scalar-value problems.
+    dvector         b_Fasp;  ///< Right-hand side for scalar-value problems.
+    dvector         x_Fasp;  ///< Solution for scalar-value problems.
+    dBSRmat         A_BFasp; ///< Matrix for vector-value problems.
+    dvector         b_BFasp; ///< Right-hand side for vector-value problems.
+    dvector         x_BFasp; ///< Solution for vector-value problems.
+    dBSRmat         Asc;     ///< Scaled matrix for vector-value problems.
+    dvector         fsc;     ///< Scaled right-hand side for vector-value problems.
+    ivector         order;   ///< User-defined ordering for smoothing process.
+    vector<OCP_DBL> Dmat;    // TODO: What is this for???
 };
 
 #endif /* end if __LINEARSOLVER_HEADER__ */
@@ -189,5 +180,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
-/*  Chensong Zhang      Nov/09/2021      Rewrite Doxygen                      */
+/*  Chensong Zhang      Nov/09/2021      Remove decoupling methods            */
 /*----------------------------------------------------------------------------*/

@@ -13,8 +13,8 @@ var searchData=
   ['calflashimpec_10',['CalFlashIMPEC',['../classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8',1,'Reservoir']]],
   ['calflux_11',['CalFlux',['../classWell.html#a874b5ec76145d0c252c953d809c9de77',1,'Well::CalFlux()'],['../classWellGroup.html#a4d42dd38deb45a4d68dc7548ed7b1a6f',1,'WellGroup::CalFlux()']]],
   ['calfluxfim_12',['CalFluxFIM',['../classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13',1,'BulkConn']]],
-  ['calfluximpec_13',['CalFLuxIMPEC',['../classReservoir.html#ae23bc9cad98c877717eb810cd188cc4a',1,'Reservoir']]],
-  ['calfluximpec_14',['CalFluxIMPEC',['../classBulkConn.html#aa8d9f52fc6bf62216f76b93337e61800',1,'BulkConn']]],
+  ['calfluximpec_13',['CalFluxIMPEC',['../classBulkConn.html#aa8d9f52fc6bf62216f76b93337e61800',1,'BulkConn']]],
+  ['calfluximpec_14',['CalFLuxIMPEC',['../classReservoir.html#ae23bc9cad98c877717eb810cd188cc4a',1,'Reservoir']]],
   ['calfpr_15',['CalFPR',['../classBulk.html#ac89ed36d19cdbea2d5d51f39fc6a89c2',1,'Bulk']]],
   ['calinjdg_16',['CalInjdG',['../classWell.html#a4001451f9c2d30df21980af227cc411a',1,'Well']]],
   ['calinjqibo_17',['CalInjQiBO',['../classWell.html#a15c1264d5de5142a9da17531c8df12ee',1,'Well']]],
@@ -59,5 +59,6 @@ var searchData=
   ['checkval_56',['CheckVal',['../classLinearSolver.html#ace5d7e817c95ae62a57e4ab988df426d',1,'LinearSolver']]],
   ['checkve_57',['CheckVe',['../classBulk.html#a38fe3999ea9aa54d5597ee743a851835',1,'Bulk::CheckVe()'],['../classReservoir.html#a01e4f6bc0a4d390bc0c5e0670e29a123',1,'Reservoir::CheckVe()']]],
   ['cleardata_58',['ClearData',['../classLinearSolver.html#adba39905145e66b4c80190159b50be13',1,'LinearSolver']]],
-  ['copyval_59',['CopyVal',['../classParamReservoir.html#a6fd7d561cfbedc3e34f0a9c0a6bf291f',1,'ParamReservoir']]]
+  ['cleardatab_59',['ClearDataB',['../classLinearSolver.html#a01aa7c83be9e8a1573813e19cd24ed2e',1,'LinearSolver']]],
+  ['copyval_60',['CopyVal',['../classParamReservoir.html#a6fd7d561cfbedc3e34f0a9c0a6bf291f',1,'ParamReservoir']]]
 ];
