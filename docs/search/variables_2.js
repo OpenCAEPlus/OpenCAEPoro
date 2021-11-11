@@ -8,5 +8,6 @@ var searchData=
   ['conv1_5',['CONV1',['../OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f',1,'OCPConst.hpp']]],
   ['conv2_6',['CONV2',['../OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680',1,'OCPConst.hpp']]],
   ['cr_7',['Cr',['../classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556',1,'Rock']]],
-  ['criticaltime_8',['criticalTime',['../classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039',1,'ParamControl::criticalTime()'],['../classParamWell.html#a679ceef70a150007d5646fcf3cef52c2',1,'ParamWell::criticalTime()']]]
+  ['criticaltime_8',['criticalTime',['../classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039',1,'ParamControl::criticalTime()'],['../classParamWell.html#a679ceef70a150007d5646fcf3cef52c2',1,'ParamWell::criticalTime()']]],
+  ['cutfacnr_9',['cutFacNR',['../classControlTime.html#a314a73a619d6a61fa5de30957edd3b55',1,'ControlTime']]]
 ];

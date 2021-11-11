@@ -17,10 +17,10 @@
  * OpenCAEPoro is part of the OpenCAEPlus project written in C++. It focuses on
  * multicomponent multiphase flow simulation in porous media.
  *
- * This software distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details:
- * https://www.gnu.org/licenses/lgpl-3.0.html
+ * > This software distributed in the hope that it will be useful, but WITHOUT ANY
+ * > WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * > PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details:
+ * > https://www.gnu.org/licenses/lgpl-3.0.html
  *
  */
 
@@ -39,17 +39,29 @@
  * suite. You can use a cmake-style way to compile the package; see https://cmake.org
  * on how to use cmake for your own operating system. To compile, you alos need a C++
  * compiler.
- * 
- * > $ mkdir Build; cd Build; cmake ..
- * 
- * > $ make
+ *
+ * ```bash
+ *  $ mkdir Build; cd Build; cmake ..
+ *  $ make
+ * ```
  *
  * You may config with different cmake options; for example:
- * 
- * > $ cmake -DCMAKE_BUILD_TYPE=Debug .             // build in Debug configuration
- * 
- * > $ cmake -DCMAKE_VERBOSE_MAKEFILE=ON .          // build with verbose on
- * 
+ *
+ * (1) Build in Debug configuration:
+ *
+ * ```bash
+ *  $ cmake -DCMAKE_BUILD_TYPE=Debug ..
+ * ```
+ *
+ * (2) Build with verbose on (with building messages):
+ * ```bash
+ *  $ cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
+ * ```
+ *
+ * (3) Build with UMFPACK support (requires setting SUITESPARSE_DIR variable):
+ * ```bash
+ *  $ cmake -DUSE_UMFPACK=ON ..
+ * ```
  */
 
 /**
@@ -62,7 +74,7 @@
  * Developers (in alphabetic order):
  *
  * - Li, Shizhe (AMSS, Chinese Academy of Sciences, China)
- * 
+ *
  * - Qiao, Changhe
  *
  */

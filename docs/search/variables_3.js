@@ -13,7 +13,11 @@ var searchData=
   ['dir_10',['dir',['../classParamControl.html#a8db5196bf69caf71fb7a2d73eb1695f1',1,'ParamControl']]],
   ['direction_11',['direction',['../classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5',1,'WellParam']]],
   ['disgas_12',['disGas',['../classParamReservoir.html#a0c7182c60189dd5972ad2e961555c588',1,'ParamReservoir']]],
-  ['dx_13',['dx',['../classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856',1,'ParamReservoir']]],
-  ['dy_14',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
-  ['dz_15',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
+  ['dnlim_13',['dNlim',['../classControlPreTime.html#ae93fc97acae55a614890ebcdfe77cc56',1,'ControlPreTime']]],
+  ['dplim_14',['dPlim',['../classControlPreTime.html#a8cb29379ca77e5d5e9e560d881dd7ef8',1,'ControlPreTime']]],
+  ['dslim_15',['dSlim',['../classControlPreTime.html#a3dca6d60f34e4b73766a53958f3be9d3',1,'ControlPreTime']]],
+  ['dvlim_16',['dVlim',['../classControlPreTime.html#a2ae8be789ceb6e8830ac8a1f47c07eef',1,'ControlPreTime']]],
+  ['dx_17',['dx',['../classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856',1,'ParamReservoir']]],
+  ['dy_18',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
+  ['dz_19',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
 ];

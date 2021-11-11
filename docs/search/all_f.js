@@ -32,6 +32,8 @@ var searchData=
   ['opencaeporo_29',['OpenCAEPoro',['../classOpenCAEPoro.html',1,'']]],
   ['optmode_30',['optMode',['../classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539',1,'WellOptParam']]],
   ['outputdetail_31',['OutputDetail',['../classOutputDetail.html',1,'']]],
-  ['outputresults_32',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
-  ['outputsummary_33',['OutputSummary',['../classOutputSummary.html',1,'']]]
+  ['outputlinearsystem_32',['OutputLinearSystem',['../classLinearSolver.html#a3ad1ac7d8e1fa8d0ae6493e8cce05c2e',1,'LinearSolver']]],
+  ['outputresults_33',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
+  ['outputsolution_34',['OutputSolution',['../classLinearSolver.html#acc0ff65616c24a13d7567693ab3207de',1,'LinearSolver']]],
+  ['outputsummary_35',['OutputSummary',['../classOutputSummary.html',1,'']]]
 ];

@@ -1,3 +1,14 @@
+/*! \file    LinearSolver.cpp
+ *  \brief   Linear solver for scalar-value problems
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
 #include "LinearSolver.hpp"
 
 void LinearSolver::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
@@ -57,7 +68,6 @@ void LinearSolver::ClearData()
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
 
-
 void LinearSolver::ClearDataB()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
@@ -70,7 +80,6 @@ void LinearSolver::ClearDataB()
     // In fact, for linear system the current solution is a good initial solution for
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
-
 
 void LinearSolver::AssembleMat_Fasp()
 {
@@ -110,8 +119,8 @@ void LinearSolver::AssembleMat_BFasp()
     // b & x
     b_BFasp.row = nrow;
     b_BFasp.val = b.data();
-    x_BFasp.row  = nrow;
-    x_BFasp.val  = u.data();
+    x_BFasp.row = nrow;
+    x_BFasp.val = u.data();
     // fsc & order
     fsc.row   = nrow;
     order.row = nrow;
@@ -271,7 +280,7 @@ int LinearSolver::FaspSolve()
     return status;
 }
 
-void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
+void LinearSolver::OutputLinearSystem(const string& fileA, const string& fileb) const
 {
     string FileA = solveDir + fileA;
     string Fileb = solveDir + fileb;
@@ -299,7 +308,7 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
         outA << A_BFasp.ROW << endl;
         outA << A_BFasp.nb << endl;
         OCP_USI nnz0 = A_BFasp.NNZ;
-        OCP_USI nnz = A_BFasp.NNZ * blockSize;
+        OCP_USI nnz  = A_BFasp.NNZ * blockSize;
         for (OCP_USI i = 0; i < A_BFasp.ROW + 1; i++) outA << A_BFasp.IA[i] + 1 << endl;
         for (OCP_USI i = 0; i < nnz0; i++) outA << A_BFasp.JA[i] + 1 << endl;
         for (OCP_USI i = 0; i < nnz; i++) outA << A_BFasp.val[i] << endl;
@@ -314,7 +323,7 @@ void LinearSolver::PrintfMatCSR(const string& fileA, const string& fileb) const
     }
 }
 
-void LinearSolver::PrintfSolution(const string& fileU) const
+void LinearSolver::OutputSolution(const string& fileU) const
 {
     string   FileU = solveDir + fileU;
     ofstream outu(FileU);
@@ -461,8 +470,7 @@ void LinearSolver::InitParam_Fasp()
 
 int LinearSolver::BFaspSolve()
 {
-    int status    = FASP_SUCCESS;
-    int scal_type = A_BFasp.nb;
+    int status = FASP_SUCCESS;
 
     // Set local parameters
     const int print_level  = inParam.print_level;
@@ -497,46 +505,46 @@ int LinearSolver::BFaspSolve()
                                                      &itParam, &iluParam);
                 break;
             case PC_FASP1:
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP1a(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
             case PC_FASP1_SHARE: // zhaoli 2021.03.24
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP1a_share_interface(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order,
                     RESET_CONST);
                 break;
             case PC_FASP2:
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP2(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
             case PC_FASP3:
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP3(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
             case PC_FASP4_SHARE: // zhaoli 2021.04.24
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP4_share_interface(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order,
                     RESET_CONST);
                 break;
             case PC_FASP5:
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP5(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
             default: // case PC_FASP4:
-                decoupling(&A_BFasp, &b_BFasp, scal_type, &Asc, &fsc, &order,
-                           Dmat.data(), decoup_type);
+                Decoupling(&A_BFasp, &b_BFasp, &Asc, &fsc, &order, Dmat.data(),
+                           decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP4(
                     &Asc, &fsc, &x_BFasp, &itParam, &iluParam, &amgParam, NULL, &order);
         }
@@ -681,3 +689,11 @@ void LinearSolver::InitParam_BFasp()
     inParam.AMG_smooth_filter      = ON;
     inParam.AMG_smooth_restriction = ON;
 }
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Oct/01/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

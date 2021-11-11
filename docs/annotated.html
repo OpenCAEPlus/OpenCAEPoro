@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -20,10 +22,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
    </div>
-   <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
+   <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
  </tr>
  </tbody>
@@ -72,8 +75,8 @@ $(function() {
 <tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBulk.html" target="_self">Bulk</a></td><td class="desc"></td></tr>
 <tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBulkConn.html" target="_self">BulkConn</a></td><td class="desc"></td></tr>
 <tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBulkPair.html" target="_self">BulkPair</a></td><td class="desc">Connection between indices of two bulks (BId, EId); usually, BId &gt; EId </td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classControlError.html" target="_self">ControlError</a></td><td class="desc">Params for controlling convergence and material balance error checks </td></tr>
-<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classControlIter.html" target="_self">ControlIter</a></td><td class="desc">Params for controlling Newton iterations and linear iterations </td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classControlNR.html" target="_self">ControlNR</a></td><td class="desc">Params for controlling Newton iterations and linear iterations </td></tr>
+<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classControlPreTime.html" target="_self">ControlPreTime</a></td><td class="desc">Params for controlling convergence and material balance error checks </td></tr>
 <tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classControlTime.html" target="_self">ControlTime</a></td><td class="desc">Params for controlling time stepsized in time marching </td></tr>
 <tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classCOOIJK.html" target="_self">COOIJK</a></td><td class="desc">A structure of three-dimensional coordinates </td></tr>
 <tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classCriticalInfo.html" target="_self">CriticalInfo</a></td><td class="desc"><a class="el" href="classCriticalInfo.html" title="CriticalInfo print some important index of each time step for fast review.">CriticalInfo</a> print some important index of each time step for fast review </td></tr>
@@ -85,7 +88,7 @@ $(function() {
 <tr id="row_14_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classGetCycleNum.html" target="_self">GetCycleNum</a></td><td class="desc">Get CPU-cycle number </td></tr>
 <tr id="row_15_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classGetWallTime.html" target="_self">GetWallTime</a></td><td class="desc">Get elapsed wall-time in millisecond </td></tr>
 <tr id="row_16_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classGrid.html" target="_self">Grid</a></td><td class="desc"></td></tr>
-<tr id="row_17_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classLinearSolver.html" target="_self">LinearSolver</a></td><td class="desc"></td></tr>
+<tr id="row_17_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classLinearSolver.html" target="_self">LinearSolver</a></td><td class="desc">Linear solvers for discrete systems </td></tr>
 <tr id="row_18_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classMAT__Faspxx.html" target="_self">MAT_Faspxx</a></td><td class="desc">CSRx matrix type based on FASP++ </td></tr>
 <tr id="row_19_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classMixture.html" target="_self">Mixture</a></td><td class="desc"></td></tr>
 <tr id="row_20_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classOCP__FIM.html" target="_self">OCP_FIM</a></td><td class="desc"><a class="el" href="classOCP__FIM.html" title="OCP_FIM is FIM (Fully Implicit Method).">OCP_FIM</a> is FIM (Fully Implicit Method) </td></tr>
@@ -127,7 +130,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /*! \file    Main.cpp
- *  \brief   Main for an example to Display main steps in our simulator
+ *  \brief   An example to demonstrate main steps of our simulator
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -20,12 +20,12 @@
 
 using namespace std;
 
-// The main function divided reservoir simulation into five steps:
-//     (1) Read param from an input file
-// --> (2) Setup static information with input parameters
-// --> (3) Initialize the reservoir
-// --> (4) Run dynamic simulation
-// --> (5) Output the results
+/// The main function performs reservoir simulation in five steps.
+//      (1) Read parameters from an input file
+//  --> (2) Setup static information with input parameters
+//  --> (3) Initialize the reservoir status
+//  --> (4) Run dynamic simulation
+//  --> (5) Output summary file and other results
 int main(int argc, const char* argv[])
 {
     if (argc != 2) {

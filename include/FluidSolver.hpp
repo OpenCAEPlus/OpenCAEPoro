@@ -1,5 +1,5 @@
-/*! \file    Solver.hpp
- *  \brief   Solver class declaration
+/*! \file    FluidSolver.hpp
+ *  \brief   FluidSolver class declaration
  *  \author  Shizhe Li
  *  \date    Oct/21/2021
  *
@@ -43,3 +43,11 @@ private:
 };
 
 #endif /* end if __FLUIDSOLVER_HEADER__ */
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Oct/21/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

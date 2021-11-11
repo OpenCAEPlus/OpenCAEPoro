@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -20,10 +22,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
    </div>
-   <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
+   <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
  </tr>
  </tbody>
@@ -110,9 +113,9 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// Initialize the fluid part</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">InitReservoir</a>(rs);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="ttc" id="aclassFluidSolver_html_a7c5cde1e67a36b8652453472f4a4b106"><div class="ttname"><a href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">FluidSolver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the Reservoir and prepare variables for some method.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00023">FluidSolver.cpp:23</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a7c5cde1e67a36b8652453472f4a4b106"><div class="ttname"><a href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">FluidSolver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the Reservoir and prepare variables for some method.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00030">FluidSolver.cpp:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="FluidSolver_8cpp_source.html#l00023">FluidSolver::InitReservoir()</a>.</p>
+<p class="reference">References <a class="el" href="FluidSolver_8cpp_source.html#l00030">FluidSolver::InitReservoir()</a>.</p>
 
 </div>
 </div>
@@ -176,14 +179,14 @@ Public Member Functions</h2></td></tr>
 <div class="ttc" id="aclassGetWallTime_html"><div class="ttname"><a href="classGetWallTime.html">GetWallTime</a></div><div class="ttdoc">Get elapsed wall-time in millisecond.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00031">UtilTiming.hpp:32</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a6554ac2f01206c503f15a5efa39c5605"><div class="ttname"><a href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">GetWallTime::Stop</a></div><div class="ttdeci">__inline__ double Stop() const</div><div class="ttdoc">Stop the timer and return duration from start() in ms.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00054">UtilTiming.hpp:54</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a89f0126e2428cd5a45c0ebf790f96bc9"><div class="ttname"><a href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">GetWallTime::Start</a></div><div class="ttdeci">__inline__ void Start()</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00051">UtilTiming.hpp:51</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a00990fbac2f3effb6a277146663932bd"><div class="ttname"><a href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">OCPControl::GetNumTSteps</a></div><div class="ttdeci">USI GetNumTSteps() const</div><div class="ttdoc">Return number of TSTEPs.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00103">OCPControl.hpp:103</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00129">OCPControl.hpp:129</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a3306bc5439131ec72b44b09da0a100b1"><div class="ttname"><a href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">OCPControl::IsCriticalTime</a></div><div class="ttdeci">bool IsCriticalTime(const USI &amp;d)</div><div class="ttdoc">Determine whether the critical time point has been reached.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00134">OCPControl.hpp:134</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a7ef84146cd9357f8f97f9f41f37315ff"><div class="ttname"><a href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">OCPControl::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply control for time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00084">OCPControl.cpp:84</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba"><div class="ttname"><a href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">OCPControl::InitTime</a></div><div class="ttdeci">void InitTime(const USI &amp;i)</div><div class="ttdoc">Initialize time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00092">OCPControl.cpp:92</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a00990fbac2f3effb6a277146663932bd"><div class="ttname"><a href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">OCPControl::GetNumTSteps</a></div><div class="ttdeci">USI GetNumTSteps() const</div><div class="ttdoc">Return number of TSTEPs.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00100">OCPControl.hpp:100</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00126">OCPControl.hpp:126</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a3306bc5439131ec72b44b09da0a100b1"><div class="ttname"><a href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">OCPControl::IsCriticalTime</a></div><div class="ttdeci">bool IsCriticalTime(const USI &amp;d)</div><div class="ttdoc">Determine whether the critical time point has been reached.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00131">OCPControl.hpp:131</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a7ef84146cd9357f8f97f9f41f37315ff"><div class="ttname"><a href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">OCPControl::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply control for time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00078">OCPControl.cpp:78</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba"><div class="ttname"><a href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">OCPControl::InitTime</a></div><div class="ttdeci">void InitTime(const USI &amp;i)</div><div class="ttdoc">Initialize time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00086">OCPControl.cpp:86</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a9e77991deeaaa5fba43a98f79251e0f1"><div class="ttname"><a href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">Reservoir::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply the control of ith critical time point.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00035">Reservoir.cpp:35</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00084">OCPControl::ApplyControl()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00035">Reservoir::ApplyControl()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00103">OCPControl::GetNumTSteps()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00092">OCPControl::InitTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00134">OCPControl::IsCriticalTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00129">OCPControl::RecordTotalTime()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
+<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00078">OCPControl::ApplyControl()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00035">Reservoir::ApplyControl()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00100">OCPControl::GetNumTSteps()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00086">OCPControl::InitTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00131">OCPControl::IsCriticalTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00126">OCPControl::RecordTotalTime()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
 
 </div>
 </div>
@@ -229,7 +232,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

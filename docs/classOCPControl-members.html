@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -20,10 +22,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
    </div>
-   <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
+   <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
  </tr>
  </tbody>
@@ -80,8 +83,6 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#aaa1c8afb5b780923d1c7ef606fb572b0">GetLSiter</a>() const</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetLSiterT</b>() const (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">GetMethod</a>() const</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetNRdPmax</b>() (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetNRdSmax</b>() (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#a57e53a1adc8fc16423e16a4af8ee1149">GetNRiter</a>() const</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetNRiterT</b>() const (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">GetNumTSteps</a>() const</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -90,18 +91,20 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">InputParam</a>(const ParamControl &amp;CtrlParam)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">IsCriticalTime</a>(const USI &amp;d)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>OCP_FIM</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>OCPOutput</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>OpenCAEPoro</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(const OCP_DBL &amp;t)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Reservoir</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Solver</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#ac6cceea4c279d1cf8b21b8174210356f">UpdateIterLS</a>(const USI &amp;num)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>OCP_IMPEC</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>OCPOutput</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>OpenCAEPoro</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(const OCP_DBL &amp;t)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Reservoir</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Solver</b> (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#ac6cceea4c279d1cf8b21b8174210356f">UpdateIterLS</a>(const USI &amp;num)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>UpdateIterNR</b>() (defined in <a class="el" href="classOCPControl.html">OCPControl</a>)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">UpdateIters</a>()</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classOCPControl.html#aff50e66c2623dfe3dbe2ce34a6c78400">UpdateTimeLS</a>(const OCP_DBL &amp;t)</td><td class="entry"><a class="el" href="classOCPControl.html">OCPControl</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

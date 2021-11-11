@@ -13,6 +13,8 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -20,10 +22,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.1 Oct/27/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
    </div>
-   <div id="projectbrief">OpenCAE for multicomponent porous media flow</div>
+   <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
  </tr>
  </tbody>
@@ -187,13 +190,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acdf48dbd4d81822c86d22cdcec8668c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#acdf48dbd4d81822c86d22cdcec8668c4">AssembleMatFIM</a> (<a class="el" href="classLinearSolver.html">LinearSolver</a> &amp;mysolver, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="memdesc:acdf48dbd4d81822c86d22cdcec8668c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble Matrix for FIM.  <a href="classReservoir.html#acdf48dbd4d81822c86d22cdcec8668c4">More...</a><br /></td></tr>
 <tr class="separator:acdf48dbd4d81822c86d22cdcec8668c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b020a6bf375a5017c47817aa3ad90e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a2b020a6bf375a5017c47817aa3ad90e7">GetSolutionFIM</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;NRdSmax, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;NRdPmax)</td></tr>
-<tr class="memdesc:a2b020a6bf375a5017c47817aa3ad90e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the Solution to <a class="el" href="classReservoir.html">Reservoir</a> Pressure and moles of Components for FIM.  <a href="classReservoir.html#a2b020a6bf375a5017c47817aa3ad90e7">More...</a><br /></td></tr>
-<tr class="separator:a2b020a6bf375a5017c47817aa3ad90e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a287a213453e78c0b50a4cdacb11c0601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a287a213453e78c0b50a4cdacb11c0601">GetSolutionFIM</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dPlim, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dSlim)</td></tr>
+<tr class="memdesc:a287a213453e78c0b50a4cdacb11c0601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the Solution to <a class="el" href="classReservoir.html">Reservoir</a> Pressure and moles of Components for FIM.  <a href="classReservoir.html#a287a213453e78c0b50a4cdacb11c0601">More...</a><br /></td></tr>
+<tr class="separator:a287a213453e78c0b50a4cdacb11c0601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed8990a10e7e8ea9a7bcca1275d80787"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#aed8990a10e7e8ea9a7bcca1275d80787">CalResFIM</a> (<a class="el" href="classResFIM.html">ResFIM</a> &amp;resFIM, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:aed8990a10e7e8ea9a7bcca1275d80787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the Resiual for FIM, it's also RHS of Linear System <br  />
   <a href="classReservoir.html#aed8990a10e7e8ea9a7bcca1275d80787">More...</a><br /></td></tr>
 <tr class="separator:aed8990a10e7e8ea9a7bcca1275d80787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d14741b162a407b9ff1a509b1209a8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a1d14741b162a407b9ff1a509b1209a8a">GetNRdPmax</a> () const</td></tr>
+<tr class="memdesc:a1d14741b162a407b9ff1a509b1209a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return NRdPmax.  <a href="classReservoir.html#a1d14741b162a407b9ff1a509b1209a8a">More...</a><br /></td></tr>
+<tr class="separator:a1d14741b162a407b9ff1a509b1209a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e02282830214ca2af45c66094bba62f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#a5e02282830214ca2af45c66094bba62f">GetNRdSmax</a> () const</td></tr>
+<tr class="memdesc:a5e02282830214ca2af45c66094bba62f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return NRdSmax.  <a href="classReservoir.html#a5e02282830214ca2af45c66094bba62f">More...</a><br /></td></tr>
+<tr class="separator:a5e02282830214ca2af45c66094bba62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -305,12 +314,12 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassBulkConn_html_afe3a5a53f1e7f9ba94d3edc7c2c9302a"><div class="ttname"><a href="classBulkConn.html#afe3a5a53f1e7f9ba94d3edc7c2c9302a">BulkConn::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSolver &amp;mySolver) const</div><div class="ttdoc">Allocate memory for Matrix, it should be called only once at the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00207">BulkConn.cpp:207</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad1fe116878b1f29b28515f4692a9d2c9"><div class="ttname"><a href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">Bulk::GetBulkNum</a></div><div class="ttdeci">OCP_USI GetBulkNum() const</div><div class="ttdoc">Return the num of Bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00113">Bulk.hpp:113</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad4381cb94449aee799e66ded4ca7a2b9"><div class="ttname"><a href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">Bulk::GetComNum</a></div><div class="ttdeci">USI GetComNum() const</div><div class="ttdoc">Return the num of Components.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00115">Bulk.hpp:115</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a21794c50e95e4647813837f85846e39f"><div class="ttname"><a href="classLinearSolver.html#a21794c50e95e4647813837f85846e39f">LinearSolver::AllocateColMem</a></div><div class="ttdeci">void AllocateColMem()</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00017">LinearSolver.cpp:17</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_abdb0180cc9d3ff6d0fb2d53d1aba6924"><div class="ttname"><a href="classLinearSolver.html#abdb0180cc9d3ff6d0fb2d53d1aba6924">LinearSolver::AllocateRowMem</a></div><div class="ttdeci">void AllocateRowMem(const OCP_USI &amp;dimMax, const USI &amp;nb)</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00003">LinearSolver.cpp:3</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_a21794c50e95e4647813837f85846e39f"><div class="ttname"><a href="classLinearSolver.html#a21794c50e95e4647813837f85846e39f">LinearSolver::AllocateColMem</a></div><div class="ttdeci">void AllocateColMem()</div><div class="ttdoc">Allocate memory for each matrix row with max possible number of columns.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00028">LinearSolver.cpp:28</a></div></div>
+<div class="ttc" id="aclassLinearSolver_html_abdb0180cc9d3ff6d0fb2d53d1aba6924"><div class="ttname"><a href="classLinearSolver.html#abdb0180cc9d3ff6d0fb2d53d1aba6924">LinearSolver::AllocateRowMem</a></div><div class="ttdeci">void AllocateRowMem(const OCP_USI &amp;dimMax, const USI &amp;nb)</div><div class="ttdoc">Allocate memory for linear system with max possible number of rows.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8cpp_source.html#l00014">LinearSolver.cpp:14</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a29ab57b4401f4ac9d2323e7b6f208185"><div class="ttname"><a href="classWellGroup.html#a29ab57b4401f4ac9d2323e7b6f208185">WellGroup::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSolver &amp;mySolver, const USI &amp;bulknum) const</div><div class="ttdoc">Calculate memory for Matrix.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00171">WellGroup.cpp:171</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a3b9a367d413dbdf5ef7abc32b36ec121"><div class="ttname"><a href="classWellGroup.html#a3b9a367d413dbdf5ef7abc32b36ec121">WellGroup::GetWellNum</a></div><div class="ttdeci">USI GetWellNum() const</div><div class="ttdoc">Return the num of wells.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8hpp_source.html#l00065">WellGroup.hpp:65</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00017">LinearSolver::AllocateColMem()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00207">BulkConn::AllocateMat()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00171">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00003">LinearSolver::AllocateRowMem()</a>, <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="Bulk_8hpp_source.html#l00115">Bulk::GetComNum()</a>, <a class="el" href="WellGroup_8hpp_source.html#l00065">WellGroup::GetWellNum()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00028">LinearSolver::AllocateColMem()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00207">BulkConn::AllocateMat()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00171">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00014">LinearSolver::AllocateRowMem()</a>, <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="Bulk_8hpp_source.html#l00115">Bulk::GetComNum()</a>, <a class="el" href="WellGroup_8hpp_source.html#l00065">WellGroup::GetWellNum()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -341,7 +350,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    mySolver.<a class="code hl_function" href="classLinearSolver.html#a21794c50e95e4647813837f85846e39f">AllocateColMem</a>();</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00017">LinearSolver::AllocateColMem()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00207">BulkConn::AllocateMat()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00171">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00003">LinearSolver::AllocateRowMem()</a>, <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="WellGroup_8hpp_source.html#l00065">WellGroup::GetWellNum()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="LinearSolver_8cpp_source.html#l00028">LinearSolver::AllocateColMem()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00207">BulkConn::AllocateMat()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00171">WellGroup::AllocateMat()</a>, <a class="el" href="LinearSolver_8cpp_source.html#l00014">LinearSolver::AllocateRowMem()</a>, <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="WellGroup_8hpp_source.html#l00065">WellGroup::GetWellNum()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -798,10 +807,10 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    Dscalar(resFIM.res.size(), -1, resFIM.res.data());</div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>}</div>
 <div class="ttc" id="aclassBulkConn_html_a8975e1f4fea32ca26fa1e415897b0045"><div class="ttname"><a href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn::CalResFIM</a></div><div class="ttdeci">void CalResFIM(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00762">BulkConn.cpp:762</a></div></div>
-<div class="ttc" id="aclassBulk_html_a68e74b1bb9e0ef4116e5c436a1c9e8d7"><div class="ttname"><a href="classBulk.html#a68e74b1bb9e0ef4116e5c436a1c9e8d7">Bulk::CalRelResFIM</a></div><div class="ttdeci">void CalRelResFIM(ResFIM &amp;resFIM) const</div><div class="ttdoc">Calculate Relative Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01514">Bulk.cpp:1514</a></div></div>
+<div class="ttc" id="aclassBulk_html_a68e74b1bb9e0ef4116e5c436a1c9e8d7"><div class="ttname"><a href="classBulk.html#a68e74b1bb9e0ef4116e5c436a1c9e8d7">Bulk::CalRelResFIM</a></div><div class="ttdeci">void CalRelResFIM(ResFIM &amp;resFIM) const</div><div class="ttdoc">Calculate Relative Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01512">Bulk.cpp:1512</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a560ea3b15218cd6eadfe1d6feb806520"><div class="ttname"><a href="classWellGroup.html#a560ea3b15218cd6eadfe1d6feb806520">WellGroup::CalResFIM</a></div><div class="ttdeci">void CalResFIM(ResFIM &amp;resFIM, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate Resiual and relative Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00352">WellGroup.cpp:352</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01514">Bulk::CalRelResFIM()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00352">WellGroup::CalResFIM()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00762">BulkConn::CalResFIM()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l01512">Bulk::CalRelResFIM()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00352">WellGroup::CalResFIM()</a>, <a class="el" href="BulkConn_8cpp_source.html#l00762">BulkConn::CalResFIM()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -1047,8 +1056,74 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a2b020a6bf375a5017c47817aa3ad90e7" name="a2b020a6bf375a5017c47817aa3ad90e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b020a6bf375a5017c47817aa3ad90e7">&#9670;&nbsp;</a></span>GetSolutionFIM()</h2>
+<a id="a1d14741b162a407b9ff1a509b1209a8a" name="a1d14741b162a407b9ff1a509b1209a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d14741b162a407b9ff1a509b1209a8a">&#9670;&nbsp;</a></span>GetNRdPmax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Reservoir::GetNRdPmax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return NRdPmax. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00156">156</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a782210fccb8fa17751be0ac87ffd65fd">GetNRdPmax</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a782210fccb8fa17751be0ac87ffd65fd"><div class="ttname"><a href="classBulk.html#a782210fccb8fa17751be0ac87ffd65fd">Bulk::GetNRdPmax</a></div><div class="ttdeci">OCP_DBL GetNRdPmax() const</div><div class="ttdoc">Return NRdPmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00299">Bulk.hpp:299</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00299">Bulk::GetNRdPmax()</a>.</p>
+
+</div>
+</div>
+<a id="a5e02282830214ca2af45c66094bba62f" name="a5e02282830214ca2af45c66094bba62f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e02282830214ca2af45c66094bba62f">&#9670;&nbsp;</a></span>GetNRdSmax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Reservoir::GetNRdSmax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return NRdSmax. </p>
+
+<p class="definition">Definition at line <a class="el" href="Reservoir_8hpp_source.html#l00158">158</a> of file <a class="el" href="Reservoir_8hpp_source.html">Reservoir.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>{ <span class="keywordflow">return</span> bulk.<a class="code hl_function" href="classBulk.html#a30ee33cae8c342c1598b4da17697ef7f">GetNRdSmax</a>(); }</div>
+<div class="ttc" id="aclassBulk_html_a30ee33cae8c342c1598b4da17697ef7f"><div class="ttname"><a href="classBulk.html#a30ee33cae8c342c1598b4da17697ef7f">Bulk::GetNRdSmax</a></div><div class="ttdeci">OCP_DBL GetNRdSmax() const</div><div class="ttdoc">Return NRdSmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00301">Bulk.hpp:301</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00301">Bulk::GetNRdSmax()</a>.</p>
+
+</div>
+</div>
+<a id="a287a213453e78c0b50a4cdacb11c0601" name="a287a213453e78c0b50a4cdacb11c0601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a287a213453e78c0b50a4cdacb11c0601">&#9670;&nbsp;</a></span>GetSolutionFIM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1062,14 +1137,14 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
-          <td class="paramname"><em>NRdSmax</em>, </td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dPlim</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
-          <td class="paramname"><em>NRdPmax</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dSlim</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1082,15 +1157,15 @@ Friends</h2></td></tr>
 <p>Return the Solution to <a class="el" href="classReservoir.html">Reservoir</a> Pressure and moles of Components for FIM. </p>
 
 <p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00310">310</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                                                                                           { <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>; </div>
+<div class="fragment"><div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                                                                                                   { <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    bulk.<a class="code hl_function" href="classBulk.html#a4d8bfd62790e6c96075ec9d9ea01b7ee">GetSolFIM</a>(u, NRdSmax, NRdPmax);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    bulk.<a class="code hl_function" href="classBulk.html#afd47c56a898a9722fa2351704de9483e">GetSolFIM</a>(u, dPlim, dSlim);</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    wellgroup.<a class="code hl_function" href="classWellGroup.html#a2d3edca6b589e203168a9d2119d10420">GetSolFIM</a>(u, bulk.<a class="code hl_function" href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">GetBulkNum</a>(), bulk.<a class="code hl_function" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>() + 1);</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>}</div>
-<div class="ttc" id="aclassBulk_html_a4d8bfd62790e6c96075ec9d9ea01b7ee"><div class="ttname"><a href="classBulk.html#a4d8bfd62790e6c96075ec9d9ea01b7ee">Bulk::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, OCP_DBL &amp;NRdSmax, OCP_DBL &amp;NRdPmax)</div><div class="ttdoc">Return the Solution to Reservoir Pressure for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01466">Bulk.cpp:1466</a></div></div>
+<div class="ttc" id="aclassBulk_html_afd47c56a898a9722fa2351704de9483e"><div class="ttname"><a href="classBulk.html#afd47c56a898a9722fa2351704de9483e">Bulk::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_DBL &amp;dPlim, const OCP_DBL &amp;dSlim)</div><div class="ttdoc">Return the Solution to Reservoir Pressure for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01466">Bulk.cpp:1466</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a2d3edca6b589e203168a9d2119d10420"><div class="ttname"><a href="classWellGroup.html#a2d3edca6b589e203168a9d2119d10420">WellGroup::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for IMPEC for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00339">WellGroup.cpp:339</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="Bulk_8hpp_source.html#l00115">Bulk::GetComNum()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00339">WellGroup::GetSolFIM()</a>, <a class="el" href="Bulk_8cpp_source.html#l01466">Bulk::GetSolFIM()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00113">Bulk::GetBulkNum()</a>, <a class="el" href="Bulk_8hpp_source.html#l00115">Bulk::GetComNum()</a>, <a class="el" href="Bulk_8cpp_source.html#l01466">Bulk::GetSolFIM()</a>, <a class="el" href="WellGroup_8cpp_source.html#l00339">WellGroup::GetSolFIM()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -1193,7 +1268,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassBulkConn_html_aa2f439ee231375b2ccbfc72c2e19ea13"><div class="ttname"><a href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">BulkConn::CalFluxFIM</a></div><div class="ttdeci">void CalFluxFIM(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate Upblock for FIM</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00707">BulkConn.cpp:707</a></div></div>
 <div class="ttc" id="aclassBulk_html_a3b15396b21c7a80a3fd781d7ddb81002"><div class="ttname"><a href="classBulk.html#a3b15396b21c7a80a3fd781d7ddb81002">Bulk::FlashSj</a></div><div class="ttdeci">void FlashSj()</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01020">Bulk.cpp:1020</a></div></div>
 <div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">Return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01336">Bulk.cpp:1336</a></div></div>
-<div class="ttc" id="aclassBulk_html_a48edf8ff505dacac40a49c7b82d02623"><div class="ttname"><a href="classBulk.html#a48edf8ff505dacac40a49c7b82d02623">Bulk::UpdateLastStepFIM</a></div><div class="ttdeci">void UpdateLastStepFIM()</div><div class="ttdoc">Update value of last step for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01531">Bulk.cpp:1531</a></div></div>
+<div class="ttc" id="aclassBulk_html_a48edf8ff505dacac40a49c7b82d02623"><div class="ttname"><a href="classBulk.html#a48edf8ff505dacac40a49c7b82d02623">Bulk::UpdateLastStepFIM</a></div><div class="ttdeci">void UpdateLastStepFIM()</div><div class="ttdoc">Update value of last step for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01529">Bulk.cpp:1529</a></div></div>
 <div class="ttc" id="aclassBulk_html_a4a0c5f2e9aa2eb0a6e8f0fe1d9489724"><div class="ttname"><a href="classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724">Bulk::InitSjPcComp</a></div><div class="ttdeci">void InitSjPcComp(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00644">Bulk.cpp:644</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad313ce450846d30e0dcb6c83dd5f08fe"><div class="ttname"><a href="classBulk.html#ad313ce450846d30e0dcb6c83dd5f08fe">Bulk::InitSjPcBo</a></div><div class="ttdeci">void InitSjPcBo(const USI &amp;tabrow)</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00209">Bulk.cpp:209</a></div></div>
 <div class="ttc" id="aclassWellGroup_html_a085a85b63cbaa22cd639acb698bd6427"><div class="ttname"><a href="classWellGroup.html#a085a85b63cbaa22cd639acb698bd6427">WellGroup::InitBHP</a></div><div class="ttdeci">void InitBHP(const Bulk &amp;myBulk)</div><div class="ttdoc">Set the initial well pressure.</div><div class="ttdef"><b>Definition:</b> <a href="WellGroup_8cpp_source.html#l00081">WellGroup.cpp:81</a></div></div>
@@ -1491,7 +1566,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    bulk.<a class="code hl_function" href="classBulk.html#a48edf8ff505dacac40a49c7b82d02623">UpdateLastStepFIM</a>(); </div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>, and <a class="el" href="Bulk_8cpp_source.html#l01531">Bulk::UpdateLastStepFIM()</a>.</p>
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00075">OCP_FUNCNAME</a>, and <a class="el" href="Bulk_8cpp_source.html#l01529">Bulk::UpdateLastStepFIM()</a>.</p>
 
 </div>
 </div>
@@ -1652,7 +1727,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
