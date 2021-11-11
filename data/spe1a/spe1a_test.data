@@ -183,8 +183,8 @@ WELSPECS
 /
 
 COMPDAT
-'INJE1'   2*   1   3     1*   0.5   3*   /
-'PROD1'   2*   1   3     1*   0.5   3*   /
+'INJE1'   2*   1   1     1*   0.5   3*   /
+'PROD1'   2*   3   3     1*   0.5   3*   /
 /
 
 WCONINJE
@@ -197,7 +197,7 @@ WCONPROD
 
 TUNING
 -- Init     max    min   incre   chop    cut
-     1      240     0.1      5    0.3    0.3 /
+     100      100     100      3    0.15    0.3 /
 --  dPlim  dSlim   dNlim   dVerrlim
      300     0.2    0.3    0.001           /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
@@ -205,7 +205,7 @@ TUNING
 /
 
 NLSOLVE
-10 1E-4 300 0.2 1 0.01 0.2 0.001  1
+10 1E-3 300 0.2 1 0.01 0.2 0.001  1
 /
 
 METHOD
@@ -213,19 +213,8 @@ FIM
 /
 
 TSTEP
-1    3    9    29    8  
+2000 
 /
 
-TSTEP
-132.625   182.625   185.625  
-/
-
-TSTEP
-3*182.625   
-/
-
-TSTEP
-7*365.25   /  -- 10 years
-/
 
 END

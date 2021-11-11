@@ -144,13 +144,17 @@ void BOMixture::BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin){}
 
 
 
-void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
+void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin) 
+{
+    OCP_ABORT("Empty Function!");
+}
 
-void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
+
 
 void BOMixture::BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin,
                              const OCP_DBL& Vpore)
 {
+    OCP_ABORT("Empty Function!");
 }
 
 

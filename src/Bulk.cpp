@@ -203,7 +203,40 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
     {
         // initZi.resize(numBulk * numCom);
     }
+
+    // CheckSetup();
 }
+
+
+void Bulk::CheckSetup()  const
+{
+    CheckInitVpore();
+    CheckVpore();
+}
+
+void Bulk::CheckInitVpore() const
+{
+    // Check InitVpore
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (rockVpInit[n] < TINY) {
+            OCP_ABORT("bulk volume is too small: bulk(" + std::to_string(n) + ") = " +
+                std::to_string(rockVpInit[n]));
+        }
+    }
+}
+
+
+void Bulk::CheckVpore() const
+{
+    // Check InitVpore
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (rockVp[n] < TINY) {
+            OCP_ABORT("bulk volume is too small: bulk(" + std::to_string(n) + ") = " +
+                std::to_string(rockVp[n]));
+        }
+    }
+}
+
 
 
 void Bulk::InitSjPcBo(const USI& tabrow) { OCP_FUNCNAME;
@@ -1104,7 +1137,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n) { OCP_FUNCNAME;
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j] = flashCal[pvtnum]->xi[j];
             mu[bId + j] = flashCal[pvtnum]->mu[j];
-            vj[bId + j] = flashCal[pvtnum]->v[j];
+            // vj[bId + j] = flashCal[pvtnum]->v[j];
 
             // Derivatives
             muP[bId + j] = flashCal[pvtnum]->muP[j];
@@ -1168,7 +1201,7 @@ void Bulk::CalKrPcDeriv() { OCP_FUNCNAME;
             &dKr_dS[bId * numPhase],
             &dPcj_dS[bId * numPhase]);
         for (USI j = 0; j < numPhase; j++)
-            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+            Pj[bId + j] = P[n] + Pc[bId + j];
     }
 }
 
@@ -1262,8 +1295,10 @@ bool Bulk::CheckP() const { OCP_FUNCNAME;
 bool Bulk::CheckNi() const { OCP_FUNCNAME;
 
     for (auto ni : Ni) {
-        if (ni < 0.0)
+        if (ni < 0.0) {
+            cout << "###WARNING: Negative Ni  " << ni << endl;
             return false;
+        }         
     }
     return true;
 }
@@ -1463,7 +1498,7 @@ void Bulk::AllocateAuxFIM()
 }
 
 
-void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim) {  OCP_FUNCNAME;
+void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OCP_DBL& dSmaxlim) {  OCP_FUNCNAME;
     
     NRdSmax = 0;
     NRdPmax = 0;
@@ -1483,8 +1518,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_D
         DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1, dtmp.data());
 
         for (USI j = 0; j < numPhase; j++) {
-            if (fabs(dtmp[j]) > dSlim) {
-                choptmp = dSlim / fabs(dtmp[j]);
+            if (fabs(dtmp[j]) > dSmaxlim) {
+                choptmp = dSmaxlim / fabs(dtmp[j]);
             }
             else if (S[n * numPhase + j] + dtmp[j] < 0) {
                 choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
@@ -1496,11 +1531,10 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_D
             NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
         }
         dP = u[n * col];
-        choptmp = dPlim / fabs(dP);
+        choptmp = dPmaxlim / fabs(dP);
         chopmin = min(chopmin, choptmp);
         NRdPmax = max(NRdPmax, fabs(dP));
         P[n] += dP;
-        // P[n] += dP * min(chopmin, 1.0);
 
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
@@ -1509,21 +1543,52 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_D
 }
 
 
-void Bulk::CalRelResFIM(ResFIM& resFIM) const { OCP_FUNCNAME;
+void Bulk::CalRelResFIM(ResFIM& resFIM) const 
+{ 
+    OCP_FUNCNAME;
+
+    OCP_USI tmpN;
+    OCP_DBL tmp1, tmp2, tmp3, tmp4;
+    tmp1 = tmp2 = tmp3 = tmp4 = -3.141592653;
+    OCP_DBL tmp0 = 0;
+    // CheckVpore();
 
     OCP_DBL tmp;
     const USI len = numCom + 1;
     for (OCP_USI n = 0; n < numBulk; n++) {
         for (USI i = 0; i < len; i++) {
             tmp = fabs(resFIM.res[n * len + i] / rockVp[n]);
-            resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, tmp);
+            //if (!isfinite(tmp)) {
+            //    OCP_ABORT("tmp is nan!");
+            //}
+            if (resFIM.maxRelRes_v < tmp) {
+                resFIM.maxRelRes_v = tmp;
+            }
         }
         for (USI i = 0; i < numCom; i++) {
             tmp = fabs(resFIM.res[n * len + 1 + i] / Nt[n]);
-            resFIM.maxRelRes_mol = max(resFIM.maxRelRes_mol, tmp);
+            //if (!isfinite(tmp)) {
+            //    OCP_ABORT("tmp is nan!");
+            //}
+            if (resFIM.maxRelRes_mol < tmp) {
+                resFIM.maxRelRes_mol = tmp;
+            }
         }
     }
 }
+
+
+void Bulk::ResetFIM()
+{
+    OCP_FUNCNAME;
+
+    P = lP;
+    Ni = lNi;
+    FlashNiDeriv();
+    CalVpore();
+    CalKrPcDeriv();
+}
+
 
 
 void Bulk::UpdateLastStepFIM() { OCP_FUNCNAME;

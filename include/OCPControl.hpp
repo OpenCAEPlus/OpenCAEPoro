@@ -152,6 +152,7 @@ private:
     USI             iterLS_total{0}; ///< Total iterations of Linear Solve
     USI             iterNR{0};       ///< Current iterations of NR
     USI             iterNR_total{0}; ///< Total iterations of NR
+    USI             wastedIterNR{ 0 };
 
     // Includes time controler, error controler, and iteration controler, all of which
     // could change at different critical time step.

@@ -128,6 +128,8 @@ public:
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; } 
+    /// Return Pressure of Perf p
+    OCP_DBL GetPerfPre(const USI& p)const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
     void ShowPerfStatus() const;
 
@@ -138,7 +140,8 @@ private:
     WellOpt opt;  ///< well control parameters, contains current control parameters.
     vector<WellOpt> optSet;      ///< well control parameters set, contains control
                                  ///< parameters in all critical time.
-    OCP_DBL             BHP;     ///< well pressure in reference depth.
+    OCP_DBL             lBHP;    ///< Last well pressure in reference depth.
+    mutable OCP_DBL     BHP;     ///< well pressure in reference depth.
     OCP_DBL             depth;   ///< reference depth of well.
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.

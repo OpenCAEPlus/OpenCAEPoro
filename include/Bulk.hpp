@@ -58,6 +58,9 @@ class Bulk
     friend class Well;
     friend class DetailInfo;
 
+    // temp
+    friend class Reservoir;
+
 public:
     Bulk() = default;
 
@@ -69,6 +72,10 @@ public:
     void InputParam(ParamReservoir& rs_param);
     /// Allocate memory for General data
     void Setup(const Grid& myGrid);
+    /// Check if error occurs in Setup
+    void CheckSetup() const;
+    void CheckInitVpore() const;
+    void CheckVpore() const;
     /// Calculate initial equilibration for blkoil model according to EQUIL.
     /// tabrow is maximum number of depth nodes in table of depth vs pressure.
     void InitSjPcBo(const USI& tabrow);
@@ -290,9 +297,11 @@ public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM();
     /// Return the Solution to Reservoir Pressure for FIM
-    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim);
+    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OCP_DBL& dSmaxlim);
     /// Calculate Relative Resiual for FIM
     void CalRelResFIM(ResFIM& resFIM) const;
+    /// Reset FIM
+    void ResetFIM();
     /// Update value of last step for FIM
     void UpdateLastStepFIM();
     /// Return NRdPmax

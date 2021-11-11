@@ -254,13 +254,10 @@ void Well::CalTrans(const Bulk& myBulk) {
             for (USI j = 0; j < np; j++) {
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
-                    perf[p].transj[j] += myBulk.kr[id] / myBulk.mu[id];
-                    // perf[p].transINJ += perf[p].transj[j];
+                    perf[p].transj[j] = temp * myBulk.kr[id] / myBulk.mu[id];
                     perf[p].transINJ += perf[p].transj[j];
-                    perf[p].transj[j] *= temp;
                 }
             }
-            perf[p].transINJ *= temp;
         }
     }
     else {
@@ -334,7 +331,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag) {
                     OCP_DBL xij;
                     for (USI i = 0; i < nc; i++) {
                         xij = myBulk.cij[id * nc + i];
-                        perf[p].qi_lbmol[i] += perf[p].transj[j] * dP * xi * xij;
+                        perf[p].qi_lbmol[i] += perf[p].qj_ft3[j] * xi * xij;
                     }
                 }
             }
@@ -628,9 +625,6 @@ void Well::CalProddG(const Bulk& myBulk)
                 Ptmp -= rhoacc / qtacc * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
-            //if (dGperf[p] < -100) {
-            //    cout << "get it" << endl;
-            //}
         }
         dG[0] = dGperf[0];
         for (USI p = 1; p < numPerf; p++) {
@@ -747,14 +741,17 @@ OCP_INT Well::CheckP(const Bulk& myBulk) {  OCP_FUNCNAME;
     // 2 : outlimited P
     // 3 : crossflow happens
 
-    if (BHP < 0) return 1;
+    if (BHP < 0) {
+        cout << "###WARNING: negative BHP occurs!  " << BHP << endl;
+        return 1;
+    } 
     for (USI p = 0; p < numPerf; p++) {
         if (perf[p].state == OPEN && perf[p].P < 0) {
 #ifdef _DEBUG
             cout << "WARNING: Well " << name << " Perf[" << p << "].P = " << perf[p].P
                 << endl;
 #endif // _DEBUG
-            cout << "###WARNING: negative perforation P occurs!\n";
+            cout << "###WARNING: negative perforation P occurs!  " << perf[p].P << endl;
             return 1;
         }
     }
@@ -762,12 +759,14 @@ OCP_INT Well::CheckP(const Bulk& myBulk) {  OCP_FUNCNAME;
     if (opt.type == INJ) {
         if (opt.optMode != BHP_MODE && BHP > opt.maxBHP) {
             opt.optMode = BHP_MODE;
+            cout << name << " switch to BHPMode" << endl;
             return 2;
         }
     }
     else {
         if (opt.optMode != BHP_MODE && BHP < opt.minBHP) {
             opt.optMode = BHP_MODE;
+            cout << name << " switch to BHPMode" << endl;
             return 2;
         }
     }
@@ -788,11 +787,6 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
         for (USI p = 0; p < numPerf; p++) {
             k = perf[p].location;
             OCP_DBL minP = myBulk.P[k];
-            // THINK MORE !!!
-            // for (USI j = 0; j < np; j++) {
-            //	if (myBulk.phaseExist[k * np + j])
-            //		minP = minP < myBulk.Pj[k * np + j] ? minP : myBulk.Pj[k * np + j];
-            //}
             if (perf[p].state == OPEN && minP < perf[p].P) {
                 perf[p].state = CLOSE;
                 perf[p].multiplier = 0;
@@ -828,12 +822,12 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
         }
     }
     if (!flag) {
-        cout << "###WARNING: All perfs are closed, reset and cut timestep!\n";
-        return 1;
+        //cout << "###WARNING: All perfs are closed, reset and cut timestep!\n";
+        //return 1;
         // open the depthest perf
-        //perf.back().state = OPEN;
-        //perf.back().multiplier = 1;
-        //cout << "###WARNING: All perfs are closed, open the last perf!\n";
+        perf.back().state = OPEN;
+        perf.back().multiplier = 1;
+        cout << "###WARNING: All perfs are closed, open the last perf!\n";
     }
 
     if (!flagC) {
@@ -861,9 +855,10 @@ void Well::AllocateMat(LinearSolver& mySolver) const { OCP_FUNCNAME;
 void Well::ShowPerfStatus() const { OCP_FUNCNAME;
 
     cout << "----------------------------" << endl;
-    cout << name << ":    " << opt.optMode << endl;
+    cout << name << ":    " << opt.optMode << "   " << BHP << endl;
     for (USI p = 0; p < numPerf; p++) {
-        cout << "Perf[" << p << "].State = " << perf[p].state << endl;
+        cout << "Perf[" << p << "].State = " << perf[p].state << "   "
+            << perf[p].P << endl;
     }
 }
 
@@ -1148,7 +1143,6 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
         dQdXpW.assign(bsize, 0);
         dQdXsB.assign(bsize2, 0);
 
-        // dP = myBulk.P[n] - perf[p].P;
         dP = myBulk.P[n] - BHP - dG[p];
 
         for (USI j = 0; j < np; j++) {
@@ -1213,7 +1207,6 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
             bmat2.assign(bsize, 0);
             for (USI i = 0; i < nc; i++) {
-                // Daxpy(ncol, 1, bmat.data() + (i + 1) * ncol, bmat2.data());
                 Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
@@ -1236,7 +1229,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
             mySolver.colId[wId].push_back(n);
             // Solution
-            mySolver.u[wId * ncol] = opt.maxBHP - BHP;
+            // mySolver.u[wId * ncol] = opt.maxBHP - BHP;
             break;
 
         default:
@@ -1291,7 +1284,6 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             n_np_j = n * np + j;
             if (!myBulk.phaseExist[n_np_j]) continue;
 
-            // dP = myBulk.Pj[n_np_j] - perf[p].P;
             dP = myBulk.Pj[n_np_j] - BHP - dG[p];
             xi = myBulk.xi[n_np_j];
             mu = myBulk.mu[n_np_j];
@@ -1314,7 +1306,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
                 }
                 // dQ / dCij
                 for (USI k = 0; k < nc; k++) {
-                    tmp = dP * perf[p].transj[j] * cij * (myBulk.xiC[n_np_j * nc + k] - xi / mu * myBulk.muC[n_np_j * nc + k]);
+                    tmp = dP * perf[p].transj[j] *  cij * (myBulk.xiC[n_np_j * nc + k] - xi / mu * myBulk.muC[n_np_j * nc + k]);
                     if (k == i) {
                         tmp += perf[p].transj[j] * xi * dP;
                     }
@@ -1387,7 +1379,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
             mySolver.colId[wId].push_back(n);
             // Solution
-            mySolver.u[wId * ncol] = opt.minBHP - BHP;
+            // mySolver.u[wId * ncol] = opt.minBHP - BHP;
             break;
 
         default:
@@ -1432,6 +1424,7 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt, cons
         switch (opt.optMode)
         {
         case BHP_MODE:
+            BHP = opt.maxBHP;
             resFIM.res[bId] = BHP - opt.maxBHP;
             resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxBHP));
             break;
@@ -1456,6 +1449,7 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt, cons
         switch (opt.optMode)
         {
         case BHP_MODE:
+            BHP = opt.minBHP;
             resFIM.res[bId] = BHP - opt.minBHP;
             resFIM.maxRelRes_v = max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.minBHP));
             break;

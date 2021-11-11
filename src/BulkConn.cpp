@@ -535,6 +535,7 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FU
 void BulkConn::AllocateAuxFIM(const USI& np) { OCP_FUNCNAME;
 
     upblock.resize(numConn * np);
+    lastUpblock.resize(numConn * np);
 }
 
 
@@ -746,12 +747,11 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
             }
 
             uId = bId;
-            bool    exup = exbegin;
             OCP_DBL dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
                 (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
                 uId = eId;
-                exup = exend;
+
             }
             upblock[c * np + j] = uId;
         }
@@ -761,15 +761,21 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
 
 void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) { OCP_FUNCNAME;
 
-    USI np = myBulk.numPhase;
-    USI nc = myBulk.numCom;
-    USI len = nc + 1;
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+    const USI len = nc + 1;
     OCP_USI bId, eId, uId, bIdb;
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
 
+
+        if (n == 1094421) {
+            cout << "get it" << endl;
+        }
+
         bId = n * len;
         bIdb = n * nc;
+
         res[bId] = myBulk.rockVp[n] - myBulk.vf[n];
         for (USI i = 0; i < nc; i++) {
             res[bId + 1 + i] = myBulk.Ni[bIdb + i] - myBulk.lNi[bIdb + i];
@@ -815,12 +821,10 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             }
 
             uId = bId;
-            bool    exup = exbegin;
             dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
                 (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
                 uId = eId;
-                exup = exend;
             }
             // upblock_Rho[c * np + j] = rho;
             upblock[c * np + j] = uId;
@@ -831,8 +835,6 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
                 dNi = tmp * myBulk.cij[uId_np_j * nc + i];
-                /*res[bId * len + 1 + i] -= dNi;
-                res[eId * len + 1 + i] += dNi;*/
                 res[bId * len + 1 + i] += dNi;
                 res[eId * len + 1 + i] -= dNi;
             }

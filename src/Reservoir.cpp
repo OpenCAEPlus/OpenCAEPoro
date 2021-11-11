@@ -184,7 +184,7 @@ void Reservoir::CalFlashIMPEC() { OCP_FUNCNAME;
 void Reservoir::UpdateLastStepIMPEC() { OCP_FUNCNAME;
     bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStep(); 
-    wellgroup.UpdateLastStep(); 
+    wellgroup.UpdateLastDg();
 }
 
 
@@ -266,9 +266,9 @@ void Reservoir::InitFIM() {  OCP_FUNCNAME;
     bulk.FlashSj();
     bulk.FlashNiDeriv();
     bulk.CalKrPcDeriv();
-    bulk.UpdateLastStepFIM();
     conn.CalFluxFIM(bulk);
     wellgroup.InitBHP(bulk);
+    UpdateLastStepFIM();
 }
 
 
@@ -287,6 +287,9 @@ void Reservoir::CalKrPcDerivFIM() {  OCP_FUNCNAME;
 void Reservoir::UpdateLastStepFIM() { OCP_FUNCNAME; 
 
     bulk.UpdateLastStepFIM(); 
+    conn.UpdateLastUpblockFIM();
+    wellgroup.UpdateLastBHP();
+    wellgroup.UpdateLastDg();
 }
 
 
@@ -307,9 +310,9 @@ void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const 
 }
 
 
-void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPlim, const OCP_DBL& dSlim) { OCP_FUNCNAME;
+void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax) { OCP_FUNCNAME;
     
-    bulk.GetSolFIM(u, dPlim, dSlim);
+    bulk.GetSolFIM(u, dPmax, dSmax);
     wellgroup.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
@@ -324,7 +327,65 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt) { OCP_FUNCNAME;
     // Calculate RelRes
     bulk.CalRelResFIM(resFIM);
     Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+
+    // Calculate Res2 and ResMax
+    //OCP_DBL resmax = 0;
+    //OCP_USI maxId = 0;
+    //OCP_DBL res2 = 0;
+    //for (OCP_USI i = 0; i < resFIM.res.size(); i++) {
+    //    res2 += pow(resFIM.res[i], 2);
+    //    if (resmax < fabs(resFIM.res[i])) {
+    //        resmax = fabs(resFIM.res[i]);
+    //        maxId = i;
+    //    }
+    //}
+    //cout << "Res2  " << pow(res2 / resFIM.res.size(), 0.5) << "     "  
+    //    << resFIM.res.size() << endl;
+    //cout << "ResMax   " << resmax << "   " << maxId << endl;
+    //cout << "BHP   \n";
+    //for (USI w = 0; w < wellgroup.numWell; w++) {
+    //    cout << wellgroup.GetWBHP(w) << "   ";
+    //    for (USI p = 0; p < wellgroup.GetWellPerfNum(w); p++) {
+    //        cout << wellgroup.wellGroup[w].GetPerfPre(p) << "   ";
+    //    }
+    //}
+    //cout << endl;
 }
+
+
+void Reservoir::ResetFIM()
+{
+    bulk.ResetFIM();
+    conn.ResetUpblockFIM();
+    wellgroup.ResetBHP();
+    wellgroup.ResetDg();
+    wellgroup.CalTrans(bulk);
+    wellgroup.CalFlux(bulk);
+}
+
+
+void Reservoir::PrintSolFIM(const string& outfile) const
+{
+    ofstream outu(outfile);
+    if (!outu.is_open()) cout << "Can not open " << outfile << endl;
+    const OCP_USI nb = bulk.numBulk;
+    const OCP_USI nc = bulk.numCom;
+
+    for (OCP_USI n = 0; n < nb; n++) {
+        // Pressure
+        outu << bulk.P[n] << "\n";
+        // Ni
+        for (USI i = 0; i < nc; i++) {
+            outu << bulk.Ni[n * nc + i] << "\n";
+        }
+    }
+    // Well Pressure
+    for (USI w = 0; w < wellgroup.numWell; w++) {
+        outu << wellgroup.GetWBHP(w) << "\n";
+    }
+    outu.close();
+}
+
 
 
 

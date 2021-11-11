@@ -102,7 +102,7 @@ bool Solver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 /// Clean up Newton-Raphson iteration if there is any.
-bool Solver::FinishNR(Reservoir& rs, const OCPControl& ctrl)
+bool Solver::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     // Clean up the fluid part
     return FSolver.FinishNR(rs, ctrl);

@@ -95,7 +95,7 @@ void WellGroup::PrepareWell(const Bulk& myBulk) { OCP_FUNCNAME;
             wellGroup[w].CalFlux(myBulk, true);
             wellGroup[w].CaldG(myBulk);
             // test
-            wellGroup[w].SmoothdG();
+            // wellGroup[w].SmoothdG();
             wellGroup[w].CheckOptMode(myBulk);
         }
     }
@@ -192,7 +192,7 @@ OCP_INT WellGroup::CheckP(const Bulk& myBulk) { OCP_FUNCNAME;
 
             OCP_INT flag = wellGroup[w].CheckP(myBulk);
 #ifdef _DEBUG
-            // wellGroup[w].ShowPerfStatus();
+            wellGroup[w].ShowPerfStatus();
 #endif // _DEBUG
             switch (flag) {
             case 1:
@@ -358,6 +358,8 @@ void WellGroup::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt)
             wId++;
         }
     }
+
+    // cout << "Well  " << resFIM.maxRelRes_v;
 }
 
 

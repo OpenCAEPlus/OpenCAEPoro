@@ -150,6 +150,9 @@ void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
 
 void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl)
 {
+
+    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
+
 #ifdef DEBUG
     solver.CheckVal();
 #endif // DEBUG
@@ -159,7 +162,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     lsolver.AssembleMat_BFasp();
 
 #ifdef _DEBUG
-    // lsolver.PrintfMatCSR("testA.out", "testb.out");
+    //lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
@@ -167,7 +170,7 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     int status = lsolver.BFaspSolve();
 
 #ifdef _DEBUG
-    // lsolver.PrintfSolution("testx.out");
+    //lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -177,30 +180,17 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
 #endif // __SOLVER_FASP__
 
     rs.GetSolutionFIM(lsolver.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
     lsolver.ClearDataB();
 }
 
 
 bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
-
-    // first check : Pressure check.
-    //OCP_INT flagCheck = rs.CheckP();
-    //switch (flagCheck) {
-    //case 1:
-    //    cout << "well change" << endl;
-    //    dt /= 2;
-    //    return false;
-    //case 2:
-    //    cout << "well change" << endl;
-    //    dt /= 2;
-    //    return false;
-    //default:
-    //    break;
-    //}
     // Second check: Ni check.
     if (!rs.CheckNi()) {
         dt /= 2;
+        rs.ResetFIM();
         cout << "Negative Ni occurs\n";
         return false;
     }
@@ -214,15 +204,45 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool OCP_FIM::FinishNR(Reservoir& rs, const OCPControl& ctrl)
+bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-    //cout << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes0_v << "  "
-    //    << resFIM.maxRelRes_mol << "  " << ctrl.NRdPmax << "  " << ctrl.NRdSmax << endl;
+ 
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+        ctrl.wastedIterNR += ctrl.iterNR;
+        ctrl.iterNR = 0;
+        ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM();
+        cout << "NR Failed, Cut time Step and reset!\n";
+        return false;
+    }
 
-    if (resFIM.maxRelRes_v < resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_v < ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol < ctrl.ctrlNR.NRtol ||
-        (rs.GetNRdPmax() < ctrl.ctrlNR.NRdPmin && rs.GetNRdSmax() < ctrl.ctrlNR.NRdSmin)) {
+
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
+
+    /*cout << fixed << setprecision(8) << resFIM.maxRelRes0_v << "  " << resFIM.maxRelRes_v 
+        << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax << "  " << NRdPmax << endl;*/
+
+    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+
+        // OCP_INT flagCheck = rs.CheckP();
+        //switch (flagCheck) {
+        //case 1:
+        //    cout << "well change, Repeat --- 1" << endl;
+        //    ctrl.current_dt /= 2;
+        //    rs.ResetFIM();
+        //    return false;
+        //case 2:
+        //    cout << "well change, Repeat --- 2" << endl;
+        //    ctrl.current_dt /= 2;
+        //    rs.ResetFIM();
+        //    return false;
+        //default:
+        //    break;
+        //}
         return true;
     }
     else {

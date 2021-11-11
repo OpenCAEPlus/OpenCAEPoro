@@ -31,7 +31,7 @@ public:
     /// Update properties of fluid.
     bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
     /// Determine if NR iteration finishes.
-    bool FinishNR(Reservoir& rs, const OCPControl& ctrl);
+    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
     

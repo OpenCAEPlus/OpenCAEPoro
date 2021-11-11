@@ -8,7 +8,7 @@
 % problem, solver, and output type             %
 %----------------------------------------------%
 
-print_level              = 0      % how much information to print out 
+print_level              = 1      % how much information to print out 
 output_type              = 0      % 0 to scree | 1 to file
 solver_type              = 6      % 1 CG | 2 BiCGstab | 3 MinRes | 4 GMRes |
                                   % 5 vGMRes | 6 vFGMRes | 7 GCG |

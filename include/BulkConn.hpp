@@ -165,7 +165,10 @@ public:
     void CalFluxFIM(const Bulk& myBulk);
     /// Calculate Resiual for FIM
     void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-
+    /// Reset upblock
+    void ResetUpblockFIM() { upblock = lastUpblock; }
+    /// Update lastUpblock
+    void UpdateLastUpblockFIM() { lastUpblock = upblock; }
 };
 
 

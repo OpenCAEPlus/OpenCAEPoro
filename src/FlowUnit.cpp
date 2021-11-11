@@ -161,7 +161,7 @@ void FlowUnit::CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc
     dkrdS[2] = 0; dkrdS[3] = dKrwdSw;
 
     dPcjdS[0] = 0; dPcjdS[1] = 0;
-    dPcjdS[3] = 0; dPcjdS[4] = dPcwdSw;
+    dPcjdS[2] = 0; dPcjdS[3] = dPcwdSw;
 
 }
 

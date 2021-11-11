@@ -24,6 +24,9 @@ using namespace std;
 /// modules.
 class WellGroup
 {
+
+    // temp
+    friend class Reservoir;
 public:
     WellGroup() = default;
 
@@ -56,8 +59,10 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate memory for Matrix
     void AllocateMat(LinearSolver& mySolver, const USI& bulknum) const;
+    void UpdateLastBHP(){ for (auto& w : wellGroup) w.lBHP = w.BHP; }
+    void ResetBHP(){ for (auto& w : wellGroup) w.BHP = w.lBHP; }
     /// Reset dG to ldG for each well.
-    void UpdateLastStep() { for (auto& w : wellGroup) w.ldG = w.dG; }
+    void UpdateLastDg() { for (auto& w : wellGroup) w.ldG = w.dG; }
     void ResetDg() { for (auto& w : wellGroup) w.dG = w.ldG; }
     /// Check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);

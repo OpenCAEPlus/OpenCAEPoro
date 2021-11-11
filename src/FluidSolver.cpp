@@ -94,7 +94,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool FluidSolver::FinishNR(Reservoir& rs, const OCPControl& ctrl)
+bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
     case IMPEC:

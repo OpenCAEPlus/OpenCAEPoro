@@ -56,7 +56,7 @@ AMG_type                 = UA     % C classic AMG
                                   % UA unsmoothed aggregation
 AMG_cycle_type           = V      % V V-cycle | W W-cycle
                                   % A AMLI-cycle | NA Nonlinear AMLI-cycleA
-AMG_coarse_solver        = 32     % coarsest level solver
+AMG_coarse_solver        = 34     % coarsest level solver
 AMG_tol                  = 1e-1   % tolerance for AMG
 AMG_maxit                = 1      % number of AMG iterations
 AMG_levels               = 10     % max number of levels
