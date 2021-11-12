@@ -1,6 +1,6 @@
 ### SPE1A
 
-![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1015\spe1a\compare.png)
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe1a\compare.png)
 
 ```
 PS_IMPES_1
@@ -16,12 +16,12 @@ Simulation time:     2.44659s
 OCP_IMPES_1
 
 Final time:          3655.500 Days
-Total time steps:    4873
-Total Newton steps:  4910
+Total time steps:    4661
+Total Newton steps:  4712
 Wasted Newton steps: 0
-Simulation time:     1.382s
-Total linear steps:  8033
-Linear solve time:   0.817s (59.079%)
+Simulation time:     1.319s
+Total linear steps:  7884
+Linear solve time:   0.785s (59.509%)
 
 
 
@@ -40,11 +40,11 @@ OCP_FIM_10
 
 Final time:          3655.500 Days
 Total time steps:    420
-Total Newton steps:  480
+Total Newton steps:  479
 Wasted Newton steps: 1
-Simulation time:     5.328s
-Total linear steps:  1434
-Linear solve time:   5.043s (94.639%)
+Simulation time:     5.337s
+Total linear steps:  1428
+Linear solve time:   5.047s (94.567%)
 
 ```
 
@@ -52,7 +52,7 @@ Linear solve time:   5.043s (94.639%)
 
 ### SPE1B
 
-![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1015\spe1b\compare.png)
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe1b\compare.png)
 
 ```
 
@@ -73,9 +73,9 @@ Final time:          3655.500 Days
 Total time steps:    3858
 Total Newton steps:  3877
 Wasted Newton steps: 0
-Simulation time:     1.112s
+Simulation time:     1.095s
 Total linear steps:  7250
-Linear solve time:   0.675s (60.702%)
+Linear solve time:   0.664s (60.650%)
 
 
 PS_FIM_10
@@ -104,7 +104,7 @@ Linear solve time:   3.469s (92.131%)
 
 ### SPE9
 
-![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1015\spe9\compare.png)
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe9\compare.png)
 
 ```
 PS_IMEPS_1
@@ -120,12 +120,12 @@ Simulation time:     276.62s
 OCP_IMPES_1
 
 Final time:          900.000 Days
-Total time steps:    6312
-Total Newton steps:  6351
+Total time steps:    6319
+Total Newton steps:  6361
 Wasted Newton steps: 0
-Simulation time:     78.095s
-Total linear steps:  8887
-Linear solve time:   49.606s (63.521%)
+Simulation time:     78.143s
+Total linear steps:  8884
+Linear solve time:   49.646s (63.533%)
 
 
 PS_FIM_10
@@ -143,16 +143,18 @@ OCP_FIM_10
 
 Final time:          900.000 Days
 Total time steps:    160
-Total Newton steps:  220
-Wasted Newton steps: 65
-Simulation time:     20.396s
-Total linear steps:  1123
-Linear solve time:   13.429s (65.839%)
+Total Newton steps:  222
+Wasted Newton steps: 63
+Simulation time:     19.938s
+Total linear steps:  1112
+Linear solve time:   13.269s (66.553%)
 ```
 
 
 
 ### SPE10
+
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe10\compare.png)
 
 ```
 PS_FIM
@@ -173,8 +175,8 @@ Final time:          2000.000 Days
 Total time steps:    53
 Total Newton steps:  217
 Wasted Newton steps: 5
-Simulation time:     1949.098s
+Simulation time:     1937.163s
 Total linear steps:  1334
-Linear solve time:   1480.770s (75.972%)
+Linear solve time:   1463.019s (75.524%)
 ```
 

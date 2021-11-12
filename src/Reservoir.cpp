@@ -211,6 +211,17 @@ void Reservoir::GetSolutionIMPEC(const vector<OCP_DBL>& u) { OCP_FUNCNAME;
     wellgroup.GetSolIMPEC(u, bulk.GetBulkNum());
 }
 
+
+void Reservoir::ResetWellIMPEC()
+{
+    // wellgroup.ResetDg();
+    wellgroup.ResetBHP();
+    wellgroup.CalTrans(bulk);
+    wellgroup.CalFlux(bulk);
+    wellgroup.CaldG(bulk);
+}
+
+
 void Reservoir::ResetVal00IMPEC()
 {
     OCP_FUNCNAME;
@@ -360,13 +371,19 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt) { OCP_FUNCNAME;
 }
 
 
-void Reservoir::ResetFIM()
+void Reservoir::ResetFIM(const bool& flag)
 {
     bulk.ResetFIM();
     conn.ResetUpblockFIM();
     wellgroup.ResetBHP();
     wellgroup.CalTrans(bulk);
     wellgroup.CalFlux(bulk);
+
+    if (flag) {
+        wellgroup.CaldG(bulk);
+        wellgroup.CalFlux(bulk);
+    }
+    
 }
 
 

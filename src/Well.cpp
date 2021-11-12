@@ -869,11 +869,11 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
     }
 
     if (!flagC) {
-        dG = ldG;
-        CalTrans(myBulk);
-        CalFlux(myBulk);
-        CaldG(myBulk);
-        SmoothdG();
+        //dG = ldG;
+        //CalTrans(myBulk);
+        //CalFlux(myBulk);
+        //CaldG(myBulk);
+        //SmoothdG();
         // CheckOptMode(myBulk);
         return 3;
     }

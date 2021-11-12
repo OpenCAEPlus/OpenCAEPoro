@@ -66,6 +66,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         cout << "well change" << endl;
         dt /= 1;
         rs.ResetVal00IMPEC();
+        // rs.ResetWellIMPEC();
         return false;
     default:
         break;
@@ -196,7 +197,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check.
     if (!rs.CheckNi()) {
         dt /= 2;
-        rs.ResetFIM();
+        rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
         ctrl.ResetIterNR();
         cout << "Negative Ni occurs\n";
@@ -217,7 +218,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
  
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {    
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM();
+        rs.ResetFIM(false);
         rs.CalResFIM(resFIM, ctrl.current_dt);
         ctrl.ResetIterNR();
         cout << "NR Failed, Cut time Step and reset!\n";
@@ -241,14 +242,14 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         case 1:
             cout << "well change, Repeat --- 1" << endl;
             ctrl.current_dt /= 2;
-            rs.ResetFIM();
+            rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
             ctrl.ResetIterNR();
             return false;
         case 2:
             cout << "well change, Repeat --- 2" << endl;
             ctrl.current_dt /= 1;
-            rs.ResetFIM();
+            rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
             ctrl.ResetIterNR();
             return false;
