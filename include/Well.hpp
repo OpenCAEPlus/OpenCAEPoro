@@ -112,6 +112,8 @@ public:
     void CalInjdG(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations for Prodcution.
     void CalProddG(const Bulk& myBulk);
+    /// Set BHP if opt mode is BHPMode
+    void SetBHP();
     /// Try to smooth the dG by average it with dG at last time step.
     void SmoothdG();
     /// Check if well operation mode would be changed.

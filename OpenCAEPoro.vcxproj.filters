@@ -90,9 +90,6 @@
     <ClCompile Include="src\DenseMat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\LinearBSolver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OCPFluidMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,6 +97,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\MixtureBO2_OW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Decoupling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

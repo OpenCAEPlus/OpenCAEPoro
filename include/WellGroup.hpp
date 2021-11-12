@@ -60,7 +60,7 @@ public:
     /// Calculate memory for Matrix
     void AllocateMat(LinearSolver& mySolver, const USI& bulknum) const;
     void UpdateLastBHP(){ for (auto& w : wellGroup) w.lBHP = w.BHP; }
-    void ResetBHP(){ for (auto& w : wellGroup) w.BHP = w.lBHP; }
+    void ResetBHP();
     /// Reset dG to ldG for each well.
     void UpdateLastDg() { for (auto& w : wellGroup) w.ldG = w.dG; }
     void ResetDg() { for (auto& w : wellGroup) w.dG = w.ldG; }

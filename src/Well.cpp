@@ -699,6 +699,17 @@ void Well::CalProddG(const Bulk& myBulk)
     }
 }
 
+void Well::SetBHP()
+{
+    if (opt.type == PROD && opt.optMode == BHP_MODE) {
+        BHP = opt.minBHP;
+    }
+    else if (opt.type == INJ && opt.optMode == BHP_MODE){
+        BHP = opt.maxBHP;
+    }
+}
+
+
 
 /// It's just a test now to make dG more stable.
 void Well::SmoothdG() { OCP_FUNCNAME;
@@ -715,7 +726,8 @@ void Well::SmoothdG() { OCP_FUNCNAME;
 void Well::CheckOptMode(const Bulk& myBulk) { OCP_FUNCNAME;
 
     if (opt.type == INJ) {
-        if (CalInjRateBO(myBulk) > opt.maxRate) {
+        OCP_DBL q = CalInjRateBO(myBulk);
+        if (q > opt.maxRate) {
             opt.optMode = RATE_MODE;
         }
         else {
@@ -724,7 +736,9 @@ void Well::CheckOptMode(const Bulk& myBulk) { OCP_FUNCNAME;
         }
     }
     else {
-        if (CalProdRateBO(myBulk) > opt.maxRate) {
+        OCP_DBL q = CalProdRateBO(myBulk);
+        // cout << q << endl;
+        if (q > opt.maxRate) {
             opt.optMode = RATE_MODE;
         }
         else {
@@ -759,6 +773,7 @@ OCP_INT Well::CheckP(const Bulk& myBulk) {  OCP_FUNCNAME;
     if (opt.type == INJ) {
         if (opt.optMode != BHP_MODE && BHP > opt.maxBHP) {
             opt.optMode = BHP_MODE;
+            BHP = opt.maxBHP;
             cout << name << " switch to BHPMode" << endl;
             return 2;
         }
@@ -766,6 +781,7 @@ OCP_INT Well::CheckP(const Bulk& myBulk) {  OCP_FUNCNAME;
     else {
         if (opt.optMode != BHP_MODE && BHP < opt.minBHP) {
             opt.optMode = BHP_MODE;
+            BHP = opt.minBHP;
             cout << name << " switch to BHPMode" << endl;
             return 2;
         }

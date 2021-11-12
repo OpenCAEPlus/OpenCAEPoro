@@ -25,11 +25,11 @@
     <ClCompile Include="main\Main.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
     <ClCompile Include="src\BulkConn.cpp" />
+    <ClCompile Include="src\Decoupling.cpp" />
     <ClCompile Include="src\DenseMat.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\FluidSolver.cpp" />
     <ClCompile Include="src\Grid.cpp" />
-    <ClCompile Include="src\LinearBSolver.cpp" />
     <ClCompile Include="src\LinearSolver.cpp" />
     <ClCompile Include="src\MixtureBO.cpp" />
     <ClCompile Include="src\MixtureBO2_OW.cpp" />

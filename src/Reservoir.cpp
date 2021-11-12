@@ -358,7 +358,6 @@ void Reservoir::ResetFIM()
     bulk.ResetFIM();
     conn.ResetUpblockFIM();
     wellgroup.ResetBHP();
-    wellgroup.ResetDg();
     wellgroup.CalTrans(bulk);
     wellgroup.CalFlux(bulk);
 }

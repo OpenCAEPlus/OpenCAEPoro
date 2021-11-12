@@ -191,6 +191,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     if (!rs.CheckNi()) {
         dt /= 2;
         rs.ResetFIM();
+        rs.CalResFIM(resFIM, dt);
         cout << "Negative Ni occurs\n";
         return false;
     }
@@ -212,6 +213,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         ctrl.iterNR = 0;
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM();
+        rs.CalResFIM(resFIM, ctrl.current_dt);
         cout << "NR Failed, Cut time Step and reset!\n";
         return false;
     }
@@ -228,17 +230,19 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
-        // OCP_INT flagCheck = rs.CheckP();
+        //OCP_INT flagCheck = rs.CheckP();
         //switch (flagCheck) {
         //case 1:
         //    cout << "well change, Repeat --- 1" << endl;
         //    ctrl.current_dt /= 2;
         //    rs.ResetFIM();
+        //    rs.CalResFIM(resFIM, ctrl.current_dt);
         //    return false;
         //case 2:
         //    cout << "well change, Repeat --- 2" << endl;
-        //    ctrl.current_dt /= 2;
+        //    ctrl.current_dt /= 1;
         //    rs.ResetFIM();
+        //    rs.CalResFIM(resFIM, ctrl.current_dt);
         //    return false;
         //default:
         //    break;
