@@ -36,9 +36,9 @@ private:
     /// Before solve: prepare for assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble and Solve: assemble linear system parts together then solve.
-    void AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt);
+    void AssembleSolve(Reservoir& rs, OCPControl& ctrl);
     /// Update reservoir properties after solving for primary variables.
-    bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Determine if Newton iteration is finished.
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish current time step.

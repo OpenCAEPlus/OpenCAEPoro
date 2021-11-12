@@ -116,6 +116,8 @@ public:
     void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure for IMPEC
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
+    /// Reset Pressure
+    void ResetVal00IMPEC();
     /// Reset Pressure, Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC

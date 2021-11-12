@@ -184,7 +184,11 @@ void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* 
 
     OCP_DBL dKrodSg, dKrodSw;
 
-    OCP_DBL kro = kro_stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, &dKrodSw, &dKrodSg);
+    OCP_DBL kro = kro_stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, dKrodSw, dKrodSg);
+    //if (kro < 0) {
+    //    cout << S_in[0] << "   " << S_in[1] << "   " << S_in[2] << endl;
+    //    kro = 0;
+    //}
 
     kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;
     pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;
@@ -203,7 +207,7 @@ OCP_DBL FlowUnit::kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
     OCP_DBL krw, OCP_DBL krg,
     OCP_DBL dkrwdSw, OCP_DBL dkrowdSw,
     OCP_DBL dkrgdSg, OCP_DBL dkrogdSg,
-    OCP_DBL* out_dkrodSw, OCP_DBL* out_dkrodSg) {
+    OCP_DBL& out_dkrodSw, OCP_DBL& out_dkrodSg) {
     OCP_DBL kro, dkrodSw, dkrodSg;
     kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));
 
@@ -216,8 +220,8 @@ OCP_DBL FlowUnit::kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
         dkrodSg = 0;
         dkrodSw = 0;
     }
-    out_dkrodSw[0] = dkrodSw;
-    out_dkrodSg[0] = dkrodSg;
+    out_dkrodSw = dkrodSw;
+    out_dkrodSg = dkrodSg;
     return kro;
 }
 

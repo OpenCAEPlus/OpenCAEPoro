@@ -211,6 +211,13 @@ void Reservoir::GetSolutionIMPEC(const vector<OCP_DBL>& u) { OCP_FUNCNAME;
     wellgroup.GetSolIMPEC(u, bulk.GetBulkNum());
 }
 
+void Reservoir::ResetVal00IMPEC()
+{
+    OCP_FUNCNAME;
+
+    bulk.ResetP();
+}
+
 
 void Reservoir::ResetVal01IMPEC() { OCP_FUNCNAME;
     bulk.ResetP();

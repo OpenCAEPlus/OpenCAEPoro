@@ -275,6 +275,28 @@ void Well::CalTrans(const Bulk& myBulk) {
             }
         }
     }
+    // check Trans
+    //if (opt.type == PROD) {
+
+    //    USI count = 0;
+    //    for (USI p = 0; p < numPerf; p++) {
+    //        if (perf[p].transj[0] != 0) {
+    //            count++;
+    //            break;
+    //        }
+    //    }
+    //    if (count == 0) {
+    //        cout << name << endl;
+    //        for (USI p = 0; p < numPerf; p++) {
+    //            OCP_USI k = perf[p].location;
+    //            cout << "perf " << p << "  " << perf[p].multiplier << "   " <<
+    //                myBulk.S[k * np] << "   " << myBulk.kr[k * np] << "   " <<
+    //                myBulk.S[k * np + 1] << "   " << myBulk.kr[k * np + 1] << "   " <<
+    //                myBulk.S[k * np + 2] << "   " << myBulk.kr[k * np + 2] << "   " << endl;
+    //        }
+
+    //    }
+    //}
 }
 
 
@@ -1217,6 +1239,10 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             for (USI i = 0; i < bsize; i++) {
                 mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
+
+            //if (bmat[0] == 0) {
+            //    cout << "get it" << endl;
+            //}
             
             // OffDiag
             bmat = dQdXpB;
@@ -1313,6 +1339,10 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu) + dP * perf[p].transj[j] * cij * xiP;
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
+                //if (dQdXpW[ncol] == 0) {
+                //    cout << name << " perf " << p << "  " << j << endl;
+                //}
+
                 // dQ / dS
                 for (USI k = 0; k < np; k++) {
                     tmp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier * dP / mu * xi * cij * myBulk.dKr_dS[n * np * np + j * np + k];
@@ -1367,6 +1397,11 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
             for (USI i = 0; i < bsize; i++) {
                 mySolver.diagVal[wId * bsize + i] += bmat[i];
             }
+
+
+            //if (bmat[0] == 0) {
+            //    cout << name << "   " << p << "  get it" << endl;
+            //}
 
             // OffDiag
             bmat = dQdXpB;
