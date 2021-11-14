@@ -184,7 +184,7 @@ void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* 
 
     OCP_DBL dKrodSg, dKrodSw;
 
-    OCP_DBL kro = kro_stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, dKrodSw, dKrodSg);
+    OCP_DBL kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, dKrodSw, dKrodSg);
     //if (kro < 0) {
     //    cout << S_in[0] << "   " << S_in[1] << "   " << S_in[2] << endl;
     //    kro = 0;
@@ -203,7 +203,7 @@ void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* 
 }
 
 
-OCP_DBL FlowUnit::kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
+OCP_DBL FlowUnit::CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog,
     OCP_DBL krw, OCP_DBL krg,
     OCP_DBL dkrwdSw, OCP_DBL dkrowdSw,
     OCP_DBL dkrgdSg, OCP_DBL dkrogdSg,
@@ -224,6 +224,24 @@ OCP_DBL FlowUnit::kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
     out_dkrodSg = dkrodSg;
     return kro;
 }
+
+
+OCP_DBL FlowUnit::CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow)
+{
+    OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / (Sg + Sw - Swco);
+    return kro;
+}
+
+
+OCP_DBL FlowUnit::CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow,
+    const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL dkroSw)
+{
+    OCP_DBL tmp = Sg + Sw - Swco;
+    OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
+    dkroSg = (krog + Sg * dkrogSg - kro) / tmp;
+    dkroSw = (krow + (Sw - Swco) * dkrowSw - kro) / tmp;
+}
+
 
 
 /// TODO: Add Doxygen
@@ -247,6 +265,11 @@ FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI&
         kroMax = SWOF.GetCol(2)[0];
     } else if (rs_param.gas) {
         kroMax = SGOF.GetCol(2)[0];
+    }
+
+    Swco = 0;
+    if (rs_param.water) {
+        Swco = SWOF.GetCol(0)[0];
     }
 }
 

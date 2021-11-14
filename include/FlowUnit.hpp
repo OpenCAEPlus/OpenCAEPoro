@@ -107,11 +107,15 @@ public:
     OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw,
                           const OCP_DBL& krg) const;
 
-    OCP_DBL kro_stone2Der(OCP_DBL krow, OCP_DBL krog,
+    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog,
         OCP_DBL krw, OCP_DBL krg,
         OCP_DBL dkrwSw, OCP_DBL dkrowSw,
         OCP_DBL dkrgSg, OCP_DBL dkrogSg,
         OCP_DBL& out_dkrodSw, OCP_DBL& dkrodSg);
+
+    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow);
+    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow,
+        const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL dkroSw);
 
 private:
     USI                mode;   ///< decide which saturation table will be uesd.
@@ -121,6 +125,7 @@ private:
                                ///< pressure between water and gas.
     OCP_DBL
     kroMax; ///< oil relative permeability in the presence of connate water only.
+    OCP_DBL Swco;   ///< Saturation of connate water.
 
     // Auxiliary parameters for Table interpolation
     USI len{0}; ///< maximum number of columns of tables among all above.
