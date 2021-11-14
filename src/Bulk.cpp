@@ -1359,10 +1359,13 @@ void Bulk::CheckSat() const { OCP_FUNCNAME;
     for (OCP_USI n = 0; n < numBulk; n++) {
         tmp = 0;
         for (USI j = 0; j < numPhase; j++) {
+            if (S[n * numPhase + j] < 0) {
+                OCP_ABORT("Negative Volume!");
+            }
             tmp += S[n * numPhase + j];
         }
         if (fabs(tmp - 1) > TINY) {
-            OCP_ABORT("Saturation greater than 1");
+            OCP_ABORT("Saturation is greater than 1");
         }
     }
 }

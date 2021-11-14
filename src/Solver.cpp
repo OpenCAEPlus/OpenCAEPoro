@@ -61,8 +61,8 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
     // Time marching with adaptive time stepsize
     while (true) {
         if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
-        AssembleSolve(rs, ctrl, dt);
-        if (!UpdateProperty(rs, dt)) continue;
+        AssembleSolve(rs, ctrl);
+        if (!UpdateProperty(rs, ctrl)) continue;
         if (FinishNR(rs, ctrl)) break;
     }
 
@@ -83,19 +83,19 @@ void Solver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 }
 
 /// Assemble linear system and then solve it.
-void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt)
+void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl)
 {
     // Assemble linear system
-    FSolver.AssembleMat(rs, dt);
+    FSolver.AssembleMat(rs, ctrl.current_dt);
     // Solve linear system
     FSolver.SolveLinearSystem(rs, ctrl);
 }
 
 /// Update properties after solving.
-bool Solver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
+bool Solver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     // Update for the fluid part
-    return FSolver.UpdateProperty(rs, dt);
+    return FSolver.UpdateProperty(rs, ctrl);
 }
 
 /// Clean up Newton-Raphson iteration if there is any.

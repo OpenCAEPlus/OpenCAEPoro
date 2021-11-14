@@ -119,6 +119,7 @@ public:
         iterLS = num;
         iterLS_total += num;
     }
+    void ResetIterNR() { wastedIterNR += iterNR; iterNR = 0; }
     void UpdateIterNR(){ iterNR++; }
     /// Update time used for linear solver.
     void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }

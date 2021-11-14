@@ -16,7 +16,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 {
 
     phaseExist.assign(numPhase, false);
-    cij.assign(numPhase * numCom, 0); //
+    cij.assign(numPhase * numCom, 0); 
     Ni.assign(numCom, 0);
 
     P = Pin;

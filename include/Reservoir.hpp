@@ -116,6 +116,10 @@ public:
     void AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure for IMPEC
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
+    /// Reset Well for IMPEC
+    void ResetWellIMPEC();
+    /// Reset Pressure
+    void ResetVal00IMPEC();
     /// Reset Pressure, Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC
@@ -153,7 +157,7 @@ public:
     /// Calculate the Resiual for FIM, it's also RHS of Linear System  
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM
-    void ResetFIM();
+    void ResetFIM(const bool& flag);
     /// Return NRdPmax
     OCP_DBL GetNRdPmax()const { return bulk.GetNRdPmax(); }
     /// Return NRdSmax

@@ -111,7 +111,7 @@ public:
         OCP_DBL krw, OCP_DBL krg,
         OCP_DBL dkrwSw, OCP_DBL dkrowSw,
         OCP_DBL dkrgSg, OCP_DBL dkrogSg,
-        OCP_DBL* out_dkrodSw, OCP_DBL* dkrodSg);
+        OCP_DBL& out_dkrodSw, OCP_DBL& dkrodSg);
 
 private:
     USI                mode;   ///< decide which saturation table will be uesd.

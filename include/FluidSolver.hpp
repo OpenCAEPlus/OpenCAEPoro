@@ -29,7 +29,7 @@ public:
     /// Solve the linear system in single problem.
     void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluid.
-    bool UpdateProperty(Reservoir& rs, OCP_DBL& dt);
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Determine if NR iteration finishes.
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish current time step.

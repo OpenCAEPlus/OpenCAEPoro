@@ -83,13 +83,13 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
-bool FluidSolver::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
+bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
         case IMPEC:
-            return impec.UpdateProperty(rs, dt);
+            return impec.UpdateProperty(rs, ctrl);
         case FIM:
-            return fim.UpdateProperty(rs, dt);
+            return fim.UpdateProperty(rs, ctrl);
         default:
             OCP_ABORT("Wrong method type!");
     }
