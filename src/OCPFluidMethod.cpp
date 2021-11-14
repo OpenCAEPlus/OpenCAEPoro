@@ -1,6 +1,5 @@
 #include "OCPFluidMethod.hpp"
 
-
 void OCP_IMPEC::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
     // Allocate Memory
@@ -11,7 +10,6 @@ void OCP_IMPEC::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
     ls.AllocateFasp();
 }
 
-
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
@@ -19,52 +17,46 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
     if (cfl > 1) dt /= (cfl + 1);
 }
 
-
 void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
-    OCPControl& ctrl)
+                                  OCPControl& ctrl)
 {
 #ifdef DEBUG
-    solver.CheckVal();
+    lsolver.CheckVal();
 #endif // DEBUG
 
 #ifdef __SOLVER_FASP__
-
     lsolver.AssembleMat_Fasp();
     GetWallTime Timer;
     Timer.Start();
     int status = lsolver.FaspSolve();
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
-
-#ifdef DEBUG
-    lsolver.PrintfMatCSR("testA.out", "testb.out");
-    lsolver.PrintfSolution("testx.out");
-#endif // DEBUG
-
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
-
+#ifdef DEBUG
+    lsolver.OutputLinearSystem("testA.out", "testb.out");
+    lsolver.OutputSolution("testx.out");
+#endif // DEBUG
 #endif // __SOLVER_FASP__
 
     rs.GetSolutionIMPEC(lsolver.GetSolution());
     lsolver.ClearData();
 }
 
-
 bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
     // first check : Pressure check
     OCP_INT flagCheck = rs.CheckP();
     switch (flagCheck) {
-    case 1:
-        cout << "well change" << endl;
-        dt /= 2;
-        return false;
-    case 2:
-        cout << "well change" << endl;
-        dt /= 2;
-        return false;
-    default:
-        break;
+        case 1:
+            cout << "well change" << endl;
+            dt /= 2;
+            return false;
+        case 2:
+            cout << "well change" << endl;
+            dt /= 2;
+            return false;
+        default:
+            break;
     }
 
     rs.CalFLuxIMPEC();
@@ -103,7 +95,6 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     return true;
 }
 
-
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
@@ -112,8 +103,6 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.CalNextTstepIMPEC(rs);
     ctrl.UpdateIters();
 }
-
-
 
 void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
 {
@@ -130,7 +119,6 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl)
     resFIM.res.resize(num);
 }
 
-
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
@@ -139,14 +127,12 @@ void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 }
 
-
 void OCP_FIM::AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
-    const OCP_DBL& dt) const
+                          const OCP_DBL& dt) const
 {
     rs.AssembleMatFIM(lsolver, dt);
     lsolver.AssembleRhs_BFasp(resFIM.res);
 }
-
 
 void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl)
 {
@@ -154,23 +140,23 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
 
 #ifdef DEBUG
-    solver.CheckVal();
+    lsolver.CheckVal();
 #endif // DEBUG
 
 #ifdef __SOLVER_FASP__
 
     lsolver.AssembleMat_BFasp();
 
-#ifdef _DEBUG
-    //lsolver.PrintfMatCSR("testA.out", "testb.out");
+#ifdef DEBUG
+    // lsolver.PrintfMatCSR("testA.out", "testb.out");
 #endif // DEBUG
 
     GetWallTime Timer;
     Timer.Start();
     int status = lsolver.BFaspSolve();
 
-#ifdef _DEBUG
-    //lsolver.PrintfSolution("testx.out");
+#ifdef DEBUG
+    // lsolver.PrintfSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -183,7 +169,6 @@ void OCP_FIM::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
     lsolver.ClearDataB();
 }
-
 
 bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
 {
@@ -204,10 +189,8 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCP_DBL& dt)
     return true;
 }
 
-
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
- 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.wastedIterNR += ctrl.iterNR;
         ctrl.iterNR = 0;
@@ -218,43 +201,43 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         return false;
     }
 
-
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-    /*cout << fixed << setprecision(8) << resFIM.maxRelRes0_v << "  " << resFIM.maxRelRes_v 
-        << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax << "  " << NRdPmax << endl;*/
+#ifdef DEBUG
+    cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+         << "  " << NRdPmax << endl;
+#endif
 
     if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
-        //OCP_INT flagCheck = rs.CheckP();
-        //switch (flagCheck) {
-        //case 1:
+        // OCP_INT flagCheck = rs.CheckP();
+        // switch (flagCheck) {
+        // case 1:
         //    cout << "well change, Repeat --- 1" << endl;
         //    ctrl.current_dt /= 2;
         //    rs.ResetFIM();
         //    rs.CalResFIM(resFIM, ctrl.current_dt);
         //    return false;
-        //case 2:
+        // case 2:
         //    cout << "well change, Repeat --- 2" << endl;
         //    ctrl.current_dt /= 1;
         //    rs.ResetFIM();
         //    rs.CalResFIM(resFIM, ctrl.current_dt);
         //    return false;
-        //default:
+        // default:
         //    break;
         //}
 
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
-
 
 void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {

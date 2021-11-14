@@ -62,29 +62,23 @@
 #define OCP_ASSERT(cond, msg)                                                          \
     do {                                                                               \
         if (!(cond)) {                                                                 \
-            FASPXX_MESSAGE("### ASSERT: " << msg << " (" << #cond << ")");             \
+            OCP_MESSAGE("### ASSERT: " << (msg) << " (" << #cond << ")");              \
             std::abort();                                                              \
         }                                                                              \
     } while (false)
 #endif
 
-
-
 /// Print Function Name
 #ifndef OCPFUNCNAME
-#define OCP_FUNCNAME                                                              \
+#define OCP_FUNCNAME                                                                   \
     do {                                                                               \
-                                                                                  \
     } while (false)
 #else
-#define OCP_FUNCNAME                                                              \
+#define OCP_FUNCNAME                                                                   \
     do {                                                                               \
         std::cout << __FUNCTION__ << std::endl;                                        \
     } while (false)
 #endif // !OCPFUNCNAME
-
-
-
 
 #endif /* end if for __ERRORLOG_HXX__ */
 
@@ -95,4 +89,5 @@
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Nov/15/2021      Test DEBUG mode                      */
 /*----------------------------------------------------------------------------*/

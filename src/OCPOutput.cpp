@@ -37,9 +37,9 @@ void Summary::InputParam(const OutputSummary& summary_param)
     WWIT = summary_param.WWIT;
 
     WBHP = summary_param.WBHP;
-    DG = summary_param.DG;
+    DG   = summary_param.DG;
 
-    BPR = summary_param.BPR;
+    BPR  = summary_param.BPR;
     SOIL = summary_param.SOIL;
     SGAS = summary_param.SGAS;
     SWAT = summary_param.SWAT;
@@ -64,8 +64,8 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
     if (FWIR) Sumdata.push_back(SumPair("FWIR", "  ", "STB/DAY"));
     if (FWIT) Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
-    USI num;
-    USI wellnum = reservoir.wellgroup.GetWellNum();
+    USI    num;
+    USI    wellnum = reservoir.wellgroup.GetWellNum();
     string wellname;
 
     if (WOPR.activity) {
@@ -274,18 +274,19 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
                 DG.obj.push_back(wellname);
                 USI perfnum = reservoir.wellgroup.GetWellPerfNum(w);
                 for (USI p = 0; p < perfnum; p++) {
-                    Sumdata.push_back(SumPair("DG", wellname + " Perf" + to_string(p), "PSIA"));
+                    Sumdata.push_back(
+                        SumPair("DG", wellname + " Perf" + to_string(p), "PSIA"));
                     DG.index.push_back(w);
                 }
             }
-        }
-        else {
+        } else {
             num = DG.obj.size();
             for (USI w = 0; w < num; w++) {
-                USI wId = reservoir.wellgroup.GetIndex(DG.obj[w]);
+                USI wId     = reservoir.wellgroup.GetIndex(DG.obj[w]);
                 USI perfnum = reservoir.wellgroup.GetWellPerfNum(wId);
                 for (USI p = 0; p < perfnum; p++) {
-                    Sumdata.push_back(SumPair("DG", DG.obj[w] + " P" + to_string(p), "PSIA"));
+                    Sumdata.push_back(
+                        SumPair("DG", DG.obj[w] + " P" + to_string(p), "PSIA"));
                     DG.index.push_back(wId);
                 }
             }
@@ -296,8 +297,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         num = BPR.obj.size();
         for (USI i = 0; i < num; i++) {
             string temp = "(" + to_string(BPR.obj[i].I) + "," +
-                          to_string(BPR.obj[i].J) + "," + to_string(BPR.obj[i].K) +
-                          ")";
+                          to_string(BPR.obj[i].J) + "," + to_string(BPR.obj[i].K) + ")";
             Sumdata.push_back(SumPair("BPR", temp, "PSIA"));
             USI I = BPR.obj[i].I - 1;
             USI J = BPR.obj[i].J - 1;
@@ -310,8 +310,8 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         num = SOIL.obj.size();
         for (USI i = 0; i < num; i++) {
             string temp = "(" + to_string(SOIL.obj[i].I) + "," +
-                to_string(SOIL.obj[i].J) + "," + to_string(SOIL.obj[i].K) +
-                ")";
+                          to_string(SOIL.obj[i].J) + "," + to_string(SOIL.obj[i].K) +
+                          ")";
             Sumdata.push_back(SumPair("SOIL", temp, "   "));
             USI I = SOIL.obj[i].I - 1;
             USI J = SOIL.obj[i].J - 1;
@@ -324,8 +324,8 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         num = SGAS.obj.size();
         for (USI i = 0; i < num; i++) {
             string temp = "(" + to_string(SGAS.obj[i].I) + "," +
-                to_string(SGAS.obj[i].J) + "," + to_string(SGAS.obj[i].K) +
-                ")";
+                          to_string(SGAS.obj[i].J) + "," + to_string(SGAS.obj[i].K) +
+                          ")";
             Sumdata.push_back(SumPair("SGAS", temp, "   "));
             USI I = SGAS.obj[i].I - 1;
             USI J = SGAS.obj[i].J - 1;
@@ -338,8 +338,8 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         num = SWAT.obj.size();
         for (USI i = 0; i < num; i++) {
             string temp = "(" + to_string(SWAT.obj[i].I) + "," +
-                to_string(SWAT.obj[i].J) + "," + to_string(SWAT.obj[i].K) +
-                ")";
+                          to_string(SWAT.obj[i].J) + "," + to_string(SWAT.obj[i].K) +
+                          ")";
             Sumdata.push_back(SumPair("SWAT", temp, "   "));
             USI I = SWAT.obj[i].I - 1;
             USI J = SWAT.obj[i].J - 1;
@@ -437,7 +437,7 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
     len = WBHP.index.size();
     for (USI w = 0; w < len; w++)
         Sumdata[n++].val.push_back(rs.wellgroup.GetWBHP(WBHP.index[w]));
-    
+
     // DG
     len = DG.obj.size();
     for (USI w = 0; w < len; w++) {
@@ -466,7 +466,6 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
     len = SWAT.index.size();
     for (USI i = 0; i < len; i++)
         Sumdata[n++].val.push_back(rs.bulk.GetSWAT(SWAT.index[i]));
-
 }
 
 void Summary::PrintInfo(const string& dir) const
@@ -529,7 +528,7 @@ void Summary::PrintInfo(const string& dir) const
         for (USI l = 0; l < len; l++) {
 
             // Time
-            outF << "\t" << setw(ns)  << Sumdata[0].val[l];
+            outF << "\t" << setw(ns) << Sumdata[0].val[l];
 
             id = ID;
             for (USI i = 1; i < col; i++) {
@@ -695,13 +694,17 @@ void OCPOutput::PrintInfo() const
     crtInfo.PrintInfo(wordDir);
 }
 
-void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl, const OCP_DBL& time) const
-{   
+void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
+                               const OCP_DBL& time) const
+{
     OCP_DBL days = ctrl.current_time;
-    cout << fixed << setprecision(3) << days << " Days\t";
-    cout << ctrl.numTstep << "\t";
-    cout << time / 1000 << "s";
-    cout << "\n";
+    if (ctrl.numTstep == 0) {
+        cout << " Time(days)  "
+             << " Timesteps   "
+             << " Walltime(sec)" << endl;
+    }
+    cout << fixed << setw(10) << setprecision(3) << days;
+    cout << setw(12) << ctrl.numTstep << setw(16) << time / 1000 << endl;
     dtlInfo.PrintInfo(wordDir, rs, days);
 }
 

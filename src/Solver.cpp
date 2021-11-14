@@ -12,11 +12,7 @@
 // OpenCAEPoro header files
 #include "Solver.hpp"
 
-
-void Solver::Setup(Reservoir& rs, const OCPControl& ctrl)
-{
-    SetupMethod(rs, ctrl);
-}
+void Solver::Setup(Reservoir& rs, const OCPControl& ctrl) { SetupMethod(rs, ctrl); }
 
 /// Initialize the reservoir setting for different solution methods.
 void Solver::InitReservoir(Reservoir& rs) const
@@ -53,8 +49,11 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-    cout << ctrl.GetCurTime() << "  Days   " << "NR: " 
-        << ctrl.GetNRiterT() << "  LS:" << ctrl.GetLSiterT() << endl;
+#ifdef DEBUG
+    cout << "### DEBUG: " << fixed << ctrl.GetCurTime() << " Days";
+    cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
+#endif // DEBUG
+
     // Prepare for time marching
     Prepare(rs, dt);
     ctrl.iterNR = 0; // temp;
@@ -78,12 +77,10 @@ void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
     FSolver.Prepare(rs, dt);
 }
 
-
 void Solver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     FSolver.SetupMethod(rs, ctrl);
 }
-
 
 /// Assemble linear system and then solve it.
 void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl, const OCP_DBL& dt)
