@@ -20,10 +20,12 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup processdures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(ParamRead& param)
+void OpenCAEPoro::SetupSimulator(ParamRead& param, const USI& argc, const char* optset[])
 {
     // Read parameters from input file
     InputParam(param);
+    // Read Fast control
+    control.SetupFastControl(argc, optset);
     // Setup static infomation for reservoir
     reservoir.Setup();
     // Setup output for dynamic simulation

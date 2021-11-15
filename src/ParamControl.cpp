@@ -55,7 +55,7 @@ void ParamControl::InitTuning()
     //* dSlim: ideal maximum Saturation change at next time step.
     tuning[1][1] = method == "IMPEC" ? 0.2 : 0.2;
     //* dNlim: ideal maximum relative Ni(moles of components) change at next time step.
-    tuning[1][2] = 1.0; // Target material balance error
+    tuning[1][2] = 0.3; // Target material balance error
     //* dVerrlim: ideal maximum relative Verr(error between fluid and pore) change at next time step.
     tuning[1][3] = method == "IMPEC" ? 1E-3 : 1E-3;
 
@@ -82,7 +82,7 @@ void ParamControl::InitTuning()
     //* Maximum non-linear convergence error
     tuning[2][1] = 1e-3;
     //* Maximum Pressure change in a Newton iteration
-    tuning[2][2] = 300.0;  
+    tuning[2][2] = 200.0;  
     //* Maximum Saturation change in a Newton iteration
     tuning[2][3] = 0.2; 
     //* Minimum Pressure change in a Newton iteration

@@ -40,6 +40,30 @@ ControlNR::ControlNR(const vector<OCP_DBL>& src)
     Verrmax     = src[6];
 }
 
+
+void FastControl::ReadParam(const USI& argc, const char* optset[])
+{
+    if (argc >= 6) {
+        activity = true;
+        if (string(optset[2]) == "FIM") {
+            method = FIM;
+        }
+        else if (string(optset[2]) == "IMPEC") {
+            method = IMPEC;
+        }
+        else {
+            OCP_ABORT("Wrong method param in command line!");
+        }
+        timeInit = stod(optset[3]);
+        timeMax = stod(optset[4]);
+        timeMin = stod(optset[5]);
+        if (argc >= 7) {
+            printLevel = stoi(optset[6]);
+        }
+    }
+}
+
+
 void OCPControl::InputParam(const ParamControl& CtrlParam)
 {
     workDir = CtrlParam.dir;
@@ -89,6 +113,34 @@ void OCPControl::InitTime(const USI& i)
     if (dt < 0) OCP_ABORT("Negative time stepsize!");
     current_dt = min(dt, ctrlTime.timeInit);
 }
+
+void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
+{
+    ctrlFast.ReadParam(argc, optset);
+    if (ctrlFast.activity) {
+
+        method = ctrlFast.method;
+        switch (method)
+        {
+        case IMPEC:
+            lsFile = "./csr.dat";
+            break;
+        case FIM:
+            lsFile = "./bsr.dat";
+            break;          
+        default:
+            OCP_ABORT("Wrong method in command line!");
+            break;
+        }
+        USI n = ctrlTimeSet.size();
+        for (USI i = 0; i < n; i++) {
+            ctrlTimeSet[i].timeInit = ctrlFast.timeInit;
+            ctrlTimeSet[i].timeMax = ctrlFast.timeMax;
+            ctrlTimeSet[i].timeMin = ctrlFast.timeMin;
+        }
+    }
+}
+
 
 void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 {

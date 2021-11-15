@@ -72,6 +72,21 @@ public:
     OCP_DBL         Verrmax;   ///< Maximum Verr(error between fluidand pore) change in a Newton iteration
 };
 
+/// Store shortcut instructions from the command line
+class FastControl
+{
+public:
+    void ReadParam(const USI& argc, const char* optset[]);
+
+public:
+    bool        activity{ false };
+    USI         method;      ///< IMPEC or FIM
+    OCP_DBL     timeInit;    ///< Maximum Init step length of next timestep
+    OCP_DBL     timeMax;     ///< Maximum time step during running
+    OCP_DBL     timeMin;     ///< Minmum time step during running
+    USI         printLevel{ 0 };  ///< Decide the depth for printfing
+};
+
 /// All control parameters except for well controlers.
 //  Note: Which discrete method will be used is determined here!
 class OCPControl
@@ -92,6 +107,9 @@ public:
     void ApplyControl(const USI& i);
     /// Initialize time step i.
     void InitTime(const USI& i);
+
+    /// Setup Fast Control
+    void SetupFastControl(const USI& argc, const char* optset[]);
 
     /// Return the method
     USI GetMethod()const { return method; }
@@ -165,6 +183,8 @@ private:
 
     ControlNR         ctrlNR;
     vector<ControlNR> ctrlNRSet;
+
+    FastControl       ctrlFast;
 };
 
 #endif /* end if __OCP_Control_HEADER__ */

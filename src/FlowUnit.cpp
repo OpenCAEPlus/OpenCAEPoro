@@ -110,8 +110,8 @@ void FlowUnit::CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_ou
     OCP_DBL krog = data[2];
     OCP_DBL Pcg  = data[3];
 
-    // OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
-    OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
+    OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
+    // OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
 
     kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;
     pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;
@@ -171,12 +171,12 @@ void FlowUnit::CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* 
 
     OCP_DBL dKrodSg{ 0 }, dKrodSw{ 0 }, kro{ 0 };
 
-    // kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, dKrodSw, dKrodSg);
+    kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSw, dKrgdSg, dKrogdSg, dKrodSw, dKrodSg);
     //if (kro < 0) {
     //    cout << S_in[0] << "   " << S_in[1] << "   " << S_in[2] << endl;
     //    kro = 0;
     //}
-    kro = CalKro_DefaultDer(Sg, Sw, krog, krow, dKrogdSg, dKrowdSw, dKrodSg, dKrodSw);
+    // kro = CalKro_DefaultDer(Sg, Sw, krog, krow, dKrogdSg, dKrowdSw, dKrodSg, dKrodSw);
 
     kr_out[0] = kro; kr_out[1] = krg; kr_out[2] = krw;
     pc_out[0] = 0;   pc_out[1] = Pcg; pc_out[2] = Pcw;
@@ -232,8 +232,8 @@ OCP_DBL FlowUnit::CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog,
 OCP_DBL FlowUnit::CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow)
 {
     OCP_DBL tmp = Sg + Sw - Swco;
-    if (tmp == 0) {
-        OCP_ABORT("Sg + Sw - Swco = 0!");
+    if (tmp <= TINY) {
+        return kroMax;
     }
     OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
     return kro;
@@ -244,8 +244,10 @@ OCP_DBL FlowUnit::CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const 
     const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL& dkroSw)
 {
     OCP_DBL tmp = Sg + Sw - Swco;
-    if (tmp == 0) {
-        OCP_ABORT("Sg + Sw - Swco = 0!");
+    if (tmp <= TINY) {
+        dkroSg = 0;
+        dkroSw = 0;
+        return kroMax;
     }
     OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
     dkroSg = (krog + Sg * dkrogSg - kro) / tmp;
