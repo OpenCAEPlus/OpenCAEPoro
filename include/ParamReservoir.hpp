@@ -78,6 +78,10 @@ public:
     vector<OCP_DBL> dy;   ///< Size along the y - direction for each grid.
     vector<OCP_DBL> dz;   ///< Size along the z - direction for each grid.
 
+    // Corner point geometry
+    vector<OCP_DBL> coord;
+    vector<OCP_DBL> zcorn;
+
     OCP_DBL rsTemp; ///< Temperature for reservoir.
 
     // Rock

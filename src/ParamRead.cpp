@@ -101,6 +101,8 @@ void ParamRead::ReadFile(const string& file)
             case Map_Str2Int("DX", 2):
             case Map_Str2Int("DY", 2):
             case Map_Str2Int("DZ", 2):
+            case Map_Str2Int("COORD", 5):
+            case Map_Str2Int("ZCORN", 5):
             case Map_Str2Int("NTG", 3):
             case Map_Str2Int("PORO", 4):
             case Map_Str2Int("TOPS", 4):

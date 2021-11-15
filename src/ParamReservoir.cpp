@@ -18,56 +18,79 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
 
     switch (Map_Str2Int(&varName[0], varName.size())) {
         case Map_Str2Int("DX", 2):
+            dx.reserve(numGrid);
             myPtr = &dx;
             break;
 
         case Map_Str2Int("DY", 2):
+            dy.reserve(numGrid);
             myPtr = &dy;
             break;
 
         case Map_Str2Int("DZ", 2):
+            dz.reserve(numGrid);
             myPtr = &dz;
             break;
 
+        case Map_Str2Int("COORD", 5):
+            coord.reserve((dimens.nx + 1) * (dimens.ny + 1));
+            myPtr = &coord;
+            break;
+
+        case Map_Str2Int("ZCORN", 5):
+            zcorn.reserve(numGrid * 8);
+            myPtr = &zcorn;
+            break;
+
         case Map_Str2Int("PORO", 4):
+            poro.reserve(numGrid);
             myPtr = &poro;
             break;
 
         case Map_Str2Int("NTG", 3):
+            ntg.reserve(numGrid);
             myPtr = &ntg;
             break;
 
         case Map_Str2Int("PERMX", 5):
+            permX.reserve(numGrid);
             myPtr = &permX;
             break;
 
         case Map_Str2Int("PERMY", 5):
+            permY.reserve(numGrid);
             myPtr = &permY;
             break;
 
         case Map_Str2Int("PERMZ", 5):
+            permZ.reserve(numGrid);
             myPtr = &permZ;
             break;
 
         case Map_Str2Int("TOPS", 4):
+            tops.reserve(dimens.nx * dimens.ny);
             myPtr = &tops;
             break;
 
         case Map_Str2Int("PRESSURE", 8):
+            P.reserve(numGrid);
             myPtr = &P;
             break;
 
         case Map_Str2Int("Ni", 2):
+            Ni.reserve(numGrid);
             myPtr = &Ni;
             break;
 
         case Map_Str2Int("SATNUM", 6):
             SATNUM.activity = true;
+            SATNUM.data.reserve(numGrid);
             myPtr           = &SATNUM.data;
             break;
 
         case Map_Str2Int("PVTNUM", 6):
             PVTNUM.activity = true;
+            PVTNUM.data.reserve(numGrid);
             myPtr           = &PVTNUM.data;
             break;
     }
@@ -211,6 +234,8 @@ void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
     }
 }
 
+
+
 /// TODO: Add Doxygen
 void ParamReservoir::InputCOMPS(ifstream& ifs)
 {
@@ -300,11 +325,6 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
     objPtr = FindPtr(keyword);
     if (objPtr == nullptr) {
         OCP_ABORT("Unmatched keyword!");
-    } else {
-        if (keyword == "TOPS")
-            objPtr->reserve(dimens.nx * dimens.ny);
-        else
-            objPtr->reserve(numGrid);
     }
 
     vector<string> vbuf;
@@ -560,10 +580,17 @@ void ParamReservoir::CheckParam()
 /// Check data dimension for potential problems.
 void ParamReservoir::CheckGrid()
 {
-    if (tops.size() != dimens.nx * dimens.ny) OCP_ABORT("Wrong TOPS size!");
-    if (dx.size() != numGrid) OCP_ABORT("Wrong DX size!");
-    if (dy.size() != numGrid) OCP_ABORT("Wrong DY size!");
-    if (dz.size() != numGrid) OCP_ABORT("Wrong DZ size!");
+    if (coord.size() == 0) {
+        if (tops.size() != dimens.nx * dimens.ny) OCP_ABORT("Wrong TOPS size!");
+        if (dx.size() != numGrid) OCP_ABORT("Wrong DX size!");
+        if (dy.size() != numGrid) OCP_ABORT("Wrong DY size!");
+        if (dz.size() != numGrid) OCP_ABORT("Wrong DZ size!");
+    }
+    else {
+        if (coord.size() != (dimens.nx+1)*(dimens.ny+1)) OCP_ABORT("Wrong COORD size!");
+        if (zcorn.size() != numGrid*8) OCP_ABORT("Wrong ZCORN size!");
+    }
+    
     if (poro.size() != numGrid) OCP_ABORT("Wrong PORO size!");
     if (permX.size() != numGrid) OCP_ABORT("Wrong PERMX size!");
     if (permY.size() != numGrid) OCP_ABORT("Wrong PERMY size!");
