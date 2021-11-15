@@ -2684,18 +2684,22 @@ WELTARG
  'PROD*'  'ORAT'  1500.0 /
 /
 
-
+-- test for IMPEC
 TSTEP
+160
+/
+
+--TSTEP
 2*0.5 2 3 4 50 4*60 
 / 
 
 
-TSTEP
+--TSTEP
  1*60 
 / 
  
 
-TSTEP
+--TSTEP
  180 
 / 
 

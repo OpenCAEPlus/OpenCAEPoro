@@ -115,7 +115,7 @@ public:
 
     OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow);
     OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow,
-        const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL dkroSw);
+        const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL& dkroSw);
 
 private:
     USI                mode;   ///< decide which saturation table will be uesd.
