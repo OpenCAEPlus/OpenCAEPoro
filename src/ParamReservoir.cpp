@@ -33,7 +33,7 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
             break;
 
         case Map_Str2Int("COORD", 5):
-            coord.reserve((dimens.nx + 1) * (dimens.ny + 1));
+            coord.reserve((dimens.nx + 1) * (dimens.ny + 1) * 6);
             myPtr = &coord;
             break;
 
@@ -587,7 +587,7 @@ void ParamReservoir::CheckGrid()
         if (dz.size() != numGrid) OCP_ABORT("Wrong DZ size!");
     }
     else {
-        if (coord.size() != (dimens.nx+1)*(dimens.ny+1)) OCP_ABORT("Wrong COORD size!");
+        if (coord.size() != (dimens.nx+1)*(dimens.ny+1)*6) OCP_ABORT("Wrong COORD size!");
         if (zcorn.size() != numGrid*8) OCP_ABORT("Wrong ZCORN size!");
     }
     
