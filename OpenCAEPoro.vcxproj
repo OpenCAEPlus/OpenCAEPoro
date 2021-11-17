@@ -25,6 +25,7 @@
     <ClCompile Include="main\Main.cpp" />
     <ClCompile Include="src\Bulk.cpp" />
     <ClCompile Include="src\BulkConn.cpp" />
+    <ClCompile Include="src\CornerGrid.cpp" />
     <ClCompile Include="src\Decoupling.cpp" />
     <ClCompile Include="src\DenseMat.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
@@ -54,6 +55,7 @@
   <ItemGroup>
     <ClInclude Include="include\Bulk.hpp" />
     <ClInclude Include="include\BulkConn.hpp" />
+    <ClInclude Include="include\CornerGrid.h" />
     <ClInclude Include="include\DenseMat.hpp" />
     <ClInclude Include="include\Doxygen.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
