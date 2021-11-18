@@ -462,7 +462,8 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     if (vbuf[0] == "/") return;
-
+    DealDefault(vbuf);
+    OCP_ASSERT(vbuf.size() == 4, "Wrong KeyWord GRAVITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
             gravity.activity = true;
@@ -483,6 +484,7 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
     if (vbuf[0] == "/") return;
 
     DealDefault(vbuf);
+    OCP_ASSERT(vbuf.size() == 4, "Wrong KeyWord DENSITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
             density.activity = true;

@@ -30,7 +30,6 @@
 /// wells. BulkConn contains connections between bulks(active grids).
 class Reservoir
 {
-    friend class OpenCAEPoro;
     friend class OCPControl;
     friend class Summary;
     friend class CriticalInfo;

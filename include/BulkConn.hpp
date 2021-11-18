@@ -53,8 +53,6 @@ private:
 /// bulks, matrix assembling contributed only by bulks are included in it.
 class BulkConn
 {
-    friend class LinearSolver;
-
 
 public:
     BulkConn() = default;
