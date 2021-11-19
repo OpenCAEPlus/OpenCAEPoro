@@ -17,10 +17,22 @@
 #include <vector>
 
 // OpenCAEPoro header files
+#include "CornerGrid.h"
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
 
 using namespace std;
+
+class GPair
+{
+public:
+    GPair() = default;
+    GPair(const OCP_USI& Id, const OCP_DBL& Area) :id(Id), area(Area) {};
+    static bool lessG(const GPair& G1, const GPair& G2) { return G1.id < G2.id; }
+    OCP_USI  id;   ///< Id of some neighbor
+    OCP_DBL  area; ///< Effective area between current grid and the id th neighbor
+};
+
 
 /// GB_Pair contains two variables, which indicates if a grid is active and what its
 /// active index is if active.
@@ -36,7 +48,7 @@ public:
         , index(i){};
 
     /// return activity of some grid.
-    bool GetAct() const { return activity; }
+    bool IsAct() const { return activity; }
 
     /// return active index of some grid if active.
     OCP_USI GetId() const { return index; }
@@ -60,8 +72,27 @@ class Grid
 
 public:
     Grid() = default;
+    /// Input the param from internal param structure to Grid.
+    void InputParam(const ParamReservoir& rs_param);
     /// calculate the properties of Grid.
     void Setup();
+    /// Setup Othogonal grid
+    void SetupOthogonalGrid();
+    /// Setup Neighbors for Othogonal grid
+    void SetupNeighborOthogonalGrid();
+    /// Calculate Akd
+    OCP_DBL CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId, const USI& direction);
+    /// Calculate the depth and volume of grids.
+    void CalDepthVOthogonalGrid();
+    /// Setup Corner Point Grid
+    void SetupCornerGrid();
+    
+    /// Calculate the active grid. If the volume, or the proportion of the effective
+    /// parts is too small, then the grid is inactive, which means this grid dosen't
+    /// paeticipate in the simumlation. Other rule can be given.
+    void CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2);
+    /// Mapping from grids to bulks.
+    const GB_Pair& MapG2B(const OCP_USI& i)const { return activeMap_G2B[i]; }
     /// Return nx of grid.
     OCP_USI GetGridNx() const { return nx; }
     /// Return ny of grid.
@@ -74,18 +105,9 @@ public:
     OCP_USI GetConnNum() const { return numConn; }
     /// Return thr num of bulks(active grids)
     OCP_USI GetActiveGridNum()const { return activeGridNum; }
-    /// Calculate the depth and volume of grids.
-    void CalDepthV();
-    /// Calculate the active grid. If the volume, or the proportion of the effective
-    /// parts is too small, then the grid is inactive, which means this grid dosen't
-    /// paeticipate in the simumlation. Other rule can be given.
-    void CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2);
-    /// Input the param from internal param structure to Grid.
-    void InputParam(const ParamReservoir& rs_param);
     /// Return the index of active grid with (i, j, k).
     OCP_USI GetActIndex(const USI& i, const USI& j, const USI& k) const;
-    /// Mapping from grids to bulks.
-    const GB_Pair& MapG2B(const OCP_USI& i)const { return activeMap_G2B[i]; }
+    
 
 private:
     USI     nx;      ///< num of bulks along x-direction
@@ -94,11 +116,18 @@ private:
     OCP_USI numGrid; ///< num of grids, nx * ny * nz
     OCP_USI numConn; ///< num of connection
 
+    USI               gridType;
+    vector<vector<GPair>> gNeighbor; ///< Neighbors of grids.
+    // Orthogonal Grid
     vector<OCP_DBL> tops;  ///< depth of top face of topest gird: nx*ny
     vector<OCP_DBL> depth; ///< depth of center of grid: numBulk.
     vector<OCP_DBL> dx;    ///< size of gird along the x direction: numBulk.
     vector<OCP_DBL> dy;    ///< size of grid along the y direction: numBulk.
     vector<OCP_DBL> dz;    ///< size of grid along the z direction: numBulk.
+    // CornerPoint Grid
+    vector<OCP_DBL> coord; ///< Lines of Corner Point Grid.
+    vector<OCP_DBL> zcorn; ///< ZValues of Corner Point Grid.
+
     vector<OCP_DBL> v;     ///< volume of grid: numBulk.
     vector<OCP_DBL> ntg;   ///< net to gross of grid: numBulk
     vector<OCP_DBL> poro;  ///< initial porosity of rock: numBulk

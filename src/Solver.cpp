@@ -49,10 +49,10 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-//#ifdef DEBUG
+#ifdef DEBUG
     cout << "### DEBUG: " << fixed << ctrl.GetCurTime() << " Days";
     cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
-//#endif // DEBUG
+#endif // DEBUG
 
     // Prepare for time marching
     Prepare(rs, dt);

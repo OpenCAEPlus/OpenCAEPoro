@@ -68,6 +68,8 @@ public:
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// Initialize the size of variable related to neighbor.
     void InitSize(const Bulk& myBulk);
+    /// Setup Bulk Conn from Grid
+    void SetupConn(const Grid& myGrid);
     /// Setup variable related to neighbor.
     void CalConn(const Grid& myGrid, const USI& np);
     /// Generate iteratorConn of active connections from neighbor.

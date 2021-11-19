@@ -22,10 +22,14 @@
 
 void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 
-    InitSize(myBulk);
-    CalConn(myGrid, myBulk.numPhase);
-    CalIteratorConn();
-    CalArea(myGrid, myBulk);
+    //InitSize(myBulk);
+    //CalConn(myGrid, myBulk.numPhase);
+    //CalIteratorConn();
+    //CalArea(myGrid, myBulk);
+
+    SetupConn(myGrid);
+
+    cout << numConn << endl;
 }
 
 
@@ -37,6 +41,62 @@ void BulkConn::InitSize(const Bulk& myBulk) { OCP_FUNCNAME;
     neighbor.resize(numBulk);
     selfPtr.resize(numBulk);
     neighborNum.resize(numBulk);
+}
+
+void BulkConn::SetupConn(const Grid& myGrid)
+{
+    numConn = 0;
+    numBulk = myGrid.activeGridNum;
+
+    neighbor.resize(numBulk);
+    selfPtr.resize(numBulk);
+    neighborNum.resize(numBulk);
+
+    vector<GPair> tmp1, tmp2;
+    USI len;
+    OCP_USI bIdb;
+
+    for (OCP_USI n = 0; n < myGrid.numGrid; n++) {
+        const GB_Pair& GBtmp = myGrid.activeMap_G2B[n];
+
+        if (GBtmp.IsAct()) {
+            bIdb = GBtmp.GetId();
+
+            // Get rid of inactive neighbor
+            tmp1 = myGrid.gNeighbor[n];
+            len = tmp1.size();
+            tmp2.clear();
+            for (USI i = 0; i < len; i++) {
+                const GB_Pair& GBtmp2 = myGrid.activeMap_G2B[tmp1[i].id];
+
+                if (GBtmp2.IsAct()) {
+                    tmp1[i].id = GBtmp2.GetId();
+                    tmp2.push_back(tmp1[i]);
+                }
+            }
+            // Add Self
+            tmp2.push_back(GPair(bIdb, 0.0));
+            // Sort: Ascending
+            sort(tmp2.begin(), tmp2.end(), GPair::lessG); 
+            // Find SelfPtr and Assign to neighbor and area
+            len = tmp2.size();
+            for (USI i = 0; i < len; i++) {
+                neighbor[bIdb].push_back(tmp2[i].id);
+                if (tmp2[i].id == bIdb) {
+                    selfPtr[bIdb] = i;
+                }
+            }
+            for (USI j = selfPtr[bIdb] + 1; j < len; j++) {
+                area.push_back(tmp2[j].area);
+                iteratorConn.push_back(BulkPair(bIdb, tmp2[j].id));
+            }
+            neighborNum[bIdb] = len;
+        }
+    }
+
+    numConn = iteratorConn.size();
+
+    OCP_FUNCNAME;
 }
 
 
@@ -61,7 +121,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
         USI count = 0;
         // up
         if (k > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - nxny].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg - nxny].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg - nxny].GetId();
                 neighbor[bIdb].push_back(eIdb);
@@ -71,7 +131,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
 
         // back
         if (j > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - nx].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg - nx].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg - nx].GetId();
                 neighbor[bIdb].push_back(eIdb);
@@ -81,7 +141,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
 
         // left
         if (i > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - 1].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg - 1].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg - 1].GetId();
                 neighbor[bIdb].push_back(eIdb);
@@ -97,7 +157,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
 
         // right
         if (i < nx - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + 1].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg + 1].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg + 1].GetId();
                 neighbor[bIdb].push_back(eIdb);
@@ -107,7 +167,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
 
         // front
         if (j < ny - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + nx].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg + nx].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg + nx].GetId();
                 neighbor[bIdb].push_back(eIdb);
@@ -117,7 +177,7 @@ void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
 
         // down
         if (k < nz - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + nxny].GetAct();
+            activity = myGrid.activeMap_G2B[bIdg + nxny].IsAct();
             if (activity) {
                 eIdb = myGrid.activeMap_G2B[bIdg + nxny].GetId();
                 neighbor[bIdb].push_back(eIdb);

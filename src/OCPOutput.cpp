@@ -655,7 +655,7 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n";
-            if (rs.grid.MapG2B(i).GetAct()) {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << fixed << setprecision(3) << rs.bulk.P[bId] << "   ";
             } else {

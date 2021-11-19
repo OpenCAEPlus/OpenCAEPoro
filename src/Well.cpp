@@ -157,7 +157,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
     USI pp = 0;
     for (USI p = 0; p < numPerf; p++) {       
         OCP_USI Idg = perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
-        if (myGrid.activeMap_G2B[Idg].GetAct()) {
+        if (myGrid.activeMap_G2B[Idg].IsAct()) {
 
             perf[pp] = perf[p];
             perf[pp].state = OPEN;

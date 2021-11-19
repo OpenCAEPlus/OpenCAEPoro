@@ -25,6 +25,12 @@ typedef int          OCP_INT; ///< Long integer
 typedef double       OCP_DBL; ///< Double precision
 typedef float        OCP_SIN; ///< Single precision
 
+// Grid Type
+const USI ORTHOGONAL_GRID = 1;
+const USI CORNER_GRID     = 2;
+const USI GENERAL_GRID    = 3;
+
+
 // General consts
 const OCP_DBL TINY = 1E-8;        ///< Small constant
 const OCP_DBL PI   = 3.141592653; ///< Pi

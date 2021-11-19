@@ -11,13 +11,161 @@
 
 #include "Grid.hpp"
 
+void Grid::InputParam(const ParamReservoir& rs_param)
+{
+    nx = rs_param.dimens.nx;
+    ny = rs_param.dimens.ny;
+    nz = rs_param.dimens.nz;
+    numGrid = rs_param.numGrid;
+
+    if (!rs_param.coord.empty()) {
+        // CornerPoint Grid
+        gridType = CORNER_GRID;
+
+        coord = rs_param.coord;
+        zcorn = rs_param.zcorn;
+    }
+    else {
+        // Orthogonal Grid
+        gridType = ORTHOGONAL_GRID;
+
+        numConn = 3 * nx * ny * nz - nx * ny - ny * nz - nz * nx;
+        tops = rs_param.tops;
+        dx = rs_param.dx;
+        dy = rs_param.dy;
+        dz = rs_param.dz;
+    }
+
+
+    ntg = rs_param.ntg;
+    poro = rs_param.poro;
+    kx = rs_param.permX;
+    ky = rs_param.permY;
+    kz = rs_param.permZ;
+
+    SATNUM.resize(numGrid, 0);
+    if (rs_param.SATNUM.activity) {
+        for (OCP_USI i = 0; i < numGrid; i++) {
+            SATNUM[i] = (USI)(rs_param.SATNUM.data[i]) - 1;
+        }
+    }
+    PVTNUM.resize(numGrid, 0);
+    if (rs_param.PVTNUM.activity) {
+        for (OCP_USI i = 0; i < numGrid; i++) {
+            PVTNUM[i] = (USI)(rs_param.PVTNUM.data[i]) - 1;
+        }
+    }
+    cout << "Grid::InputParam" << endl;
+}
+
 void Grid::Setup()
 {
-    CalDepthV();
+    switch (gridType)
+    {
+    case ORTHOGONAL_GRID:
+        SetupOthogonalGrid();
+        break;
+    case CORNER_GRID:
+        SetupCornerGrid();
+        break;
+    default:
+        OCP_ABORT("WRONG Grid Type!");
+        break;
+    }
+}
+
+
+
+void Grid::SetupOthogonalGrid()
+{
+    // x -> y -> z
+    SetupNeighborOthogonalGrid();
+    CalDepthVOthogonalGrid();
     CalActiveGrid(1E-6, 1E-6);
 }
 
-void Grid::CalDepthV()
+void Grid::SetupNeighborOthogonalGrid()
+{
+
+    gNeighbor.resize(numGrid);
+    // PreAllocate
+    for (OCP_USI n = 0; n < numGrid; n++) {
+        gNeighbor[n].reserve(6);
+    }
+
+    // Begin Id and End Id in Grid
+    OCP_USI bIdg, eIdg;
+    OCP_DBL area;
+    OCP_USI nxny = nx * ny;
+
+    for (USI k = 0; k < nz; k++) {
+        for (USI j = 0; j < ny; j++) {
+            for (USI i = 0; i < nx; i++) {
+
+                bIdg = k * nxny + j * nx + i;
+                // right  --  x-direction
+                if (i < nx - 1) {
+                    eIdg = bIdg + 1;
+                    area = CalAkdOthogonalGrid(bIdg, eIdg, 1);
+                    gNeighbor[bIdg].push_back(GPair(eIdg, area));
+                    gNeighbor[eIdg].push_back(GPair(bIdg, area));
+                }
+
+                // front  --  y-direction
+                if (j < ny - 1) {
+                    eIdg = bIdg + nx;
+                    area = CalAkdOthogonalGrid(bIdg, eIdg, 2);
+                    gNeighbor[bIdg].push_back(GPair(eIdg, area));
+                    gNeighbor[eIdg].push_back(GPair(bIdg, area));
+                }
+
+                // down --   z-direction
+                if (k < nz - 1) {
+                    eIdg = bIdg + nxny;
+                    area = CalAkdOthogonalGrid(bIdg, eIdg, 3);
+                    gNeighbor[bIdg].push_back(GPair(eIdg, area));
+                    gNeighbor[eIdg].push_back(GPair(bIdg, area));
+                }
+            }
+        }
+    }
+    OCP_FUNCNAME;
+}
+
+
+
+OCP_DBL Grid::CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId, const USI& direction)
+{
+    OCP_DBL T1;
+    OCP_DBL T2;
+    switch (direction)
+    {
+    case 1:
+        // x-direction
+        T1 = kx[bId] * ntg[bId] * dy[bId] * dz[bId] / dx[bId];
+        T2 = kx[eId] * ntg[eId] * dy[eId] * dz[eId] / dx[eId];
+        return (2 / (1 / T1 + 1 / T2));
+        break;
+    case 2:
+        // y-direction
+        T1 = ky[bId] * ntg[bId] * dz[bId] * dx[bId] / dy[bId];
+        T2 = ky[eId] * ntg[eId] * dz[eId] * dx[eId] / dy[eId];
+        return (2 / (1 / T1 + 1 / T2));
+        break;
+    case 3:
+        // z-direction -- no ntg
+        T1 = kz[bId] * dx[bId] * dy[bId] / dz[bId];
+        T2 = kz[eId] * dx[eId] * dy[eId] / dz[eId];
+        return (2 / (1 / T1 + 1 / T2));
+        break;
+    default:
+        OCP_ABORT("Wrong Direction!");
+        break;
+    }
+
+}
+
+void Grid::CalDepthVOthogonalGrid()
 {
     depth.resize(numGrid, 0);
     OCP_USI nxny = nx * ny;
@@ -44,6 +192,13 @@ void Grid::CalDepthV()
     cout << "Grid::calDepthV" << endl;
 }
 
+void Grid::SetupCornerGrid()
+{
+
+    CalActiveGrid(1E-6, 1E-6);
+}
+
+
 void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
 {
     activeMap_B2G.reserve(numGrid);
@@ -63,44 +218,12 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
     cout << "Grid::calActiveBulk" << endl;
 }
 
-void Grid::InputParam(const ParamReservoir& rs_param)
-{
-    nx      = rs_param.dimens.nx;
-    ny      = rs_param.dimens.ny;
-    nz      = rs_param.dimens.nz;
-    numGrid = rs_param.numGrid;
-    numConn = 3 * nx * ny * nz - nx * ny - ny * nz - nz * nx;
 
-    tops = rs_param.tops;
-    dx   = rs_param.dx;
-    dy   = rs_param.dy;
-    dz   = rs_param.dz;
-
-    ntg  = rs_param.ntg;
-    poro = rs_param.poro;
-    kx   = rs_param.permX;
-    ky   = rs_param.permY;
-    kz   = rs_param.permZ;
-
-    SATNUM.resize(numGrid, 0);
-    if (rs_param.SATNUM.activity) {
-        for (OCP_USI i = 0; i < numGrid; i++) {
-            SATNUM[i] = (USI)(rs_param.SATNUM.data[i]) - 1;
-        }
-    }
-    PVTNUM.resize(numGrid, 0);
-    if (rs_param.PVTNUM.activity) {
-        for (OCP_USI i = 0; i < numGrid; i++) {
-            PVTNUM[i] = (USI)(rs_param.PVTNUM.data[i]) - 1;
-        }
-    }
-    cout << "Grid::InputParam" << endl;
-}
 
 OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
 {
     OCP_USI id       = k * nx * ny + j * nx + i;
-    bool    activity = activeMap_G2B[id].GetAct();
+    bool    activity = activeMap_G2B[id].IsAct();
     if (!activity) {
         OCP_ABORT("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) +
                    ") is inactive");
