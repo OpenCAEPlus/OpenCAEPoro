@@ -248,32 +248,24 @@ EQUIL
 RPTSOL
   'PRES' 'SWAT' /
   
---AQUFETP
---  1   425    1*    1E5   6.0E-6    1 /
---  2   425    1*    1E5   6.0E-6    1 /
---/
 
---AQUANCON
---  1   1   4   1   1   1   5   'J-'   1*  1.0 /
---  2   1   4   4   4   1   5   'J+'   1*  1.0 /
---/
-
-SUMMARY    ==========================================================
-RUNSUM    
-EXCEL
---SEPARATE   -- write a seperate *.RSM file
-FRP
-WWPR
-/
-WOPR
-/
-FWPT
-/
+SUMMARY
+FPR
+FOPR
 FOPT
+FGPR
+FGPT
+FWPR
+FWPT
+FGIR
+FGIT
+FWIR
+FWIT
+FWCT
+FWPT
+WBHP 
 /
-WBHP
 /
-NEWTON
 
 --DEBUG
 --1 /
@@ -296,7 +288,7 @@ TUNING
 --  dPlim  dSlim   dNlim   dVerrlim
      300     0.2    0.3    0.001           /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-3   200    0.2    1      0.01    0.01  /
+       10    1E-4   200    0.2    1      0.01    0.01  /
 /
 
 METHOD
@@ -312,30 +304,22 @@ TMARCH
 /
 
 WELSPECS
-  'PRODUCER' 'G'    1   1    1*  'OIL'  /
-  'INJECTOR' 'G'    4   4    1*  'WAT'  /
+ 'INJECTOR' 'G'    4   4    1*  'WAT'  /
+ 'PRODUCER' 'G'    1   1    1*  'OIL'  /
 /
 
 COMPDAT
-  'PRODUCER'   1  1  1  2    1*      0.5   3*   /
-  'INJECTOR'   4  4  4  5    1*      0.5   3*   /
+ 'PRODUCER'   1  1  1  2    1*      0.5   3*   /
+ 'INJECTOR'   4  4  4  5    1*      0.5   3*   /
 /
 
--- PRODUCTION WELL CONTROLS
---
---      WELL     OPEN/  CNTL   OIL  WATER   GAS  LIQU   RES   BHP
---      NAME     SHUT   MODE  RATE   RATE  RATE  RATE  RATE
 WCONPROD
-     'PRODUCER' 'OPEN' 'ORAT'   20                       100 /
+ 'PRODUCER' 'OPEN' 'ORAT'   20  100 /
   /
 
--- INJECTION WELL CONTROLS
---
---      WELL     INJ   OPEN   CNTL    FLOW
---      NAME    TYPE   SHUT   MODE    RATE
 
 WCONINJE
-     'INJECTOR' 'WAT' 'OPEN' 'RATE'     20      10000  /	
+ 'INJECTOR' 'WAT' 'OPEN' 'RATE'  20  10000  /	
   /
 
 TSTEP

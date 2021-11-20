@@ -4,6 +4,9 @@
 void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
 	const OCP_DBL& Vpore)
 {
+	phaseExist.assign(numPhase, true);
+
+
 	P = Pin;
 	S[1] = Sjin[1];
 	// Water Properties

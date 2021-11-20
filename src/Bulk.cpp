@@ -1437,6 +1437,8 @@ OCP_DBL Bulk::CalCFL01IMPEC() const { OCP_FUNCNAME;
             id = n * numPhase + j;
             if (phaseExist[id]) {
 
+                if (vj[id] <= 0) continue;  // temp
+
                 cfl[id] /= vj[id];
 #ifdef _DEBUG
                 if (!isfinite(cfl[id])) {

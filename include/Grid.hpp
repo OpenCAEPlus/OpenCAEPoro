@@ -80,12 +80,16 @@ public:
     void SetupOthogonalGrid();
     /// Setup Neighbors for Othogonal grid
     void SetupNeighborOthogonalGrid();
-    /// Calculate Akd
+    /// Calculate Akd for Othogonal Grid
     OCP_DBL CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId, const USI& direction);
     /// Calculate the depth and volume of grids.
     void CalDepthVOthogonalGrid();
     /// Setup Corner Point Grid
     void SetupCornerGrid();
+    /// Setup Neighbors for Othogonal grid
+    void SetupNeighborCornerGrid(const COORD& CoTmp);
+    /// Calculate Akd for Corner Point Grid
+    OCP_DBL CalAkdCornerGrid(const GeneralConnect& conn);
     
     /// Calculate the active grid. If the volume, or the proportion of the effective
     /// parts is too small, then the grid is inactive, which means this grid dosen't

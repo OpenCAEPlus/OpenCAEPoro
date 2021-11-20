@@ -20,7 +20,7 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 void OCP_IMPEC::SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs,
                                   OCPControl& ctrl)
 {
-#ifdef DEBUG
+#ifdef _DEBUG
     lsolver.CheckVal();
 #endif // DEBUG
 

@@ -93,7 +93,7 @@ void Grid::SetupNeighborOthogonalGrid()
         gNeighbor[n].reserve(6);
     }
 
-    // Begin Id and End Id in Grid
+    // Begin Id and End Id in Grid, bIdg > eIdg
     OCP_USI bIdg, eIdg;
     OCP_DBL area;
     OCP_USI nxny = nx * ny;
@@ -131,8 +131,6 @@ void Grid::SetupNeighborOthogonalGrid()
     }
     OCP_FUNCNAME;
 }
-
-
 
 OCP_DBL Grid::CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId, const USI& direction)
 {
@@ -194,8 +192,73 @@ void Grid::CalDepthVOthogonalGrid()
 
 void Grid::SetupCornerGrid()
 {
-
+    COORD coordTmp;
+    coordTmp.Allocate(nx, ny, nz);
+    coordTmp.InputData(coord, zcorn);
+    coordTmp.CalConn();
+    SetupNeighborCornerGrid(coordTmp);
     CalActiveGrid(1E-6, 1E-6);
+}
+
+void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
+{
+
+    dx = CoTmp.dx;
+    dy = CoTmp.dy;
+    dz = CoTmp.dz;
+    v = CoTmp.v;
+    depth = CoTmp.depth;
+
+    gNeighbor.resize(numGrid);
+    // PreAllocate
+    for (OCP_USI n = 0; n < numGrid; n++) {
+        gNeighbor[n].reserve(10);
+    }
+
+    OCP_USI bIdg, eIdg;
+    OCP_DBL area;
+
+    for (OCP_USI n = 0; n < CoTmp.numConn; n++) {
+        const GeneralConnect& ConnTmp = CoTmp.connect[n];
+        bIdg = ConnTmp.begin;
+        eIdg = ConnTmp.end;
+        area = CalAkdCornerGrid(ConnTmp);
+        gNeighbor[bIdg].push_back(GPair(eIdg, area));
+        gNeighbor[eIdg].push_back(GPair(bIdg, area));
+    }
+
+    cout << "Done" << endl;
+}
+
+OCP_DBL Grid::CalAkdCornerGrid(const GeneralConnect& conn)
+{
+    OCP_USI bId = conn.begin;
+    OCP_USI eId = conn.end;
+    OCP_DBL bArea = conn.Ad_dd_begin;
+    OCP_DBL eArea = conn.Ad_dd_end;
+    OCP_DBL T1, T2;
+
+    switch (conn.directiontype)
+    {
+    case 1:
+        T1 = ntg[bId] * kx[bId] * bArea;
+        T2 = ntg[eId] * kx[eId] * eArea;
+        return 1 / (1 / T1 + 1 / T2);
+        break;
+    case 2:
+        T1 = ntg[bId] * ky[bId] * bArea;
+        T2 = ntg[eId] * ky[eId] * eArea;
+        return 1 / (1 / T1 + 1 / T2);
+        break;
+    case 3:
+        T1 = kz[bId] * bArea;
+        T2 = kz[eId] * eArea;
+        return 1 / (1 / T1 + 1 / T2);
+        break;
+    default:
+        OCP_ABORT("Wrong Direction Type!");
+        break;
+    }
 }
 
 

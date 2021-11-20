@@ -27,7 +27,7 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
             fluidType = OIL;
         } else if (Optparam.fluidType == "GAS") {
             fluidType = GAS;
-        } else if (Optparam.fluidType == "WATER") {
+        } else if (Optparam.fluidType == "WATER" || Optparam.fluidType == "WAT") {
             fluidType = WATER;
         } else if (Optparam.fluidType == "SOLVENT") {
             fluidType = SOLVENT;
