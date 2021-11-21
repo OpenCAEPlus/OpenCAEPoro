@@ -227,6 +227,7 @@ void Reservoir::ResetVal00IMPEC()
     OCP_FUNCNAME;
 
     bulk.ResetP();
+    wellgroup.CalTrans(bulk);
 }
 
 

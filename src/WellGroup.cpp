@@ -202,7 +202,7 @@ OCP_INT WellGroup::CheckP(const Bulk& myBulk) { OCP_FUNCNAME;
 
             OCP_INT flag = wellGroup[w].CheckP(myBulk);
 #ifdef _DEBUG
-            // wellGroup[w].ShowPerfStatus();
+            //wellGroup[w].ShowPerfStatus();
 #endif // _DEBUG
             switch (flag) {
             case 1:
