@@ -185,7 +185,6 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         dt /= 2;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
-        ctrl.ResetIterNR();
         cout << "Negative Ni occurs\n";
         return false;
     }

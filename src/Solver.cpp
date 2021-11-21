@@ -62,7 +62,10 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
     while (true) {
         if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
         AssembleSolve(rs, ctrl);
-        if (!UpdateProperty(rs, ctrl)) continue;
+        if (!UpdateProperty(rs, ctrl)) {
+            ctrl.ResetIterNR();
+            continue;
+        } 
         if (FinishNR(rs, ctrl)) break;
     }
 
