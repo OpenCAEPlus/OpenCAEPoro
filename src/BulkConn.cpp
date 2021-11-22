@@ -264,7 +264,7 @@ OCP_DBL BulkConn::CalAkd(const Grid& myGrid, const Bulk& myBulk,
 }
 
 
-void BulkConn::AllocateMat(LinearSolver& MySolver) const { OCP_FUNCNAME;
+void BulkConn::AllocateMat(LinearSystem& MySolver) const { OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         MySolver.rowCapacity[n] += neighborNum[n];
@@ -272,7 +272,7 @@ void BulkConn::AllocateMat(LinearSolver& MySolver) const { OCP_FUNCNAME;
 }
 
 
-void BulkConn::SetupMatSparsity(LinearSolver& mySolver) const { OCP_FUNCNAME;
+void BulkConn::SetupMatSparsity(LinearSystem& mySolver) const { OCP_FUNCNAME;
 
     mySolver.dim = numBulk;
     for (OCP_USI n = 0; n < numBulk; n++) {
@@ -364,7 +364,7 @@ void BulkConn::AllocateAuxIMPEC(const USI& np) { OCP_FUNCNAME;
 }
 
 
-void BulkConn::AssembleMatIMPEC(LinearSolver& mySolver, const Bulk& myBulk,
+void BulkConn::AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     // accumulate term
@@ -599,7 +599,7 @@ void BulkConn::AllocateAuxFIM(const USI& np) { OCP_FUNCNAME;
 }
 
 
-void BulkConn::AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 

@@ -9,7 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#include "LinearSolver.hpp"
+#include "DenseMat.hpp"
+#include "FaspSolver.hpp"
 
 // ABF decoupling method
 static void decouple_abf(dBSRmat* A, REAL* diaginv, dBSRmat* B)
@@ -465,7 +466,7 @@ static void decouple_rowsum(dBSRmat* A, REAL* diaginv, dBSRmat* B)
 }
 
 /// Applying a decoupling algorithm for linear systems of FIM
-void LinearSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
+void VectorFaspSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
                               ivector* order, double* Dmatvec, int decoupleType)
 {
     int              nrow = Absr->ROW;

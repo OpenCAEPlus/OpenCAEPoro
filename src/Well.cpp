@@ -829,6 +829,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
                 perf[p].state = CLOSE;
                 perf[p].multiplier = 0;
                 flagC = false;
+                break;
             }
             else if (perf[p].state == CLOSE && minP > perf[p].P) {
                 perf[p].state = OPEN;
@@ -843,6 +844,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
                 perf[p].state = CLOSE;
                 perf[p].multiplier = 0;
                 flagC = false;
+                break;
             }
             else if (perf[p].state == CLOSE && myBulk.P[k] < perf[p].P) {
                 perf[p].state = OPEN;
@@ -882,7 +884,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
 }
 
 
-void Well::AllocateMat(LinearSolver& mySolver) const { OCP_FUNCNAME;
+void Well::AllocateMat(LinearSystem& mySolver) const { OCP_FUNCNAME;
 
     for (USI p = 0; p < numPerf; p++) {
         mySolver.rowCapacity[perf[p].location]++;
@@ -951,7 +953,7 @@ void Well::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FUNCNA
 }
 
 
-void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
                                  const OCP_DBL& dt) const {  OCP_FUNCNAME;
 
     const USI     nc  = myBulk.numCom;
@@ -1039,7 +1041,7 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
 }
 
 
-void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
                                       const OCP_DBL& dt) const { OCP_FUNCNAME;
     
     const USI     np  = myBulk.numPhase;
@@ -1149,7 +1151,7 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
 
 
 
-void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     const OCP_USI wId = mySolver.dim;
@@ -1288,7 +1290,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
 }
 
 
-void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     const OCP_USI wId = mySolver.dim;

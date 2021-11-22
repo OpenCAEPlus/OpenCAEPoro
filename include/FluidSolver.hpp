@@ -37,7 +37,7 @@ public:
     
 private:
     USI          method = FIM;
-    LinearSolver FLSolver;
+    LinearSystem FLSolver;
     OCP_IMPEC    impec;
     OCP_FIM      fim;
 };

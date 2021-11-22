@@ -46,7 +46,7 @@ private:
 
 private:
     FluidSolver  FSolver;
-    LinearSolver LSolver;
+    LinearSystem LSolver;
 };
 
 #endif /* end if __SOLVER_HEADER__ */

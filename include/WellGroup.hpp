@@ -58,7 +58,7 @@ public:
     /// Calculate Injection rate, total Injection, Production rate, total Production
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate memory for Matrix
-    void AllocateMat(LinearSolver& mySolver, const USI& bulknum) const;
+    void AllocateMat(LinearSystem& mySolver, const USI& bulknum) const;
     void UpdateLastBHP(){ for (auto& w : wellGroup) w.lBHP = w.BHP; }
     void ResetBHP();
     /// Reset dG to ldG for each well.
@@ -151,7 +151,7 @@ public:
     /// Update moles of components in Bulks which connects to well
     void MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt);
     /// Assemble matrix, parts related to well are included for IMPEC
-    void AssemblaMatIMPEC(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssemblaMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
             const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for IMPEC
     void GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
@@ -163,7 +163,7 @@ public:
 
 public:
     /// Assemble matrix, parts related to well are included for FIM
-    void AssemblaMatFIM(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssemblaMatFIM(LinearSystem& mySolver, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for IMPEC for FIM
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);  

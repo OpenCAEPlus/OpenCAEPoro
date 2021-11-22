@@ -13,7 +13,7 @@
 #define __OCPFLUIDMETHOD_HEADER__
 
  // OpenCAEPoro header files
-#include "LinearSolver.hpp"
+#include "LinearSystem.hpp"
 #include "OCPControl.hpp"
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
@@ -24,13 +24,13 @@ class OCP_IMPEC
 {
 public:
 
-    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
+    void Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
+    void SolveLinearSystem(LinearSystem& lsolver, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
@@ -49,17 +49,17 @@ class OCP_FIM
 public:
 
     /// Setup FIM
-    void Setup(Reservoir& rs, LinearSolver& ls, const OCPControl& ctrl);
+    void Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Assemble Matrix
-    void AssembleMat(LinearSolver& lsolver, const Reservoir& rs,
+    void AssembleMat(LinearSystem& lsolver, const Reservoir& rs,
         const OCP_DBL& dt) const;
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSolver& lsolver, Reservoir& rs, OCPControl& ctrl);
+    void SolveLinearSystem(LinearSystem& lsolver, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);

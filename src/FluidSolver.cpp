@@ -15,16 +15,20 @@ void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
     cout << "Method  " << method << endl;
+
     switch (method) {
         case IMPEC:
+            FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
             impec.Setup(rs, FLSolver, ctrl);
             break;
         case FIM:
+            FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
             fim.Setup(rs, FLSolver, ctrl);
             break;
         default:
             OCP_ABORT("Wrong method type!");
     }
+    FLSolver.AllocateLinearSolver();
 }
 
 void FluidSolver::InitReservoir(Reservoir& rs) const

@@ -19,7 +19,7 @@
 // OpenCAEPoro header files
 #include "FlowUnit.hpp"
 #include "Grid.hpp"
-#include "LinearSolver.hpp"
+#include "LinearSystem.hpp"
 #include "Mixture.hpp"
 #include "MixtureBO.hpp"
 #include "OCPConst.hpp"

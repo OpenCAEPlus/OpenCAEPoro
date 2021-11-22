@@ -188,7 +188,7 @@ void Reservoir::UpdateLastStepIMPEC() { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const { OCP_FUNCNAME;
+void Reservoir::AllocateMatIMPEC(LinearSystem& mySolver) const { OCP_FUNCNAME;
 
     mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), 1);
     conn.AllocateMat(mySolver);
@@ -197,7 +197,7 @@ void Reservoir::AllocateMatIMPEC(LinearSolver& mySolver) const { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AssembleMatIMPEC(LinearSolver& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME;
+void Reservoir::AssembleMatIMPEC(LinearSystem& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     conn.SetupMatSparsity(mysolver);
     conn.AssembleMatIMPEC(mysolver, bulk, dt);
@@ -312,7 +312,7 @@ void Reservoir::UpdateLastStepFIM() { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const { OCP_FUNCNAME; 
+void Reservoir::AllocateMatFIM(LinearSystem& mySolver) const { OCP_FUNCNAME; 
 
     mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), bulk.GetComNum() + 1);
     conn.AllocateMat(mySolver);
@@ -321,7 +321,7 @@ void Reservoir::AllocateMatFIM(LinearSolver& mySolver) const { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AssembleMatFIM(LinearSolver& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME; 
+void Reservoir::AssembleMatFIM(LinearSystem& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME; 
 
     conn.SetupMatSparsity(mysolver);
     conn.AssembleMat_FIM(mysolver, bulk, dt);

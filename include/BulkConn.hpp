@@ -18,7 +18,7 @@
 // OpenCAEPoro header files
 #include "Bulk.hpp"
 #include "Grid.hpp"
-#include "LinearSolver.hpp"
+#include "LinearSystem.hpp"
 #include "OCPStructure.hpp"
 #include "DenseMat.hpp"
 
@@ -80,9 +80,9 @@ public:
     OCP_DBL CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_USI& bIdb,
         const OCP_USI& eIdb) const;
     /// Allocate memory for Matrix, it should be called only once at the beginning.
-    void AllocateMat(LinearSolver& mySolver) const;
+    void AllocateMat(LinearSystem& mySolver) const;
     /// Setup sparsity pattern of Matrix begin assembling Matrix.
-    void SetupMatSparsity(LinearSolver& mySolver) const;
+    void SetupMatSparsity(LinearSystem& mySolver) const;
     /// Update value of last step
     void UpdateLastStep();
     /// Reset current step to last step
@@ -137,7 +137,7 @@ public:
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC(const USI& np);
     /// Assmeble Matrix for IMPEC, parts only related to bulks are considered.
-    void AssembleMatIMPEC(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// calculate the CFL number of flow between bulks.
     OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
@@ -159,7 +159,7 @@ public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM(const USI& np);
     /// Assmeble Matrix for FIM, parts only related to bulks are considered.
-    void AssembleMat_FIM(LinearSolver& mySolver, const Bulk& myBulk,
+    void AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// calculate Upblock for FIM
     void CalFluxFIM(const Bulk& myBulk);

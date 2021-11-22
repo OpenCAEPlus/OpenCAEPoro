@@ -28,10 +28,11 @@
     <ClCompile Include="src\CornerGrid.cpp" />
     <ClCompile Include="src\Decoupling.cpp" />
     <ClCompile Include="src\DenseMat.cpp" />
+    <ClCompile Include="src\FaspSolver.cpp" />
     <ClCompile Include="src\FlowUnit.cpp" />
     <ClCompile Include="src\FluidSolver.cpp" />
     <ClCompile Include="src\Grid.cpp" />
-    <ClCompile Include="src\LinearSolver.cpp" />
+    <ClCompile Include="src\LinearSystem.cpp" />
     <ClCompile Include="src\MixtureBO.cpp" />
     <ClCompile Include="src\MixtureBO2_OW.cpp" />
     <ClCompile Include="src\MixtureBO3_ODGW.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="include\CornerGrid.h" />
     <ClInclude Include="include\DenseMat.hpp" />
     <ClInclude Include="include\Doxygen.hpp" />
+    <ClInclude Include="include\FaspSolver.hpp" />
     <ClInclude Include="include\FlowUnit.hpp" />
     <ClInclude Include="include\FluidSolver.hpp" />
     <ClInclude Include="include\Grid.hpp" />

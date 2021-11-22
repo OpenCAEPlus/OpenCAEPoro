@@ -19,7 +19,7 @@
 #include "Bulk.hpp"
 #include "DenseMat.hpp"
 #include "Grid.hpp"
-#include "LinearSolver.hpp"
+#include "LinearSystem.hpp"
 #include "OCPConst.hpp"
 #include "OCPStructure.hpp"
 #include "ParamWell.hpp"
@@ -125,7 +125,7 @@ public:
     /// Update pressure in Perforation after well pressure updates.
     void UpdatePerfP() { for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p]; }
     /// Allocate memory for matrix.
-    void AllocateMat(LinearSolver& mySolver) const;
+    void AllocateMat(LinearSystem& mySolver) const;
     /// Return the state of the well, Open or Close.
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
@@ -180,10 +180,10 @@ public:
     /// Update moles of components in those bulks who connects to the well.
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to injection well are included.
-    void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
         const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to production well are included.
-    void AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
         const OCP_DBL& dt) const;
 
 
@@ -194,10 +194,10 @@ public:
 
 public:
     /// Assemble matrix for FIM, parts related to Injection well are included.
-    void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
         const OCP_DBL& dt) const;
     /// Assemble matrix for FIM, parts related to Production well are included.
-    void AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSolver& mySolver,
+    void AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
         const OCP_DBL& dt) const;
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,

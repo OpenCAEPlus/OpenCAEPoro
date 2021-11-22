@@ -168,12 +168,12 @@ void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt) {OCP_FUNCNAME;
 }
 
 
-void WellGroup::AllocateMat(LinearSolver& mySolver, const USI& bulknum) const { OCP_FUNCNAME;
+void WellGroup::AllocateMat(LinearSystem& mySolver, const USI& bulknum) const { OCP_FUNCNAME;
     
     USI maxNum = GetMaxWellPerNum() + 1;
     for (USI w = 0; w < numWell; w++) {
         wellGroup[w].AllocateMat(mySolver);
-        mySolver.RowCapPlus(bulknum + w, maxNum);
+        mySolver.EnlargeRowCap(bulknum + w, maxNum);
     }
 }
 
@@ -286,7 +286,7 @@ void WellGroup::MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt) { OCP_FUNCNAME;
 }
 
 
-void WellGroup::AssemblaMatIMPEC(LinearSolver& mySolver, const Bulk& myBulk,
+void WellGroup::AssemblaMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
                                      const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
@@ -325,7 +325,7 @@ void WellGroup::GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId) { OCP_
  /////////////////////////////////////////////////////////////////////
 
 
-void WellGroup::AssemblaMatFIM(LinearSolver& mySolver, const Bulk& myBulk,
+void WellGroup::AssemblaMatFIM(LinearSystem& mySolver, const Bulk& myBulk,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
      
     for (USI w = 0; w < numWell; w++) {
