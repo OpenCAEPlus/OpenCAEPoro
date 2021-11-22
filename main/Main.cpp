@@ -42,13 +42,10 @@ int main(int argc, const char* argv[])
     rp.ReadInputFile(argv[1]);
 
 
-    GetWallTime timer;
-    timer.Start();
     // Step 2. Read param from internal params data structure to each modules, and
     // Setup static information, such as active grids, and connections between them.
     // Note: Memory allocation for linear systems will also be done at this time.
     simulator.SetupSimulator(rp, argc, argv);
-    timer.StopInfo("Total ");
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturation, and moles of components will be

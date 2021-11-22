@@ -17,11 +17,11 @@ OCP_IMPES_1
 
 Final time:          3655.500 Days
 Total time steps:    4661
-Total Newton steps:  4712
-Wasted Newton steps: 0
-Simulation time:     1.319s
+Total Newton steps:  4661
+Wasted Newton steps: 51
+Simulation time:     1.344s
 Total linear steps:  7884
-Linear solve time:   0.785s (59.509%)
+Linear solve time:   0.789s (58.670%)
 
 
 
@@ -42,9 +42,9 @@ Final time:          3655.500 Days
 Total time steps:    420
 Total Newton steps:  479
 Wasted Newton steps: 1
-Simulation time:     5.337s
+Simulation time:     5.362s
 Total linear steps:  1428
-Linear solve time:   5.047s (94.567%)
+Linear solve time:   5.058s (94.319%)
 
 ```
 
@@ -71,11 +71,11 @@ OCP_IMPES_1
 
 Final time:          3655.500 Days
 Total time steps:    3858
-Total Newton steps:  3877
-Wasted Newton steps: 0
-Simulation time:     1.095s
+Total Newton steps:  3858
+Wasted Newton steps: 19
+Simulation time:     1.140s
 Total linear steps:  7250
-Linear solve time:   0.664s (60.650%)
+Linear solve time:   0.683s (59.931%)
 
 
 PS_FIM_10
@@ -95,9 +95,9 @@ Final time:          3655.500 Days
 Total time steps:    420
 Total Newton steps:  507
 Wasted Newton steps: 1
-Simulation time:     3.766s
+Simulation time:     3.801s
 Total linear steps:  1507
-Linear solve time:   3.469s (92.131%)
+Linear solve time:   3.485s (91.696%)
 ```
 
 
@@ -120,12 +120,12 @@ Simulation time:     276.62s
 OCP_IMPES_1
 
 Final time:          900.000 Days
-Total time steps:    6319
-Total Newton steps:  6361
-Wasted Newton steps: 0
-Simulation time:     78.143s
-Total linear steps:  8884
-Linear solve time:   49.646s (63.533%)
+Total time steps:    6317
+Total Newton steps:  6317
+Wasted Newton steps: 42
+Simulation time:     79.238s
+Total linear steps:  8875
+Linear solve time:   49.847s (62.909%)
 
 
 PS_FIM_10
@@ -178,5 +178,63 @@ Wasted Newton steps: 5
 Simulation time:     1937.163s
 Total linear steps:  1334
 Linear solve time:   1463.019s (75.524%)
+```
+
+
+
+### CP
+
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\CP\compare.png)
+
+
+
+```
+网格规模较少，使用 Pardiso 直接法进行求解
+
+
+PS_IMPEC_1
+
+Final time:          1000.000 Days
+Total time steps:    4541
+Total nonlin steps:  4541
+Total linear steps:  4543
+Linear solver time:  2.269s
+Simulation time:     28.627s
+
+
+OCP_IMPEC_1
+
+Final time:          1000.000 Days
+Total time steps:    1992
+Total Newton steps:  1992
+Wasted Newton steps: 3
+Simulation time:     0.509s
+Total linear steps:  1995
+Linear solve time:   0.441s (86.586%)
+
+
+PS_FIM_10
+
+Final time:          1000.000 Days
+Total time steps:    145
+Total Newton steps:  256
+Wasted Newton steps: 4
+Total linear steps:  263
+Linear solver time:  0.745s
+Simulation time:     1.654s
+
+
+OCP_FIM_10
+
+Final time:          1000.000 Days
+Total time steps:    143
+Total Newton steps:  261
+Wasted Newton steps: 11
+Simulation time:     0.441s
+Total linear steps:  272
+Linear solve time:   0.385s (87.120%)
+
+
+
 ```
 
