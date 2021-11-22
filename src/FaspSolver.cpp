@@ -24,7 +24,7 @@ void FaspSolver::SetupParam(const string& dir, const string& file)
     ifstream ifs(myfile);
     if (!ifs.is_open()) {
         cout << "The input file " << myfile << " is missing!" << endl;
-        myfile = solveDir + "../conf/csr.dat";
+        myfile = solveDir + "../conf/csr.fasp";
         ifs.open(myfile);
         if (!ifs.is_open()) {
             cout << "The input file " << myfile << " is missing!" << endl;

@@ -123,10 +123,10 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
         switch (method)
         {
         case IMPEC:
-            lsFile = "./csr.dat";
+            lsFile = "./csr.fasp";
             break;
         case FIM:
-            lsFile = "./bsr.dat";
+            lsFile = "./bsr.fasp";
             break;          
         default:
             OCP_ABORT("Wrong method in command line!");

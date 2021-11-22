@@ -22,7 +22,7 @@ void ParamControl::Init(string& indir)
 void ParamControl::InitMethod()
 {
     method      = "IMPEC";
-    linearSolve = "./csr.dat";
+    linearSolve = "./csr.fasp";
 }
 
 void ParamControl::InitTuning()
@@ -107,7 +107,7 @@ void ParamControl::InputMETHOD(ifstream& ifs)
 
     if (vbuf[0] == "FIM") {
         method      = "FIM";
-        linearSolve = "./bsr.dat";
+        linearSolve = "./bsr.fasp";
     }
 
     if (vbuf.size() > 1) linearSolve = vbuf[1];
