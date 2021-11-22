@@ -884,10 +884,10 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk) { OCP_FUNCNAME;
 }
 
 
-void Well::AllocateMat(LinearSystem& mySolver) const { OCP_FUNCNAME;
+void Well::AllocateMat(LinearSystem& myLS) const { OCP_FUNCNAME;
 
     for (USI p = 0; p < numPerf; p++) {
-        mySolver.rowCapacity[perf[p].location]++;
+        myLS.rowCapacity[perf[p].location]++;
     }
 }
 
@@ -953,13 +953,13 @@ void Well::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FUNCNA
 }
 
 
-void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
+void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
                                  const OCP_DBL& dt) const {  OCP_FUNCNAME;
 
     const USI     nc  = myBulk.numCom;
-    const OCP_USI wId = mySolver.dim;
+    const OCP_USI wId = myLS.dim;
     // important !
-    mySolver.dim++;
+    myLS.dim++;
 
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI k = perf[p].location;
@@ -977,13 +977,13 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
         // Bulk to Well
 
         // diag
-        USI ptr = mySolver.diagPtr[k];
-        mySolver.val[k][ptr] += valb;
+        USI ptr = myLS.diagPtr[k];
+        myLS.val[k][ptr] += valb;
         // off diag
-        mySolver.colId[k].push_back(wId);
-        mySolver.val[k].push_back(-valb);
+        myLS.colId[k].push_back(wId);
+        myLS.val[k].push_back(-valb);
         // b
-        mySolver.b[k] += bb;
+        myLS.b[k] += bb;
 
         // Well to Bulk
         switch (opt.optMode) {
@@ -993,16 +993,16 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
             case WRATE_MODE:
             case LRATE_MODE:
                 // diag
-                mySolver.diagVal[wId] += valw;
+                myLS.diagVal[wId] += valw;
                 // off diag
-                mySolver.colId[wId].push_back(k);
-                mySolver.val[wId].push_back(-valw);
+                myLS.colId[wId].push_back(k);
+                myLS.val[wId].push_back(-valw);
                 // b
-                mySolver.b[wId] -= bw;
+                myLS.b[wId] -= bw;
                 break;
             case BHP_MODE:
-                mySolver.colId[wId].push_back(k);
-                mySolver.val[wId].push_back(0);
+                myLS.colId[wId].push_back(k);
+                myLS.val[wId].push_back(0);
                 break;
             default:
                 OCP_ABORT("Wrong well option mode!");
@@ -1010,7 +1010,7 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
     }
 
     // Well Self
-    assert(mySolver.val[wId].size() == numPerf);
+    assert(myLS.val[wId].size() == numPerf);
     // the order of perforation is not necessarily in order
     switch (opt.optMode) {
         case RATE_MODE:
@@ -1019,21 +1019,21 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
         case WRATE_MODE:
         case LRATE_MODE:
             // diag
-            mySolver.colId[wId].push_back(wId);
-            mySolver.diagPtr[wId] = numPerf;
-            mySolver.val[wId].push_back(mySolver.diagVal[wId]);
+            myLS.colId[wId].push_back(wId);
+            myLS.diagPtr[wId] = numPerf;
+            myLS.val[wId].push_back(myLS.diagVal[wId]);
             // b
-            mySolver.b[wId] += dt * opt.maxRate;
+            myLS.b[wId] += dt * opt.maxRate;
             break;
         case BHP_MODE:
             // diag
-            mySolver.colId[wId].push_back(wId);
-            mySolver.diagPtr[wId] = numPerf;
-            mySolver.val[wId].push_back(dt);
+            myLS.colId[wId].push_back(wId);
+            myLS.diagPtr[wId] = numPerf;
+            myLS.val[wId].push_back(dt);
             // b
-            mySolver.b[wId] += dt * opt.maxBHP;
+            myLS.b[wId] += dt * opt.maxBHP;
             // u   initial value
-            mySolver.u[wId] = opt.maxBHP;
+            myLS.u[wId] = opt.maxBHP;
             break;
         default:
             OCP_ABORT("Wrong well option mode!");
@@ -1041,14 +1041,14 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
 }
 
 
-void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
+void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
                                       const OCP_DBL& dt) const { OCP_FUNCNAME;
     
     const USI     np  = myBulk.numPhase;
     const USI     nc  = myBulk.numCom;
-    const OCP_USI wId = mySolver.dim;
+    const OCP_USI wId = myLS.dim;
     // important !
-    mySolver.dim++;
+    myLS.dim++;
 
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI k = perf[p].location;
@@ -1079,13 +1079,13 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
 
         // Bulk to Well
         // diag
-        USI ptr = mySolver.diagPtr[k];
-        mySolver.val[k][ptr] += valb;
+        USI ptr = myLS.diagPtr[k];
+        myLS.val[k][ptr] += valb;
         // off diag
-        mySolver.colId[k].push_back(wId);
-        mySolver.val[k].push_back(-valb);
+        myLS.colId[k].push_back(wId);
+        myLS.val[k].push_back(-valb);
         // b
-        mySolver.b[k] += bb;
+        myLS.b[k] += bb;
 
         // Well to Bulk
         switch (opt.optMode) {
@@ -1095,17 +1095,17 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
             case WRATE_MODE:
             case LRATE_MODE:
                 // diag  !!! attention! sign is -
-                mySolver.diagVal[wId] -= valw;
+                myLS.diagVal[wId] -= valw;
                 // off diag
-                mySolver.colId[wId].push_back(k);
-                mySolver.val[wId].push_back(valw);
+                myLS.colId[wId].push_back(k);
+                myLS.val[wId].push_back(valw);
                 // b
-                mySolver.b[wId] += bw;
+                myLS.b[wId] += bw;
                 break;
             case BHP_MODE:
                 // off diag
-                mySolver.colId[wId].push_back(k);
-                mySolver.val[wId].push_back(0);
+                myLS.colId[wId].push_back(k);
+                myLS.val[wId].push_back(0);
                 break;
             default:
                 OCP_ABORT("Wrong well option mode!");
@@ -1113,7 +1113,7 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
     }
 
     // Well Self
-    assert(mySolver.val[wId].size() == numPerf);
+    assert(myLS.val[wId].size() == numPerf);
     // the order of perforation is not necessarily in order
     switch (opt.optMode) {
         case RATE_MODE:
@@ -1122,21 +1122,21 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
         case WRATE_MODE:
         case LRATE_MODE:
             // diag
-            mySolver.colId[wId].push_back(wId);
-            mySolver.diagPtr[wId] = numPerf;
-            mySolver.val[wId].push_back(mySolver.diagVal[wId]);
+            myLS.colId[wId].push_back(wId);
+            myLS.diagPtr[wId] = numPerf;
+            myLS.val[wId].push_back(myLS.diagVal[wId]);
             // b
-            mySolver.b[wId] += dt * opt.maxRate;
+            myLS.b[wId] += dt * opt.maxRate;
             break;
         case BHP_MODE:
             // diag
-            mySolver.colId[wId].push_back(wId);
-            mySolver.diagPtr[wId] = numPerf;
-            mySolver.val[wId].push_back(dt);
+            myLS.colId[wId].push_back(wId);
+            myLS.diagPtr[wId] = numPerf;
+            myLS.val[wId].push_back(dt);
             // b
-            mySolver.b[wId] += dt * opt.minBHP;
+            myLS.b[wId] += dt * opt.minBHP;
             // u   initial value
-            mySolver.u[wId] = opt.minBHP;
+            myLS.u[wId] = opt.minBHP;
             break;
         default:
             OCP_ABORT("Wrong well option mode!");
@@ -1151,12 +1151,12 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& mySolver,
 
 
 
-void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
+void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
-    const OCP_USI wId = mySolver.dim;
+    const OCP_USI wId = myLS.dim;
     // important !
-    mySolver.dim++;
+    myLS.dim++;
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
@@ -1214,15 +1214,15 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
         DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Add
-        USI ptr = mySolver.diagPtr[n];
+        USI ptr = myLS.diagPtr[n];
         for (USI i = 0; i < bsize; i++) {
-            mySolver.val[n][ptr * bsize + i] += bmat[i];
+            myLS.val[n][ptr * bsize + i] += bmat[i];
         }
         // Insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        mySolver.val[n].insert(mySolver.val[n].end(), bmat.begin(), bmat.end());
-        mySolver.colId[n].push_back(wId);
+        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());
+        myLS.colId[n].push_back(wId);
 
         // Well
         switch (opt.optMode)
@@ -1239,7 +1239,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
                 bmat[(i + 1) * ncol + i + 1] = 1;
             }
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize + i] += bmat[i];
+                myLS.diagVal[wId * bsize + i] += bmat[i];
             }
 
             //if (bmat[0] == 0) {
@@ -1253,8 +1253,8 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
-            mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
-            mySolver.colId[wId].push_back(n);
+            myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
+            myLS.colId[wId].push_back(n);
             break;
 
         case BHP_MODE:
@@ -1265,15 +1265,15 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             }
             // Add
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize + i] += bmat[i];
+                myLS.diagVal[wId * bsize + i] += bmat[i];
             }
             // OffDiag
             bmat.assign(bsize, 0);
             // Insert
-            mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
-            mySolver.colId[wId].push_back(n);
+            myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
+            myLS.colId[wId].push_back(n);
             // Solution
-            // mySolver.u[wId * ncol] = opt.maxBHP - BHP;
+            // myLS.u[wId * ncol] = opt.maxBHP - BHP;
             break;
 
         default:
@@ -1281,21 +1281,21 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             break;
         }
     }
-    assert(mySolver.val[wId].size() == numPerf * bsize);
+    assert(myLS.val[wId].size() == numPerf * bsize);
     // Well self
-    mySolver.colId[wId].push_back(wId);
-    mySolver.diagPtr[wId] = numPerf;
-    mySolver.val[wId].insert(mySolver.val[wId].end(),
-        mySolver.diagVal.data() + wId * bsize, mySolver.diagVal.data() + wId * bsize + bsize);
+    myLS.colId[wId].push_back(wId);
+    myLS.diagPtr[wId] = numPerf;
+    myLS.val[wId].insert(myLS.val[wId].end(),
+        myLS.diagVal.data() + wId * bsize, myLS.diagVal.data() + wId * bsize + bsize);
 }
 
 
-void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
+void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
-    const OCP_USI wId = mySolver.dim;
+    const OCP_USI wId = myLS.dim;
     // important !
-    mySolver.dim++;
+    myLS.dim++;
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
@@ -1372,15 +1372,15 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
         
         Dscalar(bsize, dt, bmat.data());
         // Add
-        USI ptr = mySolver.diagPtr[n];
+        USI ptr = myLS.diagPtr[n];
         for (USI i = 0; i < bsize; i++) {
-            mySolver.val[n][ptr * bsize + i] += bmat[i];
+            myLS.val[n][ptr * bsize + i] += bmat[i];
         }
         // Insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        mySolver.val[n].insert(mySolver.val[n].end(), bmat.begin(), bmat.end());
-        mySolver.colId[n].push_back(wId);
+        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());
+        myLS.colId[n].push_back(wId);
 
         // Well
         switch (opt.optMode)
@@ -1397,7 +1397,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
                 bmat[(i + 1) * ncol + i + 1] = 1;
             }
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize + i] += bmat[i];
+                myLS.diagVal[wId * bsize + i] += bmat[i];
             }
 
 
@@ -1412,8 +1412,8 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
             }
-            mySolver.val[wId].insert(mySolver.val[wId].end(), bmat2.begin(), bmat2.end());
-            mySolver.colId[wId].push_back(n);
+            myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
+            myLS.colId[wId].push_back(n);
             break;
 
         case BHP_MODE:
@@ -1424,15 +1424,15 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             }
             // Add
             for (USI i = 0; i < bsize; i++) {
-                mySolver.diagVal[wId * bsize + i] += bmat[i];
+                myLS.diagVal[wId * bsize + i] += bmat[i];
             }
             // OffDiag
             bmat.assign(bsize, 0);
             // Insert
-            mySolver.val[wId].insert(mySolver.val[wId].end(), bmat.begin(), bmat.end());
-            mySolver.colId[wId].push_back(n);
+            myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
+            myLS.colId[wId].push_back(n);
             // Solution
-            // mySolver.u[wId * ncol] = opt.minBHP - BHP;
+            // myLS.u[wId * ncol] = opt.minBHP - BHP;
             break;
 
         default:
@@ -1440,16 +1440,16 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& mySolver,
             break;
         }
     }
-    assert(mySolver.val[wId].size() == numPerf * bsize);
+    assert(myLS.val[wId].size() == numPerf * bsize);
     // Well self
-    mySolver.colId[wId].push_back(wId);
-    mySolver.diagPtr[wId] = numPerf;
-    mySolver.val[wId].insert(mySolver.val[wId].end(),
-        mySolver.diagVal.data() + wId * bsize, mySolver.diagVal.data() + wId * bsize + bsize);
+    myLS.colId[wId].push_back(wId);
+    myLS.diagPtr[wId] = numPerf;
+    myLS.val[wId].insert(myLS.val[wId].end(),
+        myLS.diagVal.data() + wId * bsize, myLS.diagVal.data() + wId * bsize + bsize);
 
     // test
     //for (USI i = 0; i < bsize; i++) {
-    //    cout << mySolver.diagVal[wId * bsize + i] << endl;
+    //    cout << myLS.diagVal[wId * bsize + i] << endl;
     //}
 
 }

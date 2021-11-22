@@ -110,9 +110,9 @@ public:
     /// Update value of last step for IMPEC
     void UpdateLastStepIMPEC();
     /// Allocate Maxmimum memory for internal Matirx for IMPEC
-    void AllocateMatIMPEC(LinearSystem& mySolver) const;
+    void AllocateMatIMPEC(LinearSystem& myLS) const;
     /// Assemble Matrix for IMPEC
-    void AssembleMatIMPEC(LinearSystem& mysolver, const OCP_DBL& dt) const;
+    void AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure for IMPEC
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
     /// Reset Well for IMPEC
@@ -148,9 +148,9 @@ public:
     /// Update value of last step for FIM.
     void UpdateLastStepFIM();
     /// Allocate Maxmimum memory for internal Matirx for FIM
-    void AllocateMatFIM(LinearSystem& mySolver) const;
+    void AllocateMatFIM(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
-    void AssembleMatFIM(LinearSystem& mysolver, const OCP_DBL& dt) const;
+    void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
     void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System  

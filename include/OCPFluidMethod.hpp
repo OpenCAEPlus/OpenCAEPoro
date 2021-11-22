@@ -24,13 +24,13 @@ class OCP_IMPEC
 {
 public:
 
-    void Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl);
+    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSystem& lsolver, Reservoir& rs, OCPControl& ctrl);
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
@@ -49,17 +49,17 @@ class OCP_FIM
 public:
 
     /// Setup FIM
-    void Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl);
+    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Assemble Matrix
-    void AssembleMat(LinearSystem& lsolver, const Reservoir& rs,
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs,
         const OCP_DBL& dt) const;
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSystem& lsolver, Reservoir& rs, OCPControl& ctrl);
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);

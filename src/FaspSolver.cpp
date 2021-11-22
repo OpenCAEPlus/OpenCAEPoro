@@ -1,4 +1,18 @@
+/*! \file    FaspSolver.cpp
+ *  \brief   FaspSolver class definition
+ *  \author  Shizhe Li
+ *  \date    Nov/22/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+
 #include "FaspSolver.hpp"
+
+
 
 void FaspSolver::SetupParam(const string& dir, const string& file)
 {
@@ -531,3 +545,12 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 
     return status;
 }
+
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Nov/22/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

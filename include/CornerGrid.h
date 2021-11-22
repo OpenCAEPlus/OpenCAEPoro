@@ -1,5 +1,5 @@
 /*! \file    CornerGrid.hpp
- *  \brief   CornerGrid class declaration
+ *  \brief   Declaration of classes related to the corner grid
  *  \author  Shizhe Li
  *  \date    Nov/16/2021
  *
@@ -152,3 +152,12 @@ private:
 
 
 #endif
+
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Nov/16/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

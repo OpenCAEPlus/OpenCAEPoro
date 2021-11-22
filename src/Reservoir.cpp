@@ -188,20 +188,20 @@ void Reservoir::UpdateLastStepIMPEC() { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AllocateMatIMPEC(LinearSystem& mySolver) const { OCP_FUNCNAME;
+void Reservoir::AllocateMatIMPEC(LinearSystem& myLS) const { OCP_FUNCNAME;
 
-    mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), 1);
-    conn.AllocateMat(mySolver);
-    wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
-    mySolver.AllocateColMem();
+    myLS.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), 1);
+    conn.AllocateMat(myLS);
+    wellgroup.AllocateMat(myLS, bulk.GetBulkNum());
+    myLS.AllocateColMem();
 }
 
 
-void Reservoir::AssembleMatIMPEC(LinearSystem& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME;
+void Reservoir::AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const { OCP_FUNCNAME;
 
-    conn.SetupMatSparsity(mysolver);
-    conn.AssembleMatIMPEC(mysolver, bulk, dt);
-    wellgroup.AssemblaMatIMPEC(mysolver, bulk, dt);
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMatIMPEC(myLS, bulk, dt);
+    wellgroup.AssemblaMatIMPEC(myLS, bulk, dt);
 }
 
 
@@ -312,20 +312,20 @@ void Reservoir::UpdateLastStepFIM() { OCP_FUNCNAME;
 }
 
 
-void Reservoir::AllocateMatFIM(LinearSystem& mySolver) const { OCP_FUNCNAME; 
+void Reservoir::AllocateMatFIM(LinearSystem& myLS) const { OCP_FUNCNAME; 
 
-    mySolver.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), bulk.GetComNum() + 1);
-    conn.AllocateMat(mySolver);
-    wellgroup.AllocateMat(mySolver, bulk.GetBulkNum());
-    mySolver.AllocateColMem();
+    myLS.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), bulk.GetComNum() + 1);
+    conn.AllocateMat(myLS);
+    wellgroup.AllocateMat(myLS, bulk.GetBulkNum());
+    myLS.AllocateColMem();
 }
 
 
-void Reservoir::AssembleMatFIM(LinearSystem& mysolver, const OCP_DBL& dt) const { OCP_FUNCNAME; 
+void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const { OCP_FUNCNAME; 
 
-    conn.SetupMatSparsity(mysolver);
-    conn.AssembleMat_FIM(mysolver, bulk, dt);
-    wellgroup.AssemblaMatFIM(mysolver, bulk, dt);
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMat_FIM(myLS, bulk, dt);
+    wellgroup.AssemblaMatFIM(myLS, bulk, dt);
 }
 
 

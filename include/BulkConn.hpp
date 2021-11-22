@@ -66,23 +66,12 @@ public:
     /// Setup active connections and calculate necessary property from Grid and Bulk.
     /// It should be called after Grid and Bulk Setup.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
-    /// Initialize the size of variable related to neighbor.
-    void InitSize(const Bulk& myBulk);
-    /// Setup Bulk Conn from Grid
-    void SetupConn(const Grid& myGrid);
-    /// Setup variable related to neighbor.
-    void CalConn(const Grid& myGrid, const USI& np);
     /// Generate iteratorConn of active connections from neighbor.
     void CalIteratorConn();
-    /// Calculate all effective area of connections.
-    void CalArea(const Grid& myGrid, const Bulk& myBulk);
-    /// Calculate effective area of connections.
-    OCP_DBL CalAkd(const Grid& myGrid, const Bulk& myBulk, const OCP_USI& bIdb,
-        const OCP_USI& eIdb) const;
     /// Allocate memory for Matrix, it should be called only once at the beginning.
-    void AllocateMat(LinearSystem& mySolver) const;
+    void AllocateMat(LinearSystem& myLS) const;
     /// Setup sparsity pattern of Matrix begin assembling Matrix.
-    void SetupMatSparsity(LinearSystem& mySolver) const;
+    void SetupMatSparsity(LinearSystem& myLS) const;
     /// Update value of last step
     void UpdateLastStep();
     /// Reset current step to last step
@@ -137,7 +126,7 @@ public:
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC(const USI& np);
     /// Assmeble Matrix for IMPEC, parts only related to bulks are considered.
-    void AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
+    void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// calculate the CFL number of flow between bulks.
     OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
@@ -159,7 +148,7 @@ public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM(const USI& np);
     /// Assmeble Matrix for FIM, parts only related to bulks are considered.
-    void AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk,
+    void AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// calculate Upblock for FIM
     void CalFluxFIM(const Bulk& myBulk);

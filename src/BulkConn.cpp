@@ -20,31 +20,11 @@
  // General
  /////////////////////////////////////////////////////////////////////
 
-void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
+void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
+{ 
+    
+    OCP_FUNCNAME;
 
-    //InitSize(myBulk);
-    //CalConn(myGrid, myBulk.numPhase);
-    //CalIteratorConn();
-    //CalArea(myGrid, myBulk);
-
-    SetupConn(myGrid);
-
-    cout << numConn << endl;
-}
-
-
-void BulkConn::InitSize(const Bulk& myBulk) { OCP_FUNCNAME;
-
-    numConn = 0;
-    numBulk = myBulk.numBulk;
-
-    neighbor.resize(numBulk);
-    selfPtr.resize(numBulk);
-    neighborNum.resize(numBulk);
-}
-
-void BulkConn::SetupConn(const Grid& myGrid)
-{
     numConn = 0;
     numBulk = myGrid.activeGridNum;
 
@@ -100,96 +80,6 @@ void BulkConn::SetupConn(const Grid& myGrid)
 }
 
 
-void BulkConn::CalConn(const Grid& myGrid, const USI& np) { OCP_FUNCNAME;
-
-    USI     nx = myGrid.nx;
-    USI     ny = myGrid.ny;
-    USI     nz = myGrid.nz;
-    OCP_USI nxny = nx * ny;
-
-    // bIdb : begin id in bulk
-    // bIdg : begin id in grid
-    // eIdb : end id in bulk
-    bool    activity;
-    OCP_USI eIdb;
-    for (OCP_USI bIdb = 0; bIdb < numBulk; bIdb++) {
-        OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
-        USI     k = bIdg / nxny;
-        USI     j = (bIdg - k * nxny) / nx;
-        USI     i = bIdg - k * nxny - j * nx;
-
-        USI count = 0;
-        // up
-        if (k > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - nxny].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg - nxny].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        // back
-        if (j > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - nx].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg - nx].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        // left
-        if (i > 0) {
-            activity = myGrid.activeMap_G2B[bIdg - 1].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg - 1].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        numConn += count;
-        // self
-        neighbor[bIdb].push_back(bIdb);
-        selfPtr[bIdb] = count;
-        count++;
-
-        // right
-        if (i < nx - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + 1].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg + 1].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        // front
-        if (j < ny - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + nx].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg + nx].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        // down
-        if (k < nz - 1) {
-            activity = myGrid.activeMap_G2B[bIdg + nxny].IsAct();
-            if (activity) {
-                eIdb = myGrid.activeMap_G2B[bIdg + nxny].GetId();
-                neighbor[bIdb].push_back(eIdb);
-                count++;
-            }
-        }
-
-        neighborNum[bIdb] = count;
-    }
-}
-
-
 void BulkConn::CalIteratorConn() { OCP_FUNCNAME;
 
     iteratorConn.reserve(numConn);
@@ -208,62 +98,6 @@ void BulkConn::CalIteratorConn() { OCP_FUNCNAME;
 }
 
 
-void BulkConn::CalArea(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
-
-    // calculate efficient area of interface of bulk to bulk
-    // using iteratorConn
-    area.reserve(numConn);
-
-    for (OCP_USI n = 0; n < numConn; n++) {
-        OCP_USI bIdb = iteratorConn[n].BId;
-        OCP_USI eIdb = iteratorConn[n].EId;
-        // area.push_back(1);
-        area.push_back(CalAkd(myGrid, myBulk, bIdb, eIdb));
-    }
-
-    assert(area.size() == numConn);
-}
-
-
-OCP_DBL BulkConn::CalAkd(const Grid& myGrid, const Bulk& myBulk,
-    const OCP_USI& bIdb, const OCP_USI& eIdb) const { OCP_FUNCNAME;
-
-    OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
-    OCP_USI eIdg = myGrid.activeMap_B2G[eIdb];
-    OCP_INT diff = eIdg - bIdg;
-    if (diff < 0) diff *= -1;
-
-    if (diff == 1) {
-        // x - direction
-        OCP_DBL T1 = myBulk.rockKx[bIdb] * myBulk.ntg[bIdb] * myBulk.dy[bIdb] *
-            myBulk.dz[bIdb] / myBulk.dx[bIdb];
-        OCP_DBL T2 = myBulk.rockKx[eIdb] * myBulk.ntg[eIdb] * myBulk.dy[eIdb] *
-            myBulk.dz[eIdb] / myBulk.dx[eIdb];
-        return (2 / (1 / T1 + 1 / T2));
-    }
-    else if (diff - myGrid.nx == 0) {
-        // y - direction
-        OCP_DBL T1 = myBulk.rockKy[bIdb] * myBulk.ntg[bIdb] * myBulk.dz[bIdb] *
-            myBulk.dx[bIdb] / myBulk.dy[bIdb];
-        OCP_DBL T2 = myBulk.rockKy[eIdb] * myBulk.ntg[eIdb] * myBulk.dz[eIdb] *
-            myBulk.dx[eIdb] / myBulk.dy[eIdb];
-        return (2 / (1 / T1 + 1 / T2));
-    }
-    else if (diff - myGrid.nx * myGrid.ny == 0) {
-        // z - direction  ----  no ntg
-        OCP_DBL T1 =
-            myBulk.rockKz[bIdb] * myBulk.dx[bIdb] * myBulk.dy[bIdb] / myBulk.dz[bIdb];
-        OCP_DBL T2 =
-            myBulk.rockKz[eIdb] * myBulk.dx[eIdb] * myBulk.dy[eIdb] / myBulk.dz[eIdb];
-        return (2 / (1 / T1 + 1 / T2));
-    }
-    else {
-        cout << "bIdg = " << bIdg << "eIdg = " << eIdg << endl;
-        OCP_ABORT("Wrong bIdg and eIdg in function");
-    }
-}
-
-
 void BulkConn::AllocateMat(LinearSystem& MySolver) const { OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
@@ -272,12 +106,12 @@ void BulkConn::AllocateMat(LinearSystem& MySolver) const { OCP_FUNCNAME;
 }
 
 
-void BulkConn::SetupMatSparsity(LinearSystem& mySolver) const { OCP_FUNCNAME;
+void BulkConn::SetupMatSparsity(LinearSystem& myLS) const { OCP_FUNCNAME;
 
-    mySolver.dim = numBulk;
+    myLS.dim = numBulk;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        mySolver.colId[n].assign(neighbor[n].begin(), neighbor[n].end());
-        mySolver.diagPtr[n] = selfPtr[n];
+        myLS.colId[n].assign(neighbor[n].begin(), neighbor[n].end());
+        myLS.diagPtr[n] = selfPtr[n];
     }
 }
 
@@ -364,7 +198,7 @@ void BulkConn::AllocateAuxIMPEC(const USI& np) { OCP_FUNCNAME;
 }
 
 
-void BulkConn::AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
+void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     // accumulate term
@@ -378,8 +212,8 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
         vf = myBulk.vf[n];
 
         OCP_DBL temp = cr * Vp0 - vfp;
-        mySolver.diagVal[n] = temp;
-        mySolver.b[n] = temp * P + dt * (vf - Vp);
+        myLS.diagVal[n] = temp;
+        myLS.b[n] = temp * P + dt * (vf - Vp);
     }
 
     // flux term
@@ -431,24 +265,24 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
         USI diagptr = selfPtr[bId];
         if (bId != lastbId) {
             // new bulk
-            assert(mySolver.val[bId].size() == diagptr);
-            mySolver.val[bId].push_back(mySolver.diagVal[bId]);
+            assert(myLS.val[bId].size() == diagptr);
+            myLS.val[bId].push_back(myLS.diagVal[bId]);
             lastbId = bId;
         }
 
-        mySolver.val[bId][diagptr] += valup;
-        mySolver.val[bId].push_back(-valup);
-        mySolver.val[eId].push_back(-valdown);
-        mySolver.diagVal[eId] += valdown;
-        mySolver.b[bId] += rhsup;
-        mySolver.b[eId] += rhsdown;
+        myLS.val[bId][diagptr] += valup;
+        myLS.val[bId].push_back(-valup);
+        myLS.val[eId].push_back(-valdown);
+        myLS.diagVal[eId] += valdown;
+        myLS.b[bId] += rhsup;
+        myLS.b[eId] += rhsdown;
     }
 
     // Add the rest of diag value
     // important!
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (mySolver.val[n].size() == selfPtr[n])
-            mySolver.val[n].push_back(mySolver.diagVal[n]);
+        if (myLS.val[n].size() == selfPtr[n])
+            myLS.val[n].push_back(myLS.diagVal[n]);
     }
 }
 
@@ -599,7 +433,7 @@ void BulkConn::AllocateAuxFIM(const USI& np) { OCP_FUNCNAME;
 }
 
 
-void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 
@@ -622,7 +456,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
         for (USI i = 0; i < bsize; i++) {
-            mySolver.diagVal[n * bsize + i] = bmat[i];
+            myLS.diagVal[n * bsize + i] = bmat[i];
         }
     }
     // flux term
@@ -720,10 +554,10 @@ void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const
         
         if (bId != lastbId) {
             // new bulk
-            assert(mySolver.val[bId].size() == diagptr * bsize);  
+            assert(myLS.val[bId].size() == diagptr * bsize);  
             OCP_USI id = bId * bsize;
-            mySolver.val[bId].insert(mySolver.val[bId].end(),
-                mySolver.diagVal.data() + id, mySolver.diagVal.data() + id + bsize);
+            myLS.val[bId].insert(myLS.val[bId].end(),
+                myLS.diagVal.data() + id, myLS.diagVal.data() + id + bsize);
             
             lastbId = bId;
         }
@@ -735,12 +569,12 @@ void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const
         // Begin
         // Add
         for (USI i = 0; i < bsize; i++) {
-            mySolver.val[bId][diagptr * bsize + i] += bmat[i];
+            myLS.val[bId][diagptr * bsize + i] += bmat[i];
         }
         // End
         // Insert
         Dscalar(bsize, -1, bmat.data());
-        mySolver.val[eId].insert(mySolver.val[eId].end(), bmat.begin(), bmat.end());
+        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());
 
         // End
         bmat = dFdXpE;
@@ -748,19 +582,19 @@ void BulkConn::AssembleMat_FIM(LinearSystem& mySolver, const Bulk& myBulk, const
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Insert
-        mySolver.val[bId].insert(mySolver.val[bId].end(), bmat.begin(), bmat.end());
+        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());
         // Add
         Dscalar(bsize, -1, bmat.data());
         for (USI i = 0; i < bsize; i++) {
-            mySolver.diagVal[eId * bsize + i] += bmat[i];
+            myLS.diagVal[eId * bsize + i] += bmat[i];
         }
     }
     // Add the rest of diag value
     // important!
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (mySolver.val[n].size() == selfPtr[n] * bsize)
-            mySolver.val[n].insert(mySolver.val[n].end(),
-                mySolver.diagVal.data() + n * bsize, mySolver.diagVal.data() + n * bsize + bsize);
+        if (myLS.val[n].size() == selfPtr[n] * bsize)
+            myLS.val[n].insert(myLS.val[n].end(),
+                myLS.diagVal.data() + n * bsize, myLS.diagVal.data() + n * bsize + bsize);
     }
 }
 

@@ -1,7 +1,7 @@
-/*! \file    LinearSystem.hpp
- *  \brief   Linear solver class declaration
+/*! \file    FaspSolver.hpp
+ *  \brief   Declaration of classes related to the FASP
  *  \author  Shizhe Li
- *  \date    Oct/01/2021
+ *  \date    Nov/22/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -132,3 +132,11 @@ private:
 
 
 #endif
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Nov/22/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

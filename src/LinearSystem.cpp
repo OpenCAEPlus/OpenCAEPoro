@@ -1,5 +1,5 @@
-/*! \file    LinearSolver.cpp
- *  \brief   Linear solver for scalar-value problems
+/*! \file    LinearSystem.cpp
+ *  \brief   Contains Internal Matrix structure, ptr to external linearsolver and interface
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -62,6 +62,47 @@ void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) 
     string FileA = solveDir + fileA;
     string Fileb = solveDir + fileb;
 
+    // out A
+    // csr or bsr
+    ofstream outA(FileA);
+    if (!outA.is_open()) cout << "Can not open " << FileA << endl;
+    outA << dim << endl;
+    if (blockDim != 1) {
+        outA << blockDim << endl;
+    }
+    // IA
+    OCP_USI rowId = 1;
+    for (OCP_USI i = 0; i < dim; i++) {
+        outA << rowId << endl;
+        rowId += colId[i].size();
+    }
+    outA << rowId << endl;
+    // JA
+    USI rowSize = 0;
+    for (OCP_USI i = 0; i < dim; i++) {
+        rowSize = colId[i].size();
+        for (USI j = 0; j < rowSize; j++) {
+            outA << colId[i][j] + 1 << endl;
+        }
+    }
+    // val
+    for (OCP_USI i = 0; i < dim; i++) {
+        rowSize = val[i].size();
+        for (USI j = 0; j < rowSize; j++) {
+            outA << val[i][j] << endl;
+        }
+    }
+    outA.close();
+
+    // out b
+    OCP_USI nRow = dim * blockDim;
+    ofstream outb(Fileb);
+    if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
+    outb << dim << endl;
+    for (OCP_USI i = 0; i < nRow; i++) {
+        outb << b[i] << endl;
+    }
+
     
 }
 
@@ -116,4 +157,5 @@ void LinearSystem::SetupLinearSolver(const USI& i, const string& dir, const stri
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
+/*  Shizhe Li           Nov/22/2021      renamed to LinearSystem              */
 /*----------------------------------------------------------------------------*/

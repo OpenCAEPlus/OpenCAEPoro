@@ -43,7 +43,12 @@ public:
     void AllocateColMem();
     /// Enlarge row capacity
     void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
+    /// Assign Rhs
+    void AssembleRhs(const vector<OCP_DBL>& rhs);
+    /// Clear the internal matrix data for scalar-value problems.
+    void ClearData();
     
+
     /// Return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
     /// Check whether NAN or INF occurs in solution, used in debug mode.
@@ -52,12 +57,9 @@ public:
     void OutputLinearSystem(const string& fileA, const string& fileb) const;
     /// Output the solution to a disk file name.
     void OutputSolution(const string& filename) const;
+ 
 
-    /// Convert the internal right-hand side into BFASP format.
-    void AssembleRhs(const vector<OCP_DBL>& rhs);
-    /// Clear the internal matrix data for scalar-value problems.
-    void ClearData();
-
+    // Linear Solver
     /// Setup LinearSolver
     void SetupLinearSolver(const USI& i, const string& dir, const string& file);
     /// Allocate memory for Linear Solver
@@ -106,4 +108,5 @@ private:
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*  Chensong Zhang      Nov/09/2021      Remove decoupling methods            */
+/*  Chensong Zhang      Nov/22/2021      renamed to LinearSystem              */
 /*----------------------------------------------------------------------------*/

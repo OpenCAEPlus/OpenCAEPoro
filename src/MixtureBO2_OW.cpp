@@ -1,3 +1,15 @@
+/*! \file    MixtureBO2_OW.cpp
+ *  \brief   Used for Black Oil model, where only water and oil exist.
+ *  \author  Shizhe Li
+ *  \date    Oct/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+
 #include "MixtureBO.hpp"
 
 
@@ -195,3 +207,12 @@ OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin)
 
 	return gammaO;
 }
+
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Oct/01/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

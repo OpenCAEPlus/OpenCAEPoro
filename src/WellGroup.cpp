@@ -168,12 +168,12 @@ void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt) {OCP_FUNCNAME;
 }
 
 
-void WellGroup::AllocateMat(LinearSystem& mySolver, const USI& bulknum) const { OCP_FUNCNAME;
+void WellGroup::AllocateMat(LinearSystem& myLS, const USI& bulknum) const { OCP_FUNCNAME;
     
     USI maxNum = GetMaxWellPerNum() + 1;
     for (USI w = 0; w < numWell; w++) {
-        wellGroup[w].AllocateMat(mySolver);
-        mySolver.EnlargeRowCap(bulknum + w, maxNum);
+        wellGroup[w].AllocateMat(myLS);
+        myLS.EnlargeRowCap(bulknum + w, maxNum);
     }
 }
 
@@ -286,7 +286,7 @@ void WellGroup::MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt) { OCP_FUNCNAME;
 }
 
 
-void WellGroup::AssemblaMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
+void WellGroup::AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                                      const OCP_DBL& dt) const { OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
@@ -294,10 +294,10 @@ void WellGroup::AssemblaMatIMPEC(LinearSystem& mySolver, const Bulk& myBulk,
 
             switch (wellGroup[w].WellType()) {
                 case INJ:
-                    wellGroup[w].AssembleMatINJ_IMPEC(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMatINJ_IMPEC(myBulk, myLS, dt);
                     break;
                 case PROD:
-                    wellGroup[w].AssembleMatPROD_BO_IMPEC(myBulk, mySolver, dt);
+                    wellGroup[w].AssembleMatPROD_BO_IMPEC(myBulk, myLS, dt);
                     break;
                 default:
                     OCP_ABORT("Wrong well type");
@@ -325,7 +325,7 @@ void WellGroup::GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId) { OCP_
  /////////////////////////////////////////////////////////////////////
 
 
-void WellGroup::AssemblaMatFIM(LinearSystem& mySolver, const Bulk& myBulk,
+void WellGroup::AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
     const OCP_DBL& dt) const { OCP_FUNCNAME;
      
     for (USI w = 0; w < numWell; w++) {
@@ -333,10 +333,10 @@ void WellGroup::AssemblaMatFIM(LinearSystem& mySolver, const Bulk& myBulk,
 
             switch (wellGroup[w].WellType()) {
             case INJ:
-                wellGroup[w].AssembleMatINJ_FIM(myBulk, mySolver, dt);
+                wellGroup[w].AssembleMatINJ_FIM(myBulk, myLS, dt);
                 break;
             case PROD:
-                wellGroup[w].AssembleMatPROD_BO_FIM(myBulk, mySolver, dt);
+                wellGroup[w].AssembleMatPROD_BO_FIM(myBulk, myLS, dt);
                 break;
             default:
                 OCP_ABORT("Wrong well type");

@@ -1,4 +1,16 @@
-﻿#include "CornerGrid.h"
+﻿/*! \file    CornerGrid.cpp
+ *  \brief   Declaration of classes related to the corner grid
+ *  \author  Shizhe Li
+ *  \date    Nov/19/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+
+#include "CornerGrid.h"
 
 
 Point3D Point3D::operator+(const Point3D& other) const
@@ -2012,3 +2024,12 @@ void COORD::CalConn()
     }
     numConn = iter_conn;
 }
+
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Nov/19/2021      Create file                          */
+/*----------------------------------------------------------------------------*/

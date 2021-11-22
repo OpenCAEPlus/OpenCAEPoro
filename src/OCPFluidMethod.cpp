@@ -1,10 +1,22 @@
+/*! \file    OCPFluidMethod.cpp
+ *  \brief   Contains Method used for Fluid simulation.
+ *  \author  Shizhe Li
+ *  \date    Nov/01/2021
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
+
 #include "OCPFluidMethod.hpp"
 
-void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
+void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Memory
     rs.AllocateAuxIMPEC();
-    rs.AllocateMatIMPEC(ls);
+    rs.AllocateMatIMPEC(myLS);
 }
 
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -14,27 +26,28 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
     if (cfl > 1) dt /= (cfl + 1);
 }
 
-void OCP_IMPEC::SolveLinearSystem(LinearSystem& ls, Reservoir& rs,
+void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
                                   OCPControl& ctrl)
 {
 #ifdef _DEBUG
-    ls.CheckVal();
+    myLS.CheckVal();
 #endif // DEBUG
 
-    ls.AssembleMatLinearSolver();
+    myLS.AssembleMatLinearSolver();
     GetWallTime Timer;
     Timer.Start();
-    int status = ls.Solve();
+    int status = myLS.Solve();
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
-#ifdef DEBUG
-    ls.OutputLinearSystem("testA.out", "testb.out");
-    ls.OutputSolution("testx.out");
+
+#ifdef _DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
-    rs.GetSolutionIMPEC(ls.GetSolution());
-    ls.ClearData();
+    rs.GetSolutionIMPEC(myLS.GetSolution());
+    myLS.ClearData();
 }
 
 
@@ -105,12 +118,12 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.UpdateIters();
 }
 
-void OCP_FIM::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
+void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
     rs.AllocateAuxFIM();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM(ls);
+    rs.AllocateMatFIM(myLS);
     // Allocate memory for resiual of FIM
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
     resFIM.res.resize(num);
@@ -124,43 +137,40 @@ void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 }
 
-void OCP_FIM::AssembleMat(LinearSystem& lsolver, const Reservoir& rs,
+void OCP_FIM::AssembleMat(LinearSystem& myLS, const Reservoir& rs,
                           const OCP_DBL& dt) const
 {
-    rs.AssembleMatFIM(lsolver, dt);
-    lsolver.AssembleRhs(resFIM.res);
+    rs.AssembleMatFIM(myLS, dt);
+    myLS.AssembleRhs(resFIM.res);
 }
 
-void OCP_FIM::SolveLinearSystem(LinearSystem& ls, Reservoir& rs, OCPControl& ctrl)
+void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
 
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
 
-#ifdef DEBUG
-    ls.CheckVal();
+#ifdef _DEBUG
+    myLS.CheckVal();
 #endif // DEBUG
 
-    ls.AssembleMatLinearSolver();
-
-#ifdef DEBUG
-    // ls.PrintfMatCSR("testA.out", "testb.out");
-#endif // DEBUG
+    myLS.AssembleMatLinearSolver();
 
     GetWallTime Timer;
     Timer.Start();
-    int status = ls.Solve();
+    int status = myLS.Solve();
 
-#ifdef DEBUG
-    // ls.PrintfSolution("testx.out");
+#ifdef _DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
-    rs.GetSolutionFIM(ls.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    rs.GetSolutionFIM(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
-    ls.ClearData();
+    myLS.ClearData();
 }
 
 bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
@@ -244,3 +254,12 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
 }
+
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Nov/01/2021      Create file                          */
+/*----------------------------------------------------------------------------*/
