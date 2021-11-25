@@ -49,21 +49,20 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-#ifdef DEBUG
+//#ifdef DEBUG
     cout << "### DEBUG: " << fixed << ctrl.GetCurTime() << " Days";
     cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
-#endif // DEBUG
+//#endif // DEBUG
 
     // Prepare for time marching
     Prepare(rs, dt);
-    ctrl.iterNR = 0; // temp;
 
     // Time marching with adaptive time stepsize
     while (true) {
         if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
         AssembleSolve(rs, ctrl);
         if (!UpdateProperty(rs, ctrl)) {
-            ctrl.ResetIterNR();
+            ctrl.ResetIterNRLS();
             continue;
         } 
         if (FinishNR(rs, ctrl)) break;

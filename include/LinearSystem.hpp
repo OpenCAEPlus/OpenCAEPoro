@@ -43,7 +43,7 @@ public:
     void AllocateColMem();
     /// Enlarge row capacity
     void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
-    /// Assign Rhs
+    /// Assign Rhs --- used for FIM now
     void AssembleRhs(const vector<OCP_DBL>& rhs);
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();

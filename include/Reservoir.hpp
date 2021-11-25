@@ -64,7 +64,7 @@ public:
     /// Calculate num of Injection, Production
     void CalIPRT(const OCP_DBL& dt);
     /// Check if abnormal Pressure occurs
-    OCP_INT CheckP();
+    OCP_INT CheckP(const bool& bulkCheck = true, const bool& wellCheck = true);
     /// Check if abnormal Pressure occurs
     bool CheckNi() const;
     /// Check error between Fluids and Pores
@@ -152,7 +152,9 @@ public:
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
+    /// Exactly, it's a Newton step.
     void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
+    void GetSolution01FIM(const vector<OCP_DBL>& u);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System  
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM

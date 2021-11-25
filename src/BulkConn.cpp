@@ -662,11 +662,6 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
 
-
-        if (n == 1094421) {
-            cout << "get it" << endl;
-        }
-
         bId = n * len;
         bIdb = n * nc;
 

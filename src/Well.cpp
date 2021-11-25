@@ -1241,10 +1241,6 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
             for (USI i = 0; i < bsize; i++) {
                 myLS.diagVal[wId * bsize + i] += bmat[i];
             }
-
-            //if (bmat[0] == 0) {
-            //    cout << "get it" << endl;
-            //}
             
             // OffDiag
             bmat = dQdXpB;
@@ -1399,11 +1395,6 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
             for (USI i = 0; i < bsize; i++) {
                 myLS.diagVal[wId * bsize + i] += bmat[i];
             }
-
-
-            //if (bmat[0] == 0) {
-            //    cout << name << "   " << p << "  get it" << endl;
-            //}
 
             // OffDiag
             bmat = dQdXpB;

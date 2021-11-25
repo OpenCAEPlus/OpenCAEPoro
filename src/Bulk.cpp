@@ -1284,9 +1284,13 @@ void Bulk::CalMaxChange() { OCP_FUNCNAME;
 /// Return true if no negative pressure and false otherwise.
 bool Bulk::CheckP() const { OCP_FUNCNAME;
 
-    for (auto p : P) {
-        if (p < 0.0) return false;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (P[n] < 0.0) {
+            OCP_WARNING("Negative Bulk Pressure: P[" + std::to_string(n) + "] = " + std::to_string(P[n]) + "  !");
+            return false;
+        }
     }
+
     return true;
 }
 
@@ -1294,12 +1298,16 @@ bool Bulk::CheckP() const { OCP_FUNCNAME;
 /// Return true if no negative Ni and false otherwise.
 bool Bulk::CheckNi() const { OCP_FUNCNAME;
 
-    for (auto ni : Ni) {
-        if (ni < 0.0) {
-            cout << "###WARNING: Negative Ni  " << ni << endl;
+    OCP_USI len = numBulk * numCom;
+    for (OCP_USI n = 0; n < len; n++) {
+        if (Ni[n] < 0.0) {
+            OCP_USI bId = n / numCom;
+            USI cId = n - bId * numCom;
+            OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" + std::to_string(bId) +"] = " + std::to_string(Ni[n]) + "  !");
             return false;
-        }         
+        }
     }
+
     return true;
 }
 
@@ -1523,15 +1531,15 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OC
         DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1, dtmp.data());
 
         for (USI j = 0; j < numPhase; j++) {
+
+            choptmp = 1;
             if (fabs(dtmp[j]) > dSmaxlim) {
                 choptmp = dSmaxlim / fabs(dtmp[j]);
             }
             else if (S[n * numPhase + j] + dtmp[j] < 0) {
                 choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
             }
-            else {
-                choptmp = 1;
-            }
+
             chopmin = min(chopmin, choptmp);
             NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
         }
@@ -1541,10 +1549,59 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OC
         NRdPmax = max(NRdPmax, fabs(dP));
         P[n] += dP;
 
+        //// Correct chopmin
+        for (USI i = 0; i < numCom; i++) {
+            if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
+                chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 + i]));
+            }
+        }
+
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
         }
     }
+}
+
+
+OCP_DBL Bulk::GetSol01FIM(const vector<OCP_DBL>& u)
+{
+    OCP_DBL tmp;
+    OCP_DBL alpha = 1;
+    USI len = numCom + 1;
+    OCP_DBL Ni0, dNi;
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+
+        for (USI i = 0; i < numCom; i++) {
+            Ni0 = Ni[n * numCom + i];
+            dNi = u[n * len + 1 + i];
+            if (Ni0 <= 0 && dNi <= 0) {
+                continue;
+            }
+            if (Ni0 + dNi <= 0 && dNi < 0) {
+                tmp = 0.9 * fabs(Ni0 / dNi);
+                alpha = min(tmp, alpha);
+            }    
+        }
+    }
+
+    // Newton step
+    for (OCP_USI n = 0; n < numBulk; n++) {
+
+        P[n] += alpha * u[n * len];
+
+        for (USI i = 0; i < numCom; i++) {
+            if (Ni[n * numCom + i] <= 0 && u[n * len + 1 + i] <= 0) {
+                continue;
+            }
+
+            tmp = Ni[n * numCom + i];
+            Ni[n * numCom + i] += alpha * u[n * len + 1 + i];
+
+        }
+    }
+
+    return alpha;
 }
 
 

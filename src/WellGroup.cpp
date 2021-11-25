@@ -97,6 +97,13 @@ void WellGroup::PrepareWell(const Bulk& myBulk) { OCP_FUNCNAME;
             // test
             // wellGroup[w].SmoothdG();
             wellGroup[w].CheckOptMode(myBulk);
+
+            //if (w == 8) {
+            //    for (USI p = 0; p < wellGroup[w].numPerf; p++) {
+            //        cout << wellGroup[w].dG[p] << "   ";
+            //    }
+            //    cout << endl;
+            //}
         }
     }
 }
@@ -352,6 +359,19 @@ void WellGroup::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const US
     for (USI w = 0; w < numWell; w++) {
         if (wellGroup[w].WellState()) {
             wellGroup[w].BHP += u[(bId + wId)*len];
+            wellGroup[w].UpdatePerfP();
+            wId++;
+        }
+    }
+}
+
+
+void WellGroup::GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len, const OCP_DBL& alpha)
+{
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            wellGroup[w].BHP += u[(bId + wId) * len] * alpha;
             wellGroup[w].UpdatePerfP();
             wId++;
         }

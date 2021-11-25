@@ -42,8 +42,8 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
     ctrl.UpdateIterNR();
 
 #ifdef _DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");
+    //myLS.OutputLinearSystem("testA.out", "testb.out");
+    //myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     rs.GetSolutionIMPEC(myLS.GetSolution());
@@ -169,6 +169,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     ctrl.UpdateIterNR();
 
     rs.GetSolutionFIM(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    // rs.GetSolution01FIM(myLS.GetSolution());
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
     myLS.ClearData();
 }
@@ -177,12 +178,12 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // Second check: Ni check.
-    if (!rs.CheckNi()) {
+    // Second check: Ni check and bulk Pressure check
+    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
         dt /= 2;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
-        cout << "Negative Ni occurs\n";
+        cout << "Cut time step and repeat!\n";
         return false;
     }
     rs.CalFlashDerivFIM();
@@ -201,7 +202,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, ctrl.current_dt);
-        ctrl.ResetIterNR();
+        ctrl.ResetIterNRLS();
         cout << "NR Failed, Cut time Step and reset!\n";
         return false;
     }
@@ -220,21 +221,21 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP();
+        OCP_INT flagCheck = rs.CheckP(false, true);
         switch (flagCheck) {
         case 1:
             cout << "well change, Repeat --- 1" << endl;
             ctrl.current_dt /= 2;
             rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
-            ctrl.ResetIterNR();
+            ctrl.ResetIterNRLS();
             return false;
         case 2:
             cout << "well change, Repeat --- 2" << endl;
             ctrl.current_dt /= 1;
             rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
-            ctrl.ResetIterNR();
+            ctrl.ResetIterNRLS();
             return false;
         default:
             break;

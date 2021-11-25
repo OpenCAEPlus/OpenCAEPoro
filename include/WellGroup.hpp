@@ -166,7 +166,8 @@ public:
     void AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for IMPEC for FIM
-    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);  
+    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len); 
+    void GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len, const OCP_DBL& alpha);
     /// Calculate Resiual and relative Resiual for FIM
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
 

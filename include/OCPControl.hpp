@@ -132,13 +132,9 @@ public:
     /// Update num of iterations.
     void UpdateIters();
     /// Update num of linear solver steps.
-    void UpdateIterLS(const USI& num)
-    {
-        iterLS = num;
-        iterLS_total += num;
-    }
-    void ResetIterNR() { wastedIterNR += iterNR; iterNR = 0; }
-    void UpdateIterNR(){ iterNR++; }
+    void UpdateIterLS(const USI& num) { iterLS += num; }
+    void UpdateIterNR() { iterNR++; }
+    void ResetIterNRLS() { wastedIterNR += iterNR; iterNR = 0; wastedIterLS += iterLS; iterLS = 0; }
     /// Update time used for linear solver.
     void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }
     /// Record the total time of simulation.
@@ -172,6 +168,7 @@ private:
     USI             iterNR{0};       ///< Current iterations of NR
     USI             iterNR_total{0}; ///< Total iterations of NR
     USI             wastedIterNR{ 0 };
+    USI             wastedIterLS{ 0 };
 
     // Includes time controler, error controler, and iteration controler, all of which
     // could change at different critical time step.

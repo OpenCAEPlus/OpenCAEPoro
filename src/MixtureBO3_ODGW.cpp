@@ -712,6 +712,14 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         break;
     }
     }
+
+#ifdef Debug
+    for (auto v : dSec_dPri) {
+        if (!isfinite(v)) {
+            OCP_ABORT("Nan in dSec_dPri!");
+        }
+    }
+#endif
 }
 
 

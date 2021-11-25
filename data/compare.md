@@ -40,11 +40,11 @@ OCP_FIM_10
 
 Final time:          3655.500 Days
 Total time steps:    420
-Total Newton steps:  479
+Total Newton steps:  474
 Wasted Newton steps: 1
-Simulation time:     5.362s
-Total linear steps:  1428
-Linear solve time:   5.058s (94.319%)
+Simulation time:     5.208s
+Total linear steps:  1417
+Linear solve time:   4.899s (94.050%)
 
 ```
 
@@ -95,9 +95,9 @@ Final time:          3655.500 Days
 Total time steps:    420
 Total Newton steps:  507
 Wasted Newton steps: 1
-Simulation time:     3.801s
-Total linear steps:  1507
-Linear solve time:   3.485s (91.696%)
+Simulation time:     3.815s
+Total linear steps:  1508
+Linear solve time:   3.507s (91.930%)
 ```
 
 
@@ -142,12 +142,12 @@ Simulation time:     27.515s
 OCP_FIM_10
 
 Final time:          900.000 Days
-Total time steps:    160
+Total time steps:    158
 Total Newton steps:  222
-Wasted Newton steps: 63
-Simulation time:     19.938s
-Total linear steps:  1112
-Linear solve time:   13.269s (66.553%)
+Wasted Newton steps: 59
+Simulation time:     20.119s
+Total linear steps:  1095
+Linear solve time:   13.395s (66.577%)
 ```
 
 
@@ -178,6 +178,15 @@ Wasted Newton steps: 5
 Simulation time:     1937.163s
 Total linear steps:  1334
 Linear solve time:   1463.019s (75.524%)
+
+
+Final time:          2000.000 Days
+Total time steps:    53
+Total Newton steps:  214
+Wasted Newton steps: 5
+Simulation time:     2015.620s
+Total linear steps:  1314
+Linear solve time:   1531.146s (75.964%)
 ```
 
 
@@ -227,14 +236,23 @@ Simulation time:     1.654s
 OCP_FIM_10
 
 Final time:          1000.000 Days
-Total time steps:    143
-Total Newton steps:  261
-Wasted Newton steps: 11
-Simulation time:     0.441s
-Total linear steps:  272
-Linear solve time:   0.385s (87.120%)
+Total time steps:    141
+Total Newton steps:  251
+Wasted Newton steps: 5
+Simulation time:     0.424s
+Total linear steps:  256
+Linear solve time:   0.374s (88.246%)
 
 
 
 ```
+
+
+$$
+F_{i} = \beta_{i}\nabla P
+$$
+
+$$
+\frac{\partial F_{i}}{\partial P}=\beta_{iP}\nabla P + \beta_{i}\frac{\partial \nabla P}{\partial P}
+$$
 

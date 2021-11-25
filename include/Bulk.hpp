@@ -296,8 +296,9 @@ private:
 public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM();
-    /// Return the Solution to Reservoir Pressure for FIM
+    /// Return the Solution to Reservoir Pressure for FIM ---- a newton step
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OCP_DBL& dSmaxlim);
+    OCP_DBL GetSol01FIM(const vector<OCP_DBL>& u);
     /// Calculate Relative Resiual for FIM
     void CalRelResFIM(ResFIM& resFIM) const;
     /// Reset FIM

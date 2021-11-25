@@ -80,16 +80,23 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)  { OCP_FUNCNAME;
 }
 
 
-OCP_INT Reservoir::CheckP() { OCP_FUNCNAME;
+OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
+{ 
+    OCP_FUNCNAME;
 
-    if (!bulk.CheckP()) {
-        OCP_WARNING("Negative Pressure!");
-        return 1;
+    if (bulkCheck) {
+        if (!bulk.CheckP()) {
+            return 1;
+        }
     }
 
-    OCP_INT flag = 0;
-    flag = wellgroup.CheckP(bulk);
-    return flag;
+    if (wellCheck) {
+        OCP_INT flag = 0;
+        flag = wellgroup.CheckP(bulk);
+        return flag;
+    }
+    
+    return 0;
 }
 
 
@@ -333,6 +340,16 @@ void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, c
     
     bulk.GetSolFIM(u, dPmax, dSmax);
     wellgroup.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+}
+
+
+// Not useful
+void Reservoir::GetSolution01FIM(const vector<OCP_DBL>& u)
+{
+    OCP_DBL alpha = bulk.GetSol01FIM(u);
+    wellgroup.GetSol01FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1, alpha);
+
+    cout << alpha << endl;
 }
 
 
