@@ -97,13 +97,6 @@ void WellGroup::PrepareWell(const Bulk& myBulk) { OCP_FUNCNAME;
             // test
             // wellGroup[w].SmoothdG();
             wellGroup[w].CheckOptMode(myBulk);
-
-            //if (w == 8) {
-            //    for (USI p = 0; p < wellGroup[w].numPerf; p++) {
-            //        cout << wellGroup[w].dG[p] << "   ";
-            //    }
-            //    cout << endl;
-            //}
         }
     }
 }
@@ -209,7 +202,7 @@ OCP_INT WellGroup::CheckP(const Bulk& myBulk) { OCP_FUNCNAME;
 
             OCP_INT flag = wellGroup[w].CheckP(myBulk);
 #ifdef _DEBUG
-            //wellGroup[w].ShowPerfStatus();
+            // wellGroup[w].ShowPerfStatus();
 #endif // _DEBUG
             switch (flag) {
             case 1:

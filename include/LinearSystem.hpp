@@ -69,6 +69,9 @@ public:
     /// Solve the Linear System
     OCP_INT Solve() { return LS->Solve(u); }
 
+    /// Return the Max Iters
+    USI GetMaxIters() { return LS->GetMaxIters(); }
+
 private:
     // Used for internal mat structure.
     USI blockDim;  ///< Dimens of small block matrix.

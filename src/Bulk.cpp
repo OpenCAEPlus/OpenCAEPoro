@@ -1550,11 +1550,11 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OC
         P[n] += dP;
 
         //// Correct chopmin
-        for (USI i = 0; i < numCom; i++) {
-            if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
-                chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 + i]));
-            }
-        }
+        //for (USI i = 0; i < numCom; i++) {
+        //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
+        //        chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 + i]));
+        //    }
+        //}
 
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;

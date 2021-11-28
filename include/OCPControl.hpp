@@ -134,7 +134,7 @@ public:
     /// Update num of linear solver steps.
     void UpdateIterLS(const USI& num) { iterLS += num; }
     void UpdateIterNR() { iterNR++; }
-    void ResetIterNRLS() { wastedIterNR += iterNR; iterNR = 0; wastedIterLS += iterLS; iterLS = 0; }
+    void ResetIterNRLS();
     /// Update time used for linear solver.
     void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }
     /// Record the total time of simulation.

@@ -38,6 +38,9 @@ public:
 		const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u) = 0;
 	/// Solve the Linear System and return the Iterations and Solutions.
 	virtual OCP_INT Solve(vector<OCP_DBL>& u) = 0;
+
+	/// Return information for Iters
+	virtual USI GetMaxIters() const = 0;
 };
 
 

@@ -209,6 +209,16 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
 }
 
 
+void OCPControl::ResetIterNRLS()
+{ 
+    cout << "Wasetd NR = " << iterNR << "  Wasted LS = " << iterLS << endl;
+
+    wastedIterNR += iterNR;
+    iterNR = 0; 
+    wastedIterLS += iterLS; 
+    iterLS = 0; 
+}
+
 
 void OCPControl::UpdateIters()
 {

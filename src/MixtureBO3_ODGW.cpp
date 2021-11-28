@@ -452,6 +452,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         else
             phasecase = PHASE_GW; // water, gas, no oil
     }
+    // Beacareful when NO = NG = 0, if it's possible.
     else if (Ni[1] <= Ni[0] * Rs_sat)
         phasecase = PHASE_OW; // water, oil, no gas
     else

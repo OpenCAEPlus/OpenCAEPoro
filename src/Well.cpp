@@ -303,6 +303,8 @@ void Well::CalTrans(const Bulk& myBulk) {
 void Well::CalFlux(const Bulk& myBulk, const bool flag) {
     OCP_FUNCNAME;
 
+    // cout << name << endl;
+
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
     qi_lbmol.assign(nc, 0);
@@ -357,6 +359,20 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag) {
                     }
                 }
             }
+
+            // check if perf[p].qi_lbmol is zero vector
+            //bool flag = false;
+            //for (USI i = 0; i < nc; i++) {
+            //    if (perf[p].qi_lbmol[i] != 0) {
+            //        flag = true;
+            //        break;
+            //    }
+            //}
+            //if (!flag) {
+            //    OCP_ABORT("Qi is all zero!");
+            //}
+
+
             for (USI i = 0; i < nc; i++)
                 qi_lbmol[i] += perf[p].qi_lbmol[i];
         }
@@ -502,6 +518,27 @@ void Well::CaldG(const Bulk& myBulk) {  OCP_FUNCNAME;
         CalInjdG(myBulk);
     else
         CalProddG(myBulk);
+
+    if (name == "PROD17") {
+        for (USI p = 0; p < numPerf; p++) {
+            cout << perf[p].state << "   ";
+            cout << setprecision(2);
+            cout << dG[p] << "   ";
+            OCP_USI n = perf[p].location * myBulk.numPhase;
+            cout << setprecision(6);
+            cout << myBulk.kr[n + 0] << "   ";
+            cout << myBulk.kr[n + 1] << "   ";
+            cout << myBulk.kr[n + 2] << "   ";
+            cout << myBulk.S[n + 0] << "   ";
+            cout << myBulk.S[n + 1] << "   ";
+            cout << myBulk.S[n + 2] << "   ";
+            cout << setprecision(2);
+            for (USI i = 0; i < myBulk.numCom; i++) {
+                cout << perf[p].qi_lbmol[i] << "   ";
+            }
+            cout << endl;
+        }
+    }
 }
 
 
@@ -581,7 +618,7 @@ void Well::CalProddG(const Bulk& myBulk)
 
     const USI             np = myBulk.numPhase;
     const USI             nc = myBulk.numCom;
-    const OCP_DBL         maxlen = 10;
+    const OCP_DBL         maxlen = 5;
     USI             seg_num = 0;
     OCP_DBL         seg_len = 0;
     vector<OCP_DBL> tmpNi(nc, 0);
@@ -622,11 +659,15 @@ void Well::CalProddG(const Bulk& myBulk)
             OCP_DBL Ptmp = Pperf;
 
             USI pvtnum = myBulk.PVTNUM[n];
-            tmpNi.assign(nc, 0);
-            for (OCP_INT p1 = numPerf - 1; p1 >= p; p1--) {
-                for (USI i = 0; i < nc; i++) {
-                    tmpNi[i] += perf[p1].qi_lbmol[i];
-                }
+            //tmpNi.assign(nc, 0);
+            //for (OCP_INT p1 = numPerf - 1; p1 >= p; p1--) {
+            //    for (USI i = 0; i < nc; i++) {
+            //        tmpNi[i] += perf[p1].qi_lbmol[i];
+            //    }
+            //}
+
+            for (USI i = 0; i < nc; i++) {
+                tmpNi[i] += perf[p].qi_lbmol[i];
             }
 
             // check tmpNi
@@ -642,6 +683,11 @@ void Well::CalProddG(const Bulk& myBulk)
                         qtacc += myBulk.flashCal[pvtnum]->v[j] / seg_num;
                         rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp *
                             GRAVITY_FACTOR / seg_num;
+#ifdef _DEBUG
+                        if (rhotmp <= 0 || !isfinite(rhotmp)) {
+                            OCP_ABORT("Wrong rho " + to_string(rhotmp));
+                        }
+#endif // _DEBUG                     
                     }
                 }
                 Ptmp -= rhoacc / qtacc * seg_len;
@@ -898,7 +944,7 @@ void Well::ShowPerfStatus() const { OCP_FUNCNAME;
     cout << name << ":    " << opt.optMode << "   " << BHP << endl;
     for (USI p = 0; p < numPerf; p++) {
         cout << "Perf[" << p << "].State = " << perf[p].state << "   "
-            << perf[p].P << endl;
+            << perf[p].P << "   " << perf[p].location << endl;
     }
 }
 

@@ -37,6 +37,10 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
     GetWallTime Timer;
     Timer.Start();
     int status = myLS.Solve();
+    if (status < 0) {
+        status = myLS.GetMaxIters();
+    }
+
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
@@ -158,6 +162,9 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     GetWallTime Timer;
     Timer.Start();
     int status = myLS.Solve();
+    if (status < 0) {
+        status = myLS.GetMaxIters();
+    }
 
 #ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");

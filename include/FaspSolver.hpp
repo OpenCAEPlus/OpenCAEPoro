@@ -61,6 +61,7 @@ class FaspSolver : public LinearSolver
 {
 public:
 	void SetupParam(const string& dir, const string& file) override;
+	USI GetMaxIters() const override { return itParam.maxit; }
 
 public:
 	string      solveDir;  ///< Current work dir
