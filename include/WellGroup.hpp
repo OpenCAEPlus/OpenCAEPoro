@@ -76,6 +76,8 @@ public:
     USI GetWellPerfNum(const USI& i)const { return wellGroup[i].numPerf; }
     /// Calculate mamimum num of perforations of all Wells.
     USI GetMaxWellPerNum() const;
+    void CalMaxBHPChange();
+    OCP_DBL GetdBHPmax()const { return dPmax; }
     /// Return oil production rate in field.
     OCP_DBL GetFOPR() const { return FOPR; }
     /// Return total oil production in field.
@@ -124,6 +126,8 @@ public:
 private:
     USI          numWell;   ///< num of wells.
     vector<Well> wellGroup; ///< well set.
+
+    OCP_DBL      dPmax{ 0 };     ///< Maximum BHP change
 
     vector<Mixture*> flashCal; ///< Uesless now.
 

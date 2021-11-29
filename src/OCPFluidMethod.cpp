@@ -165,6 +165,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     if (status < 0) {
         status = myLS.GetMaxIters();
     }
+    cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
@@ -187,9 +188,10 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
-        dt /= 2;
+        dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time step and repeat!\n";
         return false;
     }
@@ -209,6 +211,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, ctrl.current_dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "NR Failed, Cut time Step and reset!\n";
         return false;
@@ -232,9 +235,10 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
         case 1:
             cout << "well change, Repeat --- 1" << endl;
-            ctrl.current_dt /= 2;
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
             rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
         case 2:
@@ -242,6 +246,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             ctrl.current_dt /= 1;
             rs.ResetFIM(true);
             rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
         default:

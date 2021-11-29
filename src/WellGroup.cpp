@@ -247,6 +247,17 @@ USI WellGroup::GetMaxWellPerNum() const { OCP_FUNCNAME;
 }
 
 
+void WellGroup::CalMaxBHPChange()
+{
+    dPmax = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wellGroup[w].WellState()) {
+            dPmax = max(dPmax, fabs(wellGroup[w].BHP - wellGroup[w].lBHP));
+        }
+    }
+}
+
+
  /////////////////////////////////////////////////////////////////////
  // IMPEC
  /////////////////////////////////////////////////////////////////////

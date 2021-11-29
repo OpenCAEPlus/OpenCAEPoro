@@ -7,7 +7,7 @@ TITLE
 
 -- Original size 10x10x3 = 300
 DIMENS
- 20  20  10  / 
+ 80  80  40  / 
  
 NONNC
 BLACKOIL
@@ -34,17 +34,17 @@ GRID        ==================================
 RPTGRID
 --PORO  PERMX PERMY PERMZ /
 EQUALS
-'DX'    500   6*      /
-'DY'    500   6*      /
-'DZ'    10    6*      /
-'PORO'  0.3   6*      /
-'PERMX' 500    4* 1 2  /
-'PERMX' 50     4* 3 5  /
-'PERMX' 200    4* 6 10  /
-'PERMZ' 75     4* 1 2  /
-'PERMZ' 35     4* 3 5  /
-'PERMZ' 15     4* 6 10  /
-'TOPS'  8325   4* 1 1  /
+'DX'    125    6*            /
+'DY'    125    6*            /
+'DZ'    2.5    6*            /
+'PORO'  0.3    6*            /
+'PERMX' 500    4*   1    8  /
+'PERMX' 50     4*   9    20  /
+'PERMX' 200    4*   21   40  /
+'PERMZ' 75     4*   1    8  /
+'PERMZ' 35     4*   9    20  /
+'PERMZ' 15     4*   21   40  /
+'TOPS'  8325   4*   1    1  /
 /
 
 COPY
@@ -173,12 +173,12 @@ SCHEDULE  =======================================
 
 WELSPECS
 'INJE1'   'G'   1   1     1*    'GAS'   /
-'PROD1'   'G'   20  20    1*    'OIL'   /
+'PROD1'   'G'   80  80    1*    'OIL'   /
 /
 
 COMPDAT
-'INJE1'   2*   1   2     1*   0.5   3*   /
-'PROD1'   2*   6   10     1*   0.5   3*   /
+'INJE1'   2*   1    8      1*   0.5   3*   /
+'PROD1'   2*   21   40     1*   0.5   3*   /
 /
 
 WCONINJE
@@ -191,19 +191,21 @@ WCONPROD
 
 TUNING
 -- Init     max    min   incre   chop    cut
-     1       120     0.1      5    0.3    0.3                    /
+     1      120     0.1      5    0.3    0.3                    /
 --  dPlim  dSlim   dNlim   dVerrlim
      300     0.2    0.3    0.001                               /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-3   200    .2    1      0.01    0.01          /
+       10    1E-3   200    .1    1      0.01    0.01          /
 /
 
-NLSOLVE
-10 1E-4 300 0.2 1 0.01 0.2 0.001  1
-/
 
 METHOD
 FIM
+/
+
+
+--TSTEP
+--2000  
 /
 
 TSTEP
@@ -211,8 +213,34 @@ TSTEP
 /
 
 TSTEP
-132.625   182.625   185.625  
+132.625  130
 /
+
+
+TUNING
+-- Init     max    min   incre   chop    cut
+     0.1    5     0.1      5    0.3    0.3                    /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.2    0.3    0.001                               /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       12    1E-3   200    .1    1      0.01    0.01          /
+/
+
+
+TSTEP
+52.625   185.625  
+/
+
+
+TUNING
+-- Init     max    min   incre   chop    cut
+     1      120     0.1      5    0.3    0.3                    /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.2    0.3    0.001                               /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       10    1E-3   200    .1    1      0.01    0.01          /
+/
+
 
 TSTEP
 3*182.625   

@@ -71,6 +71,7 @@ void Reservoir::CalKrPc() { OCP_FUNCNAME;
 void Reservoir::CalMaxChange() {  OCP_FUNCNAME;
 
     bulk.CalMaxChange();
+    wellgroup.CalMaxBHPChange();
 }
 
 

@@ -1287,6 +1287,7 @@ bool Bulk::CheckP() const { OCP_FUNCNAME;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (P[n] < 0.0) {
             OCP_WARNING("Negative Bulk Pressure: P[" + std::to_string(n) + "] = " + std::to_string(P[n]) + "  !");
+            cout << "P = " << P[n] << endl;
             return false;
         }
     }
@@ -1304,6 +1305,7 @@ bool Bulk::CheckNi() const { OCP_FUNCNAME;
             OCP_USI bId = n / numCom;
             USI cId = n - bId * numCom;
             OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" + std::to_string(bId) +"] = " + std::to_string(Ni[n]) + "  !");
+            cout << "Ni = " << Ni[n] << endl;
             return false;
         }
     }
@@ -1553,11 +1555,19 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OC
         //for (USI i = 0; i < numCom; i++) {
         //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
         //        chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 + i]));
+
+        //        //if (chopmin < 0 || !isfinite(chopmin)) {
+        //        //    OCP_ABORT("Wrong Chop!");
+        //        //}
         //    }
         //}
 
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
+
+            //if (Ni[n * numCom + i] < 0) {
+            //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin << "   " << chopmin << endl;
+            //}
         }
     }
 }

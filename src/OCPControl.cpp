@@ -181,7 +181,11 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     OCP_DBL c1, c2, c;
     c1 = c2 = 10;
 
-    OCP_DBL dPmax = reservoir.bulk.GetdPmax();
+    OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
+    OCP_DBL dPmaxW = reservoir.wellgroup.GetdBHPmax();
+    OCP_DBL dPmax = max(dPmaxB, dPmaxW);
+
+
     OCP_DBL dSmax = reservoir.bulk.GetdSmax();
 
     if (dPmax > TINY)   c1 = ctrlPreTime.dPlim / dPmax;
