@@ -12,39 +12,41 @@
 #ifndef __LINEARSOLVER_HEADER__
 #define __LINEARSOLVER_HEADER__
 
-
 // Standard header files
-#include <vector>
 #include <string>
+#include <vector>
 
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 
-
 using namespace std;
 
-/// virtual Basic class for linear solver
+/// Virtual base class for linear solvers
 class LinearSolver
 {
 public:
-	/// Read Linear Solver Param form input file
-	virtual void SetupParam(const string& dir, const string& file) = 0;
-	/// Initialize the Params for Linear Solver
-	virtual void InitParam() = 0;
-	/// Allocate Maximum memory for Linear Solver according to Internal matrix
-	virtual void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim, const USI& blockDim) = 0;
-	/// Assemble Matrix for Linear Solver from Internal matrix
-	virtual void AssembleMat(const vector<vector<USI>>& colId, const vector<vector<OCP_DBL>>& val,
-		const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u) = 0;
-	/// Solve the Linear System and return the Iterations and Solutions.
-	virtual OCP_INT Solve(vector<OCP_DBL>& u) = 0;
+    /// Read the params for linear solvers from an input file
+    virtual void SetupParam(const string& dir, const string& file) = 0;
 
-	/// Return information for Iters
-	virtual USI GetMaxIters() const = 0;
+    /// Initialize the params for linear solvers
+    virtual void InitParam() = 0;
+
+    /// Allocate maximum memory for linear solver
+    virtual void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
+                          const USI& blockDim) = 0;
+
+    /// Assemble matrix for linear solver from the internal matrix data
+    virtual void AssembleMat(const vector<vector<USI>>&     colId,
+                             const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
+                             const USI& blockDim, vector<OCP_DBL>& rhs,
+                             vector<OCP_DBL>& u) = 0;
+
+    /// Solve the Linear System and return the Iterations and Solutions.
+    virtual OCP_INT Solve(vector<OCP_DBL>& u) = 0;
+
+    /// Get number of iterations
+    virtual USI GetNumIters() const = 0;
 };
-
-
-
 
 #endif
 

@@ -21,7 +21,7 @@ solver_type              = 6     % 1 CG | 2 BiCGstab | 3 MinRes | 4 GMRes |
 % parameters for iterative solvers             %
 %----------------------------------------------%
 
-precond_type             = 2      % 0 None | 1 Diag | 2 AMG | 3 FMG | 4 ILU | 5 Schwarz
+precond_type             = 4      % 0 None | 1 Diag | 2 AMG | 3 FMG | 4 ILU | 5 Schwarz
 itsolver_tol             = 1e-6   % solver tolerance 
 itsolver_maxit           = 100    % maximal iteration number 
 stop_type                = 1      % 1 ||r||/||b|| | 2 ||r||_B/||b||_B | 3 ||r||/||x||  

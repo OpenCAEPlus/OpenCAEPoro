@@ -467,13 +467,24 @@ static void decouple_rowsum(dBSRmat* A, REAL* diaginv, dBSRmat* B)
 
 /// Applying a decoupling algorithm for linear systems of FIM
 void VectorFaspSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
-                              ivector* order, double* Dmatvec, int decoupleType)
+                                  ivector* order, double* Dmatvec, int decoupleType)
 {
     int              nrow = Absr->ROW;
     int              nb   = Absr->nb;
     double*          Dmat = Dmatvec;
     precond_diag_bsr diagA;
 
+    // Natural ordering
+    for (int i = 0; i < nrow; ++i) order->val[i] = i;
+
+    // Without decoupling
+    if (decoupleType == 0) {
+        fasp_dbsr_cp(Absr, Asc); // Asc = Absr;
+        fasp_dvec_cp(b, fsc);    // fsc = b;
+        return;
+    }
+
+    // With decoupling
     switch (decoupleType) {
         case 2:
             decouple_anl(Absr, Dmat, Asc);
@@ -510,9 +521,6 @@ void VectorFaspSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvect
     diagA.diag.val = Dmat;
     diagA.nb       = nb;
     fasp_precond_dbsr_diag(b->val, fsc->val, &diagA);
-
-    // Natural ordering
-    for (int i = 0; i < nrow; ++i) order->val[i] = i;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -522,4 +530,5 @@ void VectorFaspSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvect
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/15/2021      Create file                          */
 /*  Chensong Zhang      Nov/09/2021      Restruct decoupling methods          */
+/*  Chensong Zhang      Nov/30/2021      Add null decoupling                  */
 /*----------------------------------------------------------------------------*/

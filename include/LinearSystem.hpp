@@ -18,11 +18,9 @@
 #include <iostream>
 #include <string>
 
-
 // OpenCAEPoro header files
-#include "OCPConst.hpp"
 #include "FaspSolver.hpp"
-
+#include "OCPConst.hpp"
 
 using namespace std;
 
@@ -36,7 +34,6 @@ class LinearSystem
     friend class Well;
 
 public:
-
     /// Allocate memory for linear system with max possible number of rows.
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
     /// Allocate memory for each matrix row with max possible number of columns.
@@ -47,17 +44,15 @@ public:
     void AssembleRhs(const vector<OCP_DBL>& rhs);
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
-    
 
     /// Return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
     /// Check whether NAN or INF occurs in solution, used in debug mode.
     void CheckVal() const;
-    /// Output the mat and rhs to fileA and fileb. //TODO: output to some obj?
+    /// Output the mat and rhs to fileA and fileb. // TODO: output to some obj?
     void OutputLinearSystem(const string& fileA, const string& fileb) const;
     /// Output the solution to a disk file name.
     void OutputSolution(const string& filename) const;
- 
 
     // Linear Solver
     /// Setup LinearSolver
@@ -70,7 +65,7 @@ public:
     OCP_INT Solve() { return LS->Solve(u); }
 
     /// Return the Max Iters
-    USI GetMaxIters() { return LS->GetMaxIters(); }
+    USI GetNumIters() { return LS->GetNumIters(); }
 
 private:
     // Used for internal mat structure.
@@ -95,10 +90,9 @@ private:
     vector<OCP_DBL>         b;           ///< Right-hand side of linear system.
     vector<OCP_DBL>         u;           ///< Solution of linear system.
 
-    string                  solveDir;    ///< Current workdir.
+    string solveDir; ///< Current workdir.
 
-    LinearSolver*           LS;
-
+    LinearSolver* LS;
 };
 
 #endif /* end if __LINEARSOLVER_HEADER__ */

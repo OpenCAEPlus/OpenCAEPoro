@@ -9,7 +9,6 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #include "OCPFluidMethod.hpp"
 
 void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
@@ -26,8 +25,7 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
     if (cfl > 1) dt /= (cfl + 1);
 }
 
-void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
-                                  OCPControl& ctrl)
+void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
 #ifdef _DEBUG
     myLS.CheckVal();
@@ -38,7 +36,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
     Timer.Start();
     int status = myLS.Solve();
     if (status < 0) {
-        status = myLS.GetMaxIters();
+        status = myLS.GetNumIters();
     }
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -46,14 +44,13 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs,
     ctrl.UpdateIterNR();
 
 #ifdef _DEBUG
-    //myLS.OutputLinearSystem("testA.out", "testb.out");
-    //myLS.OutputSolution("testx.out");
+    // myLS.OutputLinearSystem("testA.out", "testb.out");
+    // myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     rs.GetSolutionIMPEC(myLS.GetSolution());
     myLS.ClearData();
 }
-
 
 bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
@@ -62,19 +59,19 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // first check : Pressure check
     OCP_INT flagCheck = rs.CheckP();
     switch (flagCheck) {
-    case 1:
-        cout << "well change" << endl;
-        dt /= 2;
-        rs.ResetVal00IMPEC();
-        return false;
-    case 2:
-        cout << "well change" << endl;
-        dt /= 1;
-        rs.ResetVal00IMPEC();
-        // rs.ResetWellIMPEC();
-        return false;
-    default:
-        break;
+        case 1:
+            cout << "well change" << endl;
+            dt /= 2;
+            rs.ResetVal00IMPEC();
+            return false;
+        case 2:
+            cout << "well change" << endl;
+            dt /= 1;
+            rs.ResetVal00IMPEC();
+            // rs.ResetWellIMPEC();
+            return false;
+        default:
+            break;
     }
 
     rs.CalFLuxIMPEC();
@@ -163,7 +160,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     Timer.Start();
     int status = myLS.Solve();
     if (status < 0) {
-        status = myLS.GetMaxIters();
+        status = myLS.GetNumIters();
     }
     cout << "LS step = " << status << endl;
 
@@ -206,8 +203,8 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
- 
-    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {    
+
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -233,24 +230,24 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
         OCP_INT flagCheck = rs.CheckP(false, true);
         switch (flagCheck) {
-        case 1:
-            cout << "well change, Repeat --- 1" << endl;
-            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-            rs.ResetFIM(true);
-            rs.CalResFIM(resFIM, ctrl.current_dt);
-            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-            ctrl.ResetIterNRLS();
-            return false;
-        case 2:
-            cout << "well change, Repeat --- 2" << endl;
-            ctrl.current_dt /= 1;
-            rs.ResetFIM(true);
-            rs.CalResFIM(resFIM, ctrl.current_dt);
-            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-            ctrl.ResetIterNRLS();
-            return false;
-        default:
-            break;
+            case 1:
+                cout << "well change, Repeat --- 1" << endl;
+                ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+                rs.ResetFIM(true);
+                rs.CalResFIM(resFIM, ctrl.current_dt);
+                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+                ctrl.ResetIterNRLS();
+                return false;
+            case 2:
+                cout << "well change, Repeat --- 2" << endl;
+                ctrl.current_dt /= 1;
+                rs.ResetFIM(true);
+                rs.CalResFIM(resFIM, ctrl.current_dt);
+                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+                ctrl.ResetIterNRLS();
+                return false;
+            default:
+                break;
         }
 
         return true;
@@ -267,7 +264,6 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
