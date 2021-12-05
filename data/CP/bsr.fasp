@@ -10,7 +10,7 @@
 
 print_level              = 0      % how much information to print out 
 output_type              = 0      % 0 to scree | 1 to file
-solver_type              = 34      % 1 CG | 2 BiCGstab | 3 MinRes | 4 GMRes |
+solver_type              = 6      % 1 CG | 2 BiCGstab | 3 MinRes | 4 GMRes |
                                   % 5 vGMRes | 6 vFGMRes | 7 GCG |
                                   % 21 AMG Solver | 22 FMG Solver |
                                   % 31 SuperLU | 32 UMFPACK | 33 MUMPS | 34 PARDISO
@@ -20,7 +20,7 @@ solver_type              = 34      % 1 CG | 2 BiCGstab | 3 MinRes | 4 GMRes |
 %----------------------------------------------%
 
 decoup_type              = 1      % 1 ABF | 2 ANL | 6 SEM
-precond_type             = 64     % 61 FASP1 | 62 FASP2 | 63 FASP3 | 64 FASP4 | 65 FASP5
+precond_type             = 69     % 61 FASP1 | 62 FASP2 | 63 FASP3 | 64 FASP4 | 65 FASP5
 itsolver_tol             = 1e-3   % solver tolerance 
 itsolver_maxit           = 200    % maximal iteration number 
 stop_type                = 1      % 1 ||r||/||b|| | 2 ||r||_B/||b||_B | 3 ||r||/||x||  

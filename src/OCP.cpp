@@ -20,7 +20,8 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup processdures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(ParamRead& param, const USI& argc, const char* optset[])
+void OpenCAEPoro::SetupSimulator(ParamRead& param, const USI& argc,
+                                 const char* optset[])
 {
     // Read parameters from input file
     InputParam(param);
@@ -53,13 +54,13 @@ void OpenCAEPoro::OutputResults() const
     cout << "=========================================" << endl;
     cout << "Final time:          " << control.current_time << " Days" << endl;
     cout << "Total time steps:    " << control.numTstep << endl;
-    cout << "Total Newton steps:  " << control.iterNR_total << endl;
-    cout << "Wasted Newton steps: " << control.wastedIterNR << endl;
-    cout << "Wasted linear steps: " << control.wastedIterLS << endl;
-    cout << "Simulation time:     " << control.totalSimTime << "s" << endl;
-    cout << "Total linear steps:  " << control.iterLS_total << endl;
+    cout << "Total Newton steps:  " << control.iterNR_total << " (+"
+         << control.wastedIterNR << " wasted steps)" << endl;
+    cout << "Total linear steps:  " << control.iterLS_total << " (+"
+         << control.wastedIterLS << " wasted steps)" << endl;
     cout << "Linear solve time:   " << control.totalLStime << "s"
          << " (" << 100.0 * control.totalLStime / control.totalSimTime << "%)" << endl;
+    cout << "Simulation time:     " << control.totalSimTime << "s" << endl;
 
     output.PrintInfo();
 }
@@ -70,5 +71,5 @@ void OpenCAEPoro::OutputResults() const
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
-/*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Dec/05/2021      Format file                          */
 /*----------------------------------------------------------------------------*/
