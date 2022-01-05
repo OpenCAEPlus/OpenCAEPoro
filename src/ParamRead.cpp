@@ -195,12 +195,52 @@ void ParamRead::ReadFile(const string& file)
                 paramWell.InputWELTARG(ifs);
                 break;
 
+            case Map_Str2Int("WELLSTRE", 8):
+                paramWell.InputWELLSTRE(ifs);
+                break;
+
             case Map_Str2Int("SUMMARY", 7):
                 paramOutput.InputSUMMARY(ifs);
                 break;
 
             case Map_Str2Int("RPTSCHED", 8):
                 paramOutput.InputRPTSCHED(ifs);
+                break;
+
+            case Map_Str2Int("NCNP", 4):
+                paramRs.InputNCNP(ifs);
+                break;
+
+            case Map_Str2Int("ZI", 2):
+                paramRs.InputZI(ifs);
+                break;
+
+            case Map_Str2Int("COM", 3):
+                paramRs.InputCOM(ifs);
+                break;
+
+            case Map_Str2Int("BIP", 3):
+                paramRs.InputBIP(ifs);
+                break;
+
+            case Map_Str2Int("SSMSTA", 6):
+                paramRs.InputSSMSTA(ifs);
+                break;
+
+            case Map_Str2Int("SSMSP", 5):
+                paramRs.InputSSMSP(ifs);
+                break;
+
+            case Map_Str2Int("NRSTA", 5):
+                paramRs.InputNRSTA(ifs);
+                break;
+
+            case Map_Str2Int("NRSP", 4):
+                paramRs.InputNRSP(ifs);
+                break;
+
+            case Map_Str2Int("RR", 2):
+                paramRs.InputRR(ifs);
                 break;
 
             default:
@@ -225,7 +265,7 @@ void ParamRead::ReadINCLUDE(ifstream& ifs)
 void ParamRead::CheckParam()
 {
     paramRs.CheckParam();
-    paramWell.CheckParam();
+    paramWell.CheckParam(paramRs.blackOil);
 }
 
 /*----------------------------------------------------------------------------*/

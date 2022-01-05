@@ -18,6 +18,7 @@
 
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
+#include "ParamReservoir.hpp"
 
 using namespace std;
 
@@ -32,11 +33,31 @@ class Mixture
 public:
     Mixture() = default;
     virtual ~Mixture(){};
-
+    /// Allocate memory for common variables for basic class
+    void Allocate() {
+        Ni.resize(numCom);
+        phaseExist.resize(numPhase);
+        v.resize(numPhase);
+        S.resize(numPhase);
+        xi.resize(numPhase);
+        xij.resize(numPhase * numCom);
+        rho.resize(numPhase);
+        mu.resize(numPhase);
+        vfi.resize(numCom);
+        // Derivatives for FIM
+        rhoP.resize(numPhase);
+        xiP.resize(numPhase);
+        muP.resize(numPhase);
+        rhox.resize(numPhase * numCom);
+        xix.resize(numPhase * numCom);
+        mux.resize(numPhase * numCom);
+        dSec_dPri.resize((numCom + 1) * (numPhase + numPhase * numCom));
+    };
+    virtual void SetPVTW() {};
     /// return type of mixture.
     USI GetType() const { return mixtureType; }
     /// judge if table PVDG is empty, it will only be used in black oil model.
-    virtual bool IsEmpty_PVDG() const = 0;
+    virtual bool IsEmpty_PVDG() const {};
     /// flash calculation with saturation of phases.
     virtual void Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
@@ -97,29 +118,28 @@ protected:
     vector<OCP_DBL> S;          ///< saturation of phase: numPhase
     vector<OCP_DBL> rho;        ///< mass density of phase: numPhase
     vector<OCP_DBL> xi;         ///< molar density of phase: numPhase
-    vector<OCP_DBL> cij; ///< Nij / Nj: numPhase*numCom, Nij is the moles of component i
+    vector<OCP_DBL> xij; ///< Nij / Nj: numPhase*numCom, Nij is the moles of component i
                          ///< in phase j, Nj is the moles of phase j.
     vector<OCP_DBL> mu;  ///< viscosity of phase: numPhase
     vector<OCP_DBL> v;   ///< volume of phase: numPhase;
 
     OCP_DBL vf;  ///< volume of total fluids.
-    OCP_DBL         Nt;         ///< Total moles of Components.
+    OCP_DBL Nt;  ///< Total moles of Components.
 
-    /// Derivatives
 
-    // For IMPEC
+    // Derivatives
+
     OCP_DBL vfp; ///< dVf / dP, the derivative of volume of total fluids with respect to
                  ///< pressure.
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom  the derivative of volume of total
                          ///< fluids with respect to moles of components.
     
-    // For FIM
-    vector<OCP_DBL> muP;
-    vector<OCP_DBL> xiP;
-    vector<OCP_DBL> rhoP;
-    vector<OCP_DBL> muC;
-    vector<OCP_DBL> xiC;
-    vector<OCP_DBL> rhoC;
+    vector<OCP_DBL> muP; ///< d mu / dP: numPhase
+    vector<OCP_DBL> xiP; ///< d xi / dP: numphase
+    vector<OCP_DBL> rhoP; ///< d rho / dP: numphase
+    vector<OCP_DBL> mux; ///< d mu[j] / d x[i][j]: numphase
+    vector<OCP_DBL> xix; ///< d xi[j] / d x[i][j]: numphase
+    vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase
     
     
     vector<OCP_DBL> dSec_dPri;

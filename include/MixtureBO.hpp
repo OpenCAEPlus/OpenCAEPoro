@@ -17,7 +17,7 @@
 // OpenCAEPoro header files
 #include "Mixture.hpp"
 #include "OCPTable.hpp"
-#include "ParamReservoir.hpp"
+
 
 /// BOMixture is inherited class of Mixture, it's used for black oil model.
 class BOMixture : public Mixture
@@ -87,7 +87,7 @@ public:
     OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
                          const OCP_DBL* Ziin) override
     {
-        OCP_ABORT("Should not be used in BLKOIL mode!");
+        OCP_ABORT("Should not be used in Black Oil mode!");
     };
 
 private:

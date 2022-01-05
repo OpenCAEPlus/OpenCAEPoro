@@ -129,7 +129,7 @@ void Reservoir::InitIMPEC() { OCP_FUNCNAME;
 
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBo(50);
-    else if (bulk.GetMixMode() == EoS_PVTW)
+    else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50);
 
     bulk.CalVpore();
@@ -286,7 +286,7 @@ void Reservoir::InitFIM() {  OCP_FUNCNAME;
 
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBo(50);
-    else if (bulk.GetMixMode() == EoS_PVTW)
+    else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50);
 
     bulk.CalVpore();

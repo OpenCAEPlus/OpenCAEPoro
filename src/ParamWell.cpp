@@ -58,6 +58,18 @@ WellParam::WellParam(vector<string>& info)
     if (info[4] != "DEFAULT") depth = stod(info[4]);
 }
 
+Solvent::Solvent(const vector<string>& vbuf)
+{
+    name = vbuf[0];
+    USI len = vbuf.size();
+    for (USI i = 0; i < len - 1; i++) {
+        if (vbuf[i + 1] == "/")
+            break;
+        comRatio.push_back(stod(vbuf[i + 1]));
+    }
+}
+
+
 void ParamWell::InputWELSPECS(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -79,15 +91,16 @@ void ParamWell::InputCOMPDAT(ifstream& ifs)
 
         DealDefault(vbuf);
         string src   = vbuf[0];
-        bool   match = (src.find("*") != string::npos);
+        int pos = src.find("*");
+        bool   match = (pos != string::npos);
         if (match) {
-            src.pop_back();
+            src.erase(pos);
         }
         bool tmp = false;
 
         for (USI w = 0; w < num; w++) {
             if (match)
-                tmp = (well[w].name.find(src) != string::npos);
+                tmp = (well[w].name.substr(0,pos) == src);
             else
                 tmp = (well[w].name == src);
 
@@ -149,14 +162,15 @@ void ParamWell::InputWCONINJE(ifstream& ifs)
 
         DealDefault(vbuf);
         string src   = vbuf[0];
-        bool   match = (src.find("*") != string::npos);
+        int pos = src.find("*");
+        bool   match = (pos != string::npos);
         if (match) {
-            src.pop_back();
+            src.erase(pos);
         }
 
         if (match) {
             for (USI w = 0; w < num; w++) {
-                if (well[w].name.find(src) != string::npos) {
+                if (well[w].name.substr(0,pos) == src) {
                     well[w].optParam.push_back(WellOptPair(d, "INJ", vbuf));
                 }
             }
@@ -183,14 +197,15 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
 
         DealDefault(vbuf);
         string src   = vbuf[0];
-        bool   match = (src.find("*") != string::npos);
+        int pos = src.find("*");
+        bool   match = (pos != string::npos);
         if (match) {
-            src.pop_back();
+            src.erase(pos);
         }
 
         if (match) {
             for (USI w = 0; w < num; w++)
-                if (well[w].name.find(src) != string::npos)
+                if (well[w].name.substr(0,pos) == src)
                     well[w].optParam.push_back(WellOptPair(d, "PROD", vbuf));
         } else {
             for (USI w = 0; w < num; w++)
@@ -235,15 +250,16 @@ void ParamWell::InputWELTARG(ifstream& ifs)
 
         DealDefault(vbuf);
         string src   = vbuf[0];
-        bool   match = (src.find("*") != string::npos);
+        int pos = src.find("*");
+        bool   match = (pos != string::npos);
         if (match) {
-            src.pop_back();
+            src.erase(pos);
         }
         bool tmp = false;
 
         for (USI w = 0; w < num; w++) {
             if (match)
-                tmp = (well[w].name.find(src) != string::npos);
+                tmp = (well[w].name.substr(0,pos) == src);
             else
                 tmp = (well[w].name == src);
 
@@ -268,8 +284,45 @@ void ParamWell::InputWELTARG(ifstream& ifs)
     cout << "WELTARG" << endl;
 }
 
+void ParamWell::InputWELLSTRE(ifstream& ifs)
+{
+    vector<string> vbuf;
+    while (ReadLine(ifs, vbuf)) {
+        if (vbuf[0] == "/") break;
+        solSet.push_back(Solvent(vbuf));
+    }
+    cout << "WELLSTRE" << endl;
+}
+
 // check
-void ParamWell::CheckParam() const { CheckPerf(); }
+void ParamWell::CheckParam(const bool& boModel) const
+{ 
+    if (boModel) {
+        CheckINJFluid();
+    }
+    CheckPerf(); 
+}
+
+void ParamWell::CheckINJFluid() const
+{
+    USI wellnum = well.size();
+    USI len;
+    for (USI w = 0; w < wellnum; w++) {
+        len = well[w].optParam.size();
+        for (USI i = 0; i < len; i++) {
+            const WellOptParam& tmpOpt = well[w].optParam[i].opt;
+            if (tmpOpt.type == "INJ") {
+                if (tmpOpt.fluidType == "WAT" || tmpOpt.fluidType == "WATER") {
+                }
+                else if (tmpOpt.fluidType == "GAS") {
+                }
+                else {
+                    OCP_ABORT("Wrong FluidType!");
+                }
+            }
+        }
+    }
+}
 
 void ParamWell::CheckPerf() const
 {

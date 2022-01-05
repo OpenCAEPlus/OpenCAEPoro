@@ -1,0 +1,88 @@
+#	Flash calculation input file
+#	for compositional simulation
+#	
+#       Specifying the input file the SPE5 fluids.
+#	version 1
+VERSION
+3
+/
+NCNP
+# number of component; maximum number of phases
+9 2
+/
+ZI
+.65990   .01940   .08690  .01210  .05910  .09670  .04745	.01515	.00330
+/
+EOS
+# EOS type: 1 PR | 2 SRK | 3 CPA
+1 
+/
+COM
+# component critical information
+#name 	Pc 	Tc 	acentric MW 	Vc 	OmegaA 	OmegaB	shift 	parachor
+#name 	Pc 	          Tc 		acentric  	MW	  		Vc (ft3/lb)		OmegaA		OmegaB		shift	parachor
+'C1'	667.78170	343.08000	.01300 		16.04300	0.0978526529	.5340210	.0777961	0
+'N2'	492.31265	227.16000	.04000		28.01300	0.1115375871	.4572355	.0777961	0
+'C2'	708.34238	549.77400	.09860		30.07000	0.0788410297	.4572355	.0777961	0
+'CO2'	1071.33111	548.46000	.22500		44.01000	0.0342145862	.4572355	.0777961	0
+'C3'	618.69739	665.64000	.15240		44.09700	0.0726520446	.4572355	.0777961	0
+'C4-6'	514.92549	806.54054	.21575		66.86942	0.0694794489	.4572355	.0777961	0
+'C7+1'	410.74956	838.11282	.31230		107.77943	0.0530672691	.6373344	.0872878   	0  
+'C7+2'	247.56341	1058.03863	.55670 		198.56203	0.0524473524	.6373344	.0872878	0
+'C7+3'	160.41589	1291.89071	.91692 		335.19790	0.0519201505	.6373344	.0872878	0
+/
+BIP
+#BIP matrix
+#delta 
+0        .36     0      .1      0        0.092810  .130663  .130663  .130663
+.36      0       .05    -0.02   .08      .1002     .1       .1       .1
+0        .05     0      .13     0        0         .006     .006     .006
+.1       -0.02   .13    0       .135	 .1277	   .1	    .1	     .1
+0        .08     0      .135    0        0         .006     .006     .006
+.092810  .1002   0      .1277   0        0         0        0        0 
+.130663  .1      .006   .1      .006     0         0        0        0
+.130663  .1      .006   .1      .006     0         0        0        0
+.130663  .1      .006   .1      .006     0         0        0        0
+/
+
+
+RR
+#Rachford Rice equation parameters
+#maxit tolerance
+50	1e-12
+/
+
+SSMSTA
+#Successive substitution in Stablility Analysis
+#maxit tolerance
+50	1e-2
+/
+
+NRSTA
+#Newton Raphson in Stablility Analysis
+#maxit tolerance
+55 1e-12
+/
+
+
+SSMSP
+#Successive substitution in Phase Split
+#maxit tolerance
+50	 1e-3
+/
+
+NRSP
+#Newton Raphson in Phase Split
+#maxit tolerance
+55  1e-12
+/
+
+FSWITCH
+#swith of 
+#shift RRinit SSinit NRinit
+0	1	1	1
+/
+# mu indentify_phase
+OTHERS
+2     2
+/

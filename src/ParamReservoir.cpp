@@ -242,7 +242,7 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     comps = true;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    numCom = stoi(vbuf[0]);
+    numCom = stoi(vbuf[0]) + 1;
 }
 
 /// TODO: Add Doxygen
@@ -295,6 +295,12 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
 
         for (USI n = 2; n < 8; n++) {
             if (vbuf[n] != "DEFAULT") index[n - 2] = stoi(vbuf[n]) - 1;
+        }
+        if (index[0] < 0 || index[2] < 0 || index[4] < 0 ||
+            index[1] > dimens.nx - 1 || index[3] > dimens.ny - 1 ||
+            index[5] > dimens.nz - 1) {
+            string MyError = "WRONG Range in " + objName + " in EQUALS!";
+            OCP_ABORT("WRONG Range in ");
         }
 
         vector<OCP_DBL>* objPtr = FindPtr(objName);
@@ -620,7 +626,7 @@ void ParamReservoir::CheckDenGra() const
 /// TODO: Add Doxygen
 void ParamReservoir::CheckPhase() const
 {
-    if (disGas && (!gas && !oil)) {
+    if (blackOil & disGas && (!gas && !oil)) {
         OCP_ABORT("DISGAS can only be used only if OIL and GAS are both present!");
     }
 }
@@ -660,6 +666,7 @@ void ParamReservoir::CheckEqlRegion() const
     }
 }
 
+
 /// TODO: Add Doxygen
 void TableSet::DisplayTable() const
 {
@@ -675,6 +682,165 @@ void TableSet::DisplayTable() const
             cout << "\n";
         }
     }
+}
+
+void EoSparam::InputNCNP(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    numComp = stoi(vbuf[0]);
+    numPhase = stoi(vbuf[1]);
+    OCP_FUNCNAME;
+    cout << "NC = " << numComp << "   NPmax = " << numPhase << endl << endl;
+}
+
+
+void EoSparam::InputZI(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    OCP_ASSERT(numComp > 0, "Wrong NC!");
+    zi.resize(numComp);
+    for (USI i = 0; i < numComp; i++) {
+        zi[i] = stod(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < numComp; i++) {
+        cout << zi[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+void EoSparam::InputCOM(ifstream& ifs)
+{
+    OCP_ASSERT(numComp > 0, "Wrong NC!");
+    COM.resize(numComp);
+    USI len = 9;
+
+    vector<string> vbuf;
+
+    for (USI c = 0; c < numComp; c++) {
+        COM[c].resize(len);
+        ReadLine(ifs, vbuf);
+        for (USI i = 0; i < len; i++) {
+            COM[c][i] = vbuf[i];
+        }
+    }
+    OCP_FUNCNAME;
+    cout << "Name    " << "Pc                " << "Tc           " << "Acentric    "
+        << "MW               " << "Vc            "
+        << "OmegaA          " << "OmegaB       " << "Shift" << endl;
+    for (auto& c : COM) {
+        for (auto& item : c) {
+            cout << item << "\t";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+
+void EoSparam::InputBIP(ifstream& ifs)
+{
+    OCP_ASSERT(numComp > 0, "Wrong NC!");
+    BIP.resize(numComp);
+
+    vector<string> vbuf;
+
+    for (USI i = 0; i < numComp; i++) {
+        BIP[i].resize(numComp);
+
+        ReadLine(ifs, vbuf);
+        for (USI j = 0; j < numComp; j++) {
+            BIP[i][j] = stod(vbuf[j]);
+        }
+    }
+
+    OCP_FUNCNAME;
+    for (auto& row : BIP) {
+        for (auto& col : row) {
+            cout << setw(10) << col;
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+
+void EoSparam::InputSSMSTA(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    for (USI i = 0; i < 2; i++) {
+        SSMparamSTA.push_back(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < 2; i++) {
+        cout << SSMparamSTA[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+void EoSparam::InputNRSTA(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    for (USI i = 0; i < 2; i++) {
+        NRparamSTA.push_back(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < 2; i++) {
+        cout << NRparamSTA[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+
+void EoSparam::InputSSMSP(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    for (USI i = 0; i < 2; i++) {
+        SSMparamSP.push_back(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < 2; i++) {
+        cout << SSMparamSP[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+void EoSparam::InputNRSP(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    for (USI i = 0; i < 2; i++) {
+        NRparamSP.push_back(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < 2; i++) {
+        cout << NRparamSP[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+void EoSparam::InputRR(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    for (USI i = 0; i < 2; i++) {
+        RRparam.push_back(vbuf[i]);
+    }
+    OCP_FUNCNAME;
+    for (USI i = 0; i < 2; i++) {
+        cout << RRparam[i] << "   ";
+    }
+    cout << endl << endl;
 }
 
 /*----------------------------------------------------------------------------*/

@@ -1,0 +1,81 @@
+#	Flash calculation input file
+#	for compositional simulation
+#	
+#       Specifying the input file the SPE5 fluids.
+#	version 1
+VERSION
+3
+/
+NCNP
+# number of component; maximum number of phases
+6 2
+/
+ZI
+0.5 0.03 0.07 0.2 0.15 0.05
+/
+EOS
+# EOS type: 1 PR | 2 SRK | 3 CPA
+1 
+/
+COM
+# component critical information
+#name 	Pc 	Tc 	acentric MW 	Vc 	OmegaA 	OmegaB	shift 	parachor
+#name 	Pc 	          Tc 	acentric  MW	  Vc (ft3/lb)	OmegaA	OmegaB	parachor
+'C1'	667.781696	343.08	0.013	16.04	0.099665988	0.45723553	0.077796	0
+'C3'	616.346046	665.64	0.1524	44.1	0.072827699	0.45723553	0.077796	0
+'C6'	436.909107	913.32	0.3007	86.18	0.068735519	0.45723553	0.077796	0
+'C10'	304.058171	1111.86	0.4885	149.29	0.06756531	0.45723553	0.077796	0
+'C15'	200.011199	1270.08	0.65	206	0.081048749	0.45723553	0.077796	0
+'C20'	161.948818	1380.06	0.85	282	0.076184257	0.45723553	0.077796	0
+/
+BIP
+#BIP matrix
+#delta 
+0.0	0.0	0.0	0.0	0.05	0.05
+0.0	0.0	0.0	0.0	0.005	0.005	
+0.0	0.0	0.0	0.0	0.0	0.0	
+0.0	0.0	0.0	0.0	0.0	0.0
+0.05	0.005	0.0	0.0	0.0	0.0
+0.05	0.005	0.0	0.0	0.0	0.0
+/
+
+
+RR
+#Rachford Rice equation parameters
+#maxit tolerance
+30	1e-12
+/
+
+SSMSTA
+#Successive substitution
+#maxit tolerance
+100	1e-2
+/
+
+NRSTA
+#Newton Raphson 
+#maxit tolerance unknown type
+55 1e-12
+/
+
+
+SSMSP
+#maxit toleranceR toleranceK(indicator for trivial solution)
+100	1E-2
+/
+
+NRSP
+55  1e-12
+/
+
+
+FSWITCH
+#swith of 
+#shift RRinit SSinit NRinit
+0	1	1	1
+/
+# 2 2  ->  2 1
+# mu indentify_phase
+OTHERS
+2     1
+/

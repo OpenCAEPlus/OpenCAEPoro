@@ -242,9 +242,9 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
 
             for (USI i = 0; i < nc; i++) {
                 valupi +=
-                    myBulk.vfi[bId * nc + i] * myBulk.cij[uId * np * nc + j * nc + i];
+                    myBulk.vfi[bId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];
                 valdowni +=
-                    myBulk.vfi[eId * nc + i] * myBulk.cij[uId * np * nc + j * nc + i];
+                    myBulk.vfi[eId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];
             }
             OCP_DBL dD = myBulk.depth[bId] - myBulk.depth[eId];
             OCP_DBL dPc = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
@@ -411,7 +411,7 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FU
             OCP_DBL phaseVelocity = upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {
                 OCP_DBL dNi = dt * phaseVelocity * myBulk.xi[uId_np_j] *
-                              myBulk.cij[uId_np_j * nc + i];
+                              myBulk.xij[uId_np_j * nc + i];
                 myBulk.Ni[eId * nc + i] += dNi;
                 myBulk.Ni[bId * nc + i] -= dNi;
             }
@@ -469,7 +469,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
 
     OCP_USI bId, eId, uId;
     OCP_USI uId_np_j;
-    OCP_DBL kr, mu, xi, cij, rhoP, xiP, muP, rhoC, xiC, muC;
+    OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
 
@@ -500,15 +500,15 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
             transJ = Akd * kr / mu;
             
             for (USI i = 0; i < nc; i++) {
-                cij = myBulk.cij[uId_np_j * nc + i];
+                xij = myBulk.xij[uId_np_j * nc + i];
 
-                transIJ = cij * xi * transJ;
+                transIJ = xij * xi * transJ;
                 
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
                 tmp = transIJ * (-rhoP * dGamma);
-                tmp += cij * transJ * xiP * dP;
+                tmp += xij * transJ * xiP * dP;
                 tmp += -transIJ * muP / mu * dP;
                 if (bId == uId) {
                     dFdXpB[(i + 1) * ncol] += tmp;
@@ -521,7 +521,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
                 for (USI k = 0; k < np; k++) {
                     dFdXsB[(i + 1) * ncol2 + k] += transIJ * myBulk.dPcj_dS[bId * np * np + j * np + k];
                     dFdXsE[(i + 1) * ncol2 + k] += transIJ * myBulk.dPcj_dS[eId * np * np + j * np + k];
-                    tmp = Akd * cij * xi / mu * myBulk.dKr_dS[uId * np * np + j * np + k] * dP;
+                    tmp = Akd * xij * xi / mu * myBulk.dKr_dS[uId * np * np + j * np + k] * dP;
                     if (bId == uId) {
                         dFdXsB[(i + 1) * ncol2 + k] += tmp;
                     }
@@ -531,12 +531,12 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
                 }
                 // Cij -- Second var
                 for (USI k = 0; k < nc; k++) {
-                    rhoC = myBulk.rhoC[uId_np_j * nc + k];
-                    xiC = myBulk.xiC[uId_np_j * nc + k];
-                    muC = myBulk.muC[uId_np_j * nc + k];
-                    tmp = -transIJ * rhoC * dGamma;
-                    tmp += cij * transJ * xiC * dP;
-                    tmp += -transIJ * muC / mu * dP;
+                    rhox = myBulk.rhox[uId_np_j * nc + k];
+                    xix = myBulk.xix[uId_np_j * nc + k];
+                    mux = myBulk.mux[uId_np_j * nc + k];
+                    tmp = -transIJ * rhox * dGamma;
+                    tmp += xij * transJ * xix * dP;
+                    tmp += -transIJ * mux / mu * dP;
                     if (k == i) {
                         tmp += xi * transJ * dP;
                     }
@@ -723,7 +723,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 
             tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
-                dNi = tmp * myBulk.cij[uId_np_j * nc + i];
+                dNi = tmp * myBulk.xij[uId_np_j * nc + i];
                 res[bId * len + 1 + i] += dNi;
                 res[eId * len + 1 + i] -= dNi;
             }

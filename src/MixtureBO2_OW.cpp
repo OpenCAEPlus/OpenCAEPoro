@@ -45,8 +45,8 @@ void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
 	rho[0] = std_RhoO / bo;
 	Ni[0] = Vpore * (1 - S[1]) * xi[0];
 
-	cij[0 * 2 + 0] = 1;  cij[0 * 2 + 1] = 0;
-	cij[1 * 2 + 0] = 0;  cij[1 * 2 + 1] = 1;
+	xij[0 * 2 + 0] = 1;  xij[0 * 2 + 1] = 0;
+	xij[1 * 2 + 0] = 0;  xij[1 * 2 + 1] = 1;
 
 	v[0] = CONV1 * Ni[0] * bo;
 	v[1] = CONV1 * Ni[1] * bw;
@@ -88,8 +88,8 @@ void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 	xi[0] = 1 / (CONV1 * bo);
 	rho[0] = std_RhoO / bo;
 
-	cij[0 * 2 + 0] = 1;  cij[0 * 2 + 1] = 0;
-	cij[1 * 2 + 0] = 0;  cij[1 * 2 + 1] = 1;
+	xij[0 * 2 + 0] = 1;  xij[0 * 2 + 1] = 0;
+	xij[1 * 2 + 0] = 0;  xij[1 * 2 + 1] = 1;
 
 	v[0] = CONV1 * Ni[0] * bo;
 	v[1] = CONV1 * Ni[1] * bw;
@@ -141,8 +141,8 @@ void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 	xiP[0] = -xi[0] * bop / bo;
 	rhoP[0] = -rho[0] * bop / bo;
 
-	cij[0 * 2 + 0] = 1;  cij[0 * 2 + 1] = 0;
-	cij[1 * 2 + 0] = 0;  cij[1 * 2 + 1] = 1;
+	xij[0 * 2 + 0] = 1;  xij[0 * 2 + 1] = 0;
+	xij[1 * 2 + 0] = 0;  xij[1 * 2 + 1] = 1;
 
 	v[0] = CONV1 * Ni[0] * bo;
 	v[1] = CONV1 * Ni[1] * bw;

@@ -61,6 +61,37 @@ public:
     vector<T> data;            ///< Data of param.
 };
 
+/// EoSParam contains the params for Compositional Model and functions to read them
+class EoSparam
+{
+public:
+    // Basic params
+    void InputNCNP(ifstream& ifs);
+    void InputZI(ifstream& ifs);
+    void InputCOM(ifstream& ifs);
+    void InputBIP(ifstream& ifs);
+    // Method params
+    void InputSSMSTA(ifstream& ifs); 
+    void InputNRSTA(ifstream& ifs);
+    void InputSSMSP(ifstream& ifs); 
+    void InputNRSP(ifstream& ifs); 
+    void InputRR(ifstream& ifs);  
+
+public:
+    USI numComp{ 0 };   ///< num of components, water is excluded.
+    USI numPhase{ 0 };  ///< num of phase, water is excluded.
+    vector<OCP_DBL> zi;          ///< molar fraction of components in initial reservoir, water is excluded.
+    vector<vector<string>>  COM; ///< Coponents information
+    vector<vector<OCP_DBL>> BIP; ///< Binary interaction
+
+    vector<string>  SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
+    vector<string>	NRparamSTA; ///< Params for Solving Phase Spliting with NR
+    vector<string>  SSMparamSP; ///< Params for Solving Phase Spliting with SSM
+    vector<string>	NRparamSP; ///< Params for Solving Phase Spliting with NR
+    vector<string>	RRparam;  ///< Params for Solving Rachford-Rice equations
+};
+
+
 /// ParamReservoir is an internal structure used to stores the information of
 /// reservoir(except wells) from input files. It is an intermediate interface and
 /// independent of the main simulator. After all file inputting finishs, the params in
@@ -109,9 +140,9 @@ public:
     bool water{false};    ///< If true, water phase could exist.
     bool disGas{false};   ///< If true, dissolve gas could exist in oil phase.
 
-    // Eos
+    // Compositional Model
     /// Contains the initial proportion of components. It's used in compositional model.
-    vector<OCP_DBL> initZi;
+    EoSparam EoSp;
 
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
@@ -127,7 +158,7 @@ public:
 
     // PVT property
     USI      numPhase; ///< Number of phases
-    USI      numCom;   ///< Number of components
+    USI      numCom;   ///< Number of components, used in Compositional Model
     TableSet PVCO_T;   ///< Table set of PVCO.
     TableSet PVDO_T;   ///< Table set of PVDO.
     TableSet PVDG_T;   ///< Table set of PVDG.
@@ -213,6 +244,19 @@ public:
     /// belongs to which saturation region, so corresponding saturation table will
     /// be used.
     void InputRegion(ifstream& ifs, const string& keyword);
+
+    // Input EoSparam
+    // Basic params
+    void InputNCNP(ifstream& ifs) { EoSp.InputNCNP(ifs); };
+    void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
+    void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
+    void InputBIP(ifstream& ifs) { EoSp.InputBIP(ifs); };
+    // Method params
+    void InputSSMSTA(ifstream& ifs) { EoSp.InputSSMSTA(ifs); };
+    void InputNRSTA(ifstream& ifs) { EoSp.InputNRSTA(ifs); };
+    void InputSSMSP(ifstream& ifs) { EoSp.InputSSMSP(ifs); };
+    void InputNRSP(ifstream& ifs) { EoSp.InputNRSP(ifs); };
+    void InputRR(ifstream& ifs) { EoSp.InputRR(ifs); };
 
     // check
     /// Check the reservoir param from input file.

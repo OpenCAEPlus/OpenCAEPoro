@@ -19,6 +19,7 @@
 using namespace std;
 
 
+
 /// WellGroups contains all wells now, it's used to manages all wells uniformly in
 /// reservoirs. actually, you can regard it as an interface between wells and other
 /// modules.
@@ -127,6 +128,7 @@ private:
     USI          numWell;   ///< num of wells.
     vector<Well> wellGroup; ///< well set.
 
+    vector<SolventINJ> solvents; ///< Sets of Solvent
     OCP_DBL      dPmax{ 0 };     ///< Maximum BHP change
 
     vector<Mixture*> flashCal; ///< Uesless now.

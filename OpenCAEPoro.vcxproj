@@ -36,6 +36,7 @@
     <ClCompile Include="src\MixtureBO.cpp" />
     <ClCompile Include="src\MixtureBO2_OW.cpp" />
     <ClCompile Include="src\MixtureBO3_ODGW.cpp" />
+    <ClCompile Include="src\MixtureComp.cpp" />
     <ClCompile Include="src\OCP.cpp" />
     <ClCompile Include="src\OCPControl.cpp" />
     <ClCompile Include="src\OCPFluidMethod.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="include\LinearSystem.hpp" />
     <ClInclude Include="include\Mixture.hpp" />
     <ClInclude Include="include\MixtureBO.hpp" />
+    <ClInclude Include="include\MixtureComp.hpp" />
     <ClInclude Include="include\OCP.hpp" />
     <ClInclude Include="include\OCPConst.hpp" />
     <ClInclude Include="include\OCPControl.hpp" />

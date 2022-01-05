@@ -32,6 +32,7 @@ const USI GENERAL_GRID    = 3;
 
 
 // General consts
+const OCP_DBL GAS_CONSTANT = 10.73159; ///< Gas Constant
 const OCP_DBL TINY = 1E-8;        ///< Small constant
 const OCP_DBL PI   = 3.141592653; ///< Pi
 
@@ -66,7 +67,11 @@ const USI SOLVENT = 3;
 
 // Mixture types
 const USI BLKOIL   = 1;
-const USI EoS_PVTW = 2;
+const USI EOS_PVTW = 2;
+
+// EoS equation
+const USI EOS_PR  = 1;
+const USI EOS_SRK = 2;
 
 // Phase types
 const USI PHASE_W    = 1;

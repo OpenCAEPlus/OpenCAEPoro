@@ -19,9 +19,10 @@ Final time:          3655.500 Days
 Total time steps:    4661
 Total Newton steps:  4661
 Wasted Newton steps: 51
-Simulation time:     1.344s
-Total linear steps:  7884
-Linear solve time:   0.789s (58.670%)
+Wasted linear steps: 99
+Simulation time:     1.362s
+Total linear steps:  7785
+Linear solve time:   0.800s (58.773%)
 
 
 
@@ -42,9 +43,10 @@ Final time:          3655.500 Days
 Total time steps:    420
 Total Newton steps:  474
 Wasted Newton steps: 1
-Simulation time:     5.208s
-Total linear steps:  1417
-Linear solve time:   4.899s (94.050%)
+Wasted linear steps: 4
+Simulation time:     5.247s
+Total linear steps:  1413
+Linear solve time:   4.955s (94.446%)
 
 ```
 
@@ -73,9 +75,10 @@ Final time:          3655.500 Days
 Total time steps:    3858
 Total Newton steps:  3858
 Wasted Newton steps: 19
-Simulation time:     1.140s
-Total linear steps:  7250
-Linear solve time:   0.683s (59.931%)
+Wasted linear steps: 35
+Simulation time:     1.124s
+Total linear steps:  7215
+Linear solve time:   0.676s (60.192%)
 
 
 PS_FIM_10
@@ -93,11 +96,12 @@ OCP_FIM_10
 
 Final time:          3655.500 Days
 Total time steps:    420
-Total Newton steps:  507
+Total Newton steps:  502
 Wasted Newton steps: 1
-Simulation time:     3.815s
-Total linear steps:  1508
-Linear solve time:   3.507s (91.930%)
+Wasted linear steps: 4
+Simulation time:     3.696s
+Total linear steps:  1495
+Linear solve time:   3.388s (91.682%)
 ```
 
 
@@ -120,12 +124,13 @@ Simulation time:     276.62s
 OCP_IMPES_1
 
 Final time:          900.000 Days
-Total time steps:    6317
-Total Newton steps:  6317
+Total time steps:    7492
+Total Newton steps:  7492
 Wasted Newton steps: 42
-Simulation time:     79.238s
-Total linear steps:  8875
-Linear solve time:   49.847s (62.909%)
+Wasted linear steps: 95
+Simulation time:     93.851s
+Total linear steps:  9903
+Linear solve time:   57.371s (61.130%)
 
 
 PS_FIM_10
@@ -142,12 +147,13 @@ Simulation time:     27.515s
 OCP_FIM_10
 
 Final time:          900.000 Days
-Total time steps:    158
-Total Newton steps:  222
-Wasted Newton steps: 59
-Simulation time:     20.119s
-Total linear steps:  1095
-Linear solve time:   13.395s (66.577%)
+Total time steps:    161
+Total Newton steps:  225
+Wasted Newton steps: 58
+Wasted linear steps: 247
+Simulation time:     20.355s
+Total linear steps:  854
+Linear solve time:   13.623s (66.927%)
 ```
 
 

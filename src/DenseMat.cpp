@@ -11,22 +11,36 @@
 
 #include "DenseMat.hpp"
 
-void Dscalar(int n, double alpha, double* x)
+// WARNING: absolute sum!
+double Dnorm1(const int& N, double* x)
+{
+    const int incx = 1;
+    return dasum_(&N, x, &incx);
+}
+
+double Dnorm2(const int& N, double* x)
+{
+    const int incx = 1;
+    return dnrm2_(&N, x, &incx);
+}
+
+
+void Dscalar(const int& n, const double& alpha, double* x)
 {
     // x = a x
     const int incx = 1;
     dscal_(&n, &alpha, x, &incx);
 }
 
-void Daxpy(int n, double alpha, const double* x, double* y)
+void Daxpy(const int& n, const double& alpha, const double* x, double* y)
 {
     // y= ax +y
     const int incx = 1, incy = 1;
     daxpy_(&n, &alpha, x, &incx, y, &incy);
 }
 
-void DaABpbC(int m, int n, int k, double alpha, const double* A, const double* B,
-             double beta, double* C)
+void DaABpbC(const int& m, const int& n, const int& k, const double& alpha, const double* A, const double* B,
+    const double& beta, double* C)
 {
     /*  C' = alpha B'A' + beta C'
      *  A: m x k
@@ -39,7 +53,7 @@ void DaABpbC(int m, int n, int k, double alpha, const double* A, const double* B
     dgemm_(&transa, &transb, &n, &m, &k, &alpha, B, &n, A, &k, &beta, C, &n);
 }
 
-void DaAxpby(int m, int n, double a, const double* A, const double* x, double b,
+void DaAxpby(const int& m, const int& n, const double& a, const double* A, const double* x, const double& b,
              double* y)
 {
     /*  y= aAx+by
@@ -51,6 +65,47 @@ void DaAxpby(int m, int n, double a, const double* A, const double* x, double b,
         }
     }
 }
+
+void LUSolve(const int& N, double* A, double* b, int* pivot)
+{
+    int info;
+    int one = 1;
+
+    dgesv_(&N, &one, A, &N, pivot, b, &N, &info);
+
+    if (info < 0) {
+        cout << "Wrong Input !" << endl;
+    }
+    else if (info > 0) {
+        cout << "Singular Matrix !" << endl;
+    }
+}
+
+void SYSSolve(const char* uplo, const int& N, double* A, double* b, int* pivot)
+{
+    int info;
+    int one = 1;
+    double work[1] = { 0 };
+    int lwork = 1;
+
+    dsysv_(uplo, &N, &one, A, &N, pivot, b, &N, work, &lwork, &info);
+    if (info < 0) {
+        cout << "Wrong Input !" << endl;
+    }
+    else if (info > 0) {
+        cout << "Singular Matrix !" << endl;
+    }
+}
+
+void PrintDX(const int& N, const double* x)
+{
+    for (int i = 0; i < N; i++) {
+        cout << setprecision(9) << x[i] << "    ";
+    }
+    cout << endl;
+}
+
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

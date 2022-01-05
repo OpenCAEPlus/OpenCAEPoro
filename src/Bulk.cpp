@@ -25,22 +25,23 @@ void Bulk::InputParam(ParamReservoir& rs_param) { OCP_FUNCNAME;
     rockPref = rs_param.rock.Pref;
     rockC1   = rs_param.rock.Cr;
     rockC2   = rockC1;
-
     T        = rs_param.rsTemp;
     blackOil = rs_param.blackOil;
     comps    = rs_param.comps;
-    oil      = rs_param.oil;
-    gas      = rs_param.gas;
-    water    = rs_param.water;
-    disGas   = rs_param.disGas;
 
+    oil = rs_param.oil;
+    gas = rs_param.gas;
+    water = rs_param.water;
+    disGas = rs_param.disGas;
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];
+
     if (rs_param.PBVD_T.data.size() > 0) {
         EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
     }
     
     if (blackOil) {
+        
         if (water && !oil && !gas) {
             // water
             numPhase = 1;
@@ -87,9 +88,24 @@ void Bulk::InputParam(ParamReservoir& rs_param) { OCP_FUNCNAME;
         }
         for (USI i = 0; i < rs_param.NTPVT; i++)
             flashCal.push_back(new BOMixture(rs_param, PVTmode, i));
-        cout << "Bulk::InputParam" << endl;
+        cout << "Bulk::InputParam --- BLACKOIL" << endl;
     } else if (comps) {
-        initZi = rs_param.initZi;
+        // Water exists and is excluded in EoS model NOW!
+        initZi = rs_param.EoSp.zi; // Easy initialization!
+        numPhase = rs_param.EoSp.numPhase + 1;
+        numCom = rs_param.EoSp.numComp + 1;
+        EQUIL.DOWC = rs_param.EQUIL[2];
+        EQUIL.PcOWC = rs_param.EQUIL[3];
+        EQUIL.DGOC = rs_param.EQUIL[4];
+        EQUIL.PcGOC = rs_param.EQUIL[5];
+        SATmode = PHASE_ODGW;
+        for (USI i = 0; i < rs_param.NTSFUN; i++) {
+            flow.push_back(new FlowUnit(rs_param, SATmode, i));
+            flow[i]->Generate_SWPCWG();
+        }
+        for (USI i = 0; i < rs_param.NTPVT; i++)
+            flashCal.push_back(new MixtureComp(rs_param, i));
+        cout << "Bulk::InputParam --- COMPOSITIONAL" << endl;
     }
 }
 
@@ -141,7 +157,7 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
     S.resize(numBulk * numPhase);
     rho.resize(numBulk * numPhase);
     xi.resize(numBulk * numPhase);
-    cij.resize(numBulk * numPhase * numCom);
+    xij.resize(numBulk * numPhase * numCom);
     Ni.resize(numBulk * numCom);
     mu.resize(numBulk * numPhase);
     kr.resize(numBulk * numPhase);
@@ -199,9 +215,10 @@ void Bulk::Setup(const Grid& myGrid) { OCP_FUNCNAME;
                 break;
         }
     }
-    else if (comps)
-    {
-        // initZi.resize(numBulk * numCom);
+    else if (comps) {
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
+        phase2Index[WATER] = 2;
     }
 
     // CheckSetup();
@@ -1106,8 +1123,8 @@ void Bulk::PassFlashValue(const OCP_USI& n) { OCP_FUNCNAME;
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j] = flashCal[pvtnum]->xi[j];
             for (USI i = 0; i < numCom; i++) {
-                cij[bId * numCom + j * numCom + i] =
-                    flashCal[pvtnum]->cij[j * numCom + i];
+                xij[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xij[j * numCom + i];
             }
             mu[bId + j] = flashCal[pvtnum]->mu[j];
             vj[bId + j] = flashCal[pvtnum]->v[j];
@@ -1144,14 +1161,14 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n) { OCP_FUNCNAME;
             xiP[bId + j] = flashCal[pvtnum]->xiP[j];
             rhoP[bId + j] = flashCal[pvtnum]->rhoP[j];
             for (USI i = 0; i < numCom; i++) {
-                cij[bId * numCom + j * numCom + i] =
-                    flashCal[pvtnum]->cij[j * numCom + i];
-                muC[bId * numCom + j * numCom + i] =
-                    flashCal[pvtnum]->muC[j * numCom + i];
-                xiC[bId * numCom + j * numCom + i] =
-                    flashCal[pvtnum]->xiC[j * numCom + i];
-                rhoC[bId * numCom + j * numCom + i] =
-                    flashCal[pvtnum]->rhoC[j * numCom + i];
+                xij[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xij[j * numCom + i];
+                mux[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->mux[j * numCom + i];
+                xix[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xix[j * numCom + i];
+                rhox[bId * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->rhox[j * numCom + i];
             }
         }
     }
@@ -1172,7 +1189,7 @@ void Bulk::ResetFlash() {  OCP_FUNCNAME;
     S = lS;
     rho = lrho;
     xi = lxi;
-    cij = lcij;
+    xij = lxij;
     mu = lmu;
     vj = lvj;
     vf = lvf;
@@ -1386,7 +1403,7 @@ USI Bulk::GetMixMode() const { OCP_FUNCNAME;
     if (blackOil)
         return BLKOIL;
     else if (comps)
-        return EoS_PVTW;
+        return EOS_PVTW;
     else
         return 0; // TODO: Make sure code does not reach here!
 }
@@ -1412,7 +1429,7 @@ void Bulk::AllocateAuxIMPEC() { OCP_FUNCNAME;
     lS.resize(numBulk * numPhase);
     lrho.resize(numBulk * numPhase);
     lxi.resize(numBulk * numPhase);
-    lcij.resize(numBulk * numPhase * numCom);
+    lxij.resize(numBulk * numPhase * numCom);
     lNi.resize(numBulk * numCom);
     lmu.resize(numBulk * numPhase);
     lkr.resize(numBulk * numPhase);
@@ -1473,7 +1490,7 @@ void Bulk::UpdateLastStepIMPEC() { OCP_FUNCNAME;
     lS = S;
     lrho = rho;
     lxi = xi;
-    lcij = cij;
+    lxij = xij;
     lNi = Ni;
     lmu = mu;
     lkr = kr;
@@ -1504,9 +1521,9 @@ void Bulk::AllocateAuxFIM()
     muP.resize(numBulk * numPhase);
     xiP.resize(numBulk * numPhase);
     rhoP.resize(numBulk * numPhase);
-    muC.resize(numBulk * numCom * numPhase);
-    xiC.resize(numBulk * numCom * numPhase);
-    rhoC.resize(numBulk * numCom * numPhase);
+    mux.resize(numBulk * numCom * numPhase);
+    xix.resize(numBulk * numCom * numPhase);
+    rhox.resize(numBulk * numCom * numPhase);
     dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
@@ -1549,7 +1566,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OC
         choptmp = dPmaxlim / fabs(dP);
         chopmin = min(chopmin, choptmp);
         NRdPmax = max(NRdPmax, fabs(dP));
-        P[n] += dP;
+        P[n] += dP; // seems better
 
         //// Correct chopmin
         //for (USI i = 0; i < numCom; i++) {

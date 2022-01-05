@@ -13,8 +13,12 @@
 #ifndef __DENSEMAT_HEADER__
 #define __DENSEMAT_HEADER__
 
-
+#include <iostream>
+#include <string>
+#include <iomanip>
 #include <algorithm>
+
+using namespace std;
 
 extern "C" {
 	//BLAS functions
@@ -31,16 +35,27 @@ extern "C" {
 
 	//LAPACK functions
 	int dgesv_(const int* n, const int* nrhs, double* A, const int* lda, int* ipiv, double* b, const int* ldb, int* info);
+	int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int* lda, int* ipiv,
+				double* b, const int* ldb, double* work, const int* lwork, int* info);
 }
 
-void Dscalar(int n, double alpha, double* x);
+double Dnorm1(const int& N, double* x);
 
-void Daxpy(int n, double alpha, const double* x, double* y);
+double Dnorm2(const int& N, double* x);
 
-void DaABpbC(int m, int n, int k, double alpha, const double* A, const double* B, double beta, double* C);
+void Dscalar(const int& n, const double& alpha, double* x);
 
-void DaAxpby(int m, int n, double a, const double* A, const double* x, double b, double* y);
+void Daxpy(const int& n, const double& alpha, const double* x, double* y);
 
+void DaABpbC(const int& m, const int& n, const int& k, const double& alpha, const double* A, const double* B, const double& beta, double* C);
+
+void DaAxpby(const int& m, const int& n, const double& a, const double* A, const double* x, const double& b, double* y);
+
+void LUSolve(const int& N, double* A, double* b, int* pivot);
+
+void SYSSolve(const char* uplo, const int& N, double* A, double* b, int* pivot);
+
+void PrintDX(const int& N, const double* x);
 
 #endif
 

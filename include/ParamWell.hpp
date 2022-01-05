@@ -84,6 +84,16 @@ public:
 
 };
 
+/// Describe the molar fraction of components of fluid injected to reservoir from INJ.
+class Solvent
+{
+public: 
+    Solvent() = default;
+    Solvent(const vector<string>& vbuf);
+    string          name;
+    vector<OCP_DBL> comRatio;
+};
+
 /// ParamWell is an internal structure used to stores the information of wells from
 /// input files. It is an intermediate interface and independent of the main simulator.
 /// After all file inputting finishs, the params in it will pass to corresponding
@@ -93,6 +103,7 @@ class ParamWell
 public:
     vector<WellParam> well;         ///< Contains all the information of wells.
     vector<OCP_DBL>   criticalTime; ///< Records the critical time given by users.
+    vector<Solvent>   solSet;       ///< Sets of Solvent.
 
     /// Initialize the inputting the params of wells.
     void Init() { InitTime(); };
@@ -119,12 +130,16 @@ public:
     /// well anytime. For example, the oil production rate is changed from 1000 stb/day
     /// to 1500 stb/day at the 100th day.
     void InputWELTARG(ifstream& ifs);
+    /// Input well keyword: Solvent. It describes the molar fraction of components of fluid 
+    /// injected to reservoir from INJ.
+    void InputWELLSTRE(ifstream& ifs);
 
     // check
     /// Check if wrong params are input.
-    void CheckParam() const;
+    void CheckParam(const bool& boModel) const;
     /// Check if params of Perforation is wrong.
     void CheckPerf() const;
+    void CheckINJFluid() const;
 };
 
 #endif /* end if __PARAMWELL_HEADER__ */

@@ -263,11 +263,11 @@ FlowUnit::FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI&
     mode = inmode;
     if (rs_param.water) {
         SWOF.Setup(rs_param.SWOF_T.data[i]);
-        len = max(len, SWOF.GetCol());
+        len = max(len, SWOF.GetColNum());
     }
     if (rs_param.gas) {
         SGOF.Setup(rs_param.SGOF_T.data[i]);
-        len = max(len, SWOF.GetCol());
+        len = max(len, SWOF.GetColNum());
     }
 
     data.resize(len, 0);

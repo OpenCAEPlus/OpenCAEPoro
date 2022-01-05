@@ -17,7 +17,15 @@
  /////////////////////////////////////////////////////////////////////
 
 
-void WellGroup::InputParam(const ParamWell& paramWell) { OCP_FUNCNAME;
+void WellGroup::InputParam(const ParamWell& paramWell) 
+{ 
+    OCP_FUNCNAME;
+
+    USI len = paramWell.solSet.size();
+    solvents.resize(len);
+    for (USI i = 0; i < len; i++) {
+        solvents[i] = paramWell.solSet[i];
+    }
 
     numWell = paramWell.well.size();
     wellGroup.resize(numWell);
@@ -59,7 +67,7 @@ void WellGroup::Setup(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 void WellGroup::SetupWell(const Grid& myGrid, const Bulk& myBulk) { OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        wellGroup[w].Setup(myGrid, myBulk);
+        wellGroup[w].Setup(myGrid, myBulk, solvents);
     }
 }
 

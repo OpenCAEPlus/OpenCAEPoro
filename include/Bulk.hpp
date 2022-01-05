@@ -22,6 +22,7 @@
 #include "LinearSystem.hpp"
 #include "Mixture.hpp"
 #include "MixtureBO.hpp"
+#include "MixtureComp.hpp"
 #include "OCPConst.hpp"
 #include "OCPStructure.hpp"
 #include "DenseMat.hpp"
@@ -187,7 +188,7 @@ private:
     vector<OCP_DBL> S;          ///< saturation of phase j: numPhase*numBulk.
     vector<OCP_DBL> rho;        ///< mass density of phase: numPhase*numBulk.
     vector<OCP_DBL> xi;         ///< moles density of phase: numPhase*numBulk.
-    vector<OCP_DBL> cij; ///< Nij / Nj: numPhase*numCom*numBulk. Nij is the moles of
+    vector<OCP_DBL> xij; ///< Nij / Nj: numPhase*numCom*numBulk. Nij is the moles of
                          ///< component i in phase j, Nj is the moles of phase j.
     vector<OCP_DBL> Ni;  ///< Moles of component: numCom*numBulk.
     vector<OCP_DBL> mu;  ///< Viscosity of phase: numPhase*numBulk.
@@ -212,7 +213,7 @@ private:
     vector<OCP_DBL> lS;  ///< Saturation of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> lrho; ///< Mass density of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> lxi; ///< Moles density of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lcij; ///< Nij / Nj at last time step: numPhase*numCom*numBulk.
+    vector<OCP_DBL> lxij; ///< Nij / Nj at last time step: numPhase*numCom*numBulk.
     vector<OCP_DBL> lNi; ///< Moles of component at last time step: numCom*numBulk.
     vector<OCP_DBL> lmu; ///< Viscosity of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> lkr; ///< Relative permeability of phase at last time step: numPhase*numBulk.
@@ -315,9 +316,9 @@ private:
     vector<OCP_DBL> muP;    ///< dMu / dP: numPhase*numBulk.
     vector<OCP_DBL> xiP;    ///< dXi / dP: numPhase*numBulk.
     vector<OCP_DBL> rhoP;   ///< dRho / dP: numPhase*numBulk.
-    vector<OCP_DBL> muC;    ///< dMuj / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> xiC;    ///< dXi_j / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> rhoC;   ///< dRhoj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> mux;    ///< dMuj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> xix;    ///< dXi_j / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> rhox;   ///< dRhoj / dxij: numPhase*numCom*numBulk.
     vector<OCP_DBL> dSec_dPri; ///< d Second var / d Primary var: (numPhase + numPhase*numCom)*(numCom + 1)*numBulk
     vector<OCP_DBL> dPcj_dS; ///< d Pcj / dSk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dKr_dS; ///< d Krj / dSk: numPhase * numPhase * bulk.

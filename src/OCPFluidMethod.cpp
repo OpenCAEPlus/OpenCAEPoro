@@ -165,7 +165,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     if (status < 0) {
         status = myLS.GetMaxIters();
     }
-    cout << "LS step = " << status << endl;
+    // cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");

@@ -27,6 +27,22 @@
 
 using namespace std;
 
+
+/// Describe the molar fraction of components of fluid injected to reservoir from INJ.
+class SolventINJ
+{
+public:
+    SolventINJ() = default;
+    SolventINJ& operator=(const Solvent& other) {
+        name = other.name;
+        data = other.comRatio;
+        return *this;
+    };
+    string          name;  ///< name of solvens
+    vector<OCP_DBL> data;  ///< molar fraction of components
+};
+
+
 /// WellOpt describes the operation mode of a well.
 /// usually it changes over time, specifically, each attributes could be changed
 /// including the well type.
@@ -45,7 +61,7 @@ private:
     USI type{0}; ///< type of well, Inj or Prod.
     /// indicate which type of fluids will be injected, water, gas, or other solvent.
     /// it's decided by users and only useful for injection well.
-    USI  fluidType{0};
+    string  fluidType;
     bool state{false}; ///< state of well, close or open.
     USI  optMode; ///< control mode of well: constant pressure, or constant flow rate of
                   ///< specified fluids.
@@ -89,7 +105,7 @@ public:
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
     /// Setup the well after Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const Bulk& myBulk);
+    void Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols);
     /// Initialize the Well BHP
     void InitBHP(const Bulk& myBulk);
     /// Calculate Well Index with Peaceman model for vertical well.

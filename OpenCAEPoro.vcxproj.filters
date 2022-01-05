@@ -108,6 +108,9 @@
     <ClCompile Include="src\LinearSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MixtureComp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bulk.hpp">
@@ -207,6 +210,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LinearSolver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MixtureComp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

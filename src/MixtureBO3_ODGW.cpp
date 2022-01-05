@@ -16,7 +16,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 {
 
     phaseExist.assign(numPhase, false);
-    cij.assign(numPhase * numCom, 0); 
+    xij.assign(numPhase * numCom, 0); 
     Ni.assign(numCom, 0);
 
     P = Pin;
@@ -54,7 +54,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             S[0]          = 0;
             S[1]          = 0;
             S[2]          = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -81,8 +81,8 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             // water, gas
             phaseExist[1] = true;
             phaseExist[2] = true;
-            cij[1 * 3 + 1] = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[1 * 3 + 1] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -139,10 +139,10 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
             mu[0]  = muosat * (1 + cmuosat * (P - Pbb));
 
-            cij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
-            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
-            cij[1 * 3 + 1] = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
+            xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
+            xij[1 * 3 + 1] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // total
             v[0]   = CONV1 * Ni[0] * bo;
@@ -182,10 +182,10 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             rho[1]      = std_RhoG / bg;
             mu[1]       = data[2];
 
-            cij[0 * 3 + 0] = 1 / (1 + rs);
-            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
-            cij[1 * 3 + 1] = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[0 * 3 + 0] = 1 / (1 + rs);
+            xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
+            xij[1 * 3 + 1] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // total
             v[0] = CONV1 * Ni[0] * bo;
@@ -212,7 +212,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
 
     phaseExist.assign(numPhase, false);
-    cij.assign(numPhase * numCom, 0); //
+    xij.assign(numPhase * numCom, 0); //
 
     P          = Pin;
     Nt = 0;
@@ -253,7 +253,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             S[0]          = 0;
             S[1]          = 0;
             S[2]          = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -280,8 +280,8 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             // water, gas
             phaseExist[1] = true;
             phaseExist[2] = true;
-            cij[1 * 3 + 1] = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[1 * 3 + 1] = 1;
+            xij[2 * 3 + 2] = 1;
 
             // hypothetical Oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -323,10 +323,10 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             // water, oil
             phaseExist[0] = true;
             phaseExist[2] = true;
-            cij[0 * 3 + 0]        = Ni[0] / (Ni[0] + Ni[1]);
-            cij[0 * 3 + 1]        = 1 - cij[0 * 3 + 0];
-            cij[1 * 3 + 1]        = 1;
-            cij[2 * 3 + 2]        = 1;
+            xij[0 * 3 + 0]        = Ni[0] / (Ni[0] + Ni[1]);
+            xij[0 * 3 + 1]        = 1 - xij[0 * 3 + 0];
+            xij[1 * 3 + 1]        = 1;
+            xij[2 * 3 + 2]        = 1;
 
             // oil property
             OCP_DBL rs = Ni[1] / Ni[0];
@@ -383,10 +383,10 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             rho[1] = std_RhoG / bg;
 
             // total
-            cij[0 * 3 + 0] = 1 / (1 + rs);
-            cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
-            cij[1 * 3 + 1] = 1;
-            cij[2 * 3 + 2] = 1;
+            xij[0 * 3 + 0] = 1 / (1 + rs);
+            xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
+            xij[1 * 3 + 1] = 1;
+            xij[2 * 3 + 2] = 1;
 
             v[0] = CONV1 * Ni[0] * bo;
             v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;
@@ -411,13 +411,13 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
     phaseExist.assign(numPhase, false);
-    cij.assign(numPhase * numCom, 0);
+    xij.assign(numPhase * numCom, 0);
     rhoP.assign(numPhase, 0);
     xiP.assign(numPhase, 0);
     muP.assign(numPhase, 0);
-    rhoC.assign(numPhase * numCom, 0);
-    xiC.assign(numPhase * numCom, 0);
-    muC.assign(numPhase * numCom, 0);
+    rhox.assign(numPhase * numCom, 0);
+    xix.assign(numPhase * numCom, 0);
+    mux.assign(numPhase * numCom, 0);
     dSec_dPri.assign(dSec_dPri.size(), 0);
 
     P = Pin;
@@ -465,7 +465,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         S[0] = 0;
         S[1] = 0;
         S[2] = 1;
-        cij[2 * 3 + 2] = 1;
+        xij[2 * 3 + 2] = 1;
 
         // hypothetical Oil property
         PVCO.Eval_All(0, P, data, cdata);
@@ -507,8 +507,8 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         // water, gas
         phaseExist[1] = true;
         phaseExist[2] = true;
-        cij[1 * 3 + 1] = 1;
-        cij[2 * 3 + 2] = 1;
+        xij[1 * 3 + 1] = 1;
+        xij[2 * 3 + 2] = 1;
 
         // hypothetical Oil property
         PVCO.Eval_All(0, P, data, cdata);
@@ -569,10 +569,10 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         // water, oil
         phaseExist[0] = true;
         phaseExist[2] = true;
-        cij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
-        cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
-        cij[1 * 3 + 1] = 1;
-        cij[2 * 3 + 2] = 1;
+        xij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
+        xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
+        xij[1 * 3 + 1] = 1;
+        xij[2 * 3 + 2] = 1;
 
         // oil property
         OCP_DBL rs = Ni[1] / Ni[0];
@@ -622,21 +622,21 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
         dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        dSec_dPri[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Coo / d No
-        dSec_dPri[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Coo / d Ng
-        dSec_dPri[4 * 4 + 1] = -dSec_dPri[3 * 4 + 1]; // d Cgo / d No
-        dSec_dPri[4 * 4 + 2] = -dSec_dPri[3 * 4 + 2]; // d Cgo / d Ng
+        dSec_dPri[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d No
+        dSec_dPri[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d Ng
+        dSec_dPri[4 * 4 + 1] = -dSec_dPri[3 * 4 + 1]; // d Xgo / d No
+        dSec_dPri[4 * 4 + 2] = -dSec_dPri[3 * 4 + 2]; // d Xgo / d Ng
 
-        OCP_DBL tmp = cij[0] * cij[0];
+        OCP_DBL tmp = xij[0] * xij[0];
 
-        muC[0] = -muo_rs * cij[1] / tmp;    // dMuo / dCoo
-        muC[1] = muo_rs / cij[0];           // dMuo / dCgo
+        mux[0] = -muo_rs * xij[1] / tmp;    // dMuo / dXoo
+        mux[1] = muo_rs / xij[0];           // dMuo / dXgo
 
-        xiC[0] = -xio_rs * cij[1] / tmp;    // dXio / dCoo
-        xiC[1] = xio_rs / cij[0];           // dXio / dCgo
+        xix[0] = -xio_rs * xij[1] / tmp;    // dXio / dXoo
+        xix[1] = xio_rs / xij[0];           // dXio / dXgo
 
-        rhoC[0] = -rhoo_rs * cij[1] / tmp;  // dRhoo / dCoo
-        rhoC[1] = rhoo_rs / cij[0];         // dRhoo / dCgo
+        rhox[0] = -rhoo_rs * xij[1] / tmp;  // dRhoo / dXoo
+        rhox[1] = rhoo_rs / xij[0];         // dRhoo / dXgo
 
         break;
     }
@@ -672,10 +672,10 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         rhoP[1] = 1000 * std_RhoG * xiP[1];
 
         // total
-        cij[0 * 3 + 0] = 1 / (1 + rs);
-        cij[0 * 3 + 1] = 1 - cij[0 * 3 + 0];
-        cij[1 * 3 + 1] = 1;
-        cij[2 * 3 + 2] = 1;
+        xij[0 * 3 + 0] = 1 / (1 + rs);
+        xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
+        xij[1 * 3 + 1] = 1;
+        xij[2 * 3 + 2] = 1;
 
         v[0] = CONV1 * Ni[0] * bo;
         v[1] = 1000 * (Ni[1] - rs * Ni[0]) * bg;

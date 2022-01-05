@@ -18,24 +18,7 @@ BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const U
     numPhase    = rs_param.numPhase;
     numCom      = rs_param.numCom;
 
-    Ni.resize(numCom);
-    phaseExist.resize(numPhase);
-    v.resize(numPhase);
-    S.resize(numPhase);
-    xi.resize(numPhase);
-    cij.resize(numPhase * numCom);
-    rho.resize(numPhase);
-    mu.resize(numPhase);
-    vfi.resize(numCom);
-    // Derivatives for FIM
-    rhoP.resize(numPhase);
-    xiP.resize(numPhase);
-    muP.resize(numPhase);
-    rhoC.resize(numPhase * numCom);
-    xiC.resize(numPhase * numCom);
-    muC.resize(numPhase * numCom);
-    dSec_dPri.resize((numCom + 1) * (numPhase + numPhase * numCom));
-
+    Allocate();
 
     if (rs_param.density.activity) {
         std_RhoO = rs_param.density.data[0];
@@ -53,19 +36,19 @@ BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const U
 
     if (rs_param.PVTW_T.data.size() != 0) {
         PVTW.Setup(rs_param.PVTW_T.data[i]);
-        len = max(len, PVTW.GetCol());
+        len = max(len, PVTW.GetColNum());
     }
     if (rs_param.PVCO_T.data.size() != 0) {
         PVCO.Setup(rs_param.PVCO_T.data[i]);
-        len = max(len, PVCO.GetCol());
+        len = max(len, PVCO.GetColNum());
     }
     if (rs_param.PVDO_T.data.size() != 0) {
         PVDO.Setup(rs_param.PVDO_T.data[i]);
-        len = max(len, PVDO.GetCol());
+        len = max(len, PVDO.GetColNum());
     }
     if (rs_param.PVDG_T.data.size() != 0) {
         PVDG.Setup(rs_param.PVDG_T.data[i]);
-        len = max(len, PVDG.GetCol());
+        len = max(len, PVDG.GetColNum());
     }
     data.resize(len, 0);
     cdata.resize(len, 0);
