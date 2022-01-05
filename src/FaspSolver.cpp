@@ -9,14 +9,11 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #include "FaspSolver.hpp"
-
-
 
 void FaspSolver::SetupParam(const string& dir, const string& file)
 {
-    solveDir = dir;
+    solveDir  = dir;
     solveFile = file;
 
     string myfile = solveDir + solveFile;
@@ -29,23 +26,20 @@ void FaspSolver::SetupParam(const string& dir, const string& file)
         if (!ifs.is_open()) {
             cout << "The input file " << myfile << " is missing!" << endl;
             cout << "Using the default parameters of FASP" << endl;
-        }
-        else {
+        } else {
             ifs.close();
             cout << "Using the input file " << myfile << endl;
             fasp_param_input(myfile.data(), &inParam);
         }
-    }
-    else {
+    } else {
         ifs.close(); // if file has been opened, close it first
         fasp_param_input(myfile.data(), &inParam);
     }
     fasp_param_init(&inParam, &itParam, &amgParam, &iluParam, &swzParam);
 }
 
-
-
-void ScalarFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim, const USI& blockDim)
+void ScalarFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
+                                const USI& blockDim)
 {
     OCP_USI nnz = 0;
     for (OCP_USI n = 0; n < maxDim; n++) {
@@ -54,7 +48,6 @@ void ScalarFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& m
     A = fasp_dcsr_create(maxDim, maxDim, nnz);
 }
 
-
 void ScalarFaspSolver::InitParam()
 {
     // Input/output
@@ -62,70 +55,71 @@ void ScalarFaspSolver::InitParam()
     inParam.output_type = 0;
 
     // Problem information
-    inParam.solver_type = SOLVER_VFGMRES;
+    inParam.solver_type  = SOLVER_VFGMRES;
     inParam.precond_type = PREC_AMG;
-    inParam.stop_type = STOP_REL_RES;
+    inParam.stop_type    = STOP_REL_RES;
 
     // LinearSolver parameters
-    inParam.itsolver_tol = 1e-4;
+    inParam.itsolver_tol   = 1e-4;
     inParam.itsolver_maxit = 100;
-    inParam.restart = 30;
+    inParam.restart        = 30;
 
     // ILU method parameters
-    inParam.ILU_type = ILUk;
-    inParam.ILU_lfil = 0;
+    inParam.ILU_type    = ILUk;
+    inParam.ILU_lfil    = 0;
     inParam.ILU_droptol = 0.001;
-    inParam.ILU_relax = 0;
+    inParam.ILU_relax   = 0;
     inParam.ILU_permtol = 0.0;
 
     // Schwarz method parameters
-    inParam.SWZ_mmsize = 200;
-    inParam.SWZ_maxlvl = 2;
-    inParam.SWZ_type = 1;
+    inParam.SWZ_mmsize    = 200;
+    inParam.SWZ_maxlvl    = 2;
+    inParam.SWZ_type      = 1;
     inParam.SWZ_blksolver = SOLVER_DEFAULT;
 
     // AMG method parameters
-    inParam.AMG_type = CLASSIC_AMG;
-    inParam.AMG_levels = 20;
-    inParam.AMG_cycle_type = V_CYCLE;
-    inParam.AMG_smoother = SMOOTHER_GS;
-    inParam.AMG_smooth_order = CF_ORDER;
-    inParam.AMG_presmooth_iter = 1;
-    inParam.AMG_postsmooth_iter = 1;
-    inParam.AMG_relaxation = 1.0;
-    inParam.AMG_coarse_dof = 500;
-    inParam.AMG_coarse_solver = 0;
-    inParam.AMG_tol = 1e-6;
-    inParam.AMG_maxit = 1;
-    inParam.AMG_ILU_levels = 0;
-    inParam.AMG_SWZ_levels = 0;
-    inParam.AMG_coarse_scaling = OFF;
-    inParam.AMG_amli_degree = 1;
+    inParam.AMG_type                = CLASSIC_AMG;
+    inParam.AMG_levels              = 20;
+    inParam.AMG_cycle_type          = V_CYCLE;
+    inParam.AMG_smoother            = SMOOTHER_GS;
+    inParam.AMG_smooth_order        = CF_ORDER;
+    inParam.AMG_presmooth_iter      = 1;
+    inParam.AMG_postsmooth_iter     = 1;
+    inParam.AMG_relaxation          = 1.0;
+    inParam.AMG_coarse_dof          = 500;
+    inParam.AMG_coarse_solver       = 0;
+    inParam.AMG_tol                 = 1e-6;
+    inParam.AMG_maxit               = 1;
+    inParam.AMG_ILU_levels          = 0;
+    inParam.AMG_SWZ_levels          = 0;
+    inParam.AMG_coarse_scaling      = OFF;
+    inParam.AMG_amli_degree         = 1;
     inParam.AMG_nl_amli_krylov_type = 2;
 
     // Classical AMG specific
-    inParam.AMG_coarsening_type = 1;
-    inParam.AMG_interpolation_type = 1;
-    inParam.AMG_max_row_sum = 0.9;
-    inParam.AMG_strong_threshold = 0.3;
+    inParam.AMG_coarsening_type      = 1;
+    inParam.AMG_interpolation_type   = 1;
+    inParam.AMG_max_row_sum          = 0.9;
+    inParam.AMG_strong_threshold     = 0.3;
     inParam.AMG_truncation_threshold = 0.2;
-    inParam.AMG_aggressive_level = 0;
-    inParam.AMG_aggressive_path = 1;
+    inParam.AMG_aggressive_level     = 0;
+    inParam.AMG_aggressive_path      = 1;
 
     // Aggregation AMG specific
-    inParam.AMG_aggregation_type = PAIRWISE;
-    inParam.AMG_quality_bound = 8.0;
-    inParam.AMG_pair_number = 2;
-    inParam.AMG_strong_coupled = 0.25;
-    inParam.AMG_max_aggregation = 9;
-    inParam.AMG_tentative_smooth = 0.67;
-    inParam.AMG_smooth_filter = ON;
+    inParam.AMG_aggregation_type   = PAIRWISE;
+    inParam.AMG_quality_bound      = 8.0;
+    inParam.AMG_pair_number        = 2;
+    inParam.AMG_strong_coupled     = 0.25;
+    inParam.AMG_max_aggregation    = 9;
+    inParam.AMG_tentative_smooth   = 0.67;
+    inParam.AMG_smooth_filter      = ON;
     inParam.AMG_smooth_restriction = ON;
 }
 
-
-void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vector<vector<OCP_DBL>>& val,
-    const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
+void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
+                                   const vector<vector<OCP_DBL>>& val,
+                                   const OCP_USI& dim, const USI& blockDim,
+                                   vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
 {
     // b & x
     b.row = dim;
@@ -144,28 +138,27 @@ void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vecto
 
     // IA
     OCP_USI count = 0;
-    A.IA[0] = 0;
+    A.IA[0]       = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
         USI nnz_Row = colId[i - 1].size();
-        A.IA[i] = A.IA[i - 1] + nnz_Row;
+        A.IA[i]     = A.IA[i - 1] + nnz_Row;
 
         for (USI j = 0; j < nnz_Row; j++) {
-            A.JA[count] = colId[i - 1][j];
+            A.JA[count]  = colId[i - 1][j];
             A.val[count] = val[i - 1][j];
             count++;
         }
     }
 }
 
-
 OCP_INT ScalarFaspSolver::Solve(vector<OCP_DBL>& u)
 {
     OCP_INT status = FASP_SUCCESS;
 
-    const OCP_INT print_level = inParam.print_level;
-    const OCP_INT solver_type = inParam.solver_type;
+    const OCP_INT print_level  = inParam.print_level;
+    const OCP_INT solver_type  = inParam.solver_type;
     const OCP_INT precond_type = inParam.precond_type;
-    const OCP_INT output_type = inParam.output_type;
+    const OCP_INT output_type  = inParam.output_type;
 
     if (output_type) {
         const char* outputfile = "out/Solver.out";
@@ -189,15 +182,13 @@ OCP_INT ScalarFaspSolver::Solve(vector<OCP_DBL>& u)
         // Using AMG as preconditioner for Krylov iterative methods
         else if (precond_type == PREC_AMG || precond_type == PREC_FMG) {
             if (print_level > PRINT_NONE) fasp_param_amg_print(&amgParam);
-            status = fasp_solver_dcsr_krylov_amg(&A, &b, &x, &itParam,
-                &amgParam);
+            status = fasp_solver_dcsr_krylov_amg(&A, &b, &x, &itParam, &amgParam);
         }
 
         // Using ILU as preconditioner for Krylov iterative methods
         else if (precond_type == PREC_ILU) {
             if (print_level > PRINT_NONE) fasp_param_ilu_print(&iluParam);
-            status = fasp_solver_dcsr_krylov_ilu(&A, &b, &x, &itParam,
-                &iluParam);
+            status = fasp_solver_dcsr_krylov_ilu(&A, &b, &x, &itParam, &iluParam);
         }
 
         // Undefined iterative methods
@@ -267,21 +258,19 @@ OCP_INT ScalarFaspSolver::Solve(vector<OCP_DBL>& u)
     return status;
 }
 
-
-
-void VectorFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim, const USI& blockDim)
+void VectorFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
+                                const USI& blockDim)
 {
     OCP_USI nnz = 0;
     for (OCP_USI n = 0; n < maxDim; n++) {
         nnz += rowCapacity[n];
     }
-    A = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
-    Asc = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
-    fsc = fasp_dvec_create(maxDim * blockDim);
+    A     = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
+    Asc   = fasp_dbsr_create(maxDim, maxDim, nnz, blockDim, 0);
+    fsc   = fasp_dvec_create(maxDim * blockDim);
     order = fasp_ivec_create(maxDim);
     Dmat.resize(maxDim * blockDim * blockDim);
 }
-
 
 void VectorFaspSolver::InitParam()
 {
@@ -290,71 +279,72 @@ void VectorFaspSolver::InitParam()
     inParam.output_type = 0;
 
     // Problem information
-    inParam.solver_type = SOLVER_VFGMRES;
-    inParam.decoup_type = 1;
+    inParam.solver_type  = SOLVER_VFGMRES;
+    inParam.decoup_type  = 1;
     inParam.precond_type = 64;
-    inParam.stop_type = STOP_REL_RES;
+    inParam.stop_type    = STOP_REL_RES;
 
     // Solver parameters
-    inParam.itsolver_tol = 1e-3;
+    inParam.itsolver_tol   = 1e-3;
     inParam.itsolver_maxit = 100;
-    inParam.restart = 30;
+    inParam.restart        = 30;
 
     // ILU method parameters
-    inParam.ILU_type = ILUk;
-    inParam.ILU_lfil = 0;
+    inParam.ILU_type    = ILUk;
+    inParam.ILU_lfil    = 0;
     inParam.ILU_droptol = 0.001;
-    inParam.ILU_relax = 0;
+    inParam.ILU_relax   = 0;
     inParam.ILU_permtol = 0.0;
 
     // Schwarz method parameters
-    inParam.SWZ_mmsize = 200;
-    inParam.SWZ_maxlvl = 2;
-    inParam.SWZ_type = 1;
+    inParam.SWZ_mmsize    = 200;
+    inParam.SWZ_maxlvl    = 2;
+    inParam.SWZ_type      = 1;
     inParam.SWZ_blksolver = SOLVER_DEFAULT;
 
     // AMG method parameters
-    inParam.AMG_type = CLASSIC_AMG;
-    inParam.AMG_levels = 20;
-    inParam.AMG_cycle_type = V_CYCLE;
-    inParam.AMG_smoother = SMOOTHER_GS;
-    inParam.AMG_smooth_order = CF_ORDER;
-    inParam.AMG_presmooth_iter = 1;
-    inParam.AMG_postsmooth_iter = 1;
-    inParam.AMG_relaxation = 1.0;
-    inParam.AMG_coarse_dof = 500;
-    inParam.AMG_coarse_solver = 0;
-    inParam.AMG_tol = 1e-6;
-    inParam.AMG_maxit = 1;
-    inParam.AMG_ILU_levels = 0;
-    inParam.AMG_SWZ_levels = 0;
-    inParam.AMG_coarse_scaling = OFF; // Require investigation --Chensong
-    inParam.AMG_amli_degree = 1;
+    inParam.AMG_type                = CLASSIC_AMG;
+    inParam.AMG_levels              = 20;
+    inParam.AMG_cycle_type          = V_CYCLE;
+    inParam.AMG_smoother            = SMOOTHER_GS;
+    inParam.AMG_smooth_order        = CF_ORDER;
+    inParam.AMG_presmooth_iter      = 1;
+    inParam.AMG_postsmooth_iter     = 1;
+    inParam.AMG_relaxation          = 1.0;
+    inParam.AMG_coarse_dof          = 500;
+    inParam.AMG_coarse_solver       = 0;
+    inParam.AMG_tol                 = 1e-6;
+    inParam.AMG_maxit               = 1;
+    inParam.AMG_ILU_levels          = 0;
+    inParam.AMG_SWZ_levels          = 0;
+    inParam.AMG_coarse_scaling      = OFF; // Require investigation --Chensong
+    inParam.AMG_amli_degree         = 1;
     inParam.AMG_nl_amli_krylov_type = 2;
 
     // Classical AMG specific
-    inParam.AMG_coarsening_type = 1;
-    inParam.AMG_interpolation_type = 1;
-    inParam.AMG_max_row_sum = 0.9;
-    inParam.AMG_strong_threshold = 0.3;
+    inParam.AMG_coarsening_type      = 1;
+    inParam.AMG_interpolation_type   = 1;
+    inParam.AMG_max_row_sum          = 0.9;
+    inParam.AMG_strong_threshold     = 0.3;
     inParam.AMG_truncation_threshold = 0.2;
-    inParam.AMG_aggressive_level = 0;
-    inParam.AMG_aggressive_path = 1;
+    inParam.AMG_aggressive_level     = 0;
+    inParam.AMG_aggressive_path      = 1;
 
     // Aggregation AMG specific
-    inParam.AMG_aggregation_type = PAIRWISE;
-    inParam.AMG_quality_bound = 8.0;
-    inParam.AMG_pair_number = 2;
-    inParam.AMG_strong_coupled = 0.25;
-    inParam.AMG_max_aggregation = 9;
-    inParam.AMG_tentative_smooth = 0.67;
-    inParam.AMG_smooth_filter = ON;
+    inParam.AMG_aggregation_type   = PAIRWISE;
+    inParam.AMG_quality_bound      = 8.0;
+    inParam.AMG_pair_number        = 2;
+    inParam.AMG_strong_coupled     = 0.25;
+    inParam.AMG_max_aggregation    = 9;
+    inParam.AMG_tentative_smooth   = 0.67;
+    inParam.AMG_smooth_filter      = ON;
     inParam.AMG_smooth_restriction = ON;
 }
 
-
-void VectorFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vector<vector<OCP_DBL>>& val,
-    const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
+void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
+                                   const vector<vector<OCP_DBL>>& val,
+                                   const OCP_USI& dim, const USI& blockDim,
+                                   vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
 {
     OCP_USI nrow = dim * blockDim;
     // b & x
@@ -363,7 +353,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vecto
     x.row = nrow;
     x.val = u.data();
     // fsc & order
-    fsc.row = nrow;
+    fsc.row   = nrow;
     order.row = nrow;
 
     // nnz
@@ -375,22 +365,22 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vecto
     // Asc
     Asc.ROW = dim;
     Asc.COL = dim;
-    Asc.nb = blockDim;
+    Asc.nb  = blockDim;
     Asc.NNZ = nnz;
 
     // A
     A.ROW = dim;
     A.COL = dim;
-    A.nb = blockDim;
+    A.nb  = blockDim;
     A.NNZ = nnz;
 
-    OCP_USI count = 0;
+    OCP_USI count  = 0;
     OCP_USI count2 = 0;
     OCP_USI size_row;
     A.IA[0] = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
         USI nnb_Row = colId[i - 1].size();
-        A.IA[i] = A.IA[i - 1] + nnb_Row;
+        A.IA[i]     = A.IA[i - 1] + nnb_Row;
 
         for (USI j = 0; j < nnb_Row; j++) {
             A.JA[count] = colId[i - 1][j];
@@ -404,17 +394,16 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>& colId, const vecto
     }
 }
 
-
 OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 {
     OCP_INT status = FASP_SUCCESS;
 
     // Set local parameters
-    const OCP_INT print_level = inParam.print_level;
-    const OCP_INT solver_type = inParam.solver_type;
-    const OCP_INT decoup_type = inParam.decoup_type;
+    const OCP_INT print_level  = inParam.print_level;
+    const OCP_INT solver_type  = inParam.solver_type;
+    const OCP_INT decoup_type  = inParam.decoup_type;
     const OCP_INT precond_type = inParam.precond_type;
-    const OCP_INT output_type = inParam.output_type;
+    const OCP_INT output_type  = inParam.output_type;
 
     if (output_type) {
         const char* outputfile = "../output/test.out";
@@ -429,66 +418,59 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 
         // Preconditioned Krylov methods in BSR format
         switch (precond_type) {
-        case PC_NULL:
-            status =
-                fasp_solver_dbsr_krylov(&A, &b, &x, &itParam);
-            break;
-        case PC_DIAG:
-            status = fasp_solver_dbsr_krylov_diag(&A, &b, &x, &itParam);
-            break;
-        case PC_BILU:
-            status = fasp_solver_dbsr_krylov_ilu(&A, &b, &x, &itParam, &iluParam);
-            break;
-        case PC_FASP1:
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(),
-                decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP1a(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-            break;
-        case PC_FASP1_SHARE: // zhaoli 2021.03.24
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP1a_share_interface(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
-                RESET_CONST);
-            break;
-        case PC_FASP2:
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(),
-                decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP2(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-            break;
-        case PC_FASP3:
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(),
-                decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP3(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-            break;
-        case PC_FASP4_SHARE: // zhaoli 2021.04.24
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(),
-                decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP4_share_interface(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
-                RESET_CONST);
-            break;
-        case PC_FASP5:
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP5(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-            break;
-        default: // case PC_FASP4:
-            Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(),
-                decoup_type);
-            status = fasp_solver_dbsr_krylov_FASP4(
-                &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+            case PC_NULL:
+                status = fasp_solver_dbsr_krylov(&A, &b, &x, &itParam);
+                break;
+            case PC_DIAG:
+                status = fasp_solver_dbsr_krylov_diag(&A, &b, &x, &itParam);
+                break;
+            case PC_BILU:
+                status = fasp_solver_dbsr_krylov_ilu(&A, &b, &x, &itParam, &iluParam);
+                break;
+            case PC_FASP1:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP1a(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+                break;
+            case PC_FASP1_SHARE: // zhaoli 2021.03.24
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP1a_share_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
+                    RESET_CONST);
+                break;
+            case PC_FASP2:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP2(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+                break;
+            case PC_FASP3:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP3(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+                break;
+            case PC_FASP4_SHARE: // zhaoli 2021.04.24
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP4_share_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
+                    RESET_CONST);
+                break;
+            case PC_FASP5:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP5(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+                break;
+            default: // case PC_FASP4:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP4(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
         }
         Dmat.assign(Dmat.size(), 0);
     }
 
-
 #if WITH_MUMPS // use MUMPS directly
     else if (solver_type == SOLVER_MUMPS) {
         dCSRmat Acsr = fasp_format_dbsr_dcsr(&A);
-        status = fasp_solver_mumps(&Acsr, &b, &x, print_level);
+        status       = fasp_solver_mumps(&Acsr, &b, &x, print_level);
         fasp_dcsr_free(&Acsr);
         if (status >= 0) status = 1; // Direct solver returns 1
     }
@@ -497,7 +479,7 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 #if WITH_SuperLU // use SuperLU directly
     else if (solver_type == SOLVER_SUPERLU) {
         dCSRmat Acsr = fasp_format_dbsr_dcsr(&A);
-        status = fasp_solver_superlu(&Acsr, &b, &x, print_level);
+        status       = fasp_solver_superlu(&Acsr, &b, &x, print_level);
         fasp_dcsr_free(&Acsr);
         if (status >= 0) status = 1; // Direct solver returns 1
     }
@@ -506,7 +488,7 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 #if WITH_UMFPACK // use UMFPACK directly
     else if (solver_type == SOLVER_UMFPACK) {
         // Need to sort the matrix A for UMFPACK to work
-        dCSRmat Acsr = fasp_format_dbsr_dcsr(&A);
+        dCSRmat Acsr    = fasp_format_dbsr_dcsr(&A);
         dCSRmat A_trans = fasp_dcsr_create(Acsr.row, Acsr.col, Acsr.nnz);
         fasp_dcsr_transz(&Acsr, NULL, &A_trans);
         fasp_dcsr_sort(&A_trans);
@@ -535,8 +517,7 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
     if (print_level > PRINT_MIN) {
         if (status < 0) {
             cout << "\n### WARNING: Solver does not converge!\n" << endl;
-        }
-        else {
+        } else {
             cout << "\nSolver converges successfully!\n" << endl;
         }
     }
@@ -545,7 +526,6 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 
     return status;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -9,17 +9,14 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #ifndef __FASPSOLVER_HEADER__
 #define __FASPSOLVER_HEADER__
 
-
 // Standard header files
-#include <vector>
-#include <string>
 #include <fstream>
 #include <iostream>
-
+#include <string>
+#include <vector>
 
 // faspsolver header files
 extern "C" {
@@ -28,17 +25,14 @@ extern "C" {
 #include "fasp_functs.h"
 }
 
-
 // fasp4blkoil header files
 extern "C" {
 #include "fasp4blkoil.h"
 #include "fasp4blkoil_functs.h"
 }
 
-
 // OpenCAEPoro header files
 #include "LinearSolver.hpp"
-
 
 // Preconditioner types
 #define PC_NULL 60        ///< None: no preconditioner
@@ -53,84 +47,81 @@ extern "C" {
 #define PC_FASP4_SHARE 74 ///< Sharing the setup stage for PC_FASP4
 #define RESET_CONST 35    ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
 
-
 using namespace std;
 
 /// Basic virtual Fasp solver
 class FaspSolver : public LinearSolver
 {
 public:
-	void SetupParam(const string& dir, const string& file) override;
-	USI GetMaxIters() const override { return itParam.maxit; }
+    void SetupParam(const string& dir, const string& file) override;
+    USI  GetNumIters() const override { return itParam.maxit; }
 
 public:
-	string      solveDir;  ///< Current work dir
-	string      solveFile; ///< Relative path of fasp file.
-	input_param inParam;   ///< Parameters from input files.
-	ITS_param   itParam;   ///< Parameters for iterative method.
-	AMG_param   amgParam;  ///< Parameters for AMG method.
-	ILU_param   iluParam;  ///< Parameters for ILU method.
-	SWZ_param   swzParam;  ///< Parameters for Schwarz method.
+    string      solveDir;  ///< Current work dir
+    string      solveFile; ///< Relative path of fasp file.
+    input_param inParam;   ///< Parameters from input files.
+    ITS_param   itParam;   ///< Parameters for iterative method.
+    AMG_param   amgParam;  ///< Parameters for AMG method.
+    ILU_param   iluParam;  ///< Parameters for ILU method.
+    SWZ_param   swzParam;  ///< Parameters for Schwarz method.
 };
-
 
 /// General Fasp Solver
 class ScalarFaspSolver : public FaspSolver
 {
-	friend class LinearSystem;
+    friend class LinearSystem;
 
 private:
-
-	/// Allocate memory for scalar-value problems in FASP.
-	void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim, const USI& blockDim) override;
-	/// Initialize the Params for Fasp
-	void InitParam() override;
-	/// Assemble Matrix for Fasp
-	void AssembleMat(const vector<vector<USI>>& colId, const vector<vector<OCP_DBL>>& val,
-					const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u) override;
-	/// Solve the Linear system 
-	OCP_INT Solve(vector<OCP_DBL>& u) override;
-	
+    /// Allocate memory for scalar-value problems in FASP.
+    void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
+                  const USI& blockDim) override;
+    /// Initialize the Params for Fasp
+    void InitParam() override;
+    /// Assemble Matrix for Fasp
+    void AssembleMat(const vector<vector<USI>>&     colId,
+                     const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
+                     const USI& blockDim, vector<OCP_DBL>& rhs,
+                     vector<OCP_DBL>& u) override;
+    /// Solve the Linear system
+    OCP_INT Solve(vector<OCP_DBL>& u) override;
 
 private:
-
-	dCSRmat         A;  ///< Matrix for scalar-value problems.
-	dvector         b;  ///< Right-hand side for scalar-value problems.
-	dvector         x;  ///< Solution for scalar-value problems.
-
+    dCSRmat A; ///< Matrix for scalar-value problems.
+    dvector b; ///< Right-hand side for scalar-value problems.
+    dvector x; ///< Solution for scalar-value problems.
 };
-
 
 /// Block Fasp Solver
 class VectorFaspSolver : public FaspSolver
 {
-	friend class LinearSystem;
+    friend class LinearSystem;
 
 private:
-	/// Allocate memory for scalar-value problems in BFASP.
-	void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim, const USI& blockDim) override;
-	/// Initialize the Params for BFasp
-	void InitParam() override;
-	/// Assemble Matrix for BFasp
-	void AssembleMat(const vector<vector<USI>>& colId, const vector<vector<OCP_DBL>>& val,
-		const OCP_USI& dim, const USI& blockDim, vector<OCP_DBL>& rhs, vector<OCP_DBL>& u) override;
-	/// Solve the Linear system
-	OCP_INT Solve(vector<OCP_DBL>& u) override;
-	/// Decouple the matrix
-	void Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
-		ivector* order, double* Dmatvec, int decouple_type);
-private:
+    /// Allocate memory for scalar-value problems in BFASP.
+    void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
+                  const USI& blockDim) override;
+    /// Initialize the Params for BFasp
+    void InitParam() override;
+    /// Assemble Matrix for BFasp
+    void AssembleMat(const vector<vector<USI>>&     colId,
+                     const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
+                     const USI& blockDim, vector<OCP_DBL>& rhs,
+                     vector<OCP_DBL>& u) override;
+    /// Solve the Linear system
+    OCP_INT Solve(vector<OCP_DBL>& u) override;
+    /// Decouple the matrix
+    void Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
+                    ivector* order, double* Dmatvec, int decouple_type);
 
-	dBSRmat         A; ///< Matrix for vector-value problems.
-	dvector         b; ///< Right-hand side for vector-value problems.
-	dvector         x; ///< Solution for vector-value problems.
-	dBSRmat         Asc;     ///< Scaled matrix for vector-value problems.
-	dvector         fsc;     ///< Scaled right-hand side for vector-value problems.
-	ivector         order;   ///< User-defined ordering for smoothing process.
-	vector<OCP_DBL> Dmat;    // TODO: What is this for???
+private:
+    dBSRmat         A;     ///< Matrix for vector-value problems.
+    dvector         b;     ///< Right-hand side for vector-value problems.
+    dvector         x;     ///< Solution for vector-value problems.
+    dBSRmat         Asc;   ///< Scaled matrix for vector-value problems.
+    dvector         fsc;   ///< Scaled right-hand side for vector-value problems.
+    ivector         order; ///< User-defined ordering for smoothing process.
+    vector<OCP_DBL> Dmat;  // TODO: What is this for???
 };
-
-
 
 #endif
 
