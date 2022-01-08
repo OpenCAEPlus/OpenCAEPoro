@@ -15,6 +15,7 @@
 // Standard header files
 #include<vector>
 #include<algorithm>
+#include<math.h>
 
 
 // OpenCAEPoro header files
