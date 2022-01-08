@@ -121,16 +121,15 @@ private:
     OCPType_Sum<string> WWIR; ///< Well water injection rate.
     OCPType_Sum<string> WWIT; ///< Well total water injection.
     OCPType_Sum<string> WBHP; ///< Well pressure.
-    OCPType_Sum<string> DG;  ///< Pressure difference between wells and perforations.
+    OCPType_Sum<string> DG;   ///< Pressure difference between wells and perforations.
 
-    OCPType_Sum<OCPIJK> BPR; ///< Bulk pressure.
+    OCPType_Sum<OCPIJK> BPR;  ///< Bulk pressure.
     OCPType_Sum<OCPIJK> SOIL; ///< Oil saturation of bulk.
     OCPType_Sum<OCPIJK> SGAS; ///< Gas saturation of bulk.
     OCPType_Sum<OCPIJK> SWAT; ///< Water saturation of bulk.
-
 };
 
-/// CriticalInfo print some important index of each time step for fast review.
+/// Collect important information of each time step for fast review.
 class CriticalInfo
 {
 public:
@@ -148,7 +147,7 @@ private:
     vector<OCP_DBL> cfl;
 };
 
-/// TODO: Add Doxygen 
+/// Collect more detailed information of each time step.
 class DetailInfo
 {
 public:
@@ -183,7 +182,8 @@ public:
     void Setup(const Reservoir& reservoir, const OCPControl& ctrl);
     void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
     void PrintInfo() const;
-    void PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl, const OCP_DBL& time) const;
+    void PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
+                        const OCP_DBL& time) const;
 
 private:
     string       wordDir;
@@ -201,4 +201,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

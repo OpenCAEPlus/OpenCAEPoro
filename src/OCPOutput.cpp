@@ -561,7 +561,7 @@ void CriticalInfo::Setup(const OCP_DBL& totalTime)
 void CriticalInfo::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     time.push_back(ctrl.GetCurTime());
-    dt.push_back(ctrl.GetLastCurDt());
+    dt.push_back(ctrl.GetLastDt());
     dPmax.push_back(reservoir.bulk.GetdPmax());
     dVmax.push_back(reservoir.bulk.GetdVmax());
     dSmax.push_back(reservoir.bulk.GetdSmax());

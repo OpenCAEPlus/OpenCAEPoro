@@ -360,12 +360,12 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">switch</span> (method) {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">case</span> IMPEC:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            cout &lt;&lt; <span class="stringliteral">&quot;Calling IMPEC method ...&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            FLSolver.<a class="code hl_function" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">SetupLinearSolver</a>(1, ctrl.GetWorkDir(), ctrl.GetLsFile());</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            FLSolver.<a class="code hl_function" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">SetupLinearSolver</a>(1, ctrl.<a class="code hl_function" href="classOCPControl.html#a360566ac44237470012d68956400248f">GetWorkDir</a>(), ctrl.<a class="code hl_function" href="classOCPControl.html#ac379e9830e2c10266281bb3420c98539">GetLsFile</a>());</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            impec.Setup(rs, FLSolver, ctrl);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">case</span> FIM:</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            cout &lt;&lt; <span class="stringliteral">&quot;Calling FIM method ...&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            FLSolver.<a class="code hl_function" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">SetupLinearSolver</a>(2, ctrl.GetWorkDir(), ctrl.GetLsFile());</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            FLSolver.<a class="code hl_function" href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">SetupLinearSolver</a>(2, ctrl.<a class="code hl_function" href="classOCPControl.html#a360566ac44237470012d68956400248f">GetWorkDir</a>(), ctrl.<a class="code hl_function" href="classOCPControl.html#ac379e9830e2c10266281bb3420c98539">GetLsFile</a>());</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            fim.<a class="code hl_function" href="classOCP__FIM.html#a34479e19585a3b26400fb0d2323fbaa3">Setup</a>(rs, FLSolver, ctrl);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">default</span>:</div>
@@ -376,10 +376,12 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
 <div class="ttc" id="aclassLinearSystem_html_a546311d634cee0b75c5b060614e121ca"><div class="ttname"><a href="classLinearSystem.html#a546311d634cee0b75c5b060614e121ca">LinearSystem::AllocateLinearSolver</a></div><div class="ttdeci">void AllocateLinearSolver()</div><div class="ttdoc">Allocate memory for Linear Solver.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8hpp_source.html#l00061">LinearSystem.hpp:61</a></div></div>
 <div class="ttc" id="aclassLinearSystem_html_af9051ec6ecd4fe4b0d9a067b0c372c34"><div class="ttname"><a href="classLinearSystem.html#af9051ec6ecd4fe4b0d9a067b0c372c34">LinearSystem::SetupLinearSolver</a></div><div class="ttdeci">void SetupLinearSolver(const USI &amp;i, const string &amp;dir, const string &amp;file)</div><div class="ttdoc">Setup LinearSolver.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8cpp_source.html#l00133">LinearSystem.cpp:133</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ac7d3146b8657a177d20ca1b86bb26b45"><div class="ttname"><a href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl::GetMethod</a></div><div class="ttdeci">USI GetMethod() const</div><div class="ttdoc">Return the method.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00115">OCPControl.hpp:115</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a360566ac44237470012d68956400248f"><div class="ttname"><a href="classOCPControl.html#a360566ac44237470012d68956400248f">OCPControl::GetWorkDir</a></div><div class="ttdeci">string GetWorkDir() const</div><div class="ttdoc">Return work dir name.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00173">OCPControl.hpp:173</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ac379e9830e2c10266281bb3420c98539"><div class="ttname"><a href="classOCPControl.html#ac379e9830e2c10266281bb3420c98539">OCPControl::GetLsFile</a></div><div class="ttdeci">string GetLsFile() const</div><div class="ttdoc">Return linear solver file name.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00176">OCPControl.hpp:176</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ac7d3146b8657a177d20ca1b86bb26b45"><div class="ttname"><a href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl::GetMethod</a></div><div class="ttdeci">USI GetMethod() const</div><div class="ttdoc">Return type of the solution method.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00118">OCPControl.hpp:118</a></div></div>
 <div class="ttc" id="aclassOCP__FIM_html_a34479e19585a3b26400fb0d2323fbaa3"><div class="ttname"><a href="classOCP__FIM.html#a34479e19585a3b26400fb0d2323fbaa3">OCP_FIM::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, LinearSystem &amp;myLS, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPFluidMethod_8cpp_source.html#l00122">OCPFluidMethod.cpp:122</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8hpp_source.html#l00115">OCPControl::GetMethod()</a>.</p>
+<p class="reference">References <a class="el" href="OCPControl_8hpp_source.html#l00118">OCPControl::GetMethod()</a>.</p>
 
 </div>
 </div>
@@ -482,7 +484,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 21:56:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

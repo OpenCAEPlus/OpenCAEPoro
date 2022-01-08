@@ -647,9 +647,9 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="comment">// TIME</span></div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    Sumdata[n++].val.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">GetCurTime</a>());</div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="comment">// NRiter</span></div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    Sumdata[n++].val.push_back(ctrl.GetNRiterT());</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    Sumdata[n++].val.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">GetNRiterT</a>());</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="comment">// LSiter</span></div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    Sumdata[n++].val.push_back(ctrl.GetLSiterT());</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    Sumdata[n++].val.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#ab5468ce4e4128b5f67374631a42a2c24">GetLSiterT</a>());</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="comment">// FPR</span></div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordflow">if</span> (FPR) Sumdata[n++].val.push_back(rs.bulk.CalFPR());</div>
@@ -749,7 +749,9 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++)</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>        Sumdata[n++].val.push_back(rs.bulk.GetSWAT(SWAT.index[i]));</div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>}</div>
-<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00120">OCPControl.hpp:120</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ab5468ce4e4128b5f67374631a42a2c24"><div class="ttname"><a href="classOCPControl.html#ab5468ce4e4128b5f67374631a42a2c24">OCPControl::GetLSiterT</a></div><div class="ttdeci">USI GetLSiterT() const</div><div class="ttdoc">Return the total number of linear iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00136">OCPControl.hpp:136</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_aed0b4b23ead6cd95140a19a747e8b53c"><div class="ttname"><a href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">OCPControl::GetNRiterT</a></div><div class="ttdeci">USI GetNRiterT() const</div><div class="ttdoc">Return the total nubmer of Newton iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00142">OCPControl.hpp:142</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -760,7 +762,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 21:56:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

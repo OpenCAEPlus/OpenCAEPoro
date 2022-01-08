@@ -112,7 +112,6 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
 {
     ctrlFast.ReadParam(argc, optset);
     if (ctrlFast.activity) {
-
         method = ctrlFast.method;
         switch (method) {
             case IMPEC:
@@ -202,20 +201,20 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     if (current_dt > dt) current_dt = dt;
 }
 
-void OCPControl::ResetIterNRLS()
-{
-    wastedIterNR += iterNR;
-    iterNR = 0;
-    wastedIterLS += iterLS;
-    iterLS = 0;
-}
-
 void OCPControl::UpdateIters()
 {
     numTstep += 1;
     iterNR_total += iterNR;
     iterLS_total += iterLS;
     iterNR = 0;
+    iterLS = 0;
+}
+
+void OCPControl::ResetIterNRLS()
+{
+    wastedIterNR += iterNR;
+    iterNR = 0;
+    wastedIterLS += iterLS;
     iterLS = 0;
 }
 

@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classCriticalInfo.html" title="CriticalInfo print some important index of each time step for fast review.">CriticalInfo</a> print some important index of each time step for fast review.  
+<p>Collect important information of each time step for fast review.  
  <a href="classCriticalInfo.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="OCPOutput_8hpp_source.html">OCPOutput.hpp</a>&gt;</code></p>
@@ -88,9 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a36c1b5bdd45b24b78bf394cd864d3f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p ><a class="el" href="classCriticalInfo.html" title="CriticalInfo print some important index of each time step for fast review.">CriticalInfo</a> print some important index of each time step for fast review. </p>
+<div class="textblock"><p >Collect important information of each time step for fast review. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8hpp_source.html#l00134">134</a> of file <a class="el" href="OCPOutput_8hpp_source.html">OCPOutput.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8hpp_source.html#l00133">133</a> of file <a class="el" href="OCPOutput_8hpp_source.html">OCPOutput.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a36c1b5bdd45b24b78bf394cd864d3f4b" name="a36c1b5bdd45b24b78bf394cd864d3f4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36c1b5bdd45b24b78bf394cd864d3f4b">&#9670;&nbsp;</a></span>PrintInfo()</h2>
@@ -212,7 +212,7 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00561">561</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>{</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    time.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">GetCurTime</a>());</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    dt.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">GetLastCurDt</a>());</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    dt.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#a5eead1027881fab2ceea25423db3dc85">GetLastDt</a>());</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    dPmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">GetdPmax</a>());</div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    dVmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#a604e6f317c178011eee5ce9235963cf2">GetdVmax</a>());</div>
 <div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    dSmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">GetdSmax</a>());</div>
@@ -223,8 +223,8 @@ Public Member Functions</h2></td></tr>
 <div class="ttc" id="aclassBulk_html_aa5ad01a5860101685946e77e4c20677f"><div class="ttname"><a href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">Bulk::GetdSmax</a></div><div class="ttdeci">OCP_DBL GetdSmax() const</div><div class="ttdoc">Return dSmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00143">Bulk.hpp:143</a></div></div>
 <div class="ttc" id="aclassBulk_html_ac5d97181f800e944923b3edcdc4f0f12"><div class="ttname"><a href="classBulk.html#ac5d97181f800e944923b3edcdc4f0f12">Bulk::GetdNmax</a></div><div class="ttdeci">OCP_DBL GetdNmax() const</div><div class="ttdoc">Return dNmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00141">Bulk.hpp:141</a></div></div>
 <div class="ttc" id="aclassBulk_html_ac81795732f0229683d9766b4bc99ca4c"><div class="ttname"><a href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">Bulk::GetdPmax</a></div><div class="ttdeci">OCP_DBL GetdPmax() const</div><div class="ttdoc">Return dPmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00139">Bulk.hpp:139</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a0f8dc03839c295ec0d7e8837fe454d0a"><div class="ttname"><a href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">OCPControl::GetLastCurDt</a></div><div class="ttdeci">OCP_DBL GetLastCurDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00120">OCPControl.hpp:120</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a5eead1027881fab2ceea25423db3dc85"><div class="ttname"><a href="classOCPControl.html#a5eead1027881fab2ceea25423db3dc85">OCPControl::GetLastDt</a></div><div class="ttdeci">OCP_DBL GetLastDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00130">OCPControl.hpp:130</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,7 +235,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 21:56:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
