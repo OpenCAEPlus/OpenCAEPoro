@@ -34,7 +34,7 @@ public:
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
-    
+
 private:
     USI          method = FIM;
     LinearSystem FLSolver;

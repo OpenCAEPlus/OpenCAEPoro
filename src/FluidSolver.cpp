@@ -11,10 +11,11 @@
 
 #include "FluidSolver.hpp"
 
+/// Setup solution methods, including IMPEC and FIM.
 void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
-    
+
     switch (method) {
         case IMPEC:
             cout << "Calling IMPEC method ..." << endl;
@@ -29,9 +30,11 @@ void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
         default:
             OCP_ABORT("Wrong method type!");
     }
+
     FLSolver.AllocateLinearSolver();
 }
 
+/// Setup solution methods, including IMPEC and FIM.
 void FluidSolver::InitReservoir(Reservoir& rs) const
 {
     switch (method) {
@@ -46,6 +49,7 @@ void FluidSolver::InitReservoir(Reservoir& rs) const
     }
 }
 
+/// Prepare solution methods, including IMPEC and FIM.
 void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     switch (method) {
@@ -60,6 +64,7 @@ void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
     }
 }
 
+/// Assemble linear systems for IMPEC and FIM.
 void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
 {
     switch (method) {
@@ -74,6 +79,7 @@ void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
     }
 }
 
+/// Solve linear systems for IMPEC and FIM.
 void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
@@ -88,6 +94,7 @@ void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
+/// Update physical properties for IMPEC and FIM.
 bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
@@ -100,7 +107,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
-
+/// Finish up Newton-Raphson iteration for IMPEC and FIM.
 bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
@@ -113,6 +120,7 @@ bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
+/// Finish up time step for IMPEC and FIM.
 void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
@@ -131,4 +139,5 @@ void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/21/2021      Create file                          */
+/*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/
