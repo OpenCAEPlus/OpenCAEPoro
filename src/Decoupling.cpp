@@ -102,7 +102,7 @@ static void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, j, k, l, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -111,29 +111,27 @@ static void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     memcpy(IAb, IA, (ROW + 1) * sizeof(INT));
     memcpy(JAb, JA, NNZ * sizeof(INT));
 
-    double *mat1, *mat2;
-    mat1 = new double[nb2];
-    mat2 = new double[nb2];
+    REAL *mat1, *mat2;
+    mat1 = new REAL[nb2];
+    mat2 = new REAL[nb2];
 
     // Dset0(nb2*ROW, diaginv);
     for (i = 0; i < ROW; ++i) {
-        double Tt = 0;
+        double Tt = 0.0;
         // get the diagonal sub-blocks
         // mat2 is true-IMPES matrix.
         fasp_smat_identity(mat2, nb, nb2);
         // mat1 is the mobility ratio matrix
         fasp_smat_identity(mat1, nb, nb2);
 
-        for (int l = 0; l < nb - 1; l++) {
-            mat2[1 + l] = diaginv[i * nb2 + 1 + l];
-            Tt += diaginv[i * nb2 + 1 + l] * diaginv[i * nb2 + (l + 1) * nb];
+        for (l = 1; l < nb; ++l) {
+            mat2[l] = diaginv[i * nb2 + l];
+            Tt += diaginv[i * nb2 + l] * diaginv[i * nb2 + l * nb];
         }
         for (k = IA[i]; k < IA[i + 1]; ++k) {
-            if (JA[k] == i) {
-                break;
-            }
+            if (JA[k] == i) break;
         }
-        for (int l = 0; l < nb - 1; l++) {
+        for (l = 0; l < nb - 1; ++l) {
             if (val[k * nb2 + (l + 1) * nb] > 0)
                 mat1[(l + 1) * nb] = -diaginv[i * nb2 + (l + 1) * nb] / Tt; // diag(l)
         }
@@ -162,7 +160,7 @@ static void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, j, k, l, m;
 
     // Create a link to dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -170,28 +168,29 @@ static void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     REAL* valb = B->val;
     memcpy(IAb, IA, (ROW + 1) * sizeof(INT));
     memcpy(JAb, JA, NNZ * sizeof(INT));
-    double *mat1, *mat2;
-    mat1 = new double[nb2];
-    mat2 = new double[nb2];
+
+    REAL *mat1, *mat2;
+    mat1 = new REAL[nb2];
+    mat2 = new REAL[nb2];
 
     // Dset0(nb2*ROW, diaginv);
     for (i = 0; i < ROW; ++i) {
         for (k = IA[i]; k < IA[i + 1]; ++k) {
-            double Tt = 0;
+            double Tt = 0.0;
             if (JA[k] == i) {
                 m = k * nb2;
                 fasp_smat_identity(mat2, nb, nb2);
-                for (int l = 0; l < nb - 1; l++) {
-                    mat2[1 + l] = -val[m + 1 + l];
-                    if (val[m + (l + 1) * nb] > 0) {
-                        Tt += -val[m + 1 + l] * val[m + (l + 1) * nb];
+                for (l = 1; l < nb; ++l) {
+                    mat2[l] = -val[m + l];
+                    if (val[m + l * nb] > 0) {
+                        Tt += -val[m + l] * val[m + l * nb];
                     }
                 }
 
                 fasp_smat_identity(mat1, nb, nb2);
-                for (int l = 0; l < nb - 1; l++) {
-                    if (val[m + (l + 1) * nb] > 0) {
-                        mat1[(l + 1) * nb] = -val[m + (l + 1) * nb] / Tt; // diag(l)
+                for (l = 1; l < nb; ++l) {
+                    if (val[m + l * nb] > 0) {
+                        mat1[l * nb] = -val[m + l * nb] / Tt; // diag(l)
                     }
                 }
 
