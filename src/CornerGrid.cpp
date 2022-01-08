@@ -10,7 +10,7 @@
  */
 
 
-#include "CornerGrid.h"
+#include "CornerGrid.hpp"
 
 
 Point3D Point3D::operator+(const Point3D& other) const

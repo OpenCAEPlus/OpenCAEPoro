@@ -17,7 +17,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
-#include "CornerGrid.h"
+#include "CornerGrid.hpp"
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
 
