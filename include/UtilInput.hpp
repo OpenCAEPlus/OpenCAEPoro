@@ -9,8 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __READTOOL_HEADER__
-#define __READTOOL_HEADER__
+#ifndef __UTILINPUT_HEADER__
+#define __UTILINPUT_HEADER__
 
 // Standard header files
 #include <fstream>
@@ -22,12 +22,12 @@
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 
+using namespace std;
+
 /// TODO: Replace it with error log
-#define ParamCheck1(exp)                                                                \
+#define ParamCheck1(exp)                                                               \
     std::cout << exp << " in " << __func__ << "() in " << __LINE__ << " in "           \
               << __FILE__;
-
-using namespace std;
 
 /// Map_str2int is used to map string to integer, which used to match the keyword
 /// efficiently in input file in the switch structure.
@@ -73,7 +73,7 @@ void DealData(const vector<string>& vbuf, vector<OCP_USI>& obj, vector<T>& regio
     }
 }
 
-#endif /* end if __READTOOL_HEADER__ */
+#endif /* end if __UTILINPUT_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

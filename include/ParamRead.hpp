@@ -25,7 +25,6 @@
 #include "ParamOutput.hpp"
 #include "ParamReservoir.hpp"
 #include "ParamWell.hpp"
-#include "UtilInput.hpp"
 
 using namespace std;
 
@@ -52,13 +51,13 @@ public:
     /// Initialize the param reading process.
     void Init();
 
-    /// The general interface for reading input file.
+    /// General interface for reading input data.
     void ReadInputFile(const string& file);
 
-    /// Read the input file. // TODO: What's the difference from the above function? Private?
+    /// Read the input file.
     void ReadFile(const string& file);
 
-    /// Handle the INCLUDE keyword, which contains other input files needed.
+    /// Handle the INCLUDE keyword, which contains other input files.
     void ReadINCLUDE(ifstream& ifs);
 
     /// Check whether the params contain error.

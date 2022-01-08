@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['bfaspsolve_0',['BFaspSolve',['../classLinearSolver.html#a3488d2f13167c3a39800975311aa73bc',1,'LinearSolver']]],
+  ['bip_0',['BIP',['../classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec',1,'EoSparam']]],
   ['blackoil_1',['blackOil',['../classParamReservoir.html#ac5209bd071906af24dbbae8b0677c081',1,'ParamReservoir']]],
   ['boflash_5fni_5fodgw_2',['BOFlash_Ni_ODGW',['../classBOMixture.html#a11747869313d39c0ec2a639113725b21',1,'BOMixture']]],
   ['boflash_5fni_5fow_3',['BOFlash_Ni_OW',['../classBOMixture.html#a5218994ea261203397a1125255cb8a8c',1,'BOMixture']]],

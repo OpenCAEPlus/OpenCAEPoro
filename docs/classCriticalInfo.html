@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -108,45 +108,45 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00573">573</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>{</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    <span class="keywordtype">string</span>   FileOut = dir + <span class="stringliteral">&quot;FastReview.out&quot;</span>;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    ofstream outF(FileOut);</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    <span class="keywordflow">if</span> (!outF.is_open()) {</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Can not open &quot;</span> + FileOut);</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    }</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span> </div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>    <span class="comment">// Item</span></div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Time&quot;</span>;</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dt&quot;</span>;</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dPmax&quot;</span>;</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dVmax&quot;</span>;</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dSmax&quot;</span>;</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dNmax&quot;</span>;</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;CFL\n&quot;</span>;</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    <span class="comment">// Unit</span></div>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00572">572</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>{</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    <span class="keywordtype">string</span>   FileOut = dir + <span class="stringliteral">&quot;FastReview.out&quot;</span>;</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    ofstream outF(FileOut);</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <span class="keywordflow">if</span> (!outF.is_open()) {</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Can not open &quot;</span> + FileOut);</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    }</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span> </div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    <span class="comment">// Item</span></div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Time&quot;</span>;</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dt&quot;</span>;</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dPmax&quot;</span>;</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dVmax&quot;</span>;</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dSmax&quot;</span>;</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;dNmax&quot;</span>;</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;CFL\n&quot;</span>;</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    <span class="comment">// Unit</span></div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Days&quot;</span>;</div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Days&quot;</span>;</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Days&quot;</span>;</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Psia&quot;</span>;</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;Psia&quot;</span>;</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    &quot;</span>;</div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    \n\n&quot;</span>;</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span> </div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = time.size();</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; n; i++) {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; time[i];</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dt[i];</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dPmax[i];</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dVmax[i];</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dSmax[i];</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dNmax[i];</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; cfl[i];</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    }</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span> </div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    outF.close();</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>}</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; <span class="stringliteral">&quot;    \n\n&quot;</span>;</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = time.size();</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; n; i++) {</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; time[i];</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dt[i];</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dPmax[i];</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dVmax[i];</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dSmax[i];</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; dNmax[i];</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(10) &lt;&lt; cfl[i];</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    }</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    outF.close();</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
@@ -168,18 +168,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00549">549</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>{</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="comment">// Allocate memory</span></div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> rc = totalTime / 0.1;</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    time.reserve(rc);</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    dt.reserve(rc);</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    dPmax.reserve(rc);</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    dVmax.reserve(rc);</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    dSmax.reserve(rc);</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    dNmax.reserve(rc);</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    cfl.reserve(rc);</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00548">548</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>{</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="comment">// Allocate memory</span></div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> rc = totalTime / 0.1;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    time.reserve(rc);</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    dt.reserve(rc);</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    dPmax.reserve(rc);</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    dVmax.reserve(rc);</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    dSmax.reserve(rc);</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    dNmax.reserve(rc);</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    cfl.reserve(rc);</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -209,22 +209,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00562">562</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>{</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    time.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">GetCurTime</a>());</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    dt.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">GetLastCurDt</a>());</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    dPmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">GetdPmax</a>());</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    dVmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#a604e6f317c178011eee5ce9235963cf2">GetdVmax</a>());</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    dSmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">GetdSmax</a>());</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    dNmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#ac5d97181f800e944923b3edcdc4f0f12">GetdNmax</a>());</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    cfl.push_back(reservoir.cfl);</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>}</div>
-<div class="ttc" id="aclassBulk_html_a604e6f317c178011eee5ce9235963cf2"><div class="ttname"><a href="classBulk.html#a604e6f317c178011eee5ce9235963cf2">Bulk::GetdVmax</a></div><div class="ttdeci">OCP_DBL GetdVmax() const</div><div class="ttdoc">Return dVmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00137">Bulk.hpp:137</a></div></div>
-<div class="ttc" id="aclassBulk_html_aa5ad01a5860101685946e77e4c20677f"><div class="ttname"><a href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">Bulk::GetdSmax</a></div><div class="ttdeci">OCP_DBL GetdSmax() const</div><div class="ttdoc">Return dSmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00135">Bulk.hpp:135</a></div></div>
-<div class="ttc" id="aclassBulk_html_ac5d97181f800e944923b3edcdc4f0f12"><div class="ttname"><a href="classBulk.html#ac5d97181f800e944923b3edcdc4f0f12">Bulk::GetdNmax</a></div><div class="ttdeci">OCP_DBL GetdNmax() const</div><div class="ttdoc">Return dNmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00133">Bulk.hpp:133</a></div></div>
-<div class="ttc" id="aclassBulk_html_ac81795732f0229683d9766b4bc99ca4c"><div class="ttname"><a href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">Bulk::GetdPmax</a></div><div class="ttdeci">OCP_DBL GetdPmax() const</div><div class="ttdoc">Return dPmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00131">Bulk.hpp:131</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a0f8dc03839c295ec0d7e8837fe454d0a"><div class="ttname"><a href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">OCPControl::GetLastCurDt</a></div><div class="ttdeci">OCP_DBL GetLastCurDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00106">OCPControl.hpp:106</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00102">OCPControl.hpp:102</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00561">561</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>{</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    time.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">GetCurTime</a>());</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    dt.push_back(ctrl.<a class="code hl_function" href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">GetLastCurDt</a>());</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    dPmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">GetdPmax</a>());</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    dVmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#a604e6f317c178011eee5ce9235963cf2">GetdVmax</a>());</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    dSmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">GetdSmax</a>());</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    dNmax.push_back(reservoir.bulk.<a class="code hl_function" href="classBulk.html#ac5d97181f800e944923b3edcdc4f0f12">GetdNmax</a>());</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    cfl.push_back(reservoir.cfl);</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>}</div>
+<div class="ttc" id="aclassBulk_html_a604e6f317c178011eee5ce9235963cf2"><div class="ttname"><a href="classBulk.html#a604e6f317c178011eee5ce9235963cf2">Bulk::GetdVmax</a></div><div class="ttdeci">OCP_DBL GetdVmax() const</div><div class="ttdoc">Return dVmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00145">Bulk.hpp:145</a></div></div>
+<div class="ttc" id="aclassBulk_html_aa5ad01a5860101685946e77e4c20677f"><div class="ttname"><a href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">Bulk::GetdSmax</a></div><div class="ttdeci">OCP_DBL GetdSmax() const</div><div class="ttdoc">Return dSmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00143">Bulk.hpp:143</a></div></div>
+<div class="ttc" id="aclassBulk_html_ac5d97181f800e944923b3edcdc4f0f12"><div class="ttname"><a href="classBulk.html#ac5d97181f800e944923b3edcdc4f0f12">Bulk::GetdNmax</a></div><div class="ttdeci">OCP_DBL GetdNmax() const</div><div class="ttdoc">Return dNmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00141">Bulk.hpp:141</a></div></div>
+<div class="ttc" id="aclassBulk_html_ac81795732f0229683d9766b4bc99ca4c"><div class="ttname"><a href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">Bulk::GetdPmax</a></div><div class="ttdeci">OCP_DBL GetdPmax() const</div><div class="ttdoc">Return dPmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00139">Bulk.hpp:139</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a0f8dc03839c295ec0d7e8837fe454d0a"><div class="ttname"><a href="classOCPControl.html#a0f8dc03839c295ec0d7e8837fe454d0a">OCPControl::GetLastCurDt</a></div><div class="ttdeci">OCP_DBL GetLastCurDt() const</div><div class="ttdoc">Return last dt.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00120">OCPControl.hpp:120</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,7 +235,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

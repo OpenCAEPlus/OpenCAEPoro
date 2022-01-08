@@ -1,5 +1,5 @@
-/*! \file    Solver.hpp
- *  \brief   Solver class declaration
+/*! \file    Solver.cpp
+ *  \brief   Solver class definition
  *  \author  Shizhe Li
  *  \date    Oct/21/2021
  *

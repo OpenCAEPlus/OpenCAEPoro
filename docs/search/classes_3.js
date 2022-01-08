@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['flowunit_0',['FlowUnit',['../classFlowUnit.html',1,'']]],
-  ['fluidsolver_1',['FluidSolver',['../classFluidSolver.html',1,'']]]
+  ['eoscontrol_0',['EoScontrol',['../classEoScontrol.html',1,'']]],
+  ['eosparam_1',['EoSparam',['../classEoSparam.html',1,'']]]
 ];

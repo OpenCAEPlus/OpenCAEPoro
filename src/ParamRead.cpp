@@ -10,9 +10,8 @@
  */
 
 #include "ParamRead.hpp"
-#include "UtilError.hpp"
 
-/// Initialize param_Rs, param_Well, and param_Control.
+/// Initialize paramRs, paramWell, and paramControl.
 void ParamRead::Init()
 {
     paramRs.Init();
@@ -36,23 +35,23 @@ void ParamRead::GetDirAndName()
 #endif
 }
 
-/// The general interface for reading input file.
-void ParamRead::ReadInputFile(const string& file)
+/// This is the general interface for reading input files.
+void ParamRead::ReadInputFile(const string& filename)
 {
-    inputFile = file;
+    inputFile = filename;
     GetDirAndName();
     Init();
     ReadFile(inputFile);
     CheckParam();
 }
 
-/// Read parameters from input data.
-void ParamRead::ReadFile(const string& file)
+/// Read parameters from a file, which is called in ReadInputFile.
+void ParamRead::ReadFile(const string& filename)
 {
-    ifstream ifs(file, ios::in);
+    ifstream ifs(filename, ios::in);
     if (!ifs) {
-        OCP_MESSAGE("Trying to open input file: " << (file));
-        OCP_ABORT("Cannot open the input file!");
+        OCP_MESSAGE("Trying to open file: " << (filename));
+        OCP_ABORT("Fail to open the input file!");
     }
 
     while (!ifs.eof()) {
@@ -243,8 +242,7 @@ void ParamRead::ReadFile(const string& file)
                 paramRs.InputRR(ifs);
                 break;
 
-            default:
-                OCP_ASSERT(true, "Skipping unknonw keywords!");
+            default: // skip non-keywords
                 break;
         }
     }
@@ -261,7 +259,7 @@ void ParamRead::ReadINCLUDE(ifstream& ifs)
     ReadFile(workDir + vbuf[0]);
 }
 
-/// Check param_Rs and param_Well parameters.
+/// Check parameters in paramRs and paramWell.
 void ParamRead::CheckParam()
 {
     cout << "=========================================" << endl
@@ -278,4 +276,5 @@ void ParamRead::CheckParam()
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/08/2022      Test robustness for wrong keywords   */
 /*----------------------------------------------------------------------------*/

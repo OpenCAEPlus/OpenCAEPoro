@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -72,11 +72,11 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classWell.html">Well</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a8bec5ca478da172b9d5f7038d8664976">AllocateMat</a>(LinearSolver &amp;mySolver) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#abb4f9590d01c8a2bbf87b95ed39b4b35">AssembleMatINJ_FIM</a>(const Bulk &amp;myBulk, LinearSolver &amp;mySolver, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a6c812c6ed54d340d0b2f3b6d4afc235f">AssembleMatINJ_IMPEC</a>(const Bulk &amp;myBulk, LinearSolver &amp;mySolver, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a4beb1f66db0ed735198057bff651cef7">AssembleMatPROD_BO_FIM</a>(const Bulk &amp;myBulk, LinearSolver &amp;mySolver, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classWell.html#abc06a2dbdfd5efd4f62a5b43c455c05c">AssembleMatPROD_BO_IMPEC</a>(const Bulk &amp;myBulk, LinearSolver &amp;mySolver, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a97e29326b964228b932906ff35cb3677">AllocateMat</a>(LinearSystem &amp;myLS) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a463947c4c8f7b503f454d69258ba3542">AssembleMatINJ_FIM</a>(const Bulk &amp;myBulk, LinearSystem &amp;myLS, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#ab0528721e20039c2f6ca161b60f94d50">AssembleMatINJ_IMPEC</a>(const Bulk &amp;myBulk, LinearSystem &amp;myLS, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a99870ae6a05eab45e6b7a13f58439d13">AssembleMatPROD_BO_FIM</a>(const Bulk &amp;myBulk, LinearSystem &amp;myLS, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#ab9c437ead9ade11b0adb0d7eb8cb03ee">AssembleMatPROD_BO_IMPEC</a>(const Bulk &amp;myBulk, LinearSystem &amp;myLS, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classWell.html#af050eac32e6afc9a9a2eb3af0a73c745">CalCFL01IMPEC</a>(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classWell.html#aeed8f1f0c91e4a7935686f9fdc969162">CalCFLIMPEC</a>(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a98c5c54987ca460ab025504f014ce96e">CaldG</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
@@ -93,10 +93,12 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">CheckCrossFlow</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">CheckOptMode</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">CheckP</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#ad4d807724dd2793f2a24258e886a7a2b">InitBHP</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a6a7325e7ccce6aed4f469e06d598066d">InputPerfo</a>(const WellParam &amp;well)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a60acab4066c9b323f85e1018f7cee341">MassConserveIMPEC</a>(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classWell.html#ab883d41c3842854f9c2fb15919d9880b">Setup</a>(const Grid &amp;myGrid, const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a78d04e63b30bc4dca680b69ee91ed225">GetPerfPre</a>(const USI &amp;p) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#ad4d807724dd2793f2a24258e886a7a2b">InitBHP</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a6a7325e7ccce6aed4f469e06d598066d">InputPerfo</a>(const WellParam &amp;well)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a60acab4066c9b323f85e1018f7cee341">MassConserveIMPEC</a>(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a11d2ccf942f2e84d8c08a4dcffcb9524">SetBHP</a>()</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classWell.html#a1b48754b2170434d86855d1568b20590">Setup</a>(const Grid &amp;myGrid, const Bulk &amp;myBulk, const vector&lt; SolventINJ &gt; &amp;sols)</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classWell.html#adb515fe5c49dd0ef3ca54d97cd1cb56e">ShowPerfStatus</a>() const</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classWell.html#abf45c0fc2455e809a3505f327e1afcb7">SmoothdG</a>()</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classWell.html#a0da4ab9b101dd38ab921f991273719d4">UpdatePerfP</a>()</td><td class="entry"><a class="el" href="classWell.html">Well</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -107,7 +109,7 @@ $(function() {
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

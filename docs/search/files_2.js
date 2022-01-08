@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['flowunit_2ecpp_0',['FlowUnit.cpp',['../FlowUnit_8cpp.html',1,'']]],
-  ['flowunit_2ehpp_1',['FlowUnit.hpp',['../FlowUnit_8hpp.html',1,'']]],
-  ['fluidsolver_2ecpp_2',['FluidSolver.cpp',['../FluidSolver_8cpp.html',1,'']]],
-  ['fluidsolver_2ehpp_3',['FluidSolver.hpp',['../FluidSolver_8hpp.html',1,'']]]
+  ['decoupling_2ecpp_0',['Decoupling.cpp',['../Decoupling_8cpp.html',1,'']]],
+  ['densemat_2ecpp_1',['DenseMat.cpp',['../DenseMat_8cpp.html',1,'']]],
+  ['densemat_2ehpp_2',['DenseMat.hpp',['../DenseMat_8hpp.html',1,'']]],
+  ['doxygen_2ehpp_3',['Doxygen.hpp',['../Doxygen_8hpp.html',1,'']]]
 ];

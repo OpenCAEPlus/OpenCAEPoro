@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -75,15 +75,15 @@ $(function() {
 <li>InitFIM()&#160;:&#160;<a class="el" href="classReservoir.html#a10da8590d5e1551b4f353627f22005f6">Reservoir</a></li>
 <li>InitIMPEC()&#160;:&#160;<a class="el" href="classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba">Reservoir</a></li>
 <li>InitMethod()&#160;:&#160;<a class="el" href="classParamControl.html#aa8aa097406a259c53a38559a1d9af95d">ParamControl</a></li>
-<li>InitParam_BFasp()&#160;:&#160;<a class="el" href="classLinearSolver.html#a33c5e1ae93e090758fb381bc2258c965">LinearSolver</a></li>
-<li>InitParam_Fasp()&#160;:&#160;<a class="el" href="classLinearSolver.html#a9874da50a7469934e1fb40250c4d6e29">LinearSolver</a></li>
+<li>InitParam()&#160;:&#160;<a class="el" href="classLinearSolver.html#aeaf187fa541a97500b93765ef80b2dde">LinearSolver</a></li>
 <li>InitReservoir()&#160;:&#160;<a class="el" href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">FluidSolver</a>, <a class="el" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro</a>, <a class="el" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver</a></li>
-<li>InitSize()&#160;:&#160;<a class="el" href="classBulkConn.html#ac25087b894610209db138bd88c0ff5b4">BulkConn</a></li>
 <li>InitSjPcBo()&#160;:&#160;<a class="el" href="classBulk.html#ad313ce450846d30e0dcb6c83dd5f08fe">Bulk</a></li>
 <li>InitSjPcComp()&#160;:&#160;<a class="el" href="classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724">Bulk</a></li>
 <li>InitTable()&#160;:&#160;<a class="el" href="classParamReservoir.html#a7c75da3d60afc482680853551316563d">ParamReservoir</a></li>
 <li>InitTime()&#160;:&#160;<a class="el" href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">OCPControl</a>, <a class="el" href="classParamControl.html#a0335997f9ad714a2d062ed92953a35fb">ParamControl</a>, <a class="el" href="classParamWell.html#ad3a0c7dcb849ccdcb3670d79aa65163d">ParamWell</a></li>
 <li>InitTuning()&#160;:&#160;<a class="el" href="classParamControl.html#a1c15d9a1ddb22558c6555ef697b5b17e">ParamControl</a></li>
+<li>InputBIP()&#160;:&#160;<a class="el" href="classEoSparam.html#a75a286bb432bb42d094deb830142ea98">EoSparam</a></li>
+<li>InputCOM()&#160;:&#160;<a class="el" href="classEoSparam.html#a6b97efe0ddf5a2aaabdac0fa8d47e044">EoSparam</a></li>
 <li>InputCOMPDAT()&#160;:&#160;<a class="el" href="classParamWell.html#acd5d7a12a591f21ed6b442965233583a">ParamWell</a></li>
 <li>InputCOMPS()&#160;:&#160;<a class="el" href="classParamReservoir.html#a60b428a0e0e20e502069281e838fbd7c">ParamReservoir</a></li>
 <li>InputCOPY()&#160;:&#160;<a class="el" href="classParamReservoir.html#ac0cd20c7f4489c6be52c1f27900b4d74">ParamReservoir</a></li>
@@ -95,12 +95,18 @@ $(function() {
 <li>InputGRID()&#160;:&#160;<a class="el" href="classParamReservoir.html#a2b3ac2c75730c0d3527777603238fd1a">ParamReservoir</a></li>
 <li>InputMETHOD()&#160;:&#160;<a class="el" href="classParamControl.html#abc0913ef0c6b25fad08bfa14965a7389">ParamControl</a></li>
 <li>InputMULTIPLY()&#160;:&#160;<a class="el" href="classParamReservoir.html#a7e6df5f75485ab71b53dcc18778621fb">ParamReservoir</a></li>
+<li>InputNCNP()&#160;:&#160;<a class="el" href="classEoSparam.html#a607d388ebe5df2e1c5455a1d5f7a8121">EoSparam</a></li>
+<li>InputNRSP()&#160;:&#160;<a class="el" href="classEoSparam.html#a9c3303f67722dd1beadcaec7824536dd">EoSparam</a></li>
+<li>InputNRSTA()&#160;:&#160;<a class="el" href="classEoSparam.html#a825d0a667dfe563fef0812c9584a5f67">EoSparam</a></li>
 <li>InputParam()&#160;:&#160;<a class="el" href="classBulk.html#ab660ee553f985ed3ab8a9875d8e9d552">Bulk</a>, <a class="el" href="classGrid.html#aa384b0141247ad8d79380850984d1394">Grid</a>, <a class="el" href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl</a>, <a class="el" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro</a>, <a class="el" href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir</a>, <a class="el" href="classWellGroup.html#a3b3fa9c1ae03747c192cb0e1cab8b063">WellGroup</a></li>
 <li>InputPerfo()&#160;:&#160;<a class="el" href="classWell.html#a6a7325e7ccce6aed4f469e06d598066d">Well</a></li>
 <li>InputRegion()&#160;:&#160;<a class="el" href="classParamReservoir.html#a7932cdac7cbd69725ceadd7770e92dd0">ParamReservoir</a></li>
 <li>InputROCK()&#160;:&#160;<a class="el" href="classParamReservoir.html#aa80b12c61c39b90a66592f260c1dc181">ParamReservoir</a></li>
 <li>InputRPTSCHED()&#160;:&#160;<a class="el" href="classParamOutput.html#a6efbcc2df0091fea0e6c7c3bab1c1276">ParamOutput</a></li>
+<li>InputRR()&#160;:&#160;<a class="el" href="classEoSparam.html#aaa29e11a71432769113c120c92c64760">EoSparam</a></li>
 <li>InputRTEMP()&#160;:&#160;<a class="el" href="classParamReservoir.html#af76ccb27e3d4e588ad56603cde5afbdc">ParamReservoir</a></li>
+<li>InputSSMSP()&#160;:&#160;<a class="el" href="classEoSparam.html#ad2c2c00c9e4285577b37f739ee788f06">EoSparam</a></li>
+<li>InputSSMSTA()&#160;:&#160;<a class="el" href="classEoSparam.html#a5867b717b28a303591a753662b0714dd">EoSparam</a></li>
 <li>InputSUMMARY()&#160;:&#160;<a class="el" href="classParamOutput.html#a95b47e3f4a27ec3a2792706b206184ee">ParamOutput</a></li>
 <li>InputTABDIMS()&#160;:&#160;<a class="el" href="classParamReservoir.html#a0d01b1b90ea008692160c9c3933ae61d">ParamReservoir</a></li>
 <li>InputTABLE()&#160;:&#160;<a class="el" href="classParamReservoir.html#a9ff601c7ca94b8a4d1f2b09541847d4b">ParamReservoir</a></li>
@@ -110,18 +116,21 @@ $(function() {
 <li>InputType_B()&#160;:&#160;<a class="el" href="classParamOutput.html#a726af246c8a9afacf6c5e4466d701c66">ParamOutput</a></li>
 <li>InputWCONINJE()&#160;:&#160;<a class="el" href="classParamWell.html#a6f50a2badfa07a0ab6f776b703a2b7b4">ParamWell</a></li>
 <li>InputWCONPROD()&#160;:&#160;<a class="el" href="classParamWell.html#a1e4065ca727c504ed17a578d0bb8d2ba">ParamWell</a></li>
+<li>InputWELLSTRE()&#160;:&#160;<a class="el" href="classParamWell.html#a2d0915e97e26e1372af368d3850cad8f">ParamWell</a></li>
 <li>InputWELSPECS()&#160;:&#160;<a class="el" href="classParamWell.html#a348e623c04553e6371ffca79bfefcf12">ParamWell</a></li>
 <li>InputWELTARG()&#160;:&#160;<a class="el" href="classParamWell.html#a4399ac3d4ccb5323179a6038aea2f491">ParamWell</a></li>
+<li>InputZI()&#160;:&#160;<a class="el" href="classEoSparam.html#a6ef14bd3a48f5786989bd7f14d3f42e6">EoSparam</a></li>
+<li>IsAct()&#160;:&#160;<a class="el" href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">GB_Pair</a></li>
 <li>IsCriticalTime()&#160;:&#160;<a class="el" href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">OCPControl</a></li>
 <li>IsEmpty()&#160;:&#160;<a class="el" href="classOCPTable.html#a8ce33f66b855ad5212c05a6d1ecf644a">OCPTable</a></li>
-<li>IsEmpty_PVDG()&#160;:&#160;<a class="el" href="classBOMixture.html#a81ab890bf14bef2fe2a8c03216c3ad5f">BOMixture</a>, <a class="el" href="classMixture.html#a0e936127ca2948b16a5dd1c83e5d8f01">Mixture</a></li>
+<li>IsEmpty_PVDG()&#160;:&#160;<a class="el" href="classBOMixture.html#a81ab890bf14bef2fe2a8c03216c3ad5f">BOMixture</a>, <a class="el" href="classMixture.html#ab489a57e4a8a95a8b4f50975ee177d7f">Mixture</a></li>
 <li>IsEmpty_SGOF()&#160;:&#160;<a class="el" href="classFlowUnit.html#ae5cce0f7761b9630c4cdb04ee90f5771">FlowUnit</a></li>
 <li>IsEmpty_SWOF()&#160;:&#160;<a class="el" href="classFlowUnit.html#a2885f501d3bd4ea8cb5dad30ee6d102a">FlowUnit</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

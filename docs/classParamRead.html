@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Pre-processing unit for <a class="el" href="classOpenCAEPoro.html" title="Top level data structure in the OpenCAEPoro simulator.">OpenCAEPoro</a> for reading params from input files.  
+<p>Pre-processing unit for <a class="el" href="classOpenCAEPoro.html" title="Top-level data structure for the OpenCAEPoro simulator.">OpenCAEPoro</a> for reading params from input files.  
  <a href="classParamRead.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>&gt;</code></p>
@@ -88,13 +88,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a141661c6e536fe66b6f76bf7f2bf3671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the param reading process.  <a href="classParamRead.html#a141661c6e536fe66b6f76bf7f2bf3671">More...</a><br /></td></tr>
 <tr class="separator:a141661c6e536fe66b6f76bf7f2bf3671"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62e9a14e95058cfebcef6062359d4537"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">ReadInputFile</a> (const string &amp;file)</td></tr>
-<tr class="memdesc:a62e9a14e95058cfebcef6062359d4537"><td class="mdescLeft">&#160;</td><td class="mdescRight">The general interface for reading input file.  <a href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">More...</a><br /></td></tr>
+<tr class="memdesc:a62e9a14e95058cfebcef6062359d4537"><td class="mdescLeft">&#160;</td><td class="mdescRight">General interface for reading input data.  <a href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">More...</a><br /></td></tr>
 <tr class="separator:a62e9a14e95058cfebcef6062359d4537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a229e39f0eeda8ed77354fd9fbf320eff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ReadFile</a> (const string &amp;file)</td></tr>
-<tr class="memdesc:a229e39f0eeda8ed77354fd9fbf320eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the input file. // TODO: What's the difference from the above function? Private?  <a href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">More...</a><br /></td></tr>
+<tr class="memdesc:a229e39f0eeda8ed77354fd9fbf320eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the input file.  <a href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">More...</a><br /></td></tr>
 <tr class="separator:a229e39f0eeda8ed77354fd9fbf320eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a670fea47b300e687c1f83e33c67b5761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">ReadINCLUDE</a> (ifstream &amp;ifs)</td></tr>
-<tr class="memdesc:a670fea47b300e687c1f83e33c67b5761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle the INCLUDE keyword, which contains other input files needed.  <a href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">More...</a><br /></td></tr>
+<tr class="memdesc:a670fea47b300e687c1f83e33c67b5761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle the INCLUDE keyword, which contains other input files.  <a href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">More...</a><br /></td></tr>
 <tr class="separator:a670fea47b300e687c1f83e33c67b5761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0969b62e2f77c029e5e121a9d22c525"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">CheckParam</a> ()</td></tr>
 <tr class="memdesc:ae0969b62e2f77c029e5e121a9d22c525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the params contain error.  <a href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">More...</a><br /></td></tr>
@@ -125,9 +125,9 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a069b8da543ffcf4e2c587ee0c4e0119a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Pre-processing unit for <a class="el" href="classOpenCAEPoro.html" title="Top level data structure in the OpenCAEPoro simulator.">OpenCAEPoro</a> for reading params from input files. </p>
+<div class="textblock"><p >Pre-processing unit for <a class="el" href="classOpenCAEPoro.html" title="Top-level data structure for the OpenCAEPoro simulator.">OpenCAEPoro</a> for reading params from input files. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00033">33</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00032">32</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae0969b62e2f77c029e5e121a9d22c525" name="ae0969b62e2f77c029e5e121a9d22c525"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0969b62e2f77c029e5e121a9d22c525">&#9670;&nbsp;</a></span>CheckParam()</h2>
@@ -145,19 +145,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check whether the params contain error. </p>
-<p >Check param_Rs and param_Well parameters. </p>
+<p >Check parameters in paramRs and paramWell. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00223">223</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>{</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a13cc147fa6e3f7ec9fb3195e1fb48b23">CheckParam</a>();</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_function" href="classParamWell.html#a9b03536d81c2939b0a30c982588485ec">CheckParam</a>();</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>}</div>
-<div class="ttc" id="aclassParamRead_html_a12dd2b8ffb51d52e739ae66a37ca14eb"><div class="ttname"><a href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">ParamRead::paramWell</a></div><div class="ttdeci">ParamWell paramWell</div><div class="ttdoc">Read the well params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00044">ParamRead.hpp:44</a></div></div>
-<div class="ttc" id="aclassParamRead_html_abafdac256009979d94e70fafc60a1abe"><div class="ttname"><a href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">ParamRead::paramRs</a></div><div class="ttdeci">ParamReservoir paramRs</div><div class="ttdoc">Read the reservoir params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00043">ParamRead.hpp:43</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a13cc147fa6e3f7ec9fb3195e1fb48b23"><div class="ttname"><a href="classParamReservoir.html#a13cc147fa6e3f7ec9fb3195e1fb48b23">ParamReservoir::CheckParam</a></div><div class="ttdeci">void CheckParam()</div><div class="ttdoc">Check the reservoir param from input file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00550">ParamReservoir.cpp:550</a></div></div>
-<div class="ttc" id="aclassParamWell_html_a9b03536d81c2939b0a30c982588485ec"><div class="ttname"><a href="classParamWell.html#a9b03536d81c2939b0a30c982588485ec">ParamWell::CheckParam</a></div><div class="ttdeci">void CheckParam() const</div><div class="ttdoc">Check if wrong params are input.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8cpp_source.html#l00272">ParamWell.cpp:272</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00263">263</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>{</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>         &lt;&lt; <span class="stringliteral">&quot;Check reading parameters from input data!&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>         &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a13cc147fa6e3f7ec9fb3195e1fb48b23">CheckParam</a>();</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_function" href="classParamWell.html#a5c0749b4f944eea674b7f81d09cd8566">CheckParam</a>(<a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_variable" href="classParamReservoir.html#ac5209bd071906af24dbbae8b0677c081">blackOil</a>);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
+<div class="ttc" id="aclassParamRead_html_a12dd2b8ffb51d52e739ae66a37ca14eb"><div class="ttname"><a href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">ParamRead::paramWell</a></div><div class="ttdeci">ParamWell paramWell</div><div class="ttdoc">Read the well params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00043">ParamRead.hpp:43</a></div></div>
+<div class="ttc" id="aclassParamRead_html_abafdac256009979d94e70fafc60a1abe"><div class="ttname"><a href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">ParamRead::paramRs</a></div><div class="ttdeci">ParamReservoir paramRs</div><div class="ttdoc">Read the reservoir params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00042">ParamRead.hpp:42</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a13cc147fa6e3f7ec9fb3195e1fb48b23"><div class="ttname"><a href="classParamReservoir.html#a13cc147fa6e3f7ec9fb3195e1fb48b23">ParamReservoir::CheckParam</a></div><div class="ttdeci">void CheckParam()</div><div class="ttdoc">Check the reservoir param from input file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00575">ParamReservoir.cpp:575</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_ac5209bd071906af24dbbae8b0677c081"><div class="ttname"><a href="classParamReservoir.html#ac5209bd071906af24dbbae8b0677c081">ParamReservoir::blackOil</a></div><div class="ttdeci">bool blackOil</div><div class="ttdoc">If ture, blackoil model will be used.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00136">ParamReservoir.hpp:136</a></div></div>
+<div class="ttc" id="aclassParamWell_html_a5c0749b4f944eea674b7f81d09cd8566"><div class="ttname"><a href="classParamWell.html#a5c0749b4f944eea674b7f81d09cd8566">ParamWell::CheckParam</a></div><div class="ttdeci">void CheckParam(const bool &amp;boModel) const</div><div class="ttdoc">Check if wrong params are input.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8cpp_source.html#l00298">ParamWell.cpp:298</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8cpp_source.html#l00550">ParamReservoir::CheckParam()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00272">ParamWell::CheckParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00043">paramRs</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00044">paramWell</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00136">ParamReservoir::blackOil</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00575">ParamReservoir::CheckParam()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00298">ParamWell::CheckParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00042">paramRs</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00043">paramWell</a>.</p>
 
 </div>
 </div>
@@ -179,26 +183,26 @@ Public Attributes</h2></td></tr>
 <p>Get current work dir and input file name from the full file path. </p>
 <p >Get workDir and fileName from inputFile. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00024">24</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// for Window file system</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> pos = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.find_last_of(<span class="charliteral">&#39;\\&#39;</span>) + 1;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>     = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(0, pos);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">fileName</a>    = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(pos, <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.size() - pos);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="comment">// for Linux and Mac OSX file system</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> pos = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.find_last_of(<span class="charliteral">&#39;/&#39;</span>) + 1;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>     = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(0, pos);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_variable" href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">fileName</a>    = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(pos, <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.size() - pos);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00023">23</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// for Window file system</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> pos = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.find_last_of(<span class="charliteral">&#39;\\&#39;</span>) + 1;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>     = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(0, pos);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">fileName</a>    = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(pos, <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.size() - pos);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// for Linux and Mac OSX file system</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> pos = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.find_last_of(<span class="charliteral">&#39;/&#39;</span>) + 1;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>     = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(0, pos);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_variable" href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">fileName</a>    = <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.substr(pos, <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>.size() - pos);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
-<div class="ttc" id="aclassParamRead_html_aac9baec410e3ada100c1bac4bdc45abc"><div class="ttname"><a href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">ParamRead::workDir</a></div><div class="ttdeci">string workDir</div><div class="ttdoc">Current work directory.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00037">ParamRead.hpp:37</a></div></div>
-<div class="ttc" id="aclassParamRead_html_acca02e381ec9306e7e466857177dfe26"><div class="ttname"><a href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">ParamRead::fileName</a></div><div class="ttdeci">string fileName</div><div class="ttdoc">File name of input file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00038">ParamRead.hpp:38</a></div></div>
-<div class="ttc" id="aclassParamRead_html_ade83bd375169caebd870a90a70d39eef"><div class="ttname"><a href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">ParamRead::inputFile</a></div><div class="ttdeci">string inputFile</div><div class="ttdoc">Input file with its path (absolute or relative).</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00036">ParamRead.hpp:36</a></div></div>
+<div class="ttc" id="aclassParamRead_html_aac9baec410e3ada100c1bac4bdc45abc"><div class="ttname"><a href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">ParamRead::workDir</a></div><div class="ttdeci">string workDir</div><div class="ttdoc">Current work directory.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00036">ParamRead.hpp:36</a></div></div>
+<div class="ttc" id="aclassParamRead_html_acca02e381ec9306e7e466857177dfe26"><div class="ttname"><a href="classParamRead.html#acca02e381ec9306e7e466857177dfe26">ParamRead::fileName</a></div><div class="ttdeci">string fileName</div><div class="ttdoc">File name of input file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00037">ParamRead.hpp:37</a></div></div>
+<div class="ttc" id="aclassParamRead_html_ade83bd375169caebd870a90a70d39eef"><div class="ttname"><a href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">ParamRead::inputFile</a></div><div class="ttdeci">string inputFile</div><div class="ttdoc">Input file with its path (absolute or relative).</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00035">ParamRead.hpp:35</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamRead_8hpp_source.html#l00038">fileName</a>, <a class="el" href="ParamRead_8hpp_source.html#l00036">inputFile</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00037">workDir</a>.</p>
+<p class="reference">References <a class="el" href="ParamRead_8hpp_source.html#l00037">fileName</a>, <a class="el" href="ParamRead_8hpp_source.html#l00035">inputFile</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00036">workDir</a>.</p>
 
 </div>
 </div>
@@ -218,20 +222,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the param reading process. </p>
-<p >Initialize param_Rs, param_Well, and param_Control. </p>
+<p >Initialize paramRs, paramWell, and paramControl. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00016">16</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a97440ef1260a498350a2ec386e6781e2">Init</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_function" href="classParamWell.html#a4acf1cd460f07d8057849345f2bf6e9c">Init</a>();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.<a class="code hl_function" href="classParamControl.html#a1ded8deafd3f3f68c22b6b5e7eb36d9a">Init</a>(<a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-<div class="ttc" id="aclassParamControl_html_a1ded8deafd3f3f68c22b6b5e7eb36d9a"><div class="ttname"><a href="classParamControl.html#a1ded8deafd3f3f68c22b6b5e7eb36d9a">ParamControl::Init</a></div><div class="ttdeci">void Init(string &amp;indir)</div><div class="ttdoc">Assign default values to parameters.</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8cpp_source.html#l00014">ParamControl.cpp:14</a></div></div>
-<div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a97440ef1260a498350a2ec386e6781e2"><div class="ttname"><a href="classParamReservoir.html#a97440ef1260a498350a2ec386e6781e2">ParamReservoir::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the default value in reservoir, such as temperature, density, table.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00117">ParamReservoir.cpp:117</a></div></div>
-<div class="ttc" id="aclassParamWell_html_a4acf1cd460f07d8057849345f2bf6e9c"><div class="ttname"><a href="classParamWell.html#a4acf1cd460f07d8057849345f2bf6e9c">ParamWell::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the inputting the params of wells.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00098">ParamWell.hpp:98</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00015">15</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a97440ef1260a498350a2ec386e6781e2">Init</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_function" href="classParamWell.html#a4acf1cd460f07d8057849345f2bf6e9c">Init</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.<a class="code hl_function" href="classParamControl.html#a1ded8deafd3f3f68c22b6b5e7eb36d9a">Init</a>(<a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="ttc" id="aclassParamControl_html_a1ded8deafd3f3f68c22b6b5e7eb36d9a"><div class="ttname"><a href="classParamControl.html#a1ded8deafd3f3f68c22b6b5e7eb36d9a">ParamControl::Init</a></div><div class="ttdeci">void Init(string &amp;indir)</div><div class="ttdoc">Assign default values to parameters.</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8cpp_source.html#l00015">ParamControl.cpp:15</a></div></div>
+<div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00044">ParamRead.hpp:44</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a97440ef1260a498350a2ec386e6781e2"><div class="ttname"><a href="classParamReservoir.html#a97440ef1260a498350a2ec386e6781e2">ParamReservoir::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the default value in reservoir, such as temperature, density, table.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00140">ParamReservoir.cpp:140</a></div></div>
+<div class="ttc" id="aclassParamWell_html_a4acf1cd460f07d8057849345f2bf6e9c"><div class="ttname"><a href="classParamWell.html#a4acf1cd460f07d8057849345f2bf6e9c">ParamWell::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the inputting the params of wells.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00109">ParamWell.hpp:109</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8cpp_source.html#l00117">ParamReservoir::Init()</a>, <a class="el" href="ParamWell_8hpp_source.html#l00098">ParamWell::Init()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00014">ParamControl::Init()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">paramControl</a>, <a class="el" href="ParamRead_8hpp_source.html#l00043">paramRs</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">paramWell</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00037">workDir</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8cpp_source.html#l00140">ParamReservoir::Init()</a>, <a class="el" href="ParamWell_8hpp_source.html#l00109">ParamWell::Init()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00015">ParamControl::Init()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">paramControl</a>, <a class="el" href="ParamRead_8hpp_source.html#l00042">paramRs</a>, <a class="el" href="ParamRead_8hpp_source.html#l00043">paramWell</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00036">workDir</a>.</p>
 
 </div>
 </div>
@@ -251,182 +255,223 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read the input file. // TODO: What's the difference from the above function? Private? </p>
+<p>Read the input file. </p>
+<p >Read parameters from a file, which is called in ReadInputFile. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00050">50</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    ifstream ifs(file, ios::in);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (!ifs) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_define" href="UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d">OCP_MESSAGE</a>(<span class="stringliteral">&quot;Trying to open input file: &quot;</span> &lt;&lt; (file));</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Cannot open the input file!&quot;</span>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">while</span> (!ifs.eof()) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf)) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordtype">string</span> keyword = vbuf[0];</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(&amp;keyword[0], keyword.size())) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;BLACKOIL&quot;</span>, 8):</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.blackOil = true;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COMPS&quot;</span>, 5):</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputCOMPS(ifs);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;OIL&quot;</span>, 3):</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.oil = true;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;GAS&quot;</span>, 3):</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.gas = true;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WATER&quot;</span>, 5):</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.water = true;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DISGAS&quot;</span>, 6):</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.disGas = true;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DIMENS&quot;</span>, 6):</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputDIMENS(ifs);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a73984483d8ad19607e21c7f6c0d079d3">DisplayDIMENS</a>();</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;RTEMP&quot;</span>, 5):</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputRTEMP(ifs);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;EQUALS&quot;</span>, 6):</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputEQUALS(ifs);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DX&quot;</span>, 2):</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DY&quot;</span>, 2):</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DZ&quot;</span>, 2):</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;NTG&quot;</span>, 3):</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PORO&quot;</span>, 4):</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TOPS&quot;</span>, 4):</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMX&quot;</span>, 5):</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMY&quot;</span>, 5):</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMZ&quot;</span>, 5):</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PRESSURE&quot;</span>, 8):</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;Ni&quot;</span>, 2):</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputGRID(ifs, keyword);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COPY&quot;</span>, 4):</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputCOPY(ifs);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;MULTIPLY&quot;</span>, 8):</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputMULTIPLY(ifs);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SWOF&quot;</span>, 4):</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SGOF&quot;</span>, 4):</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVCO&quot;</span>, 4):</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVDO&quot;</span>, 4):</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVDG&quot;</span>, 4):</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVTW&quot;</span>, 4):</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PBVD&quot;</span>, 4):</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputTABLE(ifs, keyword);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;ROCK&quot;</span>, 4):</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputROCK(ifs);</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;GRAVITY&quot;</span>, 7):</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputGRAVITY(ifs);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DENSITY&quot;</span>, 7):</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputDENSITY(ifs);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;EQUIL&quot;</span>, 5):</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputEQUIL(ifs);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TABDIMS&quot;</span>, 7):</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputTABDIMS(ifs);</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SATNUM&quot;</span>, 6):</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVTNUM&quot;</span>, 6):</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputRegion(ifs, keyword);</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;INCLUDE&quot;</span>, 7):</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <a class="code hl_function" href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">ReadINCLUDE</a>(ifs);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;METHOD&quot;</span>, 6):</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.InputMETHOD(ifs);</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TUNING&quot;</span>, 6):</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.InputTUNING(ifs);</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELSPECS&quot;</span>, 8):</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWELSPECS(ifs);</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COMPDAT&quot;</span>, 7):</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputCOMPDAT(ifs);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WCONINJE&quot;</span>, 8):</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWCONINJE(ifs);</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WCONPROD&quot;</span>, 8):</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWCONPROD(ifs);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TSTEP&quot;</span>, 5):</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputTSTEP(ifs);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.<a class="code hl_variable" href="classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039">criticalTime</a> = <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_variable" href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">criticalTime</a>;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELTARG&quot;</span>, 7):</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELLTARG&quot;</span>, 8):</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWELTARG(ifs);</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SUMMARY&quot;</span>, 7):</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                <a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>.InputSUMMARY(ifs);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;RPTSCHED&quot;</span>, 8):</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                <a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>.InputRPTSCHED(ifs);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<span class="keyword">true</span>, <span class="stringliteral">&quot;Skipping unknonw keywords!&quot;</span>);</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        }</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    ifs.close();</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00049">49</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    ifstream ifs(filename, ios::in);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (!ifs) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_define" href="UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d">OCP_MESSAGE</a>(<span class="stringliteral">&quot;Trying to open file: &quot;</span> &lt;&lt; (filename));</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Fail to open the input file!&quot;</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">while</span> (!ifs.eof()) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf)) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">string</span> keyword = vbuf[0];</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">switch</span> (<a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(&amp;keyword[0], keyword.size())) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;BLACKOIL&quot;</span>, 8):</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.blackOil = true;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COMPS&quot;</span>, 5):</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputCOMPS(ifs);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;OIL&quot;</span>, 3):</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.oil = true;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;GAS&quot;</span>, 3):</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.gas = true;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WATER&quot;</span>, 5):</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.water = true;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DISGAS&quot;</span>, 6):</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.disGas = true;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DIMENS&quot;</span>, 6):</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputDIMENS(ifs);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.<a class="code hl_function" href="classParamReservoir.html#a73984483d8ad19607e21c7f6c0d079d3">DisplayDIMENS</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;RTEMP&quot;</span>, 5):</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputRTEMP(ifs);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;EQUALS&quot;</span>, 6):</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputEQUALS(ifs);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DX&quot;</span>, 2):</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DY&quot;</span>, 2):</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DZ&quot;</span>, 2):</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COORD&quot;</span>, 5):</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;ZCORN&quot;</span>, 5):</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;NTG&quot;</span>, 3):</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PORO&quot;</span>, 4):</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TOPS&quot;</span>, 4):</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMX&quot;</span>, 5):</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMY&quot;</span>, 5):</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PERMZ&quot;</span>, 5):</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PRESSURE&quot;</span>, 8):</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;Ni&quot;</span>, 2):</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputGRID(ifs, keyword);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COPY&quot;</span>, 4):</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputCOPY(ifs);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;MULTIPLY&quot;</span>, 8):</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputMULTIPLY(ifs);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SWOF&quot;</span>, 4):</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SGOF&quot;</span>, 4):</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVCO&quot;</span>, 4):</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVDO&quot;</span>, 4):</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVDG&quot;</span>, 4):</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVTW&quot;</span>, 4):</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PBVD&quot;</span>, 4):</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputTABLE(ifs, keyword);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;ROCK&quot;</span>, 4):</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputROCK(ifs);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;GRAVITY&quot;</span>, 7):</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputGRAVITY(ifs);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;DENSITY&quot;</span>, 7):</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputDENSITY(ifs);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;EQUIL&quot;</span>, 5):</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputEQUIL(ifs);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TABDIMS&quot;</span>, 7):</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputTABDIMS(ifs);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SATNUM&quot;</span>, 6):</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;PVTNUM&quot;</span>, 6):</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputRegion(ifs, keyword);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;INCLUDE&quot;</span>, 7):</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <a class="code hl_function" href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">ReadINCLUDE</a>(ifs);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;METHOD&quot;</span>, 6):</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.InputMETHOD(ifs);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TUNING&quot;</span>, 6):</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.InputTUNING(ifs);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELSPECS&quot;</span>, 8):</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWELSPECS(ifs);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COMPDAT&quot;</span>, 7):</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputCOMPDAT(ifs);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WCONINJE&quot;</span>, 8):</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWCONINJE(ifs);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WCONPROD&quot;</span>, 8):</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWCONPROD(ifs);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;TSTEP&quot;</span>, 5):</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputTSTEP(ifs);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                <a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>.<a class="code hl_variable" href="classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039">criticalTime</a> = <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.<a class="code hl_variable" href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">criticalTime</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELTARG&quot;</span>, 7):</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            case <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELLTARG&quot;</span>, 8):</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWELTARG(ifs);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;WELLSTRE&quot;</span>, 8):</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                <a class="code hl_variable" href="classParamRead.html#a12dd2b8ffb51d52e739ae66a37ca14eb">paramWell</a>.InputWELLSTRE(ifs);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SUMMARY&quot;</span>, 7):</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                <a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>.InputSUMMARY(ifs);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;RPTSCHED&quot;</span>, 8):</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                <a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>.InputRPTSCHED(ifs);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;NCNP&quot;</span>, 4):</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputNCNP(ifs);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;ZI&quot;</span>, 2):</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputZI(ifs);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;COM&quot;</span>, 3):</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputCOM(ifs);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;BIP&quot;</span>, 3):</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputBIP(ifs);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SSMSTA&quot;</span>, 6):</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputSSMSTA(ifs);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;SSMSP&quot;</span>, 5):</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputSSMSP(ifs);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;NRSTA&quot;</span>, 5):</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputNRSTA(ifs);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;NRSP&quot;</span>, 4):</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputNRSP(ifs);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <span class="keywordflow">case</span> <a class="code hl_function" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a>(<span class="stringliteral">&quot;RR&quot;</span>, 2):</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                <a class="code hl_variable" href="classParamRead.html#abafdac256009979d94e70fafc60a1abe">paramRs</a>.InputRR(ifs);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="keywordflow">default</span>: <span class="comment">// skip non-keywords</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    ifs.close();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
 <div class="ttc" id="aUtilError_8hpp_html_a8f6d22c963ff0b81d79ba13bb6dda78d"><div class="ttname"><a href="UtilError_8hpp.html#a8f6d22c963ff0b81d79ba13bb6dda78d">OCP_MESSAGE</a></div><div class="ttdeci">#define OCP_MESSAGE(msg)</div><div class="ttdoc">Log error messages.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00028">UtilError.hpp:28</a></div></div>
-<div class="ttc" id="aUtilError_8hpp_html_aa790607636d2d185f38ccdc93c56eb09"><div class="ttname"><a href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a></div><div class="ttdeci">#define OCP_ASSERT(cond, msg)</div><div class="ttdoc">Assert condition and log user messages in DEBUG mode.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00058">UtilError.hpp:58</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aUtilInput_8hpp_html_ad8c56b4feca661bc6608cc74bc5c9771"><div class="ttname"><a href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a></div><div class="ttdeci">constexpr long long Map_Str2Int(const char *mystr, const USI &amp;len)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8hpp_source.html#l00034">UtilInput.hpp:34</a></div></div>
 <div class="ttc" id="aUtilInput_8hpp_html_af8345cb8367acfd04919a63010eb4bcd"><div class="ttname"><a href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a></div><div class="ttdeci">bool ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
 <div class="ttc" id="aclassParamControl_html_a099e2adb0b2ad44d35a405a836b7f039"><div class="ttname"><a href="classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039">ParamControl::criticalTime</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; criticalTime</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8hpp_source.html#l00056">ParamControl.hpp:56</a></div></div>
-<div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00046">ParamRead.hpp:46</a></div></div>
-<div class="ttc" id="aclassParamRead_html_a670fea47b300e687c1f83e33c67b5761"><div class="ttname"><a href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">ParamRead::ReadINCLUDE</a></div><div class="ttdeci">void ReadINCLUDE(ifstream &amp;ifs)</div><div class="ttdoc">Handle the INCLUDE keyword, which contains other input files needed.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00214">ParamRead.cpp:214</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a73984483d8ad19607e21c7f6c0d079d3"><div class="ttname"><a href="classParamReservoir.html#a73984483d8ad19607e21c7f6c0d079d3">ParamReservoir::DisplayDIMENS</a></div><div class="ttdeci">void DisplayDIMENS()</div><div class="ttdoc">Display the dimens, it's used to chech input.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00235">ParamReservoir.cpp:235</a></div></div>
-<div class="ttc" id="aclassParamWell_html_a679ceef70a150007d5646fcf3cef52c2"><div class="ttname"><a href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">ParamWell::criticalTime</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; criticalTime</div><div class="ttdoc">Records the critical time given by users.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00095">ParamWell.hpp:95</a></div></div>
+<div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
+<div class="ttc" id="aclassParamRead_html_a670fea47b300e687c1f83e33c67b5761"><div class="ttname"><a href="classParamRead.html#a670fea47b300e687c1f83e33c67b5761">ParamRead::ReadINCLUDE</a></div><div class="ttdeci">void ReadINCLUDE(ifstream &amp;ifs)</div><div class="ttdoc">Handle the INCLUDE keyword, which contains other input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00254">ParamRead.cpp:254</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a73984483d8ad19607e21c7f6c0d079d3"><div class="ttname"><a href="classParamReservoir.html#a73984483d8ad19607e21c7f6c0d079d3">ParamReservoir::DisplayDIMENS</a></div><div class="ttdeci">void DisplayDIMENS()</div><div class="ttdoc">Display the dimens, it's used to chech input.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00258">ParamReservoir.cpp:258</a></div></div>
+<div class="ttc" id="aclassParamWell_html_a679ceef70a150007d5646fcf3cef52c2"><div class="ttname"><a href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">ParamWell::criticalTime</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; criticalTime</div><div class="ttdoc">Records the critical time given by users.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00105">ParamWell.hpp:105</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00101">ParamReservoir::blackOil</a>, <a class="el" href="ParamControl_8hpp_source.html#l00056">ParamControl::criticalTime</a>, <a class="el" href="ParamWell_8hpp_source.html#l00095">ParamWell::criticalTime</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir::disGas</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00235">ParamReservoir::DisplayDIMENS()</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00104">ParamReservoir::gas</a>, <a class="el" href="ParamWell_8cpp_source.html#l00073">ParamWell::InputCOMPDAT()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00215">ParamReservoir::InputCOMPS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00324">ParamReservoir::InputCOPY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00459">ParamReservoir::InputDENSITY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00224">ParamReservoir::InputDIMENS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00254">ParamReservoir::InputEQUALS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00479">ParamReservoir::InputEQUIL()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00440">ParamReservoir::InputGRAVITY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00296">ParamReservoir::InputGRID()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00102">ParamControl::InputMETHOD()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00358">ParamReservoir::InputMULTIPLY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00507">ParamReservoir::InputRegion()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00426">ParamReservoir::InputROCK()</a>, <a class="el" href="ParamOutput_8cpp_source.html#l00183">ParamOutput::InputRPTSCHED()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00242">ParamReservoir::InputRTEMP()</a>, <a class="el" href="ParamOutput_8cpp_source.html#l00014">ParamOutput::InputSUMMARY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00497">ParamReservoir::InputTABDIMS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00394">ParamReservoir::InputTABLE()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00204">ParamWell::InputTSTEP()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00121">ParamControl::InputTUNING()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00140">ParamWell::InputWCONINJE()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00174">ParamWell::InputWCONPROD()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00061">ParamWell::InputWELSPECS()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00226">ParamWell::InputWELTARG()</a>, <a class="el" href="UtilInput_8hpp_source.html#l00034">Map_Str2Int()</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00028">OCP_MESSAGE</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00103">ParamReservoir::oil</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">paramControl</a>, <a class="el" href="ParamRead_8hpp_source.html#l00046">paramOutput</a>, <a class="el" href="ParamRead_8hpp_source.html#l00043">paramRs</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">paramWell</a>, <a class="el" href="ParamRead_8cpp_source.html#l00214">ReadINCLUDE()</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00105">ParamReservoir::water</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00136">ParamReservoir::blackOil</a>, <a class="el" href="ParamControl_8hpp_source.html#l00056">ParamControl::criticalTime</a>, <a class="el" href="ParamWell_8hpp_source.html#l00105">ParamWell::criticalTime</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00141">ParamReservoir::disGas</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00258">ParamReservoir::DisplayDIMENS()</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00139">ParamReservoir::gas</a>, <a class="el" href="ParamWell_8cpp_source.html#l00085">ParamWell::InputCOMPDAT()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00238">ParamReservoir::InputCOMPS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00347">ParamReservoir::InputCOPY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00483">ParamReservoir::InputDENSITY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00247">ParamReservoir::InputDIMENS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00277">ParamReservoir::InputEQUALS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00504">ParamReservoir::InputEQUIL()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00463">ParamReservoir::InputGRAVITY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00324">ParamReservoir::InputGRID()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00100">ParamControl::InputMETHOD()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00381">ParamReservoir::InputMULTIPLY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00532">ParamReservoir::InputRegion()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00449">ParamReservoir::InputROCK()</a>, <a class="el" href="ParamOutput_8cpp_source.html#l00183">ParamOutput::InputRPTSCHED()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00265">ParamReservoir::InputRTEMP()</a>, <a class="el" href="ParamOutput_8cpp_source.html#l00014">ParamOutput::InputSUMMARY()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00522">ParamReservoir::InputTABDIMS()</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00417">ParamReservoir::InputTABLE()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00219">ParamWell::InputTSTEP()</a>, <a class="el" href="ParamControl_8cpp_source.html#l00120">ParamControl::InputTUNING()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00153">ParamWell::InputWCONINJE()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00188">ParamWell::InputWCONPROD()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00287">ParamWell::InputWELLSTRE()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00073">ParamWell::InputWELSPECS()</a>, <a class="el" href="ParamWell_8cpp_source.html#l00241">ParamWell::InputWELTARG()</a>, <a class="el" href="UtilInput_8hpp_source.html#l00034">Map_Str2Int()</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00028">OCP_MESSAGE</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00138">ParamReservoir::oil</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">paramControl</a>, <a class="el" href="ParamRead_8hpp_source.html#l00045">paramOutput</a>, <a class="el" href="ParamRead_8hpp_source.html#l00042">paramRs</a>, <a class="el" href="ParamRead_8hpp_source.html#l00043">paramWell</a>, <a class="el" href="ParamRead_8cpp_source.html#l00254">ReadINCLUDE()</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00140">ParamReservoir::water</a>.</p>
 
 </div>
 </div>
@@ -446,20 +491,20 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Handle the INCLUDE keyword, which contains other input files needed. </p>
+<p>Handle the INCLUDE keyword, which contains other input files. </p>
 <p >Read INCLUDE files; these files should have identical format. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00214">214</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>{</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <a class="code hl_function" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <a class="code hl_function" href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ReadFile</a>(<a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a> + vbuf[0]);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00254">254</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>{</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <a class="code hl_function" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <a class="code hl_function" href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ReadFile</a>(<a class="code hl_variable" href="classParamRead.html#aac9baec410e3ada100c1bac4bdc45abc">workDir</a> + vbuf[0]);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>}</div>
 <div class="ttc" id="aUtilInput_8hpp_html_a11ed6290b3b860d88bd46530e56f6fb9"><div class="ttname"><a href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a></div><div class="ttdeci">void DealDefault(vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00050">UtilInput.cpp:50</a></div></div>
-<div class="ttc" id="aclassParamRead_html_a229e39f0eeda8ed77354fd9fbf320eff"><div class="ttname"><a href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ParamRead::ReadFile</a></div><div class="ttdeci">void ReadFile(const string &amp;file)</div><div class="ttdoc">Read the input file. // TODO: What's the difference from the above function? Private?</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00050">ParamRead.cpp:50</a></div></div>
+<div class="ttc" id="aclassParamRead_html_a229e39f0eeda8ed77354fd9fbf320eff"><div class="ttname"><a href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ParamRead::ReadFile</a></div><div class="ttdeci">void ReadFile(const string &amp;file)</div><div class="ttdoc">Read the input file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00049">ParamRead.cpp:49</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilInput_8cpp_source.html#l00050">DealDefault()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00050">ReadFile()</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00037">workDir</a>.</p>
+<p class="reference">References <a class="el" href="UtilInput_8cpp_source.html#l00050">DealDefault()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00049">ReadFile()</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00036">workDir</a>.</p>
 
 </div>
 </div>
@@ -479,21 +524,22 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The general interface for reading input file. </p>
+<p>General interface for reading input data. </p>
+<p >This is the general interface for reading input files. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00040">40</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a> = file;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_function" href="classParamRead.html#a1f806bdcfff67dc6fc559ae4ff5168d3">GetDirAndName</a>();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="classParamRead.html#a141661c6e536fe66b6f76bf7f2bf3671">Init</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_function" href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ReadFile</a>(<a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_function" href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">CheckParam</a>();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
-<div class="ttc" id="aclassParamRead_html_a141661c6e536fe66b6f76bf7f2bf3671"><div class="ttname"><a href="classParamRead.html#a141661c6e536fe66b6f76bf7f2bf3671">ParamRead::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the param reading process.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00016">ParamRead.cpp:16</a></div></div>
-<div class="ttc" id="aclassParamRead_html_a1f806bdcfff67dc6fc559ae4ff5168d3"><div class="ttname"><a href="classParamRead.html#a1f806bdcfff67dc6fc559ae4ff5168d3">ParamRead::GetDirAndName</a></div><div class="ttdeci">void GetDirAndName()</div><div class="ttdoc">Get current work dir and input file name from the full file path.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00024">ParamRead.cpp:24</a></div></div>
-<div class="ttc" id="aclassParamRead_html_ae0969b62e2f77c029e5e121a9d22c525"><div class="ttname"><a href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">ParamRead::CheckParam</a></div><div class="ttdeci">void CheckParam()</div><div class="ttdoc">Check whether the params contain error.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00223">ParamRead.cpp:223</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8cpp_source.html#l00039">39</a> of file <a class="el" href="ParamRead_8cpp_source.html">ParamRead.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a> = filename;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_function" href="classParamRead.html#a1f806bdcfff67dc6fc559ae4ff5168d3">GetDirAndName</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_function" href="classParamRead.html#a141661c6e536fe66b6f76bf7f2bf3671">Init</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="classParamRead.html#a229e39f0eeda8ed77354fd9fbf320eff">ReadFile</a>(<a class="code hl_variable" href="classParamRead.html#ade83bd375169caebd870a90a70d39eef">inputFile</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_function" href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">CheckParam</a>();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="ttc" id="aclassParamRead_html_a141661c6e536fe66b6f76bf7f2bf3671"><div class="ttname"><a href="classParamRead.html#a141661c6e536fe66b6f76bf7f2bf3671">ParamRead::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialize the param reading process.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00015">ParamRead.cpp:15</a></div></div>
+<div class="ttc" id="aclassParamRead_html_a1f806bdcfff67dc6fc559ae4ff5168d3"><div class="ttname"><a href="classParamRead.html#a1f806bdcfff67dc6fc559ae4ff5168d3">ParamRead::GetDirAndName</a></div><div class="ttdeci">void GetDirAndName()</div><div class="ttdoc">Get current work dir and input file name from the full file path.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00023">ParamRead.cpp:23</a></div></div>
+<div class="ttc" id="aclassParamRead_html_ae0969b62e2f77c029e5e121a9d22c525"><div class="ttname"><a href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">ParamRead::CheckParam</a></div><div class="ttdeci">void CheckParam()</div><div class="ttdoc">Check whether the params contain error.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00263">ParamRead.cpp:263</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamRead_8cpp_source.html#l00223">CheckParam()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00024">GetDirAndName()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00016">Init()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00036">inputFile</a>, and <a class="el" href="ParamRead_8cpp_source.html#l00050">ReadFile()</a>.</p>
+<p class="reference">References <a class="el" href="ParamRead_8cpp_source.html#l00263">CheckParam()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00023">GetDirAndName()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00015">Init()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00035">inputFile</a>, and <a class="el" href="ParamRead_8cpp_source.html#l00049">ReadFile()</a>.</p>
 
 </div>
 </div>
@@ -512,7 +558,7 @@ Public Attributes</h2></td></tr>
 
 <p>File name of input file. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00038">38</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00037">37</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -530,7 +576,7 @@ Public Attributes</h2></td></tr>
 
 <p>Input file with its path (absolute or relative). </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00036">36</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00035">35</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -548,7 +594,7 @@ Public Attributes</h2></td></tr>
 
 <p>Read the control params. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00045">45</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00044">44</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -566,7 +612,7 @@ Public Attributes</h2></td></tr>
 
 <p>Read the output params. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00046">46</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00045">45</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -584,7 +630,7 @@ Public Attributes</h2></td></tr>
 
 <p>Read the reservoir params. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00043">43</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00042">42</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -602,7 +648,7 @@ Public Attributes</h2></td></tr>
 
 <p>Read the well params. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00044">44</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00043">43</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -620,7 +666,7 @@ Public Attributes</h2></td></tr>
 
 <p>Current work directory. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00037">37</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamRead_8hpp_source.html#l00036">36</a> of file <a class="el" href="ParamRead_8hpp_source.html">ParamRead.hpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +677,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.3 Nov/09/2021</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -75,7 +75,9 @@ $(function() {
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Bulk</b> (defined in <a class="el" href="classGrid.html">Grid</a>)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>BulkConn</b> (defined in <a class="el" href="classGrid.html">Grid</a>)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a>(const OCP_DBL &amp;e1, const OCP_DBL &amp;e2)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#a5d0365ed8e25992bb1c4cba1abc7d866">CalDepthV</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">CalAkdCornerGrid</a>(const GeneralConnect &amp;conn)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classGrid.html#a9453ee156e23aee3c74a4b2d89f5eaeb">CalAkdOthogonalGrid</a>(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const USI &amp;direction)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#a805153e45a07e63229a8a65ac634c0ed">CalDepthVOthogonalGrid</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae">GetActIndex</a>(const USI &amp;i, const USI &amp;j, const USI &amp;k) const</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#a6390f17ae8e34eaa855fd991ad50d42e">GetActiveGridNum</a>() const</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classGrid.html#aba900758457117026a84d05aeeccfdfd">GetConnNum</a>() const</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -87,11 +89,15 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="classGrid.html#aa384b0141247ad8d79380850984d1394">InputParam</a>(const ParamReservoir &amp;rs_param)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#ad87d55e19bec2edb49682c610cbc6929">MapG2B</a>(const OCP_USI &amp;i) const</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Setup</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classGrid.html#aa1581686b6eac5cbf40c4ecde5ef1a49">SetupNeighborCornerGrid</a>(const COORD &amp;CoTmp)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classGrid.html#ac9c305116eef2a6e6e766516c6412118">SetupNeighborOthogonalGrid</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classGrid.html#a2b09068ed19689f20cf82338ba43a99f">SetupOthogonalGrid</a>()</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Well</b> (defined in <a class="el" href="classGrid.html">Grid</a>)</td><td class="entry"><a class="el" href="classGrid.html">Grid</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 9 2021 20:24:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Jan 8 2022 13:02:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

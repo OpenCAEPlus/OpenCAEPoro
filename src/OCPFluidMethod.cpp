@@ -227,7 +227,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         OCP_INT flagCheck = rs.CheckP(false, true);
         switch (flagCheck) {
             case 1:
-                cout << "Well constraint changed, Repeat --- 1" << endl;
+                cout << "Switch well constraint: Case 1" << endl;
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -235,7 +235,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 ctrl.ResetIterNRLS();
                 return false;
             case 2:
-                cout << "Well constraint changed, Repeat --- 2" << endl;
+                cout << "Switch well constraint: Case 2" << endl;
                 ctrl.current_dt /= 1;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);

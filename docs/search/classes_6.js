@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['mat_5ffaspxx_0',['MAT_Faspxx',['../classMAT__Faspxx.html',1,'']]],
-  ['mixture_1',['Mixture',['../classMixture.html',1,'']]]
+  ['halfconn_0',['HalfConn',['../classHalfConn.html',1,'']]],
+  ['hexahedron_1',['Hexahedron',['../classHexahedron.html',1,'']]],
+  ['hexahedronface_2',['HexahedronFace',['../classHexahedronFace.html',1,'']]]
 ];
