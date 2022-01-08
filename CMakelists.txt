@@ -43,6 +43,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 
 # Find BLAS and LAPACK implementations
 find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
 
 # Find FASP, requires faspsolver and fasp4blkoil     
 find_package(FASP4BLKOIL REQUIRED)
