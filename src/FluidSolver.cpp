@@ -14,14 +14,15 @@
 void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
-    cout << "Method  " << method << endl;
-
+    
     switch (method) {
         case IMPEC:
+            cout << "Calling IMPEC method ..." << endl;
             FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
             impec.Setup(rs, FLSolver, ctrl);
             break;
         case FIM:
+            cout << "Calling FIM method ..." << endl;
             FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
             fim.Setup(rs, FLSolver, ctrl);
             break;

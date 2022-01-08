@@ -147,9 +147,6 @@ void OCP_FIM::AssembleMat(LinearSystem& myLS, const Reservoir& rs,
 
 void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
-
-    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
-
 #ifdef _DEBUG
     myLS.CheckVal();
 #endif // DEBUG
@@ -203,7 +200,6 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
@@ -231,7 +227,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         OCP_INT flagCheck = rs.CheckP(false, true);
         switch (flagCheck) {
             case 1:
-                cout << "well change, Repeat --- 1" << endl;
+                cout << "Well constraint changed, Repeat --- 1" << endl;
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -239,7 +235,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 ctrl.ResetIterNRLS();
                 return false;
             case 2:
-                cout << "well change, Repeat --- 2" << endl;
+                cout << "Well constraint changed, Repeat --- 2" << endl;
                 ctrl.current_dt /= 1;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -271,4 +267,5 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/01/2021      Create file                          */
+/*  Chensong Zhang      Jan/08/2022      Update output                        */
 /*----------------------------------------------------------------------------*/

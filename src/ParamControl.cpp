@@ -146,11 +146,13 @@ void ParamControl::InputTUNING(ifstream& ifs)
     }
     tuning_T.push_back(TuningPair(d, tmp));
     DisplayTuning();
-    cout << "TUNING" << endl;
 }
 
 void ParamControl::DisplayTuning() const
 {
+    cout << "---------------------\n";
+    cout << "TUNING" << endl;
+    cout << "---------------------\n";
     for (auto v : tuning_T) {
         cout << v.d << endl;
         for (auto v1 : v.Tuning) {

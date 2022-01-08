@@ -20,16 +20,17 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.1.3"  ///< Software version number
+#define OCPVersion "0.1.4" ///< Software version tag used for git
 
-/// Top level data structure in the OpenCAEPoro simulator
+/// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
 {
 public:
     /// Output OpenCAEPoro version information.
     void PrintVersion() const
     {
-        std::cout << "OpenCAEPoro Version-" << OCPVersion << std::endl
+        std::cout << "=========================================" << std::endl
+                  << "OpenCAEPoro Version-" << OCPVersion << std::endl
                   << "=========================================" << std::endl;
     };
 
@@ -47,7 +48,6 @@ public:
 
     /// Output necessary information for post-processing.
     void OutputResults() const;
-
 
 private:
     /// The core properties of a reservoir.
@@ -72,4 +72,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/08/2022      New tag info                         */
 /*----------------------------------------------------------------------------*/

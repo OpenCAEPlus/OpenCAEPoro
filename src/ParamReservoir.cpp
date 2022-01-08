@@ -85,13 +85,13 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
         case Map_Str2Int("SATNUM", 6):
             SATNUM.activity = true;
             SATNUM.data.reserve(numGrid);
-            myPtr           = &SATNUM.data;
+            myPtr = &SATNUM.data;
             break;
 
         case Map_Str2Int("PVTNUM", 6):
             PVTNUM.activity = true;
             PVTNUM.data.reserve(numGrid);
-            myPtr           = &PVTNUM.data;
+            myPtr = &PVTNUM.data;
             break;
     }
 
@@ -141,7 +141,7 @@ void ParamReservoir::Init()
 {
     InitTable();
 
-    rsTemp = 60;
+    rsTemp = 60.0;
 
     gravity.data.resize(3);
     gravity.data[0] = 45.5;   // oil
@@ -234,8 +234,6 @@ void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
     }
 }
 
-
-
 /// TODO: Add Doxygen
 void ParamReservoir::InputCOMPS(ifstream& ifs)
 {
@@ -296,9 +294,8 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
         for (USI n = 2; n < 8; n++) {
             if (vbuf[n] != "DEFAULT") index[n - 2] = stoi(vbuf[n]) - 1;
         }
-        if (index[0] < 0 || index[2] < 0 || index[4] < 0 ||
-            index[1] > dimens.nx - 1 || index[3] > dimens.ny - 1 ||
-            index[5] > dimens.nz - 1) {
+        if (index[0] < 0 || index[2] < 0 || index[4] < 0 || index[1] > dimens.nx - 1 ||
+            index[3] > dimens.ny - 1 || index[5] > dimens.nz - 1) {
             string MyError = "WRONG Range in " + objName + " in EQUALS!";
             OCP_ABORT("WRONG Range in ");
         }
@@ -574,7 +571,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
     cout << &SATNUM << endl << &PVTNUM << endl;
 }
 
-/// TODO: Add Doxygen
+/// Check consistency of input parameters.
 void ParamReservoir::CheckParam()
 {
     CheckGrid();
@@ -593,23 +590,23 @@ void ParamReservoir::CheckGrid()
         if (dx.size() != numGrid) OCP_ABORT("Wrong DX size!");
         if (dy.size() != numGrid) OCP_ABORT("Wrong DY size!");
         if (dz.size() != numGrid) OCP_ABORT("Wrong DZ size!");
+    } else {
+        if (coord.size() != (dimens.nx + 1) * (dimens.ny + 1) * 6)
+            OCP_ABORT("Wrong COORD size!");
+        if (zcorn.size() != numGrid * 8) OCP_ABORT("Wrong ZCORN size!");
     }
-    else {
-        if (coord.size() != (dimens.nx+1)*(dimens.ny+1)*6) OCP_ABORT("Wrong COORD size!");
-        if (zcorn.size() != numGrid*8) OCP_ABORT("Wrong ZCORN size!");
-    }
-    
+
     if (poro.size() != numGrid) OCP_ABORT("Wrong PORO size!");
     if (permX.size() != numGrid) OCP_ABORT("Wrong PERMX size!");
     if (permY.size() != numGrid) OCP_ABORT("Wrong PERMY size!");
     if (permZ.size() != numGrid) OCP_ABORT("Wrong PERMZ size!");
     if (ntg.size() != numGrid) {
-        OCP_WARNING("Wrong Ntg size; set it to 1."); // TODO: Should not appear every time!
         ntg.resize(numGrid, 1);
+        cout << "Reset Ntg size to 1!" << endl;
     }
 }
 
-/// TODO: Add Doxygen
+/// Check EQUIL keywords.
 void ParamReservoir::CheckEQUIL() const
 {
     if (EQUIL.empty()) OCP_ABORT("EQUIL is missing!");
@@ -666,7 +663,6 @@ void ParamReservoir::CheckEqlRegion() const
     }
 }
 
-
 /// TODO: Add Doxygen
 void TableSet::DisplayTable() const
 {
@@ -684,17 +680,18 @@ void TableSet::DisplayTable() const
     }
 }
 
+/// TODO: Add Doxygen
 void EoSparam::InputNCNP(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    numComp = stoi(vbuf[0]);
+    numComp  = stoi(vbuf[0]);
     numPhase = stoi(vbuf[1]);
     OCP_FUNCNAME;
     cout << "NC = " << numComp << "   NPmax = " << numPhase << endl << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputZI(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -711,7 +708,7 @@ void EoSparam::InputZI(ifstream& ifs)
     cout << endl << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputCOM(ifstream& ifs)
 {
     OCP_ASSERT(numComp > 0, "Wrong NC!");
@@ -728,9 +725,15 @@ void EoSparam::InputCOM(ifstream& ifs)
         }
     }
     OCP_FUNCNAME;
-    cout << "Name    " << "Pc                " << "Tc           " << "Acentric    "
-        << "MW               " << "Vc            "
-        << "OmegaA          " << "OmegaB       " << "Shift" << endl;
+    cout << "Name    "
+         << "Pc                "
+         << "Tc           "
+         << "Acentric    "
+         << "MW               "
+         << "Vc            "
+         << "OmegaA          "
+         << "OmegaB       "
+         << "Shift" << endl;
     for (auto& c : COM) {
         for (auto& item : c) {
             cout << item << "\t";
@@ -740,7 +743,7 @@ void EoSparam::InputCOM(ifstream& ifs)
     cout << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputBIP(ifstream& ifs)
 {
     OCP_ASSERT(numComp > 0, "Wrong NC!");
@@ -767,7 +770,7 @@ void EoSparam::InputBIP(ifstream& ifs)
     cout << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputSSMSTA(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -782,7 +785,7 @@ void EoSparam::InputSSMSTA(ifstream& ifs)
     cout << endl << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputNRSTA(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -797,8 +800,7 @@ void EoSparam::InputNRSTA(ifstream& ifs)
     cout << endl << endl;
 }
 
-
-
+/// TODO: Add Doxygen
 void EoSparam::InputSSMSP(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -813,7 +815,7 @@ void EoSparam::InputSSMSP(ifstream& ifs)
     cout << endl << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputNRSP(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -828,7 +830,7 @@ void EoSparam::InputNRSP(ifstream& ifs)
     cout << endl << endl;
 }
 
-
+/// TODO: Add Doxygen
 void EoSparam::InputRR(ifstream& ifs)
 {
     vector<string> vbuf;

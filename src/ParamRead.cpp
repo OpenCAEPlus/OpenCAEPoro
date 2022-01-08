@@ -46,7 +46,7 @@ void ParamRead::ReadInputFile(const string& file)
     CheckParam();
 }
 
-// TODO: What's this?
+/// Read parameters from input data.
 void ParamRead::ReadFile(const string& file)
 {
     ifstream ifs(file, ios::in);
@@ -264,6 +264,9 @@ void ParamRead::ReadINCLUDE(ifstream& ifs)
 /// Check param_Rs and param_Well parameters.
 void ParamRead::CheckParam()
 {
+    cout << "=========================================" << endl
+         << "Check reading parameters from input data!" << endl
+         << "=========================================" << endl;
     paramRs.CheckParam();
     paramWell.CheckParam(paramRs.blackOil);
 }
