@@ -71,26 +71,26 @@ public:
     void InputCOM(ifstream& ifs);
     void InputBIP(ifstream& ifs);
     // Method params
-    void InputSSMSTA(ifstream& ifs); 
+    void InputSSMSTA(ifstream& ifs);
     void InputNRSTA(ifstream& ifs);
-    void InputSSMSP(ifstream& ifs); 
-    void InputNRSP(ifstream& ifs); 
-    void InputRR(ifstream& ifs);  
+    void InputSSMSP(ifstream& ifs);
+    void InputNRSP(ifstream& ifs);
+    void InputRR(ifstream& ifs);
 
 public:
-    USI numComp{ 0 };   ///< num of components, water is excluded.
-    USI numPhase{ 0 };  ///< num of phase, water is excluded.
-    vector<OCP_DBL> zi;          ///< molar fraction of components in initial reservoir, water is excluded.
+    USI numComp{0};  ///< num of components, water is excluded.
+    USI numPhase{0}; ///< num of phase, water is excluded.
+    vector<OCP_DBL>
+        zi; ///< molar fraction of components in initial reservoir, water is excluded.
     vector<vector<string>>  COM; ///< Coponents information
     vector<vector<OCP_DBL>> BIP; ///< Binary interaction
 
-    vector<string>  SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
-    vector<string>	NRparamSTA; ///< Params for Solving Phase Spliting with NR
-    vector<string>  SSMparamSP; ///< Params for Solving Phase Spliting with SSM
-    vector<string>	NRparamSP; ///< Params for Solving Phase Spliting with NR
-    vector<string>	RRparam;  ///< Params for Solving Rachford-Rice equations
+    vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
+    vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
+    vector<string> SSMparamSP;  ///< Params for Solving Phase Spliting with SSM
+    vector<string> NRparamSP;   ///< Params for Solving Phase Spliting with NR
+    vector<string> RRparam;     ///< Params for Solving Rachford-Rice equations
 };
-
 
 /// ParamReservoir is an internal structure used to stores the information of
 /// reservoir(except wells) from input files. It is an intermediate interface and
@@ -113,14 +113,13 @@ public:
     vector<OCP_DBL> coord;
     vector<OCP_DBL> zcorn;
 
-    OCP_DBL rsTemp; ///< Temperature for reservoir.
-
     // Rock
-    vector<OCP_DBL> ntg;   ///< Net to gross for each grid.
-    vector<OCP_DBL> poro;  ///< Porosity for each grid.
-    vector<OCP_DBL> permX; ///< Permeability along the x - direction for each grid.
-    vector<OCP_DBL> permY; ///< Permeability along the y-direction for each grid.
-    vector<OCP_DBL> permZ; ///< Permeability along the z-direction for each grid.
+    vector<OCP_DBL> ntg;    ///< Net to gross for each grid.
+    vector<OCP_DBL> poro;   ///< Porosity for each grid.
+    vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
+    vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
+    vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
+    OCP_DBL         rsTemp; ///< Temperature for reservoir.
     Rock rock; ///< Contains the compressibility factor and reference pressure at
                ///< initial porosity.
 

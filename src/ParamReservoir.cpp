@@ -11,7 +11,7 @@
 
 #include "ParamReservoir.hpp"
 
-/// TODO: Add Doxygen
+/// Find pointer to the specified variable.
 vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
 {
     vector<OCP_DBL>* myPtr = nullptr;
@@ -98,7 +98,7 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
     return myPtr;
 }
 
-/// TODO: Add Doxygen
+/// Find pointer to the specified table.
 TableSet* ParamReservoir::FindPtr_T(const string& varName)
 {
     TableSet* myPtr = nullptr;
@@ -136,12 +136,10 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
     return myPtr;
 }
 
-/// TODO: Add Doxygen
+/// Initialize tables and other reservoir parameters.
 void ParamReservoir::Init()
 {
     InitTable();
-
-    rsTemp = 60.0;
 
     gravity.data.resize(3);
     gravity.data[0] = 45.5;   // oil
@@ -153,11 +151,12 @@ void ParamReservoir::Init()
     density.data[1] = 62.366416; // pure water
     density.data[2] = 0.062428;  // air
 
+    rsTemp    = 60.0;
     rock.Pref = 14.7;
     rock.Cr   = 3.406E-6;
 }
 
-/// TODO: Add Doxygen
+/// Initialize tables.
 void ParamReservoir::InitTable()
 {
     SWOF_T.name   = "SWOF";
@@ -257,8 +256,8 @@ void ParamReservoir::InputDIMENS(ifstream& ifs)
 /// TODO: Add Doxygen
 void ParamReservoir::DisplayDIMENS()
 {
-    std::cout << "DIMENS" << endl;
-    std::cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
+    cout << "DIMENS" << endl;
+    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
 }
 
 /// TODO: Add Doxygen
@@ -296,8 +295,7 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
         }
         if (index[0] < 0 || index[2] < 0 || index[4] < 0 || index[1] > dimens.nx - 1 ||
             index[3] > dimens.ny - 1 || index[5] > dimens.nz - 1) {
-            string MyError = "WRONG Range in " + objName + " in EQUALS!";
-            OCP_ABORT("WRONG Range in ");
+            OCP_ABORT("WRONG Range in " + objName + " in EQUALS!");
         }
 
         vector<OCP_DBL>* objPtr = FindPtr(objName);
@@ -315,9 +313,8 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
         }
     }
 
-    std::cout << SATNUM.activity << endl;
-    std::cout << PVTNUM.activity << endl;
-    cout << "EQUALS" << endl;
+    cout << SATNUM.activity << endl;
+    cout << PVTNUM.activity << endl;
 }
 
 /// TODO: Add Doxygen
@@ -327,7 +324,7 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 
     objPtr = FindPtr(keyword);
     if (objPtr == nullptr) {
-        OCP_ABORT("Unmatched keyword!");
+        OCP_ABORT("Unknown keyword!");
     }
 
     vector<string> vbuf;
@@ -338,9 +335,9 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
             objPtr->push_back(stod(str));
         }
     }
-    std::cout << &permX << endl;
-    std::cout << &permY << endl;
-    std::cout << &permZ << endl;
+    cout << &permX << endl;
+    cout << &permY << endl;
+    cout << &permZ << endl;
 }
 
 /// TODO: Add Doxygen
@@ -372,9 +369,9 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
             OCP_ABORT("Wrong object names: " + srcName + ", " + objName);
         }
     }
-    std::cout << permX[0] << endl;
-    std::cout << permY[0] << endl;
-    std::cout << permZ[0] << endl;
+    cout << permX[0] << endl;
+    cout << permY[0] << endl;
+    cout << permZ[0] << endl;
 }
 
 /// TODO: Add Doxygen
@@ -408,9 +405,9 @@ void ParamReservoir::InputMULTIPLY(ifstream& ifs)
             OCP_ABORT("Wrong object name: " + objName);
         }
     }
-    std::cout << permX[0] << endl;
-    std::cout << permY[0] << endl;
-    std::cout << permZ[0] << endl;
+    cout << permX[0] << endl;
+    cout << permY[0] << endl;
+    cout << permZ[0] << endl;
 }
 
 /// TODO: Add Doxygen
@@ -445,7 +442,7 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
     obj->DisplayTable();
 }
 
-/// TODO: Add Doxygen
+/// Read data from the ROCK keyword.
 void ParamReservoir::InputROCK(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -455,18 +452,20 @@ void ParamReservoir::InputROCK(ifstream& ifs)
     rock.Pref = stod(vbuf[0]);
     rock.Cr   = stod(vbuf[1]);
 
-    std::cout << "ROCK" << endl;
-    std::cout << rock.Pref << "  " << rock.Cr << endl;
+    cout << "---------------------" << endl
+         << "ROCK" << endl
+         << "---------------------" << endl;
+    cout << rock.Pref << "  " << rock.Cr << endl;
 }
 
-/// TODO: Add Doxygen
+/// Read data from the GRAVITY keyword.
 void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     if (vbuf[0] == "/") return;
     DealDefault(vbuf);
-    OCP_ASSERT(vbuf.size() == 4, "Wrong KeyWord GRAVITY!");
+    OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword GRAVITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
             gravity.activity = true;
@@ -474,12 +473,14 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
         }
     }
 
-    std::cout << "GRAVITY" << endl;
-    std::cout << gravity.data[0] << "  " << gravity.data[1] << "  " << gravity.data[2]
-              << endl;
+    cout << "---------------------" << endl
+         << "GRAVITY" << endl
+         << "---------------------" << endl;
+    cout << gravity.data[0] << "  " << gravity.data[1] << "  " << gravity.data[2]
+         << endl;
 }
 
-/// TODO: Add Doxygen
+/// Read data from the DENSITY keyword.
 void ParamReservoir::InputDENSITY(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -487,7 +488,7 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
     if (vbuf[0] == "/") return;
 
     DealDefault(vbuf);
-    OCP_ASSERT(vbuf.size() == 4, "Wrong KeyWord DENSITY!");
+    OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword DENSITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
             density.activity = true;
@@ -495,12 +496,14 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
         }
     }
 
-    std::cout << "DENSITY" << endl;
-    std::cout << density.data[0] << "  " << density.data[1] << "  " << density.data[2]
-              << endl;
+    cout << "---------------------" << endl
+         << "DENSITY" << endl
+         << "---------------------" << endl;
+    cout << density.data[0] << "  " << density.data[1] << "  " << density.data[2]
+         << endl;
 }
 
-/// TODO: Add Doxygen
+/// Read data from the EQUIL keyword.
 void ParamReservoir::InputEQUIL(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -513,12 +516,14 @@ void ParamReservoir::InputEQUIL(ifstream& ifs)
         if (vbuf[i] != "DEFAULT") EQUIL[i] = stod(vbuf[i]);
     }
 
-    std::cout << "EQUIL" << endl;
-    for (USI i = 0; i < 6; i++) std::cout << EQUIL[i] << "  ";
-    std::cout << endl;
+    cout << "---------------------" << endl
+         << "EQUIL" << endl
+         << "---------------------" << endl;
+    for (USI i = 0; i < 6; i++) cout << EQUIL[i] << "  ";
+    cout << endl;
 }
 
-/// TODO: Add Doxygen
+/// Read data from the TABDIMS keyword.
 void ParamReservoir::InputTABDIMS(ifstream& ifs)
 {
     vector<string> vbuf;
@@ -567,7 +572,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         }
     }
 
-    cout << "Number of tables = " << lim << endl;
+    cout << "Number of Tables = " << lim << endl;
     cout << &SATNUM << endl << &PVTNUM << endl;
 }
 
@@ -631,7 +636,7 @@ void ParamReservoir::CheckPhase() const
 /// TODO: Add Doxygen
 void ParamReservoir::CheckPhaseTab() const
 {
-    if (!blackOil && !comps) OCP_ABORT("Unknown model: choose BLACKOIL or COMPS!");
+    if (!blackOil && !comps) OCP_ABORT("Unknown model: Use BLACKOIL or COMPS!");
 
     if (water && oil && SWOF_T.data.empty()) OCP_ABORT("SWOF is missing!");
     if (gas && oil && SGOF_T.data.empty()) OCP_ABORT("SGOF is missing!");
@@ -852,4 +857,5 @@ void EoSparam::InputRR(ifstream& ifs)
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/09/2022      Update output and Doxygen            */
 /*----------------------------------------------------------------------------*/
