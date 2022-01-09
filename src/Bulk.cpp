@@ -51,32 +51,32 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             PVTmode  = PHASE_W;
         } else if (water && oil && !gas) {
             // water, dead oil
-            numPhase    = 2;
-            numCom      = 2;
-            EQUIL.DOWC  = rs_param.EQUIL[2];
-            EQUIL.PcOWC = rs_param.EQUIL[3];
-            SATmode     = PHASE_OW;
-            PVTmode     = PHASE_OW;
+            numPhase   = 2;
+            numCom     = 2;
+            EQUIL.DOWC = rs_param.EQUIL[2];
+            EQUIL.PcOW = rs_param.EQUIL[3];
+            SATmode    = PHASE_OW;
+            PVTmode    = PHASE_OW;
         } else if (water && oil && gas && !disGas) {
             // water, dead oil, dry gas
-            numPhase    = 3;
-            numCom      = 3;
-            EQUIL.DOWC  = rs_param.EQUIL[2];
-            EQUIL.PcOWC = rs_param.EQUIL[3];
-            EQUIL.DGOC  = rs_param.EQUIL[4];
-            EQUIL.PcGOC = rs_param.EQUIL[5];
-            SATmode     = PHASE_DOGW;
-            PVTmode     = PHASE_DOGW; // maybe it should be added later
+            numPhase   = 3;
+            numCom     = 3;
+            EQUIL.DOWC = rs_param.EQUIL[2];
+            EQUIL.PcOW = rs_param.EQUIL[3];
+            EQUIL.DGOC = rs_param.EQUIL[4];
+            EQUIL.PcGO = rs_param.EQUIL[5];
+            SATmode    = PHASE_DOGW;
+            PVTmode    = PHASE_DOGW; // maybe it should be added later
         } else if (water && oil && gas && disGas) {
             // water, live oil, dry gas
-            numPhase    = 3;
-            numCom      = 3;
-            EQUIL.DOWC  = rs_param.EQUIL[2];
-            EQUIL.PcOWC = rs_param.EQUIL[3];
-            EQUIL.DGOC  = rs_param.EQUIL[4];
-            EQUIL.PcGOC = rs_param.EQUIL[5];
-            SATmode     = PHASE_ODGW;
-            PVTmode     = PHASE_ODGW;
+            numPhase   = 3;
+            numCom     = 3;
+            EQUIL.DOWC = rs_param.EQUIL[2];
+            EQUIL.PcOW = rs_param.EQUIL[3];
+            EQUIL.DGOC = rs_param.EQUIL[4];
+            EQUIL.PcGO = rs_param.EQUIL[5];
+            SATmode    = PHASE_ODGW;
+            PVTmode    = PHASE_ODGW;
         }
         rs_param.numPhase = numPhase;
         rs_param.numCom   = numCom;
@@ -92,14 +92,14 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         cout << "Bulk::InputParam --- BLACKOIL" << endl;
     } else if (comps) {
         // Water exists and is excluded in EoS model NOW!
-        initZi      = rs_param.EoSp.zi; // Easy initialization!
-        numPhase    = rs_param.EoSp.numPhase + 1;
-        numCom      = rs_param.EoSp.numComp + 1;
-        EQUIL.DOWC  = rs_param.EQUIL[2];
-        EQUIL.PcOWC = rs_param.EQUIL[3];
-        EQUIL.DGOC  = rs_param.EQUIL[4];
-        EQUIL.PcGOC = rs_param.EQUIL[5];
-        SATmode     = PHASE_ODGW;
+        initZi     = rs_param.EoSp.zi; // Easy initialization!
+        numPhase   = rs_param.EoSp.numPhase + 1;
+        numCom     = rs_param.EoSp.numComp + 1;
+        EQUIL.DOWC = rs_param.EQUIL[2];
+        EQUIL.PcOW = rs_param.EQUIL[3];
+        EQUIL.DGOC = rs_param.EQUIL[4];
+        EQUIL.PcGO = rs_param.EQUIL[5];
+        SATmode    = PHASE_ODGW;
         for (USI i = 0; i < rs_param.NTSFUN; i++) {
             flow.push_back(new FlowUnit(rs_param, SATmode, i));
             flow[i]->Generate_SWPCWG();
@@ -254,16 +254,17 @@ void Bulk::CheckVpore() const
     }
 }
 
+/// Here tabrow is maximum number of depth nodes in table of depth vs pressure.
 void Bulk::InitSjPcBo(const USI& tabrow)
 {
     OCP_FUNCNAME;
 
-    OCP_DBL Dref  = EQUIL.Dref;
-    OCP_DBL Pref  = EQUIL.Pref;
-    OCP_DBL DOWC  = EQUIL.DOWC;
-    OCP_DBL PcOWC = EQUIL.PcOWC;
-    OCP_DBL DOGC  = EQUIL.DGOC;
-    OCP_DBL PcGOC = EQUIL.PcGOC;
+    OCP_DBL Dref = EQUIL.Dref;
+    OCP_DBL Pref = EQUIL.Pref;
+    OCP_DBL DOWC = EQUIL.DOWC;
+    OCP_DBL PcOW = EQUIL.PcOW;
+    OCP_DBL DOGC = EQUIL.DGOC;
+    OCP_DBL PcGO = EQUIL.PcGO;
 
     OCP_DBL Zmin = 1E8;
     OCP_DBL Zmax = 0;
@@ -341,7 +342,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             gammaGtmp = flashCal[0]->GammaPhaseG(Ptmp);
             Ptmp += gammaGtmp * mydz;
         }
-        Ptmp -= PcGOC;
+        Ptmp -= PcGO;
         for (USI i = 0; i < mynum; i++) {
             if (!EQUIL.PBVD.IsEmpty()) {
                 Pbb = EQUIL.PBVD.Eval(0, DOGC - i * mydz, 1);
@@ -387,7 +388,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseO(Ptmp, Pbb);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp -= PcOWC;
+        Ptmp -= PcOW;
         for (USI i = 0; i < mynum; i++) {
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp -= gammaWtmp * mydz;
@@ -434,7 +435,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp += gammaWtmp * mydz;
         }
-        Ptmp += PcOWC;
+        Ptmp += PcOW;
 
         for (USI i = 0; i < mynum; i++) {
             if (!EQUIL.PBVD.IsEmpty()) {
@@ -482,7 +483,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
                 gammaOtmp = flashCal[0]->GammaPhaseO(Ptmp, Pbb);
                 Ptmp += gammaOtmp * mydz;
             }
-            Ptmp += PcGOC;
+            Ptmp += PcGO;
             for (USI i = 0; i < mynum; i++) {
                 gammaGtmp = flashCal[0]->GammaPhaseG(Ptmp);
                 Ptmp -= gammaGtmp * mydz;
@@ -542,7 +543,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
                 gammaOtmp = flashCal[0]->GammaPhaseO(Ptmp, Pbb);
                 Ptmp += gammaOtmp * mydz;
             }
-            Ptmp += PcGOC;
+            Ptmp += PcGO;
             for (USI i = 0; i < mynum; i++) {
                 gammaGtmp = flashCal[0]->GammaPhaseG(Ptmp);
                 Ptmp -= gammaGtmp * mydz;
@@ -577,7 +578,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseO(Ptmp, Pbb);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp -= PcOWC;
+        Ptmp -= PcOW;
         for (USI i = 0; i < mynum; i++) {
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp -= gammaWtmp * mydz;
@@ -683,16 +684,17 @@ void Bulk::InitSjPcBo(const USI& tabrow)
     }
 }
 
+/// Here tabrow is maximum number of depth nodes in table of depth vs pressure.
 void Bulk::InitSjPcComp(const USI& tabrow)
 {
     OCP_FUNCNAME;
 
-    OCP_DBL Dref  = EQUIL.Dref;
-    OCP_DBL Pref  = EQUIL.Pref;
-    OCP_DBL DOWC  = EQUIL.DOWC;
-    OCP_DBL PcOWC = EQUIL.PcOWC;
-    OCP_DBL DOGC  = EQUIL.DGOC;
-    OCP_DBL PcGOC = EQUIL.PcGOC;
+    OCP_DBL Dref = EQUIL.Dref;
+    OCP_DBL Pref = EQUIL.Pref;
+    OCP_DBL DOWC = EQUIL.DOWC;
+    OCP_DBL PcOW = EQUIL.PcOW;
+    OCP_DBL DOGC = EQUIL.DGOC;
+    OCP_DBL PcGO = EQUIL.PcGO;
 
     OCP_DBL Zmin = 1E8;
     OCP_DBL Zmax = 0;
@@ -766,7 +768,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp += gammaGtmp * mydz;
         }
-        Ptmp -= PcGOC;
+        Ptmp -= PcGO;
         for (USI i = 0; i < mynum; i++) {
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp -= gammaOtmp * mydz;
@@ -797,7 +799,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp -= PcOWC;
+        Ptmp -= PcOW;
         for (USI i = 0; i < mynum; i++) {
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp -= gammaWtmp * mydz;
@@ -844,7 +846,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp += gammaWtmp * mydz;
         }
-        Ptmp += PcOWC;
+        Ptmp += PcOW;
 
         for (USI i = 0; i < mynum; i++) {
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
@@ -876,7 +878,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp += PcGOC;
+        Ptmp += PcGO;
         for (USI i = 0; i < mynum; i++) {
             gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp -= gammaGtmp * mydz;
@@ -922,7 +924,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp += PcGOC;
+        Ptmp += PcGO;
         for (USI i = 0; i < mynum; i++) {
             gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp -= gammaGtmp * mydz;
@@ -953,7 +955,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &initZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
-        Ptmp -= PcOWC;
+        Ptmp -= PcOW;
         for (USI i = 0; i < mynum; i++) {
             gammaWtmp = flashCal[0]->GammaPhaseW(Ptmp);
             Ptmp -= gammaWtmp * mydz;
@@ -1054,7 +1056,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
     }
 }
 
-// Flash
+/// Use initial saturation in blackoil model and initial Zi in compositional model.
 void Bulk::FlashSj()
 {
     OCP_FUNCNAME;
@@ -1067,11 +1069,13 @@ void Bulk::FlashSj()
         }
         PassFlashValue(n);
     }
-#ifdef _DEBUG
+
+#ifdef DEBUG
     CheckSat();
-#endif // _DEBUG
+#endif // DEBUG
 }
 
+/// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::FlashNi()
 {
     OCP_FUNCNAME;
@@ -1080,11 +1084,13 @@ void Bulk::FlashNi()
         flashCal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * numCom]);
         PassFlashValue(n);
     }
-#ifdef _DEBUG
+
+#ifdef DEBUG
     CheckSat();
-#endif // _DEBUG
+#endif // DEBUG
 }
 
+/// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::FlashNiDeriv()
 {
     OCP_FUNCNAME;
@@ -1094,9 +1100,10 @@ void Bulk::FlashNiDeriv()
         flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
         PassFlashValueDeriv(n);
     }
-#ifdef _DEBUG
+
+#ifdef DEBUG
     CheckSat();
-#endif // _DEBUG
+#endif // DEBUG
 }
 
 void Bulk::PassFlashValue(const OCP_USI& n)
@@ -1473,13 +1480,13 @@ OCP_DBL Bulk::CalCFL01IMPEC() const
             if (phaseExist[id]) {
 
                 if (vj[id] <= 0) continue; // temp
-
                 cfl[id] /= vj[id];
-#ifdef _DEBUG
+
+#ifdef DEBUG
                 if (!isfinite(cfl[id])) {
                     OCP_ABORT("cfl is nan!");
                 }
-#endif // _DEBUG
+#endif // DEBUG
 
                 if (tmp < cfl[id]) tmp = cfl[id];
             }
