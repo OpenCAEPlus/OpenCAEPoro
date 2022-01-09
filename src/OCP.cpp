@@ -48,7 +48,7 @@ void OpenCAEPoro::RunSimulation()
     solver.RunSimulation(reservoir, control, output);
 }
 
-/// Print summary information to cout and SUMMARY.out file.
+/// Print summary information on screen and SUMMARY.out file.
 void OpenCAEPoro::OutputResults() const
 {
     cout << "=========================================" << endl;

@@ -67,10 +67,10 @@ public:
     bool      activity{false};
     vector<T> obj;
     vector<USI>
-        index; ///< Records the index of bulk or well, whose properties will be printed.
+        index; ///< Records the index of bulk or well, whose properties will be printed
 };
 
-/// SumPair is an auxiliary structure storing summary data to output.
+/// The SumPair class is an auxiliary structure storing summary data to output.
 class SumPair
 {
 public:
@@ -84,15 +84,22 @@ public:
     vector<OCP_DBL> val;
 };
 
-/// Summary manages the output for summary file, it contains the most interested
-/// information in each time step. usually these data will be convert to chart for
-/// analysing following.
+/// The Summary class manages the output in the summary file.
+//  Note: It contains the most interested information in each time step, which usually
+//  will be convert to figures for later analysis.
 class Summary
 {
 public:
+    /// TODO: Add Doxygen
     void InputParam(const OutputSummary& summary_param);
+
+    /// TODO: Add Doxygen
     void Setup(const Reservoir& reservoir, const OCP_DBL& totalTime);
+
+    /// TODO: Add Doxygen
     void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
+
+    /// Write output information to a file.
     void PrintInfo(const string& dir) const;
 
 private:
@@ -133,18 +140,23 @@ private:
 class CriticalInfo
 {
 public:
+    /// TODO: Add Doxygen
     void Setup(const OCP_DBL& totalTime);
+
+    /// TODO: Add Doxygen
     void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
+
+    /// TODO: Add Doxygen
     void PrintInfo(const string& dir) const;
 
 private:
-    vector<OCP_DBL> time;
-    vector<OCP_DBL> dt;
-    vector<OCP_DBL> dPmax;
-    vector<OCP_DBL> dVmax;
-    vector<OCP_DBL> dSmax;
-    vector<OCP_DBL> dNmax;
-    vector<OCP_DBL> cfl;
+    vector<OCP_DBL> time;  ///< TODO: Add Doxygen
+    vector<OCP_DBL> dt;    ///< TODO: Add Doxygen
+    vector<OCP_DBL> dPmax; ///< TODO: Add Doxygen
+    vector<OCP_DBL> dVmax; ///< TODO: Add Doxygen
+    vector<OCP_DBL> dSmax; ///< TODO: Add Doxygen
+    vector<OCP_DBL> dNmax; ///< TODO: Add Doxygen
+    vector<OCP_DBL> cfl;   ///< TODO: Add Doxygen
 };
 
 /// Collect more detailed information of each time step.
@@ -167,12 +179,12 @@ private:
     bool DENW{false}; ///< Water density saturation of grids.
 };
 
-/// OCPOutput manages different kinds of ways to output. the most commonly used is
-/// summary file. which usually give the information of bulks and wells in each
-/// timestep, such as average bulks pressure, oil production rate of wells. if other
-/// information at critical time is interested in, you can chose the PRT file(to do).
-/// also, some infomation will be printed on the screen at the critical time to make
-/// sure the program is at the right way.
+/// The OCPOutput class manages different kinds of ways to output information.
+//  Note: The most commonly used is the summary file, which usually gives the
+//  information of bulks and wells in each time step, such as average pressure, oil
+//  production rate of wells. If other information at critical dates is of interest, you
+//  can chose the PRT file (TODO). Also, some infomation will be printed on the screen
+//  at the critical dates to make sure the program is at the right way.
 class OCPOutput
 {
     friend class OpenCAEPoro;
