@@ -70,11 +70,11 @@ public:
 
     /// Input param from internal data structure ParamReservoir.
     void InputParam(ParamReservoir& rs_param);
-    /// Allocate memory for General data.
+    /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
     void InitSjPcBo(const USI& tabrow);
-    /// Calculate initial equilibration for compositional model according to EQUIL.
+    /// Calculate initial equilibrium for compositional model according to EQUIL.
     void InitSjPcComp(const USI& tabrow);
 
     /// Perform flash calculation with saturations.
@@ -318,16 +318,16 @@ public:
     OCP_DBL GetNRdSmax() const { return NRdSmax; }
 
 private:
-    // Derivatives For FIM
-    vector<OCP_DBL> muP;       ///< dMu / dP: numPhase*numBulk.
-    vector<OCP_DBL> xiP;       ///< dXi / dP: numPhase*numBulk.
-    vector<OCP_DBL> rhoP;      ///< dRho / dP: numPhase*numBulk.
-    vector<OCP_DBL> mux;       ///< dMuj / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> xix;       ///< dXi_j / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> rhox;      ///< dRhoj / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> dPcj_dS;   ///< d Pcj / dSk: numPhase * numPhase * bulk.
-    vector<OCP_DBL> dKr_dS;    ///< d Krj / dSk: numPhase * numPhase * bulk.
-    vector<OCP_DBL> dSec_dPri; ///< d Secondary var / d Primary var
+    // Derivatives for FIM
+    vector<OCP_DBL> muP;       ///< d Mu   / d P: numPhase*numBulk.
+    vector<OCP_DBL> xiP;       ///< d Xi   / d P: numPhase*numBulk.
+    vector<OCP_DBL> rhoP;      ///< d Rho  / d P: numPhase*numBulk.
+    vector<OCP_DBL> mux;       ///< d Muj  / d xij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> xix;       ///< d Xi_j / d xij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> rhox;      ///< d Rhoj / d xij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> dPcj_dS;   ///< d Pcj  / d Sk: numPhase * numPhase * bulk.
+    vector<OCP_DBL> dKr_dS;    ///< d Krj  / d Sk: numPhase * numPhase * bulk.
+    vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
     // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
 
     OCP_DBL NRdPmax; ///< Max pressure difference in NR???
