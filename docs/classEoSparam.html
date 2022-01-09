@@ -111,10 +111,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac32614584342aeb1a744c9b2dc434e9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> { 0 }</td></tr>
+<tr class="memitem:ac32614584342aeb1a744c9b2dc434e9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> {0}</td></tr>
 <tr class="memdesc:ac32614584342aeb1a744c9b2dc434e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">num of components, water is excluded.  <a href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">More...</a><br /></td></tr>
 <tr class="separator:ac32614584342aeb1a744c9b2dc434e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb24104a3840764c3029c9e12bfaf523"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> { 0 }</td></tr>
+<tr class="memitem:adb24104a3840764c3029c9e12bfaf523"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> {0}</td></tr>
 <tr class="memdesc:adb24104a3840764c3029c9e12bfaf523"><td class="mdescLeft">&#160;</td><td class="mdescRight">num of phase, water is excluded.  <a href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">More...</a><br /></td></tr>
 <tr class="separator:adb24104a3840764c3029c9e12bfaf523"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a506e4427990649fc6756574c02cd2dcb"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a></td></tr>
@@ -165,39 +165,39 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00747">747</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>{</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>        <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>[i].resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span> </div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>        <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; j++) {</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>            <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>[i][j] = stod(vbuf[j]);</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>        }</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00753">753</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>{</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span> </div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>        <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>[i].resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
 <div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>) {</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; col : row) {</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>            cout &lt;&lt; setw(10) &lt;&lt; col;</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>        }</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        cout &lt;&lt; endl;</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    }</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    cout &lt;&lt; endl;</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>}</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>        <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; j++) {</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>            <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>[i][j] = stod(vbuf[j]);</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>        }</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    }</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : <a class="code hl_variable" href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">BIP</a>) {</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; col : row) {</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>            cout &lt;&lt; setw(10) &lt;&lt; col;</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>        }</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        cout &lt;&lt; endl;</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    }</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    cout &lt;&lt; endl;</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aa790607636d2d185f38ccdc93c56eb09"><div class="ttname"><a href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a></div><div class="ttdeci">#define OCP_ASSERT(cond, msg)</div><div class="ttdoc">Assert condition and log user messages in DEBUG mode.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00058">UtilError.hpp:58</a></div></div>
 <div class="ttc" id="aUtilInput_8hpp_html_af8345cb8367acfd04919a63010eb4bcd"><div class="ttname"><a href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a></div><div class="ttdeci">bool ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
-<div class="ttc" id="aclassEoSparam_html_a90481ed09c77550810f8e30f0825c6ec"><div class="ttname"><a href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">EoSparam::BIP</a></div><div class="ttdeci">vector&lt; vector&lt; OCP_DBL &gt; &gt; BIP</div><div class="ttdoc">Binary interaction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00085">ParamReservoir.hpp:85</a></div></div>
+<div class="ttc" id="aclassEoSparam_html_a90481ed09c77550810f8e30f0825c6ec"><div class="ttname"><a href="classEoSparam.html#a90481ed09c77550810f8e30f0825c6ec">EoSparam::BIP</a></div><div class="ttdeci">vector&lt; vector&lt; OCP_DBL &gt; &gt; BIP</div><div class="ttdoc">Binary interaction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00086">ParamReservoir.hpp:86</a></div></div>
 <div class="ttc" id="aclassEoSparam_html_ac32614584342aeb1a744c9b2dc434e9e"><div class="ttname"><a href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">EoSparam::numComp</a></div><div class="ttdeci">USI numComp</div><div class="ttdoc">num of components, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00081">ParamReservoir.hpp:81</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00085">BIP</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00086">BIP</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 
 </div>
 </div>
@@ -219,42 +219,42 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00712">712</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>{</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = 9;</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span> </div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> c = 0; c &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; c++) {</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c].resize(len);</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>        <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>            <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c][i] = vbuf[i];</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        }</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    }</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    cout &lt;&lt; <span class="stringliteral">&quot;Name    &quot;</span></div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>         &lt;&lt; <span class="stringliteral">&quot;Pc                &quot;</span></div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>         &lt;&lt; <span class="stringliteral">&quot;Tc           &quot;</span></div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>         &lt;&lt; <span class="stringliteral">&quot;Acentric    &quot;</span></div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>         &lt;&lt; <span class="stringliteral">&quot;MW               &quot;</span></div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>         &lt;&lt; <span class="stringliteral">&quot;Vc            &quot;</span></div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>         &lt;&lt; <span class="stringliteral">&quot;OmegaA          &quot;</span></div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>         &lt;&lt; <span class="stringliteral">&quot;OmegaB       &quot;</span></div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>         &lt;&lt; <span class="stringliteral">&quot;Shift&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; c : <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>) {</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; item : c) {</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>            cout &lt;&lt; item &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>        }</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        cout &lt;&lt; endl;</div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    }</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    cout &lt;&lt; endl;</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>}</div>
-<div class="ttc" id="aclassEoSparam_html_ac622a6d8f53de624e9d213fe72995f3b"><div class="ttname"><a href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">EoSparam::COM</a></div><div class="ttdeci">vector&lt; vector&lt; string &gt; &gt; COM</div><div class="ttdoc">Coponents information.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00084">ParamReservoir.hpp:84</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00718">718</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>{</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = 9;</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span> </div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> c = 0; c &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; c++) {</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>        <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c].resize(len);</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>        <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>            <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c][i] = vbuf[i];</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>        }</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    }</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    cout &lt;&lt; <span class="stringliteral">&quot;Name    &quot;</span></div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>         &lt;&lt; <span class="stringliteral">&quot;Pc                &quot;</span></div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>         &lt;&lt; <span class="stringliteral">&quot;Tc           &quot;</span></div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>         &lt;&lt; <span class="stringliteral">&quot;Acentric    &quot;</span></div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>         &lt;&lt; <span class="stringliteral">&quot;MW               &quot;</span></div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>         &lt;&lt; <span class="stringliteral">&quot;Vc            &quot;</span></div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>         &lt;&lt; <span class="stringliteral">&quot;OmegaA          &quot;</span></div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>         &lt;&lt; <span class="stringliteral">&quot;OmegaB       &quot;</span></div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>         &lt;&lt; <span class="stringliteral">&quot;Shift&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; c : <a class="code hl_variable" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>) {</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; item : c) {</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>            cout &lt;&lt; item &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        }</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        cout &lt;&lt; endl;</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    }</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>    cout &lt;&lt; endl;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>}</div>
+<div class="ttc" id="aclassEoSparam_html_ac622a6d8f53de624e9d213fe72995f3b"><div class="ttname"><a href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">EoSparam::COM</a></div><div class="ttdeci">vector&lt; vector&lt; string &gt; &gt; COM</div><div class="ttdoc">Coponents information.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00085">ParamReservoir.hpp:85</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00084">COM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00085">COM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 
 </div>
 </div>
@@ -276,15 +276,15 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00684">684</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>{</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>  = stoi(vbuf[0]);</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    <a class="code hl_variable" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> = stoi(vbuf[1]);</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    cout &lt;&lt; <span class="stringliteral">&quot;NC = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &lt;&lt; <span class="stringliteral">&quot;   NPmax = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00690">690</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>{</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>    <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>  = stoi(vbuf[0]);</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    <a class="code hl_variable" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> = stoi(vbuf[1]);</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    cout &lt;&lt; <span class="stringliteral">&quot;NC = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &lt;&lt; <span class="stringliteral">&quot;   NPmax = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">numPhase</a> &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>}</div>
 <div class="ttc" id="aclassEoSparam_html_adb24104a3840764c3029c9e12bfaf523"><div class="ttname"><a href="classEoSparam.html#adb24104a3840764c3029c9e12bfaf523">EoSparam::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phase, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00082">ParamReservoir.hpp:82</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00082">numPhase</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -309,19 +309,19 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00819">819</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>{</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <a class="code hl_class" href="classNRparamSP.html">NRparamSP</a>.push_back(vbuf[i]);</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>    }</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        cout &lt;&lt; <a class="code hl_class" href="classNRparamSP.html">NRparamSP</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>    }</div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00825">825</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>{</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>        <a class="code hl_class" href="classNRparamSP.html">NRparamSP</a>.push_back(vbuf[i]);</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>    }</div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>        cout &lt;&lt; <a class="code hl_class" href="classNRparamSP.html">NRparamSP</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>    }</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>}</div>
 <div class="ttc" id="aclassNRparamSP_html"><div class="ttname"><a href="classNRparamSP.html">NRparamSP</a></div><div class="ttdoc">Params for NR in Phase Split.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8hpp_source.html#l00060">MixtureComp.hpp:61</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -346,19 +346,19 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00789">789</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>{</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        <a class="code hl_class" href="classNRparamSTA.html">NRparamSTA</a>.push_back(vbuf[i]);</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    }</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        cout &lt;&lt; <a class="code hl_class" href="classNRparamSTA.html">NRparamSTA</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>    }</div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00795">795</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>{</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        <a class="code hl_class" href="classNRparamSTA.html">NRparamSTA</a>.push_back(vbuf[i]);</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>    }</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>        cout &lt;&lt; <a class="code hl_class" href="classNRparamSTA.html">NRparamSTA</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    }</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>}</div>
 <div class="ttc" id="aclassNRparamSTA_html"><div class="ttname"><a href="classNRparamSTA.html">NRparamSTA</a></div><div class="ttdoc">Params for NR in Phase Stability Analysis.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8hpp_source.html#l00050">MixtureComp.hpp:51</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -383,19 +383,19 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00834">834</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>{</div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>        <a class="code hl_class" href="classRRparam.html">RRparam</a>.push_back(vbuf[i]);</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>    }</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>        cout &lt;&lt; <a class="code hl_class" href="classRRparam.html">RRparam</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>    }</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00840">840</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>{</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        <a class="code hl_class" href="classRRparam.html">RRparam</a>.push_back(vbuf[i]);</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>    }</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>        cout &lt;&lt; <a class="code hl_class" href="classRRparam.html">RRparam</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    }</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>}</div>
 <div class="ttc" id="aclassRRparam_html"><div class="ttname"><a href="classRRparam.html">RRparam</a></div><div class="ttdoc">Param for Solving Rachford-Rice Equations.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8hpp_source.html#l00070">MixtureComp.hpp:71</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -420,19 +420,19 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00804">804</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>{</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>        <a class="code hl_class" href="classSSMparamSP.html">SSMparamSP</a>.push_back(vbuf[i]);</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    }</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>        cout &lt;&lt; <a class="code hl_class" href="classSSMparamSP.html">SSMparamSP</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    }</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00810">810</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>{</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>        <a class="code hl_class" href="classSSMparamSP.html">SSMparamSP</a>.push_back(vbuf[i]);</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    }</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>        cout &lt;&lt; <a class="code hl_class" href="classSSMparamSP.html">SSMparamSP</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    }</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>}</div>
 <div class="ttc" id="aclassSSMparamSP_html"><div class="ttname"><a href="classSSMparamSP.html">SSMparamSP</a></div><div class="ttdoc">Params for SSM in Phase Split.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8hpp_source.html#l00040">MixtureComp.hpp:41</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -457,19 +457,19 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00774">774</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>{</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        <a class="code hl_class" href="classSSMparamSTA.html">SSMparamSTA</a>.push_back(vbuf[i]);</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>    }</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        cout &lt;&lt; <a class="code hl_class" href="classSSMparamSTA.html">SSMparamSTA</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    }</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00780">780</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>{</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        <a class="code hl_class" href="classSSMparamSTA.html">SSMparamSTA</a>.push_back(vbuf[i]);</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>    }</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 2; i++) {</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>        cout &lt;&lt; <a class="code hl_class" href="classSSMparamSTA.html">SSMparamSTA</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>    }</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>}</div>
 <div class="ttc" id="aclassSSMparamSTA_html"><div class="ttname"><a href="classSSMparamSTA.html">SSMparamSTA</a></div><div class="ttdoc">Params for SSM in Phase Stability Analysis.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8hpp_source.html#l00030">MixtureComp.hpp:31</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
@@ -494,24 +494,24 @@ Public Attributes</h2></td></tr>
 
 <p>TODO: Add Doxygen. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00695">695</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>{</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>        <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>[i] = stod(vbuf[i]);</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    }</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>        cout &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    }</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>}</div>
-<div class="ttc" id="aclassEoSparam_html_a506e4427990649fc6756574c02cd2dcb"><div class="ttname"><a href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">EoSparam::zi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; zi</div><div class="ttdoc">molar fraction of components in initial reservoir, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00083">ParamReservoir.hpp:83</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00701">701</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>{</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    <a class="code hl_function" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    <a class="code hl_define" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a> &gt; 0, <span class="stringliteral">&quot;Wrong NC!&quot;</span>);</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>    <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>.resize(<a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>);</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>[i] = stod(vbuf[i]);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    }</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e">numComp</a>; i++) {</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>        cout &lt;&lt; <a class="code hl_variable" href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">zi</a>[i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>    }</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    cout &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>}</div>
+<div class="ttc" id="aclassEoSparam_html_a506e4427990649fc6756574c02cd2dcb"><div class="ttname"><a href="classEoSparam.html#a506e4427990649fc6756574c02cd2dcb">EoSparam::zi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; zi</div><div class="ttdoc">molar fraction of components in initial reservoir, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00084">ParamReservoir.hpp:84</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00083">zi</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00081">numComp</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00084">zi</a>.</p>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ Public Attributes</h2></td></tr>
 
 <p>Binary interaction. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00085">85</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00086">86</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -548,7 +548,7 @@ Public Attributes</h2></td></tr>
 
 <p>Coponents information. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00084">84</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00085">85</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -566,7 +566,7 @@ Public Attributes</h2></td></tr>
 
 <p>Params for Solving Phase Spliting with NR. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00090">90</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00091">91</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -584,7 +584,7 @@ Public Attributes</h2></td></tr>
 
 <p>Params for Solving Phase Spliting with NR. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00088">88</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00089">89</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -595,7 +595,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> EoSparam::numComp { 0 }</td>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> EoSparam::numComp {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -613,7 +613,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> EoSparam::numPhase { 0 }</td>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> EoSparam::numPhase {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -638,7 +638,7 @@ Public Attributes</h2></td></tr>
 
 <p>Params for Solving Rachford-Rice equations. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00091">91</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00092">92</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -656,7 +656,7 @@ Public Attributes</h2></td></tr>
 
 <p>Params for Solving Phase Spliting with SSM. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00089">89</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00090">90</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -674,7 +674,7 @@ Public Attributes</h2></td></tr>
 
 <p>Params for Solving Phase Spliting with SSM. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00087">87</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00088">88</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -692,7 +692,7 @@ Public Attributes</h2></td></tr>
 
 <p>molar fraction of components in initial reservoir, water is excluded. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00083">83</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00084">84</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
 </div>
 </div>
@@ -703,7 +703,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 10:53:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 9 2022 11:55:06 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

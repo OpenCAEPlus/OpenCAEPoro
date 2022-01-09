@@ -59,7 +59,7 @@ public:
     void SetupParam(const string& dir, const string& file) override;
 
     /// Get number of iterations used by iterative solver.
-    USI  GetNumIters() const override { return itParam.maxit; }
+    USI GetNumIters() const override { return itParam.maxit; }
 
 public:
     string      solveDir;  ///< Current work dir

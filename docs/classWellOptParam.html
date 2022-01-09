@@ -148,33 +148,31 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a>   = vbuf[3];</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (vbuf[4] == <span class="stringliteral">&quot;1*&quot;</span>) {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> == <span class="stringliteral">&quot;BHP&quot;</span>)</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = 1E10;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = 1E10;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                cout &lt;&lt; <span class="stringliteral">&quot;###ERROR: Inj Rate is missing in WCONINJE!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                cout &lt;&lt; <span class="stringliteral">&quot;### ERROR: Inj Rate is missing in WCONINJE!&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = stod(vbuf[4]);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_variable" href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">maxBHP</a>    = stod(vbuf[5]);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">type</a> == <span class="stringliteral">&quot;PROD&quot;</span>) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_variable" href="classWellOptParam.html#af84616d229f5c4420f57f9f3d1278391">state</a>   = vbuf[1];</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> = vbuf[2];</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (vbuf[3] == <span class="stringliteral">&quot;1*&quot;</span>) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> == <span class="stringliteral">&quot;BHP&quot;</span>)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = 1E10;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                cout &lt;&lt; <span class="stringliteral">&quot;###ERROR: Inj Rate is missing in WCONINJE!&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = stod(vbuf[3]);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_variable" href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">minBHP</a>  = stod(vbuf[4]);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Well Type!&quot;</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = stod(vbuf[4]);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_variable" href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">maxBHP</a> = stod(vbuf[5]);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">type</a> == <span class="stringliteral">&quot;PROD&quot;</span>) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_variable" href="classWellOptParam.html#af84616d229f5c4420f57f9f3d1278391">state</a>   = vbuf[1];</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> = vbuf[2];</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (vbuf[3] == <span class="stringliteral">&quot;1*&quot;</span>) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> == <span class="stringliteral">&quot;BHP&quot;</span>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = 1E10;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                cout &lt;&lt; <span class="stringliteral">&quot;### ERROR: Inj Rate is missing in WCONINJE!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_variable" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = stod(vbuf[3]);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_variable" href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">minBHP</a> = stod(vbuf[4]);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Well Type!&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a144f37940d5f85961f915fddeb560b40"><div class="ttname"><a href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">WellOptParam::maxBHP</a></div><div class="ttdeci">OCP_DBL maxBHP</div><div class="ttdoc">Maximum allowable pressure in the injection well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00039">ParamWell.hpp:39</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a199ec03af9d7fa4897d8b95fac8a2723"><div class="ttname"><a href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">WellOptParam::type</a></div><div class="ttdeci">string type</div><div class="ttdoc">Type of well, injection or production?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00033">ParamWell.hpp:33</a></div></div>
@@ -338,7 +336,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 10:53:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 9 2022 11:55:06 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

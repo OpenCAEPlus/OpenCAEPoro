@@ -1,7 +1,6 @@
 /*! \file    LinearSystem.cpp
- *  \brief   Contains Internal Matrix structure, ptr to external linearsolver and interface
- *  \author  Shizhe Li
- *  \date    Oct/01/2021
+ *  \brief   Contains Internal Matrix structure, ptr to external linearsolver and
+ *interface \author  Shizhe Li \date    Oct/01/2021
  *
  *-----------------------------------------------------------------------------------
  *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
@@ -33,7 +32,6 @@ void LinearSystem::AllocateColMem()
     }
 }
 
-
 void LinearSystem::ClearData()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
@@ -47,7 +45,6 @@ void LinearSystem::ClearData()
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
 
-
 void LinearSystem::AssembleRhs(const vector<OCP_DBL>& rhs)
 {
     OCP_USI nrow = dim * blockDim;
@@ -55,7 +52,6 @@ void LinearSystem::AssembleRhs(const vector<OCP_DBL>& rhs)
         b[i] = rhs[i];
     }
 }
-
 
 void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) const
 {
@@ -95,15 +91,13 @@ void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) 
     outA.close();
 
     // out b
-    OCP_USI nRow = dim * blockDim;
+    OCP_USI  nRow = dim * blockDim;
     ofstream outb(Fileb);
     if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
     outb << dim << endl;
     for (OCP_USI i = 0; i < nRow; i++) {
         outb << b[i] << endl;
     }
-
-    
 }
 
 void LinearSystem::OutputSolution(const string& fileU) const
@@ -128,28 +122,26 @@ void LinearSystem::CheckVal() const
     }
 }
 
-
 /// Setup LinearSolver
-void LinearSystem::SetupLinearSolver(const USI& i, const string& dir, const string& file)
+void LinearSystem::SetupLinearSolver(const USI& i, const string& dir,
+                                     const string& file)
 {
     solveDir = dir;
-    switch (i)
-    {
-    case 1:
-        // Fasp
-        LS = new ScalarFaspSolver;
-        break;
-    case 2:
-        // Blcok Fasp
-        LS = new VectorFaspSolver;
-        break;
-    default:
-        OCP_ABORT("Wrong Linear Solver type!");
-        break;
+    switch (i) {
+        case 1:
+            // Fasp
+            LS = new ScalarFaspSolver;
+            break;
+        case 2:
+            // Blcok Fasp
+            LS = new VectorFaspSolver;
+            break;
+        default:
+            OCP_ABORT("Wrong Linear Solver type!");
+            break;
     }
     LS->SetupParam(dir, file);
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -26,9 +26,7 @@ public:
     /// Start simulation.
     void RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output);
 
-
 private:
-
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCPControl& ctrl);
     /// Setup Mehod

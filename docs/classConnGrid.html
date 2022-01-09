@@ -132,22 +132,22 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00528">528</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>{</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    <span class="keywordflow">if</span> (nConn &gt;= maxConn) {</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        maxConn *= 2;</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        halfConn.resize(maxConn);</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        <span class="comment">//get larger space</span></div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        <span class="keywordflow">if</span> (maxConn &gt; MAX_NEIGHBOR) {</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Too many Neighbors!&quot;</span>);</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        }</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    }</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    halfConn[nConn].Ad_dd = area * d / (d * d);</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    halfConn[nConn].d = d;</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    halfConn[nConn].neigh = n;</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    halfConn[nConn].directiontype = direction;</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    nConn++;</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>}</div>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00537">537</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>{</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    <span class="keywordflow">if</span> (nConn &gt;= maxConn) {</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        maxConn *= 2;</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        halfConn.resize(maxConn);</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="comment">// get larger space</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>        <span class="keywordflow">if</span> (maxConn &gt; MAX_NEIGHBOR) {</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Too many Neighbors!&quot;</span>);</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>        }</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    }</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    halfConn[nConn].Ad_dd         = area * d / (d * d);</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    halfConn[nConn].d             = d;</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    halfConn[nConn].neigh         = n;</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    halfConn[nConn].directiontype = direction;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    nConn++;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>}</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -168,12 +168,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00520">520</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>{</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    nConn = 0;</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    maxConn = max_neighbor;</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    halfConn.resize(maxConn);</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>}</div>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00530">530</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>{</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    nConn   = 0;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    maxConn = max_neighbor;</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    halfConn.resize(maxConn);</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -233,7 +233,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 10:53:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 9 2022 11:55:06 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

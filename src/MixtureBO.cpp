@@ -99,48 +99,43 @@ void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
     }
 }
 
-void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+                               const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
     // CheckNi(Niin);
 #endif // _DEBUG
 
     switch (mode) {
-    case PHASE_W:
-        BOFlash_Ni_W_Deriv(Pin, Niin);
-        break;
+        case PHASE_W:
+            BOFlash_Ni_W_Deriv(Pin, Niin);
+            break;
 
-    case PHASE_OW:
-        BOFlash_Ni_OW_Deriv(Pin, Niin);
-        break;
+        case PHASE_OW:
+            BOFlash_Ni_OW_Deriv(Pin, Niin);
+            break;
 
-    case PHASE_ODGW:
-        BOFlash_Ni_ODGW_Deriv(Pin, Niin);
-        break;
+        case PHASE_ODGW:
+            BOFlash_Ni_ODGW_Deriv(Pin, Niin);
+            break;
 
-    default:
-        OCP_ABORT("Wrong mode specified!");
+        default:
+            OCP_ABORT("Wrong mode specified!");
     }
 }
 
-void BOMixture::BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin){}
+void BOMixture::BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin) {}
 
-
-
-void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin) 
+void BOMixture::BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
     OCP_ABORT("Empty Function!");
 }
-
-
 
 void BOMixture::BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin,
                              const OCP_DBL& Vpore)
 {
     OCP_ABORT("Empty Function!");
 }
-
-
 
 OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
 {
@@ -191,8 +186,6 @@ OCP_DBL BOMixture::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
             OCP_ABORT("Wrong Mode");
     }
 }
-
-
 
 OCP_DBL BOMixture::GammaPhaseW(const OCP_DBL& Pin)
 {

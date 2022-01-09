@@ -50,7 +50,7 @@ var searchData=
   ['prepare_47',['Prepare',['../classOCP__FIM.html#a22855a69a9358ccb6d459d04b78ed299',1,'OCP_FIM::Prepare()'],['../classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1',1,'OCP_IMPEC::Prepare()'],['../classFluidSolver.html#a747ba13d80e0f58e78e338e636268333',1,'FluidSolver::Prepare()']]],
   ['preparewell_48',['PrepareWell',['../classWellGroup.html#ae18bcc9e8f6f397e97645b2556851d8e',1,'WellGroup::PrepareWell()'],['../classReservoir.html#a53f2197e2db153378de2b64656aeb8ad',1,'Reservoir::PrepareWell()']]],
   ['pressure_5fstd_49',['PRESSURE_STD',['../OCPConst_8hpp.html#af4fc00d6f7ddbba6c546c1e9d94464a6',1,'OCPConst.hpp']]],
-  ['printinfo_50',['PrintInfo',['../classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6',1,'Summary']]],
+  ['printinfo_50',['PrintInfo',['../classCriticalInfo.html#a36c1b5bdd45b24b78bf394cd864d3f4b',1,'CriticalInfo::PrintInfo()'],['../classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6',1,'Summary::PrintInfo()']]],
   ['printlevel_51',['printLevel',['../classFastControl.html#a4f0602630756068e3fd5ba22183ed860',1,'FastControl']]],
   ['printversion_52',['PrintVersion',['../classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427',1,'OpenCAEPoro']]],
   ['printztmp_53',['PrintZtmp',['../classMixtureComp.html#ab870f35221c9f0fcef6b4fb0cb4cb681',1,'MixtureComp']]],

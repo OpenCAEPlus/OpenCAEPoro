@@ -24,7 +24,6 @@ double Dnorm2(const int& N, double* x)
     return dnrm2_(&N, x, &incx);
 }
 
-
 void Dscalar(const int& n, const double& alpha, double* x)
 {
     // x = a x
@@ -39,8 +38,8 @@ void Daxpy(const int& n, const double& alpha, const double* x, double* y)
     daxpy_(&n, &alpha, x, &incx, y, &incy);
 }
 
-void DaABpbC(const int& m, const int& n, const int& k, const double& alpha, const double* A, const double* B,
-    const double& beta, double* C)
+void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
+             const double* A, const double* B, const double& beta, double* C)
 {
     /*  C' = alpha B'A' + beta C'
      *  A: m x k
@@ -53,8 +52,8 @@ void DaABpbC(const int& m, const int& n, const int& k, const double& alpha, cons
     dgemm_(&transa, &transb, &n, &m, &k, &alpha, B, &n, A, &k, &beta, C, &n);
 }
 
-void DaAxpby(const int& m, const int& n, const double& a, const double* A, const double* x, const double& b,
-             double* y)
+void DaAxpby(const int& m, const int& n, const double& a, const double* A,
+             const double* x, const double& b, double* y)
 {
     /*  y= aAx+by
      */
@@ -75,24 +74,22 @@ void LUSolve(const int& N, double* A, double* b, int* pivot)
 
     if (info < 0) {
         cout << "Wrong Input !" << endl;
-    }
-    else if (info > 0) {
+    } else if (info > 0) {
         cout << "Singular Matrix !" << endl;
     }
 }
 
 void SYSSolve(const char* uplo, const int& N, double* A, double* b, int* pivot)
 {
-    int info;
-    int one = 1;
-    double work[1] = { 0 };
-    int lwork = 1;
+    int    info;
+    int    one     = 1;
+    double work[1] = {0};
+    int    lwork   = 1;
 
     dsysv_(uplo, &N, &one, A, &N, pivot, b, &N, work, &lwork, &info);
     if (info < 0) {
         cout << "Wrong Input !" << endl;
-    }
-    else if (info > 0) {
+    } else if (info > 0) {
         cout << "Singular Matrix !" << endl;
     }
 }
@@ -104,8 +101,6 @@ void PrintDX(const int& N, const double* x)
     }
     cout << endl;
 }
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

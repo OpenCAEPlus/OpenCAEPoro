@@ -27,21 +27,20 @@
 
 using namespace std;
 
-
 /// Describe the molar fraction of components of fluid injected to reservoir from INJ.
 class SolventINJ
 {
 public:
-    SolventINJ() = default;
-    SolventINJ& operator=(const Solvent& other) {
+    SolventINJ()        = default;
+    SolventINJ& operator=(const Solvent& other)
+    {
         name = other.name;
         data = other.comRatio;
         return *this;
     };
-    string          name;  ///< name of solvens
-    vector<OCP_DBL> data;  ///< molar fraction of components
+    string          name; ///< name of solvens
+    vector<OCP_DBL> data; ///< molar fraction of components
 };
-
 
 /// WellOpt describes the operation mode of a well.
 /// usually it changes over time, specifically, each attributes could be changed
@@ -61,10 +60,10 @@ private:
     USI type{0}; ///< type of well, Inj or Prod.
     /// indicate which type of fluids will be injected, water, gas, or other solvent.
     /// it's decided by users and only useful for injection well.
-    string  fluidType;
-    bool state{false}; ///< state of well, close or open.
-    USI  optMode; ///< control mode of well: constant pressure, or constant flow rate of
-                  ///< specified fluids.
+    string fluidType;
+    bool   state{false}; ///< state of well, close or open.
+    USI optMode; ///< control mode of well: constant pressure, or constant flow rate of
+                 ///< specified fluids.
     /// it gives the upper limit of flow rate of specified fluids if the well is under
     /// the control of constant pressure. it gives the flow rate of specified fluids if
     /// the well is under the control of constant flow rate.
@@ -116,11 +115,14 @@ public:
     void CalFlux(const Bulk& myBulk, const bool flag = false);
     /// calculate flow rate of moles of components for injection well in black oil model
     OCP_DBL CalInjRateBO(const Bulk& myBulk);
-    /// calculate flow rate of moles of components for production well in black oil model
+    /// calculate flow rate of moles of components for production well in black oil
+    /// model
     OCP_DBL CalProdRateBO(const Bulk& myBulk);
-    /// Calculate flow rate of moles of components for injection well in black oil model.
+    /// Calculate flow rate of moles of components for injection well in black oil
+    /// model.
     void CalInjQiBO(const Bulk& myBulk, const OCP_DBL& dt);
-    /// Calculate flow rate of moles of components for Production well in black oil model.
+    /// Calculate flow rate of moles of components for Production well in black oil
+    /// model.
     void CalProdQiBO(const Bulk& myBulk, const OCP_DBL& dt);
     /// Calculate pressure difference between well and perforations.
     void CaldG(const Bulk& myBulk);
@@ -139,15 +141,18 @@ public:
     /// Check if crossflow happens.
     OCP_INT CheckCrossFlow(const Bulk& myBulk);
     /// Update pressure in Perforation after well pressure updates.
-    void UpdatePerfP() { for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p]; }
+    void UpdatePerfP()
+    {
+        for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p];
+    }
     /// Allocate memory for matrix.
     void AllocateMat(LinearSystem& myLS) const;
     /// Return the state of the well, Open or Close.
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
-    USI WellType() const { return opt.type; } 
+    USI WellType() const { return opt.type; }
     /// Return Pressure of Perf p
-    OCP_DBL GetPerfPre(const USI& p)const { return perf[p].P; }
+    OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
     void ShowPerfStatus() const;
 
@@ -164,7 +169,7 @@ private:
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.
     vector<OCP_DBL>
-                    dG; ///< difference of pressure between well and perforation: numPerf.
+        dG; ///< difference of pressure between well and perforation: numPerf.
     vector<OCP_DBL> ldG; ///< difference of pressure between well and perforation at
                          ///< last time step: numPerf.
 
@@ -182,8 +187,6 @@ private:
     OCP_DBL WWIR{0};          ///< well water injection rate.
     OCP_DBL WWIT{0};          ///< well total water injection.
 
-
-
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
@@ -197,12 +200,10 @@ public:
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to injection well are included.
     void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
+                              const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to production well are included.
     void AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-
-
+                                  const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
     // FIM
@@ -211,14 +212,13 @@ public:
 public:
     /// Assemble matrix for FIM, parts related to Injection well are included.
     void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
+                            const OCP_DBL& dt) const;
     /// Assemble matrix for FIM, parts related to Production well are included.
     void AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
+                                const OCP_DBL& dt) const;
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
-        const OCP_USI& wId) const;
-
+                   const OCP_USI& wId) const;
 };
 
 #endif /* end if __WELL_HEADER__ */

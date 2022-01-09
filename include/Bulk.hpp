@@ -17,6 +17,7 @@
 #include <vector>
 
 // OpenCAEPoro header files
+#include "DenseMat.hpp"
 #include "FlowUnit.hpp"
 #include "Grid.hpp"
 #include "LinearSystem.hpp"
@@ -25,7 +26,6 @@
 #include "MixtureComp.hpp"
 #include "OCPConst.hpp"
 #include "OCPStructure.hpp"
-#include "DenseMat.hpp"
 #include "ParamReservoir.hpp"
 
 using namespace std;
@@ -58,8 +58,6 @@ class Bulk
     friend class BulkConn;
     friend class Well;
     friend class DetailInfo;
-
-    // temp
     friend class Reservoir;
 
 public:
@@ -99,7 +97,8 @@ public:
     void ResetFlash();
     /// Calculate relative Permeability and Capillary pressure with saturation.
     void CalKrPc();
-    /// Calculate relative Permeability and Capillary pressure and their derivatives with saturation
+    /// Calculate relative Permeability and Capillary pressure and their derivatives
+    /// with saturation
     void CalKrPcDeriv();
     /// Calculate volume of pore with Pressure
     void CalVpore();
@@ -120,9 +119,9 @@ public:
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return numBulk; }
     /// Return the num of Components
-    USI GetComNum()const { return numCom; }
+    USI GetComNum() const { return numCom; }
     /// Return the num of Phases.
-    USI GetPhaseNum()const { return numPhase; }
+    USI GetPhaseNum() const { return numPhase; }
     /// Return the mixture mode.
     USI GetMixMode() const;
     /// pass flash to well, it hasn't been used now.
@@ -130,11 +129,20 @@ public:
     /// Return Pressure in ith bulk.
     OCP_DBL GetP(const OCP_USI& n) const { return P[n]; }
     /// Return oil saturation in ith bulk.
-    OCP_DBL GetSOIL(const OCP_USI& n) const { return S[n * numPhase + phase2Index[OIL]]; }
+    OCP_DBL GetSOIL(const OCP_USI& n) const
+    {
+        return S[n * numPhase + phase2Index[OIL]];
+    }
     /// Return gas saturation in ith bulk.
-    OCP_DBL GetSGAS(const OCP_USI& n) const { return S[n * numPhase + phase2Index[GAS]]; }
+    OCP_DBL GetSGAS(const OCP_USI& n) const
+    {
+        return S[n * numPhase + phase2Index[GAS]];
+    }
     /// Return water saturation in ith bulk.
-    OCP_DBL GetSWAT(const OCP_USI& n) const { return S[n * numPhase + phase2Index[WATER]]; }
+    OCP_DBL GetSWAT(const OCP_USI& n) const
+    {
+        return S[n * numPhase + phase2Index[WATER]];
+    }
     /// Return dPmax.
     OCP_DBL GetdPmax() const { return dPmax; }
     /// Return dNmax.
@@ -151,16 +159,15 @@ public:
     void ResetNi() { Ni = lNi; }
     /// Reset Vp to the ones at last time step.
     void ResetVp() { rockVp = rockLVp; }
-    
+
 private:
-    
     // General variables
-    OCP_USI numBulk; ///< num of bulks (active grids).
-    USI numPhase; ///< num of phase.
-    USI numCom;   ///< num of component.
+    OCP_USI numBulk;  ///< num of bulks (active grids).
+    USI     numPhase; ///< num of phase.
+    USI     numCom;   ///< num of component.
 
     vector<OCP_DBL> initZi; ///< initial proportion of each component for EoS : numCom -
-                        ///< 1, water is excluded.
+                            ///< 1, water is excluded.
     USI         PVTmode;    ///< used to identify PVT mode in blackoil model.
     vector<USI> PVTNUM;     ///< used to identify PVT region in blackoil model: numBulk.
     vector<Mixture*>  flashCal; ///< a flash class used to flash calculation.
@@ -168,7 +175,7 @@ private:
     vector<USI>       SATNUM;   ///< used to identify SAT region: numBulk.
     vector<FlowUnit*> flow;     ///< a flow class used to calculate capillary pressure,
                                 ///< relative permeability.
-                                
+
     // Basic Reservoir model
     ParamEQUIL EQUIL;    ///< initial Equilibration.
     bool       blackOil; ///< if true, blackoil model will be used.
@@ -194,35 +201,38 @@ private:
     vector<OCP_DBL> mu;  ///< Viscosity of phase: numPhase*numBulk.
     vector<OCP_DBL> kr;  ///< Relative permeability of phase: numPhase*numBulk.
 
-    vector<OCP_DBL> vj;  ///< Volume of phase: numPhase*numBulk.
-    vector<OCP_DBL> vf;  ///< Total fluid volume: numBulk.
-    vector<OCP_DBL> Nt;  ///< Total moles of components in bulks: numBulk.
+    vector<OCP_DBL> vj; ///< Volume of phase: numPhase*numBulk.
+    vector<OCP_DBL> vf; ///< Total fluid volume: numBulk.
+    vector<OCP_DBL> Nt; ///< Total moles of components in bulks: numBulk.
 
     // Derivatives
     // For IMPEC and FIM
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom*numBulk.
     vector<OCP_DBL> vfp; ///< dVf / dP: numBulk.
 
-
     // Last Step
     // Properties at last STEP, determined by methods.
     vector<OCP_DBL> lP;  ///< Pressure at last time step: numBulk.
     vector<OCP_DBL> lPj; ///< Pressure of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lPc; ///< Capillary pressure of phase at last time step: numPhase*numBulk.
-    vector<bool>    lphaseExist; ///< existence of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lS;  ///< Saturation of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lrho; ///< Mass density of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lxi; ///< Moles density of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL>
+        lPc; ///< Capillary pressure of phase at last time step: numPhase*numBulk.
+    vector<bool>
+        lphaseExist;    ///< existence of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lS; ///< Saturation of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL>
+        lrho; ///< Mass density of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL>
+        lxi; ///< Moles density of phase at last time step: numPhase*numBulk.
     vector<OCP_DBL> lxij; ///< Nij / Nj at last time step: numPhase*numCom*numBulk.
-    vector<OCP_DBL> lNi; ///< Moles of component at last time step: numCom*numBulk.
-    vector<OCP_DBL> lmu; ///< Viscosity of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lkr; ///< Relative permeability of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lvj; ///< Volume of phase at last time step: numPhase*numBulk.
-    vector<OCP_DBL> lvf; ///< Total fluid volume at last time step: numBulk.
-    vector<OCP_DBL> lvfi; ///< dVf / dNi at last time step: numCom*numBulk.
-    vector<OCP_DBL> lvfp; ///< dVf / dP at last time step: numBulk.
+    vector<OCP_DBL> lNi;  ///< Moles of component at last time step: numCom*numBulk.
+    vector<OCP_DBL> lmu;  ///< Viscosity of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL>
+        lkr; ///< Relative permeability of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lvj;     ///< Volume of phase at last time step: numPhase*numBulk.
+    vector<OCP_DBL> lvf;     ///< Total fluid volume at last time step: numBulk.
+    vector<OCP_DBL> lvfi;    ///< dVf / dNi at last time step: numCom*numBulk.
+    vector<OCP_DBL> lvfp;    ///< dVf / dP at last time step: numBulk.
     vector<OCP_DBL> rockLVp; ///< volume of pore at last time step: numBulk.
-
 
     // Reservoir rock infomation
     vector<OCP_DBL> dx;    ///< size of bulk along the x direction: numBulk.
@@ -231,11 +241,11 @@ private:
     vector<OCP_DBL> depth; ///< depth of center of bulk: numBulk.
     vector<OCP_DBL> ntg;   ///< net to gross of bulk: numBulk.
     vector<OCP_DBL>
-        rockVpInit;         ///< initial pore volume: Vgrid * ntg * poro_init: numBulk.
-    vector<OCP_DBL> rockVp; ///< pore volume: Vgrid * ntg * poro: numBulk.
+        rockVpInit;           ///< init pore volume = Vgrid * ntg * poro_init: numBulk.
+    vector<OCP_DBL> rockVp;   ///< pore volume = Vgrid * ntg * poro: numBulk.
     OCP_DBL         rockPref; ///< reference pressure for initial rock volume.
-    OCP_DBL         rockC1;   ///< rock compressibility.
-    OCP_DBL         rockC2;   ///< rock compressibility.
+    OCP_DBL         rockC1;   ///< rock compressibility term 1.
+    OCP_DBL         rockC2;   ///< rock compressibility term 2.
     vector<OCP_DBL>
         rockKxInit; ///< initial rock permeability along the x direction: numBulk.
     vector<OCP_DBL>
@@ -248,8 +258,6 @@ private:
         rockKzInit; ///< initial rock permeability along the z direction: numBulk.
     vector<OCP_DBL>
         rockKz; ///< current rock permeability along the z direction: numBulk.
-
-
 
     // Auxiliary variables
     /// used to identify phase name according to its index: numPhase.
@@ -265,14 +273,11 @@ private:
                    ///< current time step.
     OCP_DBL dSmax; ///< max change in saturation during current time step.
 
-
-
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
 
 public:
-
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC();
     /// Get solution from solver class after linear system is solved
@@ -285,10 +290,7 @@ public:
     void UpdateLastStepIMPEC();
 
 private:
-
     mutable vector<OCP_DBL> cfl; ///< Used to Calculate CFL number for each bulk
-
-
 
     /////////////////////////////////////////////////////////////////////
     // FIM
@@ -298,7 +300,8 @@ public:
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM();
     /// Return the Solution to Reservoir Pressure for FIM ---- a newton step
-    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim, const OCP_DBL& dSmaxlim);
+    void    GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+                      const OCP_DBL& dSmaxlim);
     OCP_DBL GetSol01FIM(const vector<OCP_DBL>& u);
     /// Calculate Relative Resiual for FIM
     void CalRelResFIM(ResFIM& resFIM) const;
@@ -307,24 +310,25 @@ public:
     /// Update value of last step for FIM
     void UpdateLastStepFIM();
     /// Return NRdPmax
-    OCP_DBL GetNRdPmax()const { return NRdPmax; }
+    OCP_DBL GetNRdPmax() const { return NRdPmax; }
     /// Return NRdSmax
-    OCP_DBL GetNRdSmax()const { return NRdSmax; }
+    OCP_DBL GetNRdSmax() const { return NRdSmax; }
 
 private:
     // Derivatives For FIM
-    vector<OCP_DBL> muP;    ///< dMu / dP: numPhase*numBulk.
-    vector<OCP_DBL> xiP;    ///< dXi / dP: numPhase*numBulk.
-    vector<OCP_DBL> rhoP;   ///< dRho / dP: numPhase*numBulk.
-    vector<OCP_DBL> mux;    ///< dMuj / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> xix;    ///< dXi_j / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> rhox;   ///< dRhoj / dxij: numPhase*numCom*numBulk.
-    vector<OCP_DBL> dSec_dPri; ///< d Second var / d Primary var: (numPhase + numPhase*numCom)*(numCom + 1)*numBulk
-    vector<OCP_DBL> dPcj_dS; ///< d Pcj / dSk: numPhase * numPhase * bulk.
-    vector<OCP_DBL> dKr_dS; ///< d Krj / dSk: numPhase * numPhase * bulk.
+    vector<OCP_DBL> muP;       ///< dMu / dP: numPhase*numBulk.
+    vector<OCP_DBL> xiP;       ///< dXi / dP: numPhase*numBulk.
+    vector<OCP_DBL> rhoP;      ///< dRho / dP: numPhase*numBulk.
+    vector<OCP_DBL> mux;       ///< dMuj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> xix;       ///< dXi_j / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> rhox;      ///< dRhoj / dxij: numPhase*numCom*numBulk.
+    vector<OCP_DBL> dSec_dPri; ///< d Second var / d Primary var: (numPhase +
+                               ///< numPhase*numCom)*(numCom + 1)*numBulk
+    vector<OCP_DBL> dPcj_dS;   ///< d Pcj / dSk: numPhase * numPhase * bulk.
+    vector<OCP_DBL> dKr_dS;    ///< d Krj / dSk: numPhase * numPhase * bulk.
 
-    OCP_DBL  NRdPmax;
-    OCP_DBL  NRdSmax;
+    OCP_DBL NRdPmax;
+    OCP_DBL NRdSmax;
 };
 
 #endif /* end if __BULK_HEADER__ */

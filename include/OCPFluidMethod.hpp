@@ -12,18 +12,17 @@
 #ifndef __OCPFLUIDMETHOD_HEADER__
 #define __OCPFLUIDMETHOD_HEADER__
 
- // OpenCAEPoro header files
+// OpenCAEPoro header files
 #include "LinearSystem.hpp"
 #include "OCPControl.hpp"
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
 
- // OpenCAEPoro header files
+// OpenCAEPoro header files
 /// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
 class OCP_IMPEC
 {
 public:
-
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
@@ -41,13 +40,10 @@ public:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 };
 
-
-
 /// OCP_FIM is FIM (Fully Implicit Method).
 class OCP_FIM
 {
 public:
-
     /// Setup FIM
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
@@ -55,8 +51,7 @@ public:
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Assemble Matrix
-    void AssembleMat(LinearSystem& myLS, const Reservoir& rs,
-        const OCP_DBL& dt) const;
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
 
     /// Solve the linear system.
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
@@ -69,13 +64,10 @@ public:
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
-
 private:
     /// Resiual for FIM
-    ResFIM                   resFIM;
+    ResFIM resFIM;
 };
-
-
 
 #endif /* end if __OCP_METHOD_HEADER__ */
 

@@ -533,7 +533,8 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     cout << "TABDIMS" << endl;
 }
 
-/// TODO: Add Doxygen
+/// Region information like SATNUM to decide which grid belongs to which saturation
+/// region, so corresponding saturation table will be used.
 void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
 {
     Type_A_r<OCP_DBL>* ptr = &PVTNUM;
@@ -633,7 +634,7 @@ void ParamReservoir::CheckPhase() const
     }
 }
 
-/// TODO: Add Doxygen
+/// Check tables: Different tables will be used under different conditions.
 void ParamReservoir::CheckPhaseTab() const
 {
     if (!blackOil && !comps) OCP_ABORT("Unknown model: Use BLACKOIL or COMPS!");

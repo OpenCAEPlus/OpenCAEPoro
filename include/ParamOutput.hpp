@@ -78,9 +78,9 @@ public:
     Type_A_o WWIR; ///< Well water injection rate.
     Type_A_o WWIT; ///< Well total water injection.
     Type_A_o WBHP; ///< Well pressure.
-    Type_A_o DG;    ///< Pressure difference between wells and perforations.
+    Type_A_o DG;   ///< Pressure difference between wells and perforations.
 
-    Type_B_o BPR; ///< Bulk pressure.
+    Type_B_o BPR;  ///< Bulk pressure.
     Type_B_o SOIL; ///< Oil saturation of bulk.
     Type_B_o SGAS; ///< Gas saturation of bulk.
     Type_B_o SWAT; ///< Water saturation of bulk.
@@ -92,17 +92,16 @@ public:
 class OutputDetail
 {
 public:
-    bool    PRE{ false };   ///< Pressure of grids.
-    bool    PGAS{ false };  ///< Gas pressure of grids.
-    bool    PWAT{ false };  ///< Water pressure of grids.
-    bool    SOIL{ false };  ///< Oil saturation of grids.
-    bool    SGAS{ false };  ///< Gas saturation of grids.
-    bool    SWAT{ false };  ///< Water saturation of grids.
-    bool    DENO{ false };  ///< Oil density saturation of grids.
-    bool    DENG{ false };  ///< Gas density saturation of grids.
-    bool    DENW{ false };  ///< Water density saturation of grids.
+    bool PRE{false};  ///< Pressure of grids.
+    bool PGAS{false}; ///< Gas pressure of grids.
+    bool PWAT{false}; ///< Water pressure of grids.
+    bool SOIL{false}; ///< Oil saturation of grids.
+    bool SGAS{false}; ///< Gas saturation of grids.
+    bool SWAT{false}; ///< Water saturation of grids.
+    bool DENO{false}; ///< Oil density saturation of grids.
+    bool DENG{false}; ///< Gas density saturation of grids.
+    bool DENW{false}; ///< Water density saturation of grids.
 };
-
 
 /// ParamOutput is an internal structure used to stores the information of outputting
 /// from input files. It is an intermediate interface and independent of the main
@@ -111,8 +110,8 @@ public:
 class ParamOutput
 {
 public:
-    OutputSummary summary; ///< See OutputSummary.
-    OutputDetail detailInfo;    ///< See OutputDetail.
+    OutputSummary summary;    ///< See OutputSummary.
+    OutputDetail  detailInfo; ///< See OutputDetail.
 
     /// Input the keyword SUMMARY, which contains many subkeyword, indicating which
     /// results are interested by user. After the simulation, these results will be
@@ -125,8 +124,8 @@ public:
     /// coordinates.
     void InputType_B(ifstream& ifs, Type_B_o& obj);
 
-    /// Input the keyword RPTSCHED, which tells which detailed information will be output
-    /// to the RPTfile.
+    /// Input the keyword RPTSCHED, which tells which detailed information will be
+    /// output to the RPTfile.
     void InputRPTSCHED(ifstream& ifs);
 };
 

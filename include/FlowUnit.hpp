@@ -98,34 +98,37 @@ public:
     /// it will be used if oil, gas and water exist or could be exist.
     void CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
 
-    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
-    void CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
-    void CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out, OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                      OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+    void CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                         OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+    void CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                           OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
 
     // FlowUnits Model
     /// calculate relative permeability of oil phase with stone2 method.
     OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw,
                           const OCP_DBL& krg) const;
 
-    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog,
-        OCP_DBL krw, OCP_DBL krg,
-        OCP_DBL dkrwSw, OCP_DBL dkrowSw,
-        OCP_DBL dkrgSg, OCP_DBL dkrogSg,
-        OCP_DBL& out_dkrodSw, OCP_DBL& dkrodSg);
+    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
+                             OCP_DBL dkrwSw, OCP_DBL dkrowSw, OCP_DBL dkrgSg,
+                             OCP_DBL dkrogSg, OCP_DBL& out_dkrodSw, OCP_DBL& dkrodSg);
 
-    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow);
-    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog, const OCP_DBL& krow,
-        const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL& dkroSw);
+    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
+                           const OCP_DBL& krow);
+    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
+                              const OCP_DBL& krow, const OCP_DBL& dkrogSg,
+                              const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL& dkroSw);
 
 private:
-    USI                mode;   ///< decide which saturation table will be uesd.
+    USI      mode;   ///< decide which saturation table will be uesd.
     OCPTable SWOF;   ///< saturation table about water and oil.
     OCPTable SGOF;   ///< saturation table about gas and oil.
     OCPTable SWPCWG; ///< auxiliary table: saturation of water vs. capillary
-                               ///< pressure between water and gas.
+                     ///< pressure between water and gas.
     OCP_DBL
-    kroMax; ///< oil relative permeability in the presence of connate water only.
-    OCP_DBL Swco;   ///< Saturation of connate water.
+    kroMax;       ///< oil relative permeability in the presence of connate water only.
+    OCP_DBL Swco; ///< Saturation of connate water.
 
     // Auxiliary parameters for Table interpolation
     USI len{0}; ///< maximum number of columns of tables among all above.

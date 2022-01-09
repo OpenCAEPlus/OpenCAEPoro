@@ -13,8 +13,7 @@
 #define __OCPSTRUCTURE_HEADER__
 
 // Standard header files
-#include<vector>
-
+#include <vector>
 
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
@@ -26,15 +25,17 @@ using namespace std;
 class ResFIM
 {
 public:
+    void SetZero()
+    {
+        res.assign(res.size(), 0);
+        maxRelRes_v   = 0;
+        maxRelRes_mol = 0;
+    }
 
-    void SetZero() { res.assign(res.size(), 0); maxRelRes_v = 0; maxRelRes_mol = 0; }
-
-    vector<double>  res;
-    OCP_DBL         maxRelRes0_v;
-    OCP_DBL         maxRelRes_v;
-    OCP_DBL         maxRelRes_mol;
+    vector<double> res;
+    OCP_DBL        maxRelRes0_v;
+    OCP_DBL        maxRelRes_v;
+    OCP_DBL        maxRelRes_mol;
 };
-
-
 
 #endif

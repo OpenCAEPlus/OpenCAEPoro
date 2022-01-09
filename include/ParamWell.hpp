@@ -60,34 +60,33 @@ public:
 class WellParam
 {
 public:
-	WellParam(vector<string>& info);
-	// static infomation
-	// WELSPECS
-	string		name;				///< Name of Well
-	string		group{ "FEILD" };	///< Group the well belongs to.
-	USI			I;					///< I index of well.
-	USI			J;					///< J index of well.
-	OCP_DBL		depth{ -1.0 };		///< Depth of well.
+    WellParam(vector<string>& info);
+    // static infomation
+    // WELSPECS
+    string  name;           ///< Name of Well
+    string  group{"FEILD"}; ///< Group the well belongs to.
+    USI     I;              ///< I index of well.
+    USI     J;              ///< J index of well.
+    OCP_DBL depth{-1.0};    ///< Depth of well.
 
-	// COMPDAT ---- for all perforation.
-	vector<USI>			I_perf;		///< I-index of perforation in grid.
-	vector<USI>			J_perf;		///< J-index of perforation in grid.
-	vector<USI>			K_perf;		///< K-index of perforation in grid.
-	vector<OCP_DBL>		WI;			///< Transmissiblity connection factor.
-	vector<OCP_DBL>		diameter;	///< Diameter of perforations.
-	vector<OCP_DBL>		kh;
-	vector<OCP_DBL>		skinFactor;	///< Skin factor.
-	vector<string>		direction;	///< Direction of perforations.
+    // COMPDAT ---- for all perforation.
+    vector<USI>     I_perf;   ///< I-index of perforation in grid.
+    vector<USI>     J_perf;   ///< J-index of perforation in grid.
+    vector<USI>     K_perf;   ///< K-index of perforation in grid.
+    vector<OCP_DBL> WI;       ///< Transmissiblity connection factor.
+    vector<OCP_DBL> diameter; ///< Diameter of perforations.
+    vector<OCP_DBL> kh;
+    vector<OCP_DBL> skinFactor; ///< Skin factor.
+    vector<string>  direction;  ///< Direction of perforations.
 
-	// dynamic infomation
-	vector<WellOptPair>		optParam;
-
+    // dynamic infomation
+    vector<WellOptPair> optParam;
 };
 
 /// Describe the molar fraction of components of fluid injected to reservoir from INJ.
 class Solvent
 {
-public: 
+public:
     Solvent() = default;
     Solvent(const vector<string>& vbuf);
     string          name;
@@ -130,8 +129,8 @@ public:
     /// well anytime. For example, the oil production rate is changed from 1000 stb/day
     /// to 1500 stb/day at the 100th day.
     void InputWELTARG(ifstream& ifs);
-    /// Input well keyword: Solvent. It describes the molar fraction of components of fluid 
-    /// injected to reservoir from INJ.
+    /// Input well keyword: Solvent. It describes the molar fraction of components of
+    /// fluid injected to reservoir from INJ.
     void InputWELLSTRE(ifstream& ifs);
 
     // check

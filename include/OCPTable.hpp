@@ -57,7 +57,8 @@ public:
 
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// all columns.
-    USI Eval_All(const USI& j, const OCP_DBL& val, vector<OCP_DBL>& outdata, vector<OCP_DBL>& slope);
+    USI Eval_All(const USI& j, const OCP_DBL& val, vector<OCP_DBL>& outdata,
+                 vector<OCP_DBL>& slope);
 
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// the target column.
@@ -72,12 +73,11 @@ public:
     void Display() const;
 
 private:
-    USI               nRow; ///< number of rows of the table
-    USI               nCol; ///< number of columns of the table
-    USI               bId;  ///< the starting point of rows when interpolating
+    USI                     nRow; ///< number of rows of the table
+    USI                     nCol; ///< number of columns of the table
+    USI                     bId;  ///< the starting point of rows when interpolating
     vector<vector<OCP_DBL>> data; ///< data of the table, data[i] is the ith column.
 };
-
 
 #endif /* end if __OCP_TABLE_HEADER__ */
 
