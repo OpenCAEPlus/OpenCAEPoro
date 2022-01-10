@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.4 Jan/08/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.5 Jan/09/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -88,41 +88,39 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl, <a class="code hl_class" href="classOCPOutput.html">OCPOutput</a>&amp; output);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> GoOneStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> SetupMethod(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> Prepare(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> AssembleSolve(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> UpdateProperty(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">bool</span> FinishNR(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> FinishStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="classFluidSolver.html">FluidSolver</a>  FSolver;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="classLinearSystem.html">LinearSystem</a> LSolver;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> GoOneStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> SetupMethod(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> Prepare(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> AssembleSolve(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">bool</span> UpdateProperty(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> FinishNR(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">void</span> FinishStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="classFluidSolver.html">FluidSolver</a>  FSolver;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="classLinearSystem.html">LinearSystem</a> LSolver;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif </span><span class="comment">/* end if __SOLVER_HEADER__ */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif </span><span class="comment">/* end if __SOLVER_HEADER__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">/*  Shizhe Li           Oct/21/2021      Change from OCPMethod to Solver      */</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">/*  Chensong Zhang      Oct/27/2021      Rearrange and add comments           */</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">/*  Shizhe Li           Oct/21/2021      Change from OCPMethod to Solver      */</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/*  Chensong Zhang      Oct/27/2021      Rearrange and add comments           */</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aFluidSolver_8hpp_html"><div class="ttname"><a href="FluidSolver_8hpp.html">FluidSolver.hpp</a></div><div class="ttdoc">FluidSolver class declaration.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPOutput_8hpp_html"><div class="ttname"><a href="OCPOutput_8hpp.html">OCPOutput.hpp</a></div><div class="ttdoc">OCPOutput class declaration.</div></div>
 <div class="ttc" id="aclassFluidSolver_html"><div class="ttname"><a href="classFluidSolver.html">FluidSolver</a></div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8hpp_source.html#l00018">FluidSolver.hpp:19</a></div></div>
 <div class="ttc" id="aclassLinearSystem_html"><div class="ttname"><a href="classLinearSystem.html">LinearSystem</a></div><div class="ttdoc">Linear solvers for discrete systems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8hpp_source.html#l00030">LinearSystem.hpp:31</a></div></div>
 <div class="ttc" id="aclassOCPControl_html"><div class="ttname"><a href="classOCPControl.html">OCPControl</a></div><div class="ttdoc">All control parameters except for well controlers.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00093">OCPControl.hpp:94</a></div></div>
-<div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00176">OCPOutput.hpp:177</a></div></div>
-<div class="ttc" id="aclassReservoir_html"><div class="ttname"><a href="classReservoir.html">Reservoir</a></div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00031">Reservoir.hpp:32</a></div></div>
+<div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdoc">The OCPOutput class manages different kinds of ways to output information.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00188">OCPOutput.hpp:189</a></div></div>
+<div class="ttc" id="aclassReservoir_html"><div class="ttname"><a href="classReservoir.html">Reservoir</a></div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00030">Reservoir.hpp:31</a></div></div>
 <div class="ttc" id="aclassSolver_html"><div class="ttname"><a href="classSolver.html">Solver</a></div><div class="ttdef"><b>Definition:</b> <a href="Solver_8hpp_source.html#l00019">Solver.hpp:20</a></div></div>
 <div class="ttc" id="aclassSolver_html_a8d0439530ba5eb621ae4515168df367d"><div class="ttname"><a href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup Solver.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00015">Solver.cpp:15</a></div></div>
 <div class="ttc" id="aclassSolver_html_aa28d73a396ce4671abadf95ded8aeb34"><div class="ttname"><a href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a></div><div class="ttdeci">void RunSimulation(Reservoir &amp;rs, OCPControl &amp;ctrl, OCPOutput &amp;output)</div><div class="ttdoc">Start simulation.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00025">Solver.cpp:25</a></div></div>
@@ -130,7 +128,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 8 2022 21:56:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 9 2022 14:28:08 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

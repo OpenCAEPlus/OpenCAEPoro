@@ -26,7 +26,7 @@ class Perforation
     friend class Well;
 
 public:
-    /// Default constuctor. 
+    /// Default constuctor.
     Perforation() = default;
 
     /// TODO: Add Doxygen
@@ -58,11 +58,11 @@ private:
     vector<OCP_DBL> qi_lbmol; ///< Flow rate of moles of components from into/out
                               ///< current perforation.
     vector<OCP_DBL> transj;   ///< Transmissibility of phase in current perforation.
-    OCP_DBL transINJ;
-    vector<OCP_DBL> qj_ft3;   ///< Flow rate of volume of phase from into/out current
-                              ///< perforation.
-    OCP_DBL         qt_ft3;   ///< Flow rate of volume of fluids from into/out current
-                              ///< perforation.
+    OCP_DBL         transINJ;
+    vector<OCP_DBL> qj_ft3; ///< Flow rate of volume of phase from into/out current
+                            ///< perforation.
+    OCP_DBL qt_ft3;         ///< Flow rate of volume of fluids from into/out current
+                            ///< perforation.
 };
 
 #endif /* end if __PERFORATION_HEADER__ */

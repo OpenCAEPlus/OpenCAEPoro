@@ -18,7 +18,6 @@
 #include "Mixture.hpp"
 #include "OCPTable.hpp"
 
-
 /// BOMixture is inherited class of Mixture, it's used for black oil model.
 class BOMixture : public Mixture
 {
@@ -46,7 +45,7 @@ public:
     /// phase, oil phase and gas phase could exist. (to do)in fact, the phasecase where
     /// if dissolved gas exists should be distinguished.
     void BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin,
-                        const OCP_DBL& Vpore);
+                         const OCP_DBL& Vpore);
     /// flash calculation with saturations of phase, pressure in bulks. temperature is
     /// unnecessary now.
     void Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
@@ -62,7 +61,7 @@ public:
     void BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
     void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin) override;
+                        const OCP_DBL* Niin) override;
     void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
@@ -94,7 +93,7 @@ private:
     /// indicates the case of black oil, it's decided by user input.
     /// for example, PHASE_OW implies that only water phase and oil phase could be
     /// existing, which will determine which PVT tables will be used.
-    USI                mode;
+    USI      mode;
     OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).
     OCPTable PVDG; ///< PVT table for dry gas.
     OCPTable PVTW; ///< PVT table for water.

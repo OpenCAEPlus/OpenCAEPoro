@@ -17,10 +17,10 @@
 
 // OpenCAEPoro header files
 #include "Bulk.hpp"
+#include "DenseMat.hpp"
 #include "Grid.hpp"
 #include "LinearSystem.hpp"
 #include "OCPStructure.hpp"
-#include "DenseMat.hpp"
 
 using namespace std;
 
@@ -38,8 +38,8 @@ public:
         : BId(bId)
         , EId(eId){};
 
-    OCP_USI GetBId()const { return BId; }
-    OCP_USI GetEId()const { return EId; }
+    OCP_USI GetBId() const { return BId; }
+    OCP_USI GetEId() const { return EId; }
 
 private:
     OCP_USI BId;
@@ -56,7 +56,6 @@ class BulkConn
 
 public:
     BulkConn() = default;
-
 
     /////////////////////////////////////////////////////////////////////
     // General
@@ -84,7 +83,6 @@ public:
     void GetConnectionInfo() const;
 
 private:
-
     OCP_USI numBulk; ///< Num of bulks (active grids).
     OCP_USI numConn; ///< Num of connections between Bulks.
 
@@ -98,8 +96,8 @@ private:
     /// Contains all the connections, in which the index of first bulk is greater than
     /// the ones of second bulk. the iteratorConn is generated from neighbor: numConn.
     vector<BulkPair> iteratorConn;
-    vector<OCP_DBL> area; ///< Effective area for each connections, which are ordered
-                          ///< the same as iteratorConn: numConn.
+    vector<OCP_DBL>  area; ///< Effective area for each connections, which are ordered
+                           ///< the same as iteratorConn: numConn.
     /// Upblock of connections.
     /// Upblock is identified by difference of pressure between phases: numConn * nums
     /// of phase.
@@ -116,8 +114,6 @@ private:
     vector<OCP_DBL> lastUpblock_Trans;
     vector<OCP_DBL> lastUpblock_Velocity;
 
-
-
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
@@ -127,7 +123,7 @@ public:
     void AllocateAuxIMPEC(const USI& np);
     /// Assmeble Matrix for IMPEC, parts only related to bulks are considered.
     void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
+                          const OCP_DBL& dt) const;
     /// calculate the CFL number of flow between bulks.
     OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// calculate the CFL number of flow between bulks.
@@ -138,8 +134,6 @@ public:
     /// current timestep for IMPEC
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
 
-
-
     /////////////////////////////////////////////////////////////////////
     // FIM
     /////////////////////////////////////////////////////////////////////
@@ -149,7 +143,7 @@ public:
     void AllocateAuxFIM(const USI& np);
     /// Assmeble Matrix for FIM, parts only related to bulks are considered.
     void AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
+                         const OCP_DBL& dt) const;
     /// calculate Upblock for FIM
     void CalFluxFIM(const Bulk& myBulk);
     /// Calculate Resiual for FIM
@@ -159,7 +153,6 @@ public:
     /// Update lastUpblock
     void UpdateLastUpblockFIM() { lastUpblock = upblock; }
 };
-
 
 #endif
 

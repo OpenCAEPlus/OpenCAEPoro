@@ -19,7 +19,6 @@
 #include "ParamRead.hpp"
 #include "WellGroup.hpp"
 
-
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
 ///
@@ -35,13 +34,11 @@ class Reservoir
     friend class CriticalInfo;
     friend class DetailInfo;
 
-
     /////////////////////////////////////////////////////////////////////
     // General
     /////////////////////////////////////////////////////////////////////
 
 public:
-
     /// Input param from internal param data structure, which stores the params from
     /// input files.
     void InputParam(ParamRead& param);
@@ -72,24 +69,21 @@ public:
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return the num of Well
-    USI GetWellNum()const { return wellgroup.GetWellNum(); }
+    USI GetWellNum() const { return wellgroup.GetWellNum(); }
     /// Return the num of Components
-    USI GetComNum()const { return bulk.GetComNum(); }
+    USI GetComNum() const { return bulk.GetComNum(); }
 
 private:
-    Grid          grid;      ///< Grid class.
-    Bulk          bulk;      ///< Bulk class.
-    WellGroup     wellgroup; ///< WellGroup class.
-    BulkConn      conn;      ///< BulkConn class.
-
-
+    Grid      grid;      ///< Grid class.
+    Bulk      bulk;      ///< Bulk class.
+    WellGroup wellgroup; ///< WellGroup class.
+    BulkConn  conn;      ///< BulkConn class.
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
 
 public:
-
     /// Allocate memory for auxiliary variables used for IMPEC
     void AllocateAuxIMPEC();
     /// Initialize the properties of Reservoir for IMPEC
@@ -122,17 +116,16 @@ public:
     /// Reset Pressure, Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC
-    void ResetVal02IMPEC();    
-    /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores for IMPEC
+    void ResetVal02IMPEC();
+    /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores
+    /// for IMPEC
     void ResetVal03IMPEC();
 
 private:
     // For output
     OCP_DBL cfl; ///< CFL number.
 
-
 public:
-
     /////////////////////////////////////////////////////////////////////
     // FIM
     /////////////////////////////////////////////////////////////////////
@@ -153,20 +146,19 @@ public:
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
     /// Exactly, it's a Newton step.
-    void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
+    void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+                        const OCP_DBL& dSmax);
     void GetSolution01FIM(const vector<OCP_DBL>& u);
-    /// Calculate the Resiual for FIM, it's also RHS of Linear System  
+    /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM
     void ResetFIM(const bool& flag);
     /// Return NRdPmax
-    OCP_DBL GetNRdPmax()const { return bulk.GetNRdPmax(); }
+    OCP_DBL GetNRdPmax() const { return bulk.GetNRdPmax(); }
     /// Return NRdSmax
-    OCP_DBL GetNRdSmax()const { return bulk.GetNRdSmax(); }
-    void PrintSolFIM(const string& outfile) const;
-    
+    OCP_DBL GetNRdSmax() const { return bulk.GetNRdSmax(); }
+    void    PrintSolFIM(const string& outfile) const;
 };
-
 
 #endif /* end if __RESERVOIR_HEADER__ */
 

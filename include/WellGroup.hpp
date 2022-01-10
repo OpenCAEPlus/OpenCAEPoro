@@ -18,8 +18,6 @@
 
 using namespace std;
 
-
-
 /// WellGroups contains all wells now, it's used to manages all wells uniformly in
 /// reservoirs. actually, you can regard it as an interface between wells and other
 /// modules.
@@ -28,6 +26,7 @@ class WellGroup
 
     // temp
     friend class Reservoir;
+
 public:
     WellGroup() = default;
 
@@ -60,11 +59,20 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate memory for Matrix
     void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
-    void UpdateLastBHP(){ for (auto& w : wellGroup) w.lBHP = w.BHP; }
+    void UpdateLastBHP()
+    {
+        for (auto& w : wellGroup) w.lBHP = w.BHP;
+    }
     void ResetBHP();
     /// Reset dG to ldG for each well.
-    void UpdateLastDg() { for (auto& w : wellGroup) w.ldG = w.dG; }
-    void ResetDg() { for (auto& w : wellGroup) w.dG = w.ldG; }
+    void UpdateLastDg()
+    {
+        for (auto& w : wellGroup) w.ldG = w.dG;
+    }
+    void ResetDg()
+    {
+        for (auto& w : wellGroup) w.dG = w.ldG;
+    }
     /// Check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
     /// Return the num of wells.
@@ -74,11 +82,11 @@ public:
     /// Return the index of specified well.
     USI GetIndex(const string& name) const;
     /// Return the num of perforations of well i.
-    USI GetWellPerfNum(const USI& i)const { return wellGroup[i].numPerf; }
+    USI GetWellPerfNum(const USI& i) const { return wellGroup[i].numPerf; }
     /// Calculate mamimum num of perforations of all Wells.
-    USI GetMaxWellPerNum() const;
-    void CalMaxBHPChange();
-    OCP_DBL GetdBHPmax()const { return dPmax; }
+    USI     GetMaxWellPerNum() const;
+    void    CalMaxBHPChange();
+    OCP_DBL GetdBHPmax() const { return dPmax; }
     /// Return oil production rate in field.
     OCP_DBL GetFOPR() const { return FOPR; }
     /// Return total oil production in field.
@@ -122,28 +130,27 @@ public:
     /// Return the BHP of wth well.
     OCP_DBL GetWBHP(const USI& w) const { return wellGroup[w].BHP; }
     /// Return the pth dG of wth well.
-    OCP_DBL GetWellDg(const USI& w, const USI& p)const { return wellGroup[w].dG[p]; }
+    OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wellGroup[w].dG[p]; }
 
 private:
     USI          numWell;   ///< num of wells.
     vector<Well> wellGroup; ///< well set.
 
     vector<SolventINJ> solvents; ///< Sets of Solvent
-    OCP_DBL      dPmax{ 0 };     ///< Maximum BHP change
+    OCP_DBL            dPmax{0}; ///< Maximum BHP change
 
     vector<Mixture*> flashCal; ///< Uesless now.
 
-    OCP_DBL FGIR{ 0 }; ///< gas injection rate in field.
-    OCP_DBL FGIT{ 0 }; ///< gas total injection in field.
-    OCP_DBL FWIR{ 0 }; ///< water injection rate in field.
-    OCP_DBL FWIT{ 0 }; ///< water total injection in field.
-    OCP_DBL FOPR{ 0 }; ///< oil production rate in field.
-    OCP_DBL FOPT{ 0 }; ///< oil total production in field.
-    OCP_DBL FGPR{ 0 }; ///< gas production rate in field.
-    OCP_DBL FGPt{ 0 }; ///< gas total production in field.
-    OCP_DBL FWPR{ 0 }; ///< water production rate in field.
-    OCP_DBL FWPT{ 0 }; ///< water total production in field.
-
+    OCP_DBL FGIR{0}; ///< gas injection rate in field.
+    OCP_DBL FGIT{0}; ///< gas total injection in field.
+    OCP_DBL FWIR{0}; ///< water injection rate in field.
+    OCP_DBL FWIT{0}; ///< water total injection in field.
+    OCP_DBL FOPR{0}; ///< oil production rate in field.
+    OCP_DBL FOPT{0}; ///< oil total production in field.
+    OCP_DBL FGPR{0}; ///< gas production rate in field.
+    OCP_DBL FGPt{0}; ///< gas total production in field.
+    OCP_DBL FWPR{0}; ///< water production rate in field.
+    OCP_DBL FWPT{0}; ///< water total production in field.
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
@@ -158,10 +165,9 @@ public:
     void MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt);
     /// Assemble matrix, parts related to well are included for IMPEC
     void AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
-            const OCP_DBL& dt) const;
+                          const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for IMPEC
     void GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
-
 
     /////////////////////////////////////////////////////////////////////
     // FIM
@@ -170,15 +176,14 @@ public:
 public:
     /// Assemble matrix, parts related to well are included for FIM
     void AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
+                        const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for IMPEC for FIM
-    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len); 
-    void GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len, const OCP_DBL& alpha);
+    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
+    void GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len,
+                     const OCP_DBL& alpha);
     /// Calculate Resiual and relative Resiual for FIM
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
-
 };
-
 
 #endif /* end if __WELLGROUP_HEADER__ */
 

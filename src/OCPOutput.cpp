@@ -44,7 +44,7 @@ void Summary::InputParam(const OutputSummary& summary_param)
     SGAS = summary_param.SGAS;
     SWAT = summary_param.SWAT;
 
-    cout << "Summary::InputParam" << endl;
+    // cout << "Summary::InputParam" << endl;
 }
 
 void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
@@ -355,7 +355,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         Sumdata[i].val.reserve(rs);
     }
 
-    cout << "Summary::Setup" << endl;
+    // cout << "Summary::Setup" << endl;
 }
 
 void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
@@ -468,6 +468,7 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
         Sumdata[n++].val.push_back(rs.bulk.GetSWAT(SWAT.index[i]));
 }
 
+/// Write output information in the dir/SUMMARY.out file.
 void Summary::PrintInfo(const string& dir) const
 {
     string   FileOut = dir + "SUMMARY.out";
@@ -476,8 +477,8 @@ void Summary::PrintInfo(const string& dir) const
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    USI ns  = 10;
-    USI col = 10;
+    USI ns  = 12;
+    USI col = 7;
     USI row = 0;
     USI num = Sumdata.size();
     USI len = Sumdata[0].val.size();
@@ -486,31 +487,29 @@ void Summary::PrintInfo(const string& dir) const
 
     while (id != num) {
 
-        outF << "The " << ++row << "th Row\n";
+        outF << "Row " << ++row << endl;
 
         // Item
         // Time
-        outF << "\t" << setw(10) << Sumdata[0].Item;
+        outF << "\t" << setw(ns) << Sumdata[0].Item;
 
         id = ID;
         for (USI i = 1; i < col; i++) {
-            outF << "\t" << setw(ns) << Sumdata[id].Item;
-            id++;
+            outF << "\t" << setw(ns) << Sumdata[id++].Item;
             if (id == num) break;
         }
-        outF << "\n";
+        outF << endl;
 
         // Unit
         // Time
-        outF << "\t" << setw(10) << Sumdata[0].Unit;
+        outF << "\t" << setw(ns) << Sumdata[0].Unit;
 
         id = ID;
         for (USI i = 1; i < col; i++) {
-            outF << "\t" << setw(ns) << Sumdata[id].Unit;
-            id++;
+            outF << "\t" << setw(ns) << Sumdata[id++].Unit;
             if (id == num) break;
         }
-        outF << "\n";
+        outF << endl;
 
         // Obj
         // Time
@@ -518,13 +517,12 @@ void Summary::PrintInfo(const string& dir) const
 
         id = ID;
         for (USI i = 1; i < col; i++) {
-            outF << "\t" << setw(ns) << Sumdata[id].Obj;
-            id++;
+            outF << "\t" << setw(ns) << Sumdata[id++].Obj;
             if (id == num) break;
         }
-        outF << "\n";
+        outF << endl;
 
-        // data
+        // Data
         for (USI l = 0; l < len; l++) {
 
             // Time
@@ -532,14 +530,15 @@ void Summary::PrintInfo(const string& dir) const
 
             id = ID;
             for (USI i = 1; i < col; i++) {
-                outF << "\t" << setw(ns) << Sumdata[id].val[l];
-                id++;
+                outF << "\t" << setw(ns) << Sumdata[id++].val[l];
                 if (id == num) break;
             }
-            outF << "\n";
+            outF << endl;
         }
 
         ID += (col - 1);
+
+        outF << endl;
     }
 
     outF.close();
@@ -715,4 +714,5 @@ void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

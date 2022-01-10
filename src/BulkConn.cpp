@@ -15,14 +15,13 @@
 
 #include "BulkConn.hpp"
 
-
- /////////////////////////////////////////////////////////////////////
- // General
- /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// General
+/////////////////////////////////////////////////////////////////////
 
 void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
-{ 
-    
+{
+
     OCP_FUNCNAME;
 
     numConn = 0;
@@ -33,8 +32,8 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     neighborNum.resize(numBulk);
 
     vector<GPair> tmp1, tmp2;
-    USI len;
-    OCP_USI bIdb;
+    USI           len;
+    OCP_USI       bIdb;
 
     for (OCP_USI n = 0; n < myGrid.numGrid; n++) {
         const GB_Pair& GBtmp = myGrid.activeMap_G2B[n];
@@ -44,7 +43,7 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
 
             // Get rid of inactive neighbor
             tmp1 = myGrid.gNeighbor[n];
-            len = tmp1.size();
+            len  = tmp1.size();
             tmp2.clear();
             for (USI i = 0; i < len; i++) {
                 const GB_Pair& GBtmp2 = myGrid.activeMap_G2B[tmp1[i].id];
@@ -57,7 +56,7 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
             // Add Self
             tmp2.push_back(GPair(bIdb, 0.0));
             // Sort: Ascending
-            sort(tmp2.begin(), tmp2.end(), GPair::lessG); 
+            sort(tmp2.begin(), tmp2.end(), GPair::lessG);
             // Find SelfPtr and Assign to neighbor and area
             len = tmp2.size();
             for (USI i = 0; i < len; i++) {
@@ -79,14 +78,15 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     OCP_FUNCNAME;
 }
 
-
-void BulkConn::CalIteratorConn() { OCP_FUNCNAME;
+void BulkConn::CalIteratorConn()
+{
+    OCP_FUNCNAME;
 
     iteratorConn.reserve(numConn);
     // generate iterator for BB from iteratorConn
     for (OCP_USI bId = 0; bId < numBulk; bId++) {
         USI beginIt = selfPtr[bId] + 1;
-        USI nbc = neighborNum[bId];
+        USI nbc     = neighborNum[bId];
 
         for (USI c = beginIt; c < nbc; c++) {
             OCP_USI eId = neighbor[bId][c];
@@ -97,16 +97,18 @@ void BulkConn::CalIteratorConn() { OCP_FUNCNAME;
     assert(iteratorConn.size() == numConn);
 }
 
-
-void BulkConn::AllocateMat(LinearSystem& MySolver) const { OCP_FUNCNAME;
+void BulkConn::AllocateMat(LinearSystem& MySolver) const
+{
+    OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         MySolver.rowCapacity[n] += neighborNum[n];
     }
 }
 
-
-void BulkConn::SetupMatSparsity(LinearSystem& myLS) const { OCP_FUNCNAME;
+void BulkConn::SetupMatSparsity(LinearSystem& myLS) const
+{
+    OCP_FUNCNAME;
 
     myLS.dim = numBulk;
     for (OCP_USI n = 0; n < numBulk; n++) {
@@ -115,27 +117,29 @@ void BulkConn::SetupMatSparsity(LinearSystem& myLS) const { OCP_FUNCNAME;
     }
 }
 
+void BulkConn::UpdateLastStep()
+{
+    OCP_FUNCNAME;
 
-void BulkConn::UpdateLastStep() { OCP_FUNCNAME;
-
-    lastUpblock = upblock;
-    lastUpblock_Rho = upblock_Rho;
-    lastUpblock_Trans = upblock_Trans;
+    lastUpblock          = upblock;
+    lastUpblock_Rho      = upblock_Rho;
+    lastUpblock_Trans    = upblock_Trans;
     lastUpblock_Velocity = upblock_Velocity;
-
 }
 
+void BulkConn::Reset()
+{
+    OCP_FUNCNAME;
 
-void BulkConn::Reset() { OCP_FUNCNAME;
-
-    upblock = lastUpblock;
-    upblock_Rho = lastUpblock_Rho;
-    upblock_Trans = lastUpblock_Trans;
+    upblock          = lastUpblock;
+    upblock_Rho      = lastUpblock_Rho;
+    upblock_Trans    = lastUpblock_Trans;
     upblock_Velocity = lastUpblock_Velocity;
 }
 
-
-void BulkConn::CheckDiff() const { OCP_FUNCNAME;
+void BulkConn::CheckDiff() const
+{
+    OCP_FUNCNAME;
 
     // upblock
     OCP_DBL tmp;
@@ -164,7 +168,7 @@ void BulkConn::GetConnectionInfo() const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
         cout << "(" << i << ")"
-            << "\t";
+             << "\t";
 
         for (auto v : neighbor[i]) {
             cout << v << "\t";
@@ -179,13 +183,13 @@ void BulkConn::GetConnectionInfo() const
     }
 }
 
+/////////////////////////////////////////////////////////////////////
+// IMPEC
+/////////////////////////////////////////////////////////////////////
 
- /////////////////////////////////////////////////////////////////////
- // IMPEC
- /////////////////////////////////////////////////////////////////////
-
-
-void BulkConn::AllocateAuxIMPEC(const USI& np) { OCP_FUNCNAME;
+void BulkConn::AllocateAuxIMPEC(const USI& np)
+{
+    OCP_FUNCNAME;
 
     upblock.resize(numConn * np);
     upblock_Rho.resize(numConn * np);
@@ -197,23 +201,24 @@ void BulkConn::AllocateAuxIMPEC(const USI& np) { OCP_FUNCNAME;
     lastUpblock_Velocity.resize(numConn * np);
 }
 
-
 void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
-    const OCP_DBL& dt) const { OCP_FUNCNAME;
+                                const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
 
     // accumulate term
     OCP_DBL Vp0, Vp, vf, vfp, P;
     OCP_DBL cr = myBulk.rockC1;
     for (OCP_USI n = 0; n < numBulk; n++) {
         Vp0 = myBulk.rockVpInit[n];
-        Vp = myBulk.rockVp[n];
+        Vp  = myBulk.rockVp[n];
         vfp = myBulk.vfp[n];
-        P = myBulk.P[n];
-        vf = myBulk.vf[n];
+        P   = myBulk.P[n];
+        vf  = myBulk.vf[n];
 
-        OCP_DBL temp = cr * Vp0 - vfp;
+        OCP_DBL temp    = cr * Vp0 - vfp;
         myLS.diagVal[n] = temp;
-        myLS.b[n] = temp * P + dt * (vf - Vp);
+        myLS.b[n]       = temp * P + dt * (vf - Vp);
     }
 
     // flux term
@@ -226,10 +231,10 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     // Becareful when first bulk has no neighbors!
     OCP_USI lastbId = iteratorConn[0].EId;
     for (OCP_USI c = 0; c < numConn; c++) {
-        bId = iteratorConn[c].BId;
-        eId = iteratorConn[c].EId;
-        valup = 0;
-        rhsup = 0;
+        bId     = iteratorConn[c].BId;
+        eId     = iteratorConn[c].EId;
+        valup   = 0;
+        rhsup   = 0;
         valdown = 0;
         rhsdown = 0;
 
@@ -237,7 +242,7 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
             uId = upblock[c * np + j];
             if (!myBulk.phaseExist[uId * np + j]) continue;
 
-            valupi = 0;
+            valupi   = 0;
             valdowni = 0;
 
             for (USI i = 0; i < nc; i++) {
@@ -246,12 +251,12 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                 valdowni +=
                     myBulk.vfi[eId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];
             }
-            OCP_DBL dD = myBulk.depth[bId] - myBulk.depth[eId];
-            OCP_DBL dPc = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
+            OCP_DBL dD   = myBulk.depth[bId] - myBulk.depth[eId];
+            OCP_DBL dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
             OCP_DBL temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;
             valup += temp * valupi;
 
-            //if (!isfinite(valup)) {
+            // if (!isfinite(valup)) {
             //    cout << "###ERROR   ";
             //    ERRORcheck("NAN or INF in MAT");
             //}
@@ -281,14 +286,13 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     // Add the rest of diag value
     // important!
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (myLS.val[n].size() == selfPtr[n])
-            myLS.val[n].push_back(myLS.diagVal[n]);
+        if (myLS.val[n].size() == selfPtr[n]) myLS.val[n].push_back(myLS.diagVal[n]);
     }
 }
 
-
-
-OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const { OCP_FUNCNAME;
+OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
 
     USI     np   = myBulk.numPhase;
     OCP_DBL cfl  = 0;
@@ -298,7 +302,7 @@ OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const { OCP
         for (USI j = 0; j < np; j++) {
             OCP_USI uId = upblock[c * np + j];
 
-            if (myBulk.phaseExist[uId * np + j]) {  // uId -> uId * np + j  fix bugs.
+            if (myBulk.phaseExist[uId * np + j]) { // uId -> uId * np + j  fix bugs.
                 temp = fabs(upblock_Velocity[c * np + j]) * dt;
                 temp /= myBulk.vj[uId * np + j];
                 if (cfl < temp) cfl = temp;
@@ -308,9 +312,11 @@ OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const { OCP
     return cfl;
 }
 
-void BulkConn::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const { OCP_FUNCNAME;
+void BulkConn::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
 
-    USI     np = myBulk.numPhase;
+    USI np = myBulk.numPhase;
     for (OCP_USI c = 0; c < numConn; c++) {
 
         for (USI j = 0; j < np; j++) {
@@ -323,7 +329,9 @@ void BulkConn::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const { OCP_
     }
 }
 
-void BulkConn::CalFluxIMPEC(const Bulk& myBulk) { OCP_FUNCNAME;
+void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
+{
+    OCP_FUNCNAME;
 
     // calculate a step flux using iteratorConn
     OCP_USI bId, eId, uId;
@@ -356,10 +364,10 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk) { OCP_FUNCNAME;
                 Pend   = myBulk.Pj[eId_np_j];
                 rho    = myBulk.rho[eId_np_j];
             } else {
-                upblock[c * np + j] = bId;
-                upblock_Trans[c * np + j] = 0;
+                upblock[c * np + j]          = bId;
+                upblock_Trans[c * np + j]    = 0;
                 upblock_Velocity[c * np + j] = 0;
-                //if (!isfinite(upblock_Trans[c * np + j])) {
+                // if (!isfinite(upblock_Trans[c * np + j])) {
                 //    cout << "###ERROR   ";
                 //    ERRORcheck("NAN or INF in MAT");
                 //}
@@ -377,23 +385,25 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk) { OCP_FUNCNAME;
 
             upblock_Rho[c * np + j] = rho;
             upblock[c * np + j]     = uId;
-            
+
             // (fix bugs) if exup is false, then trans and vec are zero.
             if (exup) {
                 OCP_USI uId_np_j = uId * np + j;
                 OCP_DBL trans =
                     CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
-                upblock_Trans[c * np + j] = trans;
+                upblock_Trans[c * np + j]    = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
             } else {
-                upblock_Trans[c * np + j] = 0;
+                upblock_Trans[c * np + j]    = 0;
                 upblock_Velocity[c * np + j] = 0;
             }
         }
     }
 }
 
-void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FUNCNAME;
+void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
 
     USI np = myBulk.numPhase;
     USI nc = myBulk.numCom;
@@ -403,7 +413,7 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FU
         OCP_USI eId = iteratorConn[c].EId;
 
         for (USI j = 0; j < np; j++) {
-            OCP_USI uId = upblock[c * np + j];
+            OCP_USI uId      = upblock[c * np + j];
             OCP_USI uId_np_j = uId * np + j;
 
             if (!myBulk.phaseExist[uId_np_j]) continue;
@@ -419,29 +429,28 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const { OCP_FU
     }
 }
 
+/////////////////////////////////////////////////////////////////////
+// FIM
+/////////////////////////////////////////////////////////////////////
 
-
- /////////////////////////////////////////////////////////////////////
- // FIM
- /////////////////////////////////////////////////////////////////////
-
-
-void BulkConn::AllocateAuxFIM(const USI& np) { OCP_FUNCNAME;
+void BulkConn::AllocateAuxFIM(const USI& np)
+{
+    OCP_FUNCNAME;
 
     upblock.resize(numConn * np);
     lastUpblock.resize(numConn * np);
 }
 
-
-void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
+                               const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 
-    const USI np = myBulk.numPhase;
-    const USI nc = myBulk.numCom;
-    const USI ncol = nc + 1;
-    const USI ncol2 = np*nc + np;
-    const USI bsize = ncol * ncol;
+    const USI np     = myBulk.numPhase;
+    const USI nc     = myBulk.numCom;
+    const USI ncol   = nc + 1;
+    const USI ncol2  = np * nc + np;
+    const USI bsize  = ncol * ncol;
     const USI bsize2 = ncol * ncol2;
 
     vector<OCP_DBL> bmat(bsize, 0);
@@ -460,8 +469,8 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
         }
     }
     // flux term
-    OCP_DBL Akd;
-    OCP_DBL transJ,transIJ;
+    OCP_DBL         Akd;
+    OCP_DBL         transJ, transIJ;
     vector<OCP_DBL> dFdXpB(bsize, 0);
     vector<OCP_DBL> dFdXpE(bsize, 0);
     vector<OCP_DBL> dFdXsB(bsize2, 0);
@@ -482,28 +491,28 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
         dFdXpE.assign(bsize, 0);
         dFdXsB.assign(bsize2, 0);
         dFdXsE.assign(bsize2, 0);
-        Akd = CONV1 * CONV2 * area[c];
+        Akd    = CONV1 * CONV2 * area[c];
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
         for (USI j = 0; j < np; j++) {
-            uId = upblock[c * np + j];
+            uId      = upblock[c * np + j];
             uId_np_j = uId * np + j;
-            if (!myBulk.phaseExist[uId_np_j])    continue;
-            dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j]
-                - myBulk.rho[bId * np + j] * dGamma;
-            xi = myBulk.xi[uId_np_j];
-            kr = myBulk.kr[uId_np_j];
-            mu = myBulk.mu[uId_np_j];   
-            muP = myBulk.muP[uId_np_j];
-            xiP = myBulk.xiP[uId_np_j];
-            rhoP = myBulk.rhoP[uId_np_j];
+            if (!myBulk.phaseExist[uId_np_j]) continue;
+            dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
+                 myBulk.rho[bId * np + j] * dGamma;
+            xi     = myBulk.xi[uId_np_j];
+            kr     = myBulk.kr[uId_np_j];
+            mu     = myBulk.mu[uId_np_j];
+            muP    = myBulk.muP[uId_np_j];
+            xiP    = myBulk.xiP[uId_np_j];
+            rhoP   = myBulk.rhoP[uId_np_j];
             transJ = Akd * kr / mu;
-            
+
             for (USI i = 0; i < nc; i++) {
                 xij = myBulk.xij[uId_np_j * nc + i];
 
                 transIJ = xij * xi * transJ;
-                
+
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
@@ -512,29 +521,30 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
                 tmp += -transIJ * muP / mu * dP;
                 if (bId == uId) {
                     dFdXpB[(i + 1) * ncol] += tmp;
-                }
-                else {
+                } else {
                     dFdXpE[(i + 1) * ncol] += tmp;
                 }
 
                 // Saturation -- Second var
                 for (USI k = 0; k < np; k++) {
-                    dFdXsB[(i + 1) * ncol2 + k] += transIJ * myBulk.dPcj_dS[bId * np * np + j * np + k];
-                    dFdXsE[(i + 1) * ncol2 + k] += transIJ * myBulk.dPcj_dS[eId * np * np + j * np + k];
-                    tmp = Akd * xij * xi / mu * myBulk.dKr_dS[uId * np * np + j * np + k] * dP;
+                    dFdXsB[(i + 1) * ncol2 + k] +=
+                        transIJ * myBulk.dPcj_dS[bId * np * np + j * np + k];
+                    dFdXsE[(i + 1) * ncol2 + k] +=
+                        transIJ * myBulk.dPcj_dS[eId * np * np + j * np + k];
+                    tmp = Akd * xij * xi / mu *
+                          myBulk.dKr_dS[uId * np * np + j * np + k] * dP;
                     if (bId == uId) {
                         dFdXsB[(i + 1) * ncol2 + k] += tmp;
-                    }
-                    else {
+                    } else {
                         dFdXsE[(i + 1) * ncol2 + k] += tmp;
                     }
                 }
                 // Cij -- Second var
                 for (USI k = 0; k < nc; k++) {
                     rhox = myBulk.rhox[uId_np_j * nc + k];
-                    xix = myBulk.xix[uId_np_j * nc + k];
-                    mux = myBulk.mux[uId_np_j * nc + k];
-                    tmp = -transIJ * rhox * dGamma;
+                    xix  = myBulk.xix[uId_np_j * nc + k];
+                    mux  = myBulk.mux[uId_np_j * nc + k];
+                    tmp  = -transIJ * rhox * dGamma;
                     tmp += xij * transJ * xix * dP;
                     tmp += -transIJ * mux / mu * dP;
                     if (k == i) {
@@ -542,8 +552,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
                     }
                     if (bId == uId) {
                         dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                    }
-                    else {
+                    } else {
                         dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
                     }
                 }
@@ -551,20 +560,21 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
         }
 
         USI diagptr = selfPtr[bId];
-        
+
         if (bId != lastbId) {
             // new bulk
-            assert(myLS.val[bId].size() == diagptr * bsize);  
+            assert(myLS.val[bId].size() == diagptr * bsize);
             OCP_USI id = bId * bsize;
-            myLS.val[bId].insert(myLS.val[bId].end(),
-                myLS.diagVal.data() + id, myLS.diagVal.data() + id + bsize);
-            
+            myLS.val[bId].insert(myLS.val[bId].end(), myLS.diagVal.data() + id,
+                                 myLS.diagVal.data() + id + bsize);
+
             lastbId = bId;
         }
 
         // Assemble
         bmat = dFdXpB;
-        DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1, bmat.data());
+        DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Add
@@ -578,7 +588,8 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
 
         // End
         bmat = dFdXpE;
-        DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1, bmat.data());
+        DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Insert
@@ -593,24 +604,23 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk, const OCP
     // important!
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (myLS.val[n].size() == selfPtr[n] * bsize)
-            myLS.val[n].insert(myLS.val[n].end(),
-                myLS.diagVal.data() + n * bsize, myLS.diagVal.data() + n * bsize + bsize);
+            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,
+                               myLS.diagVal.data() + n * bsize + bsize);
     }
 }
-
 
 void BulkConn::CalFluxFIM(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
-    const USI     np = myBulk.numPhase;
-    OCP_USI bId, eId, uId;
-    OCP_USI bId_np_j, eId_np_j;
-    OCP_DBL Pbegin, Pend, rho;
-    
+    const USI np = myBulk.numPhase;
+    OCP_USI   bId, eId, uId;
+    OCP_USI   bId_np_j, eId_np_j;
+    OCP_DBL   Pbegin, Pend, rho;
+
     for (OCP_USI c = 0; c < numConn; c++) {
-        bId = iteratorConn[c].BId;
-        eId = iteratorConn[c].EId;
+        bId         = iteratorConn[c].BId;
+        eId         = iteratorConn[c].EId;
         OCP_DBL Akd = area[c];
 
         for (USI j = 0; j < np; j++) {
@@ -618,51 +628,48 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
             eId_np_j = eId * np + j;
 
             bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend = myBulk.phaseExist[eId_np_j];
+            bool exend   = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
-                Pend = myBulk.Pj[eId_np_j];
-                rho = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
-            }
-            else if (exbegin && (!exend)) {
+                Pend   = myBulk.Pj[eId_np_j];
+                rho    = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
+            } else if (exbegin && (!exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
-                Pend = myBulk.P[eId];
-                rho = myBulk.rho[bId_np_j];
-            }
-            else if ((!exbegin) && (exend)) {
+                Pend   = myBulk.P[eId];
+                rho    = myBulk.rho[bId_np_j];
+            } else if ((!exbegin) && (exend)) {
                 Pbegin = myBulk.P[bId];
-                Pend = myBulk.Pj[eId_np_j];
-                rho = myBulk.rho[eId_np_j];
-            }
-            else {
+                Pend   = myBulk.Pj[eId_np_j];
+                rho    = myBulk.rho[eId_np_j];
+            } else {
                 upblock[c * np + j] = bId;
                 continue;
             }
 
-            uId = bId;
+            uId        = bId;
             OCP_DBL dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+                         (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
                 uId = eId;
-
             }
             upblock[c * np + j] = uId;
         }
     }
 }
 
+void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
+{
+    OCP_FUNCNAME;
 
-void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt) { OCP_FUNCNAME;
-
-    const USI np = myBulk.numPhase;
-    const USI nc = myBulk.numCom;
+    const USI np  = myBulk.numPhase;
+    const USI nc  = myBulk.numCom;
     const USI len = nc + 1;
-    OCP_USI bId, eId, uId, bIdb;
+    OCP_USI   bId, eId, uId, bIdb;
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
 
-        bId = n * len;
+        bId  = n * len;
         bIdb = n * nc;
 
         res[bId] = myBulk.rockVp[n] - myBulk.vf[n];
@@ -670,7 +677,6 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             res[bId + 1 + i] = myBulk.Ni[bIdb + i] - myBulk.lNi[bIdb + i];
         }
     }
-
 
     OCP_USI bId_np_j, eId_np_j, uId_np_j;
     OCP_DBL Pbegin, Pend, rho, dP;
@@ -686,32 +692,29 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             eId_np_j = eId * np + j;
 
             bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend = myBulk.phaseExist[eId_np_j];
+            bool exend   = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
-                Pend = myBulk.Pj[eId_np_j];
-                rho = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
-            }
-            else if (exbegin && (!exend)) {
+                Pend   = myBulk.Pj[eId_np_j];
+                rho    = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
+            } else if (exbegin && (!exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
-                Pend = myBulk.P[eId];
-                rho = myBulk.rho[bId_np_j];
-            }
-            else if ((!exbegin) && (exend)) {
+                Pend   = myBulk.P[eId];
+                rho    = myBulk.rho[bId_np_j];
+            } else if ((!exbegin) && (exend)) {
                 Pbegin = myBulk.P[bId];
-                Pend = myBulk.Pj[eId_np_j];
-                rho = myBulk.rho[eId_np_j];
-            }
-            else {
+                Pend   = myBulk.Pj[eId_np_j];
+                rho    = myBulk.rho[eId_np_j];
+            } else {
                 upblock[c * np + j] = bId;
                 // upblock_Rho[c * np + j] = rho;
                 continue;
             }
 
             uId = bId;
-            dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            dP  = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
+                 (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
                 uId = eId;
             }
@@ -721,7 +724,8 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             uId_np_j = uId * np + j;
             if (!myBulk.phaseExist[uId_np_j]) continue;
 
-            tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+            tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] *
+                  myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
                 dNi = tmp * myBulk.xij[uId_np_j * nc + i];
                 res[bId * len + 1 + i] += dNi;
@@ -730,9 +734,6 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
         }
     }
 }
-
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -71,26 +71,26 @@ public:
     void InputCOM(ifstream& ifs);
     void InputBIP(ifstream& ifs);
     // Method params
-    void InputSSMSTA(ifstream& ifs); 
+    void InputSSMSTA(ifstream& ifs);
     void InputNRSTA(ifstream& ifs);
-    void InputSSMSP(ifstream& ifs); 
-    void InputNRSP(ifstream& ifs); 
-    void InputRR(ifstream& ifs);  
+    void InputSSMSP(ifstream& ifs);
+    void InputNRSP(ifstream& ifs);
+    void InputRR(ifstream& ifs);
 
 public:
-    USI numComp{ 0 };   ///< num of components, water is excluded.
-    USI numPhase{ 0 };  ///< num of phase, water is excluded.
-    vector<OCP_DBL> zi;          ///< molar fraction of components in initial reservoir, water is excluded.
+    USI numComp{0};  ///< num of components, water is excluded.
+    USI numPhase{0}; ///< num of phase, water is excluded.
+    vector<OCP_DBL>
+        zi; ///< molar fraction of components in initial reservoir, water is excluded.
     vector<vector<string>>  COM; ///< Coponents information
     vector<vector<OCP_DBL>> BIP; ///< Binary interaction
 
-    vector<string>  SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
-    vector<string>	NRparamSTA; ///< Params for Solving Phase Spliting with NR
-    vector<string>  SSMparamSP; ///< Params for Solving Phase Spliting with SSM
-    vector<string>	NRparamSP; ///< Params for Solving Phase Spliting with NR
-    vector<string>	RRparam;  ///< Params for Solving Rachford-Rice equations
+    vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
+    vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
+    vector<string> SSMparamSP;  ///< Params for Solving Phase Spliting with SSM
+    vector<string> NRparamSP;   ///< Params for Solving Phase Spliting with NR
+    vector<string> RRparam;     ///< Params for Solving Rachford-Rice equations
 };
-
 
 /// ParamReservoir is an internal structure used to stores the information of
 /// reservoir(except wells) from input files. It is an intermediate interface and
@@ -110,17 +110,16 @@ public:
     vector<OCP_DBL> dz;   ///< Size along the z - direction for each grid.
 
     // Corner point geometry
-    vector<OCP_DBL> coord;
-    vector<OCP_DBL> zcorn;
-
-    OCP_DBL rsTemp; ///< Temperature for reservoir.
+    vector<OCP_DBL> coord; ///< TODO: Add Doxygen.
+    vector<OCP_DBL> zcorn; ///< TODO: Add Doxygen.
 
     // Rock
-    vector<OCP_DBL> ntg;   ///< Net to gross for each grid.
-    vector<OCP_DBL> poro;  ///< Porosity for each grid.
-    vector<OCP_DBL> permX; ///< Permeability along the x - direction for each grid.
-    vector<OCP_DBL> permY; ///< Permeability along the y-direction for each grid.
-    vector<OCP_DBL> permZ; ///< Permeability along the z-direction for each grid.
+    vector<OCP_DBL> ntg;    ///< Net to gross for each grid.
+    vector<OCP_DBL> poro;   ///< Porosity for each grid.
+    vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
+    vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
+    vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
+    OCP_DBL         rsTemp; ///< Temperature for reservoir.
     Rock rock; ///< Contains the compressibility factor and reference pressure at
                ///< initial porosity.
 
@@ -141,8 +140,7 @@ public:
     bool disGas{false};   ///< If true, dissolve gas could exist in oil phase.
 
     // Compositional Model
-    /// Contains the initial proportion of components. It's used in compositional model.
-    EoSparam EoSp;
+    EoSparam EoSp; ///< Initial component composition, used in compositional models.
 
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
@@ -150,13 +148,13 @@ public:
     Type_A_r<OCP_DBL> SATNUM;    ///< Records the index of SAT region for each grid.
     Type_A_r<OCP_DBL> PVTNUM;    ///< Records the index of PVT region for each grid.
 
-    // Saturation table & buble point pressure
+    // Saturation tables & bubble point pressure
     TableSet        SWOF_T; ///< Table set of SWOF.
     TableSet        SGOF_T; ///< Table set of SGOF.
     TableSet        PBVD_T; ///< Table set of PBVD.
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 
-    // PVT property
+    // PVT properties
     USI      numPhase; ///< Number of phases
     USI      numCom;   ///< Number of components, used in Compositional Model
     TableSet PVCO_T;   ///< Table set of PVCO.
@@ -164,16 +162,17 @@ public:
     TableSet PVDG_T;   ///< Table set of PVDG.
     TableSet PVTW_T;   ///< Table set of PVTW.
 
-    // internal method
     /// Find corresponding variable according to the name of variable.
     /// It is used for the basic properties of reservoir such as DX.
     vector<OCP_DBL>* FindPtr(const string& varName);
+
     /// Find corresponding variable according to the name of variable.
     /// It is used for the scope of the table.
     TableSet* FindPtr_T(const string& varName);
 
     /// Initialize the default value in reservoir, such as temperature, density, table.
     void Init();
+
     /// Initialize the tables' name and num of colum.
     void InitTable();
 
@@ -197,6 +196,7 @@ public:
     /// Input the keyword: DIMENS. DIMENS contain the dimension of grids of reservoir.
     /// It gives the num of grids along the x,y,z direction.
     void InputDIMENS(ifstream& ifs);
+
     /// Display the dimens, it's used to chech input.
     void DisplayDIMENS();
 
@@ -232,17 +232,14 @@ public:
     /// Input the reference density of oil, water, and air in standard condition.
     void InputDENSITY(ifstream& ifs);
 
-    /// Input the keyword: EQUIL. EQUIL contains initial information of reservoir.
-    /// See ParamEQUIL.
+    /// EQUIL contains initial information of reservoir; see ParamEQUIL.
     void InputEQUIL(ifstream& ifs);
 
     // SATNUM & PVTNUM  -- Region
-    /// Input the keyword: TABDIMS. It contains the num of saturation region and PVT
-    /// region.
+    /// TABDIMS contains the num of saturation region and PVT region.
     void InputTABDIMS(ifstream& ifs);
-    /// input the keyword: SATNUM, PVTNUM. For example, SATNUM decides which grid
-    /// belongs to which saturation region, so corresponding saturation table will
-    /// be used.
+
+    /// Input the keyword: SATNUM and PVTNUM.
     void InputRegion(ifstream& ifs, const string& keyword);
 
     // Input EoSparam
@@ -251,6 +248,7 @@ public:
     void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
     void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
     void InputBIP(ifstream& ifs) { EoSp.InputBIP(ifs); };
+
     // Method params
     void InputSSMSTA(ifstream& ifs) { EoSp.InputSSMSTA(ifs); };
     void InputNRSTA(ifstream& ifs) { EoSp.InputNRSTA(ifs); };
@@ -261,21 +259,26 @@ public:
     // check
     /// Check the reservoir param from input file.
     void CheckParam();
+
     /// Check the size of properties of grids.
     void CheckGrid();
+
     /// Check if keyword EQUIL is given.
     void CheckEQUIL() const;
+
     /// Check if density and gravity are both input, only one of them is needed.
     void CheckDenGra() const;
-    /// Check the existence of disgas, it could only exist when both oil and gas exist.
+
+    /// Check existence of disgas, it could only exist when both oil and gas exist.
     void CheckPhase() const;
-    /// Check the existence of PVTtable and SATtable. Different tables will be used in
-    /// different conditions.
+
+    /// Check existence of PVTtable and SATtable.
     void CheckPhaseTab() const;
+
     /// Check if each grid is assigned to an area or all defaulted.
     void CheckRegion() const;
-    /// (To do) In current program, only initialization of equilibration of only one
-    /// region is realized.
+
+    /// (Todo) Initialization of equilibration of only one region is realized.
     void CheckEqlRegion() const;
 };
 
@@ -288,4 +291,5 @@ public:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/
