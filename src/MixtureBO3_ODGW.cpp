@@ -707,8 +707,8 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
         dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        dSec_dPri[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs));
-        dSec_dPri[4 * 4 + 0] = -dSec_dPri[3 * 4 + 0];
+        dSec_dPri[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
+        dSec_dPri[4 * 4 + 0] = -dSec_dPri[3 * 4 + 0];  // d Xgo / dP
 
         break;
     }
