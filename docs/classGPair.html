@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.5 Jan/09/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.6 Jan/16/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -74,6 +74,11 @@ $(function() {
   <div class="headertitle"><div class="title">GPair Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Effective area of intersection surfaces with neighboring cells.  
+ <a href="classGPair.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -88,15 +93,16 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a2d28e9c84fea28928a4ade5284591490"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a></td></tr>
-<tr class="memdesc:a2d28e9c84fea28928a4ade5284591490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of some neighbor.  <a href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">More...</a><br /></td></tr>
+<tr class="memdesc:a2d28e9c84fea28928a4ade5284591490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of a neighboring cell.  <a href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">More...</a><br /></td></tr>
 <tr class="separator:a2d28e9c84fea28928a4ade5284591490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b5874523bda006f4227518e222f0282"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a2b5874523bda006f4227518e222f0282">area</a></td></tr>
-<tr class="memdesc:a2b5874523bda006f4227518e222f0282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective area between current grid and the id th neighbor.  <a href="classGPair.html#a2b5874523bda006f4227518e222f0282">More...</a><br /></td></tr>
+<tr class="memdesc:a2b5874523bda006f4227518e222f0282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective area between this cell and the neighbor indicated by id.  <a href="classGPair.html#a2b5874523bda006f4227518e222f0282">More...</a><br /></td></tr>
 <tr class="separator:a2b5874523bda006f4227518e222f0282"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00026">26</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="textblock"><p >Effective area of intersection surfaces with neighboring cells. </p>
+
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00027">27</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a010270dd718ce6569156643dc1552b21" name="a010270dd718ce6569156643dc1552b21"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a010270dd718ce6569156643dc1552b21">&#9670;&nbsp;</a></span>GPair()</h2>
@@ -132,11 +138,11 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00030">30</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        : <a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a>(Id)</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        , <a class="code hl_variable" href="classGPair.html#a2b5874523bda006f4227518e222f0282">area</a>(Area){};</div>
-<div class="ttc" id="aclassGPair_html_a2b5874523bda006f4227518e222f0282"><div class="ttname"><a href="classGPair.html#a2b5874523bda006f4227518e222f0282">GPair::area</a></div><div class="ttdeci">OCP_DBL area</div><div class="ttdoc">Effective area between current grid and the id th neighbor.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00035">Grid.hpp:35</a></div></div>
-<div class="ttc" id="aclassGPair_html_a2d28e9c84fea28928a4ade5284591490"><div class="ttname"><a href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">GPair::id</a></div><div class="ttdeci">OCP_USI id</div><div class="ttdoc">Id of some neighbor.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00034">Grid.hpp:34</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00031">31</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        : <a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a>(Id)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        , <a class="code hl_variable" href="classGPair.html#a2b5874523bda006f4227518e222f0282">area</a>(Area){};</div>
+<div class="ttc" id="aclassGPair_html_a2b5874523bda006f4227518e222f0282"><div class="ttname"><a href="classGPair.html#a2b5874523bda006f4227518e222f0282">GPair::area</a></div><div class="ttdeci">OCP_DBL area</div><div class="ttdoc">Effective area between this cell and the neighbor indicated by id.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00037">Grid.hpp:37</a></div></div>
+<div class="ttc" id="aclassGPair_html_a2d28e9c84fea28928a4ade5284591490"><div class="ttname"><a href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">GPair::id</a></div><div class="ttdeci">OCP_USI id</div><div class="ttdoc">Id of a neighboring cell.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00036">Grid.hpp:36</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -175,8 +181,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00033">33</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{ <span class="keywordflow">return</span> G1.<a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a> &lt; G2.<a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00034">34</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{ <span class="keywordflow">return</span> G1.<a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a> &lt; G2.<a class="code hl_variable" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -193,9 +199,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Effective area between current grid and the id th neighbor. </p>
+<p>Effective area between this cell and the neighbor indicated by id. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00035">35</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00037">37</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -211,9 +217,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Id of some neighbor. </p>
+<p>Id of a neighboring cell. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00034">34</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00036">36</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -223,7 +229,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 14:28:08 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 16:19:59 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

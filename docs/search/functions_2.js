@@ -2,11 +2,11 @@ var searchData=
 [
   ['calactivegrid_0',['CalActiveGrid',['../classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291',1,'Grid']]],
   ['calakdcornergrid_1',['CalAkdCornerGrid',['../classGrid.html#a9e185347e3ef3deda469ad98e8415af2',1,'Grid']]],
-  ['calakdothogonalgrid_2',['CalAkdOthogonalGrid',['../classGrid.html#a9453ee156e23aee3c74a4b2d89f5eaeb',1,'Grid']]],
+  ['calakdorthogonalgrid_2',['CalAkdOrthogonalGrid',['../classGrid.html#a717d4e13a55317dda16aa32bcc14caf0',1,'Grid']]],
   ['calcfl01impec_3',['CalCFL01IMPEC',['../classBulk.html#a2db03765663c821f21ddd9c57b9295ce',1,'Bulk::CalCFL01IMPEC()'],['../classBulkConn.html#aef03b3f72e154174446d2755ccfd92ce',1,'BulkConn::CalCFL01IMPEC()'],['../classReservoir.html#a663f227336c0a9675703a81017401c68',1,'Reservoir::CalCFL01IMPEC()'],['../classWell.html#af050eac32e6afc9a9a2eb3af0a73c745',1,'Well::CalCFL01IMPEC()'],['../classWellGroup.html#a50fdb59f28d780ef5546dcbe85b6d406',1,'WellGroup::CalCFL01IMPEC()']]],
   ['calcflimpec_4',['CalCFLIMPEC',['../classBulkConn.html#a735a3dcedd718b80c36be365ee935f16',1,'BulkConn::CalCFLIMPEC()'],['../classReservoir.html#a23285a51e18a2dbb2d47903778645e35',1,'Reservoir::CalCFLIMPEC()'],['../classWell.html#aeed8f1f0c91e4a7935686f9fdc969162',1,'Well::CalCFLIMPEC()'],['../classWellGroup.html#a9d251b44b4fb4d95f6341722b8a137bf',1,'WellGroup::CalCFLIMPEC()']]],
   ['calconnfluximpec_5',['CalConnFluxIMPEC',['../classReservoir.html#a957448933e0b62741f14bb4963707bca',1,'Reservoir']]],
-  ['caldepthvothogonalgrid_6',['CalDepthVOthogonalGrid',['../classGrid.html#a805153e45a07e63229a8a65ac634c0ed',1,'Grid']]],
+  ['caldepthvorthogonalgrid_6',['CalDepthVOrthogonalGrid',['../classGrid.html#af6d2528e58283f52259581095c4c1187',1,'Grid']]],
   ['caldg_7',['CaldG',['../classWell.html#a98c5c54987ca460ab025504f014ce96e',1,'Well::CaldG()'],['../classWellGroup.html#a159aabae47f57b8507a500aa96075102',1,'WellGroup::CaldG()']]],
   ['calflashderivfim_8',['CalFlashDerivFIM',['../classReservoir.html#ae09bfdab3ed8e5969b810d4fff4165fd',1,'Reservoir']]],
   ['calflashimpec_9',['CalFlashIMPEC',['../classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8',1,'Reservoir']]],

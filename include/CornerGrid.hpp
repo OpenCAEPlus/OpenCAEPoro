@@ -95,7 +95,7 @@ public:
     OCP_DBL Ad_dd;
     Point3D d;
     OCP_USI neigh;
-    USI     directiontype; // 1 - x, 2 - y, 3 - z, 4 - extension
+    USI     directionType; // 1 - x, 2 - y, 3 - z, 4 - extension
 };
 
 class ConnGrid
@@ -112,7 +112,7 @@ class GeneralConnect
 {
 public:
     OCP_USI begin, end;
-    USI     directiontype; // 1 - x, 2 - y, 3 - z, 4 - extension
+    USI     directionType; // 1 - x, 2 - y, 3 - z, 4 - extension
     OCP_DBL Ad_dd_begin;
     OCP_DBL Ad_dd_end;
 };

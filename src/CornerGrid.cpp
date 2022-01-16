@@ -548,7 +548,7 @@ void ConnGrid::AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D&
     halfConn[nConn].Ad_dd         = area * d / (d * d);
     halfConn[nConn].d             = d;
     halfConn[nConn].neigh         = n;
-    halfConn[nConn].directiontype = direction;
+    halfConn[nConn].directionType = direction;
     nConn++;
 }
 
@@ -2076,7 +2076,7 @@ void COORD::CalConn()
             connect[iter_conn].Ad_dd_begin   = blockconn[n].halfConn[j].Ad_dd;
             connect[iter_conn].end           = nn;
             connect[iter_conn].Ad_dd_end     = blockconn[nn].halfConn[jj].Ad_dd;
-            connect[iter_conn].directiontype = blockconn[n].halfConn[j].directiontype;
+            connect[iter_conn].directionType = blockconn[n].halfConn[j].directionType;
             iter_conn++;
         }
     }

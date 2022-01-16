@@ -79,5 +79,6 @@ var searchData=
   ['getwwir_76',['GetWWIR',['../classWellGroup.html#a4a11cc776a497e7df5cabede2b3ad19f',1,'WellGroup']]],
   ['getwwit_77',['GetWWIT',['../classWellGroup.html#a18cd97559d197dd997904fc26309b24c',1,'WellGroup']]],
   ['getwwpr_78',['GetWWPR',['../classWellGroup.html#a2ab76e4be20e276339bfdf23230b03dd',1,'WellGroup']]],
-  ['getwwpt_79',['GetWWPT',['../classWellGroup.html#a825164551e6f2477f95b1c93c280f23c',1,'WellGroup']]]
+  ['getwwpt_79',['GetWWPT',['../classWellGroup.html#a825164551e6f2477f95b1c93c280f23c',1,'WellGroup']]],
+  ['grid_80',['Grid',['../classGrid.html#a775ad2cbbd0fa863c84748eccdb707ad',1,'Grid']]]
 ];

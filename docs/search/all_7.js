@@ -61,7 +61,7 @@ var searchData=
   ['getsgas_58',['GetSGAS',['../classBulk.html#a96f9ff9bf4c3c684936b073bf39c14e1',1,'Bulk']]],
   ['getsoil_59',['GetSOIL',['../classBulk.html#a7b43113018d9ce3ba4f559acf65dd760',1,'Bulk']]],
   ['getsol01fim_60',['GetSol01FIM',['../classBulk.html#a799c3248ccc66762e1de6a0930c0ff19',1,'Bulk']]],
-  ['getsolfim_61',['GetSolFIM',['../classBulk.html#afe271a220488edfca396399e74a76bfd',1,'Bulk::GetSolFIM()'],['../classWellGroup.html#a2d3edca6b589e203168a9d2119d10420',1,'WellGroup::GetSolFIM()']]],
+  ['getsolfim_61',['GetSolFIM',['../classWellGroup.html#a2d3edca6b589e203168a9d2119d10420',1,'WellGroup::GetSolFIM()'],['../classBulk.html#afe271a220488edfca396399e74a76bfd',1,'Bulk::GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_DBL &amp;dPmaxlim, const OCP_DBL &amp;dSmaxlim)']]],
   ['getsolimpec_62',['GetSolIMPEC',['../classBulk.html#a1e8a15fd47a345ad761da5707c866683',1,'Bulk::GetSolIMPEC()'],['../classWellGroup.html#a9cf9fde0930b054f599e5dea677e87db',1,'WellGroup::GetSolIMPEC()']]],
   ['getsolution_63',['GetSolution',['../classLinearSystem.html#aa09121cf9aee73f88f0d48096968ecd8',1,'LinearSystem']]],
   ['getsolutionfim_64',['GetSolutionFIM',['../classReservoir.html#a340e980c38b9cfcd92997999fa01c18f',1,'Reservoir']]],
@@ -88,7 +88,7 @@ var searchData=
   ['gpair_85',['GPair',['../classGPair.html',1,'']]],
   ['gravity_86',['gravity',['../classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a',1,'ParamReservoir']]],
   ['gravity_5ffactor_87',['GRAVITY_FACTOR',['../OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8',1,'OCPConst.hpp']]],
-  ['grid_88',['Grid',['../classGrid.html',1,'']]],
+  ['grid_88',['Grid',['../classGrid.html#a775ad2cbbd0fa863c84748eccdb707ad',1,'Grid::Grid()'],['../classGrid.html',1,'Grid']]],
   ['grid_2ecpp_89',['Grid.cpp',['../Grid_8cpp.html',1,'']]],
   ['grid_2ehpp_90',['Grid.hpp',['../Grid_8hpp.html',1,'']]],
   ['group_91',['group',['../classWellParam.html#afbe05050ed2e755e624c93e49804fdd4',1,'WellParam']]]
