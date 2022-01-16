@@ -833,23 +833,25 @@ OCP_INT Well::CheckP(const Bulk& myBulk)
 
     if (opt.type == INJ) {
         if (opt.optMode != BHP_MODE && BHP > opt.maxBHP) {
+#if DEBUG
+            cout << ">> " << name << " switch to BHPMode" << endl;
+#endif
             opt.optMode = BHP_MODE;
             BHP         = opt.maxBHP;
-            cout << name << " switch to BHPMode" << endl;
             return 2;
         }
     } else {
         if (opt.optMode != BHP_MODE && BHP < opt.minBHP) {
+#if DEBUG
+            cout << ">> " << name << " switch to BHPMode" << endl;
+#endif
             opt.optMode = BHP_MODE;
             BHP         = opt.minBHP;
-            cout << name << " switch to BHPMode" << endl;
             return 2;
         }
     }
-    OCP_INT flag = 0;
-    flag         = CheckCrossFlow(myBulk);
 
-    return flag;
+    return CheckCrossFlow(myBulk);
 }
 
 OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
