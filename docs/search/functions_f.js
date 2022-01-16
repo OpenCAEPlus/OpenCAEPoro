@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['x2n_0',['x2n',['../classMixtureComp.html#af3de24acaa27101e5dfe6f6b47946fe1',1,'MixtureComp']]],
-  ['xiphase_1',['XiPhase',['../classMixture.html#a0327563d7fe9767132425b3b7a73e052',1,'Mixture::XiPhase()'],['../classBOMixture.html#a0af98150f315f690fadadbe06904c999',1,'BOMixture::XiPhase()'],['../classMixtureComp.html#a1a127924880709f63c6e9bfa6c17c0bc',1,'MixtureComp::XiPhase()']]]
+  ['wellopt_0',['WellOpt',['../classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2',1,'WellOpt::WellOpt()=default'],['../classWellOpt.html#a93515bcbbec17851a81911122eb82505',1,'WellOpt::WellOpt(const WellOptParam &amp;Optparam)']]],
+  ['wellstate_1',['WellState',['../classWell.html#a7e109c1f8cb0ee115b10a557d7928e5d',1,'Well']]],
+  ['welltype_2',['WellType',['../classWell.html#adf196051a266a036aeafb34035cc80b9',1,'Well']]]
 ];

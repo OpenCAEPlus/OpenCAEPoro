@@ -862,7 +862,6 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
     bool    flagC = true;
 
     if (opt.type == PROD) {
-        // USI np = myBulk.numPhase;
         for (USI p = 0; p < numPerf; p++) {
             k            = perf[p].location;
             OCP_DBL minP = myBulk.P[k];

@@ -1,5 +1,5 @@
 /*! \file    OCPFluidMethod.hpp
- *  \brief   Solution methods in OpenCAEPoro
+ *  \brief   Declaration of solution methods for fluid part in OpenCAEPoro
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *

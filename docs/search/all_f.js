@@ -34,10 +34,13 @@ var searchData=
   ['omegaa_31',['OmegaA',['../classCOMP.html#a567a3ca436b1e24d635bca802deb581a',1,'COMP']]],
   ['omegab_32',['OmegaB',['../classCOMP.html#abed696a12cb8fa17d9a8b23552f326e8',1,'COMP']]],
   ['opencaeporo_33',['OpenCAEPoro',['../classOpenCAEPoro.html',1,'']]],
-  ['optmode_34',['optMode',['../classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539',1,'WellOptParam']]],
-  ['outputdetail_35',['OutputDetail',['../classOutputDetail.html',1,'']]],
-  ['outputlinearsystem_36',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
-  ['outputresults_37',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
-  ['outputsolution_38',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]],
-  ['outputsummary_39',['OutputSummary',['../classOutputSummary.html',1,'']]]
+  ['operator_2a_34',['operator*',['../classPoint3D.html#a8f85863ae7b0a3696db12282cd672158',1,'Point3D::operator*()'],['../CornerGrid_8hpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../CornerGrid_8hpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp']]],
+  ['operator_2b_35',['operator+',['../classPoint3D.html#a2706f669ee04221a3f15446b0dab0856',1,'Point3D']]],
+  ['operator_2d_36',['operator-',['../classPoint3D.html#a0b10d649556d95c40bd0087d2110f24f',1,'Point3D']]],
+  ['optmode_37',['optMode',['../classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539',1,'WellOptParam']]],
+  ['outputdetail_38',['OutputDetail',['../classOutputDetail.html',1,'']]],
+  ['outputlinearsystem_39',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
+  ['outputresults_40',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
+  ['outputsolution_41',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]],
+  ['outputsummary_42',['OutputSummary',['../classOutputSummary.html',1,'']]]
 ];

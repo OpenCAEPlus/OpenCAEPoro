@@ -1,5 +1,5 @@
 /*! \file    OCPFluidMethod.cpp
- *  \brief   Contains Method used for Fluid simulation.
+ *  \brief   Definition of solution methods for fluid part in OpenCAEPoro
  *  \author  Shizhe Li
  *  \date    Nov/01/2021
  *
