@@ -249,7 +249,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             default:
                 break;
         }
-
         return true;
     } else {
         return false;
