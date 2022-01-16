@@ -535,28 +535,34 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="FlowUnit_8cpp_source.html#l00035">35</a> of file <a class="el" href="FlowUnit_8cpp_source.html">FlowUnit.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_function" href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">CalKrPc_W</a>(kr_out, pc_out);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_function" href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">CalKrPc_OW</a>(S_in, kr_out, pc_out);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">case</span> PHASE_OG:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a>:</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <a class="code hl_function" href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">CalKrPc_OG</a>(S_in, kr_out, pc_out);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">case</span> PHASE_ODGW: <span class="comment">// should SWOF be used here?</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>: <span class="comment">// should SWOF be used here?</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_function" href="classFlowUnit.html#afe284f26fb159386593bd2ef075503de">CalKrPc_ODGW</a>(S_in, kr_out, pc_out);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">default</span>:</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong mode specified!&quot;</span>);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae9114d0b4b1a18f3cf64f446fd758c9b"><div class="ttname"><a href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a></div><div class="ttdeci">const USI PHASE_OG</div><div class="ttdoc">Phase type = oil-gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00083">OCPConst.hpp:83</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_a2a71792943a42657deeb56a14e3cc7db"><div class="ttname"><a href="classFlowUnit.html#a2a71792943a42657deeb56a14e3cc7db">FlowUnit::CalKrPc_OG</a></div><div class="ttdeci">void CalKrPc_OG(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00080">FlowUnit.cpp:80</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_a661ff5236b6bdd982797777b3e07f068"><div class="ttname"><a href="classFlowUnit.html#a661ff5236b6bdd982797777b3e07f068">FlowUnit::CalKrPc_OW</a></div><div class="ttdeci">void CalKrPc_OW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00063">FlowUnit.cpp:63</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_ab00dc147b993e958c9e9716f92b23daa"><div class="ttname"><a href="classFlowUnit.html#ab00dc147b993e958c9e9716f92b23daa">FlowUnit::CalKrPc_W</a></div><div class="ttdeci">void CalKrPc_W(OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00056">FlowUnit.cpp:56</a></div></div>
 <div class="ttc" id="aclassFlowUnit_html_afe284f26fb159386593bd2ef075503de"><div class="ttname"><a href="classFlowUnit.html#afe284f26fb159386593bd2ef075503de">FlowUnit::CalKrPc_ODGW</a></div><div class="ttdeci">void CalKrPc_ODGW(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="FlowUnit_8cpp_source.html#l00097">FlowUnit.cpp:97</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="FlowUnit_8cpp_source.html#l00097">CalKrPc_ODGW()</a>, <a class="el" href="FlowUnit_8cpp_source.html#l00080">CalKrPc_OG()</a>, <a class="el" href="FlowUnit_8cpp_source.html#l00063">CalKrPc_OW()</a>, <a class="el" href="FlowUnit_8cpp_source.html#l00056">CalKrPc_W()</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00084">PHASE_ODGW</a>, <a class="el" href="OCPConst_8hpp_source.html#l00083">PHASE_OG</a>, <a class="el" href="OCPConst_8hpp_source.html#l00082">PHASE_OW</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00080">PHASE_W</a>.</p>
+
 </div>
 </div>
 <a id="afe284f26fb159386593bd2ef075503de" name="afe284f26fb159386593bd2ef075503de"></a>
@@ -821,10 +827,10 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="FlowUnit_8cpp_source.html#l00124">124</a> of file <a class="el" href="FlowUnit_8cpp_source.html">FlowUnit.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>{</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            CalKrPcDeriv_OW(S_in, kr_out, pc_out, dkrdS, dPcjdS);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            CalKrPcDeriv_ODGW(S_in, kr_out, pc_out, dkrdS, dPcjdS);</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">default</span>:</div>
@@ -1431,7 +1437,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

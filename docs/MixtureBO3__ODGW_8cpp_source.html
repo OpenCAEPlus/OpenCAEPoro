@@ -104,16 +104,16 @@ $(function() {
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (1 - <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[1] - <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[2] &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[1] &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            phasecae = PHASE_W; <span class="comment">// case 1 : water, no oil, no gas</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            phasecae = <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>; <span class="comment">// case 1 : water, no oil, no gas</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            phasecae = PHASE_GW; <span class="comment">// case 2 : water, gas, no oil</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            phasecae = <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>; <span class="comment">// case 2 : water, gas, no oil</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[1] &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>)</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        phasecae = PHASE_OW; <span class="comment">// case 3 : water, oil, no gas</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        phasecae = <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>; <span class="comment">// case 3 : water, oil, no gas</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        phasecae = PHASE_ODGW; <span class="comment">// case 4 : water, oil, gas</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        phasecae = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>; <span class="comment">// case 4 : water, oil, gas</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">switch</span> (phasecae) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">case</span> PHASE_W: {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>: {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="comment">// water</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[0]           = 0;</div>
@@ -142,7 +142,7 @@ $(function() {
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">case</span> PHASE_GW: {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>: {</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="comment">// water, gas</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[1]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
@@ -179,7 +179,7 @@ $(function() {
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">case</span> PHASE_OW: {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>: {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="comment">// water, oil, unsaturated</span></div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[0] = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2] = <span class="keyword">true</span>;</div>
@@ -223,7 +223,7 @@ $(function() {
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">case</span> PHASE_ODGW: {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>: {</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>.assign(3, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="comment">// oil property</span></div>
@@ -303,16 +303,16 @@ $(function() {
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] &lt; <a class="code hl_variable" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a> * <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[1] &lt;= <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] * Rs_sat)</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            phasecase = PHASE_W; <span class="comment">// water, no oil, no gas</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>; <span class="comment">// water, no oil, no gas</span></div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            phasecase = PHASE_GW; <span class="comment">// water, gas, no oil</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>; <span class="comment">// water, gas, no oil</span></div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[1] &lt;= <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] * Rs_sat)</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        phasecase = PHASE_OW; <span class="comment">// water, oil, no gas</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>; <span class="comment">// water, oil, no gas</span></div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        phasecase = PHASE_ODGW; <span class="comment">// water, oil ,gas</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>; <span class="comment">// water, oil ,gas</span></div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">switch</span> (phasecase) {</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">case</span> PHASE_W: {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>: {</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            <span class="comment">// water</span></div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[0]           = 0;</div>
@@ -341,7 +341,7 @@ $(function() {
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        }</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordflow">case</span> PHASE_GW: {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>: {</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            <span class="comment">// water, gas</span></div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[1]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
@@ -384,7 +384,7 @@ $(function() {
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        }</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">case</span> PHASE_OW: {</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>: {</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <span class="comment">// water, oil</span></div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[0]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
@@ -424,7 +424,7 @@ $(function() {
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        }</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">case</span> PHASE_ODGW: {</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>: {</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>.assign(3, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>            <span class="comment">// oil property</span></div>
@@ -512,18 +512,18 @@ $(function() {
 <div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span> </div>
 <div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] &lt; <a class="code hl_variable" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a> * <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
 <div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[1] &lt;= <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] * Rs_sat)</div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>            phasecase = PHASE_W; <span class="comment">// water, no oil, no gas</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>            phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>; <span class="comment">// water, no oil, no gas</span></div>
 <div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>            phasecase = PHASE_GW; <span class="comment">// water, gas, no oil</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>            phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>; <span class="comment">// water, gas, no oil</span></div>
 <div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    }</div>
 <div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>    <span class="comment">// Beacareful when NO = NG = 0, if it&#39;s possible.</span></div>
 <div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[1] &lt;= <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0] * Rs_sat)</div>
-<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>        phasecase = PHASE_OW; <span class="comment">// water, oil, no gas</span></div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>        phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>; <span class="comment">// water, oil, no gas</span></div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>        phasecase = PHASE_ODGW; <span class="comment">// water, oil ,gas</span></div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>        phasecase = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>; <span class="comment">// water, oil ,gas</span></div>
 <div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span> </div>
 <div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>    <span class="keywordflow">switch</span> (phasecase) {</div>
-<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>        <span class="keywordflow">case</span> PHASE_W: {</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>: {</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>            <span class="comment">// water</span></div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>            <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[0]           = 0;</div>
@@ -567,7 +567,7 @@ $(function() {
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span> </div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>        }</div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        <span class="keywordflow">case</span> PHASE_GW: {</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>: {</div>
 <div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>            <span class="comment">// water, gas</span></div>
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[1]  = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>            <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2]  = <span class="keyword">true</span>;</div>
@@ -629,7 +629,7 @@ $(function() {
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    }</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keywordflow">case</span> PHASE_OW: {</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>: {</div>
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        <span class="comment">// water, oil</span></div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[0] = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>        <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>[2] = <span class="keyword">true</span>;</div>
@@ -704,7 +704,7 @@ $(function() {
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span> </div>
 <div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    }</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    <span class="keywordflow">case</span> PHASE_ODGW: {</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>: {</div>
 <div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>        <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>.assign(3, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span> </div>
 <div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        <span class="comment">// oil property</span></div>
@@ -859,6 +859,10 @@ $(function() {
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = 5.61458 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aff7d8ab6933e8647531d27ca4db141e2"><div class="ttname"><a href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a></div><div class="ttdeci">const USI PHASE_GW</div><div class="ttdoc">Phase type = gas-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00081">OCPConst.hpp:81</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassBOMixture_html_a11747869313d39c0ec2a639113725b21"><div class="ttname"><a href="classBOMixture.html#a11747869313d39c0ec2a639113725b21">BOMixture::BOFlash_Ni_ODGW</a></div><div class="ttdeci">void BOFlash_Ni_ODGW(const OCP_DBL &amp;Pin, const OCP_DBL *Niin)</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO3__ODGW_8cpp_source.html#l00211">MixtureBO3_ODGW.cpp:211</a></div></div>
 <div class="ttc" id="aclassBOMixture_html_a663192183d2940d333c91d183795f950"><div class="ttname"><a href="classBOMixture.html#a663192183d2940d333c91d183795f950">BOMixture::BOFlash_Sj_ODGW</a></div><div class="ttdeci">void BOFlash_Sj_ODGW(const OCP_DBL &amp;Pin, const OCP_DBL &amp;Pbbin, const OCP_DBL *Sjin, const OCP_DBL &amp;Vpore)</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO3__ODGW_8cpp_source.html#l00014">MixtureBO3_ODGW.cpp:14</a></div></div>
@@ -888,7 +892,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

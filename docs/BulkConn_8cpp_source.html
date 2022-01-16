@@ -632,9 +632,9 @@ $(function() {
 <div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span> </div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>        <span class="comment">// Assemble</span></div>
 <div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        bmat = dFdXpB;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &amp;myBulk.dSec_dPri[bId * bsize2], 1,</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dFdXsB.data(), &amp;myBulk.dSec_dPri[bId * bsize2], 1,</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>                bmat.data());</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        <span class="comment">// Begin</span></div>
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>        <span class="comment">// Add</span></div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
@@ -642,19 +642,19 @@ $(function() {
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        }</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        <span class="comment">// End</span></div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        <span class="comment">// Insert</span></div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        Dscalar(bsize, -1, bmat.data());</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        <span class="comment">// End</span></div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        bmat = dFdXpE;</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * bsize2], 1,</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * bsize2], 1,</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                bmat.data());</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>        <span class="comment">// Begin</span></div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>        <span class="comment">// Insert</span></div>
 <div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        <span class="comment">// Add</span></div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        Dscalar(bsize, -1, bmat.data());</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
 <div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>            myLS.diagVal[eId * bsize + i] += bmat[i];</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        }</div>
@@ -803,6 +803,8 @@ $(function() {
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aBulkConn_8hpp_html"><div class="ttname"><a href="BulkConn_8hpp.html">BulkConn.hpp</a></div><div class="ttdoc">BulkConn class declaration.</div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a2dedd031947f85613a20d2bcadfb6d29"><div class="ttname"><a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a></div><div class="ttdeci">void DaABpbC(const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</div><div class="ttdoc">Computes C' = alpha B'A' + beta C', all matrices are column-major.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00041">DenseMat.cpp:41</a></div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a3fb701e3ab34443119b7b2ba7a2bc6c7"><div class="ttname"><a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a></div><div class="ttdeci">void Dscalar(const int &amp;n, const double &amp;alpha, double *x)</div><div class="ttdoc">Scales a vector by a constant.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00027">DenseMat.cpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = 5.61458 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
@@ -839,7 +841,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

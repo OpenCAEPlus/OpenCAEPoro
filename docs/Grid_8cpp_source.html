@@ -85,13 +85,13 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (!rs_param.<a class="code hl_variable" href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">coord</a>.empty()) {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// CornerPoint Grid</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        gridType = CORNER_GRID;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        gridType = <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        coord = rs_param.<a class="code hl_variable" href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">coord</a>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        zcorn = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a177afb4fee57ec24480aaeb5d2513087">zcorn</a>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// Orthogonal Grid</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        gridType = ORTHOGONAL_GRID;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        gridType = <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        numConn = 3 * nx * ny * nz - nx * ny - ny * nz - nz * nx;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        tops    = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6683503e7bad843091ba6de1ca958e3a">tops</a>;</div>
@@ -123,10 +123,10 @@ $(function() {
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">   58</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Grid::Setup</a>()</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">switch</span> (gridType) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> ORTHOGONAL_GRID:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>:</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a>();</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">case</span> CORNER_GRID:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>:</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_function" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a>();</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">default</span>:</div>
@@ -354,8 +354,10 @@ $(function() {
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment">/*  Chensong Zhang      Jan/16/2022      Fix Doxygen                          */</span></div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aGrid_8hpp_html"><div class="ttname"><a href="Grid_8hpp.html">Grid.hpp</a></div><div class="ttdoc">Grid class declaration.</div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a03e6001212ac292d305d31b421f28442"><div class="ttname"><a href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a></div><div class="ttdeci">const USI CORNER_GRID</div><div class="ttdoc">Grid type = corner-point.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a5e922afbb7dc32b9f6a8f7b49e02f1fe"><div class="ttname"><a href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a></div><div class="ttdeci">const USI ORTHOGONAL_GRID</div><div class="ttdoc">Grid type = orthogonal.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00057">OCPConst.hpp:57</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
@@ -396,7 +398,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

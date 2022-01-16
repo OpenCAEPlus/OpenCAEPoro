@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['ocptable_0',['OCPTable',['../classOCPTable.html#a8a9900dce5b19b5213407a78d09d62c7',1,'OCPTable::OCPTable()=default'],['../classOCPTable.html#abb58ea17af5f684841011286a34bac5b',1,'OCPTable::OCPTable(const USI &amp;row, const USI &amp;col)']]],
-  ['operator_2a_1',['operator*',['../classPoint3D.html#a8f85863ae7b0a3696db12282cd672158',1,'Point3D::operator*()'],['../CornerGrid_8hpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../CornerGrid_8hpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp']]],
-  ['operator_2b_2',['operator+',['../classPoint3D.html#a2706f669ee04221a3f15446b0dab0856',1,'Point3D']]],
-  ['operator_2d_3',['operator-',['../classPoint3D.html#a0b10d649556d95c40bd0087d2110f24f',1,'Point3D']]],
-  ['outputlinearsystem_4',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
-  ['outputresults_5',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
-  ['outputsolution_6',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]]
+  ['main_0',['main',['../Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c',1,'Main.cpp']]],
+  ['map_5fstr2int_1',['Map_Str2Int',['../UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771',1,'UtilInput.hpp']]],
+  ['mapg2b_2',['MapG2B',['../classGrid.html#ad87d55e19bec2edb49682c610cbc6929',1,'Grid']]],
+  ['massconserveimpec_3',['MassConserveIMPEC',['../classBulkConn.html#a6b6b36ddc96dce150740cdcff8acf81e',1,'BulkConn::MassConserveIMPEC()'],['../classWell.html#a60acab4066c9b323f85e1018f7cee341',1,'Well::MassConserveIMPEC()'],['../classWellGroup.html#acfcd8838589217ffe3d36f37af5d8a26',1,'WellGroup::MassConserveIMPEC()']]],
+  ['massconseveimpec_4',['MassConseveIMPEC',['../classReservoir.html#a3185cd9882fd3e69324b45ea663a31cd',1,'Reservoir']]],
+  ['multiplyval_5',['MultiplyVal',['../classParamReservoir.html#a36c3784b2ae617a5fef566ce160c1f81',1,'ParamReservoir']]]
 ];

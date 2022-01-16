@@ -312,9 +312,9 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>        }</div>
 <div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span>        <span class="comment">// Bulk to Well</span></div>
 <div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>        bmat = dQdXpB;</div>
-<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span>        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &amp;myBulk.dSec_dPri[n * bsize2], 1,</div>
+<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dQdXsB.data(), &amp;myBulk.dSec_dPri[n * bsize2], 1,</div>
 <div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>                bmat.data());</div>
-<div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>        <span class="comment">// Add</span></div>
 <div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ptr = myLS.diagPtr[n];</div>
 <div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
@@ -322,17 +322,17 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>        }</div>
 <div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>        <span class="comment">// Insert</span></div>
 <div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>        bmat = dQdXpW;</div>
-<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span>        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span>        myLS.colId[n].push_back(wId);</div>
 <div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span> </div>
 <div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>        <span class="comment">// Well</span></div>
 <div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>                <span class="comment">// Diag</span></div>
 <div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span>                bmat.assign(bsize, 0);</div>
 <div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
@@ -345,17 +345,17 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span> </div>
 <div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span>                <span class="comment">// OffDiag</span></div>
 <div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>                bmat = dQdXpB;</div>
-<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span>                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),</div>
+<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span>                <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dQdXsB.data(),</div>
 <div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>                        &amp;myBulk.dSec_dPri[n * bsize2], 1, bmat.data());</div>
 <div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>                bmat2.assign(bsize, 0);</div>
 <div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>                    Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());</div>
+<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>                    <a class="code hl_function" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());</div>
 <div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>                }</div>
 <div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>                myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());</div>
 <div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>                myLS.colId[wId].push_back(n);</div>
 <div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span> </div>
-<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>                <span class="comment">// Diag</span></div>
 <div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>                bmat.assign(bsize, 0);</div>
 <div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc + 1; i++) {</div>
@@ -386,13 +386,22 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span>    myLS.val[wId].insert(myLS.val[wId].end(), myLS.diagVal.data() + wId * bsize,</div>
 <div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>                         myLS.diagVal.data() + wId * bsize + bsize);</div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a2dedd031947f85613a20d2bcadfb6d29"><div class="ttname"><a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a></div><div class="ttdeci">void DaABpbC(const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</div><div class="ttdoc">Computes C' = alpha B'A' + beta C', all matrices are column-major.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00041">DenseMat.cpp:41</a></div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a3fb701e3ab34443119b7b2ba7a2bc6c7"><div class="ttname"><a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a></div><div class="ttdeci">void Dscalar(const int &amp;n, const double &amp;alpha, double *x)</div><div class="ttdoc">Scales a vector by a constant.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00027">DenseMat.cpp:27</a></div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a5da432e006319d9f82b5da4c0a186c1f"><div class="ttname"><a href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a></div><div class="ttdeci">void Daxpy(const int &amp;n, const double &amp;alpha, const double *x, double *y)</div><div class="ttdoc">Constant times a vector plus a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00034">DenseMat.cpp:34</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = 5.61458 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a3615008dac3cda340c4587ef1622ca74"><div class="ttname"><a href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a></div><div class="ttdeci">const USI LRATE_MODE</div><div class="ttdoc">Well option = fixed fluid rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00100">OCPConst.hpp:100</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a36e159b6de59020f171c2cef277108e8"><div class="ttname"><a href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a></div><div class="ttdeci">const USI WRATE_MODE</div><div class="ttdoc">Well option = fixed water rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00099">OCPConst.hpp:99</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a6bc5e2a2d158c83db657edc1dcfeb723"><div class="ttname"><a href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a></div><div class="ttdeci">const USI ORATE_MODE</div><div class="ttdoc">Well option = fixed oil rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00097">OCPConst.hpp:97</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a97181f08046f57424cf2458c5263a4a7"><div class="ttname"><a href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a></div><div class="ttdeci">const USI RATE_MODE</div><div class="ttdoc">Well option = fixed total rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00096">OCPConst.hpp:96</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae977bf9562c2c63895c4efc43f080225"><div class="ttname"><a href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a></div><div class="ttdeci">const USI BHP_MODE</div><div class="ttdoc">Well option = fixed bottom-hole-pressure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00101">OCPConst.hpp:101</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_af273249c7a6a295eee8bb2443287c5b3"><div class="ttname"><a href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a></div><div class="ttdeci">const USI GRATE_MODE</div><div class="ttdoc">Well option = fixed gas rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00098">OCPConst.hpp:98</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_afa282da104aab8f046a09e9dffb6f680"><div class="ttname"><a href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a></div><div class="ttdeci">const OCP_DBL CONV2</div><div class="ttdoc">Darcy constant in Field.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00054">OCPConst.hpp:54</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00053">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00054">CONV2</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00053">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00054">CONV2</a>, <a class="el" href="DenseMat_8cpp_source.html#l00041">DaABpbC()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00034">Daxpy()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00027">Dscalar()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">LRATE_MODE</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00099">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -465,11 +474,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span> </div>
 <div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>        <span class="comment">// Well to Bulk</span></div>
 <div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span>                <span class="comment">// diag</span></div>
 <div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>                myLS.diagVal[wId] += valw;</div>
 <div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                <span class="comment">// off diag</span></div>
@@ -478,7 +487,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>                <span class="comment">// b</span></div>
 <div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                myLS.b[wId] -= bw;</div>
 <div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                myLS.colId[wId].push_back(k);</div>
 <div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>                myLS.val[wId].push_back(0);</div>
 <div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>                <span class="keywordflow">break</span>;</div>
@@ -491,11 +500,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span>    assert(myLS.val[wId].size() == numPerf);</div>
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>    <span class="comment">// the order of perforation is not necessarily in order</span></div>
 <div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>    <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>        <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>        <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>        <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>        <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>        <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>            <span class="comment">// diag</span></div>
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>            myLS.colId[wId].push_back(wId);</div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>            myLS.diagPtr[wId] = numPerf;</div>
@@ -503,7 +512,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>            <span class="comment">// b</span></div>
 <div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>            myLS.b[wId] += dt * opt.maxRate;</div>
 <div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>        <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>            <span class="comment">// diag</span></div>
 <div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>            myLS.colId[wId].push_back(wId);</div>
 <div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span>            myLS.diagPtr[wId] = numPerf;</div>
@@ -518,7 +527,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span>    }</div>
 <div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">LRATE_MODE</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00099">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -634,14 +643,14 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01407" name="l01407"></a><span class="lineno"> 1407</span>        }</div>
 <div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span>        <span class="comment">// Bulk to Well</span></div>
 <div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span>        bmat = dQdXpB;</div>
-<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span>        DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &amp;myBulk.dSec_dPri[n * bsize2], 1,</div>
+<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dQdXsB.data(), &amp;myBulk.dSec_dPri[n * bsize2], 1,</div>
 <div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>                bmat.data());</div>
 <div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span> </div>
 <div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span>        <span class="comment">// for (USI i = 0; i &lt; bsize; i++) {</span></div>
 <div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span>        <span class="comment">//    cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; bmat[i] &lt;&lt; endl;</span></div>
 <div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span>        <span class="comment">//}</span></div>
 <div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span> </div>
-<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>        <span class="comment">// Add</span></div>
 <div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ptr = myLS.diagPtr[n];</div>
 <div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
@@ -649,17 +658,17 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>        }</div>
 <div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>        <span class="comment">// Insert</span></div>
 <div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>        bmat = dQdXpW;</div>
-<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>        myLS.colId[n].push_back(wId);</div>
 <div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span> </div>
 <div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>        <span class="comment">// Well</span></div>
 <div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span>                <span class="comment">// Diag</span></div>
 <div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>                bmat.assign(bsize, 0);</div>
 <div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
@@ -672,17 +681,17 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span> </div>
 <div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span>                <span class="comment">// OffDiag</span></div>
 <div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span>                bmat = dQdXpB;</div>
-<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),</div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>                <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dQdXsB.data(),</div>
 <div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span>                        &amp;myBulk.dSec_dPri[n * bsize2], 1, bmat.data());</div>
 <div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>                bmat2.assign(bsize, 0);</div>
 <div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span>                    Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());</div>
+<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span>                    <a class="code hl_function" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());</div>
 <div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>                }</div>
 <div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>                myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());</div>
 <div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span>                myLS.colId[wId].push_back(n);</div>
 <div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span> </div>
-<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>                <span class="comment">// Diag</span></div>
 <div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>                bmat.assign(bsize, 0);</div>
 <div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc + 1; i++) {</div>
@@ -719,7 +728,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>    <span class="comment">//}</span></div>
 <div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00053">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00054">CONV2</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00053">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00054">CONV2</a>, <a class="el" href="DenseMat_8cpp_source.html#l00041">DaABpbC()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00034">Daxpy()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00027">Dscalar()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">LRATE_MODE</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00099">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -806,11 +815,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span> </div>
 <div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>        <span class="comment">// Well to Bulk</span></div>
 <div class="line"><a id="l01133" name="l01133"></a><span class="lineno"> 1133</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01135" name="l01135"></a><span class="lineno"> 1135</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01136" name="l01136"></a><span class="lineno"> 1136</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01137" name="l01137"></a><span class="lineno"> 1137</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01135" name="l01135"></a><span class="lineno"> 1135</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01136" name="l01136"></a><span class="lineno"> 1136</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01137" name="l01137"></a><span class="lineno"> 1137</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span>                <span class="comment">// diag  !!! attention! sign is -</span></div>
 <div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>                myLS.diagVal[wId] -= valw;</div>
 <div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>                <span class="comment">// off diag</span></div>
@@ -819,7 +828,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01144" name="l01144"></a><span class="lineno"> 1144</span>                <span class="comment">// b</span></div>
 <div class="line"><a id="l01145" name="l01145"></a><span class="lineno"> 1145</span>                myLS.b[wId] += bw;</div>
 <div class="line"><a id="l01146" name="l01146"></a><span class="lineno"> 1146</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01147" name="l01147"></a><span class="lineno"> 1147</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01147" name="l01147"></a><span class="lineno"> 1147</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01148" name="l01148"></a><span class="lineno"> 1148</span>                <span class="comment">// off diag</span></div>
 <div class="line"><a id="l01149" name="l01149"></a><span class="lineno"> 1149</span>                myLS.colId[wId].push_back(k);</div>
 <div class="line"><a id="l01150" name="l01150"></a><span class="lineno"> 1150</span>                myLS.val[wId].push_back(0);</div>
@@ -833,11 +842,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>    assert(myLS.val[wId].size() == numPerf);</div>
 <div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>    <span class="comment">// the order of perforation is not necessarily in order</span></div>
 <div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span>    <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>        <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>        <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span>        <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>        <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01165" name="l01165"></a><span class="lineno"> 1165</span>        <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01165" name="l01165"></a><span class="lineno"> 1165</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01166" name="l01166"></a><span class="lineno"> 1166</span>            <span class="comment">// diag</span></div>
 <div class="line"><a id="l01167" name="l01167"></a><span class="lineno"> 1167</span>            myLS.colId[wId].push_back(wId);</div>
 <div class="line"><a id="l01168" name="l01168"></a><span class="lineno"> 1168</span>            myLS.diagPtr[wId] = numPerf;</div>
@@ -845,7 +854,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01170" name="l01170"></a><span class="lineno"> 1170</span>            <span class="comment">// b</span></div>
 <div class="line"><a id="l01171" name="l01171"></a><span class="lineno"> 1171</span>            myLS.b[wId] += dt * opt.maxRate;</div>
 <div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>        <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>            <span class="comment">// diag</span></div>
 <div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>            myLS.colId[wId].push_back(wId);</div>
 <div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>            myLS.diagPtr[wId] = numPerf;</div>
@@ -860,7 +869,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01185" name="l01185"></a><span class="lineno"> 1185</span>    }</div>
 <div class="line"><a id="l01186" name="l01186"></a><span class="lineno"> 1186</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">LRATE_MODE</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00099">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -896,10 +905,10 @@ Friends</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>{</div>
 <div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span> </div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>    <span class="keywordflow">if</span> (opt.type == PROD) {</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>) {</div>
 <div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
 <div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
+<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>            <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>) {</div>
 <div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k = perf[p].location;</div>
 <div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span> </div>
 <div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
@@ -909,8 +918,10 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>        }</div>
 <div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>    }</div>
 <div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_aa908ad563dca6c66910a2c59261da1f2"><div class="ttname"><a href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a></div><div class="ttdeci">const bool OPEN</div><div class="ttdoc">Well type = open.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00092">OCPConst.hpp:92</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00089">OCPConst.hpp:89</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00092">OPEN</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00089">PROD</a>.</p>
 
 </div>
 </div>
@@ -984,7 +995,7 @@ Friends</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>{</div>
 <div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span> </div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    <span class="keywordflow">if</span> (opt.type == INJ)</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>)</div>
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>        <a class="code hl_function" href="classWell.html#a4001451f9c2d30df21980af227cc411a">CalInjdG</a>(myBulk);</div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        <a class="code hl_function" href="classWell.html#a9694b4878637482973e4acd418f011d4">CalProddG</a>(myBulk);</div>
@@ -1010,10 +1021,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    <span class="comment">//    }</span></div>
 <div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    <span class="comment">//}</span></div>
 <div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
 <div class="ttc" id="aclassWell_html_a4001451f9c2d30df21980af227cc411a"><div class="ttname"><a href="classWell.html#a4001451f9c2d30df21980af227cc411a">Well::CalInjdG</a></div><div class="ttdeci">void CalInjdG(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate pressure difference between well and perforations for Injection.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00548">Well.cpp:548</a></div></div>
 <div class="ttc" id="aclassWell_html_a9694b4878637482973e4acd418f011d4"><div class="ttname"><a href="classWell.html#a9694b4878637482973e4acd418f011d4">Well::CalProddG</a></div><div class="ttdeci">void CalProddG(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate pressure difference between well and perforations for Prodcution.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00614">Well.cpp:614</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Well_8cpp_source.html#l00548">CalInjdG()</a>, <a class="el" href="Well_8cpp_source.html#l00614">CalProddG()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -1055,7 +1067,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc = myBulk.numCom;</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    qi_lbmol.assign(nc, 0);</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            perf[p].P  = BHP + dG[p];</div>
@@ -1122,7 +1134,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    }</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -1351,9 +1363,9 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        <span class="comment">// Well is higher</span></div>
 <div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
 <div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>        <span class="comment">// check qi_lbmol   ----   test</span></div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <span class="keywordflow">if</span> (perf[numPerf - 1].state == CLOSE) {</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <span class="keywordflow">if</span> (perf[numPerf - 1].state == <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a>) {</div>
 <div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> p = numPerf - 2; p &gt;= 0; p--) {</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>                <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>                <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>) {</div>
 <div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>                        perf[numPerf - 1].qi_lbmol[i] = perf[p].qi_lbmol[i];</div>
 <div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>                    }</div>
@@ -1421,9 +1433,9 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>        <span class="comment">// Well is lower</span></div>
 <div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span> </div>
 <div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>        <span class="comment">// check qi_lbmol   ----   test</span></div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>        <span class="keywordflow">if</span> (perf[0].state == CLOSE) {</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>        <span class="keywordflow">if</span> (perf[0].state == <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a>) {</div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 1; p &lt;= numPerf; p++) {</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>) {</div>
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                        perf[numPerf - 1].qi_lbmol[i] = perf[p].qi_lbmol[i];</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                    }</div>
@@ -1482,8 +1494,9 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well position!&quot;</span>);</div>
 <div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    }</div>
 <div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a76b7aa8829497fc7baf1b3c5df7ac9ee"><div class="ttname"><a href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a></div><div class="ttdeci">const bool CLOSE</div><div class="ttdoc">Well type = closed.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00093">OCPConst.hpp:93</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00093">CLOSE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00047">GRAVITY_FACTOR</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00092">OPEN</a>.</p>
 
 </div>
 </div>
@@ -1546,20 +1559,23 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    <span class="comment">//}</span></div>
 <div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span> </div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>        <span class="keywordflow">if</span> (myBulk.index2Phase[i] == OIL) {</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>        <span class="keywordflow">if</span> (myBulk.index2Phase[i] == <a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>) {</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>            WOPR = qi_lbmol[i];</div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>            WOPT += WOPR * dt;</div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == GAS) {</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == <a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>) {</div>
 <div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>            WGPR = qi_lbmol[i];</div>
 <div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>            WGPT += WGPR * dt;</div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == WATER) {</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myBulk.index2Phase[i] == <a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>) {</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>            WWPR = qi_lbmol[i];</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>            WWPT += WWPR * dt;</div>
 <div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        }</div>
 <div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>    }</div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00067">OCPConst.hpp:67</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a41259a3447e9d6f13bb3579683119c29"><div class="ttname"><a href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a></div><div class="ttdeci">const USI WATER</div><div class="ttdoc">Fluid type = water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00068">OCPConst.hpp:68</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00066">OCPConst.hpp:66</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00067">GAS</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00066">OIL</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00068">WATER</a>.</p>
 
 </div>
 </div>
@@ -1671,20 +1687,20 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span>    }</div>
 <div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = (myBulk.numBulk + wId) * len;</div>
 <div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span>    <span class="comment">// Well Self</span></div>
-<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span>        <span class="comment">// Injection</span></div>
 <div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span>                BHP             = opt.maxBHP;</div>
 <div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span>                resFIM.res[bId] = BHP - opt.maxBHP;</div>
 <div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span>                resFIM.maxRelRes_v =</div>
 <div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span>                    max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxBHP));</div>
 <div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>                resFIM.res[bId] = opt.maxRate;</div>
 <div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>                    resFIM.res[bId] += qi_lbmol[i];</div>
@@ -1699,17 +1715,17 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>        <span class="comment">// Production</span></div>
 <div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>        <span class="keywordflow">switch</span> (opt.optMode) {</div>
-<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>            <span class="keywordflow">case</span> BHP_MODE:</div>
+<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>:</div>
 <div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>                BHP             = opt.minBHP;</div>
 <div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>                resFIM.res[bId] = BHP - opt.minBHP;</div>
 <div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>                resFIM.maxRelRes_v =</div>
 <div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>                    max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.minBHP));</div>
 <div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>            <span class="keywordflow">case</span> RATE_MODE:</div>
-<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>            <span class="keywordflow">case</span> ORATE_MODE:</div>
-<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>            <span class="keywordflow">case</span> GRATE_MODE:</div>
-<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>            <span class="keywordflow">case</span> WRATE_MODE:</div>
-<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>            <span class="keywordflow">case</span> LRATE_MODE:</div>
+<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>:</div>
+<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>:</div>
+<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>:</div>
+<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a>:</div>
+<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a>:</div>
 <div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span>                resFIM.res[bId] = -opt.maxRate;</div>
 <div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>                    resFIM.res[bId] += qi_lbmol[i] * opt.zi[i];</div>
@@ -1724,7 +1740,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>    }</div>
 <div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">LRATE_MODE</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00099">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -1752,7 +1768,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            perf[p].transj.assign(np, 0);</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            perf[p].transINJ = 0;</div>
@@ -1808,7 +1824,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="comment">//}</span></div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00053">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00054">CONV2</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -1846,11 +1862,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dy  = myBulk.dy[Idb];</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dz  = myBulk.dz[Idb] * myBulk.ntg[Idb];</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">switch</span> (perf[p].direction) {</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                <span class="keywordflow">case</span> X_DIRECTION:</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a0235635f3e5fbaef8f9d618a571a385b">X_DIRECTION</a>:</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                <span class="keywordflow">case</span> Y_DIRECTION:</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a6ba5c60ddeb58d9a28687aed2795f309">Y_DIRECTION</a>:</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                <span class="keywordflow">case</span> Z_DIRECTION: {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#aacbdfa8aecebdf75b18c666ab9a2af13">Z_DIRECTION</a>: {</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kxky  = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                    assert(kx_ky &gt; 0);</div>
@@ -1876,9 +1892,12 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        }</div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a0235635f3e5fbaef8f9d618a571a385b"><div class="ttname"><a href="OCPConst_8hpp.html#a0235635f3e5fbaef8f9d618a571a385b">X_DIRECTION</a></div><div class="ttdeci">const USI X_DIRECTION</div><div class="ttdoc">x-direction</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00104">OCPConst.hpp:104</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a6ba5c60ddeb58d9a28687aed2795f309"><div class="ttname"><a href="OCPConst_8hpp.html#a6ba5c60ddeb58d9a28687aed2795f309">Y_DIRECTION</a></div><div class="ttdeci">const USI Y_DIRECTION</div><div class="ttdoc">y-direction</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00105">OCPConst.hpp:105</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aacbdfa8aecebdf75b18c666ab9a2af13"><div class="ttname"><a href="OCPConst_8hpp.html#aacbdfa8aecebdf75b18c666ab9a2af13">Z_DIRECTION</a></div><div class="ttdeci">const USI Z_DIRECTION</div><div class="ttdoc">z-direction</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00106">OCPConst.hpp:106</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_adf2a24350253e533be022fb87ae13b8d"><div class="ttname"><a href="OCPConst_8hpp.html#adf2a24350253e533be022fb87ae13b8d">PI</a></div><div class="ttdeci">const OCP_DBL PI</div><div class="ttdoc">Pi.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00031">OCPConst.hpp:31</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00031">PI</a>, <a class="el" href="OCPConst_8hpp_source.html#l00104">X_DIRECTION</a>, <a class="el" href="OCPConst_8hpp_source.html#l00105">Y_DIRECTION</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00106">Z_DIRECTION</a>.</p>
 
 </div>
 </div>
@@ -1907,30 +1926,30 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k;</div>
 <div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>    <span class="keywordtype">bool</span>    flagC = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span> </div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>    <span class="keywordflow">if</span> (opt.type == PROD) {</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>) {</div>
 <div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>            k            = perf[p].location;</div>
 <div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> minP = myBulk.P[k];</div>
-<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; minP &lt; perf[p].P) {</div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                perf[p].state      = CLOSE;</div>
+<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>            <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a> &amp;&amp; minP &lt; perf[p].P) {</div>
+<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                perf[p].state      = <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a>;</div>
 <div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                perf[p].multiplier = 0;</div>
 <div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>                flagC              = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; minP &gt; perf[p].P) {</div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                perf[p].state      = OPEN;</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a> &amp;&amp; minP &gt; perf[p].P) {</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                perf[p].state      = <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>;</div>
 <div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>                perf[p].multiplier = 1;</div>
 <div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>            }</div>
 <div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>        }</div>
 <div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
 <div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>            k = perf[p].location;</div>
-<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>            <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; myBulk.P[k] &gt; perf[p].P) {</div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>                perf[p].state      = CLOSE;</div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>            <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a> &amp;&amp; myBulk.P[k] &gt; perf[p].P) {</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>                perf[p].state      = <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a>;</div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>                perf[p].multiplier = 0;</div>
 <div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>                flagC              = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == CLOSE &amp;&amp; myBulk.P[k] &lt; perf[p].P) {</div>
-<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                perf[p].state      = OPEN;</div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a> &amp;&amp; myBulk.P[k] &lt; perf[p].P) {</div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                perf[p].state      = <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>;</div>
 <div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>                perf[p].multiplier = 1;</div>
 <div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>            }</div>
 <div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>        }</div>
@@ -1939,7 +1958,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>    <span class="keywordtype">bool</span> flag = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>    <span class="comment">// check well --  if all perf are closed, open the depthest perf</span></div>
 <div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN) {</div>
+<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>) {</div>
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>            flag = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>        }</div>
@@ -1948,7 +1967,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>        <span class="comment">// cout &lt;&lt; &quot;###WARNING: All perfs are closed, reset and cut timestep!\n&quot;;</span></div>
 <div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>        <span class="comment">// return 1;</span></div>
 <div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>        <span class="comment">// open the depthest perf</span></div>
-<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>        perf.back().state      = OPEN;</div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>        perf.back().state      = <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>;</div>
 <div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>        perf.back().multiplier = 1;</div>
 <div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>        cout &lt;&lt; <span class="stringliteral">&quot;###WARNING: All perfs are closed, open the last perf!\n&quot;</span>;</div>
 <div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>    }</div>
@@ -1966,7 +1985,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00093">CLOSE</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="OCPConst_8hpp_source.html#l00092">OPEN</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00089">PROD</a>.</p>
 
 </div>
 </div>
@@ -1993,21 +2012,21 @@ Friends</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>{</div>
 <div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span> </div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> q = <a class="code hl_function" href="classWell.html#a6b3b69f000599444dd687e3d6aee1631">CalInjRateBO</a>(myBulk);</div>
 <div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>        <span class="keywordflow">if</span> (q &gt; opt.maxRate) {</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>            opt.optMode = RATE_MODE;</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>;</div>
 <div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>;</div>
 <div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>            BHP         = opt.maxBHP;</div>
 <div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        }</div>
 <div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> q = <a class="code hl_function" href="classWell.html#a22282557ccff0a16f78ec1be8ba2f968">CalProdRateBO</a>(myBulk);</div>
 <div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>        <span class="comment">// cout &lt;&lt; q &lt;&lt; endl;</span></div>
 <div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>        <span class="keywordflow">if</span> (q &gt; opt.maxRate) {</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>            opt.optMode = RATE_MODE;</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a>;</div>
 <div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>;</div>
 <div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>            BHP         = opt.minBHP;</div>
 <div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>        }</div>
 <div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    }</div>
@@ -2015,7 +2034,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassWell_html_a22282557ccff0a16f78ec1be8ba2f968"><div class="ttname"><a href="classWell.html#a22282557ccff0a16f78ec1be8ba2f968">Well::CalProdRateBO</a></div><div class="ttdeci">OCP_DBL CalProdRateBO(const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00413">Well.cpp:413</a></div></div>
 <div class="ttc" id="aclassWell_html_a6b3b69f000599444dd687e3d6aee1631"><div class="ttname"><a href="classWell.html#a6b3b69f000599444dd687e3d6aee1631">Well::CalInjRateBO</a></div><div class="ttdeci">OCP_DBL CalInjRateBO(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate flow rate of moles of components for injection well in black oil model</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00393">Well.cpp:393</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="Well_8cpp_source.html#l00393">CalInjRateBO()</a>, <a class="el" href="Well_8cpp_source.html#l00413">CalProdRateBO()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00096">RATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -2050,7 +2069,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    }</div>
 <div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="keywordflow">if</span> (perf[p].state == OPEN &amp;&amp; perf[p].P &lt; 0) {</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="keywordflow">if</span> (perf[p].state == <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a> &amp;&amp; perf[p].P &lt; 0) {</div>
 <div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span><span class="preprocessor">#ifdef _DEBUG</span></div>
 <div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>            cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Well &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; Perf[&quot;</span> &lt;&lt; p &lt;&lt; <span class="stringliteral">&quot;].P = &quot;</span> &lt;&lt; perf[p].P</div>
 <div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>                 &lt;&lt; endl;</div>
@@ -2060,21 +2079,21 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>        }</div>
 <div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>    }</div>
 <div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span> </div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>    <span class="keywordflow">if</span> (opt.type == INJ) {</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &gt; opt.maxBHP) {</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>        <span class="keywordflow">if</span> (opt.optMode != <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a> &amp;&amp; BHP &gt; opt.maxBHP) {</div>
 <div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span><span class="preprocessor">#if DEBUG</span></div>
 <div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; switch to BHPMode&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>;</div>
 <div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>            BHP         = opt.maxBHP;</div>
 <div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>            <span class="keywordflow">return</span> 2;</div>
 <div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>        }</div>
 <div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        <span class="keywordflow">if</span> (opt.optMode != BHP_MODE &amp;&amp; BHP &lt; opt.minBHP) {</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        <span class="keywordflow">if</span> (opt.optMode != <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a> &amp;&amp; BHP &lt; opt.minBHP) {</div>
 <div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span><span class="preprocessor">#if DEBUG</span></div>
 <div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; switch to BHPMode&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>            opt.optMode = BHP_MODE;</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>            opt.optMode = <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>;</div>
 <div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>            BHP         = opt.minBHP;</div>
 <div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>            <span class="keywordflow">return</span> 2;</div>
 <div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>        }</div>
@@ -2084,7 +2103,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>}</div>
 <div class="ttc" id="aclassWell_html_ab166b401ceae3c2290de9eb5f85c2c51"><div class="ttname"><a href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well::CheckCrossFlow</a></div><div class="ttdeci">OCP_INT CheckCrossFlow(const Bulk &amp;myBulk)</div><div class="ttdoc">Check if crossflow happens.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00857">Well.cpp:857</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="Well_8cpp_source.html#l00857">CheckCrossFlow()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00092">OPEN</a>.</p>
 
 </div>
 </div>
@@ -2175,11 +2194,11 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        perf[p].kh         = well.kh[p];</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        perf[p].skinFactor = well.<a class="code hl_variable" href="classWellParam.html#a8260948f9a4255d068f8b95c7b6b2191">skinFactor</a>[p];</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;X&quot;</span> || well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;x&quot;</span>) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            perf[p].direction = X_DIRECTION;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            perf[p].direction = <a class="code hl_variable" href="OCPConst_8hpp.html#a0235635f3e5fbaef8f9d618a571a385b">X_DIRECTION</a>;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;Y&quot;</span> || well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;y&quot;</span>) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            perf[p].direction = Y_DIRECTION;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            perf[p].direction = <a class="code hl_variable" href="OCPConst_8hpp.html#a6ba5c60ddeb58d9a28687aed2795f309">Y_DIRECTION</a>;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;Z&quot;</span> || well.<a class="code hl_variable" href="classWellParam.html#a161b69a0b54f11ebb716865d4f8ebcc5">direction</a>[p] == <span class="stringliteral">&quot;z&quot;</span>) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            perf[p].direction = Z_DIRECTION;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            perf[p].direction = <a class="code hl_variable" href="OCPConst_8hpp.html#aacbdfa8aecebdf75b18c666ab9a2af13">Z_DIRECTION</a>;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong direction of perforations!&quot;</span>);</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
@@ -2193,7 +2212,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassWellParam_html_abc0da124d89dc98dd657bea0e45b5c1c"><div class="ttname"><a href="classWellParam.html#abc0da124d89dc98dd657bea0e45b5c1c">WellParam::J_perf</a></div><div class="ttdeci">vector&lt; USI &gt; J_perf</div><div class="ttdoc">J-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00074">ParamWell.hpp:74</a></div></div>
 <div class="ttc" id="aclassWellParam_html_ac634948e8516ee00d89a5f6644654d5e"><div class="ttname"><a href="classWellParam.html#ac634948e8516ee00d89a5f6644654d5e">WellParam::K_perf</a></div><div class="ttdeci">vector&lt; USI &gt; K_perf</div><div class="ttdoc">K-index of perforation in grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00075">ParamWell.hpp:75</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00077">WellParam::diameter</a>, <a class="el" href="ParamWell_8hpp_source.html#l00080">WellParam::direction</a>, <a class="el" href="ParamWell_8hpp_source.html#l00073">WellParam::I_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00074">WellParam::J_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00075">WellParam::K_perf</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="ParamWell_8hpp_source.html#l00079">WellParam::skinFactor</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00076">WellParam::WI</a>.</p>
+<p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00077">WellParam::diameter</a>, <a class="el" href="ParamWell_8hpp_source.html#l00080">WellParam::direction</a>, <a class="el" href="ParamWell_8hpp_source.html#l00073">WellParam::I_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00074">WellParam::J_perf</a>, <a class="el" href="ParamWell_8hpp_source.html#l00075">WellParam::K_perf</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="ParamWell_8hpp_source.html#l00079">WellParam::skinFactor</a>, <a class="el" href="ParamWell_8hpp_source.html#l00076">WellParam::WI</a>, <a class="el" href="OCPConst_8hpp_source.html#l00104">X_DIRECTION</a>, <a class="el" href="OCPConst_8hpp_source.html#l00105">Y_DIRECTION</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00106">Z_DIRECTION</a>.</p>
 
 </div>
 </div>
@@ -2262,13 +2281,15 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Well_8cpp_source.html#l00765">765</a> of file <a class="el" href="Well_8cpp_source.html">Well.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>{</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    <span class="keywordflow">if</span> (opt.type == PROD &amp;&amp; opt.optMode == BHP_MODE) {</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a> &amp;&amp; opt.optMode == <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>) {</div>
 <div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        BHP = opt.minBHP;</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt.type == INJ &amp;&amp; opt.optMode == BHP_MODE) {</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a> &amp;&amp; opt.optMode == <a class="code hl_variable" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>) {</div>
 <div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        BHP = opt.maxBHP;</div>
 <div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    }</div>
 <div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>}</div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00101">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00089">PROD</a>.</p>
+
 </div>
 </div>
 <a id="a1b48754b2170434d86855d1568b20590" name="a1b48754b2170434d86855d1568b20590"></a>
@@ -2316,15 +2337,15 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">if</span> (!opt.state) <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            opt.zi.resize(myBulk.numCom, 0);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                <span class="comment">// INJ</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">switch</span> (myBulk.PVTmode) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                    <span class="keywordflow">case</span> PHASE_W:</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                    <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                        opt.zi.back() = 1;</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                    <span class="keywordflow">case</span> PHASE_ODGW:</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">case</span> PHASE_DOGW:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>:</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                        <span class="keywordflow">if</span> (opt.fluidType == <span class="stringliteral">&quot;GAS&quot;</span>)</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                            opt.zi[1] = 1;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                        <span class="keywordflow">else</span></div>
@@ -2336,20 +2357,20 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                <span class="comment">// PROD</span></div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="keywordflow">switch</span> (myBulk.PVTmode) {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                        opt.zi.back() = 1;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    <span class="keywordflow">case</span> PHASE_OW:</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                        <span class="keywordflow">if</span> (opt.optMode == ORATE_MODE)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                        <span class="keywordflow">if</span> (opt.optMode == <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>)</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                            opt.zi[0] = 1;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                            opt.zi[1] = 1;</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                    <span class="keywordflow">case</span> PHASE_ODGW:</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                    <span class="keywordflow">case</span> PHASE_DOGW:</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                        <span class="keywordflow">if</span> (opt.optMode == ORATE_MODE)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>:</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                        <span class="keywordflow">if</span> (opt.optMode == <a class="code hl_variable" href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a>)</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                            opt.zi[0] = 1;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt.optMode == GRATE_MODE)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt.optMode == <a class="code hl_variable" href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a>)</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                            opt.zi[1] = 1;</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                            opt.zi[2] = 1;</div>
@@ -2367,7 +2388,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">if</span> (!opt.state) <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">if</span> (opt.type == INJ) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">if</span> (opt.type == <a class="code hl_variable" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>) {</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                <span class="comment">// INJ Well</span></div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                opt.zi.resize(myBulk.numCom, 0);</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                <span class="keywordflow">if</span> (opt.fluidType == <span class="stringliteral">&quot;WAT&quot;</span>) {</div>
@@ -2399,7 +2420,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">if</span> (myGrid.activeMap_G2B[Idg].IsAct()) {</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            perf[pp]            = perf[p];</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            perf[pp].state      = OPEN;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            perf[pp].state      = <a class="code hl_variable" href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a>;</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            perf[pp].location   = myGrid.activeMap_G2B[Idg].GetId();</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            perf[pp].depth      = myBulk.depth[perf[pp].location];</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            perf[pp].multiplier = 1;</div>
@@ -2421,10 +2442,14 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <a class="code hl_function" href="classWell.html#a2e894e0c7d9960483db283add94d34f4">CalWI_Peaceman_Vertical</a>(myBulk);</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ad601835e623cf07d03517440c1b38a8a"><div class="ttname"><a href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a></div><div class="ttdeci">const USI PHASE_DOGW</div><div class="ttdoc">Phase type = dead oil-gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00085">OCPConst.hpp:85</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a9873f9158c73c6b79a8e3cb9c0dc8e4a"><div class="ttname"><a href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a></div><div class="ttdeci">#define OCP_WARNING(msg)</div><div class="ttdoc">Log warning messages.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00039">UtilError.hpp:39</a></div></div>
 <div class="ttc" id="aclassWell_html_a2e894e0c7d9960483db283add94d34f4"><div class="ttname"><a href="classWell.html#a2e894e0c7d9960483db283add94d34f4">Well::CalWI_Peaceman_Vertical</a></div><div class="ttdeci">void CalWI_Peaceman_Vertical(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Well Index with Peaceman model for vertical well.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8cpp_source.html#l00204">Well.cpp:204</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Well_8cpp_source.html#l00204">CalWI_Peaceman_Vertical()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00098">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00088">INJ</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, <a class="el" href="UtilError_8hpp_source.html#l00039">OCP_WARNING</a>, <a class="el" href="OCPConst_8hpp_source.html#l00092">OPEN</a>, <a class="el" href="OCPConst_8hpp_source.html#l00097">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00085">PHASE_DOGW</a>, <a class="el" href="OCPConst_8hpp_source.html#l00084">PHASE_ODGW</a>, <a class="el" href="OCPConst_8hpp_source.html#l00082">PHASE_OW</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00080">PHASE_W</a>.</p>
 
 </div>
 </div>
@@ -2617,7 +2642,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

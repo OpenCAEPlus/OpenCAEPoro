@@ -78,7 +78,7 @@ $(function() {
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>BOMixture::BOMixture(<span class="keyword">const</span> <a class="code hl_class" href="classParamReservoir.html">ParamReservoir</a>&amp; rs_param, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; PVTmode, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; i)</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_variable" href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">mixtureType</a> = BLKOIL;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_variable" href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">mixtureType</a> = <a class="code hl_variable" href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a>;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    mode        = PVTmode;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>    = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2875a113ebf22ea380bec5c5682d139b">numPhase</a>;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>      = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5">numCom</a>;</div>
@@ -123,15 +123,15 @@ $(function() {
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                         <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* Sjin, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Vpore, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* Ziin)</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="classBOMixture.html#aa17a2e1cde08196b158025271d80e849">BOFlash_Sj_W</a>(Pin, Sjin, Vpore);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <a class="code hl_function" href="classBOMixture.html#ad6e81478a3fd6f41671b030a7a7cce4d">BOFlash_Sj_OW</a>(Pin, Sjin, Vpore);</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <a class="code hl_function" href="classBOMixture.html#a663192183d2940d333c91d183795f950">BOFlash_Sj_ODGW</a>(Pin, Pbbin, Sjin, Vpore);</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
@@ -147,15 +147,15 @@ $(function() {
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <a class="code hl_function" href="classBOMixture.html#a96510e3464c0878a7a688e9f1d5e7745">BOFlash_Ni_W</a>(Pin, Niin);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <a class="code hl_function" href="classBOMixture.html#a5218994ea261203397a1125255cb8a8c">BOFlash_Ni_OW</a>(Pin, Niin);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_function" href="classBOMixture.html#a11747869313d39c0ec2a639113725b21">BOFlash_Ni_ODGW</a>(Pin, Niin);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
@@ -172,15 +172,15 @@ $(function() {
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            BOFlash_Ni_W_Deriv(Pin, Niin);</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            BOFlash_Ni_OW_Deriv(Pin, Niin);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            BOFlash_Ni_ODGW_Deriv(Pin, Niin);</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
@@ -205,12 +205,12 @@ $(function() {
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classBOMixture.html#a0af98150f315f690fadadbe06904c999">  140</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classBOMixture.html#a0af98150f315f690fadadbe06904c999">BOMixture::XiPhase</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Pin, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; T, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* Ziin)</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>{</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Will be added!&quot;</span>);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">return</span> XiPhase_OW(Pin, Ziin);</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">return</span> XiPhase_ODGW(Pin, Ziin);</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keywordflow">default</span>:</div>
@@ -223,12 +223,12 @@ $(function() {
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classBOMixture.html#a3714b906abbd95d75c3741f18b69cc06">  158</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classBOMixture.html#a3714b906abbd95d75c3741f18b69cc06">BOMixture::RhoPhase</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Pin, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; T, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>* Ziin)</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Will be added!&quot;</span>);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="keywordflow">return</span> RhoPhase_OW(Pin, Ziin);</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">return</span> RhoPhase_ODGW(Pin, Ziin);</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">default</span>:</div>
@@ -241,10 +241,10 @@ $(function() {
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="classBOMixture.html#a3cfc819d464309d1188b450a50dac5b9">  176</a></span><a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> <a class="code hl_function" href="classBOMixture.html#a3cfc819d464309d1188b450a50dac5b9">BOMixture::GammaPhaseO</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Pin, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Pbbin)</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>{</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">switch</span> (mode) {</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <span class="keywordflow">return</span> GammaPhaseO_OW(Pin);</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">case</span> PHASE_ODGW:</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">return</span> GammaPhaseO_ODGW(Pin, Pbbin);</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">default</span>:</div>
@@ -283,11 +283,15 @@ $(function() {
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aMixtureBO_8hpp_html"><div class="ttname"><a href="MixtureBO_8hpp.html">MixtureBO.hpp</a></div><div class="ttdoc">MixtureBO class declaration.</div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a1457bcdb311848998b260c5e95da83bb"><div class="ttname"><a href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a></div><div class="ttdeci">const USI BLKOIL</div><div class="ttdoc">Mixture model = black-oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00072">OCPConst.hpp:72</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = 5.61458 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a340b34fe6fb4d1bc8b7544ed32eee7e8"><div class="ttname"><a href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a></div><div class="ttdeci">const OCP_DBL GRAVITY_FACTOR</div><div class="ttdoc">0.00694444 ft2 psi / lb</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00047">OCPConst.hpp:47</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a538f927b5893c9896717163bb2a798ee"><div class="ttname"><a href="OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee">RHOW_STD</a></div><div class="ttdeci">const OCP_DBL RHOW_STD</div><div class="ttdoc">Water density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00048">OCPConst.hpp:48</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aedff4c911b34955eaffe685938585415"><div class="ttname"><a href="OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415">RHOAIR_STD</a></div><div class="ttdeci">const OCP_DBL RHOAIR_STD</div><div class="ttdoc">Air density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00049">OCPConst.hpp:49</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassBOMixture_html_a0af98150f315f690fadadbe06904c999"><div class="ttname"><a href="classBOMixture.html#a0af98150f315f690fadadbe06904c999">BOMixture::XiPhase</a></div><div class="ttdeci">OCP_DBL XiPhase(const OCP_DBL &amp;Pin, const OCP_DBL &amp;T, const OCP_DBL *Ziin) override</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8cpp_source.html#l00140">MixtureBO.cpp:140</a></div></div>
@@ -326,7 +330,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -107,16 +107,16 @@ $(function() {
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="comment">// water</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            numPhase = 1;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            numCom   = 1;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            SATmode  = PHASE_W;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            PVTmode  = PHASE_W;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            SATmode  = <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            PVTmode  = <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (water &amp;&amp; oil &amp;&amp; !gas) {</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="comment">// water, dead oil</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            numPhase   = 2;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            numCom     = 2;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            EQUIL.DOWC = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[2];</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            EQUIL.PcOW = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[3];</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            SATmode    = PHASE_OW;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            PVTmode    = PHASE_OW;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            SATmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            PVTmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (water &amp;&amp; oil &amp;&amp; gas &amp;&amp; !disGas) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="comment">// water, dead oil, dry gas</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            numPhase   = 3;</div>
@@ -125,8 +125,8 @@ $(function() {
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            EQUIL.PcOW = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[3];</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            EQUIL.DGOC = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[4];</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            EQUIL.PcGO = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[5];</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            SATmode    = PHASE_DOGW;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            PVTmode    = PHASE_DOGW; <span class="comment">// maybe it should be added later</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            SATmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            PVTmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>; <span class="comment">// maybe it should be added later</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (water &amp;&amp; oil &amp;&amp; gas &amp;&amp; disGas) {</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="comment">// water, live oil, dry gas</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            numPhase   = 3;</div>
@@ -135,8 +135,8 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            EQUIL.PcOW = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[3];</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            EQUIL.DGOC = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[4];</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            EQUIL.PcGO = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[5];</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            SATmode    = PHASE_ODGW;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            PVTmode    = PHASE_ODGW;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            SATmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            PVTmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        }</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2875a113ebf22ea380bec5c5682d139b">numPhase</a> = numPhase;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5">numCom</a>   = numCom;</div>
@@ -160,7 +160,7 @@ $(function() {
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        EQUIL.PcOW = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[3];</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        EQUIL.DGOC = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[4];</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        EQUIL.PcGO = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a2290127fca5524192133eff718854d7e">EQUIL</a>[5];</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        SATmode    = PHASE_ODGW;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        SATmode    = <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>;</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; rs_param.<a class="code hl_variable" href="classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186">NTSFUN</a>; i++) {</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            flow.push_back(<span class="keyword">new</span> <a class="code hl_class" href="classFlowUnit.html">FlowUnit</a>(rs_param, SATmode, i));</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            flow[i]-&gt;Generate_SWPCWG();</div>
@@ -232,49 +232,49 @@ $(function() {
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">if</span> (blackOil) {</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        Pb.resize(numBulk);</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">switch</span> (PVTmode) {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keywordflow">case</span> PHASE_W:</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                index2Phase.resize(1);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                index2Phase[0]     = WATER;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                phase2Index[WATER] = 0;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                index2Phase[0]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 0;</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keywordflow">case</span> PHASE_OW:</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                index2Phase.resize(2);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                index2Phase[0]     = OIL;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                index2Phase[1]     = WATER;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                phase2Index[OIL]   = 0;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                phase2Index[WATER] = 1;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                index2Phase[0]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                index2Phase[1]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 1;</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordflow">case</span> PHASE_OG:</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a>:</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                index2Phase.resize(2);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                index2Phase[0]   = OIL;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                index2Phase[1]   = GAS;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                phase2Index[OIL] = 0;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                phase2Index[GAS] = 1;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                index2Phase[0]   = <a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                index2Phase[1]   = <a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>] = 1;</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            <span class="keywordflow">case</span> PHASE_GW:</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>:</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                index2Phase.resize(2);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                index2Phase[0]     = GAS;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                index2Phase[1]     = WATER;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                phase2Index[GAS]   = 0;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                phase2Index[WATER] = 1;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                index2Phase[0]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                index2Phase[1]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 0;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 1;</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">case</span> PHASE_ODGW:</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">case</span> PHASE_DOGW:</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>:</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                index2Phase.resize(3);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                index2Phase[0]     = OIL;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                index2Phase[1]     = GAS;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                index2Phase[2]     = WATER;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                phase2Index[OIL]   = 0;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                phase2Index[GAS]   = 1;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                phase2Index[WATER] = 2;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                index2Phase[0]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                index2Phase[1]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                index2Phase[2]     = <a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 1;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">default</span>:</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Unknown PVT model!&quot;</span>);</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        }</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (comps) {</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        phase2Index[OIL]   = 0;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        phase2Index[GAS]   = 1;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        phase2Index[WATER] = 2;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 1;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        phase2Index[<a class="code hl_variable" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">#if DEBUG</span></div>
@@ -1465,9 +1465,9 @@ $(function() {
 <div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
 <div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span> </div>
 <div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span>    <span class="keywordflow">if</span> (blackOil)</div>
-<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>        <span class="keywordflow">return</span> BLKOIL;</div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a>;</div>
 <div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (comps)</div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>        <span class="keywordflow">return</span> EOS_PVTW;</div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>;</div>
 <div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Mixture model is not supported!&quot;</span>);</div>
 <div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>}</div>
@@ -1604,7 +1604,7 @@ $(function() {
 <div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span> </div>
 <div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span>        <span class="comment">// compute the chop</span></div>
 <div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span>        dtmp.assign(row, 0);</div>
-<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>        DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,</div>
+<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a>(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,</div>
 <div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span>                dtmp.data());</div>
 <div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span> </div>
 <div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
@@ -1738,10 +1738,22 @@ $(function() {
 <div class="line"><a id="l01692" name="l01692"></a><span class="lineno"> 1692</span><span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
 <div class="line"><a id="l01693" name="l01693"></a><span class="lineno"> 1693</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aBulk_8hpp_html"><div class="ttname"><a href="Bulk_8hpp.html">Bulk.hpp</a></div><div class="ttdoc">Bulk class declaration.</div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a509bf5c3f0e217a8459e280b8f48bfa3"><div class="ttname"><a href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a></div><div class="ttdeci">void DaAxpby(const int &amp;m, const int &amp;n, const double &amp;a, const double *A, const double *x, const double &amp;b, double *y)</div><div class="ttdoc">Computes y = a A x + b y.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00055">DenseMat.cpp:55</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a1457bcdb311848998b260c5e95da83bb"><div class="ttname"><a href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a></div><div class="ttdeci">const USI BLKOIL</div><div class="ttdoc">Mixture model = black-oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00072">OCPConst.hpp:72</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a23f681c0d9e8d413e68ed087126a742d"><div class="ttname"><a href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a></div><div class="ttdeci">const USI EOS_PVTW</div><div class="ttdoc">Mixture model = equation-of-state.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00073">OCPConst.hpp:73</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00067">OCPConst.hpp:67</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a41259a3447e9d6f13bb3579683119c29"><div class="ttname"><a href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a></div><div class="ttdeci">const USI WATER</div><div class="ttdoc">Fluid type = water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00068">OCPConst.hpp:68</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00066">OCPConst.hpp:66</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ad601835e623cf07d03517440c1b38a8a"><div class="ttname"><a href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a></div><div class="ttdeci">const USI PHASE_DOGW</div><div class="ttdoc">Phase type = dead oil-gas-water???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00085">OCPConst.hpp:85</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae9114d0b4b1a18f3cf64f446fd758c9b"><div class="ttname"><a href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a></div><div class="ttdeci">const USI PHASE_OG</div><div class="ttdoc">Phase type = oil-gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00083">OCPConst.hpp:83</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aff7d8ab6933e8647531d27ca4db141e2"><div class="ttname"><a href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a></div><div class="ttdeci">const USI PHASE_GW</div><div class="ttdoc">Phase type = gas-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00081">OCPConst.hpp:81</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a9873f9158c73c6b79a8e3cb9c0dc8e4a"><div class="ttname"><a href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a></div><div class="ttdeci">#define OCP_WARNING(msg)</div><div class="ttdoc">Log warning messages.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00039">UtilError.hpp:39</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
@@ -1809,14 +1821,14 @@ $(function() {
 <div class="ttc" id="aclassParamReservoir_html_af0e34a606be25ddb65fe1f0271764b37"><div class="ttname"><a href="classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37">ParamReservoir::rsTemp</a></div><div class="ttdeci">OCP_DBL rsTemp</div><div class="ttdoc">Temperature for reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00122">ParamReservoir.hpp:122</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_af88aa6b393dad59d7d979cbc6f8265e4"><div class="ttname"><a href="classParamReservoir.html#af88aa6b393dad59d7d979cbc6f8265e4">ParamReservoir::water</a></div><div class="ttdeci">bool water</div><div class="ttdoc">If true, water phase could exist.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00139">ParamReservoir.hpp:139</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_aff3d0f65d7a1faedf1eaa87b415395e0"><div class="ttname"><a href="classParamReservoir.html#aff3d0f65d7a1faedf1eaa87b415395e0">ParamReservoir::EoSp</a></div><div class="ttdeci">EoSparam EoSp</div><div class="ttdoc">Initial component composition, used in compositional models.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00143">ParamReservoir.hpp:143</a></div></div>
-<div class="ttc" id="aclassResFIM_html"><div class="ttname"><a href="classResFIM.html">ResFIM</a></div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00025">OCPStructure.hpp:26</a></div></div>
+<div class="ttc" id="aclassResFIM_html"><div class="ttname"><a href="classResFIM.html">ResFIM</a></div><div class="ttdoc">FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00024">OCPStructure.hpp:25</a></div></div>
 <div class="ttc" id="aclassRock_html_a1a2fa5cb73389f1e9b8e984a5ea02556"><div class="ttname"><a href="classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556">Rock::Cr</a></div><div class="ttdeci">OCP_DBL Cr</div><div class="ttdoc">Compressibility factor of rock in reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00052">ParamReservoir.hpp:52</a></div></div>
 <div class="ttc" id="aclassRock_html_ab18455479725e43ef7c218862ca4dec3"><div class="ttname"><a href="classRock.html#ab18455479725e43ef7c218862ca4dec3">Rock::Pref</a></div><div class="ttdeci">OCP_DBL Pref</div><div class="ttdoc">Reference pressure at initial porosity.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00051">ParamReservoir.hpp:51</a></div></div>
 <div class="ttc" id="aclassTableSet_html_a5d0077031b988faa104e3f19ce0c9393"><div class="ttname"><a href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">TableSet::data</a></div><div class="ttdeci">vector&lt; vector&lt; vector&lt; OCP_DBL &gt; &gt; &gt; data</div><div class="ttdoc">All table with the same name.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00035">ParamReservoir.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

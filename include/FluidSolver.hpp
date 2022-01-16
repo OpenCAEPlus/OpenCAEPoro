@@ -15,10 +15,11 @@
 // OpenCAEPoro header files
 #include "OCPFluidMethod.hpp"
 
+/// FluidSolver class for fluid solution method.
 class FluidSolver
 {
 public:
-    /// Setup Method
+    /// Setup the fluid solver.
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     /// Initialize the Reservoir and prepare variables for some method.
     void InitReservoir(Reservoir& rs) const;
@@ -30,9 +31,9 @@ public:
     void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluid.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    /// Determine if NR iteration finishes.
+    /// Finish the Newton-Raphson iteration.
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
-    /// Finish current time step.
+    /// Finish the current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
@@ -50,4 +51,5 @@ private:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/21/2021      Create file                          */
+/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

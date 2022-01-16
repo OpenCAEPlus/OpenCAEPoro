@@ -629,13 +629,13 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (!rs_param.<a class="code hl_variable" href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">coord</a>.empty()) {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// CornerPoint Grid</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        gridType = CORNER_GRID;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        gridType = <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        coord = rs_param.<a class="code hl_variable" href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">coord</a>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        zcorn = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a177afb4fee57ec24480aaeb5d2513087">zcorn</a>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// Orthogonal Grid</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        gridType = ORTHOGONAL_GRID;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        gridType = <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        numConn = 3 * nx * ny * nz - nx * ny - ny * nz - nz * nx;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        tops    = rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6683503e7bad843091ba6de1ca958e3a">tops</a>;</div>
@@ -663,6 +663,8 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a03e6001212ac292d305d31b421f28442"><div class="ttname"><a href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a></div><div class="ttdeci">const USI CORNER_GRID</div><div class="ttdoc">Grid type = corner-point.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a5e922afbb7dc32b9f6a8f7b49e02f1fe"><div class="ttname"><a href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a></div><div class="ttdeci">const USI ORTHOGONAL_GRID</div><div class="ttdoc">Grid type = orthogonal.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00057">OCPConst.hpp:57</a></div></div>
 <div class="ttc" id="aclassDimens_html_a0417b498c92ff029181c93faa84f3245"><div class="ttname"><a href="classDimens.html#a0417b498c92ff029181c93faa84f3245">Dimens::nx</a></div><div class="ttdeci">USI nx</div><div class="ttdoc">Num of bulks along x-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00042">ParamReservoir.hpp:42</a></div></div>
 <div class="ttc" id="aclassDimens_html_a2f236756aa31af34003346d336b31a0d"><div class="ttname"><a href="classDimens.html#a2f236756aa31af34003346d336b31a0d">Dimens::ny</a></div><div class="ttdeci">USI ny</div><div class="ttdoc">Num of bulks along y-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00043">ParamReservoir.hpp:43</a></div></div>
 <div class="ttc" id="aclassDimens_html_aac9f3eb9d1a00941e8fada6b68ca11bf"><div class="ttname"><a href="classDimens.html#aac9f3eb9d1a00941e8fada6b68ca11bf">Dimens::nz</a></div><div class="ttdeci">USI nz</div><div class="ttdoc">Num of bulks along z-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00044">ParamReservoir.hpp:44</a></div></div>
@@ -682,7 +684,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassParamReservoir_html_ad7fa4cdbf24a7740b2b4f311d2da8daa"><div class="ttname"><a href="classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa">ParamReservoir::dz</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dz</div><div class="ttdoc">Size along the z - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00110">ParamReservoir.hpp:110</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_afe97864d374d9efe0f6f7b2287dd918a"><div class="ttname"><a href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">ParamReservoir::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Num of grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir.hpp:106</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00113">ParamReservoir::coord</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00105">ParamReservoir::dimens</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir::numGrid</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00042">Dimens::nx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00043">Dimens::ny</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00044">Dimens::nz</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00113">ParamReservoir::coord</a>, <a class="el" href="OCPConst_8hpp_source.html#l00058">CORNER_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00105">ParamReservoir::dimens</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00108">ParamReservoir::dx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00109">ParamReservoir::dy</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00110">ParamReservoir::dz</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00117">ParamReservoir::ntg</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir::numGrid</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00042">Dimens::nx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00043">Dimens::ny</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00044">Dimens::nz</a>, <a class="el" href="OCPConst_8hpp_source.html#l00057">ORTHOGONAL_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00119">ParamReservoir::permX</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00120">ParamReservoir::permY</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00121">ParamReservoir::permZ</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00118">ParamReservoir::poro</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00149">ParamReservoir::PVTNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00148">ParamReservoir::SATNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00107">ParamReservoir::tops</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00114">ParamReservoir::zcorn</a>.</p>
 
 </div>
 </div>
@@ -737,10 +739,10 @@ Friends</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00058">58</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">switch</span> (gridType) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> ORTHOGONAL_GRID:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>:</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a>();</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">case</span> CORNER_GRID:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>:</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_function" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a>();</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">default</span>:</div>
@@ -750,6 +752,8 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassGrid_html_a3efc64118855093f20959dcd00648770"><div class="ttname"><a href="classGrid.html#a3efc64118855093f20959dcd00648770">Grid::SetupCornerGrid</a></div><div class="ttdeci">void SetupCornerGrid()</div><div class="ttdoc">Setup a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00184">Grid.cpp:184</a></div></div>
 <div class="ttc" id="aclassGrid_html_ac103f53259f2ac72e167aa67e455d3b9"><div class="ttname"><a href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">Grid::SetupOrthogonalGrid</a></div><div class="ttdeci">void SetupOrthogonalGrid()</div><div class="ttdoc">Setup an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00072">Grid.cpp:72</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00058">CORNER_GRID</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00057">ORTHOGONAL_GRID</a>, <a class="el" href="Grid_8cpp_source.html#l00184">SetupCornerGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00072">SetupOrthogonalGrid()</a>.</p>
+
 </div>
 </div>
 <a id="a3efc64118855093f20959dcd00648770" name="a3efc64118855093f20959dcd00648770"></a>
@@ -1021,7 +1025,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

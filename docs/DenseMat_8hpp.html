@@ -89,51 +89,70 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:aa73aeb7babd33fac5d0c19a05759fb16"><td class="memItemLeft" align="right" valign="top"><a id="aa73aeb7babd33fac5d0c19a05759fb16" name="aa73aeb7babd33fac5d0c19a05759fb16"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dscal_</b> (const int *n, const double *alpha, double *x, const int *incx)</td></tr>
+<tr class="memdesc:aa73aeb7babd33fac5d0c19a05759fb16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a vector by a constant. <br /></td></tr>
 <tr class="separator:aa73aeb7babd33fac5d0c19a05759fb16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33fae9e5e80038e860192fb759963c5"><td class="memItemLeft" align="right" valign="top"><a id="af33fae9e5e80038e860192fb759963c5" name="af33fae9e5e80038e860192fb759963c5"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>ddot_</b> (const int *n, double *a, const int *inca, double *b, const int *incb)</td></tr>
+<tr class="memdesc:af33fae9e5e80038e860192fb759963c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forms the dot product of two vectors. <br /></td></tr>
 <tr class="separator:af33fae9e5e80038e860192fb759963c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60fb7568811c98a397536a60fd13dc36"><td class="memItemLeft" align="right" valign="top"><a id="a60fb7568811c98a397536a60fd13dc36" name="a60fb7568811c98a397536a60fd13dc36"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dcopy_</b> (const int *n, const double *src, const int *incx, double *dst, const int *incy)</td></tr>
+<tr class="memdesc:a60fb7568811c98a397536a60fd13dc36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a vector, src, to a vector, dst. <br /></td></tr>
 <tr class="separator:a60fb7568811c98a397536a60fd13dc36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ab6cee8401ce5376080584eb74559a3"><td class="memItemLeft" align="right" valign="top"><a id="a3ab6cee8401ce5376080584eb74559a3" name="a3ab6cee8401ce5376080584eb74559a3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>daxpy_</b> (const int *n, const double *alpha, const double *x, const int *incx, double *y, const int *incy)</td></tr>
+<tr class="memdesc:a3ab6cee8401ce5376080584eb74559a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant times a vector plus a vector. <br /></td></tr>
 <tr class="separator:a3ab6cee8401ce5376080584eb74559a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bb7d3ea5bc17a50c93b504028ea4ed5"><td class="memItemLeft" align="right" valign="top"><a id="a9bb7d3ea5bc17a50c93b504028ea4ed5" name="a9bb7d3ea5bc17a50c93b504028ea4ed5"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>dnrm2_</b> (const int *n, double *x, const int *incx)</td></tr>
+<tr class="memdesc:a9bb7d3ea5bc17a50c93b504028ea4ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the Euclidean norm of a vector. <br /></td></tr>
 <tr class="separator:a9bb7d3ea5bc17a50c93b504028ea4ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04ff94096b6ab1a9017bfb01c590e985"><td class="memItemLeft" align="right" valign="top"><a id="a04ff94096b6ab1a9017bfb01c590e985" name="a04ff94096b6ab1a9017bfb01c590e985"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>dasum_</b> (const int *n, double *x, const int *incx)</td></tr>
+<tr class="memdesc:a04ff94096b6ab1a9017bfb01c590e985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sum of the absolute values of a vector. <br /></td></tr>
 <tr class="separator:a04ff94096b6ab1a9017bfb01c590e985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a062bc6e814e24bca74119521050b07d5"><td class="memItemLeft" align="right" valign="top"><a id="a062bc6e814e24bca74119521050b07d5" name="a062bc6e814e24bca74119521050b07d5"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>idamax_</b> (const int *n, double *x, const int *incx)</td></tr>
+<tr class="memdesc:a062bc6e814e24bca74119521050b07d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the index of element having max absolute value. <br /></td></tr>
 <tr class="separator:a062bc6e814e24bca74119521050b07d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71c223e799b3e418734d11288f6b6df1"><td class="memItemLeft" align="right" valign="top"><a id="a71c223e799b3e418734d11288f6b6df1" name="a71c223e799b3e418734d11288f6b6df1"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dgemm_</b> (const char *transa, const char *transb, const int *m, const int *n, const int *k, const double *alpha, const double *A, const int *lda, const double *B, const int *ldb, const double *beta, double *C, const int *ldc)</td></tr>
+<tr class="memdesc:a71c223e799b3e418734d11288f6b6df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs matrix-matrix operations C : = alpha * op(A) * op(B) + beta * C. <br /></td></tr>
 <tr class="separator:a71c223e799b3e418734d11288f6b6df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11c90dc3decfc15b86032021e0503ed9"><td class="memItemLeft" align="right" valign="top"><a id="a11c90dc3decfc15b86032021e0503ed9" name="a11c90dc3decfc15b86032021e0503ed9"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dgesv_</b> (const int *n, const int *nrhs, double *A, const int *lda, int *ipiv, double *b, const int *ldb, int *info)</td></tr>
+<tr class="memdesc:a11c90dc3decfc15b86032021e0503ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the solution to system of linear equations A * X = B for general matrices. <br /></td></tr>
 <tr class="separator:a11c90dc3decfc15b86032021e0503ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c5680d25e16ef0e176543fa6b7663dd"><td class="memItemLeft" align="right" valign="top"><a id="a0c5680d25e16ef0e176543fa6b7663dd" name="a0c5680d25e16ef0e176543fa6b7663dd"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dsysv_</b> (const char *uplo, const int *n, const int *nrhs, double *A, const int *lda, int *ipiv, double *b, const int *ldb, double *work, const int *lwork, int *info)</td></tr>
+<tr class="memdesc:a0c5680d25e16ef0e176543fa6b7663dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the solution to system of linear equations A * X = B for symm matrices. <br /></td></tr>
 <tr class="separator:a0c5680d25e16ef0e176543fa6b7663dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accb44af625653de07f0a8dba403348d1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a> (const int &amp;N, double *x)</td></tr>
+<tr class="memdesc:accb44af625653de07f0a8dba403348d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the L1-norm of a vector.  <a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">More...</a><br /></td></tr>
 <tr class="separator:accb44af625653de07f0a8dba403348d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af68dee47a6d8148b039abaa9620a4642"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#af68dee47a6d8148b039abaa9620a4642">Dnorm2</a> (const int &amp;N, double *x)</td></tr>
+<tr class="memdesc:af68dee47a6d8148b039abaa9620a4642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the L2-norm of a vector.  <a href="DenseMat_8hpp.html#af68dee47a6d8148b039abaa9620a4642">More...</a><br /></td></tr>
 <tr class="separator:af68dee47a6d8148b039abaa9620a4642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb701e3ab34443119b7b2ba7a2bc6c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a> (const int &amp;n, const double &amp;alpha, double *x)</td></tr>
+<tr class="memdesc:a3fb701e3ab34443119b7b2ba7a2bc6c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a vector by a constant.  <a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">More...</a><br /></td></tr>
 <tr class="separator:a3fb701e3ab34443119b7b2ba7a2bc6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5da432e006319d9f82b5da4c0a186c1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a> (const int &amp;n, const double &amp;alpha, const double *x, double *y)</td></tr>
+<tr class="memdesc:a5da432e006319d9f82b5da4c0a186c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant times a vector plus a vector.  <a href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">More...</a><br /></td></tr>
 <tr class="separator:a5da432e006319d9f82b5da4c0a186c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dedd031947f85613a20d2bcadfb6d29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a> (const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</td></tr>
+<tr class="memdesc:a2dedd031947f85613a20d2bcadfb6d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes C' = alpha B'A' + beta C', all matrices are column-major.  <a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">More...</a><br /></td></tr>
 <tr class="separator:a2dedd031947f85613a20d2bcadfb6d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a509bf5c3f0e217a8459e280b8f48bfa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a> (const int &amp;m, const int &amp;n, const double &amp;a, const double *A, const double *x, const double &amp;b, double *y)</td></tr>
+<tr class="memdesc:a509bf5c3f0e217a8459e280b8f48bfa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes y = a A x + b y.  <a href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">More...</a><br /></td></tr>
 <tr class="separator:a509bf5c3f0e217a8459e280b8f48bfa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2a90068b88c31786c8a67c10fff8259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#af2a90068b88c31786c8a67c10fff8259">LUSolve</a> (const int &amp;N, double *A, double *b, int *pivot)</td></tr>
+<tr class="memdesc:af2a90068b88c31786c8a67c10fff8259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls dgesv to solve the linear system for general matrices.  <a href="DenseMat_8hpp.html#af2a90068b88c31786c8a67c10fff8259">More...</a><br /></td></tr>
 <tr class="separator:af2a90068b88c31786c8a67c10fff8259"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b923df71e24822e586d39582032010c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a7b923df71e24822e586d39582032010c">SYSSolve</a> (const char *uplo, const int &amp;N, double *A, double *b, int *pivot)</td></tr>
+<tr class="memdesc:a7b923df71e24822e586d39582032010c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls dsysy to solve the linear system for symm matrices.  <a href="DenseMat_8hpp.html#a7b923df71e24822e586d39582032010c">More...</a><br /></td></tr>
 <tr class="separator:a7b923df71e24822e586d39582032010c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa754f53284079d4cb28119a1a9ede7da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#aa754f53284079d4cb28119a1a9ede7da">PrintDX</a> (const int &amp;N, const double *x)</td></tr>
+<tr class="memdesc:aa754f53284079d4cb28119a1a9ede7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a double vector.  <a href="DenseMat_8hpp.html#aa754f53284079d4cb28119a1a9ede7da">More...</a><br /></td></tr>
 <tr class="separator:aa754f53284079d4cb28119a1a9ede7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -209,6 +228,8 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Computes C' = alpha B'A' + beta C', all matrices are column-major. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00041">41</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">/*  C&#39; = alpha B&#39;A&#39; + beta C&#39;</span></div>
@@ -219,9 +240,12 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> transa = <span class="charliteral">&#39;N&#39;</span>, transb = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    dgemm_(&amp;transa, &amp;transb, &amp;n, &amp;m, &amp;k, &amp;alpha, B, &amp;n, A, &amp;k, &amp;beta, C, &amp;n);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_function" href="DenseMat_8hpp.html#a71c223e799b3e418734d11288f6b6df1">dgemm_</a>(&amp;transa, &amp;transb, &amp;n, &amp;m, &amp;k, &amp;alpha, B, &amp;n, A, &amp;k, &amp;beta, C, &amp;n);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a71c223e799b3e418734d11288f6b6df1"><div class="ttname"><a href="DenseMat_8hpp.html#a71c223e799b3e418734d11288f6b6df1">dgemm_</a></div><div class="ttdeci">int dgemm_(const char *transa, const char *transb, const int *m, const int *n, const int *k, const double *alpha, const double *A, const int *lda, const double *B, const int *ldb, const double *beta, double *C, const int *ldc)</div><div class="ttdoc">Performs matrix-matrix operations C : = alpha * op(A) * op(B) + beta * C.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a71c223e799b3e418734d11288f6b6df1">dgemm_()</a>.</p>
+
 </div>
 </div>
 <a id="a509bf5c3f0e217a8459e280b8f48bfa3" name="a509bf5c3f0e217a8459e280b8f48bfa3"></a>
@@ -280,6 +304,8 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Computes y = a A x + b y. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00055">55</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">/*  y= aAx+by</span></div>
@@ -332,13 +358,18 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Constant times a vector plus a vector. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00034">34</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">// y= ax +y</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> incx = 1, incy = 1;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    daxpy_(&amp;n, &amp;alpha, x, &amp;incx, y, &amp;incy);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="DenseMat_8hpp.html#a3ab6cee8401ce5376080584eb74559a3">daxpy_</a>(&amp;n, &amp;alpha, x, &amp;incx, y, &amp;incy);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a3ab6cee8401ce5376080584eb74559a3"><div class="ttname"><a href="DenseMat_8hpp.html#a3ab6cee8401ce5376080584eb74559a3">daxpy_</a></div><div class="ttdeci">int daxpy_(const int *n, const double *alpha, const double *x, const int *incx, double *y, const int *incy)</div><div class="ttdoc">Constant times a vector plus a vector.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a3ab6cee8401ce5376080584eb74559a3">daxpy_()</a>.</p>
+
 </div>
 </div>
 <a id="accb44af625653de07f0a8dba403348d1" name="accb44af625653de07f0a8dba403348d1"></a>
@@ -367,12 +398,17 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Computes the L1-norm of a vector. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00015">15</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> incx = 1;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">return</span> dasum_(&amp;N, x, &amp;incx);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="DenseMat_8hpp.html#a04ff94096b6ab1a9017bfb01c590e985">dasum_</a>(&amp;N, x, &amp;incx);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a04ff94096b6ab1a9017bfb01c590e985"><div class="ttname"><a href="DenseMat_8hpp.html#a04ff94096b6ab1a9017bfb01c590e985">dasum_</a></div><div class="ttdeci">double dasum_(const int *n, double *x, const int *incx)</div><div class="ttdoc">Computes the sum of the absolute values of a vector.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a04ff94096b6ab1a9017bfb01c590e985">dasum_()</a>.</p>
+
 </div>
 </div>
 <a id="af68dee47a6d8148b039abaa9620a4642" name="af68dee47a6d8148b039abaa9620a4642"></a>
@@ -401,12 +437,17 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Computes the L2-norm of a vector. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00021">21</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> incx = 1;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> dnrm2_(&amp;N, x, &amp;incx);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="DenseMat_8hpp.html#a9bb7d3ea5bc17a50c93b504028ea4ed5">dnrm2_</a>(&amp;N, x, &amp;incx);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a9bb7d3ea5bc17a50c93b504028ea4ed5"><div class="ttname"><a href="DenseMat_8hpp.html#a9bb7d3ea5bc17a50c93b504028ea4ed5">dnrm2_</a></div><div class="ttdeci">double dnrm2_(const int *n, double *x, const int *incx)</div><div class="ttdoc">Computes the Euclidean norm of a vector.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a9bb7d3ea5bc17a50c93b504028ea4ed5">dnrm2_()</a>.</p>
+
 </div>
 </div>
 <a id="a3fb701e3ab34443119b7b2ba7a2bc6c7" name="a3fb701e3ab34443119b7b2ba7a2bc6c7"></a>
@@ -441,13 +482,18 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Scales a vector by a constant. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00027">27</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// x = a x</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> incx = 1;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    dscal_(&amp;n, &amp;alpha, x, &amp;incx);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_function" href="DenseMat_8hpp.html#aa73aeb7babd33fac5d0c19a05759fb16">dscal_</a>(&amp;n, &amp;alpha, x, &amp;incx);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_aa73aeb7babd33fac5d0c19a05759fb16"><div class="ttname"><a href="DenseMat_8hpp.html#aa73aeb7babd33fac5d0c19a05759fb16">dscal_</a></div><div class="ttdeci">void dscal_(const int *n, const double *alpha, double *x, const int *incx)</div><div class="ttdoc">Scales a vector by a constant.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#aa73aeb7babd33fac5d0c19a05759fb16">dscal_()</a>.</p>
+
 </div>
 </div>
 <a id="af2a90068b88c31786c8a67c10fff8259" name="af2a90068b88c31786c8a67c10fff8259"></a>
@@ -488,12 +534,14 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Calls dgesv to solve the linear system for general matrices. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00068">68</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">int</span> info;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">int</span> one = 1;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    dgesv_(&amp;N, &amp;one, A, &amp;N, pivot, b, &amp;N, &amp;info);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_function" href="DenseMat_8hpp.html#a11c90dc3decfc15b86032021e0503ed9">dgesv_</a>(&amp;N, &amp;one, A, &amp;N, pivot, b, &amp;N, &amp;info);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (info &lt; 0) {</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        cout &lt;&lt; <span class="stringliteral">&quot;Wrong Input !&quot;</span> &lt;&lt; endl;</div>
@@ -501,7 +549,10 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        cout &lt;&lt; <span class="stringliteral">&quot;Singular Matrix !&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a11c90dc3decfc15b86032021e0503ed9"><div class="ttname"><a href="DenseMat_8hpp.html#a11c90dc3decfc15b86032021e0503ed9">dgesv_</a></div><div class="ttdeci">int dgesv_(const int *n, const int *nrhs, double *A, const int *lda, int *ipiv, double *b, const int *ldb, int *info)</div><div class="ttdoc">Computes the solution to system of linear equations A * X = B for general matrices.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a11c90dc3decfc15b86032021e0503ed9">dgesv_()</a>.</p>
+
 </div>
 </div>
 <a id="aa754f53284079d4cb28119a1a9ede7da" name="aa754f53284079d4cb28119a1a9ede7da"></a>
@@ -529,6 +580,8 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Prints a double vector. </p>
 
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00097">97</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
@@ -584,6 +637,8 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
+<p>Calls dsysy to solve the linear system for symm matrices. </p>
+
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00082">82</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">int</span>    info;</div>
@@ -591,20 +646,23 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">double</span> work[1] = {0};</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">int</span>    lwork   = 1;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    dsysv_(uplo, &amp;N, &amp;one, A, &amp;N, pivot, b, &amp;N, work, &amp;lwork, &amp;info);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_function" href="DenseMat_8hpp.html#a0c5680d25e16ef0e176543fa6b7663dd">dsysv_</a>(uplo, &amp;N, &amp;one, A, &amp;N, pivot, b, &amp;N, work, &amp;lwork, &amp;info);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span> (info &lt; 0) {</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        cout &lt;&lt; <span class="stringliteral">&quot;Wrong Input !&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (info &gt; 0) {</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        cout &lt;&lt; <span class="stringliteral">&quot;Singular Matrix !&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="ttc" id="aDenseMat_8hpp_html_a0c5680d25e16ef0e176543fa6b7663dd"><div class="ttname"><a href="DenseMat_8hpp.html#a0c5680d25e16ef0e176543fa6b7663dd">dsysv_</a></div><div class="ttdeci">int dsysv_(const char *uplo, const int *n, const int *nrhs, double *A, const int *lda, int *ipiv, double *b, const int *ldb, double *work, const int *lwork, int *info)</div><div class="ttdoc">Computes the solution to system of linear equations A * X = B for symm matrices.</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="DenseMat_8hpp.html#a0c5680d25e16ef0e176543fa6b7663dd">dsysv_()</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

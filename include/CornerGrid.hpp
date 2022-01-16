@@ -23,10 +23,10 @@
 using namespace std;
 
 // Constants used by corner-point grid code
-const OCP_DBL SMALL_REAL   = 1E-10;
-const USI     MAX_NEIGHBOR = 80;
-const OCP_DBL TEENY        = 1E-3;
-const OCP_DBL SMALL        = 1E-3;
+const OCP_DBL SMALL_REAL   = 1E-10; ///< Used for checking determinate of a small matrix
+const OCP_DBL TEENY        = 1E-3;  ///< Used for checking distance b/w center to face
+const OCP_DBL SMALL        = 1E-3;  ///< Small number as tolerance
+const USI     MAX_NEIGHBOR = 80;    ///< Max number of  neighbors allowed
 
 /// A point in 2D.
 class Point2D
@@ -62,8 +62,8 @@ public:
     OCP_DBL operator*(const Point3D& other) const; ///< Multiplication
 };
 
-Point3D operator*(const Point3D& p, const OCP_DBL& a); ///< Point * a
-Point3D operator*(const OCP_DBL& a, const Point3D& p); ///< a * Point
+Point3D operator*(const Point3D& p, const OCP_DBL& a);      ///< Point * a
+Point3D operator*(const OCP_DBL& a, const Point3D& p);      ///< a * Point
 Point3D CrossProduct(const Point3D& p1, const Point3D& p2); ///< Cross product
 
 /// A hexahedron cell.
@@ -88,8 +88,8 @@ public:
     Point3D operator*(const Point3D& v) const;
 };
 
-/// Get the volume of a hexahedron. 
-OCP_DBL VolumHexahedron(const Hexahedron& h); 
+/// Get the volume of a hexahedron.
+OCP_DBL VolumHexahedron(const Hexahedron& h);
 
 /// Find the center of a hexahedron.
 Point3D CenterHexahedron(const Hexahedron& h);
@@ -97,7 +97,7 @@ Point3D CenterHexahedron(const Hexahedron& h);
 /// Find the normal vector of a face.
 Point3D VectorFace(const HexahedronFace& f);
 
-/// Find the center of a face. 
+/// Find the center of a face.
 Point3D CenterFace(const HexahedronFace& f);
 
 /// ???
@@ -178,4 +178,5 @@ private:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/16/2021      Create file                          */
+/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

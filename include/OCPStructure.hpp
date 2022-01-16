@@ -20,8 +20,7 @@
 
 using namespace std;
 
-// FIM
-
+/// FIM
 class ResFIM
 {
 public:

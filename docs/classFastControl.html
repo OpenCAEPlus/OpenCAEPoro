@@ -140,9 +140,9 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (argc &gt;= 6) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        activity = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">if</span> (<span class="keywordtype">string</span>(optset[2]) == <span class="stringliteral">&quot;FIM&quot;</span>) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_variable" href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">method</a> = FIM;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_variable" href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">method</a> = <a class="code hl_variable" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keywordtype">string</span>(optset[2]) == <span class="stringliteral">&quot;IMPEC&quot;</span>) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <a class="code hl_variable" href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">method</a> = IMPEC;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <a class="code hl_variable" href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">method</a> = <a class="code hl_variable" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method param in command line!&quot;</span>);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
@@ -154,6 +154,8 @@ Public Attributes</h2></td></tr>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><div class="ttname"><a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a></div><div class="ttdeci">const USI FIM</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00063">OCPConst.hpp:63</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac14d31821c31b6fc2624e8e0c304023c"><div class="ttname"><a href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a></div><div class="ttdeci">const USI IMPEC</div><div class="ttdoc">Solution method = IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassFastControl_html_a44ec5be91160db8aa089e4c95783329b"><div class="ttname"><a href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">FastControl::method</a></div><div class="ttdeci">USI method</div><div class="ttdoc">IMPEC or FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00084">OCPControl.hpp:84</a></div></div>
 <div class="ttc" id="aclassFastControl_html_a4f0602630756068e3fd5ba22183ed860"><div class="ttname"><a href="classFastControl.html#a4f0602630756068e3fd5ba22183ed860">FastControl::printLevel</a></div><div class="ttdeci">USI printLevel</div><div class="ttdoc">Decide the depth for printfing.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00088">OCPControl.hpp:88</a></div></div>
@@ -277,7 +279,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

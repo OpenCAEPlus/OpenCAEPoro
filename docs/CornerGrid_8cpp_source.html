@@ -217,7 +217,7 @@ $(function() {
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    b2   = a21 * Line2[0].x + a22 * Line2[0].y;</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    detA = a11 * a22 - a12 * a21;</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (fabs(detA) &gt; SMALL_REAL) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (fabs(detA) &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a6733c60eb3a89aa36b58518026401cf1">SMALL_REAL</a>) {</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        detX         = b1 * a22 - b2 * a12;</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        detY         = a11 * b2 - a21 * b1;</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        crosspoint.x = detX / detA;</div>
@@ -605,7 +605,7 @@ $(function() {
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        maxConn *= 2;</div>
 <div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        halfConn.resize(maxConn);</div>
 <div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        <span class="comment">// get larger space</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="keywordflow">if</span> (maxConn &gt; MAX_NEIGHBOR) {</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="keywordflow">if</span> (maxConn &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#aec713ffb81ef2cbbd181dfcbc350a67d">MAX_NEIGHBOR</a>) {</div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Too many Neighbors!&quot;</span>);</div>
 <div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>        }</div>
 <div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    }</div>
@@ -917,7 +917,7 @@ $(function() {
 <div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                    area        = <a class="code hl_function" href="CornerGrid_8cpp.html#a39ac819290861eefb249497f67d6f9d3">VectorFace</a>(FACE);</div>
 <div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>                    areavector  = area;</div>
 <div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                    <span class="comment">// ALL_AREA[im].fijk(1)   = area * Pctof;</span></div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                    <span class="keywordflow">if</span> (iloopx == 0 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                    <span class="keywordflow">if</span> (iloopx == 0 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span> </div>
 <div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                        <span class="comment">//</span></div>
@@ -932,31 +932,31 @@ $(function() {
 <div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>                            cornerPoints[iloopx - 1][iloopy][iloopz];</div>
 <div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span> </div>
 <div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                        <span class="comment">// Let Face be the interface.</span></div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                        <span class="keywordflow">if</span> (leftblock.p1.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                        <span class="keywordflow">if</span> (leftblock.p1.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>                            FACE.p0     = leftblock.p1;</div>
 <div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>                            LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p1.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p1.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                            LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>                        }</div>
 <div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>                        <span class="keywordflow">if</span> (leftblock.p5.z - FACE.p1.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>                        <span class="keywordflow">if</span> (leftblock.p5.z - FACE.p1.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>                            FACE.p1     = leftblock.p5;</div>
 <div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>                            LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p5.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p5.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>                            LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>                        }</div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>                        <span class="keywordflow">if</span> (leftblock.p6.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>                        <span class="keywordflow">if</span> (leftblock.p6.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>                            FACE.p2     = leftblock.p6;</div>
 <div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>                            LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p6.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p6.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>                            LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>                        }</div>
 <div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>                        <span class="keywordflow">if</span> (leftblock.p2.z - FACE.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>                        <span class="keywordflow">if</span> (leftblock.p2.z - FACE.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>                            FACE.p3     = leftblock.p2;</div>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>                            LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p2.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftblock.p2.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>                            LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>                        }</div>
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>                        <span class="comment">//</span></div>
@@ -1019,31 +1019,31 @@ $(function() {
 <div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>                                cornerPoints[iloopx - 1][iloopy][iloopz + iznnc];</div>
 <div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>                            imim = (iloopz + iznnc) * nxy + iloopy * nx + iloopx - 1;</div>
 <div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span> </div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>                            <span class="keywordflow">if</span> (leftnncblock.p1.z - block.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>                            <span class="keywordflow">if</span> (leftnncblock.p1.z - block.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>                                FACE.p0     = leftnncblock.p1;</div>
 <div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p1.z - block.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p1.z - block.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>                            }</div>
 <div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span> </div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>                            <span class="keywordflow">if</span> (leftnncblock.p5.z - FACE.p1.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>                            <span class="keywordflow">if</span> (leftnncblock.p5.z - FACE.p1.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>                                FACE.p1     = leftnncblock.p5;</div>
 <div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p5.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p5.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>                            }</div>
 <div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span> </div>
-<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>                            <span class="keywordflow">if</span> (leftnncblock.p6.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>                            <span class="keywordflow">if</span> (leftnncblock.p6.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>                                FACE.p2     = leftnncblock.p6;</div>
 <div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p6.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p6.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>                            }</div>
 <div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span> </div>
-<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>                            <span class="keywordflow">if</span> (leftnncblock.p2.z - block.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>                            <span class="keywordflow">if</span> (leftnncblock.p2.z - block.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>                                FACE.p3     = leftnncblock.p2;</div>
 <div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p2.z - block.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p2.z - block.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>                            }</div>
 <div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span> </div>
@@ -1111,31 +1111,31 @@ $(function() {
 <div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>                            imim = (iloopz + iznnc) * nxy + iloopy * nx + iloopx - 1;</div>
 <div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span> </div>
 <div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>                            <span class="keywordflow">if</span> (leftnncblock.p1.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>                            <span class="keywordflow">if</span> (leftnncblock.p1.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>                                FACE.p0     = leftnncblock.p1;</div>
 <div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p1.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p1.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span>                            }</div>
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>                            <span class="keywordflow">if</span> (leftnncblock.p5.z - block.p4.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>                            <span class="keywordflow">if</span> (leftnncblock.p5.z - block.p4.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>                                FACE.p1     = leftnncblock.p5;</div>
 <div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p5.z - block.p4.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p5.z - block.p4.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>                            }</div>
 <div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>                            <span class="keywordflow">if</span> (leftnncblock.p6.z - block.p7.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>                            <span class="keywordflow">if</span> (leftnncblock.p6.z - block.p7.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>                                FACE.p2     = leftnncblock.p6;</div>
 <div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p6.z - block.p7.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p6.z - block.p7.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>                            }</div>
 <div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>                            <span class="keywordflow">if</span> (leftnncblock.p2.z - FACE.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>                            <span class="keywordflow">if</span> (leftnncblock.p2.z - FACE.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>                                FACE.p3     = leftnncblock.p2;</div>
 <div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p2.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(leftnncblock.p2.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01075" name="l01075"></a><span class="lineno"> 1075</span>                            }</div>
 <div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span> </div>
@@ -1204,7 +1204,7 @@ $(function() {
 <div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span>                    areavector  = area;</div>
 <div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>                    <span class="comment">//?</span></div>
 <div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>                    <span class="comment">// ALL_AREA[im].fijk(2)   = area * Pctof;</span></div>
-<div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span>                    <span class="keywordflow">if</span> (iloopx == nx - 1 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span>                    <span class="keywordflow">if</span> (iloopx == nx - 1 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l01143" name="l01143"></a><span class="lineno"> 1143</span>                        <span class="comment">// TRANX2[im]         = 0;</span></div>
 <div class="line"><a id="l01144" name="l01144"></a><span class="lineno"> 1144</span>                    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01145" name="l01145"></a><span class="lineno"> 1145</span>                        <span class="comment">//</span></div>
@@ -1217,31 +1217,31 @@ $(function() {
 <div class="line"><a id="l01152" name="l01152"></a><span class="lineno"> 1152</span>                            cornerPoints[iloopx + 1][iloopy][iloopz];</div>
 <div class="line"><a id="l01153" name="l01153"></a><span class="lineno"> 1153</span>                        imim = (iloopz)*nxy + iloopy * nx + iloopx + 1;</div>
 <div class="line"><a id="l01154" name="l01154"></a><span class="lineno"> 1154</span> </div>
-<div class="line"><a id="l01155" name="l01155"></a><span class="lineno"> 1155</span>                        <span class="keywordflow">if</span> (rightblock.p0.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01155" name="l01155"></a><span class="lineno"> 1155</span>                        <span class="keywordflow">if</span> (rightblock.p0.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01156" name="l01156"></a><span class="lineno"> 1156</span>                            FACE.p0     = rightblock.p0;</div>
 <div class="line"><a id="l01157" name="l01157"></a><span class="lineno"> 1157</span>                            LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p0.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p0.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>                            LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span>                        };</div>
 <div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>                        <span class="keywordflow">if</span> (rightblock.p3.z - FACE.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>                        <span class="keywordflow">if</span> (rightblock.p3.z - FACE.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01163" name="l01163"></a><span class="lineno"> 1163</span>                            FACE.p1     = rightblock.p3;</div>
 <div class="line"><a id="l01164" name="l01164"></a><span class="lineno"> 1164</span>                            LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01165" name="l01165"></a><span class="lineno"> 1165</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p3.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01165" name="l01165"></a><span class="lineno"> 1165</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p3.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01166" name="l01166"></a><span class="lineno"> 1166</span>                            LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01167" name="l01167"></a><span class="lineno"> 1167</span>                        }</div>
 <div class="line"><a id="l01168" name="l01168"></a><span class="lineno"> 1168</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01169" name="l01169"></a><span class="lineno"> 1169</span>                        <span class="keywordflow">if</span> (rightblock.p7.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01169" name="l01169"></a><span class="lineno"> 1169</span>                        <span class="keywordflow">if</span> (rightblock.p7.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01170" name="l01170"></a><span class="lineno"> 1170</span>                            FACE.p2     = rightblock.p7;</div>
 <div class="line"><a id="l01171" name="l01171"></a><span class="lineno"> 1171</span>                            LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p7.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p7.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>                            LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>                        }</div>
 <div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>                        <span class="keywordflow">if</span> (rightblock.p4.z - FACE.p3.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>                        <span class="keywordflow">if</span> (rightblock.p4.z - FACE.p3.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span>                            FACE.p3     = rightblock.p4;</div>
 <div class="line"><a id="l01178" name="l01178"></a><span class="lineno"> 1178</span>                            LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01179" name="l01179"></a><span class="lineno"> 1179</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p4.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01179" name="l01179"></a><span class="lineno"> 1179</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightblock.p4.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01180" name="l01180"></a><span class="lineno"> 1180</span>                            LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01181" name="l01181"></a><span class="lineno"> 1181</span>                        }</div>
 <div class="line"><a id="l01182" name="l01182"></a><span class="lineno"> 1182</span>                        <span class="comment">//</span></div>
@@ -1301,31 +1301,31 @@ $(function() {
 <div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>                                cornerPoints[iloopx + 1][iloopy][iloopz + iznnc];</div>
 <div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span>                            imim = (iloopz + iznnc) * nxy + iloopy * nx + iloopx + 1;</div>
 <div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span> </div>
-<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>                            <span class="keywordflow">if</span> (rightnncblock.p0.z - block.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>                            <span class="keywordflow">if</span> (rightnncblock.p0.z - block.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span>                                FACE.p0     = rightnncblock.p0;</div>
 <div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p0.z - block.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p0.z - block.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>                            }</div>
 <div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>                            <span class="keywordflow">if</span> (rightnncblock.p3.z - block.p2.z &gt; SMALL) {</div>
+<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>                            <span class="keywordflow">if</span> (rightnncblock.p3.z - block.p2.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>                                FACE.p1     = rightnncblock.p3;</div>
 <div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p3.z - block.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p3.z - block.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>                            }</div>
 <div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>                            <span class="keywordflow">if</span> (rightnncblock.p7.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>                            <span class="keywordflow">if</span> (rightnncblock.p7.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span>                                FACE.p2     = rightnncblock.p7;</div>
 <div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p7.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p7.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span>                            }</div>
 <div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>                            <span class="keywordflow">if</span> (rightnncblock.p4.z - FACE.p3.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>                            <span class="keywordflow">if</span> (rightnncblock.p4.z - FACE.p3.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span>                                FACE.p3     = rightnncblock.p4;</div>
 <div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p4.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p4.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>                            }</div>
 <div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span> </div>
@@ -1393,31 +1393,31 @@ $(function() {
 <div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>                                cornerPoints[iloopx + 1][iloopy][iloopz + iznnc];</div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>                            imim = (iloopz + iznnc) * nxy + iloopy * nx + iloopx + 1;</div>
 <div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span> </div>
-<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>                            <span class="keywordflow">if</span> (rightnncblock.p0.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>                            <span class="keywordflow">if</span> (rightnncblock.p0.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>                                FACE.p0     = rightnncblock.p0;</div>
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p0.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p0.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>                            }</div>
 <div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>                            <span class="keywordflow">if</span> (rightnncblock.p3.z - FACE.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>                            <span class="keywordflow">if</span> (rightnncblock.p3.z - FACE.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>                                FACE.p1     = rightnncblock.p3;</div>
 <div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p3.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p3.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>                            }</div>
 <div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>                            <span class="keywordflow">if</span> (rightnncblock.p7.z - block.p6.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>                            <span class="keywordflow">if</span> (rightnncblock.p7.z - block.p6.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>                                FACE.p2     = rightnncblock.p7;</div>
 <div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p7.z - block.p6.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p7.z - block.p6.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>                            }</div>
 <div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>                            <span class="keywordflow">if</span> (rightnncblock.p4.z - block.p5.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>                            <span class="keywordflow">if</span> (rightnncblock.p4.z - block.p5.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>                                FACE.p3     = rightnncblock.p4;</div>
 <div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p4.z - block.p5.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(rightnncblock.p4.z - block.p5.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>                            }</div>
 <div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span> </div>
@@ -1486,7 +1486,7 @@ $(function() {
 <div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>                    areavector  = area;</div>
 <div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>                    <span class="comment">//??</span></div>
 <div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>                    <span class="comment">// ALL_AREA[im].fijk(3)   = area * Pctof;</span></div>
-<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>                    <span class="keywordflow">if</span> (iloopy == 0 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>                    <span class="keywordflow">if</span> (iloopy == 0 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>                        <span class="comment">// TRANY1[im]         = 0;</span></div>
 <div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>                    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>                        <span class="comment">//</span></div>
@@ -1499,31 +1499,31 @@ $(function() {
 <div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>                        <a class="code hl_class" href="classHexahedron.html">Hexahedron</a>&amp; frontblock =</div>
 <div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span>                            cornerPoints[iloopx][iloopy - 1][iloopz];</div>
 <div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span> </div>
-<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>                        <span class="keywordflow">if</span> (frontblock.p3.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>                        <span class="keywordflow">if</span> (frontblock.p3.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span>                            FACE.p0     = frontblock.p3;</div>
 <div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span>                            LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p3.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p3.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span>                            LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span>                        }</div>
 <div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span>                        <span class="keywordflow">if</span> (frontblock.p2.z - FACE.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span>                        <span class="keywordflow">if</span> (frontblock.p2.z - FACE.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span>                            FACE.p1     = frontblock.p2;</div>
 <div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span>                            LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p2.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p2.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>                            LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span>                        }</div>
 <div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>                        <span class="keywordflow">if</span> (frontblock.p6.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>                        <span class="keywordflow">if</span> (frontblock.p6.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span>                            FACE.p2     = frontblock.p6;</div>
 <div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>                            LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p6.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p6.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span>                            LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>                        }</div>
 <div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>                        <span class="keywordflow">if</span> (frontblock.p7.z - FACE.p3.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>                        <span class="keywordflow">if</span> (frontblock.p7.z - FACE.p3.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>                            FACE.p3     = frontblock.p7;</div>
 <div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>                            LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p7.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontblock.p7.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>                            LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>                        }</div>
 <div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span>                        <span class="comment">//</span></div>
@@ -1583,31 +1583,31 @@ $(function() {
 <div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span>                                cornerPoints[iloopx][iloopy - 1][iloopz + iznnc];</div>
 <div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span>                            imim = (iloopz + iznnc) * nxy + (iloopy - 1) * nx + iloopx;</div>
 <div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span> </div>
-<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span>                            <span class="keywordflow">if</span> (frontnncblock.p3.z - block.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span>                            <span class="keywordflow">if</span> (frontnncblock.p3.z - block.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>                                FACE.p0     = frontnncblock.p3;</div>
 <div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p3.z - block.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p3.z - block.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>                            }</div>
 <div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span>                            <span class="keywordflow">if</span> (frontnncblock.p2.z - block.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span>                            <span class="keywordflow">if</span> (frontnncblock.p2.z - block.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>                                FACE.p1     = frontnncblock.p2;</div>
 <div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p2.z - block.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p2.z - block.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>                            }</div>
 <div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>                            <span class="keywordflow">if</span> (frontnncblock.p6.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>                            <span class="keywordflow">if</span> (frontnncblock.p6.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span>                                FACE.p2     = frontnncblock.p6;</div>
 <div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p6.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p6.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>                            }</div>
 <div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>                            <span class="keywordflow">if</span> (frontnncblock.p7.z - FACE.p3.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>                            <span class="keywordflow">if</span> (frontnncblock.p7.z - FACE.p3.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>                                FACE.p3     = frontnncblock.p7;</div>
 <div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p7.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p7.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>                            }</div>
 <div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span> </div>
@@ -1675,31 +1675,31 @@ $(function() {
 <div class="line"><a id="l01610" name="l01610"></a><span class="lineno"> 1610</span>                                cornerPoints[iloopx][iloopy - 1][iloopz + iznnc];</div>
 <div class="line"><a id="l01611" name="l01611"></a><span class="lineno"> 1611</span>                            imim = (iloopz + iznnc) * nxy + (iloopy - 1) * nx + iloopx;</div>
 <div class="line"><a id="l01612" name="l01612"></a><span class="lineno"> 1612</span> </div>
-<div class="line"><a id="l01613" name="l01613"></a><span class="lineno"> 1613</span>                            <span class="keywordflow">if</span> (frontnncblock.p3.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01613" name="l01613"></a><span class="lineno"> 1613</span>                            <span class="keywordflow">if</span> (frontnncblock.p3.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01614" name="l01614"></a><span class="lineno"> 1614</span>                                FACE.p0     = frontnncblock.p3;</div>
 <div class="line"><a id="l01615" name="l01615"></a><span class="lineno"> 1615</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01616" name="l01616"></a><span class="lineno"> 1616</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p3.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01616" name="l01616"></a><span class="lineno"> 1616</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p3.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01617" name="l01617"></a><span class="lineno"> 1617</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01618" name="l01618"></a><span class="lineno"> 1618</span>                            }</div>
 <div class="line"><a id="l01619" name="l01619"></a><span class="lineno"> 1619</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01620" name="l01620"></a><span class="lineno"> 1620</span>                            <span class="keywordflow">if</span> (frontnncblock.p2.z - FACE.p1.z &gt; SMALL) {</div>
+<div class="line"><a id="l01620" name="l01620"></a><span class="lineno"> 1620</span>                            <span class="keywordflow">if</span> (frontnncblock.p2.z - FACE.p1.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01621" name="l01621"></a><span class="lineno"> 1621</span>                                FACE.p1     = frontnncblock.p2;</div>
 <div class="line"><a id="l01622" name="l01622"></a><span class="lineno"> 1622</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01623" name="l01623"></a><span class="lineno"> 1623</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p2.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01623" name="l01623"></a><span class="lineno"> 1623</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p2.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01624" name="l01624"></a><span class="lineno"> 1624</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01625" name="l01625"></a><span class="lineno"> 1625</span>                            }</div>
 <div class="line"><a id="l01626" name="l01626"></a><span class="lineno"> 1626</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01627" name="l01627"></a><span class="lineno"> 1627</span>                            <span class="keywordflow">if</span> (frontnncblock.p6.z - block.p5.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01627" name="l01627"></a><span class="lineno"> 1627</span>                            <span class="keywordflow">if</span> (frontnncblock.p6.z - block.p5.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01628" name="l01628"></a><span class="lineno"> 1628</span>                                FACE.p2     = frontnncblock.p6;</div>
 <div class="line"><a id="l01629" name="l01629"></a><span class="lineno"> 1629</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01630" name="l01630"></a><span class="lineno"> 1630</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p6.z - block.p5.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01630" name="l01630"></a><span class="lineno"> 1630</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p6.z - block.p5.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01631" name="l01631"></a><span class="lineno"> 1631</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01632" name="l01632"></a><span class="lineno"> 1632</span>                            }</div>
 <div class="line"><a id="l01633" name="l01633"></a><span class="lineno"> 1633</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01634" name="l01634"></a><span class="lineno"> 1634</span>                            <span class="keywordflow">if</span> (frontnncblock.p7.z - block.p4.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01634" name="l01634"></a><span class="lineno"> 1634</span>                            <span class="keywordflow">if</span> (frontnncblock.p7.z - block.p4.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01635" name="l01635"></a><span class="lineno"> 1635</span>                                FACE.p3     = frontnncblock.p7;</div>
 <div class="line"><a id="l01636" name="l01636"></a><span class="lineno"> 1636</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01637" name="l01637"></a><span class="lineno"> 1637</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p7.z - block.p4.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01637" name="l01637"></a><span class="lineno"> 1637</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(frontnncblock.p7.z - block.p4.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01638" name="l01638"></a><span class="lineno"> 1638</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01639" name="l01639"></a><span class="lineno"> 1639</span>                            }</div>
 <div class="line"><a id="l01640" name="l01640"></a><span class="lineno"> 1640</span> </div>
@@ -1769,7 +1769,7 @@ $(function() {
 <div class="line"><a id="l01704" name="l01704"></a><span class="lineno"> 1704</span>                    areavector  = area;</div>
 <div class="line"><a id="l01705" name="l01705"></a><span class="lineno"> 1705</span>                    <span class="comment">//??</span></div>
 <div class="line"><a id="l01706" name="l01706"></a><span class="lineno"> 1706</span>                    <span class="comment">// ALL_AREA[im].fijk(4)   = area * Pctof;</span></div>
-<div class="line"><a id="l01707" name="l01707"></a><span class="lineno"> 1707</span>                    <span class="keywordflow">if</span> (iloopy == ny - 1 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l01707" name="l01707"></a><span class="lineno"> 1707</span>                    <span class="keywordflow">if</span> (iloopy == ny - 1 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l01708" name="l01708"></a><span class="lineno"> 1708</span>                        <span class="comment">// TRANY2[im]         = 0;</span></div>
 <div class="line"><a id="l01709" name="l01709"></a><span class="lineno"> 1709</span>                    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01710" name="l01710"></a><span class="lineno"> 1710</span>                        <span class="comment">//</span></div>
@@ -1782,32 +1782,32 @@ $(function() {
 <div class="line"><a id="l01717" name="l01717"></a><span class="lineno"> 1717</span>                            cornerPoints[iloopx][iloopy + 1][iloopz];</div>
 <div class="line"><a id="l01718" name="l01718"></a><span class="lineno"> 1718</span>                        imim = (iloopz)*nxy + (iloopy + 1) * nx + iloopx;</div>
 <div class="line"><a id="l01719" name="l01719"></a><span class="lineno"> 1719</span> </div>
-<div class="line"><a id="l01720" name="l01720"></a><span class="lineno"> 1720</span>                        <span class="keywordflow">if</span> (backblock.p0.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01720" name="l01720"></a><span class="lineno"> 1720</span>                        <span class="keywordflow">if</span> (backblock.p0.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01721" name="l01721"></a><span class="lineno"> 1721</span>                            FACE.p0     = backblock.p0;</div>
 <div class="line"><a id="l01722" name="l01722"></a><span class="lineno"> 1722</span>                            LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01723" name="l01723"></a><span class="lineno"> 1723</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p0.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01723" name="l01723"></a><span class="lineno"> 1723</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p0.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01724" name="l01724"></a><span class="lineno"> 1724</span>                            LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01725" name="l01725"></a><span class="lineno"> 1725</span>                        }</div>
 <div class="line"><a id="l01726" name="l01726"></a><span class="lineno"> 1726</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01727" name="l01727"></a><span class="lineno"> 1727</span>                        <span class="keywordflow">if</span> (backblock.p4.z - FACE.p1.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01727" name="l01727"></a><span class="lineno"> 1727</span>                        <span class="keywordflow">if</span> (backblock.p4.z - FACE.p1.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01728" name="l01728"></a><span class="lineno"> 1728</span>                            FACE.p1     = backblock.p4;</div>
 <div class="line"><a id="l01729" name="l01729"></a><span class="lineno"> 1729</span>                            LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01730" name="l01730"></a><span class="lineno"> 1730</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p4.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01730" name="l01730"></a><span class="lineno"> 1730</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p4.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01731" name="l01731"></a><span class="lineno"> 1731</span>                            LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01732" name="l01732"></a><span class="lineno"> 1732</span>                        }</div>
 <div class="line"><a id="l01733" name="l01733"></a><span class="lineno"> 1733</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01734" name="l01734"></a><span class="lineno"> 1734</span>                        <span class="keywordflow">if</span> (backblock.p5.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01734" name="l01734"></a><span class="lineno"> 1734</span>                        <span class="keywordflow">if</span> (backblock.p5.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01735" name="l01735"></a><span class="lineno"> 1735</span>                            FACE.p2     = backblock.p5;</div>
 <div class="line"><a id="l01736" name="l01736"></a><span class="lineno"> 1736</span>                            LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01737" name="l01737"></a><span class="lineno"> 1737</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p5.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01737" name="l01737"></a><span class="lineno"> 1737</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p5.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01738" name="l01738"></a><span class="lineno"> 1738</span>                            LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01739" name="l01739"></a><span class="lineno"> 1739</span>                        }</div>
 <div class="line"><a id="l01740" name="l01740"></a><span class="lineno"> 1740</span> </div>
 <div class="line"><a id="l01741" name="l01741"></a><span class="lineno"> 1741</span>                        <span class="comment">//</span></div>
-<div class="line"><a id="l01742" name="l01742"></a><span class="lineno"> 1742</span>                        <span class="keywordflow">if</span> (backblock.p1.z - FACE.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l01742" name="l01742"></a><span class="lineno"> 1742</span>                        <span class="keywordflow">if</span> (backblock.p1.z - FACE.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01743" name="l01743"></a><span class="lineno"> 1743</span>                            FACE.p3     = backblock.p1;</div>
 <div class="line"><a id="l01744" name="l01744"></a><span class="lineno"> 1744</span>                            LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01745" name="l01745"></a><span class="lineno"> 1745</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p1.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01745" name="l01745"></a><span class="lineno"> 1745</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backblock.p1.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01746" name="l01746"></a><span class="lineno"> 1746</span>                            LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01747" name="l01747"></a><span class="lineno"> 1747</span>                        }</div>
 <div class="line"><a id="l01748" name="l01748"></a><span class="lineno"> 1748</span>                        <span class="comment">//</span></div>
@@ -1867,31 +1867,31 @@ $(function() {
 <div class="line"><a id="l01802" name="l01802"></a><span class="lineno"> 1802</span>                                cornerPoints[iloopx][iloopy + 1][iloopz + iznnc];</div>
 <div class="line"><a id="l01803" name="l01803"></a><span class="lineno"> 1803</span>                            imim = (iloopz + iznnc) * nxy + (iloopy + 1) * nx + iloopx;</div>
 <div class="line"><a id="l01804" name="l01804"></a><span class="lineno"> 1804</span> </div>
-<div class="line"><a id="l01805" name="l01805"></a><span class="lineno"> 1805</span>                            <span class="keywordflow">if</span> (backnncblock.p0.z - block.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l01805" name="l01805"></a><span class="lineno"> 1805</span>                            <span class="keywordflow">if</span> (backnncblock.p0.z - block.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01806" name="l01806"></a><span class="lineno"> 1806</span>                                FACE.p0     = backnncblock.p0;</div>
 <div class="line"><a id="l01807" name="l01807"></a><span class="lineno"> 1807</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01808" name="l01808"></a><span class="lineno"> 1808</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p0.z - block.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01808" name="l01808"></a><span class="lineno"> 1808</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p0.z - block.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01809" name="l01809"></a><span class="lineno"> 1809</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01810" name="l01810"></a><span class="lineno"> 1810</span>                            }</div>
 <div class="line"><a id="l01811" name="l01811"></a><span class="lineno"> 1811</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01812" name="l01812"></a><span class="lineno"> 1812</span>                            <span class="keywordflow">if</span> (backnncblock.p4.z - FACE.p1.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01812" name="l01812"></a><span class="lineno"> 1812</span>                            <span class="keywordflow">if</span> (backnncblock.p4.z - FACE.p1.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01813" name="l01813"></a><span class="lineno"> 1813</span>                                FACE.p1     = backnncblock.p4;</div>
 <div class="line"><a id="l01814" name="l01814"></a><span class="lineno"> 1814</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01815" name="l01815"></a><span class="lineno"> 1815</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p4.z - FACE.p1.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01815" name="l01815"></a><span class="lineno"> 1815</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p4.z - FACE.p1.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01816" name="l01816"></a><span class="lineno"> 1816</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01817" name="l01817"></a><span class="lineno"> 1817</span>                            }</div>
 <div class="line"><a id="l01818" name="l01818"></a><span class="lineno"> 1818</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01819" name="l01819"></a><span class="lineno"> 1819</span>                            <span class="keywordflow">if</span> (backnncblock.p5.z - FACE.p2.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01819" name="l01819"></a><span class="lineno"> 1819</span>                            <span class="keywordflow">if</span> (backnncblock.p5.z - FACE.p2.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01820" name="l01820"></a><span class="lineno"> 1820</span>                                FACE.p2     = backnncblock.p5;</div>
 <div class="line"><a id="l01821" name="l01821"></a><span class="lineno"> 1821</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01822" name="l01822"></a><span class="lineno"> 1822</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p5.z - FACE.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01822" name="l01822"></a><span class="lineno"> 1822</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p5.z - FACE.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01823" name="l01823"></a><span class="lineno"> 1823</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01824" name="l01824"></a><span class="lineno"> 1824</span>                            }</div>
 <div class="line"><a id="l01825" name="l01825"></a><span class="lineno"> 1825</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01826" name="l01826"></a><span class="lineno"> 1826</span>                            <span class="keywordflow">if</span> (backnncblock.p1.z - block.p2.z &gt; SMALL) {</div>
+<div class="line"><a id="l01826" name="l01826"></a><span class="lineno"> 1826</span>                            <span class="keywordflow">if</span> (backnncblock.p1.z - block.p2.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01827" name="l01827"></a><span class="lineno"> 1827</span>                                FACE.p3     = backnncblock.p1;</div>
 <div class="line"><a id="l01828" name="l01828"></a><span class="lineno"> 1828</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01829" name="l01829"></a><span class="lineno"> 1829</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p1.z - block.p2.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01829" name="l01829"></a><span class="lineno"> 1829</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p1.z - block.p2.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01830" name="l01830"></a><span class="lineno"> 1830</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01831" name="l01831"></a><span class="lineno"> 1831</span>                            }</div>
 <div class="line"><a id="l01832" name="l01832"></a><span class="lineno"> 1832</span> </div>
@@ -1958,31 +1958,31 @@ $(function() {
 <div class="line"><a id="l01893" name="l01893"></a><span class="lineno"> 1893</span>                                cornerPoints[iloopx][iloopy + 1][iloopz + iznnc];</div>
 <div class="line"><a id="l01894" name="l01894"></a><span class="lineno"> 1894</span>                            imim = (iloopz + iznnc) * nxy + (iloopy + 1) * nx + iloopx;</div>
 <div class="line"><a id="l01895" name="l01895"></a><span class="lineno"> 1895</span> </div>
-<div class="line"><a id="l01896" name="l01896"></a><span class="lineno"> 1896</span>                            <span class="keywordflow">if</span> (backnncblock.p0.z - FACE.p0.z &gt; SMALL) {</div>
+<div class="line"><a id="l01896" name="l01896"></a><span class="lineno"> 1896</span>                            <span class="keywordflow">if</span> (backnncblock.p0.z - FACE.p0.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01897" name="l01897"></a><span class="lineno"> 1897</span>                                FACE.p0     = backnncblock.p0;</div>
 <div class="line"><a id="l01898" name="l01898"></a><span class="lineno"> 1898</span>                                LGNNCPOINT0 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01899" name="l01899"></a><span class="lineno"> 1899</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p0.z - FACE.p0.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01899" name="l01899"></a><span class="lineno"> 1899</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p0.z - FACE.p0.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01900" name="l01900"></a><span class="lineno"> 1900</span>                                LGZERO0 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01901" name="l01901"></a><span class="lineno"> 1901</span>                            }</div>
 <div class="line"><a id="l01902" name="l01902"></a><span class="lineno"> 1902</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01903" name="l01903"></a><span class="lineno"> 1903</span>                            <span class="keywordflow">if</span> (backnncblock.p4.z - block.p7.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01903" name="l01903"></a><span class="lineno"> 1903</span>                            <span class="keywordflow">if</span> (backnncblock.p4.z - block.p7.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01904" name="l01904"></a><span class="lineno"> 1904</span>                                FACE.p1     = backnncblock.p4;</div>
 <div class="line"><a id="l01905" name="l01905"></a><span class="lineno"> 1905</span>                                LGNNCPOINT1 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01906" name="l01906"></a><span class="lineno"> 1906</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p4.z - block.p7.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01906" name="l01906"></a><span class="lineno"> 1906</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p4.z - block.p7.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01907" name="l01907"></a><span class="lineno"> 1907</span>                                LGZERO1 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01908" name="l01908"></a><span class="lineno"> 1908</span>                            }</div>
 <div class="line"><a id="l01909" name="l01909"></a><span class="lineno"> 1909</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01910" name="l01910"></a><span class="lineno"> 1910</span>                            <span class="keywordflow">if</span> (backnncblock.p5.z - block.p6.z &lt; (-SMALL)) {</div>
+<div class="line"><a id="l01910" name="l01910"></a><span class="lineno"> 1910</span>                            <span class="keywordflow">if</span> (backnncblock.p5.z - block.p6.z &lt; (-<a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>)) {</div>
 <div class="line"><a id="l01911" name="l01911"></a><span class="lineno"> 1911</span>                                FACE.p2     = backnncblock.p5;</div>
 <div class="line"><a id="l01912" name="l01912"></a><span class="lineno"> 1912</span>                                LGNNCPOINT2 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01913" name="l01913"></a><span class="lineno"> 1913</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p5.z - block.p6.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01913" name="l01913"></a><span class="lineno"> 1913</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p5.z - block.p6.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01914" name="l01914"></a><span class="lineno"> 1914</span>                                LGZERO2 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01915" name="l01915"></a><span class="lineno"> 1915</span>                            }</div>
 <div class="line"><a id="l01916" name="l01916"></a><span class="lineno"> 1916</span>                            <span class="comment">//</span></div>
-<div class="line"><a id="l01917" name="l01917"></a><span class="lineno"> 1917</span>                            <span class="keywordflow">if</span> (backnncblock.p1.z - FACE.p3.z &gt; SMALL) {</div>
+<div class="line"><a id="l01917" name="l01917"></a><span class="lineno"> 1917</span>                            <span class="keywordflow">if</span> (backnncblock.p1.z - FACE.p3.z &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01918" name="l01918"></a><span class="lineno"> 1918</span>                                FACE.p3     = backnncblock.p1;</div>
 <div class="line"><a id="l01919" name="l01919"></a><span class="lineno"> 1919</span>                                LGNNCPOINT3 = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l01920" name="l01920"></a><span class="lineno"> 1920</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p1.z - FACE.p3.z) &lt; SMALL) {</div>
+<div class="line"><a id="l01920" name="l01920"></a><span class="lineno"> 1920</span>                            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fabs(backnncblock.p1.z - FACE.p3.z) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a>) {</div>
 <div class="line"><a id="l01921" name="l01921"></a><span class="lineno"> 1921</span>                                LGZERO3 = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01922" name="l01922"></a><span class="lineno"> 1922</span>                            }</div>
 <div class="line"><a id="l01923" name="l01923"></a><span class="lineno"> 1923</span> </div>
@@ -2044,7 +2044,7 @@ $(function() {
 <div class="line"><a id="l01979" name="l01979"></a><span class="lineno"> 1979</span>                <span class="comment">//??</span></div>
 <div class="line"><a id="l01980" name="l01980"></a><span class="lineno"> 1980</span>                <span class="comment">// ALL_AREA[im].fijk(5)   = area * Pctof;</span></div>
 <div class="line"><a id="l01981" name="l01981"></a><span class="lineno"> 1981</span>                dzpoint = Pctof;</div>
-<div class="line"><a id="l01982" name="l01982"></a><span class="lineno"> 1982</span>                <span class="keywordflow">if</span> (iloopz == 0 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l01982" name="l01982"></a><span class="lineno"> 1982</span>                <span class="keywordflow">if</span> (iloopz == 0 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l01983" name="l01983"></a><span class="lineno"> 1983</span>                } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01984" name="l01984"></a><span class="lineno"> 1984</span>                    imim = (iloopz - 1) * nxy + (iloopy)*nx + iloopx;</div>
 <div class="line"><a id="l01985" name="l01985"></a><span class="lineno"> 1985</span>                    blockconn[im].AddHalfConn(imim, area, Pctof, 3);</div>
@@ -2064,7 +2064,7 @@ $(function() {
 <div class="line"><a id="l01999" name="l01999"></a><span class="lineno"> 1999</span>                <span class="comment">//??</span></div>
 <div class="line"><a id="l02000" name="l02000"></a><span class="lineno"> 2000</span>                <span class="comment">// ALL_AREA[im].fijk(6)   = area * Pctof;</span></div>
 <div class="line"><a id="l02001" name="l02001"></a><span class="lineno"> 2001</span>                dzpoint = Pctof - dzpoint;</div>
-<div class="line"><a id="l02002" name="l02002"></a><span class="lineno"> 2002</span>                <span class="keywordflow">if</span> (iloopz == nz - 1 || ((Pctof * Pctof) &lt; TEENY)) {</div>
+<div class="line"><a id="l02002" name="l02002"></a><span class="lineno"> 2002</span>                <span class="keywordflow">if</span> (iloopz == nz - 1 || ((Pctof * Pctof) &lt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a>)) {</div>
 <div class="line"><a id="l02003" name="l02003"></a><span class="lineno"> 2003</span>                } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l02004" name="l02004"></a><span class="lineno"> 2004</span>                    imim = (iloopz + 1) * nxy + (iloopy)*nx + iloopx;</div>
 <div class="line"><a id="l02005" name="l02005"></a><span class="lineno"> 2005</span>                    blockconn[im].AddHalfConn(imim, area, Pctof, 3);</div>
@@ -2143,6 +2143,10 @@ $(function() {
 <div class="ttc" id="aCornerGrid_8cpp_html_ac7cf2d38f6573945a0ce7836db5f88f0"><div class="ttname"><a href="CornerGrid_8cpp.html#ac7cf2d38f6573945a0ce7836db5f88f0">operator*</a></div><div class="ttdeci">Point3D operator*(const Point3D &amp;p, const OCP_DBL &amp;a)</div><div class="ttdoc">Point * a.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8cpp_source.html#l00029">CornerGrid.cpp:29</a></div></div>
 <div class="ttc" id="aCornerGrid_8cpp_html_ad83b79b5ed7dfdaa267e097e293a4785"><div class="ttname"><a href="CornerGrid_8cpp.html#ad83b79b5ed7dfdaa267e097e293a4785">VolumHexahedron</a></div><div class="ttdeci">OCP_DBL VolumHexahedron(const Hexahedron &amp;h)</div><div class="ttdoc">Get the volume of a hexahedron.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8cpp_source.html#l00057">CornerGrid.cpp:57</a></div></div>
 <div class="ttc" id="aCornerGrid_8hpp_html"><div class="ttname"><a href="CornerGrid_8hpp.html">CornerGrid.hpp</a></div><div class="ttdoc">Declaration of classes related to the corner grid.</div></div>
+<div class="ttc" id="aCornerGrid_8hpp_html_a3068624ef00ab5b7a6345cade6f08cba"><div class="ttname"><a href="CornerGrid_8hpp.html#a3068624ef00ab5b7a6345cade6f08cba">TEENY</a></div><div class="ttdeci">const OCP_DBL TEENY</div><div class="ttdoc">Used for checking distance b/w center to face.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00027">CornerGrid.hpp:27</a></div></div>
+<div class="ttc" id="aCornerGrid_8hpp_html_a6733c60eb3a89aa36b58518026401cf1"><div class="ttname"><a href="CornerGrid_8hpp.html#a6733c60eb3a89aa36b58518026401cf1">SMALL_REAL</a></div><div class="ttdeci">const OCP_DBL SMALL_REAL</div><div class="ttdoc">Used for checking determinate of a small matrix.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00026">CornerGrid.hpp:26</a></div></div>
+<div class="ttc" id="aCornerGrid_8hpp_html_a68e799b5e135fd08236a65e01847d91b"><div class="ttname"><a href="CornerGrid_8hpp.html#a68e799b5e135fd08236a65e01847d91b">SMALL</a></div><div class="ttdeci">const OCP_DBL SMALL</div><div class="ttdoc">Small number as tolerance.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00028">CornerGrid.hpp:28</a></div></div>
+<div class="ttc" id="aCornerGrid_8hpp_html_aec713ffb81ef2cbbd181dfcbc350a67d"><div class="ttname"><a href="CornerGrid_8hpp.html#aec713ffb81ef2cbbd181dfcbc350a67d">MAX_NEIGHBOR</a></div><div class="ttdeci">const USI MAX_NEIGHBOR</div><div class="ttdoc">Max number of neighbors allowed.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00029">CornerGrid.hpp:29</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
@@ -2159,7 +2163,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

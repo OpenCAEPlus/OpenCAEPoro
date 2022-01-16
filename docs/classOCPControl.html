@@ -708,9 +708,9 @@ Friends</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    workDir = CtrlParam.<a class="code hl_variable" href="classParamControl.html#a8db5196bf69caf71fb7a2d73eb1695f1">dir</a>;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (CtrlParam.<a class="code hl_variable" href="classParamControl.html#a2dd4a860adae616de02f0d3982911d4f">method</a> == <span class="stringliteral">&quot;IMPEC&quot;</span>) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        method = IMPEC;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        method = <a class="code hl_variable" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (CtrlParam.<a class="code hl_variable" href="classParamControl.html#a2dd4a860adae616de02f0d3982911d4f">method</a> == <span class="stringliteral">&quot;FIM&quot;</span>) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        method = FIM;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        method = <a class="code hl_variable" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method specified!&quot;</span>);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
@@ -737,6 +737,8 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><div class="ttname"><a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a></div><div class="ttdeci">const USI FIM</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00063">OCPConst.hpp:63</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac14d31821c31b6fc2624e8e0c304023c"><div class="ttname"><a href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a></div><div class="ttdeci">const USI IMPEC</div><div class="ttdoc">Solution method = IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
 <div class="ttc" id="aclassControlNR_html"><div class="ttname"><a href="classControlNR.html">ControlNR</a></div><div class="ttdoc">Params for Newton iterations and linear iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00058">OCPControl.hpp:59</a></div></div>
 <div class="ttc" id="aclassControlPreTime_html"><div class="ttname"><a href="classControlPreTime.html">ControlPreTime</a></div><div class="ttdoc">Params for convergence and material balance error checks.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00043">OCPControl.hpp:44</a></div></div>
 <div class="ttc" id="aclassControlTime_html"><div class="ttname"><a href="classControlTime.html">ControlTime</a></div><div class="ttdoc">Params for choosing time stepsize in time marching.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00026">OCPControl.hpp:27</a></div></div>
@@ -746,7 +748,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassParamControl_html_ab346ec72a0e77c5919b268e0aa53c852"><div class="ttname"><a href="classParamControl.html#ab346ec72a0e77c5919b268e0aa53c852">ParamControl::linearSolve</a></div><div class="ttdeci">string linearSolve</div><div class="ttdoc">Fasp file.</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8hpp_source.html#l00050">ParamControl.hpp:50</a></div></div>
 <div class="ttc" id="aclassParamControl_html_af11bd0ba7da83faee49cf9fc7e08ae0c"><div class="ttname"><a href="classParamControl.html#af11bd0ba7da83faee49cf9fc7e08ae0c">ParamControl::tuning_T</a></div><div class="ttdeci">vector&lt; TuningPair &gt; tuning_T</div><div class="ttdoc">Tuning set.</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8hpp_source.html#l00051">ParamControl.hpp:51</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamControl_8hpp_source.html#l00048">ParamControl::dir</a>, and <a class="el" href="ParamControl_8hpp_source.html#l00049">ParamControl::method</a>.</p>
+<p class="reference">References <a class="el" href="ParamControl_8hpp_source.html#l00056">ParamControl::criticalTime</a>, <a class="el" href="ParamControl_8hpp_source.html#l00048">ParamControl::dir</a>, <a class="el" href="OCPConst_8hpp_source.html#l00063">FIM</a>, <a class="el" href="OCPConst_8hpp_source.html#l00062">IMPEC</a>, <a class="el" href="ParamControl_8hpp_source.html#l00050">ParamControl::linearSolve</a>, <a class="el" href="ParamControl_8hpp_source.html#l00049">ParamControl::method</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="ParamControl_8hpp_source.html#l00051">ParamControl::tuning_T</a>.</p>
 
 </div>
 </div>
@@ -877,10 +879,10 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span> (ctrlFast.activity) {</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        method = ctrlFast.<a class="code hl_variable" href="classFastControl.html#a44ec5be91160db8aa089e4c95783329b">method</a>;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">switch</span> (method) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">case</span> IMPEC:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>:</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                lsFile = <span class="stringliteral">&quot;./csr.fasp&quot;</span>;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">case</span> FIM:</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>:</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                lsFile = <span class="stringliteral">&quot;./bsr.fasp&quot;</span>;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">default</span>:</div>
@@ -900,7 +902,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassFastControl_html_a7487d06c6763dc72234a185f751a7b75"><div class="ttname"><a href="classFastControl.html#a7487d06c6763dc72234a185f751a7b75">FastControl::timeMin</a></div><div class="ttdeci">OCP_DBL timeMin</div><div class="ttdoc">Minmum time step during running.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00087">OCPControl.hpp:87</a></div></div>
 <div class="ttc" id="aclassFastControl_html_a9393196660b7b2542aa220d22a58a279"><div class="ttname"><a href="classFastControl.html#a9393196660b7b2542aa220d22a58a279">FastControl::timeInit</a></div><div class="ttdeci">OCP_DBL timeInit</div><div class="ttdoc">Maximum Init step length of next timestep.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00085">OCPControl.hpp:85</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8hpp_source.html#l00084">FastControl::method</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00063">FIM</a>, <a class="el" href="OCPConst_8hpp_source.html#l00062">IMPEC</a>, <a class="el" href="OCPControl_8hpp_source.html#l00084">FastControl::method</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPControl_8hpp_source.html#l00085">FastControl::timeInit</a>, <a class="el" href="OCPControl_8hpp_source.html#l00086">FastControl::timeMax</a>, and <a class="el" href="OCPControl_8hpp_source.html#l00087">FastControl::timeMin</a>.</p>
 
 </div>
 </div>
@@ -1200,7 +1202,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

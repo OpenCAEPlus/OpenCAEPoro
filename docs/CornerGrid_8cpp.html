@@ -579,7 +579,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    b2   = a21 * Line2[0].x + a22 * Line2[0].y;</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    detA = a11 * a22 - a12 * a21;</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (fabs(detA) &gt; SMALL_REAL) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (fabs(detA) &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#a6733c60eb3a89aa36b58518026401cf1">SMALL_REAL</a>) {</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        detX         = b1 * a22 - b2 * a12;</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        detY         = a11 * b2 - a21 * b1;</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        crosspoint.x = detX / detA;</div>
@@ -589,7 +589,10 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">return</span> crosspoint;</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}</div>
+<div class="ttc" id="aCornerGrid_8hpp_html_a6733c60eb3a89aa36b58518026401cf1"><div class="ttname"><a href="CornerGrid_8hpp.html#a6733c60eb3a89aa36b58518026401cf1">SMALL_REAL</a></div><div class="ttdeci">const OCP_DBL SMALL_REAL</div><div class="ttdoc">Used for checking determinate of a small matrix.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00026">CornerGrid.hpp:26</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="CornerGrid_8hpp_source.html#l00026">SMALL_REAL</a>.</p>
+
 </div>
 </div>
 <a id="ac4778a0321aa1aa30e06a52158532760" name="ac4778a0321aa1aa30e06a52158532760"></a>
@@ -860,7 +863,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 18:03:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
