@@ -6,5 +6,6 @@ var searchData=
   ['boflash_5fsj_5fodgw_3',['BOFlash_Sj_ODGW',['../classBOMixture.html#a663192183d2940d333c91d183795f950',1,'BOMixture']]],
   ['boflash_5fsj_5fow_4',['BOFlash_Sj_OW',['../classBOMixture.html#ad6e81478a3fd6f41671b030a7a7cce4d',1,'BOMixture']]],
   ['boflash_5fsj_5fw_5',['BOFlash_Sj_W',['../classBOMixture.html#aa17a2e1cde08196b158025271d80e849',1,'BOMixture']]],
-  ['bulkpair_6',['BulkPair',['../classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5',1,'BulkPair::BulkPair()=default'],['../classBulkPair.html#a2201b3f11355fe2814bf8fb44eeacf45',1,'BulkPair::BulkPair(const OCP_USI &amp;bId, const OCP_USI &amp;eId)']]]
+  ['bulkconn_6',['BulkConn',['../classBulkConn.html#a29a2e7b5ac50a8c5cf2210def306fcb1',1,'BulkConn']]],
+  ['bulkpair_7',['BulkPair',['../classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5',1,'BulkPair::BulkPair()=default'],['../classBulkPair.html#a2201b3f11355fe2814bf8fb44eeacf45',1,'BulkPair::BulkPair(const OCP_USI &amp;bId, const OCP_USI &amp;eId)']]]
 ];

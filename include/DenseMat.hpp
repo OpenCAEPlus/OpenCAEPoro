@@ -18,6 +18,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 extern "C" {
 
 ////// BLAS functions
@@ -62,8 +64,6 @@ int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int
            int* ipiv, double* b, const int* ldb, double* work, const int* lwork,
            int* info);
 }
-
-using namespace std;
 
 /// Computes the L1-norm of a vector.
 double Dnorm1(const int& N, double* x);

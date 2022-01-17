@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Connection between indices of two bulks (BId, EId); usually, BId &gt; EId.  
+<p>Connection between two bulks (BId, EId); usually, indices BId &gt; EId.  
  <a href="classBulkPair.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>&gt;</code></p>
@@ -86,11 +86,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9b72bb053d53bae84f48086bc55fd7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:a9b72bb053d53bae84f48086bc55fd7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2201b3f11355fe2814bf8fb44eeacf45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a2201b3f11355fe2814bf8fb44eeacf45">BulkPair</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;eId)</td></tr>
-<tr class="memdesc:a2201b3f11355fe2814bf8fb44eeacf45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup <a class="el" href="classBulkPair.html" title="Connection between indices of two bulks (BId, EId); usually, BId &gt; EId.">BulkPair</a> with bId and eId.  <a href="classBulkPair.html#a2201b3f11355fe2814bf8fb44eeacf45">More...</a><br /></td></tr>
+<tr class="memdesc:a2201b3f11355fe2814bf8fb44eeacf45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup <a class="el" href="classBulkPair.html" title="Connection between two bulks (BId, EId); usually, indices BId &gt; EId.">BulkPair</a> with bId and eId.  <a href="classBulkPair.html#a2201b3f11355fe2814bf8fb44eeacf45">More...</a><br /></td></tr>
 <tr class="separator:a2201b3f11355fe2814bf8fb44eeacf45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58f80a17e17e647803e53c6713c79b66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a58f80a17e17e647803e53c6713c79b66">GetBId</a> () const</td></tr>
+<tr class="memdesc:a58f80a17e17e647803e53c6713c79b66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return beginning index.  <a href="classBulkPair.html#a58f80a17e17e647803e53c6713c79b66">More...</a><br /></td></tr>
 <tr class="separator:a58f80a17e17e647803e53c6713c79b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2de39b80955a1bafa2b587f5f55e5531"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a2de39b80955a1bafa2b587f5f55e5531">GetEId</a> () const</td></tr>
+<tr class="memdesc:a2de39b80955a1bafa2b587f5f55e5531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return ending index.  <a href="classBulkPair.html#a2de39b80955a1bafa2b587f5f55e5531">More...</a><br /></td></tr>
 <tr class="separator:a2de39b80955a1bafa2b587f5f55e5531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
@@ -99,9 +101,9 @@ Friends</h2></td></tr>
 <tr class="separator:a0ec82805837e02b1565cd3abe70662da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Connection between indices of two bulks (BId, EId); usually, BId &gt; EId. </p>
+<div class="textblock"><p >Connection between two bulks (BId, EId); usually, indices BId &gt; EId. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00028">28</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00029">29</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2201b3f11355fe2814bf8fb44eeacf45" name="a2201b3f11355fe2814bf8fb44eeacf45"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2201b3f11355fe2814bf8fb44eeacf45">&#9670;&nbsp;</a></span>BulkPair()</h2>
@@ -137,11 +139,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Setup <a class="el" href="classBulkPair.html" title="Connection between indices of two bulks (BId, EId); usually, BId &gt; EId.">BulkPair</a> with bId and eId. </p>
+<p>Setup <a class="el" href="classBulkPair.html" title="Connection between two bulks (BId, EId); usually, indices BId &gt; EId.">BulkPair</a> with bId and eId. </p>
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00037">37</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        : BId(bId)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        , EId(eId){};</div>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00038">38</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        : BId(bId)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        , EId(eId){};</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -169,9 +171,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00041">41</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{ <span class="keywordflow">return</span> BId; }</div>
-</div><!-- fragment -->
+<p>Return beginning index. </p>
+
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00042">42</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+
 </div>
 </div>
 <a id="a2de39b80955a1bafa2b587f5f55e5531" name="a2de39b80955a1bafa2b587f5f55e5531"></a>
@@ -197,9 +200,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00042">42</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{ <span class="keywordflow">return</span> EId; }</div>
-</div><!-- fragment -->
+<p>Return ending index. </p>
+
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00043">43</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -223,7 +227,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00030">30</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00031">31</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
 
 </div>
 </div>
@@ -233,7 +237,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 20:32:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Mon Jan 17 2022 20:41:01 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
