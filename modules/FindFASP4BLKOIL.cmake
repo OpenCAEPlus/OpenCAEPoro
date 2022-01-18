@@ -1,11 +1,6 @@
-message(STATUS "Checking for dependent packages of 'FASP4BLKOIL'")
+message(STATUS "Looking for FASP4BLKOIL")
 
 set(FASP4BLKOIL_DIR "${FASP4BLKOIL_DIR}")
-
-# Find packages that FASP4BLKOIL depends on
-find_package(FASP REQUIRED)
-
-message(STATUS "Looking for FASP4BLKOIL")
 
 # Check for header file
 find_path(FASP4BLKOIL_INCLUDE_DIRS fasp4blkoil.h

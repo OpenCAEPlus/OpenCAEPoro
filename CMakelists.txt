@@ -45,16 +45,24 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
-# Find FASP, requires faspsolver and fasp4blkoil     
-find_package(FASP4BLKOIL REQUIRED)
-if(FASP4BLKOIL_FOUND)
+# Find FASP, requires faspsolver
+find_package(FASP REQUIRED)
+if (FASP_FOUND)
     include_directories(${FASP_INCLUDE_DIRS})
-    include_directories(${FASP4BLKOIL_INCLUDE_DIRS})
     set(CMAKE_REQUIRED_INCLUDES ${FASP_INCLUDE_DIRS})
-    set(CMAKE_REQUIRED_INCLUDES ${FASP4BLKOIL_INCLUDE_DIRS})
     add_definitions(-D__SOLVER_FASP__) 
-else(FASP4BLKOIL_FOUND)
+else(FASP_FOUND)
     message("   ERROR: FASP was requested but not found!")
+endif(FASP_FOUND)
+
+# Find FASP, requires fasp4blkoil (optional)
+find_package(FASP4BLKOIL)
+if(FASP4BLKOIL_FOUND)
+    include_directories(${FASP4BLKOIL_INCLUDE_DIRS})
+    set(CMAKE_REQUIRED_INCLUDES ${FASP4BLKOIL_INCLUDE_DIRS})
+    add_definitions(-D__SOLVER_FASP4BLKOIL__) 
+else(FASP4BLKOIL_FOUND)
+    message("   WARNING: FASP4BLKOIL was not found. Skip it!")
 endif(FASP4BLKOIL_FOUND)
 
 # Optional external libraries, including direct solvers
