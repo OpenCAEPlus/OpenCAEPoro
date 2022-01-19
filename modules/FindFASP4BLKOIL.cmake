@@ -1,4 +1,13 @@
-message(STATUS "Looking for FASP4BLKOIL")
+# Once done this will define
+#  FASP4BLKOIL_FOUND        - System has FASP4BLKOIL
+#  FASP4BLKOIL_DIR          - The FASP4BLKOIL directory
+#  FASP4BLKOIL_INCLUDE_DIRS - The FASP4BLKOIL include directories
+#  FASP4BLKOIL_LIBRARIES    - The libraries needed to use FASP4BLKOIL
+#
+#  Chensong Zhang
+#  01/18/2022
+
+# message(STATUS "Looking for FASP4BLKOIL")
 
 set(FASP4BLKOIL_DIR "${FASP4BLKOIL_DIR}")
 
@@ -14,13 +23,10 @@ find_library(FASP4BLKOIL_LIBRARIES fasp4blkoil
     DOC "The FASP4BLKOIL library")
 mark_as_advanced(FASP4BLKOIL_LIBRARIES)
 
-# Collect libraries
-if (FASP_FOUND)
-    set(FASP4BLKOIL_LIBRARIES ${FASP4BLKOIL_LIBRARIES})
-endif()
+set(FASP4BLKOIL_LIBRARIES ${FASP4BLKOIL_LIBRARIES})
 
 # Standard package handling
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(FASP4BLKOIL
-    "FASP4BLKOIL could not be found. Be sure to set FASP4BLKOIL_DIR."
-    FASP4BLKOIL_LIBRARIES FASP4BLKOIL_INCLUDE_DIRS)
+    "FASP4BLKOIL could not be found. Check FASP4BLKOIL_DIR."
+    FASP4BLKOIL_INCLUDE_DIRS FASP4BLKOIL_LIBRARIES)

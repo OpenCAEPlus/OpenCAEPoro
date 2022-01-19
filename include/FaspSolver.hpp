@@ -26,10 +26,12 @@ extern "C" {
 }
 
 // fasp4blkoil header files
+#if WITH_FASP4BLKOIL
 extern "C" {
 #include "fasp4blkoil.h"
 #include "fasp4blkoil_functs.h"
 }
+#endif
 
 // OpenCAEPoro header files
 #include "LinearSolver.hpp"
@@ -144,4 +146,5 @@ private:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/22/2021      Create file                          */
 /*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */
+/*  Chensong Zhang      Jan/19/2022      Set FASP4BLKOIL as optional          */
 /*----------------------------------------------------------------------------*/

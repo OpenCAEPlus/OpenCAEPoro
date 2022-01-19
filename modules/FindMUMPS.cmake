@@ -23,9 +23,9 @@ endif (MUMPS_INCLUDE_DIR)
 # find_path(MUMPS_INCLUDE_DIR dmumps_c.h mpi.h
 # HINTS ${MUMPS_DIR}/include ${MUMPS_DIR}/libseq $ENV{MUMPS_DIR}/include $ENV{IPOPT_HOME}/MUMPS/include/
 find_path(MUMPS_INCLUDE_DIR dmumps_c.h
- HINTS ${MUMPS_DIR}/include $ENV{MUMPS_DIR}/include $ENV{IPOPT_HOME}/MUMPS/include/
- DOC "Directory where the MUMPS header is located"
- )
+  HINTS ${MUMPS_DIR}/include $ENV{MUMPS_DIR}/include $ENV{IPOPT_HOME}/MUMPS/include/
+  DOC "Directory where the MUMPS header is located"
+  )
 mark_as_advanced(MUMPS_INCLUDE_DIR)
 
 # Check for MUMPS libraries: dmumps, mumps_common pord mpiseq

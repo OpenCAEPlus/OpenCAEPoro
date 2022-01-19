@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.6 Jan/16/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -164,8 +164,8 @@ $(function() {
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 <div class="ttc" id="aclassBulkConn_html"><div class="ttname"><a href="classBulkConn.html">BulkConn</a></div><div class="ttdoc">Properties and operations on connections between bulks (active grids).</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00055">BulkConn.hpp:56</a></div></div>
 <div class="ttc" id="aclassLinearSolver_html"><div class="ttname"><a href="classLinearSolver.html">LinearSolver</a></div><div class="ttdoc">Virtual base class for linear solvers.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSolver_8hpp_source.html#l00025">LinearSolver.hpp:26</a></div></div>
-<div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solver.</div></div>
-<div class="ttc" id="aclassLinearSolver_html_a572d9efa3183c7101e74e8f98f786e73"><div class="ttname"><a href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve</a></div><div class="ttdeci">virtual OCP_INT Solve(vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Solve the Linear System and return the Iterations and Solutions.</div></div>
+<div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solvers.</div></div>
+<div class="ttc" id="aclassLinearSolver_html_a572d9efa3183c7101e74e8f98f786e73"><div class="ttname"><a href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve</a></div><div class="ttdeci">virtual OCP_INT Solve(vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Solve the linear system and return the number of iterations.</div></div>
 <div class="ttc" id="aclassLinearSolver_html_acd3e7e2a2d56aaf98a46767caeef37f1"><div class="ttname"><a href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">LinearSolver::AssembleMat</a></div><div class="ttdeci">virtual void AssembleMat(const vector&lt; vector&lt; USI &gt; &gt; &amp;colId, const vector&lt; vector&lt; OCP_DBL &gt; &gt; &amp;val, const OCP_USI &amp;dim, const USI &amp;blockDim, vector&lt; OCP_DBL &gt; &amp;rhs, vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Assemble matrix for linear solver from the internal matrix data.</div></div>
 <div class="ttc" id="aclassLinearSolver_html_ae754a7c942a8a1202f244441c6b1388d"><div class="ttname"><a href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">LinearSolver::GetNumIters</a></div><div class="ttdeci">virtual USI GetNumIters() const =0</div><div class="ttdoc">Get number of iterations.</div></div>
 <div class="ttc" id="aclassLinearSystem_html"><div class="ttname"><a href="classLinearSystem.html">LinearSystem</a></div><div class="ttdoc">Linear solvers for discrete systems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8hpp_source.html#l00030">LinearSystem.hpp:31</a></div></div>
@@ -188,7 +188,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 17 2022 20:41:01 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jan 19 2022 11:35:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

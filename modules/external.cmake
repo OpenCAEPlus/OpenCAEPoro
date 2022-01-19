@@ -1,3 +1,30 @@
+# Set optional libraries in OPTIONAL_LIBS
+# 
+# Chensong Zhang
+# 01/18/2022
+
+##################################################################
+# For FASP4BLKOIL
+##################################################################
+
+if(USE_FASP4BLKOIL)
+
+    # set the path to find specific modules
+    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules")
+
+    set(FASP4BLKOIL_DIR "${FASP4BLKOIL_DIR}")
+
+    find_package(FASP4BLKOIL)
+    if(FASP4BLKOIL_FOUND)
+        add_definitions("-DWITH_FASP4BLKOIL=1")
+        include_directories(${FASP4BLKOIL_INCLUDE_DIRS})
+        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${FASP4BLKOIL_LIBRARIES})
+    else(FASP4BLKOIL_FOUND)
+        message("-- WARNING: FASP4BLKOIL was requested but not supported! Continue without it.")
+    endif(FASP4BLKOIL_FOUND)
+
+endif(USE_FASP4BLKOIL)
+
 ##################################################################
 # For UMFPACK
 ##################################################################
@@ -14,6 +41,7 @@ if(USE_UMFPACK)
     if (UMFPACK_FOUND)
         add_definitions("-DWITH_UMFPACK=1")
         include_directories(${UMFPACK_INCLUDE_DIRS})
+        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${UMFPACK_LIBRARIES})
     else(UMFPACK_FOUND)
         message("-- WARNING: UMFPACK was requested but not supported! Continue without it.")
     endif(UMFPACK_FOUND)
@@ -36,7 +64,8 @@ if(USE_SUPERLU)
     if (SUPERLU_FOUND)
         add_definitions("-DWITH_SuperLU=1")
         include_directories(${SUPERLU_INCLUDE_DIRS})
-    else(SUPERLU_FOUND)
+        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${SUPERLU_LIBRARIES})
+   else(SUPERLU_FOUND)
         message("-- WARNING: SuperLU was requested but not supported! Continue without it.")
     endif(SUPERLU_FOUND)
 
@@ -58,6 +87,7 @@ if(USE_MUMPS)
     if (MUMPS_FOUND)
         add_definitions("-DWITH_MUMPS=1")
         include_directories(${MUMPS_INCLUDE_DIRS})
+        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${MUMPS_LIBRARIES})
     else(MUMPS_FOUND)
         message("-- WARNING: MUMPS was requested but not supported! Continue without it.")
     endif(MUMPS_FOUND)
@@ -80,6 +110,7 @@ if(USE_PARDISO)
     if (MKL_FOUND)
         add_definitions("-DWITH_PARDISO=1")
         include_directories(${MKL_INCLUDE_DIRS})
+        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${MKL_LIBRARIES})
     else(MKL_FOUND)
         message("-- WARNING: Intel MKL was requested but not supported! Continue without it.")
     endif(MKL_FOUND)

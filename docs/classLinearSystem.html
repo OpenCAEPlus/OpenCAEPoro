@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.6 Jan/16/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -193,7 +193,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00061">61</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{ LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(rowCapacity, maxDim, blockDim); }</div>
-<div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solver.</div></div>
+<div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solvers.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate()</a>.</p>
 
@@ -635,8 +635,8 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">SetupParam</a>(dir, file);</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
 <div class="ttc" id="aclassLinearSolver_html_a64ec5c45d54739399c493ddd3a09d989"><div class="ttname"><a href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">LinearSolver::SetupParam</a></div><div class="ttdeci">virtual void SetupParam(const string &amp;dir, const string &amp;file)=0</div><div class="ttdoc">Read the params for linear solvers from an input file.</div></div>
-<div class="ttc" id="aclassScalarFaspSolver_html"><div class="ttname"><a href="classScalarFaspSolver.html">ScalarFaspSolver</a></div><div class="ttdoc">Scalar FASP solvers in CSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00075">FaspSolver.hpp:76</a></div></div>
-<div class="ttc" id="aclassVectorFaspSolver_html"><div class="ttname"><a href="classVectorFaspSolver.html">VectorFaspSolver</a></div><div class="ttdoc">Vector FASP solvers in BSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00103">FaspSolver.hpp:104</a></div></div>
+<div class="ttc" id="aclassScalarFaspSolver_html"><div class="ttname"><a href="classScalarFaspSolver.html">ScalarFaspSolver</a></div><div class="ttdoc">Scalar FASP solvers in CSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00077">FaspSolver.hpp:78</a></div></div>
+<div class="ttc" id="aclassVectorFaspSolver_html"><div class="ttname"><a href="classVectorFaspSolver.html">VectorFaspSolver</a></div><div class="ttdoc">Vector FASP solvers in BSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00105">FaspSolver.hpp:106</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">LinearSolver::SetupParam()</a>.</p>
 
@@ -669,7 +669,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00065">65</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{ <span class="keywordflow">return</span> LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">Solve</a>(u); }</div>
-<div class="ttc" id="aclassLinearSolver_html_a572d9efa3183c7101e74e8f98f786e73"><div class="ttname"><a href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve</a></div><div class="ttdeci">virtual OCP_INT Solve(vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Solve the Linear System and return the Iterations and Solutions.</div></div>
+<div class="ttc" id="aclassLinearSolver_html_a572d9efa3183c7101e74e8f98f786e73"><div class="ttname"><a href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve</a></div><div class="ttdeci">virtual OCP_INT Solve(vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Solve the linear system and return the number of iterations.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve()</a>.</p>
 
@@ -755,7 +755,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 17 2022 20:41:02 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
