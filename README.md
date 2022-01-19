@@ -2,13 +2,19 @@
 
 OpenCAEPoro is part of the OpenCAEPlus project written in C++. It focuses on 
 multicomponent multiphase flow simulation in porous media. For more info, 
-please refer to: https://faspdevteam.github.io/OpenCAEPoro/.
+please see [OCP repository](https://faspdevteam.github.io/OpenCAEPoro/).
 
 ## Install
-There is a top level cmake for configuration and building of the OpenCAEPoro 
-library and the test programs suite. You can use a cmake-style approach to 
-compile the package; see https://cmake.org on how to use cmake for your own 
-operating system. The typical command for compiling OpenCAEPoro is:
+There is a top level cmake configuration file to build the OpenCAEPoro lib 
+and the associate test programs suite. You can use a cmake-style approach to 
+compile the package; see [the official webpage](https://cmake.org) on how to
+use cmake for your own operating system. 
+
+Before building OpenCAEPoro, you need to make sure that BLAS, LAPACK, and FASP
+are available. BLAS and LAPACK are ready on most systems. FASP (only [faspsolver](https://github.com/FaspDevTeam/faspsolver) 
+is required) can be downloaded from its GitHub repository.
+
+The typical command for compiling OpenCAEPoro is:
 
 Config the environment for building with cmake:
 ```bash
