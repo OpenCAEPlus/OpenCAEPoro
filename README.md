@@ -11,8 +11,9 @@ compile the package; see [the official webpage](https://cmake.org) on how to
 use cmake for your own operating system. 
 
 Before building OpenCAEPoro, you need to make sure that BLAS, LAPACK, and FASP
-are available. BLAS and LAPACK are ready on most systems. FASP (only [faspsolver](https://github.com/FaspDevTeam/faspsolver) 
-is required) can be downloaded from its GitHub repository.
+are available. BLAS and LAPACK are ready on most systems. The FASP package (only 
+the open-source part [faspsolver](https://github.com/FaspDevTeam/faspsolver) is 
+required) can be downloaded from its GitHub repository.
 
 The typical command for compiling OpenCAEPoro is:
 
