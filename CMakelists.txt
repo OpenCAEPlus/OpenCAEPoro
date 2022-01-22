@@ -14,6 +14,7 @@
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON .     // build with verbose on
 #   cmake -DUSE_FASP4BLKOIL=ON .            // build with FASP4BLKOIL package support
 #   cmake -DUSE_UMFPACK=ON .                // build with UMFPACK package support
+#   cmake -DUSE_OPENMP=ON .                 // build with OpenMP support
 
 #####################################################################################
 ## General environment setting
@@ -58,6 +59,26 @@ endif(FASP_FOUND)
 
 # Optional external libraries, including direct solvers
 include(external)
+
+#####################################################################################
+## Find compiler support for OpenMP. Since cmake 3.9, we can use 
+## find_package(OpenMP REQUIRED). Keep this for older cmake!!!
+#####################################################################################
+
+if(USE_OPENMP)
+    if(CMAKE_VERSION VERSION_GREATER 3)
+        cmake_policy(SET "CMP0054" NEW)
+    endif()
+
+    find_package(OpenMP)
+    if(OPENMP_FOUND)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")	 
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+        set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${OpenMP_C_FLAGS}")
+    else(OPENMP_FOUND)
+        message("   WARNING: OpenMP was requested but disabled!")
+    endif(OPENMP_FOUND)
+endif(USE_OPENMP)
 
 #####################################################################################
 ## Set configuration types and their default compiler flags
