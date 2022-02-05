@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.5 Jan/09/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -201,12 +201,12 @@ Public Member Functions</h2></td></tr>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html_a4036ead256735d60e8cb3cf67968c6d8"><div class="ttname"><a href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">GB_Pair::IsAct</a></div><div class="ttdeci">bool IsAct() const</div><div class="ttdoc">return activity of some grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00052">Grid.hpp:52</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html_a89469eb8092da8ccd1c8914bd4f1e808"><div class="ttname"><a href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GB_Pair::GetId</a></div><div class="ttdeci">OCP_USI GetId() const</div><div class="ttdoc">return active index of some grid if active.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00055">Grid.hpp:55</a></div></div>
-<div class="ttc" id="aclassGrid_html_a21401914b6e2f87c5ededfa6e69ae11f"><div class="ttname"><a href="classGrid.html#a21401914b6e2f87c5ededfa6e69ae11f">Grid::GetGridNy</a></div><div class="ttdeci">OCP_USI GetGridNy() const</div><div class="ttdoc">Return ny of grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00105">Grid.hpp:105</a></div></div>
-<div class="ttc" id="aclassGrid_html_a72d30983c3f700a840a8965d68c72728"><div class="ttname"><a href="classGrid.html#a72d30983c3f700a840a8965d68c72728">Grid::GetGridNum</a></div><div class="ttdeci">OCP_USI GetGridNum() const</div><div class="ttdoc">Return the num of all grids.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00109">Grid.hpp:109</a></div></div>
-<div class="ttc" id="aclassGrid_html_a86e180edbbee508958e2def127f89975"><div class="ttname"><a href="classGrid.html#a86e180edbbee508958e2def127f89975">Grid::GetGridNx</a></div><div class="ttdeci">OCP_USI GetGridNx() const</div><div class="ttdoc">Return nx of grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00103">Grid.hpp:103</a></div></div>
-<div class="ttc" id="aclassGrid_html_ad87d55e19bec2edb49682c610cbc6929"><div class="ttname"><a href="classGrid.html#ad87d55e19bec2edb49682c610cbc6929">Grid::MapG2B</a></div><div class="ttdeci">const GB_Pair &amp; MapG2B(const OCP_USI &amp;i) const</div><div class="ttdoc">Mapping from grids to bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00101">Grid.hpp:101</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html_a4036ead256735d60e8cb3cf67968c6d8"><div class="ttname"><a href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">GB_Pair::IsAct</a></div><div class="ttdeci">bool IsAct() const</div><div class="ttdoc">Return whether this cell is active or not.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00055">Grid.hpp:55</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html_a89469eb8092da8ccd1c8914bd4f1e808"><div class="ttname"><a href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GB_Pair::GetId</a></div><div class="ttdeci">OCP_USI GetId() const</div><div class="ttdoc">Return the index of this cell among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00058">Grid.hpp:58</a></div></div>
+<div class="ttc" id="aclassGrid_html_a21401914b6e2f87c5ededfa6e69ae11f"><div class="ttname"><a href="classGrid.html#a21401914b6e2f87c5ededfa6e69ae11f">Grid::GetGridNy</a></div><div class="ttdeci">OCP_USI GetGridNy() const</div><div class="ttdoc">Return ny of grid cell.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00109">Grid.hpp:109</a></div></div>
+<div class="ttc" id="aclassGrid_html_a72d30983c3f700a840a8965d68c72728"><div class="ttname"><a href="classGrid.html#a72d30983c3f700a840a8965d68c72728">Grid::GetGridNum</a></div><div class="ttdeci">OCP_USI GetGridNum() const</div><div class="ttdoc">Return the num of grid cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00113">Grid.hpp:113</a></div></div>
+<div class="ttc" id="aclassGrid_html_a86e180edbbee508958e2def127f89975"><div class="ttname"><a href="classGrid.html#a86e180edbbee508958e2def127f89975">Grid::GetGridNx</a></div><div class="ttdeci">OCP_USI GetGridNx() const</div><div class="ttdoc">Return nx of grid cell.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00107">Grid.hpp:107</a></div></div>
+<div class="ttc" id="aclassGrid_html_ad87d55e19bec2edb49682c610cbc6929"><div class="ttname"><a href="classGrid.html#ad87d55e19bec2edb49682c610cbc6929">Grid::MapG2B</a></div><div class="ttdeci">const GB_Pair &amp; MapG2B(const OCP_USI &amp;i) const</div><div class="ttdoc">Mapping from grid cells to bulks (active cells).</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00105">Grid.hpp:105</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -245,7 +245,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 14:28:08 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

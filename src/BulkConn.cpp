@@ -9,19 +9,21 @@
  *-----------------------------------------------------------------------------------
  */
 
+// Standard header files
 #include <cassert>
 #include <cmath>
 #include <ctime>
 
+// OpenCAEPoro header files
 #include "BulkConn.hpp"
 
 /////////////////////////////////////////////////////////////////////
 // General
 /////////////////////////////////////////////////////////////////////
 
+/// It should be called after Grid and Bulk Setup.
 void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
-
     OCP_FUNCNAME;
 
     numConn = 0;
@@ -74,8 +76,6 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     }
 
     numConn = iteratorConn.size();
-
-    OCP_FUNCNAME;
 }
 
 void BulkConn::CalIteratorConn()
@@ -97,6 +97,7 @@ void BulkConn::CalIteratorConn()
     assert(iteratorConn.size() == numConn);
 }
 
+/// This method should be called only once at the beginning.
 void BulkConn::AllocateMat(LinearSystem& MySolver) const
 {
     OCP_FUNCNAME;
@@ -146,25 +147,25 @@ void BulkConn::CheckDiff() const
     cout << setprecision(18);
     for (OCP_USI c = 0; c < numConn; c++) {
         tmp = fabs(upblock[c] - lastUpblock[c]);
-        if (tmp != 0.0) {
-            cout << "Difference in upblock\t" << tmp << "\n";
+        if (tmp < TINY) {
+            cout << ">> Difference in upblock index at \t" << tmp << "\n";
         }
         tmp = fabs(upblock_Rho[c] - lastUpblock_Rho[c]);
-        if (tmp != 0.0) {
-            cout << "Difference in upblock_Rho\t" << tmp << "\n";
+        if (tmp < TINY) {
+            cout << ">> Difference in upblock Rho at \t" << tmp << "\n";
         }
         tmp = fabs(upblock_Trans[c] - lastUpblock_Trans[c]);
-        if (tmp != 0.0) {
-            cout << "Difference in upblock_Trans\t" << tmp << "\n";
+        if (tmp < TINY) {
+            cout << ">> Difference in upblock Trans at \t" << tmp << "\n";
         }
         tmp = fabs(upblock_Velocity[c] - lastUpblock_Velocity[c]);
-        if (tmp != 0.0) {
-            cout << "Difference in upblock_Velocity\t" << tmp << "\n";
+        if (tmp < TINY) {
+            cout << ">> Difference in upblock Velocity at \t" << tmp << "\n";
         }
     }
 }
 
-void BulkConn::GetConnectionInfo() const
+void BulkConn::PrintConnectionInfo() const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
         cout << "(" << i << ")"
@@ -227,8 +228,8 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     USI     nc = myBulk.numCom;
     OCP_DBL valupi, valdowni;
     OCP_DBL valup, rhsup, valdown, rhsdown;
-    // OCP_USI    lastbId = -1;
-    // Becareful when first bulk has no neighbors!
+
+    // Be careful when first bulk has no neighbors!
     OCP_USI lastbId = iteratorConn[0].EId;
     for (OCP_USI c = 0; c < numConn; c++) {
         bId     = iteratorConn[c].BId;
@@ -287,8 +288,7 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
         myLS.b[eId] += rhsdown;
     }
 
-    // Add the rest of diag value
-    // important!
+    // Add the rest of diag value. Important!
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (myLS.val[n].size() == selfPtr[n]) myLS.val[n].push_back(myLS.diagVal[n]);
     }
@@ -604,8 +604,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
             myLS.diagVal[eId * bsize + i] += bmat[i];
         }
     }
-    // Add the rest of diag value
-    // important!
+    // Add the rest of diag value. Important!
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (myLS.val[n].size() == selfPtr[n] * bsize)
             myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,
@@ -670,6 +669,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     const USI nc  = myBulk.numCom;
     const USI len = nc + 1;
     OCP_USI   bId, eId, uId, bIdb;
+
     // Accumalation Term
     for (OCP_USI n = 0; n < numBulk; n++) {
 

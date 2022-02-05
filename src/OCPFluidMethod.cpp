@@ -1,5 +1,5 @@
 /*! \file    OCPFluidMethod.cpp
- *  \brief   Contains Method used for Fluid simulation.
+ *  \brief   Definition of solution methods for fluid part in OpenCAEPoro
  *  \author  Shizhe Li
  *  \date    Nov/01/2021
  *
@@ -229,9 +229,14 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);
+#if DEBUG
+        if (flagCheck > 0) {
+            cout << ">> Switch well constraint: Case " << flagCheck << endl;
+        }
+#endif
+
         switch (flagCheck) {
             case 1:
-                cout << "Switch well constraint: Case 1" << endl;
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -239,7 +244,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 ctrl.ResetIterNRLS();
                 return false;
             case 2:
-                cout << "Switch well constraint: Case 2" << endl;
                 ctrl.current_dt /= 1;
                 rs.ResetFIM(true);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
@@ -249,7 +253,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             default:
                 break;
         }
-
         return true;
     } else {
         return false;

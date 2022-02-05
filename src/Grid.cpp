@@ -53,33 +53,31 @@ void Grid::InputParam(const ParamReservoir& rs_param)
             PVTNUM[i] = (USI)(rs_param.PVTNUM.data[i]) - 1;
         }
     }
-    cout << "Grid::InputParam" << endl;
 }
 
 void Grid::Setup()
 {
     switch (gridType) {
         case ORTHOGONAL_GRID:
-            SetupOthogonalGrid();
+            SetupOrthogonalGrid();
             break;
         case CORNER_GRID:
             SetupCornerGrid();
             break;
         default:
             OCP_ABORT("WRONG Grid Type!");
-            break;
     }
 }
 
-void Grid::SetupOthogonalGrid()
+void Grid::SetupOrthogonalGrid()
 {
     // x -> y -> z
-    SetupNeighborOthogonalGrid();
-    CalDepthVOthogonalGrid();
+    SetupNeighborOrthogonalGrid();
+    CalDepthVOrthogonalGrid();
     CalActiveGrid(1E-6, 1E-6);
 }
 
-void Grid::SetupNeighborOthogonalGrid()
+void Grid::SetupNeighborOrthogonalGrid()
 {
 
     gNeighbor.resize(numGrid);
@@ -101,7 +99,7 @@ void Grid::SetupNeighborOthogonalGrid()
                 // right  --  x-direction
                 if (i < nx - 1) {
                     eIdg = bIdg + 1;
-                    area = CalAkdOthogonalGrid(bIdg, eIdg, 1);
+                    area = CalAkdOrthogonalGrid(bIdg, eIdg, 1);
                     gNeighbor[bIdg].push_back(GPair(eIdg, area));
                     gNeighbor[eIdg].push_back(GPair(bIdg, area));
                 }
@@ -109,7 +107,7 @@ void Grid::SetupNeighborOthogonalGrid()
                 // front  --  y-direction
                 if (j < ny - 1) {
                     eIdg = bIdg + nx;
-                    area = CalAkdOthogonalGrid(bIdg, eIdg, 2);
+                    area = CalAkdOrthogonalGrid(bIdg, eIdg, 2);
                     gNeighbor[bIdg].push_back(GPair(eIdg, area));
                     gNeighbor[eIdg].push_back(GPair(bIdg, area));
                 }
@@ -117,17 +115,18 @@ void Grid::SetupNeighborOthogonalGrid()
                 // down --   z-direction
                 if (k < nz - 1) {
                     eIdg = bIdg + nxny;
-                    area = CalAkdOthogonalGrid(bIdg, eIdg, 3);
+                    area = CalAkdOrthogonalGrid(bIdg, eIdg, 3);
                     gNeighbor[bIdg].push_back(GPair(eIdg, area));
                     gNeighbor[eIdg].push_back(GPair(bIdg, area));
                 }
             }
         }
     }
+
     OCP_FUNCNAME;
 }
 
-OCP_DBL Grid::CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId,
+OCP_DBL Grid::CalAkdOrthogonalGrid(const OCP_USI& bId, const OCP_USI& eId,
                                   const USI& direction)
 {
     OCP_DBL T1;
@@ -153,11 +152,10 @@ OCP_DBL Grid::CalAkdOthogonalGrid(const OCP_USI& bId, const OCP_USI& eId,
             break;
         default:
             OCP_ABORT("Wrong Direction!");
-            break;
     }
 }
 
-void Grid::CalDepthVOthogonalGrid()
+void Grid::CalDepthVOrthogonalGrid()
 {
     depth.resize(numGrid, 0);
     OCP_USI nxny = nx * ny;
@@ -181,7 +179,6 @@ void Grid::CalDepthVOthogonalGrid()
 
     v.resize(numGrid);
     for (OCP_USI i = 0; i < numGrid; i++) v[i] = dx[i] * dy[i] * dz[i];
-    cout << "Grid::calDepthV" << endl;
 }
 
 void Grid::SetupCornerGrid()
@@ -211,7 +208,6 @@ void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
 
     OCP_USI bIdg, eIdg;
     OCP_DBL area;
-
     for (OCP_USI n = 0; n < CoTmp.numConn; n++) {
         const GeneralConnect& ConnTmp = CoTmp.connect[n];
         bIdg                          = ConnTmp.begin;
@@ -220,8 +216,6 @@ void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
         gNeighbor[bIdg].push_back(GPair(eIdg, area));
         gNeighbor[eIdg].push_back(GPair(bIdg, area));
     }
-
-    cout << "Done" << endl;
 }
 
 OCP_DBL Grid::CalAkdCornerGrid(const GeneralConnect& conn)
@@ -232,7 +226,7 @@ OCP_DBL Grid::CalAkdCornerGrid(const GeneralConnect& conn)
     OCP_DBL eArea = conn.Ad_dd_end;
     OCP_DBL T1, T2;
 
-    switch (conn.directiontype) {
+    switch (conn.directionType) {
         case 1:
             T1 = ntg[bId] * kx[bId] * bArea;
             T2 = ntg[eId] * kx[eId] * eArea;
@@ -250,10 +244,11 @@ OCP_DBL Grid::CalAkdCornerGrid(const GeneralConnect& conn)
             break;
         default:
             OCP_ABORT("Wrong Direction Type!");
-            break;
     }
 }
 
+/// If porosity or volume of the grid cell is too small, then the cell is inactive.
+//  Note: Inactive cells do NOT participate simumlation; other rules can be given.
 void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
 {
     activeMap_B2G.reserve(numGrid);
@@ -271,9 +266,9 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
     activeGridNum = count;
     cout << (numGrid - activeGridNum) * 100.0 / numGrid << "% ("
          << (numGrid - activeGridNum) << ") of grid cell is inactive" << endl;
-    cout << "Grid::calActiveBulk" << endl;
 }
 
+/// Return id of the active cell and abort if the cell is inactive!
 OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
 {
     OCP_USI id       = k * nx * ny + j * nx + i;
@@ -296,4 +291,5 @@ OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/16/2022      Fix Doxygen                          */
 /*----------------------------------------------------------------------------*/

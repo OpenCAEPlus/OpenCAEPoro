@@ -1,5 +1,5 @@
 /*! \file    OCPFluidMethod.hpp
- *  \brief   Solution methods in OpenCAEPoro
+ *  \brief   Declaration of solution methods for fluid part in OpenCAEPoro
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -18,7 +18,6 @@
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
 
-// OpenCAEPoro header files
 /// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
 class OCP_IMPEC
 {
@@ -59,9 +58,10 @@ public:
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 
-    /// Determine if NR iteration finishes.
+    /// Finish a Newton-Raphson iteration.
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
 
+    /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
@@ -69,7 +69,7 @@ private:
     ResFIM resFIM;
 };
 
-#endif /* end if __OCP_METHOD_HEADER__ */
+#endif /* end if __OCPFLUIDMETHOD_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

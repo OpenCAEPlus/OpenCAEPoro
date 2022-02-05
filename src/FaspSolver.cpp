@@ -427,6 +427,7 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
             case PC_BILU:
                 status = fasp_solver_dbsr_krylov_ilu(&A, &b, &x, &itParam, &iluParam);
                 break;
+#if WITH_FASP4BLKOIL
             case PC_FASP1:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP1a(
@@ -448,6 +449,11 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
                 status = fasp_solver_dbsr_krylov_FASP3(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
+            case PC_FASP4:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = fasp_solver_dbsr_krylov_FASP4(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+                break;
             case PC_FASP4_SHARE: // zhaoli 2021.04.24
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
                 status = fasp_solver_dbsr_krylov_FASP4_share_interface(
@@ -459,10 +465,10 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
                 status = fasp_solver_dbsr_krylov_FASP5(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
                 break;
-            default: // case PC_FASP4:
-                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
-                status = fasp_solver_dbsr_krylov_FASP4(
-                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+#endif
+            default:
+                OCP_ABORT("Preconditioner type " + to_string(precond_type) +
+                          " not supported!");
         }
         fill(Dmat.begin(), Dmat.end(), 0.0);
     }
@@ -533,4 +539,5 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/22/2021      Create file                          */
+/*  Chensong Zhang      Jan/19/2022      Set FASP4BLKOIL as optional          */
 /*----------------------------------------------------------------------------*/

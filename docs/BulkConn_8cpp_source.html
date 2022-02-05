@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.5 Jan/09/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -74,71 +74,70 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="BulkConn_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;cassert&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;ctime&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="BulkConn_8hpp.html">BulkConn.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">// General</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"></span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">BulkConn::Setup</a>(<span class="keyword">const</span> <a class="code hl_class" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    numConn = 0;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    numBulk = myGrid.activeGridNum;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    neighbor.resize(numBulk);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    selfPtr.resize(numBulk);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    neighborNum.resize(numBulk);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    vector&lt;GPair&gt; tmp1, tmp2;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>           len;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>       bIdb;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; myGrid.numGrid; n++) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">const</span> <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp = myGrid.activeMap_G2B[n];</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">if</span> (GBtmp.<a class="code hl_function" href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">IsAct</a>()) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            bIdb = GBtmp.<a class="code hl_function" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="comment">// Get rid of inactive neighbor</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            tmp1 = myGrid.gNeighbor[n];</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            len  = tmp1.size();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            tmp2.clear();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keyword">const</span> <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp2 = myGrid.activeMap_G2B[tmp1[i].id];</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">if</span> (GBtmp2.<a class="code hl_function" href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">IsAct</a>()) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                    tmp1[i].id = GBtmp2.<a class="code hl_function" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                    tmp2.push_back(tmp1[i]);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="comment">// Add Self</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            tmp2.push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdb, 0.0));</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="comment">// Sort: Ascending</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            sort(tmp2.begin(), tmp2.end(), GPair::lessG);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="comment">// Find SelfPtr and Assign to neighbor and area</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            len = tmp2.size();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                neighbor[bIdb].push_back(tmp2[i].<span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordflow">if</span> (tmp2[i].<span class="keywordtype">id</span> == bIdb) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                    selfPtr[bIdb] = i;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = selfPtr[bIdb] + 1; j &lt; len; j++) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                area.push_back(tmp2[j].area);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                iteratorConn.push_back(<a class="code hl_class" href="classBulkPair.html">BulkPair</a>(bIdb, tmp2[j].<span class="keywordtype">id</span>));</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            neighborNum[bIdb] = len;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    numConn = iteratorConn.size();</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Standard header files</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;ctime&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// OpenCAEPoro header files</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="BulkConn_8hpp.html">BulkConn.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// General</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"></span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">BulkConn::Setup</a>(<span class="keyword">const</span> <a class="code hl_class" href="classGrid.html">Grid</a>&amp; myGrid, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    numConn = 0;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    numBulk = myGrid.activeGridNum;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    neighbor.resize(numBulk);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    selfPtr.resize(numBulk);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    neighborNum.resize(numBulk);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    vector&lt;GPair&gt; tmp1, tmp2;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>           len;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>       bIdb;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; myGrid.numGrid; n++) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp = myGrid.activeMap_G2B[n];</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">if</span> (GBtmp.<a class="code hl_function" href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">IsAct</a>()) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            bIdb = GBtmp.<a class="code hl_function" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="comment">// Get rid of inactive neighbor</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            tmp1 = myGrid.gNeighbor[n];</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            len  = tmp1.size();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            tmp2.clear();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keyword">const</span> <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>&amp; GBtmp2 = myGrid.activeMap_G2B[tmp1[i].id];</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keywordflow">if</span> (GBtmp2.<a class="code hl_function" href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">IsAct</a>()) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                    tmp1[i].id = GBtmp2.<a class="code hl_function" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                    tmp2.push_back(tmp1[i]);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="comment">// Add Self</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            tmp2.push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdb, 0.0));</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="comment">// Sort: Ascending</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            sort(tmp2.begin(), tmp2.end(), GPair::lessG);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="comment">// Find SelfPtr and Assign to neighbor and area</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            len = tmp2.size();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                neighbor[bIdb].push_back(tmp2[i].<span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">if</span> (tmp2[i].<span class="keywordtype">id</span> == bIdb) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                    selfPtr[bIdb] = i;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = selfPtr[bIdb] + 1; j &lt; len; j++) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                area.push_back(tmp2[j].area);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                iteratorConn.push_back(<a class="code hl_class" href="classBulkPair.html">BulkPair</a>(bIdb, tmp2[j].<span class="keywordtype">id</span>));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            neighborNum[bIdb] = len;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    numConn = iteratorConn.size();</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classBulkConn.html#ab492d5bd1170fc61b2100aab60535a08">   81</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#ab492d5bd1170fc61b2100aab60535a08">BulkConn::CalIteratorConn</a>()</div>
@@ -160,192 +159,191 @@ $(function() {
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    assert(iteratorConn.size() == numConn);</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">  100</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn::AllocateMat</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; MySolver)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        MySolver.rowCapacity[n] += neighborNum[n];</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">  109</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">BulkConn::SetupMatSparsity</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; myLS)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    myLS.dim = numBulk;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        myLS.colId[n].assign(neighbor[n].begin(), neighbor[n].end());</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        myLS.diagPtr[n] = selfPtr[n];</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">  120</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">BulkConn::UpdateLastStep</a>()</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>{</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    lastUpblock          = upblock;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    lastUpblock_Rho      = upblock_Rho;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    lastUpblock_Trans    = upblock_Trans;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    lastUpblock_Velocity = upblock_Velocity;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">  130</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">BulkConn::Reset</a>()</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>{</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    upblock          = lastUpblock;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    upblock_Rho      = lastUpblock_Rho;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    upblock_Trans    = lastUpblock_Trans;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    upblock_Velocity = lastUpblock_Velocity;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">  140</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">BulkConn::CheckDiff</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="comment">// upblock</span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    cout &lt;&lt; setprecision(18);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        tmp = fabs(upblock[c] - lastUpblock[c]);</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">if</span> (tmp != 0.0) {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            cout &lt;&lt; <span class="stringliteral">&quot;Difference in upblock\t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        tmp = fabs(upblock_Rho[c] - lastUpblock_Rho[c]);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">if</span> (tmp != 0.0) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            cout &lt;&lt; <span class="stringliteral">&quot;Difference in upblock_Rho\t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        tmp = fabs(upblock_Trans[c] - lastUpblock_Trans[c]);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">if</span> (tmp != 0.0) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            cout &lt;&lt; <span class="stringliteral">&quot;Difference in upblock_Trans\t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        }</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        tmp = fabs(upblock_Velocity[c] - lastUpblock_Velocity[c]);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">if</span> (tmp != 0.0) {</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            cout &lt;&lt; <span class="stringliteral">&quot;Difference in upblock_Velocity\t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classBulkConn.html#abfb76fd684624f2639bca8a146ffc327">  167</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#abfb76fd684624f2639bca8a146ffc327">BulkConn::GetConnectionInfo</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numBulk; i++) {</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        cout &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>             &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : neighbor[i]) {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        }</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; selfPtr[i] &lt;&lt; <span class="stringliteral">&quot;]&quot;</span>;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        cout &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; neighborNum[i];</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numConn; i++) {</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        cout &lt;&lt; iteratorConn[i].BId &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; iteratorConn[i].EId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>}</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">// IMPEC</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"></span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">  190</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">BulkConn::AllocateAuxIMPEC</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; np)</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>{</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    upblock.resize(numConn * np);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    upblock_Rho.resize(numConn * np);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    upblock_Trans.resize(numConn * np);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    upblock_Velocity.resize(numConn * np);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    lastUpblock.resize(numConn * np);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    lastUpblock_Rho.resize(numConn * np);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    lastUpblock_Trans.resize(numConn * np);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    lastUpblock_Velocity.resize(numConn * np);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">  204</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">BulkConn::AssembleMatIMPEC</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                                <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// accumulate term</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Vp0, Vp, vf, vfp, P;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cr = myBulk.rockC1;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        Vp0 = myBulk.rockVpInit[n];</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        Vp  = myBulk.rockVp[n];</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        vfp = myBulk.vfp[n];</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        P   = myBulk.P[n];</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        vf  = myBulk.vf[n];</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp    = cr * Vp0 - vfp;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        myLS.diagVal[n] = temp;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        myLS.b[n]       = temp * P + dt * (vf - Vp);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">// flux term</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId, eId, uId;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     np = myBulk.numPhase;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> valupi, valdowni;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> valup, rhsup, valdown, rhsdown;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="comment">// OCP_USI    lastbId = -1;</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">// Becareful when first bulk has no neighbors!</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> lastbId = iteratorConn[0].EId;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        bId     = iteratorConn[c].BId;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        eId     = iteratorConn[c].EId;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        valup   = 0;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        rhsup   = 0;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        valdown = 0;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        rhsdown = 0;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            uId = upblock[c * np + j];</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <span class="keywordflow">if</span> (!myBulk.phaseExist[uId * np + j]) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            valupi   = 0;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            valdowni = 0;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                valupi +=</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                    myBulk.vfi[bId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                valdowni +=</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                    myBulk.vfi[eId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            }</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dD   = myBulk.depth[bId] - myBulk.depth[eId];</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            valup += temp * valupi;</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            <span class="comment">// if (!isfinite(valup)) {</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="comment">//    cout &lt;&lt; &quot;###ERROR   &quot;;</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            <span class="comment">//    ERRORcheck(&quot;NAN or INF in MAT&quot;);</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="comment">//}</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            valdown += temp * valdowni;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            temp *= upblock_Rho[c * np + j] * <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * dD - dPc;</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            rhsup += temp * valupi;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            rhsdown -= temp * valdowni;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> diagptr = selfPtr[bId];</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">if</span> (bId != lastbId) {</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <span class="comment">// new bulk</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            assert(myLS.val[bId].size() == diagptr);</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            myLS.val[bId].push_back(myLS.diagVal[bId]);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            lastbId = bId;</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        myLS.val[bId][diagptr] += valup;</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        myLS.val[bId].push_back(-valup);</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        myLS.val[eId].push_back(-valdown);</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        myLS.diagVal[eId] += valdown;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        myLS.b[bId] += rhsup;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        myLS.b[eId] += rhsdown;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    }</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="comment">// Add the rest of diag value</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="comment">// important!</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">  101</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn::AllocateMat</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; MySolver)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        MySolver.rowCapacity[n] += neighborNum[n];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">  110</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">BulkConn::SetupMatSparsity</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; myLS)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    myLS.dim = numBulk;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        myLS.colId[n].assign(neighbor[n].begin(), neighbor[n].end());</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        myLS.diagPtr[n] = selfPtr[n];</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">  121</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">BulkConn::UpdateLastStep</a>()</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    lastUpblock          = upblock;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    lastUpblock_Rho      = upblock_Rho;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    lastUpblock_Trans    = upblock_Trans;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    lastUpblock_Velocity = upblock_Velocity;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">  131</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">BulkConn::Reset</a>()</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>{</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    upblock          = lastUpblock;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    upblock_Rho      = lastUpblock_Rho;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    upblock_Trans    = lastUpblock_Trans;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    upblock_Velocity = lastUpblock_Velocity;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">  141</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">BulkConn::CheckDiff</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="comment">// upblock</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    cout &lt;&lt; setprecision(18);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        tmp = fabs(upblock[c] - lastUpblock[c]);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">if</span> (tmp &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Difference in upblock index at \t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        tmp = fabs(upblock_Rho[c] - lastUpblock_Rho[c]);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">if</span> (tmp &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Difference in upblock Rho at \t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        tmp = fabs(upblock_Trans[c] - lastUpblock_Trans[c]);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (tmp &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Difference in upblock Trans at \t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        tmp = fabs(upblock_Velocity[c] - lastUpblock_Velocity[c]);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">if</span> (tmp &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Difference in upblock Velocity at \t&quot;</span> &lt;&lt; tmp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classBulkConn.html#a2087bac59781881aba2d86323f68d33f">  168</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a2087bac59781881aba2d86323f68d33f">BulkConn::PrintConnectionInfo</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numBulk; i++) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        cout &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>             &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : neighbor[i]) {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        }</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; selfPtr[i] &lt;&lt; <span class="stringliteral">&quot;]&quot;</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        cout &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; neighborNum[i];</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numConn; i++) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        cout &lt;&lt; iteratorConn[i].BId &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; iteratorConn[i].EId &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">// IMPEC</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment"></span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">BulkConn::AllocateAuxIMPEC</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; np)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    upblock.resize(numConn * np);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    upblock_Rho.resize(numConn * np);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    upblock_Trans.resize(numConn * np);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    upblock_Velocity.resize(numConn * np);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    lastUpblock.resize(numConn * np);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    lastUpblock_Rho.resize(numConn * np);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    lastUpblock_Trans.resize(numConn * np);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    lastUpblock_Velocity.resize(numConn * np);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">  205</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">BulkConn::AssembleMatIMPEC</a>(<a class="code hl_class" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                                <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment">// accumulate term</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Vp0, Vp, vf, vfp, P;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cr = myBulk.rockC1;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        Vp0 = myBulk.rockVpInit[n];</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        Vp  = myBulk.rockVp[n];</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        vfp = myBulk.vfp[n];</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        P   = myBulk.P[n];</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        vf  = myBulk.vf[n];</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp    = cr * Vp0 - vfp;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        myLS.diagVal[n] = temp;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        myLS.b[n]       = temp * P + dt * (vf - Vp);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="comment">// flux term</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId, eId, uId;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     np = myBulk.numPhase;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     nc = myBulk.numCom;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> valupi, valdowni;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> valup, rhsup, valdown, rhsdown;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">// Be careful when first bulk has no neighbors!</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> lastbId = iteratorConn[0].EId;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        bId     = iteratorConn[c].BId;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        eId     = iteratorConn[c].EId;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        valup   = 0;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        rhsup   = 0;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        valdown = 0;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        rhsdown = 0;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            uId = upblock[c * np + j];</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keywordflow">if</span> (!myBulk.phaseExist[uId * np + j]) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            valupi   = 0;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            valdowni = 0;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                valupi +=</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                    myBulk.vfi[bId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                valdowni +=</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                    myBulk.vfi[eId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dD   = myBulk.depth[bId] - myBulk.depth[eId];</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            valup += temp * valupi;</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="comment">// if (!isfinite(valup)) {</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            <span class="comment">//    cout &lt;&lt; &quot;###ERROR   &quot;;</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="comment">//    ERRORcheck(&quot;NAN or INF in MAT&quot;);</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            <span class="comment">//}</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            valdown += temp * valdowni;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            temp *= upblock_Rho[c * np + j] * <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * dD - dPc;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            rhsup += temp * valupi;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            rhsdown -= temp * valdowni;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> diagptr = selfPtr[bId];</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="keywordflow">if</span> (bId != lastbId) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <span class="comment">// new bulk</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            assert(myLS.val[bId].size() == diagptr);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            myLS.val[bId].push_back(myLS.diagVal[bId]);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            lastbId = bId;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        }</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        myLS.val[bId][diagptr] += valup;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        myLS.val[bId].push_back(-valup);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        myLS.val[eId].push_back(-valdown);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        myLS.diagVal[eId] += valdown;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        myLS.b[bId] += rhsup;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        myLS.b[eId] += rhsdown;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    }</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="comment">// Add the rest of diag value. Important!</span></div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">if</span> (myLS.val[n].size() == selfPtr[n]) myLS.val[n].push_back(myLS.diagVal[n]);</div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    }</div>
@@ -632,9 +630,9 @@ $(function() {
 <div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span> </div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>        <span class="comment">// Assemble</span></div>
 <div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        bmat = dFdXpB;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &amp;myBulk.dSec_dPri[bId * bsize2], 1,</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dFdXsB.data(), &amp;myBulk.dSec_dPri[bId * bsize2], 1,</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>                bmat.data());</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        <span class="comment">// Begin</span></div>
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>        <span class="comment">// Add</span></div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
@@ -642,89 +640,89 @@ $(function() {
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        }</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        <span class="comment">// End</span></div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        <span class="comment">// Insert</span></div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        Dscalar(bsize, -1, bmat.data());</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        <span class="comment">// End</span></div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        bmat = dFdXpE;</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * bsize2], 1,</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncol2, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * bsize2], 1,</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                bmat.data());</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        Dscalar(bsize, dt, bmat.data());</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>        <span class="comment">// Begin</span></div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>        <span class="comment">// Insert</span></div>
 <div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());</div>
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        <span class="comment">// Add</span></div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        Dscalar(bsize, -1, bmat.data());</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        <a class="code hl_function" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
 <div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>            myLS.diagVal[eId * bsize + i] += bmat[i];</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        }</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    }</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="comment">// Add the rest of diag value</span></div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="comment">// important!</span></div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        <span class="keywordflow">if</span> (myLS.val[n].size() == selfPtr[n] * bsize)</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>                               myLS.diagVal.data() + n * bsize + bsize);</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    }</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>}</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno"><a class="line" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">  612</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">BulkConn::CalFluxFIM</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>{</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span> </div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId;</div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId_np_j, eId_np_j;</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>   Pbegin, Pend, rho;</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span> </div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        bId         = iteratorConn[c].BId;</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        eId         = iteratorConn[c].EId;</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Akd = area[c];</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>            bId_np_j = bId * np + j;</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>            eId_np_j = eId * np + j;</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span> </div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>            <span class="keywordtype">bool</span> exbegin = myBulk.phaseExist[bId_np_j];</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>            <span class="keywordtype">bool</span> exend   = myBulk.phaseExist[eId_np_j];</div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span> </div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>                Pbegin = myBulk.Pj[bId_np_j];</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>                Pend   = myBulk.Pj[eId_np_j];</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>                rho    = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>                Pbegin = myBulk.Pj[bId_np_j];</div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>                Pend   = myBulk.P[eId];</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>                rho    = myBulk.rho[bId_np_j];</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>                Pbegin = myBulk.P[bId];</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>                Pend   = myBulk.Pj[eId_np_j];</div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>                rho    = myBulk.rho[eId_np_j];</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                upblock[c * np + j] = bId;</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>            }</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>            uId        = bId;</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = (Pbegin - <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[bId]) -</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                         (Pend - <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[eId]);</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>                uId = eId;</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            }</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>            upblock[c * np + j] = uId;</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        }</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    }</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>}</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span> </div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno"><a class="line" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">  661</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn::CalResFIM</a>(vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>{</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span> </div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np  = myBulk.numPhase;</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc  = myBulk.numCom;</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = nc + 1;</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId, bIdb;</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="comment">// Add the rest of diag value. Important!</span></div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        <span class="keywordflow">if</span> (myLS.val[n].size() == selfPtr[n] * bsize)</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                               myLS.diagVal.data() + n * bsize + bsize);</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    }</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>}</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno"><a class="line" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">  611</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">BulkConn::CalFluxFIM</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk)</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>{</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np = myBulk.numPhase;</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId;</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId_np_j, eId_np_j;</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>   Pbegin, Pend, rho;</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        bId         = iteratorConn[c].BId;</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        eId         = iteratorConn[c].EId;</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Akd = area[c];</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span> </div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>            bId_np_j = bId * np + j;</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>            eId_np_j = eId * np + j;</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>            <span class="keywordtype">bool</span> exbegin = myBulk.phaseExist[bId_np_j];</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>            <span class="keywordtype">bool</span> exend   = myBulk.phaseExist[eId_np_j];</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>                Pbegin = myBulk.Pj[bId_np_j];</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>                Pend   = myBulk.Pj[eId_np_j];</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>                rho    = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>                Pbegin = myBulk.Pj[bId_np_j];</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>                Pend   = myBulk.P[eId];</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>                rho    = myBulk.rho[bId_np_j];</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>                Pbegin = myBulk.P[bId];</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>                Pend   = myBulk.Pj[eId_np_j];</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>                rho    = myBulk.rho[eId_np_j];</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>                upblock[c * np + j] = bId;</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>            }</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>            uId        = bId;</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP = (Pbegin - <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[bId]) -</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                         (Pend - <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[eId]);</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>                uId = eId;</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>            }</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            upblock[c * np + j] = uId;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        }</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    }</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>}</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno"><a class="line" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">  660</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn::CalResFIM</a>(vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code hl_class" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>{</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np  = myBulk.numPhase;</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc  = myBulk.numCom;</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = nc + 1;</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId, bIdb;</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
 <div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>    <span class="comment">// Accumalation Term</span></div>
 <div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
 <div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span> </div>
@@ -803,6 +801,9 @@ $(function() {
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span><span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aBulkConn_8hpp_html"><div class="ttname"><a href="BulkConn_8hpp.html">BulkConn.hpp</a></div><div class="ttdoc">BulkConn class declaration.</div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a2dedd031947f85613a20d2bcadfb6d29"><div class="ttname"><a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a></div><div class="ttdeci">void DaABpbC(const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</div><div class="ttdoc">Computes C' = alpha B'A' + beta C', all matrices are column-major.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00041">DenseMat.cpp:41</a></div></div>
+<div class="ttc" id="aDenseMat_8hpp_html_a3fb701e3ab34443119b7b2ba7a2bc6c7"><div class="ttname"><a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a></div><div class="ttdeci">void Dscalar(const int &amp;n, const double &amp;alpha, double *x)</div><div class="ttdoc">Scales a vector by a constant.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00027">DenseMat.cpp:27</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = 5.61458 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
@@ -810,36 +811,36 @@ $(function() {
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_afa282da104aab8f046a09e9dffb6f680"><div class="ttname"><a href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a></div><div class="ttdeci">const OCP_DBL CONV2</div><div class="ttdoc">Darcy constant in Field.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00054">OCPConst.hpp:54</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a02929d17cdc2fa1cc2c3b9f7a05dcf86"><div class="ttname"><a href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">BulkConn::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00022">BulkConn.cpp:22</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a0a644bf4c4e2eefee31fb98f0d2cd9df"><div class="ttname"><a href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">BulkConn::UpdateLastStep</a></div><div class="ttdeci">void UpdateLastStep()</div><div class="ttdoc">Update value of last step.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00120">BulkConn.cpp:120</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a0b8ae52f901a4315cc81b84162990610"><div class="ttname"><a href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">BulkConn::CheckDiff</a></div><div class="ttdeci">void CheckDiff() const</div><div class="ttdoc">Check the difference from last step – test.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00140">BulkConn.cpp:140</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a1f352d5dc2deaa10c799d07ff59b0238"><div class="ttname"><a href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">BulkConn::AssembleMatIMPEC</a></div><div class="ttdeci">void AssembleMatIMPEC(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assmeble Matrix for IMPEC, parts only related to bulks are considered.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00204">BulkConn.cpp:204</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a23a353095f0ecc4ef9518a71d0c1b60b"><div class="ttname"><a href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">BulkConn::SetupMatSparsity</a></div><div class="ttdeci">void SetupMatSparsity(LinearSystem &amp;myLS) const</div><div class="ttdoc">Setup sparsity pattern of Matrix begin assembling Matrix.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00109">BulkConn.cpp:109</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a438992d31661ee39e0f456f451e5903f"><div class="ttname"><a href="classBulkConn.html#a438992d31661ee39e0f456f451e5903f">BulkConn::AssembleMat_FIM</a></div><div class="ttdeci">void AssembleMat_FIM(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assmeble Matrix for FIM, parts only related to bulks are considered.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00444">BulkConn.cpp:444</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a627c90927dfbf83c050298fd36a9dbc3"><div class="ttname"><a href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">BulkConn::AllocateAuxIMPEC</a></div><div class="ttdeci">void AllocateAuxIMPEC(const USI &amp;np)</div><div class="ttdoc">Allocate memory for auxiliary variables used for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00190">BulkConn.cpp:190</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a6b6b36ddc96dce150740cdcff8acf81e"><div class="ttname"><a href="classBulkConn.html#a6b6b36ddc96dce150740cdcff8acf81e">BulkConn::MassConserveIMPEC</a></div><div class="ttdeci">void MassConserveIMPEC(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00404">BulkConn.cpp:404</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a735a3dcedd718b80c36be365ee935f16"><div class="ttname"><a href="classBulkConn.html#a735a3dcedd718b80c36be365ee935f16">BulkConn::CalCFLIMPEC</a></div><div class="ttdeci">OCP_DBL CalCFLIMPEC(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number of flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00293">BulkConn.cpp:293</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_a8975e1f4fea32ca26fa1e415897b0045"><div class="ttname"><a href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn::CalResFIM</a></div><div class="ttdeci">void CalResFIM(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00661">BulkConn.cpp:661</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aa2f439ee231375b2ccbfc72c2e19ea13"><div class="ttname"><a href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">BulkConn::CalFluxFIM</a></div><div class="ttdeci">void CalFluxFIM(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate Upblock for FIM</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00612">BulkConn.cpp:612</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aa8d9f52fc6bf62216f76b93337e61800"><div class="ttname"><a href="classBulkConn.html#aa8d9f52fc6bf62216f76b93337e61800">BulkConn::CalFluxIMPEC</a></div><div class="ttdeci">void CalFluxIMPEC(const Bulk &amp;myBulk)</div><div class="ttdoc">calculate main information about flow between bulks for IMPEC</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00332">BulkConn.cpp:332</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a02929d17cdc2fa1cc2c3b9f7a05dcf86"><div class="ttname"><a href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">BulkConn::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup active connections and calculate necessary properties using Grid and Bulk.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00025">BulkConn.cpp:25</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a0a644bf4c4e2eefee31fb98f0d2cd9df"><div class="ttname"><a href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">BulkConn::UpdateLastStep</a></div><div class="ttdeci">void UpdateLastStep()</div><div class="ttdoc">Update physcial values of the previous step.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00121">BulkConn.cpp:121</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a0b8ae52f901a4315cc81b84162990610"><div class="ttname"><a href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">BulkConn::CheckDiff</a></div><div class="ttdeci">void CheckDiff() const</div><div class="ttdoc">Check differences between the current and previous steps.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00141">BulkConn.cpp:141</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a1f352d5dc2deaa10c799d07ff59b0238"><div class="ttname"><a href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">BulkConn::AssembleMatIMPEC</a></div><div class="ttdeci">void AssembleMatIMPEC(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assmeble coefficient matrix for IMPEC, terms related to bulks only.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00205">BulkConn.cpp:205</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a2087bac59781881aba2d86323f68d33f"><div class="ttname"><a href="classBulkConn.html#a2087bac59781881aba2d86323f68d33f">BulkConn::PrintConnectionInfo</a></div><div class="ttdeci">void PrintConnectionInfo() const</div><div class="ttdoc">Print information of connections on screen.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00168">BulkConn.cpp:168</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a23a353095f0ecc4ef9518a71d0c1b60b"><div class="ttname"><a href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">BulkConn::SetupMatSparsity</a></div><div class="ttdeci">void SetupMatSparsity(LinearSystem &amp;myLS) const</div><div class="ttdoc">Setup sparsity pattern of the coefficient matrix.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00110">BulkConn.cpp:110</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a438992d31661ee39e0f456f451e5903f"><div class="ttname"><a href="classBulkConn.html#a438992d31661ee39e0f456f451e5903f">BulkConn::AssembleMat_FIM</a></div><div class="ttdeci">void AssembleMat_FIM(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assmeble coefficient matrix for FIM, terms related to bulks only.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00444">BulkConn.cpp:444</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a627c90927dfbf83c050298fd36a9dbc3"><div class="ttname"><a href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">BulkConn::AllocateAuxIMPEC</a></div><div class="ttdeci">void AllocateAuxIMPEC(const USI &amp;np)</div><div class="ttdoc">Allocate memory for auxiliary variables used by the IMPEC method.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00191">BulkConn.cpp:191</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a6b6b36ddc96dce150740cdcff8acf81e"><div class="ttname"><a href="classBulkConn.html#a6b6b36ddc96dce150740cdcff8acf81e">BulkConn::MassConserveIMPEC</a></div><div class="ttdeci">void MassConserveIMPEC(Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Update mole composition of each bulk according to mass conservation for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00404">BulkConn.cpp:404</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a735a3dcedd718b80c36be365ee935f16"><div class="ttname"><a href="classBulkConn.html#a735a3dcedd718b80c36be365ee935f16">BulkConn::CalCFLIMPEC</a></div><div class="ttdeci">OCP_DBL CalCFLIMPEC(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate the CFL number for flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00293">BulkConn.cpp:293</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_a8975e1f4fea32ca26fa1e415897b0045"><div class="ttname"><a href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn::CalResFIM</a></div><div class="ttdeci">void CalResFIM(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</div><div class="ttdoc">Calculate resiual for the Newton iteration in FIM.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00660">BulkConn.cpp:660</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aa2f439ee231375b2ccbfc72c2e19ea13"><div class="ttname"><a href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">BulkConn::CalFluxFIM</a></div><div class="ttdeci">void CalFluxFIM(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate flux for FIM, considering upwinding.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00611">BulkConn.cpp:611</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aa8d9f52fc6bf62216f76b93337e61800"><div class="ttname"><a href="classBulkConn.html#aa8d9f52fc6bf62216f76b93337e61800">BulkConn::CalFluxIMPEC</a></div><div class="ttdeci">void CalFluxIMPEC(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate flux information about flow between bulks for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00332">BulkConn.cpp:332</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_ab492d5bd1170fc61b2100aab60535a08"><div class="ttname"><a href="classBulkConn.html#ab492d5bd1170fc61b2100aab60535a08">BulkConn::CalIteratorConn</a></div><div class="ttdeci">void CalIteratorConn()</div><div class="ttdoc">Generate iteratorConn of active connections from neighbor.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00081">BulkConn.cpp:81</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_abfb76fd684624f2639bca8a146ffc327"><div class="ttname"><a href="classBulkConn.html#abfb76fd684624f2639bca8a146ffc327">BulkConn::GetConnectionInfo</a></div><div class="ttdeci">void GetConnectionInfo() const</div><div class="ttdoc">Print information about connection on screen.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00167">BulkConn.cpp:167</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_acc5697d9a56a115dc94fb63da324b9cd"><div class="ttname"><a href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSystem &amp;myLS) const</div><div class="ttdoc">Allocate memory for Matrix, it should be called only once at the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00100">BulkConn.cpp:100</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_acfe6d0c23ea1c4d0edf634e5f50c4ed8"><div class="ttname"><a href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">BulkConn::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Reset current step to last step.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00130">BulkConn.cpp:130</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aef03b3f72e154174446d2755ccfd92ce"><div class="ttname"><a href="classBulkConn.html#aef03b3f72e154174446d2755ccfd92ce">BulkConn::CalCFL01IMPEC</a></div><div class="ttdeci">void CalCFL01IMPEC(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">calculate the CFL number of flow between bulks.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00315">BulkConn.cpp:315</a></div></div>
-<div class="ttc" id="aclassBulkConn_html_aefc3cc60009acf19dbdf51099e231832"><div class="ttname"><a href="classBulkConn.html#aefc3cc60009acf19dbdf51099e231832">BulkConn::AllocateAuxFIM</a></div><div class="ttdeci">void AllocateAuxFIM(const USI &amp;np)</div><div class="ttdoc">Allocate memory for auxiliary variables used for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00436">BulkConn.cpp:436</a></div></div>
-<div class="ttc" id="aclassBulkPair_html"><div class="ttname"><a href="classBulkPair.html">BulkPair</a></div><div class="ttdoc">Connection between indices of two bulks (BId, EId); usually, BId &gt; EId.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00028">BulkConn.hpp:29</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_acc5697d9a56a115dc94fb63da324b9cd"><div class="ttname"><a href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSystem &amp;myLS) const</div><div class="ttdoc">Allocate memory for the coefficient matrix.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00101">BulkConn.cpp:101</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_acfe6d0c23ea1c4d0edf634e5f50c4ed8"><div class="ttname"><a href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">BulkConn::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Reset physcial values of the current step with the previous step.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00131">BulkConn.cpp:131</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aef03b3f72e154174446d2755ccfd92ce"><div class="ttname"><a href="classBulkConn.html#aef03b3f72e154174446d2755ccfd92ce">BulkConn::CalCFL01IMPEC</a></div><div class="ttdeci">void CalCFL01IMPEC(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate the CFL number for flow between bulks???</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00315">BulkConn.cpp:315</a></div></div>
+<div class="ttc" id="aclassBulkConn_html_aefc3cc60009acf19dbdf51099e231832"><div class="ttname"><a href="classBulkConn.html#aefc3cc60009acf19dbdf51099e231832">BulkConn::AllocateAuxFIM</a></div><div class="ttdeci">void AllocateAuxFIM(const USI &amp;np)</div><div class="ttdoc">Allocate memory for auxiliary variables used by the FIM method.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8cpp_source.html#l00436">BulkConn.cpp:436</a></div></div>
+<div class="ttc" id="aclassBulkPair_html"><div class="ttname"><a href="classBulkPair.html">BulkPair</a></div><div class="ttdoc">Connection between two bulks (BId, EId); usually, indices BId &gt; EId.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00029">BulkConn.hpp:30</a></div></div>
 <div class="ttc" id="aclassBulk_html"><div class="ttname"><a href="classBulk.html">Bulk</a></div><div class="ttdoc">Physical information of each active reservoir bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00057">Bulk.hpp:58</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00040">Grid.hpp:41</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html_a4036ead256735d60e8cb3cf67968c6d8"><div class="ttname"><a href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">GB_Pair::IsAct</a></div><div class="ttdeci">bool IsAct() const</div><div class="ttdoc">return activity of some grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00052">Grid.hpp:52</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html_a89469eb8092da8ccd1c8914bd4f1e808"><div class="ttname"><a href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GB_Pair::GetId</a></div><div class="ttdeci">OCP_USI GetId() const</div><div class="ttdoc">return active index of some grid if active.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00055">Grid.hpp:55</a></div></div>
-<div class="ttc" id="aclassGPair_html"><div class="ttname"><a href="classGPair.html">GPair</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00026">Grid.hpp:27</a></div></div>
-<div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00068">Grid.hpp:69</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00043">Grid.hpp:44</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html_a4036ead256735d60e8cb3cf67968c6d8"><div class="ttname"><a href="classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8">GB_Pair::IsAct</a></div><div class="ttdeci">bool IsAct() const</div><div class="ttdoc">Return whether this cell is active or not.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00055">Grid.hpp:55</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html_a89469eb8092da8ccd1c8914bd4f1e808"><div class="ttname"><a href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GB_Pair::GetId</a></div><div class="ttdeci">OCP_USI GetId() const</div><div class="ttdoc">Return the index of this cell among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00058">Grid.hpp:58</a></div></div>
+<div class="ttc" id="aclassGPair_html"><div class="ttname"><a href="classGPair.html">GPair</a></div><div class="ttdoc">Effective area of intersection surfaces with neighboring cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00027">Grid.hpp:28</a></div></div>
+<div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdoc">Basic information of computational grid, including the rock properties.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00071">Grid.hpp:72</a></div></div>
 <div class="ttc" id="aclassLinearSystem_html"><div class="ttname"><a href="classLinearSystem.html">LinearSystem</a></div><div class="ttdoc">Linear solvers for discrete systems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8hpp_source.html#l00030">LinearSystem.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 9 2022 14:28:08 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jan 19 2022 11:35:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

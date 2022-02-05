@@ -21,34 +21,34 @@
 
 using namespace std;
 
-/// Virtual base class for linear solvers
+/// Virtual base class for linear solvers.
 class LinearSolver
 {
 public:
-    /// Read the params for linear solvers from an input file
+    /// Read the params for linear solvers from an input file.
     virtual void SetupParam(const string& dir, const string& file) = 0;
 
-    /// Initialize the params for linear solvers
+    /// Initialize the params for linear solvers.
     virtual void InitParam() = 0;
 
-    /// Allocate maximum memory for linear solver
+    /// Allocate maximum memory for linear solvers.
     virtual void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
                           const USI& blockDim) = 0;
 
-    /// Assemble matrix for linear solver from the internal matrix data
+    /// Assemble matrix for linear solver from the internal matrix data.
     virtual void AssembleMat(const vector<vector<USI>>&     colId,
                              const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
                              const USI& blockDim, vector<OCP_DBL>& rhs,
                              vector<OCP_DBL>& u) = 0;
 
-    /// Solve the Linear System and return the Iterations and Solutions.
+    /// Solve the linear system and return the number of iterations.
     virtual OCP_INT Solve(vector<OCP_DBL>& u) = 0;
 
-    /// Get number of iterations
+    /// Get number of iterations.
     virtual USI GetNumIters() const = 0;
 };
 
-#endif
+#endif // __LINEARSOLVER_HEADER__
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
@@ -56,4 +56,5 @@ public:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/22/2021      Create file                          */
+/*  Chensong Zhang      Jan/18/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

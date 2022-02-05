@@ -36,7 +36,7 @@ Point3D operator*(const OCP_DBL& a, const Point3D& p)
     return Point3D(a * p.x, a * p.y, a * p.z);
 }
 
-Point3D VectorProduct(const Point3D& p1, const Point3D& p2)
+Point3D CrossProduct(const Point3D& p1, const Point3D& p2)
 {
     Point3D result;
     result.x = p1.y * p2.z - p1.z * p2.y;
@@ -117,7 +117,7 @@ Point3D VectorFace(const HexahedronFace& f)
     p1             = f.p0 - f.p1;
     p2             = f.p0 - f.p3;
     p3             = f.p2 - f.p3;
-    Point3D result = 0.5 * (VectorProduct(p0, p1) + VectorProduct(p2, p3));
+    Point3D result = 0.5 * (CrossProduct(p0, p1) + CrossProduct(p2, p3));
     return result;
 }
 
@@ -167,7 +167,6 @@ OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2
 {
     //
     // This function calculate the common area of two quadrilaterals FACE1, FACE2.
-    //
     //
     //   ARGUMENTS
     //
@@ -285,7 +284,7 @@ OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2
                 point2 = FACE2.p1;
             }
             point3          = Point3D(crosspoint[1].x, crosspoint[1].y, 0);
-            area            = VectorProduct(point1 - point3, point2 - point3);
+            area            = CrossProduct(point1 - point3, point2 - point3);
             CalAreaNotQuadr = fabs(area.z) * 0.5;
             break;
         case 3:
@@ -317,7 +316,7 @@ OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2
                 point2 = FACE2.p2;
             }
             point3          = Point3D(crosspoint[2].x, crosspoint[2].y, 0);
-            area            = VectorProduct(point1 - point3, point2 - point3);
+            area            = CrossProduct(point1 - point3, point2 - point3);
             CalAreaNotQuadr = fabs(area.z) * 0.5;
             break;
         case 5:
@@ -548,7 +547,7 @@ void ConnGrid::AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D&
     halfConn[nConn].Ad_dd         = area * d / (d * d);
     halfConn[nConn].d             = d;
     halfConn[nConn].neigh         = n;
-    halfConn[nConn].directiontype = direction;
+    halfConn[nConn].directionType = direction;
     nConn++;
 }
 
@@ -671,12 +670,11 @@ bool COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
 
 void COORD::CalConn()
 {
-
     OCP_INT iznnc;
     USI     iloopx, iloopy, iloopz, idirection;
     OCP_USI im, imim;
     OCP_USI num_conn2 = 0;
-    // im   the 1D index of the grid. 1:numGrid
+    // im is the 1D index of the grid. 1:numGrid
 
     Point3D Pcenter, Pface, Pctof, area, dxpoint, dypoint, dzpoint, areavector;
     // each grid block is a Hexahedron
@@ -697,14 +695,14 @@ void COORD::CalConn()
     }
     //
     //------------------------------------------------------CODE
-    //SEPERATPR----------------------------------------------------- set the points,
+    // SEPERATPR----------------------------------------------------- set the points,
     // depth and volume
     for (iloopz = 0; iloopz < nz; iloopz++) {
         for (iloopy = 0; iloopy < ny; iloopy++) {
             for (iloopx = 0; iloopx < nx; iloopx++) {
                 //
                 //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
+                // SEPERATPR-----------------------------------------------------
                 //    calculate the 8 points of each block.
                 //    corner point 0 and 4
                 //
@@ -799,7 +797,7 @@ void COORD::CalConn()
                     Point3D(xvalue, yvalue, zvalue);
                 //
                 //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
+                // SEPERATPR-----------------------------------------------------
                 //    calculate volumes and pore volumes
                 //
                 im = iloopz * nxy + iloopy * nx + iloopx;
@@ -833,10 +831,6 @@ void COORD::CalConn()
                 //
                 Pcenter   = CenterHexahedron(block);
                 depth[im] = Pcenter.z;
-                //
-                //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //
                 //    face of the left side (x-), idirection = 4
                 //
@@ -1124,8 +1118,6 @@ void COORD::CalConn()
                     }
                 }
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //    face of the right side (x+),idirection = 1
                 //
                 {
@@ -1151,7 +1143,6 @@ void COORD::CalConn()
                         // TRANX2[im]         = 0;
                     } else {
                         //
-                        // øº¬«“ª∏ˆ√Ê¡Ω±ﬂµƒÕ¯∏Ò÷ª”–≤ø∑÷√Êª˝œ‡Ω”
                         //
                         LGZERO0 = false;
                         LGZERO1 = false;
@@ -1409,8 +1400,6 @@ void COORD::CalConn()
                     }
                 }
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //    face of the foreword side (y-),idirection = 5
                 //
                 {
@@ -1436,7 +1425,6 @@ void COORD::CalConn()
                         // TRANY1[im]         = 0;
                     } else {
                         //
-                        // øº¬«“ª∏ˆ√Ê¡Ω±ﬂµƒÕ¯∏Ò÷ª”–≤ø∑÷√Êª˝œ‡Ω”
                         //
                         imim    = (iloopz)*nxy + (iloopy - 1) * nx + iloopx;
                         LGZERO0 = false;
@@ -1695,8 +1683,6 @@ void COORD::CalConn()
                     }
                 }
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //    face of the behind side (y+),idirection = 2
                 //
                 {
@@ -1722,7 +1708,6 @@ void COORD::CalConn()
                         // TRANY2[im]         = 0;
                     } else {
                         //
-                        // øº¬«“ª∏ˆ√Ê¡Ω±ﬂµƒÕ¯∏Ò÷ª”–≤ø∑÷√Êª˝œ‡Ω”
                         //
                         LGZERO0 = false;
                         LGZERO1 = false;
@@ -1981,8 +1966,6 @@ void COORD::CalConn()
                 }
 
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //    face of the upper side (z-),idirection = 6
                 //    there will not be any non-neighbor connections in this face.
                 //
@@ -2003,8 +1986,6 @@ void COORD::CalConn()
                     num_conn2++;
                 }
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR----------------------------------------------------
                 //    face of the lower side (z+),idirection = 3
                 //    there will not be any non-neighbor connections in this face.
                 //
@@ -2026,8 +2007,6 @@ void COORD::CalConn()
                 }
 
                 //
-                //------------------------------------------------------CODE
-                //SEPERATPR-----------------------------------------------------
                 //    save evaluated DX,DY,DZ, which would only be used in calculating
                 //    well bore diameter. It should not be used at any other place.
                 //
@@ -2076,7 +2055,7 @@ void COORD::CalConn()
             connect[iter_conn].Ad_dd_begin   = blockconn[n].halfConn[j].Ad_dd;
             connect[iter_conn].end           = nn;
             connect[iter_conn].Ad_dd_end     = blockconn[nn].halfConn[jj].Ad_dd;
-            connect[iter_conn].directiontype = blockconn[n].halfConn[j].directiontype;
+            connect[iter_conn].directionType = blockconn[n].halfConn[j].directionType;
             iter_conn++;
         }
     }

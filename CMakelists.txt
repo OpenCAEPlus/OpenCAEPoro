@@ -5,13 +5,16 @@
 # Shizhe Li         Sep/21/2021    Create CMakeLists
 # Chensong Zhang    Sep/24/2021    Fix FASP linkage problems
 # Chensong Zhang    Oct/16/2021    Fix duplications
+# Chensong Zhang    Jan/19/2022    Use FASP open-source part as default solver
 #
 # Some sample usages:
 #   cmake .                                 // build in default configuration
 #   cmake -DCMAKE_BUILD_TYPE=Release .      // build in Release configuration
 #   cmake -DCMAKE_BUILD_TYPE=Debug .        // build in Debug configuration
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON .     // build with verbose on
+#   cmake -DUSE_FASP4BLKOIL=ON .            // build with FASP4BLKOIL package support
 #   cmake -DUSE_UMFPACK=ON .                // build with UMFPACK package support
+#   cmake -DUSE_OPENMP=ON .                 // build with OpenMP support
 
 #####################################################################################
 ## General environment setting
@@ -45,20 +48,37 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
-# Find FASP, requires faspsolver and fasp4blkoil     
-find_package(FASP4BLKOIL REQUIRED)
-if(FASP4BLKOIL_FOUND)
+# Find FASP, requires faspsolver
+find_package(FASP REQUIRED)
+if (FASP_FOUND)
     include_directories(${FASP_INCLUDE_DIRS})
-    include_directories(${FASP4BLKOIL_INCLUDE_DIRS})
-    set(CMAKE_REQUIRED_INCLUDES ${FASP_INCLUDE_DIRS})
-    set(CMAKE_REQUIRED_INCLUDES ${FASP4BLKOIL_INCLUDE_DIRS})
     add_definitions(-D__SOLVER_FASP__) 
-else(FASP4BLKOIL_FOUND)
-    message("   ERROR: FASP was requested but not found!")
-endif(FASP4BLKOIL_FOUND)
+else(FASP_FOUND)
+    message("-- ERROR: FASP was requested but not found!")
+endif(FASP_FOUND)
 
 # Optional external libraries, including direct solvers
 include(external)
+
+#####################################################################################
+## Find compiler support for OpenMP. Since cmake 3.9, we can use 
+## find_package(OpenMP REQUIRED). Keep this for older cmake!!!
+#####################################################################################
+
+if(USE_OPENMP)
+    if(CMAKE_VERSION VERSION_GREATER 3)
+        cmake_policy(SET "CMP0054" NEW)
+    endif()
+
+    find_package(OpenMP)
+    if(OPENMP_FOUND)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")	 
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+        set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${OpenMP_C_FLAGS}")
+    else(OPENMP_FOUND)
+        message("   WARNING: OpenMP was requested but disabled!")
+    endif(OPENMP_FOUND)
+endif(USE_OPENMP)
 
 #####################################################################################
 ## Set configuration types and their default compiler flags
@@ -103,14 +123,10 @@ add_executable(testOpenCAEPoro ${EXE_FILES})
 target_include_directories(testOpenCAEPoro PRIVATE ${INC_FILES})
 target_link_libraries(testOpenCAEPoro
                       OpenCAEPoro
-                      ${FASP4BLKOIL_LIBRARIES}
+                      ${OPTIONAL_LIBS}
                       ${FASP_LIBRARIES}
                       ${LAPACK_LIBRARIES}
                       ${BLAS_LIBRARIES} 
-                      ${UMFPACK_LIBRARIES} 
-                      ${SUPERLU_LIBRARIES} 
-                      ${MUMPS_LIBRARIES}
-                      ${MKL_LIBRARIES}
                       ${ADD_STDLIBS})
 
 #####################################################################################

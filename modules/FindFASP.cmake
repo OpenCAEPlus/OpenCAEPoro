@@ -1,4 +1,13 @@
-message(STATUS "Looking for FASP")
+# Once done this will define
+#  FASP_FOUND        - System has FASP
+#  FASP_DIR          - The FASP directory
+#  FASP_INCLUDE_DIRS - The FASP include directories
+#  FASP_LIBRARIES    - The libraries needed to use FASP
+#
+#  Chensong Zhang
+#  01/18/2022
+
+# message(STATUS "Looking for FASP")
 
 set(FASP_DIR "${FASP_DIR}")
 
@@ -20,5 +29,5 @@ set(FASP_LIBRARIES ${FASP_LIBRARIES})
 # Standard package handling
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(FASP
-    "FASP could not be found. Be sure to set FASP_DIR."
-    FASP_LIBRARIES FASP_INCLUDE_DIRS)
+    "FASP could not be found. Check FASP_DIR."
+    FASP_INCLUDE_DIRS FASP_LIBRARIES)

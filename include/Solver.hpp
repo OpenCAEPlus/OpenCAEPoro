@@ -16,6 +16,7 @@
 #ifndef __SOLVER_HEADER__
 #define __SOLVER_HEADER__
 
+/// Solver class for overall solution method.
 class Solver
 {
 public:
@@ -29,7 +30,7 @@ public:
 private:
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCPControl& ctrl);
-    /// Setup Mehod
+    /// Setup the solution method.
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     /// Before solve: prepare for assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
@@ -37,9 +38,9 @@ private:
     void AssembleSolve(Reservoir& rs, OCPControl& ctrl);
     /// Update reservoir properties after solving for primary variables.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    /// Determine if Newton iteration is finished.
+    /// Finish the Newton-Raphson iteration.
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
-    /// Finish current time step.
+    /// Finish the current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
@@ -57,4 +58,5 @@ private:
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Shizhe Li           Oct/21/2021      Change from OCPMethod to Solver      */
 /*  Chensong Zhang      Oct/27/2021      Rearrange and add comments           */
+/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

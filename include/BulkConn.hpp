@@ -24,7 +24,8 @@
 
 using namespace std;
 
-/// Connection between indices of two bulks (BId, EId); usually, BId > EId.
+/// Connection between two bulks (BId, EId); usually, indices BId > EId.
+//  Note: Bulks are the active grid cells.
 class BulkPair
 {
     friend class BulkConn;
@@ -38,100 +39,119 @@ public:
         : BId(bId)
         , EId(eId){};
 
-    OCP_USI GetBId() const { return BId; }
-    OCP_USI GetEId() const { return EId; }
+    OCP_USI GetBId() const { return BId; } ///< Return beginning index.
+    OCP_USI GetEId() const { return EId; } ///< Return ending index.
 
 private:
-    OCP_USI BId;
-    OCP_USI EId;
+    OCP_USI BId; ///< Beginning index of a pair.
+    OCP_USI EId; ///< Ending index of a pair.
 };
 
-/// BulkConn is a core component of reservoir, it contains all properties and
-/// operations about connections between bulks(active grids). due to the activity of
-/// bulks, almost all connections are meaningful. you can traverse all the connections
-/// through the iterator in it, which is effective. flow calculation between active
-/// bulks, matrix assembling contributed only by bulks are included in it.
+/// Properties and operations on connections between bulks (active grids).
+//  Note: BulkConn is a core component of reservoir, it contains all properties and
+//  operations on connections between bulks (active grids). You can traverse all the
+//  connections through an effective iterator. Flow calculations between active
+// bulks and matrix assembling with contributions from bulks only are included.
 class BulkConn
 {
 
 public:
-    BulkConn() = default;
+    BulkConn() = default; ///< Default constructor.
 
     /////////////////////////////////////////////////////////////////////
     // General
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Setup active connections and calculate necessary property from Grid and Bulk.
-    /// It should be called after Grid and Bulk Setup.
+    /// Setup active connections and calculate necessary properties using Grid and Bulk.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
+
     /// Generate iteratorConn of active connections from neighbor.
     void CalIteratorConn();
-    /// Allocate memory for Matrix, it should be called only once at the beginning.
+
+    /// Allocate memory for the coefficient matrix.
     void AllocateMat(LinearSystem& myLS) const;
-    /// Setup sparsity pattern of Matrix begin assembling Matrix.
+
+    /// Setup sparsity pattern of the coefficient matrix.
     void SetupMatSparsity(LinearSystem& myLS) const;
-    /// Update value of last step
+
+    /// Update physcial values of the previous step.
     void UpdateLastStep();
-    /// Reset current step to last step
+
+    /// Reset physcial values of the current step with the previous step.
     void Reset();
-    /// Check the difference from last step -- test
+
+    /// Check differences between the current and previous steps.
     void CheckDiff() const;
-    /// Return num of bulk.
+
+    /// Return number of bulks.
     OCP_USI GetBulkNum() const { return numBulk; }
-    /// Print information about connection on screen.
-    void GetConnectionInfo() const;
+
+    /// Print information of connections on screen.
+    void PrintConnectionInfo() const;
 
 private:
-    OCP_USI numBulk; ///< Num of bulks (active grids).
-    OCP_USI numConn; ///< Num of connections between Bulks.
+    OCP_USI numBulk; ///< Number of bulks (active grid cells).
+    OCP_USI numConn; ///< Number of connections between bulks.
 
-    vector<vector<OCP_USI>>
-        neighbor; ///< The ith row stores the ith bulk's neighbor, which is sort in
-                  ///< increasing order: activeGridNum.
-    vector<USI> selfPtr;     ///< The ith row stores the location of the ith bulk in
-                             ///< neighbor[i]: activeGridNum.
-    vector<USI> neighborNum; ///< The ith row stores num of neighbor of the ith bulk:
-                             ///< activeGridNum.
-    /// Contains all the connections, in which the index of first bulk is greater than
-    /// the ones of second bulk. the iteratorConn is generated from neighbor: numConn.
+    /// Neighboring information of each bulk: activeGridNum.
+    //  Note: The i-th entry stores the i-th bulk's neighbors, which is sorted in an
+    //  increasing order.
+    vector<vector<OCP_USI>> neighbor;
+
+    /// Self-pointer, the indiecs of the i-th bulk in neighbor[i]: activeGridNum???
+    vector<USI> selfPtr;
+
+    /// Number of neighbors of the i-th bulk: activeGridNum.
+    vector<USI> neighborNum;
+
+    /// All connections (pair of indices) between bulks: numConn.
+    //  Note: In each pair, the index of first bulk is greater than the second. The data
+    //  in iteratorConn is generated from neighbor.
     vector<BulkPair> iteratorConn;
-    vector<OCP_DBL>  area; ///< Effective area for each connections, which are ordered
-                           ///< the same as iteratorConn: numConn.
-    /// Upblock of connections.
-    /// Upblock is identified by difference of pressure between phases: numConn * nums
-    /// of phase.
+
+    /// Effective area of each connection ordered as iteratorConn: numConn.
+    vector<OCP_DBL> area;
+
+    ////// Current Time Step
+    /// Index of upwinding bulk of connections: numConn * nums of phase.
+    //  Note: Upblock is identified by difference of pressure between phases.
     vector<OCP_USI> upblock;
-    vector<OCP_DBL>
-        upblock_Rho; ///< Mass density of phase from upblock: numConn * nums of phase.
-    vector<OCP_DBL> upblock_Trans; ///< Transmissibility of phase from upblock: numConn
-                                   ///< * nums of phase.
-    vector<OCP_DBL> upblock_Velocity; ///< Flow rate of volume of phase from upblock:
-                                      ///< numConn * nums of phase.
-    // For last time step
-    vector<OCP_USI> lastUpblock;
-    vector<OCP_DBL> lastUpblock_Rho;
-    vector<OCP_DBL> lastUpblock_Trans;
-    vector<OCP_DBL> lastUpblock_Velocity;
+    /// Mass density of phase from upblock: numConn * nums of phase.
+    vector<OCP_DBL> upblock_Rho;
+    /// Transmissibility of phase from upblock: numConn * nums of phase.
+    vector<OCP_DBL> upblock_Trans;
+    /// Flow volume rate of phase from upblock: numConn * nums of phase.
+    vector<OCP_DBL> upblock_Velocity;
+
+    ////// Previous Time Step
+    vector<OCP_USI> lastUpblock;          ///< Upwinding cell at the last time step
+    vector<OCP_DBL> lastUpblock_Rho;      ///< Density at the last time step
+    vector<OCP_DBL> lastUpblock_Trans;    ///< Transmisbility at the last time step
+    vector<OCP_DBL> lastUpblock_Velocity; ///< Velocity at the last time step
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Allocate memory for auxiliary variables used for IMPEC
+    /// Allocate memory for auxiliary variables used by the IMPEC method.
     void AllocateAuxIMPEC(const USI& np);
-    /// Assmeble Matrix for IMPEC, parts only related to bulks are considered.
+
+    /// Assmeble coefficient matrix for IMPEC, terms related to bulks only.
     void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                           const OCP_DBL& dt) const;
-    /// calculate the CFL number of flow between bulks.
+
+    /// Calculate the CFL number for flow between bulks.
     OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// calculate the CFL number of flow between bulks.
+
+    /// Calculate the CFL number for flow between bulks???
     void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// calculate main information about flow between bulks for IMPEC
+
+    /// Calculate flux information about flow between bulks for IMPEC.
     void CalFluxIMPEC(const Bulk& myBulk);
-    /// Update moles of component in each bulk according to mass conserve equations at
-    /// current timestep for IMPEC
+
+    /// Update mole composition of each bulk according to mass conservation for IMPEC.
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
@@ -139,18 +159,23 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Allocate memory for auxiliary variables used for FIM
+    /// Allocate memory for auxiliary variables used by the FIM method.
     void AllocateAuxFIM(const USI& np);
-    /// Assmeble Matrix for FIM, parts only related to bulks are considered.
+
+    /// Assmeble coefficient matrix for FIM, terms related to bulks only.
     void AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
                          const OCP_DBL& dt) const;
-    /// calculate Upblock for FIM
+
+    /// Calculate flux for FIM, considering upwinding.
     void CalFluxFIM(const Bulk& myBulk);
-    /// Calculate Resiual for FIM
+
+    /// Calculate resiual for the Newton iteration in FIM.
     void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-    /// Reset upblock
+
+    /// Reset upblock for FIM.
     void ResetUpblockFIM() { upblock = lastUpblock; }
-    /// Update lastUpblock
+
+    /// Update lastUpblock for FIM.
     void UpdateLastUpblockFIM() { lastUpblock = upblock; }
 };
 
@@ -163,4 +188,5 @@ public:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Jan/17/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

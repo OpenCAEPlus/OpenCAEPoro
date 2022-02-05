@@ -22,11 +22,13 @@
 
 using namespace std;
 
-const OCP_DBL SMALL_REAL   = 1E-10;
-const USI     MAX_NEIGHBOR = 80;
-const OCP_DBL TEENY        = 1E-3;
-const OCP_DBL SMALL        = 1E-3;
+// Constants used by corner-point grid code
+const OCP_DBL SMALL_REAL   = 1E-10; ///< Used for checking determinate of a small matrix
+const OCP_DBL TEENY        = 1E-3;  ///< Used for checking distance b/w center to face
+const OCP_DBL SMALL        = 1E-3;  ///< Small number as tolerance
+const USI     MAX_NEIGHBOR = 80;    ///< Max number of  neighbors allowed
 
+/// A point in 2D.
 class Point2D
 {
 public:
@@ -40,6 +42,7 @@ public:
         , y(y0){};
 };
 
+/// A point in 3D.
 class Point3D
 {
 public:
@@ -54,27 +57,30 @@ public:
         , y(y0)
         , z(z0){};
 
-    Point3D operator+(const Point3D& other) const;
-    Point3D operator-(const Point3D& other) const;
-    OCP_DBL operator*(const Point3D& other) const;
+    Point3D operator+(const Point3D& other) const; ///< Addition
+    Point3D operator-(const Point3D& other) const; ///< Substraction
+    OCP_DBL operator*(const Point3D& other) const; ///< Multiplication
 };
 
-Point3D operator*(const Point3D& p, const OCP_DBL& a);
-Point3D operator*(const OCP_DBL& a, const Point3D& p);
-Point3D VectorProduct(const Point3D& p1, const Point3D& p2);
+Point3D operator*(const Point3D& p, const OCP_DBL& a);      ///< Point * a
+Point3D operator*(const OCP_DBL& a, const Point3D& p);      ///< a * Point
+Point3D CrossProduct(const Point3D& p1, const Point3D& p2); ///< Cross product
 
+/// A hexahedron cell.
 class Hexahedron
 {
 public:
     Point3D p0, p1, p2, p3, p4, p5, p6, p7;
 };
 
+/// A face of a hexahedron cell.
 class HexahedronFace
 {
 public:
     Point3D p0, p1, p2, p3;
 };
 
+/// 3 by 3 matrix.
 class Matrix3
 {
 public:
@@ -82,22 +88,35 @@ public:
     Point3D operator*(const Point3D& v) const;
 };
 
+/// Get the volume of a hexahedron.
 OCP_DBL VolumHexahedron(const Hexahedron& h);
+
+/// Find the center of a hexahedron.
 Point3D CenterHexahedron(const Hexahedron& h);
+
+/// Find the normal vector of a face.
 Point3D VectorFace(const HexahedronFace& f);
+
+/// Find the center of a face.
 Point3D CenterFace(const HexahedronFace& f);
+
+/// ???
 Point2D CalCrossingPoint(const Point2D Line1[2], const Point2D Line2[2]);
+
+/// ???
 OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2);
 
+/// ???
 class HalfConn
 {
 public:
     OCP_DBL Ad_dd;
     Point3D d;
     OCP_USI neigh;
-    USI     directiontype; // 1 - x, 2 - y, 3 - z, 4 - extension
+    USI     directionType; // 1 - x, 2 - y, 3 - z, 4 - extension
 };
 
+/// ???
 class ConnGrid
 {
 public:
@@ -108,15 +127,17 @@ public:
                      const USI& direction);
 };
 
+/// ???
 class GeneralConnect
 {
 public:
     OCP_USI begin, end;
-    USI     directiontype; // 1 - x, 2 - y, 3 - z, 4 - extension
+    USI     directionType; // 1 - x, 2 - y, 3 - z, 4 - extension
     OCP_DBL Ad_dd_begin;
     OCP_DBL Ad_dd_end;
 };
 
+/// ???
 class COORD
 {
     friend class Grid;
@@ -157,4 +178,5 @@ private:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/16/2021      Create file                          */
+/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

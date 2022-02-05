@@ -33,9 +33,9 @@ const OCP_DBL PI           = 3.141592653; ///< Pi
 // Control consts
 const OCP_DBL MAX_TIME_STEP     = 365.0; ///< Maximal time stepsize
 const OCP_DBL MIN_TIME_STEP     = 0.01;  ///< Minimal time stepsize
-const OCP_DBL MIN_TIME_CURSTEP  = 1E-6;  ///< Minimal time stepsize of current step
+const OCP_DBL MIN_TIME_CURSTEP  = 1E-6;  ///< Minimal time stepsize of current step ???
 const OCP_DBL TIME_STEP_CUT     = 0.5;   ///< Time stepsize cut ratio
-const OCP_DBL TIME_STEP_AMPLIFY = 2.0;   ///< Time stepsize amplify ratio
+const OCP_DBL TIME_STEP_AMPLIFY = 2.0;   ///< Time stepsize amplification ratio
 const OCP_DBL MAX_VOLUME_ERR    = 0.01;  ///< Maximal volume error
 const OCP_DBL MAX_DP_LIMIT      = 200;   ///< Maximal pressure change
 const OCP_DBL MAX_DS_LIMIT      = 0.1;   ///< Maximal saturation change
@@ -55,56 +55,56 @@ const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = 5.61458 ft3
 const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in Field
 
 // Grid Type
-const USI ORTHOGONAL_GRID = 1;
-const USI CORNER_GRID     = 2;
-const USI GENERAL_GRID    = 3;
+const USI ORTHOGONAL_GRID = 1; ///< Grid type = orthogonal
+const USI CORNER_GRID     = 2; ///< Grid type = corner-point
+const USI GENERAL_GRID    = 3; ///< Grid type = general
 
 // Solution methods
-const USI IMPEC = 1;
-const USI FIM   = 2;
+const USI IMPEC = 1; ///< Solution method = IMPEC
+const USI FIM   = 2; ///< Solution method = FIM
 
 // Fluid types
-const USI OIL     = 0;
-const USI GAS     = 1;
-const USI WATER   = 2;
-const USI SOLVENT = 3;
+const USI OIL     = 0; ///< Fluid type = oil
+const USI GAS     = 1; ///< Fluid type = gas
+const USI WATER   = 2; ///< Fluid type = water
+const USI SOLVENT = 3; ///< Fluid type = solvent
 
 // Mixture types
-const USI BLKOIL   = 1;
-const USI EOS_PVTW = 2;
+const USI BLKOIL   = 1; ///< Mixture model = black-oil
+const USI EOS_PVTW = 2; ///< Mixture model = equation-of-state
 
 // EoS models
-const USI EOS_PR  = 1;
-const USI EOS_SRK = 2;
+const USI EOS_PR  = 1; ///< EoS model = PR
+const USI EOS_SRK = 2; ///< EoS model = SRK
 
 // Phase types
-const USI PHASE_W    = 1;
-const USI PHASE_GW   = 2;
-const USI PHASE_OW   = 3;
-const USI PHASE_OG   = 4;
-const USI PHASE_ODGW = 5;
-const USI PHASE_DOGW = 6;
+const USI PHASE_W    = 1; ///< Phase type = water only
+const USI PHASE_GW   = 2; ///< Phase type = gas-water
+const USI PHASE_OW   = 3; ///< Phase type = oil-water
+const USI PHASE_OG   = 4; ///< Phase type = oil-gas
+const USI PHASE_ODGW = 5; ///< Phase type = oil-dry gas-water???
+const USI PHASE_DOGW = 6; ///< Phase type = dead oil-gas-water???
 
 // Well params
-const USI  INJ        = 1;
-const USI  PROD       = 2;
-const bool CLOSE      = false;
-const bool OPEN       = true;
-const USI  HORIZONTAL = 1;
-const USI  VERTICAL   = 2;
+const USI  INJ        = 1;     ///< Well type = injector
+const USI  PROD       = 2;     ///< Well type = producer
+const USI  HORIZONTAL = 1;     ///< Well type = horizontal
+const USI  VERTICAL   = 2;     ///< Well type = vectical
+const bool OPEN       = true;  ///< Well type = open
+const bool CLOSE      = false; ///< Well type = closed
 
 // Well option params
-const USI RATE_MODE  = 1;
-const USI ORATE_MODE = 2;
-const USI GRATE_MODE = 3;
-const USI WRATE_MODE = 4;
-const USI LRATE_MODE = 5;
-const USI BHP_MODE   = 6;
+const USI RATE_MODE  = 1; ///< Well option = fixed total rate???
+const USI ORATE_MODE = 2; ///< Well option = fixed oil rate
+const USI GRATE_MODE = 3; ///< Well option = fixed gas rate
+const USI WRATE_MODE = 4; ///< Well option = fixed water rate
+const USI LRATE_MODE = 5; ///< Well option = fixed fluid rate???
+const USI BHP_MODE   = 6; ///< Well option = fixed bottom-hole-pressure
 
 // Perforation directions
-const USI X_DIRECTION = 1;
-const USI Y_DIRECTION = 2;
-const USI Z_DIRECTION = 3;
+const USI X_DIRECTION = 1; ///< x-direction
+const USI Y_DIRECTION = 2; ///< y-direction
+const USI Z_DIRECTION = 3; ///< z-direction
 
 #endif // __OPENCAEPORO_CONSTS_HEADER__
 
@@ -116,5 +116,5 @@ const USI Z_DIRECTION = 3;
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*  Chensong Zhang      Oct/27/2021      Unify error check                    */
-/*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */
+/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/
