@@ -105,6 +105,7 @@ void WellGroup::PrepareWell(const Bulk& myBulk)
 
             wellGroup[w].CalTrans(myBulk);
             wellGroup[w].CalFlux(myBulk, true);
+            wellGroup[w].CalProdWeight(myBulk);
             wellGroup[w].CaldG(myBulk);
             // test
             // wellGroup[w].SmoothdG();
@@ -164,9 +165,9 @@ void WellGroup::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
 
         if (wellGroup[w].WellState()) {
             if (wellGroup[w].WellType() == PROD) {
-                wellGroup[w].CalProdQiBO(myBulk, dt);
+                wellGroup[w].CalProdQj(myBulk, dt);
             } else {
-                wellGroup[w].CalInjQiBO(myBulk, dt);
+                wellGroup[w].CalInjQi(myBulk, dt);
             }
         }
         FGIR += wellGroup[w].WGIR;
@@ -329,7 +330,7 @@ void WellGroup::AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                     wellGroup[w].AssembleMatINJ_IMPEC(myBulk, myLS, dt);
                     break;
                 case PROD:
-                    wellGroup[w].AssembleMatPROD_BO_IMPEC(myBulk, myLS, dt);
+                    wellGroup[w].AssembleMatPROD_IMPEC(myBulk, myLS, dt);
                     break;
                 default:
                     OCP_ABORT("Wrong well type");
@@ -369,7 +370,7 @@ void WellGroup::AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
                     wellGroup[w].AssembleMatINJ_FIM(myBulk, myLS, dt);
                     break;
                 case PROD:
-                    wellGroup[w].AssembleMatPROD_BO_FIM(myBulk, myLS, dt);
+                    wellGroup[w].AssembleMatPROD_FIM(myBulk, myLS, dt);
                     break;
                 default:
                     OCP_ABORT("Wrong well type");

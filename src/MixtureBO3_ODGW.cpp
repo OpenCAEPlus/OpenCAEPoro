@@ -14,13 +14,14 @@
 void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                                 const OCP_DBL* Sjin, const OCP_DBL& Vpore)
 {
-
-    phaseExist.assign(numPhase, false);
-    xij.assign(numPhase * numCom, 0);
-    Ni.assign(numCom, 0);
+    for (USI j = 0; j < 3; j++) phaseExist[j] = false;
+    for (USI i = 0; i < 3; i++) Ni[i] = 0;
+    fill(xij.begin(), xij.end(), 0.0);
+    
 
     P = Pin;
-    for (USI j = 0; j < numPhase; j++) S[j] = Sjin[j];
+    S[1] = Sjin[1]; // gas saturation
+    S[2] = Sjin[2]; // water saturation
 
     // Water Property
     PVTW.Eval_All(0, P, data, cdata);
@@ -159,7 +160,9 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             break;
         }
         case PHASE_ODGW: {
-            phaseExist.assign(3, true);
+            phaseExist[0] = true;
+            phaseExist[1] = true;
+            phaseExist[2] = true;
 
             // oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -210,9 +213,8 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 
 void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-
-    phaseExist.assign(numPhase, false);
-    xij.assign(numPhase * numCom, 0); //
+    for (USI j = 0; j < 3; j++) phaseExist[j] = false;
+    fill(xij.begin(), xij.end(), 0.0);
 
     P  = Pin;
     Nt = 0;
@@ -360,7 +362,9 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             break;
         }
         case PHASE_ODGW: {
-            phaseExist.assign(3, true);
+            phaseExist[0] = true;
+            phaseExist[1] = true;
+            phaseExist[2] = true;
 
             // oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -409,15 +413,16 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 
 void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-    phaseExist.assign(numPhase, false);
-    xij.assign(numPhase * numCom, 0);
-    rhoP.assign(numPhase, 0);
-    xiP.assign(numPhase, 0);
-    muP.assign(numPhase, 0);
-    rhox.assign(numPhase * numCom, 0);
-    xix.assign(numPhase * numCom, 0);
-    mux.assign(numPhase * numCom, 0);
-    dSec_dPri.assign(dSec_dPri.size(), 0);
+    for (USI j = 0; j < 3; j++) {
+        phaseExist[j] = false;
+        rhoP[j] = 0; xiP[j] = 0; muP[j] = 0;
+    }
+    fill(xij.begin(), xij.end(), 0.0);
+    fill(rhox.begin(), rhox.end(), 0.0);
+    fill(xix.begin(), xix.end(), 0.0);
+    fill(mux.begin(), mux.end(), 0.0);
+    fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
+
 
     P  = Pin;
     Nt = 0;
@@ -485,20 +490,20 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
             vfi[1] = 1000 * bg;
             vfi[2] = CONV1 * bw;
 
-            // dSec_dPri[0] = 0; // dSo / dP
-            dSec_dPri[1] = CONV1 * bo / vf; // dSo / dNo
-            // dSec_dPri[2] = 0;   // dSo / dNg;
-            // dSec_dPri[3] = 0;   // dSo / dNw;
+            // dXsdXp[0] = 0; // dSo / dP
+            dXsdXp[1] = CONV1 * bo / vf; // dSo / dNo
+            // dXsdXp[2] = 0;   // dSo / dNg;
+            // dXsdXp[3] = 0;   // dSo / dNw;
 
-            // dSec_dPri[1 * 4 + 0] = 0;   // dSg / dP
-            // dSec_dPri[1 * 4 + 1] = 0;   // dSg / dNo
-            dSec_dPri[1 * 4 + 2] = 1000 * bg / vf; // dSg / dNg
-            // dSec_dPri[1 * 4 + 3] = 0;   // dSg / dNw
+            // dXsdXp[1 * 4 + 0] = 0;   // dSg / dP
+            // dXsdXp[1 * 4 + 1] = 0;   // dSg / dNo
+            dXsdXp[1 * 4 + 2] = 1000 * bg / vf; // dSg / dNg
+            // dXsdXp[1 * 4 + 3] = 0;   // dSg / dNw
 
-            dSec_dPri[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
-            dSec_dPri[2 * 4 + 1] = -S[2] * vfi[0] / vf;                     // dSw / dNo
-            dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf;                     // dSw / dNg
-            dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf;       // dSw / dNw
+            dXsdXp[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
+            dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf;                     // dSw / dNo
+            dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf;                     // dSw / dNg
+            dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf;       // dSw / dNw
 
             break;
         }
@@ -547,20 +552,20 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         vfi[1] = 1000 * bg;
         vfi[2] = CONV1 * bw;
 
-        // dSec_dPri[0] = 0; // dSo / dP
-        dSec_dPri[1] = CONV1 * bo / vf; // dSo / dNo
-        // dSec_dPri[2] = 0;   // dSo / dNg
-        // dSec_dPri[3] = 0;   // dSo / dNw
+        // dXsdXp[0] = 0; // dSo / dP
+        dXsdXp[1] = CONV1 * bo / vf; // dSo / dNo
+        // dXsdXp[2] = 0;   // dSo / dNg
+        // dXsdXp[3] = 0;   // dSo / dNw
 
-        dSec_dPri[1 * 4 + 0] = (1000 * Ni[1] * cbg - S[1] * vfp) / vf;   // dSg / dP
-        dSec_dPri[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
-        dSec_dPri[1 * 4 + 2] = (1000 * bg - S[1] * vfi[1]) / vf; // dSg / dNg
-        dSec_dPri[1 * 4 + 3] = -S[1] * vfi[2] / vf; // dSg / dNw
+        dXsdXp[1 * 4 + 0] = (1000 * Ni[1] * cbg - S[1] * vfp) / vf;   // dSg / dP
+        dXsdXp[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
+        dXsdXp[1 * 4 + 2] = (1000 * bg - S[1] * vfi[1]) / vf; // dSg / dNg
+        dXsdXp[1 * 4 + 3] = -S[1] * vfi[2] / vf; // dSg / dNw
 
-        dSec_dPri[2 * 4 + 0] = (CONV1 * Ni[2] * bwp - S[2] * vfp) / vf; // dSw / dP
-        dSec_dPri[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
-        dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
-        dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
+        dXsdXp[2 * 4 + 0] = (CONV1 * Ni[2] * bwp - S[2] * vfp) / vf; // dSw / dP
+        dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
+        dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
+        dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
         break;
     }
@@ -611,20 +616,20 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         vfi[2] = CONV1 * bw;
 
 
-        dSec_dPri[0] = (-CONV1 * Ni[0] * cbosat * bosat - S[0] * vfp) / vf;  // dSo / dP
-        dSec_dPri[1] = (CONV1 * bo - CONV1 * dBo_drs * (Ni[1] / Ni[0]) - S[0] * vfi[0]) / vf; // dSg / dNo
-        dSec_dPri[2] = (CONV1 * dBo_drs - S[0] * vfi[1]) / vf; // dSg / dNg
-        dSec_dPri[3] = -S[0] / vf * vfi[2]; // dSg / dNw
+        dXsdXp[0] = (-CONV1 * Ni[0] * cbosat * bosat - S[0] * vfp) / vf;  // dSo / dP
+        dXsdXp[1] = (CONV1 * bo - CONV1 * dBo_drs * (Ni[1] / Ni[0]) - S[0] * vfi[0]) / vf; // dSg / dNo
+        dXsdXp[2] = (CONV1 * dBo_drs - S[0] * vfi[1]) / vf; // dSg / dNg
+        dXsdXp[3] = -S[0] / vf * vfi[2]; // dSg / dNw
 
-        dSec_dPri[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
-        dSec_dPri[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
-        dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
-        dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
+        dXsdXp[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
+        dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
+        dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
+        dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        dSec_dPri[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d No
-        dSec_dPri[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d Ng
-        dSec_dPri[4 * 4 + 1] = -dSec_dPri[3 * 4 + 1]; // d Xgo / d No
-        dSec_dPri[4 * 4 + 2] = -dSec_dPri[3 * 4 + 2]; // d Xgo / d Ng
+        dXsdXp[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d No
+        dXsdXp[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d Ng
+        dXsdXp[4 * 4 + 1] = -dXsdXp[3 * 4 + 1]; // d Xgo / d No
+        dXsdXp[4 * 4 + 2] = -dXsdXp[3 * 4 + 2]; // d Xgo / d Ng
 
         OCP_DBL tmp = xij[0] * xij[0];
 
@@ -640,7 +645,9 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         break;
     }
     case PHASE_ODGW: {
-        phaseExist.assign(3, true);
+        phaseExist[0] = true;
+        phaseExist[1] = true;
+        phaseExist[2] = true;
 
         // oil property
         PVCO.Eval_All(0, P, data, cdata);
@@ -654,7 +661,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
         muP[0] = cdata[3];
-        xiP[0] = crs / (CONV1 * bo) - (1 + rs) * cbosat / (CONV1 * bo * bo);
+        xiP[0] = (crs * bo - (1 + rs) * cbosat) / (bo * bo) / CONV1;
         rhoP[0] = (1000 / CONV1) * std_RhoG * crs / bo  - (std_RhoO + (1000/CONV1) * rs * std_RhoG) * cbosat / (bo * bo);
 
         // gas property
@@ -691,32 +698,32 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         vfi[2] = CONV1 * bw;
 
 
-        dSec_dPri[0] = (CONV1 * Ni[0] * cbosat - S[0] * vfp)/ vf; // dSo / dP
-        dSec_dPri[1] = (CONV1 * bo - S[0] * vfi[0]) / vf; // dSo / dNo
-        dSec_dPri[2] = -S[0] * vfi[1] / vf; // dSo / dNg
-        dSec_dPri[3] = -S[0] * vfi[2] / vf; // dSo / dNw
+        dXsdXp[0] = (CONV1 * Ni[0] * cbosat - S[0] * vfp)/ vf; // dSo / dP
+        dXsdXp[1] = (CONV1 * bo - S[0] * vfi[0]) / vf; // dSo / dNo
+        dXsdXp[2] = -S[0] * vfi[1] / vf; // dSo / dNg
+        dXsdXp[3] = -S[0] * vfi[2] / vf; // dSo / dNw
 
-        dSec_dPri[1 * 4 + 0] = (1000 * (Ni[1] - rs * Ni[0]) * cbg - 1000 * Ni[0] * bg * crs - S[1] * vfp) / vf; // dSg / dP
-        dSec_dPri[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
-        dSec_dPri[1 * 4 + 2] = (1000 * bg - S[1] * vfi[1]) / vf;  // dSg / dNg
-        dSec_dPri[1 * 4 + 3] = -S[1] * vfi[2] / vf; // dSg / dNw
+        dXsdXp[1 * 4 + 0] = (1000 * (Ni[1] - rs * Ni[0]) * cbg - 1000 * Ni[0] * bg * crs - S[1] * vfp) / vf; // dSg / dP
+        dXsdXp[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
+        dXsdXp[1 * 4 + 2] = (1000 * bg - S[1] * vfi[1]) / vf;  // dSg / dNg
+        dXsdXp[1 * 4 + 3] = -S[1] * vfi[2] / vf; // dSg / dNw
 
-        dSec_dPri[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
-        dSec_dPri[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
-        dSec_dPri[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
-        dSec_dPri[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
+        dXsdXp[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
+        dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
+        dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
+        dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        dSec_dPri[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
-        dSec_dPri[4 * 4 + 0] = -dSec_dPri[3 * 4 + 0];  // d Xgo / dP
+        dXsdXp[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
+        dXsdXp[4 * 4 + 0] = -dXsdXp[3 * 4 + 0];  // d Xgo / dP
 
         break;
     }
     }
 
 #ifdef Debug
-    for (auto v : dSec_dPri) {
+    for (auto v : dXsdXp) {
         if (!isfinite(v)) {
-            OCP_ABORT("Nan in dSec_dPri!");
+            OCP_ABORT("Nan in dXsdXp!");
         }
     }
 #endif

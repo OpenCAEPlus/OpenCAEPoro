@@ -174,9 +174,18 @@ private:
     bool SOIL{false}; ///< Oil saturation of grids.
     bool SGAS{false}; ///< Gas saturation of grids.
     bool SWAT{false}; ///< Water saturation of grids.
-    bool DENO{false}; ///< Oil density saturation of grids.
-    bool DENG{false}; ///< Gas density saturation of grids.
-    bool DENW{false}; ///< Water density saturation of grids.
+    bool DENO{false}; ///< Oil density of grids.
+    bool DENG{false}; ///< Gas density of grids.
+    bool DENW{false}; ///< Water density of grids.
+    bool KRO{false}; ///< Oil relative permeability of grids.
+    bool KRG{false}; ///< Gas relative permeability of grids.
+    bool KRW{false}; ///< Water relative permeability of grids.
+    bool BOIL{false}; ///< Oil reservoir molar densities of grids.
+    bool BGAS{false}; ///< Gas reservoir molar densities of grids.
+    bool BWAT{false}; ///< Water reservoir molar densities of grids.
+    bool VOIL{false}; ///< Oil viscosity of grids.
+    bool VGAS{false}; ///< Gas viscosity of grids.
+    bool VWAT{false}; ///< Water viscosity of grids.
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.

@@ -35,12 +35,12 @@ void LinearSystem::AllocateColMem()
 void LinearSystem::ClearData()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
-        colId[i].clear();
+        colId[i].clear(); // actually, only parts of bulks needs to be clear
         val[i].clear();
     }
     // diagPtr.assign(maxDim, 0);
-    diagVal.assign(maxDim * blockSize, 0);
-    b.assign(maxDim * blockDim, 0);
+    fill(diagVal.begin(), diagVal.end(), 0.0);
+    fill(b.begin(), b.end(), 0.0);
     // In fact, for linear system the current solution is a good initial solution for
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }

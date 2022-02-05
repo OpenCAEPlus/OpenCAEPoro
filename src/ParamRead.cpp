@@ -218,7 +218,7 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputCOM(ifs);
                 break;
 
-            case Map_Str2Int("BIP", 3):
+            case Map_Str2Int("BIC", 3):
                 paramRs.InputBIP(ifs);
                 break;
 

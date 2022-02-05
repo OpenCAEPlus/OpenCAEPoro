@@ -17,12 +17,10 @@ OCP_IMPES_1
 
 Final time:          3655.500 Days
 Total time steps:    4661
-Total Newton steps:  4661
-Wasted Newton steps: 51
-Wasted linear steps: 99
-Simulation time:     1.362s
-Total linear steps:  7785
-Linear solve time:   0.800s (58.773%)
+Total Newton steps:  4661 (+51 wasted steps)
+Total linear steps:  7785 (+99 wasted steps)
+Linear solve time:   0.786s (58.841%)
+Simulation time:     1.337s
 
 
 
@@ -41,12 +39,10 @@ OCP_FIM_10
 
 Final time:          3655.500 Days
 Total time steps:    420
-Total Newton steps:  474
-Wasted Newton steps: 1
-Wasted linear steps: 4
-Simulation time:     5.247s
-Total linear steps:  1413
-Linear solve time:   4.955s (94.446%)
+Total Newton steps:  474 (+1 wasted steps)
+Total linear steps:  1414 (+4 wasted steps)
+Linear solve time:   5.004s (94.434%)
+Simulation time:     5.299s
 
 ```
 
@@ -73,12 +69,10 @@ OCP_IMPES_1
 
 Final time:          3655.500 Days
 Total time steps:    3858
-Total Newton steps:  3858
-Wasted Newton steps: 19
-Wasted linear steps: 35
-Simulation time:     1.124s
-Total linear steps:  7215
-Linear solve time:   0.676s (60.192%)
+Total Newton steps:  3858 (+19 wasted steps)
+Total linear steps:  7215 (+35 wasted steps)
+Linear solve time:   0.666s (59.798%)
+Simulation time:     1.114s
 
 
 PS_FIM_10
@@ -96,12 +90,10 @@ OCP_FIM_10
 
 Final time:          3655.500 Days
 Total time steps:    420
-Total Newton steps:  502
-Wasted Newton steps: 1
-Wasted linear steps: 4
-Simulation time:     3.696s
-Total linear steps:  1495
-Linear solve time:   3.388s (91.682%)
+Total Newton steps:  502 (+1 wasted steps)
+Total linear steps:  1495 (+4 wasted steps)
+Linear solve time:   3.356s (91.629%)
+Simulation time:     3.663s
 ```
 
 
@@ -148,12 +140,10 @@ OCP_FIM_10
 
 Final time:          900.000 Days
 Total time steps:    161
-Total Newton steps:  225
-Wasted Newton steps: 58
-Wasted linear steps: 247
-Simulation time:     20.355s
-Total linear steps:  854
-Linear solve time:   13.623s (66.927%)
+Total Newton steps:  225 (+58 wasted steps)
+Total linear steps:  854 (+247 wasted steps)
+Linear solve time:   13.387s (67.102%)
+Simulation time:     19.949s
 ```
 
 
@@ -220,12 +210,11 @@ Simulation time:     28.627s
 OCP_IMPEC_1
 
 Final time:          1000.000 Days
-Total time steps:    1992
-Total Newton steps:  1992
-Wasted Newton steps: 3
-Simulation time:     0.509s
-Total linear steps:  1995
-Linear solve time:   0.441s (86.586%)
+Total time steps:    2003
+Total Newton steps:  2003 (+3 wasted steps)
+Total linear steps:  13544 (+35 wasted steps)
+Linear solve time:   0.043s (39.982%)
+Simulation time:     0.107s
 
 
 PS_FIM_10
@@ -242,23 +231,93 @@ Simulation time:     1.654s
 OCP_FIM_10
 
 Final time:          1000.000 Days
-Total time steps:    141
-Total Newton steps:  251
-Wasted Newton steps: 5
-Simulation time:     0.424s
-Total linear steps:  256
-Linear solve time:   0.374s (88.246%)
+Total time steps:    143
+Total Newton steps:  245 (+6 wasted steps)
+Total linear steps:  2290 (+57 wasted steps)
+Linear solve time:   0.037s (43.063%)
+Simulation time:     0.086s
 
 
 
 ```
 
 
-$$
-F_{i} = \beta_{i}\nabla P
-$$
 
-$$
-\frac{\partial F_{i}}{\partial P}=\beta_{iP}\nabla P + \beta_{i}\frac{\partial \nabla P}{\partial P}
-$$
+### SPE5
+
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\20220129\spe5\compare.png)
+
+饱和度差异对比 (OCP_FIM)
+
+![FIM10_0.1](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\FIM10_0.1.png)
+
+![FIM10_0.05](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\FIM10_0.05.png)
+
+
+
+饱和度差异对比 (OCP_IMPEC)
+
+![IMPEC1_0.1](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\IMPEC1_0.1.png)
+
+![IMPEC1_0.05](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\IMPEC1_0.05.png)
+
+```
+
+OCP 的 Flash 部分存在效率问题
+PS 数据图与下列数据有些差异，但结果几无二致。
+
+------------------------------------------------------
+PS_IMPES
+
+TMARCH
+0.1  1  0.1  5  0.3  0.3  300  0.2  0.3  0.001 
+
+Final time:          7305 Days
+Total time steps:    14228
+Total nonlin steps:  14228
+Total linear steps:  20914
+flux time(MassConerve):  0.246282s
+flux time(updateproperty):  0.133042s
+MassConserve time:  0.596821s
+updateProperty time:  47.4394s
+Linear solver time:  1.4444s
+Simulation time:     51.0602s
+
+------------------------------------------------------
+OCP_IMPEC
+
+0.1  1  0.1
+
+Final time:          7305.000 Days
+Total time steps:    12460
+Total Newton steps:  12460 (+51 wasted steps)
+Total linear steps:  18938 (+100 wasted steps)
+Linear solve time:   1.354s (1.849%)
+Simulation time:     73.251s
+
+------------------------------------------------------
+PS_FIM
+
+1  10  0.01
+
+Final time:          7305 Days
+Total time steps:    21060
+Total Newton steps:  23072
+Wasted Newton steps: 13992
+Total linear steps:  55425
+Linear solver time:  76.2139s
+Simulation time:     313.632s
+
+------------------------------------------------------
+OCP_FIM
+
+1  10  0.01
+
+Final time:          7305.000 Days
+Total time steps:    2688
+Total Newton steps:  3740 (+1908 wasted steps)
+Total linear steps:  7796 (+4190 wasted steps)
+Linear solve time:   22.517s (31.592%)
+Simulation time:     71.273s
+```
 

@@ -478,7 +478,7 @@ void Summary::PrintInfo(const string& dir) const
     }
 
     USI ns  = 12;
-    USI col = 7;
+    USI col = 10;
     USI row = 0;
     USI num = Sumdata.size();
     USI len = Sumdata[0].val.size();
@@ -619,6 +619,16 @@ void DetailInfo::InputParam(const OutputDetail& detail_param)
     DENO = detail_param.DENO;
     DENG = detail_param.DENG;
     DENW = detail_param.DENW;
+    KRO = detail_param.KRO;
+    KRG = detail_param.KRG;
+    KRW = detail_param.KRW;
+    BOIL = detail_param.BOIL;
+    BGAS = detail_param.BGAS;
+    BWAT = detail_param.BWAT;
+    VOIL = detail_param.VOIL;
+    VGAS = detail_param.VGAS;
+    VWAT = detail_param.VWAT;
+    
 }
 
 void DetailInfo::Setup(const string& dir)
@@ -641,11 +651,21 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         OCP_ABORT("Can not open " + FileOut);
     }
 
+    USI     np = rs.bulk.numPhase;
+    USI     nc = rs.bulk.numCom;
+    USI OIndex = rs.bulk.phase2Index[OIL];
+    USI GIndex = rs.bulk.phase2Index[GAS];
+    USI WIndex = rs.bulk.phase2Index[WATER];
     USI     nx  = rs.grid.GetGridNx();
     USI     ny  = rs.grid.GetGridNy();
     OCP_USI num = rs.grid.GetGridNum();
     OCP_USI bId;
+    OCP_USI tmpId;
 
+    const string sep01(50, '=');
+    const string sep02(50, '-');
+
+    outF << sep01 << "\n";
     // PRESSURE
     if (PRE) {
         outF << "PRESSURE : psia"
@@ -658,6 +678,396 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << fixed << setprecision(3) << rs.bulk.P[bId] << "   ";
             } else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // DENSITY of OIL
+    if (DENO && rs.bulk.oil) {
+        outF << sep02 << "\n";
+        outF << "DENO : lb/ft3"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + OIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // DENSITY of GAS
+    if (DENG && rs.bulk.gas) {
+        outF << sep02 << "\n";
+        outF << "DENG : lb/ft3"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + GIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // DENSITY of WATER
+    if (DENW && rs.bulk.water) {
+        outF << sep02 << "\n";
+        outF << "DENW : lb/ft3"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + WIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // SATURATION of OIL
+    if (SOIL && rs.bulk.oil) {
+        outF << sep02 << "\n";
+        outF << "SOIL"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + OIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // SATURATION of GAS
+    if (SGAS && rs.bulk.gas) {
+        outF << sep02 << "\n";
+        outF << "SGAS"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + GIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // SATURATION of WATER
+    if (SWAT && rs.bulk.water) {
+        outF << sep02 << "\n";
+        outF << "SWAT"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + WIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Relative Permeability of OIL
+    if (KRO && rs.bulk.oil) {
+        outF << sep02 << "\n";
+        outF << "KRO"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + OIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Relative Permeability of GAS
+    if (KRG && rs.bulk.gas) {
+        outF << sep02 << "\n";
+        outF << "KRG"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + GIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Relative Permeability of WATER
+    if (KRW && rs.bulk.water) {
+        outF << sep02 << "\n";
+        outF << "KRW"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + WIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Molar Density of OIL
+    if (BOIL && rs.bulk.oil) {
+        outF << sep02 << "\n";
+        outF << "BOIL : lb-M/rb"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + OIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Molar Density of GAS
+    if (BGAS && rs.bulk.gas) {
+        outF << sep02 << "\n";
+        outF << "BGAS : lb-M/rb"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + GIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Molar Density of WATER
+    if (BWAT && rs.bulk.water) {
+        outF << sep02 << "\n";
+        outF << "BWAT : lb-M/rb"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + WIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216) << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Viscosity of OIL
+    if (VOIL && rs.bulk.oil) {
+        outF << sep02 << "\n";
+        outF << "VOIL : cp"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + OIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Viscosity of GAS
+    if (VGAS && rs.bulk.gas) {
+        outF << sep02 << "\n";
+        outF << "VGAS : cp"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + GIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
+                outF << "N   ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Viscosity of WATER
+    if (VWAT && rs.bulk.water) {
+        outF << sep02 << "\n";
+        outF << "VWAT : cp"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                tmpId = bId * np + WIndex;
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                }
+                else {
+                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                }
+            }
+            else {
                 outF << "N   ";
             }
         }

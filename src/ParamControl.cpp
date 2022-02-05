@@ -119,7 +119,7 @@ void ParamControl::InputMETHOD(ifstream& ifs)
 /// Read TUNING parameters.
 void ParamControl::InputTUNING(ifstream& ifs)
 {
-    assert(criticalTime.size() == 1);
+    assert(criticalTime.size() >= 1);
 
     TUNING         tmp(tuning);
     USI            d   = criticalTime.size() - 1;

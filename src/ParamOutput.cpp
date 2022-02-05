@@ -221,6 +221,33 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs)
                 case Map_Str2Int("DENW", 4):
                     detailInfo.DENW = true;
                     break;
+                case Map_Str2Int("KRO", 3):
+                    detailInfo.KRO = true;
+                    break;
+                case Map_Str2Int("KRG", 3):
+                    detailInfo.KRG = true;
+                    break;
+                case Map_Str2Int("KRW", 3):
+                    detailInfo.KRW = true;
+                    break;
+                case Map_Str2Int("BOIL", 4):
+                    detailInfo.BOIL = true;
+                    break;
+                case Map_Str2Int("BGAS", 4):
+                    detailInfo.BGAS = true;
+                    break;
+                case Map_Str2Int("BWAT", 4):
+                    detailInfo.BWAT = true;
+                    break;
+                case Map_Str2Int("VOIL", 4):
+                    detailInfo.VOIL = true;
+                    break;
+                case Map_Str2Int("VGAS", 4):
+                    detailInfo.VGAS = true;
+                    break;
+                case Map_Str2Int("VWAT", 4):
+                    detailInfo.VWAT = true;
+                    break;
                 default:
                     break;
             }

@@ -54,7 +54,7 @@ BOMixture::BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const U
     cdata.resize(len, 0);
 }
 
-void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+void BOMixture::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                          const OCP_DBL* Sjin, const OCP_DBL& Vpore, const OCP_DBL* Ziin)
 {
     switch (mode) {
@@ -75,7 +75,7 @@ void BOMixture::Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
     }
 }
 
-void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+void BOMixture::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
     // CheckNi(Niin);
@@ -99,7 +99,7 @@ void BOMixture::Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
     }
 }
 
-void BOMixture::Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+void BOMixture::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
                                const OCP_DBL* Niin)
 {
 #ifdef _DEBUG
@@ -137,7 +137,7 @@ void BOMixture::BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin,
     OCP_ABORT("Empty Function!");
 }
 
-OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     switch (mode) {
         case PHASE_W:
@@ -155,7 +155,7 @@ OCP_DBL BOMixture::XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* 
     return 0.0; // Should not reach here!
 }
 
-OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin)
+OCP_DBL BOMixture::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     switch (mode) {
         case PHASE_W:

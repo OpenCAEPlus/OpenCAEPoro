@@ -146,7 +146,7 @@ void Reservoir::InitIMPEC()
         bulk.InitSjPcComp(50);
 
     bulk.CalVpore();
-    bulk.FlashSj();
+    bulk.InitFlash(true);
     bulk.CalKrPc();
     bulk.UpdateLastStepIMPEC();
     conn.CalFluxIMPEC(bulk);
@@ -204,7 +204,7 @@ void Reservoir::CalFlashIMPEC()
 {
     OCP_FUNCNAME;
 
-    bulk.FlashNi();
+    bulk.Flash();
 }
 
 void Reservoir::UpdateLastStepIMPEC()
@@ -289,7 +289,7 @@ void Reservoir::ResetVal03IMPEC()
     conn.Reset();
 
     // Becareful! if recalculate the flash, result may be different because the initial
-    // flash was calculated by FlashSj not FlashNi.
+    // flash was calculated by InitFlash not Flash.
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -314,8 +314,8 @@ void Reservoir::InitFIM()
         bulk.InitSjPcComp(50);
 
     bulk.CalVpore();
-    bulk.FlashSj();
-    bulk.FlashNiDeriv();
+    bulk.InitFlash();
+    bulk.FlashDeriv();
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
     wellgroup.InitBHP(bulk);
@@ -326,7 +326,7 @@ void Reservoir::CalFlashDerivFIM()
 {
     OCP_FUNCNAME;
 
-    bulk.FlashNiDeriv();
+    bulk.FlashDeriv();
 }
 
 void Reservoir::CalKrPcDerivFIM()

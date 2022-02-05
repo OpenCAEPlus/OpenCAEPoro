@@ -14,7 +14,8 @@
 void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore)
 {
-    phaseExist.assign(numPhase, true);
+    phaseExist[0] = true;
+    phaseExist[1] = true;
 
     P    = Pin;
     S[1] = Sjin[1];
@@ -59,7 +60,8 @@ void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
 
 void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-    phaseExist.assign(numPhase, true);
+    phaseExist[0] = true;
+    phaseExist[1] = true;
 
     P     = Pin;
     Ni[0] = Niin[0];
@@ -103,8 +105,9 @@ void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
 
 void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 {
-    phaseExist.assign(numPhase, true);
-    dSec_dPri.assign(dSec_dPri.size(), 0);
+    phaseExist[0] = true;
+    phaseExist[1] = true;
+    fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
 
     P     = Pin;
     Ni[0] = Niin[0];
@@ -154,13 +157,13 @@ void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     vfi[1] = CONV1 * bw;
     vfp    = CONV1 * Ni[0] * bop + CONV1 * Ni[1] * bwp;
 
-    dSec_dPri[0] = (CONV1 * Ni[0] * bop - S[0] * vfp) / vf; // dSo / dP
-    dSec_dPri[1] = (CONV1 * bo - S[0] * vfi[0]) / vf;       // dSo / dNo
-    dSec_dPri[2] = -S[0] * vfi[1] / vf;                     // dSo / dNw
+    dXsdXp[0] = (CONV1 * Ni[0] * bop - S[0] * vfp) / vf; // dSo / dP
+    dXsdXp[1] = (CONV1 * bo - S[0] * vfi[0]) / vf;       // dSo / dNo
+    dXsdXp[2] = -S[0] * vfi[1] / vf;                     // dSo / dNw
 
-    dSec_dPri[3] = (CONV1 * Ni[1] * bwp - S[1] * vfp) / vf; // dSw / dP
-    dSec_dPri[4] = -S[1] * vfi[0] / vf;                     // dSw / dNo
-    dSec_dPri[5] = (CONV1 * bw - S[1] * vfi[1]) / vf;       // dSw / dNw
+    dXsdXp[3] = (CONV1 * Ni[1] * bwp - S[1] * vfp) / vf; // dSw / dP
+    dXsdXp[4] = -S[1] * vfi[0] / vf;                     // dSw / dNo
+    dXsdXp[5] = (CONV1 * bw - S[1] * vfi[1]) / vf;       // dSw / dNw
 }
 
 OCP_DBL BOMixture::XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)

@@ -27,7 +27,7 @@ class ResFIM
 public:
     void SetZero()
     {
-        res.assign(res.size(), 0);
+        fill(res.begin(), res.end(), 0);
         maxRelRes_v   = 0;
         maxRelRes_mol = 0;
     }

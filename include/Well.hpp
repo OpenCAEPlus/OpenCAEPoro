@@ -113,23 +113,27 @@ public:
     void CalTrans(const Bulk& myBulk);
     /// Calculate the flux for each perforations.
     void CalFlux(const Bulk& myBulk, const bool flag = false);
-    /// calculate flow rate of moles of components for injection well in black oil model
-    OCP_DBL CalInjRateBO(const Bulk& myBulk);
-    /// calculate flow rate of moles of components for production well in black oil
-    /// model
-    OCP_DBL CalProdRateBO(const Bulk& myBulk);
-    /// Calculate flow rate of moles of components for injection well in black oil
-    /// model.
-    void CalInjQiBO(const Bulk& myBulk, const OCP_DBL& dt);
+    /// calculate flow rate of moles of components for injection well with maxBHP
+    OCP_DBL CalInjRate(const Bulk& myBulk);
+    /// calculate flow rate of moles of components for production well with minBHP
+    OCP_DBL CalProdRate(const Bulk& myBulk);
+    /// Calculate flow rate of moles of components for injection well
+    void CalInjQi(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate flow rate of moles of phase for production well
+    void CalProdQj(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate flow rate of moles of phase for production well in Compositional Model
+    void CalProdQjCOMP(const Bulk& myBulk);
     /// Calculate flow rate of moles of components for Production well in black oil
     /// model.
-    void CalProdQiBO(const Bulk& myBulk, const OCP_DBL& dt);
+    void CalProdQiBO(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations.
     void CaldG(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations for Injection.
     void CalInjdG(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations for Prodcution.
     void CalProddG(const Bulk& myBulk);
+    /// Calculate the Prodweight
+    void CalProdWeight(const Bulk& myBulk) const;
     /// Set BHP if opt mode is BHPMode
     void SetBHP();
     /// Try to smooth the dG by average it with dG at last time step.
@@ -155,6 +159,7 @@ public:
     OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
     void ShowPerfStatus() const;
+    
 
 private:
     string  name; ///< well name
@@ -176,6 +181,10 @@ private:
     // production rate and injection rate
     vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing
                               ///< well: num of components.
+    OCP_DBL xiINJ;               ///< molar density of injfluid in Compositional Model, used in units swifting
+    USI  Mtype;               ///< Mixture Type
+    mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
+    mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
     OCP_DBL WOPR{0};          ///< well oil production rate.
     OCP_DBL WOPT{0};          ///< well total oil production.
     OCP_DBL WGPR{0};          ///< well gas production rate.
@@ -202,7 +211,7 @@ public:
     void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
                               const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to production well are included.
-    void AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
+    void AssembleMatPROD_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
                                   const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
@@ -214,7 +223,7 @@ public:
     void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                             const OCP_DBL& dt) const;
     /// Assemble matrix for FIM, parts related to Production well are included.
-    void AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
+    void AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
                                 const OCP_DBL& dt) const;
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,

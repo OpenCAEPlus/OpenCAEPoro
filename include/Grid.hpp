@@ -125,29 +125,29 @@ private:
     vector<vector<GPair>> gNeighbor; ///< Neighbors of grids.
     // Orthogonal Grid
     vector<OCP_DBL> tops;  ///< depth of top face of topest gird: nx*ny
-    vector<OCP_DBL> depth; ///< depth of center of grid: numBulk.
-    vector<OCP_DBL> dx;    ///< size of gird along the x direction: numBulk.
-    vector<OCP_DBL> dy;    ///< size of grid along the y direction: numBulk.
-    vector<OCP_DBL> dz;    ///< size of grid along the z direction: numBulk.
+    vector<OCP_DBL> depth; ///< depth of center of grid: numGrid.
+    vector<OCP_DBL> dx;    ///< size of gird along the x direction: numGrid.
+    vector<OCP_DBL> dy;    ///< size of grid along the y direction: numGrid.
+    vector<OCP_DBL> dz;    ///< size of grid along the z direction: numGrid.
     // CornerPoint Grid
     vector<OCP_DBL> coord; ///< Lines of Corner Point Grid.
     vector<OCP_DBL> zcorn; ///< ZValues of Corner Point Grid.
 
-    vector<OCP_DBL> v;    ///< volume of grid: numBulk.
-    vector<OCP_DBL> ntg;  ///< net to gross of grid: numBulk
-    vector<OCP_DBL> poro; ///< initial porosity of rock: numBulk
-    vector<OCP_DBL> kx;   ///< Absolute permeability of rock along x direction: numBulk
-    vector<OCP_DBL> ky;   ///< Absolute permeability of rock along y direction: numBulk
-    vector<OCP_DBL> kz;   ///< Absolute permeability of rock along z direction: numBulk
+    vector<OCP_DBL> v;    ///< volume of grid: numGrid.
+    vector<OCP_DBL> ntg;  ///< net to gross of grid: numGrid
+    vector<OCP_DBL> poro; ///< initial porosity of rock: numGrid
+    vector<OCP_DBL> kx;   ///< Absolute permeability of rock along x direction: numGrid
+    vector<OCP_DBL> ky;   ///< Absolute permeability of rock along y direction: numGrid
+    vector<OCP_DBL> kz;   ///< Absolute permeability of rock along z direction: numGrid
 
     // Region
-    vector<USI> SATNUM; ///< used to identify SAT region: numBulk.
-    vector<USI> PVTNUM; ///< used to identify PVT region in blackoil model: numBulk.
+    vector<USI> SATNUM; ///< used to identify SAT region: numGrid.
+    vector<USI> PVTNUM; ///< used to identify PVT region in blackoil model: numGrid.
 
     OCP_USI activeGridNum; ///< num of active grid.
     vector<OCP_USI>
         activeMap_B2G; ///< a index map form active grid to grid: activeGridNum.
-    vector<GB_Pair> activeMap_G2B; ///< a index map form grid to active grid: numBulk.
+    vector<GB_Pair> activeMap_G2B; ///< a index map form grid to active grid: numGrid.
 };
 
 #endif /* end if __GRID_HEADER__ */

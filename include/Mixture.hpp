@@ -52,7 +52,7 @@ public:
         rhox.resize(numPhase * numCom);
         xix.resize(numPhase * numCom);
         mux.resize(numPhase * numCom);
-        dSec_dPri.resize((numCom + 1) * (numPhase + numPhase * numCom));
+        dXsdXp.resize((numCom + 1) * (numPhase + numPhase * numCom));
     };
     virtual void SetPVTW(){};
     /// return type of mixture.
@@ -60,22 +60,22 @@ public:
     /// judge if table PVDG is empty, it will only be used in black oil model.
     virtual bool IsEmpty_PVDG() const {};
     /// flash calculation with saturation of phases.
-    virtual void Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    virtual void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                           const OCP_DBL* Ziin) = 0;
     /// Flash calculation with moles of components.
-    virtual void Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin,
                           const OCP_DBL* Niin) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
-    virtual void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    virtual void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
                                 const OCP_DBL* Niin) = 0;
     /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
-    virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T,
+    virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
                             const OCP_DBL* Ziin) = 0;
 
     /// return mass density of phase.
-    virtual OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T,
+    virtual OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
                              const OCP_DBL* Ziin) = 0;
 
     /// return gamma of oil phase, gamma equals to mass density times gravity factor.
@@ -137,11 +137,16 @@ protected:
     vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
     vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
     vector<OCP_DBL> rhoP; ///< d rho / dP: numphase
-    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase
-    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase
-    vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase
+    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
 
-    vector<OCP_DBL> dSec_dPri;
+    vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
+
+    // for dubug
+    OCP_USI SSMSTAiters{ 0 };
+    OCP_USI SSMSPiters{ 0 };
+    OCP_USI NRSPiters{ 0 };
 };
 
 #endif /* end if __MIXTURE_HEADER__ */

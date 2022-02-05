@@ -275,6 +275,10 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
             lastbId = bId;
         }
 
+        //if (!isfinite(valup) || !isfinite(valdown)) {
+        //    cout << "NAN or INF in MAT" << endl;
+        //}
+
         myLS.val[bId][diagptr] += valup;
         myLS.val[bId].push_back(-valup);
         myLS.val[eId].push_back(-valdown);
@@ -487,10 +491,10 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
-        dFdXpB.assign(bsize, 0);
-        dFdXpE.assign(bsize, 0);
-        dFdXsB.assign(bsize2, 0);
-        dFdXsE.assign(bsize2, 0);
+        fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
+        fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
+        fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
+        fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
         Akd    = CONV1 * CONV2 * area[c];
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
@@ -723,7 +727,6 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 
             uId_np_j = uId * np + j;
             if (!myBulk.phaseExist[uId_np_j]) continue;
-
             tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] *
                   myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {

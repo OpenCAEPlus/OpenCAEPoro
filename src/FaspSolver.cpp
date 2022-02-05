@@ -464,7 +464,7 @@ OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
                 status = fasp_solver_dbsr_krylov_FASP4(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
         }
-        Dmat.assign(Dmat.size(), 0);
+        fill(Dmat.begin(), Dmat.end(), 0.0);
     }
 
 #if WITH_MUMPS // use MUMPS directly

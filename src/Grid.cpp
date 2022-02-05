@@ -277,6 +277,9 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
 OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
 {
     OCP_USI id       = k * nx * ny + j * nx + i;
+    if (id > numGrid) {
+        OCP_ABORT("Id is out of Range!");
+    }
     bool    activity = activeMap_G2B[id].IsAct();
     if (!activity) {
         OCP_ABORT("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) +

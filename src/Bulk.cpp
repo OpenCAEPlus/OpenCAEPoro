@@ -27,7 +27,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     rockPref   = rs_param.rock.Pref;
     rockC1     = rs_param.rock.Cr;
     rockC2     = rockC1;
-    T          = rs_param.rsTemp;
+    T          = rs_param.rsTemp + 460;
     blackOil   = rs_param.blackOil;
     comps      = rs_param.comps;
     oil        = rs_param.oil;
@@ -91,6 +91,9 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     } else if (comps) {
 
         // Water exists and is excluded in EoS model NOW!
+        oil = true;
+        gas = true;
+        water = true;
         initZi     = rs_param.EoSp.zi; // Easy initialization!
         numPhase   = rs_param.EoSp.numPhase + 1;
         numCom     = rs_param.EoSp.numComp + 1;
@@ -153,6 +156,7 @@ void Bulk::Setup(const Grid& myGrid)
 
     // physical variables
     P.resize(numBulk);
+    Pb.resize(numBulk);
     Pj.resize(numBulk * numPhase);
     Pc.resize(numBulk * numPhase);
     phaseExist.resize(numBulk * numPhase);
@@ -169,7 +173,6 @@ void Bulk::Setup(const Grid& myGrid)
     phase2Index.resize(3);
 
     if (blackOil) {
-        Pb.resize(numBulk);
         switch (PVTmode) {
             case PHASE_W:
                 index2Phase.resize(1);
@@ -1056,31 +1059,37 @@ void Bulk::InitSjPcComp(const USI& tabrow)
 }
 
 /// Use initial saturation in blackoil model and initial Zi in compositional model.
-void Bulk::FlashSj()
+/// It gives initial properties and some derivatives for IMPEC
+/// It just gives Ni for FIM
+void Bulk::InitFlash(const bool& flag)
 {
     OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash_Sj(P[n], Pb[n], T, &S[n * numPhase], rockVp[n],
+        flashCal[PVTNUM[n]]->InitFlash(P[n], Pb[n], T, &S[n * numPhase], rockVp[n],
                                       initZi.data());
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
         }
-        PassFlashValue(n);
+        if (flag) {
+            PassFlashValue(n);
+        }
     }
 
 #ifdef DEBUG
-    CheckSat();
+    if (flag) {
+        CheckSat();
+    }
 #endif // DEBUG
 }
 
 /// Use moles of component and pressure both in blackoil and compositional model.
-void Bulk::FlashNi()
+void Bulk::Flash()
 {
     OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash_Ni(P[n], T, &Ni[n * numCom]);
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom]);
         PassFlashValue(n);
     }
 
@@ -1090,13 +1099,13 @@ void Bulk::FlashNi()
 }
 
 /// Use moles of component and pressure both in blackoil and compositional model.
-void Bulk::FlashNiDeriv()
+void Bulk::FlashDeriv()
 {
     OCP_FUNCNAME;
 
     dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash_Ni_Deriv(P[n], T, &Ni[n * numCom]);
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom]);
         PassFlashValueDeriv(n);
     }
 
@@ -1154,7 +1163,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
             rho[bId + j] = flashCal[pvtnum]->rho[j];
             xi[bId + j]  = flashCal[pvtnum]->xi[j];
             mu[bId + j]  = flashCal[pvtnum]->mu[j];
-            // vj[bId + j] = flashCal[pvtnum]->v[j];
+            vj[bId + j] = flashCal[pvtnum]->v[j];
 
             // Derivatives
             muP[bId + j]  = flashCal[pvtnum]->muP[j];
@@ -1179,8 +1188,8 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     for (USI i = 0; i < numCom; i++) {
         vfi[bId + i] = flashCal[pvtnum]->vfi[i];
     }
-    dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dSec_dPri.begin(),
-                     flashCal[pvtnum]->dSec_dPri.end());
+    dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
+                     flashCal[pvtnum]->dXsdXp.end());
 }
 
 void Bulk::ResetFlash()
@@ -1308,7 +1317,7 @@ bool Bulk::CheckP() const
     OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (P[n] < 0.0) {
+        if (P[n] < 0) {
             OCP_WARNING("Negative Bulk Pressure: P[" + std::to_string(n) +
                         "] = " + std::to_string(P[n]));
             cout << "P = " << P[n] << endl;
@@ -1350,6 +1359,7 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
         if (dVe > Vlim) {
             cout << "Volume error at Bulk[" << n << "] = " << setprecision(6) << dVe
                  << " is too big!" << endl;
+            // OutputInfo(n);
             return false;
         }
     }
@@ -1396,12 +1406,14 @@ void Bulk::CheckSat() const
 
     OCP_DBL tmp;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        tmp = 0;
+        tmp = 0.0;
         for (USI j = 0; j < numPhase; j++) {
-            if (S[n * numPhase + j] < 0) {
-                OCP_ABORT("Negative volume!");
-            }
-            tmp += S[n * numPhase + j];
+            if (phaseExist[n * numPhase + j]) {
+                if (S[n * numPhase + j] < 0) {
+                    OCP_ABORT("Negative volume!");
+                }
+                tmp += S[n * numPhase + j];
+            }                           
         }
         if (fabs(tmp - 1) > TINY) {
             OCP_ABORT("Saturation is greater than 1!");
@@ -1556,7 +1568,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         chopmin = 1;
 
         // compute the chop
-        dtmp.assign(row, 0);
+        fill(dtmp.begin(), dtmp.end(), 0.0);
         DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
                 dtmp.data());
 
@@ -1565,7 +1577,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             choptmp = 1;
             if (fabs(dtmp[j]) > dSmaxlim) {
                 choptmp = dSmaxlim / fabs(dtmp[j]);
-            } else if (S[n * numPhase + j] + dtmp[j] < 0) {
+            } else if (S[n * numPhase + j] + dtmp[j] < 0.0) {
                 choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
             }
 
@@ -1645,21 +1657,37 @@ void Bulk::CalRelResFIM(ResFIM& resFIM) const
 {
     OCP_FUNCNAME;
 
-    OCP_USI tmpN;
-    OCP_DBL tmp0 = 0, tmp1, tmp2, tmp3, tmp4, tmp;
-    tmp1 = tmp2 = tmp3 = tmp4 = -3.141592653;
+    OCP_USI tmpid01 = -1;
+    OCP_USI tmpid02 = -1;
+    OCP_DBL tmp;
 
     const USI len = numCom + 1;
     for (OCP_USI n = 0; n < numBulk; n++) {
         for (USI i = 0; i < len; i++) {
             tmp = fabs(resFIM.res[n * len + i] / rockVp[n]);
-            if (resFIM.maxRelRes_v < tmp) resFIM.maxRelRes_v = tmp;
+            if (resFIM.maxRelRes_v < tmp) {
+                resFIM.maxRelRes_v = tmp;
+                tmpid01 = n;
+            }
         }
         for (USI i = 1; i < len; i++) {
             tmp = fabs(resFIM.res[n * len + i] / Nt[n]);
-            if (resFIM.maxRelRes_mol < tmp) resFIM.maxRelRes_mol = tmp;
+            if (resFIM.maxRelRes_mol < tmp) {
+                resFIM.maxRelRes_mol = tmp;
+                tmpid02 = n;
+            }
         }
     }
+    //cout << scientific;
+    //if (tmpid01 < numBulk) {
+    //    cout << "maxRelRes_v: " << tmpid01 << "   " << S[tmpid01 * numPhase] << "   "
+    //        << S[tmpid01 * numPhase + 1] << "   " << resFIM.maxRelRes_v << endl;
+    //}
+    //if (tmpid02 < numBulk) {
+    //    cout << "maxRelRes_mol: " << tmpid02 << "   " << S[tmpid02 * numPhase] << "   "
+    //        << S[tmpid02 * numPhase + 1] << "   " << resFIM.maxRelRes_mol << endl;
+    //}
+    
 }
 
 void Bulk::ResetFIM()
@@ -1668,7 +1696,7 @@ void Bulk::ResetFIM()
 
     P  = lP;
     Ni = lNi;
-    FlashNiDeriv();
+    FlashDeriv();
     CalVpore();
     CalKrPcDeriv();
 }
@@ -1680,6 +1708,48 @@ void Bulk::UpdateLastStepFIM()
     lP  = P;
     lS  = S;
     lNi = Ni;
+}
+
+void Bulk::OutputInfo(const OCP_USI& n) const
+{
+    cout << "------------------------------" << endl;
+    cout << fixed << setprecision(18);
+    for (USI i = 0; i < numCom; i++) {
+        cout << Ni[i] << "   ";
+    }
+    cout << P[0];
+    cout << endl;
+    if (phaseExist[0]) {
+        for (USI i = 0; i < numCom; i++) {
+            cout << xij[i] << "   ";
+        }
+    }
+    else {
+        for (USI i = 0; i < numCom; i++) {
+            cout << 0.000000 << "   ";
+        }
+    }
+    cout << phaseExist[0] << "   ";
+    cout << S[0] << "   ";
+    cout << kr[0] << "   ";
+    cout << endl;
+    if (phaseExist[1]) {
+        for (USI i = 0; i < numCom; i++) {
+            cout << xij[numCom + i] << "   ";
+        }
+    }
+    else {
+        for (USI i = 0; i < numCom; i++) {
+            cout << 0.000000 << "   ";
+        }
+    }
+    
+    cout << phaseExist[1] << "   ";
+    cout << S[1] << "   ";
+    cout << kr[1] << "   ";
+    cout << endl;
+    cout << vf[n] << "   " << rockVp[n] << endl;
+    cout << "------------------------------" << endl;
 }
 
 /*----------------------------------------------------------------------------*/

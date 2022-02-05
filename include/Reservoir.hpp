@@ -34,6 +34,11 @@ class Reservoir
     friend class CriticalInfo;
     friend class DetailInfo;
 
+    // temp
+    friend class OCP_IMPEC;
+    friend class OCP_FIM;
+    friend class Solver;
+
     /////////////////////////////////////////////////////////////////////
     // General
     /////////////////////////////////////////////////////////////////////

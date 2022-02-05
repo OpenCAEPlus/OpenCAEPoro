@@ -11,6 +11,13 @@
 
 #include "DenseMat.hpp"
 
+
+void Dcopy(const int& N, double* dst, const double* src)
+{
+    const int incx = 1, incy = 1;
+    dcopy_(&N, src, &incx, dst, &incy);
+}
+
 // WARNING: absolute sum!
 double Dnorm1(const int& N, double* x)
 {
@@ -65,12 +72,11 @@ void DaAxpby(const int& m, const int& n, const double& a, const double* A,
     }
 }
 
-void LUSolve(const int& N, double* A, double* b, int* pivot)
+void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot)
 {
     int info;
-    int one = 1;
 
-    dgesv_(&N, &one, A, &N, pivot, b, &N, &info);
+    dgesv_(&N, &nrhs, A, &N, pivot, b, &N, &info);
 
     if (info < 0) {
         cout << "Wrong Input !" << endl;
@@ -79,14 +85,13 @@ void LUSolve(const int& N, double* A, double* b, int* pivot)
     }
 }
 
-void SYSSolve(const char* uplo, const int& N, double* A, double* b, int* pivot)
+void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot)
 {
     int    info;
-    int    one     = 1;
     double work[1] = {0};
     int    lwork   = 1;
 
-    dsysv_(uplo, &N, &one, A, &N, pivot, b, &N, work, &lwork, &info);
+    dsysv_(uplo, &N, &nrhs, A, &N, pivot, b, &N, work, &lwork, &info);
     if (info < 0) {
         cout << "Wrong Input !" << endl;
     } else if (info > 0) {

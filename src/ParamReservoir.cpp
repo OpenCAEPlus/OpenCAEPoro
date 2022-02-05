@@ -461,6 +461,7 @@ void ParamReservoir::InputROCK(ifstream& ifs)
 /// Read data from the GRAVITY keyword.
 void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
+    gravity.activity = true;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     if (vbuf[0] == "/") return;
@@ -468,7 +469,6 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
     OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword GRAVITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
-            gravity.activity = true;
             gravity.data[i]  = stod(vbuf[i]);
         }
     }
@@ -753,21 +753,21 @@ void EoSparam::InputCOM(ifstream& ifs)
 void EoSparam::InputBIP(ifstream& ifs)
 {
     OCP_ASSERT(numComp > 0, "Wrong NC!");
-    BIP.resize(numComp);
+    BIC.resize(numComp);
 
     vector<string> vbuf;
 
     for (USI i = 0; i < numComp; i++) {
-        BIP[i].resize(numComp);
+        BIC[i].resize(numComp);
 
         ReadLine(ifs, vbuf);
         for (USI j = 0; j < numComp; j++) {
-            BIP[i][j] = stod(vbuf[j]);
+            BIC[i][j] = stod(vbuf[j]);
         }
     }
 
     OCP_FUNCNAME;
-    for (auto& row : BIP) {
+    for (auto& row : BIC) {
         for (auto& col : row) {
             cout << setw(10) << col;
         }
@@ -781,11 +781,12 @@ void EoSparam::InputSSMSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    for (USI i = 0; i < 2; i++) {
+    int len = vbuf.size();
+    for (USI i = 0; i < len; i++) {
         SSMparamSTA.push_back(vbuf[i]);
     }
     OCP_FUNCNAME;
-    for (USI i = 0; i < 2; i++) {
+    for (USI i = 0; i < len; i++) {
         cout << SSMparamSTA[i] << "   ";
     }
     cout << endl << endl;

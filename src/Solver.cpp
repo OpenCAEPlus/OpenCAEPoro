@@ -40,7 +40,9 @@ void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
     }
-
+    cout << "SSMSTA:     " <<  rs.bulk.GetSSMSTAiters() << endl;
+    cout << "SSMSP:      " <<  rs.bulk.GetSSMSPiters() << endl;
+    cout << "NRSP:       " <<  rs.bulk.GetNRSPiters() << endl;
     ctrl.RecordTotalTime(timer.Stop() / 1000);
 }
 
@@ -49,10 +51,10 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.GetCurDt();
 
-    //#ifdef DEBUG
-    // cout << "### DEBUG: " << fixed << ctrl.GetCurTime() << " Days";
-    // cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
-    //#endif // DEBUG
+//#ifdef DEBUG
+    //cout << "### DEBUG: " << fixed << ctrl.GetCurTime() << " Days";
+    //cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
+//#endif // DEBUG
 
     // Prepare for time marching
     Prepare(rs, dt);

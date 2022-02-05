@@ -32,7 +32,7 @@ public:
     /// flash calculation with saturations of phase, pressure and buble point pressure
     /// in bulks. temperature is unnecessary now, Ziin, which represents the proportion
     /// of components is useless.
-    void Flash_Sj(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                   const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                   const OCP_DBL* Ziin) override;
     /// flash calculation with saturations while PVTmode is PHASE_W, where only water
@@ -48,7 +48,7 @@ public:
                          const OCP_DBL& Vpore);
     /// flash calculation with saturations of phase, pressure in bulks. temperature is
     /// unnecessary now.
-    void Flash_Ni(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
     /// flash calculation with moles of components while PVTmode is PHASE_W, where only
     /// water phase exists.
     void BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin);
@@ -60,19 +60,19 @@ public:
     /// where if dissolved gas exists should be distinguished.
     void BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
-    void Flash_Ni_Deriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
                         const OCP_DBL* Niin) override;
     void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
     // return xi  molar density
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& T, const OCP_DBL* Ziin) override;
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
     OCP_DBL XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
     OCP_DBL XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
 
     // return rho
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& T,
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
                      const OCP_DBL* Ziin) override;
     OCP_DBL RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
     OCP_DBL RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);

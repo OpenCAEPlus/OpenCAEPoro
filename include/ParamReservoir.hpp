@@ -83,7 +83,7 @@ public:
     vector<OCP_DBL>
         zi; ///< molar fraction of components in initial reservoir, water is excluded.
     vector<vector<string>>  COM; ///< Coponents information
-    vector<vector<OCP_DBL>> BIP; ///< Binary interaction
+    vector<vector<OCP_DBL>> BIC; ///< Binary interaction
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
@@ -156,7 +156,7 @@ public:
 
     // PVT properties
     USI      numPhase; ///< Number of phases
-    USI      numCom;   ///< Number of components, used in Compositional Model
+    USI      numCom;   ///< Number of components, used in BlackOil Model
     TableSet PVCO_T;   ///< Table set of PVCO.
     TableSet PVDO_T;   ///< Table set of PVDO.
     TableSet PVDG_T;   ///< Table set of PVDG.

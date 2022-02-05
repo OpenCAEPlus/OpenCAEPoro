@@ -43,6 +43,8 @@ int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int
            int* info);
 }
 
+void Dcopy(const int& N, double* dst, const double* src);
+
 double Dnorm1(const int& N, double* x);
 
 double Dnorm2(const int& N, double* x);
@@ -57,9 +59,9 @@ void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
 void DaAxpby(const int& m, const int& n, const double& a, const double* A,
              const double* x, const double& b, double* y);
 
-void LUSolve(const int& N, double* A, double* b, int* pivot);
+void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot);
 
-void SYSSolve(const char* uplo, const int& N, double* A, double* b, int* pivot);
+void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot);
 
 void PrintDX(const int& N, const double* x);
 

@@ -85,7 +85,10 @@ void Well::InputPerfo(const WellParam& well)
 void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
-
+    qi_lbmol.resize(myBulk.numCom);
+    prodWeight.resize(myBulk.numCom);
+    factor.resize(2); // oil and gas
+    Mtype = myBulk.flashCal[0]->GetType();
     // zi
     if (myBulk.blackOil) {
         for (auto& opt : optSet) {
@@ -146,28 +149,34 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
             if (opt.type == INJ) {
                 // INJ Well
-                opt.zi.resize(myBulk.numCom, 0);
                 if (opt.fluidType == "WAT") {
+                    opt.zi.resize(myBulk.numCom, 0);
                     opt.zi.back() = 1;
                 } else {
                     for (USI i = 0; i < len; i++) {
                         if (opt.fluidType == sols[i].name) {
                             opt.zi = sols[i].data;
                             opt.zi.resize(myBulk.numCom);
+                            // Convert volume units Mscf/stb to molar units lbmoles for injfluid
+                            // Use flash in Bulk in surface condition
+                            xiINJ = myBulk.flashCal[0]->XiPhase(PRESSURE_STD, TEMPERATURE_STD, &opt.zi[0]);
+                            opt.maxRate *= (xiINJ * 1000); // lbmol / ft3 -> lbmol / Mscf for gas
                             break;
                         }
                         if (i == len - 1) {
                             OCP_ABORT("Wrong FluidType!");
                         }
                     }
-                }
+                }               
             }
+            //else {
+            //    // PROD Well use EoS
+            //}
         }
     } else {
         OCP_ABORT("Wrong mixture type!");
     }
 
-    qi_lbmol.resize(myBulk.numCom);
     // perf
     USI pp = 0;
     for (USI p = 0; p < numPerf; p++) {
@@ -256,13 +265,13 @@ void Well::CalTrans(const Bulk& myBulk)
 
     if (opt.type == INJ) {
         for (USI p = 0; p < numPerf; p++) {
-            perf[p].transj.assign(np, 0);
             perf[p].transINJ = 0;
             OCP_USI k        = perf[p].location;
             OCP_DBL temp     = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier;
 
             // single phase
             for (USI j = 0; j < np; j++) {
+                perf[p].transj[j] = 0;
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
                     perf[p].transj[j] = temp * myBulk.kr[id] / myBulk.mu[id];
@@ -272,12 +281,12 @@ void Well::CalTrans(const Bulk& myBulk)
         }
     } else {
         for (USI p = 0; p < numPerf; p++) {
-            perf[p].transj.assign(np, 0);
             OCP_USI k    = perf[p].location;
             OCP_DBL temp = CONV1 * CONV2 * perf[p].WI * perf[p].multiplier;
 
             // multi phase
             for (USI j = 0; j < np; j++) {
+                perf[p].transj[j] = 0;
                 OCP_USI id = k * np + j;
                 if (myBulk.phaseExist[id]) {
                     perf[p].transj[j] = temp * myBulk.kr[id] / myBulk.mu[id];
@@ -318,7 +327,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
-    qi_lbmol.assign(nc, 0);
+    fill(qi_lbmol.begin(), qi_lbmol.end(), 0.0);
 
     if (opt.type == INJ) {
 
@@ -335,7 +344,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
                 perf[p].xi =
                     myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
             }
-
+            // cout << "xi:  " << setprecision(6) << perf[p].xi << endl;
             OCP_DBL xi = perf[p].xi;
             for (USI i = 0; i < nc; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * xi * opt.zi[i];
@@ -348,8 +357,8 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
             perf[p].P      = BHP + dG[p];
             OCP_USI k      = perf[p].location;
             perf[p].qt_ft3 = 0;
-            perf[p].qi_lbmol.assign(nc, 0);
-            perf[p].qj_ft3.assign(np, 0);
+            fill(perf[p].qi_lbmol.begin(), perf[p].qi_lbmol.end(), 0.0);
+            fill(perf[p].qj_ft3.begin(), perf[p].qj_ft3.end(), 0.0);
 
             for (USI j = 0; j < np; j++) {
                 OCP_USI id = k * np + j;
@@ -390,7 +399,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
 /// Pressure in injection well equals minial ones in injection well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalInjRateBO(const Bulk& myBulk)
+OCP_DBL Well::CalInjRate(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -410,7 +419,7 @@ OCP_DBL Well::CalInjRateBO(const Bulk& myBulk)
 /// Pressure in production well equals minial ones in production well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalProdRateBO(const Bulk& myBulk)
+OCP_DBL Well::CalProdRate(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -428,7 +437,7 @@ OCP_DBL Well::CalProdRateBO(const Bulk& myBulk)
             if (myBulk.phaseExist[id]) {
                 OCP_DBL temp = 0;
                 for (USI i = 0; i < nc; i++) {
-                    temp += opt.zi[i] * myBulk.xij[id * nc + i];
+                    temp += prodWeight[i] * myBulk.xij[id * nc + i];
                 }
                 OCP_DBL xi = myBulk.xi[id];
                 OCP_DBL dP = myBulk.Pj[id] - Pperf;
@@ -439,7 +448,7 @@ OCP_DBL Well::CalProdRateBO(const Bulk& myBulk)
     return qj;
 }
 
-void Well::CalInjQiBO(const Bulk& myBulk, const OCP_DBL& dt)
+void Well::CalInjQi(const Bulk& myBulk, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
@@ -447,66 +456,62 @@ void Well::CalInjQiBO(const Bulk& myBulk, const OCP_DBL& dt)
     OCP_DBL   qj = 0;
 
     for (USI i = 0; i < nc; i++) {
-
-        // perf[p].P = BHP + dG[p];
-        // OCP_USI k = perf[p].location;
-        // OCP_DBL xi = perf[p].xi;
-        // OCP_DBL dP = perf[p].p - myBulk.p[k];
-        // qj += perf[p].transj[0] * xi * dP;
-
-        /*for (USI i = 0; i < nc; i++) qj += perf[p].qi_lbmol[i];*/
         qj += qi_lbmol[i];
     }
     if (opt.fluidType == "WAT") {
         WWIR = -qj;
         WWIT += WWIR * dt;
     } else {
-        WGIR = -qj;
+        if (Mtype == BLKOIL) {
+            WGIR = -qj;
+        }
+        else {
+            // EoS PVTW 
+            WGIR = -qj / (xiINJ * 1000); // lbmol -> Mscf
+        }
         WGIT += WGIR * dt;
     }
 }
 
-void Well::CalProdQiBO(const Bulk& myBulk, const OCP_DBL& dt)
+
+void Well::CalProdQj(const Bulk& myBulk, const OCP_DBL& dt)
+{
+    if (Mtype == BLKOIL) {
+        CalProdQiBO(myBulk);
+    }
+    else {
+        // EoS PVTW
+        CalProdQjCOMP(myBulk);
+    }
+    WOPT += WOPR * dt;
+    WGPT += WGPR * dt;
+    WWPT += WWPR * dt;
+}
+
+
+void Well::CalProdQjCOMP(const Bulk& myBulk)
+{
+    USI nc = myBulk.numCom;
+    OCP_DBL qt = Dnorm1(nc, &qi_lbmol[0]);
+    WOPR = qt * factor[0];
+    WGPR = qt * factor[1];
+    WWPR = qi_lbmol[nc - 1];
+}
+
+
+void Well::CalProdQiBO(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
     const USI nc = myBulk.numCom;
 
-    // qi_lbmol.assign(nc, 0);
-
-    // for (USI p = 0; p < numPerf; p++) {
-
-    //    // perf[p].qi_lbmol.assign(nc, 0);
-    //    // perf[p].p = BHP + dG[p];
-    //    // int k = perf[p].location;
-
-    //    // for (int j = 0; j < np; j++) {
-    //    //	int id = k * np + j;
-    //    //	if (myBulk.phaseExist[id]) {
-    //    //		OCP_DBL xi = myBulk.xi[id];
-    //    //		OCP_DBL dP = myBulk.Pj[id] - perf[p].p;
-    //    //		OCP_DBL xij;
-    //    //		for (int i = 0; i < nc; i++) {
-    //    //			xij = myBulk.xij[id * nc + i];
-    //    //			perf[p].qi_lbmol[i] += perf[p].transj[j] * xi * xij * dP;
-    //    //		}
-    //    //	}
-    //    //}
-    //    for (USI i = 0; i < nc; i++) {
-    //        qi_lbmol[i] += perf[p].qi_lbmol[i];
-    //    }
-    //}
-
     for (USI i = 0; i < nc; i++) {
         if (myBulk.index2Phase[i] == OIL) {
-            WOPR = qi_lbmol[i];
-            WOPT += WOPR * dt;
+            WOPR = qi_lbmol[i];         
         } else if (myBulk.index2Phase[i] == GAS) {
-            WGPR = qi_lbmol[i];
-            WGPT += WGPR * dt;
+            WGPR = qi_lbmol[i];           
         } else if (myBulk.index2Phase[i] == WATER) {
-            WWPR = qi_lbmol[i];
-            WWPT += WWPR * dt;
+            WWPR = qi_lbmol[i];        
         }
     }
 }
@@ -559,9 +564,11 @@ void Well::CalInjdG(const Bulk& myBulk)
         for (OCP_INT p = numPerf - 1; p >= 0; p--) {
             if (p == 0) {
                 seg_num = ceil((perf[0].depth - depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[0].depth - depth) / seg_num;
             } else {
                 seg_num = ceil((perf[p].depth - perf[p - 1].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
             }
             OCP_USI n     = perf[p].location;
@@ -586,9 +593,11 @@ void Well::CalInjdG(const Bulk& myBulk)
         for (USI p = 0; p < numPerf; p++) {
             if (p == numPerf - 1) {
                 seg_num = ceil((depth - perf[numPerf - 1].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
             } else {
                 seg_num = ceil((perf[p + 1].depth - perf[p].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
             }
             OCP_USI n     = perf[p].location;
@@ -645,9 +654,11 @@ void Well::CalProddG(const Bulk& myBulk)
 
             if (p == 0) {
                 seg_num = ceil((perf[0].depth - depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[0].depth - depth) / seg_num;
             } else {
                 seg_num = ceil((perf[p].depth - perf[p - 1].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
             }
 
@@ -674,7 +685,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data());
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -714,9 +725,11 @@ void Well::CalProddG(const Bulk& myBulk)
         for (USI p = 0; p < numPerf; p++) {
             if (p == numPerf - 1) {
                 seg_num = ceil((depth - perf[numPerf - 1].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
             } else {
                 seg_num = ceil((perf[p + 1].depth - perf[p].depth) / maxlen);
+                if (seg_num == 0)   continue;
                 seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
             }
 
@@ -726,7 +739,7 @@ void Well::CalProddG(const Bulk& myBulk)
             OCP_DBL Ptmp  = Pperf;
 
             USI pvtnum = myBulk.PVTNUM[n];
-            tmpNi.assign(nc, 0);
+            fill(tmpNi.begin(), tmpNi.end(), 0.0);
             for (OCP_INT p1 = numPerf - 1; p1 - p >= 0; p1--) {
                 for (USI i = 0; i < nc; i++) {
                     tmpNi[i] += perf[p1].qi_lbmol[i];
@@ -739,7 +752,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash_Ni(Ptmp, myBulk.T, tmpNi.data());
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data());
                 for (USI j = 0; j < np; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -759,6 +772,65 @@ void Well::CalProddG(const Bulk& myBulk)
 
     } else {
         OCP_ABORT("Wrong well position!");
+    }
+}
+
+
+void Well::CalProdWeight(const Bulk& myBulk) const
+{
+    if (opt.type == PROD) {
+        if (Mtype == BLKOIL || opt.optMode == WRATE_MODE) {
+            prodWeight = opt.zi;
+        }
+        else if (Mtype == EOS_PVTW) {
+            // use qi_lbmol, so it must be calculated before (Well::CalFlux())
+            // when reset the step, qi_lbmol may be calculated
+            USI pid = 0; // phase Id
+            if (opt.optMode == GRATE_MODE) {
+                pid = 1;
+            }
+            // in some cases, qi_lbmol may be zero, so use other methods
+            OCP_DBL qt = 0;
+            for (USI i = 0; i < myBulk.numCom; i++) {
+                qt += qi_lbmol[i];
+            }
+            if (fabs(qt) > TINY && false) {
+                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0]);
+            }
+            else {
+                USI np = myBulk.numPhase;
+                USI nc = myBulk.numCom;
+                vector<OCP_DBL> tmpNi(nc, 0);
+                for (USI p = 0; p < numPerf; p++) {
+                    OCP_USI n = perf[p].location;
+
+                    for (USI j = 0; j < np; j++) {
+                        OCP_USI id = n * np + j;
+                        for (USI k = 0; k < nc; k++) {
+                            tmpNi[k] += perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
+                        }
+                    }
+                }
+                qt = Dnorm1(nc, &tmpNi[0]);
+                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0]);
+            }
+            factor[0] = 0;
+            factor[1] = 0;
+            if (myBulk.flashCal[0]->phaseExist[0]) {
+                OCP_DBL nuo = myBulk.flashCal[0]->xi[0] * myBulk.flashCal[0]->v[0] / qt; // mole fraction of oil phase
+                factor[0] = nuo / (myBulk.flashCal[0]->xi[0] * CONV1); // lbmol / ft3 -> lbmol / stb for oil
+            }
+            if (myBulk.flashCal[0]->phaseExist[1]) {
+                OCP_DBL nug = myBulk.flashCal[0]->xi[1] * myBulk.flashCal[0]->v[1] / qt; // mole fraction of gas phase
+                factor[1] = nug / (myBulk.flashCal[0]->xi[1] * 1000);  // lbmol / ft3 -> lbmol / Mscf  for gas
+            }
+            
+            if (factor[pid] < 1E-12) {
+                OCP_ABORT("Wrong Condition!");
+            }
+
+            fill(prodWeight.begin(), prodWeight.end(), factor[pid]);
+        }
     }
 }
 
@@ -789,7 +861,8 @@ void Well::CheckOptMode(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     if (opt.type == INJ) {
-        OCP_DBL q = CalInjRateBO(myBulk);
+        OCP_DBL q = CalInjRate(myBulk);
+        // for INJ well, maxRate has been switch to lbmols
         if (q > opt.maxRate) {
             opt.optMode = RATE_MODE;
         } else {
@@ -797,7 +870,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
             BHP         = opt.maxBHP;
         }
     } else {
-        OCP_DBL q = CalProdRateBO(myBulk);
+        OCP_DBL q = CalProdRate(myBulk);
         // cout << q << endl;
         if (q > opt.maxRate) {
             opt.optMode = RATE_MODE;
@@ -1080,7 +1153,7 @@ void Well::AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
     }
 }
 
-void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
+void Well::AssembleMatPROD_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
                                     const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
@@ -1090,6 +1163,10 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
     const OCP_USI wId = myLS.dim;
     // important !
     myLS.dim++;
+
+    // Set Prod Weight
+    if (opt.optMode != BHP_MODE)
+        CalProdWeight(myBulk);
 
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI k = perf[p].location;
@@ -1107,7 +1184,7 @@ void Well::AssembleMatPROD_BO_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
 
             for (USI i = 0; i < nc; i++) {
                 tempb += myBulk.vfi[k * nc + i] * myBulk.xij[k * np * nc + j * nc + i];
-                tempw += opt.zi[i] * myBulk.xij[k * np * nc + j * nc + i];
+                tempw += prodWeight[i] * myBulk.xij[k * np * nc + j * nc + i];
             }
             OCP_DBL trans = dt * perf[p].transj[j] * myBulk.xi[k * np + j];
             valb += tempb * trans;
@@ -1218,9 +1295,9 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI n = perf[p].location;
-        dQdXpB.assign(bsize, 0);
-        dQdXpW.assign(bsize, 0);
-        dQdXsB.assign(bsize2, 0);
+        fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
+        fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
+        fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
 
         dP = myBulk.P[n] - BHP - dG[p];
 
@@ -1243,7 +1320,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                         CONV1 * CONV2 * perf[p].WI * perf[p].multiplier * perf[p].xi *
                         opt.zi[i] * myBulk.dKr_dS[n * np * np + j * np + k] * dP / mu;
                 }
-                // dQ / dCij
+                // dQ / dxij
                 for (USI k = 0; k < nc; k++) {
                     dQdXsB[(i + 1) * ncol2 + np + j * nc + k] +=
                         -transIJ * dP / mu * myBulk.mux[n_np_j * nc + k];
@@ -1274,7 +1351,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
             case WRATE_MODE:
             case LRATE_MODE:
                 // Diag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     bmat[0] += dQdXpW[(i + 1) * ncol];
                     bmat[(i + 1) * ncol + i + 1] = 1;
@@ -1287,7 +1364,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                 bmat = dQdXpB;
                 DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
-                bmat2.assign(bsize, 0);
+                fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
                 }
@@ -1297,7 +1374,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
             case BHP_MODE:
                 // Diag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < nc + 1; i++) {
                     bmat[i * ncol + i] = 1;
                 }
@@ -1306,7 +1383,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                     myLS.diagVal[wId * bsize + i] += bmat[i];
                 }
                 // OffDiag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 // Insert
                 myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
                 myLS.colId[wId].push_back(n);
@@ -1327,7 +1404,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                          myLS.diagVal.data() + wId * bsize + bsize);
 }
 
-void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
+void Well::AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
                                   const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
@@ -1356,11 +1433,16 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
+    // Set Prod Weight
+    if (opt.optMode != BHP_MODE)
+        CalProdWeight(myBulk);
+
+
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI n = perf[p].location;
-        dQdXpB.assign(bsize, 0);
-        dQdXpW.assign(bsize, 0);
-        dQdXsB.assign(bsize2, 0);
+        fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
+        fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
+        fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
 
         for (USI j = 0; j < np; j++) {
             n_np_j = n * np + j;
@@ -1433,9 +1515,9 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
             case WRATE_MODE:
             case LRATE_MODE:
                 // Diag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
-                    bmat[0] += dQdXpW[(i + 1) * ncol] * opt.zi[i];
+                    bmat[0] += dQdXpW[(i + 1) * ncol] * prodWeight[i];
                     bmat[(i + 1) * ncol + i + 1] = 1;
                 }
                 for (USI i = 0; i < bsize; i++) {
@@ -1446,9 +1528,9 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
                 bmat = dQdXpB;
                 DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
-                bmat2.assign(bsize, 0);
+                fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
-                    Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
+                    Daxpy(ncol, prodWeight[i], bmat.data() + (i + 1) * ncol, bmat2.data());
                 }
                 myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
                 myLS.colId[wId].push_back(n);
@@ -1456,7 +1538,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
             case BHP_MODE:
                 // Diag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < nc + 1; i++) {
                     bmat[i * ncol + i] = 1;
                 }
@@ -1465,7 +1547,7 @@ void Well::AssembleMatPROD_BO_FIM(const Bulk& myBulk, LinearSystem& myLS,
                     myLS.diagVal[wId * bsize + i] += bmat[i];
                 }
                 // OffDiag
-                bmat.assign(bsize, 0);
+                fill(bmat.begin(), bmat.end(), 0.0);
                 // Insert
                 myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
                 myLS.colId[wId].push_back(n);
@@ -1526,7 +1608,8 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                 resFIM.res[bId] = opt.maxRate;
                 for (USI i = 0; i < nc; i++) {
                     resFIM.res[bId] += qi_lbmol[i];
-                }
+                }         
+                // cout << name << "   " << resFIM.res[bId] << "   " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
@@ -1550,7 +1633,7 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
             case LRATE_MODE:
                 resFIM.res[bId] = -opt.maxRate;
                 for (USI i = 0; i < nc; i++) {
-                    resFIM.res[bId] += qi_lbmol[i] * opt.zi[i];
+                    resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
                 }
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));

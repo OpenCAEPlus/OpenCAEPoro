@@ -128,7 +128,12 @@ public:
     /// Return total water injection of the wth well.
     OCP_DBL GetWWIT(const USI& w) const { return wellGroup[w].WWIT; }
     /// Return the BHP of wth well.
-    OCP_DBL GetWBHP(const USI& w) const { return wellGroup[w].BHP; }
+    OCP_DBL GetWBHP(const USI& w) const { 
+        if (wellGroup[w].WellState())
+            return wellGroup[w].BHP;
+        else
+            return 0;
+    }
     /// Return the pth dG of wth well.
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wellGroup[w].dG[p]; }
 

@@ -47,7 +47,8 @@ const OCP_DBL TARGET_DS         = 0.01;  ///< Target saturation change
 const OCP_DBL GRAVITY_FACTOR = 0.00694444; ///< 0.00694444 ft2 psi / lb
 const OCP_DBL RHOW_STD       = 62.3664;    ///< Water density in lb / ft3
 const OCP_DBL RHOAIR_STD     = 0.076362;   ///< Air density in lb / ft3
-const OCP_DBL PRESSURE_STD   = 14.6959;    ///< 14.6959 psia = 1 atm
+const OCP_DBL PRESSURE_STD   = 14.7;    ///< 14.6959 psia = 1 atm
+const OCP_DBL TEMPERATURE_STD = 520;       ///< Standard temperature
 
 // Unit conversion consts
 const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = 5.61458 ft3

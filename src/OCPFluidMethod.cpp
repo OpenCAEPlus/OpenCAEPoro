@@ -44,8 +44,8 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     ctrl.UpdateIterNR();
 
 #ifdef _DEBUG
-    // myLS.OutputLinearSystem("testA.out", "testb.out");
-    // myLS.OutputSolution("testx.out");
+    /*myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");*/
 #endif // DEBUG
 
     rs.GetSolutionIMPEC(myLS.GetSolution());
@@ -95,11 +95,12 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         return false;
     }
 
-    rs.CalFlashIMPEC();
     rs.CalVpore();
-
+    rs.CalFlashIMPEC();
+    
     // fouth check: Volume error check
     if (!rs.CheckVe(0.01)) {
+        // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
         dt /= 2;
         rs.ResetVal03IMPEC();
         return false;
@@ -107,6 +108,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
+    
     return true;
 }
 
@@ -162,8 +164,8 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     // cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");
+    //myLS.OutputLinearSystem("testA.out", "testb.out");
+    //myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -200,6 +202,17 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
+
+#ifdef _DEBUG
+    cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+        << "  " << NRdPmax << endl;
+    cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
+#endif
+
+
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
@@ -209,15 +222,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         cout << "NR Failed, Cut time Step and reset!\n";
         return false;
     }
-
-    OCP_DBL NRdPmax = rs.GetNRdPmax();
-    OCP_DBL NRdSmax = rs.GetNRdSmax();
-
-#ifdef DEBUG
-    cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
-         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-         << "  " << NRdPmax << endl;
-#endif
 
     if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||

@@ -61,6 +61,9 @@ class Bulk
     friend class DetailInfo;
     friend class Reservoir;
 
+    // temp
+    friend class OCP_FIM;
+
     /////////////////////////////////////////////////////////////////////
     // For general usage
     /////////////////////////////////////////////////////////////////////
@@ -78,11 +81,11 @@ public:
     void InitSjPcComp(const USI& tabrow);
 
     /// Perform flash calculation with saturations.
-    void FlashSj();
+    void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.
-    void FlashNi();
+    void Flash();
     /// Perform flash calculation with Ni and calculate derivatives.
-    void FlashNiDeriv();
+    void FlashDeriv();
     /// Pass values from Flash to Bulk after Flash calculation.
     void PassFlashValue(const OCP_USI& n);
     /// Pass derivative values from Flash to Bulk after Flash calculation.
@@ -284,7 +287,7 @@ public:
     /// Get solution from solver class after linear system is solved.
     void GetSolIMPEC(const vector<OCP_DBL>& u);
     /// Initialize the CFL number.
-    void InitCFLIMPEC() const { cfl.assign(numBulk * numPhase, 0); }
+    void InitCFLIMPEC() const { fill(cfl.begin(), cfl.end(), 0); }
     /// Calculate the CFL number.
     OCP_DBL CalCFL01IMPEC() const;
     /// Update value of last step for IMPEC.
@@ -330,8 +333,15 @@ private:
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
     // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
 
-    OCP_DBL NRdPmax; ///< Max pressure difference in NR???
-    OCP_DBL NRdSmax; ///< Max saturation difference in NR???
+    OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
+    OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
+
+public:
+    // for debug!
+    void OutputInfo(const OCP_USI& n) const;
+    OCP_USI GetSSMSTAiters()const { return flashCal[0]->SSMSTAiters; };
+    OCP_USI GetSSMSPiters()const { return flashCal[0]->SSMSPiters; }
+    OCP_USI GetNRSPiters()const { return flashCal[0]->NRSPiters; }
 };
 
 #endif /* end if __BULK_HEADER__ */
