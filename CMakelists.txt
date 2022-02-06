@@ -128,7 +128,9 @@ target_link_libraries(testOpenCAEPoro
                       ${LAPACK_LIBRARIES}
                       ${BLAS_LIBRARIES} 
                       ${ADD_STDLIBS})
-
+install(TARGETS testOpenCAEPoro
+        DESTINATION ${PROJECT_SOURCE_DIR})
+		
 #####################################################################################
 ## Installtion targets for lib and executable files
 #####################################################################################
