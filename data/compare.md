@@ -319,5 +319,22 @@ Total Newton steps:  3740 (+1908 wasted steps)
 Total linear steps:  7796 (+4190 wasted steps)
 Linear solve time:   21.751s (33.347%)
 Simulation time:     65.226s
+
+// modify dXsdXp
+Final time:          7305.000 Days
+Total time steps:    2738
+Total Newton steps:  3741 (+1758 wasted steps)
+Total linear steps:  7674 (+3945 wasted steps)
+Linear solve time:   21.719s (33.430%)
+Simulation time:     64.969s
+
+// modify dXsdXp and muP,mux
+// time-consuming, no improvement
+Final time:          7305.000 Days
+Total time steps:    3314
+Total Newton steps:  4466 (+1972 wasted steps)
+Total linear steps:  8788 (+4545 wasted steps)
+Linear solve time:   23.122s (29.526%)
+Simulation time:     78.309s
 ```
 

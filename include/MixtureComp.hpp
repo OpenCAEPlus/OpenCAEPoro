@@ -108,6 +108,7 @@ public:
 	OCP_DBL acf;	///< Acentric Factor
 	OCP_DBL MW;		///< Molecular Weight
 	OCP_DBL VcMW;	///< Critical Volume / MW
+	OCP_DBL Vc;     ///< VcMW * MW
 	OCP_DBL OmegaA; ///< Param A of Components 
 	OCP_DBL OmegaB; ///< Param B of Components
 	OCP_DBL Vshift; ///< shift volume
@@ -313,6 +314,7 @@ public:
 	void CalXiPNX();
 	void CalRhoPX();
 	void CalMuPX();
+	void CalMuPXLBC();
 	void CalVfiVfp();
 	void AssembleMatVfiVfp();
 	void AssembleRhsVfiVfp();
@@ -323,6 +325,8 @@ private:
 	// Phase properties and auxiliary variables
 	vector<OCP_DBL> muC;    ///< Viscosity of phase
 	vector<vector<OCP_DBL>> muAux; ///< Auxiliary variables for Viscosity, used to calculate Derivative
+	vector<OCP_DBL> muAux1I; ///< Auxiliary variables for Viscosity, used to calculate Derivative
+	vector<OCP_DBL> sqrtMWi;
 	vector<vector<OCP_DBL>> fugP; ///< d ln fij / d P
 	vector<OCP_DBL> Zp; ///< d Z / d P
 
