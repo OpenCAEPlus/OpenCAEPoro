@@ -1,0 +1,110 @@
+# Installation Guide for Windows 10
+
+## Step 0. Set environment
+Windows 10 + git-2.34 + cmake-3.22 + Visual Studio 2022 + Intel oneAPI/oneMKL 2022 
+
+In the Intel CMD for x64, the environment is usually set by default. If not, first set environment for Intel 2022 with:
+
+```
+"C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+```
+
+or with the following
+
+```
+'C:\Program Files (x86)\Intel\oneAPI\setvars.bat'
+```
+
+If you do not do anything, it will use MSVC instead of Intel compilers. In case you want to use the Intel 2022 compilers (icl/icx/dpcpp), you need to use the following (icl for Intel Classical C++, icx for Intel NextGen C++, dpcpp for Intel DPC++):
+
+```
+set CC=icx
+set CXX=icx
+```
+
+## Step 1. Download and install faspsolver (required)
+
+The solver package faspsolver is currently required. You can get it from the GitHub repository
+
+`
+git@github.com:FaspDevTeam/faspsolver.git
+`
+
+After obtained the package, run:
+
+```
+cd faspsolver; mkdir Build; cd Build
+```
+
+Now you can generate a VS2022 solution with MKL Pardiso support
+
+```
+cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DUSE_PARDISO=ON ..
+```
+
+Here we assume there is only one Visual Studio available; and, it will be used by default. 
+
+If you have multiple VS versions (for example, VS2022 and VS2019) installed on your system, you can use specify which VS to use using the **-G** option. For example, in order to use VS2022, you may run
+
+```
+cmake -G "Visual Studio 17 2022" 
+```
+
+Once cmake successed, open faspsolver.sln and build the **ALL_BUILD** target as well as the **INSTALL** target. 
+
+## Step 2. Download and install fasp4blkoil (optional)
+
+If case you only wish to use the basic solvers in *faspsolver*, you can skip this step. In case you want to use the preconditioners from *fasp4blkoil*, you should first download it from
+
+`
+git@github.com:FaspDevTeam/fasp4blkoil.git
+`
+
+Similar to the above steps, run
+
+```
+cd fasp4blkoil; mkdir Build; cd Build
+```
+
+Then you need to tell **cmake** where is faspsolver by
+
+```
+set FASP_DIR=\prog\0.FASP\faspsolver
+```
+
+Generate VS2022 solution with the MKL Pardiso support with
+
+```
+cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DUSE_PARDISO=ON ..
+```
+
+Open fasp4blkoil.sln and build the **ALL_BUILD** and **INSTALL** targets.
+
+Usually, the above two steps are only needed for the first time. 
+
+## Step 3. Download and install OpenCAEPoro
+
+Now we are ready to build *OpenCAEPoro*. First, download it from 
+
+`
+git@github.com:FaspDevTeam/OpenCAEPoro.git
+`
+
+Then follow the standard steps to generate Visual Studio solutions using cmake:
+
+```
+cd OpenCAEPoro; mkdir Build; cd Build
+set FASP_DIR=\prog\0.FASP\faspsolver
+set FASP4BLKOIL_DIR=\prog\0.FASP\fasp4blkoil
+```
+
+and then
+
+```
+cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DUSE_FASP4BLKOIL=ON -DUSE_PARDISO=ON ..
+```
+
+Now you are ready. Just open OpenCAEPoro.sln and build the **ALL_BUILD** target. And then build **INSTALL** target if you wish to install the lib and exe files to desirable directories. 
+
+
+*Modified on Feb/06/2022 by Chensong Zhang*
