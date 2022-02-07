@@ -806,6 +806,8 @@ void Well::CalProdWeight(const Bulk& myBulk) const
 
                     for (USI j = 0; j < np; j++) {
                         OCP_USI id = n * np + j;
+                        if (!myBulk.phaseExist[id])
+                            continue;
                         for (USI k = 0; k < nc; k++) {
                             tmpNi[k] += perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
                         }
@@ -825,7 +827,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 factor[1] = nug / (myBulk.flashCal[0]->xi[1] * 1000);  // lbmol / ft3 -> lbmol / Mscf  for gas
             }
             
-            if (factor[pid] < 1E-12) {
+            if (factor[pid] < 1E-12 || !isfinite(factor[pid])) {
                 OCP_ABORT("Wrong Condition!");
             }
 
