@@ -1,25 +1,37 @@
 # Installation Guide for Windows 10
 
 ## Step 0. Set environment
-Windows 10 + git-2.34 + cmake-3.22 + Visual Studio 2022 + Intel oneAPI/oneMKL 2022 
 
-In the Intel CMD for x64, the environment is usually set by default. If not, first set environment for Intel 2022 with:
+Here the procedure is demonstrated using
+
+`
+Windows 10 + git-2.34 + cmake-3.22 + Visual Studio 2022 + Intel oneAPI/oneMKL 2022 
+`
+
+In the Intel CMD for x64, the environment is usually set by default. In case you would like to use a more powerful Unix-like shell tool **PowerShell**, you can run
+
+```
+powershell
+```
+
+If the environment are not set, first set necessary variables by hand with:
 
 ```
 "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
 ```
 
-or with the following
-
-```
-'C:\Program Files (x86)\Intel\oneAPI\setvars.bat'
-```
-
-If you do not do anything, it will use MSVC instead of Intel compilers. In case you want to use the Intel 2022 compilers (icl/icx/dpcpp), you need to use the following (icl for Intel Classical C++, icx for Intel NextGen C++, dpcpp for Intel DPC++):
+If you do not do anything, your system may use MSVC instead of Intel compilers. In case you want to use the Intel 2022 compilers (icl/icx/dpcpp), you can use the following (icl for Intel Classical C++, icx for Intel NextGen C++, dpcpp for Intel DPC++):
 
 ```
 set CC=icx
 set CXX=icx
+```
+
+If you use **PowerShell** instead of the regular command line tool **cmd**, set the environment varilabes with
+
+```
+$env:CC='icx'
+$env:CXX='icx'
 ```
 
 ## Step 1. Download and install faspsolver (required)
@@ -35,6 +47,8 @@ After obtained the package, run:
 ```
 cd faspsolver; mkdir Build; cd Build
 ```
+
+(*Note: The **;**-notation only works in **PowerShell**; if you use plain **cmd**, you need to run three commands one by one! *)
 
 Now you can generate a VS2022 solution with MKL Pardiso support
 
@@ -66,7 +80,7 @@ Similar to the above steps, run
 cd fasp4blkoil; mkdir Build; cd Build
 ```
 
-Then you need to tell **cmake** where is faspsolver by
+Then you need to tell **cmake** where is faspsolver (replace the dir name with your setting) by
 
 ```
 set FASP_DIR=\prog\0.FASP\faspsolver
@@ -94,8 +108,16 @@ Then follow the standard steps to generate Visual Studio solutions using cmake:
 
 ```
 cd OpenCAEPoro; mkdir Build; cd Build
-set FASP_DIR=\prog\0.FASP\faspsolver
+set FASP_DIR=D:\prog\0.FASP\faspsolver
 set FASP4BLKOIL_DIR=\prog\0.FASP\fasp4blkoil
+```
+
+If you use **PowerShell** instead of the regular command line tool **cmd**, set the environment varilabes with
+
+```
+cd OpenCAEPoro; mkdir Build; cd Build
+$env:FASP_DIR='D:\prog\0.FASP\faspsolver'
+$env:FASP4BLKOIL_DIR='D:\prog\0.FASP\fasp4blkoil'
 ```
 
 and then
