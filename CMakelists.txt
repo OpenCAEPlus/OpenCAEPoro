@@ -24,11 +24,11 @@
 cmake_minimum_required(VERSION 3.0)
 
 # Default C compiler look-up order
-find_program(THE_C NAMES $ENV{CC} gcc clang icc)
+find_program(THE_C NAMES $ENV{CC} gcc clang icc icx icl)
 set(CMAKE_C_COMPILER ${THE_C} CACHE INTERNAL "the C compiler" FORCE)
 
 # Default C++ compiler look-up order
-find_program(THE_CXX NAMES $ENV{CXX} g++ clang++ icpc)
+find_program(THE_CXX NAMES $ENV{CXX} g++ clang++ icpc icx icl)
 set(CMAKE_CXX_COMPILER ${THE_CXX} CACHE INTERNAL "the CXX compiler" FORCE)
 
 # Name of the project: should appear after find_program
