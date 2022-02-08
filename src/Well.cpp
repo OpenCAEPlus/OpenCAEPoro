@@ -1264,6 +1264,16 @@ void Well::AssembleMatPROD_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
     }
 }
 
+void Well::AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
+    const OCP_DBL& dt, const Well& injWell) const
+{
+    if (injWell.opt.optMode != BHP_MODE) {
+        USI injwId = injWell.wEId;
+
+    }
+}
+
+
 /////////////////////////////////////////////////////////////////////
 // FIM
 /////////////////////////////////////////////////////////////////////

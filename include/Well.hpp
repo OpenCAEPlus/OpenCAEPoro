@@ -83,6 +83,12 @@ private:
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
     vector<OCP_DBL> zi;
+
+    // for Reinjection
+    /// the amount of Reinjection equals the amount of total production minus saleVal
+    /// it's less than zero defaulted, then no Reinjection.
+    /// Just a test now, it's not complete
+    OCP_DBL saleVal{ 1500 };
 };
 
 /// Well class defines well, and any operations referred to wells are in it.
@@ -91,7 +97,7 @@ private:
 /// excellent treatment will make the flow rate in well more stable.
 class Well
 {
-    friend class WellGroup;
+    friend class AllWells;
 
 public:
     Well() = default;
@@ -155,6 +161,8 @@ public:
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; }
+    /// If Reinjection happens
+    bool WellReinjection() const { return opt.saleVal > 0 ? true : false; }
     /// Return Pressure of Perf p
     OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
@@ -163,6 +171,7 @@ public:
 
 private:
     string  name; ///< well name
+    USI     wEId;  ///< well index in allWells, closed well is excluded, it's the well index in equations
     USI     I;    ///< I-index of the well header.
     USI     J;    ///< J-index of the well header.
     WellOpt opt;  ///< well control parameters, contains current control parameters.
@@ -185,6 +194,7 @@ private:
     USI  Mtype;               ///< Mixture Type
     mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
+    
     OCP_DBL WOPR{0};          ///< well oil production rate.
     OCP_DBL WOPT{0};          ///< well total oil production.
     OCP_DBL WGPR{0};          ///< well gas production rate.
@@ -212,7 +222,12 @@ public:
                               const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to production well are included.
     void AssembleMatPROD_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-                                  const OCP_DBL& dt) const;
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for Reinjection Well, used in production well when injection
+    /// well is under RATE control
+    void AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt, const Well& injWell) const;
+
 
     /////////////////////////////////////////////////////////////////////
     // FIM

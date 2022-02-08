@@ -52,7 +52,7 @@
     <ClCompile Include="src\UtilInput.cpp" />
     <ClCompile Include="src\UtilTiming.cpp" />
     <ClCompile Include="src\Well.cpp" />
-    <ClCompile Include="src\WellGroup.cpp" />
+    <ClCompile Include="src\AllWells.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bulk.hpp" />
@@ -87,7 +87,7 @@
     <ClInclude Include="include\UtilInput.hpp" />
     <ClInclude Include="include\UtilTiming.hpp" />
     <ClInclude Include="include\Well.hpp" />
-    <ClInclude Include="include\WellGroup.hpp" />
+    <ClInclude Include="include\AllWells.hpp" />
     <ClInclude Include="include\WellPerf.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

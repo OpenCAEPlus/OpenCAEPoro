@@ -21,7 +21,7 @@ void Reservoir::InputParam(ParamRead& param)
 
     grid.InputParam(param.paramRs);
     bulk.InputParam(param.paramRs);
-    wellgroup.InputParam(param.paramWell);
+    allWells.InputParam(param.paramWell);
 }
 
 void Reservoir::Setup()
@@ -31,35 +31,35 @@ void Reservoir::Setup()
     grid.Setup();
     bulk.Setup(grid);
     conn.Setup(grid, bulk);
-    wellgroup.Setup(grid, bulk);
+    allWells.Setup(grid, bulk);
 }
 
 void Reservoir::ApplyControl(const USI& i)
 {
     OCP_FUNCNAME;
 
-    wellgroup.ApplyControl(i);
+    allWells.ApplyControl(i);
 }
 
 void Reservoir::PrepareWell()
 {
     OCP_FUNCNAME;
 
-    wellgroup.PrepareWell(bulk);
+    allWells.PrepareWell(bulk);
 }
 
 void Reservoir::CalWellFlux()
 {
     OCP_FUNCNAME;
 
-    wellgroup.CalFlux(bulk);
+    allWells.CalFlux(bulk);
 }
 
 void Reservoir::CalWellTrans()
 {
     OCP_FUNCNAME;
 
-    wellgroup.CalTrans(bulk);
+    allWells.CalTrans(bulk);
 }
 
 void Reservoir::CalVpore()
@@ -81,14 +81,14 @@ void Reservoir::CalMaxChange()
     OCP_FUNCNAME;
 
     bulk.CalMaxChange();
-    wellgroup.CalMaxBHPChange();
+    allWells.CalMaxBHPChange();
 }
 
 void Reservoir::CalIPRT(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
-    wellgroup.CalIPRT(bulk, dt);
+    allWells.CalIPRT(bulk, dt);
 }
 
 OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
@@ -103,7 +103,7 @@ OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
 
     if (wellCheck) {
         OCP_INT flag = 0;
-        flag         = wellgroup.CheckP(bulk);
+        flag         = allWells.CheckP(bulk);
         return flag;
     }
 
@@ -151,7 +151,7 @@ void Reservoir::InitIMPEC()
     bulk.UpdateLastStepIMPEC();
     conn.CalFluxIMPEC(bulk);
     conn.UpdateLastStep();
-    wellgroup.InitBHP(bulk);
+    allWells.InitBHP(bulk);
 }
 
 OCP_DBL Reservoir::CalCFLIMPEC(const OCP_DBL& dt)
@@ -159,7 +159,7 @@ OCP_DBL Reservoir::CalCFLIMPEC(const OCP_DBL& dt)
     OCP_FUNCNAME;
 
     OCP_DBL cflB = conn.CalCFLIMPEC(bulk, dt);
-    OCP_DBL cflW = wellgroup.CalCFLIMPEC(bulk, dt);
+    OCP_DBL cflW = allWells.CalCFLIMPEC(bulk, dt);
     cfl          = max(cflB, cflW);
 
     return cfl;
@@ -171,7 +171,7 @@ OCP_DBL Reservoir::CalCFL01IMPEC(const OCP_DBL& dt)
 
     bulk.InitCFLIMPEC();
     conn.CalCFL01IMPEC(bulk, dt);
-    wellgroup.CalCFL01IMPEC(bulk, dt);
+    allWells.CalCFL01IMPEC(bulk, dt);
     cfl = bulk.CalCFL01IMPEC();
 
     return cfl;
@@ -182,7 +182,7 @@ void Reservoir::CalFLuxIMPEC()
     OCP_FUNCNAME;
 
     conn.CalFluxIMPEC(bulk);
-    wellgroup.CalFlux(bulk);
+    allWells.CalFlux(bulk);
 }
 
 void Reservoir::CalConnFluxIMPEC()
@@ -197,7 +197,7 @@ void Reservoir::MassConseveIMPEC(const OCP_DBL& dt)
     OCP_FUNCNAME;
 
     conn.MassConserveIMPEC(bulk, dt);
-    wellgroup.MassConserveIMPEC(bulk, dt);
+    allWells.MassConserveIMPEC(bulk, dt);
 }
 
 void Reservoir::CalFlashIMPEC()
@@ -212,16 +212,16 @@ void Reservoir::UpdateLastStepIMPEC()
     OCP_FUNCNAME;
     bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStep();
-    wellgroup.UpdateLastDg();
+    allWells.UpdateLastDg();
 }
 
 void Reservoir::AllocateMatIMPEC(LinearSystem& myLS) const
 {
     OCP_FUNCNAME;
 
-    myLS.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(), 1);
+    myLS.AllocateRowMem(bulk.GetBulkNum() + allWells.GetWellNum(), 1);
     conn.AllocateMat(myLS);
-    wellgroup.AllocateMat(myLS, bulk.GetBulkNum());
+    allWells.AllocateMat(myLS, bulk.GetBulkNum());
     myLS.AllocateColMem();
 }
 
@@ -231,7 +231,7 @@ void Reservoir::AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const
 
     conn.SetupMatSparsity(myLS);
     conn.AssembleMatIMPEC(myLS, bulk, dt);
-    wellgroup.AssemblaMatIMPEC(myLS, bulk, dt);
+    allWells.AssemblaMatIMPEC(myLS, bulk, dt);
 }
 
 void Reservoir::GetSolutionIMPEC(const vector<OCP_DBL>& u)
@@ -239,16 +239,16 @@ void Reservoir::GetSolutionIMPEC(const vector<OCP_DBL>& u)
     OCP_FUNCNAME;
 
     bulk.GetSolIMPEC(u);
-    wellgroup.GetSolIMPEC(u, bulk.GetBulkNum());
+    allWells.GetSolIMPEC(u, bulk.GetBulkNum());
 }
 
 void Reservoir::ResetWellIMPEC()
 {
-    // wellgroup.ResetDg();
-    wellgroup.ResetBHP();
-    wellgroup.CalTrans(bulk);
-    wellgroup.CalFlux(bulk);
-    wellgroup.CaldG(bulk);
+    // allWells.ResetDg();
+    allWells.ResetBHP();
+    allWells.CalTrans(bulk);
+    allWells.CalFlux(bulk);
+    allWells.CaldG(bulk);
 }
 
 void Reservoir::ResetVal00IMPEC()
@@ -256,7 +256,7 @@ void Reservoir::ResetVal00IMPEC()
     OCP_FUNCNAME;
 
     bulk.ResetP();
-    wellgroup.CalTrans(bulk);
+    allWells.CalTrans(bulk);
 }
 
 void Reservoir::ResetVal01IMPEC()
@@ -318,7 +318,7 @@ void Reservoir::InitFIM()
     bulk.FlashDeriv();
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
-    wellgroup.InitBHP(bulk);
+    allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }
 
@@ -342,18 +342,18 @@ void Reservoir::UpdateLastStepFIM()
 
     bulk.UpdateLastStepFIM();
     conn.UpdateLastUpblockFIM();
-    wellgroup.UpdateLastBHP();
-    wellgroup.UpdateLastDg();
+    allWells.UpdateLastBHP();
+    allWells.UpdateLastDg();
 }
 
 void Reservoir::AllocateMatFIM(LinearSystem& myLS) const
 {
     OCP_FUNCNAME;
 
-    myLS.AllocateRowMem(bulk.GetBulkNum() + wellgroup.GetWellNum(),
+    myLS.AllocateRowMem(bulk.GetBulkNum() + allWells.GetWellNum(),
                         bulk.GetComNum() + 1);
     conn.AllocateMat(myLS);
-    wellgroup.AllocateMat(myLS, bulk.GetBulkNum());
+    allWells.AllocateMat(myLS, bulk.GetBulkNum());
     myLS.AllocateColMem();
 }
 
@@ -363,7 +363,7 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
 
     conn.SetupMatSparsity(myLS);
     conn.AssembleMat_FIM(myLS, bulk, dt);
-    wellgroup.AssemblaMatFIM(myLS, bulk, dt);
+    allWells.AssemblaMatFIM(myLS, bulk, dt);
 }
 
 void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
@@ -372,14 +372,14 @@ void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
     OCP_FUNCNAME;
 
     bulk.GetSolFIM(u, dPmax, dSmax);
-    wellgroup.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
 // Not useful
 void Reservoir::GetSolution01FIM(const vector<OCP_DBL>& u)
 {
     OCP_DBL alpha = bulk.GetSol01FIM(u);
-    wellgroup.GetSol01FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1, alpha);
+    allWells.GetSol01FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1, alpha);
 
     cout << alpha << endl;
 }
@@ -392,7 +392,7 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
     // Bulk to Bulk
     conn.CalResFIM(resFIM.res, bulk, dt);
     // Well to Bulk
-    wellgroup.CalResFIM(resFIM, bulk, dt);
+    allWells.CalResFIM(resFIM, bulk, dt);
     // Calculate RelRes
     bulk.CalRelResFIM(resFIM);
     Dscalar(resFIM.res.size(), -1, resFIM.res.data());
@@ -412,10 +412,10 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
     //    << resFIM.res.size() << endl;
     // cout << "ResMax   " << resmax << "   " << maxId << endl;
     // cout << "BHP   \n";
-    // for (USI w = 0; w < wellgroup.numWell; w++) {
-    //    cout << wellgroup.GetWBHP(w) << "   ";
-    //    for (USI p = 0; p < wellgroup.GetWellPerfNum(w); p++) {
-    //        cout << wellgroup.wellGroup[w].GetPerfPre(p) << "   ";
+    // for (USI w = 0; w < allWells.numWell; w++) {
+    //    cout << allWells.GetWBHP(w) << "   ";
+    //    for (USI p = 0; p < allWells.GetWellPerfNum(w); p++) {
+    //        cout << allWells.wells[w].GetPerfPre(p) << "   ";
     //    }
     //}
     // cout << endl;
@@ -425,13 +425,13 @@ void Reservoir::ResetFIM(const bool& flag)
 {
     bulk.ResetFIM();
     conn.ResetUpblockFIM();
-    wellgroup.ResetBHP();
-    wellgroup.CalTrans(bulk);
-    wellgroup.CalFlux(bulk);
+    allWells.ResetBHP();
+    allWells.CalTrans(bulk);
+    allWells.CalFlux(bulk);
 
     if (flag) {
-        wellgroup.CaldG(bulk);
-        wellgroup.CalFlux(bulk);
+        allWells.CaldG(bulk);
+        allWells.CalFlux(bulk);
     }
 }
 
@@ -451,8 +451,8 @@ void Reservoir::PrintSolFIM(const string& outfile) const
         }
     }
     // Well Pressure
-    for (USI w = 0; w < wellgroup.numWell; w++) {
-        outu << wellgroup.GetWBHP(w) << "\n";
+    for (USI w = 0; w < allWells.numWell; w++) {
+        outu << allWells.GetWBHP(w) << "\n";
     }
     outu.close();
 }

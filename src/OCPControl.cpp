@@ -173,7 +173,7 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     c1 = c2 = 10;
 
     OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
-    OCP_DBL dPmaxW = reservoir.wellgroup.GetdBHPmax();
+    OCP_DBL dPmaxW = reservoir.allWells.GetdBHPmax();
     OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
 
     OCP_DBL dSmax = reservoir.bulk.GetdSmax();

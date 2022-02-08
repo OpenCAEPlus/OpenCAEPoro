@@ -1,5 +1,5 @@
-/*! \file    WellGroup.hpp
- *  \brief   WellGroup class declaration
+/*! \file    AllWells.hpp
+ *  \brief   AllWells class declaration
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -18,17 +18,42 @@
 
 using namespace std;
 
-/// WellGroups contains all wells now, it's used to manages all wells uniformly in
+/// WellGroup contains a well group, which is responsible for managing the production 
+/// and injection targets and interactions of some wells, etc. it will be initialized
+/// in the beginning of simulation, if necessary, it should be updated, for example,
+/// the types of well changes or the wells are regrouped.
+class WellGroup
+{
+    friend class AllWells;
+private:
+    WellGroup() = default;
+    vector<USI> wId; ///< Well index in wellGroup
+    vector<USI> wIdINJ; ///< Inj well index in wellGroup
+    vector<USI> wIdPROD; ///< Prod well index in wellGroup
+    OCP_DBL GOPR; ///< Group oil production rate
+    OCP_DBL GGPR; ///< Group gas production rate
+    OCP_DBL GWPR; ///< Group water production rate
+    OCP_DBL GOPT; ///< Group oil total production
+    OCP_DBL GGPT; ///< Group gas total production
+    OCP_DBL GWPT; ///< Group water total production
+    OCP_DBL GGIR; ///< Group gas injection rate
+    OCP_DBL GWIR; ///< Group water injection rate
+    OCP_DBL GGIT; ///< Group gas total injection
+    OCP_DBL GWIT; ///< Group gas total injection
+};
+
+
+/// AllWells contains all wells now, it's used to manages all wells uniformly in
 /// reservoirs. actually, you can regard it as an interface between wells and other
 /// modules.
-class WellGroup
+class AllWells
 {
 
     // temp
     friend class Reservoir;
 
 public:
-    WellGroup() = default;
+    AllWells() = default;
 
     /////////////////////////////////////////////////////////////////////
     // General
@@ -37,7 +62,7 @@ public:
 public:
     /// Input param from ParamWell.
     void InputParam(const ParamWell& paramWell);
-    /// Setup well in wellgroup.
+    /// Setup well in allWells.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// complete the information of well according to Grid and Bulk.
     void SetupWell(const Grid& myGrid, const Bulk& myBulk);
@@ -61,28 +86,28 @@ public:
     void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
     void UpdateLastBHP()
     {
-        for (auto& w : wellGroup) w.lBHP = w.BHP;
+        for (auto& w : wells) w.lBHP = w.BHP;
     }
     void ResetBHP();
     /// Reset dG to ldG for each well.
     void UpdateLastDg()
     {
-        for (auto& w : wellGroup) w.ldG = w.dG;
+        for (auto& w : wells) w.ldG = w.dG;
     }
     void ResetDg()
     {
-        for (auto& w : wellGroup) w.dG = w.ldG;
+        for (auto& w : wells) w.dG = w.ldG;
     }
     /// Check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
     /// Return the num of wells.
     USI GetWellNum() const { return numWell; }
     /// Return the name of specified well.
-    string GetWellName(const USI& i) const { return wellGroup[i].name; }
+    string GetWellName(const USI& i) const { return wells[i].name; }
     /// Return the index of specified well.
     USI GetIndex(const string& name) const;
     /// Return the num of perforations of well i.
-    USI GetWellPerfNum(const USI& i) const { return wellGroup[i].numPerf; }
+    USI GetWellPerfNum(const USI& i) const { return wells[i].numPerf; }
     /// Calculate mamimum num of perforations of all Wells.
     USI     GetMaxWellPerNum() const;
     void    CalMaxBHPChange();
@@ -108,38 +133,39 @@ public:
     /// Return total water injection in field.
     OCP_DBL GetFWIT() const { return FWIT; }
     /// Return oil production rate of the wth well.
-    OCP_DBL GetWOPR(const USI& w) const { return wellGroup[w].WOPR; }
+    OCP_DBL GetWOPR(const USI& w) const { return wells[w].WOPR; }
     /// Return total oil production of the wth well.
-    OCP_DBL GetWOPT(const USI& w) const { return wellGroup[w].WOPT; }
+    OCP_DBL GetWOPT(const USI& w) const { return wells[w].WOPT; }
     /// Return gas production rate of the wth well.
-    OCP_DBL GetWGPR(const USI& w) const { return wellGroup[w].WGPR; }
+    OCP_DBL GetWGPR(const USI& w) const { return wells[w].WGPR; }
     /// Return total gas production of the wth well.
-    OCP_DBL GetWGPT(const USI& w) const { return wellGroup[w].WGPT; }
+    OCP_DBL GetWGPT(const USI& w) const { return wells[w].WGPT; }
     /// Return water production rate of the wth well.
-    OCP_DBL GetWWPR(const USI& w) const { return wellGroup[w].WWPR; }
+    OCP_DBL GetWWPR(const USI& w) const { return wells[w].WWPR; }
     /// Return total water production of the wth well.
-    OCP_DBL GetWWPT(const USI& w) const { return wellGroup[w].WWPT; }
+    OCP_DBL GetWWPT(const USI& w) const { return wells[w].WWPT; }
     /// Return gas injection rate of the wth well.
-    OCP_DBL GetWGIR(const USI& w) const { return wellGroup[w].WGIR; }
+    OCP_DBL GetWGIR(const USI& w) const { return wells[w].WGIR; }
     /// Return total gas injection of the wth well.
-    OCP_DBL GetWGIT(const USI& w) const { return wellGroup[w].WGIT; }
+    OCP_DBL GetWGIT(const USI& w) const { return wells[w].WGIT; }
     /// Return water injection rate of the wth well.
-    OCP_DBL GetWWIR(const USI& w) const { return wellGroup[w].WWIR; }
+    OCP_DBL GetWWIR(const USI& w) const { return wells[w].WWIR; }
     /// Return total water injection of the wth well.
-    OCP_DBL GetWWIT(const USI& w) const { return wellGroup[w].WWIT; }
+    OCP_DBL GetWWIT(const USI& w) const { return wells[w].WWIT; }
     /// Return the BHP of wth well.
     OCP_DBL GetWBHP(const USI& w) const { 
-        if (wellGroup[w].WellState())
-            return wellGroup[w].BHP;
+        if (wells[w].WellState())
+            return wells[w].BHP;
         else
             return 0;
     }
     /// Return the pth dG of wth well.
-    OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wellGroup[w].dG[p]; }
+    OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
 
 private:
     USI          numWell;   ///< num of wells.
-    vector<Well> wellGroup; ///< well set.
+    vector<Well> wells; ///< well set.
+    vector<WellGroup> wellGroup; ///< wellGroup set
 
     vector<SolventINJ> solvents; ///< Sets of Solvent
     OCP_DBL            dPmax{0}; ///< Maximum BHP change
@@ -198,5 +224,6 @@ public:
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
-/*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Oct/15/2021      Format file    
+/*  Shizhe Li           Feb/08/2022      Rename to AllWells 
 /*----------------------------------------------------------------------------*/

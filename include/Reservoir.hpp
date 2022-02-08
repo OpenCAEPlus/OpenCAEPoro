@@ -17,7 +17,7 @@
 #include "BulkConn.hpp"
 #include "Grid.hpp"
 #include "ParamRead.hpp"
-#include "WellGroup.hpp"
+#include "AllWells.hpp"
 
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
@@ -25,7 +25,7 @@
 /// Reservoir has four Core components.
 /// Grids contains the basic informations of all grids as a database of reservoir.
 /// Bulk only stores active grids, which defines the area used for calculation.
-/// WellGroup contains the well information, it's used to manage operations related to
+/// AllWells contains the well information, it's used to manage operations related to
 /// wells. BulkConn contains connections between bulks(active grids).
 class Reservoir
 {
@@ -74,14 +74,14 @@ public:
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return the num of Well
-    USI GetWellNum() const { return wellgroup.GetWellNum(); }
+    USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
     USI GetComNum() const { return bulk.GetComNum(); }
 
 private:
     Grid      grid;      ///< Grid class.
     Bulk      bulk;      ///< Bulk class.
-    WellGroup wellgroup; ///< WellGroup class.
+    AllWells  allWells; ///< AllWells class.
     BulkConn  conn;      ///< BulkConn class.
 
     /////////////////////////////////////////////////////////////////////
