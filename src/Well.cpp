@@ -1866,11 +1866,11 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                 if (opt.reInj) {
                     for (auto& w : opt.connWell) {
                         for (USI i = 0; i < nc; i++) {
-                            resFIM.res[bId] += allWell[w].qi_lbmol[i];
+                            resFIM.res[bId] += opt.factor * allWell[w].qi_lbmol[i];
                         }
                     }
                 }
-                // cout << name << "   " << resFIM.res[bId] << "   " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
+                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
