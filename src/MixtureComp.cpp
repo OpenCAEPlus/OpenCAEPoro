@@ -93,7 +93,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_
 	// Next, nu represents moles of phase instead of molar fraction of phase
 	Dscalar(NP, Nt, &nu[0]);
 	// correct vj, vf with new Nt
-	Dscalar(NP, Nt, &v[0]);
+	Dscalar(NPmax, Nt, &v[0]);
 	vf *= Nt;
 	CalVfiVfp();
 	// Calculate Ni

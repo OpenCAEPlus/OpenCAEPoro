@@ -10,12 +10,13 @@ TITLE
    
 FIELD
 
+COMPS
+9
+/
+
 OIL
 WATER
 GAS
-
-COMPS
-9 /
 
 TABDIMS
 1 1 40 40 /
@@ -54,14 +55,10 @@ COPY
 
 PROPS     ============================================================
 
-COMPFILE
-EGOIL.in
+INCLUDE
+EGOIL01.in
 /
 
---Specify initial liquid composition
-ZI
-.01210	.01940	.65990	.08690	.05910	.09670	.04745	.01515	.00330
-/
 
 RTEMP
 200
@@ -161,17 +158,23 @@ EQUIL
 
 
 SUMMARY
-
-BPR 
-1,1,1 /
-7,7,3 /
+EXCEL
+FPR
+FOPR
+FOPT
+FGPR
+FGPT
+FWPR
+FWPT
+FGIR
+FGIT
+FWIR
+FWIT
+FWCT
+FWPT
+WBHP 
 /
-SAT
-1,1,1 /
-/
-MW
-1,1,1 /
-/
+WPI 
 /
 
 RPTSCHED
@@ -186,16 +189,17 @@ VWAT VGAS VOIL
 
 SCHEDULE    ==========================================================
 
-NLSOLVE
-10 1E-3 300 0.2 1 0.01 0.2 0.001 
+TUNING
+-- Init     max    min   incre   chop    cut
+   0.1       1     0.1      5    0.3    0.3                    /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.2    0.3    0.001                               /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       10    1E-3   200    2    1      0.01    0.01          /
 /
 
-SOLVER
-FIM
-/
-
-TMARCH
-0.1 10 0.1 5 0.3 0.3 300 0.2 0.3 0.001 
+METHOD
+IMPEC
 /
 
 -- Scenario One  ------------------------------------------------
@@ -208,14 +212,14 @@ WELSPECS
 
 COMPDAT
 --d
---name   I  J   K1  K2    status  trans_factor diameter skin_factor  direction
-'INJ'    1  1   1   2     'OPEN'      1            2         2*        /
-'PROD'   7  7   3   4     'OPEN'      1            2         2*        /  
+--name   I  J   K1  K2    trans_factor diameter skin_factor  direction
+'INJ'    1  1   1   2           1*        2         3*        /
+'PROD'   7  7   3   4           1*        2         3*        /  
 /
 
 WCONPROD
 --d
-'PROD*'   'OPEN'   'GRATE'   2*   6200  2* 500    /
+'PROD*'   'OPEN'   'GRAT'   6200  500    /
 /
 
 --Start production only ----------------------------------------------
@@ -225,9 +229,8 @@ WCONPROD
 
 WCONINJE
 --d
---name type   openflag    mode    surface_rate   reservoir_rate    BHP     GRUP      salerate
-'INJ*'    Solvent    OPEN      RATE      4700             1*          4000    /
---'INJ*'    Solvent    OPEN      RATE      4700             1*          4000    GRUPSALE     1500  /
+--name      type   openflag    mode    surface_rate     BHP   
+'INJ*'    Solvent    OPEN      RATE      4700      4000    /
 /
 
 GRUPSALE
@@ -242,8 +245,13 @@ Solvent  0.0 /
 --Solvent  1.265803323851e-02      2.030943074536e-02      6.907216971342e-01      9.081774545472e-02      6.145986315317e-02      9.642452653099e-02      2.758627891860e-02      2.242478668454e-05     3.777943817519e-11      0.000000000000e+00 /
 --/
 
+--TSTEP
+--10*365 
+/
+
 TSTEP
-10*365 /
+10*365
+/
 
 
 END

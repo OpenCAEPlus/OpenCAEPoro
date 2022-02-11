@@ -29,8 +29,10 @@ public:
     /// Default constuctor.
     Perforation() = default;
 
-    /// TODO: Add Doxygen
+    /// Set state of perf
     void setState(const bool& flag) { state = flag; };
+    /// Return the location of perf: index of bulk
+    OCP_USI GetLoaction() { return location; }
 
 private:
     USI     I;        ///< I-index of Perforation in grid.

@@ -39,6 +39,7 @@ void Reservoir::ApplyControl(const USI& i)
     OCP_FUNCNAME;
 
     allWells.ApplyControl(i);
+    allWells.SetupWellGroup(bulk);
 }
 
 void Reservoir::PrepareWell()
@@ -87,8 +88,10 @@ void Reservoir::CalMaxChange()
 void Reservoir::CalIPRT(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
-
+    // Calculate injection / production rate for current step
     allWells.CalIPRT(bulk, dt);
+    // Calculate Reinjection fluid for next step
+    allWells.CalReInjFluid(bulk);
 }
 
 OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)

@@ -25,21 +25,40 @@ using namespace std;
 class WellGroup
 {
     friend class AllWells;
-private:
+
+public:
     WellGroup() = default;
+    WellGroup(const string& gname) :name(gname) {};
+
+private:
+
+    string name; ///< name of wellGroup
     vector<USI> wId; ///< Well index in wellGroup
-    vector<USI> wIdINJ; ///< Inj well index in wellGroup
-    vector<USI> wIdPROD; ///< Prod well index in wellGroup
-    OCP_DBL GOPR; ///< Group oil production rate
-    OCP_DBL GGPR; ///< Group gas production rate
-    OCP_DBL GWPR; ///< Group water production rate
-    OCP_DBL GOPT; ///< Group oil total production
-    OCP_DBL GGPT; ///< Group gas total production
-    OCP_DBL GWPT; ///< Group water total production
-    OCP_DBL GGIR; ///< Group gas injection rate
-    OCP_DBL GWIR; ///< Group water injection rate
-    OCP_DBL GGIT; ///< Group gas total injection
-    OCP_DBL GWIT; ///< Group gas total injection
+    vector<USI> wIdINJ; ///< Inj well index in AllWells
+    vector<USI> wIdPROD; ///< Prod well index in AllWells  
+    
+    // for Reinjection
+    bool reInj{false}; ///< if Reinjection happens
+    USI injPhase; ///< phase of injfluid, which decides zi
+    USI prodGroup{0}; ///< nominated group which supply reinjection
+    /// sale rate of current group, after times -xi, it will be passed to maxRate in injWell
+    OCP_DBL saleRate;
+    /// mole density of reinjection fluid in std, it will be passed to INJxi in opt of injwell
+    OCP_DBL xi;
+    /// mole fraction of components for Reinjection, it should be passed to injWell
+    vector<OCP_DBL> zi;
+    OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
+
+    OCP_DBL GOPR{0}; ///< Group oil production rate
+    OCP_DBL GGPR{0}; ///< Group gas production rate
+    OCP_DBL GWPR{0}; ///< Group water production rate
+    OCP_DBL GOPT{0}; ///< Group oil total production
+    OCP_DBL GGPT{0}; ///< Group gas total production
+    OCP_DBL GWPT{0}; ///< Group water total production
+    OCP_DBL GGIR{0}; ///< Group gas injection rate
+    OCP_DBL GWIR{0}; ///< Group water injection rate
+    OCP_DBL GGIT{0}; ///< Group gas total injection
+    OCP_DBL GWIT{0}; ///< Group gas total injection
 };
 
 
@@ -66,6 +85,8 @@ public:
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// complete the information of well according to Grid and Bulk.
     void SetupWell(const Grid& myGrid, const Bulk& myBulk);
+    /// Setup information of wellGroup
+    void SetupWellGroup(const Bulk& myBulk);
     /// get the mixture from bulk ---- usless now
     void SetupMixture(const Bulk& myBulk);
     /// Apply the operation mode at the ith critical time.
@@ -82,6 +103,8 @@ public:
     void CaldG(const Bulk& myBulk);
     /// Calculate Injection rate, total Injection, Production rate, total Production
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
+    /// Calculate Reinjection fluid
+    void CalReInjFluid(const Bulk& myBulk);
     /// Calculate memory for Matrix
     void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
     void UpdateLastBHP()
@@ -165,6 +188,7 @@ public:
 private:
     USI          numWell;   ///< num of wells.
     vector<Well> wells; ///< well set.
+    USI          numGroup; ///< num of groups
     vector<WellGroup> wellGroup; ///< wellGroup set
 
     vector<SolventINJ> solvents; ///< Sets of Solvent

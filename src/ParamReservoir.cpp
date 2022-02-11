@@ -679,7 +679,7 @@ void TableSet::DisplayTable() const
         const USI len = v[0].size();
         for (USI i = 0; i < len; i++) {
             for (USI j = 0; j < colNum; j++) {
-                cout << v[j][i] << "\t";
+                cout << setw(12) << v[j][i];
             }
             cout << "\n";
         }
@@ -708,6 +708,7 @@ void EoSparam::InputZI(ifstream& ifs)
         zi[i] = stod(vbuf[i]);
     }
     OCP_FUNCNAME;
+    cout << "Init Zi" << endl;
     for (USI i = 0; i < numComp; i++) {
         cout << zi[i] << "   ";
     }

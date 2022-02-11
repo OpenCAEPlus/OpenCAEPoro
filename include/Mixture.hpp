@@ -29,6 +29,7 @@ class Mixture
 {
     friend class Bulk;
     friend class Well;
+    friend class AllWells;
 
 public:
     Mixture() = default;

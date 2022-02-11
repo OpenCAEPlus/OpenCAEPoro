@@ -28,7 +28,6 @@ using namespace std;
 //    -- (5) Output summary and other results.
 int main(int argc, const char* argv[])
 {
-
     if (argc <= 1) {
         // Provide at least InputFileName for the input data
         cout << "Wrong number of arguments. Usage: " << argv[0] << " <InputFileName>"

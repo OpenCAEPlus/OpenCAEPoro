@@ -32,6 +32,12 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
 #endif // DEBUG
 
     myLS.AssembleMatLinearSolver();
+
+#ifdef DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+#endif // _DEBUG
+
+
     GetWallTime Timer;
     Timer.Start();
     int status = myLS.Solve();
@@ -43,9 +49,8 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
-#ifdef _DEBUG
-    /*myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");*/
+#ifdef DEBUG
+    myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     rs.GetSolutionIMPEC(myLS.GetSolution());

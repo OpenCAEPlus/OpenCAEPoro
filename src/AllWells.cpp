@@ -11,6 +11,7 @@
 
 #include "AllWells.hpp"
 
+
 /////////////////////////////////////////////////////////////////////
 // General
 /////////////////////////////////////////////////////////////////////
@@ -31,10 +32,10 @@ void AllWells::InputParam(const ParamWell& paramWell)
     vector<USI> wellCriticalTime;
     for (USI w = 0; w < numWell; w++) {
         wells[w].name  = paramWell.well[w].name;
+        wells[w].group = paramWell.well[w].group;
         wells[w].depth = paramWell.well[w].depth;
         wells[w].I     = paramWell.well[w].I - 1;
         wells[w].J     = paramWell.well[w].J - 1;
-
         wells[w].InputPerfo(paramWell.well[w]);
 
         // opt
@@ -70,6 +71,63 @@ void AllWells::SetupWell(const Grid& myGrid, const Bulk& myBulk)
         wells[w].Setup(myGrid, myBulk, solvents);
     }
 }
+
+
+void AllWells::SetupWellGroup(const Bulk& myBulk)
+{
+    wellGroup.clear();
+    // Field Group, contain all wells
+    wellGroup.push_back(WellGroup("Field"));
+    for (USI w = 0; w < numWell; w++) {
+        wellGroup[0].wId.push_back(w);
+        if (wells[w].WellType() == INJ)  
+            wellGroup[0].wIdINJ.push_back(w);
+        else 
+            wellGroup[0].wIdPROD.push_back(w);
+    }
+
+    // other subgroups
+    USI glen = 1;
+    USI g = 1;
+    for (USI w = 0; w < numWell; w++) {
+        for (g = 1; g < glen; g++) {
+            if (wells[w].group == wellGroup[g].name) {
+                // existing group
+                wellGroup[g].wId.push_back(w);
+                if (wells[w].WellType() == INJ)
+                    wellGroup[g].wIdINJ.push_back(w);
+                else
+                    wellGroup[g].wIdPROD.push_back(w);
+                break;
+            }
+        }
+        if (g == glen && wells[w].group != "Field") {
+            // new group
+            wellGroup.push_back(WellGroup(wells[w].group));
+            wellGroup[glen].wId.push_back(w);
+            if (wells[w].WellType() == INJ)  wellGroup[glen].wIdINJ.push_back(w);
+            else wellGroup[glen].wIdPROD.push_back(w);
+            glen++;
+        }
+    } 
+
+    numGroup = wellGroup.size();
+    // relation between wellGroup should be completed if "node groups" exist
+
+    // control of group should be update according to input file
+
+    // for test
+    if (true) {
+        wellGroup[0].reInj = true;
+        wellGroup[0].saleRate = 1500;
+        wellGroup[0].injPhase = GAS;
+        wellGroup[0].prodGroup = 0;
+    }
+    wellGroup[0].zi.resize(myBulk.GetComNum());
+    CalReInjFluid(myBulk);
+
+}
+
 
 void AllWells::SetupMixture(const Bulk& myBulk)
 {
@@ -187,11 +245,52 @@ void AllWells::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
     FWPT += FWPR * dt;
 }
 
+
+void AllWells::CalReInjFluid(const Bulk& myBulk)
+{
+    for (auto& wG : wellGroup) {
+        if (wG.reInj) {
+            const USI nc = myBulk.GetComNum();
+            const USI np = myBulk.GetPhaseNum();
+            fill(wG.zi.begin(), wG.zi.end(), 0.0);
+            for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
+                Daxpy(nc, 1.0, &wells[prod].qi_lbmol[0], &wG.zi[0]);
+            }
+            OCP_DBL qt = Dnorm1(nc, &wG.zi[0]);
+            if (fabs(qt) < 1E-8) {
+                // Recalculate zi
+                fill(wG.zi.begin(), wG.zi.end(), 0.0);
+                for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
+                    wells[prod].CalReInjFluid(myBulk, wG.zi);
+                }
+                qt = Dnorm1(nc, &wG.zi[0]);
+            }
+            flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &wG.zi[0]);
+            Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.injPhase * nc]);
+            wG.xi = flashCal[0]->xi[wG.injPhase];
+            wG.factor = wG.xi * flashCal[0]->v[wG.injPhase] / qt;
+            // assign to every open injection well in wG
+            for (auto& w : wG.wIdINJ) {
+                if (wells[w].WellState()) {
+                    wells[w].opt.reInj = true;
+                    wells[w].opt.connWell = wG.wIdPROD;
+                    wells[w].opt.injPhase = wG.injPhase;
+                    wells[w].opt.zi = wG.zi;
+                    wells[w].opt.xiINJ = wG.xi;
+                    wells[w].opt.factor = wG.factor;
+                    wells[w].opt.maxRate = -wG.saleRate * wG.xi * 1000; // Mscf -> ft3 -> lbmol
+                }
+            }
+        }
+    }
+}
+
+
 void AllWells::AllocateMat(LinearSystem& myLS, const USI& bulknum) const
 {
     OCP_FUNCNAME;
 
-    USI maxNum = GetMaxWellPerNum() + 1;
+    USI maxNum = (GetMaxWellPerNum() + 1) * numWell;
     for (USI w = 0; w < numWell; w++) {
         wells[w].AllocateMat(myLS);
         myLS.EnlargeRowCap(bulknum + w, maxNum);
@@ -328,7 +427,6 @@ void AllWells::AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
-
             switch (wells[w].WellType()) {
                 case INJ:
                     wells[w].AssembleMatINJ_IMPEC(myBulk, myLS, dt);
@@ -341,6 +439,18 @@ void AllWells::AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
             }
         }
     }
+
+    // for Reinjection
+    for (auto& wG : wellGroup) {
+        if (wG.reInj) {
+            for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
+                if (wells[prod].WellState()) {
+                    wells[prod].AssembleMatReinjection_IMPEC(myBulk, myLS, dt, wells, wG.wIdINJ);
+                }
+            }
+        }
+    }
+
 }
 
 void AllWells::GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId)
@@ -381,6 +491,17 @@ void AllWells::AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
             }
         }
     }
+
+    // for Reinjection
+    for (auto& wG : wellGroup) {
+        if (wG.reInj) {
+            for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
+                if (wells[prod].WellState()) {
+                    wells[prod].AssembleMatReinjection_FIM(myBulk, myLS, dt, wells, wG.wIdINJ);
+                }
+            }
+        }
+    }
 }
 
 void AllWells::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len)
@@ -417,7 +538,7 @@ void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) 
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
-            wells[w].CalResFIM(resFIM, myBulk, dt, wId);
+            wells[w].CalResFIM(resFIM, myBulk, dt, wId, wells);
             wId++;
         }
     }

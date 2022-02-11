@@ -48,6 +48,7 @@ public:
 class WellOpt
 {
     friend class Well;
+    friend class AllWells;
 
 public:
     /// Default constructor.
@@ -64,6 +65,7 @@ private:
     bool   state{false}; ///< state of well, close or open.
     USI optMode; ///< control mode of well: constant pressure, or constant flow rate of
                  ///< specified fluids.
+    USI initOptMode; ///< Init opt mode during current step
     /// it gives the upper limit of flow rate of specified fluids if the well is under
     /// the control of constant pressure. it gives the flow rate of specified fluids if
     /// the well is under the control of constant flow rate.
@@ -83,12 +85,12 @@ private:
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
     vector<OCP_DBL> zi;
-
+    OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
     // for Reinjection
-    /// the amount of Reinjection equals the amount of total production minus saleVal
-    /// it's less than zero defaulted, then no Reinjection.
-    /// Just a test now, it's not complete
-    OCP_DBL saleVal{ 1500 };
+    bool reInj{false}; ///< if true, reinjection happens
+    USI injPhase; ///< phase of Reinjection fluid
+    OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
+    vector<USI> connWell; ///< Well which connects to current Well
 };
 
 /// Well class defines well, and any operations referred to wells are in it.
@@ -140,6 +142,8 @@ public:
     void CalProddG(const Bulk& myBulk);
     /// Calculate the Prodweight
     void CalProdWeight(const Bulk& myBulk) const;
+    /// Calculate the contribution of production well to reinjection defaulted
+    void CalReInjFluid(const Bulk& myBulk, vector<OCP_DBL>& myZi);
     /// Set BHP if opt mode is BHPMode
     void SetBHP();
     /// Try to smooth the dG by average it with dG at last time step.
@@ -161,8 +165,6 @@ public:
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; }
-    /// If Reinjection happens
-    bool WellReinjection() const { return opt.saleVal > 0 ? true : false; }
     /// Return Pressure of Perf p
     OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
@@ -171,6 +173,7 @@ public:
 
 private:
     string  name; ///< well name
+    string  group; ///< group well belongs to, it should be moved to opt if necessary!!!
     USI     wEId;  ///< well index in allWells, closed well is excluded, it's the well index in equations
     USI     I;    ///< I-index of the well header.
     USI     J;    ///< J-index of the well header.
@@ -190,7 +193,7 @@ private:
     // production rate and injection rate
     vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing
                               ///< well: num of components.
-    OCP_DBL xiINJ;               ///< molar density of injfluid in Compositional Model, used in units swifting
+    
     USI  Mtype;               ///< Mixture Type
     mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
@@ -226,7 +229,7 @@ public:
     /// Assemble matrix for Reinjection Well, used in production well when injection
     /// well is under RATE control
     void AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt, const Well& injWell) const;
+        const OCP_DBL& dt, const vector<Well>& allWell, const vector<USI>& injId) const;
 
 
     /////////////////////////////////////////////////////////////////////
@@ -240,9 +243,13 @@ public:
     /// Assemble matrix for FIM, parts related to Production well are included.
     void AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
                                 const OCP_DBL& dt) const;
+    /// Assemble matrix for Reinjection Well, used in production well when injection
+    /// well is under RATE control
+    void AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt, const vector<Well>& allWell, const vector<USI>& injId) const;
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
-                   const OCP_USI& wId) const;
+                   const OCP_USI& wId, const vector<Well>& allWell) const;
 };
 
 #endif /* end if __WELL_HEADER__ */
