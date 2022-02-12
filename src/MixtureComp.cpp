@@ -209,7 +209,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_D
 	// hydrocarbon
 	CaldXsdXp(v[Wpid], vwp);
 	CalRhoPX();
-	// CalMuPX();
+	CalMuPX();
 	// Correct Sj
 	CalSaturation();
 

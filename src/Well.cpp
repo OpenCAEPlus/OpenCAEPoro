@@ -162,6 +162,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             // Use flash in Bulk in surface condition
                             opt.xiINJ = myBulk.flashCal[0]->XiPhase(PRESSURE_STD, TEMPERATURE_STD, &opt.zi[0]);
                             opt.maxRate *= (opt.xiINJ * 1000); // lbmol / ft3 -> lbmol / Mscf for gas
+                            int tmp = 1;
                             break;
                         }
                         if (i == len - 1) {
@@ -819,7 +820,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             }
             factor[0] = 0;
             factor[1] = 0;
-            if (myBulk.flashCal[0]->phaseExist[0]) {
+            if (myBulk.flashCal[0]->phaseExist[0]) { // improve
                 OCP_DBL nuo = myBulk.flashCal[0]->xi[0] * myBulk.flashCal[0]->v[0] / qt; // mole fraction of oil phase
                 factor[0] = nuo / (myBulk.flashCal[0]->xi[0] * CONV1); // lbmol / ft3 -> lbmol / stb for oil
             }
@@ -1314,6 +1315,7 @@ void Well::AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
     USI tlen = tarId.size();
     if (tlen > 0) {
         const OCP_DBL factor = allWell[injId[0]].opt.factor * dt;
+        // cout << "Factor(assemble):   " << allWell[injId[0]].opt.factor << endl;
         const OCP_USI prodId = wEId + myBulk.numBulk;
         USI np = myBulk.numPhase;
         OCP_USI n, bId;
@@ -1482,7 +1484,8 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
-                    Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
+                    // Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
+                    Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
                 }
                 myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
                 myLS.colId[wId].push_back(n);
@@ -1706,6 +1709,8 @@ void Well::AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL factor = allWell[injId[0]].opt.factor;
         const OCP_USI prodId = wEId + myBulk.numBulk;
 
+        cout << "Factor(assemble):    " << factor << endl;
+
         const USI np = myBulk.numPhase;
         const USI nc = myBulk.numCom;
         const USI ncol = nc + 1;
@@ -1772,7 +1777,8 @@ void Well::AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
             // for Prod Well, be careful!
             for (USI i = 0; i < nc; i++) {
-                tmpMat[0] -= dQdXpW[(i + 1) * ncol] * factor;
+                // tmpMat[0] -= dQdXpW[(i + 1) * ncol] * factor;
+                tmpMat[0] += dQdXpW[(i + 1) * ncol] * factor;
             }
 
             // for perf(bulk) of Prod Well
@@ -1782,7 +1788,8 @@ void Well::AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < nc; i++) {
                 // becareful '-' before factor
-                Daxpy(ncol, -factor, bmat.data() + (i + 1) * ncol, bmat2.data());
+                // Daxpy(ncol, -factor, bmat.data() + (i + 1) * ncol, bmat2.data());
+                Daxpy(ncol, factor, bmat.data() + (i + 1) * ncol, bmat2.data());
             }
             
             // Insert bulk val into equations in ascending order
@@ -1865,10 +1872,17 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                 }
                 if (opt.reInj) {
                     for (auto& w : opt.connWell) {
+                        OCP_DBL tmp = 0;
                         for (USI i = 0; i < nc; i++) {
-                            resFIM.res[bId] += opt.factor * allWell[w].qi_lbmol[i];
+                            tmp += allWell[w].qi_lbmol[i];
+                            // tmp += opt.factor * allWell[w].qi_lbmol[i];
+                            // resFIM.res[bId] += opt.factor * allWell[w].qi_lbmol[i];
                         }
-                    }
+                        tmp *= opt.factor;
+                        resFIM.res[bId] += tmp;
+                        // cout << "Temp(INJ):    " << tmp / opt.xiINJ / 1000 << endl;
+                    }               
+                    // cout << "Factor(res)    " << opt.factor << endl;
                 }
                 // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
@@ -1893,9 +1907,13 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
             case WRATE_MODE:
             case LRATE_MODE:
                 resFIM.res[bId] = -opt.maxRate;
+                OCP_DBL tmp = 0;
                 for (USI i = 0; i < nc; i++) {
+                    tmp += qi_lbmol[i] * prodWeight[i];
                     resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
                 }
+                // cout << "Temp(Prod):   " << tmp << endl;
+                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
                 break;

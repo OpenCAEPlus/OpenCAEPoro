@@ -117,7 +117,7 @@ void AllWells::SetupWellGroup(const Bulk& myBulk)
     // control of group should be update according to input file
 
     // for test
-    if (true) {
+    if (false) {
         wellGroup[0].reInj = true;
         wellGroup[0].saleRate = 1500;
         wellGroup[0].injPhase = GAS;
@@ -281,6 +281,10 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                     wells[w].opt.maxRate = -wG.saleRate * wG.xi * 1000; // Mscf -> ft3 -> lbmol
                 }
             }
+            //for (USI i = 0; i < nc; i++) {
+            //    cout << scientific << wG.zi[i] << "   ";
+            //}
+            //cout << endl;
         }
     }
 }
