@@ -1907,9 +1907,7 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
             case WRATE_MODE:
             case LRATE_MODE:
                 resFIM.res[bId] = -opt.maxRate;
-                OCP_DBL tmp = 0;
                 for (USI i = 0; i < nc; i++) {
-                    tmp += qi_lbmol[i] * prodWeight[i];
                     resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
                 }
                 // cout << "Temp(Prod):   " << tmp << endl;
