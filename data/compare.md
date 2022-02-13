@@ -3,7 +3,10 @@
 ![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe1a\compare.png)
 
 ```
+---------------------------------------------------
 PS_IMPES_1
+
+0.1  1  0.1
 
 Final time:          3655.5 Days
 Total time steps:    5533
@@ -12,19 +15,22 @@ Total linear steps:  8828
 Linear solver time:  0.932773s
 Simulation time:     2.44659s
 
-
+---------------------------------------------------
 OCP_IMPES_1
+
+0.1  1  0.1
 
 Final time:          3655.500 Days
 Total time steps:    4661
 Total Newton steps:  4661 (+51 wasted steps)
 Total linear steps:  7785 (+99 wasted steps)
-Linear solve time:   0.786s (58.841%)
-Simulation time:     1.337s
+Linear solve time:   0.794s (59.696%)
+Simulation time:     1.331s
 
-
-
+---------------------------------------------------
 PS_FIM_10
+
+1  10  0.1
 
 Final time:          3655.5 Days
 Total time steps:    420
@@ -34,15 +40,34 @@ Total linear steps:  1235
 Linear solver time:  3.62965s
 Simulation time:     4.08421s
 
-
+---------------------------------------------------
 OCP_FIM_10
+
+1  10  0.1
+
+precond_type             = 64
 
 Final time:          3655.500 Days
 Total time steps:    420
 Total Newton steps:  474 (+1 wasted steps)
 Total linear steps:  1414 (+4 wasted steps)
-Linear solve time:   5.004s (94.434%)
-Simulation time:     5.299s
+Linear solve time:   4.950s (94.546%)
+Simulation time:     5.235s
+
+---------------------------------------------------
+OCP_FIM_10
+
+1  10  0.1
+
+precond_type             = 69
+
+Final time:          3655.500 Days
+Total time steps:    420
+Total Newton steps:  480 (+1 wasted steps)
+Total linear steps:  6288 (+18 wasted steps)
+Linear solve time:   0.456s (60.876%)
+Simulation time:     0.749s
+
 
 ```
 
@@ -53,9 +78,10 @@ Simulation time:     5.299s
 ![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe1b\compare.png)
 
 ```
-
+---------------------------------------------------
 PS_IMPES_1
 
+0.1  1  0.1
 
 Final time:          3655.5 Days
 Total time steps:    4168
@@ -64,18 +90,22 @@ Total linear steps:  7601
 Linear solver time:  0.824397s
 Simulation time:     1.99241s
 
-
+---------------------------------------------------
 OCP_IMPES_1
+
+0.1  1  0.1
 
 Final time:          3655.500 Days
 Total time steps:    3858
 Total Newton steps:  3858 (+19 wasted steps)
 Total linear steps:  7215 (+35 wasted steps)
-Linear solve time:   0.666s (59.798%)
-Simulation time:     1.114s
+Linear solve time:   0.678s (60.894%)
+Simulation time:     1.113s
 
-
+---------------------------------------------------
 PS_FIM_10
+
+1  10  0.1
 
 Final time:          3655.5 Days
 Total time steps:    420
@@ -85,8 +115,12 @@ Total linear steps:  1212
 Linear solver time:  2.6363s
 Simulation time:     3.08908s
 
-
+---------------------------------------------------
 OCP_FIM_10
+
+1  10  0.1
+
+precond_type             = 64
 
 Final time:          3655.500 Days
 Total time steps:    420
@@ -94,6 +128,20 @@ Total Newton steps:  502 (+1 wasted steps)
 Total linear steps:  1495 (+4 wasted steps)
 Linear solve time:   3.356s (91.629%)
 Simulation time:     3.663s
+
+---------------------------------------------------
+OCP_FIM_10
+
+1  10  0.1  
+
+precond_type             = 69
+
+Final time:          3655.500 Days
+Total time steps:    421
+Total Newton steps:  507 (+1 wasted steps)
+Total linear steps:  6362 (+19 wasted steps)
+Linear solve time:   0.469s (61.180%)
+Simulation time:     0.767s
 ```
 
 
@@ -103,7 +151,10 @@ Simulation time:     3.663s
 ![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\1111\spe9\compare.png)
 
 ```
+---------------------------------------------------
 PS_IMEPS_1
+
+0.1  1  0.1
 
 Final time:          900 Days
 Total time steps:    7767
@@ -112,20 +163,24 @@ Total linear steps:  12465
 Linear solver time:  57.9099s
 Simulation time:     276.62s
 
-
+---------------------------------------------------
 OCP_IMPES_1
+
+0.1  1  0.1
+dPlim  dSlim   dNlim   dVerrlim
+300     0.0005    0.3    0.001
 
 Final time:          900.000 Days
 Total time steps:    7492
-Total Newton steps:  7492
-Wasted Newton steps: 42
-Wasted linear steps: 95
-Simulation time:     93.851s
-Total linear steps:  9903
-Linear solve time:   57.371s (61.130%)
+Total Newton steps:  7492 (+42 wasted steps)
+Total linear steps:  9903 (+95 wasted steps)
+Linear solve time:   54.309s (62.283%)
+Simulation time:     87.197s
 
-
+---------------------------------------------------
 PS_FIM_10
+
+1  10  0.1
 
 Final time:          900 Days
 Total time steps:    157
@@ -135,15 +190,33 @@ Total linear steps:  1061
 Linear solver time:  12.3944s
 Simulation time:     27.515s
 
-
+---------------------------------------------------
 OCP_FIM_10
+
+1  10  0.1
+
+precond_type             = 64
 
 Final time:          900.000 Days
 Total time steps:    161
 Total Newton steps:  225 (+58 wasted steps)
 Total linear steps:  854 (+247 wasted steps)
-Linear solve time:   13.387s (67.102%)
-Simulation time:     19.949s
+Linear solve time:   12.950s (67.510%)
+Simulation time:     19.182s
+
+---------------------------------------------------
+OCP_FIM_10
+
+1  10  0.1
+
+precond_type             = 69
+
+Final time:          900.000 Days
+Total time steps:    162
+Total Newton steps:  227 (+60 wasted steps)
+Total linear steps:  3260 (+808 wasted steps)
+Linear solve time:   8.466s (56.374%)
+Simulation time:     15.017s
 ```
 
 
@@ -169,20 +242,12 @@ OCP_FIM
 
 Final time:          2000.000 Days
 Total time steps:    53
-Total Newton steps:  217
-Wasted Newton steps: 5
-Simulation time:     1937.163s
-Total linear steps:  1334
-Linear solve time:   1463.019s (75.524%)
+Total Newton steps:  217 (+5 wasted steps)
+Total linear steps:  1294 (+40 wasted steps)
+Linear solve time:   1424.577s (75.943%)
+Simulation time:     1875.844s
 
 
-Final time:          2000.000 Days
-Total time steps:    53
-Total Newton steps:  214
-Wasted Newton steps: 5
-Simulation time:     2015.620s
-Total linear steps:  1314
-Linear solve time:   1531.146s (75.964%)
 ```
 
 
@@ -194,10 +259,10 @@ Linear solve time:   1531.146s (75.964%)
 
 
 ```
-网格规模较少，使用 Pardiso 直接法进行求解
-
-
+---------------------------------------------------
 PS_IMPEC_1
+
+0.1  1  0.1
 
 Final time:          1000.000 Days
 Total time steps:    4541
@@ -206,18 +271,22 @@ Total linear steps:  4543
 Linear solver time:  2.269s
 Simulation time:     28.627s
 
-
+---------------------------------------------------
 OCP_IMPEC_1
+
+0.1  1  0.1
 
 Final time:          1000.000 Days
 Total time steps:    2003
 Total Newton steps:  2003 (+3 wasted steps)
 Total linear steps:  13544 (+35 wasted steps)
-Linear solve time:   0.043s (40.780%)
-Simulation time:     0.106s
+Linear solve time:   0.043s (41.612%)
+Simulation time:     0.103s
 
-
+---------------------------------------------------
 PS_FIM_10
+
+1  10  0.1
 
 Final time:          1000.000 Days
 Total time steps:    145
@@ -227,17 +296,18 @@ Total linear steps:  263
 Linear solver time:  0.745s
 Simulation time:     1.654s
 
-
+---------------------------------------------------
 OCP_FIM_10
+
+1  10  0.1
+precond_type             = 69
 
 Final time:          1000.000 Days
 Total time steps:    143
 Total Newton steps:  245 (+6 wasted steps)
 Total linear steps:  2290 (+57 wasted steps)
-Linear solve time:   0.037s (44.159%)
-Simulation time:     0.085s
-
-
+Linear solve time:   0.034s (42.420%)
+Simulation time:     0.079s
 
 ```
 
@@ -297,8 +367,8 @@ Final time:          7305.000 Days
 Total time steps:    12460
 Total Newton steps:  12460 (+51 wasted steps)
 Total linear steps:  18938 (+100 wasted steps)
-Linear solve time:   1.247s (1.736%)
-Simulation time:     71.844s
+Linear solve time:   1.244s (1.772%)
+Simulation time:     70.237s
 
 Method     iters     maxIt    tol
 SSMSTA   61652064     100    1E-12
@@ -315,42 +385,87 @@ Total time steps:    21060
 Total Newton steps:  23072
 Wasted Newton steps: 13992
 Total linear steps:  55425
-Linear solver time:  76.2139s
-Simulation time:     313.632s
+Linear solver time:  74.4161s
+Simulation time:     288.01s
+
+Method     iters     maxIt    tol
+SSMSTA   312298023     100    1E-12
+SSMSP    15015547     100    1E-6
+NRSP     5624310      55     1E-12
+
+------------------------------------------------------
+OCP_FIM
+
+1  10  0.1
+precond_type             = 64
+
+Final time:          7305.000 Days
+Total time steps:    1908
+Total Newton steps:  3007 (+2987 wasted steps)
+Total linear steps:  7282 (+6728 wasted steps)
+Linear solve time:   24.216s (34.318%)
+Simulation time:     70.562s
+
+Method     iters     maxIt    tol
+SSMSTA   39656359     100    1E-12
+SSMSP    15674142     100    1E-6
+NRSP     367994       55     1E-12
+
+// add muP, mux
+
+Final time:          7305.000 Days
+Total time steps:    1728
+Total Newton steps:  2788 (+2285 wasted steps)
+Total linear steps:  7260 (+5406 wasted steps)
+Linear solve time:   24.260s (37.009%)
+Simulation time:     65.550s
+
+Method     iters     maxIt    tol
+SSMSTA   32395484     100    1E-12
+SSMSP    13511784     100    1E-6
+NRSP     354268       55     1E-12
 
 ------------------------------------------------------
 OCP_FIM
 
 1  10  0.01
+precond_type             = 69
 
 Final time:          7305.000 Days
-Total time steps:    2688
-Total Newton steps:  3740 (+1908 wasted steps)
-Total linear steps:  7796 (+4190 wasted steps)
-Linear solve time:   21.751s (33.347%)
-Simulation time:     65.226s
+Total time steps:    2000
+Total Newton steps:  2908 (+3888 wasted steps)
+Total linear steps:  16701 (+15006 wasted steps)
+Linear solve time:   5.784s (10.063%)
+Simulation time:     57.475s
 
-// modify dXsdXp
-Final time:          7305.000 Days
-Total time steps:    2738
-Total Newton steps:  3741 (+1758 wasted steps)
-Total linear steps:  7674 (+3945 wasted steps)
-Linear solve time:   21.070s (32.985%)
-Simulation time:     63.877s
+Method     iters     maxIt    tol
+SSMSTA    45609608    100    1E-12
+SSMSP     16616453    100    1E-6
+NRSP      386537      55     1E-12
 
-// modify dXsdXp and muP,mux
-// time-consuming, no improvement
+// add muP, mux
+
 Final time:          7305.000 Days
-Total time steps:    3314
-Total Newton steps:  4466 (+1972 wasted steps)
-Total linear steps:  8788 (+4545 wasted steps)
-Linear solve time:   23.122s (29.526%)
-Simulation time:     78.309s
+Total time steps:    1904
+Total Newton steps:  2955 (+3530 wasted steps)
+Total linear steps:  17607 (+14676 wasted steps)
+Linear solve time:   5.586s (9.805%)
+Simulation time:     56.973s
+
+Method     iters     maxIt    tol
+SSMSTA    42671997     100    1E-12
+SSMSP     16064087     100    1E-6
+NRSP      403550       55     1E-12
+
 ```
 
 
 
 ### SPE3
+
+![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\20220129\spe3\compare.png)
+
+饱和度误差均在 5% 以内
 
 ```
 ------------------------------------------------------
@@ -383,15 +498,13 @@ Final time:          3650.000 Days
 Total time steps:    3670
 Total Newton steps:  3670 (+0 wasted steps)
 Total linear steps:  7519 (+0 wasted steps)
-Linear solve time:   1.221s (0.662%)
-Simulation time:     184.439s
+Linear solve time:   1.146s (0.636%)
+Simulation time:     180.118s
 
 Method     iters     maxIt    tol
 SSMSTA    67713430    100    1E-12
 SSMSP     93631466    100    1E-6
 NRSP      1866917     55     1E-12
-
-
 
 ------------------------------------------------------
 PS_FIM
@@ -400,23 +513,78 @@ PS_FIM
 
 Final time:          3650 Days
 Total time steps:    390
-Total Newton steps:  596
-Total linear steps:  954
-Linear solver time:  6.11755s
-Simulation time:     42.1949s
+Total Newton steps:  588
+Total linear steps:  941
+Linear solver time:  5.61642s
+Simulation time:     39.5691s
 
-
+Method     iters     maxIt    tol
+SSMSTA   17690167   300    1E-12  1E-2
+SSMSP    3674930     100    1E-5
+NRSP     1222903      55     1E-12
 
 ------------------------------------------------------
 OCP_FIM
 
 1  10  0.1
+precond_type             = 64
 
 Final time:          3650.000 Days
-Total time steps:    393
-Total Newton steps:  578 (+1 wasted steps)
-Total linear steps:  915 (+2 wasted steps)
-Linear solve time:   7.280s (16.977%)
-Simulation time:     42.882s
+Total time steps:    391
+Total Newton steps:  946 (+0 wasted steps)
+Total linear steps:  1490 (+0 wasted steps)
+Linear solve time:   11.052s (16.918%)
+Simulation time:     65.329s
+
+Method     iters     maxIt    tol
+SSMSTA    18195829    100    1E-12
+SSMSP     26238483    100    1E-6
+NRSP      490134      55     1E-12
+
+// add muP, mux
+
+Final time:          3650.000 Days
+Total time steps:    392
+Total Newton steps:  945 (+0 wasted steps)
+Total linear steps:  1494 (+0 wasted steps)
+Linear solve time:   10.733s (15.812%)
+Simulation time:     67.880s
+
+Method     iters     maxIt    tol
+SSMSTA    18270127    100    1E-12
+SSMSP     26270329    100    1E-6
+NRSP      488716      55     1E-12
+
+------------------------------------------------------
+OCP_FIM
+
+1  10  0.1
+precond_type             = 69
+
+Final time:          3650.000 Days
+Total time steps:    391
+Total Newton steps:  935 (+0 wasted steps)
+Total linear steps:  12584 (+0 wasted steps)
+Linear solve time:   6.671s (10.947%)
+Simulation time:     60.936s
+
+Method     iters     maxIt    tol
+SSMSTA    18022938    100    1E-12
+SSMSP     26019262    100    1E-6
+NRSP      485021      55     1E-12
+
+// add muP, mux
+
+Final time:          3650.000 Days
+Total time steps:    392
+Total Newton steps:  937 (+0 wasted steps)
+Total linear steps:  12573 (+0 wasted steps)
+Linear solve time:   6.673s (10.534%)
+Simulation time:     63.347s
+
+Method     iters     maxIt    tol
+SSMSTA    18133478    100    1E-12
+SSMSP     26093436    100    1E-6
+NRSP      484957      55     1E-12
 ```
 

@@ -1483,8 +1483,7 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
                 DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
-                for (USI i = 0; i < nc; i++) {
-                    // Daxpy(ncol, opt.zi[i], bmat.data() + (i + 1) * ncol, bmat2.data());
+                for (USI i = 0; i < nc; i++) {                   
                     Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
                 }
                 myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
@@ -1709,7 +1708,7 @@ void Well::AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL factor = allWell[injId[0]].opt.factor;
         const OCP_USI prodId = wEId + myBulk.numBulk;
 
-        cout << "Factor(assemble):    " << factor << endl;
+        // cout << "Factor(assemble):    " << factor << endl;
 
         const USI np = myBulk.numPhase;
         const USI nc = myBulk.numCom;

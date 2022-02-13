@@ -209,7 +209,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_D
 	// hydrocarbon
 	CaldXsdXp(v[Wpid], vwp);
 	CalRhoPX();
-	CalMuPX();
+	// CalMuPX();
 	// Correct Sj
 	CalSaturation();
 
@@ -719,7 +719,7 @@ bool MixtureComp::StableSSM(const USI& Id)
 		// of rounding error, on the other hand, if Yt is too close to 1, phase splitting
 		// calculation may get into trouble and single phase is indentified finally
 		if (flag && Yt > 1 + eYt) {
-			// SSMSTAiters += iter;
+			SSMSTAiters += iter;
 			return false;
 		}
 	}
@@ -727,7 +727,7 @@ bool MixtureComp::StableSSM(const USI& Id)
 	/*if (!flag) {
 		OCP_WARNING("SSM not converged in Stability Analysis");
 	}*/
-	// SSMSTAiters += iter;
+	SSMSTAiters += iter;
 	return true;
 }
 
@@ -1028,7 +1028,7 @@ void MixtureComp::SplitSSM2(const bool& flag)
 	}
 
 	EoSctrl.SSMsp.realTol = Se;
-	// SSMSPiters += iter;
+	SSMSPiters += iter;
 }
 
 void MixtureComp::SplitSSM3(const bool& flag)
@@ -1209,7 +1209,7 @@ void MixtureComp::SplitNR()
 	EoSctrl.NRsp.realTol = eNR;
 	if (eNR < NRtol)
 		EoSctrl.NRsp.conflag = true;
-	// NRSPiters += iter;
+	NRSPiters += iter;
 }
 
 
