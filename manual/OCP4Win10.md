@@ -48,7 +48,7 @@ After obtained the package, run:
 cd faspsolver; mkdir Build; cd Build
 ```
 
-(*Note: The **;**-notation only works in **PowerShell**; if you use plain **cmd**, you need to run three commands one by one! *)
+Note: The **;** notation only works in **PowerShell**; if you use plain **cmd**, you need to run three commands one by one!
 
 Now you can generate a VS2022 solution with MKL Pardiso support
 
