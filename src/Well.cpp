@@ -979,6 +979,8 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
             k            = perf[p].location;
             OCP_DBL minP = myBulk.P[k];
             if (perf[p].state == OPEN && minP < perf[p].P) {
+                cout << "Well P  " << perf[p].P << "   "
+                     << "Bulk P  " << minP << endl;
                 perf[p].state      = CLOSE;
                 perf[p].multiplier = 0;
                 flagC              = false;
@@ -992,6 +994,8 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
         for (USI p = 0; p < numPerf; p++) {
             k = perf[p].location;
             if (perf[p].state == OPEN && myBulk.P[k] > perf[p].P) {
+                cout << "Well P  " << perf[p].P << "   "
+                     << "Bulk P  " << myBulk.P[k] << endl;
                 perf[p].state      = CLOSE;
                 perf[p].multiplier = 0;
                 flagC              = false;
@@ -1017,7 +1021,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
         // open the depthest perf
         perf.back().state      = OPEN;
         perf.back().multiplier = 1;
-        cout << "###WARNING: All perfs are closed, open the last perf!\n";
+        cout << "###WARNING: " << name << ":  All perfs are closed, open the last perf!\n";
     }
 
     if (!flagC) {

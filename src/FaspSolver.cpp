@@ -352,6 +352,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     b.val = rhs.data();
     x.row = nrow;
     x.val = u.data();
+
     // fsc & order
     fsc.row   = nrow;
     order.row = nrow;
@@ -392,6 +393,22 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
             count2++;
         }
     }
+
+#ifdef _DEBUG
+    // check x and b  ----  for test
+    for (OCP_USI i = 0; i < nrow; i++) {
+        if (!isfinite(b.val[i]))
+            OCP_ABORT("vFasp b is infinite!");
+        if (!isfinite(x.val[i]))
+            OCP_ABORT("vFasp x is infinite!");
+    }
+    // check A ----  for test
+    for (OCP_USI i = 0; i < A.NNZ; i++) {
+        if (!isfinite(A.val[i]))
+            OCP_ABORT("vFasp A is infinite!");
+    }
+#endif // DEBUG
+    
 }
 
 OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)

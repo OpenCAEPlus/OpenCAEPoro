@@ -28,7 +28,7 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
 #ifdef _DEBUG
-    myLS.CheckVal();
+    myLS.CheckEquation();
 #endif // DEBUG
 
     myLS.AssembleMatLinearSolver();
@@ -155,7 +155,7 @@ void OCP_FIM::AssembleMat(LinearSystem& myLS, const Reservoir& rs,
 void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
 #ifdef _DEBUG
-    myLS.CheckVal();
+    myLS.CheckEquation();
 #endif // DEBUG
 
     myLS.AssembleMatLinearSolver();
@@ -169,8 +169,9 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     // cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
-    //myLS.OutputLinearSystem("testA.out", "testb.out");
-    //myLS.OutputSolution("testx.out");
+    // myLS.OutputLinearSystem("testA.out", "testb.out");
+    // myLS.OutputSolution("testx.out");
+    myLS.CheckSolution();
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);

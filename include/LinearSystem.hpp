@@ -45,10 +45,13 @@ public:
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
 
+    
     /// Return the solution.
     vector<OCP_DBL>& GetSolution() { return u; }
-    /// Check whether NAN or INF occurs in solution, used in debug mode.
-    void CheckVal() const;
+    /// Check whether NAN or INF occurs in equations, used in debug mode.
+    void CheckEquation() const;
+    /// Check whether NAN or INF occurs in solutions, used in debug mode.
+    void CheckSolution() const;
     /// Output the mat and rhs to fileA and fileb. // TODO: output to some obj?
     void OutputLinearSystem(const string& fileA, const string& fileb) const;
     /// Output the solution to a disk file name.

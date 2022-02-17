@@ -111,13 +111,31 @@ void LinearSystem::OutputSolution(const string& fileU) const
     outu.close();
 }
 
-void LinearSystem::CheckVal() const
+void LinearSystem::CheckEquation() const
 {
+    // check A
     for (OCP_USI n = 0; n < dim; n++) {
         for (auto v : val[n]) {
             if (!isfinite(v)) {
                 OCP_ABORT("NAN or INF in MAT");
             }
+        }
+    }
+    // check b
+    OCP_USI len = dim * blockDim;
+    for (OCP_USI n = 0; n < len; n++) {
+        if (!isfinite(b[n])) {
+            OCP_ABORT("NAN or INF in rhs");
+        }
+    }
+}
+
+void LinearSystem::CheckSolution() const
+{
+    OCP_USI len = dim * blockDim;
+    for (OCP_USI n = 0; n < len; n++) {
+        if (!isfinite(u[n])) {
+            OCP_ABORT("NAN or INF in u");
         }
     }
 }

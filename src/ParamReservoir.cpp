@@ -629,7 +629,7 @@ void ParamReservoir::CheckDenGra() const
 /// TODO: Add Doxygen
 void ParamReservoir::CheckPhase() const
 {
-    if (blackOil & disGas && (!gas && !oil)) {
+    if (blackOil && disGas && (!gas && !oil)) {
         OCP_ABORT("DISGAS can only be used only if OIL and GAS are both present!");
     }
 }
