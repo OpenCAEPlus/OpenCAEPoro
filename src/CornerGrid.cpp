@@ -551,8 +551,6 @@ void ConnGrid::Allocate(const USI& max_neighbor)
 void ConnGrid::AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D& d,
                            const USI& direction, const OCP_DBL& flag)
 {
-
-    
     if (nConn >= maxConn) {
         maxConn *= 2;
         halfConn.resize(maxConn);
@@ -858,16 +856,17 @@ void COORD::SetupCornerPoints()
     OCP_INT iznnc;
     Point3D dxpoint, dypoint, dzpoint;
 
-    // test
-    cornerPoints[9][0][0].p0; cornerPoints[9][0][0].p1;
-    cornerPoints[9][0][0].p2; cornerPoints[9][0][0].p3;
-    cornerPoints[9][0][0].p4; cornerPoints[9][0][0].p5;
-    cornerPoints[9][0][0].p6; cornerPoints[9][0][0].p7;
+    // test 
+    // ( 14,  2, 73) ( 14,  3, 75)
+    cornerPoints[13][1][72].p0; cornerPoints[13][1][72].p1;
+    cornerPoints[13][1][72].p2; cornerPoints[13][1][72].p3;
+    cornerPoints[13][1][72].p4; cornerPoints[13][1][72].p5;
+    cornerPoints[13][1][72].p6; cornerPoints[13][1][72].p7;
 
-    cornerPoints[8][0][5].p0; cornerPoints[8][0][5].p1;
-    cornerPoints[8][0][5].p2; cornerPoints[8][0][5].p3;
-    cornerPoints[8][0][5].p4; cornerPoints[8][0][5].p5;
-    cornerPoints[8][0][5].p6; cornerPoints[8][0][5].p7;
+    cornerPoints[13][2][74].p0; cornerPoints[13][2][74].p1;
+    cornerPoints[13][2][74].p2; cornerPoints[13][2][74].p3;
+    cornerPoints[13][2][74].p4; cornerPoints[13][2][74].p5;
+    cornerPoints[13][2][74].p6; cornerPoints[13][2][74].p7;
 
 
     /////////////////////////////////////////////////////////////////////
@@ -1326,7 +1325,7 @@ void COORD::SetupCornerPoints()
                         }
                         else {
                             if (flagQuad) {
-                                areaV = VectorFace(Face);
+                                areaV = VectorFace(tmpFace);
                             }
                             else {
                                 FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
@@ -1410,7 +1409,7 @@ void COORD::SetupCornerPoints()
                         if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
                         else                               downNNC = false;
                     }
-                }
+                }               
 
                 //
                 // (y+) direction

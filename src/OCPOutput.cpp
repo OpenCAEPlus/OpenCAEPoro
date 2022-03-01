@@ -759,6 +759,73 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << "\n\n\n";
     }
 
+    if (flag) {
+        outF << "PERMX : MDarcy";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKxInit[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    if (flag) {
+        outF << "PERMY : MDarcy";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKyInit[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    if (flag) {
+        outF << "PERMZ : MDarcy";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKzInit[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+
     flag = false;
 
 
@@ -795,6 +862,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
@@ -821,6 +894,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
@@ -847,6 +926,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
@@ -969,6 +1054,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
@@ -995,6 +1086,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
@@ -1021,6 +1118,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
@@ -1047,6 +1150,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
@@ -1073,6 +1182,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
@@ -1099,6 +1214,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
@@ -1125,6 +1246,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
@@ -1151,6 +1278,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
@@ -1177,6 +1310,12 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
             if (i % (nx * ny) == 0) outF << "\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;

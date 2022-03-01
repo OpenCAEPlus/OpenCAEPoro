@@ -202,7 +202,7 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
         myGrid.GetIJKGrid(I, J, K, eIdg);
         cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
         cout << setw(6) << eIdg;
-        cout << setw(20) << setprecision(4) << fixed << area[c];
+        cout << setw(20) << setprecision(8) << fixed << area[c] * CONV2;
 
         cout << endl;
     }
