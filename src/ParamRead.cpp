@@ -153,6 +153,7 @@ void ParamRead::ReadFile(const string& filename)
 
             case Map_Str2Int("SATNUM", 6):
             case Map_Str2Int("PVTNUM", 6):
+            case Map_Str2Int("ACTNUM", 6):
                 paramRs.InputRegion(ifs, keyword);
                 break;
 
@@ -219,7 +220,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("BIC", 3):
-                paramRs.InputBIP(ifs);
+                paramRs.InputBIC(ifs);
                 break;
 
             case Map_Str2Int("SSMSTA", 6):

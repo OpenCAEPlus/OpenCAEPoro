@@ -60,7 +60,7 @@ void DealData(const vector<string>& vbuf, vector<OCP_USI>& obj, vector<T>& regio
 {
     obj.resize(0);
     region.resize(0);
-    for (auto str : vbuf) {
+    for (auto& str : vbuf) {
         auto pos = str.find('*');
 
         if (pos != string::npos) {

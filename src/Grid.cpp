@@ -44,13 +44,19 @@ void Grid::InputParam(const ParamReservoir& rs_param)
     SATNUM.resize(numGrid, 0);
     if (rs_param.SATNUM.activity) {
         for (OCP_USI i = 0; i < numGrid; i++) {
-            SATNUM[i] = (USI)(rs_param.SATNUM.data[i]) - 1;
+            SATNUM[i] = round(rs_param.SATNUM.data[i]) - 1;
         }
     }
     PVTNUM.resize(numGrid, 0);
     if (rs_param.PVTNUM.activity) {
         for (OCP_USI i = 0; i < numGrid; i++) {
-            PVTNUM[i] = (USI)(rs_param.PVTNUM.data[i]) - 1;
+            PVTNUM[i] = round(rs_param.PVTNUM.data[i]) - 1;
+        }
+    }
+    ACTNUM.resize(numGrid, 1);
+    if (rs_param.ACTNUM.activity) {
+        for (OCP_USI i = 0; i < numGrid; i++) {
+            ACTNUM[i] = round(rs_param.ACTNUM.data[i]);
         }
     }
 }
@@ -67,6 +73,9 @@ void Grid::Setup()
         default:
             OCP_ABORT("WRONG Grid Type!");
     }
+
+    // test
+    CalSomeInfo();
 }
 
 void Grid::SetupOrthogonalGrid()
@@ -186,7 +195,8 @@ void Grid::SetupCornerGrid()
     COORD coordTmp;
     coordTmp.Allocate(nx, ny, nz);
     coordTmp.InputData(coord, zcorn);
-    coordTmp.CalConn();
+    // coordTmp.CalConn();
+    coordTmp.SetupCornerPoints();
     SetupNeighborCornerGrid(coordTmp);
     CalActiveGrid(1E-6, 1E-6);
 }
@@ -206,6 +216,9 @@ void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
         gNeighbor[n].reserve(10);
     }
 
+    // test
+    // cout << "Grid : " << CoTmp.numConn << endl;
+
     OCP_USI bIdg, eIdg;
     OCP_DBL area;
     for (OCP_USI n = 0; n < CoTmp.numConn; n++) {
@@ -215,6 +228,18 @@ void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
         area                          = CalAkdCornerGrid(ConnTmp);
         gNeighbor[bIdg].push_back(GPair(eIdg, area));
         gNeighbor[eIdg].push_back(GPair(bIdg, area));
+       
+        //USI I, J, K;
+        //GetIJKGrid(I, J, K, bIdg);
+        //cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        //cout << setw(6) << bIdg;
+        //cout << "       ";
+        //GetIJKGrid(I, J, K, eIdg);
+        //cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        //cout << setw(6) << eIdg;
+        //cout << setw(20) << fixed << setprecision(4) << area;
+
+        //cout << endl;
     }
 }
 
@@ -255,7 +280,7 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
     activeMap_G2B.resize(numGrid);
     OCP_USI count = 0;
     for (OCP_USI n = 0; n < numGrid; n++) {
-        if (poro[n] * ntg[n] < e1 || dx[n] * dy[n] * dz[n] < e2) {
+        if (ACTNUM[n] == 0 || poro[n] * ntg[n] < e1 || v[n] < e2) {
             activeMap_G2B[n] = GB_Pair(false, 0);
             continue;
         }
@@ -282,6 +307,67 @@ OCP_USI Grid::GetActIndex(const USI& i, const USI& j, const USI& k) const
     }
     id = activeMap_G2B[id].GetId();
     return id;
+}
+
+// temp
+void Grid::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
+{
+    // i,j,k begin from 1
+    k = n / (nx * ny) + 1;
+    j = (n - (k-1) * nx * ny) / nx + 1;
+    i = n - (k-1) * nx * ny - (j-1) * nx + 1;
+}
+
+void Grid::CalSomeInfo()const
+{
+    // test
+    OCP_DBL depthMax = 0;  OCP_USI ndepa = 0;
+    OCP_DBL depthMin = 1E8;  OCP_USI ndepi = 0;
+    OCP_DBL dxMax = 0;     OCP_USI nxa = 0;
+    OCP_DBL dxMin = 1E8;   OCP_USI nxi = 0;
+    OCP_DBL dyMax = 0;     OCP_USI nya = 0;
+    OCP_DBL dyMin = 1E8;   OCP_USI nyi = 0;
+    OCP_DBL dzMax = 0;     OCP_USI nza = 0;
+    OCP_DBL dzMin = 1E8;   OCP_USI nzi = 0;
+    USI I, J, K;
+    for (OCP_USI n = 0; n < numGrid; n++) {
+        //if (!activeMap_G2B[nn].IsAct())
+        //    continue;
+        //OCP_USI n = activeMap_G2B[nn].GetId();
+        if (depthMax < depth[n]) {
+            depthMax = depth[n]; ndepa = n;
+        }
+        if (depthMin > depth[n]) {
+            depthMin = depth[n]; ndepi = n;
+        }
+        if (dxMax < dx[n]) {
+            dxMax = dx[n]; nxa = n;
+        }
+        if (dxMin > dx[n]) {
+            dxMin = dx[n]; nxi = n;
+        }
+        if (dyMax < dy[n]) {
+            dyMax = dy[n]; nya = n;
+        }
+        if (dyMin > dy[n]) {
+            dyMin = dy[n]; nyi = n;
+        }
+        if (dzMax < dz[n]) {
+            dzMax = dz[n]; nza = n;
+        }
+        if (dzMin > dz[n]) {
+            dzMin = dz[n]; nzi = n;
+        }
+    }
+    cout << "GRID :  Depthmax : " << depthMax << "   "
+        << "Depthmin : " << depthMin << "   "
+        << "DXmax : " << dxMax << "   "
+        << "DXmin : " << dxMin << "   "
+        << "DYmax : " << dyMax << "   "
+        << "DYmin : " << dyMin << "   "
+        << "DZmax : " << dzMax << "   "
+        << "DZmin : " << dzMin << "   "
+        << endl;
 }
 
 /*----------------------------------------------------------------------------*/

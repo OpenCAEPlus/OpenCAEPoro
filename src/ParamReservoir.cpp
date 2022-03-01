@@ -331,8 +331,19 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        for (auto str : vbuf) {
-            objPtr->push_back(stod(str));
+        for (auto& str : vbuf) {
+            // if m*n occurs, then push back n  m times
+            auto pos = str.find('*');
+            if (pos == string::npos) {
+                objPtr->push_back(stod(str));
+            }
+            else {
+                USI len = str.size();
+                OCP_USI num = stoi(str.substr(0, pos));
+                OCP_DBL val = stod(str.substr(pos + 1, len - (pos + 1)));
+                for (USI i = 0; i < num; i++)
+                    objPtr->push_back(val);
+            }           
         }
     }
     cout << &permX << endl;
@@ -544,6 +555,9 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         ptr = &SATNUM;
         lim = NTSFUN;
     }
+    else if (keyword == "ACTNUM") {
+        ptr = &ACTNUM;
+    }
 
     ptr->activity = true;
     ptr->data.reserve(numGrid);
@@ -554,21 +568,18 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        DealData(vbuf, obj, region);
-
-#ifdef DEBUG
-        // check region
-        for (auto r : region) {
-            if (r > lim) {
-                OCP_ABORT("Region is out of range!");
+        for (auto& str : vbuf) {
+            // if m*n occurs, then push back n  m times
+            auto pos = str.find('*');
+            if (pos == string::npos) {
+                ptr->data.push_back(stod(str));
             }
-        }
-#endif // DEBUG
-
-        USI len = obj.size();
-        for (USI i = 0; i < len; i++) {
-            for (OCP_USI j = 0; j < obj[i]; j++) {
-                ptr->data.push_back(region[i]);
+            else {
+                USI len = str.size();
+                OCP_USI num = stoi(str.substr(0, pos));
+                OCP_DBL val = stod(str.substr(pos + 1, len - (pos + 1)));
+                for (USI i = 0; i < num; i++)
+                    ptr->data.push_back(val);
             }
         }
     }
@@ -750,8 +761,8 @@ void EoSparam::InputCOM(ifstream& ifs)
     cout << endl;
 }
 
-/// TODO: Add Doxygen
-void EoSparam::InputBIP(ifstream& ifs)
+/// Input Binary Interaction Coefficients Matrix
+void EoSparam::InputBIC(ifstream& ifs)
 {
     OCP_ASSERT(numComp > 0, "Wrong NC!");
     BIC.resize(numComp);

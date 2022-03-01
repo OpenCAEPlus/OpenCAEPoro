@@ -77,13 +77,21 @@ git@github.com:FaspDevTeam/fasp4blkoil.git
 Similar to the above steps, run
 
 ```
-cd fasp4blkoil; mkdir Build; cd Build
+cd fasp4blkoil
+mkdir Build
+cd Build
 ```
 
 Then you need to tell **cmake** where is faspsolver (replace the dir name with your setting) by
 
 ```
 set FASP_DIR=\prog\0.FASP\faspsolver
+```
+
+Again, if you are using **PowerShell**, just use
+
+```
+$env:FASP_DIR='\prog\0.FASP\faspsolver'
 ```
 
 Generate VS2022 solution with the MKL Pardiso support with
@@ -107,8 +115,10 @@ git@github.com:FaspDevTeam/OpenCAEPoro.git
 Then follow the standard steps to generate Visual Studio solutions using cmake:
 
 ```
-cd OpenCAEPoro; mkdir Build; cd Build
-set FASP_DIR=D:\prog\0.FASP\faspsolver
+cd OpenCAEPoro
+mkdir Build
+cd Build
+set FASP_DIR=\prog\0.FASP\faspsolver
 set FASP4BLKOIL_DIR=\prog\0.FASP\fasp4blkoil
 ```
 
@@ -116,8 +126,8 @@ If you use **PowerShell** instead of the regular command line tool **cmd**, set 
 
 ```
 cd OpenCAEPoro; mkdir Build; cd Build
-$env:FASP_DIR='D:\prog\0.FASP\faspsolver'
-$env:FASP4BLKOIL_DIR='D:\prog\0.FASP\fasp4blkoil'
+$env:FASP_DIR='\prog\0.FASP\faspsolver'
+$env:FASP4BLKOIL_DIR='\prog\0.FASP\fasp4blkoil'
 ```
 
 and then
@@ -129,4 +139,4 @@ cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DUSE_FASP4BLKOIL=ON
 Now you are ready. Just open OpenCAEPoro.sln and build the **ALL_BUILD** target. And then build **INSTALL** target if you wish to install the lib and exe files to desirable directories. 
 
 
-*Modified on Feb/06/2022 by Chensong Zhang*
+*Modified on Feb/18/2022 by Chensong Zhang*

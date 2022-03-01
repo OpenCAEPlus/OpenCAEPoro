@@ -57,7 +57,7 @@
   <ItemGroup>
     <ClInclude Include="include\Bulk.hpp" />
     <ClInclude Include="include\BulkConn.hpp" />
-    <ClInclude Include="include\CornerGrid.h" />
+    <ClInclude Include="include\CornerGrid.hpp" />
     <ClInclude Include="include\DenseMat.hpp" />
     <ClInclude Include="include\Doxygen.hpp" />
     <ClInclude Include="include\FaspSolver.hpp" />

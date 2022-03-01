@@ -168,7 +168,7 @@ public:
     /// Return Pressure of Perf p
     OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
     /// Display operation mode of well and state of perforations.
-    void ShowPerfStatus() const;
+    void ShowPerfStatus(const Bulk& myBulk) const;
     
 
 private:

@@ -57,6 +57,7 @@ public:
         , y(y0)
         , z(z0){};
 
+    Point3D& operator=(const Point3D& other); ///< equal
     Point3D operator+(const Point3D& other) const; ///< Addition
     Point3D operator-(const Point3D& other) const; ///< Substraction
     OCP_DBL operator*(const Point3D& other) const; ///< Multiplication
@@ -106,6 +107,8 @@ Point2D CalCrossingPoint(const Point2D Line1[2], const Point2D Line2[2]);
 /// ???
 OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2);
 
+
+
 /// ???
 class HalfConn
 {
@@ -124,7 +127,7 @@ public:
     vector<HalfConn> halfConn;
     void             Allocate(const USI& max_neighbor);
     void AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D& d,
-                     const USI& direction);
+                     const USI& direction, const OCP_DBL& flag = 1);
 };
 
 /// ???
@@ -148,6 +151,10 @@ public:
     bool InputCOORDDATA(const vector<OCP_DBL>& coord);
     bool InputZCORNDATA(const vector<OCP_DBL>& zcorn);
     void CalConn();
+    void SetupCornerPoints();
+    void SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face);
+    // functions
+    OCP_DBL OCP_SIGN(const OCP_DBL& x) { return x >= 0 ? 1 : -1; }
 
 private:
     USI           nx;
@@ -168,6 +175,20 @@ private:
     vector<Point3D> center;
 
     vector<GeneralConnect> connect;
+
+    // Auxiliary variables
+    // if the i th point of oFace is deeper than the one of Face, then flagpi = 1;
+    // if the i th point of oFace is higher than the one of Face, then flagpi = -1;
+    // if the i th point of oFace is very close to the one of Face, then flagpi = 0;
+    OCP_INT flagp0, flagp1, flagp2, flagp3;
+    bool flagQuad;
+    bool upNNC, downNNC;
+    bool flagJump;
+    HexahedronFace tmpFace;
+    // after the Axes are determined, blocks will be placed along the y+, or along the y-
+    // if y+, then flagForward equals 1.0, else -1.0, this relates to calculation of 
+    // area normal vector
+    OCP_DBL flagForward;
 };
 
 #endif

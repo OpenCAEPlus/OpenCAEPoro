@@ -197,9 +197,6 @@
     <ClInclude Include="include\OCPStructure.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CornerGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\FaspSolver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -213,6 +210,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AllWells.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CornerGrid.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

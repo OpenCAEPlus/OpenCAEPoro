@@ -661,11 +661,107 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     OCP_USI num = rs.grid.GetGridNum();
     OCP_USI bId;
     OCP_USI tmpId;
+    USI I, J, K;
 
     const string sep01(50, '=');
     const string sep02(50, '-');
 
     outF << sep01 << "\n";
+
+
+    static bool flag = true;
+    // Print once
+    if (flag) {
+        outF << "DX : feet";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dx[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    if (flag) {
+        outF << "DY : feet";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dy[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    if (flag) {
+        outF << "DZ : feet";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dz[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    if (flag) {
+        outF << "Depth : feet";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(12) << fixed << setprecision(1) << rs.bulk.depth[bId] << "";
+            }
+            else {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
+    }
+
+    flag = false;
+
+
     // PRESSURE
     if (PRE) {
         outF << "PRESSURE : psia"
@@ -673,15 +769,21 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << fixed << setprecision(3) << rs.bulk.P[bId] << "   ";
+                outF << setw(12) << fixed << setprecision(3) << rs.bulk.P[bId] << "";
             } else {
-                outF << "N   ";
+                outF << setw(12) << "-----  ";
             }
         }
-        outF << "\n\n";
+        outF << "\n\n\n";
     }
 
     // DENSITY of OIL
@@ -692,19 +794,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                    outF << setw(10) <<  fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -718,19 +820,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -744,19 +846,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(3) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -770,19 +872,25 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -796,19 +904,25 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -822,19 +936,25 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
+
+            if (i % nx == 0) {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.S[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -848,19 +968,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -874,19 +994,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -900,19 +1020,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -931,14 +1051,14 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -952,19 +1072,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -978,19 +1098,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216) << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216) << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -1004,19 +1124,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -1030,19 +1150,19 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         outF << fixed << setprecision(3) << days << "  DAYS";
         for (OCP_USI i = 0; i < num; i++) {
             if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
             if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
@@ -1061,14 +1181,14 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
                 bId = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId]) {
-                    outF << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "";
                 }
                 else {
-                    outF << fixed << setprecision(5) << 0.0 << "N  ";
+                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
             }
             else {
-                outF << "N   ";
+                outF << setw(10) << " --- ";
             }
         }
         outF << "\n\n";
