@@ -858,15 +858,15 @@ void COORD::SetupCornerPoints()
 
     // test 
     // ( 14,  2, 73) ( 14,  3, 75)
-    cornerPoints[13][1][72].p0; cornerPoints[13][1][72].p1;
-    cornerPoints[13][1][72].p2; cornerPoints[13][1][72].p3;
-    cornerPoints[13][1][72].p4; cornerPoints[13][1][72].p5;
-    cornerPoints[13][1][72].p6; cornerPoints[13][1][72].p7;
+    //cornerPoints[13][1][72].p0; cornerPoints[13][1][72].p1;
+    //cornerPoints[13][1][72].p2; cornerPoints[13][1][72].p3;
+    //cornerPoints[13][1][72].p4; cornerPoints[13][1][72].p5;
+    //cornerPoints[13][1][72].p6; cornerPoints[13][1][72].p7;
 
-    cornerPoints[13][2][74].p0; cornerPoints[13][2][74].p1;
-    cornerPoints[13][2][74].p2; cornerPoints[13][2][74].p3;
-    cornerPoints[13][2][74].p4; cornerPoints[13][2][74].p5;
-    cornerPoints[13][2][74].p6; cornerPoints[13][2][74].p7;
+    //cornerPoints[13][2][74].p0; cornerPoints[13][2][74].p1;
+    //cornerPoints[13][2][74].p2; cornerPoints[13][2][74].p3;
+    //cornerPoints[13][2][74].p4; cornerPoints[13][2][74].p5;
+    //cornerPoints[13][2][74].p6; cornerPoints[13][2][74].p7;
 
 
     /////////////////////////////////////////////////////////////////////
