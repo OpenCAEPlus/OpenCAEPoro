@@ -284,6 +284,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
             //for (USI i = 0; i < nc; i++) {
             //    cout << scientific << wG.zi[i] << "   ";
             //}
+            //cout << "xi:  " << wG.xi << "    Factor:   " << wG.factor;
             //cout << endl;
         }
     }
@@ -326,9 +327,9 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
         if (wells[w].WellState()) {
 
             OCP_INT flag = wells[w].CheckP(myBulk);
-#ifdef _DEBUG
+//#ifdef _DEBUG
             // wells[w].ShowPerfStatus();
-#endif // _DEBUG
+//#endif // _DEBUG
             switch (flag) {
                 case 1:
                     return 1;

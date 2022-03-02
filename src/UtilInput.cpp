@@ -49,9 +49,8 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
 
 void DealDefault(vector<string>& result)
 {
-
     vector<string> tmp;
-    for (auto str : result) {
+    for (auto& str : result) {
         auto pos = str.find('*');
         if (pos == string::npos) {
             tmp.push_back(str);

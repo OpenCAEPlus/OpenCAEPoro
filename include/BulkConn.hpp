@@ -88,7 +88,8 @@ public:
     OCP_USI GetBulkNum() const { return numBulk; }
 
     /// Print information of connections on screen.
-    void PrintConnectionInfo() const;
+    void PrintConnectionInfo(const Grid& myGrid) const;
+    void PrintConnectionInfoCoor(const Grid& myGrid) const;
 
 private:
     OCP_USI numBulk; ///< Number of bulks (active grid cells).

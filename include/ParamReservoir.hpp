@@ -69,7 +69,7 @@ public:
     void InputNCNP(ifstream& ifs);
     void InputZI(ifstream& ifs);
     void InputCOM(ifstream& ifs);
-    void InputBIP(ifstream& ifs);
+    void InputBIC(ifstream& ifs);
     // Method params
     void InputSSMSTA(ifstream& ifs);
     void InputNRSTA(ifstream& ifs);
@@ -147,6 +147,7 @@ public:
     USI               NTPVT{1};  ///< Num of PVT regions.
     Type_A_r<OCP_DBL> SATNUM;    ///< Records the index of SAT region for each grid.
     Type_A_r<OCP_DBL> PVTNUM;    ///< Records the index of PVT region for each grid.
+    Type_A_r<OCP_DBL> ACTNUM;    ///< Records the index of Active region for each grid.
 
     // Saturation tables & bubble point pressure
     TableSet        SWOF_T; ///< Table set of SWOF.
@@ -247,7 +248,7 @@ public:
     void InputNCNP(ifstream& ifs) { EoSp.InputNCNP(ifs); };
     void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
     void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
-    void InputBIP(ifstream& ifs) { EoSp.InputBIP(ifs); };
+    void InputBIC(ifstream& ifs) { EoSp.InputBIC(ifs); };
 
     // Method params
     void InputSSMSTA(ifstream& ifs) { EoSp.InputSSMSTA(ifs); };

@@ -184,6 +184,7 @@ public:
     }
     /// Return the pth dG of wth well.
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
+    void ShowWellStatus(const Bulk& myBulk) { for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk); }
 
 private:
     USI          numWell;   ///< num of wells.

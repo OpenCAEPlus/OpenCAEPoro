@@ -76,6 +76,8 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     }
 
     numConn = iteratorConn.size();
+
+    // PrintConnectionInfoCoor(myGrid);
 }
 
 void BulkConn::CalIteratorConn()
@@ -165,14 +167,14 @@ void BulkConn::CheckDiff() const
     }
 }
 
-void BulkConn::PrintConnectionInfo() const
+void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
-        cout << "(" << i << ")"
+        cout << "(" << myGrid.activeMap_B2G[i] << ")"
              << "\t";
 
-        for (auto v : neighbor[i]) {
-            cout << v << "\t";
+        for (auto& v : neighbor[i]) {
+            cout << myGrid.activeMap_B2G[v] << "\t";
         }
         cout << "[" << selfPtr[i] << "]";
         cout << "\t" << neighborNum[i];
@@ -180,7 +182,29 @@ void BulkConn::PrintConnectionInfo() const
     }
 
     for (OCP_USI i = 0; i < numConn; i++) {
-        cout << iteratorConn[i].BId << "\t" << iteratorConn[i].EId << "\n";
+        cout << myGrid.activeMap_B2G[iteratorConn[i].BId] 
+            << "\t" << myGrid.activeMap_B2G[iteratorConn[i].EId] << "\n";
+    }
+}
+
+void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
+{
+    OCP_USI bIdg, eIdg;
+    USI I, J, K;
+    cout << "BulkConn : " << numConn << endl;
+    for (OCP_USI c = 0; c < numConn; c++) {
+        bIdg = myGrid.activeMap_B2G[iteratorConn[c].BId];
+        eIdg = myGrid.activeMap_B2G[iteratorConn[c].EId];
+        myGrid.GetIJKGrid(I, J, K, bIdg);
+        cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        cout << setw(6) << bIdg;
+        cout << "       ";
+        myGrid.GetIJKGrid(I, J, K, eIdg);
+        cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        cout << setw(6) << eIdg;
+        cout << setw(20) << setprecision(8) << fixed << area[c] * CONV2;
+
+        cout << endl;
     }
 }
 

@@ -165,6 +165,7 @@ public:
     void ResetNi() { Ni = lNi; }
     /// Reset Vp to the ones of the last time step.
     void ResetVp() { rockVp = rockLVp; }
+    void CalSomeInfo(const Grid& myGrid)const;
 
 private:
     /////////////////////////////////////////////////////////////////////

@@ -23,6 +23,9 @@
 
 using namespace std;
 
+
+
+
 /// Effective area of intersection surfaces with neighboring cells.
 class GPair
 {
@@ -117,7 +120,9 @@ public:
     OCP_USI GetActiveGridNum() const { return activeGridNum; }
     /// Return the index of active cell (i, j, k).
     OCP_USI GetActIndex(const USI& i, const USI& j, const USI& k) const;
-
+    /// Return the 3D coordinate for object grid with Grid index
+    void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
+    void CalSomeInfo()const;
 private:
     USI     nx;      ///< Number of cells in x-direction
     USI     ny;      ///< Number of cells in y-direction
@@ -130,31 +135,32 @@ private:
 
     // Orthogonal grid
     vector<OCP_DBL> tops;  ///< Depth of top surface of the reservoir: nx*ny
-    vector<OCP_DBL> depth; ///< Depth of center of grid cells: numBulk.
-    vector<OCP_DBL> dx;    ///< Size of cell in x-direction: numBulk.
-    vector<OCP_DBL> dy;    ///< Size of cell in y-direction: numBulk.
-    vector<OCP_DBL> dz;    ///< Size of cell in z-direction: numBulk.
+    vector<OCP_DBL> depth; ///< Depth of center of grid cells: numGrid.
+    vector<OCP_DBL> dx;    ///< Size of cell in x-direction: numGrid.
+    vector<OCP_DBL> dy;    ///< Size of cell in y-direction: numGrid.
+    vector<OCP_DBL> dz;    ///< Size of cell in z-direction: numGrid.
 
     // Corner-point grid
     vector<OCP_DBL> coord; ///< Lines of a corner-point grid.
     vector<OCP_DBL> zcorn; ///< ZValues of a corner-point grid.
 
     // Rock properties
-    vector<OCP_DBL> v;    ///< Volume of cells: numBulk.
-    vector<OCP_DBL> ntg;  ///< Net to gross ratio of cells: numBulk
-    vector<OCP_DBL> poro; ///< Initial porosity of rock cells: numBulk
-    vector<OCP_DBL> kx;   ///< Absolute permeability in x-direction: numBulk
-    vector<OCP_DBL> ky;   ///< Absolute permeability in y-direction: numBulk
-    vector<OCP_DBL> kz;   ///< Absolute permeability in z-direction: numBulk
+    vector<OCP_DBL> v;    ///< Volume of cells: numGrid.
+    vector<OCP_DBL> ntg;  ///< Net to gross ratio of cells: numGrid
+    vector<OCP_DBL> poro; ///< Initial porosity of rock cells: numGrid
+    vector<OCP_DBL> kx;   ///< Absolute permeability in x-direction: numGrid
+    vector<OCP_DBL> ky;   ///< Absolute permeability in y-direction: numGrid
+    vector<OCP_DBL> kz;   ///< Absolute permeability in z-direction: numGrid
 
     // Region
-    vector<USI> SATNUM; ///< Identify SAT region: numBulk.
-    vector<USI> PVTNUM; ///< Identify PVT region for the blackoil model: numBulk.
+    vector<USI> SATNUM; ///< Identify SAT region: numGrid.
+    vector<USI> PVTNUM; ///< Identify PVT region for the blackoil model: numGrid.
+    vector<USI> ACTNUM; ///< Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active.
 
     // Active grid cells
     OCP_USI         activeGridNum; ///< Num of active grid.
-    vector<OCP_USI> activeMap_B2G; ///< Mapping from active grid to grid: activeGridNum.
-    vector<GB_Pair> activeMap_G2B; ///< Mapping from grid to active grid: numBulk.
+    vector<OCP_USI> activeMap_B2G; ///< Mapping from active grid to grid: activeGridNum = numBulk
+    vector<GB_Pair> activeMap_G2B; ///< Mapping from grid to active grid: numGrid.
 };
 
 #endif /* end if __GRID_HEADER__ */

@@ -80,7 +80,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         rs_param.numCom   = numCom;
         for (USI i = 0; i < rs_param.NTSFUN; i++)
             flow.push_back(new FlowUnit(rs_param, SATmode, i));
-        if (oil & gas & water) {
+        if (oil && gas && water) {
             for (USI i = 0; i < rs_param.NTSFUN; i++) flow[i]->Generate_SWPCWG();
         }
         for (USI i = 0; i < rs_param.NTPVT; i++)
@@ -218,6 +218,8 @@ void Bulk::Setup(const Grid& myGrid)
         phase2Index[GAS]   = 1;
         phase2Index[WATER] = 2;
     }
+
+    CalSomeInfo(myGrid);
 
 #if DEBUG
     CheckSetup();
@@ -601,6 +603,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
         }
     }
 
+    cout << "Depth  " << "Poil  " << "Pgas  " << "Pwat" << endl;
     DepthP.Display();
 
     // calculate Pc from DepthP to calculate Sj
@@ -709,8 +712,8 @@ void Bulk::InitSjPcComp(const USI& tabrow)
     OCPTable         DepthP(tabrow, 4);
     vector<OCP_DBL>& Ztmp  = DepthP.GetCol(0);
     vector<OCP_DBL>& Potmp = DepthP.GetCol(1);
-    vector<OCP_DBL>& Pgtmp = DepthP.GetCol(2);
-    vector<OCP_DBL>& Pwtmp = DepthP.GetCol(3);
+    vector<OCP_DBL>& Pwtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>& Pgtmp = DepthP.GetCol(3);
 
     // cal Tab_Ztmp
     Ztmp[0] = Zmin;
@@ -981,6 +984,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
         }
     }
 
+    cout << "Depth    " << "Poil    " << "Pwat    " << "Pgas" << endl;
     DepthP.Display();
 
     // calculate Pc from DepthP to calculate Sj
@@ -989,8 +993,8 @@ void Bulk::InitSjPcComp(const USI& tabrow)
     for (OCP_USI n = 0; n < numBulk; n++) {
         DepthP.Eval_All(0, depth[n], data, cdata);
         OCP_DBL Po   = data[1];
-        OCP_DBL Pg   = data[2];
-        OCP_DBL Pw   = data[3];
+        OCP_DBL Pw   = data[2];
+        OCP_DBL Pg   = data[3];
         OCP_DBL Pcgo = Pg - Po;
         OCP_DBL Pcow = Po - Pw;
         OCP_DBL Sw   = flow[0]->EvalInv_SWOF(3, Pcow, 0);
@@ -1031,8 +1035,8 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             OCP_DBL dep   = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
             DepthP.Eval_All(0, dep, data, cdata);
             Po    = data[1];
-            Pg    = data[2];
-            Pw    = data[3];
+            Pw    = data[2];
+            Pg    = data[3];
             Pcow  = Po - Pw;
             Pcgo  = Pg - Po;
             tmpSw = flow[0]->EvalInv_SWOF(3, Pcow, 0);
@@ -1431,6 +1435,105 @@ USI Bulk::GetMixMode() const
         return EOS_PVTW;
     else
         OCP_ABORT("Mixture model is not supported!");
+}
+
+void Bulk::CalSomeInfo(const Grid& myGrid) const
+{
+    // test
+    OCP_DBL depthMax = 0;  OCP_USI ndepa = 0;
+    OCP_DBL depthMin = 1E8;  OCP_USI ndepi = 0;
+    OCP_DBL dxMax = 0;     OCP_USI nxa = 0;
+    OCP_DBL dxMin = 1E8;   OCP_USI nxi = 0;
+    OCP_DBL dyMax = 0;     OCP_USI nya = 0;
+    OCP_DBL dyMin = 1E8;   OCP_USI nyi = 0;
+    OCP_DBL dzMax = 0;     OCP_USI nza = 0;
+    OCP_DBL dzMin = 1E8;   OCP_USI nzi = 0;
+    OCP_DBL RVMax = 0;     OCP_USI nRVa = 0;
+    OCP_DBL RVMin = 1E8;   OCP_USI nRVi = 0;
+    OCP_DBL RVPMax = 0;     OCP_USI nRVPa = 0;
+    OCP_DBL RVPMin = 1E8;   OCP_USI nRVPi = 0;
+    OCP_DBL PerxMax = 0;     OCP_USI nPerxa = 0;
+    OCP_DBL PerxMin = 1E8;   OCP_USI nPerxi = 0;
+    USI I, J, K;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        //if (!activeMap_G2B[nn].IsAct())
+        //    continue;
+        //OCP_USI n = activeMap_G2B[nn].GetId();
+        if (depthMax < depth[n]) {
+            depthMax = depth[n]; ndepa = n;
+        }
+        if (depthMin > depth[n]) {
+            depthMin = depth[n]; ndepi = n;
+        }
+        if (dxMax < dx[n]) {
+            dxMax = dx[n]; nxa = n;
+        }
+        if (dxMin > dx[n]) {
+            dxMin = dx[n]; nxi = n;
+        }
+        if (dyMax < dy[n]) {
+            dyMax = dy[n]; nya = n;
+        }
+        if (dyMin > dy[n]) {
+            dyMin = dy[n]; nyi = n;
+        }
+        if (dzMax < dz[n]) {
+            dzMax = dz[n]; nza = n;
+        }
+        if (dzMin > dz[n]) {
+            dzMin = dz[n]; nzi = n;
+        }
+        OCP_DBL tmp = myGrid.v[myGrid.activeMap_B2G[n]];
+        if (RVMax < tmp) {
+            RVMax = tmp; nRVa = n;
+        }
+        if (RVMin > tmp) {
+            RVMin = tmp; nRVi = n;
+        }
+        tmp = rockVp[n];
+        if (RVPMax < tmp) {
+            RVPMax = tmp; nRVPa = n;
+        }
+        if (RVPMin > tmp) {
+            RVPMin = tmp; nRVPi = n;
+        }
+        tmp = rockKx[n];
+        if (PerxMax < tmp) {
+            PerxMax = tmp; nPerxa = n;
+        }
+        if (PerxMin > tmp && fabs(tmp)>1E-8 ) {
+            PerxMin = tmp; nPerxi = n;
+        }
+    }
+    myGrid.GetIJKGrid(I, J, K, ndepa);
+    cout << "BULK : " << endl;
+    cout << "Depthmax: " << depthMax << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, ndepi);
+    cout << "Depthmin : " << depthMin << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nxa);
+    cout  << "DXmax : " << dxMax << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nxi);
+    cout << "DXmin : " << dxMin << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nya);
+    cout << "DYmax : " << dyMax << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nyi);
+    cout << "DYmin : " << dyMin << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nza);
+    cout << "DZmax : " << dzMax << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nzi);
+    cout << "DZmin : " << dzMin << " feet  (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nRVa);
+    cout << "RVmax : " << RVMax / CONV1 << " rb   (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nRVi);
+    cout << "RVmin : " << RVMin / CONV1 << " rb   (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nRVPa);
+    cout << "RVmax : " << RVPMax / CONV1 << " rb   (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nRVPi);
+    cout << "RVmin : " << RVPMin / CONV1 << " rb   (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nPerxa);
+    cout << "Perxmax : " << PerxMax << "   (" << I << ", " << J << ", " << K << ")" << endl;
+    myGrid.GetIJKGrid(I, J, K, nPerxi);
+    cout << "Perxmin : " << scientific << PerxMin << "   (" << I << ", " << J << ", " << K << ")" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////

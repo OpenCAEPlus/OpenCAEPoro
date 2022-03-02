@@ -23,7 +23,7 @@
 
 using namespace std;
 
-/// TODO: Add Doxygen
+/// 3D coordinate representation in OpenCAEPoro
 class OCPIJK
 {
 public:
@@ -31,7 +31,7 @@ public:
     OCPIJK(const USI& i, const USI& j, const USI& k)
         : I(i)
         , J(j)
-        , K(k){};
+        , K(k) {};
     OCPIJK(const COOIJK& src)
     {
         I = src.I;

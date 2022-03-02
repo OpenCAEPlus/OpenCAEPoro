@@ -113,6 +113,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
+    // rs.allWells.ShowWellStatus(rs.bulk);
     
     return true;
 }
@@ -211,12 +212,12 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
     cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
         << "  " << NRdPmax << endl;
-    cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
-#endif
+    // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
+//#endif
 
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {

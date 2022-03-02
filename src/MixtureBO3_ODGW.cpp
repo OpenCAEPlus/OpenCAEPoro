@@ -96,7 +96,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
             mu[1]  = data[2];
-            xi[1]  = 1 / bg / 1000;
+            xi[1]  = 1 / 1000 / bg;
             rho[1] = std_RhoG / bg;
             Ni[1]  = Vpore * S[1] * xi[1];
 
@@ -173,7 +173,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 
             mu[0]  = data[3];
             Ni[0]  = Vpore * (1 - S[1] - S[2]) / (CONV1 * bo);
-            xi[0]  = (1 + rs) / bo / CONV1;
+            xi[0]  = (1 + rs) / (CONV1 * bo);
             rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
             // gas property
@@ -181,7 +181,7 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
             OCP_DBL bg  = data[1] * (CONV1 / 1000);
             OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
             Ni[1]       = Vpore * S[1] / bg / 1000 + Ni[0] * rs;
-            xi[1]       = 1 / data[1] / CONV1;
+            xi[1]       = 1 / CONV1 / data[1];
             rho[1]      = std_RhoG / bg;
             mu[1]       = data[2];
 
@@ -296,7 +296,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
             mu[1]  = data[2];
-            xi[1]  = 1 / bg / 1000;
+            xi[1]  = 1 / 1000 / bg;
             rho[1] = std_RhoG / bg;
 
             // total
@@ -374,7 +374,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             OCP_DBL cbosat = cdata[2];
 
             mu[0]  = data[3];
-            xi[0]  = (1 + rs) / bo / CONV1;
+            xi[0]  = (1 + rs) / (CONV1 * bo);
             rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
             // gas property
@@ -383,7 +383,7 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
             OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
             mu[1]  = data[2];
-            xi[1]  = 1 / data[1] / CONV1;
+            xi[1]  = 1 / CONV1 / data[1];
             rho[1] = std_RhoG / bg;
 
             // total
@@ -440,7 +440,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     OCP_DBL bwp = -cbw * bw0;
 
     mu[2]  = data[3];
-    xi[2]  = 1 / (CONV1 * bw);
+    xi[2]  = 1 / CONV1 / bw;
     rho[2] = std_RhoW / bw;
 
     muP[2]  = cdata[3];
@@ -525,7 +525,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
             OCP_DBL cbg = cdata[1] * (CONV1 / 1000);
 
             mu[1]  = data[2];
-            xi[1]  = 1 / bg / 1000;
+            xi[1]  = 1 / 1000 / bg;
             rho[1] = std_RhoG / bg;
 
             muP[1]  = cdata[2];
@@ -600,7 +600,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         rhoP[0] = -(std_RhoO + (1000/CONV1) * rs * std_RhoG) / (bo * bo) * bop;
 
         OCP_DBL muo_rs = mu[0] / muosat * cdata[3] + muosat * (cdata[5] * (P - pbb) - cmuosat * cdata[0]);
-        OCP_DBL xio_rs = 1 / (CONV1 * bo) - (1 + rs) * dBo_drs / (CONV1 * bo * bo);
+        OCP_DBL xio_rs = 1 / CONV1 / bo - (1 + rs) * dBo_drs / (CONV1 * bo * bo);
         OCP_DBL rhoo_rs = (1000 / CONV1) * std_RhoG / bo - (std_RhoO + (1000 / CONV1) * rs * std_RhoG) * dBo_drs / (bo * bo);
 
         // total
@@ -657,7 +657,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
         OCP_DBL cbosat = cdata[2];
 
         mu[0] = data[3];
-        xi[0] = (1 + rs) / bo / CONV1;
+        xi[0] = (1 + rs) / (CONV1 * bo);
         rho[0] = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
         muP[0] = cdata[3];
