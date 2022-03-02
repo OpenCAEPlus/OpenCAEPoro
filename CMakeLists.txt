@@ -1,24 +1,25 @@
 # Main CMakeLists file for OpenCAEPoro
 # 
 # Author            Date           Action
-# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Shizhe Li         Sep/21/2021    Create CMakeLists
 # Chensong Zhang    Sep/24/2021    Fix FASP linkage problems
 # Chensong Zhang    Oct/16/2021    Fix duplications
 # Chensong Zhang    Jan/19/2022    Use FASP open-source part as default solver
+# Chensong Zhang    Feb/18/2022    Fix math.lib linkage problem
 #
 # Some sample usages:
-#   cmake .                                 // build in default configuration
-#   cmake -DCMAKE_BUILD_TYPE=Release .      // build in Release configuration
-#   cmake -DCMAKE_BUILD_TYPE=Debug .        // build in Debug configuration
-#   cmake -DCMAKE_VERBOSE_MAKEFILE=ON .     // build with verbose on
-#   cmake -DUSE_FASP4BLKOIL=ON .            // build with FASP4BLKOIL package support
-#   cmake -DUSE_UMFPACK=ON .                // build with UMFPACK package support
-#   cmake -DUSE_OPENMP=ON .                 // build with OpenMP support
+#   cmake .                             // build in default configuration
+#   cmake -DCMAKE_BUILD_TYPE=Release .  // build in Release configuration
+#   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
+#   cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on
+#   cmake -DUSE_FASP4BLKOIL=ON .        // build with FASP4BLKOIL support
+#   cmake -DUSE_UMFPACK=ON .            // build with UMFPACK support
+#   cmake -DUSE_OPENMP=ON .             // build with OpenMP support
 
-#####################################################################################
+###############################################################################
 ## General environment setting
-#####################################################################################
+###############################################################################
 
 # Minimum cmake version needed
 cmake_minimum_required(VERSION 3.0)
@@ -40,9 +41,9 @@ set(CMAKE_CXX_STANDARD 14)
 # Set module lookup path
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 
-#####################################################################################
+###############################################################################
 ## External libraries
-#####################################################################################
+###############################################################################
 
 # Find BLAS and LAPACK implementations
 find_package(BLAS REQUIRED)
@@ -60,10 +61,10 @@ endif(FASP_FOUND)
 # Optional external libraries, including direct solvers
 include(external)
 
-#####################################################################################
+###############################################################################
 ## Find compiler support for OpenMP. Since cmake 3.9, we can use 
 ## find_package(OpenMP REQUIRED). Keep this for older cmake!!!
-#####################################################################################
+###############################################################################
 
 if(USE_OPENMP)
     if(CMAKE_VERSION VERSION_GREATER 3)
@@ -80,9 +81,9 @@ if(USE_OPENMP)
     endif(OPENMP_FOUND)
 endif(USE_OPENMP)
 
-#####################################################################################
+###############################################################################
 ## Set configuration types and their default compiler flags
-#####################################################################################
+###############################################################################
 
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "Configs" FORCE)
 if (MSVC)
@@ -103,9 +104,9 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 
-#####################################################################################
+###############################################################################
 ## Project specific parameters
-#####################################################################################
+###############################################################################
 
 # Add include directory
 set(INC_FILES ${PROJECT_SOURCE_DIR}/include/)
@@ -131,9 +132,9 @@ target_link_libraries(testOpenCAEPoro
 install(TARGETS testOpenCAEPoro
         DESTINATION ${PROJECT_SOURCE_DIR})
 		
-#####################################################################################
+###############################################################################
 ## Installtion targets for lib and executable files
-#####################################################################################
+###############################################################################
 
 # Set install location for OpenCAEPoro library
 set(CMAKE_INSTALL_LIBDIR "${PROJECT_SOURCE_DIR}/lib/")

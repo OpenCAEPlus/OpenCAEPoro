@@ -1342,9 +1342,10 @@ bool Bulk::CheckNi() const
         if (Ni[n] < 0.0) {
             OCP_USI bId = n / numCom;
             USI     cId = n - bId * numCom;
+            std::ostringstream NiStringSci;
+            NiStringSci << std::scientific << Ni[n];
             OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
-                        std::to_string(bId) + "] = " + std::to_string(Ni[n]));
-            cout << "Ni = " << Ni[n] << endl;
+                        std::to_string(bId) + "] = " + NiStringSci.str());
             return false;
         }
     }
