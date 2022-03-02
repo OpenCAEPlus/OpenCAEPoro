@@ -249,6 +249,21 @@ void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
 {
 	setPT(Pin, Tin);
 	setNi(Niin);
+
+	// test
+	//P = 4614.654;
+	//T = 750;
+
+	//Ni[0] = 1.175e+04;
+	//Ni[1] = 3.987e+03;
+	//Ni[2] = 5.919e+02;
+	//Ni[3] = 1.047e+03;
+	//Ni[4] = 4.874e+02;
+	//Ni[5] = 6.321e+02;
+	//Ni[6] = 7.544e+02;
+	//Ni[7] = 4.037e+02;
+	//Ni[8] = 1.447e+03;
+
 	nu[0] = 1;
 	// Water is excluded
 	Nt = Dnorm1(NC, &Ni[0]);
@@ -674,7 +689,7 @@ bool MixtureComp::StableSSM(const USI& Id)
 	OCP_DBL Se;
 	bool flag;
 	USI iter;
-	for (USI k = 0; k < 2; k++) {
+	for (USI k = 0; k < 4; k++) {
 
 		Yt = 0;
 		for (USI i = 0; i < NC; i++) {

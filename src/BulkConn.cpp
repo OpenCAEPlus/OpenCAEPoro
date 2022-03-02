@@ -190,18 +190,25 @@ void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
 void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
 {
     OCP_USI bIdg, eIdg;
+    OCP_USI bIdb, eIdb;
     USI I, J, K;
     cout << "BulkConn : " << numConn << endl;
     for (OCP_USI c = 0; c < numConn; c++) {
-        bIdg = myGrid.activeMap_B2G[iteratorConn[c].BId];
-        eIdg = myGrid.activeMap_B2G[iteratorConn[c].EId];
+        bIdb = iteratorConn[c].BId;
+        eIdb = iteratorConn[c].EId;
+        bIdg = myGrid.activeMap_B2G[bIdb];
+        eIdg = myGrid.activeMap_B2G[eIdb];
         myGrid.GetIJKGrid(I, J, K, bIdg);
         cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
         cout << setw(6) << bIdg;
-        cout << "       ";
+        cout << "    ";
+        cout << setw(6) << bIdb;
+        cout << "    ";
         myGrid.GetIJKGrid(I, J, K, eIdg);
         cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
         cout << setw(6) << eIdg;
+        cout << "    ";
+        cout << setw(6) << eIdb;
         cout << setw(20) << setprecision(8) << fixed << area[c] * CONV2;
 
         cout << endl;
@@ -425,6 +432,16 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
                 upblock_Trans[c * np + j]    = 0;
                 upblock_Velocity[c * np + j] = 0;
             }
+  
+            //if (bId == 41 && eId == 42) {
+            //    if (j == 1) {
+            //        cout << "up: " << uId << "   "
+            //            << "Exist: " << exup << "   "
+            //            << "dP:  " << dP << "   "
+            //            << "Velocity: " << upblock_Velocity[c * np + j]
+            //            << endl;
+            //    }              
+            //}
         }
     }
 }
@@ -452,9 +469,24 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const
                               myBulk.xij[uId_np_j * nc + i];
                 myBulk.Ni[eId * nc + i] += dNi;
                 myBulk.Ni[bId * nc + i] -= dNi;
+
+                //if (bId == 41 && eId == 42) {
+                //    if (j == 1) {
+                //        cout << dNi << "   ";
+                //    }
+                //}
             }
         }
     }
+    //cout << scientific;
+    //for (USI i = 0; i < nc; i++) {
+    //    cout << myBulk.Ni[41 * nc + i] << "   ";
+    //}
+    //cout << endl;
+    //for (USI j = 0; j < np; j++) {
+    //    cout << myBulk.S[41 * np + j] << "   ";
+    //}
+    //cout << endl;
 }
 
 /////////////////////////////////////////////////////////////////////
