@@ -1552,7 +1552,7 @@ void MixtureComp::CalViscoLBC()
 			muA[1] += xj[i] * sqrt(MWC[i]);
 			xijT += xj[i] * Tc[i];
 			xijP += xj[i] * Pc[i];
-			xijV += xj[i] * Vc[i];
+			xijV += xj[i] * Vcvis[i];
 		}
 		muA[2] = 5.4402 * pow(xijT, 1.0 / 6) / sqrt(MW[j]) / pow(xijP, 2.0 / 3);
 		muA[3] = xiC[j] * xijV;
@@ -1820,7 +1820,7 @@ void MixtureComp::CalMuPXLBC()
 		for (USI i = 0; i < NC; i++) {
 			xTj += xj[i] * Tc[i];
 			xPj += xj[i] * Pc[i];
-			xVj += xj[i] * Vc[i];
+			xVj += xj[i] * Vcvis[i];
 		}
 		der7J = xVj * xiPC[0];
 		if (muAuxj[3] <= 0.18) {
@@ -1856,7 +1856,7 @@ void MixtureComp::CalMuPXLBC()
 			der6J = 5.4402 * (1.0 / 6 * pow(xTj, -5.0 / 6) * derxTj
 				- pow(xTj, 1.0 / 6) * (0.5 / MW[0] * derMWj + 2.0 / 3 / xPj * derxPj))
 				/ (sqrt(MW[0]) * pow(xPj, 2.0 / 3));
-			der7J = xixC[k] * xVj + xiC[0] * Vc[k];
+			der7J = xixC[k] * xVj + xiC[0] * Vcvis[k];
 			if (muAuxj[3] <= 0.18) {
 				mux[bId + k] = (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1])
 					+ 2.05 * 1E-4 * (der7J * muAuxj[2] - muAuxj[3] * der6J) / (muAuxj[2] * muAuxj[2]);
@@ -1883,15 +1883,15 @@ void MixtureComp::CalMuPXLBC()
 			for (USI i = 0; i < NC; i++) {
 				xTj += xj[i] * Tc[i];
 				xPj += xj[i] * Pc[i];
-				xVj += xj[i] * Vc[i];
+				xVj += xj[i] * Vcvis[i];
 				derxTj += xijP[i] * Tc[i];
 				derxPj += xijP[i] * Pc[i];
 				derMWj += xijP[i] * MWC[i];
 			}
 			der3J = der4J = der7J = 0;
 			for (USI i = 0; i < NC; i++) {
-				val1IJ = muAux1I[i] / sqrt(MW[0]);
-				der1IJ = -(1 / 2) * muAux1I[i] * pow(MW[0], -1.5) * derMWj;
+				val1IJ = muAux1I[i] / sqrt(MW[j]);
+				der1IJ = -(1 / 2) * muAux1I[i] * pow(MW[j], -1.5) * derMWj;
 				Tri = T / Tc[i];
 				if (Tri <= 1.5) {
 					tmp = 34 * 1E-5 * pow(Tri, 0.94);
@@ -1903,7 +1903,7 @@ void MixtureComp::CalMuPXLBC()
 				der2IJ = -tmp * der1IJ / (val1IJ * val1IJ);
 				der3J += sqrtMWi[i] * (xijP[i] * val2IJ + xj[i] * der2IJ);
 				der4J += sqrtMWi[i] * xijP[i];
-				der7J += xijP[i] * Vc[i];
+				der7J += xijP[i] * Vcvis[i];
 			}
 			der7J *= xiC[j];
 			der7J += xiPC[j] * xVj;
@@ -1931,17 +1931,17 @@ void MixtureComp::CalMuPXLBC()
 			for (USI i = 0; i < NC; i++) {
 				xTj += xj[i] * Tc[i];
 				xPj += xj[i] * Pc[i];
-				xVj += xj[i] * Vc[i];
+				xVj += xj[i] * Vcvis[i];
 			}
 			for (USI k = 0; k < NC; k++) {
 				derxTj = Tc[k];
 				derxPj = Pc[k];
 				derMWj = MWC[k];
-				derxVj = Vc[k];
+				derxVj = Vcvis[k];
 				der3J = 0;
 				for (USI i = 0; i < NC; i++) {
-					val1IJ = muAux1I[i] / sqrt(MW[0]);
-					der1IJ = -(1 / 2) * muAux1I[i] * pow(MW[0], -1.5) * derMWj;
+					val1IJ = muAux1I[i] / sqrt(MW[j]);
+					der1IJ = -(1 / 2) * muAux1I[i] * pow(MW[j], -1.5) * derMWj;
 					Tri = T / Tc[i];
 					if (Tri <= 1.5) {
 						tmp = 34 * 1E-5 * pow(Tri, 0.94);
@@ -1955,8 +1955,8 @@ void MixtureComp::CalMuPXLBC()
 				}
 				der4J = sqrtMWi[k];
 				der6J = 5.4402 * (1.0 / 6 * pow(xTj, -5.0 / 6) * derxTj
-					- pow(xTj, 1.0 / 6) * (0.5 / MW[0] * derMWj + 2.0 / 3 / xPj * derxPj))
-					/ (sqrt(MW[0]) * pow(xPj, 2.0 / 3));
+					- pow(xTj, 1.0 / 6) * (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj))
+					/ (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
 				der7J = xixC[k] * xVj + xiC[0] * derxVj;
 				if (muAuxj[3] <= 0.18) {
 					mux[bId + k] = (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1])
