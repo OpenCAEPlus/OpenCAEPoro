@@ -211,12 +211,34 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputNCNP(ifs);
                 break;
 
+            case Map_Str2Int("CNAMES", 6):
+                paramRs.InputCNAMES(ifs);
+                break;
+
             case Map_Str2Int("ZI", 2):
                 paramRs.InputZI(ifs);
                 break;
 
             case Map_Str2Int("COM", 3):
                 paramRs.InputCOM(ifs);
+                break;
+
+            case Map_Str2Int("TCRIT", 5):
+            case Map_Str2Int("PCRIT", 5):
+            case Map_Str2Int("VCRIT", 5):
+            case Map_Str2Int("ZCRIT", 5):
+            case Map_Str2Int("MW", 2):
+            case Map_Str2Int("ACF", 3):
+            case Map_Str2Int("OMEGAA", 6):
+            case Map_Str2Int("OMEGAB", 6):
+            case Map_Str2Int("SSHIFT", 6):
+            case Map_Str2Int("PARACHOR", 6):
+            case Map_Str2Int("VCRITVIS", 8):
+                paramRs.InputCOMPONENTS(ifs, keyword);
+                break;
+
+            case Map_Str2Int("LBCCOEF", 7):
+                paramRs.InputLBCCOEF(ifs);
                 break;
 
             case Map_Str2Int("BIC", 3):

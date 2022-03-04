@@ -213,12 +213,11 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
 //#ifdef _DEBUG
-    cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
-        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-        << "  " << NRdPmax << endl;
+    //cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+    //    << "  " << NRdPmax << endl;
     // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
 //#endif
-
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;

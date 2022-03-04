@@ -865,10 +865,10 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 }
                 qt = Dnorm1(nc, &tmpNi[0]);
 
-                cout << name << endl;
-                vector<OCP_DBL> tmpNiP(tmpNi);
-                Dscalar(nc, 1 / qt, &tmpNiP[0]);
-                PrintDX(nc, &tmpNiP[0]);
+                //cout << name << endl;
+                //vector<OCP_DBL> tmpNiP(tmpNi);
+                //Dscalar(nc, 1 / qt, &tmpNiP[0]);
+                //PrintDX(nc, &tmpNiP[0]);
 
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0]);
             }

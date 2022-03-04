@@ -119,7 +119,7 @@ class MixtureComp : public Mixture
 {
 public:
 	MixtureComp() = default;
-	MixtureComp(const ParamReservoir& rs_param, const USI& i) :MixtureComp(rs_param.EoSp) {
+	MixtureComp(const ParamReservoir& rs_param, const USI& i) :MixtureComp(rs_param.EoSp, i) {
 		mixtureType = EOS_PVTW;
 		if (rs_param.PVTW_T.data.size() != 0) {
 			PVTW.Setup(rs_param.PVTW_T.data[i]);
@@ -132,7 +132,7 @@ public:
 			cdata.resize(5);
 		}
 	};
-	MixtureComp(const EoSparam& param);
+	MixtureComp(const EoSparam& param, const USI& i);
 	void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
 		const OCP_DBL* Sjin, const OCP_DBL& Vpore,
 		const OCP_DBL* Ziin) override;
@@ -155,11 +155,30 @@ public:
 	void CallId();
 
 private:
+
+	// Basic Components Informations
+	vector<string> Cname; ///< Name of hydrocarbon components
+	vector<OCP_DBL> Tc; ///< Critical temperature of hydrocarbon components
+	vector<OCP_DBL> Pc; ///< Critical pressure of hydrocarbon components
+	vector<OCP_DBL> Vc; ///< Critical volume of hydrocarbon components
+	vector<OCP_DBL> Zc; ///< Critical Z-factor of hydrocarbon components
+	vector<OCP_DBL> MWC; ///< Molecular Weight of hydrocarbon components
+	vector<OCP_DBL> Acf; ///< Acentric factor of hydrocarbon components
+	vector<OCP_DBL> OmegaA; ///< OMEGA_A of hydrocarbon components
+	vector<OCP_DBL> OmegaB; ///< OMEGA_B of hydrocarbon components
+	vector<OCP_DBL> Vshift; ///< Volume shift of hydrocarbon components
+	vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
+	bool ParachorAct;
+	// for viscosity calculation
+	vector<OCP_DBL> Vcvis; ///< Critical volume used for viscosity calculations only.
+	vector<OCP_DBL> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
+	vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
+
 	// Initial properties
-	OCP_DBL P; ///< Current Pressure
-	OCP_DBL T; ///< Current Temperature
 	USI	NC; ///< num of hydrocarbon components
 	USI NPmax; ///< num of hydrocarbon phase
+	OCP_DBL P; ///< Current Pressure
+	OCP_DBL T; ///< Current Temperature
 	vector<OCP_DBL>   zi; ///< mole fraction of hydrocarbon components
 	vector<COMP>  comp; ///< properties of hydrocarbon components
 	vector<OCP_DBL> BIC; ///< Binary interaction between hydrocarbon components

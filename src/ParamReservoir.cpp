@@ -697,6 +697,18 @@ void TableSet::DisplayTable() const
     }
 }
 
+void EoSparam::InitEoSparam()
+{
+    // Init LBC coefficient
+    LBCcoef.resize(5);
+    LBCcoef[0] = 0.1023;
+    LBCcoef[1] = 0.023364;
+    LBCcoef[2] = 0.058533;
+    LBCcoef[3] = -0.040758;
+    LBCcoef[4] = 0.0093324;
+}
+
+
 /// TODO: Add Doxygen
 void EoSparam::InputNCNP(ifstream& ifs)
 {
@@ -706,14 +718,17 @@ void EoSparam::InputNCNP(ifstream& ifs)
     numPhase = stoi(vbuf[1]);
     OCP_FUNCNAME;
     cout << "NC = " << numComp << "   NPmax = " << numPhase << endl << endl;
+
+    InitEoSparam();
 }
 
 /// TODO: Add Doxygen
 void EoSparam::InputZI(ifstream& ifs)
 {
-    vector<string> vbuf;
-    ReadLine(ifs, vbuf);
     OCP_ASSERT(numComp > 0, "Wrong NC!");
+
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);  
     zi.resize(numComp);
     for (USI i = 0; i < numComp; i++) {
         zi[i] = stod(vbuf[i]);
@@ -761,31 +776,182 @@ void EoSparam::InputCOM(ifstream& ifs)
     cout << endl;
 }
 
-/// Input Binary Interaction Coefficients Matrix
-void EoSparam::InputBIC(ifstream& ifs)
+Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
 {
-    OCP_ASSERT(numComp > 0, "Wrong NC!");
-    BIC.resize(numComp);
+    Type_A_r<vector<OCP_DBL>>* myPtr = nullptr;
+
+    switch (Map_Str2Int(&varName[0], varName.size())) 
+    {
+    case Map_Str2Int("TCRIT", 5):
+        myPtr = &Tc;
+        break;
+
+    case Map_Str2Int("PCRIT", 5):
+        myPtr = &Pc;
+        break;
+
+    case Map_Str2Int("VCRIT", 5):
+        myPtr = &Vc;
+        break;
+
+    case Map_Str2Int("ZCRIT", 5):
+        myPtr = &Zc;
+        break;
+
+    case Map_Str2Int("MW", 2):
+        myPtr = &MW;
+        break;
+
+    case Map_Str2Int("ACF", 3):
+        myPtr = &Acf;
+        break;
+
+    case Map_Str2Int("OMEGAA", 6):
+        myPtr = &OmegaA;
+        break;
+
+    case Map_Str2Int("OMEGAB", 6):
+        myPtr = &OmegaB;
+        break;
+
+    case Map_Str2Int("SSHIFT", 6):
+        myPtr = &Vshift;
+        break;
+
+    case Map_Str2Int("PARACHOR", 6):
+        myPtr = &Parachor;
+        break;
+
+    case Map_Str2Int("VCRITVIS", 8):
+        myPtr = &Vcvis;
+        break;
+
+    case Map_Str2Int("ZCRITVIS", 8):
+        myPtr = &Zcvis;
+        break;
+
+    }
+
+    return myPtr;
+}
+
+
+void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
+{
+    OCP_ASSERT((numComp > 0) && (NTPVT > 0), "NPNC hasn't be input!");
+
+    Type_A_r<vector<OCP_DBL>>* objPtr = nullptr;
+    objPtr = FindPtr(keyword);
+    if (objPtr == nullptr) {
+        OCP_ABORT("Unknown keyword!");
+    }
+    objPtr->activity = true;
 
     vector<string> vbuf;
+    vector<OCP_DBL> tmp;
+    USI nReg = 0;
 
-    for (USI i = 0; i < numComp; i++) {
-        BIC[i].resize(numComp);
-
+    while (true) {
         ReadLine(ifs, vbuf);
-        for (USI j = 0; j < numComp; j++) {
-            BIC[i][j] = stod(vbuf[j]);
+        if (vbuf[0] == "/") {
+            nReg++;
+            objPtr->data.push_back(tmp);
+            if (nReg >= NTPVT)
+                break;
+            tmp.clear();
+            continue;
         }
+        for (auto& v : vbuf) {
+            if (v != "/") {
+                tmp.push_back(stod(v));
+            }
+        }
+        if (vbuf.back() == "/") {
+            nReg++;
+            objPtr->data.push_back(tmp);
+            tmp.clear();
+            if (nReg >= NTPVT)
+                break;
+        }     
+    }
+}
+
+
+void EoSparam::InputCNAMES(ifstream& ifs)
+{
+    OCP_ASSERT(numComp > 0, "NCNP hasn't be input!");
+
+    vector<string> vbuf;
+    while (true) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") {
+            break;
+        }
+        for (auto& v : vbuf) {
+            if (v != "/")
+                Cname.push_back(v);
+        }
+        if (vbuf.back() == "/")
+            break;
     }
 
     OCP_FUNCNAME;
-    for (auto& row : BIC) {
-        for (auto& col : row) {
-            cout << setw(10) << col;
+    cout << "CNAMES" << endl;
+    for (USI i = 0; i < numComp; i++) {
+        cout << Cname[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+
+void EoSparam::InputLBCCOEF(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    DealDefault(vbuf);
+    for (USI i = 0; i < 5; i++) {
+        if (vbuf[i] != "DEFAULT")
+        LBCcoef[i] = stod(vbuf[i]);
+    }
+
+    OCP_FUNCNAME;
+    cout << "LBCCOEF" << endl;
+    for (USI i = 0; i < 5; i++) {
+        cout << LBCcoef[i] << "   ";
+    }
+    cout << endl << endl;
+}
+
+/// Input Binary Interaction Coefficients Matrix
+void EoSparam::InputBIC(ifstream& ifs)
+{
+    OCP_ASSERT((numComp > 0) && (NTPVT > 0), "NCNP hasn't been input!");
+  
+    BIC.resize(NTPVT);
+
+    vector<string> vbuf;
+    USI nReg = 0;
+    while (true) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") {
+            nReg++;
+            if (nReg >= NTPVT)
+                break;
+            continue;
+        }
+        for (auto& v : vbuf) {
+            if (v != "/") {
+                BIC[nReg].push_back(stod(v));
+                cout << setw(10) << BIC[nReg].back();
+            }                
         }
         cout << endl;
+        if (vbuf.back() == "/") {
+            nReg++;
+            if (nReg >= NTPVT)
+                break;
+        }
     }
-    cout << endl;
 }
 
 /// TODO: Add Doxygen

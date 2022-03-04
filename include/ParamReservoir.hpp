@@ -66,9 +66,25 @@ class EoSparam
 {
 public:
     // Basic params
+    /// Init Params
+    void InitEoSparam();
+    /// Input the num of hydrocarbon components and hydrocarbon phases
     void InputNCNP(ifstream& ifs);
+    /// Input the initial moles fraction of hydrocarbon components
     void InputZI(ifstream& ifs);
-    void InputCOM(ifstream& ifs);
+    /// Input the information of components
+    void InputCOM(ifstream& ifs); // useless now
+
+    /// Input the information of hydrocarbon components
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword);
+    /// Find corresponding variable according to the name of variable.
+    /// It is used for the basic properties of hydrocarbon components such as TCRIT
+    Type_A_r<vector<OCP_DBL>>* FindPtr(const string& varName);
+    /// Input the names of hydrocarbon components
+    void InputCNAMES(ifstream& ifs);
+    /// Input LBC coefficients for viscosity calculation
+    void InputLBCCOEF(ifstream& ifs);
+    /// Input the Binary interaction of components
     void InputBIC(ifstream& ifs);
     // Method params
     void InputSSMSTA(ifstream& ifs);
@@ -78,11 +94,28 @@ public:
     void InputRR(ifstream& ifs);
 
 public:
+    USI NTPVT{0}; ///< num of EoS region
     USI numComp{0};  ///< num of components, water is excluded.
     USI numPhase{0}; ///< num of phase, water is excluded.
     vector<OCP_DBL>
         zi; ///< molar fraction of components in initial reservoir, water is excluded.
-    vector<vector<string>>  COM; ///< Coponents information
+    vector<vector<string>>  COM; ///< Components information
+    vector<string> Cname; ///< Name of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Tc; ///< Critical temperature of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Pc; ///< Critical pressure of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Vc; ///< Critical volume of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Zc; ///< Critical Z-factor of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> MW; ///< Molecular Weight of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Acf; ///< Acentric factor of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> OmegaA; ///< OMEGA_A of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> OmegaB; ///< OMEGA_B of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Vshift; ///< Volume shift of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Parachor; ///< PARACHOR of hydrocarbon components
+    // for viscosity calculation
+    Type_A_r<vector<OCP_DBL>> Vcvis; ///< Critical volume used for viscosity calculations only.
+    Type_A_r<vector<OCP_DBL>> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
+    vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
+
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
@@ -245,10 +278,14 @@ public:
 
     // Input EoSparam
     // Basic params
-    void InputNCNP(ifstream& ifs) { EoSp.InputNCNP(ifs); };
+    void InputNCNP(ifstream& ifs) { OCP_ASSERT(NTPVT > 0, "TABDIM hasn't been input!"); EoSp.NTPVT = NTPVT; EoSp.InputNCNP(ifs); };
+    void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
     void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
     void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword) { EoSp.InputCOMPONENTS(ifs, keyword); }
+    void InputLBCCOEF(ifstream& ifs) { EoSp.InputLBCCOEF(ifs); }
     void InputBIC(ifstream& ifs) { EoSp.InputBIC(ifs); };
+
 
     // Method params
     void InputSSMSTA(ifstream& ifs) { EoSp.InputSSMSTA(ifs); };

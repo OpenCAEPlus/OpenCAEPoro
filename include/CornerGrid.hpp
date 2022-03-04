@@ -150,8 +150,7 @@ public:
     void InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn);
     bool InputCOORDDATA(const vector<OCP_DBL>& coord);
     bool InputZCORNDATA(const vector<OCP_DBL>& zcorn);
-    void CalConn();
-    // New version of CalConn()
+    // New version
     void SetupCornerPoints();
     void SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face);
     // functions
