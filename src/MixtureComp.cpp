@@ -68,7 +68,7 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
 	if (param.Parachor.activity)    Parachor = param.Parachor.data[tar];
 	else                            ParachorAct = false;
 
-	if (param.Vcvis.activity)       Vcvis = param.Parachor.data[tar];
+	if (param.Vcvis.activity)       Vcvis = param.Vcvis.data[tar];
 	else if (param.Zcvis.activity) {
 		Zcvis = param.Zcvis.data[tar];
 		Vcvis.resize(NC);
@@ -432,6 +432,9 @@ void MixtureComp::AllocateEoS()
 	Bj.resize(NPmax);
 	Zj.resize(NPmax);
 	Ztmp.resize(3);
+    delta1P2 = delta1 + delta2;
+    delta1M2 = delta1 - delta2;
+    delta1T2 = delta1 * delta2;
 }
 
 
@@ -501,6 +504,22 @@ void MixtureComp::CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const vector<OCP_DBL>& xj)
 	}
 }
 
+void MixtureComp::CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const OCP_DBL* xj) const 
+{
+    AjT = 0;
+    BjT = 0;
+
+    for (USI i1 = 0; i1 < NC; i1++) {
+        BjT += Bi[i1] * xj[i1];
+        AjT += xj[i1] * xj[i1] * Ai[i1] * (1 - BIC[i1 * NC + i1]);
+
+        for (USI i2 = 0; i2 < i1; i2++) {
+            AjT +=
+                2 * xj[i1] * xj[i2] * sqrt(Ai[i1] * Ai[i2]) * (1 - BIC[i1 * NC + i2]);
+        }
+    }
+}
+
 void MixtureComp::AllocatePhase()
 {
 	// Allocate Memoery for Phase variables
@@ -527,18 +546,22 @@ void MixtureComp::AllocatePhase()
 
 void MixtureComp::CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT, const vector<OCP_DBL>& xj)
 {
-
 	OCP_DBL aj, bj, zj;
 	OCP_DBL tmp;
 	CalAjBj(aj, bj, xj);
 	SolEoS(zj, aj, bj);
+
+	const OCP_DBL m1 = delta1;
+    const OCP_DBL m2 = delta2;
 
 	for (USI i = 0; i < NC; i++) {
 		tmp = 0;
 		for (int k = 0; k < NC; k++) {
 			tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
 		}
-		phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) - aj / (delta1 - delta2) / bj * (tmp / aj - Bi[i] / bj) * log((zj + delta1 * bj) / (zj + delta2 * bj)));
+        phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
+                      aj / (m1 - m2) / bj * (tmp / aj - Bi[i] / bj) *
+                          log((zj + m1 * bj) / (zj + m2 * bj)));
 		fugT[i] = phiT[i] * xj[i] * P;
 	}
 
@@ -547,9 +570,39 @@ void MixtureComp::CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT, const 
 	Zsta = zj;
 }
 
+void MixtureComp::CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj)
+{
+    OCP_DBL aj, bj, zj; 
+    CalAjBj(aj, bj, xj); 
+    SolEoS(zj, aj, bj);
+
+    const OCP_DBL m1 = delta1;
+    const OCP_DBL m2 = delta2;
+    const OCP_DBL m1Mm2 = delta1M2;
+
+    OCP_DBL       tmp;
+    for (USI i = 0; i < NC; i++) {
+        tmp = 0;
+        for (int k = 0; k < NC; k++) {
+            tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
+        }
+        phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
+                      aj / (m1Mm2) / bj * (tmp / aj - Bi[i] / bj) *
+                          log((zj + m1 * bj) / (zj + m2 * bj)));
+        fugT[i] = phiT[i] * xj[i] * P;
+    }
+
+    Asta = aj;
+    Bsta = bj;
+    Zsta = zj;
+}
+
 void MixtureComp::CalFugPhiAll()
 {
 	OCP_DBL tmp;
+    const OCP_DBL m1 = delta1;
+    const OCP_DBL m2 = delta2;
+    const OCP_DBL m1Mm2 = delta1M2;
 
 	for (USI j = 0; j < NP; j++) {
 		const vector<OCP_DBL>& xj = x[j];
@@ -567,7 +620,9 @@ void MixtureComp::CalFugPhiAll()
 			for (int k = 0; k < NC; k++) {
 				tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
 			}
-			phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) - aj / (delta1 - delta2) / bj * (tmp / aj - Bi[i] / bj) * log((zj + delta1 * bj) / (zj + delta2 * bj)));
+            phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
+                          aj / (m1Mm2) / bj * (tmp / aj - Bi[i] / bj) *
+                              log((zj + m1 * bj) / (zj + m2 * bj)));
 			fugT[i] = phiT[i] * xj[i] * P;
 		}
 	}
@@ -763,8 +818,8 @@ bool MixtureComp::StableSSM(const USI& Id)
 			Yt += Y[i];
 		}
 		Dscalar(NC, 1 / Yt, &Y[0]);
-		CalFugPhi(phiSta, fugSta, Y);
-		// CalFugSTA();
+		// CalFugPhi(phiSta, fugSta, Y);       
+        CalFugPhi(&phiSta[0], &fugSta[0], &Y[0]);
 
 		Se = 0;
 		for (USI i = 0; i < NC; i++) {
@@ -781,8 +836,8 @@ bool MixtureComp::StableSSM(const USI& Id)
 				Yt += Y[i];
 			}
 			Dscalar(NC, 1 / Yt, &Y[0]);
-			CalFugPhi(phiSta, fugSta, Y);
-			// CalFugSTA();
+			// CalFugPhi(phiSta, fugSta, Y);
+            CalFugPhi(&phiSta[0], &fugSta[0], &Y[0]);
 			Se = 0;
 			for (USI i = 0; i < NC; i++) {
 				Se += pow(log(fugSta[i] / fugId[i] * Yt), 2);
@@ -847,8 +902,7 @@ bool MixtureComp::StableNR(const USI& Id)
 		}
 		Dscalar(NC, 1 / Yt, &Y[0]);
 
-		CalFugPhi(phiSta, fugSta, Y);
-		// CalFugSTA();
+		CalFugPhi(&phiSta[0], &fugSta[0], &Y[0]);
 		for (USI i = 0; i < NC; i++) {
 			resSTA[i] = log(fug[Id][i] / (fugSta[i] * Yt));
 		}
@@ -868,32 +922,6 @@ bool MixtureComp::StableNR(const USI& Id)
 }
 
 
-void MixtureComp::CalFugSTA()
-{
-	// Calculate Fug(Y) for Stability Analysis
-	Asta = 0;
-	Bsta = 0;
-	for (USI i1 = 0; i1 < NC; i1++) {
-		Bsta += Bi[i1] * Y[i1];
-		Asta += Y[i1] * Y[i1] * Ai[i1] * (1 - BIC[i1 * NC + i1]);
-
-		for (USI i2 = 0; i2 < i1; i2++) {
-			Asta += 2 * Y[i1] * Y[i2] * sqrt(Ai[i1] * Ai[i2]) * (1 - BIC[i1 * NC + i2]);
-		}
-	}
-	SolEoS(Zsta, Asta, Bsta);
-	OCP_DBL tmp;
-	for (USI i = 0; i < NC; i++) {
-		tmp = 0;
-		for (int k = 0; k < NC; k++) {
-			tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * Y[k];
-		}
-		phiSta[i] = exp(Bi[i] / Bsta * (Zsta - 1) - log(Zsta - Bsta) - Asta / (delta1 - delta2) / Bsta * (tmp / Asta - Bi[i] / Bsta) * log((Zsta + delta1 * Bsta) / (Zsta + delta2 * Bsta)));
-		fugSta[i] = phiSta[i] * Y[i] * P;
-	}
-}
-
-
 void MixtureComp::CalFugXSTA()
 {
 	vector<OCP_DBL>& fugx = fugX[0];
@@ -902,6 +930,12 @@ void MixtureComp::CalFugXSTA()
 	OCP_DBL zj = Zsta;
 	OCP_DBL tmp = 0;
 
+	const OCP_DBL m1 = delta1;
+	const OCP_DBL m2 = delta2;
+    const OCP_DBL m1Pm2 = delta1P2;
+    const OCP_DBL m1Mm2 = delta1M2;
+    const OCP_DBL m1Tm2 = delta1T2;  
+
 	Bx = Bi;
 	for (USI i = 0; i < NC; i++) {
 		tmp = 0;
@@ -909,22 +943,24 @@ void MixtureComp::CalFugXSTA()
 			tmp += Y[k] * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]);
 		}
 		Ax[i] = 2 * tmp;
-		Zx[i] = ((bj - zj) * Ax[i] + ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj))
-			+ ((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj
-			- (delta1 + delta2 - 1) * zj * zj) * Bx[i]) / (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj
-				+ (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
+        Zx[i] = ((bj - zj) * Ax[i] + ((aj + m1Tm2 * (3 * bj * bj + 2 * bj)) +
+                                      ((m1Pm2) * (2 * bj + 1) - 2 * m1Tm2 * bj) * zj -
+                                      (m1Pm2 - 1) * zj * zj) *
+                                         Bx[i]) /
+                (3 * zj * zj + 2 * ((m1Pm2 - 1) * bj - 1) * zj +
+                 (aj + m1Tm2 * bj * bj - (m1Pm2)*bj * (bj + 1)));
 	}
 
 	OCP_DBL C, D, E, G;
 	OCP_DBL Cxk, Dxk, Exk, Gxk;
 	OCP_DBL* phiXT;
-	G = (zj + delta1 * bj) / (zj + delta2 * bj);
+	G = (zj + m1 * bj) / (zj + m2 * bj);
 
 	for (USI i = 0; i < NC; i++) {
 		C = Y[i] * P / (zj - bj);
 		// C = 1 / (zj - bj);
 		// D = Bx[i] * (zj - 1) / bj;
-		E = -aj / ((delta1 - delta2) * bj) * (Ax[i] / aj - Bx[i] / bj);
+        E = -aj / ((m1Mm2)*bj) * (Ax[i] / aj - Bx[i] / bj);
 
 		for (USI k = 0; k < NC; k++) {
 			// Cxk = -Y[i] * (Zx[k] - Bx[k]) / ((zj - bj) * (zj - bj));
@@ -932,8 +968,8 @@ void MixtureComp::CalFugXSTA()
 			Dxk = Bx[i] / bj * (Zx[k] - Bx[k] * (zj - 1) / bj);
 			Exk = (Ax[k] * bj - aj * Bx[k]) / (bj * bj) * (Ax[i] / aj - Bx[i] / bj) + aj / bj * (2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) / aj -
 				Ax[k] * Ax[i] / (aj * aj) + Bx[i] * Bx[k] / (bj * bj));
-			Exk /= -(delta1 - delta2);
-			Gxk = (delta1 - delta2) / (zj + delta2 * bj) / (zj + delta2 * bj) * (zj * Bx[k] - Zx[k] * bj);
+            Exk /= -(m1Mm2);
+            Gxk = (m1Mm2) / (zj + m2 * bj) / (zj + m2 * bj) * (zj * Bx[k] - Zx[k] * bj);
 			fugx[i * NC + k] = 1 / C * Cxk + Dxk + Exk * log(G) + E / G * Gxk;
 		}
 	}
@@ -1008,20 +1044,20 @@ bool MixtureComp::CheckSplit()
 		else {
 			if (!isfinite(tmp) || (1 - nuMax) < 1E-3) {
 				// single phase
-				cout << "-------------------------------------------" << endl;
-				cout << fixed << scientific << setprecision(12);
-				cout << Yt << "   " << nu[0] << "   " << nu[1] << "   ";
-				cout << sqrt(EoSctrl.SSMsp.realTol) << "   " << EoSctrl.SSMsp.conflag << "   ";
-				cout << sqrt(EoSctrl.NRsp.realTol) << "   " << EoSctrl.NRsp.conflag << endl;
-				for (USI i = 0; i < NC; i++)
-					cout << zi[i] << "   ";
-				cout << endl;
-				for (USI j = 0; j < NP; j++) {
-					for (USI i = 0; i < NC; i++) {
-						cout << x[j][i] << "   ";
-					}
-					cout << endl;
-				}
+				//cout << "-------------------------------------------" << endl;
+				//cout << fixed << scientific << setprecision(12);
+				//cout << Yt << "   " << nu[0] << "   " << nu[1] << "   ";
+				//cout << sqrt(EoSctrl.SSMsp.realTol) << "   " << EoSctrl.SSMsp.conflag << "   ";
+				//cout << sqrt(EoSctrl.NRsp.realTol) << "   " << EoSctrl.NRsp.conflag << endl;
+				//for (USI i = 0; i < NC; i++)
+				//	cout << zi[i] << "   ";
+				//cout << endl;
+				//for (USI j = 0; j < NP; j++) {
+				//	for (USI i = 0; i < NC; i++) {
+				//		cout << x[j][i] << "   ";
+				//	}
+				//	cout << endl;
+				//}
 				NP = 1;
 				x[0] = zi;
 				nu[0] = 1;

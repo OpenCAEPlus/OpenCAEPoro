@@ -67,6 +67,8 @@ int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int
 
 void Dcopy(const int& N, double* dst, const double* src);
 
+double Ddot(int n, double* a, double* b);
+
 /// Computes the L1-norm of a vector.
 double Dnorm1(const int& N, double* x);
 

@@ -18,6 +18,12 @@ void Dcopy(const int& N, double* dst, const double* src)
     dcopy_(&N, src, &incx, dst, &incy);
 }
 
+double Ddot(int n, double* a, double* b)
+{
+    const int inca = 1, incb = 1;
+    return ddot_(&n, a, &inca, b, &incb);
+}
+
 // WARNING: absolute sum!
 double Dnorm1(const int& N, double* x)
 {

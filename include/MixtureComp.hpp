@@ -161,13 +161,13 @@ private:
 	vector<OCP_DBL> Tc; ///< Critical temperature of hydrocarbon components
 	vector<OCP_DBL> Pc; ///< Critical pressure of hydrocarbon components
 	vector<OCP_DBL> Vc; ///< Critical volume of hydrocarbon components
-	vector<OCP_DBL> Zc; ///< Critical Z-factor of hydrocarbon components
 	vector<OCP_DBL> MWC; ///< Molecular Weight of hydrocarbon components
 	vector<OCP_DBL> Acf; ///< Acentric factor of hydrocarbon components
 	vector<OCP_DBL> OmegaA; ///< OMEGA_A of hydrocarbon components
 	vector<OCP_DBL> OmegaB; ///< OMEGA_B of hydrocarbon components
 	vector<OCP_DBL> Vshift; ///< Volume shift of hydrocarbon components
 	vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
+	vector<OCP_DBL> Zc; ///< Critical Z-factor of hydrocarbon components
 	bool ParachorAct;
 	// for viscosity calculation
 	vector<OCP_DBL> Vcvis; ///< Critical volume used for viscosity calculations only.
@@ -208,6 +208,7 @@ public:
 	void CalAiBi();
 	// Calculate Aj and Bj with specified xj
 	void CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const vector<OCP_DBL>& xj) const;
+    void CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const OCP_DBL* xj) const;
 	/// Result is stored in Ztmp.
 	USI CubicRoot(const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c, const bool& NTflag = false) const;
 	/// test
@@ -223,8 +224,11 @@ private:
 	mutable vector<OCP_DBL> Ztmp; ///< Cubic root space,size: 3
 
 	// PR default
-	const OCP_DBL delta1 = 2.41421356237;
-	const OCP_DBL delta2 = -0.41421356237;
+	OCP_DBL delta1 = 2.41421356237;
+	OCP_DBL delta2 = -0.41421356237;    
+    OCP_DBL delta1P2;
+    OCP_DBL delta1M2;
+    OCP_DBL delta1T2;
 
 
 public:
@@ -232,6 +236,7 @@ public:
 	// Allocate memoery for phase variables
 	void AllocatePhase();
 	void CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT, const vector<OCP_DBL>& xj);
+    void CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj);
 	void CalFugPhiAll();
 	void CalMW();
 	void CalVfXiRho();
@@ -255,8 +260,6 @@ private:
 	vector<OCP_DBL> MW; ///< Molecular Weight
 	vector<USI> phaseLabel; ///< Label of phase
 
-
-
 public:
 	// Method Function
 	// Allocate memoery for Method variables
@@ -267,7 +270,6 @@ public:
 	bool StableSSM(const USI& Id);
 	bool StableNR(const USI& Id);
 	void CalFugXSTA(); ///< Calculate dFug / dx for Y
-	void CalFugSTA(); ///< Calculate Fug(Y)
 	void AssembleJmatSTA();
 	bool CheckSplit();
 	void PhaseSplit();
