@@ -307,6 +307,7 @@ private:
 	vector<OCP_DBL> Zx; ///< d Zj / d xkj, j is fixed
 
 	// SSM in Phase Split
+    vector<OCP_DBL> tmpRR; ///< temp variables for solving Rachford-Rice equations.
 	vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.
 	// NR in Phase Split
 	vector<OCP_DBL> resSP; ///< d G / d nij, G is Gibbs free energy: ln fij - ln fi,np

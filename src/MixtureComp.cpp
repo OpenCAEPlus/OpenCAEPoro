@@ -733,6 +733,7 @@ void MixtureComp::AllocateMethod()
 	Ax.resize(NC);
 	Bx.resize(NC);
 	Zx.resize(NC);
+    tmpRR.resize(NC);
 	resRR.resize(NPmax - 1);
 	resSP.resize(NC * NPmax);
 	JmatSP.resize(NC * NC * NPmax * NPmax);
@@ -1173,7 +1174,7 @@ void MixtureComp::RachfordRice2()  ///< Used when NP = 2
 	nu[0] = 0.5 * (numin + numax);
 
 	// Solve RR with NR
-	vector<OCP_DBL> tmpRR(NC, 0);
+    fill(tmpRR.begin(), tmpRR.end(), 0);
 	OCP_DBL rj, J, dnuj, tmp;
 
 	USI iter = 0;
