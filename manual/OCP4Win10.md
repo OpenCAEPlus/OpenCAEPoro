@@ -27,7 +27,7 @@ set CC=icx
 set CXX=icx
 ```
 
-If you use **PowerShell** instead of the regular command line tool **cmd**, set the environment varilabes with
+If you are using **PowerShell** instead of the regular command line tool **cmd**, set the environment varilabes with
 
 ```
 $env:CC='icx'
@@ -130,13 +130,24 @@ $env:FASP_DIR='\prog\0.FASP\faspsolver'
 $env:FASP4BLKOIL_DIR='\prog\0.FASP\fasp4blkoil'
 ```
 
-and then
+After setting the environment, you can run (if you have fasp4blkoil and intel MKL)
 
 ```
 cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DUSE_FASP4BLKOIL=ON -DUSE_PARDISO=ON ..
 ```
 
+or just simply
+
+```
+cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" ..
+```
+
 Now you are ready. Just open OpenCAEPoro.sln and build the **ALL_BUILD** target. And then build **INSTALL** target if you wish to install the lib and exe files to desirable directories. 
 
+In case you wish to generate the **DEBUG** solution for debugging your code, you may use  
 
-*Modified on Feb/18/2022 by Chensong Zhang*
+```
+cmake -T "Intel C++ Compiler 2022" -DCMAKE_C_COMPILER="icx" -DCMAKE_BUILD_TYPE=Debug ..
+```
+
+*Modified on March/08/2022 by Chensong Zhang*
