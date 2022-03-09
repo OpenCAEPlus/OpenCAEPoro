@@ -11,7 +11,7 @@
 
 #include "MixtureComp.hpp"
 
-    COMP::COMP(const vector <string>& comp)
+COMP::COMP(const vector<string>& comp)
 {
     name   = comp[0];
     Pc     = stod(comp[1]);
@@ -45,14 +45,16 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     // }
 
     Cname = param.Cname;
+
     if (param.Tc.activity)
         Tc = param.Tc.data[tar];
     else
-        OCP_ABORT("TCRIT hasn't been input!");
+        OCP_ABORT("TCRIT has not been given!");
+
     if (param.Pc.activity)
         Pc = param.Pc.data[tar];
     else
-        OCP_ABORT("PCRIT hasn't been input!");
+        OCP_ABORT("PCRIT has not been given!");
 
     if (param.Vc.activity)
         Vc = param.Vc.data[tar];
@@ -63,20 +65,23 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
             Vc[i] = 10.73159 * Zc[i] * Tc[i] / Pc[i];
         }
     } else
-        OCP_ABORT("VCRIT or ZCRIT hasn't been input!");
+        OCP_ABORT("VCRIT or ZCRIT has not been given!");
 
     if (param.MW.activity)
         MWC = param.MW.data[tar];
     else
-        OCP_ABORT("MW hasn't been input!");
+        OCP_ABORT("MW has not been given!");
+
     if (param.Acf.activity)
         Acf = param.Acf.data[tar];
     else
-        OCP_ABORT("ACF hasn't been input!");
+        OCP_ABORT("ACF has not been given!");
+
     if (param.OmegaA.activity)
         OmegaA = param.OmegaA.data[tar];
     else
         OmegaA.resize(NC, 0.457235529);
+
     if (param.OmegaB.activity)
         OmegaB = param.OmegaB.data[tar];
     else
@@ -171,6 +176,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     setPT(Pin, Tin);
     setZi(Ziin);
     PhaseEquilibrium();
+
     // Attention Nt = 1 now
     CalMW();
     CalVfXiRho();
@@ -220,6 +226,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
 {
     CalFlash(Pin, Tin, Niin);
+
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
     CalVfiVfp();
@@ -421,10 +428,10 @@ OCP_DBL MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
 OCP_DBL MixtureComp::GammaPhaseW(const OCP_DBL& Pin)
 {
     PVTW.Eval_All(0, Pin, data, cdata);
-    OCP_DBL Pw0 = data[0];
-    OCP_DBL bw0 = data[1];
-    OCP_DBL cbw = data[2];
-    OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
+    const OCP_DBL Pw0 = data[0];
+    const OCP_DBL bw0 = data[1];
+    const OCP_DBL cbw = data[2];
+    const OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
 
     return std_GammaW / bw;
 }
@@ -590,6 +597,7 @@ void MixtureComp::CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT,
     Zsta = zj;
 }
 
+/// Calculate fugacity coefficient and fugacity.
 void MixtureComp::CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj)
 {
     OCP_DBL aj, bj, zj;
@@ -599,20 +607,19 @@ void MixtureComp::CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj)
     const OCP_DBL m1    = delta1;
     const OCP_DBL m2    = delta2;
     const OCP_DBL m1Mm2 = delta1M2;
-    const OCP_DBL bj_1  = 1.0 / bj;
     const OCP_DBL log1  = log(zj - bj);
     const OCP_DBL log2  = log((zj + m1 * bj) / (zj + m2 * bj));
-    const OCP_DBL abmm  = aj * bj_1 * log2 / m1Mm2;
+    const OCP_DBL abmm  = aj / m1Mm2 / bj * log2;
 
     OCP_DBL tmp;
     for (USI i = 0; i < NC; ++i) {
-        tmp = 0;
+        tmp = 0.0;
         for (USI k = 0; k < NC; ++k) {
             tmp += (1.0 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
         }
         tmp *= 2.0;
         phiT[i] =
-            exp(Bi[i] * bj_1 * (zj - 1.0) - log1 - (tmp / aj - Bi[i] * bj_1) * abmm);
+            exp(Bi[i] / bj * (zj - 1.0) - (log1 + (tmp / aj - Bi[i] / bj) * abmm));
         fugT[i] = phiT[i] * xj[i] * P;
     }
 

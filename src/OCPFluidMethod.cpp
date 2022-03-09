@@ -225,7 +225,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "NR Failed, Cut time Step and reset!\n";
+        cout << "### WARNING: NR failed! Cut time stepsize and repeat!\n";
         return false;
     }
 
