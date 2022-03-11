@@ -84,6 +84,8 @@ public:
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.
     void Flash();
+    /// Perform flash calculation with Ni in specified order
+    void FlashSP01();
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDeriv();
     /// Pass values from Flash to Bulk after Flash calculation.
@@ -156,7 +158,9 @@ public:
     OCP_DBL GetdSmax() const { return dSmax; }
     /// Return dVmax.
     OCP_DBL GetdVmax() const { return dVmax; }
-
+    
+    // Reset phaseNum to the ones of the last time step.
+    void ResetphaseNum() { phaseNum = lphaseNum; }
     /// Reset P to the ones of the last time step.
     void ResetP() { P = lP; }
     /// Reset Pj to the ones of the last time step.
@@ -165,7 +169,10 @@ public:
     void ResetNi() { Ni = lNi; }
     /// Reset Vp to the ones of the last time step.
     void ResetVp() { rockVp = rockLVp; }
-    void CalSomeInfo(const Grid& myGrid)const;
+    void CalSomeInfo(const Grid& myGrid) const;
+    
+    /// Allocate memory for WellbulkId
+    void InitWellBulkId(const USI& n) { wellBulkId.reserve(n); }
 
 private:
     /////////////////////////////////////////////////////////////////////
@@ -183,6 +190,14 @@ private:
     USI               SATmode;  ///< Identify SAT mode.
     vector<USI>       SATNUM;   ///< Identify SAT region: numBulk.
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
+
+    // flash in a specified order
+    OCP_USI           numWellBulk;  ///< num of bulks which are penetrated by wells
+    vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells
+    vector<OCP_USI>   flashBulkId;  ///< Sequence of flash for bulks  
+    vector<USI>       phaseNum;     ///< Num of hydrocarbon phase in each bulk
+    vector<USI>       lphaseNum;    ///< last phaseNum
+    vector<vector<OCP_USI>> neighbor_K; ///< K-neighbor of each bulk, k = 1 defaulted
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information
@@ -340,9 +355,10 @@ private:
 public:
     // for debug!
     void OutputInfo(const OCP_USI& n) const;
-    OCP_USI GetSSMSTAiters()const { return flashCal[0]->SSMSTAiters; };
-    OCP_USI GetSSMSPiters()const { return flashCal[0]->SSMSPiters; }
-    OCP_USI GetNRSPiters()const { return flashCal[0]->NRSPiters; }
+    OCP_ULL GetSSMSTAiters()const { return flashCal[0]->GetSSMSTAiters(); }
+    OCP_ULL GetNRSTAiters()const { return flashCal[0]->GetNRSTAiters(); }
+    OCP_ULL GetSSMSPiters()const { return flashCal[0]->GetSSMSPiters(); }
+    OCP_ULL GetNRSPiters()const { return flashCal[0]->GetNRSPiters(); }
 };
 
 #endif /* end if __BULK_HEADER__ */

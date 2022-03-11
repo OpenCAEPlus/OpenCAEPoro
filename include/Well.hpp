@@ -161,6 +161,8 @@ public:
     }
     /// Allocate memory for matrix.
     void AllocateMat(LinearSystem& myLS) const;
+    /// Setup bulks which are penetrated by wells
+    void SetupWellBulk(Bulk& myBulk) const;
     /// Return the state of the well, Open or Close.
     bool WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.

@@ -32,6 +32,14 @@ void Reservoir::Setup()
     bulk.Setup(grid);
     conn.Setup(grid, bulk);
     allWells.Setup(grid, bulk);
+
+    // Test for specified flash order and skipping phase stability analysis
+    // for Compositional Model
+    if (true) {
+        allWells.SetupWellBulk(bulk);
+        conn.SetupFlashOrder(bulk);
+        conn.SetupNeighbor_K(bulk);
+    }
 }
 
 void Reservoir::ApplyControl(const USI& i)
@@ -208,6 +216,7 @@ void Reservoir::CalFlashIMPEC()
     OCP_FUNCNAME;
 
     bulk.Flash();
+    // bulk.FlashSP01();
 }
 
 void Reservoir::UpdateLastStepIMPEC()
@@ -283,7 +292,7 @@ void Reservoir::ResetVal02IMPEC()
 void Reservoir::ResetVal03IMPEC()
 {
     OCP_FUNCNAME;
-
+    bulk.ResetphaseNum();
     bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();

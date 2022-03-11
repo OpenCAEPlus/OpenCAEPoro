@@ -19,6 +19,7 @@
 #include "UtilError.hpp"
 
 // Build-in data type
+typedef unsigned long long OCP_ULL;
 typedef unsigned int USI;     ///< Generic unsigned integer
 typedef unsigned int OCP_USI; ///< Long unsigned integer
 typedef int          OCP_INT; ///< Long integer

@@ -107,15 +107,3 @@ SSMSP
 NRSP
 55  1e-12
 /
-
-
-FSWITCH
-#swith of 
-#shift RRinit SSinit NRinit
-0	1	1	1
-/
-# 2 2  ->  2 1
-# mu indentify_phase
-OTHERS
-2     1
-/

@@ -363,17 +363,17 @@ OCP_IMPEC
 
 0.1  1  0.1
 
+SSMSTA:     13117305
+NRSTA:      19849
+SSMSP:      20415184
+NRSP:       1532986
+=========================================
 Final time:          7305.000 Days
-Total time steps:    12460
-Total Newton steps:  12460 (+51 wasted steps)
-Total linear steps:  18938 (+100 wasted steps)
-Linear solve time:   1.244s (1.772%)
-Simulation time:     70.237s
-
-Method     iters     maxIt    tol
-SSMSTA   61652064     100    1E-12
-SSMSP    23814043     100    1E-6
-NRSP     1499823      55     1E-12
+Total time steps:    11882
+Total Newton steps:  11882 (+91 wasted steps)
+Total linear steps:  18299 (+178 wasted steps)
+Linear solve time:   1.230s (5.407%)
+Simulation time:     22.758s
 
 ------------------------------------------------------
 PS_FIM
@@ -399,63 +399,19 @@ OCP_FIM
 1  10  0.1
 precond_type             = 64
 
+SSMSTA:     2271565
+NRSTA:      8235
+SSMSP:      3104547
+NRSP:       218880
+=========================================
 Final time:          7305.000 Days
-Total time steps:    1908
-Total Newton steps:  3007 (+2987 wasted steps)
-Total linear steps:  7282 (+6728 wasted steps)
-Linear solve time:   24.216s (34.318%)
-Simulation time:     70.562s
+Total time steps:    873
+Total Newton steps:  1701 (+29 wasted steps)
+Total linear steps:  5167 (+70 wasted steps)
+Linear solve time:   12.412s (70.739%)
+Simulation time:     17.546s
 
-Method     iters     maxIt    tol
-SSMSTA   39656359     100    1E-12
-SSMSP    15674142     100    1E-6
-NRSP     367994       55     1E-12
 
-// add muP, mux
-
-Final time:          7305.000 Days
-Total time steps:    1728
-Total Newton steps:  2788 (+2285 wasted steps)
-Total linear steps:  7260 (+5406 wasted steps)
-Linear solve time:   24.260s (37.009%)
-Simulation time:     65.550s
-
-Method     iters     maxIt    tol
-SSMSTA   32395484     100    1E-12
-SSMSP    13511784     100    1E-6
-NRSP     354268       55     1E-12
-
-------------------------------------------------------
-OCP_FIM
-
-1  10  0.01
-precond_type             = 69
-
-Final time:          7305.000 Days
-Total time steps:    2000
-Total Newton steps:  2908 (+3888 wasted steps)
-Total linear steps:  16701 (+15006 wasted steps)
-Linear solve time:   5.784s (10.063%)
-Simulation time:     57.475s
-
-Method     iters     maxIt    tol
-SSMSTA    45609608    100    1E-12
-SSMSP     16616453    100    1E-6
-NRSP      386537      55     1E-12
-
-// add muP, mux
-
-Final time:          7305.000 Days
-Total time steps:    1904
-Total Newton steps:  2955 (+3530 wasted steps)
-Total linear steps:  17607 (+14676 wasted steps)
-Linear solve time:   5.586s (9.805%)
-Simulation time:     56.973s
-
-Method     iters     maxIt    tol
-SSMSTA    42671997     100    1E-12
-SSMSP     16064087     100    1E-6
-NRSP      403550       55     1E-12
 
 ```
 
@@ -494,17 +450,17 @@ OCP_IMPEC
 
 0.1  1  0.1
 
+SSMSTA:     30570237
+NRSTA:      19538
+SSMSP:      93602049
+NRSP:       1838329
+=========================================
 Final time:          3650.000 Days
 Total time steps:    3670
 Total Newton steps:  3670 (+0 wasted steps)
-Total linear steps:  7519 (+0 wasted steps)
-Linear solve time:   1.146s (0.636%)
-Simulation time:     180.118s
-
-Method     iters     maxIt    tol
-SSMSTA    67713430    100    1E-12
-SSMSP     93631466    100    1E-6
-NRSP      1866917     55     1E-12
+Total linear steps:  7317 (+0 wasted steps)
+Linear solve time:   1.140s (1.113%)
+Simulation time:     102.415s
 
 ------------------------------------------------------
 PS_FIM
@@ -529,62 +485,18 @@ OCP_FIM
 1  10  0.1
 precond_type             = 64
 
+SSMSTA:     4787150
+NRSTA:      10712
+SSMSP:      14807954
+NRSP:       290065
+=========================================
 Final time:          3650.000 Days
-Total time steps:    391
-Total Newton steps:  946 (+0 wasted steps)
-Total linear steps:  1490 (+0 wasted steps)
-Linear solve time:   11.052s (16.918%)
-Simulation time:     65.329s
+Total time steps:    390
+Total Newton steps:  557 (+0 wasted steps)
+Total linear steps:  720 (+0 wasted steps)
+Linear solve time:   3.803s (16.816%)
+Simulation time:     22.616s
 
-Method     iters     maxIt    tol
-SSMSTA    18195829    100    1E-12
-SSMSP     26238483    100    1E-6
-NRSP      490134      55     1E-12
 
-// add muP, mux
-
-Final time:          3650.000 Days
-Total time steps:    392
-Total Newton steps:  945 (+0 wasted steps)
-Total linear steps:  1494 (+0 wasted steps)
-Linear solve time:   10.733s (15.812%)
-Simulation time:     67.880s
-
-Method     iters     maxIt    tol
-SSMSTA    18270127    100    1E-12
-SSMSP     26270329    100    1E-6
-NRSP      488716      55     1E-12
-
-------------------------------------------------------
-OCP_FIM
-
-1  10  0.1
-precond_type             = 69
-
-Final time:          3650.000 Days
-Total time steps:    391
-Total Newton steps:  935 (+0 wasted steps)
-Total linear steps:  12584 (+0 wasted steps)
-Linear solve time:   6.671s (10.947%)
-Simulation time:     60.936s
-
-Method     iters     maxIt    tol
-SSMSTA    18022938    100    1E-12
-SSMSP     26019262    100    1E-6
-NRSP      485021      55     1E-12
-
-// add muP, mux
-
-Final time:          3650.000 Days
-Total time steps:    392
-Total Newton steps:  937 (+0 wasted steps)
-Total linear steps:  12573 (+0 wasted steps)
-Linear solve time:   6.673s (10.534%)
-Simulation time:     63.347s
-
-Method     iters     maxIt    tol
-SSMSTA    18133478    100    1E-12
-SSMSP     26093436    100    1E-6
-NRSP      484957      55     1E-12
 ```
 

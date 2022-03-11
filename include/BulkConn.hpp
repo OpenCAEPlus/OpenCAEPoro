@@ -69,6 +69,12 @@ public:
     /// Generate iteratorConn of active connections from neighbor.
     void CalIteratorConn();
 
+    /// Setup k-neighbor for bulks
+    void SetupNeighbor_K(Bulk& myBulk) const;
+
+    /// Setup Flash order for bulks according to the distance from wells
+    void SetupFlashOrder(Bulk& myBulk) const;
+
     /// Allocate memory for the coefficient matrix.
     void AllocateMat(LinearSystem& myLS) const;
 

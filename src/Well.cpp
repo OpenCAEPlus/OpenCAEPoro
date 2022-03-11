@@ -727,7 +727,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data());
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0);
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -794,7 +794,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data());
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0);
                 for (USI j = 0; j < np; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -840,12 +840,12 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             }
             if (fabs(qt) > TINY/* && false*/) {
 
-                //cout << name << endl;
-                //vector<OCP_DBL> tmpNiP(qi_lbmol);
-                //Dscalar(myBulk.numCom, 1 / qt * 100, &tmpNiP[0]);
-                //PrintDX(myBulk.numCom, &tmpNiP[0]);
+                /*cout << name << endl;
+                vector<OCP_DBL> tmpNiP(qi_lbmol);
+                Dscalar(myBulk.numCom, 1 / qt * 100, &tmpNiP[0]);
+                PrintDX(myBulk.numCom, &tmpNiP[0]);*/
 
-                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0]);
+                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0], 0, 0);
             }
             else {
                 USI np = myBulk.numPhase;
@@ -865,12 +865,12 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 }
                 qt = Dnorm1(nc, &tmpNi[0]);
 
-                //cout << name << endl;
-                //vector<OCP_DBL> tmpNiP(tmpNi);
-                //Dscalar(nc, 1 / qt, &tmpNiP[0]);
-                //PrintDX(nc, &tmpNiP[0]);
+                /*cout << name << endl;
+                vector<OCP_DBL> tmpNiP(tmpNi);
+                Dscalar(nc, 1 / qt, &tmpNiP[0]);
+                PrintDX(nc, &tmpNiP[0]);*/
 
-                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0]);
+                myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0], 0, 0);
             }
             // test
             //USI nc = myBulk.numCom;
@@ -895,9 +895,10 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 OCP_DBL nug = myBulk.flashCal[0]->xi[1] * myBulk.flashCal[0]->v[1] / qt; // mole fraction of gas phase
                 factor[1] = nug / (myBulk.flashCal[0]->xi[1] * 1000);  // lbmol / ft3 -> lbmol / Mscf  for gas
             }
+            factor[2] = factor[0];
             if (myBulk.flashCal[0]->phaseExist[2]) {
                 OCP_DBL nuw = myBulk.flashCal[0]->xi[2] * myBulk.flashCal[0]->v[2] / qt; // mole fraction of water phase
-                factor[2] = nuw + factor[0];
+                factor[2] += nuw;
             }
 
             if (factor[pid] < 1E-12 || !isfinite(factor[pid])) {
@@ -1117,6 +1118,14 @@ void Well::AllocateMat(LinearSystem& myLS) const
 
     for (USI p = 0; p < numPerf; p++) {
         myLS.rowCapacity[perf[p].location]++;
+    }
+}
+
+void Well::SetupWellBulk(Bulk& myBulk) const
+{
+    // Attention that a bulk can only be penetrated by one well now!
+    for (USI p = 0; p < numPerf; p++) {
+        myBulk.wellBulkId.push_back(perf[p].location);
     }
 }
 

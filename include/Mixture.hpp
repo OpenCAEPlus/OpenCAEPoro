@@ -66,10 +66,10 @@ public:
                           const OCP_DBL* Ziin) = 0;
     /// Flash calculation with moles of components.
     virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                          const OCP_DBL* Niin) = 0;
+                          const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
     virtual void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                                const OCP_DBL* Niin) = 0;
+                                const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) = 0;
     /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
     virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
@@ -105,6 +105,11 @@ public:
         }
         if (!flag) OCP_ABORT("Ni is negative!");
     }
+    // used in Compositional Model
+    virtual OCP_ULL GetSSMSTAiters() = 0;
+    virtual OCP_ULL GetNRSTAiters() = 0;
+    virtual OCP_ULL GetSSMSPiters() = 0;
+    virtual OCP_ULL GetNRSPiters() = 0;
 
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
@@ -144,10 +149,6 @@ protected:
 
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
 
-    // for dubug
-    OCP_USI SSMSTAiters{ 0 };
-    OCP_USI SSMSPiters{ 0 };
-    OCP_USI NRSPiters{ 0 };
 };
 
 #endif /* end if __MIXTURE_HEADER__ */

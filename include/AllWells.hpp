@@ -89,6 +89,8 @@ public:
     void SetupWellGroup(const Bulk& myBulk);
     /// get the mixture from bulk ---- usless now
     void SetupMixture(const Bulk& myBulk);
+    /// Setup bulks which are penetrated by wells
+    void SetupWellBulk(Bulk& myBulk) const;
     /// Apply the operation mode at the ith critical time.
     void ApplyControl(const USI& i);
     /// Set the initial well pressure
@@ -131,6 +133,8 @@ public:
     USI GetIndex(const string& name) const;
     /// Return the num of perforations of well i.
     USI GetWellPerfNum(const USI& i) const { return wells[i].numPerf; }
+    /// Return the num of perforations of all wells
+    USI GetWellPerfNum() const;
     /// Calculate mamimum num of perforations of all Wells.
     USI     GetMaxWellPerNum() const;
     void    CalMaxBHPChange();

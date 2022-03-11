@@ -99,6 +99,71 @@ void BulkConn::CalIteratorConn()
     assert(iteratorConn.size() == numConn);
 }
 
+void BulkConn::SetupNeighbor_K(Bulk& myBulk) const
+{ 
+    // just for k = 1 now!
+    myBulk.neighbor_K = neighbor; 
+}
+
+void BulkConn::SetupFlashOrder(Bulk& myBulk) const
+{
+    // The closer the bulk is to the well, the smaller the index is
+    // distance of bulks which are penetrate by wells are zero, and
+    // distance of its K-neighbor is k.
+    myBulk.numWellBulk = myBulk.wellBulkId.size();
+    myBulk.flashBulkId.reserve(numBulk);
+    myBulk.flashBulkId.insert(myBulk.flashBulkId.end(), myBulk.wellBulkId.begin(), myBulk.wellBulkId.end());
+    
+    vector<OCP_USI>& workSet = myBulk.flashBulkId;
+    OCP_USI tmpSize = myBulk.numWellBulk;
+    OCP_USI checkEId = tmpSize;
+    OCP_USI bId = 0;
+    OCP_USI eId = tmpSize;
+    bool flag;
+
+    while (true) {
+        for (OCP_USI n = bId; n < eId; n++) {
+            for (auto& t1 : neighbor[workSet[n]]) {
+                // check if t1 is in flashBulkId
+                flag = false;
+                for (OCP_USI i = 0; i < checkEId; i++) {
+                    if (t1 == workSet[i]) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    workSet.push_back(t1);
+                    tmpSize++;
+                }
+            }
+            checkEId = tmpSize;
+        }
+        if (tmpSize == numBulk) {
+            break;
+        }
+        bId = eId;
+        eId = tmpSize;
+    }
+    
+    // test --- check
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        flag = false;
+        for (USI m = 0; m < numBulk; m++) {
+            if (n == workSet[m]) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            cout << "Wrong array!" << endl;
+        }
+    }
+    
+    cout << "done!" << endl;
+}
+
 /// This method should be called only once at the beginning.
 void BulkConn::AllocateMat(LinearSystem& MySolver) const
 {

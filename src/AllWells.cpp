@@ -136,6 +136,14 @@ void AllWells::SetupMixture(const Bulk& myBulk)
     flashCal = myBulk.GetMixture();
 }
 
+void AllWells::SetupWellBulk(Bulk& myBulk) const 
+{
+    myBulk.InitWellBulkId(GetWellPerfNum());
+    for (USI w = 0; w < numWell; w++) {
+        wells[w].SetupWellBulk(myBulk);
+    }
+}
+
 void AllWells::ApplyControl(const USI& i)
 {
     OCP_FUNCNAME;
@@ -265,7 +273,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                 }
                 qt = Dnorm1(nc, &wG.zi[0]);
             }
-            flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &wG.zi[0]);
+            flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &wG.zi[0], 0, 0);
             Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.injPhase * nc]);
             wG.xi = flashCal[0]->xi[wG.injPhase];
             wG.factor = wG.xi * flashCal[0]->v[wG.injPhase] / qt;
@@ -361,6 +369,15 @@ USI AllWells::GetIndex(const string& name) const
         }
     }
     OCP_ABORT("Well name not found!");
+}
+
+USI AllWells::GetWellPerfNum() const
+{
+    USI numPerf = 0;
+    for (USI w = 0; w < numWell; w++) {
+        numPerf += wells[w].numPerf;
+    }
+    return numPerf;
 }
 
 USI AllWells::GetMaxWellPerNum() const
