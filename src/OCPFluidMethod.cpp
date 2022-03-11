@@ -37,7 +37,6 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     myLS.OutputLinearSystem("testA.out", "testb.out");
 #endif // _DEBUG
 
-
     GetWallTime Timer;
     Timer.Start();
     int status = myLS.Solve();
@@ -102,7 +101,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     rs.CalVpore();
     rs.CalFlashIMPEC();
-    
+
     // fouth check: Volume error check
     if (!rs.CheckVe(0.01)) {
         // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
@@ -114,7 +113,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
     // rs.allWells.ShowWellStatus(rs.bulk);
-    
+
     return true;
 }
 
@@ -195,9 +194,11 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-        cout << "Cut time step and repeat!\n";
+        cout << "Cut time stepsize and repeat!\n";
         return false;
     }
+
+    // Update reservoir properties
     rs.CalFlashDerivFIM();
     rs.CalKrPcDerivFIM();
     rs.CalVpore();
@@ -212,12 +213,12 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-//#ifdef _DEBUG
-    //cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+    //#ifdef _DEBUG
+    // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
     //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
     //    << "  " << NRdPmax << endl;
     // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
-//#endif
+    //#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -225,7 +226,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR failed! Cut time stepsize and repeat!\n";
+        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
         return false;
     }
 
