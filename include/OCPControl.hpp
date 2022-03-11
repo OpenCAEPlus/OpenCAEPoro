@@ -173,12 +173,12 @@ public:
     string GetWorkDir() const { return workDir; }
 
     /// Return linear solver file name.
-    string GetLsFile() const { return lsFile; }
+    string GetLsFile() const { return linearsolveFile; }
 
 private:
     USI    method;  ///< Discrete method
     string workDir; ///< Current work directory
-    string lsFile;  ///< File name of linear Solver
+    string linearsolveFile;  ///< File name of linear Solver
 
     vector<OCP_DBL> criticalTime; ///< Set of Critical time by user
 

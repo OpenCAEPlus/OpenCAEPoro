@@ -89,6 +89,9 @@ public:
         OCP_ABORT("Should not be used in Black Oil mode!");
     };
     // usless in BLKOIL
+    USI GetFtype() { return 100; }
+    OCP_SIN GetMinEigenSkip() { return 0; }
+    bool GetFlagSkip() { return false; }
     OCP_ULL GetSSMSTAiters() { return 0; }
     OCP_ULL GetNRSTAiters() { return 0; }
     OCP_ULL GetSSMSPiters() { return 0; }

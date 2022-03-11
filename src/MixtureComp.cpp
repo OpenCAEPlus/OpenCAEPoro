@@ -857,6 +857,10 @@ void MixtureComp::AllocateMethod()
     Ax.resize(NC);
     Bx.resize(NC);
     Zx.resize(NC);
+    phiN.resize(NC * NC);
+    skipMatSTA.resize(NC * NC);
+    eigenSkip.resize(NC);
+
     tmpRR.resize(NC);
     resRR.resize(NPmax - 1);
     resSP.resize(NC * NPmax);
@@ -872,6 +876,7 @@ void MixtureComp::AllocateMethod()
     An.resize(NC);
     Bn.resize(NC);
     pivot.resize((NC + 1) * NPmax, 1);
+
 }
 
 void MixtureComp::CalKwilson()
@@ -892,6 +897,11 @@ void MixtureComp::PhaseEquilibrium()
     CalAjBj(Aj[0], Bj[0], x[0]);
     SolEoS(Zj[0], Aj[0], Bj[0]);
 
+    flagSkip = true;
+
+    // tmpFtype = ftype;
+    // ftype = 0;
+
     switch (ftype) {
         case 0:
             // flash from single phase
@@ -905,6 +915,7 @@ void MixtureComp::PhaseEquilibrium()
         case 1:
             // Skip Phase Stability analysis, only single phase exists
             NP = 1;
+            // cout << "NP = 1   ";
             break;
 
         case 2:
@@ -929,6 +940,13 @@ void MixtureComp::PhaseEquilibrium()
             OCP_ABORT("Wrong flash type!");
             break;
     }
+
+    if (NP > 1)  flagSkip = false;
+    if (NP == 1 && ftype == 0 && flagSkip) {
+        CalPhiNSTA();
+        AssembleSkipMatSTA();
+        MinEigenS(NC, &skipMatSTA[0], &eigenSkip[0]);
+    }
 }
 
 bool MixtureComp::PhaseStable()
@@ -947,24 +965,28 @@ bool MixtureComp::PhaseStable()
     bool flag;
     USI  tmpNP = NP;
 
-    // flag = StableSSM(testPId);
-
     if (lNP == 0) {
         // strict stability ananlysis
         flag = StableSSM(testPId);
-    } else {
+    } 
+    else {
         flag = StableSSM01(testPId);
         if (!flag) tmpNP++;
 
         if (tmpNP != lNP) {
             flag = StableSSM(testPId);
+            flagSkip = false;
         }
     }
     SSMSTAiters += EoSctrl.SSMsta.curIt;
     NRSTAiters += EoSctrl.NRsta.curIt;
-    // cout << "Yt = " << setprecision(12) << scientific << Yt << "    " << setw(3)
-    //     << EoSctrl.SSMsta.curIt << "    " << setw(3) << EoSctrl.NRsta.curIt << "   "
-    //     << lNP  << "   " << tmpNP << "   ";
+    //cout << "Yt = " << setprecision(8) << scientific << Yt << "  " << setw(2)
+    //    << EoSctrl.SSMsta.curIt << "  " << setw(2) << EoSctrl.NRsta.curIt << "  "
+    //    << lNP << "  " << tmpNP << "  " << tmpFtype << "   "
+    //    << (lNP == tmpNP ? "N" : "Y") << "  ";
+    //if (lNP == 1 && tmpNP == 2 && tmpFtype == 1) {
+    //    cout << "AAA" << "  ";
+    //}
     return flag;
 }
 
@@ -975,7 +997,9 @@ bool MixtureComp::StableSSM01(const USI& Id)
     OCP_DBL eYt   = EoSctrl.SSMsta.eYt;
     OCP_DBL Ktol  = EoSctrl.SSMsta.Ktol;
     OCP_DBL dYtol = EoSctrl.SSMsta.dYtol;
+    // OCP_DBL& Sk = EoSctrl.SSMsta.curSk;
     OCP_DBL Se, Sk, dY;
+
     bool    flag, Tsol;
     USI     iter, k;
 
@@ -1068,7 +1092,14 @@ bool MixtureComp::StableSSM01(const USI& Id)
         // if (!Tsol) {
         // flag = StableNR(Id);
         //}
+        //cout << "Yt = " << setprecision(8) << scientific << Yt << "   " << setw(2)
+        //    << "Sk = " << setprecision(3) << scientific << Sk << "   " << setw(2)
+        //    << iter << "  ";
         EoSctrl.SSMsta.curIt += iter;
+
+        if (flag && Yt > 1 - 0.1 && Sk > 1) {
+            flagSkip = false;
+        }
         if (flag && Yt > 1 + eYt) {
             return false;
         }
@@ -1700,12 +1731,6 @@ void MixtureComp::CalFugNAll()
             for (USI k = 0; k <= i; k++) {
                 // k th components
 
-                // if (xj[i] < 1E-10) {
-                //	fugn[k * NC + i] = phi[j][i] / nu[j] * (delta(i, k) - xj[i]);
-                //	/*cout << "fnn[" << j << "][" << i << "][" << k << "] = " << fugn[i
-                //* NC + k]; 	cout << endl;*/ 	continue;
-                //}
-
                 aik = (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]);
 
                 Cnk = P / (zj - bj) / (zj - bj) *
@@ -1722,7 +1747,6 @@ void MixtureComp::CalFugNAll()
                       (2 * (bj * aik / nu[j] + Bn[k] * (Bi[i] * aj / bj - tmp)) -
                        An[k] * Bi[i] - aj * Bi[i] / nu[j]);
                 Enk -= E / nu[j];
-
                 fugn[i * NC + k] = 1 / C * Cnk + Dnk + Enk * log(G) + E / G * Gnk;
                 fugn[k * NC + i] = fugn[i * NC + k];
                 /*cout << "fnn[" << j << "][" << i << "][" << k << "] = " << fugn[i * NC
@@ -1772,6 +1796,101 @@ void MixtureComp::AssembleJmatSP()
         }
         Jtmp += NC;
     }
+}
+
+void MixtureComp::CalPhiNSTA()
+{
+    OCP_DBL C, D, E, G;
+    OCP_DBL Cnk, Dnk, Enk, Gnk;
+    OCP_DBL tmp, aik;
+
+	// 0 th phase
+	const OCP_DBL& aj = Aj[0];
+	const OCP_DBL& bj = Bj[0];
+	const OCP_DBL& zj = Zj[0];
+	const vector<OCP_DBL>& xj = x[0];
+	vector<OCP_DBL>& Znj = Zn[0];
+
+	for (USI i = 0; i < NC; i++) {
+		tmp = 0;
+		for (USI m = 0; m < NC; m++) {
+			tmp += (1 - BIC[i * NC + m]) * sqrt(Ai[i] * Ai[m]) * xj[m];
+		}
+		An[i] = 2 / nu[0] * (tmp - aj);
+		Bn[i] = 1 / nu[0] * (Bi[i] - bj);
+		Znj[i] =
+			((bj - zj) * An[i] +
+				((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
+					((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj -
+					(delta1 + delta2 - 1) * zj * zj) *
+				Bn[i]) /
+			(3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
+				(aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
+	}
+
+	G = (zj + delta1 * bj) / (zj + delta2 * bj);
+
+	for (USI i = 0; i < NC; i++) {
+		// i th fugacity
+		C = 1 / (zj - bj);
+		// D = Bi[i] / bj * (zj - 1);
+		tmp = 0;
+		for (USI k = 0; k < NC; k++) {
+			tmp += (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
+		}
+		E = -aj / ((delta1 - delta2) * bj) * (2 * tmp / aj - Bi[i] / bj);
+
+		for (USI k = 0; k <= i; k++) {
+			// k th components
+
+			aik = (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]);
+
+            Cnk = (Bn[k] - Znj[k]) / ((zj - bj) * (zj - bj));
+			Dnk = Bi[i] / bj * (Znj[k] - (Bi[k] - bj) * (zj - 1) / (nu[0] * bj));
+			Gnk = (delta1 - delta2) / ((zj + delta2 * bj) * (zj + delta2 * bj)) *
+				(Bn[k] * zj - Znj[k] * bj);
+			/*Enk = 1 / ((delta1 - delta2) * bj * bj) * (An[k] * bj - Bn[k] * aj) *
+			   (Bi[i] / bj - 2 * tmp / aj)
+				+ aj / ((delta1 - delta2) * bj) * (-Bi[i] / (bj * bj) * Bn[k] - 2 /
+			   (aj * aj) * (aj * (aik - tmp) / nu[j] - An[k] * tmp));*/
+			Enk = -1 / (delta1 - delta2) / (bj * bj) *
+				(2 * (bj * aik / nu[0] + Bn[k] * (Bi[i] * aj / bj - tmp)) -
+					An[k] * Bi[i] - aj * Bi[i] / nu[0]);
+			Enk -= E / nu[0];
+			phiN[i * NC + k] = 1 / C * Cnk + Dnk + Enk * log(G) + E / G * Gnk;
+            phiN[k * NC + i] = phiN[i * NC + k];			
+		}
+	}
+
+    //cout << endl << "phiN" << endl;
+    //for (USI i = 0; i < NC; i++) {
+    //    for (USI j = 0; j < NC; j++) {
+    //        cout << phiN[i * NC + j] << "   ";
+    //    }
+    //    cout << endl;
+    //}
+}
+
+void MixtureComp::AssembleSkipMatSTA()
+{
+    // Sysmetric Matrix
+    // stored by colum
+    vector<OCP_DBL>& xj = x[0];
+
+    for (USI i = 0; i < NC; i++) {
+        for (USI j = 0; j <= i; j++) {
+            skipMatSTA[i * NC + j] = delta(i, j) + sqrt(xj[i] * xj[j]) * phiN[i * NC + j];
+            skipMatSTA[j * NC + i] = skipMatSTA[i * NC + j];
+        }
+    }
+
+/*    cout << endl << "skipMatSTA" << endl;
+    for (USI i = 0; i < NC; i++) {
+        for (USI j = 0; j < NC; j++) {
+            cout << skipMatSTA[i * NC + j] << "   ";
+        }
+        cout << endl;
+    }*/   
 }
 
 OCP_DBL MixtureComp::CalStepNRsp()

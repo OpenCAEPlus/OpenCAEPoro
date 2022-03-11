@@ -156,6 +156,15 @@ void Bulk::Setup(const Grid& myGrid)
 
     phaseNum.resize(numBulk);
     lphaseNum.resize(numBulk);
+    minEigenSkip.resize(numBulk);
+    flagSkip.resize(numBulk);
+    ziSkip.resize(numBulk * numCom);
+    PSkip.resize(numBulk);
+    lminEigenSkip.resize(numBulk);
+    lflagSkip.resize(numBulk);
+    lziSkip.resize(numBulk * numCom);
+    lPSkip.resize(numBulk);
+
     // physical variables
     P.resize(numBulk);
     Pb.resize(numBulk);
@@ -1093,9 +1102,38 @@ void Bulk::InitFlash(const bool& flag)
 void Bulk::Flash()
 {
     OCP_FUNCNAME;
+    USI ftype;
+    OCP_USI bId;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
     // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, phaseNum[n]);
+
+        ftype = 1;
+        if (flagSkip[n]) {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10) {
+                ftype = 0;
+            }
+            // cout << setprecision(2) << scientific << minEig / 10 << "   " << fabs(1 - lP[n] / P[n]) << "   ";            
+            if (ftype == 1) {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom - 1];
+                for (USI i = 0; i < numCom - 1; i++) {
+                    //cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10) {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n]);
         PassFlashValue(n);
         //if (n == 39) {
         //    cout << "myBulk[39]: "
@@ -1105,10 +1143,10 @@ void Bulk::Flash()
         //        << flashCal[PVTNUM[39]]->vf
         //        << endl;
         //}
-        //cout << n << endl;
+        // cout << n << endl;
     }
     // OutputInfo(39);
-    //cout << "==================================" << endl;
+    // cout << "==================================" << endl;
 #ifdef DEBUG
     CheckSat();
 #endif // DEBUG
@@ -1159,9 +1197,38 @@ void Bulk::FlashDeriv()
 {
     OCP_FUNCNAME;
 
+    USI ftype;
+    OCP_USI bId;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
     dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, phaseNum[n]);
+
+        ftype = 1;
+        if (flagSkip[n]) {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10) {
+                ftype = 0;
+            }
+            // cout << setprecision(2) << scientific << minEig / 10 << "   " << fabs(1 - lP[n] / P[n]) << "   ";            
+            if (ftype == 1) {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom - 1];
+                for (USI i = 0; i < numCom - 1; i++) {
+                    //cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10) {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n]);
         PassFlashValueDeriv(n);
     }
 
@@ -1174,84 +1241,118 @@ void Bulk::PassFlashValue(const OCP_USI& n)
 {
     OCP_FUNCNAME;
 
-    OCP_USI bId    = n * numPhase;
+    OCP_USI bIdp    = n * numPhase;
     USI     pvtnum = PVTNUM[n];
     USI     nptmp = 0;
     for (USI j = 0; j < numPhase; j++) {
-        phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
+        phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be passed no matter if the phase exists. This is
         // because it will be used to calculate relative permeability and capillary
         // pressure at each time step. Make sure that all saturations are updated at
         // each step!
-        S[bId + j] = flashCal[pvtnum]->S[j];
-        if (phaseExist[bId + j]) { // j -> bId + j   fix bugs.
+        S[bIdp + j] = flashCal[pvtnum]->S[j];
+        if (phaseExist[bIdp + j]) { // j -> bId + j   fix bugs.
             nptmp++;
-            rho[bId + j] = flashCal[pvtnum]->rho[j];
-            xi[bId + j]  = flashCal[pvtnum]->xi[j];
+            rho[bIdp + j] = flashCal[pvtnum]->rho[j];
+            xi[bIdp + j]  = flashCal[pvtnum]->xi[j];
             for (USI i = 0; i < numCom; i++) {
-                xij[bId * numCom + j * numCom + i] =
+                xij[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xij[j * numCom + i];
             }
-            mu[bId + j] = flashCal[pvtnum]->mu[j];
-            vj[bId + j] = flashCal[pvtnum]->v[j];
+            mu[bIdp + j] = flashCal[pvtnum]->mu[j];
+            vj[bIdp + j] = flashCal[pvtnum]->v[j];
         }
     }
+    Nt[n] = flashCal[pvtnum]->Nt;
     vf[n]  = flashCal[pvtnum]->vf;
     vfp[n] = flashCal[pvtnum]->vfp;
-    bId    = n * numCom;
+    OCP_USI bIdc = n * numCom;
     for (USI i = 0; i < numCom; i++) {
-        vfi[bId + i] = flashCal[pvtnum]->vfi[i];
+        vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
     phaseNum[n] = nptmp - 1; // water is excluded
+
+    if (flashCal[pvtnum]->GetFtype() == 0) {
+        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (flagSkip[n]) {
+            minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+            for (USI j = 0; j < numPhase - 1; j++) {
+                if (phaseExist[bIdp + j]) {
+                    for (USI i = 0; i < numCom - 1; i++) {
+                        ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                    }
+                    break;
+                }
+            }
+            PSkip[n] = P[n];
+        }            
+    }  
 }
 
 void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 {
     OCP_FUNCNAME;
 
-    OCP_USI bId    = n * numPhase;
+    OCP_USI bIdp    = n * numPhase;
     USI     pvtnum = PVTNUM[n];
     USI     nptmp = 0;
     for (USI j = 0; j < numPhase; j++) {
-        phaseExist[bId + j] = flashCal[pvtnum]->phaseExist[j];
+        phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be passed no matter if the phase exists. This is
         // because it will be used to calculate relative permeability and capillary
         // pressure at each time step. Make sure that all saturations are updated at
         // each step!
-        S[bId + j] = flashCal[pvtnum]->S[j];
-        if (phaseExist[bId + j]) { // j -> bId + j fix bugs.
+        S[bIdp + j] = flashCal[pvtnum]->S[j];
+        if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
             nptmp++;
-            rho[bId + j] = flashCal[pvtnum]->rho[j];
-            xi[bId + j]  = flashCal[pvtnum]->xi[j];
-            mu[bId + j]  = flashCal[pvtnum]->mu[j];
-            vj[bId + j] = flashCal[pvtnum]->v[j];
+            rho[bIdp + j] = flashCal[pvtnum]->rho[j];
+            xi[bIdp + j]  = flashCal[pvtnum]->xi[j];
+            mu[bIdp + j]  = flashCal[pvtnum]->mu[j];
+            vj[bIdp + j] = flashCal[pvtnum]->v[j];
 
             // Derivatives
-            muP[bId + j]  = flashCal[pvtnum]->muP[j];
-            xiP[bId + j]  = flashCal[pvtnum]->xiP[j];
-            rhoP[bId + j] = flashCal[pvtnum]->rhoP[j];
+            muP[bIdp + j]  = flashCal[pvtnum]->muP[j];
+            xiP[bIdp + j]  = flashCal[pvtnum]->xiP[j];
+            rhoP[bIdp + j] = flashCal[pvtnum]->rhoP[j];
             for (USI i = 0; i < numCom; i++) {
-                xij[bId * numCom + j * numCom + i] =
+                xij[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xij[j * numCom + i];
-                mux[bId * numCom + j * numCom + i] =
+                mux[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->mux[j * numCom + i];
-                xix[bId * numCom + j * numCom + i] =
+                xix[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xix[j * numCom + i];
-                rhox[bId * numCom + j * numCom + i] =
+                rhox[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->rhox[j * numCom + i];
             }
         }
     }
-    vf[n]  = flashCal[pvtnum]->vf;
-    Nt[n]  = flashCal[pvtnum]->Nt;
+    Nt[n] = flashCal[pvtnum]->Nt;
+    vf[n]  = flashCal[pvtnum]->vf;  
     vfp[n] = flashCal[pvtnum]->vfp;
-    bId    = n * numCom;
+
+    OCP_USI bIdc    = n * numCom;
     for (USI i = 0; i < numCom; i++) {
-        vfi[bId + i] = flashCal[pvtnum]->vfi[i];
+        vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
     dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
                      flashCal[pvtnum]->dXsdXp.end());
     phaseNum[n] = nptmp - 1; // water is excluded
+
+    if (flashCal[pvtnum]->GetFtype() == 0) {
+        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (flagSkip[n]) {
+            minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+            for (USI j = 0; j < numPhase - 1; j++) {
+                if (phaseExist[bIdp + j]) {
+                    for (USI i = 0; i < numCom - 1; i++) {
+                        ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                    }
+                    break;
+                }
+            }
+            PSkip[n] = P[n];
+        }
+    }
 }
 
 void Bulk::ResetFlash()
@@ -1615,6 +1716,7 @@ void Bulk::AllocateAuxIMPEC()
     lrho.resize(numBulk * numPhase);
     lxi.resize(numBulk * numPhase);
     lxij.resize(numBulk * numPhase * numCom);
+    Nt.resize(numBulk);
     lNi.resize(numBulk * numCom);
     lmu.resize(numBulk * numPhase);
     lkr.resize(numBulk * numPhase);
@@ -1668,6 +1770,11 @@ void Bulk::UpdateLastStepIMPEC()
 {
     OCP_FUNCNAME;
     lphaseNum = phaseNum;
+    lminEigenSkip = minEigenSkip;
+    lflagSkip = flagSkip;
+    lziSkip = ziSkip;
+    lPSkip = PSkip;
+
     lP          = P;
     lPj         = Pj;
     lPc         = Pc;
@@ -1684,6 +1791,7 @@ void Bulk::UpdateLastStepIMPEC()
     lvfi        = vfi;
     lvfp        = vfp;
     rockLVp     = rockVp;
+    lNt = Nt;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -1858,8 +1966,14 @@ void Bulk::ResetFIM()
     OCP_FUNCNAME;
 
     phaseNum = lphaseNum;
+    minEigenSkip = lminEigenSkip;
+    flagSkip = lflagSkip;
+    ziSkip = lziSkip;
+    PSkip = lPSkip;
+
     P  = lP;
     Ni = lNi;
+    Nt = lNt;
     FlashDeriv();
     // CalVpore();
     ResetVp();
@@ -1870,9 +1984,15 @@ void Bulk::UpdateLastStepFIM()
 {
     OCP_FUNCNAME;
     lphaseNum = phaseNum;
+    lminEigenSkip = minEigenSkip;
+    lflagSkip = flagSkip;
+    lziSkip = ziSkip;
+    lPSkip = PSkip;
+    
     lP  = P;
     lS  = S;
     lNi = Ni;
+    lNt = Nt;
 }
 
 void Bulk::OutputInfo(const OCP_USI& n) const

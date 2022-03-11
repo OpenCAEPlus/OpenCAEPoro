@@ -11,6 +11,13 @@
 
 #include "DenseMat.hpp"
 
+int MinEigenS(const int& N, float* a, float* w)
+{
+    MKL_INT info = LAPACKE_ssyevd(LAPACK_ROW_MAJOR, 'N', 'U', N, a, N, w);
+    if (info > 0) {
+        cout << "failed to compute eigenvalues!" << endl;
+    }
+}
 
 void Dcopy(const int& N, double* dst, const double* src)
 {
@@ -105,13 +112,6 @@ void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double
     }
 }
 
-void PrintDX(const int& N, const double* x)
-{
-    for (int i = 0; i < N; i++) {
-        cout << setprecision(9) << x[i] << "    ";
-    }
-    cout << endl;
-}
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

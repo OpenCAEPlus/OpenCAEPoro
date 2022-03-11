@@ -282,10 +282,11 @@ void Reservoir::ResetVal01IMPEC()
 void Reservoir::ResetVal02IMPEC()
 {
     OCP_FUNCNAME;
-
+    
     bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();
+    bulk.ResetNt();
     conn.Reset();
 }
 
@@ -293,9 +294,15 @@ void Reservoir::ResetVal03IMPEC()
 {
     OCP_FUNCNAME;
     bulk.ResetphaseNum();
+    bulk.ResetminEigenSkip();
+    bulk.ResetflagSkip();
+    bulk.ResetziSkip();
+    bulk.ResetPSkip();
+
     bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();
+    bulk.ResetNt();
     bulk.ResetFlash();
     bulk.ResetVp();
     conn.Reset();

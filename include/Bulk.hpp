@@ -161,6 +161,18 @@ public:
     
     // Reset phaseNum to the ones of the last time step.
     void ResetphaseNum() { phaseNum = lphaseNum; }
+    // Reset minEigenSkip to the ones of the last time step.
+    void ResetminEigenSkip() { minEigenSkip = lminEigenSkip; }
+    // Reset flagSkip to the ones of the last time step.
+    void ResetflagSkip() { flagSkip = lflagSkip; }
+    // Reset flagSkip to the ones of the last time step.
+    void ResetziSkip() { ziSkip = lziSkip; }
+    // Reset flagSkip to the ones of the last time step.
+    void ResetPSkip() { PSkip = lPSkip; }
+    
+    /// Reset Nt to the ones of the last time step.
+    void ResetNt() { Nt = lNt; }
+
     /// Reset P to the ones of the last time step.
     void ResetP() { P = lP; }
     /// Reset Pj to the ones of the last time step.
@@ -191,13 +203,22 @@ private:
     vector<USI>       SATNUM;   ///< Identify SAT region: numBulk.
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
 
-    // flash in a specified order
+    // flash in a specified order or skip stability analysis
     OCP_USI           numWellBulk;  ///< num of bulks which are penetrated by wells
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells
     vector<OCP_USI>   flashBulkId;  ///< Sequence of flash for bulks  
     vector<USI>       phaseNum;     ///< Num of hydrocarbon phase in each bulk
     vector<USI>       lphaseNum;    ///< last phaseNum
     vector<vector<OCP_USI>> neighbor_K; ///< K-neighbor of each bulk, k = 1 defaulted
+    /// minimal eigenvalue used to determinined if skip the stability analysis
+    vector<OCP_SIN>   minEigenSkip; 
+    vector<bool>      flagSkip;
+    vector<OCP_DBL>   ziSkip;
+    vector<OCP_DBL>   PSkip;
+    vector<OCP_SIN>   lminEigenSkip;
+    vector<bool>      lflagSkip;
+    vector<OCP_DBL>   lziSkip;
+    vector<OCP_DBL>   lPSkip;
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information
@@ -229,6 +250,7 @@ private:
     vector<OCP_DBL> vj;         ///< Volume of phase: numPhase*numBulk.
     vector<OCP_DBL> vf;         ///< Total fluid volume: numBulk.
     vector<OCP_DBL> Nt;         ///< Total moles of components in bulks: numBulk.
+    vector<OCP_DBL> lNt;        ///< last Nt
     // Note: Nij is the moles of component i in phase j, Nj is the moles of phase j.
 
     /////////////////////////////////////////////////////////////////////

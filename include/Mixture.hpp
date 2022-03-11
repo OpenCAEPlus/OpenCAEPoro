@@ -106,6 +106,9 @@ public:
         if (!flag) OCP_ABORT("Ni is negative!");
     }
     // used in Compositional Model
+    virtual USI GetFtype() = 0;
+    virtual OCP_SIN GetMinEigenSkip() = 0;
+    virtual bool GetFlagSkip() = 0;
     virtual OCP_ULL GetSSMSTAiters() = 0;
     virtual OCP_ULL GetNRSTAiters() = 0;
     virtual OCP_ULL GetSSMSPiters() = 0;

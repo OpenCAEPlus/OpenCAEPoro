@@ -36,6 +36,7 @@ public:
 	OCP_DBL tol2;   ///< tol*tol
 	// test
     USI curIt; ///< current Iterations
+    OCP_DBL curSk;
 };
 
 /// Params for SSM in Phase Split
@@ -115,6 +116,9 @@ class MixtureComp : public Mixture
 {
 
 public:
+    USI GetFtype() { return ftype; }
+    OCP_SIN GetMinEigenSkip() { return eigenSkip[0]; }
+    bool GetFlagSkip() { return flagSkip; }
 	OCP_ULL GetSSMSTAiters() { return SSMSTAiters;}
 	OCP_ULL GetNRSTAiters() { return NRSTAiters; }
 	OCP_ULL GetSSMSPiters() { return SSMSPiters; }
@@ -198,6 +202,7 @@ private:
 	USI lId; ///< index of lightest components
 	EoScontrol EoSctrl; ///< method params for solving phase equilibrium
 	USI ftype{ 0 };
+    USI tmpFtype;
 
 	vector<OCP_DBL> Plist;
 	vector<OCP_DBL> Tlist;
@@ -305,6 +310,9 @@ public:
 	void CalFugNAll();
 	void PrintFugN();
 	void AssembleJmatSP();
+    /// Calculate d ln phi[i][j] / d n[k][j]
+    void    CalPhiNSTA();
+    void    AssembleSkipMatSTA();
 	OCP_DBL CalStepNRsp();
 
 private:
@@ -326,6 +334,11 @@ private:
     vector<OCP_DBL>         Ax;      ///< d Aj / d xkj, j is fixed
     vector<OCP_DBL>         Bx;      ///< d Bj / d xkj, j is fixed
     vector<OCP_DBL>         Zx;      ///< d Zj / d xkj, j is fixed
+    // Skip Stability Analysis
+    bool flagSkip; ///< if check skipping Stability Analysis
+    vector<OCP_DBL> phiN;    ///< d ln phi[i][j] / d n[k][j]
+    vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
+    vector<OCP_SIN> eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
 
     // SSM in Phase Split
     vector<OCP_DBL> tmpRR; ///< temp variables for solving Rachford-Rice equations.

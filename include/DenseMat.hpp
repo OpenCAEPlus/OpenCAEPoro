@@ -17,6 +17,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include "mkl_lapacke.h"
 
 using namespace std;
 
@@ -65,6 +66,10 @@ int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int
            int* info);
 }
 
+
+/// Calculate the minimal eigenvalue for sysmetric matrix
+int MinEigenS(const int& N, float* a, float* w);
+
 void Dcopy(const int& N, double* dst, const double* src);
 
 double Ddot(int n, double* a, double* b);
@@ -96,8 +101,15 @@ void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot);
 void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot);
 
 
-/// Prints a double vector.
-void PrintDX(const int& N, const double* x);
+/// Prints a  vector.
+template <typename T>
+void PrintDX(const int& N, const T* x)
+{
+	for (int i = 0; i < N; i++) {
+		cout << setprecision(9) << x[i] << "    ";
+	}
+	cout << endl;
+}
 
 #endif
 
