@@ -17,7 +17,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "mkl_lapacke.h"
+//#include "mkl_lapacke.h"
 
 using namespace std;
 
@@ -64,11 +64,19 @@ int dgesv_(const int* n, const int* nrhs, double* A, const int* lda, int* ipiv,
 int dsysv_(const char* uplo, const int* n, const int* nrhs, double* A, const int* lda,
            int* ipiv, double* b, const int* ldb, double* work, const int* lwork,
            int* info);
+
+/// Computes the eigenvalues and, optionally, the leftand /or right eigenvectors for SY matrices
+int ssyevd_(char* jobz, char* uplo, const int* n, float* A, const int* lda, float* w, float* work, const int* lwork,
+    int* iwork, const int* liwork, int* info);
+
+
 }
 
+/// Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack
+void MinEigenSY(const int& N, float* A, float* w, float* work, const int& lwork);
 
-/// Calculate the minimal eigenvalue for sysmetric matrix
-int MinEigenS(const int& N, float* a, float* w);
+/// Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack
+// void MinEigenS(const int& N, float* a, float* w);
 
 void Dcopy(const int& N, double* dst, const double* src);
 
@@ -98,7 +106,8 @@ void DaAxpby(const int& m, const int& n, const double& a, const double* A,
 void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot);
 
 /// Calls dsysy to solve the linear system for symm matrices.
-void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot);
+void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A,
+    double* b, int* pivot, double* work, const int& lwork);
 
 
 /// Prints a  vector.

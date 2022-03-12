@@ -339,6 +339,8 @@ private:
     vector<OCP_DBL> phiN;    ///< d ln phi[i][j] / d n[k][j]
     vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
     vector<OCP_SIN> eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
+    vector<OCP_SIN> eigenWork; ///< work space for computing eigenvalues with ssyevd_
+    OCP_INT         leigenWork; ///< length of eigenwork
 
     // SSM in Phase Split
     vector<OCP_DBL> tmpRR; ///< temp variables for solving Rachford-Rice equations.
@@ -351,8 +353,10 @@ private:
     vector<OCP_DBL> An;         ///< d Aj / d nkj, j is fixed
     vector<OCP_DBL> Bn;         ///< d Bj / d nkj, j is fixed
     vector<vector<OCP_DBL>> Zn; ///< d Zj / d nkj
-    // for linearsolve with lapack
-    vector<int> pivot; ///< used in dgesv_ in lapack
+    // for linearsolve with lapack 
+    vector<OCP_INT> pivot; ///< used in dgesv_ in lapack
+    vector<OCP_DBL> JmatWork; ///< work space for Jmat in STA and SP
+    OCP_INT         lJmatWork; ///< length of JmatWork
     char        uplo{'U'};
 
 public:

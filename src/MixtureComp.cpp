@@ -860,6 +860,8 @@ void MixtureComp::AllocateMethod()
     phiN.resize(NC * NC);
     skipMatSTA.resize(NC * NC);
     eigenSkip.resize(NC);
+    leigenWork = 2 * NC + 1;
+    eigenWork.resize(leigenWork);
 
     tmpRR.resize(NC);
     resRR.resize(NPmax - 1);
@@ -876,7 +878,8 @@ void MixtureComp::AllocateMethod()
     An.resize(NC);
     Bn.resize(NC);
     pivot.resize((NC + 1) * NPmax, 1);
-
+    lJmatWork = NC * (NPmax - 1);
+    JmatWork.resize(lJmatWork);
 }
 
 void MixtureComp::CalKwilson()
@@ -945,7 +948,9 @@ void MixtureComp::PhaseEquilibrium()
     if (NP == 1 && ftype == 0 && flagSkip) {
         CalPhiNSTA();
         AssembleSkipMatSTA();
-        MinEigenS(NC, &skipMatSTA[0], &eigenSkip[0]);
+        MinEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], leigenWork);
+        // PrintDX(NC, &eigenSkip[0]);
+        // cout << "done!" << endl;
     }
 }
 
@@ -1225,8 +1230,8 @@ bool MixtureComp::StableNR(const USI& Id)
 
         CalFugXSTA();
         AssembleJmatSTA();
-        LUSolve(1, NC, &JmatSTA[0], &resSTA[0], &pivot[0]);
-
+        // LUSolve(1, NC, &JmatSTA[0], &resSTA[0], &pivot[0]);
+        SYSSolve(1, &uplo, NC, &JmatSTA[0], &resSTA[0], &pivot[0], &JmatWork[0], lJmatWork);
         Dscalar(NC, Yt, &Y[0]);
         Daxpy(NC, alpha, &resSTA[0], &Y[0]);
         Yt = 0;
@@ -1616,10 +1621,10 @@ void MixtureComp::SplitNR()
         CalFugNAll();
         AssembleJmatSP();
 
-        LUSolve(1, len, &JmatSP[0], &resSP[0], &pivot[0]);
+        // LUSolve(1, len, &JmatSP[0], &resSP[0], &pivot[0]);
         // PrintDX(NC, &resSP[0]);
 
-        // SYSSolve(1, &uplo, len, &JmatSP[0], &resSP[0], &pivot[0]);
+        SYSSolve(1, &uplo, len, &JmatSP[0], &resSP[0], &pivot[0], &JmatWork[0], lJmatWork);
         // PrintDX(NC, &resSP[0]);
 
         alpha = CalStepNRsp();
@@ -1772,7 +1777,7 @@ void MixtureComp::PrintFugN()
 
 void MixtureComp::AssembleJmatSP()
 {
-    // Dim: (NP-1)*NP
+    // Dim: (NP-1)*NC
     // Attention that fugNj is sysmetric
     fill(JmatSP.begin(), JmatSP.end(), 0);
 
@@ -1796,6 +1801,14 @@ void MixtureComp::AssembleJmatSP()
         }
         Jtmp += NC;
     }
+
+    //cout << endl << "Jmat" << endl;
+    //for (USI i = 0; i < NC; i++) {
+    //    for (USI j = 0; j < NC; j++) {
+    //        cout << scientific << setprecision(6) << JmatSP[i * NC + j] << "   ";
+    //    }
+    //    cout << endl;
+    //}
 }
 
 void MixtureComp::CalPhiNSTA()
@@ -1890,7 +1903,7 @@ void MixtureComp::AssembleSkipMatSTA()
             cout << skipMatSTA[i * NC + j] << "   ";
         }
         cout << endl;
-    }*/   
+    } */  
 }
 
 OCP_DBL MixtureComp::CalStepNRsp()

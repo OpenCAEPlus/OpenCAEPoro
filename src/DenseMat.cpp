@@ -11,13 +11,28 @@
 
 #include "DenseMat.hpp"
 
-int MinEigenS(const int& N, float* a, float* w)
+void MinEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
 {
-    MKL_INT info = LAPACKE_ssyevd(LAPACK_ROW_MAJOR, 'N', 'U', N, a, N, w);
+    int info;
+    int iwork[1] = { 0 };
+    int liwork = 1;
+    char uplo{ 'U' };
+    char Nonly{ 'N' };
+
+    ssyevd_(&Nonly, &uplo, &N, A, &N, w, work, &lwork, iwork, &liwork, &info);
     if (info > 0) {
         cout << "failed to compute eigenvalues!" << endl;
     }
 }
+
+
+//void MinEigenS(const int& N, float* a, float* w)
+//{
+//    MKL_INT info = LAPACKE_ssyevd(LAPACK_COL_MAJOR, 'N', 'U', N, a, N, w);
+//    if (info > 0) {
+//        cout << "failed to compute eigenvalues!" << endl;
+//    }
+//}
 
 void Dcopy(const int& N, double* dst, const double* src)
 {
@@ -98,11 +113,9 @@ void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot)
     }
 }
 
-void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot)
+void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot, double* work, const int& lwork)
 {
     int    info;
-    double work[1] = {0};
-    int    lwork   = 1;
 
     dsysv_(uplo, &N, &nrhs, A, &N, pivot, b, &N, work, &lwork, &info);
     if (info < 0) {
