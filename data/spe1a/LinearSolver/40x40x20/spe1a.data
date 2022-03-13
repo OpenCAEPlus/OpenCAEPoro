@@ -195,7 +195,7 @@ TUNING
 --  dPlim  dSlim   dNlim   dVerrlim
      300     0.2    0.3    0.001                               /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-3   200    .1    1      0.01    0.01          /
+       10    1E-3   2000    2    1      0.01    0.01          /
 /
 
 METHOD
