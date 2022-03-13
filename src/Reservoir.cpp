@@ -35,7 +35,7 @@ void Reservoir::Setup()
 
     // Test for specified flash order and skipping phase stability analysis
     // for Compositional Model
-    if (true) {
+    if (false) {
         allWells.SetupWellBulk(bulk);
         conn.SetupFlashOrder(bulk);
         conn.SetupNeighbor_K(bulk);
