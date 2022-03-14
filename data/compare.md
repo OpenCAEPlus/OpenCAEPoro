@@ -375,6 +375,18 @@ Total linear steps:  17859 (+139 wasted steps)
 Linear solve time:   1.234s (5.886%)
 Simulation time:     20.969s
 
+SSMSTA:     6511743
+NRSTA:      20659
+SSMSP:      9579276
+NRSP:       1741235
+=========================================
+Final time:          7305.000 Days
+Total time steps:    10923
+Total Newton steps:  10923 (+80 wasted steps)
+Total linear steps:  17386 (+156 wasted steps)
+Linear solve time:   1.184s (7.258%)
+Simulation time:     16.309s
+
 ------------------------------------------------------
 PS_FIM
 
@@ -412,6 +424,17 @@ Linear solve time:   12.436s (71.856%)
 Simulation time:     17.306s
 
 
+SSMSTA:     1154156
+NRSTA:      7649
+SSMSP:      1708720
+NRSP:       242712
+=========================================
+Final time:          7305.000 Days
+Total time steps:    876
+Total Newton steps:  1634 (+26 wasted steps)
+Total linear steps:  4966 (+58 wasted steps)
+Linear solve time:   11.929s (74.470%)
+Simulation time:     16.018s
 
 ```
 
@@ -462,6 +485,18 @@ Total linear steps:  7321 (+0 wasted steps)
 Linear solve time:   1.104s (1.121%)
 Simulation time:     98.496s
 
+SSMSTA:     23835193
+NRSTA:      19507
+SSMSP:      24063413
+NRSP:       1468770
+=========================================
+Final time:          3650.000 Days
+Total time steps:    3670
+Total Newton steps:  3670 (+0 wasted steps)
+Total linear steps:  7318 (+0 wasted steps)
+Linear solve time:   1.066s (2.565%)
+Simulation time:     41.568s
+
 ------------------------------------------------------
 PS_FIM
 
@@ -498,5 +533,16 @@ Linear solve time:   3.696s (16.837%)
 Simulation time:     21.954s
 
 
+SSMSTA:     3984948
+NRSTA:      10757
+SSMSP:      3930901
+NRSP:       238102
+=========================================
+Final time:          3650.000 Days
+Total time steps:    390
+Total Newton steps:  559 (+0 wasted steps)
+Total linear steps:  747 (+0 wasted steps)
+Linear solve time:   3.898s (29.123%)
+Simulation time:     13.384s
 ```
 

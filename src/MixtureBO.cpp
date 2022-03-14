@@ -75,7 +75,8 @@ void BOMixture::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DB
     }
 }
 
-void BOMixture::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP)
+void BOMixture::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
 #ifdef _DEBUG
     // CheckNi(Niin);
@@ -100,7 +101,8 @@ void BOMixture::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Nii
 }
 
 void BOMixture::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                               const OCP_DBL* Niin, const USI& ftype, const USI& lastNP)
+                            const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+                            const OCP_DBL* lastKs)
 {
 #ifdef _DEBUG
     // CheckNi(Niin);

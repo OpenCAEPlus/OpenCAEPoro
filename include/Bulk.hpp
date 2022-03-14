@@ -169,6 +169,8 @@ public:
     void ResetziSkip() { ziSkip = lziSkip; }
     // Reset flagSkip to the ones of the last time step.
     void ResetPSkip() { PSkip = lPSkip; }
+    // Reser Ks to the ones of the last time step.
+    void ResetKs() { Ks = lKs; }
     
     /// Reset Nt to the ones of the last time step.
     void ResetNt() { Nt = lNt; }
@@ -186,6 +188,8 @@ public:
     /// Allocate memory for WellbulkId
     void InitWellBulkId(const USI& n) { wellBulkId.reserve(n); }
 
+    
+
 private:
     /////////////////////////////////////////////////////////////////////
     // General variables
@@ -193,6 +197,7 @@ private:
     OCP_USI numBulk;  ///< Number of bulks (active grids).
     USI     numPhase; ///< Number of phase.
     USI     numCom;   ///< Number of component.
+    USI     numCom_1; ///< numCom - 1
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
     vector<OCP_DBL>   initZi;   ///< Initial proportion of each component.
@@ -219,6 +224,10 @@ private:
     vector<bool>      lflagSkip;
     vector<OCP_DBL>   lziSkip;
     vector<OCP_DBL>   lPSkip;
+
+    // phase split calculation
+    vector<OCP_DBL>   Ks;  ///< Equilibrium constant in phase split calculation
+    vector<OCP_DBL>   lKs; ///< last Ks
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information

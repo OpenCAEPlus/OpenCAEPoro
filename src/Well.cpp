@@ -722,7 +722,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -789,7 +789,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < np; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -839,7 +839,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 PrintDX(myBulk.numCom, &tmpNiP[0]);*/
 
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0],
-                                          0, 0);
+                                          0, 0, 0);
             } else {
                 USI             np = myBulk.numPhase;
                 USI             nc = myBulk.numCom;
@@ -864,7 +864,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 PrintDX(nc, &tmpNiP[0]);*/
 
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0], 0,
-                                          0);
+                                          0, 0);
             }
             // test
             // USI nc = myBulk.numCom;

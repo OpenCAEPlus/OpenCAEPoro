@@ -97,6 +97,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         initZi     = rs_param.EoSp.zi; // Easy initialization!
         numPhase   = rs_param.EoSp.numPhase + 1;
         numCom     = rs_param.EoSp.numComp + 1;
+        numCom_1 = numCom - 1;
         EQUIL.DOWC = rs_param.EQUIL[2];
         EQUIL.PcOW = rs_param.EQUIL[3];
         EQUIL.DGOC = rs_param.EQUIL[4];
@@ -164,6 +165,9 @@ void Bulk::Setup(const Grid& myGrid)
     lflagSkip.resize(numBulk);
     lziSkip.resize(numBulk * numCom);
     lPSkip.resize(numBulk);
+
+    Ks.resize(numBulk * (numCom - 1));
+    lKs.resize(numBulk * (numCom - 1));
 
     // physical variables
     P.resize(numBulk);
@@ -1139,7 +1143,7 @@ void Bulk::Flash()
             ftype = 0;
         }
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n]);
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n*numCom_1]);
         PassFlashValue(n);
         //if (n == 39) {
         //    cout << "myBulk[39]: "
@@ -1149,7 +1153,8 @@ void Bulk::Flash()
         //        << flashCal[PVTNUM[39]]->vf
         //        << endl;
         //}
-        // cout << n << endl;
+        //if (phaseNum[n] == 2)
+        //    cout << n << endl;
     }
     // OutputInfo(39);
     // cout << "==================================" << endl;
@@ -1164,7 +1169,7 @@ void Bulk::FlashSP01()
     OCP_USI cid;
     for (USI n = 0; n < numWellBulk; n++) {
         cid = wellBulkId[n];
-        flashCal[PVTNUM[cid]]->Flash(P[cid], T, &Ni[cid * numCom], 0, phaseNum[cid]);
+        flashCal[PVTNUM[cid]]->Flash(P[cid], T, &Ni[cid * numCom], 0, phaseNum[cid], &Ks[n * numCom_1]);
         PassFlashValue(cid);
     }
     // other bulk then
@@ -1189,7 +1194,7 @@ void Bulk::FlashSP01()
             ftype = 0;
         }
         flashCal[PVTNUM[cid]]->Flash(P[cid], T, &Ni[cid * numCom], ftype,
-                                     phaseNum[cid]);
+                                     phaseNum[cid], &Ks[cid * numCom_1]);
         PassFlashValue(cid);
 
         // cout << setw(4) << cid << "   " << ftype << endl;
@@ -1232,7 +1237,7 @@ void Bulk::FlashDeriv()
             ftype = 0;
         }
 
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n]);
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
     }
 
@@ -1274,23 +1279,34 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     for (USI i = 0; i < numCom; i++) {
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
-    phaseNum[n] = nptmp - 1; // water is excluded
-
-    if (flashCal[pvtnum]->GetFtype() == 0) {
-        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (flagSkip[n]) {
-            minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-            for (USI j = 0; j < numPhase - 1; j++) {
-                if (phaseExist[bIdp + j]) {
-                    for (USI i = 0; i < numCom - 1; i++) {
-                        ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                    }
-                    break;
-                }
+    
+    if (comps) {
+        phaseNum[n] = nptmp - 1; // water is excluded
+        if (nptmp == 3) {
+            // num of hydrocarbon phase equals 2
+            // Calculate Ks
+            OCP_USI bIdc1 = n * numCom_1;
+            for (USI i = 0; i < numCom_1; i++) {
+                Ks[bIdc1 + i] = flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
             }
-            PSkip[n] = P[n];
-        }            
-    }  
+        }
+
+        if (flashCal[pvtnum]->GetFtype() == 0) {
+            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+            if (flagSkip[n]) {
+                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+                for (USI j = 0; j < numPhase - 1; j++) {
+                    if (phaseExist[bIdp + j]) {
+                        for (USI i = 0; i < numCom - 1; i++) {
+                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                        }
+                        break;
+                    }
+                }
+                PSkip[n] = P[n];
+            }
+        }
+    }    
 }
 
 void Bulk::PassFlashValueDeriv(const OCP_USI& n)
@@ -1340,21 +1356,32 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     }
     dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
                      flashCal[pvtnum]->dXsdXp.end());
-    phaseNum[n] = nptmp - 1; // water is excluded
-
-    if (flashCal[pvtnum]->GetFtype() == 0) {
-        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (flagSkip[n]) {
-            minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-            for (USI j = 0; j < numPhase - 1; j++) {
-                if (phaseExist[bIdp + j]) {
-                    for (USI i = 0; i < numCom - 1; i++) {
-                        ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                    }
-                    break;
-                }
+    
+    if (comps) {
+        phaseNum[n] = nptmp - 1; // water is excluded
+        if (nptmp == 3) {
+            // num of hydrocarbon phase equals 2
+            // Calculate Ks
+            OCP_USI bIdc1 = n * numCom_1;
+            for (USI i = 0; i < numCom_1; i++) {
+                Ks[bIdc1 + i] = flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
             }
-            PSkip[n] = P[n];
+        }
+
+        if (flashCal[pvtnum]->GetFtype() == 0) {
+            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+            if (flagSkip[n]) {
+                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+                for (USI j = 0; j < numPhase - 1; j++) {
+                    if (phaseExist[bIdp + j]) {
+                        for (USI i = 0; i < numCom - 1; i++) {
+                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                        }
+                        break;
+                    }
+                }
+                PSkip[n] = P[n];
+            }
         }
     }
 }
@@ -1822,6 +1849,7 @@ void Bulk::UpdateLastStepIMPEC()
     lflagSkip = flagSkip;
     lziSkip = ziSkip;
     lPSkip = PSkip;
+    lKs = Ks;
 
     lP          = P;
     lPj         = Pj;
@@ -2017,6 +2045,7 @@ void Bulk::ResetFIM()
     flagSkip = lflagSkip;
     ziSkip = lziSkip;
     PSkip = lPSkip;
+    Ks = lKs;
 
     P  = lP;
     Ni = lNi;
@@ -2035,6 +2064,7 @@ void Bulk::UpdateLastStepFIM()
     lflagSkip = flagSkip;
     lziSkip = ziSkip;
     lPSkip = PSkip;
+    lKs = Ks;
     
     lP  = P;
     lS  = S;

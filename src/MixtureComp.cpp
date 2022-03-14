@@ -232,10 +232,16 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 }
 
 void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-                        const USI& Myftype, const USI& lastNP)
+                        const USI& Myftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
     ftype = Myftype;
     lNP   = lastNP;
+    if (lNP == 2) {
+        Dcopy(NC, &lKs[0], lastKs);
+    }
+    
+
     CalFlash(Pin, Tin, Niin);
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -266,10 +272,14 @@ void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* N
 }
 
 void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                             const OCP_DBL* Niin, const USI& Myftype, const USI& lastNP)
+                             const OCP_DBL* Niin, const USI& Myftype, const USI& lastNP,
+                             const OCP_DBL* lastKs)
 {
     ftype = Myftype;
     lNP   = lastNP;
+    if (lNP == 2) {
+        Dcopy(NC, &lKs[0], lastKs);
+    }
 
     CalFlash(Pin, Tin, Niin);
     // Calculate derivates for hydrocarbon phase and components
@@ -862,6 +872,7 @@ void MixtureComp::AllocateMethod()
     eigenSkip.resize(NC);
     leigenWork = 2 * NC + 1;
     eigenWork.resize(leigenWork);
+    lKs.resize(NC);
 
     tmpRR.resize(NC);
     resRR.resize(NPmax - 1);
@@ -1385,7 +1396,10 @@ void MixtureComp::AssembleJmatSTA()
 void MixtureComp::PhaseSplit()
 {
     EoSctrl.SSMsp.conflag = false;
-    EoSctrl.NRsp.conflag  = false;
+    EoSctrl.NRsp.conflag = false;
+    EoSctrl.SSMsp.curIt = 0;
+    EoSctrl.NRsp.curIt = 0;
+
     SplitSSM(false);
     SplitNR();
     while (!EoSctrl.NRsp.conflag) {
@@ -1395,6 +1409,22 @@ void MixtureComp::PhaseSplit()
         if (EoSctrl.SSMsp.conflag) break;
     }
     CheckSplit();
+
+    SSMSPiters += EoSctrl.SSMsp.curIt;
+    NRSPiters += EoSctrl.NRsp.curIt;
+
+    //cout << scientific << setprecision(8);
+    //for (USI i = 0; i < NC; i++) {
+    //    cout << x[0][i] / x[1][i] << "   ";
+    //}
+    //cout << endl;
+    //cout << "Yt = " << scientific << setprecision(12) << Yt << "   "
+    //    << setw(3) << "SSMtol = " << setprecision(6) << sqrt(EoSctrl.SSMsp.realTol) << "   "
+    //    << setw(3) << EoSctrl.SSMsp.curIt << "   "
+    //    << setw(3) << "NRtol = " << setprecision(6) << EoSctrl.NRsp.realTol << "   "
+    //    << setw(3) << EoSctrl.NRsp.curIt << "   "
+    //    << setw(2) << lNP << "   " << setw(2) << NP << "   "
+    //    << (lNP == NP ? "N" : "Y") << "   ";
 }
 
 bool MixtureComp::CheckSplit()
@@ -1461,14 +1491,20 @@ void MixtureComp::SplitSSM2(const bool& flag)
     USI     maxIt         = EoSctrl.SSMsp.maxIt;
 
     if (!flag) {
-        if (Yt < 1.1 || true) {
-            Ks[NP - 2] = Kw[0];
-        } else {
-            for (USI i = 0; i < NC; i++) {
-                // Ks[NP - 2][i] = phi[testPId][i] / phiSta[i];
-                Ks[NP - 2][i] = Y[i] / x[testPId][i];
-            }
+        if (lNP == 2) {
+            Ks[NP - 2] = lKs;
         }
+        else {
+            if (Yt < 1.1 || true) {
+                Ks[NP - 2] = Kw[0];
+            }
+            else {
+                for (USI i = 0; i < NC; i++) {
+                    // Ks[NP - 2][i] = phi[testPId][i] / phiSta[i];
+                    Ks[NP - 2][i] = Y[i] / x[testPId][i];
+                }
+            }
+        }       
     } else {
         Stol *= 1E-1;
         maxIt *= 2;
@@ -1507,7 +1543,7 @@ void MixtureComp::SplitSSM2(const bool& flag)
     }
 
     EoSctrl.SSMsp.realTol = Se;
-    SSMSPiters += iter;
+    EoSctrl.SSMsp.curIt += iter; 
 }
 
 void MixtureComp::SplitSSM3(const bool& flag) {}
@@ -1675,7 +1711,7 @@ void MixtureComp::SplitNR()
     }
     EoSctrl.NRsp.realTol = eNR;
     if (eNR < NRtol) EoSctrl.NRsp.conflag = true;
-    NRSPiters += iter;
+    EoSctrl.NRsp.curIt += iter;
 }
 
 void MixtureComp::CalResSP()
@@ -1925,6 +1961,7 @@ OCP_DBL MixtureComp::CalStepNRsp()
     }
     return alpha;
 }
+
 
 void MixtureComp::AllocateOthers()
 {

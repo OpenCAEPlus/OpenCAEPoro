@@ -39,6 +39,18 @@ public:
     OCP_DBL curSk;
 };
 
+/// Params for NR in Phase Stability Analysis
+class NRparamSTA
+{
+public:
+    USI     maxIt; ///< Max Iteration
+    OCP_DBL tol;   ///< Tolerance
+    OCP_DBL tol2;  ///< tol*tol
+    // test
+    USI curIt;     ///< current Iters
+};
+
+
 /// Params for SSM in Phase Split
 class SSMparamSP
 {
@@ -48,18 +60,10 @@ public:
     OCP_DBL tol2;    ///< tol*tol
     OCP_DBL realTol; ///< Real tol
     bool    conflag; ///< convergence flag, if converges, conflag = true
+    // test
+    USI curIt;     ///< current Iters
 };
 
-/// Params for NR in Phase Stability Analysis
-class NRparamSTA
-{
-public:
-	USI maxIt;		///< Max Iteration
-	OCP_DBL tol;	///< Tolerance
-	OCP_DBL tol2;   ///< tol*tol
-	// test
-    USI curIt;		///< current Iters
-};
 
 /// Params for NR in Phase Split
 class NRparamSP
@@ -70,6 +74,8 @@ public:
     OCP_DBL tol2;    ///< tol*tol
     OCP_DBL realTol; ///< Real tol
     bool    conflag; ///< convergence flag, if converges, conflag = true
+    // test
+    USI curIt;     ///< current Iters
 };
 
 /// Param for Solving Rachford-Rice Equations
@@ -79,6 +85,8 @@ public:
     USI     maxIt; ///< Max Iteration
     OCP_DBL tol;   ///< Tolerance
     OCP_DBL tol2;  ///< tol*tol
+    // test
+    USI curIt;     ///< current Iters
 };
 
 class EoScontrol
@@ -116,13 +124,11 @@ class MixtureComp : public Mixture
 {
 
 public:
-    USI GetFtype() { return ftype; }
-    OCP_SIN GetMinEigenSkip() { return eigenSkip[0]; }
-    bool GetFlagSkip() { return flagSkip; }
-	OCP_ULL GetSSMSTAiters() { return SSMSTAiters;}
-	OCP_ULL GetNRSTAiters() { return NRSTAiters; }
-	OCP_ULL GetSSMSPiters() { return SSMSPiters; }
-	OCP_ULL GetNRSPiters() { return NRSPiters; }
+
+    OCP_ULL GetSSMSTAiters() { return SSMSTAiters; }
+    OCP_ULL GetNRSTAiters() { return NRSTAiters; }
+    OCP_ULL GetSSMSPiters() { return SSMSPiters; }
+    OCP_ULL GetNRSPiters() { return NRSPiters; }
 
 private:
 	// for dubug
@@ -153,10 +159,12 @@ public:
 	// ftype = 0, flash from single phase
 	// ftype = 1, skip phase stablity analysis and num of phase = 1
 	// ftype = 1, skip phase stablity analysis and num of phase = 2
-	void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) override;
+	void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
 	void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
-	void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-		const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) override;
+    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
 	OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
 	OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
 		const OCP_DBL* Ziin) override;
@@ -170,6 +178,7 @@ public:
 	void setZi() { for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nt; }
 	void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
 	void CallId();
+    USI GetFtype() { return ftype; }
 
 private:
 
@@ -315,11 +324,16 @@ public:
     void    AssembleSkipMatSTA();
 	OCP_DBL CalStepNRsp();
 
+    
+    OCP_SIN GetMinEigenSkip() { return eigenSkip[0]; }
+    bool GetFlagSkip() { return flagSkip; }
+
 private:
     // Method Variables
     USI testPId;                ///< Index of the testing phase in stability analysis
     vector<vector<OCP_DBL>> Kw; ///< Equlibrium Constant of Whilson
     vector<vector<OCP_DBL>> Ks; ///< Approximation of Equilibrium Constant in SSM
+    vector<OCP_DBL> lKs; ///< last Ks
     OCP_DBL                 Asta, Bsta, Zsta;
     vector<OCP_DBL> phiSta; ///< Fugacity coefficient used in phase stability analysis
     vector<OCP_DBL> fugSta; ///< Fugacity used in phase stability analysis

@@ -48,7 +48,8 @@ public:
                          const OCP_DBL& Vpore);
     /// flash calculation with saturations of phase, pressure in bulks. temperature is
     /// unnecessary now.
-    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) override;
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
     /// flash calculation with moles of components while PVTmode is PHASE_W, where only
     /// water phase exists.
     void BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin);
@@ -61,7 +62,8 @@ public:
     void BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
 
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP) override;
+        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
     void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
     void BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
@@ -92,6 +94,7 @@ public:
     USI GetFtype() { return 100; }
     OCP_SIN GetMinEigenSkip() { return 0; }
     bool GetFlagSkip() { return false; }
+
     OCP_ULL GetSSMSTAiters() { return 0; }
     OCP_ULL GetNRSTAiters() { return 0; }
     OCP_ULL GetSSMSPiters() { return 0; }
