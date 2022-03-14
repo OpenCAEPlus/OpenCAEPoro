@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------
--- SPE3
+-- SPE3 Benchmark Problem
 -----------------------------------------------------------------
 
 
 RUNSPEC   ==============================================================
 
 TITLE
-   SPE Third Comparison Test Problem - Scenario One
+   SPE Third Comparison Test Problem
    
 FIELD
 
