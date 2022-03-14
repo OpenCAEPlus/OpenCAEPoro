@@ -97,6 +97,11 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -Wall -g")
 endif()
 
+## requires math library
+if (UNIX OR LINUX)
+	set(ADD_STDLIBS m stdc++)
+endif()
+
 # Set default build type to Release
 set(build_type "Release")
 if(NOT CMAKE_BUILD_TYPE)

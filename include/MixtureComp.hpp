@@ -125,10 +125,10 @@ class MixtureComp : public Mixture
 
 public:
 
-    OCP_ULL GetSSMSTAiters() { return SSMSTAiters; }
-    OCP_ULL GetNRSTAiters() { return NRSTAiters; }
-    OCP_ULL GetSSMSPiters() { return SSMSPiters; }
-    OCP_ULL GetNRSPiters() { return NRSPiters; }
+    OCP_ULL GetSSMSTAiters() override { return SSMSTAiters; }
+    OCP_ULL GetNRSTAiters() override { return NRSTAiters; }
+    OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
+    OCP_ULL GetNRSPiters() override { return NRSPiters; }
 
 private:
 	// for dubug
@@ -178,7 +178,7 @@ public:
 	void setZi() { for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nt; }
 	void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
 	void CallId();
-    USI GetFtype() { return ftype; }
+    USI GetFtype() override { return ftype; }
 
 private:
 
@@ -325,8 +325,8 @@ public:
 	OCP_DBL CalStepNRsp();
 
     
-    OCP_SIN GetMinEigenSkip() { return eigenSkip[0]; }
-    bool GetFlagSkip() { return flagSkip; }
+    OCP_SIN GetMinEigenSkip() override { return eigenSkip[0]; }
+    bool GetFlagSkip() override { return flagSkip; }
 
 private:
     // Method Variables
