@@ -116,13 +116,13 @@ class MixtureComp : public Mixture
 {
 
 public:
-    USI GetFtype() { return ftype; }
-    OCP_SIN GetMinEigenSkip() { return eigenSkip[0]; }
-    bool GetFlagSkip() { return flagSkip; }
-	OCP_ULL GetSSMSTAiters() { return SSMSTAiters;}
-	OCP_ULL GetNRSTAiters() { return NRSTAiters; }
-	OCP_ULL GetSSMSPiters() { return SSMSPiters; }
-	OCP_ULL GetNRSPiters() { return NRSPiters; }
+    USI GetFtype() override { return ftype; }
+    OCP_SIN GetMinEigenSkip() override { return eigenSkip[0]; }
+    bool GetFlagSkip() override { return flagSkip; }
+	OCP_ULL GetSSMSTAiters() override { return SSMSTAiters;}
+	OCP_ULL GetNRSTAiters() override { return NRSTAiters; }
+	OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
+	OCP_ULL GetNRSPiters() override { return NRSPiters; }
 
 private:
 	// for dubug

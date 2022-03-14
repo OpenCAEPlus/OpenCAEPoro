@@ -89,13 +89,13 @@ public:
         OCP_ABORT("Should not be used in Black Oil mode!");
     };
     // usless in BLKOIL
-    USI GetFtype() { return 100; }
-    OCP_SIN GetMinEigenSkip() { return 0; }
-    bool GetFlagSkip() { return false; }
-    OCP_ULL GetSSMSTAiters() { return 0; }
-    OCP_ULL GetNRSTAiters() { return 0; }
-    OCP_ULL GetSSMSPiters() { return 0; }
-    OCP_ULL GetNRSPiters() { return 0; }
+    USI GetFtype() override { return 100; }
+    OCP_SIN GetMinEigenSkip() override { return 0; }
+    bool GetFlagSkip() override { return false; }
+    OCP_ULL GetSSMSTAiters() override { return 0; }
+    OCP_ULL GetNRSTAiters() override { return 0; }
+    OCP_ULL GetSSMSPiters() override { return 0; }
+    OCP_ULL GetNRSPiters() override { return 0; }
 
 private:
     /// indicates the case of black oil, it's decided by user input.
