@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['matrix3_0',['Matrix3',['../classMatrix3.html',1,'']]],
-  ['mixture_1',['Mixture',['../classMixture.html',1,'']]],
-  ['mixturecomp_2',['MixtureComp',['../classMixtureComp.html',1,'']]]
+  ['linearsolver_0',['LinearSolver',['../classLinearSolver.html',1,'']]],
+  ['linearsystem_1',['LinearSystem',['../classLinearSystem.html',1,'']]]
 ];

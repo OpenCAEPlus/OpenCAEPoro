@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -99,9 +99,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa09121cf9aee73f88f0d48096968ecd8"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aa09121cf9aee73f88f0d48096968ecd8">GetSolution</a> ()</td></tr>
 <tr class="memdesc:aa09121cf9aee73f88f0d48096968ecd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the solution.  <a href="classLinearSystem.html#aa09121cf9aee73f88f0d48096968ecd8">More...</a><br /></td></tr>
 <tr class="separator:aa09121cf9aee73f88f0d48096968ecd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a9985a9e07ccd30334ea2679208d649"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a4a9985a9e07ccd30334ea2679208d649">CheckVal</a> () const</td></tr>
-<tr class="memdesc:a4a9985a9e07ccd30334ea2679208d649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether NAN or INF occurs in solution, used in debug mode.  <a href="classLinearSystem.html#a4a9985a9e07ccd30334ea2679208d649">More...</a><br /></td></tr>
-<tr class="separator:a4a9985a9e07ccd30334ea2679208d649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb8c076d996a33737689e0ac52e93d5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">CheckEquation</a> () const</td></tr>
+<tr class="memdesc:aeb8c076d996a33737689e0ac52e93d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether NAN or INF occurs in equations, used in debug mode.  <a href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">More...</a><br /></td></tr>
+<tr class="separator:aeb8c076d996a33737689e0ac52e93d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2901216eef0a6c0d6158c552263b04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">CheckSolution</a> () const</td></tr>
+<tr class="memdesc:aff2901216eef0a6c0d6158c552263b04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether NAN or INF occurs in solutions, used in debug mode.  <a href="classLinearSystem.html#aff2901216eef0a6c0d6158c552263b04">More...</a><br /></td></tr>
+<tr class="separator:aff2901216eef0a6c0d6158c552263b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0215e4fecc28ca309b843edfc105f9da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">OutputLinearSystem</a> (const string &amp;fileA, const string &amp;fileb) const</td></tr>
 <tr class="memdesc:a0215e4fecc28ca309b843edfc105f9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the mat and rhs to fileA and fileb. // TODO: output to some obj?  <a href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">More...</a><br /></td></tr>
 <tr class="separator:a0215e4fecc28ca309b843edfc105f9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,7 +165,7 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        val[n].reserve(rowCapacity[n] * blockSize);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -191,8 +194,8 @@ Friends</h2></td></tr>
 
 <p>Allocate memory for Linear <a class="el" href="classSolver.html" title="Solver class for overall solution method.">Solver</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00061">61</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{ LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(rowCapacity, maxDim, blockDim); }</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00064">64</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{ LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(rowCapacity, maxDim, blockDim); }</div>
 <div class="ttc" id="aclassLinearSolver_html_a557b72e1e621fdd8750d30df2373c748"><div class="ttname"><a href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate</a></div><div class="ttdeci">virtual void Allocate(const vector&lt; USI &gt; &amp;rowCapacity, const OCP_USI &amp;maxDim, const USI &amp;blockDim)=0</div><div class="ttdoc">Allocate maximum memory for linear solvers.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver::Allocate()</a>.</p>
@@ -268,8 +271,8 @@ Friends</h2></td></tr>
 
 <p>Assemble Mat for Linear <a class="el" href="classSolver.html" title="Solver class for overall solution method.">Solver</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00063">63</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{ LS-&gt;<a class="code hl_function" href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">AssembleMat</a>(colId, val, dim, blockDim, b, u); }</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00066">66</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{ LS-&gt;<a class="code hl_function" href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">AssembleMat</a>(colId, val, dim, blockDim, b, u); }</div>
 <div class="ttc" id="aclassLinearSolver_html_acd3e7e2a2d56aaf98a46767caeef37f1"><div class="ttname"><a href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">LinearSolver::AssembleMat</a></div><div class="ttdeci">virtual void AssembleMat(const vector&lt; vector&lt; USI &gt; &gt; &amp;colId, const vector&lt; vector&lt; OCP_DBL &gt; &gt; &amp;val, const OCP_USI &amp;dim, const USI &amp;blockDim, vector&lt; OCP_DBL &gt; &amp;rhs, vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Assemble matrix for linear solver from the internal matrix data.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">LinearSolver::AssembleMat()</a>.</p>
@@ -304,14 +307,14 @@ Friends</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a4a9985a9e07ccd30334ea2679208d649" name="a4a9985a9e07ccd30334ea2679208d649"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a9985a9e07ccd30334ea2679208d649">&#9670;&nbsp;</a></span>CheckVal()</h2>
+<a id="aeb8c076d996a33737689e0ac52e93d5a" name="aeb8c076d996a33737689e0ac52e93d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb8c076d996a33737689e0ac52e93d5a">&#9670;&nbsp;</a></span>CheckEquation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void LinearSystem::CheckVal </td>
+          <td class="memname">void LinearSystem::CheckEquation </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -319,19 +322,58 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check whether NAN or INF occurs in solution, used in debug mode. </p>
+<p>Check whether NAN or INF occurs in equations, used in debug mode. </p>
 
 <p class="definition">Definition at line <a class="el" href="LinearSystem_8cpp_source.html#l00114">114</a> of file <a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; dim; n++) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : val[n]) {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">if</span> (!isfinite(v)) {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in MAT&quot;</span>);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            }</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// check A</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; dim; n++) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : val[n]) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">if</span> (!isfinite(v)) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in MAT&quot;</span>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// check b</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">if</span> (!isfinite(b[n])) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in rhs&quot;</span>);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
+
+</div>
+</div>
+<a id="aff2901216eef0a6c0d6158c552263b04" name="aff2901216eef0a6c0d6158c552263b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2901216eef0a6c0d6158c552263b04">&#9670;&nbsp;</a></span>CheckSolution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LinearSystem::CheckSolution </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether NAN or INF occurs in solutions, used in debug mode. </p>
+
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8cpp_source.html#l00133">133</a> of file <a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = dim * blockDim;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">if</span> (!isfinite(u[n])) {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;NAN or INF in u&quot;</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
@@ -357,12 +399,12 @@ Friends</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="LinearSystem_8cpp_source.html#l00035">35</a> of file <a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; maxDim; i++) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        colId[i].clear();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        colId[i].clear(); <span class="comment">// actually, only parts of bulks needs to be clear</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        val[i].clear();</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// diagPtr.assign(maxDim, 0);</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    diagVal.assign(maxDim * blockSize, 0);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    b.assign(maxDim * blockDim, 0);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    fill(diagVal.begin(), diagVal.end(), 0.0);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    fill(b.begin(), b.end(), 0.0);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">// In fact, for linear system the current solution is a good initial solution for</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// next step, so u will not be set to zero. u.assign(maxDim, 0);</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
@@ -435,8 +477,8 @@ Friends</h2></td></tr>
 
 <p>Return the Max Iters. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00068">68</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{ <span class="keywordflow">return</span> LS-&gt;<a class="code hl_function" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">GetNumIters</a>(); }</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00071">71</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{ <span class="keywordflow">return</span> LS-&gt;<a class="code hl_function" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">GetNumIters</a>(); }</div>
 <div class="ttc" id="aclassLinearSolver_html_ae754a7c942a8a1202f244441c6b1388d"><div class="ttname"><a href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">LinearSolver::GetNumIters</a></div><div class="ttdeci">virtual USI GetNumIters() const =0</div><div class="ttdoc">Get number of iterations.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">LinearSolver::GetNumIters()</a>.</p>
@@ -468,8 +510,8 @@ Friends</h2></td></tr>
 
 <p>Return the solution. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00049">49</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{ <span class="keywordflow">return</span> u; }</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00050">50</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{ <span class="keywordflow">return</span> u; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -616,24 +658,24 @@ Friends</h2></td></tr>
 
 <p>Setup <a class="el" href="classLinearSolver.html" title="Virtual base class for linear solvers.">LinearSolver</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8cpp_source.html#l00126">126</a> of file <a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    solveDir = dir;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">switch</span> (i) {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="comment">// Fasp</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            LS = <span class="keyword">new</span> <a class="code hl_class" href="classScalarFaspSolver.html">ScalarFaspSolver</a>;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="comment">// Blcok Fasp</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            LS = <span class="keyword">new</span> <a class="code hl_class" href="classVectorFaspSolver.html">VectorFaspSolver</a>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Linear Solver type!&quot;</span>);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">SetupParam</a>(dir, file);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8cpp_source.html#l00144">144</a> of file <a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>{</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    solveDir = dir;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">switch</span> (i) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="comment">// Fasp</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            LS = <span class="keyword">new</span> <a class="code hl_class" href="classScalarFaspSolver.html">ScalarFaspSolver</a>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="comment">// Blcok Fasp</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            LS = <span class="keyword">new</span> <a class="code hl_class" href="classVectorFaspSolver.html">VectorFaspSolver</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Linear Solver type!&quot;</span>);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">SetupParam</a>(dir, file);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>}</div>
 <div class="ttc" id="aclassLinearSolver_html_a64ec5c45d54739399c493ddd3a09d989"><div class="ttname"><a href="classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989">LinearSolver::SetupParam</a></div><div class="ttdeci">virtual void SetupParam(const string &amp;dir, const string &amp;file)=0</div><div class="ttdoc">Read the params for linear solvers from an input file.</div></div>
 <div class="ttc" id="aclassScalarFaspSolver_html"><div class="ttname"><a href="classScalarFaspSolver.html">ScalarFaspSolver</a></div><div class="ttdoc">Scalar FASP solvers in CSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00077">FaspSolver.hpp:78</a></div></div>
 <div class="ttc" id="aclassVectorFaspSolver_html"><div class="ttname"><a href="classVectorFaspSolver.html">VectorFaspSolver</a></div><div class="ttdoc">Vector FASP solvers in BSR format.</div><div class="ttdef"><b>Definition:</b> <a href="FaspSolver_8hpp_source.html#l00105">FaspSolver.hpp:106</a></div></div>
@@ -667,8 +709,8 @@ Friends</h2></td></tr>
 
 <p>Solve the Linear System. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00065">65</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{ <span class="keywordflow">return</span> LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">Solve</a>(u); }</div>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00068">68</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{ <span class="keywordflow">return</span> LS-&gt;<a class="code hl_function" href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">Solve</a>(u); }</div>
 <div class="ttc" id="aclassLinearSolver_html_a572d9efa3183c7101e74e8f98f786e73"><div class="ttname"><a href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve</a></div><div class="ttdeci">virtual OCP_INT Solve(vector&lt; OCP_DBL &gt; &amp;u)=0</div><div class="ttdoc">Solve the linear system and return the number of iterations.</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classLinearSolver.html#a572d9efa3183c7101e74e8f98f786e73">LinearSolver::Solve()</a>.</p>
@@ -755,7 +797,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['nrparamsp_0',['NRparamSP',['../classNRparamSP.html',1,'']]],
-  ['nrparamsta_1',['NRparamSTA',['../classNRparamSTA.html',1,'']]]
+  ['matrix3_0',['Matrix3',['../classMatrix3.html',1,'']]],
+  ['mixture_1',['Mixture',['../classMixture.html',1,'']]],
+  ['mixturecomp_2',['MixtureComp',['../classMixtureComp.html',1,'']]]
 ];

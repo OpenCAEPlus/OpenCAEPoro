@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -194,9 +194,8 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    output.PrintInfo();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    output.PrintInfo();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -317,12 +316,12 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">// Setup static information for solver</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    solver.<a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Setup</a>(reservoir, control);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00111">OCPControl.cpp:111</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00112">OCPControl.cpp:112</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00027">Reservoir.cpp:27</a></div></div>
 <div class="ttc" id="aclassSolver_html_a8d0439530ba5eb621ae4515168df367d"><div class="ttname"><a href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup Solver.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00015">Solver.cpp:15</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00027">Reservoir::Setup()</a>, <a class="el" href="Solver_8cpp_source.html#l00015">Solver::Setup()</a>, and <a class="el" href="OCPControl_8cpp_source.html#l00111">OCPControl::SetupFastControl()</a>.</p>
+<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00027">Reservoir::Setup()</a>, <a class="el" href="Solver_8cpp_source.html#l00015">Solver::Setup()</a>, and <a class="el" href="OCPControl_8cpp_source.html#l00112">OCPControl::SetupFastControl()</a>.</p>
 
 </div>
 </div>
@@ -333,7 +332,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

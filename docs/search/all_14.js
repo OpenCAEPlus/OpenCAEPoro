@@ -4,7 +4,7 @@ var searchData=
   ['updateiterls_1',['UpdateIterLS',['../classOCPControl.html#ac6cceea4c279d1cf8b21b8174210356f',1,'OCPControl']]],
   ['updateiternr_2',['UpdateIterNR',['../classOCPControl.html#a8a346fb5ddf248ddf18b5f75f5dd84b9',1,'OCPControl']]],
   ['updateiters_3',['UpdateIters',['../classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d',1,'OCPControl']]],
-  ['updatelastdg_4',['UpdateLastDg',['../classWellGroup.html#a6260a97575c793a17fd25236abbc7f8e',1,'WellGroup']]],
+  ['updatelastdg_4',['UpdateLastDg',['../classAllWells.html#a25906b75a247e7fa0e626d07d2b10fe1',1,'AllWells']]],
   ['updatelaststep_5',['UpdateLastStep',['../classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df',1,'BulkConn']]],
   ['updatelaststepfim_6',['UpdateLastStepFIM',['../classBulk.html#a48edf8ff505dacac40a49c7b82d02623',1,'Bulk::UpdateLastStepFIM()'],['../classReservoir.html#a2166567922a3f30fd654bd1fc9d2cfbb',1,'Reservoir::UpdateLastStepFIM()']]],
   ['updatelaststepimpec_7',['UpdateLastStepIMPEC',['../classBulk.html#ad5be3a935e451c372e6dfafc99f0e3c9',1,'Bulk::UpdateLastStepIMPEC()'],['../classReservoir.html#a7a3f35afda068c6fea73fc0250aa7658',1,'Reservoir::UpdateLastStepIMPEC()']]],

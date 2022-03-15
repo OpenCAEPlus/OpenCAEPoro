@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -139,6 +139,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae">GetActIndex</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k) const</td></tr>
 <tr class="memdesc:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index of active cell (i, j, k).  <a href="classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae">More...</a><br /></td></tr>
 <tr class="separator:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb96f42fc087736a7fb63edde229b20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a7bb96f42fc087736a7fb63edde229b20">GetIJKGrid</a> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
+<tr class="memdesc:a7bb96f42fc087736a7fb63edde229b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 3D coordinate for object grid with <a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> index.  <a href="classGrid.html#a7bb96f42fc087736a7fb63edde229b20">More...</a><br /></td></tr>
+<tr class="separator:a7bb96f42fc087736a7fb63edde229b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a129ba8c587c4349c773dc4594d9d6f65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a129ba8c587c4349c773dc4594d9d6f65">CalSomeInfo</a> () const</td></tr>
+<tr class="separator:a129ba8c587c4349c773dc4594d9d6f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -152,7 +157,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Basic information of computational grid, including the rock properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00071">71</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00074">74</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aeffe4bbc827dcb265b5d6e334b3c4291" name="aeffe4bbc827dcb265b5d6e334b3c4291"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeffe4bbc827dcb265b5d6e334b3c4291">&#9670;&nbsp;</a></span>CalActiveGrid()</h2>
@@ -183,26 +188,26 @@ Friends</h2></td></tr>
 <p>Calculate the activeness of grid cells. </p>
 <p >If porosity or volume of the grid cell is too small, then the cell is inactive. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00252">252</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>{</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    activeMap_B2G.reserve(numGrid);</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    activeMap_G2B.resize(numGrid);</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">if</span> (poro[n] * ntg[n] &lt; e1 || dx[n] * dy[n] * dz[n] &lt; e2) {</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            activeMap_G2B[n] = <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">false</span>, 0);</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        activeMap_B2G.push_back(n);</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        activeMap_G2B[n] = <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">true</span>, count);</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        count++;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    }</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    activeGridNum = count;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    cout &lt;&lt; (numGrid - activeGridNum) * 100.0 / numGrid &lt;&lt; <span class="stringliteral">&quot;% (&quot;</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>         &lt;&lt; (numGrid - activeGridNum) &lt;&lt; <span class="stringliteral">&quot;) of grid cell is inactive&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00043">Grid.hpp:44</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00277">277</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>{</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    activeMap_B2G.reserve(numGrid);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    activeMap_G2B.resize(numGrid);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordflow">if</span> (ACTNUM[n] == 0 || poro[n] * ntg[n] &lt; e1 || v[n] &lt; e2) {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            activeMap_G2B[n] = <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">false</span>, 0);</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        }</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        activeMap_B2G.push_back(n);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        activeMap_G2B[n] = <a class="code hl_class" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">true</span>, count);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        count++;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    }</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    activeGridNum = count;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    cout &lt;&lt; (numGrid - activeGridNum) * 100.0 / numGrid &lt;&lt; <span class="stringliteral">&quot;% (&quot;</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>         &lt;&lt; (numGrid - activeGridNum) &lt;&lt; <span class="stringliteral">&quot;) of grid cell is inactive&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00046">Grid.hpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -224,35 +229,35 @@ Friends</h2></td></tr>
 
 <p>Calculate Akd for a corner-point grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00221">221</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>{</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId   = conn.begin;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> eId   = conn.end;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bArea = conn.Ad_dd_begin;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> eArea = conn.Ad_dd_end;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1, T2;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">switch</span> (conn.directionType) {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            T1 = ntg[bId] * kx[bId] * bArea;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            T2 = ntg[eId] * kx[eId] * eArea;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            T1 = ntg[bId] * ky[bId] * bArea;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            T2 = ntg[eId] * ky[eId] * eArea;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            T1 = kz[bId] * bArea;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            T2 = kz[eId] * eArea;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction Type!&quot;</span>);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00246">246</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>{</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId   = conn.begin;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> eId   = conn.end;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bArea = conn.Ad_dd_begin;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> eArea = conn.Ad_dd_end;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1, T2;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keywordflow">switch</span> (conn.directionType) {</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            T1 = ntg[bId] * kx[bId] * bArea;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            T2 = ntg[eId] * kx[eId] * eArea;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            T1 = ntg[bId] * ky[bId] * bArea;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            T2 = ntg[eId] * ky[eId] * eArea;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            T1 = kz[bId] * bArea;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            T2 = kz[eId] * eArea;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">return</span> 1 / (1 / T1 + 1 / T2);</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction Type!&quot;</span>);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    }</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
@@ -293,33 +298,33 @@ Friends</h2></td></tr>
 
 <p>Calculate Akd for an orthogonal grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00129">129</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>{</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T2;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">switch</span> (direction) {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="comment">// x-direction</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            T1 = kx[bId] * ntg[bId] * dy[bId] * dz[bId] / dx[bId];</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            T2 = kx[eId] * ntg[eId] * dy[eId] * dz[eId] / dx[eId];</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            <span class="comment">// y-direction</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            T1 = ky[bId] * ntg[bId] * dz[bId] * dx[bId] / dy[bId];</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            T2 = ky[eId] * ntg[eId] * dz[eId] * dx[eId] / dy[eId];</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="comment">// z-direction -- no ntg</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            T1 = kz[bId] * dx[bId] * dy[bId] / dz[bId];</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            T2 = kz[eId] * dx[eId] * dy[eId] / dz[eId];</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction!&quot;</span>);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00138">138</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T1;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> T2;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">switch</span> (direction) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="comment">// x-direction</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            T1 = kx[bId] * ntg[bId] * dy[bId] * dz[bId] / dx[bId];</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            T2 = kx[eId] * ntg[eId] * dy[eId] * dz[eId] / dx[eId];</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="comment">// y-direction</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            T1 = ky[bId] * ntg[bId] * dz[bId] * dx[bId] / dy[bId];</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            T2 = ky[eId] * ntg[eId] * dz[eId] * dx[eId] / dy[eId];</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="comment">// z-direction -- no ntg</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            T1 = kz[bId] * dx[bId] * dy[bId] / dz[bId];</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            T2 = kz[eId] * dx[eId] * dy[eId] / dz[eId];</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">return</span> (2 / (1 / T1 + 1 / T2));</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Direction!&quot;</span>);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
@@ -342,32 +347,101 @@ Friends</h2></td></tr>
 
 <p>Calculate the depth and volume for an orthogonal grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00158">158</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    depth.resize(numGrid, 0);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxny = nx * ny;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment">// 0th layer</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = j * nx + i;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            depth[id]  = tops[id] + dz[id] / 2;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        }</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment">// 1th - (nz-1)th layer</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 1; k &lt; nz; k++) {</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> knxny = k * nxny;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = knxny + j * nx + i;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                depth[id]  = depth[<span class="keywordtype">id</span> - nxny] + dz[<span class="keywordtype">id</span> - nxny] / 2 + dz[id] / 2;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            }</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        }</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    v.resize(numGrid);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numGrid; i++) v[i] = dx[i] * dy[i] * dz[i];</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00167">167</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>{</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    depth.resize(numGrid, 0);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxny = nx * ny;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">// 0th layer</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = j * nx + i;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            depth[id]  = tops[id] + dz[id] / 2;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        }</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">// 1th - (nz-1)th layer</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 1; k &lt; nz; k++) {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> knxny = k * nxny;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = knxny + j * nx + i;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                depth[id]  = depth[<span class="keywordtype">id</span> - nxny] + dz[<span class="keywordtype">id</span> - nxny] / 2 + dz[id] / 2;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        }</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    v.resize(numGrid);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numGrid; i++) v[i] = dx[i] * dy[i] * dz[i];</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a129ba8c587c4349c773dc4594d9d6f65" name="a129ba8c587c4349c773dc4594d9d6f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129ba8c587c4349c773dc4594d9d6f65">&#9670;&nbsp;</a></span>CalSomeInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Grid::CalSomeInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00321">321</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>{</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="comment">// test</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> depthMax = 0;  <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> ndepa = 0;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> depthMin = 1E8;  <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> ndepi = 0;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dxMax = 0;     <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxa = 0;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dxMin = 1E8;   <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxi = 0;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dyMax = 0;     <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nya = 0;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dyMin = 1E8;   <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nyi = 0;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dzMax = 0;     <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nza = 0;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dzMin = 1E8;   <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nzi = 0;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> I, J, K;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="comment">//if (!activeMap_G2B[nn].IsAct())</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="comment">//    continue;</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        <span class="comment">//OCP_USI n = activeMap_G2B[nn].GetId();</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordflow">if</span> (depthMax &lt; depth[n]) {</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            depthMax = depth[n]; ndepa = n;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keywordflow">if</span> (depthMin &gt; depth[n]) {</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            depthMin = depth[n]; ndepi = n;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        }</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="keywordflow">if</span> (dxMax &lt; dx[n]) {</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            dxMax = dx[n]; nxa = n;</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        }</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">if</span> (dxMin &gt; dx[n]) {</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            dxMin = dx[n]; nxi = n;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        }</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <span class="keywordflow">if</span> (dyMax &lt; dy[n]) {</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>            dyMax = dy[n]; nya = n;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        }</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="keywordflow">if</span> (dyMin &gt; dy[n]) {</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            dyMin = dy[n]; nyi = n;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        }</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        <span class="keywordflow">if</span> (dzMax &lt; dz[n]) {</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            dzMax = dz[n]; nza = n;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        }</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="keywordflow">if</span> (dzMin &gt; dz[n]) {</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            dzMin = dz[n]; nzi = n;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        }</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    }</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    cout &lt;&lt; <span class="stringliteral">&quot;GRID :  Depthmax : &quot;</span> &lt;&lt; depthMax &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        &lt;&lt; <span class="stringliteral">&quot;Depthmin : &quot;</span> &lt;&lt; depthMin &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        &lt;&lt; <span class="stringliteral">&quot;DXmax : &quot;</span> &lt;&lt; dxMax &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        &lt;&lt; <span class="stringliteral">&quot;DXmin : &quot;</span> &lt;&lt; dxMin &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        &lt;&lt; <span class="stringliteral">&quot;DYmax : &quot;</span> &lt;&lt; dyMax &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        &lt;&lt; <span class="stringliteral">&quot;DYmin : &quot;</span> &lt;&lt; dyMin &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        &lt;&lt; <span class="stringliteral">&quot;DZmax : &quot;</span> &lt;&lt; dzMax &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        &lt;&lt; <span class="stringliteral">&quot;DZmin : &quot;</span> &lt;&lt; dzMin &lt;&lt; <span class="stringliteral">&quot;   &quot;</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        &lt;&lt; endl;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -406,17 +480,20 @@ Friends</h2></td></tr>
 <p>Return the index of active cell (i, j, k). </p>
 <p >Return id of the active cell and abort if the cell is inactive! </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00272">272</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>{</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span>       = k * nx * ny + j * nx + i;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">bool</span>    activity = activeMap_G2B[id].IsAct();</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">if</span> (!activity) {</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                  <span class="stringliteral">&quot;) is inactive&quot;</span>);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    }</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00297">297</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>{</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span>       = k * nx * ny + j * nx + i;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &gt; numGrid) {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Id is out of Range!&quot;</span>);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    }</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keywordtype">bool</span>    activity = activeMap_G2B[id].IsAct();</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keywordflow">if</span> (!activity) {</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                  <span class="stringliteral">&quot;) is inactive&quot;</span>);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    }</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keywordflow">return</span> id;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
@@ -447,8 +524,8 @@ Friends</h2></td></tr>
 
 <p>Return the num of bulks (active cells). </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00117">117</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>{ <span class="keywordflow">return</span> activeGridNum; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00120">120</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{ <span class="keywordflow">return</span> activeGridNum; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -477,8 +554,8 @@ Friends</h2></td></tr>
 
 <p>Return the num of connections. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00115">115</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{ <span class="keywordflow">return</span> numConn; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00118">118</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{ <span class="keywordflow">return</span> numConn; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -507,8 +584,8 @@ Friends</h2></td></tr>
 
 <p>Return the num of grid cells. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00113">113</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>{ <span class="keywordflow">return</span> numGrid; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00116">116</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>{ <span class="keywordflow">return</span> numGrid; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -537,8 +614,8 @@ Friends</h2></td></tr>
 
 <p>Return nx of grid cell. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00107">107</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{ <span class="keywordflow">return</span> nx; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00110">110</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>{ <span class="keywordflow">return</span> nx; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -567,8 +644,8 @@ Friends</h2></td></tr>
 
 <p>Return ny of grid cell. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00109">109</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>{ <span class="keywordflow">return</span> ny; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00112">112</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{ <span class="keywordflow">return</span> ny; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -597,8 +674,58 @@ Friends</h2></td></tr>
 
 <p>Return nz of grid cell. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00111">111</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>{ <span class="keywordflow">return</span> nz; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00114">114</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>{ <span class="keywordflow">return</span> nz; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7bb96f42fc087736a7fb63edde229b20" name="a7bb96f42fc087736a7fb63edde229b20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb96f42fc087736a7fb63edde229b20">&#9670;&nbsp;</a></span>GetIJKGrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Grid::GetIJKGrid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the 3D coordinate for object grid with <a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> index. </p>
+
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00313">313</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>{</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="comment">// i,j,k begin from 1</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    k = n / (nx * ny) + 1;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    j = (n - (k-1) * nx * ny) / nx + 1;</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    i = n - (k-1) * nx * ny - (j-1) * nx + 1;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -653,38 +780,45 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    SATNUM.resize(numGrid, 0);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">SATNUM</a>.activity) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numGrid; i++) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            SATNUM[i] = (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>)(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">SATNUM</a>.data[i]) - 1;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            SATNUM[i] = round(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">SATNUM</a>.data[i]) - 1;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    PVTNUM.resize(numGrid, 0);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">PVTNUM</a>.activity) {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numGrid; i++) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            PVTNUM[i] = (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>)(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">PVTNUM</a>.data[i]) - 1;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            PVTNUM[i] = round(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">PVTNUM</a>.data[i]) - 1;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a03e6001212ac292d305d31b421f28442"><div class="ttname"><a href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a></div><div class="ttdeci">const USI CORNER_GRID</div><div class="ttdoc">Grid type = corner-point.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a5e922afbb7dc32b9f6a8f7b49e02f1fe"><div class="ttname"><a href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a></div><div class="ttdeci">const USI ORTHOGONAL_GRID</div><div class="ttdoc">Grid type = orthogonal.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00057">OCPConst.hpp:57</a></div></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    ACTNUM.resize(numGrid, 1);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span> (rs_param.<a class="code hl_variable" href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ACTNUM</a>.activity) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; numGrid; i++) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            ACTNUM[i] = round(rs_param.<a class="code hl_variable" href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ACTNUM</a>.data[i]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a03e6001212ac292d305d31b421f28442"><div class="ttname"><a href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a></div><div class="ttdeci">const USI CORNER_GRID</div><div class="ttdoc">Grid type = corner-point.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00059">OCPConst.hpp:59</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a5e922afbb7dc32b9f6a8f7b49e02f1fe"><div class="ttname"><a href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a></div><div class="ttdeci">const USI ORTHOGONAL_GRID</div><div class="ttdoc">Grid type = orthogonal.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
 <div class="ttc" id="aclassDimens_html_a0417b498c92ff029181c93faa84f3245"><div class="ttname"><a href="classDimens.html#a0417b498c92ff029181c93faa84f3245">Dimens::nx</a></div><div class="ttdeci">USI nx</div><div class="ttdoc">Num of bulks along x-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00042">ParamReservoir.hpp:42</a></div></div>
 <div class="ttc" id="aclassDimens_html_a2f236756aa31af34003346d336b31a0d"><div class="ttname"><a href="classDimens.html#a2f236756aa31af34003346d336b31a0d">Dimens::ny</a></div><div class="ttdeci">USI ny</div><div class="ttdoc">Num of bulks along y-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00043">ParamReservoir.hpp:43</a></div></div>
 <div class="ttc" id="aclassDimens_html_aac9f3eb9d1a00941e8fada6b68ca11bf"><div class="ttname"><a href="classDimens.html#aac9f3eb9d1a00941e8fada6b68ca11bf">Dimens::nz</a></div><div class="ttdeci">USI nz</div><div class="ttdoc">Num of bulks along z-direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00044">ParamReservoir.hpp:44</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a04cec049845e3f592658fef1c1fce8c2"><div class="ttname"><a href="classParamReservoir.html#a04cec049845e3f592658fef1c1fce8c2">ParamReservoir::permY</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permY</div><div class="ttdoc">Permeability along the y-direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00120">ParamReservoir.hpp:120</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a177afb4fee57ec24480aaeb5d2513087"><div class="ttname"><a href="classParamReservoir.html#a177afb4fee57ec24480aaeb5d2513087">ParamReservoir::zcorn</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; zcorn</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00114">ParamReservoir.hpp:114</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a17b2dada29d4ef2a4f4eac2f4d499b2a"><div class="ttname"><a href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">ParamReservoir::SATNUM</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; SATNUM</div><div class="ttdoc">Records the index of SAT region for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00148">ParamReservoir.hpp:148</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a2665ef19a3d47d06d220597b90f11b9a"><div class="ttname"><a href="classParamReservoir.html#a2665ef19a3d47d06d220597b90f11b9a">ParamReservoir::poro</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; poro</div><div class="ttdoc">Porosity for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00118">ParamReservoir.hpp:118</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a32bd37cd772295ec2668c788c0449b9c"><div class="ttname"><a href="classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c">ParamReservoir::dy</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dy</div><div class="ttdoc">Size along the y - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00109">ParamReservoir.hpp:109</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a3529b4c3898723ad7bc00117d17d7dde"><div class="ttname"><a href="classParamReservoir.html#a3529b4c3898723ad7bc00117d17d7dde">ParamReservoir::permX</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permX</div><div class="ttdoc">Permeability along the x - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00119">ParamReservoir.hpp:119</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a43c90df33145422732b3b7bdd29d4dc7"><div class="ttname"><a href="classParamReservoir.html#a43c90df33145422732b3b7bdd29d4dc7">ParamReservoir::permZ</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permZ</div><div class="ttdoc">Permeability along the z-direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00121">ParamReservoir.hpp:121</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a4f3b006bc72bc7eb45375c2ef8c1f856"><div class="ttname"><a href="classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856">ParamReservoir::dx</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dx</div><div class="ttdoc">Size along the x - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00108">ParamReservoir.hpp:108</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a6683503e7bad843091ba6de1ca958e3a"><div class="ttname"><a href="classParamReservoir.html#a6683503e7bad843091ba6de1ca958e3a">ParamReservoir::tops</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; tops</div><div class="ttdoc">Depth of the top surface of the uppermost grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00107">ParamReservoir.hpp:107</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a6d6224357ad57acbb6d14467122d7060"><div class="ttname"><a href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">ParamReservoir::PVTNUM</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; PVTNUM</div><div class="ttdoc">Records the index of PVT region for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00149">ParamReservoir.hpp:149</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a999f94de57b453fce9e59944124b9824"><div class="ttname"><a href="classParamReservoir.html#a999f94de57b453fce9e59944124b9824">ParamReservoir::ntg</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ntg</div><div class="ttdoc">Net to gross for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00117">ParamReservoir.hpp:117</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_abc8b18c6d81135e6ab9959da62e914fd"><div class="ttname"><a href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">ParamReservoir::coord</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; coord</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00113">ParamReservoir.hpp:113</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_acc73f1908d007c155a6677d472774f2a"><div class="ttname"><a href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">ParamReservoir::dimens</a></div><div class="ttdeci">Dimens dimens</div><div class="ttdoc">Dimension of grid: the number of grids along x,y,z direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00105">ParamReservoir.hpp:105</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_ad7fa4cdbf24a7740b2b4f311d2da8daa"><div class="ttname"><a href="classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa">ParamReservoir::dz</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dz</div><div class="ttdoc">Size along the z - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00110">ParamReservoir.hpp:110</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_afe97864d374d9efe0f6f7b2287dd918a"><div class="ttname"><a href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">ParamReservoir::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Num of grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir.hpp:106</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a04cec049845e3f592658fef1c1fce8c2"><div class="ttname"><a href="classParamReservoir.html#a04cec049845e3f592658fef1c1fce8c2">ParamReservoir::permY</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permY</div><div class="ttdoc">Permeability along the y-direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00153">ParamReservoir.hpp:153</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a177afb4fee57ec24480aaeb5d2513087"><div class="ttname"><a href="classParamReservoir.html#a177afb4fee57ec24480aaeb5d2513087">ParamReservoir::zcorn</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; zcorn</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00147">ParamReservoir.hpp:147</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a17b2dada29d4ef2a4f4eac2f4d499b2a"><div class="ttname"><a href="classParamReservoir.html#a17b2dada29d4ef2a4f4eac2f4d499b2a">ParamReservoir::SATNUM</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; SATNUM</div><div class="ttdoc">Records the index of SAT region for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00181">ParamReservoir.hpp:181</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a237932f1285c080ebf92787f758bc492"><div class="ttname"><a href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ParamReservoir::ACTNUM</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; ACTNUM</div><div class="ttdoc">Records the index of Active region for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00183">ParamReservoir.hpp:183</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a2665ef19a3d47d06d220597b90f11b9a"><div class="ttname"><a href="classParamReservoir.html#a2665ef19a3d47d06d220597b90f11b9a">ParamReservoir::poro</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; poro</div><div class="ttdoc">Porosity for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00151">ParamReservoir.hpp:151</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a32bd37cd772295ec2668c788c0449b9c"><div class="ttname"><a href="classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c">ParamReservoir::dy</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dy</div><div class="ttdoc">Size along the y - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00142">ParamReservoir.hpp:142</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a3529b4c3898723ad7bc00117d17d7dde"><div class="ttname"><a href="classParamReservoir.html#a3529b4c3898723ad7bc00117d17d7dde">ParamReservoir::permX</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permX</div><div class="ttdoc">Permeability along the x - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00152">ParamReservoir.hpp:152</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a43c90df33145422732b3b7bdd29d4dc7"><div class="ttname"><a href="classParamReservoir.html#a43c90df33145422732b3b7bdd29d4dc7">ParamReservoir::permZ</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; permZ</div><div class="ttdoc">Permeability along the z-direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00154">ParamReservoir.hpp:154</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a4f3b006bc72bc7eb45375c2ef8c1f856"><div class="ttname"><a href="classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856">ParamReservoir::dx</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dx</div><div class="ttdoc">Size along the x - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00141">ParamReservoir.hpp:141</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a6683503e7bad843091ba6de1ca958e3a"><div class="ttname"><a href="classParamReservoir.html#a6683503e7bad843091ba6de1ca958e3a">ParamReservoir::tops</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; tops</div><div class="ttdoc">Depth of the top surface of the uppermost grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00140">ParamReservoir.hpp:140</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a6d6224357ad57acbb6d14467122d7060"><div class="ttname"><a href="classParamReservoir.html#a6d6224357ad57acbb6d14467122d7060">ParamReservoir::PVTNUM</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; PVTNUM</div><div class="ttdoc">Records the index of PVT region for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00182">ParamReservoir.hpp:182</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a999f94de57b453fce9e59944124b9824"><div class="ttname"><a href="classParamReservoir.html#a999f94de57b453fce9e59944124b9824">ParamReservoir::ntg</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ntg</div><div class="ttdoc">Net to gross for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00150">ParamReservoir.hpp:150</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_abc8b18c6d81135e6ab9959da62e914fd"><div class="ttname"><a href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">ParamReservoir::coord</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; coord</div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00146">ParamReservoir.hpp:146</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_acc73f1908d007c155a6677d472774f2a"><div class="ttname"><a href="classParamReservoir.html#acc73f1908d007c155a6677d472774f2a">ParamReservoir::dimens</a></div><div class="ttdeci">Dimens dimens</div><div class="ttdoc">Dimension of grid: the number of grids along x,y,z direction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00138">ParamReservoir.hpp:138</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_ad7fa4cdbf24a7740b2b4f311d2da8daa"><div class="ttname"><a href="classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa">ParamReservoir::dz</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dz</div><div class="ttdoc">Size along the z - direction for each grid.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00143">ParamReservoir.hpp:143</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_afe97864d374d9efe0f6f7b2287dd918a"><div class="ttname"><a href="classParamReservoir.html#afe97864d374d9efe0f6f7b2287dd918a">ParamReservoir::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Num of grids.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00139">ParamReservoir.hpp:139</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00113">ParamReservoir::coord</a>, <a class="el" href="OCPConst_8hpp_source.html#l00058">CORNER_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00105">ParamReservoir::dimens</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00108">ParamReservoir::dx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00109">ParamReservoir::dy</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00110">ParamReservoir::dz</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00117">ParamReservoir::ntg</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00106">ParamReservoir::numGrid</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00042">Dimens::nx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00043">Dimens::ny</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00044">Dimens::nz</a>, <a class="el" href="OCPConst_8hpp_source.html#l00057">ORTHOGONAL_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00119">ParamReservoir::permX</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00120">ParamReservoir::permY</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00121">ParamReservoir::permZ</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00118">ParamReservoir::poro</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00149">ParamReservoir::PVTNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00148">ParamReservoir::SATNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00107">ParamReservoir::tops</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00114">ParamReservoir::zcorn</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00183">ParamReservoir::ACTNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00146">ParamReservoir::coord</a>, <a class="el" href="OCPConst_8hpp_source.html#l00059">CORNER_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00138">ParamReservoir::dimens</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00141">ParamReservoir::dx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00142">ParamReservoir::dy</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00143">ParamReservoir::dz</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00150">ParamReservoir::ntg</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00139">ParamReservoir::numGrid</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00042">Dimens::nx</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00043">Dimens::ny</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00044">Dimens::nz</a>, <a class="el" href="OCPConst_8hpp_source.html#l00058">ORTHOGONAL_GRID</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00152">ParamReservoir::permX</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00153">ParamReservoir::permY</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00154">ParamReservoir::permZ</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00151">ParamReservoir::poro</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00182">ParamReservoir::PVTNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00181">ParamReservoir::SATNUM</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00140">ParamReservoir::tops</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00147">ParamReservoir::zcorn</a>.</p>
 
 </div>
 </div>
@@ -714,8 +848,8 @@ Friends</h2></td></tr>
 
 <p>Mapping from grid cells to bulks (active cells). </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00105">105</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{ <span class="keywordflow">return</span> activeMap_G2B[i]; }</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00108">108</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>{ <span class="keywordflow">return</span> activeMap_G2B[i]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -736,23 +870,26 @@ Friends</h2></td></tr>
 
 <p>Setup the grid information and calculate the properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00058">58</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">switch</span> (gridType) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>:</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a>();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>:</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_function" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a>();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG Grid Type!&quot;</span>);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="ttc" id="aclassGrid_html_a3efc64118855093f20959dcd00648770"><div class="ttname"><a href="classGrid.html#a3efc64118855093f20959dcd00648770">Grid::SetupCornerGrid</a></div><div class="ttdeci">void SetupCornerGrid()</div><div class="ttdoc">Setup a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00184">Grid.cpp:184</a></div></div>
-<div class="ttc" id="aclassGrid_html_ac103f53259f2ac72e167aa67e455d3b9"><div class="ttname"><a href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">Grid::SetupOrthogonalGrid</a></div><div class="ttdeci">void SetupOrthogonalGrid()</div><div class="ttdoc">Setup an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00072">Grid.cpp:72</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00064">64</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">switch</span> (gridType) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_function" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a>();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a03e6001212ac292d305d31b421f28442">CORNER_GRID</a>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <a class="code hl_function" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG Grid Type!&quot;</span>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">// test</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    CalSomeInfo();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="ttc" id="aclassGrid_html_a3efc64118855093f20959dcd00648770"><div class="ttname"><a href="classGrid.html#a3efc64118855093f20959dcd00648770">Grid::SetupCornerGrid</a></div><div class="ttdeci">void SetupCornerGrid()</div><div class="ttdoc">Setup a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00193">Grid.cpp:193</a></div></div>
+<div class="ttc" id="aclassGrid_html_ac103f53259f2ac72e167aa67e455d3b9"><div class="ttname"><a href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">Grid::SetupOrthogonalGrid</a></div><div class="ttdeci">void SetupOrthogonalGrid()</div><div class="ttdoc">Setup an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00081">Grid.cpp:81</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00058">CORNER_GRID</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00057">ORTHOGONAL_GRID</a>, <a class="el" href="Grid_8cpp_source.html#l00184">SetupCornerGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00072">SetupOrthogonalGrid()</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00059">CORNER_GRID</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00058">ORTHOGONAL_GRID</a>, <a class="el" href="Grid_8cpp_source.html#l00193">SetupCornerGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00081">SetupOrthogonalGrid()</a>.</p>
 
 </div>
 </div>
@@ -773,20 +910,21 @@ Friends</h2></td></tr>
 
 <p>Setup a corner-point grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00184">184</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>{</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <a class="code hl_class" href="classCOORD.html">COORD</a> coordTmp;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    coordTmp.Allocate(nx, ny, nz);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    coordTmp.InputData(coord, zcorn);</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    coordTmp.CalConn();</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <a class="code hl_function" href="classGrid.html#aa1581686b6eac5cbf40c4ecde5ef1a49">SetupNeighborCornerGrid</a>(coordTmp);</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <a class="code hl_function" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a>(1E-6, 1E-6);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>}</div>
-<div class="ttc" id="aclassCOORD_html"><div class="ttname"><a href="classCOORD.html">COORD</a></div><div class="ttdoc">???</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00141">CornerGrid.hpp:142</a></div></div>
-<div class="ttc" id="aclassGrid_html_aa1581686b6eac5cbf40c4ecde5ef1a49"><div class="ttname"><a href="classGrid.html#aa1581686b6eac5cbf40c4ecde5ef1a49">Grid::SetupNeighborCornerGrid</a></div><div class="ttdeci">void SetupNeighborCornerGrid(const COORD &amp;CoTmp)</div><div class="ttdoc">Setup the neighboring info for a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00194">Grid.cpp:194</a></div></div>
-<div class="ttc" id="aclassGrid_html_aeffe4bbc827dcb265b5d6e334b3c4291"><div class="ttname"><a href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">Grid::CalActiveGrid</a></div><div class="ttdeci">void CalActiveGrid(const OCP_DBL &amp;e1, const OCP_DBL &amp;e2)</div><div class="ttdoc">Calculate the activeness of grid cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00252">Grid.cpp:252</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00193">193</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>{</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <a class="code hl_class" href="classCOORD.html">COORD</a> coordTmp;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    coordTmp.Allocate(nx, ny, nz);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    coordTmp.InputData(coord, zcorn);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">// coordTmp.CalConn();</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    coordTmp.SetupCornerPoints();</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <a class="code hl_function" href="classGrid.html#aa1581686b6eac5cbf40c4ecde5ef1a49">SetupNeighborCornerGrid</a>(coordTmp);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_function" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a>(1E-6, 1E-6);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
+<div class="ttc" id="aclassCOORD_html"><div class="ttname"><a href="classCOORD.html">COORD</a></div><div class="ttdoc">???</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00144">CornerGrid.hpp:145</a></div></div>
+<div class="ttc" id="aclassGrid_html_aa1581686b6eac5cbf40c4ecde5ef1a49"><div class="ttname"><a href="classGrid.html#aa1581686b6eac5cbf40c4ecde5ef1a49">Grid::SetupNeighborCornerGrid</a></div><div class="ttdeci">void SetupNeighborCornerGrid(const COORD &amp;CoTmp)</div><div class="ttdoc">Setup the neighboring info for a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00204">Grid.cpp:204</a></div></div>
+<div class="ttc" id="aclassGrid_html_aeffe4bbc827dcb265b5d6e334b3c4291"><div class="ttname"><a href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">Grid::CalActiveGrid</a></div><div class="ttdeci">void CalActiveGrid(const OCP_DBL &amp;e1, const OCP_DBL &amp;e2)</div><div class="ttdoc">Calculate the activeness of grid cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00277">Grid.cpp:277</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00252">CalActiveGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00194">SetupNeighborCornerGrid()</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00277">CalActiveGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00204">SetupNeighborCornerGrid()</a>.</p>
 
 </div>
 </div>
@@ -808,37 +946,52 @@ Friends</h2></td></tr>
 
 <p>Setup the neighboring info for a corner-point grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00194">194</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>{</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    dx    = CoTmp.dx;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    dy    = CoTmp.dy;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    dz    = CoTmp.dz;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    v     = CoTmp.v;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    depth = CoTmp.depth;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    gNeighbor.resize(numGrid);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">// PreAllocate</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        gNeighbor[n].reserve(10);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    }</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> area;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; CoTmp.numConn; n++) {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keyword">const</span> <a class="code hl_class" href="classGeneralConnect.html">GeneralConnect</a>&amp; ConnTmp = CoTmp.connect[n];</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        bIdg                          = ConnTmp.begin;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        eIdg                          = ConnTmp.end;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        area                          = <a class="code hl_function" href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">CalAkdCornerGrid</a>(ConnTmp);</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    }</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>}</div>
-<div class="ttc" id="aclassGPair_html"><div class="ttname"><a href="classGPair.html">GPair</a></div><div class="ttdoc">Effective area of intersection surfaces with neighboring cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00027">Grid.hpp:28</a></div></div>
-<div class="ttc" id="aclassGeneralConnect_html"><div class="ttname"><a href="classGeneralConnect.html">GeneralConnect</a></div><div class="ttdoc">???</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00131">CornerGrid.hpp:132</a></div></div>
-<div class="ttc" id="aclassGrid_html_a9e185347e3ef3deda469ad98e8415af2"><div class="ttname"><a href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">Grid::CalAkdCornerGrid</a></div><div class="ttdeci">OCP_DBL CalAkdCornerGrid(const GeneralConnect &amp;conn)</div><div class="ttdoc">Calculate Akd for a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00221">Grid.cpp:221</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00204">204</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>{</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    dx    = CoTmp.dx;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    dy    = CoTmp.dy;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    dz    = CoTmp.dz;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    v     = CoTmp.v;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    depth = CoTmp.depth;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    gNeighbor.resize(numGrid);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="comment">// PreAllocate</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        gNeighbor[n].reserve(10);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="comment">// test</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="comment">// cout &lt;&lt; &quot;Grid : &quot; &lt;&lt; CoTmp.numConn &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> area;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; CoTmp.numConn; n++) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keyword">const</span> <a class="code hl_class" href="classGeneralConnect.html">GeneralConnect</a>&amp; ConnTmp = CoTmp.connect[n];</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        bIdg                          = ConnTmp.begin;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        eIdg                          = ConnTmp.end;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        area                          = <a class="code hl_function" href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">CalAkdCornerGrid</a>(ConnTmp);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>       </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="comment">//USI I, J, K;</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="comment">//GetIJKGrid(I, J, K, bIdg);</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="comment">//cout &lt;&lt; &quot;(&quot; &lt;&lt; setw(3) &lt;&lt; I &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; J &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; K &lt;&lt; &quot;)    &quot;;</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="comment">//cout &lt;&lt; setw(6) &lt;&lt; bIdg;</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="comment">//cout &lt;&lt; &quot;       &quot;;</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="comment">//GetIJKGrid(I, J, K, eIdg);</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="comment">//cout &lt;&lt; &quot;(&quot; &lt;&lt; setw(3) &lt;&lt; I &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; J &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; K &lt;&lt; &quot;)    &quot;;</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="comment">//cout &lt;&lt; setw(6) &lt;&lt; eIdg;</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="comment">//cout &lt;&lt; setw(20) &lt;&lt; fixed &lt;&lt; setprecision(4) &lt;&lt; area;</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="comment">//cout &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>}</div>
+<div class="ttc" id="aclassGPair_html"><div class="ttname"><a href="classGPair.html">GPair</a></div><div class="ttdoc">Effective area of intersection surfaces with neighboring cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00030">Grid.hpp:31</a></div></div>
+<div class="ttc" id="aclassGeneralConnect_html"><div class="ttname"><a href="classGeneralConnect.html">GeneralConnect</a></div><div class="ttdoc">???</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00134">CornerGrid.hpp:135</a></div></div>
+<div class="ttc" id="aclassGrid_html_a9e185347e3ef3deda469ad98e8415af2"><div class="ttname"><a href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">Grid::CalAkdCornerGrid</a></div><div class="ttdeci">OCP_DBL CalAkdCornerGrid(const GeneralConnect &amp;conn)</div><div class="ttdoc">Calculate Akd for a corner-point grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00246">Grid.cpp:246</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00221">CalAkdCornerGrid()</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00246">CalAkdCornerGrid()</a>.</p>
 
 </div>
 </div>
@@ -859,58 +1012,58 @@ Friends</h2></td></tr>
 
 <p>Setup the neighboring info for an orthogonal grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00080">80</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    gNeighbor.resize(numGrid);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// PreAllocate</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        gNeighbor[n].reserve(6);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">// Begin Id and End Id in Grid, bIdg &gt; eIdg</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> area;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxny = nx * ny;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 0; k &lt; nz; k++) {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00089">89</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    gNeighbor.resize(numGrid);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// PreAllocate</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        gNeighbor[n].reserve(6);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                bIdg = k * nxny + j * nx + i;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                <span class="comment">// right  --  x-direction</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                <span class="keywordflow">if</span> (i &lt; nx - 1) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                    eIdg = bIdg + 1;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 1);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">// Begin Id and End Id in Grid, bIdg &gt; eIdg</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bIdg, eIdg;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> area;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> nxny = nx * ny;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 0; k &lt; nz; k++) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; ny; j++) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nx; i++) {</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="comment">// front  --  y-direction</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <span class="keywordflow">if</span> (j &lt; ny - 1) {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    eIdg = bIdg + nx;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 2);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="comment">// down --   z-direction</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                <span class="keywordflow">if</span> (k &lt; nz - 1) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                    eIdg = bIdg + nxny;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 3);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                bIdg = k * nxny + j * nx + i;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <span class="comment">// right  --  x-direction</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <span class="keywordflow">if</span> (i &lt; nx - 1) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    eIdg = bIdg + 1;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 1);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                <span class="comment">// front  --  y-direction</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordflow">if</span> (j &lt; ny - 1) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                    eIdg = bIdg + nx;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 2);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                <span class="comment">// down --   z-direction</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">if</span> (k &lt; nz - 1) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                    eIdg = bIdg + nxny;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    area = <a class="code hl_function" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a>(bIdg, eIdg, 3);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    gNeighbor[bIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(eIdg, area));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                    gNeighbor[eIdg].push_back(<a class="code hl_class" href="classGPair.html">GPair</a>(bIdg, area));</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <a class="code hl_define" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
-<div class="ttc" id="aclassGrid_html_a717d4e13a55317dda16aa32bcc14caf0"><div class="ttname"><a href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">Grid::CalAkdOrthogonalGrid</a></div><div class="ttdeci">OCP_DBL CalAkdOrthogonalGrid(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const USI &amp;direction)</div><div class="ttdoc">Calculate Akd for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00129">Grid.cpp:129</a></div></div>
+<div class="ttc" id="aclassGrid_html_a717d4e13a55317dda16aa32bcc14caf0"><div class="ttname"><a href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">Grid::CalAkdOrthogonalGrid</a></div><div class="ttdeci">OCP_DBL CalAkdOrthogonalGrid(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const USI &amp;direction)</div><div class="ttdoc">Calculate Akd for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00138">Grid.cpp:138</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00129">CalAkdOrthogonalGrid()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00138">CalAkdOrthogonalGrid()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -931,17 +1084,17 @@ Friends</h2></td></tr>
 
 <p>Setup an orthogonal grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00072">72</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">// x -&gt; y -&gt; z</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_function" href="classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6">SetupNeighborOrthogonalGrid</a>();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_function" href="classGrid.html#af6d2528e58283f52259581095c4c1187">CalDepthVOrthogonalGrid</a>();</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_function" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a>(1E-6, 1E-6);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="ttc" id="aclassGrid_html_af6d2528e58283f52259581095c4c1187"><div class="ttname"><a href="classGrid.html#af6d2528e58283f52259581095c4c1187">Grid::CalDepthVOrthogonalGrid</a></div><div class="ttdeci">void CalDepthVOrthogonalGrid()</div><div class="ttdoc">Calculate the depth and volume for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00158">Grid.cpp:158</a></div></div>
-<div class="ttc" id="aclassGrid_html_afd05b4da9c3dcb480544a2fd04c53de6"><div class="ttname"><a href="classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6">Grid::SetupNeighborOrthogonalGrid</a></div><div class="ttdeci">void SetupNeighborOrthogonalGrid()</div><div class="ttdoc">Setup the neighboring info for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00080">Grid.cpp:80</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00081">81</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// x -&gt; y -&gt; z</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_function" href="classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6">SetupNeighborOrthogonalGrid</a>();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_function" href="classGrid.html#af6d2528e58283f52259581095c4c1187">CalDepthVOrthogonalGrid</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a>(1E-6, 1E-6);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="ttc" id="aclassGrid_html_af6d2528e58283f52259581095c4c1187"><div class="ttname"><a href="classGrid.html#af6d2528e58283f52259581095c4c1187">Grid::CalDepthVOrthogonalGrid</a></div><div class="ttdeci">void CalDepthVOrthogonalGrid()</div><div class="ttdoc">Calculate the depth and volume for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00167">Grid.cpp:167</a></div></div>
+<div class="ttc" id="aclassGrid_html_afd05b4da9c3dcb480544a2fd04c53de6"><div class="ttname"><a href="classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6">Grid::SetupNeighborOrthogonalGrid</a></div><div class="ttdeci">void SetupNeighborOrthogonalGrid()</div><div class="ttdoc">Setup the neighboring info for an orthogonal grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8cpp_source.html#l00089">Grid.cpp:89</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00252">CalActiveGrid()</a>, <a class="el" href="Grid_8cpp_source.html#l00158">CalDepthVOrthogonalGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00080">SetupNeighborOrthogonalGrid()</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8cpp_source.html#l00277">CalActiveGrid()</a>, <a class="el" href="Grid_8cpp_source.html#l00167">CalDepthVOrthogonalGrid()</a>, and <a class="el" href="Grid_8cpp_source.html#l00089">SetupNeighborOrthogonalGrid()</a>.</p>
 
 </div>
 </div>
@@ -966,7 +1119,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00073">73</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00076">76</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -990,7 +1143,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00074">74</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00077">77</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1167,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00075">75</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00078">78</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1025,7 +1178,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

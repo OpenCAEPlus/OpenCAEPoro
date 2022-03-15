@@ -11,7 +11,7 @@ var searchData=
   ['nrtol_8',['NRtol',['../classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b',1,'ControlNR']]],
   ['nt_9',['Nt',['../classMixture.html#a9d5376ba600228135d16bbd76d4b38de',1,'Mixture']]],
   ['ntg_10',['ntg',['../classParamReservoir.html#a999f94de57b453fce9e59944124b9824',1,'ParamReservoir']]],
-  ['ntpvt_11',['NTPVT',['../classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f',1,'ParamReservoir']]],
+  ['ntpvt_11',['NTPVT',['../classEoSparam.html#aee5ae57038973265ac311a8058d909f6',1,'EoSparam::NTPVT()'],['../classParamReservoir.html#aec417a77e7370401a9fc44b0c04c515f',1,'ParamReservoir::NTPVT()']]],
   ['ntsfun_12',['NTSFUN',['../classParamReservoir.html#a0b324e72ce5618b3145c4df8e1c38186',1,'ParamReservoir']]],
   ['numcom_13',['numCom',['../classMixture.html#a13babfd95b6ec1687fb5e479e5a01707',1,'Mixture::numCom()'],['../classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5',1,'ParamReservoir::numCom()']]],
   ['numcomp_14',['numComp',['../classEoSparam.html#ac32614584342aeb1a744c9b2dc434e9e',1,'EoSparam']]],

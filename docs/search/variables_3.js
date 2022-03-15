@@ -18,6 +18,7 @@ var searchData=
   ['dslim_15',['dSlim',['../classControlPreTime.html#a3dca6d60f34e4b73766a53958f3be9d3',1,'ControlPreTime']]],
   ['dvlim_16',['dVlim',['../classControlPreTime.html#a2ae8be789ceb6e8830ac8a1f47c07eef',1,'ControlPreTime']]],
   ['dx_17',['dx',['../classParamReservoir.html#a4f3b006bc72bc7eb45375c2ef8c1f856',1,'ParamReservoir']]],
-  ['dy_18',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
-  ['dz_19',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
+  ['dxsdxp_18',['dXsdXp',['../classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4',1,'Mixture']]],
+  ['dy_19',['dy',['../classParamReservoir.html#a32bd37cd772295ec2668c788c0449b9c',1,'ParamReservoir']]],
+  ['dz_20',['dz',['../classParamReservoir.html#ad7fa4cdbf24a7740b2b4f311d2da8daa',1,'ParamReservoir']]]
 ];

@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -121,21 +121,20 @@ $(function() {
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    output.PrintInfo();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/*  Chensong Zhang      Dec/05/2021      Format file                          */</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    output.PrintInfo();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">/*  Chensong Zhang      Dec/05/2021      Format file                          */</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCP_8hpp_html"><div class="ttname"><a href="OCP_8hpp.html">OCP.hpp</a></div><div class="ttdoc">Main header file for OpenCAEPoro simulator.</div></div>
-<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00111">OCPControl.cpp:111</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00112">OCPControl.cpp:112</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00063">OCPControl.cpp:63</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00042">OCP.cpp:42</a></div></div>
@@ -153,7 +152,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
