@@ -73,16 +73,12 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             EQUIL.PcOW = rs_param.EQUIL[3];
             EQUIL.DGOC = rs_param.EQUIL[4];
             EQUIL.PcGO = rs_param.EQUIL[5];
-            SATmode    = PHASE_ODGW;
+            SATmode    = PHASE_ODGW01;
             PVTmode    = PHASE_ODGW;
         }
         rs_param.numPhase = numPhase;
-        rs_param.numCom   = numCom;
-        for (USI i = 0; i < rs_param.NTSFUN; i++)
-            flow.push_back(new FlowUnit(rs_param, SATmode, i));
-        if (oil && gas && water) {
-            for (USI i = 0; i < rs_param.NTSFUN; i++) flow[i]->Generate_SWPCWG();
-        }
+        rs_param.numCom   = numCom;      
+
         for (USI i = 0; i < rs_param.NTPVT; i++)
             flashCal.push_back(new BOMixture(rs_param, PVTmode, i));
 
@@ -102,15 +98,35 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         EQUIL.PcOW = rs_param.EQUIL[3];
         EQUIL.DGOC = rs_param.EQUIL[4];
         EQUIL.PcGO = rs_param.EQUIL[5];
-        SATmode    = PHASE_ODGW;
-        for (USI i = 0; i < rs_param.NTSFUN; i++) {
-            flow.push_back(new FlowUnit(rs_param, SATmode, i));
-            flow[i]->Generate_SWPCWG();
-        }
+        SATmode    = PHASE_ODGW01;
+        
         for (USI i = 0; i < rs_param.NTPVT; i++)
             flashCal.push_back(new MixtureComp(rs_param, i));
 
         cout << "Bulk::InputParam --- COMPOSITIONAL" << endl;
+    }
+
+    switch (SATmode)
+    {
+    case PHASE_W:
+        for (USI i = 0; i < rs_param.NTSFUN; i++)
+            flow.push_back(new FlowUnit_W(rs_param, i));
+        break;
+        break;
+    case PHASE_OW:
+        for (USI i = 0; i < rs_param.NTSFUN; i++)
+            flow.push_back(new FlowUnit_OW(rs_param, i));
+        break;
+    case PHASE_ODGW01:
+        for (USI i = 0; i < rs_param.NTSFUN; i++)
+            flow.push_back(new FlowUnit_ODGW01(rs_param, i));
+        break;
+    case PHASE_ODGW02:
+        for (USI i = 0; i < rs_param.NTSFUN; i++)
+            flow.push_back(new FlowUnit_ODGW02(rs_param, i));
+        break;
+    default:
+        OCP_ABORT("Wrong Type!");
     }
 }
 
@@ -328,7 +344,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
     if (Dref < DOGC) {
 
         // reference pressure is gas pressure
-        if (flow[0]->IsEmpty_SGOF()) OCP_ABORT("SGOF is missing!");
+        if (!gas)      OCP_ABORT("SGOF is missing!");
 
         Pgref          = Pref;
         gammaGtmp      = flashCal[0]->GammaPhaseG(Pgref);
@@ -485,7 +501,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
-        if (!flow[0]->IsEmpty_SGOF()) {
+        if (gas) {
             // find the gas pressure in Dref by Poref
             Pgref = 0;
             Ptmp  = Poref;
@@ -547,7 +563,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
-        if (!flow[0]->IsEmpty_SGOF()) {
+        if (gas) {
             // find the gas pressure in Dref by Poref
             Pgref = 0;
             Ptmp  = Poref;
@@ -633,30 +649,27 @@ void Bulk::InitSjPcBo(const USI& tabrow)
         OCP_DBL Pw   = data[3];
         OCP_DBL Pcgo = Pg - Po;
         OCP_DBL Pcow = Po - Pw;
-        OCP_DBL Sw   = flow[0]->EvalInv_SWOF(3, Pcow, 0);
+        OCP_DBL Sw   = flow[0]->GetSwByPcow(Pcow);
         OCP_DBL Sg   = 0;
-        if (!flow[0]->IsEmpty_SGOF()) {
-            Sg = flow[0]->Eval_SGOF(3, Pcgo, 0);
+        if (gas) {
+            Sg = flow[0]->GetSgByPcgo(Pcgo);
         }
         if (Sw + Sg > 1) {
             // should me modified
             OCP_DBL Pcgw = Pcow + Pcgo;
-            Sw           = flow[0]->EvalInv_SWPCWG(1, Pcgw, 0);
+            Sw           = flow[0]->GetSwByPcgw(Pcgw);
             Sg           = 1 - Sw;
         }
 
         if (1 - Sw < TINY) {
             // all water
-            Po = Pw + flow[0]->Eval_SWOF(0, 1.0, 3);
-            // Pg = Po + flow->Eval_SGOF(0, 0.0, 3);
+            Po = Pw + flow[0]->GetPcowBySw(1.0);
         } else if (1 - Sg < TINY) {
             // all gas
-            Po = Pg - flow[0]->Eval_SGOF(0, 1.0, 3);
-            // Pw = Po - flow->Eval_SWOF(0, 0.0, 3);
+            Po = Pg - flow[0]->GetPcgoBySg(1.0);
         } else if (1 - Sw - Sg < TINY) {
             // water and gas
-            Po = Pg - flow[0]->Eval_SGOF(0, Sg, 3);
-            // Pw = Po - flow->Eval_SWOF(0, Sw, 3);
+            Po = Pg - flow[0]->GetPcgoBySg(Sg);
         }
         P[n] = Po;
 
@@ -682,14 +695,14 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             Pw    = data[3];
             Pcow  = Po - Pw;
             Pcgo  = Pg - Po;
-            tmpSw = flow[0]->EvalInv_SWOF(3, Pcow, 0);
-            if (!flow[0]->IsEmpty_SGOF()) {
-                tmpSg = flow[0]->Eval_SGOF(3, Pcgo, 0);
+            tmpSw = flow[0]->GetSwByPcow(Pcow);
+            if (gas) {
+                tmpSg = flow[0]->GetSgByPcgo(Pcgo);
             }
             if (tmpSw + tmpSg > 1) {
                 // should me modified
                 OCP_DBL Pcgw = Pcow + Pcgo;
-                tmpSw        = flow[0]->EvalInv_SWPCWG(1, Pcgw, 0);
+                tmpSw        = flow[0]->GetSwByPcgw(Pcgw);
                 tmpSg        = 1 - tmpSw;
             }
             Sw += tmpSw;
@@ -698,7 +711,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
         Sw /= ncut;
         Sg /= ncut;
         S[n * numPhase + numPhase - 1] = Sw;
-        if (!flow[0]->IsEmpty_SGOF()) {
+        if (gas) {
             S[n * numPhase + numPhase - 2] = Sg;
         }
     }
@@ -1018,30 +1031,27 @@ void Bulk::InitSjPcComp(const USI& tabrow)
         OCP_DBL Pg   = data[3];
         OCP_DBL Pcgo = Pg - Po;
         OCP_DBL Pcow = Po - Pw;
-        OCP_DBL Sw   = flow[0]->EvalInv_SWOF(3, Pcow, 0);
+        OCP_DBL Sw   = flow[0]->GetSwByPcow(Pcow);
         OCP_DBL Sg   = 0;
-        if (!flow[0]->IsEmpty_SGOF()) {
-            Sg = flow[0]->Eval_SGOF(3, Pcgo, 0);
+        if (gas) {
+            Sg = flow[0]->GetSgByPcgo(Pcgo);
         }
         if (Sw + Sg > 1) {
             // should me modified
             OCP_DBL Pcgw = Pcow + Pcgo;
-            Sw           = flow[0]->EvalInv_SWPCWG(1, Pcgw, 0);
+            Sw           = flow[0]->GetSwByPcgw(Pcgw);
             Sg           = 1 - Sw;
         }
 
         if (1 - Sw < TINY) {
             // all water
-            Po = Pw + flow[0]->Eval_SWOF(0, 1.0, 3);
-            // Pg = Po + flow->Eval_SGOF(0, 0.0, 3);
+            Po = Pw + flow[0]->GetPcowBySw(1.0);
         } else if (1 - Sg < TINY) {
             // all gas
-            Po = Pg - flow[0]->Eval_SGOF(0, 1.0, 3);
-            // Pw = Po - flow->Eval_SWOF(0, 0.0, 3);
+            Po = Pg - flow[0]->GetPcgoBySg(1.0);
         } else if (1 - Sw - Sg < TINY) {
             // water and gas
-            Po = Pg - flow[0]->Eval_SGOF(0, Sg, 3);
-            // Pw = Po - flow->Eval_SWOF(0, Sw, 3);
+            Po = Pg - flow[0]->GetPcgoBySg(Sg);
         }
         P[n] = Po;
 
@@ -1060,14 +1070,14 @@ void Bulk::InitSjPcComp(const USI& tabrow)
             Pg    = data[3];
             Pcow  = Po - Pw;
             Pcgo  = Pg - Po;
-            tmpSw = flow[0]->EvalInv_SWOF(3, Pcow, 0);
-            if (!flow[0]->IsEmpty_SGOF()) {
-                tmpSg = flow[0]->Eval_SGOF(3, Pcgo, 0);
+            tmpSw = flow[0]->GetSwByPcow(Pcow);
+            if (gas) {
+                tmpSg = flow[0]->GetSgByPcgo(Pcgo);
             }
             if (tmpSw + tmpSg > 1) {
                 // should me modified
                 OCP_DBL Pcgw = Pcow + Pcgo;
-                tmpSw        = flow[0]->EvalInv_SWPCWG(1, Pcgw, 0);
+                tmpSw        = flow[0]->GetSwByPcgw(Pcgw);
                 tmpSg        = 1 - tmpSw;
             }
             Sw += tmpSw;
@@ -1077,7 +1087,7 @@ void Bulk::InitSjPcComp(const USI& tabrow)
         Sg /= ncut;
 
         S[n * numPhase + numPhase - 1] = Sw;
-        if (!flow[0]->IsEmpty_SGOF()) {
+        if (gas) {
             S[n * numPhase + numPhase - 2] = Sg;
         }
     }

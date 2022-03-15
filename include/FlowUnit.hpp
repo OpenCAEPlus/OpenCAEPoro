@@ -25,118 +25,191 @@ public:
     /// Default constructor.
     FlowUnit() = default;
 
-    /// TODO: Add Doxygen
-    FlowUnit(const ParamReservoir& rs_param, const USI& inmode, const USI& i);
-
-    /// Check whether SGOF is empty.
-    bool IsEmpty_SGOF() { return SGOF.IsEmpty(); }
-
-    /// Check whether SWOF is empty.
-    bool IsEmpty_SWOF() { return SWOF.IsEmpty(); }
-
-    /// Generate the table of water saturation vs. capillary between water and gas.
-    void Generate_SWPCWG();
-
-    /// interpolate the specified monotonically increasing column in SWOF to evaluate
-    /// the target column.
-    OCP_DBL Eval_SWOF(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SWOF.Eval(j, val, destj);
-    }
-
-    /// interpolate the specified monotonically decreasing column in SWOF to evaluate
-    /// the target column.
-    OCP_DBL EvalInv_SWOF(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SWOF.Eval_Inv(j, val, destj);
-    }
-
-    /// interpolate the specified monotonically increasing column in SGOF to evaluate
-    /// the target column.
-    OCP_DBL Eval_SGOF(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SGOF.Eval(j, val, destj);
-    }
-
-    /// interpolate the specified monotonically decreasing column in SGOF to evaluate
-    /// the target column.
-    OCP_DBL EvalInv_SGOF(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SGOF.Eval_Inv(j, val, destj);
-    }
-
-    /// interpolate the specified monotonically increasing column in SWPCWG to evaluate
-    /// the target column.
-    OCP_DBL Eval_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SWPCWG.Eval(j, val, destj);
-    }
-
-    /// interpolate the specified monotonically decreasing column in SWPCWG to evaluate
-    /// the target column.
-    OCP_DBL EvalInv_SWPCWG(const USI& j, const OCP_DBL& val, const USI& destj)
-    {
-        return SWPCWG.Eval_Inv(j, val, destj);
-    }
+    /// Pcow = Po - Pw
+    virtual OCP_DBL GetPcowBySw(const OCP_DBL& sw) = 0;
+    virtual OCP_DBL GetSwByPcow(const OCP_DBL& pcow) = 0;
+    /// Pcgo = Pg - Po
+    virtual OCP_DBL GetPcgoBySg(const OCP_DBL& sg) = 0;
+    virtual OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) = 0;
+    /// Pcgw = Pg - Pw
+    virtual OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) = 0;
 
     /// calculate relative permeability and capillary pressure.
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) = 0;
+    virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) = 0;
 
-    /// calculate relative permeability and capillary pressure for water.
-    /// it will be used if water exists or could be exist.
-    void CalKrPc_W(OCP_DBL* kr_out, OCP_DBL* pc_out);
+};
 
-    /// calculate relative permeability and capillary pressure for oil and water.
-    /// it will be used if oil and water exist or could be exist.
-    void CalKrPc_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
+class FlowUnit_W : public FlowUnit
+{
+public:
+    FlowUnit_W() = default;
+    FlowUnit_W(const ParamReservoir& rs_param, const USI& i) {};
 
-    /// calculate relative permeability and capillary pressure for oil and gas.
-    /// it will be used if oil and gas exist or could be exist.
-    void CalKrPc_OG(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
-
-    /// calculate relative permeability and capillary pressure for oil, gas and water.
-    /// it will be used if oil, gas and water exist or could be exist.
-    void CalKrPc_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out);
-
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                      OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
-    void CalKrPcDeriv_OW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                         OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
-    void CalKrPcDeriv_ODGW(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                           OCP_DBL* dkrdS, OCP_DBL* dPcjdS);
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
 
-    // FlowUnits Model
-    /// calculate relative permeability of oil phase with stone2 method.
-    OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw,
-                          const OCP_DBL& krg) const;
 
-    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
-                             OCP_DBL dkrwSw, OCP_DBL dkrowSw, OCP_DBL dkrgSg,
-                             OCP_DBL dkrogSg, OCP_DBL& out_dkrodSw, OCP_DBL& dkrodSg);
+    OCP_DBL GetPcowBySw(const OCP_DBL& sw)  override { return 0; }
+    OCP_DBL GetSwByPcow(const OCP_DBL& pcow)  override { return 0; }
+    OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override { return 0; }
+    OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override { return 0; }
+    OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
 
-    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
-                           const OCP_DBL& krow);
-    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
-                              const OCP_DBL& krow, const OCP_DBL& dkrogSg,
-                              const OCP_DBL& dkrowSw, OCP_DBL& dkroSg, OCP_DBL& dkroSw);
+};
+
+
+class FlowUnit_OW : public FlowUnit
+{
+public:
+    FlowUnit_OW() = default;
+    FlowUnit_OW(const ParamReservoir& rs_param, const USI& i);
+
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+ 
+    OCP_DBL GetPcowBySw(const OCP_DBL& sw) override {
+        return SWOF.Eval(0, sw, 3);
+    }
+    OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override {
+        return SWOF.Eval_Inv(3, pcow, 0);
+    }
+
+    // useless
+    OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override { return 0; }
+    OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override { return 0; }
+    virtual OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
 
 private:
-    USI      mode;   ///< decide which saturation table will be uesd.
     OCPTable SWOF;   ///< saturation table about water and oil.
+    vector<OCP_DBL>
+        data; ///< container used to store the results of values of interpolation.
+    vector<OCP_DBL>
+        cdata; ///< container used to store the results of slopes of interpolation.
+    OCP_DBL kroMax;
+    OCP_DBL Swco; ///< Saturation of connate water.
+};
+
+class FlowUnit_OG : public FlowUnit
+{
+public:
+    FlowUnit_OG() = default;
+    FlowUnit_OG(const ParamReservoir & rs_param, const USI & i);
+
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+    OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override {
+        return SGOF.Eval(0, sg, 3);
+    }
+    OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override {
+        return SGOF.Eval(3, pcgo, 0);
+    }
+
+    // uesless
+    OCP_DBL GetPcowBySw(const OCP_DBL& sw)  override { return 0; }
+    OCP_DBL GetSwByPcow(const OCP_DBL& pcow)  override { return 0; }
+    OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
+
+private:
     OCPTable SGOF;   ///< saturation table about gas and oil.
-    OCPTable SWPCWG; ///< auxiliary table: saturation of water vs. capillary
-                     ///< pressure between water and gas.
-    OCP_DBL
-    kroMax;       ///< oil relative permeability in the presence of connate water only.
+    vector<OCP_DBL>
+        data; ///< container used to store the results of values of interpolation.
+    vector<OCP_DBL>
+        cdata; ///< container used to store the results of slopes of interpolation.
+    OCP_DBL kroMax;
+};
+
+
+class FlowUnit_ODGW : public FlowUnit
+{
+public:
+
+    OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog,
+        const OCP_DBL& krw, const OCP_DBL& krg) const;
+    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
+        OCP_DBL dkrwdSw, OCP_DBL dkrowdSw, OCP_DBL dkrgdSg,
+        OCP_DBL dkrogdSg, OCP_DBL& out_dkrodSw,
+        OCP_DBL& out_dkrodSg) const;
+    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw,
+        const OCP_DBL& krog, const OCP_DBL& krow) const;
+    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw,
+        const OCP_DBL& krog, const OCP_DBL& krow,
+        const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw,
+        OCP_DBL& dkroSg, OCP_DBL& dkroSw) const;
+    /// oil relative permeability in the presence of connate water only, used in stone2
+    OCP_DBL kroMax; 
     OCP_DBL Swco; ///< Saturation of connate water.
 
-    // Auxiliary parameters for Table interpolation
-    USI len{0}; ///< maximum number of columns of tables among all above.
+};
+
+class FlowUnit_ODGW01 : public FlowUnit_ODGW
+{
+public:
+    FlowUnit_ODGW01() = default;
+    FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i);
+
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+    OCP_DBL GetPcowBySw(const OCP_DBL& sw) override {
+        return SWOF.Eval(0, sw, 3);
+    }
+    OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override {
+        return SWOF.Eval_Inv(3, pcow, 0);
+    }
+    OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override {
+        return SGOF.Eval(0, sg, 3);
+    }
+    OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override {
+        return SGOF.Eval(3, pcgo, 0);
+    }
+    OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override {
+        return SWPCWG.Eval_Inv(1, pcgw, 0);
+    }
+    void Generate_SWPCWG();
+
+private:
+    OCPTable SGOF;   ///< saturation table about gas and oil.
+    OCPTable SWOF;   ///< saturation table about water and oil.
+    OCPTable SWPCWG; ///< auxiliary table: saturation of water vs. capillary
+                     ///< pressure between water and gas.
     vector<OCP_DBL>
         data; ///< container used to store the results of values of interpolation.
     vector<OCP_DBL>
         cdata; ///< container used to store the results of slopes of interpolation.
 };
+
+class FlowUnit_ODGW02 : public FlowUnit_ODGW
+{
+public:
+
+    FlowUnit_ODGW02() = default;
+    FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i) {};
+
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+
+    OCP_DBL GetPcowBySw(const OCP_DBL& sw)  override { return 0; }
+    OCP_DBL GetSwByPcow(const OCP_DBL& pcow)  override { return 0; }
+    OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override { return 0; }
+    OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override { return 0; }
+    OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
+
+private:
+    OCPTable SWFN;   ///< saturation table about water.
+    OCPTable SGFN;   ///< saturation table about gas.
+    OCPTable SOF3;   ///< saturation table about oil.
+    vector<OCP_DBL>
+        data; ///< container used to store the results of values of interpolation.
+    vector<OCP_DBL>
+        cdata; ///< container used to store the results of slopes of interpolation.
+};
+
 
 #endif /* end if __FLOWUNIT_HEADER__ */
 

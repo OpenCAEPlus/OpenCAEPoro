@@ -83,8 +83,10 @@ const USI PHASE_W    = 1; ///< Phase type = water only
 const USI PHASE_GW   = 2; ///< Phase type = gas-water
 const USI PHASE_OW   = 3; ///< Phase type = oil-water
 const USI PHASE_OG   = 4; ///< Phase type = oil-gas
-const USI PHASE_ODGW = 5; ///< Phase type = oil-dry gas-water???
-const USI PHASE_DOGW = 6; ///< Phase type = dead oil-gas-water???
+const USI PHASE_ODGW = 5; ///< Phase type = oil-dry gas-water
+const USI PHASE_DOGW = 6; ///< Phase type = dead oil-gas-water
+const USI PHASE_ODGW01 = 51; ///< Phase type = oil-dry gas-water
+const USI PHASE_ODGW02 = 52; ///< Phase type = oil-dry gas-water
 
 // Well params
 const USI  INJ        = 1;     ///< Well type = injector
