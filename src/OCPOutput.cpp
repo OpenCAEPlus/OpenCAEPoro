@@ -1366,13 +1366,9 @@ void OCPOutput::PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
                                const OCP_DBL& time) const
 {
     OCP_DBL days = ctrl.current_time;
-    if (ctrl.numTstep == 0) {
-        cout << " Time(days)  "
-             << " Timesteps   "
-             << " Walltime(sec)" << endl;
-    }
-    cout << fixed << setw(10) << setprecision(3) << days;
-    cout << setw(12) << ctrl.numTstep << setw(16) << time / 1000 << endl;
+    cout << "Timestep " << setw(6) << left << ctrl.numTstep;
+    cout << ": " << fixed << setw(10) << setprecision(3) << right << days << " day, ";
+    cout << "wall time: " << time / 1000 << " sec" << endl;
     dtlInfo.PrintInfo(wordDir, rs, days);
 }
 
