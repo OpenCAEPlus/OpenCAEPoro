@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['linearsolver_0',['LinearSolver',['../classLinearSolver.html',1,'']]],
-  ['linearsystem_1',['LinearSystem',['../classLinearSystem.html',1,'']]]
+  ['halfconn_0',['HalfConn',['../classHalfConn.html',1,'']]],
+  ['hexahedron_1',['Hexahedron',['../classHexahedron.html',1,'']]],
+  ['hexahedronface_2',['HexahedronFace',['../classHexahedronFace.html',1,'']]]
 ];

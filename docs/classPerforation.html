@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -86,8 +86,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5e47f2a9fcb77b2913e8c6e41093ece2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constuctor. <br /></td></tr>
 <tr class="separator:a5e47f2a9fcb77b2913e8c6e41093ece2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4f14135f77d3297f8f3dfaef923616f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPerforation.html#af4f14135f77d3297f8f3dfaef923616f">setState</a> (const bool &amp;flag)</td></tr>
-<tr class="memdesc:af4f14135f77d3297f8f3dfaef923616f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: Add Doxygen.  <a href="classPerforation.html#af4f14135f77d3297f8f3dfaef923616f">More...</a><br /></td></tr>
+<tr class="memdesc:af4f14135f77d3297f8f3dfaef923616f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set state of perf.  <a href="classPerforation.html#af4f14135f77d3297f8f3dfaef923616f">More...</a><br /></td></tr>
 <tr class="separator:af4f14135f77d3297f8f3dfaef923616f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f7369a8ef72bf8fac91f9db41533184"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPerforation.html#a0f7369a8ef72bf8fac91f9db41533184">GetLoaction</a> ()</td></tr>
+<tr class="memdesc:a0f7369a8ef72bf8fac91f9db41533184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the location of perf: index of bulk.  <a href="classPerforation.html#a0f7369a8ef72bf8fac91f9db41533184">More...</a><br /></td></tr>
+<tr class="separator:a0f7369a8ef72bf8fac91f9db41533184"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -99,6 +102,36 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00024">24</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0f7369a8ef72bf8fac91f9db41533184" name="a0f7369a8ef72bf8fac91f9db41533184"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f7369a8ef72bf8fac91f9db41533184">&#9670;&nbsp;</a></span>GetLoaction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> Perforation::GetLoaction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the location of perf: index of bulk. </p>
+
+<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00035">35</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{ <span class="keywordflow">return</span> location; }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="af4f14135f77d3297f8f3dfaef923616f" name="af4f14135f77d3297f8f3dfaef923616f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4f14135f77d3297f8f3dfaef923616f">&#9670;&nbsp;</a></span>setState()</h2>
 
@@ -123,7 +156,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>TODO: Add Doxygen. </p>
+<p>Set state of perf. </p>
 
 <p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00033">33</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{ state = flag; };</div>
@@ -161,7 +194,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

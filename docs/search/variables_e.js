@@ -2,8 +2,8 @@ var searchData=
 [
   ['oil_0',['oil',['../classParamReservoir.html#a8801410aad8dd65544f326deed169667',1,'ParamReservoir']]],
   ['oil_1',['OIL',['../OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1',1,'OCPConst.hpp']]],
-  ['omegaa_2',['OmegaA',['../classCOMP.html#a567a3ca436b1e24d635bca802deb581a',1,'COMP']]],
-  ['omegab_3',['OmegaB',['../classCOMP.html#abed696a12cb8fa17d9a8b23552f326e8',1,'COMP']]],
+  ['omegaa_2',['OmegaA',['../classCOMP.html#a567a3ca436b1e24d635bca802deb581a',1,'COMP::OmegaA()'],['../classEoSparam.html#aed55338b604ee04e2ffc79d8afc1564d',1,'EoSparam::OmegaA()']]],
+  ['omegab_3',['OmegaB',['../classCOMP.html#abed696a12cb8fa17d9a8b23552f326e8',1,'COMP::OmegaB()'],['../classEoSparam.html#abfc19f509f4d937055770dca5ae1cedd',1,'EoSparam::OmegaB()']]],
   ['open_4',['OPEN',['../OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2',1,'OCPConst.hpp']]],
   ['optmode_5',['optMode',['../classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539',1,'WellOptParam']]],
   ['orate_5fmode_6',['ORATE_MODE',['../OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723',1,'OCPConst.hpp']]],

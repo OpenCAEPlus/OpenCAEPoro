@@ -7,7 +7,7 @@ var searchData=
   ['max_5fvolume_5ferr_4',['MAX_VOLUME_ERR',['../OCPConst_8hpp.html#acd9b8291fb227d7d15f45cd65e176e97',1,'OCPConst.hpp']]],
   ['maxbhp_5',['maxBHP',['../classWellOptParam.html#a144f37940d5f85961f915fddeb560b40',1,'WellOptParam']]],
   ['maxincrefac_6',['maxIncreFac',['../classControlTime.html#af5056bfeb2aae028d12e8d85ee3f1aa5',1,'ControlTime']]],
-  ['maxit_7',['maxIt',['../classSSMparamSTA.html#afa9aa64d939ebc09cafa04db1952cebb',1,'SSMparamSTA::maxIt()'],['../classSSMparamSP.html#aa2f90176c63acb15ab0add7739ad4748',1,'SSMparamSP::maxIt()'],['../classNRparamSTA.html#aaaf5fa953901b9331260f4ff2991ea15',1,'NRparamSTA::maxIt()'],['../classNRparamSP.html#a92666e91c5347674e32907ed26f7f29e',1,'NRparamSP::maxIt()'],['../classRRparam.html#a280d832a8525124b2c589abbf329b566',1,'RRparam::maxIt()']]],
+  ['maxit_7',['maxIt',['../classSSMparamSTA.html#afa9aa64d939ebc09cafa04db1952cebb',1,'SSMparamSTA::maxIt()'],['../classNRparamSTA.html#aaaf5fa953901b9331260f4ff2991ea15',1,'NRparamSTA::maxIt()'],['../classSSMparamSP.html#aa2f90176c63acb15ab0add7739ad4748',1,'SSMparamSP::maxIt()'],['../classNRparamSP.html#a92666e91c5347674e32907ed26f7f29e',1,'NRparamSP::maxIt()'],['../classRRparam.html#a280d832a8525124b2c589abbf329b566',1,'RRparam::maxIt()']]],
   ['maxnriter_8',['maxNRiter',['../classControlNR.html#a2aa95e35f2400c3d44fd55feba6311e1',1,'ControlNR']]],
   ['maxrate_9',['maxRate',['../classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378',1,'WellOptParam']]],
   ['method_10',['method',['../classFastControl.html#a44ec5be91160db8aa089e4c95783329b',1,'FastControl::method()'],['../classParamControl.html#a2dd4a860adae616de02f0d3982911d4f',1,'ParamControl::method()']]],
@@ -19,5 +19,5 @@ var searchData=
   ['mu_16',['mu',['../classMixture.html#a170e493a88e391f9afe0896181d76786',1,'Mixture']]],
   ['mup_17',['muP',['../classMixture.html#ae1531b7594246b0b03bdb7d974800ca4',1,'Mixture']]],
   ['mux_18',['mux',['../classMixture.html#ae63dab2d31711b0246096c5c128f2080',1,'Mixture']]],
-  ['mw_19',['MW',['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP']]]
+  ['mw_19',['MW',['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP::MW()'],['../classEoSparam.html#a6586430dc581b86c09bc09f9bec8b4ae',1,'EoSparam::MW()']]]
 ];

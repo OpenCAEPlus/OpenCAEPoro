@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -83,8 +83,8 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a381b6b26280a57afd5aa2201c0e4d558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConnGrid.html#a381b6b26280a57afd5aa2201c0e4d558">Allocate</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;max_neighbor)</td></tr>
 <tr class="separator:a381b6b26280a57afd5aa2201c0e4d558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4940771daf28e0f2525c00811bd6e88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConnGrid.html#ab4940771daf28e0f2525c00811bd6e88">AddHalfConn</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="classPoint3D.html">Point3D</a> &amp;area, const <a class="el" href="classPoint3D.html">Point3D</a> &amp;d, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;direction)</td></tr>
-<tr class="separator:ab4940771daf28e0f2525c00811bd6e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ecde9fa6ffe374a38f095f4a942355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConnGrid.html#a02ecde9fa6ffe374a38f095f4a942355">AddHalfConn</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="classPoint3D.html">Point3D</a> &amp;area, const <a class="el" href="classPoint3D.html">Point3D</a> &amp;d, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;direction, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;flag=1)</td></tr>
+<tr class="separator:a02ecde9fa6ffe374a38f095f4a942355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -98,10 +98,10 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >??? </p>
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00120">120</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00123">123</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab4940771daf28e0f2525c00811bd6e88" name="ab4940771daf28e0f2525c00811bd6e88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4940771daf28e0f2525c00811bd6e88">&#9670;&nbsp;</a></span>AddHalfConn()</h2>
+<a id="a02ecde9fa6ffe374a38f095f4a942355" name="a02ecde9fa6ffe374a38f095f4a942355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02ecde9fa6ffe374a38f095f4a942355">&#9670;&nbsp;</a></span>AddHalfConn()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,7 +128,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
-          <td class="paramname"><em>direction</em>&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>flag</em> = <code>1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -138,24 +144,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00536">536</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>{</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    <span class="keywordflow">if</span> (nConn &gt;= maxConn) {</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        maxConn *= 2;</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        halfConn.resize(maxConn);</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        <span class="comment">// get larger space</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="keywordflow">if</span> (maxConn &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#aec713ffb81ef2cbbd181dfcbc350a67d">MAX_NEIGHBOR</a>) {</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Too many Neighbors!&quot;</span>);</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>        }</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    }</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    halfConn[nConn].Ad_dd         = area * d / (d * d);</div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    halfConn[nConn].d             = d;</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    halfConn[nConn].neigh         = n;</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    halfConn[nConn].directionType = direction;</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    nConn++;</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>}</div>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00551">551</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>{</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    <span class="keywordflow">if</span> (nConn &gt;= maxConn) {</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>        maxConn *= 2;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>        halfConn.resize(maxConn);</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>        <span class="comment">// get larger space</span></div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        <span class="keywordflow">if</span> (maxConn &gt; <a class="code hl_variable" href="CornerGrid_8hpp.html#aec713ffb81ef2cbbd181dfcbc350a67d">MAX_NEIGHBOR</a>) {</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>            <span class="comment">// OCP_ABORT(&quot;Too many Neighbors!&quot;);</span></div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        }</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    }</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    halfConn[nConn].Ad_dd = area * d / (d * d) * flag;</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    halfConn[nConn].d             = d;</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    halfConn[nConn].neigh         = n;</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    halfConn[nConn].directionType = direction;</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    nConn++;</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <span class="comment">// cout &lt;&lt; n &lt;&lt; &quot;   &quot; &lt;&lt; direction &lt;&lt; &quot;   &quot; &lt;&lt; halfConn[nConn-1].Ad_dd &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>}</div>
 <div class="ttc" id="aCornerGrid_8hpp_html_aec713ffb81ef2cbbd181dfcbc350a67d"><div class="ttname"><a href="CornerGrid_8hpp.html#aec713ffb81ef2cbbd181dfcbc350a67d">MAX_NEIGHBOR</a></div><div class="ttdeci">const USI MAX_NEIGHBOR</div><div class="ttdoc">Max number of neighbors allowed.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00029">CornerGrid.hpp:29</a></div></div>
-<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -175,12 +182,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00529">529</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>{</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    nConn   = 0;</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    maxConn = max_neighbor;</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    halfConn.resize(maxConn);</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>}</div>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8cpp_source.html#l00544">544</a> of file <a class="el" href="CornerGrid_8cpp_source.html">CornerGrid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>{</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    nConn   = 0;</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    maxConn = max_neighbor;</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    halfConn.resize(maxConn);</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -197,7 +204,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00124">124</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00127">127</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
 
 </div>
 </div>
@@ -213,7 +220,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00123">123</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00126">126</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
 
 </div>
 </div>
@@ -229,7 +236,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00123">123</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CornerGrid_8hpp_source.html#l00126">126</a> of file <a class="el" href="CornerGrid_8hpp_source.html">CornerGrid.hpp</a>.</p>
 
 </div>
 </div>
@@ -240,7 +247,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

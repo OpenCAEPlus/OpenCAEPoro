@@ -17,7 +17,6 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-//#include "mkl_lapacke.h"
 
 using namespace std;
 
@@ -78,8 +77,10 @@ void MinEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
 /// Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack
 // void MinEigenS(const int& N, float* a, float* w);
 
+/// Copy a double vector from src to dst.
 void Dcopy(const int& N, double* dst, const double* src);
 
+/// Dot product of two double vectors stored as pointers.
 double Ddot(int n, double* a, double* b);
 
 /// Computes the L1-norm of a vector.

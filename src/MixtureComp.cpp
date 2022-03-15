@@ -1,3 +1,14 @@
+/*! \file    MixtureComp.cpp
+ *  \brief   MixtureComp class definition for compositional models
+ *  \author  Shizhe Li
+ *  \date    Jan/05/2022
+ *
+ *-----------------------------------------------------------------------------------
+ *  Copyright (C) 2021--present by the OpenCAEPoro team. All rights reserved.
+ *  Released under the terms of the GNU Lesser General Public License 3.0 or later.
+ *-----------------------------------------------------------------------------------
+ */
+
 #include "MixtureComp.hpp"
 
 COMP::COMP(const vector<string>& comp)
@@ -3005,3 +3016,11 @@ void NTcubicroot(OCP_DBL& root, const OCP_DBL& a, const OCP_DBL& b, const OCP_DB
     }
     root = optroot;
 }
+
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Jan/05/2022      Create file                          */
+/*----------------------------------------------------------------------------*/

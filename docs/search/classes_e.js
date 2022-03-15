@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['tableset_0',['TableSet',['../classTableSet.html',1,'']]],
-  ['tuningpair_1',['TuningPair',['../classTuningPair.html',1,'']]],
-  ['type_5fa_5fo_2',['Type_A_o',['../classType__A__o.html',1,'']]],
-  ['type_5fa_5fr_3',['Type_A_r',['../classType__A__r.html',1,'']]],
-  ['type_5fb_5fo_4',['Type_B_o',['../classType__B__o.html',1,'']]]
+  ['scalarfaspsolver_0',['ScalarFaspSolver',['../classScalarFaspSolver.html',1,'']]],
+  ['solvent_1',['Solvent',['../classSolvent.html',1,'']]],
+  ['solventinj_2',['SolventINJ',['../classSolventINJ.html',1,'']]],
+  ['solver_3',['Solver',['../classSolver.html',1,'']]],
+  ['ssmparamsp_4',['SSMparamSP',['../classSSMparamSP.html',1,'']]],
+  ['ssmparamsta_5',['SSMparamSTA',['../classSSMparamSTA.html',1,'']]],
+  ['summary_6',['Summary',['../classSummary.html',1,'']]],
+  ['sumpair_7',['SumPair',['../classSumPair.html',1,'']]]
 ];

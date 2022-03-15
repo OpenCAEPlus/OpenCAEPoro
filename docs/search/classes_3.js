@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['eoscontrol_0',['EoScontrol',['../classEoScontrol.html',1,'']]],
-  ['eosparam_1',['EoSparam',['../classEoSparam.html',1,'']]]
+  ['detailinfo_0',['DetailInfo',['../classDetailInfo.html',1,'']]],
+  ['dimens_1',['Dimens',['../classDimens.html',1,'']]]
 ];

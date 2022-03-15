@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -86,15 +86,114 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acc0160e5384f8789fab7c7764fd23bd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#acc0160e5384f8789fab7c7764fd23bd0">tol</a></td></tr>
 <tr class="memdesc:acc0160e5384f8789fab7c7764fd23bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolerance.  <a href="classSSMparamSTA.html#acc0160e5384f8789fab7c7764fd23bd0">More...</a><br /></td></tr>
 <tr class="separator:acc0160e5384f8789fab7c7764fd23bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56f7daf204765c65250a6d2647cba5b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#a56f7daf204765c65250a6d2647cba5b1">Ktol</a> { 1E-4 }</td></tr>
+<tr class="memdesc:a56f7daf204765c65250a6d2647cba5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">tolerace^2 for K  <a href="classSSMparamSTA.html#a56f7daf204765c65250a6d2647cba5b1">More...</a><br /></td></tr>
+<tr class="separator:a56f7daf204765c65250a6d2647cba5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2865b86e94d1d0862d841163b44522"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#adc2865b86e94d1d0862d841163b44522">dYtol</a> { 1E-6 }</td></tr>
+<tr class="separator:adc2865b86e94d1d0862d841163b44522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35963a0398ba071ce0a6edf969afae88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#a35963a0398ba071ce0a6edf969afae88">eYt</a> { 1E-8 }</td></tr>
+<tr class="memdesc:a35963a0398ba071ce0a6edf969afae88"><td class="mdescLeft">&#160;</td><td class="mdescRight">if Yt &gt; 1 + eYt, than single phase is unstable  <a href="classSSMparamSTA.html#a35963a0398ba071ce0a6edf969afae88">More...</a><br /></td></tr>
+<tr class="separator:a35963a0398ba071ce0a6edf969afae88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65bf34c5fc93f81627061f04196ebb24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#a65bf34c5fc93f81627061f04196ebb24">tol2</a></td></tr>
 <tr class="memdesc:a65bf34c5fc93f81627061f04196ebb24"><td class="mdescLeft">&#160;</td><td class="mdescRight">tol*tol  <a href="classSSMparamSTA.html#a65bf34c5fc93f81627061f04196ebb24">More...</a><br /></td></tr>
 <tr class="separator:a65bf34c5fc93f81627061f04196ebb24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a309251e5bbcbf9c32f32796d14d571c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#a309251e5bbcbf9c32f32796d14d571c4">curIt</a></td></tr>
+<tr class="memdesc:a309251e5bbcbf9c32f32796d14d571c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current Iterations  <a href="classSSMparamSTA.html#a309251e5bbcbf9c32f32796d14d571c4">More...</a><br /></td></tr>
+<tr class="separator:a309251e5bbcbf9c32f32796d14d571c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2004d40125313ccd8e9c49d073235a3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSSMparamSTA.html#a2004d40125313ccd8e9c49d073235a3b">curSk</a></td></tr>
+<tr class="separator:a2004d40125313ccd8e9c49d073235a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Params for SSM in Phase Stability Analysis. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00030">30</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00028">28</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a309251e5bbcbf9c32f32796d14d571c4" name="a309251e5bbcbf9c32f32796d14d571c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a309251e5bbcbf9c32f32796d14d571c4">&#9670;&nbsp;</a></span>curIt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> SSMparamSTA::curIt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>current Iterations </p>
+
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00038">38</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2004d40125313ccd8e9c49d073235a3b" name="a2004d40125313ccd8e9c49d073235a3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2004d40125313ccd8e9c49d073235a3b">&#9670;&nbsp;</a></span>curSk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> SSMparamSTA::curSk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00039">39</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adc2865b86e94d1d0862d841163b44522" name="adc2865b86e94d1d0862d841163b44522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2865b86e94d1d0862d841163b44522">&#9670;&nbsp;</a></span>dYtol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> SSMparamSTA::dYtol { 1E-6 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00034">34</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a35963a0398ba071ce0a6edf969afae88" name="a35963a0398ba071ce0a6edf969afae88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35963a0398ba071ce0a6edf969afae88">&#9670;&nbsp;</a></span>eYt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> SSMparamSTA::eYt { 1E-8 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>if Yt &gt; 1 + eYt, than single phase is unstable </p>
+
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00035">35</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a56f7daf204765c65250a6d2647cba5b1" name="a56f7daf204765c65250a6d2647cba5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56f7daf204765c65250a6d2647cba5b1">&#9670;&nbsp;</a></span>Ktol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> SSMparamSTA::Ktol { 1E-4 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tolerace^2 for K </p>
+
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00033">33</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+
+</div>
+</div>
 <a id="afa9aa64d939ebc09cafa04db1952cebb" name="afa9aa64d939ebc09cafa04db1952cebb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afa9aa64d939ebc09cafa04db1952cebb">&#9670;&nbsp;</a></span>maxIt</h2>
 
@@ -109,7 +208,7 @@ Public Attributes</h2></td></tr>
 
 <p>Max Iteration. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00033">33</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00031">31</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
 
 </div>
 </div>
@@ -127,7 +226,7 @@ Public Attributes</h2></td></tr>
 
 <p>Tolerance. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00034">34</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00032">32</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
 
 </div>
 </div>
@@ -145,7 +244,7 @@ Public Attributes</h2></td></tr>
 
 <p>tol*tol </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00035">35</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8hpp_source.html#l00036">36</a> of file <a class="el" href="MixtureComp_8hpp_source.html">MixtureComp.hpp</a>.</p>
 
 </div>
 </div>
@@ -155,7 +254,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

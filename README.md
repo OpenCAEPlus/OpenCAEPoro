@@ -1,8 +1,9 @@
 # OpenCAEPoro
 
-OpenCAEPoro is part of the OpenCAEPlus project written in C++. It focuses on 
-multicomponent multiphase flow simulation in porous media. For more info, 
-please see [OCP repository](https://faspdevteam.github.io/OpenCAEPoro/).
+OpenCAEPoro or OCP is part of the OpenCAEPlus project written in C++. OCP
+focuses on simulating multicomponent multiphase flows in porous media. For 
+more information, please see 
+[OCP repository](https://faspdevteam.github.io/OpenCAEPoro/).
 
 ## Install
 There is a top level cmake configuration file to build the OpenCAEPoro lib 
@@ -13,7 +14,8 @@ use cmake for your own operating system.
 Before building OpenCAEPoro, you need to make sure that BLAS, LAPACK, and FASP
 are available. BLAS and LAPACK are ready on most systems. The FASP package (only 
 the open-source part [faspsolver](https://github.com/FaspDevTeam/faspsolver) is 
-required) can be downloaded from its GitHub repository.
+required) can be downloaded from its GitHub repository. More solver options are
+included in [fasp4blkoil](https://github.com/FaspDevTeam/fasp4blkoil).
 
 The typical command for compiling OpenCAEPoro is:
 
@@ -22,7 +24,8 @@ Config the environment for building with cmake:
   >>> mkdir Build; cd Build; cmake ..
 ```
 
-After succesfully configing, just make the library as well as examples:
+After succesfully configing, to make the library as well as examples without
+installing them, just run:
 ```bash
   >>> make
 ```
@@ -31,6 +34,9 @@ To make the library and install it, run:
 ```bash
   >>> make install
 ```
+
+Standard **uninstall** and **clean** targets are also provided. You may safely 
+remove the **Build** directory as well. 
 
 ## Structure
 The directory structure of OpenCAEPoro is designed as follows:

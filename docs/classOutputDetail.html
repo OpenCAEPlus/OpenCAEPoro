@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -96,20 +96,101 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a16312a6a6b0b3226f6c56b00d84b955c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water saturation of grids.  <a href="classOutputDetail.html#a16312a6a6b0b3226f6c56b00d84b955c">More...</a><br /></td></tr>
 <tr class="separator:a16312a6a6b0b3226f6c56b00d84b955c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12995215e5afbba58004136cbff79767"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a12995215e5afbba58004136cbff79767">DENO</a> {false}</td></tr>
-<tr class="memdesc:a12995215e5afbba58004136cbff79767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oil density saturation of grids.  <a href="classOutputDetail.html#a12995215e5afbba58004136cbff79767">More...</a><br /></td></tr>
+<tr class="memdesc:a12995215e5afbba58004136cbff79767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oil density of grids.  <a href="classOutputDetail.html#a12995215e5afbba58004136cbff79767">More...</a><br /></td></tr>
 <tr class="separator:a12995215e5afbba58004136cbff79767"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9f4a340cd983a4d3aa4d38d291d996d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#ab9f4a340cd983a4d3aa4d38d291d996d">DENG</a> {false}</td></tr>
-<tr class="memdesc:ab9f4a340cd983a4d3aa4d38d291d996d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas density saturation of grids.  <a href="classOutputDetail.html#ab9f4a340cd983a4d3aa4d38d291d996d">More...</a><br /></td></tr>
+<tr class="memdesc:ab9f4a340cd983a4d3aa4d38d291d996d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas density of grids.  <a href="classOutputDetail.html#ab9f4a340cd983a4d3aa4d38d291d996d">More...</a><br /></td></tr>
 <tr class="separator:ab9f4a340cd983a4d3aa4d38d291d996d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4741df107436488e50fbb34b685fe6d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a4741df107436488e50fbb34b685fe6d2">DENW</a> {false}</td></tr>
-<tr class="memdesc:a4741df107436488e50fbb34b685fe6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water density saturation of grids.  <a href="classOutputDetail.html#a4741df107436488e50fbb34b685fe6d2">More...</a><br /></td></tr>
+<tr class="memdesc:a4741df107436488e50fbb34b685fe6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water density of grids.  <a href="classOutputDetail.html#a4741df107436488e50fbb34b685fe6d2">More...</a><br /></td></tr>
 <tr class="separator:a4741df107436488e50fbb34b685fe6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3de7ec6aaad3cb7f00fbaeffab79df8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#ad3de7ec6aaad3cb7f00fbaeffab79df8">KRO</a> {false}</td></tr>
+<tr class="memdesc:ad3de7ec6aaad3cb7f00fbaeffab79df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oil relative permeability of grids.  <a href="classOutputDetail.html#ad3de7ec6aaad3cb7f00fbaeffab79df8">More...</a><br /></td></tr>
+<tr class="separator:ad3de7ec6aaad3cb7f00fbaeffab79df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac85b5214470fb203d0f6d6ded73bd719"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#ac85b5214470fb203d0f6d6ded73bd719">KRG</a> {false}</td></tr>
+<tr class="memdesc:ac85b5214470fb203d0f6d6ded73bd719"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas relative permeability of grids.  <a href="classOutputDetail.html#ac85b5214470fb203d0f6d6ded73bd719">More...</a><br /></td></tr>
+<tr class="separator:ac85b5214470fb203d0f6d6ded73bd719"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9a86c04a5f83bf63a36f6bf2fbe55cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#aa9a86c04a5f83bf63a36f6bf2fbe55cf">KRW</a> {false}</td></tr>
+<tr class="memdesc:aa9a86c04a5f83bf63a36f6bf2fbe55cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water relative permeability of grids.  <a href="classOutputDetail.html#aa9a86c04a5f83bf63a36f6bf2fbe55cf">More...</a><br /></td></tr>
+<tr class="separator:aa9a86c04a5f83bf63a36f6bf2fbe55cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe594be660552b77d3fa283356eaa3a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#abe594be660552b77d3fa283356eaa3a4">BOIL</a> {false}</td></tr>
+<tr class="memdesc:abe594be660552b77d3fa283356eaa3a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oil reservoir molar densities of grids.  <a href="classOutputDetail.html#abe594be660552b77d3fa283356eaa3a4">More...</a><br /></td></tr>
+<tr class="separator:abe594be660552b77d3fa283356eaa3a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbba5bf745cbd54b427e43027ae3d045"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#adbba5bf745cbd54b427e43027ae3d045">BGAS</a> {false}</td></tr>
+<tr class="memdesc:adbba5bf745cbd54b427e43027ae3d045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas reservoir molar densities of grids.  <a href="classOutputDetail.html#adbba5bf745cbd54b427e43027ae3d045">More...</a><br /></td></tr>
+<tr class="separator:adbba5bf745cbd54b427e43027ae3d045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0066635281c3455f5de8f6db6a7dee6c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a0066635281c3455f5de8f6db6a7dee6c">BWAT</a> {false}</td></tr>
+<tr class="memdesc:a0066635281c3455f5de8f6db6a7dee6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water reservoir molar densities of grids.  <a href="classOutputDetail.html#a0066635281c3455f5de8f6db6a7dee6c">More...</a><br /></td></tr>
+<tr class="separator:a0066635281c3455f5de8f6db6a7dee6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcef31f7b171906aa2c1c21ca1830b9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#abcef31f7b171906aa2c1c21ca1830b9e">VOIL</a> {false}</td></tr>
+<tr class="memdesc:abcef31f7b171906aa2c1c21ca1830b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oil viscosity of grids.  <a href="classOutputDetail.html#abcef31f7b171906aa2c1c21ca1830b9e">More...</a><br /></td></tr>
+<tr class="separator:abcef31f7b171906aa2c1c21ca1830b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1111d5fcc7221b4077858b006b7b44d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a1111d5fcc7221b4077858b006b7b44d6">VGAS</a> {false}</td></tr>
+<tr class="memdesc:a1111d5fcc7221b4077858b006b7b44d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas viscosity of grids.  <a href="classOutputDetail.html#a1111d5fcc7221b4077858b006b7b44d6">More...</a><br /></td></tr>
+<tr class="separator:a1111d5fcc7221b4077858b006b7b44d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529719daffcb01f268151df20aca25cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a529719daffcb01f268151df20aca25cc">VWAT</a> {false}</td></tr>
+<tr class="memdesc:a529719daffcb01f268151df20aca25cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water viscosity of grids.  <a href="classOutputDetail.html#a529719daffcb01f268151df20aca25cc">More...</a><br /></td></tr>
+<tr class="separator:a529719daffcb01f268151df20aca25cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classOutputDetail.html">OutputDetail</a> is a part of <a class="el" href="classParamOutput.html">ParamOutput</a>, it's used to control the output of detailed information of reservoir. For example, pressure in every grid, due to excessive data volume, this option is usually used in Debug Model. </p>
 
 <p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00092">92</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="adbba5bf745cbd54b427e43027ae3d045" name="adbba5bf745cbd54b427e43027ae3d045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbba5bf745cbd54b427e43027ae3d045">&#9670;&nbsp;</a></span>BGAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::BGAS {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gas reservoir molar densities of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00108">108</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abe594be660552b77d3fa283356eaa3a4" name="abe594be660552b77d3fa283356eaa3a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe594be660552b77d3fa283356eaa3a4">&#9670;&nbsp;</a></span>BOIL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::BOIL {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Oil reservoir molar densities of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00107">107</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0066635281c3455f5de8f6db6a7dee6c" name="a0066635281c3455f5de8f6db6a7dee6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0066635281c3455f5de8f6db6a7dee6c">&#9670;&nbsp;</a></span>BWAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::BWAT {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Water reservoir molar densities of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00109">109</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
 <a id="ab9f4a340cd983a4d3aa4d38d291d996d" name="ab9f4a340cd983a4d3aa4d38d291d996d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9f4a340cd983a4d3aa4d38d291d996d">&#9670;&nbsp;</a></span>DENG</h2>
 
@@ -122,7 +203,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gas density saturation of grids. </p>
+<p>Gas density of grids. </p>
 
 <p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00102">102</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
 
@@ -140,7 +221,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Oil density saturation of grids. </p>
+<p>Oil density of grids. </p>
 
 <p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00101">101</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
 
@@ -158,9 +239,63 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Water density saturation of grids. </p>
+<p>Water density of grids. </p>
 
 <p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00103">103</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac85b5214470fb203d0f6d6ded73bd719" name="ac85b5214470fb203d0f6d6ded73bd719"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac85b5214470fb203d0f6d6ded73bd719">&#9670;&nbsp;</a></span>KRG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::KRG {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gas relative permeability of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00105">105</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad3de7ec6aaad3cb7f00fbaeffab79df8" name="ad3de7ec6aaad3cb7f00fbaeffab79df8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3de7ec6aaad3cb7f00fbaeffab79df8">&#9670;&nbsp;</a></span>KRO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::KRO {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Oil relative permeability of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00104">104</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa9a86c04a5f83bf63a36f6bf2fbe55cf" name="aa9a86c04a5f83bf63a36f6bf2fbe55cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9a86c04a5f83bf63a36f6bf2fbe55cf">&#9670;&nbsp;</a></span>KRW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::KRW {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Water relative permeability of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00106">106</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
 
 </div>
 </div>
@@ -272,13 +407,67 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1111d5fcc7221b4077858b006b7b44d6" name="a1111d5fcc7221b4077858b006b7b44d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1111d5fcc7221b4077858b006b7b44d6">&#9670;&nbsp;</a></span>VGAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::VGAS {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gas viscosity of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00111">111</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abcef31f7b171906aa2c1c21ca1830b9e" name="abcef31f7b171906aa2c1c21ca1830b9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcef31f7b171906aa2c1c21ca1830b9e">&#9670;&nbsp;</a></span>VOIL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::VOIL {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Oil viscosity of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00110">110</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a529719daffcb01f268151df20aca25cc" name="a529719daffcb01f268151df20aca25cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529719daffcb01f268151df20aca25cc">&#9670;&nbsp;</a></span>VWAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::VWAT {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Water viscosity of grids. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00112">112</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

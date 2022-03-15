@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.7 Jan/19/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -70,21 +70,23 @@ $(function() {
 
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>acf&#160;:&#160;<a class="el" href="classCOMP.html#aa6f424d727fd0bbd26c389ad271677a6">COMP</a></li>
+<li>Acf&#160;:&#160;<a class="el" href="classEoSparam.html#a7101c47459b4ac23500a749bc1e19dc6">EoSparam</a></li>
 <li>activity&#160;:&#160;<a class="el" href="classType__A__r.html#ad80646ea05402588ed3027527dc4ebcf">Type_A_r&lt; T &gt;</a></li>
+<li>ACTNUM&#160;:&#160;<a class="el" href="classParamReservoir.html#a237932f1285c080ebf92787f758bc492">ParamReservoir</a></li>
 <li>Allocate()&#160;:&#160;<a class="el" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">LinearSolver</a>, <a class="el" href="classMixture.html#af9cd3ebf3d96509594d15bc1891ad801">Mixture</a></li>
 <li>AllocateAuxFIM()&#160;:&#160;<a class="el" href="classBulk.html#addf24a721734920dbdbe48228b795f5e">Bulk</a>, <a class="el" href="classBulkConn.html#aefc3cc60009acf19dbdf51099e231832">BulkConn</a>, <a class="el" href="classReservoir.html#a231021dace3b376873232f9a2967927d">Reservoir</a></li>
 <li>AllocateAuxIMPEC()&#160;:&#160;<a class="el" href="classBulk.html#a3bf55a9c8f0e3752cc667c2cc5c966f2">Bulk</a>, <a class="el" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">BulkConn</a>, <a class="el" href="classReservoir.html#a550a75111bd3bb6a0c272b09b9a06f03">Reservoir</a></li>
 <li>AllocateColMem()&#160;:&#160;<a class="el" href="classLinearSystem.html#a31de3dd74ddeefc1b9c3f896c5844116">LinearSystem</a></li>
 <li>AllocateLinearSolver()&#160;:&#160;<a class="el" href="classLinearSystem.html#a546311d634cee0b75c5b060614e121ca">LinearSystem</a></li>
-<li>AllocateMat()&#160;:&#160;<a class="el" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn</a>, <a class="el" href="classWell.html#a97e29326b964228b932906ff35cb3677">Well</a>, <a class="el" href="classWellGroup.html#a1766c8b31f09b849d98b56f131162eb2">WellGroup</a></li>
+<li>AllocateMat()&#160;:&#160;<a class="el" href="classAllWells.html#a187f1afb3db7a0fd1b70363696b1a987">AllWells</a>, <a class="el" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">BulkConn</a>, <a class="el" href="classWell.html#a97e29326b964228b932906ff35cb3677">Well</a></li>
 <li>AllocateMatFIM()&#160;:&#160;<a class="el" href="classReservoir.html#a7e5bcc7744d90007511a70f5cc71aa4b">Reservoir</a></li>
 <li>AllocateMatIMPEC()&#160;:&#160;<a class="el" href="classReservoir.html#a09d8bdf2a71df7c71c9bd15fc9da1ada">Reservoir</a></li>
 <li>AllocateRowMem()&#160;:&#160;<a class="el" href="classLinearSystem.html#a97b1b8a843d49ac3968278c68fce975d">LinearSystem</a></li>
 <li>amgParam&#160;:&#160;<a class="el" href="classFaspSolver.html#a16da73f5ea99b4745f7d268b247efd9a">FaspSolver</a></li>
-<li>ApplyControl()&#160;:&#160;<a class="el" href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">OCPControl</a>, <a class="el" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">Reservoir</a>, <a class="el" href="classWellGroup.html#a548a9aaba9f7d86860c0a7750e3f5986">WellGroup</a></li>
+<li>ApplyControl()&#160;:&#160;<a class="el" href="classAllWells.html#a6687a89061fd6a296715c85279580b0b">AllWells</a>, <a class="el" href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">OCPControl</a>, <a class="el" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">Reservoir</a></li>
 <li>area&#160;:&#160;<a class="el" href="classGPair.html#a2b5874523bda006f4227518e222f0282">GPair</a></li>
-<li>AssemblaMatFIM()&#160;:&#160;<a class="el" href="classWellGroup.html#aaedf31457a20bf342c405adf763ac22a">WellGroup</a></li>
-<li>AssemblaMatIMPEC()&#160;:&#160;<a class="el" href="classWellGroup.html#a4a918ff2205b3965bb2ae076a06db2ce">WellGroup</a></li>
+<li>AssemblaMatFIM()&#160;:&#160;<a class="el" href="classAllWells.html#a1d11a622e6c8580a7d502c4c03376424">AllWells</a></li>
+<li>AssemblaMatIMPEC()&#160;:&#160;<a class="el" href="classAllWells.html#a3614ec1b5d163e1cd551fd91dc5656e7">AllWells</a></li>
 <li>AssembleMat()&#160;:&#160;<a class="el" href="classFluidSolver.html#a9d25fa150340570e7d4cde9005534068">FluidSolver</a>, <a class="el" href="classLinearSolver.html#acd3e7e2a2d56aaf98a46767caeef37f1">LinearSolver</a>, <a class="el" href="classOCP__FIM.html#a1abb915ad74d09625ed7c5ee1a7570b4">OCP_FIM</a></li>
 <li>AssembleMat_FIM()&#160;:&#160;<a class="el" href="classBulkConn.html#a438992d31661ee39e0f456f451e5903f">BulkConn</a></li>
 <li>AssembleMatFIM()&#160;:&#160;<a class="el" href="classReservoir.html#a1e727c9dd35d16d33984acaeb83868d9">Reservoir</a></li>
@@ -92,14 +94,16 @@ $(function() {
 <li>AssembleMatINJ_FIM()&#160;:&#160;<a class="el" href="classWell.html#a463947c4c8f7b503f454d69258ba3542">Well</a></li>
 <li>AssembleMatINJ_IMPEC()&#160;:&#160;<a class="el" href="classWell.html#ab0528721e20039c2f6ca161b60f94d50">Well</a></li>
 <li>AssembleMatLinearSolver()&#160;:&#160;<a class="el" href="classLinearSystem.html#a12b95ff96f522bdddaa7f74e5a0d8d5e">LinearSystem</a></li>
-<li>AssembleMatPROD_BO_FIM()&#160;:&#160;<a class="el" href="classWell.html#a99870ae6a05eab45e6b7a13f58439d13">Well</a></li>
-<li>AssembleMatPROD_BO_IMPEC()&#160;:&#160;<a class="el" href="classWell.html#ab9c437ead9ade11b0adb0d7eb8cb03ee">Well</a></li>
+<li>AssembleMatPROD_FIM()&#160;:&#160;<a class="el" href="classWell.html#a6fdd6f4404ff6b08d981058db497062a">Well</a></li>
+<li>AssembleMatPROD_IMPEC()&#160;:&#160;<a class="el" href="classWell.html#a06c5e87d9b87c4a9eac02c15f5eaf20c">Well</a></li>
+<li>AssembleMatReinjection_FIM()&#160;:&#160;<a class="el" href="classWell.html#ac3f15a40bf91e5734390ef4e5e2a1bae">Well</a></li>
+<li>AssembleMatReinjection_IMPEC()&#160;:&#160;<a class="el" href="classWell.html#a0faa91a9127c13773e269b6a52eb40b4">Well</a></li>
 <li>AssembleRhs()&#160;:&#160;<a class="el" href="classLinearSystem.html#aeaab839a7bc0c6617dcf580e879564c4">LinearSystem</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 11:35:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
