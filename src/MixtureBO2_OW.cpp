@@ -11,8 +11,24 @@
 
 #include "MixtureBO.hpp"
 
-void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
-                              const OCP_DBL& Vpore)
+ ///////////////////////////////////////////////
+ // BOMixture_OW
+ ///////////////////////////////////////////////
+
+BOMixture_OW::BOMixture_OW(const ParamReservoir& rs_param, const USI& i)
+{
+    BOMixtureInit(rs_param);
+
+    PVTW.Setup(rs_param.PVTW_T.data[i]);
+    PVDO.Setup(rs_param.PVDO_T.data[i]);
+
+    data.resize(5, 0);
+    cdata.resize(5, 0);
+}
+
+void BOMixture_OW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+    const OCP_DBL* Ziin)
 {
     phaseExist[0] = true;
     phaseExist[1] = true;
@@ -58,7 +74,8 @@ void BOMixture::BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin,
     vfp    = CONV1 * Ni[0] * bop + CONV1 * Ni[1] * bwp;
 }
 
-void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture_OW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
     phaseExist[0] = true;
     phaseExist[1] = true;
@@ -103,7 +120,9 @@ void BOMixture::BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     vfp    = CONV1 * Ni[0] * bop + CONV1 * Ni[1] * bwp;
 }
 
-void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture_OW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
     phaseExist[0] = true;
     phaseExist[1] = true;
@@ -166,7 +185,7 @@ void BOMixture::BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
     dXsdXp[5] = (CONV1 * bw - S[1] * vfi[1]) / vf;       // dSw / dNw
 }
 
-OCP_DBL BOMixture::XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is water
@@ -182,7 +201,7 @@ OCP_DBL BOMixture::XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is water
@@ -199,7 +218,7 @@ OCP_DBL BOMixture::RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin)
+OCP_DBL BOMixture_OW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
     OCP_DBL bo     = PVDO.Eval(0, Pin, 1);
     OCP_DBL gammaO = std_GammaO / bo;
@@ -207,6 +226,17 @@ OCP_DBL BOMixture::GammaPhaseO_OW(const OCP_DBL& Pin)
     return gammaO;
 }
 
+OCP_DBL BOMixture_OW::GammaPhaseW(const OCP_DBL& Pin)
+{
+
+    PVTW.Eval_All(0, Pin, data, cdata);
+    OCP_DBL Pw0 = data[0];
+    OCP_DBL bw0 = data[1];
+    OCP_DBL cbw = data[2];
+    OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
+
+    return std_GammaW / bw;
+}
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/

@@ -11,8 +11,26 @@
 
 #include "MixtureBO.hpp"
 
-void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
-                                const OCP_DBL* Sjin, const OCP_DBL& Vpore)
+ ///////////////////////////////////////////////
+ // BOMixture_ODGW
+ ///////////////////////////////////////////////
+
+BOMixture_ODGW::BOMixture_ODGW(const ParamReservoir& rs_param, const USI& i)
+{
+    BOMixtureInit(rs_param);
+
+    PVTW.Setup(rs_param.PVTW_T.data[i]);
+    PVCO.Setup(rs_param.PVCO_T.data[i]);
+    PVDG.Setup(rs_param.PVDG_T.data[i]);
+    
+    data.resize(5, 0);
+    cdata.resize(5, 0);
+}
+
+
+void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+    const OCP_DBL* Ziin)
 {
     for (USI j = 0; j < 3; j++) phaseExist[j] = false;
     for (USI i = 0; i < 3; i++) Ni[i] = 0;
@@ -211,7 +229,8 @@ void BOMixture::BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     }
 }
 
-void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
     for (USI j = 0; j < 3; j++) phaseExist[j] = false;
     fill(xij.begin(), xij.end(), 0.0);
@@ -411,7 +430,9 @@ void BOMixture::BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin)
     }
 }
 
-void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
+void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+    const OCP_DBL* lastKs)
 {
     for (USI j = 0; j < 3; j++) {
         phaseExist[j] = false;
@@ -729,7 +750,7 @@ void BOMixture::BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin)
 #endif
 }
 
-OCP_DBL BOMixture::XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_ODGW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is gas
@@ -753,7 +774,7 @@ OCP_DBL BOMixture::XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     if (Ziin[1] > 1 - TINY) {
         // inj fluid is gas
@@ -775,7 +796,7 @@ OCP_DBL BOMixture::RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin)
     }
 }
 
-OCP_DBL BOMixture::GammaPhaseO_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
+OCP_DBL BOMixture_ODGW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
 
     PVCO.Eval_All(0, Pbbin, data, cdata);
@@ -787,6 +808,29 @@ OCP_DBL BOMixture::GammaPhaseO_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 
     return gammaO;
 }
+
+OCP_DBL BOMixture_ODGW::GammaPhaseG(const OCP_DBL& Pin)
+{
+    if (PVDG.IsEmpty()) {
+        OCP_ABORT("PVDG is missing!");
+    }
+    OCP_DBL bg = (CONV1 / 1000) * PVDG.Eval(0, Pin, 1);
+
+    return std_GammaG / bg;
+}
+
+OCP_DBL BOMixture_ODGW::GammaPhaseW(const OCP_DBL& Pin)
+{
+
+    PVTW.Eval_All(0, Pin, data, cdata);
+    OCP_DBL Pw0 = data[0];
+    OCP_DBL bw0 = data[1];
+    OCP_DBL cbw = data[2];
+    OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
+
+    return std_GammaW / bw;
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

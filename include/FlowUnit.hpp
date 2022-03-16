@@ -41,6 +41,11 @@ public:
 
 };
 
+///////////////////////////////////////////////
+// FlowUnit_W
+///////////////////////////////////////////////
+
+
 class FlowUnit_W : public FlowUnit
 {
 public:
@@ -59,6 +64,10 @@ public:
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
 
 };
+
+///////////////////////////////////////////////
+// FlowUnit_OW
+///////////////////////////////////////////////
 
 
 class FlowUnit_OW : public FlowUnit
@@ -93,6 +102,10 @@ private:
     OCP_DBL Swco; ///< Saturation of connate water.
 };
 
+///////////////////////////////////////////////
+// FlowUnit_OG
+///////////////////////////////////////////////
+
 class FlowUnit_OG : public FlowUnit
 {
 public:
@@ -123,6 +136,10 @@ private:
     OCP_DBL kroMax;
 };
 
+///////////////////////////////////////////////
+// FlowUnit_ODGW
+///////////////////////////////////////////////
+
 
 class FlowUnit_ODGW : public FlowUnit
 {
@@ -140,11 +157,17 @@ public:
         const OCP_DBL& krog, const OCP_DBL& krow,
         const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw,
         OCP_DBL& dkroSg, OCP_DBL& dkroSw) const;
+
+protected:
     /// oil relative permeability in the presence of connate water only, used in stone2
     OCP_DBL kroMax; 
     OCP_DBL Swco; ///< Saturation of connate water.
 
 };
+
+///////////////////////////////////////////////
+// FlowUnit_ODGW01
+///////////////////////////////////////////////
 
 class FlowUnit_ODGW01 : public FlowUnit_ODGW
 {
@@ -182,6 +205,10 @@ private:
     vector<OCP_DBL>
         cdata; ///< container used to store the results of slopes of interpolation.
 };
+
+///////////////////////////////////////////////
+// FlowUnit_ODGW02
+///////////////////////////////////////////////
 
 class FlowUnit_ODGW02 : public FlowUnit_ODGW
 {

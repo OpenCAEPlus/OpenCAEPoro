@@ -99,8 +99,8 @@ Final time:          3655.500 Days
 Total time steps:    3849
 Total Newton steps:  3849 (+9 wasted steps)
 Total linear steps:  7198 (+15 wasted steps)
-Linear solve time:   0.668s (60.435%)
-Simulation time:     1.105s
+Linear solve time:   0.654s (60.250%)
+Simulation time:     1.086s
 
 ---------------------------------------------------
 PS_FIM_10
@@ -140,8 +140,8 @@ Final time:          3655.500 Days
 Total time steps:    421
 Total Newton steps:  507 (+1 wasted steps)
 Total linear steps:  6361 (+19 wasted steps)
-Linear solve time:   0.473s (61.809%)
-Simulation time:     0.766s
+Linear solve time:   0.467s (61.599%)
+Simulation time:     0.759s
 ```
 
 
@@ -174,9 +174,8 @@ Final time:          900.000 Days
 Total time steps:    7486
 Total Newton steps:  7486 (+43 wasted steps)
 Total linear steps:  9897 (+96 wasted steps)
-Linear solve time:   55.433s (61.564%)
-Simulation time:     90.041s
-
+Linear solve time:   55.544s (61.784%)
+Simulation time:     89.900s
 ---------------------------------------------------
 PS_FIM_10
 

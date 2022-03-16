@@ -23,73 +23,18 @@ class BOMixture : public Mixture
 {
 public:
     BOMixture() = default;
-    BOMixture(const ParamReservoir& rs_param, const USI& PVTmode, const USI& i);
-
-    /// judge if table PVDG is empty.
-    bool IsEmpty_PVDG() const override { return PVDG.IsEmpty(); }
-
-    // Flash
-    /// flash calculation with saturations of phase, pressure and buble point pressure
-    /// in bulks. temperature is unnecessary now, Ziin, which represents the proportion
-    /// of components is useless.
-    void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                  const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                  const OCP_DBL* Ziin) override;
-    /// flash calculation with saturations while PVTmode is PHASE_W, where only water
-    /// phase exists.
-    void BOFlash_Sj_W(const OCP_DBL& Pin, const OCP_DBL* Sjin, const OCP_DBL& Vpore);
-    /// flash calculation with saturations while PVTmode is PHASE_OW, where only water
-    /// phase and oil phase could exist.
-    void BOFlash_Sj_OW(const OCP_DBL& Pin, const OCP_DBL* Sjin, const OCP_DBL& Vpore);
-    /// flash calculation with saturations while PVTmode is PHASE_OGW, where water
-    /// phase, oil phase and gas phase could exist. (to do)in fact, the phasecase where
-    /// if dissolved gas exists should be distinguished.
-    void BOFlash_Sj_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL* Sjin,
-                         const OCP_DBL& Vpore);
-    /// flash calculation with saturations of phase, pressure in bulks. temperature is
-    /// unnecessary now.
-    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
-    /// flash calculation with moles of components while PVTmode is PHASE_W, where only
-    /// water phase exists.
-    void BOFlash_Ni_W(const OCP_DBL& Pin, const OCP_DBL* Niin);
-    /// flash calculation with moles of components while PVTmode is PHASE_OW, where only
-    /// water phase and oil phase could exist.
-    void BOFlash_Ni_OW(const OCP_DBL& Pin, const OCP_DBL* Niin);
-    /// flash calculation with moles of components while PVTmode is PHASE_OGW, where
-    /// water phase, oil phase and gas phase could exist. (to do)in fact, the phasecase
-    /// where if dissolved gas exists should be distinguished.
-    void BOFlash_Ni_ODGW(const OCP_DBL& Pin, const OCP_DBL* Niin);
-
-    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
-    void BOFlash_Ni_W_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
-    void BOFlash_Ni_OW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
-    void BOFlash_Ni_ODGW_Deriv(const OCP_DBL& Pin, const OCP_DBL* Niin);
-
-    // return xi  molar density
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
-    OCP_DBL XiPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
-    OCP_DBL XiPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
-
-    // return rho
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                     const OCP_DBL* Ziin) override;
-    OCP_DBL RhoPhase_OW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
-    OCP_DBL RhoPhase_ODGW(const OCP_DBL& Pin, const OCP_DBL* Ziin);
+    void BOMixtureInit(const ParamReservoir& rs_param);
 
     // return gamma
-    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
-    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override;
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
-    OCP_DBL GammaPhaseO_OW(const OCP_DBL& Pin);
-    OCP_DBL GammaPhaseO_ODGW(const OCP_DBL& Pin, const OCP_DBL& Pbbin);
+    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override {};
+    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override {};
+    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override {};
     OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
                          const OCP_DBL* Ziin) override
     {
         OCP_ABORT("Should not be used in Black Oil mode!");
     };
+
     // usless in BLKOIL
     USI GetFtype() override { return 100; }
     OCP_SIN GetMinEigenSkip() override { return 0; }
@@ -99,23 +44,9 @@ public:
     OCP_ULL GetSSMSPiters() override { return 0; }
     OCP_ULL GetNRSPiters() override { return 0; }
 
-private:
-    /// indicates the case of black oil, it's decided by user input.
-    /// for example, PHASE_OW implies that only water phase and oil phase could be
-    /// existing, which will determine which PVT tables will be used.
-    USI      mode;
-    OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).
-    OCPTable PVDG; ///< PVT table for dry gas.
-    OCPTable PVTW; ///< PVT table for water.
-    OCPTable PVDO; ///< PVT table for dead oil (without dissolved gas).
-
-    // Auxiliary parameters for Table interpolation
-    USI             len{0}; ///< maximum number of columns of tables among all above.
-    vector<OCP_DBL> data;   ///< container used to store the results of values of
-                            ///< interpolation of PVT tables.
-    vector<OCP_DBL> cdata;  ///< container used to store the results of slopes of
-                            ///< interpolation of PVT tables.
-
+protected:
+    USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
+                     ///< others.
     // std_Gamma* = std_Rho* * GRAVITY_FACTOR.
     // only one of rho and gamma is needed, the other will be calculated from it.
     OCP_DBL std_RhoO;   ///< mass density of oil phase in standard condition.
@@ -125,6 +56,101 @@ private:
     OCP_DBL std_RhoW;   ///< mass density of water phase in standard condition.
     OCP_DBL std_GammaW; ///< std_RhoW * gravity factor.
 };
+
+///////////////////////////////////////////////
+// BOMixture_W
+///////////////////////////////////////////////
+
+class BOMixture_W : public BOMixture
+{
+public:
+
+    BOMixture_W() = default;
+    BOMixture_W(const ParamReservoir& rs_param, const USI& i) {};
+
+    void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+        const OCP_DBL* Ziin) override {};
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override {};
+    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override {};
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override {};
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override {};
+    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override {};
+
+private:
+    OCPTable PVTW;
+};
+
+///////////////////////////////////////////////
+// BOMixture_OW
+///////////////////////////////////////////////
+
+class BOMixture_OW : public BOMixture
+{
+public:
+    BOMixture_OW() = default;
+    BOMixture_OW(const ParamReservoir& rs_param, const USI& i);
+
+    void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+        const OCP_DBL* Ziin) override;
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
+    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
+    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
+
+private:
+    OCPTable PVDO; ///< PVT table for dead oil
+    OCPTable PVTW; ///< PVT table for water.
+    vector<OCP_DBL> data;   ///< container used to store the results of values of
+                            ///< interpolation of PVT tables.
+    vector<OCP_DBL> cdata;  ///< container used to store the results of slopes of
+                            ///< interpolation of PVT tables.
+
+};
+
+///////////////////////////////////////////////
+// BOMixture_ODGW
+///////////////////////////////////////////////
+
+class BOMixture_ODGW : public BOMixture
+{
+public:
+    BOMixture_ODGW() = default;
+    BOMixture_ODGW(const ParamReservoir& rs_param, const USI& i);
+
+    void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+        const OCP_DBL* Ziin) override;
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
+    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
+        const OCP_DBL* lastKs) override;
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
+    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override;
+    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
+
+private:
+    OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).
+    OCPTable PVDG; ///< PVT table for dry gas.
+    OCPTable PVTW; ///< PVT table for water.
+    vector<OCP_DBL> data;   ///< container used to store the results of values of
+                            ///< interpolation of PVT tables.
+    vector<OCP_DBL> cdata;  ///< container used to store the results of slopes of
+                            ///< interpolation of PVT tables.
+};
+
 
 #endif /* end if __BOMIXTURE_HEADER__ */
 

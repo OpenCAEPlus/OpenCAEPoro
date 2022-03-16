@@ -77,10 +77,30 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             PVTmode    = PHASE_ODGW;
         }
         rs_param.numPhase = numPhase;
-        rs_param.numCom   = numCom;      
+        rs_param.numCom   = numCom;
 
-        for (USI i = 0; i < rs_param.NTPVT; i++)
-            flashCal.push_back(new BOMixture(rs_param, PVTmode, i));
+        switch (PVTmode)
+        {
+        case PHASE_W:
+            OCP_ABORT("Wrong Type!");
+            break;
+        case PHASE_OW:
+            for (USI i = 0; i < rs_param.NTPVT; i++)
+                flashCal.push_back(new BOMixture_OW(rs_param, i));
+            break;
+        case PHASE_DOGW:
+            OCP_ABORT("Wrong Type!");
+            break;
+        case PHASE_ODGW:
+            for (USI i = 0; i < rs_param.NTPVT; i++)
+                flashCal.push_back(new BOMixture_ODGW(rs_param, i));
+            break;
+        default:
+            OCP_ABORT("Wrong Type!");
+            break;
+        }
+
+        
 
         cout << "Bulk::InputParam --- BLACKOIL" << endl;
 
@@ -127,6 +147,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         break;
     default:
         OCP_ABORT("Wrong Type!");
+        break;
     }
 }
 
