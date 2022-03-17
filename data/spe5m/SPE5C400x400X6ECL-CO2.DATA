@@ -1,0 +1,500 @@
+------------------------------------------------------------------------
+-->The fifth SPE comparison problem , reported by Killough and Kossack
+-- ( 9th SPE Symp on Res. Sim., San Antonio, 1987).
+-- Dimension 7x7x3-
+-- 6 components
+-- FIELD units
+-- The run follows the first of the three suggested production schedules
+-- Solvent injection as part of a WAG cycle
+------------------------------------------------------------------------
+
+RUNSPEC   ==============================================================
+
+FIELD
+
+OIL
+WATER
+GAS
+
+COMPS
+7 
+/
+
+TABDIMS
+1 1 40 40 /
+
+DIMENS
+400 400 6 /
+
+EQLDIMS
+1 20 /
+
+WELLDIMS
+30 30 /
+
+UNIFOUT
+FULLIMP
+--IMPES
+--IMPSAT
+NSTACK
+40/
+
+START
+1 Jan 1990 /
+
+GRID    ================================================================
+
+INIT
+
+EQUALS
+'DX'      25   6*        /
+'DY'      25   6*        /
+'DZ'      10   4*  1  1  /
+'DZ'      10   4*  2  2  /
+'DZ'      15   4*  3  3  /
+'DZ'      15   4*  4  4  /
+'DZ'      25   4*  5  5  /
+'DZ'      25   4*  6  6  /
+/
+
+
+TOPS
+160000*8325
+/
+
+PORO
+960000*0.3  
+/
+
+PERMX
+160000*500.0  160000*500.0 160000*50.0  160000*50.0 160000*200.0 160000*200.0
+/
+
+PERMY
+160000*500.0  160000*500.0 160000*50.0  160000*50.0 160000*200.0 160000*200.0
+/
+
+PERMZ
+160000*50.0  160000*50.0  160000*50.0 160000*50.0 160000*25.0 160000*25.0
+/
+
+PROPS     ============================================================
+
+EOS
+PR /
+
+PRCORR
+
+RTEMP
+160 /
+
+STCOND
+60 14.7 /
+
+NCNP
+# number of component; maximum number of phases
+7 2
+/
+
+ZI
+0.05  0.45 0.03 0.07 0.2 0.15 0.05
+/
+
+CNAMES
+CO2
+C1
+C3
+C6
+C10
+C15
+C20
+/
+
+TCRIT
+547.570
+ 343.0
+ 665.7
+ 913.4
+1111.8
+1270.0
+1380.0
+/
+
+PCRIT
+1070.0
+667.8
+616.3
+436.9
+304.0
+200.0
+162.0
+/
+
+ZCRIT
+0.27420
+0.290
+0.277
+0.264
+0.257
+0.245
+0.235
+/
+
+MW
+ 44.010
+ 16.04
+ 44.10
+ 86.18
+149.29
+206.00
+282.00
+/
+
+ACF
+0.225
+0.013
+0.1524
+0.3007
+0.4885
+0.6500
+0.8500
+/
+
+BIC
+0.0920
+0.1240 0.0
+0.1000 0.0    0.0
+0.1150 0.0    0.0    0.0
+0.1150 0.05   0.005  0.0     0.0
+0.1150 0.05   0.005  0.0     0.0     0.0 
+/
+
+RR
+#Rachford Rice equation parameters
+#maxit tolerance
+30	1e-12
+/
+
+SSMSTA
+#Successive substitution
+#maxit tolerance
+#eYt
+100	1e-12 1e-8
+/
+
+NRSTA
+#Newton Raphson 
+#maxit tolerance unknown type
+55 1e-12
+/
+
+
+SSMSP
+#maxit toleranceR toleranceK(indicator for trivial solution)
+100	1E-6
+/
+
+NRSP
+55  1e-12
+/
+
+
+
+SWFN
+    0.2    0      45.0
+    0.2899 0.0022 19.03
+    0.3778 0.0180 10.07
+    0.4667 0.0607  4.90
+    0.5556 0.1438  1.8
+    0.6444 0.2809  0.5
+    0.7000 0.4089  0.05
+    0.7333 0.4855  0.01
+    0.8222 0.7709  0.0
+    0.9111 1.0000  0.0
+    1.00   1.0000  0.0 
+/
+
+SGFN
+    0.00   0.000   0.0
+    0.05   0.000   0.0
+    0.0889 0.001   0.0
+    0.1778 0.010   0.0
+    0.2667 0.030   0.001
+    0.3556 0.05    0.001
+    0.4444 0.10    0.03
+    0.5333 0.20    0.8
+    0.6222 0.35    3.0
+    0.65   0.39    4.0
+    0.7111 0.56    8.0
+    0.80   1.0    30.0
+/
+
+SOF3
+    0.00   0.0     0.0
+    0.0889 0.0     0.0
+    0.1500 0.0     0.0
+    0.1778 0.0     0.0110
+    0.2667 0.0     0.0370
+    0.3    0.0     0.0560
+    0.3556 0.0123  0.0878
+    0.4444 0.0835  0.1715
+    0.5333 0.2178  0.2963
+    0.6222 0.4153  0.4705
+    0.7111 0.6769  0.7023
+    0.80   1.0     1.0    
+/
+
+
+ROCK
+--  Pref  Cf
+ 3990.30  5E-6  
+/
+    
+
+PVTW
+1000 1.0099 0.000003 0.70 0.0
+/
+
+--Specify initial liquid composition
+
+
+--Surface densities : only the water value is used
+
+DENSITY
+1* 62.4 1* /
+
+SOLUTION   =============================================================
+
+
+
+EQUIL
+8330 4000 8450 0 8320 0 1 1 0  /
+
+SUMMARY    =============================================================
+
+--Request field GOR, water cut oil rate and total, gas rate
+
+SUMMARY
+FPR
+FOPR
+FOPT
+FGPR
+FGPT
+FWPR
+FWPT
+FGIR
+FGIT
+FWIR
+FWIT
+FWCT
+FWPT
+WBHP 
+/
+WBHP 
+/
+WOPR
+/
+WGPR
+/
+WWPR
+/
+WGIR
+/
+/
+
+
+
+SCHEDULE    ==========================================================
+
+
+TUNING
+-- Init           max    min   incre   chop    cut
+     0.0001       31     0.02      5    0.3    0.3                    /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.2    0.3    0.001                               /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       10    1E-3   2000    2    1      0.01    0.01          /
+/
+
+
+METHOD
+IMPEC
+/
+
+
+
+--Request FIP reports, group, sep and well data, and solution maps.
+
+SAVEEND
+
+RPTPRINT
+0 1 0 1 1 1 0 1 0 0 /
+
+--Specify solution maps of pressure and saturations
+
+--RPTSCHED
+--DENO DENG DENW  KRO  KRG  KRW  VOIL  VGAS  VWAT  BOIL  BGAS  BWAT
+/
+
+--One stage separator conditions
+
+SEPCOND
+Sep Field 1 60 14.7 /
+/
+
+--Define injection and production wells
+
+--2000a WELLSPEC is used for back-compatibility, prefered keyword is WELSPECS
+--WELLSPEC
+--P Field 7 7 8400 Sep /
+
+WELSPECS
+P2     FIELD     35     41     8110   OIL /
+P3     FIELD     80     42     8110   OIL /
+P4     FIELD     80     330    8110   OIL /
+P5     FIELD     100    370    8110   OIL /
+P6     FIELD     120    330    8110   OIL /
+P7     FIELD     44     36     8110   OIL /
+P8     FIELD     38     37     8110   OIL /
+P9     FIELD     210    40     8110   OIL /
+P10    FIELD     40     90     8110   OIL /
+P11    FIELD     44     110    8110   OIL /
+P12    FIELD     120     50    8110   OIL /
+P13    FIELD     43     320    8110   OIL /
+P14    FIELD     40     70     8110   OIL /
+P15    FIELD     50     140    8110   OIL /
+P16    FIELD     190    350    8110   OIL /
+P17    FIELD     60     190    8110   OIL /
+P18    FIELD     170    44     8110   OIL /
+P19    FIELD     120    180    8110   OIL /
+P20    FIELD     38     150    8110   OIL /
+P21    FIELD     38     200    8110   OIL /
+P22    FIELD     44     44     8110   OIL /
+P23    FIELD     45     27     8110   OIL /
+P24    FIELD     120    230    8110   OIL /
+P25    FIELD     100    240    8110   OIL /
+P26    FIELD     140    290    8110   OIL /
+/
+
+--2000a uses WELSEPC to associate separator with wells
+WSEPCOND
+P2  SEP /   
+P3  SEP /   
+P4  SEP /   
+P5  SEP /   
+P6  SEP /   
+P7  SEP /   
+P8  SEP /   
+P9  SEP /   
+P10 SEP /   
+P11 SEP /   
+P12 SEP /   
+P13 SEP /   
+P14 SEP /   
+P15 SEP /   
+P16 SEP /   
+P17 SEP /   
+P18 SEP /   
+P19 SEP /   
+P20 SEP /   
+P21 SEP /   
+P22 SEP /   
+P23 SEP /   
+P24 SEP /   
+P25 SEP /   
+P26 SEP /   
+/
+
+COMPDAT
+P2   35    41    5   6   1*   0.5   5000   2* /
+P3   80    42    5   6   1*   0.5   5000   2* /
+P4   80    330   5   6   1*   0.5   5000   2* /
+P5   100   370   5   6   1*   0.5   5000   2* /
+P6   120   330   5   6   1*   0.5   5000   2* /
+P7   44    36    5   6   1*   0.5   5000   2* /
+P8   38    37    5   6   1*   0.5   5000   2* /
+P9   210   40    5   6   1*   0.5   5000   2* /
+P10  40    90    5   6   1*   0.5   5000   2* /
+P11  44    110   5   6   1*   0.5   5000   2* /
+P12  120   50    5   6   1*   0.5   5000   2* /
+P13  43    320   5   6   1*   0.5   5000   2* /
+P14  40    70    5   6   1*   0.5   5000   2* /
+P15  50   140    5   6   1*   0.5   5000   2* /
+P16  190  350    5   6   1*   0.5   5000   2* /
+P17  60   190    5   6   1*   0.5   5000   2* /
+P18  170  44     5   6   1*   0.5   5000   2* /
+P19  120  180    5   6   1*   0.5   5000   2* /
+P20  38   150    5   6   1*   0.5   5000   2* /
+P21  38   200    5   6   1*   0.5   5000   2* /
+P22  44   44     5   6   1*   0.5   5000   2* /
+P23  45   27     5   6   1*   0.5   5000   2* /
+P24  120  230    5   6   1*   0.5   5000   2* /
+P25  100  240    5   6   1*   0.5   5000   2* /
+P26  140  290    5   6   1*   0.5   5000   2* /
+/
+
+
+WCONPROD
+P2      OPEN    ORAT    15000   1000 /
+P3      OPEN    ORAT    15000   1000 /
+P4      OPEN    ORAT    15000   1000 /
+P5      OPEN    ORAT    15000   1000 /
+P6      OPEN    ORAT    15000   1000 /
+P7      OPEN    ORAT    15000   1000 /
+P8      OPEN    ORAT    15000   1000 /
+P9      OPEN    ORAT    15000   1000 /
+P10     OPEN    ORAT    15000   1000 /
+P11     OPEN    ORAT    15000   1000 /
+P12     OPEN    ORAT    15000   1000 /
+P13     OPEN    ORAT    15000   1000 /
+P14     OPEN    ORAT    15000   1000 /
+P15     OPEN    ORAT    15000   1000 /
+P16     OPEN    ORAT    15000   1000 /
+P17     OPEN    ORAT    15000   1000 /
+P18     OPEN    ORAT    15000   1000 /
+P19     OPEN    ORAT    15000   1000 /
+P20     OPEN    ORAT    15000   1000 /
+P21     OPEN    ORAT    15000   1000 /
+P22     OPEN    ORAT    15000   1000 /
+P23     OPEN    ORAT    15000   1000 /
+P24     OPEN    ORAT    15000   1000 /
+P25     OPEN    ORAT    15000   1000 /
+P26     OPEN    ORAT    15000   1000 /
+/
+
+--Limits on water cut and GOR
+--Note limit is on water cut, rather than water-oil ratio
+
+GRUPLIM
+Field 2* 0.8333 10 1* A Y /
+/
+--Define injection well
+
+WELLSTRE
+Solvent 1.0  0.0 0.0 0.0 0.0 0.0 0.0/
+/
+
+
+
+WELSPECS
+I1   FIELD   150   39   8335   GAS /
+/
+
+
+
+COMPDAT
+I1  150  39   1   1   1*   0.5   5000   2* /
+/
+
+
+
+WCONINJE
+I1  Solvent  OPEN  RATE  10000  10000000000/
+/
+
+
+TSTEP
+1  4  
+/
+
+END
