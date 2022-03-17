@@ -183,8 +183,11 @@ public:
     Type_A_r<OCP_DBL> ACTNUM;    ///< Records the index of Active region for each grid.
 
     // Saturation tables & bubble point pressure
+    TableSet        SWFN_T; ///< Table set of SWFN.
     TableSet        SWOF_T; ///< Table set of SWOF.
+    TableSet        SGFN_T; ///< Table set of SGFN.
     TableSet        SGOF_T; ///< Table set of SGOF.
+    TableSet        SOF3_T; ///< Table set of SOF3.
     TableSet        PBVD_T; ///< Table set of PBVD.
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 

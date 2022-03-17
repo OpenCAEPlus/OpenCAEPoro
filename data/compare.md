@@ -236,16 +236,15 @@ Linear solver time:  1413.86s
 Simulation time:     2905.24s
 
 
-
 OCP_FIM
+
 
 Final time:          2000.000 Days
 Total time steps:    53
-Total Newton steps:  217 (+5 wasted steps)
-Total linear steps:  1294 (+40 wasted steps)
-Linear solve time:   1424.577s (75.943%)
-Simulation time:     1875.844s
-
+Total Newton steps:  215 (+5 wasted steps)
+Total linear steps:  1278 (+40 wasted steps)
+Linear solve time:   1403.826s (74.590%)
+Simulation time:     1882.050s
 
 ```
 

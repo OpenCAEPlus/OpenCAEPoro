@@ -41,13 +41,16 @@ int main(int argc, const char* argv[])
 
     // Step 1. Read params from an input file to internal params data structure.
     // Note: The keywords are almost compatible with Ecl simulator; see Keywords.md.
-    ParamRead rp;
-    rp.ReadInputFile(argv[1]);
+    {
+        ParamRead rp;
+        rp.ReadInputFile(argv[1]);
 
-    // Step 2. Set params using command-line and internal params data structure, and
-    // setup static information, such as active grids, and connections between them.
-    // Note: Memory allocation for linear systems will also be done at this time.
-    simulator.SetupSimulator(rp, argc, argv);
+        // Step 2. Set params using command-line and internal params data structure, and
+        // setup static information, such as active grids, and connections between them.
+        // Note: Memory allocation for linear systems will also be done at this time.
+        simulator.SetupSimulator(rp, argc, argv);
+    }
+
 
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturations, moles of components, and initial

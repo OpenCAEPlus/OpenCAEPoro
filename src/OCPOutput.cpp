@@ -669,7 +669,7 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     outF << sep01 << "\n";
 
 
-    static bool flag = true;
+    static bool flag = false;
     // Print once
     if (flag) {
         outF << "DX : feet";

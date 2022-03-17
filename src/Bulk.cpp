@@ -118,7 +118,14 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         EQUIL.PcOW = rs_param.EQUIL[3];
         EQUIL.DGOC = rs_param.EQUIL[4];
         EQUIL.PcGO = rs_param.EQUIL[5];
-        SATmode    = PHASE_ODGW01;
+
+        if (rs_param.SOF3_T.data.size() > 0) {
+            SATmode = PHASE_ODGW02;
+        }
+        else {
+            SATmode = PHASE_ODGW01;
+        }
+        
         
         for (USI i = 0; i < rs_param.NTPVT; i++)
             flashCal.push_back(new MixtureComp(rs_param, i));
@@ -1187,7 +1194,7 @@ void Bulk::Flash()
         //if (phaseNum[n] == 2)
         //    cout << n << endl;
     }
-    // OutputInfo(39);
+    // OutputInfo(0);
     // cout << "==================================" << endl;
 #ifdef DEBUG
     CheckSat();
@@ -2128,8 +2135,7 @@ void Bulk::OutputInfo(const OCP_USI& n) const
         }
     }
     cout << phaseExist[bIdP + 0] << "   ";
-    cout << S[bIdP + 0] << "   ";
-    cout << kr[bIdP + 0] << "   ";
+    cout << xi[bIdP + 0] << "   ";
     cout << endl;
 
     if (phaseExist[bIdP + 1]) {
@@ -2143,8 +2149,7 @@ void Bulk::OutputInfo(const OCP_USI& n) const
     }
 
     cout << phaseExist[bIdP + 1] << "   ";
-    cout << S[bIdP + 1] << "   ";
-    cout << kr[bIdP + 1] << "   ";
+    cout << xi[bIdP + 1] << "   ";
     cout << endl;
     cout << vf[n] << "   " << rockVp[n] << "   ";
     cout << fabs(vf[n] - rockVp[n]) / rockVp[n] << endl;

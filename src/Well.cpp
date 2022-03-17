@@ -831,7 +831,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             for (USI i = 0; i < myBulk.numCom; i++) {
                 qt += qi_lbmol[i];
             }
-            if (fabs(qt) > TINY /* && false*/) {
+            if (fabs(qt) > TINY && qt > 0) {
 
                 /*cout << name << endl;
                 vector<OCP_DBL> tmpNiP(qi_lbmol);
@@ -1129,6 +1129,7 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
 {
     OCP_FUNCNAME;
 
+    cout << fixed;
     cout << "----------------------------" << endl;
     cout << name << ":    " << opt.optMode << "   " << setprecision(3) << BHP << endl;
     for (USI p = 0; p < numPerf; p++) {
@@ -1139,6 +1140,7 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
              << perf[p].location << "  " << setw(2) << perf[p].I + 1 << "  " << setw(2)
              << perf[p].J + 1 << "  " << setw(2) << perf[p].K + 1 << "  " << setw(10)
              << setprecision(6) << perf[p].WI << "  "               // ccf
+             << setprecision(3) << perf[p].radius << "  "               // ccf
              << setw(8) << setprecision(4) << perf[p].kh << "  "    // kh
              << setw(8) << setprecision(2) << perf[p].depth << "  " // depth
              << setprecision(3) << perf[p].P << "  "                // Pp

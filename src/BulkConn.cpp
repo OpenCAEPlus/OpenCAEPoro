@@ -528,6 +528,11 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const
 
             if (!myBulk.phaseExist[uId_np_j]) continue;
 
+            // test
+            //OCP_DBL vb = myBulk.vf[bId] / myBulk.rockVp[bId];
+            //OCP_DBL ve = myBulk.vf[eId] / myBulk.rockVp[eId];
+            //OCP_DBL vu = (uId == bId ? vb : ve);
+
             OCP_DBL phaseVelocity = upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {
                 OCP_DBL dNi = dt * phaseVelocity * myBulk.xi[uId_np_j] *

@@ -54,12 +54,12 @@ void FlowUnit_OW::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
     SWOF.Eval_All(0, Sw, data, cdata);
     OCP_DBL krw = data[1];
     OCP_DBL kro = data[2];
-    OCP_DBL Pcw = -data[3];
+    OCP_DBL Pcwo = -data[3];
 
     kr_out[0] = kro;
     kr_out[1] = krw;
     pc_out[0] = 0;
-    pc_out[1] = Pcw;
+    pc_out[1] = Pcwo;
 }
 
 void FlowUnit_OW::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
@@ -71,13 +71,13 @@ void FlowUnit_OW::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc
     OCP_DBL dKrwdSw = cdata[1];
     OCP_DBL krow = data[2];
     OCP_DBL dKrowdSw = cdata[2];
-    OCP_DBL Pcw = -data[3];
+    OCP_DBL Pcwo = -data[3];
     OCP_DBL dPcwdSw = -cdata[3];
 
     kr_out[0] = krow;
     kr_out[1] = krw;
     pc_out[0] = 0;
-    pc_out[1] = Pcw;
+    pc_out[1] = Pcwo;
 
     dkrdS[0] = 0;
     dkrdS[1] = dKrowdSw;
@@ -113,12 +113,12 @@ void FlowUnit_OG::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
     SGOF.Eval_All(0, Sg, data, cdata);
     OCP_DBL krg = data[1];
     OCP_DBL kro = data[2];
-    OCP_DBL Pcg = data[3];
+    OCP_DBL Pcgo = data[3];
 
     kr_out[0] = kro;
     kr_out[1] = krg;
     pc_out[0] = 0;
-    pc_out[1] = Pcg;
+    pc_out[1] = Pcgo;
 }
 
 void FlowUnit_OG::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
@@ -144,28 +144,6 @@ OCP_DBL FlowUnit_ODGW::CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog,
     return kro;
 }
 
-OCP_DBL FlowUnit_ODGW::CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
-    OCP_DBL dkrwdSw, OCP_DBL dkrowdSw, OCP_DBL dkrgdSg,
-    OCP_DBL dkrogdSg, OCP_DBL& out_dkrodSw,
-    OCP_DBL& out_dkrodSg) const
-{
-    OCP_DBL kro, dkrodSw, dkrodSg;
-    kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));
-
-    dkrodSw =
-        kroMax * ((dkrowdSw / kroMax + dkrwdSw) * (krog / kroMax + krg) - (dkrwdSw));
-    dkrodSg =
-        kroMax * ((krow / kroMax + krw) * (dkrogdSg / kroMax + dkrgdSg) - (dkrgdSg));
-
-    if (kro < 0) {
-        kro = 0;
-        dkrodSg = 0;
-        dkrodSw = 0;
-    }
-    out_dkrodSw = dkrodSw;
-    out_dkrodSg = dkrodSg;
-    return kro;
-}
 
 OCP_DBL FlowUnit_ODGW::CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw,
     const OCP_DBL& krog, const OCP_DBL& krow) const
@@ -178,22 +156,6 @@ OCP_DBL FlowUnit_ODGW::CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw,
     return kro;
 }
 
-OCP_DBL FlowUnit_ODGW::CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw,
-    const OCP_DBL& krog, const OCP_DBL& krow,
-    const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw,
-    OCP_DBL& dkroSg, OCP_DBL& dkroSw) const
-{
-    OCP_DBL tmp = Sg + Sw - Swco;
-    if (tmp <= TINY) {
-        dkroSg = 0;
-        dkroSw = 0;
-        return kroMax;
-    }
-    OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
-    dkroSg = (krog + Sg * dkrogSg - kro) / tmp;
-    dkroSw = (krow + (Sw - Swco) * dkrowSw - kro) / tmp;
-    return kro;
-}
 
 ///////////////////////////////////////////////
 // FlowUnit_ODGW01
@@ -222,12 +184,12 @@ void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_
     SWOF.Eval_All(0, Sw, data, cdata);
     OCP_DBL krw = data[1];
     OCP_DBL krow = data[2];
-    OCP_DBL Pcw = -data[3];
+    OCP_DBL Pcwo = -data[3];
 
     SGOF.Eval_All(0, Sg, data, cdata);
     OCP_DBL krg = data[1];
     OCP_DBL krog = data[2];
-    OCP_DBL Pcg = data[3];
+    OCP_DBL Pcgo = data[3];
 
     OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
     // OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
@@ -236,8 +198,8 @@ void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_
     kr_out[1] = krg;
     kr_out[2] = krw;
     pc_out[0] = 0;
-    pc_out[1] = Pcg;
-    pc_out[2] = Pcw;
+    pc_out[1] = Pcgo;
+    pc_out[2] = Pcwo;
 }
 
 void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
@@ -252,7 +214,7 @@ void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL
     OCP_DBL dKrwdSw = cdata[1];
     OCP_DBL krow = data[2];
     OCP_DBL dKrowdSw = cdata[2];
-    OCP_DBL Pcw = -data[3];
+    OCP_DBL Pcwo = -data[3];
     OCP_DBL dPcwdSw = -cdata[3];
 
     SGOF.Eval_All(0, Sg, data, cdata);
@@ -260,7 +222,7 @@ void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL
     OCP_DBL dKrgdSg = cdata[1];
     OCP_DBL krog = data[2];
     OCP_DBL dKrogdSg = cdata[2];
-    OCP_DBL Pcg = data[3];
+    OCP_DBL Pcgo = data[3];
     OCP_DBL dPcgdSg = cdata[3];
 
     OCP_DBL dKrodSg{ 0 }, dKrodSw{ 0 }, kro{ 0 };
@@ -278,8 +240,8 @@ void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL
     kr_out[1] = krg;
     kr_out[2] = krw;
     pc_out[0] = 0;
-    pc_out[1] = Pcg;
-    pc_out[2] = Pcw;
+    pc_out[1] = Pcgo;
+    pc_out[2] = Pcwo;
 
     dkrdS[0] = 0;
     dkrdS[1] = dKrodSg;
@@ -302,39 +264,222 @@ void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL
     dPcjdS[8] = dPcwdSw;
 }
 
+OCP_DBL FlowUnit_ODGW01::CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
+    OCP_DBL dkrwdSw, OCP_DBL dkrowdSw, OCP_DBL dkrgdSg,
+    OCP_DBL dkrogdSg, OCP_DBL& out_dkrodSw,
+    OCP_DBL& out_dkrodSg) const
+{
+    OCP_DBL kro, dkrodSw, dkrodSg;
+    kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));
+
+    dkrodSw =
+        kroMax * ((dkrowdSw / kroMax + dkrwdSw) * (krog / kroMax + krg) - (dkrwdSw));
+    dkrodSg =
+        kroMax * ((krow / kroMax + krw) * (dkrogdSg / kroMax + dkrgdSg) - (dkrgdSg));
+
+    if (kro < 0) {
+        kro = 0;
+        dkrodSg = 0;
+        dkrodSw = 0;
+    }
+    out_dkrodSw = dkrodSw;
+    out_dkrodSg = dkrodSg;
+    return kro;
+}
+
+OCP_DBL FlowUnit_ODGW01::CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw,
+    const OCP_DBL& krog, const OCP_DBL& krow,
+    const OCP_DBL& dkrogSg, const OCP_DBL& dkrowSw,
+    OCP_DBL& dkroSg, OCP_DBL& dkroSw) const
+{
+    OCP_DBL tmp = Sg + Sw - Swco;
+    if (tmp <= TINY) {
+        dkroSg = 0;
+        dkroSw = 0;
+        return kroMax;
+    }
+    OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
+    dkroSg = (krog + Sg * dkrogSg - kro) / tmp;
+    dkroSw = (krow + (Sw - Swco) * dkrowSw - kro) / tmp;
+    return kro;
+}
+
 void FlowUnit_ODGW01::Generate_SWPCWG()
 {
     if (SGOF.IsEmpty()) OCP_ABORT("SGOF is missing!");
     if (SWOF.IsEmpty()) OCP_ABORT("SWOF is missing!");
 
     std::vector<OCP_DBL> Sw(SWOF.GetCol(0));
-    std::vector<OCP_DBL> Pcw(SWOF.GetCol(3));
+    std::vector<OCP_DBL> Pcow(SWOF.GetCol(3));
     USI                  n = Sw.size();
     for (USI i = 0; i < n; i++) {
-        OCP_DBL Pcg = SGOF.Eval(0, 1 - Sw[i], 3);
-        Pcw[i] += Pcg;
+        OCP_DBL Pcgo = SGOF.Eval(0, 1 - Sw[i], 3);
+        Pcow[i] += Pcgo; // Pcgw
     }
 
-    SWPCWG.PushCol(Sw);
-    SWPCWG.PushCol(Pcw);
-    SWPCWG.SetRowCol();
+    SWPCGW.PushCol(Sw);
+    SWPCGW.PushCol(Pcow);
+    SWPCGW.SetRowCol();
 }
 
 ///////////////////////////////////////////////
 // FlowUnit_ODGW02
 ///////////////////////////////////////////////
 
+FlowUnit_ODGW02::FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i)
+{
+    SWFN.Setup(rs_param.SWFN_T.data[i]);
+    SGFN.Setup(rs_param.SGFN_T.data[i]);
+    SOF3.Setup(rs_param.SOF3_T.data[i]);
+
+    kroMax = SOF3.GetCol(1).back();
+    Swco = SWFN.GetCol(0)[0];
+
+    data.resize(3, 0);
+    cdata.resize(3, 0);
+
+    Generate_SWPCWG();
+}
+
 
 void FlowUnit_ODGW02::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
 {
+    OCP_DBL So = S_in[0];
+    OCP_DBL Sg = S_in[1];
+    OCP_DBL Sw = S_in[2];
 
+    SWFN.Eval_All(0, Sw, data, cdata);
+    OCP_DBL krw = data[1];
+    OCP_DBL Pcwo = -data[2];
+
+    SGFN.Eval_All(0, Sg, data, cdata);
+    OCP_DBL krg = data[1];
+    OCP_DBL Pcgo = data[2];
+
+    SOF3.Eval_All(0, So, data, cdata);
+    OCP_DBL krow = data[1];
+    OCP_DBL krog = data[2];
+
+    // OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
+    OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
+
+
+    kr_out[0] = kro;
+    kr_out[1] = krg;
+    kr_out[2] = krw;
+    pc_out[0] = 0;
+    pc_out[1] = Pcgo;
+    pc_out[2] = Pcwo;
 }
 
 void FlowUnit_ODGW02::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
     OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
 {
+    OCP_DBL So = S_in[0];
+    OCP_DBL Sg = S_in[1];
+    OCP_DBL Sw = S_in[2];
 
+    SWFN.Eval_All(0, Sw, data, cdata);
+    OCP_DBL krw        = data[1];
+    OCP_DBL dKrwdSw    = cdata[1];
+    OCP_DBL Pcwo       = -data[2];
+    OCP_DBL dPcwodSw   = -cdata[2];
+
+    SGFN.Eval_All(0, Sg, data, cdata);
+    OCP_DBL krg        = data[1];
+    OCP_DBL dKrgdSg    = cdata[1];
+    OCP_DBL Pcgo       = data[2];
+    OCP_DBL dPcgodSg   = cdata[2];
+
+    SOF3.Eval_All(0, So, data, cdata);
+    OCP_DBL krow       = data[1];
+    OCP_DBL dKrowdSo   = cdata[1];
+    OCP_DBL krog       = data[2];
+    OCP_DBL dKrogdSo   = cdata[2];
+
+    OCP_DBL dKroSo = 0;
+    // OCP_DBL kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSo, dKrgdSg, dKrogdSo, dKroSo);
+    OCP_DBL kro = CalKro_DefaultDer(Sg, Sw, krog, krow, dKrogdSo, dKrowdSo, dKroSo);
+
+    kr_out[0] = kro;
+    kr_out[1] = krg;
+    kr_out[2] = krw;
+    pc_out[0] = 0;
+    pc_out[1] = Pcgo;
+    pc_out[2] = Pcwo;
+
+    dkrdS[0] = dKroSo;
+    dkrdS[1] = 0;
+    dkrdS[2] = 0;
+    dkrdS[3] = 0;
+    dkrdS[4] = dKrgdSg;
+    dkrdS[5] = 0;
+    dkrdS[6] = 0;
+    dkrdS[7] = 0;
+    dkrdS[8] = dKrwdSw;
+
+    dPcjdS[0] = 0;
+    dPcjdS[1] = 0;
+    dPcjdS[2] = 0;
+    dPcjdS[3] = 0;
+    dPcjdS[4] = dPcgodSg;
+    dPcjdS[5] = 0;
+    dPcjdS[6] = 0;
+    dPcjdS[7] = 0;
+    dPcjdS[8] = dPcwodSw;
 }
+
+OCP_DBL FlowUnit_ODGW02::CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
+    OCP_DBL dkrwdSw, OCP_DBL dkrowdSo, OCP_DBL dkrgdSg,
+    OCP_DBL dkrogdSo, OCP_DBL& out_dkrodSo) const
+{
+    OCP_DBL kro, dKrodSo;
+
+    kro = kroMax * ((krow / kroMax + krw) * (krog / kroMax + krg) - (krw + krg));
+    dKrodSo = dkrowdSo * (krog / kroMax + krg) + dkrogdSo * (krow / kroMax + krw);
+
+    if (kro < 0) {
+        kro = 0;
+        dKrodSo = 0;
+    }
+    out_dkrodSo = dKrodSo;
+    return kro;
+}
+
+OCP_DBL FlowUnit_ODGW02::CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw,
+    const OCP_DBL& krog, const OCP_DBL& krow,
+    const OCP_DBL& dkrogdSo, const OCP_DBL& dkrowdSo,
+    OCP_DBL& out_dkrodSo) const
+{
+    OCP_DBL tmp = Sg + Sw - Swco;
+    OCP_DBL kro = (Sg * krog + (Sw - Swco) * krow) / tmp;
+    out_dkrodSo = (Sg * dkrogdSo + (Sw - Swco) * dkrowdSo) / tmp;
+
+    if (tmp <= TINY) {
+        kro = kroMax;
+        out_dkrodSo = 0;
+    }
+    return kro;
+}
+
+void FlowUnit_ODGW02::Generate_SWPCWG()
+{
+    if (SWFN.IsEmpty()) OCP_ABORT("SWFN is missing!");
+    if (SGFN.IsEmpty()) OCP_ABORT("SGFN is missing!");
+
+    std::vector<OCP_DBL> Sw(SWFN.GetCol(0));
+    std::vector<OCP_DBL> Pcow(SWFN.GetCol(2));
+    USI                  n = Sw.size();
+    for (USI i = 0; i < n; i++) {
+        OCP_DBL Pcgo = SGFN.Eval(0, 1 - Sw[i], 2);
+        Pcow[i] += Pcgo; // pcgw
+    }
+
+    SWPCGW.PushCol(Sw);
+    SWPCGW.PushCol(Pcow);
+    SWPCGW.SetRowCol();
+}
+
 
 
 /*----------------------------------------------------------------------------*/

@@ -103,13 +103,26 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
 {
     TableSet* myPtr = nullptr;
 
-    switch (Map_Str2Int(&varName[0], varName.size())) {
+    switch (Map_Str2Int(&varName[0], varName.size())) 
+    {
+        case Map_Str2Int("SWFN", 4):
+            myPtr = &SWFN_T;
+            break;
+
         case Map_Str2Int("SWOF", 4):
             myPtr = &SWOF_T;
             break;
 
+        case Map_Str2Int("SGFN", 4):
+            myPtr = &SGFN_T;
+            break;
+
         case Map_Str2Int("SGOF", 4):
             myPtr = &SGOF_T;
+            break;
+
+        case Map_Str2Int("SOF3", 4):
+            myPtr = &SOF3_T;
             break;
 
         case Map_Str2Int("PBVD", 4):
@@ -159,10 +172,16 @@ void ParamReservoir::Init()
 /// Initialize tables.
 void ParamReservoir::InitTable()
 {
+    SWFN_T.name   = "SWFN";
+    SWFN_T.colNum = 3;
     SWOF_T.name   = "SWOF";
     SWOF_T.colNum = 4;
+    SGFN_T.name   = "SGFN";
+    SGFN_T.colNum = 3;
     SGOF_T.name   = "SGOF";
     SGOF_T.colNum = 4;
+    SOF3_T.name   = "SOF3";
+    SOF3_T.colNum = 3;
     PBVD_T.name   = "PBVD";
     PBVD_T.colNum = 2;
     PVCO_T.name   = "PVCO";
@@ -595,7 +614,7 @@ void ParamReservoir::CheckParam()
     CheckEQUIL();
     CheckDenGra();
     CheckPhase();
-    CheckPhaseTab();
+    // CheckPhaseTab();
     CheckRegion();
 }
 

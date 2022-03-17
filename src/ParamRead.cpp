@@ -121,8 +121,11 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputMULTIPLY(ifs);
                 break;
 
+            case Map_Str2Int("SWFN", 4):
             case Map_Str2Int("SWOF", 4):
+            case Map_Str2Int("SGFN", 4):
             case Map_Str2Int("SGOF", 4):
+            case Map_Str2Int("SOF3", 4):
             case Map_Str2Int("PVCO", 4):
             case Map_Str2Int("PVDO", 4):
             case Map_Str2Int("PVDG", 4):

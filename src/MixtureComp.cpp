@@ -130,7 +130,7 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
 
     for (USI i = 0; i < NC; i++) {
         for (USI j = 0; j < NC; j++) {
-            cout << BIC[i * NC + j] << "   ";
+            cout << setw(10) << BIC[i * NC + j] << "   ";
         }
         cout << endl;
     }
