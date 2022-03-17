@@ -831,7 +831,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             for (USI i = 0; i < myBulk.numCom; i++) {
                 qt += qi_lbmol[i];
             }
-            if (fabs(qt) > TINY/* && qt > 0*/) {
+            if (fabs(qt) > TINY && qt > 0) {
 
                 /*cout << name << endl;
                 vector<OCP_DBL> tmpNiP(qi_lbmol);
