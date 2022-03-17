@@ -45,7 +45,7 @@ public:
     OCP_ULL GetNRSPiters() override { return 0; }
 
 protected:
-    USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
+    // USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
                      ///< others.
     // std_Gamma* = std_Rho* * GRAVITY_FACTOR.
     // only one of rho and gamma is needed, the other will be calculated from it.

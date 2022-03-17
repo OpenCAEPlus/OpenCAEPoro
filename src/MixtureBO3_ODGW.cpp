@@ -23,8 +23,8 @@ BOMixture_ODGW::BOMixture_ODGW(const ParamReservoir& rs_param, const USI& i)
     PVCO.Setup(rs_param.PVCO_T.data[i]);
     PVDG.Setup(rs_param.PVDG_T.data[i]);
     
-    data.resize(5, 0);
-    cdata.resize(5, 0);
+    data.resize(6, 0);
+    cdata.resize(6, 0);
 }
 
 

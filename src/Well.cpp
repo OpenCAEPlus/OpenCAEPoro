@@ -128,8 +128,8 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                         else
                             opt.zi[1] = 1;
                         break;
-                    case PHASE_ODGW:
                     case PHASE_DOGW:
+                    case PHASE_ODGW:                   
                         if (opt.optMode == ORATE_MODE)
                             opt.zi[0] = 1;
                         else if (opt.optMode == GRATE_MODE)
@@ -831,7 +831,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             for (USI i = 0; i < myBulk.numCom; i++) {
                 qt += qi_lbmol[i];
             }
-            if (fabs(qt) > TINY && qt > 0) {
+            if (fabs(qt) > TINY/* && qt > 0*/) {
 
                 /*cout << name << endl;
                 vector<OCP_DBL> tmpNiP(qi_lbmol);

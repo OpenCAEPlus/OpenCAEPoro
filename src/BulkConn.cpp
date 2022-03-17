@@ -488,9 +488,19 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
 
             // (fix bugs) if exup is false, then trans and vec are zero.
             if (exup) {
+
+                // test
+                //OCP_DBL vb = myBulk.vf[bId] / myBulk.rockVp[bId];
+                //OCP_DBL ve = myBulk.vf[eId] / myBulk.rockVp[eId];
+                //OCP_DBL vu = (uId == bId ? vb : ve);
+                //OCP_DBL vd = (uId == bId ? ve : vb);
+                //OCP_DBL tmp = pow((vu / vd), 2.0 / 3.0);
+                //cout << fixed << setprecision(3) << vu << "   " << vd << "   "
+                //    << tmp << endl;
+
+
                 OCP_USI uId_np_j = uId * np + j;
-                OCP_DBL trans =
-                    CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
+                OCP_DBL trans =  CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
                 upblock_Trans[c * np + j]    = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
             } else {
@@ -527,11 +537,6 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const
             OCP_USI uId_np_j = uId * np + j;
 
             if (!myBulk.phaseExist[uId_np_j]) continue;
-
-            // test
-            //OCP_DBL vb = myBulk.vf[bId] / myBulk.rockVp[bId];
-            //OCP_DBL ve = myBulk.vf[eId] / myBulk.rockVp[eId];
-            //OCP_DBL vu = (uId == bId ? vb : ve);
 
             OCP_DBL phaseVelocity = upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {

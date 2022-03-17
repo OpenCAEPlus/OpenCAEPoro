@@ -304,8 +304,8 @@ Final time:          1000.000 Days
 Total time steps:    143
 Total Newton steps:  245 (+7 wasted steps)
 Total linear steps:  2293 (+68 wasted steps)
-Linear solve time:   0.037s (41.269%)
-Simulation time:     0.090s
+Linear solve time:   0.037s (43.154%)
+Simulation time:     0.086s
 
 ```
 

@@ -73,8 +73,14 @@ void Bulk::InputParam(ParamReservoir& rs_param)
             EQUIL.PcOW = rs_param.EQUIL[3];
             EQUIL.DGOC = rs_param.EQUIL[4];
             EQUIL.PcGO = rs_param.EQUIL[5];
-            SATmode    = PHASE_ODGW01;
             PVTmode    = PHASE_ODGW;
+
+            if (rs_param.SOF3_T.data.size() > 0) {
+                SATmode = PHASE_ODGW02;
+            }
+            else {
+                SATmode = PHASE_ODGW01;
+            }
         }
         rs_param.numPhase = numPhase;
         rs_param.numCom   = numCom;
@@ -98,9 +104,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         default:
             OCP_ABORT("Wrong Type!");
             break;
-        }
-
-        
+        }    
 
         cout << "Bulk::InputParam --- BLACKOIL" << endl;
 
@@ -1194,7 +1198,14 @@ void Bulk::Flash()
         //if (phaseNum[n] == 2)
         //    cout << n << endl;
     }
-    // OutputInfo(0);
+/*    OutputInfo(14549);
+    OutputInfo(14948);
+    OutputInfo(14949);
+    OutputInfo(14950);
+    OutputInfo(15350); 
+    OutputInfo(15351);
+    OutputInfo(15748);
+    OutputInfo(15749);*/    
     // cout << "==================================" << endl;
 #ifdef DEBUG
     CheckSat();
@@ -1588,6 +1599,8 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
+    // bool tmpflag = true;
+
     OCP_DBL dVe = 0.0;
     for (OCP_USI n = 0; n < numBulk; n++) {
         dVe = fabs(vf[n] - rockVp[n]) / rockVp[n];
@@ -1596,9 +1609,11 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
                  << " is too big!" << endl;
             // OutputInfo(n);
             return false;
+            // tmpflag = false;
         }
     }
     // OutputInfo(39);
+    // if (!tmpflag) return false;
     return true;
 }
 
@@ -2118,13 +2133,14 @@ void Bulk::OutputInfo(const OCP_USI& n) const
 
     cout << "------------------------------" << endl;
     cout << "Bulk[" << n << "]" << endl;
-    cout << fixed << setprecision(18);
+    cout << fixed << setprecision(3);
     for (USI i = 0; i < numCom; i++) {
         cout << Ni[bIdC + i] << "   ";
     }
     cout << endl << P[n] << "   " << T;
     cout << endl;
 
+    cout << fixed << setprecision(8);
     if (phaseExist[bIdP + 0]) {
         for (USI i = 0; i < numCom; i++) {
             cout << xij[bIdPC + i] << "   ";
@@ -2151,8 +2167,13 @@ void Bulk::OutputInfo(const OCP_USI& n) const
     cout << phaseExist[bIdP + 1] << "   ";
     cout << xi[bIdP + 1] << "   ";
     cout << endl;
+
+    cout << fixed << setprecision(3);
+
     cout << vf[n] << "   " << rockVp[n] << "   ";
+    cout << fixed << setprecision(12);
     cout << fabs(vf[n] - rockVp[n]) / rockVp[n] << endl;
+    cout << fixed << setprecision(3);
     cout << vj[bIdP] << "   " << vj[bIdP + 1] << "   " << vj[bIdP + 2] << endl;
     cout << "------------------------------" << endl;
 }

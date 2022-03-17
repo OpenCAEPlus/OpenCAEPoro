@@ -2492,8 +2492,7 @@ GRAVITY
 64.6936    1.01032   0.9193 /
 
 
-RPTPROPS
- SWFN SGFN SOF2 SOF3 /
+--RPTPROPS--SWFN SGFN SOF2 SOF3 /
 
 
 SOLUTION   =====================================================================
