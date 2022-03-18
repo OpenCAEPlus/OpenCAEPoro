@@ -1198,7 +1198,7 @@ void Bulk::Flash()
         //if (phaseNum[n] == 2)
         //    cout << n << endl;
     }
-    OutputInfo(0);
+    // OutputInfo(0);
   // OutputInfo(14948);
   // OutputInfo(14949);
   // OutputInfo(14950);

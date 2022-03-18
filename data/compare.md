@@ -1,6 +1,6 @@
 ### SPE1A
 
-![compare](figure\spe1a.png)
+![compare](figure\spe1a\spe1a.png)
 
 ```
 ---------------------------------------------------
@@ -62,7 +62,7 @@ Simulation time:     0.741s
 
 ### SPE1B
 
-![spe1b](figure\spe1b.png)
+![spe1b](figure\spe1b\spe1b.png)
 
 ```
 ---------------------------------------------------
@@ -122,7 +122,7 @@ Simulation time:     0.759s
 
 ### SPE9
 
-![spe9](figure\spe9.png)
+![spe9](figure\spe9\spe9.png)
 
 ```
 ---------------------------------------------------
@@ -181,7 +181,7 @@ Simulation time:     15.686s
 
 ### SPE10
 
-![spe10](figure\spe10.png)
+![spe10](figure\spe10\spe10.png)
 
 ```
 PS_FIM
@@ -212,7 +212,7 @@ Simulation time:     1882.050s
 
 ### CP
 
-![CP](figure\CP.png)
+![CP](figure\Cornerpoint\CP.png)
 
 
 
@@ -274,21 +274,21 @@ Simulation time:     0.086s
 
 ### SPE5
 
-![spe5](figure\spe5.png)
+![spe5](figure\spe5\spe5.png)
 
 饱和度差异对比 (OCP_FIM)
 
-![FIM10_0.1](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\FIM10_0.1.png)
-
-![FIM10_0.05](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\FIM10_0.05.png)
+![spe5](figure\spe5\IMPEC1_0.1.png)
 
 
+
+![spe5](figure\spe5\IMPEC1_0.05.png)
 
 饱和度差异对比 (OCP_IMPEC)
 
-![IMPEC1_0.1](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\IMPEC1_0.1.png)
+![spe5](figure\spe5\FIM10_0.1.png)
 
-![IMPEC1_0.05](D:\Lsz\Matlab_practice\PennSim\ReadPRT\SPE5\IMPEC1_0.05.png)
+![spe5](figure\spe5\FIM10_0.05.png)
 
 ```
 
@@ -377,7 +377,7 @@ Simulation time:     17.579s
 
 ### SPE3
 
-![compare](figure/spe3.png)
+![compare](figure/spe3/spe3.png)
 
 饱和度误差均在 5% 以内
 
