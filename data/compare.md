@@ -1,6 +1,6 @@
 ### SPE1A
 
-![compare](D:\Lsz\OpenCAEPoro\data\figure\spe1a.png)
+![compare](figure\spe1a.png)
 
 ```
 ---------------------------------------------------
@@ -62,7 +62,7 @@ Simulation time:     0.741s
 
 ### SPE1B
 
-![spe1b](D:\Lsz\OpenCAEPoro\data\figure\spe1b.png)
+![spe1b](figure\spe1b.png)
 
 ```
 ---------------------------------------------------
@@ -122,7 +122,7 @@ Simulation time:     0.759s
 
 ### SPE9
 
-![spe9](D:\Lsz\OpenCAEPoro\data\figure\spe9.png)
+![spe9](figure\spe9.png)
 
 ```
 ---------------------------------------------------
@@ -181,7 +181,7 @@ Simulation time:     15.686s
 
 ### SPE10
 
-![spe10](D:\Lsz\OpenCAEPoro\data\figure\spe10.png)
+![spe10](figure\spe10.png)
 
 ```
 PS_FIM
@@ -212,7 +212,7 @@ Simulation time:     1882.050s
 
 ### CP
 
-![CP](D:\Lsz\OpenCAEPoro\data\figure\CP.png)
+![CP](figure\CP.png)
 
 
 
@@ -274,7 +274,7 @@ Simulation time:     0.086s
 
 ### SPE5
 
-![spe5](D:\Lsz\OpenCAEPoro\data\figure\spe5.png)
+![spe5](figure\spe5.png)
 
 饱和度差异对比 (OCP_FIM)
 
@@ -377,7 +377,7 @@ Simulation time:     17.579s
 
 ### SPE3
 
-![compare](D:\Lsz\Matlab_practice\PennSim\ReadSummary\20220129\spe3\compare.png)
+![compare](figure/spe3.png)
 
 饱和度误差均在 5% 以内
 
