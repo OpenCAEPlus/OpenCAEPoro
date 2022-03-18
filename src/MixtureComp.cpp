@@ -755,7 +755,7 @@ void MixtureComp::CalFugPhi(OCP_DBL* fugT, const OCP_DBL* xj)
 
 void MixtureComp::CalFugPhiAll()
 {
-    OCP_DBL       tmp, tmp01, tmp02;
+    OCP_DBL       tmp;// , tmp01, tmp02;
     const OCP_DBL m1    = delta1;
     const OCP_DBL m2    = delta2;
     const OCP_DBL m1Mm2 = delta1M2;
@@ -1263,7 +1263,7 @@ bool MixtureComp::StableNR(const USI& Id)
     OCP_DBL Se    = Dnorm2(NC, &resSTA[0]);
     OCP_DBL alpha = 1;
     USI     iter  = 0;
-    OCP_DBL Se0   = Se;
+    // OCP_DBL Se0   = Se;
 
     while (Se > Stol) {
 
@@ -1356,7 +1356,6 @@ void MixtureComp::CalFugXSTA()
 
     OCP_DBL  C, D, E, G;
     OCP_DBL  Cxk, Dxk, Exk, Gxk;
-    OCP_DBL* phiXT;
     OCP_DBL  aik;
     G = (zj + m1 * bj) / (zj + m2 * bj);
 
@@ -2144,7 +2143,6 @@ void MixtureComp::CalFugXAll()
 
         OCP_DBL  C, D, E, G;
         OCP_DBL  Cxk, Dxk, Exk, Gxk;
-        OCP_DBL* phiXT;
         OCP_DBL  aik;
         G = (zj + delta1 * bj) / (zj + delta2 * bj);
 
@@ -2364,7 +2362,7 @@ void MixtureComp::CalMuPXLBC()
     OCP_DBL der1IJ, der2IJ, der3J, der4J, der6J, der7J, der8J;
     OCP_DBL Tri, tmp;
     OCP_DBL xTj, xPj, xVj;
-    OCP_DBL derxTj, derxPj, derMWj, derxVj, derxi;
+    OCP_DBL derxTj, derxPj, derMWj, derxVj;
 
     if (NP == 1) {
         // NP = 1, then dxij / dP = 0, d MJ / dP = 0
@@ -2777,7 +2775,7 @@ void MixtureComp::CaldXsdXp()
     }
 
     USI row01 = NP * (NC + 1);
-    USI col01 = row01;
+    // USI col01 = row01;
     // cout << "FsXs" << endl;
     // for (USI i = 0; i < row01; i++) {
     //	for (USI j = 0; j < col01; j++) {

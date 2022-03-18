@@ -329,7 +329,7 @@ void Grid::CalSomeInfo()const
     OCP_DBL dyMin = 1E8;   OCP_USI nyi = 0;
     OCP_DBL dzMax = 0;     OCP_USI nza = 0;
     OCP_DBL dzMin = 1E8;   OCP_USI nzi = 0;
-    USI I, J, K;
+    // USI I, J, K;
     for (OCP_USI n = 0; n < numGrid; n++) {
         //if (!activeMap_G2B[nn].IsAct())
         //    continue;

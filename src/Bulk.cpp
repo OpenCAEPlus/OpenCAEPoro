@@ -2057,8 +2057,8 @@ void Bulk::CalRelResFIM(ResFIM& resFIM) const
 {
     OCP_FUNCNAME;
 
-    OCP_USI tmpid01 = -1;
-    OCP_USI tmpid02 = -1;
+    //OCP_USI tmpid01 = -1;
+    //OCP_USI tmpid02 = -1;
     OCP_DBL tmp;
 
     const USI len = numCom + 1;
@@ -2067,14 +2067,14 @@ void Bulk::CalRelResFIM(ResFIM& resFIM) const
             tmp = fabs(resFIM.res[n * len + i] / rockVp[n]);
             if (resFIM.maxRelRes_v < tmp) {
                 resFIM.maxRelRes_v = tmp;
-                tmpid01            = n;
+                // tmpid01            = n;
             }
         }
         for (USI i = 1; i < len; i++) {
             tmp = fabs(resFIM.res[n * len + i] / Nt[n]);
             if (resFIM.maxRelRes_mol < tmp) {
                 resFIM.maxRelRes_mol = tmp;
-                tmpid02              = n;
+                // tmpid02              = n;
             }
         }
     }

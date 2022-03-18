@@ -26,23 +26,27 @@ public:
     void BOMixtureInit(const ParamReservoir& rs_param);
 
     // return gamma
-    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override {};
-    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override {};
-    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override {};
+    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used here!"); return 0; };
+    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
+    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
     OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
                          const OCP_DBL* Ziin) override
     {
-        OCP_ABORT("Should not be used in Black Oil mode!");
+        OCP_ABORT("Should not be used in Black Oil mode!");  return 0;
     };
 
     // usless in BLKOIL
-    USI GetFtype() override { return 100; }
-    OCP_SIN GetMinEigenSkip() override { return 0; }
+    USI GetFtype() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 100; }
+    OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     bool GetFlagSkip() override { return false; }
-    OCP_ULL GetSSMSTAiters() override { return 0; }
-    OCP_ULL GetNRSTAiters() override { return 0; }
-    OCP_ULL GetSSMSPiters() override { return 0; }
-    OCP_ULL GetNRSPiters() override { return 0; }
+    OCP_ULL GetSSMSTAiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetNRSTAiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetSSMSPiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetNRSPiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
 
 protected:
     // USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
@@ -66,19 +70,25 @@ class BOMixture_W : public BOMixture
 public:
 
     BOMixture_W() = default;
-    BOMixture_W(const ParamReservoir& rs_param, const USI& i) {};
+    BOMixture_W(const ParamReservoir& rs_param, const USI& i) { OCP_ABORT("Not Completed!"); };
 
     void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-        const OCP_DBL* Ziin) override {};
+        const OCP_DBL* Ziin) override {
+        OCP_ABORT("Not Completed!");
+    };
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override {};
+        const OCP_DBL* lastKs) override {
+        OCP_ABORT("Not Completed!");
+    };
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override {};
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override {};
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override {};
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override {};
+        const OCP_DBL* lastKs) override {
+        OCP_ABORT("Not Completed!");
+    };
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override { OCP_ABORT("Not Completed!"); return 0; };
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override { OCP_ABORT("Not Completed!"); return 0; };
+    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Not Completed!"); return 0; };
 
 private:
     OCPTable PVTW;

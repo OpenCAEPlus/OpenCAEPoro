@@ -259,7 +259,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
     for (auto& wG : wellGroup) {
         if (wG.reInj) {
             const USI nc = myBulk.GetComNum();
-            const USI np = myBulk.GetPhaseNum();
+            // const USI np = myBulk.GetPhaseNum();
             fill(wG.zi.begin(), wG.zi.end(), 0.0);
             for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
                 Daxpy(nc, 1.0, &wells[prod].qi_lbmol[0], &wG.zi[0]);

@@ -652,7 +652,7 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
     }
 
     USI     np = rs.bulk.numPhase;
-    USI     nc = rs.bulk.numCom;
+    // USI     nc = rs.bulk.numCom;
     USI OIndex = rs.bulk.phase2Index[OIL];
     USI GIndex = rs.bulk.phase2Index[GAS];
     USI WIndex = rs.bulk.phase2Index[WATER];

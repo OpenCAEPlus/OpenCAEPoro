@@ -169,7 +169,6 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             opt.maxRate *=
                                 (opt.xiINJ *
                                  1000); // lbmol / ft3 -> lbmol / Mscf for gas
-                            int tmp = 1;
                             break;
                         }
                         if (i == len - 1) {
@@ -1134,7 +1133,7 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
     cout << name << ":    " << opt.optMode << "   " << setprecision(3) << BHP << endl;
     for (USI p = 0; p < numPerf; p++) {
         vector<OCP_DBL> Qitmp(perf[p].qi_lbmol);
-        OCP_DBL         qt = Dnorm1(myBulk.numCom, &Qitmp[0]);
+        // OCP_DBL         qt = Dnorm1(myBulk.numCom, &Qitmp[0]);
         OCP_USI         n  = perf[p].location;
         cout << setw(3) << p << "   " << perf[p].state << "   " << setw(6)
              << perf[p].location << "  " << setw(2) << perf[p].I + 1 << "  " << setw(2)
