@@ -315,7 +315,8 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
 
         OCP_DBL temp    = cr * Vp0 - vfp;
         myLS.diagVal[n] = temp;
-        myLS.b[n]       = temp * P + dt * (vf - Vp);
+        myLS.b[n] = temp * P + dt * (vf - Vp);
+        // myLS.b[n] = temp * P + (vf - Vp);
     }
 
     // flux term
