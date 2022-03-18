@@ -1198,14 +1198,14 @@ void Bulk::Flash()
         //if (phaseNum[n] == 2)
         //    cout << n << endl;
     }
-/*    OutputInfo(14549);
-    OutputInfo(14948);
-    OutputInfo(14949);
-    OutputInfo(14950);
-    OutputInfo(15350); 
-    OutputInfo(15351);
-    OutputInfo(15748);
-    OutputInfo(15749);*/    
+  // OutputInfo(15349);
+  // OutputInfo(14948);
+  // OutputInfo(14949);
+  // OutputInfo(14950);
+  // OutputInfo(15350); 
+  // OutputInfo(15351);
+  // OutputInfo(15748);
+  // OutputInfo(15749);    
     // cout << "==================================" << endl;
 #ifdef DEBUG
     CheckSat();
@@ -2152,6 +2152,7 @@ void Bulk::OutputInfo(const OCP_USI& n) const
     }
     cout << phaseExist[bIdP + 0] << "   ";
     cout << xi[bIdP + 0] << "   ";
+    cout << S[bIdP + 0] << "   ";
     cout << endl;
 
     if (phaseExist[bIdP + 1]) {
@@ -2166,6 +2167,7 @@ void Bulk::OutputInfo(const OCP_USI& n) const
 
     cout << phaseExist[bIdP + 1] << "   ";
     cout << xi[bIdP + 1] << "   ";
+    cout << S[bIdP + 1] << "   ";
     cout << endl;
 
     cout << fixed << setprecision(3);

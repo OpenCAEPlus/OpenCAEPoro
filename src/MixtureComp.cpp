@@ -166,6 +166,45 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                             const OCP_DBL& Tin, const OCP_DBL* Sjin,
                             const OCP_DBL& Vpore, const OCP_DBL* Ziin)
 {
+    ///////////////////////////////////////////////////
+    // test      
+            
+    //P = 3978.475;     
+    //Ni[0] = 640.533; Ni[1] = 129.459; Ni[2] = 8.631; Ni[3] = 20.138; 
+    //Ni[4] = 57.537;  Ni[5] = 43.153;  Ni[6] = 14.384;
+
+    //P = 3980.258;
+    //Ni[0] = 630.125; Ni[1] = 136.094; Ni[2] = 9.073; Ni[3] = 21.170;
+    //Ni[4] = 60.486;  Ni[5] = 45.365;  Ni[6] = 15.122;
+
+    //T = 620.000;
+    //Nt = Dnorm1(NC, &Ni[0]);
+    //nu[0] = Nt;
+    //setZi();
+    //NP = 1;
+    //x[0] = zi;
+    //CalAiBi();
+    //CalAjBj(Aj[0], Bj[0], x[0]);
+    //SolEoS(Zj[0], Aj[0], Bj[0]);
+    //vf = 0;
+    //OCP_DBL tmp;
+    //for (USI j = 0; j < NP; j++) {
+
+    //    vector<OCP_DBL>& xj = x[j];
+    //    tmp = Zj[j] * GAS_CONSTANT * T / P;
+    //    for (USI i = 0; i < NC; i++) {
+    //        tmp -= xj[i] * Vshift[i];
+    //    }
+    //    vC[j] = tmp * nu[j];
+    //    vf += vC[j];
+    //    xiC[j] = 1 / tmp;
+    //}
+    //cout << "Done!" << endl;
+
+
+    // test
+    /////////////////////////////////////////////////////////
+
     ftype = 0;
     lNP   = 0;
 
@@ -173,28 +212,6 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     nu[0] = 1;
     setPT(Pin, Tin);
     setZi(Ziin);
-
-    /*P = 3141.891199116627376497;
-    T = 620;
-    Ni[0] = 412006.191294977033976465;
-    Ni[1] = 124205.937273548101074994;
-    Ni[2] = 31277.425163545609393623;
-    Ni[3] = 12536.596993130742703215;
-    Ni[4] = 10105.751385482784826308;
-    Ni[5] = 3074.287443731149778614;*/
-
-    // P = 3141.918998650599405664;
-    // T = 620;
-    // Ni[0] = 412036.697253708960488439;
-    // Ni[1] = 124214.982234804701874964;
-    // Ni[2] = 31278.621428034439304611;
-    // Ni[3] = 12536.533455543054515147;
-    // Ni[4] = 10106.194716114834591281;
-    // Ni[5] = 3074.491011479843109555;
-
-    // Nt = Dnorm1(NC, &Ni[0]);
-    // setZi();
-
     PhaseEquilibrium();
     // Attention Nt = 1 now
     CalMW();

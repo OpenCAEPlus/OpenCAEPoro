@@ -442,7 +442,7 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
     for (OCP_USI c = 0; c < numConn; c++) {
         bId         = iteratorConn[c].BId;
         eId         = iteratorConn[c].EId;
-        OCP_DBL Akd = area[c];
+        OCP_DBL Akd = CONV1 * CONV2 * area[c];
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -495,12 +495,12 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
                 //OCP_DBL vu = (uId == bId ? vb : ve);
                 //OCP_DBL vd = (uId == bId ? ve : vb);
                 //OCP_DBL tmp = pow((vu / vd), 2.0 / 3.0);
-                //cout << fixed << setprecision(3) << vu << "   " << vd << "   "
-                //    << tmp << endl;
+                /*cout << fixed << setprecision(9) << vu << "   " << vd << "   "
+                    << tmp << endl;*/
 
 
                 OCP_USI uId_np_j = uId * np + j;
-                OCP_DBL trans =  CONV1 * CONV2 * Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
+                OCP_DBL trans =  Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
                 upblock_Trans[c * np + j]    = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
             } else {
@@ -755,7 +755,6 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
     for (OCP_USI c = 0; c < numConn; c++) {
         bId         = iteratorConn[c].BId;
         eId         = iteratorConn[c].EId;
-        OCP_DBL Akd = area[c];
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -816,11 +815,13 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     OCP_USI bId_np_j, eId_np_j, uId_np_j;
     OCP_DBL Pbegin, Pend, rho, dP;
     OCP_DBL tmp, dNi;
+    OCP_DBL Akd;
     // Flux Term
     // Calculate the upblock at the same time.
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
+        Akd = CONV1 * CONV2 * area[c];
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -858,7 +859,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 
             uId_np_j = uId * np + j;
             if (!myBulk.phaseExist[uId_np_j]) continue;
-            tmp = dt * CONV1 * CONV2 * area[c] * myBulk.xi[uId_np_j] *
+            tmp = dt * Akd * myBulk.xi[uId_np_j] *
                   myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
             for (USI i = 0; i < nc; i++) {
                 dNi = tmp * myBulk.xij[uId_np_j * nc + i];
