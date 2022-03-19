@@ -16,15 +16,28 @@
 - Easy to parallelize linear solvers
 - Easy to optimize code at certain steps
 
+## Overall design
 
-## Linear solvers
-![Linear solver](OCPStructure.png)
+<img src="OCPStructure.png" alt="Structure" width="500"
+     style="display: block; margin: 0 auto"/>
+
+<div STYLE="page-break-after: always;"></div>
 
 ## Flow chart
-![Flow chart](FlowChart.png)
 
-## Linear solvers
-![Linear solver](OCPLinearSolver.png)
+<img src="FlowChart.png" alt="Flow chart" width="600"
+     style="display: block; margin: 0 auto"/>
+
+<div STYLE="page-break-after: always;"></div>
+
+## Linear solution methods
+
+<img src="OCPLinearSolver.png" alt="Linear solver" width="550"
+     style="display: block; margin: 0 auto"/>
+
+<div STYLE="page-break-after: always;"></div>
 
 ## Parallel module
-![Parallel module](OCPParallelModules.png)
+
+<img src="OCPParallelModules.png" alt="Parallel modules" width="550"
+     style="display: block; margin: 0 auto"/>
