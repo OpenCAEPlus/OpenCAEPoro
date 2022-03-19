@@ -127,6 +127,14 @@ OCP_DBL OCPTable::Eval_Inv(const USI& j, const OCP_DBL& val, const USI& destj)
 
 void OCPTable::Display() const
 {
+    cout << "---------------------" << endl
+         << "Pressure Distribution" << endl
+         << "---------------------" << endl;
+    cout << "   Depth         "
+         << "   Poil         "
+         << "   Pgas         "
+         << "   Pwat         " << endl;
+         
     for (USI i = 0; i < nRow; i++) {
         for (USI j = 0; j < nCol; j++) {
             cout << data[j][i] << "\t";
