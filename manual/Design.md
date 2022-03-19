@@ -32,12 +32,5 @@
 
 ## Linear solution methods
 
-<img src="OCPLinearSolver.png" alt="Linear solver" width="550"
-     style="display: block; margin: 0 auto"/>
-
-<div STYLE="page-break-after: always;"></div>
-
-## Parallel module
-
-<img src="OCPParallelModules.png" alt="Parallel modules" width="550"
+<img src="OCPLinearSolver.png" alt="Linear solver" width="500"
      style="display: block; margin: 0 auto"/>
