@@ -117,6 +117,73 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     return true;
 }
 
+bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL& dt = ctrl.current_dt;
+
+    // first check : Pressure check
+    OCP_INT flagCheck = rs.CheckP();
+    switch (flagCheck) {
+    case 1:
+        cout << "well change" << endl;
+        dt /= 2;
+        rs.ResetVal00IMPEC();
+        return false;
+    case 2:
+        cout << "well change" << endl;
+        dt /= 1;
+        rs.ResetVal00IMPEC();
+        // rs.ResetWellIMPEC();
+        return false;
+    default:
+        break;
+    }
+
+    rs.CalFLuxIMPEC();
+
+    // second check : CFL check
+    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    if (cfl > 1) {
+        dt /= 2;
+        rs.ResetVal01IMPEC();
+        cout << "CFL is too big" << endl;
+        return false;
+    }
+
+    rs.MassConseveIMPEC(dt);
+
+    // third check: Ni check
+    if (!rs.CheckNi()) {
+        dt /= 2;
+        rs.ResetVal02IMPEC();
+        cout << "Negative Ni occurs\n";
+        return false;
+    }
+
+    rs.CalVpore();
+    rs.CalFlashIMPEC();
+    rs.CalKrPc();
+    rs.CalConnFluxIMPEC();
+
+    return true;
+}
+
+bool OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL& dt = ctrl.current_dt;
+    // fouth check: Volume error check
+    if (!rs.CheckVe(0.01)) {
+        // continue NR 
+        rs.bulk.ResetNi();
+        rs.allWells.CalTrans(rs.bulk);
+        rs.allWells.CalFlux(rs.bulk);
+        rs.allWells.CalProdWeight(rs.bulk);
+        rs.allWells.CaldG(rs.bulk);
+        return false;
+    }
+    return true;
+}
+
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());

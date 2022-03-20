@@ -248,6 +248,12 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs)
                 case Map_Str2Int("VWAT", 4):
                     detailInfo.VWAT = true;
                     break;
+                case Map_Str2Int("XMF", 3):
+                    detailInfo.XMF = true;
+                    break;
+                case Map_Str2Int("YMF", 3):
+                    detailInfo.YMF = true;
+                    break;
                 default:
                     break;
             }

@@ -199,6 +199,10 @@ private:
 	vector<OCP_DBL> Vcvis; ///< Critical volume used for viscosity calculations only.
 	vector<OCP_DBL> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
 	vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
+    vector<OCP_DBL> BIC; ///< Binary interaction between hydrocarbon components
+
+    // Model information
+    bool miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
 	// Initial properties
 	USI	NC; ///< num of hydrocarbon components
@@ -207,7 +211,6 @@ private:
 	OCP_DBL T; ///< Current Temperature
 	vector<OCP_DBL>   zi; ///< mole fraction of hydrocarbon components
 	vector<COMP>  comp; ///< properties of hydrocarbon components
-	vector<OCP_DBL> BIC; ///< Binary interaction between hydrocarbon components
 	USI lId; ///< index of lightest components
 	EoScontrol EoSctrl; ///< method params for solving phase equilibrium
 	USI ftype{ 0 };

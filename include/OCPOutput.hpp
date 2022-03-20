@@ -186,6 +186,8 @@ private:
     bool VOIL{false}; ///< Oil viscosity of grids.
     bool VGAS{false}; ///< Gas viscosity of grids.
     bool VWAT{false}; ///< Water viscosity of grids.
+    bool XMF{false}; ///< liquid component mole fractions.
+    bool YMF{false}; ///< gas component mole fractions.
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.

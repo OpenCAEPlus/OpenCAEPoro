@@ -206,6 +206,17 @@ void AllWells::CalFlux(const Bulk& myBulk)
     }
 }
 
+void AllWells::CalProdWeight(const Bulk& myBulk)
+{
+    OCP_FUNCNAME;
+
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+            wells[w].CalProdWeight(myBulk);
+        }
+    }
+}
+
 void AllWells::CaldG(const Bulk& myBulk)
 {
     OCP_FUNCNAME;

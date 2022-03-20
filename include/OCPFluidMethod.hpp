@@ -32,9 +32,11 @@ public:
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    bool UpdateProperty01(Reservoir& rs, OCPControl& ctrl);
 
     /// Determine if NR iteration finishes.
     bool FinishNR() { return true; }
+    bool FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 };

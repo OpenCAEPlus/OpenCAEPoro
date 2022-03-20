@@ -100,6 +100,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     switch (method) {
         case IMPEC:
             return impec.UpdateProperty(rs, ctrl);
+            // return impec.UpdateProperty01(rs, ctrl);
         case FIM:
             return fim.UpdateProperty(rs, ctrl);
         default:
@@ -113,6 +114,7 @@ bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
     switch (method) {
         case IMPEC:
             return impec.FinishNR();
+            // return impec.FinishNR01(rs, ctrl);
         case FIM:
             return fim.FinishNR(rs, ctrl);
         default:

@@ -1524,18 +1524,25 @@ void Bulk::CalMaxChange()
     dVmax       = 0;
     OCP_DBL tmp = 0;
     OCP_USI id;
+    OCP_USI ndPmax, ndNmax, ndSmax, ndVmax;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
 
         // dP
         tmp   = fabs(P[n] - lP[n]);
-        dPmax = dPmax < tmp ? tmp : dPmax;
+        if (dPmax < tmp) {
+            dPmax = tmp;
+            ndPmax = n;
+        }
 
         // dS
         for (USI j = 0; j < numPhase; j++) {
             id    = n * numPhase + j;
             tmp   = fabs(S[id] - lS[id]);
-            dSmax = dSmax < tmp ? tmp : dSmax;
+            if (dSmax < tmp) {
+                dSmax = tmp;
+                ndSmax = n;
+            }
         }
 
         // dN
@@ -1545,13 +1552,23 @@ void Bulk::CalMaxChange()
             tmp = fabs(max(Ni[id], lNi[id]));
             if (tmp > TINY) {
                 tmp   = fabs(Ni[id] - lNi[id]) / tmp;
-                dNmax = dNmax < tmp ? tmp : dNmax;
+                if (dNmax < tmp) {
+                    dNmax = tmp;
+                    ndNmax = n;
+                }
             }
         }
 
         tmp   = fabs(vf[n] - rockVp[n]) / rockVp[n];
-        dVmax = dVmax < tmp ? tmp : dVmax;
+        if (dVmax < tmp) {
+            dVmax = tmp;
+            ndVmax = n;
+        }
     }
+
+    //cout << scientific << setprecision(6);
+    //cout << dPmax << "   " << dNmax << "   " << dSmax << "   " << setw(20) << dVmax << endl;
+    //cout << ndPmax << "   " << ndNmax << "   " << ndSmax << "   " << ndVmax << endl;
 }
 
 /// Return true if no negative pressure and false otherwise.
@@ -1823,6 +1840,17 @@ void Bulk::CalSomeInfo(const Grid& myGrid) const
     myGrid.GetIJKGrid(I, J, K, nPerxi);
     cout << "Perxmin : " << scientific << PerxMin << "   (" << I << ", " << J << ", "
          << K << ")" << endl;
+}
+
+void Bulk::CorrectPressure()
+{
+    OCP_DBL dP = 0;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (fabs(vfp[n]) > TINY) {
+            dP = (vf[n] - rockVp[n]) / vfp[n];;
+            P[n] -= dP;
+        }
+    }
 }
 
 /////////////////////////////////////////////////////////////////////

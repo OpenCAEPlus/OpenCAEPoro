@@ -82,8 +82,11 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     else
         OmegaB.resize(NC, 0.077796074);
 
-    if (param.Vshift.activity)
+    if (param.Vshift.activity) {
         Vshift = param.Vshift.data[tar];
+        for (USI i = 0; i < NC; i++)
+            Vshift[i] *= (GAS_CONSTANT * OmegaB[i] *  Tc[i] / Pc[i]);
+    }      
     else
         Vshift.resize(NC, 0);
 
@@ -2073,6 +2076,24 @@ void MixtureComp::CalViscoLBC()
     OCP_DBL xijP;
     OCP_DBL xijV;
 
+    // test
+    //T = 750;
+    //P = 4867.594;
+    //x[0][0] = 0.657538;
+    //x[0][1] = 0.014955;
+    //x[0][2] = 0.003126;
+    //x[0][3] = 0.008749;
+    //x[0][4] = 0.008200;
+    //x[0][5] = 0.017913;
+    //x[0][6] = 0.035430;
+    //x[0][7] = 0.254089;
+    //CalAiBi();
+    //CalAjBj(Aj[0], Bj[0], x[0]);
+    //SolEoS(Zj[0], Aj[0], Bj[0]);
+    //CalMW();
+    //CalVfXiRho();
+    //test
+
     for (USI j = 0; j < NP; j++) {
         const vector<OCP_DBL>& xj  = x[j];
         vector<OCP_DBL>&       muA = muAux[j];
@@ -2099,7 +2120,7 @@ void MixtureComp::CalViscoLBC()
         muA[2] = 5.4402 * pow(xijT, 1.0 / 6) / sqrt(MW[j]) / pow(xijP, 2.0 / 3);
         muA[3] = xiC[j] * xijV;
 
-        if (muA[3] <= 0.18) {
+        if (muA[3] <= 0.18 && false) {
             muC[j] = muA[0] / muA[1] + 2.05 * 1E-4 * muA[3] / muA[2];
         } else {
             muA[4] = muA[3] * (muA[3] * (muA[3] * (LBCcoef[4] * muA[3] + LBCcoef[3]) +

@@ -434,6 +434,9 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
+    //static USI myiter = 0;
+    //myiter++;
+
     // calculate a step flux using iteratorConn
     OCP_USI bId, eId, uId;
     OCP_USI bId_np_j, eId_np_j;
@@ -504,6 +507,15 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
                 OCP_DBL trans =  Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
                 upblock_Trans[c * np + j]    = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
+
+                //if (bId == 14950 || eId == 14950) {
+                //    cout << bId << "   " << eId << "   ";
+                //    cout << fixed << setprecision(6) << dP << "   "
+                //        << setprecision(6) << trans << "   "
+                //        << setprecision(6) << upblock_Velocity[c * np + j] << endl;
+                //}
+                
+
             } else {
                 upblock_Trans[c * np + j]    = 0;
                 upblock_Velocity[c * np + j] = 0;

@@ -101,6 +101,8 @@ public:
     void CalTrans(const Bulk& myBulk);
     /// Calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
+    /// Calculate Prodweight 
+    void CalProdWeight(const Bulk& myBulk);
     /// Calculate dG.
     void CaldG(const Bulk& myBulk);
     /// Calculate Injection rate, total Injection, Production rate, total Production

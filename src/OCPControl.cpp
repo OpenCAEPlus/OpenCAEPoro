@@ -48,6 +48,8 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
             method = FIM;
         } else if (string(optset[2]) == "IMPEC") {
             method = IMPEC;
+        } else if (string(optset[2]) == "IMPEC_P") {
+            method = IMPEC_P;
         } else {
             OCP_ABORT("Wrong method param in command line!");
         }
@@ -163,6 +165,9 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
+
+
+    // cout << "FactorT: " << c << endl;
 }
 
 void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)

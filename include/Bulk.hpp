@@ -188,7 +188,7 @@ public:
     /// Allocate memory for WellbulkId
     void InitWellBulkId(const USI& n) { wellBulkId.reserve(n); }
 
-    
+    void CorrectPressure();
 
 private:
     /////////////////////////////////////////////////////////////////////
@@ -239,6 +239,7 @@ private:
     bool       gas;      ///< If true, gas phase could exist.
     bool       water;    ///< If true, water phase could exist.
     bool       disGas;   ///< If true, dissolve gas in live oil could exist.
+
 
     /////////////////////////////////////////////////////////////////////
     // Basic physical variables

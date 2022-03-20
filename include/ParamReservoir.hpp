@@ -118,6 +118,8 @@ public:
 
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
 
+    OCP_DBL surfracTR; ///<  The reference surface tension, flow is immiscible when the surface tension is greater than or equal tothis value.
+
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
     vector<string> SSMparamSP;  ///< Params for Solving Phase Spliting with SSM
@@ -171,6 +173,7 @@ public:
     bool gas{false};      ///< If true, gas phase could exist.
     bool water{false};    ///< If true, water phase could exist.
     bool disGas{false};   ///< If true, dissolve gas could exist in oil phase.
+    bool miscible{false}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     // Compositional Model
     EoSparam EoSp; ///< Initial component composition, used in compositional models.

@@ -628,7 +628,8 @@ void DetailInfo::InputParam(const OutputDetail& detail_param)
     VOIL = detail_param.VOIL;
     VGAS = detail_param.VGAS;
     VWAT = detail_param.VWAT;
-    
+    XMF = detail_param.XMF;
+    YMF = detail_param.YMF;
 }
 
 void DetailInfo::Setup(const string& dir)
@@ -651,14 +652,14 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    USI     np = rs.bulk.numPhase;
-    // USI     nc = rs.bulk.numCom;
-    USI OIndex = rs.bulk.phase2Index[OIL];
-    USI GIndex = rs.bulk.phase2Index[GAS];
-    USI WIndex = rs.bulk.phase2Index[WATER];
-    USI     nx  = rs.grid.GetGridNx();
-    USI     ny  = rs.grid.GetGridNy();
-    OCP_USI num = rs.grid.GetGridNum();
+    const USI     np = rs.bulk.numPhase;
+    const USI     nc = rs.bulk.numCom;
+    const USI OIndex = rs.bulk.phase2Index[OIL];
+    const USI GIndex = rs.bulk.phase2Index[GAS];
+    const USI WIndex = rs.bulk.phase2Index[WATER];
+    const USI     nx  = rs.grid.GetGridNx();
+    const USI     ny  = rs.grid.GetGridNy();
+    const OCP_USI num = rs.grid.GetGridNum();
     OCP_USI bId;
     OCP_USI tmpId;
     USI I, J, K;
@@ -1332,6 +1333,82 @@ void DetailInfo::PrintInfo(const string& dir, const Reservoir& rs,
         }
         outF << "\n\n";
     }
+
+    // liquid component mole fractions.
+    if (XMF && rs.bulk.comps) {     
+        for (USI i = 0; i < nc - 1; i++) {
+            // the ith component
+            outF << sep02 << "\n";
+            outF << "XMF : Oil  " << i+1 << "th Component"
+                << "                   ";
+            outF << fixed << setprecision(3) << days << "  DAYS";
+
+            for (OCP_USI n = 0; n < num; n++) {
+                if (n % nx == 0) outF << "\n";
+                if (n % (nx * ny) == 0) outF << "\n";
+
+                if (n % nx == 0) {
+                    rs.grid.GetIJKGrid(I, J, K, n);
+                    outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                }
+
+                if (rs.grid.MapG2B(n).IsAct()) {
+                    bId = rs.grid.MapG2B(n).GetId();
+                    tmpId = bId * np + OIndex;
+                    if (rs.bulk.phaseExist[tmpId]) {
+                        tmpId = tmpId * nc + i;
+                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId] << "";
+                    }
+                    else {
+                        outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
+                    }
+                }
+                else {
+                    outF << setw(10) << " --- ";
+                }
+            }
+            outF << "\n\n";
+        }
+    }
+
+    // gas component mole fractions.
+    if (YMF && rs.bulk.comps) {
+        for (USI i = 0; i < nc - 1; i++) {
+            // the ith component
+            outF << sep02 << "\n";
+            outF << "YMF : Gas  " << i << "th Component"
+                << "                   ";
+            outF << fixed << setprecision(3) << days << "  DAYS";
+
+            for (OCP_USI n = 0; n < num; n++) {
+                if (n % nx == 0) outF << "\n";
+                if (n % (nx * ny) == 0) outF << "\n";
+
+                if (n % nx == 0) {
+                    rs.grid.GetIJKGrid(I, J, K, n);
+                    outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                }
+
+                if (rs.grid.MapG2B(n).IsAct()) {
+                    bId = rs.grid.MapG2B(n).GetId();
+                    tmpId = bId * np + GIndex;
+                    if (rs.bulk.phaseExist[tmpId]) {
+                        tmpId = tmpId * nc + i;
+                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId] << "";
+                    }
+                    else {
+                        outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
+                    }
+                }
+                else {
+                    outF << setw(10) << " --- ";
+                }
+            }
+            outF << "\n\n";
+        }
+    }
+
+
 
     outF.close();
 }
