@@ -12,90 +12,91 @@
 #include "FluidSolver.hpp"
 
 /// Setup solution methods, including IMPEC and FIM.
-void FluidSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
+void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 {
     method = ctrl.GetMethod();
 
-    switch (method) {
-        case IMPEC:
-            cout << "Calling IMPEC method ..." << endl;
-            FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
-            impec.Setup(rs, FLSolver, ctrl);
-            break;
-        case FIM:
-            cout << "Calling FIM method ..." << endl;
-            FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
-            fim.Setup(rs, FLSolver, ctrl);
-            break;
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
+        impec.Setup(rs, FLSolver, ctrl);
+        break;
+    case FIM:
+    default:
+        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
+        fim.Setup(rs, FLSolver, ctrl);
     }
 
     FLSolver.AllocateLinearSolver();
 }
 
 /// Setup solution methods, including IMPEC and FIM.
-void FluidSolver::InitReservoir(Reservoir& rs) const
+void FluidSolver::InitReservoir(Reservoir &rs) const
 {
-    switch (method) {
-        case IMPEC:
-            rs.InitIMPEC();
-            break;
-        case FIM:
-            rs.InitFIM();
-            break;
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        rs.InitIMPEC();
+        break;
+    case FIM:
+        rs.InitFIM();
+        break;
+    default:
+        OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Prepare solution methods, including IMPEC and FIM.
-void FluidSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
+void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
 {
-    switch (method) {
-        case IMPEC:
-            impec.Prepare(rs, dt);
-            break;
-        case FIM:
-            fim.Prepare(rs, dt);
-            break;
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        impec.Prepare(rs, dt);
+        break;
+    case FIM:
+        fim.Prepare(rs, dt);
+        break;
+    default:
+        OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Assemble linear systems for IMPEC and FIM.
-void FluidSolver::AssembleMat(const Reservoir& rs, const OCP_DBL& dt)
+void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
 {
-    switch (method) {
-        case IMPEC:
-            rs.AssembleMatIMPEC(FLSolver, dt);
-            break;
-        case FIM:
-            fim.AssembleMat(FLSolver, rs, dt);
-            break;
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        rs.AssembleMatIMPEC(FLSolver, dt);
+        break;
+    case FIM:
+        fim.AssembleMat(FLSolver, rs, dt);
+        break;
+    default:
+        OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Solve linear systems for IMPEC and FIM.
-void FluidSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
+void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
 {
-    switch (method) {
-        case IMPEC:
-            impec.SolveLinearSystem(FLSolver, rs, ctrl);
-            break;
-        case FIM:
-            fim.SolveLinearSystem(FLSolver, rs, ctrl);
-            break;
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        impec.SolveLinearSystem(FLSolver, rs, ctrl);
+        break;
+    case FIM:
+        fim.SolveLinearSystem(FLSolver, rs, ctrl);
+        break;
+    default:
+        OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Update physical properties for IMPEC and FIM.
-bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -109,7 +110,7 @@ bool FluidSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 }
 
 /// Finish up Newton-Raphson iteration for IMPEC and FIM.
-bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
+bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -123,15 +124,16 @@ bool FluidSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
 }
 
 /// Finish up time step for IMPEC and FIM.
-void FluidSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
+void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
 {
-    switch (method) {
-        case IMPEC:
-            return impec.FinishStep(rs, ctrl);
-        case FIM:
-            return fim.FinishStep(rs, ctrl);
-        default:
-            OCP_ABORT("Wrong method type!");
+    switch (method)
+    {
+    case IMPEC:
+        return impec.FinishStep(rs, ctrl);
+    case FIM:
+        return fim.FinishStep(rs, ctrl);
+    default:
+        OCP_ABORT("Wrong method type!");
     }
 }
 

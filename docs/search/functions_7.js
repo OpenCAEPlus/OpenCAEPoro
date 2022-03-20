@@ -6,7 +6,7 @@ var searchData=
   ['initcflimpec_3',['InitCFLIMPEC',['../classBulk.html#a422015d6a8d410c93de5cf0fce1dcdde',1,'Bulk']]],
   ['initeosparam_4',['InitEoSparam',['../classEoSparam.html#abc508b9e4dae95448cff231cdc86d363',1,'EoSparam']]],
   ['initfim_5',['InitFIM',['../classReservoir.html#a10da8590d5e1551b4f353627f22005f6',1,'Reservoir']]],
-  ['initflash_6',['InitFlash',['../classBulk.html#a359527387e6594a374bca9dcf643037a',1,'Bulk::InitFlash()'],['../classMixture.html#a35f1e56ebe2fa3275c508ac6ebf86cba',1,'Mixture::InitFlash()'],['../classBOMixture.html#a4a5071287dc93675745e0e9b36cef169',1,'BOMixture::InitFlash()'],['../classMixtureComp.html#a8b72cc6b06566e239085d0ca4bbc4606',1,'MixtureComp::InitFlash()']]],
+  ['initflash_6',['InitFlash',['../classBulk.html#a359527387e6594a374bca9dcf643037a',1,'Bulk::InitFlash()'],['../classMixture.html#a35f1e56ebe2fa3275c508ac6ebf86cba',1,'Mixture::InitFlash()'],['../classBOMixture__W.html#a724cf199a749962724e756be8df5cbc7',1,'BOMixture_W::InitFlash()'],['../classBOMixture__OW.html#a0c9f8d22d4f130eb4704d5d146f1ddf1',1,'BOMixture_OW::InitFlash()'],['../classBOMixture__ODGW.html#a03ccad01d7532f50dee4d11d53410eec',1,'BOMixture_ODGW::InitFlash()'],['../classMixtureComp.html#a8b72cc6b06566e239085d0ca4bbc4606',1,'MixtureComp::InitFlash()']]],
   ['initimpec_7',['InitIMPEC',['../classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba',1,'Reservoir']]],
   ['initmethod_8',['InitMethod',['../classParamControl.html#aa8aa097406a259c53a38559a1d9af95d',1,'ParamControl']]],
   ['initparam_9',['InitParam',['../classLinearSolver.html#aeaf187fa541a97500b93765ef80b2dde',1,'LinearSolver']]],
@@ -14,7 +14,7 @@ var searchData=
   ['initsjpcbo_11',['InitSjPcBo',['../classBulk.html#ad313ce450846d30e0dcb6c83dd5f08fe',1,'Bulk']]],
   ['initsjpccomp_12',['InitSjPcComp',['../classBulk.html#a4a0c5f2e9aa2eb0a6e8f0fe1d9489724',1,'Bulk']]],
   ['inittable_13',['InitTable',['../classParamReservoir.html#a7c75da3d60afc482680853551316563d',1,'ParamReservoir']]],
-  ['inittime_14',['InitTime',['../classParamControl.html#a0335997f9ad714a2d062ed92953a35fb',1,'ParamControl::InitTime()'],['../classParamWell.html#ad3a0c7dcb849ccdcb3670d79aa65163d',1,'ParamWell::InitTime()'],['../classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba',1,'OCPControl::InitTime()']]],
+  ['inittime_14',['InitTime',['../classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba',1,'OCPControl::InitTime()'],['../classParamControl.html#a0335997f9ad714a2d062ed92953a35fb',1,'ParamControl::InitTime()'],['../classParamWell.html#ad3a0c7dcb849ccdcb3670d79aa65163d',1,'ParamWell::InitTime()']]],
   ['inittuning_15',['InitTuning',['../classParamControl.html#a1c15d9a1ddb22558c6555ef697b5b17e',1,'ParamControl']]],
   ['initwellbulkid_16',['InitWellBulkId',['../classBulk.html#ade7d8ff3accb89f1e9fe38de6555b0e6',1,'Bulk']]],
   ['inputbic_17',['InputBIC',['../classEoSparam.html#a113395c9a9207750cdcff12725f72d9c',1,'EoSparam']]],
@@ -61,7 +61,5 @@ var searchData=
   ['isact_58',['IsAct',['../classGB__Pair.html#a4036ead256735d60e8cb3cf67968c6d8',1,'GB_Pair']]],
   ['iscriticaltime_59',['IsCriticalTime',['../classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1',1,'OCPControl']]],
   ['isempty_60',['IsEmpty',['../classOCPTable.html#a8ce33f66b855ad5212c05a6d1ecf644a',1,'OCPTable']]],
-  ['isempty_5fpvdg_61',['IsEmpty_PVDG',['../classMixture.html#ab489a57e4a8a95a8b4f50975ee177d7f',1,'Mixture::IsEmpty_PVDG()'],['../classBOMixture.html#a81ab890bf14bef2fe2a8c03216c3ad5f',1,'BOMixture::IsEmpty_PVDG()']]],
-  ['isempty_5fsgof_62',['IsEmpty_SGOF',['../classFlowUnit.html#ae5cce0f7761b9630c4cdb04ee90f5771',1,'FlowUnit']]],
-  ['isempty_5fswof_63',['IsEmpty_SWOF',['../classFlowUnit.html#a2885f501d3bd4ea8cb5dad30ee6d102a',1,'FlowUnit']]]
+  ['isempty_5fpvdg_61',['IsEmpty_PVDG',['../classMixture.html#ab489a57e4a8a95a8b4f50975ee177d7f',1,'Mixture']]]
 ];

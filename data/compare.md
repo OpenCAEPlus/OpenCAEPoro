@@ -1,4 +1,6 @@
-### SPE1A
+# Numerical Results for Comparison
+
+## SPE1A
 
 ![compare](figure\spe1a\spe1a.png)
 
@@ -26,7 +28,9 @@ Total Newton steps:  5271 (+39 wasted steps)
 Total linear steps:  8327 (+73 wasted steps)
 Linear solve time:   0.816s (57.926%)
 Simulation time:     1.408s
+```
 
+```
 ---------------------------------------------------
 PS_FIM_10
 
@@ -39,7 +43,6 @@ Wasted Newton steps: 1
 Total linear steps:  1235
 Linear solver time:  3.62965s
 Simulation time:     4.08421s
-
 
 ---------------------------------------------------
 OCP_FIM_10
@@ -54,13 +57,11 @@ Total Newton steps:  481 (+1 wasted steps)
 Total linear steps:  6301 (+18 wasted steps)
 Linear solve time:   0.460s (62.080%)
 Simulation time:     0.741s
-
-
 ```
 
 
 
-### SPE1B
+## SPE1B
 
 ![spe1b](figure\spe1b\spe1b.png)
 
@@ -88,7 +89,9 @@ Total Newton steps:  3849 (+9 wasted steps)
 Total linear steps:  7198 (+15 wasted steps)
 Linear solve time:   0.654s (60.250%)
 Simulation time:     1.086s
+```
 
+```
 ---------------------------------------------------
 PS_FIM_10
 
@@ -101,7 +104,6 @@ Wasted Newton steps: 1
 Total linear steps:  1212
 Linear solver time:  2.6363s
 Simulation time:     3.08908s
-
 
 ---------------------------------------------------
 OCP_FIM_10
@@ -119,8 +121,7 @@ Simulation time:     0.759s
 ```
 
 
-
-### SPE9
+## SPE9
 
 ![spe9](figure\spe9\spe9.png)
 
@@ -148,6 +149,9 @@ Total Newton steps:  7486 (+43 wasted steps)
 Total linear steps:  9897 (+96 wasted steps)
 Linear solve time:   55.544s (61.784%)
 Simulation time:     89.900s
+```
+
+```
 ---------------------------------------------------
 PS_FIM_10
 
@@ -160,7 +164,6 @@ Wasted Newton steps: 53
 Total linear steps:  1061
 Linear solver time:  12.3944s
 Simulation time:     27.515s
-
 
 ---------------------------------------------------
 OCP_FIM_10
@@ -179,11 +182,12 @@ Simulation time:     15.686s
 
 
 
-### SPE10
+## SPE10
 
 ![spe10](figure\spe10\spe10.png)
 
 ```
+---------------------------------------------------
 PS_FIM
 
 Final time:          2000 Days
@@ -194,7 +198,7 @@ Total linear steps:  1305
 Linear solver time:  1413.86s
 Simulation time:     2905.24s
 
-
+---------------------------------------------------
 OCP_FIM
 
 .\OpenCAEPoro.exe ..\..\data\spe10\spe10.data
@@ -205,12 +209,11 @@ Total Newton steps:  215 (+5 wasted steps)
 Total linear steps:  1278 (+40 wasted steps)
 Linear solve time:   1403.826s (74.590%)
 Simulation time:     1882.050s
-
 ```
 
 
 
-### CP
+## CP
 
 ![CP](figure\Cornerpoint\CP.png)
 
@@ -240,7 +243,9 @@ Total Newton steps:  1999 (+3 wasted steps)
 Total linear steps:  13516 (+35 wasted steps)
 Linear solve time:   0.045s (38.852%)
 Simulation time:     0.115s
+```
 
+```
 ---------------------------------------------------
 PS_FIM_10
 
@@ -272,15 +277,13 @@ Simulation time:     0.086s
 
 
 
-### SPE5
+## SPE5
 
 ![spe5](figure\spe5\spe5.png)
 
 饱和度差异对比 (OCP_FIM)
 
 ![spe5](figure\spe5\IMPEC1_0.1.png)
-
-
 
 ![spe5](figure\spe5\IMPEC1_0.05.png)
 
@@ -291,10 +294,6 @@ Simulation time:     0.086s
 ![spe5](figure\spe5\FIM10_0.05.png)
 
 ```
-
-OCP 的 Flash 部分存在效率问题
-PS 数据图与下列数据有些差异，但结果几无二致。
-
 ------------------------------------------------------
 PS_IMPES
 
@@ -333,7 +332,9 @@ Total Newton steps:  10923 (+80 wasted steps)
 Total linear steps:  17386 (+156 wasted steps)
 Linear solve time:   1.153s (7.288%)
 Simulation time:     15.818s
+```
 
+```
 ------------------------------------------------------
 PS_FIM
 
@@ -370,12 +371,11 @@ Total Newton steps:  1633 (+26 wasted steps)
 Total linear steps:  4970 (+58 wasted steps)
 Linear solve time:   13.091s (74.471%)
 Simulation time:     17.579s
-
 ```
 
 
 
-### SPE3
+## SPE3
 
 ![compare](figure/spe3/spe3.png)
 
@@ -408,7 +408,6 @@ OCP_IMPEC
 
 .\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  IMPEC  0.1  1  0.1
 
-
 SSMSTA:     23835193
 NRSTA:      19507
 SSMSP:      24063413
@@ -420,7 +419,9 @@ Total Newton steps:  3670 (+0 wasted steps)
 Total linear steps:  7318 (+0 wasted steps)
 Linear solve time:   1.037s (2.543%)
 Simulation time:     40.777s
+```
 
+```
 ------------------------------------------------------
 PS_FIM
 
@@ -434,8 +435,8 @@ Linear solver time:  5.61642s
 Simulation time:     39.5691s
 
 Method     iters     maxIt    tol
-SSMSTA   17690167   300    1E-12  1E-2
-SSMSP    3674930     100    1E-5
+SSMSTA   17690167    300     1E-12   1E-2
+SSMSP    3674930     100     1E-5
 NRSP     1222903      55     1E-12
 
 ------------------------------------------------------
@@ -457,4 +458,3 @@ Total linear steps:  747 (+0 wasted steps)
 Linear solve time:   4.464s (30.473%)
 Simulation time:     14.649s
 ```
-

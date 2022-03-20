@@ -12,7 +12,7 @@
 #include "OCP.hpp"
 
 /// Read from input file and set control and output params.
-void OpenCAEPoro::InputParam(ParamRead& param)
+void OpenCAEPoro::InputParam(ParamRead &param)
 {
     reservoir.InputParam(param);
     control.InputParam(param.paramControl);
@@ -20,8 +20,8 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup processdures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(ParamRead& param, const USI& argc,
-                                 const char* optset[])
+void OpenCAEPoro::SetupSimulator(ParamRead &param, const USI &argc,
+                                 const char *optset[])
 {
     // Read parameters from input file
     InputParam(param);
@@ -41,9 +41,19 @@ void OpenCAEPoro::InitReservoir() { solver.InitReservoir(reservoir); }
 /// Call IMPEC, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()
 {
-    cout << "=========================================" << endl
-         << "Dynamic simulation begins ...            " << endl
-         << "=========================================" << endl;
+    cout << "\n=========================================" << endl;
+    switch (control.GetMethod())
+    {
+    case IMPEC:
+        cout << "Dynamic simulation with IMPEC";
+        break;
+    case FIM:
+        cout << "Dynamic simulation with FIM";
+        break;
+    default:
+        OCP_ABORT("Wrong method type!");
+    }
+    cout << "\n=========================================" << endl;
 
     solver.RunSimulation(reservoir, control, output);
 }

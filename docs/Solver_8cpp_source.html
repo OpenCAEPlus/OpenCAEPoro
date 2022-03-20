@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/15/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -77,15 +77,15 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// OpenCAEPoro header files</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="Solver_8hpp.html">Solver.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl) { SetupMethod(rs, ctrl); }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl) { SetupMethod(rs, ctrl); }</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver::InitReservoir</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver::InitReservoir</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword"></span>{</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// Initialize the fluid part</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">InitReservoir</a>(rs);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl, <a class="code hl_class" href="classOCPOutput.html">OCPOutput</a>&amp; output)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a>(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl, <a class="code hl_class" href="classOCPOutput.html">OCPOutput</a> &amp;output)</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_class" href="classGetWallTime.html">GetWallTime</a> timer;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    timer.<a class="code hl_function" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
@@ -93,105 +93,117 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> numTSteps = ctrl.<a class="code hl_function" href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">GetNumTSteps</a>();</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    output.PrintInfoSched(rs, ctrl, timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> d = 0; d &lt; numTSteps - 1; d++) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        rs.<a class="code hl_function" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">ApplyControl</a>(d);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        ctrl.<a class="code hl_function" href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">ApplyControl</a>(d);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        ctrl.<a class="code hl_function" href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">InitTime</a>(d);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">while</span> (!ctrl.<a class="code hl_function" href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">IsCriticalTime</a>(d + 1)) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            GoOneStep(rs, ctrl);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            output.SetVal(rs, ctrl);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        output.PrintInfoSched(rs, ctrl, timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt;  rs.bulk.GetSSMSTAiters() &lt;&lt; endl;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt;  rs.bulk.GetNRSTAiters() &lt;&lt; endl;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt;  rs.bulk.GetSSMSPiters() &lt;&lt; endl;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt;  rs.bulk.GetNRSPiters() &lt;&lt; endl;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> Solver::GoOneStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt = ctrl.<a class="code hl_function" href="classOCPControl.html#a2ba2f6c8155a57bd0024faee42d563d0">GetCurDt</a>();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//#ifdef _DEBUG</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// cout &lt;&lt; &quot;### DEBUG: &quot; &lt;&lt; fixed &lt;&lt; ctrl.GetCurTime() &lt;&lt; &quot; Days&quot;;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// cout &lt;&lt; &quot;  NR: &quot; &lt;&lt; ctrl.GetNRiterT() &lt;&lt; &quot;  LS: &quot; &lt;&lt; ctrl.GetLSiterT() &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//#endif // DEBUG</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// Prepare for time marching</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    Prepare(rs, dt);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">// Time marching with adaptive time stepsize</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">if</span> (dt &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a6ec35d9aeada61ea3c59a3e44432dde1">MIN_TIME_CURSTEP</a>) <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Time stepsize is too small!&quot;</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        AssembleSolve(rs, ctrl);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">if</span> (!UpdateProperty(rs, ctrl)) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            ctrl.<a class="code hl_function" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">if</span> (FinishNR(rs, ctrl)) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">// Finish current time step</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    FinishStep(rs, ctrl);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">void</span> Solver::Prepare(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// Prepare for the fluid part</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a747ba13d80e0f58e78e338e636268333">Prepare</a>(rs, dt);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keywordtype">void</span> Solver::SetupMethod(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#af993c194655a716d4b992d161be59e13">SetupMethod</a>(rs, ctrl);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> Solver::AssembleSolve(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// Assemble linear system</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a9d25fa150340570e7d4cde9005534068">AssembleMat</a>(rs, ctrl.current_dt);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">// Solve linear system</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#abd5545192e09acc1b7820a5502fdbe6a">SolveLinearSystem</a>(rs, ctrl);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">bool</span> Solver::UpdateProperty(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>{</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">// Update for the fluid part</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> FSolver.<a class="code hl_function" href="classFluidSolver.html#a2d2ce5ec3ea8da72709c8f7808712a45">UpdateProperty</a>(rs, ctrl);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keywordtype">bool</span> Solver::FinishNR(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>{</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// Clean up the fluid part</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> FSolver.<a class="code hl_function" href="classFluidSolver.html#a9d79793e060f4b698449741908c5bd84">FinishNR</a>(rs, ctrl);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">void</span> Solver::FinishStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// Clean up the fluid part</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a262301bd076a0892b99b4e77f002c855">FinishStep</a>(rs, ctrl);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">/*  Shizhe Li           Oct/21/2021      Create file                          */</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> d = 0; d &lt; numTSteps - 1; d++)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        rs.<a class="code hl_function" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">ApplyControl</a>(d);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        ctrl.<a class="code hl_function" href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">ApplyControl</a>(d);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        ctrl.<a class="code hl_function" href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">InitTime</a>(d);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">while</span> (!ctrl.<a class="code hl_function" href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">IsCriticalTime</a>(d + 1))</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            GoOneStep(rs, ctrl);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            output.SetVal(rs, ctrl);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        output.PrintInfoSched(rs, ctrl, timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> (rs.bulk.<a class="code hl_function" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">GetMixMode</a>() == <a class="code hl_variable" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt; rs.bulk.GetSSMSTAiters() &lt;&lt; endl;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt; rs.bulk.GetNRSTAiters() &lt;&lt; endl;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt; rs.bulk.GetSSMSPiters() &lt;&lt; endl;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt; rs.bulk.GetNRSPiters() &lt;&lt; endl;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    ctrl.<a class="code hl_function" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> Solver::GoOneStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt = ctrl.<a class="code hl_function" href="classOCPControl.html#a2ba2f6c8155a57bd0024faee42d563d0">GetCurDt</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    cout &lt;&lt; <span class="stringliteral">&quot;### DEBUG: &quot;</span> &lt;&lt; fixed &lt;&lt; ctrl.<a class="code hl_function" href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">GetCurTime</a>() &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>         &lt;&lt; <span class="stringliteral">&quot;, NR: &quot;</span> &lt;&lt; ctrl.<a class="code hl_function" href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">GetNRiterT</a>() &lt;&lt; <span class="stringliteral">&quot;, LS: &quot;</span> &lt;&lt; ctrl.<a class="code hl_function" href="classOCPControl.html#ab5468ce4e4128b5f67374631a42a2c24">GetLSiterT</a>() &lt;&lt; endl;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// Prepare for time marching</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Prepare(rs, dt);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// Time marching with adaptive time stepsize</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">if</span> (dt &lt; <a class="code hl_variable" href="OCPConst_8hpp.html#a6ec35d9aeada61ea3c59a3e44432dde1">MIN_TIME_CURSTEP</a>)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Time stepsize is too small!&quot;</span>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        AssembleSolve(rs, ctrl);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> (!UpdateProperty(rs, ctrl))</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            ctrl.<a class="code hl_function" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">if</span> (FinishNR(rs, ctrl))</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// Finish current time step</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    FinishStep(rs, ctrl);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keywordtype">void</span> Solver::Prepare(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// Prepare for the fluid part</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a747ba13d80e0f58e78e338e636268333">Prepare</a>(rs, dt);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keywordtype">void</span> Solver::SetupMethod(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <span class="keyword">const</span> <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#af993c194655a716d4b992d161be59e13">SetupMethod</a>(rs, ctrl);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">void</span> Solver::AssembleSolve(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>{</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">// Assemble linear system</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a9d25fa150340570e7d4cde9005534068">AssembleMat</a>(rs, ctrl.current_dt);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// Solve linear system</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#abd5545192e09acc1b7820a5502fdbe6a">SolveLinearSystem</a>(rs, ctrl);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">bool</span> Solver::UpdateProperty(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>{</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// Update for the fluid part</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> FSolver.<a class="code hl_function" href="classFluidSolver.html#a2d2ce5ec3ea8da72709c8f7808712a45">UpdateProperty</a>(rs, ctrl);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">bool</span> Solver::FinishNR(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="comment">// Clean up the fluid part</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> FSolver.<a class="code hl_function" href="classFluidSolver.html#a9d79793e060f4b698449741908c5bd84">FinishNR</a>(rs, ctrl);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keywordtype">void</span> Solver::FinishStep(<a class="code hl_class" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="code hl_class" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>{</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// Clean up the fluid part</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    FSolver.<a class="code hl_function" href="classFluidSolver.html#a262301bd076a0892b99b4e77f002c855">FinishStep</a>(rs, ctrl);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">/*  Shizhe Li           Oct/21/2021      Create file                          */</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a23f681c0d9e8d413e68ed087126a742d"><div class="ttname"><a href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a></div><div class="ttdeci">const USI EOS_PVTW</div><div class="ttdoc">Mixture model = equation-of-state.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00074">OCPConst.hpp:74</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a6ec35d9aeada61ea3c59a3e44432dde1"><div class="ttname"><a href="OCPConst_8hpp.html#a6ec35d9aeada61ea3c59a3e44432dde1">MIN_TIME_CURSTEP</a></div><div class="ttdeci">const OCP_DBL MIN_TIME_CURSTEP</div><div class="ttdoc">Minimal time stepsize of current step ???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00037">OCPConst.hpp:37</a></div></div>
 <div class="ttc" id="aSolver_8hpp_html"><div class="ttname"><a href="Solver_8hpp.html">Solver.hpp</a></div><div class="ttdoc">Solver class declaration.</div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a262301bd076a0892b99b4e77f002c855"><div class="ttname"><a href="classFluidSolver.html#a262301bd076a0892b99b4e77f002c855">FluidSolver::FinishStep</a></div><div class="ttdeci">void FinishStep(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Finish the current time step.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00124">FluidSolver.cpp:124</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a2d2ce5ec3ea8da72709c8f7808712a45"><div class="ttname"><a href="classFluidSolver.html#a2d2ce5ec3ea8da72709c8f7808712a45">FluidSolver::UpdateProperty</a></div><div class="ttdeci">bool UpdateProperty(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Update properties of fluid.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00098">FluidSolver.cpp:98</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a747ba13d80e0f58e78e338e636268333"><div class="ttname"><a href="classFluidSolver.html#a747ba13d80e0f58e78e338e636268333">FluidSolver::Prepare</a></div><div class="ttdeci">void Prepare(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare for assembling Mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00053">FluidSolver.cpp:53</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a7c5cde1e67a36b8652453472f4a4b106"><div class="ttname"><a href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">FluidSolver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the Reservoir and prepare variables for some method.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00038">FluidSolver.cpp:38</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a9d25fa150340570e7d4cde9005534068"><div class="ttname"><a href="classFluidSolver.html#a9d25fa150340570e7d4cde9005534068">FluidSolver::AssembleMat</a></div><div class="ttdeci">void AssembleMat(const Reservoir &amp;rs, const OCP_DBL &amp;dt)</div><div class="ttdoc">Assemble Mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00068">FluidSolver.cpp:68</a></div></div>
-<div class="ttc" id="aclassFluidSolver_html_a9d79793e060f4b698449741908c5bd84"><div class="ttname"><a href="classFluidSolver.html#a9d79793e060f4b698449741908c5bd84">FluidSolver::FinishNR</a></div><div class="ttdeci">bool FinishNR(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Finish the Newton-Raphson iteration.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00111">FluidSolver.cpp:111</a></div></div>
+<div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">Return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01906">Bulk.cpp:1906</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a262301bd076a0892b99b4e77f002c855"><div class="ttname"><a href="classFluidSolver.html#a262301bd076a0892b99b4e77f002c855">FluidSolver::FinishStep</a></div><div class="ttdeci">void FinishStep(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Finish the current time step.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00127">FluidSolver.cpp:127</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a2d2ce5ec3ea8da72709c8f7808712a45"><div class="ttname"><a href="classFluidSolver.html#a2d2ce5ec3ea8da72709c8f7808712a45">FluidSolver::UpdateProperty</a></div><div class="ttdeci">bool UpdateProperty(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Update properties of fluid.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00099">FluidSolver.cpp:99</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a747ba13d80e0f58e78e338e636268333"><div class="ttname"><a href="classFluidSolver.html#a747ba13d80e0f58e78e338e636268333">FluidSolver::Prepare</a></div><div class="ttdeci">void Prepare(Reservoir &amp;rs, OCP_DBL &amp;dt)</div><div class="ttdoc">Prepare for assembling Mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00051">FluidSolver.cpp:51</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a7c5cde1e67a36b8652453472f4a4b106"><div class="ttname"><a href="classFluidSolver.html#a7c5cde1e67a36b8652453472f4a4b106">FluidSolver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the Reservoir and prepare variables for some method.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00035">FluidSolver.cpp:35</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a9d25fa150340570e7d4cde9005534068"><div class="ttname"><a href="classFluidSolver.html#a9d25fa150340570e7d4cde9005534068">FluidSolver::AssembleMat</a></div><div class="ttdeci">void AssembleMat(const Reservoir &amp;rs, const OCP_DBL &amp;dt)</div><div class="ttdoc">Assemble Mat.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00067">FluidSolver.cpp:67</a></div></div>
+<div class="ttc" id="aclassFluidSolver_html_a9d79793e060f4b698449741908c5bd84"><div class="ttname"><a href="classFluidSolver.html#a9d79793e060f4b698449741908c5bd84">FluidSolver::FinishNR</a></div><div class="ttdeci">bool FinishNR(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Finish the Newton-Raphson iteration.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00113">FluidSolver.cpp:113</a></div></div>
 <div class="ttc" id="aclassFluidSolver_html_abd5545192e09acc1b7820a5502fdbe6a"><div class="ttname"><a href="classFluidSolver.html#abd5545192e09acc1b7820a5502fdbe6a">FluidSolver::SolveLinearSystem</a></div><div class="ttdeci">void SolveLinearSystem(Reservoir &amp;rs, OCPControl &amp;ctrl)</div><div class="ttdoc">Solve the linear system in single problem.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00083">FluidSolver.cpp:83</a></div></div>
 <div class="ttc" id="aclassFluidSolver_html_af993c194655a716d4b992d161be59e13"><div class="ttname"><a href="classFluidSolver.html#af993c194655a716d4b992d161be59e13">FluidSolver::SetupMethod</a></div><div class="ttdeci">void SetupMethod(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup the fluid solver.</div><div class="ttdef"><b>Definition:</b> <a href="FluidSolver_8cpp_source.html#l00015">FluidSolver.cpp:15</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html"><div class="ttname"><a href="classGetWallTime.html">GetWallTime</a></div><div class="ttdoc">Get elapsed wall-time in millisecond.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00031">UtilTiming.hpp:32</a></div></div>
@@ -203,8 +215,11 @@ $(function() {
 <div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00160">OCPControl.hpp:160</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_a3306bc5439131ec72b44b09da0a100b1"><div class="ttname"><a href="classOCPControl.html#a3306bc5439131ec72b44b09da0a100b1">OCPControl::IsCriticalTime</a></div><div class="ttdeci">bool IsCriticalTime(const USI &amp;d)</div><div class="ttdoc">Determine whether the critical time point has been reached.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00167">OCPControl.hpp:167</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_a7ef84146cd9357f8f97f9f41f37315ff"><div class="ttname"><a href="classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff">OCPControl::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply control for time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00097">OCPControl.cpp:97</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ab5468ce4e4128b5f67374631a42a2c24"><div class="ttname"><a href="classOCPControl.html#ab5468ce4e4128b5f67374631a42a2c24">OCPControl::GetLSiterT</a></div><div class="ttdeci">USI GetLSiterT() const</div><div class="ttdoc">Return the total number of linear iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00136">OCPControl.hpp:136</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_abd447792ee50b20ad738c8ef1fdeab1d"><div class="ttname"><a href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">OCPControl::ResetIterNRLS</a></div><div class="ttdeci">void ResetIterNRLS()</div><div class="ttdoc">Reset the number of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00214">OCPControl.cpp:214</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba"><div class="ttname"><a href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">OCPControl::InitTime</a></div><div class="ttdeci">void InitTime(const USI &amp;i)</div><div class="ttdoc">Initialize time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00105">OCPControl.cpp:105</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ade95caf1d2d668485ca86684ae7e5a9f"><div class="ttname"><a href="classOCPControl.html#ade95caf1d2d668485ca86684ae7e5a9f">OCPControl::GetCurTime</a></div><div class="ttdeci">OCP_DBL GetCurTime() const</div><div class="ttdoc">Return the current time.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_aed0b4b23ead6cd95140a19a747e8b53c"><div class="ttname"><a href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">OCPControl::GetNRiterT</a></div><div class="ttdeci">USI GetNRiterT() const</div><div class="ttdoc">Return the total nubmer of Newton iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00142">OCPControl.hpp:142</a></div></div>
 <div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdoc">The OCPOutput class manages different kinds of ways to output information.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00197">OCPOutput.hpp:198</a></div></div>
 <div class="ttc" id="aclassReservoir_html"><div class="ttname"><a href="classReservoir.html">Reservoir</a></div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8hpp_source.html#l00030">Reservoir.hpp:31</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a9e77991deeaaa5fba43a98f79251e0f1"><div class="ttname"><a href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">Reservoir::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply the control of ith critical time point.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00045">Reservoir.cpp:45</a></div></div>
@@ -214,7 +229,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 15 2022 16:40:54 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sat Mar 19 2022 09:10:36 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

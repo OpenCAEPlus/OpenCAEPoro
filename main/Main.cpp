@@ -51,7 +51,6 @@ int main(int argc, const char* argv[])
         simulator.SetupSimulator(rp, argc, argv);
     }
 
-
     // Step 3. Initialize the reservoir, which finishs the first step in iterations.
     // For example: initial pressure, saturations, moles of components, and initial
     // guess of well pressure.

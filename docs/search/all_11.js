@@ -32,7 +32,7 @@ var searchData=
   ['rho_29',['rho',['../classMixture.html#a16c6595220dc0a04cfa960d44f3016c7',1,'Mixture']]],
   ['rhoair_5fstd_30',['RHOAIR_STD',['../OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415',1,'OCPConst.hpp']]],
   ['rhop_31',['rhoP',['../classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f',1,'Mixture']]],
-  ['rhophase_32',['RhoPhase',['../classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e',1,'Mixture::RhoPhase()'],['../classBOMixture.html#a3836526e39a8d642814564451cf9bd76',1,'BOMixture::RhoPhase()'],['../classMixtureComp.html#adbd472704ecf3f04ffe35316fbbf5ccf',1,'MixtureComp::RhoPhase()']]],
+  ['rhophase_32',['RhoPhase',['../classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e',1,'Mixture::RhoPhase()'],['../classBOMixture__W.html#a30bd481e32c95a125fe4007f8b577b0f',1,'BOMixture_W::RhoPhase()'],['../classBOMixture__OW.html#a76934980679c89c35186884994102103',1,'BOMixture_OW::RhoPhase()'],['../classBOMixture__ODGW.html#addcef15b9c4ac46ba14ea5046a198f2a',1,'BOMixture_ODGW::RhoPhase()'],['../classMixtureComp.html#adbd472704ecf3f04ffe35316fbbf5ccf',1,'MixtureComp::RhoPhase()']]],
   ['rhow_5fstd_33',['RHOW_STD',['../OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee',1,'OCPConst.hpp']]],
   ['rhox_34',['rhox',['../classMixture.html#a62615d0052ef8b34c3894e728951c06e',1,'Mixture']]],
   ['rock_35',['rock',['../classParamReservoir.html#a3a90a576943de890b0604f375c528dd8',1,'ParamReservoir']]],
