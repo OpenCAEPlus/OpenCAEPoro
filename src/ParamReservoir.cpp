@@ -488,6 +488,29 @@ void ParamReservoir::InputROCK(ifstream& ifs)
     cout << rock.Pref << "  " << rock.Cr << endl;
 }
 
+/// Read data from the MISCSTR keyword.
+void ParamReservoir::InputMISCSTR(ifstream& ifs)
+{
+    if (!EoSp.miscible) {
+        OCP_WARNING("MISCIBLE has not been declared, this keyword will be ignored!");
+    }else{
+        vector<string> vbuf;
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") return;
+        if (vbuf.back() == "/")  vbuf.pop_back();
+
+        USI len = vbuf.size();
+        for (USI i = 0; i < len; i++) {
+            miscstr.surTenRef.push_back(stod(vbuf[i]));
+        }
+    }
+
+    cout << "MISCSTR" << endl;
+    for (auto& v : miscstr.surTenRef)
+        cout << v << "   ";
+    cout << endl << endl;
+}
+
 /// Read data from the GRAVITY keyword.
 void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
@@ -837,7 +860,7 @@ Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
         myPtr = &Vshift;
         break;
 
-    case Map_Str2Int("PARACHOR", 6):
+    case Map_Str2Int("PARACHOR", 8):
         myPtr = &Parachor;
         break;
 

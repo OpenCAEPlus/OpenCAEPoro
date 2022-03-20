@@ -138,6 +138,14 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputROCK(ifs);
                 break;
 
+            case Map_Str2Int("MISCIBLE", 8):
+                paramRs.EoSp.miscible = true;
+                break;
+
+            case Map_Str2Int("MISCSTR", 7):
+                paramRs.InputMISCSTR(ifs);
+                break;
+
             case Map_Str2Int("GRAVITY", 7):
                 paramRs.InputGRAVITY(ifs);
                 break;
@@ -235,7 +243,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("OMEGAA", 6):
             case Map_Str2Int("OMEGAB", 6):
             case Map_Str2Int("SSHIFT", 6):
-            case Map_Str2Int("PARACHOR", 6):
+            case Map_Str2Int("PARACHOR", 8):
             case Map_Str2Int("VCRITVIS", 8):
                 paramRs.InputCOMPONENTS(ifs, keyword);
                 break;

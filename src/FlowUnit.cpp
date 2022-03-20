@@ -17,7 +17,8 @@
 // FlowUnit_W
 ///////////////////////////////////////////////
 
-void FlowUnit_W::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
+void FlowUnit_W::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
     kr_out[0] = 1;
     pc_out[0] = 0;
@@ -46,7 +47,8 @@ FlowUnit_OW::FlowUnit_OW(const ParamReservoir& rs_param, const USI& i)
 }
 
 
-void FlowUnit_OW::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) 
+void FlowUnit_OW::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
     OCP_DBL Sw = S_in[1];
 
@@ -105,7 +107,8 @@ FlowUnit_OG::FlowUnit_OG(const ParamReservoir& rs_param, const USI& i)
 }
 
 
-void FlowUnit_OG::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
+void FlowUnit_OG::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
     OCP_DBL Sg = S_in[1];
 
@@ -175,7 +178,8 @@ FlowUnit_ODGW01::FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i)
     Generate_SWPCWG();
 }
 
-void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
+void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                            const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
     OCP_DBL Sg = S_in[1];
     OCP_DBL Sw = S_in[2];
@@ -323,6 +327,46 @@ void FlowUnit_ODGW01::Generate_SWPCWG()
 }
 
 ///////////////////////////////////////////////
+// FlowUnit_ODGW01_Miscible
+///////////////////////////////////////////////
+
+void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                                const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+{
+    FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, surTen, surTen, surTen);
+
+    surTen = MySurTen;
+    if (surTen > surTenRef || surTen < TINY) {
+        MyFk = 1; MyFp = 1;       
+    }
+    else {
+        const OCP_DBL So = S_in[0];
+        const OCP_DBL Sg = S_in[1];
+        const OCP_DBL Sw = S_in[2];
+        Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
+        Fp = min(surTenPc, surTen / surTenRef);
+        kroMis = So;
+        krgMis = Sg;
+
+        kr_out[0] = Fk * kr_out[0] + (1 - Fk) * kroMis;
+        kr_out[1] = Fk * kr_out[1] + (1 - Fk) * krgMis;
+        pc_out[1] *= Fp;
+
+        MyFk = Fk;
+        MyFp = Fp;
+
+        // cout << Fk << endl;
+    }
+}
+
+
+void FlowUnit_ODGW01_Miscible::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS)
+{
+
+}
+
+///////////////////////////////////////////////
 // FlowUnit_ODGW02
 ///////////////////////////////////////////////
 
@@ -342,7 +386,8 @@ FlowUnit_ODGW02::FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i)
 }
 
 
-void FlowUnit_ODGW02::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out)
+void FlowUnit_ODGW02::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                            const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
     OCP_DBL So = S_in[0];
     OCP_DBL Sg = S_in[1];

@@ -111,6 +111,7 @@ public:
     virtual USI GetFtype() = 0;
     virtual OCP_SIN GetMinEigenSkip() = 0;
     virtual bool GetFlagSkip() = 0; 
+    virtual OCP_DBL GetSurTen() = 0;
 
     virtual OCP_ULL GetSSMSTAiters() = 0;
     virtual OCP_ULL GetNRSTAiters() = 0;

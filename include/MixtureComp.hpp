@@ -179,6 +179,8 @@ public:
 	void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
 	void CallId();
     USI GetFtype() override { return ftype; }
+    void CalSurfaceTension();
+    OCP_DBL GetSurTen() override { return surTen; }
 
 private:
 
@@ -203,6 +205,7 @@ private:
 
     // Model information
     bool miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    OCP_DBL surTen; ///< Surface tension
 
 	// Initial properties
 	USI	NC; ///< num of hydrocarbon components

@@ -51,8 +51,10 @@ const OCP_DBL PRESSURE_STD    = 14.7;       ///< 14.6959 psia = 1 atm
 const OCP_DBL TEMPERATURE_STD = 519.67;     ///< Standard temperature
 
 // Unit conversion consts
-const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = 5.61458 ft3
-const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in Field
+const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = CONV1 ft3
+const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in field unit
+const OCP_DBL CONV3 = 0.45359237; ///< 1 lb = CONV3 kg
+const OCP_DBL CONV4 = 0.02831685; ///< 1 ft3 = CONV4 m3
 
 // Grid Type
 const USI ORTHOGONAL_GRID = 1; ///< Grid type = orthogonal
@@ -87,6 +89,7 @@ const USI PHASE_ODGW = 5; ///< Phase type = oil-dry gas-water
 const USI PHASE_DOGW = 6; ///< Phase type = dead oil-gas-water
 const USI PHASE_ODGW01 = 51; ///< Phase type = oil-dry gas-water
 const USI PHASE_ODGW02 = 52; ///< Phase type = oil-dry gas-water
+const USI PHASE_ODGW01_MISCIBLE = 511; ///< Phase type = oil-dry gas-water
 
 // Well params
 const USI  INJ        = 1;     ///< Well type = injector

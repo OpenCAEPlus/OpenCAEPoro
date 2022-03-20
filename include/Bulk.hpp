@@ -239,7 +239,7 @@ private:
     bool       gas;      ///< If true, gas phase could exist.
     bool       water;    ///< If true, water phase could exist.
     bool       disGas;   ///< If true, dissolve gas in live oil could exist.
-
+    bool       miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     /////////////////////////////////////////////////////////////////////
     // Basic physical variables
@@ -288,6 +288,11 @@ private:
     vector<OCP_DBL> lvfi;        ///< dVf / dNi: numCom*numBulk.
     vector<OCP_DBL> lvfp;        ///< dVf / dP: numBulk.
     vector<OCP_DBL> rockLVp;     ///< Pore volume: numBulk.
+
+    vector<OCP_DBL> surTen;      ///< surface tensions of hydroncarbon phase.
+    vector<OCP_DBL> Fk;          ///< The relative permeability interpolation parameter
+    vector<OCP_DBL> Fp;          ///< The capillary pressure interpolation parameter
+    
 
     /////////////////////////////////////////////////////////////////////
     // Reservoir rock infomation of each bulk (size = numBulk)

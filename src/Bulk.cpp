@@ -34,6 +34,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
     gas = rs_param.gas;
     water = rs_param.water;
     disGas = rs_param.disGas;
+    miscible = rs_param.EoSp.miscible;
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];
 
@@ -150,12 +151,15 @@ void Bulk::InputParam(ParamReservoir &rs_param)
         cout << "Bulk::InputParam --- COMPOSITIONAL" << endl;
     }
 
+    if (SATmode == PHASE_ODGW01 && miscible) {
+        SATmode = PHASE_ODGW01_MISCIBLE;
+    }
+
     switch (SATmode)
     {
     case PHASE_W:
         for (USI i = 0; i < rs_param.NTSFUN; i++)
             flow.push_back(new FlowUnit_W(rs_param, i));
-        break;
         break;
     case PHASE_OW:
         for (USI i = 0; i < rs_param.NTSFUN; i++)
@@ -164,6 +168,10 @@ void Bulk::InputParam(ParamReservoir &rs_param)
     case PHASE_ODGW01:
         for (USI i = 0; i < rs_param.NTSFUN; i++)
             flow.push_back(new FlowUnit_ODGW01(rs_param, i));
+        break;
+    case PHASE_ODGW01_MISCIBLE:
+        for (USI i = 0; i < rs_param.NTSFUN; i++)
+            flow.push_back(new FlowUnit_ODGW01_Miscible(rs_param, i));
         break;
     case PHASE_ODGW02:
         for (USI i = 0; i < rs_param.NTSFUN; i++)
@@ -298,6 +306,11 @@ void Bulk::Setup(const Grid &myGrid)
         phase2Index[OIL] = 0;
         phase2Index[GAS] = 1;
         phase2Index[WATER] = 2;
+        if (miscible) {
+            surTen.resize(numBulk);
+            Fk.resize(numBulk);
+            Fp.resize(numBulk);
+        }
     }
 
     CalSomeInfo(myGrid);
@@ -1541,6 +1554,10 @@ void Bulk::PassFlashValue(const OCP_USI &n)
                 PSkip[n] = P[n];
             }
         }
+
+        if (miscible) {
+            surTen[n] = flashCal[pvtnum]->GetSurTen();
+        }
     }
 }
 
@@ -1630,6 +1647,9 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
                 PSkip[n] = P[n];
             }
         }
+        if (miscible) {
+            surTen[n] = flashCal[pvtnum]->GetSurTen();
+        }
     }
 }
 
@@ -1654,13 +1674,25 @@ void Bulk::CalKrPc()
 {
     OCP_FUNCNAME;
 
-    for (OCP_USI n = 0; n < numBulk; n++)
-    {
-        OCP_USI bId = n * numPhase;
-        flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId]);
-        for (USI j = 0; j < numPhase; j++)
-            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+    if (!miscible) {
+        OCP_DBL tmp = 0;
+        for (OCP_USI n = 0; n < numBulk; n++)
+        {
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }
     }
+    else {
+        for (OCP_USI n = 0; n < numBulk; n++)
+        {
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n], Fp[n]);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }
+    }  
 }
 
 void Bulk::CalKrPcDeriv()

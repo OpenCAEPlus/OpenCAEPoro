@@ -38,7 +38,8 @@ public:
     // usless in BLKOIL
     USI GetFtype() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 100; }
     OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
-    bool GetFlagSkip() override { return false; }
+    bool GetFlagSkip() override { OCP_ABORT("Should not be used in Black Oil mode!");  return false; }
+    OCP_DBL GetSurTen() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     OCP_ULL GetSSMSTAiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
     }
     OCP_ULL GetNRSTAiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;

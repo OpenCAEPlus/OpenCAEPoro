@@ -115,16 +115,24 @@ public:
     Type_A_r<vector<OCP_DBL>> Vcvis; ///< Critical volume used for viscosity calculations only.
     Type_A_r<vector<OCP_DBL>> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
-
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
 
-    OCP_DBL surfracTR; ///<  The reference surface tension, flow is immiscible when the surface tension is greater than or equal tothis value.
+    bool miscible{false}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
     vector<string> SSMparamSP;  ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSP;   ///< Params for Solving Phase Spliting with NR
     vector<string> RRparam;     ///< Params for Solving Rachford-Rice equations
+};
+
+class Miscstr
+{
+public:
+    vector<OCP_DBL> surTenRef;
+    // 0th entry: reference surface tension - flow is immiscible when the surface tension is greater than or equal to this value.
+    // 1th entry: maximum surface tension expected, it should be greater than surTenRef.
+    // 2th entry: maximum surface tension used to scale the input capillary pressure curves.
 };
 
 /// ParamReservoir is an internal structure used to stores the information of
@@ -157,6 +165,7 @@ public:
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
     Rock rock; ///< Contains the compressibility factor and reference pressure at
                ///< initial porosity.
+    Miscstr miscstr; ///< reference Miscibility surface tension
 
     // If P and Ni are given, then calculation of initial equilibration is unneeded.
     vector<OCP_DBL> P;  ///< Initial pressure of components in each grid.
@@ -173,7 +182,7 @@ public:
     bool gas{false};      ///< If true, gas phase could exist.
     bool water{false};    ///< If true, water phase could exist.
     bool disGas{false};   ///< If true, dissolve gas could exist in oil phase.
-    bool miscible{false}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+
 
     // Compositional Model
     EoSparam EoSp; ///< Initial component composition, used in compositional models.
@@ -265,6 +274,9 @@ public:
     /// Input the keyword: ROCK. ROCK contains the compressibility factor and reference
     /// pressure at initial porosity.
     void InputROCK(ifstream& ifs);
+
+    /// Input the Miscibility information
+    void InputMISCSTR(ifstream& ifs);
 
     /// Input the reference gravity of oil, water, and air in standard condition.
     void InputGRAVITY(ifstream& ifs);

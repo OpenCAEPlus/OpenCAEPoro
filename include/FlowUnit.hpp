@@ -35,7 +35,8 @@ public:
     virtual OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) = 0;
 
     /// calculate relative permeability and capillary pressure.
-    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) = 0;
+    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                    const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) = 0;
     virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) = 0;
 
@@ -52,7 +53,8 @@ public:
     FlowUnit_W() = default;
     FlowUnit_W(const ParamReservoir& rs_param, const USI& i) {};
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
 
@@ -76,7 +78,8 @@ public:
     FlowUnit_OW() = default;
     FlowUnit_OW(const ParamReservoir& rs_param, const USI& i);
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
  
@@ -112,7 +115,8 @@ public:
     FlowUnit_OG() = default;
     FlowUnit_OG(const ParamReservoir & rs_param, const USI & i);
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override {
@@ -169,8 +173,9 @@ public:
     FlowUnit_ODGW01() = default;
     FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i);
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
-    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
 
     OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
@@ -199,7 +204,7 @@ public:
     }
     void Generate_SWPCWG();
 
-private:
+protected:
     OCPTable SGOF;   ///< saturation table about gas and oil.
     OCPTable SWOF;   ///< saturation table about water and oil.
     vector<OCP_DBL>
@@ -209,6 +214,53 @@ private:
     OCPTable SWPCGW; ///< auxiliary table: saturation of water vs. capillary
                      ///< pressure between water and gas.
 };
+
+
+///////////////////////////////////////////////
+// FlowUnit_ODGW01_Miscible
+///////////////////////////////////////////////
+
+class FlowUnit_ODGW01_Miscible : public FlowUnit_ODGW01
+{
+public:
+    FlowUnit_ODGW01_Miscible(const ParamReservoir& rs_param, const USI& i) : 
+        FlowUnit_ODGW01(rs_param, i){
+
+        USI len = rs_param.miscstr.surTenRef.size();
+        if (len > 0) {
+            surTenRef = rs_param.miscstr.surTenRef[0];
+            surTenPc = 1;
+            if (len > 2) {
+                surTenPc = rs_param.miscstr.surTenRef[2] / surTenRef;
+            }
+        }
+        else {
+            OCP_ABORT("No data in MISCSTR!");
+        }
+    }
+
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+                const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+
+private:
+
+    OCP_DBL kroMis{0}; ///< miscible oil relative permeabilities
+    OCP_DBL krgMis{0}; ///< miscible gas relative permeabilities
+    OCP_DBL PcogMis{0}; ///< miscible gas capillary pressure
+    OCP_DBL socrMis{0}; ///< oil critical miscible saturations
+    OCP_DBL sgcrMis{0}; ///< gas critical miscible saturations
+
+    OCP_DBL Fk{0};  ///< The relative permeability interpolation parameter
+    OCP_DBL Fp{0};  ///< The capillary pressure interpolation parameter
+    OCP_DBL surTenRef{0}; ///< Reference surface tension
+    OCP_DBL Fkexp{0.25}; ///< Exponent set used to calculate Fk
+    OCP_DBL surTenPc{0}; ///< Maximum surface tension for capillary pressure calculation / surTenRef
+
+    OCP_DBL surTen{0}; ///< Surface tension
+};
+
 
 ///////////////////////////////////////////////
 // FlowUnit_ODGW02
@@ -221,7 +273,8 @@ public:
     FlowUnit_ODGW02() = default;
     FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i);
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out) override;
+    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
+        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
     OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,

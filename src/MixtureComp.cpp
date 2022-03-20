@@ -112,6 +112,11 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
         lbc *= 10;
     }
 
+    miscible = param.miscible;
+    if (miscible && !ParachorAct) {
+        OCP_ABORT("PARACHOR has not been Input!");
+    }
+
     CallId();
 
     USI len   = NC * NC;
@@ -220,6 +225,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMW();
     CalVfXiRho();
     CalViscosity();
+    CalSurfaceTension();
     IdentifyPhase();
     CopyPhase();
 
@@ -449,6 +455,7 @@ void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
     CalMW();
     CalVfXiRho();
     CalViscosity();
+    CalSurfaceTension();
     IdentifyPhase();
     CopyPhase();
 }
@@ -526,6 +533,25 @@ void MixtureComp::CallId()
     lId = 0;
     for (USI i = 1; i < NC; i++) {
         if (MWC[i] < MWC[lId]) lId = i;
+    }
+}
+
+void MixtureComp::CalSurfaceTension()
+{
+    // be careful! 
+    // phase molar densities should be converted into gm-M/cc here
+    if (miscible) {
+        if (NP == 1)  surTen = 0;
+        else {
+            const OCP_DBL unitF = CONV3 / (CONV4 * 1E3); // lbm/ft3 -> gm-M/cc
+            const OCP_DBL b0 = xiC[0] * unitF;
+            const OCP_DBL b1 = xiC[1] * unitF;
+            surTen = 0;
+            for (USI i = 0; i < NC; i++)
+                surTen += Parachor[i] * (b0 * x[0][i] - b1 * x[1][i]);
+            surTen = pow(surTen, 4.0);
+            // cout << surTen << endl;
+        }
     }
 }
 

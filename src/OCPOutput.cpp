@@ -1719,6 +1719,104 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
         }
     }
 
+    // surface tension
+    if (rs.bulk.miscible)
+    {
+        outF << sep02 << "\n";
+        outF << "STEN"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++)
+        {
+            if (i % nx == 0)
+                outF << "\n";
+            if (i % (nx * ny) == 0)
+                outF << "\n";
+
+            if (i % nx == 0)
+            {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct())
+            {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.surTen[bId] << "";
+            }
+            else
+            {
+                outF << setw(10) << " --- ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Fk
+    if (rs.bulk.miscible)
+    {
+        outF << sep02 << "\n";
+        outF << "FMISC"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++)
+        {
+            if (i % nx == 0)
+                outF << "\n";
+            if (i % (nx * ny) == 0)
+                outF << "\n";
+
+            if (i % nx == 0)
+            {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct())
+            {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fk[bId] << "";
+            }
+            else
+            {
+                outF << setw(10) << " --- ";
+            }
+        }
+        outF << "\n\n";
+    }
+
+    // Fp
+    if (rs.bulk.miscible)
+    {
+        outF << sep02 << "\n";
+        outF << "FPC"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++)
+        {
+            if (i % nx == 0)
+                outF << "\n";
+            if (i % (nx * ny) == 0)
+                outF << "\n";
+
+            if (i % nx == 0)
+            {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct())
+            {
+                bId = rs.grid.MapG2B(i).GetId();
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fp[bId] << "";
+            }
+            else
+            {
+                outF << setw(10) << " --- ";
+            }
+        }
+        outF << "\n\n";
+    }
 
 
     outF.close();
