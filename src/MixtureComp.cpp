@@ -116,6 +116,7 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     if (miscible && !ParachorAct) {
         OCP_ABORT("PARACHOR has not been Input!");
     }
+    
 
     CallId();
 
@@ -541,7 +542,7 @@ void MixtureComp::CalSurfaceTension()
     // be careful! 
     // phase molar densities should be converted into gm-M/cc here
     if (miscible) {
-        if (NP == 1)  surTen = 0;
+        if (NP == 1)  surTen = 1E4;
         else {
             const OCP_DBL unitF = CONV3 / (CONV4 * 1E3); // lbm/ft3 -> gm-M/cc
             const OCP_DBL b0 = xiC[0] * unitF;

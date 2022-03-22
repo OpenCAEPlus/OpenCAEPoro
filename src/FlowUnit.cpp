@@ -181,21 +181,21 @@ FlowUnit_ODGW01::FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i)
 void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
                             const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
-    OCP_DBL Sg = S_in[1];
-    OCP_DBL Sw = S_in[2];
+    const OCP_DBL Sg = S_in[1];
+    const OCP_DBL Sw = S_in[2];
 
     // three phase black oil model using stone 2
     SWOF.Eval_All(0, Sw, data, cdata);
-    OCP_DBL krw = data[1];
-    OCP_DBL krow = data[2];
-    OCP_DBL Pcwo = -data[3];
+    const OCP_DBL krw = data[1];
+    const OCP_DBL krow = data[2];
+    const OCP_DBL Pcwo = -data[3];
 
     SGOF.Eval_All(0, Sg, data, cdata);
-    OCP_DBL krg = data[1];
-    OCP_DBL krog = data[2];
-    OCP_DBL Pcgo = data[3];
+    const OCP_DBL krg = data[1];
+    const OCP_DBL krog = data[2];
+    const OCP_DBL Pcgo = data[3];
 
-    OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
+    const OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
     // OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
 
     kr_out[0] = kro;
@@ -333,24 +333,45 @@ void FlowUnit_ODGW01::Generate_SWPCWG()
 void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
                                 const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
 {
-    FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, surTen, surTen, surTen);
-
     surTen = MySurTen;
-    if (surTen > surTenRef || surTen < TINY) {
-        MyFk = 1; MyFp = 1;       
+    if (surTen >= surTenRef || surTen < TINY) {
+        MyFk = 1; MyFp = 1;   
+        FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, surTen, surTen, surTen);
     }
     else {
         const OCP_DBL So = S_in[0];
         const OCP_DBL Sg = S_in[1];
         const OCP_DBL Sw = S_in[2];
+
         Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
         Fp = min(surTenPc, surTen / surTenRef);
-        kroMis = So;
-        krgMis = Sg;
 
-        kr_out[0] = Fk * kr_out[0] + (1 - Fk) * kroMis;
-        kr_out[1] = Fk * kr_out[1] + (1 - Fk) * krgMis;
-        pc_out[1] *= Fp;
+        SWOF.Eval_All(0, Sw, data, cdata);
+        const OCP_DBL krw = data[1];
+        OCP_DBL krow = data[2];
+        const OCP_DBL Pcwo = -data[3];
+
+        SGOF.Eval_All(0, Sg, data, cdata);
+        OCP_DBL krg = data[1];
+        OCP_DBL krog = data[2];
+        const OCP_DBL Pcgo = data[3] * Fp;    
+
+        OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
+        // OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
+        SGOF.Eval_All(0, (1 - Sw), data, cdata);
+        OCP_DBL krgt = data[1];
+        OCP_DBL krh = 0.5 * (krow + krgt);
+
+        kro = Fk * kro + (1 - Fk) * krh * So / (1 - Sw);
+        krg = Fk * krg + (1 - Fk) * krh * Sg / (1 - Sw);
+
+
+        kr_out[0] = kro;
+        kr_out[1] = krg;
+        kr_out[2] = krw;
+        pc_out[0] = 0;
+        pc_out[1] = Pcgo;
+        pc_out[2] = Pcwo;       
 
         MyFk = Fk;
         MyFp = Fp;

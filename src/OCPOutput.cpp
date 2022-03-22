@@ -812,7 +812,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dx[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dx[bId];
             }
             else
             {
@@ -841,7 +841,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dy[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dy[bId];
             }
             else
             {
@@ -870,7 +870,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dz[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dz[bId];
             }
             else
             {
@@ -899,7 +899,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(1) << rs.bulk.depth[bId] << "";
+                outF << setw(12) << fixed << setprecision(1) << rs.bulk.depth[bId];
             }
             else
             {
@@ -928,7 +928,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKxInit[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKxInit[bId];
             }
             else
             {
@@ -957,7 +957,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKyInit[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKyInit[bId];
             }
             else
             {
@@ -986,7 +986,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKzInit[bId] << "";
+                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKzInit[bId];
             }
             else
             {
@@ -1020,7 +1020,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(3) << rs.bulk.P[bId] << "";
+                outF << setw(12) << fixed << setprecision(3) << rs.bulk.P[bId];
             }
             else
             {
@@ -1056,7 +1056,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
                 }
                 else
                 {
@@ -1097,7 +1097,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
                 }
                 else
                 {
@@ -1138,7 +1138,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
                 }
                 else
                 {
@@ -1179,7 +1179,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
                 }
                 else
                 {
@@ -1220,7 +1220,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
                 }
                 else
                 {
@@ -1261,7 +1261,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
                 }
                 else
                 {
@@ -1302,7 +1302,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
                 }
                 else
                 {
@@ -1343,7 +1343,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
                 }
                 else
                 {
@@ -1384,7 +1384,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
                 }
                 else
                 {
@@ -1425,7 +1425,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1;
                 }
                 else
                 {
@@ -1466,7 +1466,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1 << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1;
                 }
                 else
                 {
@@ -1507,7 +1507,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216) << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216);
                 }
                 else
                 {
@@ -1548,7 +1548,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + OIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
                 }
                 else
                 {
@@ -1589,7 +1589,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + GIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "   ";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
                 }
                 else
                 {
@@ -1630,7 +1630,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 tmpId = bId * np + WIndex;
                 if (rs.bulk.phaseExist[tmpId])
                 {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId] << "";
+                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
                 }
                 else
                 {
@@ -1668,7 +1668,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                     tmpId = bId * np + OIndex;
                     if (rs.bulk.phaseExist[tmpId]) {
                         tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId] << "";
+                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId];
                     }
                     else {
                         outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
@@ -1705,7 +1705,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                     tmpId = bId * np + GIndex;
                     if (rs.bulk.phaseExist[tmpId]) {
                         tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId] << "";
+                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId];
                     }
                     else {
                         outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
@@ -1742,7 +1742,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.surTen[bId] << "";
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.surTen[bId];
             }
             else
             {
@@ -1775,7 +1775,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fk[bId] << "";
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fk[bId];
             }
             else
             {
@@ -1808,7 +1808,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fp[bId] << "";
+                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fp[bId];
             }
             else
             {
