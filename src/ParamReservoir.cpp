@@ -371,9 +371,6 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
             }           
         }
     }
-    cout << &permX << endl;
-    cout << &permY << endl;
-    cout << &permZ << endl;
 }
 
 /// TODO: Add Doxygen
@@ -405,9 +402,6 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
             OCP_ABORT("Wrong object names: " + srcName + ", " + objName);
         }
     }
-    cout << permX[0] << endl;
-    cout << permY[0] << endl;
-    cout << permZ[0] << endl;
 }
 
 /// TODO: Add Doxygen
@@ -441,9 +435,6 @@ void ParamReservoir::InputMULTIPLY(ifstream& ifs)
             OCP_ABORT("Wrong object name: " + objName);
         }
     }
-    cout << permX[0] << endl;
-    cout << permY[0] << endl;
-    cout << permZ[0] << endl;
 }
 
 /// TODO: Add Doxygen
@@ -633,7 +624,6 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
     }
 
     cout << "Number of Tables = " << lim << endl;
-    cout << &SATNUM << endl << &PVTNUM << endl;
 }
 
 /// Check consistency of input parameters.
