@@ -110,6 +110,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("PERMZ", 5):
             case Map_Str2Int("PRESSURE", 8):
             case Map_Str2Int("Ni", 2):
+            case Map_Str2Int("SWATINIT", 8):
                 paramRs.InputGRID(ifs, keyword);
                 break;
 

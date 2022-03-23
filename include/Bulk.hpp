@@ -79,7 +79,6 @@ public:
     void InitSjPcBo(const USI& tabrow);
     /// Calculate initial equilibrium for compositional model according to EQUIL.
     void InitSjPcComp(const USI& tabrow);
-
     /// Perform flash calculation with saturations.
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.
@@ -188,7 +187,7 @@ public:
     /// Allocate memory for WellbulkId
     void InitWellBulkId(const USI& n) { wellBulkId.reserve(n); }
 
-    void CorrectPressure();
+    
 
 private:
     /////////////////////////////////////////////////////////////////////
@@ -201,6 +200,13 @@ private:
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
     vector<OCP_DBL>   initZi;   ///< Initial proportion of each component.
+    
+    vector<OCP_DBL>   SwatInit; ///< Initial water saturation.
+    bool SwatInitExist{false};    ///< If SwatInit has been given.
+    vector<OCP_DBL>  ScaleValuePcow; ///< Scale valus for Pcow.
+    bool ScalePcow{false};  ///< whether Pcow should be scaled.
+    
+
     USI               PVTmode;  ///< Identify PVT mode in blackoil model.
     vector<USI>       PVTNUM;   ///< Identify PVT region in blackoil model: numBulk.
     vector<Mixture*>  flashCal; ///< Flash calculation class.

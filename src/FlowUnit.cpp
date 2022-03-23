@@ -362,9 +362,9 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
         OCP_DBL krgt = data[1];
         OCP_DBL krh = 0.5 * (krow + krgt);
 
+        // from CMG, see *SIGMA
         kro = Fk * kro + (1 - Fk) * krh * So / (1 - Sw);
         krg = Fk * krg + (1 - Fk) * krh * Sg / (1 - Sw);
-
 
         kr_out[0] = kro;
         kr_out[1] = krg;

@@ -152,6 +152,9 @@ private:
     vector<OCP_DBL> ky;   ///< Absolute permeability in y-direction: numGrid
     vector<OCP_DBL> kz;   ///< Absolute permeability in z-direction: numGrid
 
+    // Initial Properties
+    vector<OCP_DBL>   SwatInit; ///< Initial water saturation
+
     // Region
     vector<USI> SATNUM; ///< Identify SAT region: numGrid.
     vector<USI> PVTNUM; ///< Identify PVT region for the blackoil model: numGrid.

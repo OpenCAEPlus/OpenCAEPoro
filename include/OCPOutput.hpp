@@ -188,6 +188,7 @@ private:
     bool VWAT{false}; ///< Water viscosity of grids.
     bool XMF{false}; ///< liquid component mole fractions.
     bool YMF{false}; ///< gas component mole fractions.
+    bool PCW{false}; ///< capilary pressure: Po - Pw.
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.

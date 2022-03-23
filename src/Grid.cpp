@@ -43,6 +43,7 @@ void Grid::InputParam(const ParamReservoir &rs_param)
     kx = rs_param.permX;
     ky = rs_param.permY;
     kz = rs_param.permZ;
+    SwatInit = rs_param.Swat;
 
     SATNUM.resize(numGrid, 0);
     if (rs_param.SATNUM.activity)

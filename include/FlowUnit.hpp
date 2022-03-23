@@ -16,6 +16,7 @@
 #include "OCPConst.hpp"
 #include "OCPTable.hpp"
 #include "ParamReservoir.hpp"
+#include <math.h>
 
 /// designed to deal with matters related to saturation table.
 /// relative permeability, capillary pressure woulbe be calculated here.
@@ -33,6 +34,8 @@ public:
     virtual OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) = 0;
     /// Pcgw = Pg - Pw
     virtual OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) = 0;
+    // Return Swco
+    virtual OCP_DBL GetSwco() const = 0;
 
     /// calculate relative permeability and capillary pressure.
     virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
@@ -58,12 +61,16 @@ public:
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
 
+    OCP_DBL GetSwco() const  override { return Swco; };
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw)  override { return 0; }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow)  override { return 0; }
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override { return 0; }
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
+
+protected:
+    OCP_DBL Swco;
 
 };
 
@@ -89,6 +96,7 @@ public:
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override {
         return SWOF.Eval_Inv(3, pcow, 0);
     }
+    OCP_DBL GetSwco() const  override { return Swco; };
 
     // useless
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override { return 0; }
@@ -124,12 +132,13 @@ public:
     }
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo)  override {
         return SGOF.Eval(3, pcgo, 0);
-    }
+    }   
 
     // uesless
     OCP_DBL GetPcowBySw(const OCP_DBL& sw)  override { return 0; }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow)  override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw)  override { return 0; }
+    OCP_DBL GetSwco() const  override { return 0; };
 
 private:
     OCPTable SGOF;   ///< saturation table about gas and oil.
@@ -155,6 +164,7 @@ public:
     OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw,
         const OCP_DBL& krog, const OCP_DBL& krow) const;
     
+    OCP_DBL GetSwco() const  override { return Swco; };
 
 protected:
     /// oil relative permeability in the presence of connate water only, used in stone2

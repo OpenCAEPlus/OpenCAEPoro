@@ -28,6 +28,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
     rockC1 = rs_param.rock.Cr;
     rockC2 = rockC1;
     T = rs_param.rsTemp + 460;
+    ScalePcow = rs_param.ScalePcow;
     blackOil = rs_param.blackOil;
     comps = rs_param.comps;
     oil = rs_param.oil;
@@ -37,6 +38,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
     miscible = rs_param.EoSp.miscible;
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];
+    
 
     if (rs_param.PBVD_T.data.size() > 0)
         EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
@@ -127,7 +129,10 @@ void Bulk::InputParam(ParamReservoir &rs_param)
         oil = true;
         gas = true;
         water = true;
+
         initZi = rs_param.EoSp.zi; // Easy initialization!
+        initZi.push_back(0.0); // include water
+
         numPhase = rs_param.EoSp.numPhase + 1;
         numCom = rs_param.EoSp.numComp + 1;
         numCom_1 = numCom - 1;
@@ -202,6 +207,14 @@ void Bulk::Setup(const Grid &myGrid)
     SATNUM.resize(numBulk, 0);
     PVTNUM.resize(numBulk, 0);
 
+    if (myGrid.SwatInit.size() > 0) {
+        SwatInitExist = true;
+        SwatInit.resize(numBulk);
+    }
+    if (ScalePcow) {
+        ScaleValuePcow.resize(numBulk, 0);
+    }
+        
     for (OCP_USI bIdb = 0; bIdb < numBulk; bIdb++)
     {
         OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
@@ -219,7 +232,12 @@ void Bulk::Setup(const Grid &myGrid)
 
         SATNUM[bIdb] = myGrid.SATNUM[bIdg];
         PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
+
+        if (SwatInitExist) {
+            SwatInit[bIdb] = myGrid.SwatInit[bIdg];
+        }
     }
+
     rockVp = rockVpInit;
     rockKx = rockKxInit;
     rockKy = rockKyInit;
@@ -847,8 +865,7 @@ void Bulk::InitSjPcBo(const USI &tabrow)
         Sw /= ncut;
         Sg /= ncut;
         S[n * numPhase + numPhase - 1] = Sw;
-        if (gas)
-        {
+        if (gas) {
             S[n * numPhase + numPhase - 2] = Sg;
         }
     }
@@ -867,6 +884,9 @@ void Bulk::InitSjPcComp(const USI &tabrow)
     OCP_DBL PcGO = EQUIL.PcGO;
     OCP_DBL Zmin = 1E8;
     OCP_DBL Zmax = 0;
+
+    OCP_DBL swco = flow[0]->GetSwco();
+    OCP_DBL tmp;
 
     for (OCP_USI n = 0; n < numBulk; n++)
     {
@@ -1245,6 +1265,7 @@ void Bulk::InitSjPcComp(const USI &tabrow)
         Sw = 0;
         Sg = 0;
         USI ncut = 10;
+        OCP_DBL avePcow = 0;
 
         for (USI k = 0; k < ncut; k++)
         {
@@ -1257,6 +1278,7 @@ void Bulk::InitSjPcComp(const USI &tabrow)
             Pg = data[3];
             Pcow = Po - Pw;
             Pcgo = Pg - Po;
+            avePcow += Pcow;
             tmpSw = flow[0]->GetSwByPcow(Pcow);
             if (gas)
             {
@@ -1274,7 +1296,29 @@ void Bulk::InitSjPcComp(const USI &tabrow)
         }
         Sw /= ncut;
         Sg /= ncut;
+        avePcow /= ncut;
 
+        if (SwatInitExist) {
+            if (ScalePcow) {
+                ScaleValuePcow[n] = 1.0;
+            }
+            if (SwatInit[n] <= swco) {
+                Sw = swco;               
+            }
+            else {
+                Sw = SwatInit[n];
+                if (ScalePcow) {
+                    if (avePcow > 0) {
+                        tmp = flow[0]->GetPcowBySw(Sw);
+                        if (tmp > 0) {
+                            ScaleValuePcow[n] = avePcow / tmp;
+                            // cout << n << fixed << setprecision(3) << "   " << ScaleValuePcow[n] * flow[0]->GetPcowBySw(0) << endl;
+                        }
+                    }
+                }
+            }           
+        }
+        
         S[n * numPhase + numPhase - 1] = Sw;
         if (gas)
         {
@@ -1282,6 +1326,7 @@ void Bulk::InitSjPcComp(const USI &tabrow)
         }
     }
 }
+
 
 /// Use initial saturation in blackoil model and initial Zi in compositional model.
 /// It gives initial properties and some derivatives for IMPEC
@@ -1692,7 +1737,14 @@ void Bulk::CalKrPc()
             for (USI j = 0; j < numPhase; j++)
                 Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }
-    }  
+    } 
+
+    if (ScalePcow) {
+        USI Wid = phase2Index[WATER];
+        for (USI n = 0; n < numBulk; n++) {
+            Pj[n * numPhase + Wid] = P[n] + (ScaleValuePcow[n] - 1) * Pc[n * numPhase + Wid];
+        }
+    }
 }
 
 void Bulk::CalKrPcDeriv()
@@ -2121,16 +2173,6 @@ void Bulk::CalSomeInfo(const Grid &myGrid) const
          << K << ")" << endl;
 }
 
-void Bulk::CorrectPressure()
-{
-    OCP_DBL dP = 0;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (fabs(vfp[n]) > TINY) {
-            dP = (vf[n] - rockVp[n]) / vfp[n];;
-            P[n] -= dP;
-        }
-    }
-}
 
 /////////////////////////////////////////////////////////////////////
 // IMPEC

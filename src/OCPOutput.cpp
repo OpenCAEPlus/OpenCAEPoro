@@ -750,6 +750,7 @@ void DetailInfo::InputParam(const OutputDetail &detail_param)
     VWAT = detail_param.VWAT;
     XMF = detail_param.XMF;
     YMF = detail_param.YMF;
+    PCW = detail_param.PCW;
 }
 
 void DetailInfo::Setup(const string &dir)
@@ -1816,6 +1817,43 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             }
         }
         outF << "\n\n";
+    }
+
+    // Po - Pw
+    if (PCW)
+    {
+        OCP_DBL tmp = 1.0;
+
+        outF << "PCW : psia"
+            << "                   ";
+        outF << fixed << setprecision(3) << days << "  DAYS";
+        for (OCP_USI i = 0; i < num; i++)
+        {
+            if (i % nx == 0)
+                outF << "\n";
+            if (i % (nx * ny) == 0)
+                outF << "\n\n";
+
+            if (i % nx == 0)
+            {
+                rs.grid.GetIJKGrid(I, J, K, i);
+                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+            }
+
+            if (rs.grid.MapG2B(i).IsAct())
+            {                
+                bId = rs.grid.MapG2B(i).GetId();
+                if (rs.bulk.ScalePcow) {
+                    tmp = rs.bulk.ScaleValuePcow[bId];
+                }
+                outF << setw(12) << fixed << setprecision(3) << -rs.bulk.Pc[bId * np + WIndex] * tmp;
+            }
+            else
+            {
+                outF << setw(12) << "-----  ";
+            }
+        }
+        outF << "\n\n\n";
     }
 
 

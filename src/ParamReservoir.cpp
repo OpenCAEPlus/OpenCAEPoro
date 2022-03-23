@@ -82,6 +82,12 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
             myPtr = &Ni;
             break;
 
+        case Map_Str2Int("SWATINIT", 8):
+            Swat.reserve(numGrid);
+            myPtr = &Swat;
+            ScalePcow = true;
+            break;
+
         case Map_Str2Int("SATNUM", 6):
             SATNUM.activity = true;
             SATNUM.data.reserve(numGrid);

@@ -170,6 +170,8 @@ public:
     // If P and Ni are given, then calculation of initial equilibration is unneeded.
     vector<OCP_DBL> P;  ///< Initial pressure of components in each grid.
     vector<OCP_DBL> Ni; ///< Initial moles of components in each grid.
+    vector<OCP_DBL> Swat; ///< Initial water saturation in each grid.
+    bool ScalePcow{false}; ///< whether Pcow should be scaled.
 
     // phase property
     Type_A_r<OCP_DBL> density; ///< Density of oil, water, gas in standard conditions.
