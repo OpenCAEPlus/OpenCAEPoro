@@ -1136,18 +1136,19 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
         // OCP_DBL         qt = Dnorm1(myBulk.numCom, &Qitmp[0]);
         OCP_USI         n  = perf[p].location;
         cout << setw(3) << p << "   " << perf[p].state << "   " << setw(6)
-             << perf[p].location << "  " << setw(2) << perf[p].I + 1 << "  " << setw(2)
-             << perf[p].J + 1 << "  " << setw(2) << perf[p].K + 1 << "  " << setw(10)
-             << setprecision(6) << perf[p].WI << "  "               // ccf
-             << setprecision(3) << perf[p].radius << "  "               // ccf
-             << setw(8) << setprecision(4) << perf[p].kh << "  "    // kh
-             << setw(8) << setprecision(2) << perf[p].depth << "  " // depth
-             << setprecision(3) << perf[p].P << "  "                // Pp
-             << setw(10) << setprecision(3) << myBulk.P[n] << "   " // Pb
-             << setw(6) << setprecision(3) << dG[p] << "   "        // dG
-             << setw(8) << perf[p].qi_lbmol[0] << "   " << setw(6) << setprecision(6)
-             << myBulk.S[n * myBulk.numPhase + 0] << "   " << setw(6) << setprecision(6)
-             << myBulk.S[n * myBulk.numPhase + 1] << "   " << endl;
+            << perf[p].location << "  " << setw(2) << perf[p].I + 1 << "  " << setw(2)
+            << perf[p].J + 1 << "  " << setw(2) << perf[p].K + 1 << "  " << setw(10)
+            << setprecision(6) << perf[p].WI << "  "               // ccf
+            << setprecision(3) << perf[p].radius << "  "               // ccf
+            << setw(8) << setprecision(4) << perf[p].kh << "  "    // kh
+            << setw(8) << setprecision(2) << perf[p].depth << "  " // depth
+            << setprecision(3) << perf[p].P << "  "                // Pp
+            << setw(10) << setprecision(3) << myBulk.P[n] << "   " // Pb
+            << setw(6) << setprecision(3) << dG[p] << "   "        // dG
+            << setw(8) << perf[p].qi_lbmol[myBulk.numCom - 1] << "   " << setw(6) << setprecision(6)
+            << myBulk.S[n * myBulk.numPhase + 0] << "   " << setw(6) << setprecision(6)
+            << myBulk.S[n * myBulk.numPhase + 1] << "   " << setw(6) << setprecision(6)
+            << myBulk.S[n * myBulk.numPhase + 2] << endl;
     }
 }
 

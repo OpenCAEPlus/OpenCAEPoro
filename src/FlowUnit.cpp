@@ -339,9 +339,17 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
         FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, surTen, surTen, surTen);
     }
     else {
-        const OCP_DBL So = S_in[0];
-        const OCP_DBL Sg = S_in[1];
-        const OCP_DBL Sw = S_in[2];
+        OCP_DBL So = S_in[0];
+        OCP_DBL Sg = S_in[1];
+        OCP_DBL Sw = S_in[2];
+
+        // OCP test
+        // So = 0.10870; Sg = 0.62855; Sw = 0.26276;  surTen = 1.16374;
+        // So = 0.21475; Sg = 0.54852; Sw = 0.23673;  surTen = 0.31070;
+        // E300 test
+        // So = 0.13817; Sg = 0.59902; Sw = 0.26281;  surTen = 1.22620;
+        // So = 0.21254; Sg = 0.55070; Sw = 0.23676;  surTen = 0.31420;
+        // So = 0.52922; Sg = 0.21719; Sw = 0.25359;  surTen = 0.21234;
 
         Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
         Fp = min(surTenPc, surTen / surTenRef);
@@ -358,8 +366,7 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
 
         OCP_DBL kro = CalKro_Stone2(krow, krog, krw, krg);
         // OCP_DBL kro = CalKro_Default(Sg, Sw, krog, krow);
-        SGOF.Eval_All(0, (1 - Sw), data, cdata);
-        OCP_DBL krgt = data[1];
+        OCP_DBL krgt = SGOF.Eval(0, (1 - Sw), 1);
         OCP_DBL krh = 0.5 * (krow + krgt);
 
         // from CMG, see *SIGMA

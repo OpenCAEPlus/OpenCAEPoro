@@ -872,7 +872,7 @@ void Bulk::InitSjPcBo(const USI &tabrow)
 }
 
 /// Here tabrow is maximum number of depth nodes in table of depth vs pressure.
-void Bulk::InitSjPcComp(const USI &tabrow)
+void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
 {
     OCP_FUNCNAME;
 
@@ -1311,8 +1311,11 @@ void Bulk::InitSjPcComp(const USI &tabrow)
                     if (avePcow > 0) {
                         tmp = flow[0]->GetPcowBySw(Sw);
                         if (tmp > 0) {
-                            ScaleValuePcow[n] = avePcow / tmp;
-                            // cout << n << fixed << setprecision(3) << "   " << ScaleValuePcow[n] * flow[0]->GetPcowBySw(0) << endl;
+                            ScaleValuePcow[n] = avePcow / tmp;                           
+                            /*USI I, J, K;
+                            myGrid.GetIJKGrid(I, J, K, myGrid.activeMap_B2G[n]);
+                            cout << I << "   " << J << "   " << K << "   " 
+                                << fixed << setprecision(3) << "   " << ScaleValuePcow[n] * flow[0]->GetPcowBySw(0) << endl;*/
                         }
                     }
                 }
@@ -1740,9 +1743,11 @@ void Bulk::CalKrPc()
     } 
 
     if (ScalePcow) {
+        // correct
         USI Wid = phase2Index[WATER];
         for (USI n = 0; n < numBulk; n++) {
-            Pj[n * numPhase + Wid] = P[n] + (ScaleValuePcow[n] - 1) * Pc[n * numPhase + Wid];
+            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
+            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
         }
     }
 }

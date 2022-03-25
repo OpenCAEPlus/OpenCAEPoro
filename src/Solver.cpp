@@ -42,6 +42,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
         output.PrintInfo();
+        // rs.allWells.ShowWellStatus(rs.bulk);
     }
 
     if (rs.bulk.GetMixMode() == EOS_PVTW)

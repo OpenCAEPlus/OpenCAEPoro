@@ -78,7 +78,7 @@ public:
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
     void InitSjPcBo(const USI& tabrow);
     /// Calculate initial equilibrium for compositional model according to EQUIL.
-    void InitSjPcComp(const USI& tabrow);
+    void InitSjPcComp(const USI& tabrow, const Grid& myGrid);
     /// Perform flash calculation with saturations.
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.

@@ -1843,10 +1843,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (rs.grid.MapG2B(i).IsAct())
             {                
                 bId = rs.grid.MapG2B(i).GetId();
-                if (rs.bulk.ScalePcow) {
-                    tmp = rs.bulk.ScaleValuePcow[bId];
-                }
-                outF << setw(12) << fixed << setprecision(3) << -rs.bulk.Pc[bId * np + WIndex] * tmp;
+                outF << setw(12) << fixed << setprecision(3) << -rs.bulk.Pc[bId * np + WIndex];
             }
             else
             {
