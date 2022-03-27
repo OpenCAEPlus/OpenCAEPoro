@@ -1721,7 +1721,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // surface tension
-    if (rs.bulk.miscible)
+    if (rs.bulk.miscible && false)
     {
         outF << sep02 << "\n";
         outF << "STEN"
@@ -1754,7 +1754,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fk
-    if (rs.bulk.miscible)
+    if (rs.bulk.miscible && false)
     {
         outF << sep02 << "\n";
         outF << "FMISC"
@@ -1787,7 +1787,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fp
-    if (rs.bulk.miscible)
+    if (rs.bulk.miscible && false)
     {
         outF << sep02 << "\n";
         outF << "FPC"

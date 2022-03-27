@@ -107,7 +107,7 @@ void Grid::SetupNeighborOrthogonalGrid()
         gNeighbor[n].reserve(6);
     }
 
-    // Begin Id and End Id in Grid, bIdg > eIdg
+    // Begin Id and End Id in Grid, bIdg < eIdg
     OCP_USI bIdg, eIdg;
     OCP_DBL area;
     OCP_USI nxny = nx * ny;

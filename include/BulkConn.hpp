@@ -102,16 +102,22 @@ private:
     //  increasing order.
     vector<vector<OCP_USI>> neighbor;
 
+    // sum of num of neighbors who has the bigger Index than current bulk
+    // used to find the location in iteratorConn, upblock, etc.
+    vector<USI> neighborNumGacc;
+
     /// Self-pointer, the indiecs of the i-th bulk in neighbor[i]: activeGridNum???
     vector<USI> selfPtr;
 
-    /// Number of neighbors of the i-th bulk: activeGridNum.
+    /// Number of neighbors of the i-th bulk: activeGridNum, self-included
     vector<USI> neighborNum;
 
     /// All connections (pair of indices) between bulks: numConn.
     //  Note: In each pair, the index of first bulk is greater than the second. The data
     //  in iteratorConn is generated from neighbor.
     vector<BulkPair> iteratorConn;
+
+
 
     ////// Current Time Step
     /// Index of upwinding bulk of connections: numConn * nums of phase.
@@ -184,6 +190,10 @@ public:
 
 public:
     void SetupFIMBulk(Bulk& myBulk);
+    /// Allocate memory for auxiliary variables used by the AIMt method.
+    void AllocateAuxAIMt();
+    /// Setup sparsity pattern of the coefficient matrix for AIMt
+    void SetupMatSparsityAIMt(LinearSystem& myLS, const Bulk& myBulk) const;
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
     void AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;

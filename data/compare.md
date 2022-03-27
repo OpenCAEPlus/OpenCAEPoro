@@ -334,6 +334,8 @@ Linear solve time:   1.153s (7.288%)
 Simulation time:     15.818s
 ```
 
+
+
 ```
 ------------------------------------------------------
 PS_FIM
@@ -369,8 +371,8 @@ Final time:          7305.000 Days
 Total time steps:    878
 Total Newton steps:  1633 (+26 wasted steps)
 Total linear steps:  4970 (+58 wasted steps)
-Linear solve time:   13.091s (74.471%)
-Simulation time:     17.579s
+Linear solve time:   12.399s (74.546%)
+Simulation time:     16.633s
 ```
 
 

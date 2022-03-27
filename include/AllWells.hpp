@@ -245,6 +245,15 @@ public:
                      const OCP_DBL& alpha);
     /// Calculate Resiual and relative Resiual for FIM
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
+
+    /////////////////////////////////////////////////////////////////////
+    // AIMt
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Assemble matrix, parts related to well are included for AIMt
+    void AssemblaMatAIMt(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

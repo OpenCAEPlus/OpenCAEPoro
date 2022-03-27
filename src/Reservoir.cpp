@@ -477,6 +477,7 @@ void Reservoir::AllocateAuxAIMt()
 {
     bulk.AllocateAuxIMPEC();
     conn.AllocateAuxIMPEC(bulk.GetPhaseNum());
+    conn.AllocateAuxAIMt();
     
     bulk.AllocateWellBulkId(allWells.GetWellPerfNum() * 10);
     bulk.AllocateAuxAIMt(0.05);
@@ -506,7 +507,9 @@ void Reservoir::CalKrPcDerivAIMt()
 
 void Reservoir::AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const
 {
+    conn.SetupMatSparsityAIMt(myLS, bulk);
     conn.AssembleMat_AIMt(myLS, bulk, dt);
+    allWells.AssemblaMatAIMt(myLS, bulk, dt);
 }
 
 

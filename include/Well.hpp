@@ -252,6 +252,18 @@ public:
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                    const OCP_USI& wId, const vector<Well>& allWell) const;
+
+    /////////////////////////////////////////////////////////////////////
+    // AIMt
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Assemble matrix for AIMt, parts related to Injection well are included.
+    void AssembleMatINJ_AIMt(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for AIMt, parts related to Production well are included.
+    void AssembleMatPROD_AIMt(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELL_HEADER__ */
