@@ -71,12 +71,17 @@ public:
     bool CheckNi() const;
     /// Check error between Fluids and Pores
     bool CheckVe(const OCP_DBL& Vlim) const;
+    /// Reset upblock
+    void ResetAIMt() { conn.ResetUpblockFIM();}
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
+    /// Return MaxNUMFIMBulk
+    OCP_USI GetMaxFIMBulk() const { return bulk.GetMaxFIMBulk(); }
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
     USI GetComNum() const { return bulk.GetComNum(); }
+    void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
 
 private:
     Grid      grid;      ///< Grid class.
@@ -163,6 +168,26 @@ public:
     /// Return NRdSmax
     OCP_DBL GetNRdSmax() const { return bulk.GetNRdSmax(); }
     void    PrintSolFIM(const string& outfile) const;
+
+    /////////////////////////////////////////////////////////////////////
+    // AIMt
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Allocate memory for auxiliary variables used for AIMt
+    void AllocateAuxAIMt();
+    /// Allocate Maxmimum memory for internal Matirx for local FIM
+    void AllocateMatAIMt(LinearSystem& myLS) const;
+    /// Setup FIMBulk
+    void SetupFIMBulk() { conn.SetupFIMBulk(bulk); }
+    
+    /// Calculate Flash for local FIM, some derivatives are needed
+    void CalFlashDerivAIMt();
+    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
+    void CalKrPcDerivAIMt();
+    /// Assemble Matrix for AIMt ---- local FIM here
+    void AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const;
+
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

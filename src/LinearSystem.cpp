@@ -32,6 +32,15 @@ void LinearSystem::AllocateColMem()
     }
 }
 
+void LinearSystem::AllocateColMem(const OCP_USI& colnum)
+{
+    for (OCP_USI n = 0; n < maxDim; n++) {
+        rowCapacity[n] = colnum;
+        colId[n].reserve(colnum);
+        val[n].reserve(colnum * blockSize);
+    }
+}
+
 void LinearSystem::ClearData()
 {
     for (OCP_USI i = 0; i < maxDim; i++) {
@@ -159,6 +168,7 @@ void LinearSystem::SetupLinearSolver(const USI& i, const string& dir,
             break;
     }
     LS->SetupParam(dir, file);
+    LS->Allocate(rowCapacity, maxDim, blockDim);
 }
 
 /*----------------------------------------------------------------------------*/

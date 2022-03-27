@@ -32,14 +32,6 @@ void Reservoir::Setup()
     bulk.Setup(grid);
     conn.Setup(grid, bulk);
     allWells.Setup(grid, bulk);
-
-    // Test for specified flash order and skipping phase stability analysis
-    // for Compositional Model
-    if (false) {
-        allWells.SetupWellBulk(bulk);
-        conn.SetupFlashOrder(bulk);
-        conn.SetupNeighbor_K(bulk);
-    }
 }
 
 void Reservoir::ApplyControl(const USI& i)
@@ -216,7 +208,6 @@ void Reservoir::CalFlashIMPEC()
     OCP_FUNCNAME;
 
     bulk.Flash();
-    // bulk.FlashSP01();
 }
 
 void Reservoir::UpdateLastStepIMPEC()
@@ -476,6 +467,48 @@ void Reservoir::PrintSolFIM(const string& outfile) const
     }
     outu.close();
 }
+
+
+/////////////////////////////////////////////////////////////////////
+// AIMt
+/////////////////////////////////////////////////////////////////////
+
+void Reservoir::AllocateAuxAIMt()
+{
+    bulk.AllocateAuxIMPEC();
+    conn.AllocateAuxIMPEC(bulk.GetPhaseNum());
+    
+    bulk.AllocateWellBulkId(allWells.GetWellPerfNum() * 10);
+    bulk.AllocateAuxAIMt(0.05);
+}
+
+void Reservoir::AllocateMatAIMt(LinearSystem& myLS) const
+{
+    OCP_FUNCNAME;
+    
+    myLS.AllocateRowMem(bulk.GetMaxFIMBulk() + allWells.GetWellNum(),
+        bulk.GetComNum() + 1);
+    myLS.AllocateColMem(10);
+}
+
+
+void Reservoir::CalFlashDerivAIMt()
+{
+    bulk.FlashDerivAIMt(true);
+}
+
+
+void Reservoir::CalKrPcDerivAIMt()
+{
+    bulk.CalKrPcDerivAIMt();
+}
+
+
+void Reservoir::AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const
+{
+    conn.AssembleMat_AIMt(myLS, bulk, dt);
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

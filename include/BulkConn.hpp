@@ -35,9 +35,10 @@ public:
     BulkPair() = default;
 
     /// Setup BulkPair with bId and eId.
-    BulkPair(const OCP_USI& bId, const OCP_USI& eId)
+    BulkPair(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& Area)
         : BId(bId)
-        , EId(eId){};
+        , EId(eId)
+        , area(Area){};
 
     OCP_USI GetBId() const { return BId; } ///< Return beginning index.
     OCP_USI GetEId() const { return EId; } ///< Return ending index.
@@ -45,6 +46,7 @@ public:
 private:
     OCP_USI BId; ///< Beginning index of a pair.
     OCP_USI EId; ///< Ending index of a pair.
+    OCP_DBL area;///< Effective area
 };
 
 /// Properties and operations on connections between bulks (active grids).
@@ -66,14 +68,8 @@ public:
     /// Setup active connections and calculate necessary properties using Grid and Bulk.
     void Setup(const Grid& myGrid, const Bulk& myBulk);
 
-    /// Generate iteratorConn of active connections from neighbor.
-    void CalIteratorConn();
-
     /// Setup k-neighbor for bulks
-    void SetupNeighbor_K(Bulk& myBulk) const;
-
-    /// Setup Flash order for bulks according to the distance from wells
-    void SetupFlashOrder(Bulk& myBulk) const;
+    void SetupWellBulk_K(Bulk& myBulk) const;
 
     /// Allocate memory for the coefficient matrix.
     void AllocateMat(LinearSystem& myLS) const;
@@ -116,9 +112,6 @@ private:
     //  Note: In each pair, the index of first bulk is greater than the second. The data
     //  in iteratorConn is generated from neighbor.
     vector<BulkPair> iteratorConn;
-
-    /// Effective area of each connection ordered as iteratorConn: numConn.
-    vector<OCP_DBL> area;
 
     ////// Current Time Step
     /// Index of upwinding bulk of connections: numConn * nums of phase.
@@ -184,7 +177,19 @@ public:
 
     /// Update lastUpblock for FIM.
     void UpdateLastUpblockFIM() { lastUpblock = upblock; }
+
+    /////////////////////////////////////////////////////////////////////
+    // AIMt
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    void SetupFIMBulk(Bulk& myBulk);
+    /// Assmeble coefficient matrix for FIM, terms related to bulks only.
+    void AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
+
 };
+
 
 #endif
 

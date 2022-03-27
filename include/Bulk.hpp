@@ -59,10 +59,10 @@ class Bulk
     friend class BulkConn;
     friend class Well;
     friend class DetailInfo;
-    friend class Reservoir;
 
     // temp
     friend class OCP_FIM;
+    friend class Reservoir;
 
     /////////////////////////////////////////////////////////////////////
     // For general usage
@@ -83,8 +83,6 @@ public:
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.
     void Flash();
-    /// Perform flash calculation with Ni in specified order
-    void FlashSP01();
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDeriv();
     /// Pass values from Flash to Bulk after Flash calculation.
@@ -185,8 +183,8 @@ public:
     void CalSomeInfo(const Grid& myGrid) const;
     
     /// Allocate memory for WellbulkId
-    void InitWellBulkId(const USI& n) { wellBulkId.reserve(n); }
-
+    void AllocateWellBulkId(const USI& n) { wellBulkId.reserve(n); }
+    void ClearWellBulkId() { wellBulkId.clear(); }
     
 
 private:
@@ -213,14 +211,10 @@ private:
     USI               SATmode;  ///< Identify SAT mode.
     vector<USI>       SATNUM;   ///< Identify SAT region: numBulk.
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
-
-    // flash in a specified order or skip stability analysis
-    OCP_USI           numWellBulk;  ///< num of bulks which are penetrated by wells
-    vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells
-    vector<OCP_USI>   flashBulkId;  ///< Sequence of flash for bulks  
+ 
+    // Skip stability analysis
     vector<USI>       phaseNum;     ///< Num of hydrocarbon phase in each bulk
-    vector<USI>       lphaseNum;    ///< last phaseNum
-    vector<vector<OCP_USI>> neighbor_K; ///< K-neighbor of each bulk, k = 1 defaulted
+    vector<USI>       lphaseNum;    ///< last phaseNum 
     /// minimal eigenvalue used to determinined if skip the stability analysis
     vector<OCP_SIN>   minEigenSkip; 
     vector<bool>      flagSkip;
@@ -402,6 +396,28 @@ public:
     OCP_ULL GetNRSTAiters()const { return flashCal[0]->GetNRSTAiters(); }
     OCP_ULL GetSSMSPiters()const { return flashCal[0]->GetSSMSPiters(); }
     OCP_ULL GetNRSPiters()const { return flashCal[0]->GetNRSPiters(); }
+
+
+    /////////////////////////////////////////////////////////////////////
+    // For AIMt
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Allocate memory for auxiliary variables used for AIMt.
+    void AllocateAuxAIMt(const OCP_DBL& ratio);
+    OCP_USI GetMaxFIMBulk()const { return maxNumFIMBulk; }
+    /// Perform flash calculation with Ni and calculate derivatives.
+    void FlashDerivAIMt(const bool& flag);
+    void PassFlashValueDerivAIMt(const OCP_USI& n);
+    /// Calculate relative permeability and capillary pressure and their derivatives.
+    void CalKrPcDerivAIMt();
+
+private:
+    vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor
+    vector<OCP_INT>   map_Bulk2FIM; ///< Stores the index of FIM bulk in equations
+    vector<OCP_USI>   FIMBulk;      ///< index of bulks which performs FIM
+    OCP_USI           numFIMBulk;      ///< current num of bulks which are performed by FIM
+    OCP_USI           maxNumFIMBulk;   ///< max num of bulks which are performed by FIM
 };
 
 #endif /* end if __BULK_HEADER__ */

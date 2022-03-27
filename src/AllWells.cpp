@@ -138,9 +138,11 @@ void AllWells::SetupMixture(const Bulk& myBulk)
 
 void AllWells::SetupWellBulk(Bulk& myBulk) const 
 {
-    myBulk.InitWellBulkId(GetWellPerfNum());
+    myBulk.ClearWellBulkId();
     for (USI w = 0; w < numWell; w++) {
-        wells[w].SetupWellBulk(myBulk);
+        if (wells[w].WellState()) {
+            wells[w].SetupWellBulk(myBulk);
+        }
     }
 }
 

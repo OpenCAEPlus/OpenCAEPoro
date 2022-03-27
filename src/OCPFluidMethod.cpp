@@ -11,10 +11,15 @@
 
 #include "OCPFluidMethod.hpp"
 
+////////////////////////////////////////////
+// OCP_IMPEC
+////////////////////////////////////////////
+
 void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
-    // Allocate Memory
+    // Allocate Memory of auxiliary variables for IMPEC 
     rs.AllocateAuxIMPEC();
+    // Allocate Memory of Matrix for IMPEC
     rs.AllocateMatIMPEC(myLS);
 }
 
@@ -193,6 +198,10 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.UpdateIters();
 }
 
+////////////////////////////////////////////
+// OCP_FIM
+////////////////////////////////////////////
+
 void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
@@ -341,6 +350,78 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
 }
+
+////////////////////////////////////////////
+// OCP_AIMt
+////////////////////////////////////////////
+
+void OCP_AIMt::Setup(Reservoir& rs, LinearSystem& myLS, LinearSystem& myAuxLS, const OCPControl& ctrl)
+{
+    // Allocate Memory of auxiliary variables for AIMt 
+    rs.AllocateAuxAIMt();
+    // Allocate Memory of Matrix for IMPEC
+    rs.AllocateMatIMPEC(myLS);
+    // Allocate memory for internal matrix structure for local FIM
+    rs.AllocateMatAIMt(myAuxLS);
+    // Allocate memory for resiual of FIM
+    OCP_USI num = (rs.GetMaxFIMBulk() + rs.GetWellNum()) * (rs.GetComNum() + 1);
+    resFIM.res.resize(num);
+}
+
+void OCP_AIMt::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.PrepareWell();
+    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    if (cfl > 1) dt /= (cfl + 1);
+
+    // setup WellbulkId
+    rs.SetupWellBulk();
+}
+
+
+bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS)
+{
+    OCP_DBL& dt = ctrl.current_dt;
+
+    rs.CalFLuxIMPEC();
+    rs.CalCFL01IMPEC(dt);
+    rs.MassConseveIMPEC(dt);
+    rs.CalVpore();
+    rs.CalFlashIMPEC();
+
+    // Perform FIM in local grid
+    // Init
+    rs.SetupFIMBulk();
+    rs.CalFlashDerivAIMt();
+    rs.CalKrPcDerivAIMt();
+    rs.ResetAIMt();
+    rs.AssembleMatAIMt(myAuxLS, dt);
+
+
+    // Pressure check
+    OCP_INT flagCheck = rs.CheckP();
+    switch (flagCheck) {
+    case 1:
+        cout << "well change" << endl;
+        dt /= 2;
+        rs.ResetVal00IMPEC();
+        return false;
+    case 2:
+        cout << "well change" << endl;
+        dt /= 1;
+        rs.ResetVal00IMPEC();
+        // rs.ResetWellIMPEC();
+        return false;
+    default:
+        break;
+    }
+
+    rs.CalKrPc();
+    rs.CalConnFluxIMPEC();
+}
+
+
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

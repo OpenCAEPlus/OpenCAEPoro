@@ -68,8 +68,7 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
                 }
             }
             for (USI j = selfPtr[bIdb] + 1; j < len; j++) {
-                area.push_back(tmp2[j].area);
-                iteratorConn.push_back(BulkPair(bIdb, tmp2[j].id));
+                iteratorConn.push_back(BulkPair(bIdb, tmp2[j].id, tmp2[j].area));
             }
             neighborNum[bIdb] = len;
         }
@@ -80,89 +79,29 @@ void BulkConn::Setup(const Grid& myGrid, const Bulk& myBulk)
     // PrintConnectionInfoCoor(myGrid);
 }
 
-void BulkConn::CalIteratorConn()
-{
-    OCP_FUNCNAME;
 
-    iteratorConn.reserve(numConn);
-    // generate iterator for BB from iteratorConn
-    for (OCP_USI bId = 0; bId < numBulk; bId++) {
-        USI beginIt = selfPtr[bId] + 1;
-        USI nbc     = neighborNum[bId];
-
-        for (USI c = beginIt; c < nbc; c++) {
-            OCP_USI eId = neighbor[bId][c];
-            iteratorConn.push_back(BulkPair(bId, eId));
-        }
-    }
-
-    assert(iteratorConn.size() == numConn);
-}
-
-void BulkConn::SetupNeighbor_K(Bulk& myBulk) const
+void BulkConn::SetupWellBulk_K(Bulk& myBulk) const
 { 
-    // just for k = 1 now!
-    myBulk.neighbor_K = neighbor; 
-}
+    // For K = 1 now, defaulted
 
-void BulkConn::SetupFlashOrder(Bulk& myBulk) const
-{
-    // The closer the bulk is to the well, the smaller the index is
-    // distance of bulks which are penetrate by wells are zero, and
-    // distance of its K-neighbor is k.
-    myBulk.numWellBulk = myBulk.wellBulkId.size();
-    myBulk.flashBulkId.reserve(numBulk);
-    myBulk.flashBulkId.insert(myBulk.flashBulkId.end(), myBulk.wellBulkId.begin(), myBulk.wellBulkId.end());
-    
-    vector<OCP_USI>& workSet = myBulk.flashBulkId;
-    OCP_USI tmpSize = myBulk.numWellBulk;
-    OCP_USI checkEId = tmpSize;
-    OCP_USI bId = 0;
-    OCP_USI eId = tmpSize;
-    bool flag;
-
-    while (true) {
-        for (OCP_USI n = bId; n < eId; n++) {
-            for (auto& t1 : neighbor[workSet[n]]) {
-                // check if t1 is in flashBulkId
-                flag = false;
-                for (OCP_USI i = 0; i < checkEId; i++) {
-                    if (t1 == workSet[i]) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    workSet.push_back(t1);
-                    tmpSize++;
+    USI len = myBulk.wellBulkId.size();
+    for (USI n = 0; n < len; n++) {
+        for (auto& v : neighbor[n]) {
+            USI clen = myBulk.wellBulkId.size();
+            bool flag = false;
+            for (USI i = 0; i < clen; i++) {
+                if (v == myBulk.wellBulkId[n]) {
+                    flag = true;
+                    break;
                 }
             }
-            checkEId = tmpSize;
-        }
-        if (tmpSize == numBulk) {
-            break;
-        }
-        bId = eId;
-        eId = tmpSize;
-    }
-    
-    // test --- check
-
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        flag = false;
-        for (USI m = 0; m < numBulk; m++) {
-            if (n == workSet[m]) {
-                flag = true;
-                break;
+            if (!flag) {
+                myBulk.wellBulkId.push_back(v);
             }
         }
-        if (!flag) {
-            cout << "Wrong array!" << endl;
-        }
     }
-    
-    cout << "done!" << endl;
 }
+
 
 /// This method should be called only once at the beginning.
 void BulkConn::AllocateMat(LinearSystem& MySolver) const
@@ -274,7 +213,7 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
         cout << setw(6) << eIdg;
         cout << "    ";
         cout << setw(6) << eIdb;
-        cout << setw(20) << setprecision(8) << fixed << area[c] * CONV2;
+        cout << setw(20) << setprecision(8) << fixed << iteratorConn[c].area * CONV2;
 
         cout << endl;
     }
@@ -446,7 +385,7 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
     for (OCP_USI c = 0; c < numConn; c++) {
         bId         = iteratorConn[c].BId;
         eId         = iteratorConn[c].EId;
-        OCP_DBL Akd = CONV1 * CONV2 * area[c];
+        OCP_DBL Akd = CONV1 * CONV2 * iteratorConn[c].area;
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -635,11 +574,11 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
+        Akd = CONV1 * CONV2 * iteratorConn[c].area;
         fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
-        fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        Akd    = CONV1 * CONV2 * area[c];
+        fill(dFdXsE.begin(), dFdXsE.end(), 0.0);        
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
         for (USI j = 0; j < np; j++) {
@@ -834,7 +773,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
-        Akd = CONV1 * CONV2 * area[c];
+        Akd = CONV1 * CONV2 * iteratorConn[c].area;
 
         for (USI j = 0; j < np; j++) {
             bId_np_j = bId * np + j;
@@ -880,6 +819,253 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
                 res[eId * len + 1 + i] -= dNi;
             }
         }
+    }
+}
+
+void BulkConn::SetupFIMBulk(Bulk& myBulk)
+{
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+
+    myBulk.FIMBulk.clear();
+    fill(myBulk.map_Bulk2FIM.begin(), myBulk.map_Bulk2FIM.end(), -1);
+
+    OCP_USI bIdp, bIdc;
+    bool flag;
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        bIdp = n * np;
+        bIdc = n * nc;
+        flag = false;
+        // cfl
+        for (USI j = 0; j < np; j++) {
+            if (myBulk.cfl[bIdp + j] > 0.8) {
+                flag = true;
+                break;
+            }
+        }
+        // Ni
+        if (!flag) {
+            for (USI i = 0; i < nc; i++) {
+                if (myBulk.Ni[bIdc + i] < 0) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        // Volume error
+        if (!flag) {
+            if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 0.001) {
+                flag = true;
+            }
+        }
+
+        if (flag) {
+            // find it
+            for (auto& v : neighbor[n]) {
+                // n is included also
+                myBulk.map_Bulk2FIM[v] = 1;
+            }
+        }
+    }
+
+    // add WellBulk
+    for (auto& p : myBulk.wellBulkId) {
+        for (auto& v : neighbor[p]) {
+            myBulk.map_Bulk2FIM[v] = 1;
+        }
+    }
+    USI iter = 0;
+    for (OCP_USI n = 0; n < myBulk.numBulk; n++) {
+        if (myBulk.map_Bulk2FIM[n] > 0) {
+            myBulk.map_Bulk2FIM[n] = iter;
+            iter++;
+            myBulk.FIMBulk.push_back(n);
+        }
+    }
+    myBulk.numFIMBulk = myBulk.FIMBulk.size();
+}
+
+void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
+    const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
+
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+    const USI ncol = nc + 1;
+    const USI ncol2 = np * nc + np;
+    const USI bsize = ncol * ncol;
+    const USI bsize2 = ncol * ncol2;
+
+    vector<OCP_DBL> bmat(bsize, 0);
+
+    // Accumulation term
+    for (USI i = 1; i < nc + 1; i++) {
+        bmat[i * ncol + i] = 1;
+    }
+    for (OCP_USI fn = 0; fn < myBulk.numFIMBulk; fn++) {
+        OCP_USI n = myBulk.FIMBulk[fn];
+        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        for (USI i = 0; i < nc; i++) {
+            bmat[i + 1] = -myBulk.vfi[n * nc + i];
+        }
+        for (USI i = 0; i < bsize; i++) {
+            myLS.diagVal[fn * bsize + i] = bmat[i];
+        }
+    }
+    // flux term
+    OCP_DBL         Akd;
+    OCP_DBL         transJ, transIJ;
+    vector<OCP_DBL> dFdXpB(bsize, 0);
+    vector<OCP_DBL> dFdXpE(bsize, 0);
+    vector<OCP_DBL> dFdXsB(bsize2, 0);
+    vector<OCP_DBL> dFdXsE(bsize2, 0);
+
+    OCP_USI bId, eId, uId;
+    OCP_USI uId_np_j;
+    OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
+    OCP_DBL dP, dGamma;
+    OCP_DBL tmp;
+
+    for (OCP_USI fn = 0; fn < myBulk.numFIMBulk; fn++) {
+        bId = myBulk.FIMBulk[fn];
+        for (auto& v : neighbor[bId]) {
+            if (v == bId)
+                continue;
+            eId = v;
+
+        }
+    }
+
+
+    // Becareful when first bulk has no neighbors!
+    OCP_USI lastbId = iteratorConn[0].EId;
+    for (OCP_USI c = 0; c < numConn; c++) {
+        bId = iteratorConn[c].BId;
+        eId = iteratorConn[c].EId;
+
+        Akd = CONV1 * CONV2 * iteratorConn[c].area;
+        fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
+        fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
+        fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
+        fill(dFdXsE.begin(), dFdXsE.end(), 0.0);       
+        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+
+        for (USI j = 0; j < np; j++) {
+            uId = upblock[c * np + j];
+            uId_np_j = uId * np + j;
+            if (!myBulk.phaseExist[uId_np_j]) continue;
+            dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
+                myBulk.rho[bId * np + j] * dGamma;
+            xi = myBulk.xi[uId_np_j];
+            kr = myBulk.kr[uId_np_j];
+            mu = myBulk.mu[uId_np_j];
+            muP = myBulk.muP[uId_np_j];
+            xiP = myBulk.xiP[uId_np_j];
+            rhoP = myBulk.rhoP[uId_np_j];
+            transJ = Akd * kr / mu;
+
+            for (USI i = 0; i < nc; i++) {
+                xij = myBulk.xij[uId_np_j * nc + i];
+
+                transIJ = xij * xi * transJ;
+
+                // Pressure -- Primary var
+                dFdXpB[(i + 1) * ncol] += transIJ;
+                dFdXpE[(i + 1) * ncol] -= transIJ;
+                tmp = transIJ * (-rhoP * dGamma);
+                tmp += xij * transJ * xiP * dP;
+                tmp += -transIJ * muP / mu * dP;
+                if (bId == uId) {
+                    dFdXpB[(i + 1) * ncol] += tmp;
+                }
+                else {
+                    dFdXpE[(i + 1) * ncol] += tmp;
+                }
+
+                // Saturation -- Second var
+                for (USI k = 0; k < np; k++) {
+                    dFdXsB[(i + 1) * ncol2 + k] +=
+                        transIJ * myBulk.dPcj_dS[bId * np * np + j * np + k];
+                    dFdXsE[(i + 1) * ncol2 + k] +=
+                        transIJ * myBulk.dPcj_dS[eId * np * np + j * np + k];
+                    tmp = Akd * xij * xi / mu *
+                        myBulk.dKr_dS[uId * np * np + j * np + k] * dP;
+                    if (bId == uId) {
+                        dFdXsB[(i + 1) * ncol2 + k] += tmp;
+                    }
+                    else {
+                        dFdXsE[(i + 1) * ncol2 + k] += tmp;
+                    }
+                }
+                // Cij -- Second var
+                for (USI k = 0; k < nc; k++) {
+                    rhox = myBulk.rhox[uId_np_j * nc + k];
+                    xix = myBulk.xix[uId_np_j * nc + k];
+                    mux = myBulk.mux[uId_np_j * nc + k];
+                    tmp = -transIJ * rhox * dGamma;
+                    tmp += xij * transJ * xix * dP;
+                    tmp += -transIJ * mux / mu * dP;
+                    if (k == i) {
+                        tmp += xi * transJ * dP;
+                    }
+                    if (bId == uId) {
+                        dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                    }
+                    else {
+                        dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                    }
+                }
+            }
+        }
+
+        USI diagptr = selfPtr[bId];
+
+        if (bId != lastbId) {
+            // new bulk
+            assert(myLS.val[bId].size() == diagptr * bsize);
+            OCP_USI id = bId * bsize;
+            myLS.val[bId].insert(myLS.val[bId].end(), myLS.diagVal.data() + id,
+                myLS.diagVal.data() + id + bsize);
+
+            lastbId = bId;
+        }
+
+        // Assemble
+        bmat = dFdXpB;
+        DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
+            bmat.data());
+        Dscalar(bsize, dt, bmat.data());
+        // Begin
+        // Add
+        for (USI i = 0; i < bsize; i++) {
+            myLS.val[bId][diagptr * bsize + i] += bmat[i];
+        }
+        // End
+        // Insert
+        Dscalar(bsize, -1, bmat.data());
+        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());
+
+        // End
+        bmat = dFdXpE;
+        DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
+            bmat.data());
+        Dscalar(bsize, dt, bmat.data());
+        // Begin
+        // Insert
+        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());
+        // Add
+        Dscalar(bsize, -1, bmat.data());
+        for (USI i = 0; i < bsize; i++) {
+            myLS.diagVal[eId * bsize + i] += bmat[i];
+        }
+    }
+    // Add the rest of diag value. Important!
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (myLS.val[n].size() == selfPtr[n] * bsize)
+            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,
+                myLS.diagVal.data() + n * bsize + bsize);
     }
 }
 

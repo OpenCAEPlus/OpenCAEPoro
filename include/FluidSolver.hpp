@@ -39,8 +39,10 @@ public:
 private:
     USI          method = FIM;
     LinearSystem FLSolver;
+    LinearSystem auxFLSolver;
     OCP_IMPEC    impec;
     OCP_FIM      fim;
+    OCP_AIMt     aimt;
 };
 
 #endif /* end if __FLUIDSOLVER_HEADER__ */

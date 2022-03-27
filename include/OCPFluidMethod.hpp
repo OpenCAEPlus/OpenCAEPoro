@@ -22,6 +22,7 @@
 class OCP_IMPEC
 {
 public:
+    /// Setup IMPEC
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
     /// Prepare for Assembling matrix.
@@ -69,6 +70,23 @@ public:
 private:
     /// Resiual for FIM
     ResFIM resFIM;
+};
+
+/// perform AIM in time, that is, local FIM will be performed after global IMPEC performs
+class OCP_AIMt
+{
+public:
+    /// Setup AIMt
+    void Setup(Reservoir& rs, LinearSystem& myLS, LinearSystem& myAuxLS, const OCPControl& ctrl);
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    /// Update properties of fluids.
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS);
+
+private:
+    /// Resiual for FIM
+    ResFIM resFIM;
+
 };
 
 #endif /* end if __OCPFLUIDMETHOD_HEADER__ */

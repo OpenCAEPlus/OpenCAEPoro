@@ -38,6 +38,8 @@ public:
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
     /// Allocate memory for each matrix row with max possible number of columns.
     void AllocateColMem();
+    /// Allocate memory for each matrix row with a constant columns
+    void AllocateColMem(const OCP_USI& colnum);
     /// Enlarge row capacity
     void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
     /// Assign Rhs --- used for FIM now
@@ -60,8 +62,6 @@ public:
     // Linear Solver
     /// Setup LinearSolver
     void SetupLinearSolver(const USI& i, const string& dir, const string& file);
-    /// Allocate memory for Linear Solver
-    void AllocateLinearSolver() { LS->Allocate(rowCapacity, maxDim, blockDim); }
     /// Assemble Mat for Linear Solver
     void AssembleMatLinearSolver() { LS->AssembleMat(colId, val, dim, blockDim, b, u); }
     /// Solve the Linear System

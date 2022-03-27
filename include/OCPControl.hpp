@@ -99,7 +99,9 @@ class OCPControl
 
     friend class OCP_FIM;
     friend class OCP_IMPEC;
-    friend class Solver; // temp
+    friend class OCP_AIMt;
+    // temp
+    friend class Solver; 
 
 public:
     /// Input parameters for control.

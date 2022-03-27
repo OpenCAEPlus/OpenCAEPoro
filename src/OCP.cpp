@@ -50,6 +50,9 @@ void OpenCAEPoro::RunSimulation()
     case FIM:
         cout << "Dynamic simulation with FIM";
         break;
+    case AIMt:
+        cout << "Dynamic simulation with AIMt";
+        break;
     default:
         OCP_ABORT("Wrong method type!");
     }

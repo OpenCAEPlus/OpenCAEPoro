@@ -18,17 +18,21 @@ void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 
     switch (method)
     {
-    case IMPEC:
+    case AIMt:
+        aimt.Setup(rs, FLSolver, auxFLSolver, ctrl);
         FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
+        auxFLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), "./bsr.fasp");
+        break;
+    case IMPEC:
         impec.Setup(rs, FLSolver, ctrl);
+        FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());       
         break;
     case FIM:
     default:
-        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
         fim.Setup(rs, FLSolver, ctrl);
-    }
-
-    FLSolver.AllocateLinearSolver();
+        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());        
+        break;
+    }   
 }
 
 /// Setup solution methods, including IMPEC and FIM.
@@ -37,6 +41,7 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
     switch (method)
     {
     case IMPEC:
+    case AIMt:
         rs.InitIMPEC();
         break;
     case FIM:
@@ -58,6 +63,9 @@ void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
     case FIM:
         fim.Prepare(rs, dt);
         break;
+    case AIMt:
+        aimt.Prepare(rs, dt);
+        break;
     default:
         OCP_ABORT("Wrong method type!");
     }
@@ -69,6 +77,7 @@ void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     switch (method)
     {
     case IMPEC:
+    case AIMt:
         rs.AssembleMatIMPEC(FLSolver, dt);
         break;
     case FIM:
@@ -85,6 +94,7 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
     switch (method)
     {
     case IMPEC:
+    case AIMt:
         impec.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     case FIM:
@@ -104,6 +114,8 @@ bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
             // return impec.UpdateProperty01(rs, ctrl);
         case FIM:
             return fim.UpdateProperty(rs, ctrl);
+        case AIMt:
+            return aimt.UpdateProperty(rs, ctrl, auxFLSolver);
         default:
             OCP_ABORT("Wrong method type!");
     }
@@ -114,6 +126,7 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
+        case AIMt:
             return impec.FinishNR();
             // return impec.FinishNR01(rs, ctrl);
         case FIM:
@@ -129,6 +142,7 @@ void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     switch (method)
     {
     case IMPEC:
+    case AIMt:
         return impec.FinishStep(rs, ctrl);
     case FIM:
         return fim.FinishStep(rs, ctrl);

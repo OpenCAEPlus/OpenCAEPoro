@@ -1397,8 +1397,7 @@ void Bulk::Flash()
             }
             // cout << n << endl;
         }
-        else
-        {
+        else {
             ftype = 0;
         }
 
@@ -1429,54 +1428,6 @@ void Bulk::Flash()
 #endif // DEBUG
 }
 
-void Bulk::FlashSP01()
-{
-    // well bulk first
-    OCP_USI cid;
-    for (USI n = 0; n < numWellBulk; n++)
-    {
-        cid = wellBulkId[n];
-        flashCal[PVTNUM[cid]]->Flash(P[cid], T, &Ni[cid * numCom], 0, phaseNum[cid], &Ks[n * numCom_1]);
-        PassFlashValue(cid);
-    }
-    // other bulk then
-    bool flag01, flag02;
-    USI ftype = 0;
-    for (USI n = numWellBulk; n < numBulk; n++)
-    {
-        cid = flashBulkId[n];
-        flag01 = false;
-        flag02 = false;
-        for (auto &v : neighbor_K[cid])
-        {
-            if (phaseNum[v] == 1)
-            {
-                flag01 = true;
-            }
-            else
-            {
-                flag02 = true;
-            }
-        }
-        if (flag01 && !flag02)
-        {
-            ftype = 1;
-        }
-        else if (!flag01 && flag02)
-        {
-            ftype = 2;
-        }
-        else
-        {
-            ftype = 0;
-        }
-        flashCal[PVTNUM[cid]]->Flash(P[cid], T, &Ni[cid * numCom], ftype,
-                                     phaseNum[cid], &Ks[cid * numCom_1]);
-        PassFlashValue(cid);
-
-        // cout << setw(4) << cid << "   " << ftype << endl;
-    }
-}
 
 /// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::FlashDeriv()
@@ -1516,8 +1467,7 @@ void Bulk::FlashDeriv()
             }
             // cout << n << endl;
         }
-        else
-        {
+        else {
             ftype = 0;
         }
 
@@ -2572,6 +2522,206 @@ void Bulk::OutputInfo(const OCP_USI &n) const
     cout << vj[bIdP] << "   " << vj[bIdP + 1] << "   " << vj[bIdP + 2] << endl;
     cout << "------------------------------" << endl;
 }
+
+void Bulk::AllocateAuxAIMt(const OCP_DBL& ratio)
+{
+    OCP_FUNCNAME;
+
+    maxNumFIMBulk = numBulk * ratio;
+    if (maxNumFIMBulk < wellBulkId.capacity()) {
+        maxNumFIMBulk = wellBulkId.capacity();
+    }
+    FIMBulk.reserve(maxNumFIMBulk);
+    map_Bulk2FIM.resize(numBulk, -1);
+
+    muP.resize(maxNumFIMBulk * numPhase);
+    xiP.resize(maxNumFIMBulk * numPhase);
+    rhoP.resize(maxNumFIMBulk * numPhase);
+    mux.resize(maxNumFIMBulk * numCom * numPhase);
+    xix.resize(maxNumFIMBulk * numCom * numPhase);
+    rhox.resize(maxNumFIMBulk * numCom * numPhase);
+    dSec_dPri.resize(maxNumFIMBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    dKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
+    dPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
+}
+
+void Bulk::FlashDerivAIMt(const bool& flag)
+{
+    OCP_FUNCNAME;
+
+    USI ftype;
+    OCP_USI n, bIdc, bIdc1;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
+    dSec_dPri.clear();
+    for (OCP_USI k = 0; k < numFIMBulk; k++)
+    {
+        n = FIMBulk[k];
+
+        bIdc = n * numCom;
+        bIdc1 = n * numCom_1;
+        if (flag) {
+            // Reset last step, before NR 
+            PSkip[n] = lPSkip[n];
+            P[n] = lP[n];
+            Nt[n] = lNt[n];
+            phaseNum[n] = lphaseNum[n];
+            for (USI i = 0; i < numCom_1; i++) {
+                Ni[bIdc + i] = lNi[bIdc + i];
+                ziSkip[bIdc + i] = lziSkip[bIdc + i];
+                Ks[bIdc1 + i] = lKs[bIdc1 + i];
+            }
+            // water
+            Ni[bIdc + numCom_1] = lNi[bIdc + numCom_1];
+        }
+        
+        ftype = 1;
+        if (flagSkip[n]) 
+        {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10) {
+                ftype = 0;
+            }           
+            if (ftype == 1) {
+                
+                Ntw = Nt[n] - Ni[bIdc + numCom_1];
+                for (USI i = 0; i < numCom_1; i++)
+                {
+                    // cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bIdc + i] / Ntw - ziSkip[bIdc + i]) >= minEig / 10)
+                    {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
+        PassFlashValueDerivAIMt(k);
+    }
+
+#ifdef DEBUG
+    CheckSat();
+#endif // DEBUG
+}
+
+void Bulk::PassFlashValueDerivAIMt(const OCP_USI& k)
+{
+    OCP_FUNCNAME;
+
+    OCP_USI n = FIMBulk[k];
+    OCP_USI bIdp = n * numPhase;
+    OCP_USI kp = k * numPhase;
+    USI pvtnum = PVTNUM[n];
+    USI nptmp = 0;
+    for (USI j = 0; j < numPhase; j++)
+    {
+        phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
+        // Important! Saturation must be passed no matter if the phase exists. This is
+        // because it will be used to calculate relative permeability and capillary
+        // pressure at each time step. Make sure that all saturations are updated at
+        // each step!
+        S[bIdp + j] = flashCal[pvtnum]->S[j];
+        if (phaseExist[bIdp + j])
+        { // j -> bId + j fix bugs.
+            nptmp++;
+            rho[bIdp + j] = flashCal[pvtnum]->rho[j];
+            xi[bIdp + j] = flashCal[pvtnum]->xi[j];
+            mu[bIdp + j] = flashCal[pvtnum]->mu[j];
+            vj[bIdp + j] = flashCal[pvtnum]->v[j];
+
+            // Derivatives
+            muP[kp + j] = flashCal[pvtnum]->muP[j];
+            xiP[kp + j] = flashCal[pvtnum]->xiP[j];
+            rhoP[kp + j] = flashCal[pvtnum]->rhoP[j];
+            for (USI i = 0; i < numCom; i++)
+            {
+                xij[bIdp * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xij[j * numCom + i];
+                mux[kp * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->mux[j * numCom + i];
+                xix[kp * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xix[j * numCom + i];
+                rhox[kp * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->rhox[j * numCom + i];
+            }
+        }
+    }
+    Nt[n] = flashCal[pvtnum]->Nt;
+    vf[n] = flashCal[pvtnum]->vf;
+    vfp[n] = flashCal[pvtnum]->vfp;
+
+    OCP_USI bIdc = n * numCom;
+    for (USI i = 0; i < numCom; i++)
+    {
+        vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
+    }
+    dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
+        flashCal[pvtnum]->dXsdXp.end());
+
+    if (comps)
+    {
+        phaseNum[n] = nptmp - 1; // water is excluded
+        if (nptmp == 3)
+        {
+            // num of hydrocarbon phase equals 2
+            // Calculate Ks
+            OCP_USI bIdc1 = n * numCom_1;
+            for (USI i = 0; i < numCom_1; i++)
+            {
+                Ks[bIdc1 + i] = flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
+            }
+        }
+
+        if (flashCal[pvtnum]->GetFtype() == 0)
+        {
+            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+            if (flagSkip[n])
+            {
+                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+                for (USI j = 0; j < numPhase - 1; j++)
+                {
+                    if (phaseExist[bIdp + j])
+                    {
+                        for (USI i = 0; i < numCom - 1; i++)
+                        {
+                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                        }
+                        break;
+                    }
+                }
+                PSkip[n] = P[n];
+            }
+        }
+        if (miscible) {
+            surTen[n] = flashCal[pvtnum]->GetSurTen();
+        }
+    }
+}
+
+void Bulk::CalKrPcDerivAIMt()
+{
+    OCP_FUNCNAME;
+
+    for (OCP_USI k = 0; k < numFIMBulk; k++)
+    {
+        OCP_USI n = FIMBulk[k];
+        OCP_USI kp = k * numPhase;
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+            &dKr_dS[kp * numPhase],
+            &dPcj_dS[kp * numPhase]);
+        for (USI j = 0; j < numPhase; j++)
+            Pj[bId + j] = P[n] + Pc[bId + j];
+    }
+}
+
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
