@@ -170,7 +170,7 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     if (current_dt > dt) current_dt = dt;
 
 
-    // cout << "FactorT: " << c << endl;
+    // cout << "FactorT: " << c << "   Next dt: " << dt << endl;
 }
 
 void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)

@@ -67,7 +67,7 @@ public:
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
-private:
+protected:
     /// Resiual for FIM
     ResFIM resFIM;
 };

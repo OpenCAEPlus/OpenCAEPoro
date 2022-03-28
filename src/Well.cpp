@@ -1954,8 +1954,6 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
             case BHP_MODE:
                 BHP             = opt.maxBHP;
                 resFIM.res[bId] = BHP - opt.maxBHP;
-                resFIM.maxRelRes_v =
-                    max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxBHP));
                 break;
             case RATE_MODE:
             case ORATE_MODE:
@@ -1995,8 +1993,6 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
             case BHP_MODE:
                 BHP             = opt.minBHP;
                 resFIM.res[bId] = BHP - opt.minBHP;
-                resFIM.maxRelRes_v =
-                    max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.minBHP));
                 break;
             case RATE_MODE:
             case ORATE_MODE:
@@ -2330,6 +2326,95 @@ void Well::AssembleMatPROD_AIMt(const Bulk& myBulk, LinearSystem& myLS,
     // for (USI i = 0; i < bsize; i++) {
     //    cout << myLS.diagVal[wId * bsize + i] << endl;
     //}
+}
+
+void Well::CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
+    const OCP_USI& wId, const vector<Well>& allWell) const
+{
+    OCP_FUNCNAME;
+
+    // Well to Bulk
+    const USI nc = myBulk.numCom;
+    const USI len = nc + 1;
+    OCP_USI   k, bIde;
+
+    for (USI p = 0; p < numPerf; p++) {
+        k = perf[p].location;
+        bIde = myBulk.map_Bulk2FIM[k];
+        for (USI i = 0; i < nc; i++) {
+            resFIM.res[bIde * len + 1 + i] += perf[p].qi_lbmol[i] * dt;
+        }
+    }
+
+    OCP_USI bId = (myBulk.numFIMBulk + wId) * len;
+    // Well Self
+    if (opt.type == INJ) {
+        // Injection
+        switch (opt.optMode) {
+        case BHP_MODE:
+            BHP = opt.maxBHP;
+            resFIM.res[bId] = BHP - opt.maxBHP;
+            break;
+        case RATE_MODE:
+        case ORATE_MODE:
+        case GRATE_MODE:
+        case WRATE_MODE:
+        case LRATE_MODE:
+            resFIM.res[bId] = opt.maxRate;
+            for (USI i = 0; i < nc; i++) {
+                resFIM.res[bId] += qi_lbmol[i];
+            }
+            if (opt.reInj) {
+                for (auto& w : opt.connWell) {
+                    OCP_DBL tmp = 0;
+                    for (USI i = 0; i < nc; i++) {
+                        tmp += allWell[w].qi_lbmol[i];
+                        // tmp += opt.factor * allWell[w].qi_lbmol[i];
+                        // resFIM.res[bId] += opt.factor * allWell[w].qi_lbmol[i];
+                    }
+                    tmp *= opt.factor;
+                    resFIM.res[bId] += tmp;
+                    // cout << "Temp(INJ):    " << tmp / opt.xiINJ / 1000 << endl;
+                }
+                // cout << "Factor(res)    " << opt.factor << endl;
+            }
+            // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
+            // " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
+            resFIM.maxRelRes_v =
+                max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
+            break;
+        default:
+            OCP_ABORT("Wrong well opt mode!");
+            break;
+        }
+    }
+    else {
+        // Production
+        switch (opt.optMode) {
+        case BHP_MODE:
+            BHP = opt.minBHP;
+            resFIM.res[bId] = BHP - opt.minBHP;
+            break;
+        case RATE_MODE:
+        case ORATE_MODE:
+        case GRATE_MODE:
+        case WRATE_MODE:
+        case LRATE_MODE:
+            resFIM.res[bId] = -opt.maxRate;
+            for (USI i = 0; i < nc; i++) {
+                resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
+            }
+            // cout << "Temp(Prod):   " << tmp << endl;
+            // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
+            // " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
+            resFIM.maxRelRes_v =
+                max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
+            break;
+        default:
+            OCP_ABORT("Wrong well opt mode!");
+            break;
+        }
+    }
 }
 
 /*----------------------------------------------------------------------------*/

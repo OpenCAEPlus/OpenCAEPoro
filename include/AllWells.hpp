@@ -239,7 +239,7 @@ public:
     /// Assemble matrix, parts related to well are included for FIM
     void AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
                         const OCP_DBL& dt) const;
-    /// Get solution from solver class after linear system is solved for IMPEC for FIM
+    /// Get solution from solver class after linear system is solved for FIM
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
     void GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len,
                      const OCP_DBL& alpha);
@@ -254,6 +254,10 @@ public:
     /// Assemble matrix, parts related to well are included for AIMt
     void AssemblaMatAIMt(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+    /// Calculate Resiual and relative Resiual for local FIM
+    void CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Get solution from solver class after linear system is solved for local FIM
+    void GetSolAIMt(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

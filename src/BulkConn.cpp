@@ -822,6 +822,10 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
     }
 }
 
+/////////////////////////////////////////////////////////////////////
+// AIMt
+/////////////////////////////////////////////////////////////////////
+
 void BulkConn::SetupFIMBulk(Bulk& myBulk)
 {
     const USI np = myBulk.numPhase;
@@ -872,7 +876,8 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
     // add WellBulk
     for (auto& p : myBulk.wellBulkId) {
         for (auto& v : neighbor[p]) {
-            myBulk.map_Bulk2FIM[v] = 1;
+            for (auto& v1 : neighbor[v])
+                myBulk.map_Bulk2FIM[v1] = 1;
         }
     }
     USI iter = 0;
@@ -884,6 +889,15 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
         }
     }
     myBulk.numFIMBulk = myBulk.FIMBulk.size();
+
+
+    //myBulk.numFIMBulk = numBulk;
+    //myBulk.FIMBulk.resize(numBulk);
+    //for (OCP_USI n = 0; n < numBulk; n++) {
+    //    myBulk.map_Bulk2FIM[n] = n;
+    //    myBulk.FIMBulk[n] = n;
+    //}
+        
 }
 
 void BulkConn::AllocateAuxAIMt()
@@ -983,7 +997,7 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
                 c++;
             }
             Akd = CONV1 * CONV2 * iteratorConn[c].area;
-            cout << iteratorConn[c].BId << "   " << iteratorConn[c].EId << endl;
+            // cout << iteratorConn[c].BId << "   " << iteratorConn[c].EId << endl;
 
             eIde = myBulk.map_Bulk2FIM[eId];
             if (eIde < 0)  flagFIM = false;
@@ -993,6 +1007,7 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
             fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
             fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
             fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
+            dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
             for (USI j = 0; j < np; j++) {
                 uId = upblock[c * np + j];
@@ -1096,6 +1111,10 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
                 OCP_USI id = bIde * bsize;
                 myLS.val[bIde].insert(myLS.val[bIde].end(), myLS.diagVal.data() + id,
                     myLS.diagVal.data() + id + bsize);
+                // Add to val
+                for (USI i = 0; i < bsize; i++) {
+                    myLS.val[bIde][diagptr * bsize + i] += bmat[i];
+                }
                 count++;
             }
             else {
@@ -1123,6 +1142,109 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
         if (myLS.val[n].size() == myLS.diagPtr[n] * bsize)
             myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,
                 myLS.diagVal.data() + (n + 1) * bsize);
+    }
+}
+
+void BulkConn::CalResAIMt(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
+{
+    OCP_FUNCNAME;
+
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+    const USI len = nc + 1;
+    OCP_USI   bId, eId, uId, bIdc;
+    OCP_INT   bIde;
+    
+    // Accumalation Term
+    for (OCP_USI fn = 0; fn < myBulk.numFIMBulk; fn++) {
+
+        OCP_USI n = myBulk.FIMBulk[fn];
+        bIde = fn * len;
+        bId = n * len;
+        bIdc = n * nc;
+
+        res[bIde] = myBulk.rockVp[n] - myBulk.vf[n];
+        for (USI i = 0; i < nc; i++) {
+            res[bIde + 1 + i] = myBulk.Ni[bIdc + i] - myBulk.lNi[bIdc + i];
+        }
+    }
+
+    OCP_USI bId_np_j, eId_np_j, uId_np_j;
+    OCP_USI maxId, minId, c;
+    OCP_DBL Pbegin, Pend, rho, dP;
+    OCP_DBL tmp, dNi;
+    OCP_DBL Akd;
+    // Flux Term
+    // Calculate the upblock at the same time.
+
+    for (OCP_USI fn = 0; fn < myBulk.numFIMBulk; fn++) {
+        bIde = fn;
+        bId = myBulk.FIMBulk[fn];
+        for (auto& v : neighbor[bId]) {
+            if (v == bId)
+                continue;
+            eId = v;
+
+            // find the index of flux: c
+            minId = (bId > eId ? eId : bId);
+            maxId = (bId < eId ? eId : bId);
+            c = neighborNumGacc[minId];
+
+            for (USI i = selfPtr[minId] + 1; i < neighborNum[minId]; i++) {
+                if (neighbor[minId][i] == maxId) {
+                    break;
+                }
+                c++;
+            }
+            Akd = CONV1 * CONV2 * iteratorConn[c].area;
+
+            for (USI j = 0; j < np; j++) {
+                bId_np_j = bId * np + j;
+                eId_np_j = eId * np + j;
+
+                bool exbegin = myBulk.phaseExist[bId_np_j];
+                bool exend = myBulk.phaseExist[eId_np_j];
+
+                if ((exbegin) && (exend)) {
+                    Pbegin = myBulk.Pj[bId_np_j];
+                    Pend = myBulk.Pj[eId_np_j];
+                    rho = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;
+                }
+                else if (exbegin && (!exend)) {
+                    Pbegin = myBulk.Pj[bId_np_j];
+                    Pend = myBulk.P[eId];
+                    rho = myBulk.rho[bId_np_j];
+                }
+                else if ((!exbegin) && (exend)) {
+                    Pbegin = myBulk.P[bId];
+                    Pend = myBulk.Pj[eId_np_j];
+                    rho = myBulk.rho[eId_np_j];
+                }
+                else {
+                    upblock[c * np + j] = bId;
+                    // upblock_Rho[c * np + j] = rho;
+                    continue;
+                }
+
+                uId = bId;
+                dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
+                    (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+                if (dP < 0) {
+                    uId = eId;
+                }
+                // upblock_Rho[c * np + j] = rho;
+                upblock[c * np + j] = uId;
+
+                uId_np_j = uId * np + j;
+                if (!myBulk.phaseExist[uId_np_j]) continue;
+                tmp = dt * Akd * myBulk.xi[uId_np_j] *
+                    myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+                for (USI i = 0; i < nc; i++) {
+                    dNi = tmp * myBulk.xij[uId_np_j * nc + i];
+                    res[bIde * len + 1 + i] += dNi;
+                }
+            }
+        }
     }
 }
 

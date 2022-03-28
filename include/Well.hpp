@@ -264,6 +264,9 @@ public:
     /// Assemble matrix for AIMt, parts related to Production well are included.
     void AssembleMatPROD_AIMt(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt) const;
+    /// Calculate Resiual and relative Resiual for local FIM.
+    void CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
+        const OCP_USI& wId, const vector<Well>& allWell) const;
 };
 
 #endif /* end if __WELL_HEADER__ */

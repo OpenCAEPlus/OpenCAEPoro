@@ -2523,6 +2523,10 @@ void Bulk::OutputInfo(const OCP_USI &n) const
     cout << "------------------------------" << endl;
 }
 
+/////////////////////////////////////////////////////////////////////
+// For AIMt
+/////////////////////////////////////////////////////////////////////
+
 void Bulk::AllocateAuxAIMt(const OCP_DBL& ratio)
 {
     OCP_FUNCNAME;
@@ -2718,6 +2722,112 @@ void Bulk::CalKrPcDerivAIMt()
             &dPcj_dS[kp * numPhase]);
         for (USI j = 0; j < numPhase; j++)
             Pj[bId + j] = P[n] + Pc[bId + j];
+    }
+}
+
+void Bulk::CalRelResAIMt(ResFIM& resFIM) const
+{
+    OCP_FUNCNAME;
+
+    // OCP_USI tmpid01 = -1;
+    // OCP_USI tmpid02 = -1;
+    OCP_DBL tmp;
+
+    const USI len = numCom + 1;
+    for (OCP_USI fn = 0; fn < numFIMBulk; fn++) 
+    {
+        OCP_USI n = FIMBulk[fn];
+
+        for (USI i = 0; i < len; i++)
+        {
+            tmp = fabs(resFIM.res[fn * len + i] / rockVp[n]);
+            if (resFIM.maxRelRes_v < tmp)
+            {
+                resFIM.maxRelRes_v = tmp;
+                // tmpid01            = n;
+            }
+        }
+        for (USI i = 1; i < len; i++)
+        {
+            tmp = fabs(resFIM.res[fn * len + i] / Nt[n]);
+            if (resFIM.maxRelRes_mol < tmp)
+            {
+                resFIM.maxRelRes_mol = tmp;
+                // tmpid02              = n;
+            }
+        }
+    }
+}
+
+void Bulk::GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+    const OCP_DBL& dSmaxlim)
+{
+    OCP_FUNCNAME;
+
+    NRdSmax = 0;
+    NRdPmax = 0;
+    OCP_DBL dP;
+    USI row = numPhase * (numCom + 1);
+    USI col = numCom + 1;
+    USI bsize = row * col;
+    vector<OCP_DBL> dtmp(row, 0);
+    OCP_DBL chopmin = 1;
+    OCP_DBL choptmp = 0;
+
+    for (OCP_USI fn = 0; fn < numFIMBulk; fn++)
+    {
+        OCP_USI n = FIMBulk[fn];
+
+        chopmin = 1;
+        // compute the chop
+        fill(dtmp.begin(), dtmp.end(), 0.0);
+        DaAxpby(row, col, 1, dSec_dPri.data() + fn * bsize, u.data() + fn * col, 1,
+            dtmp.data());
+
+        for (USI j = 0; j < numPhase; j++)
+        {
+
+            choptmp = 1;
+            if (fabs(dtmp[j]) > dSmaxlim)
+            {
+                choptmp = dSmaxlim / fabs(dtmp[j]);
+            }
+            else if (S[n * numPhase + j] + dtmp[j] < 0.0)
+            {
+                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
+            }
+
+            chopmin = min(chopmin, choptmp);
+            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
+        }
+        dP = u[fn * col];
+        choptmp = dPmaxlim / fabs(dP);
+        chopmin = min(chopmin, choptmp);
+        dP *= chopmin;
+        NRdPmax = max(NRdPmax, fabs(dP));
+        P[n] += dP; // seems better
+
+        //// Correct chopmin
+        // for (USI i = 0; i < numCom; i++) {
+        //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
+        //        chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 +
+        //        i]));
+
+        //        //if (chopmin < 0 || !isfinite(chopmin)) {
+        //        //    OCP_ABORT("Wrong Chop!");
+        //        //}
+        //    }
+        //}
+
+        for (USI i = 0; i < numCom; i++)
+        {
+            Ni[n * numCom + i] += u[fn * col + 1 + i] * chopmin;
+
+            // if (Ni[n * numCom + i] < 0) {
+            //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin <<
+            //    "   " << chopmin << endl;
+            //}
+        }
     }
 }
 

@@ -581,6 +581,10 @@ void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) 
     // cout << "Well  " << resFIM.maxRelRes_v;
 }
 
+/////////////////////////////////////////////////////////////////////
+// AIMt
+/////////////////////////////////////////////////////////////////////
+
 void AllWells::AssemblaMatAIMt(LinearSystem& myLS, const Bulk& myBulk,
     const OCP_DBL& dt) const
 {
@@ -597,6 +601,35 @@ void AllWells::AssemblaMatAIMt(LinearSystem& myLS, const Bulk& myBulk,
             default:
                 OCP_ABORT("Wrong well type");
             }
+        }
+    }
+}
+
+void AllWells::CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
+
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+            wells[w].CalResAIMt(resFIM, myBulk, dt, wId, wells);
+            wId++;
+        }
+    }
+
+    // cout << "Well  " << resFIM.maxRelRes_v;
+}
+
+void AllWells::GetSolAIMt(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len)
+{
+    OCP_FUNCNAME;
+
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+            wells[w].BHP += u[(bId + wId) * len];
+            wells[w].UpdatePerfP();
+            wId++;
         }
     }
 }

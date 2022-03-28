@@ -197,6 +197,8 @@ public:
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
     void AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+    /// Calculate resiual for the Newton iteration in local FIM.
+    void CalResAIMt(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 
 };
 

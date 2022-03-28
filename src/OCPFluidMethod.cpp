@@ -386,18 +386,92 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     rs.CalFLuxIMPEC();
     rs.CalCFL01IMPEC(dt);
     rs.MassConseveIMPEC(dt);
+
+    // third check: Ni check
+    if (!rs.CheckNi()) {
+        dt /= 2;
+        rs.ResetVal03IMPEC();
+        cout << "Negative Ni occurs\n";
+        return false;
+    }
+
     rs.CalVpore();
     rs.CalFlashIMPEC();
 
     // Perform FIM in local grid
     // Init
-    rs.SetupFIMBulk();
-    rs.CalFlashDerivAIMt();
+    rs.SetupFIMBulk();  
+
+    // cout << "FIM Bulk : " << rs.bulk.numFIMBulk << endl;
+
+    //for (USI i = 0; i < rs.bulk.numFIMBulk; i++) {
+    //    cout << rs.bulk.P[rs.bulk.FIMBulk[i]] << "   ";
+    //}
+    //cout << endl << endl;
+
+    rs.bulk.FlashDerivAIMt(false);
     rs.CalKrPcDerivAIMt();
-    rs.ResetAIMt();
-    rs.AssembleMatAIMt(myAuxLS, dt);
+   
+    rs.CalResAIMt(resFIM, dt);
+    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
+    //for (USI i = 0; i < rs.bulk.numFIMBulk; i++) {
+    //    cout << rs.bulk.P[rs.bulk.FIMBulk[i]] << "   ";
+    //}   
+    //cout << endl << endl;
+    ctrl.iterNR = 0;
+    // cout << ctrl.iterNR << "   " << resFIM.maxRelRes0_v << endl;
+    while (true) {
+        rs.AssembleMatAIMt(myAuxLS, dt);
+        myAuxLS.AssembleRhs(resFIM.res);
+        myAuxLS.AssembleMatLinearSolver();
+        int status = myAuxLS.Solve();
 
+        rs.GetSolutionAIMt(myAuxLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+        myAuxLS.ClearData();
+
+        // third check: Ni check
+        if (!rs.CheckNi()) {
+            dt /= 2;
+            rs.ResetVal03IMPEC();
+            cout << "Negative Ni occurs\n";
+            return false;
+        }
+       
+        rs.bulk.FlashDerivAIMt(false);
+        rs.CalKrPcDerivAIMt();
+        rs.CalVpore();
+        rs.CalWellTrans();
+        rs.CalWellFlux();
+        rs.CalResAIMt(resFIM, dt);
+
+        //for (USI i = 0; i < rs.bulk.numFIMBulk; i++) {
+        //    cout << fixed << rs.bulk.P[rs.bulk.FIMBulk[i]] << "   ";
+        //}
+        //cout << scientific << resFIM.maxRelRes_v;
+        //cout << endl << endl;
+        OCP_DBL NRdPmax = rs.GetNRdPmax();
+        OCP_DBL NRdSmax = rs.GetNRdSmax();
+        ctrl.iterNR++;
+        //cout << ctrl.iterNR << "   " << resFIM.maxRelRes_v << "   "
+        //    << resFIM.maxRelRes_mol << "   " << NRdPmax << "   "
+        //    << NRdSmax << "   " << endl;
+        
+        if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+            resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+            resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+            (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+            break;
+        }
+        if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+            rs.ResetVal03IMPEC();
+            cout << "Local FIM Failed!" << endl;
+            return false;
+        }
+
+    }
+    
     // Pressure check
     OCP_INT flagCheck = rs.CheckP();
     switch (flagCheck) {
@@ -416,11 +490,20 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
         break;
     }
 
+
+    // fouth check: Volume error check
+    if (!rs.CheckVe(0.01)) {
+        // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
+        dt /= 2;
+        rs.ResetVal03IMPEC();
+        return false;
+    }
+
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
+
+    return true;
 }
-
-
 
 
 /*----------------------------------------------------------------------------*/

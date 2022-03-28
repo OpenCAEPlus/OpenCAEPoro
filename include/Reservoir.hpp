@@ -37,6 +37,7 @@ class Reservoir
     // temp
     friend class OCP_IMPEC;
     friend class OCP_FIM;
+    friend class OCP_AIMt;
     friend class Solver;
 
     /////////////////////////////////////////////////////////////////////
@@ -72,7 +73,7 @@ public:
     /// Check error between Fluids and Pores
     bool CheckVe(const OCP_DBL& Vlim) const;
     /// Reset upblock
-    void ResetAIMt() { conn.ResetUpblockFIM();}
+    void ResetAIMt() { conn.ResetUpblockFIM(); bulk.ResetVp(); allWells.ResetBHP(); }
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return MaxNUMFIMBulk
@@ -185,8 +186,14 @@ public:
     void CalFlashDerivAIMt();
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
     void CalKrPcDerivAIMt();
+    /// Calculate the Resiual for local FIM, it's also RHS of Linear System
+    void CalResAIMt(ResFIM& resFIM, const OCP_DBL& dt);
     /// Assemble Matrix for AIMt ---- local FIM here
     void AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const;
+    /// Return the Solution to Reservoir Pressure and moles of Components for FIM
+    /// Exactly, it's a Newton step.
+    void GetSolutionAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+        const OCP_DBL& dSmax);
 
 };
 

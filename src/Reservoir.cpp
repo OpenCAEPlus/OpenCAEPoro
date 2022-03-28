@@ -155,6 +155,7 @@ void Reservoir::InitIMPEC()
     conn.CalFluxIMPEC(bulk);
     conn.UpdateLastStep();
     allWells.InitBHP(bulk);
+    allWells.UpdateLastBHP();
 }
 
 OCP_DBL Reservoir::CalCFLIMPEC(const OCP_DBL& dt)
@@ -480,7 +481,7 @@ void Reservoir::AllocateAuxAIMt()
     conn.AllocateAuxAIMt();
     
     bulk.AllocateWellBulkId(allWells.GetWellPerfNum() * 10);
-    bulk.AllocateAuxAIMt(0.05);
+    bulk.AllocateAuxAIMt(1);
 }
 
 void Reservoir::AllocateMatAIMt(LinearSystem& myLS) const
@@ -505,11 +506,32 @@ void Reservoir::CalKrPcDerivAIMt()
 }
 
 
+void Reservoir::CalResAIMt(ResFIM& resFIM, const OCP_DBL& dt)
+{
+    // Initialize
+    resFIM.SetZero();
+    // Bulk to Bulk
+    conn.CalResAIMt(resFIM.res, bulk, dt);
+    // Well to Bulk
+    allWells.CalResAIMt(resFIM, bulk, dt);
+    // Calculate RelRes
+    bulk.CalRelResAIMt(resFIM);
+    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+}
+
+
 void Reservoir::AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const
 {
     conn.SetupMatSparsityAIMt(myLS, bulk);
     conn.AssembleMat_AIMt(myLS, bulk, dt);
     allWells.AssemblaMatAIMt(myLS, bulk, dt);
+}
+
+void Reservoir::GetSolutionAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+    const OCP_DBL& dSmax)
+{
+    bulk.GetSolAIMt(u, dPmax, dSmax);
+    allWells.GetSolAIMt(u, bulk.numFIMBulk, bulk.GetComNum() + 1);
 }
 
 

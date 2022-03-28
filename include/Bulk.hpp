@@ -63,6 +63,7 @@ class Bulk
     // temp
     friend class OCP_FIM;
     friend class Reservoir;
+    friend class OCP_AIMt;
 
     /////////////////////////////////////////////////////////////////////
     // For general usage
@@ -411,6 +412,11 @@ public:
     void PassFlashValueDerivAIMt(const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure and their derivatives.
     void CalKrPcDerivAIMt();
+    /// Calculate relative resiual for local FIM.
+    void CalRelResAIMt(ResFIM& resFIM) const;
+    /// Get the solution for local FIM after a Newton iteration.
+    void GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+        const OCP_DBL& dSmaxlim);
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor
