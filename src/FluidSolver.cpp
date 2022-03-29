@@ -27,6 +27,11 @@ void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
         impec.Setup(rs, FLSolver, ctrl);
         FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());       
         break;
+    case FIM_IMPEC:
+        fimImpec.Setup(rs, FLSolver, auxFLSolver, ctrl);
+        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
+        auxFLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), "./csr.fasp");
+        break;
     case FIM:
     default:
         fim.Setup(rs, FLSolver, ctrl);
@@ -44,6 +49,7 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
     case AIMt:
         rs.InitIMPEC();
         break;
+    case FIM_IMPEC:
     case FIM:
         rs.InitFIM();
         break;
@@ -66,6 +72,9 @@ void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
     case AIMt:
         aimt.Prepare(rs, dt);
         break;
+    case FIM_IMPEC:
+        fimImpec.Prepare(rs, dt, auxFLSolver);
+        break;
     default:
         OCP_ABORT("Wrong method type!");
     }
@@ -83,6 +92,9 @@ void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     case FIM:
         fim.AssembleMat(FLSolver, rs, dt);
         break;
+    case FIM_IMPEC:
+        fimImpec.AssembleMat(FLSolver, rs, dt);
+        break;
     default:
         OCP_ABORT("Wrong method type!");
     }
@@ -97,6 +109,7 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
     case AIMt:
         impec.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
+    case FIM_IMPEC:
     case FIM:
         fim.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
@@ -116,6 +129,8 @@ bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
             return fim.UpdateProperty(rs, ctrl);
         case AIMt:
             return aimt.UpdateProperty(rs, ctrl, auxFLSolver);
+        case FIM_IMPEC:
+            return fimImpec.UpdateProperty(rs, ctrl, auxFLSolver);
         default:
             OCP_ABORT("Wrong method type!");
     }
@@ -131,6 +146,8 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
             // return impec.FinishNR01(rs, ctrl);
         case FIM:
             return fim.FinishNR(rs, ctrl);
+        case FIM_IMPEC:
+            return fimImpec.FinishNR(rs, ctrl, auxFLSolver);
         default:
             OCP_ABORT("Wrong method type!");
     }
@@ -144,6 +161,7 @@ void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     case IMPEC:
     case AIMt:
         return impec.FinishStep(rs, ctrl);
+    case FIM_IMPEC:
     case FIM:
         return fim.FinishStep(rs, ctrl);
     default:

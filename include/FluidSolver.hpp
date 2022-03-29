@@ -37,12 +37,13 @@ public:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
-    USI          method = FIM;
-    LinearSystem FLSolver;
-    LinearSystem auxFLSolver;
-    OCP_IMPEC    impec;
-    OCP_FIM      fim;
-    OCP_AIMt     aimt;
+    USI           method = FIM;
+    LinearSystem  FLSolver;
+    LinearSystem  auxFLSolver;
+    OCP_IMPEC     impec;
+    OCP_FIM       fim;
+    OCP_AIMt      aimt;
+    OCP_FIM_IMPEC fimImpec;
 };
 
 #endif /* end if __FLUIDSOLVER_HEADER__ */

@@ -334,9 +334,9 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 ctrl.ResetIterNRLS();
                 return false;
             default:
+                return true;
                 break;
-        }
-        return true;
+        }       
     } else {
         return false;
     }
@@ -469,7 +469,6 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
             cout << "Local FIM Failed!" << endl;
             return false;
         }
-
     }
     
     // Pressure check
@@ -503,6 +502,114 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     rs.CalConnFluxIMPEC();
 
     return true;
+}
+
+void OCP_FIM_IMPEC::Setup(Reservoir& rs, LinearSystem& MyLS, LinearSystem& AuxMyLS, const OCPControl& ctrl)
+{
+    // Allocate Bulk and BulkConn Memory for IMPEC
+    rs.AllocateAuxIMPEC();
+    // Allocate memory for internal matrix structure
+    rs.AllocateMatIMPEC(AuxMyLS);
+
+    OCP_FIM::Setup(rs, MyLS, ctrl);
+}
+
+void OCP_FIM_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt, LinearSystem& AuxMyLS)
+{
+    OCP_FIM::Prepare(rs, dt);
+    IMPECInit(rs, dt, AuxMyLS);   
+}
+
+void OCP_FIM_IMPEC::IMPECInit(Reservoir& rs, OCP_DBL& dt, LinearSystem& AuxMyLS)
+{
+    rs.CalConnFluxIMPEC();
+    rs.AssembleMatIMPEC(AuxMyLS, dt);
+    AuxMyLS.AssembleMatLinearSolver();
+    AuxMyLS.Solve();
+    rs.GetSolutionIMPEC(AuxMyLS.GetSolution());
+    AuxMyLS.ClearData();
+
+    //rs.CalFlashDerivFIM();
+    //rs.CalKrPcDerivFIM();
+}
+
+
+bool OCP_FIM_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& AuxMyLS)
+{
+    bool flag = OCP_FIM::UpdateProperty(rs, ctrl);
+    if (flag) {
+        return true;
+    }
+    else {
+        IMPECInit(rs, ctrl.GetCurDt(), AuxMyLS);
+        return false;
+    }
+}
+
+
+bool OCP_FIM_IMPEC::FinishNR(Reservoir& rs, OCPControl& ctrl, LinearSystem& AuxMyLS)
+{
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
+
+    //#ifdef _DEBUG
+    // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+    //    << "  " << NRdPmax << endl;
+    // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
+    //#endif
+
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+        ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResFIM(resFIM, ctrl.current_dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        ctrl.ResetIterNRLS();
+        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
+        
+        IMPECInit(rs, ctrl.current_dt, AuxMyLS);
+        return false;
+    }
+
+    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+
+        OCP_INT flagCheck = rs.CheckP(false, true);
+#if DEBUG
+        if (flagCheck > 0) {
+            cout << ">> Switch well constraint: Case " << flagCheck << endl;
+        }
+#endif
+
+        switch (flagCheck) {
+        case 1:
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+            rs.ResetFIM(true);
+            rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+
+            IMPECInit(rs, ctrl.current_dt, AuxMyLS);
+            return false;
+        case 2:
+            ctrl.current_dt /= 1;
+            rs.ResetFIM(true);
+            rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+
+            IMPECInit(rs, ctrl.current_dt, AuxMyLS);
+            return false;
+        default:
+            return true;
+            break;
+        }
+    }
+    else {
+        return false;
+    }
 }
 
 

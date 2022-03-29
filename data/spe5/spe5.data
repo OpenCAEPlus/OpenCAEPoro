@@ -161,11 +161,6 @@ WPI
 
 RPTSCHED
 PRESSURE
-DENO DENG DENW
-SOIL SGAS SWAT
-KRO KRG KRW
-BOIL BGAS BWAT
-VWAT VGAS VOIL
 /
 
 
@@ -182,7 +177,7 @@ TUNING
 
 
 METHOD
-AIMt 
+FIM 
 /
 
 
@@ -205,6 +200,7 @@ WCONPROD
 /
 
 --Start production only ----------------------------------------------
+
 
 TSTEP
 2*365.25

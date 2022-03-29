@@ -64,7 +64,8 @@ const USI GENERAL_GRID    = 3; ///< Grid type = general
 // Solution methods
 const USI IMPEC = 1; ///< Solution method = IMPEC
 const USI FIM   = 2; ///< Solution method = FIM
-const USI AIMt = 3; ///< improved version of IMPEC
+const USI AIMt = 3; ///< improved version of IMPEC, IMPEC after FIM
+const USI FIM_IMPEC = 4; ///< FIM before IMPEC
 
 // Fluid types
 const USI OIL     = 0; ///< Fluid type = oil
