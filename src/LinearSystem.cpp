@@ -155,11 +155,11 @@ void LinearSystem::SetupLinearSolver(const USI& i, const string& dir,
 {
     solveDir = dir;
     switch (i) {
-        case 1:
+        case SCALARFASP:
             // Fasp
             LS = new ScalarFaspSolver;
             break;
-        case 2:
+        case VECTORFASP:
             // Blcok Fasp
             LS = new VectorFaspSolver;
             break;

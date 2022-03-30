@@ -481,7 +481,7 @@ void Reservoir::AllocateAuxAIMt()
     conn.AllocateAuxAIMt();
     
     bulk.AllocateWellBulkId(allWells.GetWellPerfNum() * 10);
-    bulk.AllocateAuxAIMt(1);
+    bulk.AllocateAuxAIM(0.05);
 }
 
 void Reservoir::AllocateMatAIMt(LinearSystem& myLS) const
@@ -494,15 +494,15 @@ void Reservoir::AllocateMatAIMt(LinearSystem& myLS) const
 }
 
 
-void Reservoir::CalFlashDerivAIMt()
+void Reservoir::CalFlashDerivAIM(const bool& IfAIMs)
 {
-    bulk.FlashDerivAIMt(true);
+    bulk.FlashDerivAIM(IfAIMs);
 }
 
 
-void Reservoir::CalKrPcDerivAIMt()
+void Reservoir::CalKrPcDerivAIM(const bool& IfAIMs)
 {
-    bulk.CalKrPcDerivAIMt();
+    bulk.CalKrPcDerivAIM(IfAIMs);
 }
 
 
@@ -534,6 +534,43 @@ void Reservoir::GetSolutionAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
     allWells.GetSolAIMt(u, bulk.numFIMBulk, bulk.GetComNum() + 1);
 }
 
+
+void Reservoir::AllocateAuxAIMs()
+{
+    bulk.AllocateAuxIMPEC();  
+    bulk.AllocateWellBulkId(allWells.GetWellPerfNum() * 10);
+    bulk.AllocateAuxAIM(1);
+
+    conn.AllocateAuxIMPEC(bulk.GetPhaseNum());
+    conn.AllocateAuxAIMt();
+}
+
+void Reservoir::CalResAIMs(ResFIM& resFIM, const OCP_DBL& dt)
+{
+    // Initialize
+    resFIM.SetZero();
+    // Bulk to Bulk
+    conn.CalResAIMs(resFIM.res, bulk, dt);
+    // Well to Bulk
+    allWells.CalResFIM(resFIM, bulk, dt);
+    // Calculate RelRes
+    bulk.CalRelResAIMs(resFIM);
+    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+}
+
+void Reservoir::AssembleMatAIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const OCP_DBL& dt) const
+{
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMat_AIMs(myLS, res, bulk, dt);
+    allWells.AssemblaMatAIMs(myLS, bulk, dt);
+}
+
+void Reservoir::GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+    const OCP_DBL& dSmax)
+{
+    bulk.GetSolAIMs(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, bulk.numFIMBulk, bulk.GetComNum() + 1);
+}
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

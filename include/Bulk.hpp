@@ -400,23 +400,29 @@ public:
 
 
     /////////////////////////////////////////////////////////////////////
-    // For AIMt
+    // For AIMs, AIMt
     /////////////////////////////////////////////////////////////////////
 
 public:
     /// Allocate memory for auxiliary variables used for AIMt.
-    void AllocateAuxAIMt(const OCP_DBL& ratio);
+    void AllocateAuxAIM(const OCP_DBL& ratio);
     OCP_USI GetMaxFIMBulk()const { return maxNumFIMBulk; }
     /// Perform flash calculation with Ni and calculate derivatives.
-    void FlashDerivAIMt(const bool& flag);
-    void PassFlashValueDerivAIMt(const OCP_USI& n);
+    void FlashDerivAIM(const bool& IfAIMs);
+    void PassFlashValueDerivAIM(const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure and their derivatives.
-    void CalKrPcDerivAIMt();
+    void CalKrPcDerivAIM(const bool& IfAIMs);
     /// Calculate relative resiual for local FIM.
     void CalRelResAIMt(ResFIM& resFIM) const;
     /// Get the solution for local FIM after a Newton iteration.
     void GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
+
+    /// Calculate relative resiual for AIMs, parts related to FIM are considered.
+    void CalRelResAIMs(ResFIM& resFIM) const;
+    void GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+        const OCP_DBL& dSmaxlim);
+
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor

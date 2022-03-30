@@ -247,7 +247,7 @@ public:
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
-    // AIMt
+    // AIMt, AIMs
     /////////////////////////////////////////////////////////////////////
 
 public:
@@ -258,6 +258,10 @@ public:
     void CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for local FIM
     void GetSolAIMt(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
+
+    /// Assemble matrix, parts related to well are included for AIMt
+    void AssemblaMatAIMs(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

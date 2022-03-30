@@ -72,6 +72,27 @@ protected:
     ResFIM resFIM;
 };
 
+/// perform AIM in space, that is, some grids will be implicit, others will be explicit at the same time step
+class OCP_AIMs
+{
+public:
+    /// Setup AIMs
+    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    /// Assemble Matrix
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt);
+    /// Solve the linear system.
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
+    /// Update properties of fluids.
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+
+private:
+    /// Resiual for AIMs
+    ResFIM resFIM;
+
+};
+
 /// perform AIM in time, that is, local FIM will be performed after global IMPEC performs
 class OCP_AIMt
 {

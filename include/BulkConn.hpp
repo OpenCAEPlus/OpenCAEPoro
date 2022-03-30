@@ -185,11 +185,12 @@ public:
     void UpdateLastUpblockFIM() { lastUpblock = upblock; }
 
     /////////////////////////////////////////////////////////////////////
-    // AIMt
+    // AIMs, AIMt
     /////////////////////////////////////////////////////////////////////
 
 public:
     void SetupFIMBulk(Bulk& myBulk);
+    void SetupFIMBulkBoundAIMs(Bulk& myBulk);
     /// Allocate memory for auxiliary variables used by the AIMt method.
     void AllocateAuxAIMt();
     /// Setup sparsity pattern of the coefficient matrix for AIMt
@@ -199,7 +200,13 @@ public:
         const OCP_DBL& dt) const;
     /// Calculate resiual for the Newton iteration in local FIM.
     void CalResAIMt(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-
+    /// Calculate resiual for the Newton iteration in AIMs.
+    /// Only parts using local FIM are considered.
+    void CalResAIMs(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
+    /// Assmeble coefficient matrix for AIMs, terms related to bulks only
+    /// parts related to FIM A, IMPEC A, and IMPEC b
+    void AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
 };
 
 

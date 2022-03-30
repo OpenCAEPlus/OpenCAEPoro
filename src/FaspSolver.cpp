@@ -151,7 +151,7 @@ void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     }
 }
 
-OCP_INT ScalarFaspSolver::Solve(vector<OCP_DBL>& u)
+OCP_INT ScalarFaspSolver::Solve()
 {
     OCP_INT status = FASP_SUCCESS;
 
@@ -380,6 +380,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     OCP_USI size_row;
     A.IA[0] = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
+
         USI nnb_Row = colId[i - 1].size();
         A.IA[i]     = A.IA[i - 1] + nnb_Row;
 
@@ -389,7 +390,13 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
         }
         size_row = nnb_Row * blockDim * blockDim;
         for (USI k = 0; k < size_row; k++) {
+
+            cout << count2 << "  " << k << endl;
+
             A.val[count2] = val[i - 1][k];
+
+            cout << count2 << "  " << k << endl;
+
             count2++;
         }
     }
@@ -411,7 +418,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     
 }
 
-OCP_INT VectorFaspSolver::Solve(vector<OCP_DBL>& u)
+OCP_INT VectorFaspSolver::Solve()
 {
     OCP_INT status = FASP_SUCCESS;
 

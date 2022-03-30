@@ -20,22 +20,19 @@ void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
     {
     case AIMt:
         aimt.Setup(rs, FLSolver, auxFLSolver, ctrl);
-        FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());
-        auxFLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), "./bsr.fasp");
+        break;
+    case AIMs:
+        aims.Setup(rs, FLSolver, ctrl);       
         break;
     case IMPEC:
-        impec.Setup(rs, FLSolver, ctrl);
-        FLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), ctrl.GetLsFile());       
+        impec.Setup(rs, FLSolver, ctrl);        
         break;
     case FIM_IMPEC:
         fimImpec.Setup(rs, FLSolver, auxFLSolver, ctrl);
-        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());
-        auxFLSolver.SetupLinearSolver(1, ctrl.GetWorkDir(), "./csr.fasp");
         break;
     case FIM:
     default:
-        fim.Setup(rs, FLSolver, ctrl);
-        FLSolver.SetupLinearSolver(2, ctrl.GetWorkDir(), ctrl.GetLsFile());        
+        fim.Setup(rs, FLSolver, ctrl);                
         break;
     }   
 }
@@ -47,6 +44,7 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
     {
     case IMPEC:
     case AIMt:
+    case AIMs:
         rs.InitIMPEC();
         break;
     case FIM_IMPEC:
@@ -68,6 +66,9 @@ void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
         break;
     case FIM:
         fim.Prepare(rs, dt);
+        break;
+    case AIMs:
+        aims.Prepare(rs, dt);
         break;
     case AIMt:
         aimt.Prepare(rs, dt);
@@ -92,6 +93,9 @@ void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     case FIM:
         fim.AssembleMat(FLSolver, rs, dt);
         break;
+    case AIMs:
+        aims.AssembleMat(FLSolver, rs, dt);
+        break;
     case FIM_IMPEC:
         fimImpec.AssembleMat(FLSolver, rs, dt);
         break;
@@ -112,6 +116,9 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
     case FIM_IMPEC:
     case FIM:
         fim.SolveLinearSystem(FLSolver, rs, ctrl);
+        break;
+    case AIMs:
+        aims.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     default:
         OCP_ABORT("Wrong method type!");

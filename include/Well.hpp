@@ -254,7 +254,7 @@ public:
                    const OCP_USI& wId, const vector<Well>& allWell) const;
 
     /////////////////////////////////////////////////////////////////////
-    // AIMt
+    // AIMt, AIMs
     /////////////////////////////////////////////////////////////////////
 
 public:
@@ -267,6 +267,13 @@ public:
     /// Calculate Resiual and relative Resiual for local FIM.
     void CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
         const OCP_USI& wId, const vector<Well>& allWell) const;
+
+    /// Assemble matrix for AIMs, parts related to Injection well are included.
+    void AssembleMatINJ_AIMs(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for AIMs, parts related to Production well are included.
+    void AssembleMatPROD_AIMs(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELL_HEADER__ */

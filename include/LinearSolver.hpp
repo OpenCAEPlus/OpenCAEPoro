@@ -42,7 +42,7 @@ public:
                              vector<OCP_DBL>& u) = 0;
 
     /// Solve the linear system and return the number of iterations.
-    virtual OCP_INT Solve(vector<OCP_DBL>& u) = 0;
+    virtual OCP_INT Solve() = 0;
 
     /// Get number of iterations.
     virtual USI GetNumIters() const = 0;

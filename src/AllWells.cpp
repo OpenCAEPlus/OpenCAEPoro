@@ -634,6 +634,26 @@ void AllWells::GetSolAIMt(const vector<OCP_DBL>& u, const OCP_USI& bId, const US
     }
 }
 
+void AllWells::AssemblaMatAIMs(LinearSystem& myLS, const Bulk& myBulk,
+    const OCP_DBL& dt) const
+{
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+
+            switch (wells[w].WellType()) {
+            case INJ:
+                wells[w].AssembleMatINJ_AIMs(myBulk, myLS, dt);
+                break;
+            case PROD:
+                wells[w].AssembleMatPROD_AIMs(myBulk, myLS, dt);
+                break;
+            default:
+                OCP_ABORT("Wrong well type");
+            }
+        }
+    }
+}
+
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/

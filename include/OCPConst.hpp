@@ -64,8 +64,13 @@ const USI GENERAL_GRID    = 3; ///< Grid type = general
 // Solution methods
 const USI IMPEC = 1; ///< Solution method = IMPEC
 const USI FIM   = 2; ///< Solution method = FIM
-const USI AIMt = 3; ///< improved version of IMPEC, IMPEC after FIM
-const USI FIM_IMPEC = 4; ///< FIM before IMPEC
+const USI AIMs = 3;  ///< Adaptive implicit
+const USI AIMt = 4;  ///< improved version of IMPEC, loacl FIM after IMPEC
+const USI FIM_IMPEC = 5; ///< FIM before IMPEC
+
+// Linear Solver
+const USI SCALARFASP = 1;  ///< Use scalar linear solver in Fasp 
+const USI VECTORFASP = 2;  ///< Use vector linear solver in Fasp
 
 // Fluid types
 const USI OIL     = 0; ///< Fluid type = oil

@@ -171,7 +171,7 @@ public:
     void    PrintSolFIM(const string& outfile) const;
 
     /////////////////////////////////////////////////////////////////////
-    // AIMt
+    // AIMs, AIMt
     /////////////////////////////////////////////////////////////////////
 
 public:
@@ -181,11 +181,12 @@ public:
     void AllocateMatAIMt(LinearSystem& myLS) const;
     /// Setup FIMBulk
     void SetupFIMBulk() { conn.SetupFIMBulk(bulk); }
+    void SetupFIMBulkBoundAIMs() { conn.SetupFIMBulkBoundAIMs(bulk); }
     
     /// Calculate Flash for local FIM, some derivatives are needed
-    void CalFlashDerivAIMt();
+    void CalFlashDerivAIM(const bool& IfAIMs);
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcDerivAIMt();
+    void CalKrPcDerivAIM(const bool& IfAIMs);
     /// Calculate the Resiual for local FIM, it's also RHS of Linear System
     void CalResAIMt(ResFIM& resFIM, const OCP_DBL& dt);
     /// Assemble Matrix for AIMt ---- local FIM here
@@ -195,6 +196,14 @@ public:
     void GetSolutionAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
         const OCP_DBL& dSmax);
 
+    /// Allocate memory for auxiliary variables used for AIMs
+    void AllocateAuxAIMs();
+    /// Calculate the Resiual for AIMs, it's also RHS of Linear System
+    void CalResAIMs(ResFIM& resFIM, const OCP_DBL& dt);
+    /// Assemble Matrix for AIMs
+    void AssembleMatAIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const OCP_DBL& dt) const;
+    void GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+        const OCP_DBL& dSmax);
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

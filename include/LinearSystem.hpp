@@ -65,7 +65,7 @@ public:
     /// Assemble Mat for Linear Solver
     void AssembleMatLinearSolver() { LS->AssembleMat(colId, val, dim, blockDim, b, u); }
     /// Solve the Linear System
-    OCP_INT Solve() { return LS->Solve(u); }
+    OCP_INT Solve() { return LS->Solve(); }
 
     /// Return the Max Iters
     USI GetNumIters() { return LS->GetNumIters(); }

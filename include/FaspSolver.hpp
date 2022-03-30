@@ -93,7 +93,7 @@ private:
                      vector<OCP_DBL>& u) override;
 
     /// Solve the linear system.
-    OCP_INT Solve(vector<OCP_DBL>& u) override;
+    OCP_INT Solve() override;
 
 private:
     dCSRmat A; ///< Matrix for scalar-value problems.
@@ -121,7 +121,7 @@ private:
                      vector<OCP_DBL>& u) override;
 
     /// Solve the linear system.
-    OCP_INT Solve(vector<OCP_DBL>& u) override;
+    OCP_INT Solve() override;
 
     /// Apply decoupling to the linear system.
     void Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,

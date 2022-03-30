@@ -99,6 +99,7 @@ class OCPControl
 
     friend class OCP_FIM;
     friend class OCP_IMPEC;
+    friend class OCP_AIMs;
     friend class OCP_AIMt;
     friend class OCP_FIM_IMPEC;
     // temp

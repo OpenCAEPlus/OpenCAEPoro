@@ -21,6 +21,8 @@ void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     rs.AllocateAuxIMPEC();
     // Allocate Memory of Matrix for IMPEC
     rs.AllocateMatIMPEC(myLS);
+
+    myLS.SetupLinearSolver(SCALARFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -211,6 +213,8 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     // Allocate memory for resiual of FIM
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
     resFIM.res.resize(num);
+
+    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -351,6 +355,85 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.UpdateIters();
 }
 
+
+////////////////////////////////////////////
+// OCP_AIMs
+////////////////////////////////////////////
+
+void OCP_AIMs::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
+{
+    // Allocate Memory of auxiliary variables for AIMt 
+    rs.AllocateAuxAIMs();
+    // Allocate Memory of Matrix for FIM
+    rs.AllocateMatFIM(myLS);
+    // Allocate memory for resiual of FIM
+    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
+    resFIM.res.resize(num);
+
+    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+}
+
+void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.PrepareWell();
+    rs.CalWellFlux();
+
+    // Set FIM Bulk
+    rs.SetupWellBulk();
+    rs.SetupFIMBulk();
+    rs.SetupFIMBulkBoundAIMs();
+
+    rs.CalResAIMs(resFIM, dt);
+    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+
+    // Calculat property of FIM Bulk
+    rs.CalFlashDerivAIM(true);
+    rs.CalKrPcDerivAIM(true);
+}
+
+void OCP_AIMs::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt)
+{
+    rs.AssembleMatAIMs(myLS, resFIM.res, dt);
+    myLS.AssembleRhs(resFIM.res);
+}
+
+void OCP_AIMs::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
+{
+#ifdef _DEBUG
+    myLS.CheckEquation();
+#endif // DEBUG
+
+    myLS.AssembleMatLinearSolver();
+
+    GetWallTime Timer;
+    Timer.Start();
+    int status = myLS.Solve();
+    if (status < 0) {
+        status = myLS.GetNumIters();
+    }
+    // cout << "LS step = " << status << endl;
+
+#ifdef _DEBUG
+    // myLS.OutputLinearSystem("testA.out", "testb.out");
+    // myLS.OutputSolution("testx.out");
+    myLS.CheckSolution();
+#endif // DEBUG
+
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.UpdateIterLS(status);
+    ctrl.UpdateIterNR();
+
+    rs.GetSolutionAIMs(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    // rs.GetSolution01FIM(myLS.GetSolution());
+    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
+    myLS.ClearData();
+}
+
+bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+{
+
+}
+
 ////////////////////////////////////////////
 // OCP_AIMt
 ////////////////////////////////////////////
@@ -366,6 +449,9 @@ void OCP_AIMt::Setup(Reservoir& rs, LinearSystem& myLS, LinearSystem& myAuxLS, c
     // Allocate memory for resiual of FIM
     OCP_USI num = (rs.GetMaxFIMBulk() + rs.GetWellNum()) * (rs.GetComNum() + 1);
     resFIM.res.resize(num);
+
+    myLS.SetupLinearSolver(SCALARFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+    myAuxLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), "./bsr.fasp");
 }
 
 void OCP_AIMt::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -409,8 +495,8 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     //}
     //cout << endl << endl;
 
-    rs.bulk.FlashDerivAIMt(false);
-    rs.CalKrPcDerivAIMt();
+    rs.bulk.FlashDerivAIM(false);
+    rs.CalKrPcDerivAIM(false);
    
     rs.CalResAIMt(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
@@ -438,8 +524,8 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
             return false;
         }
        
-        rs.bulk.FlashDerivAIMt(false);
-        rs.CalKrPcDerivAIMt();
+        rs.bulk.FlashDerivAIM(false);
+        rs.CalKrPcDerivAIM(false);
         rs.CalVpore();
         rs.CalWellTrans();
         rs.CalWellFlux();
@@ -512,6 +598,9 @@ void OCP_FIM_IMPEC::Setup(Reservoir& rs, LinearSystem& MyLS, LinearSystem& AuxMy
     rs.AllocateMatIMPEC(AuxMyLS);
 
     OCP_FIM::Setup(rs, MyLS, ctrl);
+
+    MyLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+    AuxMyLS.SetupLinearSolver(SCALARFASP, ctrl.GetWorkDir(), "./csr.fasp");
 }
 
 void OCP_FIM_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt, LinearSystem& AuxMyLS)

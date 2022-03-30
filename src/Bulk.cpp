@@ -2527,7 +2527,7 @@ void Bulk::OutputInfo(const OCP_USI &n) const
 // For AIMt
 /////////////////////////////////////////////////////////////////////
 
-void Bulk::AllocateAuxAIMt(const OCP_DBL& ratio)
+void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
 {
     OCP_FUNCNAME;
 
@@ -2549,36 +2549,28 @@ void Bulk::AllocateAuxAIMt(const OCP_DBL& ratio)
     dPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
 }
 
-void Bulk::FlashDerivAIMt(const bool& flag)
+void Bulk::FlashDerivAIM(const bool& IfAIMs)
 {
     OCP_FUNCNAME;
 
     USI ftype;
-    OCP_USI n, bIdc, bIdc1;
+    OCP_USI n, bIdc;
     OCP_DBL Ntw;
     OCP_DBL minEig;
     dSec_dPri.clear();
-    for (OCP_USI k = 0; k < numFIMBulk; k++)
+
+    USI len;
+    if (IfAIMs) {
+        len = FIMBulk.size();
+    }
+    else {
+        len = numFIMBulk;
+    }
+
+    for (OCP_USI k = 0; k < len; k++)
     {
         n = FIMBulk[k];
-
-        bIdc = n * numCom;
-        bIdc1 = n * numCom_1;
-        if (flag) {
-            // Reset last step, before NR 
-            PSkip[n] = lPSkip[n];
-            P[n] = lP[n];
-            Nt[n] = lNt[n];
-            phaseNum[n] = lphaseNum[n];
-            for (USI i = 0; i < numCom_1; i++) {
-                Ni[bIdc + i] = lNi[bIdc + i];
-                ziSkip[bIdc + i] = lziSkip[bIdc + i];
-                Ks[bIdc1 + i] = lKs[bIdc1 + i];
-            }
-            // water
-            Ni[bIdc + numCom_1] = lNi[bIdc + numCom_1];
-        }
-        
+        bIdc = n * numCom;     
         ftype = 1;
         if (flagSkip[n]) 
         {
@@ -2606,7 +2598,7 @@ void Bulk::FlashDerivAIMt(const bool& flag)
         }
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
-        PassFlashValueDerivAIMt(k);
+        PassFlashValueDerivAIM(k);
     }
 
 #ifdef DEBUG
@@ -2614,13 +2606,13 @@ void Bulk::FlashDerivAIMt(const bool& flag)
 #endif // DEBUG
 }
 
-void Bulk::PassFlashValueDerivAIMt(const OCP_USI& k)
+void Bulk::PassFlashValueDerivAIM(const OCP_USI& fn)
 {
     OCP_FUNCNAME;
 
-    OCP_USI n = FIMBulk[k];
+    OCP_USI n = FIMBulk[fn];
     OCP_USI bIdp = n * numPhase;
-    OCP_USI kp = k * numPhase;
+    OCP_USI fnp = fn * numPhase;
     USI pvtnum = PVTNUM[n];
     USI nptmp = 0;
     for (USI j = 0; j < numPhase; j++)
@@ -2640,18 +2632,18 @@ void Bulk::PassFlashValueDerivAIMt(const OCP_USI& k)
             vj[bIdp + j] = flashCal[pvtnum]->v[j];
 
             // Derivatives
-            muP[kp + j] = flashCal[pvtnum]->muP[j];
-            xiP[kp + j] = flashCal[pvtnum]->xiP[j];
-            rhoP[kp + j] = flashCal[pvtnum]->rhoP[j];
+            muP[fnp + j] = flashCal[pvtnum]->muP[j];
+            xiP[fnp + j] = flashCal[pvtnum]->xiP[j];
+            rhoP[fnp + j] = flashCal[pvtnum]->rhoP[j];
             for (USI i = 0; i < numCom; i++)
             {
                 xij[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xij[j * numCom + i];
-                mux[kp * numCom + j * numCom + i] =
+                mux[fnp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->mux[j * numCom + i];
-                xix[kp * numCom + j * numCom + i] =
+                xix[fnp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xix[j * numCom + i];
-                rhox[kp * numCom + j * numCom + i] =
+                rhox[fnp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->rhox[j * numCom + i];
             }
         }
@@ -2708,18 +2700,26 @@ void Bulk::PassFlashValueDerivAIMt(const OCP_USI& k)
     }
 }
 
-void Bulk::CalKrPcDerivAIMt()
+void Bulk::CalKrPcDerivAIM(const bool& IfAIMs)
 {
     OCP_FUNCNAME;
 
-    for (OCP_USI k = 0; k < numFIMBulk; k++)
+    USI len;
+    if (IfAIMs) {
+        len = FIMBulk.size();
+    }
+    else {
+        len = numFIMBulk;
+    }
+
+    for (OCP_USI fn = 0; fn < len; fn++)
     {
-        OCP_USI n = FIMBulk[k];
-        OCP_USI kp = k * numPhase;
+        OCP_USI n = FIMBulk[fn];
+        OCP_USI fnp = fn * numPhase;
         OCP_USI bId = n * numPhase;
         flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-            &dKr_dS[kp * numPhase],
-            &dPcj_dS[kp * numPhase]);
+            &dKr_dS[fnp * numPhase],
+            &dPcj_dS[fnp * numPhase]);
         for (USI j = 0; j < numPhase; j++)
             Pj[bId + j] = P[n] + Pc[bId + j];
     }
@@ -2831,6 +2831,117 @@ void Bulk::GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     }
 }
 
+void Bulk::CalRelResAIMs(ResFIM& resFIM) const
+{
+    OCP_FUNCNAME;
+
+    // OCP_USI tmpid01 = -1;
+    // OCP_USI tmpid02 = -1;
+    OCP_DBL tmp;
+
+    const USI len = numCom + 1;
+    for (OCP_USI fn = 0; fn < numFIMBulk; fn++)
+    {
+        OCP_USI n = FIMBulk[fn];
+
+        for (USI i = 0; i < len; i++)
+        {
+            tmp = fabs(resFIM.res[n * len + i] / rockVp[n]);
+            if (resFIM.maxRelRes_v < tmp)
+            {
+                resFIM.maxRelRes_v = tmp;
+                // tmpid01            = n;
+            }
+        }
+        for (USI i = 1; i < len; i++)
+        {
+            tmp = fabs(resFIM.res[n * len + i] / Nt[n]);
+            if (resFIM.maxRelRes_mol < tmp)
+            {
+                resFIM.maxRelRes_mol = tmp;
+                // tmpid02              = n;
+            }
+        }
+    }
+}
+
+
+void Bulk::GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+    const OCP_DBL& dSmaxlim)
+{
+    OCP_FUNCNAME;
+
+    NRdSmax = 0;
+    NRdPmax = 0;
+    OCP_DBL dP;
+    USI row = numPhase * (numCom + 1);
+    USI col = numCom + 1;
+    USI bsize = row * col;
+    vector<OCP_DBL> dtmp(row, 0);
+    OCP_DBL chopmin = 1;
+    OCP_DBL choptmp = 0;
+    OCP_INT bIde;
+
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        bIde = map_Bulk2FIM[n];
+        
+        if (bIde < -1 || bIde > numFIMBulk) {
+            P[n] = u[n * col];
+        }
+        else {
+            chopmin = 1;
+            // compute the chop
+            fill(dtmp.begin(), dtmp.end(), 0.0);
+            DaAxpby(row, col, 1, dSec_dPri.data() + bIde * bsize, u.data() + bIde * col, 1,
+                dtmp.data());
+
+            for (USI j = 0; j < numPhase; j++)
+            {
+                choptmp = 1;
+                if (fabs(dtmp[j]) > dSmaxlim)
+                {
+                    choptmp = dSmaxlim / fabs(dtmp[j]);
+                }
+                else if (S[n * numPhase + j] + dtmp[j] < 0.0)
+                {
+                    choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
+                }
+
+                chopmin = min(chopmin, choptmp);
+                NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
+            }
+            dP = u[n * col];
+            choptmp = dPmaxlim / fabs(dP);
+            chopmin = min(chopmin, choptmp);
+            dP *= chopmin;
+            NRdPmax = max(NRdPmax, fabs(dP));
+            P[n] += dP; // seems better
+
+            //// Correct chopmin
+            // for (USI i = 0; i < numCom; i++) {
+            //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
+            //        chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 +
+            //        i]));
+
+            //        //if (chopmin < 0 || !isfinite(chopmin)) {
+            //        //    OCP_ABORT("Wrong Chop!");
+            //        //}
+            //    }
+            //}
+
+            for (USI i = 0; i < numCom; i++)
+            {
+                Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
+
+                // if (Ni[n * numCom + i] < 0) {
+                //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin <<
+                //    "   " << chopmin << endl;
+                //}
+            }
+        }
+    }
+}
 
 
 /*----------------------------------------------------------------------------*/
