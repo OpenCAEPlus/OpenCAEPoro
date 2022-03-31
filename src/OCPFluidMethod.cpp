@@ -431,7 +431,97 @@ void OCP_AIMs::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
 
 bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
+    OCP_DBL& dt = ctrl.current_dt;
 
+    // Second check: Ni check and bulk Pressure check
+    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+        dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResFIM(resFIM, dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        cout << "Cut time stepsize and repeat!\n";
+        return false;
+    }
+
+    // Update reservoir properties
+    rs.CalFlashDerivAIM(true);
+    rs.CalKrPcDerivAIM(true);
+    rs.CalVpore();
+    rs.CalFLuxIMPEC();
+    rs.CalWellTrans();
+    rs.CalWellFlux();
+    rs.CalResAIMs(resFIM, dt);
+    rs.CalConnFluxIMPEC();  
+
+    return true;
+}
+
+bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
+
+    //#ifdef _DEBUG
+    // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+    //    << "  " << NRdPmax << endl;
+    // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
+    //#endif
+
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+        ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResFIM(resFIM, ctrl.current_dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        ctrl.ResetIterNRLS();
+        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
+        return false;
+    }
+
+    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+
+        OCP_INT flagCheck = rs.CheckP(false, true);
+#if DEBUG
+        if (flagCheck > 0) {
+            cout << ">> Switch well constraint: Case " << flagCheck << endl;
+        }
+#endif
+
+        switch (flagCheck) {
+        case 1:
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+            rs.ResetFIM(true);
+            rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+            return false;
+        case 2:
+            ctrl.current_dt /= 1;
+            rs.ResetFIM(true);
+            rs.CalResFIM(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+            return false;
+        default:
+            return true;
+            break;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+void OCP_AIMs::FinishStep(Reservoir& rs, OCPControl& ctrl)
+{
+    rs.CalIPRT(ctrl.GetCurDt());
+    rs.CalMaxChange();
+    rs.UpdateLastStepIMPEC();
+    ctrl.CalNextTstepIMPEC(rs);
+    ctrl.UpdateIters();
 }
 
 ////////////////////////////////////////////

@@ -569,7 +569,7 @@ void Reservoir::GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
     const OCP_DBL& dSmax)
 {
     bulk.GetSolAIMs(u, dPmax, dSmax);
-    allWells.GetSolFIM(u, bulk.numFIMBulk, bulk.GetComNum() + 1);
+    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
 /*----------------------------------------------------------------------------*/

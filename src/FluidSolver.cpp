@@ -134,6 +134,8 @@ bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
             // return impec.UpdateProperty01(rs, ctrl);
         case FIM:
             return fim.UpdateProperty(rs, ctrl);
+        case AIMs:
+            return aims.UpdateProperty(rs, ctrl);
         case AIMt:
             return aimt.UpdateProperty(rs, ctrl, auxFLSolver);
         case FIM_IMPEC:
@@ -151,6 +153,8 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
         case AIMt:
             return impec.FinishNR();
             // return impec.FinishNR01(rs, ctrl);
+        case AIMs:
+            return aims.FinishNR(rs, ctrl);
         case FIM:
             return fim.FinishNR(rs, ctrl);
         case FIM_IMPEC:
@@ -171,6 +175,8 @@ void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     case FIM_IMPEC:
     case FIM:
         return fim.FinishStep(rs, ctrl);
+    case AIMs:
+        return aims.FinishStep(rs, ctrl);
     default:
         OCP_ABORT("Wrong method type!");
     }

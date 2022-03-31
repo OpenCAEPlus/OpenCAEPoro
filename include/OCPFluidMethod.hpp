@@ -86,6 +86,10 @@ public:
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    /// Finish a Newton-Raphson iteration.
+    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    /// Finish a time step.
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
     /// Resiual for AIMs

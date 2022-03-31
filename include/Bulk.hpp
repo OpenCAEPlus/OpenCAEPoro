@@ -387,6 +387,9 @@ private:
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
     // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
 
+    // vars at last step
+
+
     OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
     OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
 

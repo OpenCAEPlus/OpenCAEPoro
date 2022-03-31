@@ -390,13 +390,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
         }
         size_row = nnb_Row * blockDim * blockDim;
         for (USI k = 0; k < size_row; k++) {
-
-            cout << count2 << "  " << k << endl;
-
             A.val[count2] = val[i - 1][k];
-
-            cout << count2 << "  " << k << endl;
-
             count2++;
         }
     }

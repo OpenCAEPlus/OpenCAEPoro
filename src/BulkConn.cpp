@@ -1364,7 +1364,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
     const OCP_DBL& dt) const
 {
     // accumulate term
-    OCP_DBL Vp0, Vp, vf, vfp, P;
+    OCP_DBL Vp0, Vp, vf, vfp;
     OCP_DBL cr = myBulk.rockC1;
 
     const USI np = myBulk.numPhase;
@@ -1386,10 +1386,11 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
         bmat[0] = cr * Vp0 - vfp;
 
         if (myBulk.map_Bulk2FIM[n] < 0) {
-            // IMPEC Bulk                       
-            P = myBulk.P[n];
-            vf = myBulk.vf[n];          
-            res[n * ncol] = bmat[0] * P + dt * (vf - Vp);
+            vf = myBulk.vf[n];       
+            // Method 1
+            res[n * ncol] = bmat[0] * (myBulk.lP[n] - myBulk.P[n]) + dt * (vf - Vp);
+            // Method 2
+            // res[n * ncol] = bmat[0] * myBulk.P[n] + dt * (vf - Vp);
         }
         else {
             // FIM Bulk
@@ -1430,9 +1431,6 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
         bId = iteratorConn[c].BId;
         eId = iteratorConn[c].EId;
         Akd = CONV1 * CONV2 * iteratorConn[c].area;
-
-        if (c >= 118)
-            cout << c << endl;
 
         bIde = myBulk.map_Bulk2FIM[bId];
         eIde = myBulk.map_Bulk2FIM[eId];
@@ -1615,6 +1613,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
                 IMPECeId = bId;
             }
 
+            dGamma = GRAVITY_FACTOR* (myBulk.depth[IMPECbId] - myBulk.depth[IMPECeId]);
             for (USI j = 0; j < np; j++) {
                 uId = upblock[c * np + j];
                 if (!myBulk.phaseExist[uId * np + j]) continue;
@@ -1628,13 +1627,17 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
                     valdowni +=
                         myBulk.vfi[IMPECeId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];
                 }
-                OCP_DBL dD = myBulk.depth[IMPECbId] - myBulk.depth[IMPECeId];
                 OCP_DBL dPc = myBulk.Pc[IMPECbId * np + j] - myBulk.Pc[IMPECeId * np + j];
+                dP = myBulk.Pj[IMPECbId * np + j] - myBulk.Pj[IMPECeId * np + j] -
+                    upblock_Rho[c * np + j] * dGamma;
                 OCP_DBL temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;
                 
                 valup += temp * valupi;
                 valdown += temp * valdowni;
-                temp *= upblock_Rho[c * np + j] * GRAVITY_FACTOR * dD - dPc;
+                // Method 1
+                temp *= (-dP);
+                // Method 2
+                // temp *= upblock_Rho[c * np + j] * dGamma - dPc;
                 rhsup += temp * valupi;
                 rhsdown -= temp * valdowni;
             }
@@ -1644,7 +1647,9 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             if (bId != lastbId) {
                 // new bulk
                 assert(myLS.val[bId].size() == diagptr * bsize);
-                myLS.val[bId].push_back(myLS.diagVal[bId]);
+                OCP_USI id = bId * bsize;
+                myLS.val[bId].insert(myLS.val[bId].end(), myLS.diagVal.data() + id,
+                    myLS.diagVal.data() + id + bsize);
                 lastbId = bId;
             }
 

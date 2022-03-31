@@ -2887,7 +2887,10 @@ void Bulk::GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         bIde = map_Bulk2FIM[n];
         
         if (bIde < -1 || bIde > numFIMBulk) {
-            P[n] = u[n * col];
+            // Method 1
+            P[n] += u[n * col];
+            // Method 2
+            // P[n] = u[n * col];
         }
         else {
             chopmin = 1;
