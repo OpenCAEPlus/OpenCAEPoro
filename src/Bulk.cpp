@@ -272,6 +272,7 @@ void Bulk::Setup(const Grid &myGrid)
     kr.resize(numBulk * numPhase);
     vj.resize(numBulk * numPhase);
     vf.resize(numBulk);
+    Nt.resize(numBulk);
 
     phase2Index.resize(3);
 
@@ -1861,7 +1862,6 @@ bool Bulk::CheckNi() const
             return false;
         }
     }
-
     return true;
 }
 
@@ -2148,7 +2148,6 @@ void Bulk::AllocateAuxIMPEC()
     lrho.resize(numBulk * numPhase);
     lxi.resize(numBulk * numPhase);
     lxij.resize(numBulk * numPhase * numCom);
-    Nt.resize(numBulk);
     lNi.resize(numBulk * numCom);
     lmu.resize(numBulk * numPhase);
     lkr.resize(numBulk * numPhase);
@@ -2247,7 +2246,6 @@ void Bulk::AllocateAuxFIM()
     lP.resize(numBulk);
     lS.resize(numBulk * numPhase);
     lNi.resize(numBulk * numCom);
-    Nt.resize(numBulk);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
     muP.resize(numBulk * numPhase);
@@ -2547,6 +2545,18 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     dSec_dPri.resize(maxNumFIMBulk * (numCom + 1) * (numCom + 1) * numPhase);
     dKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
     dPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
+
+    lmuP.resize(maxNumFIMBulk * numPhase);
+    lxiP.resize(maxNumFIMBulk * numPhase);
+    lrhoP.resize(maxNumFIMBulk * numPhase);
+    lmux.resize(maxNumFIMBulk * numCom * numPhase);
+    lxix.resize(maxNumFIMBulk * numCom * numPhase);
+    lrhox.resize(maxNumFIMBulk * numCom * numPhase);
+    ldSec_dPri.resize(maxNumFIMBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    ldKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
+    ldPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
+
+    FIMNi.resize(maxNumFIMBulk * numCom);
 }
 
 void Bulk::FlashDerivAIM(const bool& IfAIMs)
@@ -2942,6 +2952,82 @@ void Bulk::GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                 //    "   " << chopmin << endl;
                 //}
             }
+        }
+    }
+}
+
+
+void Bulk::UpdateLastStepAIM()
+{
+    lmuP = muP;
+    lxiP = xiP;
+    lrhoP = rhoP;
+    lmux = mux;
+    lxix = xix;
+    lrhox = rhox;
+    ldPcj_dS = dPcj_dS;
+    ldKr_dS = dKr_dS;
+    ldSec_dPri = dSec_dPri;
+}
+
+
+void Bulk::ResetFIMBulk()
+{
+    muP = lmuP;
+    xiP = lxiP;
+    rhoP = lrhoP;
+    mux = lmux;
+    xix = lxix;
+    rhox = lrhox;
+    dPcj_dS = ldPcj_dS;
+    dKr_dS = ldKr_dS;
+    dSec_dPri = ldSec_dPri;
+}
+
+
+bool Bulk::CheckNiFIMBulk() const
+{
+    OCP_FUNCNAME;
+
+    OCP_USI len = numBulk * numCom;
+    for (OCP_USI n = 0; n < len; n++)
+    {
+        if (Ni[n] < 0.0)
+        {
+            OCP_USI bId = n / numCom;
+            USI cId = n - bId * numCom;
+            std::ostringstream NiStringSci;
+            NiStringSci << std::scientific << Ni[n];
+            OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
+                std::to_string(bId) + "] = " + NiStringSci.str());
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void Bulk::InFIMNi()
+{
+    OCP_USI bIdb, bIdf;
+    for (OCP_USI n = 0; n < numFIMBulk; n++) {
+        bIdf = n * numCom;
+        bIdb = FIMBulk[n] * numCom;
+        for (USI i = 0; i < numCom; i++) {
+            FIMNi[bIdf + i] = Ni[bIdb + i];
+        }
+    }
+}
+
+
+void Bulk::OutFIMNi()
+{
+    OCP_USI bIdb, bIdf;
+    for (OCP_USI n = 0; n < numFIMBulk; n++) {
+        bIdf = n * numCom;
+        bIdb = FIMBulk[n] * numCom;
+        for (USI i = 0; i < numCom; i++) {
+            Ni[bIdb + i] = FIMNi[bIdf + i];
         }
     }
 }

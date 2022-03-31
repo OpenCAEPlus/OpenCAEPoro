@@ -297,6 +297,7 @@ void Reservoir::ResetVal03IMPEC()
     bulk.ResetNi();
     bulk.ResetNt();
     bulk.ResetFlash();
+    bulk.ResetKr();
     bulk.ResetVp();
     conn.Reset();
 
@@ -570,6 +571,40 @@ void Reservoir::GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
 {
     bulk.GetSolAIMs(u, dPmax, dSmax);
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+}
+
+void Reservoir::ResetValAIM()
+{
+    ResetVal03IMPEC();    
+    bulk.ResetFIMBulk();
+    allWells.ResetBHP();
+    allWells.CalTrans(bulk);
+    allWells.CalFlux(bulk);
+
+    if (false) {
+        allWells.CaldG(bulk);
+        allWells.CalFlux(bulk);
+    }  
+}
+
+OCP_DBL Reservoir::CalCFLAIM(const OCP_DBL& dt)
+{
+    OCP_FUNCNAME;
+
+    bulk.InitCFLIMPEC();
+    conn.CalCFL01IMPEC(bulk, dt);
+    cfl = bulk.CalCFL01IMPEC();
+
+    return cfl;
+}
+
+void Reservoir::UpdateLastStepAIM()
+{
+    OCP_FUNCNAME;
+    bulk.UpdateLastStepIMPEC();
+    bulk.UpdateLastStepAIM();
+    conn.UpdateLastStep();
+    allWells.UpdateLastDg();
 }
 
 /*----------------------------------------------------------------------------*/

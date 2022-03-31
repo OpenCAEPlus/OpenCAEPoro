@@ -179,6 +179,8 @@ public:
     void ResetPj() { Pj = lPj; }
     /// Reset Ni to the ones of the last time step.
     void ResetNi() { Ni = lNi; }
+    /// Reset Kr to the ones of the last time step.
+    void ResetKr() { kr = lkr; }
     /// Reset Vp to the ones of the last time step.
     void ResetVp() { rockVp = rockLVp; }
     void CalSomeInfo(const Grid& myGrid) const;
@@ -388,7 +390,15 @@ private:
     // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
 
     // vars at last step
-
+    vector<OCP_DBL> lmuP;        ///< last muP
+    vector<OCP_DBL> lxiP;        ///< last xiP
+    vector<OCP_DBL> lrhoP;       ///< last rhoP
+    vector<OCP_DBL> lmux;        ///< last mux
+    vector<OCP_DBL> lxix;        ///< last xix
+    vector<OCP_DBL> lrhox;       ///< last rhox
+    vector<OCP_DBL> ldPcj_dS;    ///< last Pcj_dS
+    vector<OCP_DBL> ldKr_dS;     ///< last dKr_dS
+    vector<OCP_DBL> ldSec_dPri;  ///< last dSec_dPri
 
     OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
     OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
@@ -425,7 +435,14 @@ public:
     void CalRelResAIMs(ResFIM& resFIM) const;
     void GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
-
+    void UpdateLastStepAIM();
+    void ResetFIMBulk();
+    /// Check if negative Ni occurs, return false if so.
+    bool CheckNiFIMBulk() const;
+    /// Ni in FIM Bulk -> FIMNi
+    void InFIMNi();
+    /// FIMNi -> Ni in FIM Bulk
+    void OutFIMNi();
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor
@@ -433,6 +450,7 @@ private:
     vector<OCP_USI>   FIMBulk;      ///< index of bulks which performs FIM
     OCP_USI           numFIMBulk;      ///< current num of bulks which are performed by FIM
     OCP_USI           maxNumFIMBulk;   ///< max num of bulks which are performed by FIM
+    vector<OCP_DBL>   FIMNi;        ///< Ni in FIMBulk
 };
 
 #endif /* end if __BULK_HEADER__ */

@@ -37,6 +37,7 @@ class Reservoir
     // temp
     friend class OCP_IMPEC;
     friend class OCP_FIM;
+    friend class OCP_AIMs;
     friend class OCP_AIMt;
     friend class Solver;
 
@@ -204,6 +205,10 @@ public:
     void AssembleMatAIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const OCP_DBL& dt) const;
     void GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
         const OCP_DBL& dSmax);
+    void ResetValAIM();
+    OCP_DBL CalCFLAIM(const OCP_DBL& dt);
+    /// Update value of last step for IMPEC
+    void UpdateLastStepAIM();
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

@@ -1378,29 +1378,35 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
     for (USI i = 1; i < nc + 1; i++) {
         bmat[i * ncol + i] = 1;
     }
+    vector<OCP_DBL> bmatTmp(bmat);
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         Vp0 = myBulk.rockVpInit[n];
         Vp = myBulk.rockVp[n];
         vfp = myBulk.vfp[n];
-        bmat[0] = cr * Vp0 - vfp;
-
-        if (myBulk.map_Bulk2FIM[n] < 0) {
+        
+        if (myBulk.map_Bulk2FIM[n] < 0 || myBulk.map_Bulk2FIM[n] >= myBulk.numFIMBulk) {
+            // IMPEC bulk
+            bmat[0] = cr * Vp0 - vfp;
             vf = myBulk.vf[n];       
             // Method 1
             res[n * ncol] = bmat[0] * (myBulk.lP[n] - myBulk.P[n]) + dt * (vf - Vp);
             // Method 2
             // res[n * ncol] = bmat[0] * myBulk.P[n] + dt * (vf - Vp);
+            for (USI i = 0; i < bsize; i++) {
+                myLS.diagVal[n * bsize + i] = bmat[i];
+            }
         }
         else {
             // FIM Bulk
+            bmatTmp[0] = cr * Vp0 - vfp;
             for (USI i = 0; i < nc; i++) {
-                bmat[i + 1] = -myBulk.vfi[n * nc + i];
+                bmatTmp[i + 1] = -myBulk.vfi[n * nc + i];
             }
-        }
-        for (USI i = 0; i < bsize; i++) {
-            myLS.diagVal[n * bsize + i] = bmat[i];
-        }
+            for (USI i = 0; i < bsize; i++) {
+                myLS.diagVal[n * bsize + i] = bmatTmp[i];
+            }
+        }       
     }
 
     // flux term
@@ -1413,6 +1419,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
     bool bIdFIM, eIdFIM;
+    bool otherFIM;
     OCP_USI FIMbId, FIMeId, FIMbIde, FIMeIde;
     OCP_USI IMPECbId, IMPECeId;
     USI diagptr;
@@ -1450,11 +1457,13 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             FIMeId = eId;
             FIMbIde = bIde;
             FIMeIde = eIde;
+            otherFIM = eIdFIM;
             if (!bIdFIM) {
                 FIMbId = eId;
                 FIMeId = bId;
                 FIMbIde = eIde;
                 FIMeIde = bIde;
+                otherFIM = bIdFIM;
             }
             dGamma = GRAVITY_FACTOR * (myBulk.depth[FIMbId] - myBulk.depth[FIMeId]);
             for (USI j = 0; j < np; j++) {
@@ -1559,7 +1568,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             }
             
             
-            if (eIdFIM) {
+            if (otherFIM) {
                 // End
                 // Insert
                 Dscalar(bsize, -1, bmat.data());
@@ -1573,7 +1582,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             Dscalar(bsize, dt, bmat.data());
             // Begin
             // Insert
-            if (!eIdFIM) {
+            if (!otherFIM) {
                 // delete der about Ni
                 for (USI i = 0; i < ncol; i++) {
                     for (USI j = 1; j < ncol; j++) {
@@ -1582,7 +1591,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
                 }
             }
             myLS.val[FIMbId].insert(myLS.val[FIMbId].end(), bmat.begin(), bmat.end());
-            if (eIdFIM) {
+            if (otherFIM) {
                 // Add
                 Dscalar(bsize, -1, bmat.data());
                 if (FIMbId < FIMeId) {
@@ -1608,9 +1617,11 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
 
             IMPECbId = bId;
             IMPECeId = eId;
+            otherFIM = eIdFIM;
             if (bIdFIM) {
                 IMPECbId = eId;
                 IMPECeId = bId;
+                otherFIM = bIdFIM;
             }
 
             dGamma = GRAVITY_FACTOR* (myBulk.depth[IMPECbId] - myBulk.depth[IMPECeId]);
@@ -1666,7 +1677,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             myLS.val[IMPECbId].insert(myLS.val[IMPECbId].end(), IMPECbmat.begin(), IMPECbmat.end());
 
             // End
-            if (!eIdFIM) {
+            if (!otherFIM) {
                 IMPECbmat[0] = (-valdown);
                 myLS.val[IMPECeId].insert(myLS.val[IMPECeId].end(), IMPECbmat.begin(), IMPECbmat.end());
                 
@@ -1682,7 +1693,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
 
             // rhs
             res[IMPECbId * ncol] += rhsup;
-            if (!eIdFIM) {
+            if (!otherFIM) {
                 res[IMPECeId * ncol] += rhsdown;
             }
             

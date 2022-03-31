@@ -375,6 +375,7 @@ void OCP_AIMs::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 
 void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
+    // for Well
     rs.PrepareWell();
     rs.CalWellFlux();
 
@@ -383,12 +384,16 @@ void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupFIMBulk();
     rs.SetupFIMBulkBoundAIMs();
 
+    // Calculate Resiual
     rs.CalResAIMs(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
     // Calculat property of FIM Bulk
     rs.CalFlashDerivAIM(true);
     rs.CalKrPcDerivAIM(true);
+
+    // Store particular property of FIM Bulk
+    rs.bulk.UpdateLastStepAIM();
 }
 
 void OCP_AIMs::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt)
@@ -414,9 +419,9 @@ void OCP_AIMs::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     // cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
-    // myLS.OutputLinearSystem("testA.out", "testb.out");
-    // myLS.OutputSolution("testx.out");
-    myLS.CheckSolution();
+    //myLS.OutputLinearSystem("testA.out", "testb.out");
+    //myLS.OutputSolution("testx.out");
+    //myLS.CheckSolution();
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -436,23 +441,25 @@ bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
-        rs.CalResFIM(resFIM, dt);
+        rs.ResetValAIM();
+        rs.CalResAIMs(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
         return false;
     }
 
     // Update reservoir properties
+    rs.CalFlashIMPEC();
+    rs.CalKrPc();
     rs.CalFlashDerivAIM(true);
     rs.CalKrPcDerivAIM(true);
     rs.CalVpore();
     rs.CalFLuxIMPEC();
     rs.CalWellTrans();
     rs.CalWellFlux();
+    rs.CalConnFluxIMPEC();
     rs.CalResAIMs(resFIM, dt);
-    rs.CalConnFluxIMPEC();  
-
+      
     return true;
 }
 
@@ -470,7 +477,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetValAIM();
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
@@ -493,22 +500,47 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
         case 1:
             ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-            rs.ResetFIM(true);
+            rs.ResetValAIM();
             rs.CalResFIM(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
         case 2:
             ctrl.current_dt /= 1;
-            rs.ResetFIM(true);
+            rs.ResetValAIM();
             rs.CalResFIM(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
         default:
-            return true;
             break;
         }
+        // Mass Conserve
+        rs.bulk.InFIMNi();
+        rs.conn.MassConserveIMPEC(rs.bulk, ctrl.current_dt);
+        rs.bulk.OutFIMNi();
+        if (!rs.CheckNi()) {
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+            rs.ResetValAIM();
+            rs.CalResAIMs(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            cout << "Cut time stepsize and repeat!\n";
+            return false;
+        }
+        if (!rs.CheckVe(0.01)) {
+            // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
+            ctrl.current_dt /= 2;
+            rs.ResetValAIM();
+            return false;
+        }
+        OCP_DBL cfl = rs.CalCFLAIM(ctrl.current_dt);
+        if (cfl > 1) {
+            ctrl.current_dt /= 2;
+            rs.ResetValAIM();
+            cout << "CFL is too big" << endl;
+            return false;
+        }
+        return true;
     }
     else {
         return false;
@@ -519,7 +551,7 @@ void OCP_AIMs::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
-    rs.UpdateLastStepIMPEC();
+    rs.UpdateLastStepAIM();
     ctrl.CalNextTstepIMPEC(rs);
     ctrl.UpdateIters();
 }
