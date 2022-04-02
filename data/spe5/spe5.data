@@ -161,6 +161,8 @@ WPI
 
 RPTSCHED
 PRESSURE
+DENO  DENG  DENW
+SOIL  SGAS  SWAT
 /
 
 
@@ -200,8 +202,6 @@ WCONPROD
 /
 
 --Start production only ----------------------------------------------
-
-
 
 TSTEP
 2*365.25

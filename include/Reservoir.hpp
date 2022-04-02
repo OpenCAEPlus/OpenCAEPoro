@@ -84,6 +84,7 @@ public:
     /// Return the num of Components
     USI GetComNum() const { return bulk.GetComNum(); }
     void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
+    void GetNTQT(const OCP_DBL& dt);
 
 private:
     Grid      grid;      ///< Grid class.
@@ -182,6 +183,7 @@ public:
     void AllocateMatAIMt(LinearSystem& myLS) const;
     /// Setup FIMBulk
     void SetupFIMBulk() { conn.SetupFIMBulk(bulk); }
+    void AddFIMBulk() { conn.AddFIMBulk(bulk); }
     void SetupFIMBulkBoundAIMs() { conn.SetupFIMBulkBoundAIMs(bulk); }
     
     /// Calculate Flash for local FIM, some derivatives are needed

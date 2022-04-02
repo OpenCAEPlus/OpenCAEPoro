@@ -190,6 +190,7 @@ public:
 
 public:
     void SetupFIMBulk(Bulk& myBulk);
+    void AddFIMBulk(Bulk& myBulk);
     void SetupFIMBulkBoundAIMs(Bulk& myBulk);
     /// Allocate memory for auxiliary variables used by the AIMt method.
     void AllocateAuxAIMt();

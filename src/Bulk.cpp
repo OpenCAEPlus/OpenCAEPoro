@@ -2896,13 +2896,18 @@ void Bulk::GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     {
         bIde = map_Bulk2FIM[n];
         
-        if (bIde < -1 || bIde > numFIMBulk) {
+        if (bIde < 0 || bIde >= numFIMBulk) {
+            // IMPEC Bulk
             // Method 1
             P[n] += u[n * col];
             // Method 2
             // P[n] = u[n * col];
+            if (P[n] < 0) {
+                cout << "";
+            }
         }
         else {
+            // FIM Bulk
             chopmin = 1;
             // compute the chop
             fill(dtmp.begin(), dtmp.end(), 0.0);
@@ -2985,6 +2990,19 @@ void Bulk::ResetFIMBulk()
 }
 
 
+void Bulk::ShowFIMBulk() const
+{
+    cout << numFIMBulk << endl;
+    for (USI n = 0; n < numFIMBulk; n++) {
+        cout << setw(6) << FIMBulk[n] << "   ";
+        if ((n+1) % 10 == 0) {
+            cout << endl;
+        }
+    }
+    cout << endl;
+}
+
+
 bool Bulk::CheckNiFIMBulk() const
 {
     OCP_FUNCNAME;
@@ -3027,7 +3045,7 @@ void Bulk::OutFIMNi()
         bIdf = n * numCom;
         bIdb = FIMBulk[n] * numCom;
         for (USI i = 0; i < numCom; i++) {
-            Ni[bIdb + i] = FIMNi[bIdf + i];
+            Ni[bIdb + i] = FIMNi[bIdf + i];           
         }
     }
 }

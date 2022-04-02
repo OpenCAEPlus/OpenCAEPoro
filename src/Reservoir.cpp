@@ -127,6 +127,13 @@ bool Reservoir::CheckVe(const OCP_DBL& Vlim) const
     return bulk.CheckVe(Vlim);
 }
 
+void Reservoir::GetNTQT(const OCP_DBL& dt) 
+{
+    OCP_DBL NT = bulk.CalNT();
+    OCP_DBL QT = allWells.CalWellQT() * dt;
+    cout << setprecision(8) << NT << "   " << QT << endl;
+}
+
 /////////////////////////////////////////////////////////////////////
 // IMPEC
 /////////////////////////////////////////////////////////////////////

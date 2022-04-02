@@ -842,12 +842,12 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
         bIdc = n * nc;
         flag = false;
         // cfl
-        for (USI j = 0; j < np; j++) {
-            if (myBulk.cfl[bIdp + j] > 0.8) {
-                flag = true;
-                break;
-            }
-        }
+        //for (USI j = 0; j < np; j++) {
+        //    if (myBulk.cfl[bIdp + j] > 0.8) {
+        //        flag = true;
+        //        break;
+        //    }
+        //}
         // Ni
         if (!flag) {
             for (USI i = 0; i < nc; i++) {
@@ -890,14 +890,83 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
     }
     myBulk.numFIMBulk = myBulk.FIMBulk.size();
 
-
     //myBulk.numFIMBulk = numBulk;
     //myBulk.FIMBulk.resize(numBulk);
     //for (OCP_USI n = 0; n < numBulk; n++) {
     //    myBulk.map_Bulk2FIM[n] = n;
     //    myBulk.FIMBulk[n] = n;
-    //}
-        
+    //}      
+}
+
+void BulkConn::AddFIMBulk(Bulk& myBulk)
+{
+    const USI np = myBulk.numPhase;
+    const USI nc = myBulk.numCom;
+
+    fill(myBulk.map_Bulk2FIM.begin(), myBulk.map_Bulk2FIM.end(), -1);
+
+    OCP_USI bIdp, bIdc;
+    bool flag;
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        bIdp = n * np;
+        bIdc = n * nc;
+        flag = false;
+        // cfl
+        //for (USI j = 0; j < np; j++) {
+        //    if (myBulk.cfl[bIdp + j] > 0.8) {
+        //        flag = true;
+        //        break;
+        //    }
+        //}
+        // Ni
+        if (!flag) {
+            for (USI i = 0; i < nc; i++) {
+                if (myBulk.Ni[bIdc + i] < 0) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        // Volume error
+        if (!flag) {
+            if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 0.001) {
+                flag = true;
+            }
+        }
+
+        if (flag) {
+            // find it
+            for (auto& v : neighbor[n]) {
+                // n is included also
+                myBulk.map_Bulk2FIM[v] = 1;
+            }
+        }
+    }
+    // add last FIMBulk
+    for (USI i = 0; i < myBulk.numFIMBulk; i++) {
+        myBulk.map_Bulk2FIM[myBulk.FIMBulk[i]] = 1;
+    }
+
+    // add WellBulk
+    for (auto& p : myBulk.wellBulkId) {
+        for (auto& v : neighbor[p]) {
+            for (auto& v1 : neighbor[v])
+                myBulk.map_Bulk2FIM[v1] = 1;
+        }
+    }
+
+    myBulk.FIMBulk.clear();
+    USI iter = 0;
+    for (OCP_USI n = 0; n < myBulk.numBulk; n++) {
+        if (myBulk.map_Bulk2FIM[n] > 0) {
+            myBulk.map_Bulk2FIM[n] = iter;
+            iter++;
+            myBulk.FIMBulk.push_back(n);
+        }
+    }
+    myBulk.numFIMBulk = myBulk.FIMBulk.size();
+
 }
 
 void BulkConn::SetupFIMBulkBoundAIMs(Bulk& myBulk)
@@ -1388,7 +1457,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
         if (myBulk.map_Bulk2FIM[n] < 0 || myBulk.map_Bulk2FIM[n] >= myBulk.numFIMBulk) {
             // IMPEC bulk
             bmat[0] = cr * Vp0 - vfp;
-            vf = myBulk.vf[n];       
+            vf = myBulk.vf[n];
             // Method 1
             res[n * ncol] = bmat[0] * (myBulk.lP[n] - myBulk.P[n]) + dt * (vf - Vp);
             // Method 2
@@ -1406,7 +1475,7 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
             for (USI i = 0; i < bsize; i++) {
                 myLS.diagVal[n * bsize + i] = bmatTmp[i];
             }
-        }       
+        }
     }
 
     // flux term

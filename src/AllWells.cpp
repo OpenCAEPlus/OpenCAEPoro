@@ -414,6 +414,19 @@ void AllWells::CalMaxBHPChange()
     }
 }
 
+OCP_DBL AllWells::CalWellQT()
+{
+    QT = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+            for (auto& q : wells[w].qi_lbmol) {
+                QT += q;
+            }
+        }
+    }
+    return QT;
+}
+
 /////////////////////////////////////////////////////////////////////
 // IMPEC
 /////////////////////////////////////////////////////////////////////

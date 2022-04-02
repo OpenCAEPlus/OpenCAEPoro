@@ -40,7 +40,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
 
     myLS.AssembleMatLinearSolver();
 
-#ifdef DEBUG
+#ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
 #endif // _DEBUG
 
@@ -249,8 +249,8 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     // cout << "LS step = " << status << endl;
 
 #ifdef _DEBUG
-    // myLS.OutputLinearSystem("testA.out", "testb.out");
-    // myLS.OutputSolution("testx.out");
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
     myLS.CheckSolution();
 #endif // DEBUG
 
@@ -297,7 +297,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
     //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
     //    << "  " << NRdPmax << endl;
-    // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
     //#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -384,6 +383,8 @@ void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupFIMBulk();
     rs.SetupFIMBulkBoundAIMs();
 
+    // rs.bulk.ShowFIMBulk();
+
     // Calculate Resiual
     rs.CalResAIMs(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
@@ -418,10 +419,10 @@ void OCP_AIMs::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef _DEBUG
-    //myLS.OutputLinearSystem("testA.out", "testb.out");
-    //myLS.OutputSolution("testx.out");
-    //myLS.CheckSolution();
+#ifdef DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
+    myLS.CheckSolution();
 #endif // DEBUG
 
     ctrl.UpdateTimeLS(Timer.Stop() / 1000);
@@ -444,7 +445,7 @@ bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         rs.ResetValAIM();
         rs.CalResAIMs(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-        cout << "Cut time stepsize and repeat!\n";
+        cout << "Cut time stepsize and repeat!  --  01\n";
         return false;
     }
 
@@ -468,12 +469,11 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-    //#ifdef _DEBUG
-    // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
-    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-    //    << "  " << NRdPmax << endl;
-    // cout << "bk[0]: " << rs.bulk.GetSOIL(0) << "   " << rs.bulk.GetSGAS(0) << endl;
-    //#endif
+    #ifdef _DEBUG
+     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+        << "  " << NRdPmax << endl;
+    #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -529,15 +529,38 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
         }
         if (!rs.CheckVe(0.01)) {
             // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
-            ctrl.current_dt /= 2;
+
+            rs.AddFIMBulk();
+            rs.SetupFIMBulkBoundAIMs();
+
+            // rs.bulk.ShowFIMBulk();
+
+            // Calculate Resiual
+            rs.CalResAIMs(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+
+            // Calculat property of FIM Bulk
+            rs.CalFlashDerivAIM(true);
+            rs.CalKrPcDerivAIM(true);
+
+            // Store particular property of FIM Bulk
+            rs.bulk.UpdateLastStepAIM();
+
+
+
+            // ctrl.current_dt /= 2;
             rs.ResetValAIM();
+            ctrl.ResetIterNRLS();
+
+            cout << "Cut time stepsize and repeat!  --  02\n";
             return false;
         }
         OCP_DBL cfl = rs.CalCFLAIM(ctrl.current_dt);
         if (cfl > 1) {
+            cout << "CFL is too big" << endl;
             ctrl.current_dt /= 2;
             rs.ResetValAIM();
-            cout << "CFL is too big" << endl;
+            ctrl.ResetIterNRLS();           
             return false;
         }
         return true;
@@ -549,11 +572,15 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
 void OCP_AIMs::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
+    // rs.GetNTQT(ctrl.current_dt);
+
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     rs.UpdateLastStepAIM();
     ctrl.CalNextTstepIMPEC(rs);
     ctrl.UpdateIters();
+
+    
 }
 
 ////////////////////////////////////////////

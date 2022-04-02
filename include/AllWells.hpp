@@ -190,7 +190,9 @@ public:
     }
     /// Return the pth dG of wth well.
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
+    OCP_DBL CalWellQT();
     void ShowWellStatus(const Bulk& myBulk) { for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk); }
+
 
 private:
     USI          numWell;   ///< num of wells.
@@ -213,6 +215,8 @@ private:
     OCP_DBL FGPt{0}; ///< gas total production in field.
     OCP_DBL FWPR{0}; ///< water production rate in field.
     OCP_DBL FWPT{0}; ///< water total production in field.
+
+    OCP_DBL QT{0}; ///< PROD qt - INJ qt
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC

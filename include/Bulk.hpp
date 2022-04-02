@@ -188,6 +188,7 @@ public:
     /// Allocate memory for WellbulkId
     void AllocateWellBulkId(const USI& n) { wellBulkId.reserve(n); }
     void ClearWellBulkId() { wellBulkId.clear(); }
+    OCP_DBL CalNT() { NT = Dnorm1(numBulk, &Nt[0]);  return NT;   }
     
 
 private:
@@ -264,6 +265,7 @@ private:
     vector<OCP_DBL> vf;         ///< Total fluid volume: numBulk.
     vector<OCP_DBL> Nt;         ///< Total moles of components in bulks: numBulk.
     vector<OCP_DBL> lNt;        ///< last Nt
+    OCP_DBL         NT;         ///< sume of Nt in all bulks
     // Note: Nij is the moles of component i in phase j, Nj is the moles of phase j.
 
     /////////////////////////////////////////////////////////////////////
@@ -437,6 +439,7 @@ public:
         const OCP_DBL& dSmaxlim);
     void UpdateLastStepAIM();
     void ResetFIMBulk();
+    void ShowFIMBulk() const;
     /// Check if negative Ni occurs, return false if so.
     bool CheckNiFIMBulk() const;
     /// Ni in FIM Bulk -> FIMNi
