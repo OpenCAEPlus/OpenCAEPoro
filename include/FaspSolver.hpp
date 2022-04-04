@@ -33,6 +33,12 @@ extern "C" {
 }
 #endif
 
+// fasp4cuda header files, note that don't need extern "C" !!!
+#if WITH_FASP4CUDA
+#include "fasp4cuda.h"
+#include "fasp4cuda_functs.h"
+#endif
+
 // OpenCAEPoro header files
 #include "LinearSolver.hpp"
 
@@ -147,4 +153,5 @@ private:
 /*  Shizhe Li           Nov/22/2021      Create file                          */
 /*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */
 /*  Chensong Zhang      Jan/19/2022      Set FASP4BLKOIL as optional          */
+/*  Li Zhao             Apr/04/2022      Set FASP4CUDA   as optional          */
 /*----------------------------------------------------------------------------*/
