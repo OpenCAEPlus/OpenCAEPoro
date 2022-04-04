@@ -380,7 +380,6 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     OCP_USI size_row;
     A.IA[0] = 0;
     for (OCP_USI i = 1; i < dim + 1; i++) {
-
         USI nnb_Row = colId[i - 1].size();
         A.IA[i]     = A.IA[i - 1] + nnb_Row;
 
@@ -448,14 +447,23 @@ OCP_INT VectorFaspSolver::Solve()
 #if WITH_FASP4BLKOIL
             case PC_FASP1:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+#if WITH_FASP4CUDA // zhaoli 2022.04.04
+     		    status = fasp_solver_dbsr_krylov_FASP1_cuda_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+#else     
                 status = fasp_solver_dbsr_krylov_FASP1a(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-                break;
+#endif                
+		break;
             case PC_FASP1_SHARE: // zhaoli 2021.03.24
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+#if WITH_FASP4CUDA
+     		    status = fasp_solver_dbsr_krylov_FASP1_cuda_share_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order, RESET_CONST);
+#else     
                 status = fasp_solver_dbsr_krylov_FASP1a_share_interface(
-                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
-                    RESET_CONST);
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order, RESET_CONST);
+#endif                  
                 break;
             case PC_FASP2:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
@@ -469,14 +477,24 @@ OCP_INT VectorFaspSolver::Solve()
                 break;
             case PC_FASP4:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+#if WITH_FASP4CUDA
+ 		        status = fasp_solver_dbsr_krylov_FASP4_cuda(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+#else                
                 status = fasp_solver_dbsr_krylov_FASP4(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
+#endif
                 break;
             case PC_FASP4_SHARE: // zhaoli 2021.04.24
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+#if WITH_FASP4CUDA // zhaoli 2022.04.04
+                OCP_ABORT("Preconditioner type " + to_string(precond_type) +
+                          " not supported on GPU!");
+#else                
                 status = fasp_solver_dbsr_krylov_FASP4_share_interface(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
                     RESET_CONST);
+#endif                    
                 break;
             case PC_FASP5:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
@@ -558,4 +576,5 @@ OCP_INT VectorFaspSolver::Solve()
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Nov/22/2021      Create file                          */
 /*  Chensong Zhang      Jan/19/2022      Set FASP4BLKOIL as optional          */
+/*  Li Zhao             Apr/04/2022      Set FASP4CUDA   as optional          */
 /*----------------------------------------------------------------------------*/
