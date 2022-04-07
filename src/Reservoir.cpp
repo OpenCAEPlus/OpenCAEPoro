@@ -223,6 +223,7 @@ void Reservoir::UpdateLastStepIMPEC()
     OCP_FUNCNAME;
     bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStep();
+    allWells.UpdateLastBHP();
     allWells.UpdateLastDg();
 }
 
@@ -611,6 +612,7 @@ void Reservoir::UpdateLastStepAIM()
     bulk.UpdateLastStepIMPEC();
     bulk.UpdateLastStepAIM();
     conn.UpdateLastStep();
+    allWells.UpdateLastBHP();
     allWells.UpdateLastDg();
 }
 

@@ -327,8 +327,9 @@ void AllWells::ResetBHP()
 {
     for (auto& w : wells) {
         if (w.WellState()) {
-            w.BHP = w.lBHP;
+            w.BHP = w.lBHP;            
             w.SetBHP();
+            // w.dG = w.ldG;
         }
     }
 }

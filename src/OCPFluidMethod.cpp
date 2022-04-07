@@ -383,7 +383,7 @@ void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupFIMBulk();
     rs.SetupFIMBulkBoundAIMs();
 
-    // rs.bulk.ShowFIMBulk();
+    rs.bulk.ShowFIMBulk();
 
     // Calculate Resiual
     rs.CalResAIMs(resFIM, dt);
@@ -469,16 +469,16 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-    #ifdef _DEBUG
+    //#ifdef _DEBUG
      cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
         << "  " << NRdPmax << endl;
-    #endif
+    //#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetValAIM();
-        rs.CalResFIM(resFIM, ctrl.current_dt);
+        rs.CalResAIMs(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
@@ -501,14 +501,14 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
         case 1:
             ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
             rs.ResetValAIM();
-            rs.CalResFIM(resFIM, ctrl.current_dt);
+            rs.CalResAIMs(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
         case 2:
             ctrl.current_dt /= 1;
             rs.ResetValAIM();
-            rs.CalResFIM(resFIM, ctrl.current_dt);
+            rs.CalResAIMs(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
             return false;
@@ -533,7 +533,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             rs.AddFIMBulk();
             rs.SetupFIMBulkBoundAIMs();
 
-            // rs.bulk.ShowFIMBulk();
+            rs.bulk.ShowFIMBulk();
 
             // Calculate Resiual
             rs.CalResAIMs(resFIM, ctrl.current_dt);

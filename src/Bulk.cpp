@@ -96,6 +96,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
                 SATmode = PHASE_ODGW01;
             }
         }
+        numCom_1 = numCom - 1;
         rs_param.numPhase = numPhase;
         rs_param.numCom = numCom;
 

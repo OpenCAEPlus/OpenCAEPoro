@@ -199,16 +199,16 @@ WCONPROD
 
 TUNING
 -- Init     max    min   incre   chop    cut
-     1       10     0.1      5    0.3    0.3                    /
+     0.1       10     0.1      5    0.3    0.3                    /
 --  dPlim  dSlim   dNlim   dVerrlim
-     300     0.2    0.3    0.001                               /
+     300     0.2       0.3         0.001                                /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
        10    1E-3   2000    2    1      0.01    0.01          /
 /
 
 
 METHOD
-FIM
+IMPEC
 /
 
 TSTEP
@@ -226,5 +226,6 @@ TSTEP
 TSTEP
 7*365.25   /  -- 10 years
 /
+
 
 END
