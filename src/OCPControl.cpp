@@ -48,6 +48,8 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
             method = FIM;
         } else if (string(optset[2]) == "IMPEC") {
             method = IMPEC;
+        } else if (string(optset[2]) == "AIMc") {
+            method = AIMc;
         } else if (string(optset[2]) == "AIMs") {
             method = AIMs;
         } else if (string(optset[2]) == "AIMt") {
@@ -73,6 +75,8 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
         method = IMPEC;
     } else if (CtrlParam.method == "FIM") {
         method = FIM;
+    } else if (CtrlParam.method == "AIMc") {
+        method = AIMc;
     } else if (CtrlParam.method == "AIMs") {
         method = AIMs;
     } else if (CtrlParam.method == "AIMt") {
@@ -133,6 +137,7 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
                 break;
             case FIM_IMPEC:
             case AIMs:
+            case AIMc:
             case FIM:
                 linearsolveFile = "./bsr.fasp";
                 break;

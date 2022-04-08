@@ -179,10 +179,11 @@ public:
     void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 
     /// Reset upblock for FIM.
-    void ResetUpblockFIM() { upblock = lastUpblock; }
+    void ResetUpblockFIM() { upblock = lastUpblock; upblock_Velocity = lastUpblock_Velocity;
+    }
 
     /// Update lastUpblock for FIM.
-    void UpdateLastUpblockFIM() { lastUpblock = upblock; }
+    void UpdateLastUpblockFIM() { lastUpblock = upblock; lastUpblock_Velocity = upblock_Velocity; }
 
     /////////////////////////////////////////////////////////////////////
     // AIMs, AIMt
@@ -208,6 +209,12 @@ public:
     /// parts related to FIM A, IMPEC A, and IMPEC b
     void AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+
+    /// Allocate memory for auxiliary variables used by the AIMc method.
+    void AllocateAuxAIMc(const USI& np);
+    void AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Calculate resiual for the Newton iteration in FIM.
+    void CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 };
 
 

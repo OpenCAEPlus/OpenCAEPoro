@@ -64,6 +64,7 @@ class Bulk
     friend class OCP_FIM;
     friend class Reservoir;
     friend class OCP_AIMt;
+    friend class OCP_AIMc;
 
     /////////////////////////////////////////////////////////////////////
     // For general usage
@@ -446,6 +447,7 @@ public:
     void InFIMNi();
     /// FIMNi -> Ni in FIM Bulk
     void OutFIMNi();
+    void AllocateAuxAIMc();
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor

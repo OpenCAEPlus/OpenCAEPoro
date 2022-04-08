@@ -50,6 +50,9 @@ void OpenCAEPoro::RunSimulation()
     case FIM:
         cout << "Dynamic simulation with FIM";
         break;
+    case AIMc:
+        cout << "Dynamic simulation with AIMc";
+        break;
     case AIMs:
         cout << "Dynamic simulation with AIMs";
         break;

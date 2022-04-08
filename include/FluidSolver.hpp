@@ -42,6 +42,7 @@ private:
     LinearSystem  auxFLSolver;
     OCP_IMPEC     impec;
     OCP_FIM       fim;
+    OCP_AIMc      aimc;
     OCP_AIMs      aims;
     OCP_AIMt      aimt;
     OCP_FIM_IMPEC fimImpec;

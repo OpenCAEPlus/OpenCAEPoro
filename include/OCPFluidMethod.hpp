@@ -72,6 +72,25 @@ protected:
     ResFIM resFIM;
 };
 
+class OCP_AIMc : public OCP_FIM
+{
+public:
+    /// Setup AIMc
+    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
+
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+
+    /// Assemble Matrix
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
+
+    /// Update properties of fluids.
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+
+    /// Finish a Newton-Raphson iteration.
+    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+};
+
 /// perform AIM in space, that is, some grids will be implicit, others will be explicit at the same time step
 class OCP_AIMs
 {

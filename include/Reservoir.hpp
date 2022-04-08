@@ -39,6 +39,7 @@ class Reservoir
     friend class OCP_FIM;
     friend class OCP_AIMs;
     friend class OCP_AIMt;
+    friend class OCP_AIMc;
     friend class Solver;
 
     /////////////////////////////////////////////////////////////////////
@@ -211,6 +212,14 @@ public:
     OCP_DBL CalCFLAIM(const OCP_DBL& dt);
     /// Update value of last step for IMPEC
     void UpdateLastStepAIM();
+
+    /// Allocate memory for auxiliary variables used for FIM
+    void AllocateAuxAIMc();
+    /// Assemble Matrix for AIMc
+    void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
+    /// Calculate the Resiual for FIM, it's also RHS of Linear System
+    void CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt);
+    
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

@@ -2249,6 +2249,7 @@ void Bulk::AllocateAuxFIM()
     lNi.resize(numBulk * numCom);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
+    rockLVp.resize(numBulk);
     muP.resize(numBulk * numPhase);
     xiP.resize(numBulk * numPhase);
     rhoP.resize(numBulk * numPhase);
@@ -2434,8 +2435,8 @@ void Bulk::ResetFIM()
     Ni = lNi;
     Nt = lNt;
     FlashDeriv();
-    // CalVpore();
-    ResetVp();
+    CalVpore();
+    // ResetVp();
     CalKrPcDeriv();
 }
 
@@ -3049,6 +3050,12 @@ void Bulk::OutFIMNi()
             Ni[bIdb + i] = FIMNi[bIdf + i];           
         }
     }
+}
+
+void Bulk::AllocateAuxAIMc()
+{
+    cfl.resize(numBulk * numPhase);
+    map_Bulk2FIM.resize(numBulk, -1);
 }
 
 

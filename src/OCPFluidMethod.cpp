@@ -248,7 +248,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
     myLS.OutputSolution("testx.out");
     myLS.CheckSolution();
@@ -293,11 +293,11 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-    //#ifdef _DEBUG
-    // cout << "### DEBUG: Residuals = " << scientific << resFIM.maxRelRes0_v << "  "
-    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-    //    << "  " << NRdPmax << endl;
-    //#endif
+#ifdef _DEBUG
+    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+        << "  " << NRdPmax << endl;
+#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -352,6 +352,127 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.UpdateLastStepFIM();
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
+}
+
+////////////////////////////////////////////
+// OCP_AIMc
+////////////////////////////////////////////
+
+void OCP_AIMc::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
+{
+    // Allocate Bulk and BulkConn Memory
+    rs.AllocateAuxAIMc();
+    // Allocate memory for internal matrix structure
+    rs.AllocateMatFIM(myLS);
+    // Allocate memory for resiual of FIM
+    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
+    resFIM.res.resize(num);
+
+    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+
+}
+
+void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.PrepareWell();
+    rs.CalWellFlux();
+    rs.CalResAIMc(resFIM, dt);
+    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+
+    // Set FIM Bulk
+    rs.CalCFL01IMPEC(dt);
+    rs.SetupWellBulk();
+    rs.SetupFIMBulk();
+
+    // rs.bulk.ShowFIMBulk();
+}
+
+void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
+{
+    rs.AssembleMatAIMc(myLS, dt);
+    myLS.AssembleRhs(resFIM.res);
+}
+
+bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL& dt = ctrl.current_dt;
+
+    // Second check: Ni check and bulk Pressure check
+    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+        dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResFIM(resFIM, dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        cout << "Cut time stepsize and repeat!\n";
+        return false;
+    }
+
+    // Update reservoir properties
+    rs.CalFlashDerivFIM();
+    rs.CalKrPcDerivFIM();
+    rs.CalVpore();
+    rs.CalWellTrans();
+    rs.CalWellFlux();
+    rs.CalResAIMc(resFIM, dt);
+    return true;
+}
+
+bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
+
+#ifdef _DEBUG
+    // cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+    //    << "  " << NRdPmax << endl;
+#endif
+
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+        ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResAIMc(resFIM, ctrl.current_dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        ctrl.ResetIterNRLS();
+        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
+        return false;
+    }
+
+    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+
+        OCP_INT flagCheck = rs.CheckP(false, true);
+#if DEBUG
+        if (flagCheck > 0) {
+            cout << ">> Switch well constraint: Case " << flagCheck << endl;
+        }
+#endif
+
+        switch (flagCheck) {
+        case 1:
+            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+            rs.ResetFIM(true);
+            rs.CalResAIMc(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+            return false;
+        case 2:
+            ctrl.current_dt /= 1;
+            rs.ResetFIM(true);
+            rs.CalResAIMc(resFIM, ctrl.current_dt);
+            resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+            ctrl.ResetIterNRLS();
+            return false;
+        default:
+            return true;
+            break;
+        }
+    }
+    else {
+        return false;
+    }
 }
 
 
@@ -469,11 +590,11 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-    //#ifdef _DEBUG
+#ifdef _DEBUG
      cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
         << "  " << NRdPmax << endl;
-    //#endif
+#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;

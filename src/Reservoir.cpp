@@ -616,6 +616,39 @@ void Reservoir::UpdateLastStepAIM()
     allWells.UpdateLastDg();
 }
 
+void Reservoir::AllocateAuxAIMc()
+{
+    OCP_FUNCNAME;
+
+    bulk.AllocateAuxFIM();
+    bulk.AllocateAuxAIMc();
+    conn.AllocateAuxAIMc(bulk.GetPhaseNum());
+}
+
+void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
+
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMat_AIMc(myLS, bulk, dt);
+    allWells.AssemblaMatFIM(myLS, bulk, dt);
+}
+
+void Reservoir::CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt)
+{
+    OCP_FUNCNAME;
+    // Initialize
+    resFIM.SetZero();
+    // Bulk to Bulk
+    conn.CalResAIMc(resFIM.res, bulk, dt);
+    // Well to Bulk
+    allWells.CalResFIM(resFIM, bulk, dt);
+    // Calculate RelRes
+    bulk.CalRelResFIM(resFIM);
+    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+}
+
+
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/

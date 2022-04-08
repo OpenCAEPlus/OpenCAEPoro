@@ -30,6 +30,9 @@ void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
     case FIM_IMPEC:
         fimImpec.Setup(rs, FLSolver, auxFLSolver, ctrl);
         break;
+    case AIMc:
+        aimc.Setup(rs, FLSolver, ctrl);
+        break;
     case FIM:
     default:
         fim.Setup(rs, FLSolver, ctrl);                
@@ -49,6 +52,7 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
         break;
     case FIM_IMPEC:
     case FIM:
+    case AIMc:
         rs.InitFIM();
         break;
     default:
@@ -66,6 +70,9 @@ void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
         break;
     case FIM:
         fim.Prepare(rs, dt);
+        break;
+    case AIMc:
+        aimc.Prepare(rs, dt);
         break;
     case AIMs:
         aims.Prepare(rs, dt);
@@ -93,6 +100,9 @@ void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     case FIM:
         fim.AssembleMat(FLSolver, rs, dt);
         break;
+    case AIMc:
+        aimc.AssembleMat(FLSolver, rs, dt);
+        break;
     case AIMs:
         aims.AssembleMat(FLSolver, rs, dt);
         break;
@@ -115,6 +125,7 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
         break;
     case FIM_IMPEC:
     case FIM:
+    case AIMc:
         fim.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     case AIMs:
@@ -134,6 +145,8 @@ bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
             // return impec.UpdateProperty01(rs, ctrl);
         case FIM:
             return fim.UpdateProperty(rs, ctrl);
+        case AIMc:
+            return aimc.UpdateProperty(rs, ctrl);
         case AIMs:
             return aims.UpdateProperty(rs, ctrl);
         case AIMt:
@@ -157,6 +170,8 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
             return aims.FinishNR(rs, ctrl);
         case FIM:
             return fim.FinishNR(rs, ctrl);
+        case AIMc:
+            return aimc.FinishNR(rs, ctrl);
         case FIM_IMPEC:
             return fimImpec.FinishNR(rs, ctrl, auxFLSolver);
         default:
@@ -174,6 +189,7 @@ void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
         return impec.FinishStep(rs, ctrl);
     case FIM_IMPEC:
     case FIM:
+    case AIMc:
         return fim.FinishStep(rs, ctrl);
     case AIMs:
         return aims.FinishStep(rs, ctrl);
