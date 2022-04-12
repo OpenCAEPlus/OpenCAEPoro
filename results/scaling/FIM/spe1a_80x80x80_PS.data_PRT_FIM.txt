@@ -1,0 +1,9 @@
+These properties will be printed in every TSTEP
+***********************************************
+PRESSURE
+
+SOIL	SWAT	
+
+
+
+***********************************************

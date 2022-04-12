@@ -1,0 +1,2 @@
+AIM*.dat是log文件，里面包含 Newton 迭代的具体情况，FIM网格的选取。
+例如 AIM03_5.dat 为最大时间步长取为 5 day的log文件，它对应的图片是 tmp03.png，图中的 SUMMARY 曲线为当前计算结果。

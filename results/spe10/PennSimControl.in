@@ -1,0 +1,14 @@
+##########################################
+#	Control files of PennSim
+#
+#
+##########################################
+# TS_init	TSmax	TSmin Endtime CFL_Limit Volume_error_limit
+    0.01	 60	0.0001	2000	0.5	0.001
+# Plim	Slim	Vlim	Nlim
+  200  0.2    0.02    0.1 
+#linear solver input file for IMPEC
+csr.dat
+#FIM control
+#conv_tolerance (r/Nt) enlarge_iteration cut_iteration
+1E-3			3			9
