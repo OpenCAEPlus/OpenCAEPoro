@@ -170,7 +170,7 @@ OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
-    bulk.InitCFLIMPEC();
+    bulk.SetCFL2Zero();
     conn.CalCFL(bulk, dt);
     allWells.CalCFL(bulk, dt);
     cfl = bulk.CalCFL();
@@ -253,13 +253,6 @@ void Reservoir::ResetWellIMPEC()
     allWells.CaldG(bulk);
 }
 
-void Reservoir::ResetVal00IMPEC()
-{
-    OCP_FUNCNAME;
-
-    bulk.ResetP();
-    allWells.CalTrans(bulk);
-}
 
 void Reservoir::ResetVal01IMPEC()
 {
@@ -589,7 +582,7 @@ OCP_DBL Reservoir::CalCFLAIM(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
-    bulk.InitCFLIMPEC();
+    bulk.SetCFL2Zero();
     conn.CalCFL(bulk, dt);
     cfl = bulk.CalCFL();
 

@@ -246,12 +246,12 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     OCP_DBL Vp0, Vp, vf, vfp, P;
     OCP_DBL cr = myBulk.rockC1;
     for (OCP_USI n = 0; n < numBulk; n++) {
+        vf = myBulk.vf[n];
+        vfp = myBulk.vfp[n];
+        P = myBulk.lP[n];
         Vp0 = myBulk.rockVpInit[n];
         Vp  = myBulk.rockVp[n];
-        vfp = myBulk.vfp[n];
-        P   = myBulk.P[n];
-        vf  = myBulk.vf[n];
-
+                
         OCP_DBL temp    = cr * Vp0 - vfp;
         myLS.diagVal[n] = temp;
         myLS.b[n] = temp * P + dt * (vf - Vp);

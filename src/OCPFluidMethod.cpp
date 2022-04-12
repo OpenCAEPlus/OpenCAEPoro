@@ -68,20 +68,18 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL& dt = ctrl.current_dt;
 
     // first check : Pressure check
-    OCP_INT flagCheck = rs.CheckP();
+    OCP_INT flagCheck = rs.CheckP(true, true);
     switch (flagCheck) {
         case 1:
-            cout << "well change" << endl;
+            // Negative Bulk P, well P, or Perforation P
             dt /= 2;
-            rs.ResetVal00IMPEC();
             return false;
         case 2:
-            cout << "well change" << endl;
+            // Switch Well opt Mode, or close the crossflow perforation
             dt /= 1;
-            rs.ResetVal00IMPEC();
-            // rs.ResetWellIMPEC();
             return false;
         default:
+            // All right
             break;
     }
 
@@ -132,17 +130,15 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
     OCP_INT flagCheck = rs.CheckP();
     switch (flagCheck) {
     case 1:
-        cout << "well change" << endl;
+        // Negative Bulk P, well P, or Perforation P
         dt /= 2;
-        rs.ResetVal00IMPEC();
         return false;
     case 2:
-        cout << "well change" << endl;
+        // Switch Well opt Mode, or close the crossflow perforation
         dt /= 1;
-        rs.ResetVal00IMPEC();
-        // rs.ResetWellIMPEC();
         return false;
     default:
+        // All right
         break;
     }
 
@@ -828,20 +824,18 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     }
     
     // Pressure check
-    OCP_INT flagCheck = rs.CheckP();
+    OCP_INT flagCheck = rs.CheckP(true, true);
     switch (flagCheck) {
     case 1:
-        cout << "well change" << endl;
+        // Negative Bulk P, well P, or Perforation P
         dt /= 2;
-        rs.ResetVal00IMPEC();
         return false;
     case 2:
-        cout << "well change" << endl;
+        // Switch Well opt Mode, or close the crossflow perforation
         dt /= 1;
-        rs.ResetVal00IMPEC();
-        // rs.ResetWellIMPEC();
         return false;
     default:
+        // All right
         break;
     }
 

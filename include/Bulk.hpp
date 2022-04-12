@@ -343,10 +343,10 @@ private:
 public:
     /// Allocate memory for auxiliary variables used for IMPEC.
     void AllocateAuxIMPEC();
-    /// Get solution from solver class after linear system is solved.
+    /// Update P and Pj after linear system is solved.
     void GetSolIMPEC(const vector<OCP_DBL>& u);
     /// Initialize the CFL number.
-    void InitCFLIMPEC() const { fill(cfl.begin(), cfl.end(), 0); }
+    void SetCFL2Zero() const { fill(cfl.begin(), cfl.end(), 0); }
     /// Calculate the CFL number.
     OCP_DBL CalCFL() const;
     /// Update value of last step for IMPEC.

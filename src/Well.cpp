@@ -1095,8 +1095,12 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
     }
 
     if (!flagC) {
+        // if crossflow happens, then corresponding perforation will be closed,
+        // then the multiplier of perforation will be set to zero, so trans of well
+        // should be recalculated!
+        // 
         // dG = ldG;
-        // CalTrans(myBulk);
+        CalTrans(myBulk);
         // CalFlux(myBulk);
         // CaldG(myBulk);
         // SmoothdG();

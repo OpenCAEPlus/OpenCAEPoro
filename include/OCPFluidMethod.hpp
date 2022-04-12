@@ -40,6 +40,7 @@ public:
     bool FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
+
 };
 
 /// OCP_FIM is FIM (Fully Implicit Method).

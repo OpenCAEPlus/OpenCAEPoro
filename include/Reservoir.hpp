@@ -122,8 +122,6 @@ public:
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
     /// Reset Well for IMPEC
     void ResetWellIMPEC();
-    /// Reset Pressure
-    void ResetVal00IMPEC();
     /// Reset Pressure, Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC
@@ -133,7 +131,7 @@ public:
     void ResetVal03IMPEC();
 
 private:
-    // For output
+
     OCP_DBL cfl; ///< CFL number.
 
 public:

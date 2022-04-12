@@ -111,10 +111,7 @@ public:
     void CalReInjFluid(const Bulk& myBulk);
     /// Calculate memory for Matrix
     void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
-    void UpdateLastBHP()
-    {
-        for (auto& w : wells) w.lBHP = w.BHP;
-    }
+    void UpdateLastBHP() { for (auto& w : wells) w.lBHP = w.BHP; }
     void ResetBHP();
     /// Reset dG to ldG for each well.
     void UpdateLastDg()
@@ -230,7 +227,7 @@ public:
     /// Assemble matrix, parts related to well are included for IMPEC
     void AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                           const OCP_DBL& dt) const;
-    /// Get solution from solver class after linear system is solved for IMPEC
+    /// Update Well P and Perforation P after linear system is solved for IMPEC
     void GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
 
     /////////////////////////////////////////////////////////////////////
