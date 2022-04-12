@@ -432,28 +432,14 @@ OCP_DBL AllWells::CalWellQT()
 // IMPEC
 /////////////////////////////////////////////////////////////////////
 
-OCP_DBL AllWells::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
 
-    OCP_DBL cflw = 0;
-    OCP_DBL tmp  = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
-            tmp = wells[w].CalCFLIMPEC(myBulk, dt);
-            if (cflw < tmp) cflw = tmp;
-        }
-    }
-    return cflw;
-}
-
-void AllWells::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
+void AllWells::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
-            wells[w].CalCFL01IMPEC(myBulk, dt);
+            wells[w].CalCFL(myBulk, dt);
         }
     }
 }

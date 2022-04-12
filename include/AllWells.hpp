@@ -224,9 +224,7 @@ private:
 
 public:
     /// Calculate the CFL number for each perforation and return the maximum one.
-    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Calculate the CFL number for each perforation and return the maximum one.
-    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Update moles of components in Bulks which connects to well
     void MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt);
     /// Assemble matrix, parts related to well are included for IMPEC

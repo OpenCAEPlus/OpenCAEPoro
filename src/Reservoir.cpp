@@ -165,25 +165,15 @@ void Reservoir::InitIMPEC()
     allWells.UpdateLastBHP();
 }
 
-OCP_DBL Reservoir::CalCFLIMPEC(const OCP_DBL& dt)
-{
-    OCP_FUNCNAME;
 
-    OCP_DBL cflB = conn.CalCFLIMPEC(bulk, dt);
-    OCP_DBL cflW = allWells.CalCFLIMPEC(bulk, dt);
-    cfl          = max(cflB, cflW);
-
-    return cfl;
-}
-
-OCP_DBL Reservoir::CalCFL01IMPEC(const OCP_DBL& dt)
+OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
     bulk.InitCFLIMPEC();
-    conn.CalCFL01IMPEC(bulk, dt);
-    allWells.CalCFL01IMPEC(bulk, dt);
-    cfl = bulk.CalCFL01IMPEC();
+    conn.CalCFL(bulk, dt);
+    allWells.CalCFL(bulk, dt);
+    cfl = bulk.CalCFL();
 
     return cfl;
 }
@@ -600,8 +590,8 @@ OCP_DBL Reservoir::CalCFLAIM(const OCP_DBL& dt)
     OCP_FUNCNAME;
 
     bulk.InitCFLIMPEC();
-    conn.CalCFL01IMPEC(bulk, dt);
-    cfl = bulk.CalCFL01IMPEC();
+    conn.CalCFL(bulk, dt);
+    cfl = bulk.CalCFL();
 
     return cfl;
 }

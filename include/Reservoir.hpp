@@ -103,10 +103,7 @@ public:
     /// Initialize the properties of Reservoir for IMPEC
     void InitIMPEC();
     /// Calcluate the CFL number, including bulks and wells for IMPEC
-    OCP_DBL CalCFLIMPEC(const OCP_DBL& dt);
-    /// Calcluate the CFL number, including bulks and wells for IMPEC
-    /// CalCFL01IMPEC is more proper
-    OCP_DBL CalCFL01IMPEC(const OCP_DBL& dt);
+    OCP_DBL CalCFL(const OCP_DBL& dt);
     /// Calculate flux between bulks, bulks and wells
     void CalFLuxIMPEC();
     /// Calculate flux between bulks

@@ -2175,7 +2175,7 @@ void Bulk::GetSolIMPEC(const vector<OCP_DBL> &u)
     }
 }
 
-OCP_DBL Bulk::CalCFL01IMPEC() const
+OCP_DBL Bulk::CalCFL() const
 {
     OCP_FUNCNAME;
 

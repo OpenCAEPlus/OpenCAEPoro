@@ -1156,22 +1156,8 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
 // IMPEC
 /////////////////////////////////////////////////////////////////////
 
-OCP_DBL Well::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
 
-    OCP_DBL cfl = 0;
-    OCP_DBL tmp = 0;
-    for (USI p = 0; p < numPerf; p++) {
-        OCP_USI k = perf[p].location;
-        tmp       = fabs(perf[p].qt_ft3) * dt;
-        tmp /= myBulk.rockVp[k];
-        if (cfl < tmp) cfl = tmp;
-    }
-    return cfl;
-}
-
-void Well::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
+void Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 

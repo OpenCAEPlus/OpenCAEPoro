@@ -330,29 +330,8 @@ void BulkConn::AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
     }
 }
 
-OCP_DBL BulkConn::CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
 
-    USI     np   = myBulk.numPhase;
-    OCP_DBL cfl  = 0;
-    OCP_DBL temp = 0;
-    for (OCP_USI c = 0; c < numConn; c++) {
-
-        for (USI j = 0; j < np; j++) {
-            OCP_USI uId = upblock[c * np + j];
-
-            if (myBulk.phaseExist[uId * np + j]) { // uId -> uId * np + j  fix bugs.
-                temp = fabs(upblock_Velocity[c * np + j]) * dt;
-                temp /= myBulk.vj[uId * np + j];
-                if (cfl < temp) cfl = temp;
-            }
-        }
-    }
-    return cfl;
-}
-
-void BulkConn::CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const
+void BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 

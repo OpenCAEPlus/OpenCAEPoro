@@ -217,9 +217,7 @@ private:
 
 public:
     /// Calculate the CFL number, only parts related to wells are considered.
-    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Calculate the CFL number, only parts related to wells are considered.
-    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Update moles of components in those bulks who connects to the well.
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
     /// Assemble matrix for IMPEC, parts related to injection well are included.

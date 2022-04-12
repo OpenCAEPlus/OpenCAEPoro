@@ -348,7 +348,7 @@ public:
     /// Initialize the CFL number.
     void InitCFLIMPEC() const { fill(cfl.begin(), cfl.end(), 0); }
     /// Calculate the CFL number.
-    OCP_DBL CalCFL01IMPEC() const;
+    OCP_DBL CalCFL() const;
     /// Update value of last step for IMPEC.
     void UpdateLastStepIMPEC();
 

@@ -148,11 +148,8 @@ public:
     void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
                           const OCP_DBL& dt) const;
 
-    /// Calculate the CFL number for flow between bulks.
-    OCP_DBL CalCFLIMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
-
     /// Calculate the CFL number for flow between bulks???
-    void CalCFL01IMPEC(const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 
     /// Calculate flux information about flow between bulks for IMPEC.
     void CalFluxIMPEC(const Bulk& myBulk);

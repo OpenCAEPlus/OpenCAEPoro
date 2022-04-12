@@ -28,7 +28,7 @@ void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    OCP_DBL cfl = rs.CalCFL(dt);
     if (cfl > 1) dt /= (cfl + 1);
 }
 
@@ -88,7 +88,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalFLuxIMPEC();
 
     // second check : CFL check
-    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    OCP_DBL cfl = rs.CalCFL(dt);
     if (cfl > 1) {
         dt /= 2;
         rs.ResetVal01IMPEC();
@@ -149,7 +149,7 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
     rs.CalFLuxIMPEC();
 
     // second check : CFL check
-    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    OCP_DBL cfl = rs.CalCFL(dt);
     if (cfl > 1) {
         dt /= 2;
         rs.ResetVal01IMPEC();
@@ -380,7 +380,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
     // Set FIM Bulk
-    rs.CalCFL01IMPEC(dt);
+    rs.CalCFL(dt);
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
 
@@ -727,7 +727,7 @@ void OCP_AIMt::Setup(Reservoir& rs, LinearSystem& myLS, LinearSystem& myAuxLS, c
 void OCP_AIMt::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    OCP_DBL cfl = rs.CalCFL01IMPEC(dt);
+    OCP_DBL cfl = rs.CalCFL(dt);
     if (cfl > 1) dt /= (cfl + 1);
 
     // setup WellbulkId
@@ -740,7 +740,7 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     OCP_DBL& dt = ctrl.current_dt;
 
     rs.CalFLuxIMPEC();
-    rs.CalCFL01IMPEC(dt);
+    rs.CalCFL(dt);
     rs.MassConseveIMPEC(dt);
 
     // third check: Ni check
@@ -844,7 +844,6 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     default:
         break;
     }
-
 
     // fouth check: Volume error check
     if (!rs.CheckVe(0.01)) {
