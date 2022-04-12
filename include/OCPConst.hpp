@@ -66,8 +66,7 @@ const USI IMPEC = 1; ///< Solution method = IMPEC
 const USI FIM   = 2; ///< Solution method = FIM
 const USI AIMs = 3;  ///< Adaptive implicit
 const USI AIMt = 4;  ///< improved version of IMPEC, loacl FIM after IMPEC
-const USI FIM_IMPEC = 5; ///< FIM before IMPEC
-const USI AIMc = 6; ///< Adaptive implicit ---- Collins
+const USI AIMc = 5; ///< Adaptive implicit ---- Collins
 
 // Linear Solver
 const USI SCALARFASP = 1;  ///< Use scalar linear solver in Fasp 

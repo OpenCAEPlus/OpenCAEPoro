@@ -45,7 +45,6 @@ private:
     OCP_AIMc      aimc;
     OCP_AIMs      aims;
     OCP_AIMt      aimt;
-    OCP_FIM_IMPEC fimImpec;
 };
 
 #endif /* end if __FLUIDSOLVER_HEADER__ */

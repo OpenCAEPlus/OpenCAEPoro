@@ -843,7 +843,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
         flag = false;
         // cfl
         for (USI j = 0; j < np; j++) {
-            if (myBulk.cfl[bIdp + j] > 0.8) {
+            if (myBulk.cfl[bIdp + j] > -1) {
                 flag = true;
                 break;
             }

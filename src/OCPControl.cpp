@@ -54,9 +54,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
             method = AIMs;
         } else if (string(optset[2]) == "AIMt") {
             method = AIMt;
-        } else if (string(optset[2]) == "FIM_IMPEC") {
-            method = FIM_IMPEC;
-        } else {
+        }else {
             OCP_ABORT("Wrong method param in command line!");
         }
         timeInit = stod(optset[3]);
@@ -81,9 +79,7 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
         method = AIMs;
     } else if (CtrlParam.method == "AIMt") {
         method = AIMt;
-    } else if (CtrlParam.method == "FIM_IMPEC") {
-        method = FIM_IMPEC;
-    } else {
+    }else {
         OCP_ABORT("Wrong method specified!");
     }
 
@@ -135,7 +131,6 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
             case AIMt:
                 linearsolveFile = "./csr.fasp";
                 break;
-            case FIM_IMPEC:
             case AIMs:
             case AIMc:
             case FIM:

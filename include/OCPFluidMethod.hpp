@@ -133,22 +133,6 @@ private:
 
 };
 
-/// IMPEC will be performed to give a initial value for FIM
-class OCP_FIM_IMPEC : public OCP_FIM
-{
-    friend class FluidSolver;
-public:
-    /// Setup FIM
-    void Setup(Reservoir& rs, LinearSystem& MyLS, LinearSystem& AuxMyLS, const OCPControl& ctrl);
-    /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt, LinearSystem& AuxMyLS);
-    /// Perform IMPEC as Initial value
-    void IMPECInit(Reservoir& rs, OCP_DBL& dt, LinearSystem& AuxMyLS);
-    /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& AuxMyLS);
-    /// Finish a Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl, LinearSystem& AuxMyLS);
-};
 
 #endif /* end if __OCPFLUIDMETHOD_HEADER__ */
 
