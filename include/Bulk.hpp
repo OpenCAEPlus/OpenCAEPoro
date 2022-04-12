@@ -85,8 +85,16 @@ public:
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with Ni.
     void Flash();
+    /// Perform flash calculation with Ni in Black Oil Model
+    void FlashBLKOIL();
+    /// Perform flash calculation with Ni in Compositional Model
+    void FlashCOMP();
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDeriv();
+    /// Perform flash calculation with Ni in Black Oil Model
+    void FlashDerivBLKOIL();
+    /// Perform flash calculation with Ni in Compositional Model
+    void FlashDerivCOMP();
     /// Pass values from Flash to Bulk after Flash calculation.
     void PassFlashValue(const OCP_USI& n);
     /// Pass derivative values from Flash to Bulk after Flash calculation.

@@ -244,20 +244,6 @@ void Bulk::Setup(const Grid &myGrid)
     rockKy = rockKyInit;
     rockKz = rockKzInit;
 
-    phaseNum.resize(numBulk);
-    lphaseNum.resize(numBulk);
-    minEigenSkip.resize(numBulk);
-    flagSkip.resize(numBulk);
-    ziSkip.resize(numBulk * numCom);
-    PSkip.resize(numBulk);
-    lminEigenSkip.resize(numBulk);
-    lflagSkip.resize(numBulk);
-    lziSkip.resize(numBulk * numCom);
-    lPSkip.resize(numBulk);
-
-    Ks.resize(numBulk * (numCom - 1));
-    lKs.resize(numBulk * (numCom - 1));
-
     // physical variables
     P.resize(numBulk);
     Pb.resize(numBulk);
@@ -326,6 +312,20 @@ void Bulk::Setup(const Grid &myGrid)
         phase2Index[OIL] = 0;
         phase2Index[GAS] = 1;
         phase2Index[WATER] = 2;
+
+        phaseNum.resize(numBulk);
+        lphaseNum.resize(numBulk);
+        minEigenSkip.resize(numBulk);
+        flagSkip.resize(numBulk);
+        ziSkip.resize(numBulk* numCom);
+        PSkip.resize(numBulk);
+        lminEigenSkip.resize(numBulk);
+        lflagSkip.resize(numBulk);
+        lziSkip.resize(numBulk* numCom);
+        lPSkip.resize(numBulk);
+        Ks.resize(numBulk* (numCom - 1));
+        lKs.resize(numBulk* (numCom - 1));
+
         if (miscible) {
             surTen.resize(numBulk);
             Fk.resize(numBulk);
@@ -1366,6 +1366,31 @@ void Bulk::InitFlash(const bool &flag)
 void Bulk::Flash()
 {
     OCP_FUNCNAME;
+
+    if (comps) {
+        FlashCOMP();
+    }
+    else {
+        FlashBLKOIL();
+    }
+
+#ifdef DEBUG
+    CheckSat();
+#endif // DEBUG
+}
+
+
+void Bulk::FlashBLKOIL()
+{
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        PassFlashValue(n);
+    }
+}
+
+
+void Bulk::FlashCOMP()
+{
     USI ftype;
     OCP_USI bId;
     OCP_DBL Ntw;
@@ -1373,7 +1398,6 @@ void Bulk::Flash()
     // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++)
     {
-
         ftype = 1;
         if (flagSkip[n])
         {
@@ -1402,32 +1426,9 @@ void Bulk::Flash()
         else {
             ftype = 0;
         }
-
         flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
         PassFlashValue(n);
-        // if (n == 39) {
-        //     cout << "myBulk[39]: "
-        //         << flashCal[PVTNUM[39]]->phaseExist[0] << "   " << flashCal[PVTNUM[39]]->v[0] << "   "
-        //         << flashCal[PVTNUM[39]]->phaseExist[1] << "   " << flashCal[PVTNUM[39]]->v[1] << "   "
-        //         << flashCal[PVTNUM[39]]->phaseExist[2] << "   " << flashCal[PVTNUM[39]]->v[2] << "   "
-        //         << flashCal[PVTNUM[39]]->vf
-        //         << endl;
-        // }
-        // if (phaseNum[n] == 2)
-        //     cout << n << endl;
     }
-    // OutputInfo(0);
-    // OutputInfo(14948);
-    // OutputInfo(14949);
-    // OutputInfo(14950);
-    // OutputInfo(15350);
-    // OutputInfo(15351);
-    // OutputInfo(15748);
-    // OutputInfo(15749);
-    // cout << "==================================" << endl;
-#ifdef DEBUG
-    CheckSat();
-#endif // DEBUG
 }
 
 
@@ -1436,6 +1437,34 @@ void Bulk::FlashDeriv()
 {
     OCP_FUNCNAME;
 
+    if (comps) {
+        FlashDerivCOMP();
+    }
+    else {
+        FlashDerivBLKOIL();
+    }
+
+#ifdef DEBUG
+    CheckSat();
+#endif // DEBUG
+}
+
+
+/// Perform flash calculation with Ni in Black Oil Model
+void Bulk::FlashDerivBLKOIL()
+{
+    dSec_dPri.clear();
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        PassFlashValueDeriv(n);
+    }
+}
+
+
+/// Perform flash calculation with Ni in Compositional Model
+void Bulk::FlashDerivCOMP()
+{
     USI ftype;
     OCP_USI bId;
     OCP_DBL Ntw;
@@ -1443,7 +1472,6 @@ void Bulk::FlashDeriv()
     dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++)
     {
-
         ftype = 1;
         if (flagSkip[n])
         {
@@ -1476,10 +1504,6 @@ void Bulk::FlashDeriv()
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
     }
-
-#ifdef DEBUG
-    CheckSat();
-#endif // DEBUG
 }
 
 void Bulk::PassFlashValue(const OCP_USI &n)
