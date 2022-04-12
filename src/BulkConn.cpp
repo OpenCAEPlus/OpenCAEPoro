@@ -460,7 +460,6 @@ void BulkConn::AllocateAuxFIM(const USI& np)
     OCP_FUNCNAME;
 
     upblock.resize(numConn * np);
-    lastUpblock.resize(numConn * np);
 }
 
 void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,

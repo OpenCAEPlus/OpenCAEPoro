@@ -203,7 +203,7 @@ void AllWells::CalFlux(const Bulk& myBulk)
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
-            wells[w].CalFlux(myBulk);
+            wells[w].CalFlux(myBulk, false);
         }
     }
 }
