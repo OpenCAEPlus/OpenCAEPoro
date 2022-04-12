@@ -2162,9 +2162,12 @@ void Bulk::AllocateAuxIMPEC()
 {
     OCP_FUNCNAME;
 
+    // IMPEC var
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
     cfl.resize(numBulk * numPhase);
+
+    // Last Step
     lP.resize(numBulk);
     lPj.resize(numBulk * numPhase);
     lPc.resize(numBulk * numPhase);
@@ -2178,6 +2181,7 @@ void Bulk::AllocateAuxIMPEC()
     lkr.resize(numBulk * numPhase);
     lvj.resize(numBulk * numPhase);
     lvf.resize(numBulk);
+    lNt.resize(numBulk);
     lvfi.resize(numBulk * numCom);
     lvfp.resize(numBulk);
     rockLVp.resize(numBulk);
@@ -2268,12 +2272,9 @@ void Bulk::AllocateAuxFIM()
 {
     OCP_FUNCNAME;
 
-    lP.resize(numBulk);
-    lS.resize(numBulk * numPhase);
-    lNi.resize(numBulk * numCom);
+    // FIM var
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
-    rockLVp.resize(numBulk);
     muP.resize(numBulk * numPhase);
     xiP.resize(numBulk * numPhase);
     rhoP.resize(numBulk * numPhase);
@@ -2283,6 +2284,34 @@ void Bulk::AllocateAuxFIM()
     dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
+
+    // Last Step
+    lP.resize(numBulk);
+    lPj.resize(numBulk * numPhase);
+    lPc.resize(numBulk * numPhase);
+    lphaseExist.resize(numBulk * numPhase);
+    lS.resize(numBulk * numPhase);
+    lrho.resize(numBulk * numPhase);
+    lxi.resize(numBulk * numPhase);
+    lxij.resize(numBulk * numPhase * numCom);
+    lNi.resize(numBulk * numCom);
+    lmu.resize(numBulk * numPhase);
+    lkr.resize(numBulk * numPhase);
+    lvj.resize(numBulk * numPhase);
+    lvf.resize(numBulk);
+    lNt.resize(numBulk);
+    lvfi.resize(numBulk * numCom);
+    lvfp.resize(numBulk);
+    rockLVp.resize(numBulk);
+    lmuP.resize(numBulk * numPhase);
+    lxiP.resize(numBulk * numPhase);
+    lrhoP.resize(numBulk * numPhase);
+    lmux.resize(numBulk * numCom * numPhase);
+    lxix.resize(numBulk * numCom * numPhase);
+    lrhox.resize(numBulk * numCom * numPhase);
+    ldSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    ldKr_dS.resize(numBulk * numPhase * numPhase);
+    ldPcj_dS.resize(numBulk * numPhase * numPhase);
 }
 
 void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
@@ -2456,12 +2485,31 @@ void Bulk::ResetFIM()
     Ks = lKs;
 
     P = lP;
+    Pj = lPj;
+    Pc = lPc;
+    phaseExist = lphaseExist;
+    S = lS;
+    rho = lrho;
+    xi = lxi;
+    xij = lxij;
     Ni = lNi;
+    mu = lmu;
+    kr = lkr;
+    vj = lvj;
+    vf = lvf;
     Nt = lNt;
-    FlashDeriv();
-    CalVpore();
-    // ResetVp();
-    CalKrPcDeriv();
+    vfi = lvfi;
+    vfp = lvfp;
+    rockVp = rockLVp;
+    muP = lmuP;
+    xiP = lxiP;
+    rhoP = lrhoP;
+    mux = lmux;
+    xix = lxix;
+    rhox = lrhox;
+    dSec_dPri = ldSec_dPri;
+    dKr_dS = ldKr_dS;
+    dPcj_dS = ldPcj_dS;
 }
 
 void Bulk::UpdateLastStepFIM()
@@ -2475,9 +2523,31 @@ void Bulk::UpdateLastStepFIM()
     lKs = Ks;
 
     lP = P;
+    lPj = Pj;
+    lPc = Pc;
+    lphaseExist = phaseExist;
     lS = S;
+    lrho = rho;
+    lxi = xi;
+    lxij = xij;
     lNi = Ni;
+    lmu = mu;
+    lkr = kr;
+    lvj = vj;
+    lvf = vf;
     lNt = Nt;
+    lvfi = vfi;
+    lvfp = vfp;
+    rockLVp = rockVp;
+    lmuP = muP;
+    lxiP = xiP;
+    lrhoP = rhoP;
+    lmux = mux;
+    lxix = xix;
+    lrhox = rhox;
+    ldSec_dPri = dSec_dPri;
+    ldKr_dS = dKr_dS;
+    ldPcj_dS = dPcj_dS;
 }
 
 void Bulk::OutputInfo(const OCP_USI &n) const

@@ -341,9 +341,7 @@ void Reservoir::UpdateLastStepFIM()
     OCP_FUNCNAME;
 
     bulk.UpdateLastStepFIM();
-    conn.UpdateLastUpblockFIM();
     allWells.UpdateLastBHP();
-    allWells.UpdateLastDg();
 }
 
 void Reservoir::AllocateMatFIM(LinearSystem& myLS) const
@@ -424,7 +422,6 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
 void Reservoir::ResetFIM(const bool& flag)
 {
     bulk.ResetFIM();
-    conn.ResetUpblockFIM();
     allWells.ResetBHP();
     allWells.CalTrans(bulk);
     allWells.CalFlux(bulk);

@@ -273,7 +273,6 @@ private:
     vector<OCP_DBL> vj;         ///< Volume of phase: numPhase*numBulk.
     vector<OCP_DBL> vf;         ///< Total fluid volume: numBulk.
     vector<OCP_DBL> Nt;         ///< Total moles of components in bulks: numBulk.
-    vector<OCP_DBL> lNt;        ///< last Nt
     OCP_DBL         NT;         ///< sume of Nt in all bulks
     // Note: Nij is the moles of component i in phase j, Nj is the moles of phase j.
 
@@ -299,6 +298,7 @@ private:
     vector<OCP_DBL> lkr;         ///< Relative permeability of phase: numPhase*numBulk.
     vector<OCP_DBL> lvj;         ///< Volume of phase: numPhase*numBulk.
     vector<OCP_DBL> lvf;         ///< Total fluid volume: numBulk.
+    vector<OCP_DBL> lNt;        ///< last Nt
     vector<OCP_DBL> lvfi;        ///< dVf / dNi: numCom*numBulk.
     vector<OCP_DBL> lvfp;        ///< dVf / dP: numBulk.
     vector<OCP_DBL> rockLVp;     ///< Pore volume: numBulk.
