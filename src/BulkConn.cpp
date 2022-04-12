@@ -408,46 +408,16 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
             upblock_Rho[c * np + j] = rho;
             upblock[c * np + j]     = uId;
 
-            // (fix bugs) if exup is false, then trans and vec are zero.
             if (exup) {
-
-                // test
-                //OCP_DBL vb = myBulk.vf[bId] / myBulk.rockVp[bId];
-                //OCP_DBL ve = myBulk.vf[eId] / myBulk.rockVp[eId];
-                //OCP_DBL vu = (uId == bId ? vb : ve);
-                //OCP_DBL vd = (uId == bId ? ve : vb);
-                //OCP_DBL tmp = pow((vu / vd), 2.0 / 3.0);
-                /*cout << fixed << setprecision(9) << vu << "   " << vd << "   "
-                    << tmp << endl;*/
-
-
                 OCP_USI uId_np_j = uId * np + j;
                 OCP_DBL trans =  Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j];
                 upblock_Trans[c * np + j]    = trans;
                 upblock_Velocity[c * np + j] = trans * dP;
-
-                //if (bId == 14950 || eId == 14950) {
-                //    cout << bId << "   " << eId << "   ";
-                //    cout << fixed << setprecision(6) << dP << "   "
-                //        << setprecision(6) << trans << "   "
-                //        << setprecision(6) << upblock_Velocity[c * np + j] << endl;
-                //}
                 
-
             } else {
                 upblock_Trans[c * np + j]    = 0;
                 upblock_Velocity[c * np + j] = 0;
             }
-  
-            //if (bId == 41 && eId == 42) {
-            //    if (j == 1) {
-            //        cout << "up: " << uId << "   "
-            //            << "Exist: " << exup << "   "
-            //            << "dP:  " << dP << "   "
-            //            << "Velocity: " << upblock_Velocity[c * np + j]
-            //            << endl;
-            //    }              
-            //}
         }
     }
 }
@@ -476,23 +446,9 @@ void BulkConn::MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const
                 myBulk.Ni[eId * nc + i] += dNi;
                 myBulk.Ni[bId * nc + i] -= dNi;
 
-                //if (bId == 41 && eId == 42) {
-                //    if (j == 1) {
-                //        cout << dNi << "   ";
-                //    }
-                //}
             }
         }
     }
-    //cout << scientific;
-    //for (USI i = 0; i < nc; i++) {
-    //    cout << myBulk.Ni[41 * nc + i] << "   ";
-    //}
-    //cout << endl;
-    //for (USI j = 0; j < np; j++) {
-    //    cout << myBulk.S[41 * np + j] << "   ";
-    //}
-    //cout << endl;
 }
 
 /////////////////////////////////////////////////////////////////////

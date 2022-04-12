@@ -122,9 +122,9 @@ public:
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
     /// Reset Well for IMPEC
     void ResetWellIMPEC();
-    /// Reset Pressure, Capillary Pressure, Flux for IMPEC
+    /// Reset Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
-    /// Reset Pressure, Capillary Pressure, Moles of Componnets, Flux for IMPEC
+    /// Reset Capillary Pressure, Moles of Componnets, Flux for IMPEC
     void ResetVal02IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores
     /// for IMPEC

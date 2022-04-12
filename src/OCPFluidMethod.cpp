@@ -83,6 +83,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
             break;
     }
 
+    // Calculate Flux between bulks and between bulks and wells
     rs.CalFLuxIMPEC();
 
     // second check : CFL check

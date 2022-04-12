@@ -213,8 +213,9 @@ void Reservoir::UpdateLastStepIMPEC()
     OCP_FUNCNAME;
     bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStep();
-    allWells.UpdateLastBHP();
-    allWells.UpdateLastDg();
+    // useless in IMPEC now
+    // allWells.UpdateLastBHP();
+    // allWells.UpdateLastDg();
 }
 
 void Reservoir::AllocateMatIMPEC(LinearSystem& myLS) const
@@ -257,7 +258,6 @@ void Reservoir::ResetWellIMPEC()
 void Reservoir::ResetVal01IMPEC()
 {
     OCP_FUNCNAME;
-    bulk.ResetP();
     bulk.ResetPj();
     conn.Reset();
 }
@@ -266,10 +266,8 @@ void Reservoir::ResetVal02IMPEC()
 {
     OCP_FUNCNAME;
     
-    bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();
-    bulk.ResetNt();
     conn.Reset();
 }
 
@@ -283,12 +281,10 @@ void Reservoir::ResetVal03IMPEC()
     bulk.ResetPSkip();
     bulk.ResetKs();
 
-    bulk.ResetP();
     bulk.ResetPj();
     bulk.ResetNi();
     bulk.ResetNt();
     bulk.ResetFlash();
-    bulk.ResetKr();
     bulk.ResetVp();
     conn.Reset();
 
