@@ -1964,8 +1964,8 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                     }
                     // cout << "Factor(res)    " << opt.factor << endl;
                 }
-                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
-                // " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
+                 //cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " <<
+                 //    fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
@@ -1990,8 +1990,8 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                     resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
                 }
                 // cout << "Temp(Prod):   " << tmp << endl;
-                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
-                // " << fabs(resFIM.res[bId] / opt.maxRate) << endl;
+                 //cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " 
+                 //    << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxRelRes_v =
                     max(resFIM.maxRelRes_v, fabs(resFIM.res[bId] / opt.maxRate));
                 break;

@@ -471,8 +471,8 @@ void FlowUnit_ODGW02::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL
     OCP_DBL dKrogdSo   = cdata[2];
 
     OCP_DBL dKroSo = 0;
-    // OCP_DBL kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSo, dKrgdSg, dKrogdSo, dKroSo);
-    OCP_DBL kro = CalKro_DefaultDer(Sg, Sw, krog, krow, dKrogdSo, dKrowdSo, dKroSo);
+    OCP_DBL kro = CalKro_Stone2Der(krow, krog, krw, krg, dKrwdSw, dKrowdSo, dKrgdSg, dKrogdSo, dKroSo);
+    // OCP_DBL kro = CalKro_DefaultDer(Sg, Sw, krog, krow, dKrogdSo, dKrowdSo, dKroSo);
 
     kr_out[0] = kro;
     kr_out[1] = krg;

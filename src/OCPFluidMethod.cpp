@@ -245,7 +245,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef DEBUG
+#ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
     myLS.OutputSolution("testx.out");
     myLS.CheckSolution();
@@ -381,7 +381,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
 
-    // rs.bulk.ShowFIMBulk();
+    rs.bulk.ShowFIMBulk();
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
@@ -398,7 +398,7 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);
-        rs.CalResFIM(resFIM, dt);
+        rs.CalResAIMc(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
         return false;
@@ -420,9 +420,9 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
 #ifdef _DEBUG
-    // cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
-    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-    //    << "  " << NRdPmax << endl;
+    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+       << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+       << "  " << NRdPmax << endl;
 #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {

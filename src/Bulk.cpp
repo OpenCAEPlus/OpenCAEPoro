@@ -2436,8 +2436,8 @@ void Bulk::CalRelResFIM(ResFIM &resFIM) const
 {
     OCP_FUNCNAME;
 
-    // OCP_USI tmpid01 = -1;
-    // OCP_USI tmpid02 = -1;
+    //OCP_USI tmpid01 = -1;
+    //OCP_USI tmpid02 = -1;
     OCP_DBL tmp;
 
     const USI len = numCom + 1;
@@ -2462,15 +2462,17 @@ void Bulk::CalRelResFIM(ResFIM &resFIM) const
             }
         }
     }
-    // cout << scientific;
-    // if (tmpid01 < numBulk) {
-    //     cout << "maxRelRes_v: " << tmpid01 << "   " << S[tmpid01 * numPhase] << "   "
-    //         << S[tmpid01 * numPhase + 1] << "   " << resFIM.maxRelRes_v << endl;
-    // }
-    // if (tmpid02 < numBulk) {
-    //     cout << "maxRelRes_mol: " << tmpid02 << "   " << S[tmpid02 * numPhase] << " "
-    //         << S[tmpid02 * numPhase + 1] << "   " << resFIM.maxRelRes_mol << endl;
-    // }
+     //cout << scientific;
+     //if (tmpid01 < numBulk) {
+     //    cout << "maxRelRes_v: " << tmpid01 << "   " << S[tmpid01 * numPhase] << "   "
+     //        << S[tmpid02 * numPhase + 1] << "   " << S[tmpid02 * numPhase + 2] <<
+     //        "   " << resFIM.maxRelRes_v << endl;
+     //}
+     //if (tmpid02 < numBulk) {
+     //    cout << "maxRelRes_mol: " << tmpid02 << "   " << S[tmpid02 * numPhase] << "   "
+     //        << S[tmpid02 * numPhase + 1] << "   " << S[tmpid02 * numPhase + 2] <<
+     //        "   " << resFIM.maxRelRes_mol << endl;
+     //}
 }
 
 void Bulk::ResetFIM()
@@ -3088,7 +3090,8 @@ void Bulk::ResetFIMBulk()
 
 void Bulk::ShowFIMBulk() const
 {
-    cout << numFIMBulk << endl;
+    cout << numFIMBulk << "   " << fixed << setprecision(3)
+        << numFIMBulk * 100.0 / numBulk << "%" << endl;
     for (USI n = 0; n < numFIMBulk; n++) {
         cout << setw(6) << FIMBulk[n] << "   ";
         if ((n+1) % 10 == 0) {

@@ -74,8 +74,6 @@ public:
     bool CheckNi() const;
     /// Check error between Fluids and Pores
     bool CheckVe(const OCP_DBL& Vlim) const;
-    /// Reset upblock
-    void ResetAIMt() { conn.ResetUpblockFIM(); bulk.ResetVp(); allWells.ResetBHP(); }
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return MaxNUMFIMBulk
