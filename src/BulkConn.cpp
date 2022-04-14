@@ -1964,6 +1964,10 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 		eId = iteratorConn[c].EId;
 		Akd = CONV1 * CONV2 * iteratorConn[c].area;
 
+        //if (bId == 2 && eId == 102) {
+        //    cout << "";
+        //}
+
 		bIdFIM = eIdFIM = false;
 		if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = true;
 		if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = true;
@@ -2087,11 +2091,6 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
         }
         // End
         // Insert
-        bmat = dFdXpB;
-        if (eIdFIM) {
-            DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
-                bmat.data());
-        }
         Dscalar(bsize, -1, bmat.data());
         myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());
 
@@ -2106,11 +2105,6 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
         // Insert
         myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());
         // Add
-        bmat = dFdXpE;
-        if (eIdFIM) {
-            DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
-                bmat.data());
-        }
         Dscalar(bsize, -1, bmat.data());
         for (USI i = 0; i < bsize; i++) {
             myLS.diagVal[eId * bsize + i] += bmat[i];
