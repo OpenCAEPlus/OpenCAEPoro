@@ -534,9 +534,8 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
 
             for (USI i = 0; i < nc; i++) {
                 xij = myBulk.xij[uId_np_j * nc + i];
-
                 transIJ = xij * xi * transJ;
-
+                             
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
@@ -563,7 +562,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
                         dFdXsE[(i + 1) * ncol2 + k] += tmp;
                     }
                 }
-                // Cij -- Second var
+                // Cij -- Third var
                 for (USI k = 0; k < nc; k++) {
                     rhox = myBulk.rhox[uId_np_j * nc + k];
                     xix  = myBulk.xix[uId_np_j * nc + k];
@@ -1964,10 +1963,6 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 		eId = iteratorConn[c].EId;
 		Akd = CONV1 * CONV2 * iteratorConn[c].area;
 
-        //if (bId == 2 && eId == 102) {
-        //    cout << "";
-        //}
-
 		bIdFIM = eIdFIM = false;
 		if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = true;
 		if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = true;
@@ -2176,7 +2171,7 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 			else {
 				upblock[c * np + j] = bId;
                 upblock_Velocity[c * np + j] = 0;
-				// upblock_Rho[c * np + j] = rho;
+				upblock_Rho[c * np + j] = 0;
 				continue;
 			}
 
@@ -2190,7 +2185,7 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 			}
             uId_np_j = uId * np + j;
 
-			// upblock_Rho[c * np + j] = rho;
+			upblock_Rho[c * np + j] = rho;
 			upblock[c * np + j] = uId;
 
             if (exup)  upblock_Velocity[c * np + j] = Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;

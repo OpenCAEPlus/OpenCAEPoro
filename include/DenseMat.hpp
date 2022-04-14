@@ -116,7 +116,7 @@ template <typename T>
 void PrintDX(const int& N, const T* x)
 {
 	for (int i = 0; i < N; i++) {
-		cout << i << "   " << setprecision(9) << x[i] << endl;
+		cout << i << "   " << setprecision(16) << x[i] << endl;
 	}
 	cout << endl;
 }

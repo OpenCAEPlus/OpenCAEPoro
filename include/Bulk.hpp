@@ -398,6 +398,7 @@ private:
     vector<OCP_DBL> dPcj_dS;   ///< d Pcj  / d Sk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dKr_dS;    ///< d Krj  / d Sk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
+    USI             lendSdP;   ///< length of dSec_dPri in a bulk.
     // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
 
     // vars at last step
@@ -455,7 +456,28 @@ public:
     void InFIMNi();
     /// FIMNi -> Ni in FIM Bulk
     void OutFIMNi();
+
+    /////////////////////////////////////////////////////////////////////
+    // For AIMc
+    /////////////////////////////////////////////////////////////////////
+
     void AllocateAuxAIMc();
+    /// Perform flash calculation with Ni.
+    void FlashAIMc();
+    /// Perform flash calculation with Ni in Black Oil Model
+    void FlashBLKOILAIMc();
+    /// Perform flash calculation with Ni in Compositional Model
+    void FlashCOMPAIMc();
+    /// Perform flash calculation with Ni and calculate derivatives.
+    void FlashDerivAIMc();
+    /// Perform flash calculation with Ni in Black Oil Model
+    void FlashDerivBLKOILAIMc();
+    /// Perform flash calculation with Ni in Compositional Model
+    void FlashDerivCOMPAIMc();
+    /// Calculate relative permeability and capillary pressure with saturation.
+    void CalKrPcAIMc();
+    /// Calculate relative permeability and capillary pressure and their derivatives.
+    void CalKrPcDerivAIMc();
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor

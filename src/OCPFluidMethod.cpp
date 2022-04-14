@@ -380,6 +380,9 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.CalCFL(dt);
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
+    // Calculate FIM Bulk properties
+    rs.CalFlashDerivAIMc();
+    rs.CalKrPcDerivAIMc();
 
     rs.bulk.ShowFIMBulk();
 }
@@ -405,8 +408,8 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     }
 
     // Update reservoir properties
-    rs.CalFlashDerivFIM();
-    rs.CalKrPcDerivFIM();
+    rs.CalFlashDerivAIMc();
+    rs.CalKrPcDerivAIMc();
     rs.CalVpore();
     rs.CalWellTrans();
     rs.CalWellFlux();
@@ -463,6 +466,9 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             ctrl.ResetIterNRLS();
             return false;
         default:
+            // Update IMPEC Bulk Properties
+            rs.CalFlashAIMc();
+            rs.CalKrPcAIMc();
             return true;
             break;
         }

@@ -175,44 +175,6 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                             const OCP_DBL& Tin, const OCP_DBL* Sjin,
                             const OCP_DBL& Vpore, const OCP_DBL* Ziin)
 {
-    ///////////////////////////////////////////////////
-    // test      
-            
-    //P = 3978.475;     
-    //Ni[0] = 640.533; Ni[1] = 129.459; Ni[2] = 8.631; Ni[3] = 20.138; 
-    //Ni[4] = 57.537;  Ni[5] = 43.153;  Ni[6] = 14.384;
-
-    //P = 3980.258;
-    //Ni[0] = 630.125; Ni[1] = 136.094; Ni[2] = 9.073; Ni[3] = 21.170;
-    //Ni[4] = 60.486;  Ni[5] = 45.365;  Ni[6] = 15.122;
-
-    //T = 620.000;
-    //Nt = Dnorm1(NC, &Ni[0]);
-    //nu[0] = Nt;
-    //setZi();
-    //NP = 1;
-    //x[0] = zi;
-    //CalAiBi();
-    //CalAjBj(Aj[0], Bj[0], x[0]);
-    //SolEoS(Zj[0], Aj[0], Bj[0]);
-    //vf = 0;
-    //OCP_DBL tmp;
-    //for (USI j = 0; j < NP; j++) {
-
-    //    vector<OCP_DBL>& xj = x[j];
-    //    tmp = Zj[j] * GAS_CONSTANT * T / P;
-    //    for (USI i = 0; i < NC; i++) {
-    //        tmp -= xj[i] * Vshift[i];
-    //    }
-    //    vC[j] = tmp * nu[j];
-    //    vf += vC[j];
-    //    xiC[j] = 1 / tmp;
-    //}
-    //cout << "Done!" << endl;
-
-
-    // test
-    /////////////////////////////////////////////////////////
 
     ftype = 0;
     lNP   = 0;
@@ -233,6 +195,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     // Calulate Nt, water is exclued
     OCP_DBL Sw = Sjin[numPhase - 1];
     Nt         = Vpore * (1 - Sw) / vf;
+
     // Next, nu represents moles of phase instead of molar fraction of phase
     Dscalar(NP, Nt, &nu[0]);
     // correct vj, vf with new Nt
@@ -615,7 +578,7 @@ void MixtureComp::CalAiBi()
 
         Pri   = P / Pc[i];
         Tri   = T / Tc[i];
-        Ai[i] = OmegaA[i] * Pri / pow(Tri, 2) * pow((1 + mwi * (1 - sqrt(Tri))), 2);
+        Ai[i] = OmegaA[i] * Pri / pow(Tri, 2) * pow((1 + mwi * (1 - sqrt(Tri))), 2);     
         Bi[i] = OmegaB[i] * Pri / Tri;
     }
 }

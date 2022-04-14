@@ -212,6 +212,12 @@ public:
     void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt);
+    void CalFlashAIMc();
+    void CalKrPcAIMc();
+    /// Calculate Flash for local FIM, some derivatives are needed
+    void CalFlashDerivAIMc();
+    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
+    void CalKrPcDerivAIMc();
     
 };
 

@@ -1322,8 +1322,7 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
                     }
                 }
             }           
-        }
-        
+        }        
         S[n * numPhase + numPhase - 1] = Sw;
         if (gas)
         {
@@ -1453,7 +1452,7 @@ void Bulk::FlashDeriv()
 /// Perform flash calculation with Ni in Black Oil Model
 void Bulk::FlashDerivBLKOIL()
 {
-    dSec_dPri.clear();
+    // dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++)
     {
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, 0, 0);
@@ -1469,7 +1468,7 @@ void Bulk::FlashDerivCOMP()
     OCP_USI bId;
     OCP_DBL Ntw;
     OCP_DBL minEig;
-    dSec_dPri.clear();
+    // dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++)
     {
         ftype = 1;
@@ -1484,8 +1483,8 @@ void Bulk::FlashDerivCOMP()
             if (ftype == 1)
             {
                 bId = n * numCom;
-                Ntw = Nt[n] - Ni[bId + numCom - 1];
-                for (USI i = 0; i < numCom - 1; i++)
+                Ntw = Nt[n] - Ni[bId + numCom_1];
+                for (USI i = 0; i < numCom_1; i++)
                 {
                     // cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
                     if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10)
@@ -1634,8 +1633,9 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     {
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
-    dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
-                     flashCal[pvtnum]->dXsdXp.end());
+    //dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
+    //                 flashCal[pvtnum]->dXsdXp.end());
+    Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 
     if (comps)
     {
@@ -2281,7 +2281,8 @@ void Bulk::AllocateAuxFIM()
     mux.resize(numBulk * numCom * numPhase);
     xix.resize(numBulk * numCom * numPhase);
     rhox.resize(numBulk * numCom * numPhase);
-    dSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
+    dSec_dPri.resize(numBulk * lendSdP);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2309,7 +2310,7 @@ void Bulk::AllocateAuxFIM()
     lmux.resize(numBulk * numCom * numPhase);
     lxix.resize(numBulk * numCom * numPhase);
     lrhox.resize(numBulk * numCom * numPhase);
-    ldSec_dPri.resize(numBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    ldSec_dPri.resize(numBulk * lendSdP);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
 }
@@ -2640,7 +2641,8 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     mux.resize(maxNumFIMBulk * numCom * numPhase);
     xix.resize(maxNumFIMBulk * numCom * numPhase);
     rhox.resize(maxNumFIMBulk * numCom * numPhase);
-    dSec_dPri.resize(maxNumFIMBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
+    dSec_dPri.resize(maxNumFIMBulk * lendSdP);
     dKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
     dPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
 
@@ -2650,7 +2652,7 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     lmux.resize(maxNumFIMBulk * numCom * numPhase);
     lxix.resize(maxNumFIMBulk * numCom * numPhase);
     lrhox.resize(maxNumFIMBulk * numCom * numPhase);
-    ldSec_dPri.resize(maxNumFIMBulk * (numCom + 1) * (numCom + 1) * numPhase);
+    ldSec_dPri.resize(maxNumFIMBulk * lendSdP);
     ldKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
     ldPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
 
@@ -3153,6 +3155,168 @@ void Bulk::AllocateAuxAIMc()
 {
     cfl.resize(numBulk * numPhase);
     map_Bulk2FIM.resize(numBulk, -1);
+}
+
+void Bulk::FlashAIMc()
+{
+    if (comps) {
+        FlashCOMPAIMc();
+    }
+    else {
+        FlashBLKOILAIMc();
+    }
+}
+
+void Bulk::FlashBLKOILAIMc()
+{
+    for (OCP_USI n = 0; n < numBulk; n++) 
+    {
+        if (map_Bulk2FIM[n] > -1) {
+            // FIM bulk
+            continue;
+        }
+
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        PassFlashValue(n);
+    }
+}
+
+void Bulk::FlashCOMPAIMc()
+{
+    USI ftype;
+    OCP_USI bId;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
+    // cout << endl << "==================================" << endl;
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        if (map_Bulk2FIM[n] > -1) {
+            // FIM bulk
+            continue;
+        }
+
+        ftype = 1;
+        if (flagSkip[n])
+        {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10)
+            {
+                ftype = 0;
+            }
+            // cout << setprecision(2) << scientific << minEig / 10 << "   " << fabs(1 - lP[n] / P[n]) << "   ";
+            if (ftype == 1)
+            {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom - 1];
+                for (USI i = 0; i < numCom - 1; i++)
+                {
+                    // cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10)
+                    {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
+        PassFlashValue(n);
+    }
+}
+
+void Bulk::FlashDerivAIMc()
+{
+    if (comps) {
+        FlashDerivCOMPAIMc();
+    }
+    else {
+        FlashDerivBLKOILAIMc();
+    }
+}
+
+void Bulk::FlashDerivBLKOILAIMc()
+{
+    // dSec_dPri.clear();
+    for (auto& n : FIMBulk) {
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        PassFlashValueDeriv(n);
+    }
+}
+
+void Bulk::FlashDerivCOMPAIMc()
+{
+    USI ftype;
+    OCP_USI bId;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
+    // dSec_dPri.clear();
+    for (auto& n : FIMBulk)
+    {
+        ftype = 1;
+        if (flagSkip[n])
+        {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10)
+            {
+                ftype = 0;
+            }
+            // cout << setprecision(2) << scientific << minEig / 10 << "   " << fabs(1 - lP[n] / P[n]) << "   ";
+            if (ftype == 1)
+            {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom - 1];
+                for (USI i = 0; i < numCom - 1; i++)
+                {
+                    // cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10)
+                    {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
+        PassFlashValueDeriv(n);
+    }
+}
+
+void Bulk::CalKrPcAIMc()
+{
+    OCP_DBL tmp = 0;
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        if (map_Bulk2FIM[n] > -1) {
+            // FIM bulk
+            continue;
+        }
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
+        for (USI j = 0; j < numPhase; j++)
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+    }
+}
+
+void Bulk::CalKrPcDerivAIMc()
+{
+    for (auto& n : FIMBulk)
+    {
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+            &dKr_dS[bId * numPhase],
+            &dPcj_dS[bId * numPhase]);
+        for (USI j = 0; j < numPhase; j++)
+            Pj[bId + j] = P[n] + Pc[bId + j];
+    }
 }
 
 

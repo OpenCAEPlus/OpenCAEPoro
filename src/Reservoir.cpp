@@ -314,7 +314,7 @@ void Reservoir::InitFIM()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
-    bulk.InitFlash();
+    bulk.InitFlash(false);
     bulk.FlashDeriv();
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
@@ -622,6 +622,30 @@ void Reservoir::CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt)
     // Calculate RelRes
     bulk.CalRelResFIM(resFIM);
     Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+}
+
+void Reservoir::CalFlashAIMc()
+{
+    bulk.FlashAIMc();
+}
+
+void Reservoir::CalKrPcAIMc()
+{
+    bulk.CalKrPcAIMc();
+}
+
+
+/// Calculate Flash for local FIM, some derivatives are needed
+void Reservoir::CalFlashDerivAIMc()
+{
+    bulk.FlashDerivAIMc();
+}
+
+
+/// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
+void Reservoir::CalKrPcDerivAIMc()
+{
+    bulk.CalKrPcDerivAIMc();
 }
 
 
