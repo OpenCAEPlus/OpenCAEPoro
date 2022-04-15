@@ -381,10 +381,10 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
     // Calculate FIM Bulk properties
-	// rs.CalFlashDerivAIMc();
-	// rs.CalKrPcDerivAIMc();
-	// rs.bulk.CheckDiff();
-	// rs.UpdateLastStepFIM();
+	//rs.CalFlashDerivAIMc();
+	//rs.CalKrPcDerivAIMc();
+	//// rs.bulk.CheckDiff();
+	//rs.UpdateLastStepFIM();
 
     // rs.bulk.ShowFIMBulk(false);
 }
