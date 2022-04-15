@@ -240,6 +240,10 @@ private:
     vector<OCP_DBL>   lPSkip;
 
     // phase split calculation
+    // IMPORTANT!!!
+    // Ks will change as long as nums of hydroncarbon phase equals 2, and it will has an effect
+    // on phase spliting calculation as a intial value. So you should not expect to obtain
+    // the exact same result with identical P, T, Ni if the final mixture contains 2 hydroncarbon phase.
     vector<OCP_DBL>   Ks;  ///< Equilibrium constant in phase split calculation
     vector<OCP_DBL>   lKs; ///< last Ks
 

@@ -2023,7 +2023,7 @@ void Bulk::CheckDiff()
                         cout << ziSkip[n * numCom + i] << "   " << lziSkip[n * numCom + i] << endl;
                     }
                     cout << "Ks" << endl;
-                    for (USI i = 0; i < numCom; i++) {
+                    for (USI i = 0; i < numCom_1; i++) {
                         cout << Ks[n * numCom_1 + i] << "   " << lKs[n * numCom_1 + i] << endl;
                     }
 
@@ -3194,6 +3194,15 @@ void Bulk::ShowFIMBulk(const bool& flag) const
         }
         cout << endl;
     } 
+    if (true) {
+        for (USI n = 0; n < numBulk; n++) {
+            cout << setw(6) << map_Bulk2FIM[n] << "   ";
+            if ((n + 1) % 10 == 0) {
+                cout << endl;
+            }
+        }
+        cout << endl;
+    }
 }
 
 
