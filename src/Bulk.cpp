@@ -1584,6 +1584,65 @@ void Bulk::PassFlashValue(const OCP_USI &n)
     }
 }
 
+void Bulk::PassFlashValueAIMc(const OCP_USI& n)
+{
+    // only var about volume needs, some flash var also
+    OCP_FUNCNAME;
+
+    OCP_USI bIdp = n * numPhase;
+    USI pvtnum = PVTNUM[n];
+    USI nptmp = 0;
+
+    Nt[n] = flashCal[pvtnum]->Nt;
+    vf[n] = flashCal[pvtnum]->vf;
+    vfp[n] = flashCal[pvtnum]->vfp;
+    OCP_USI bIdc = n * numCom;
+    for (USI i = 0; i < numCom; i++)
+    {
+        vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
+    }
+
+    if (comps)
+    {
+        phaseNum[n] = nptmp - 1; // water is excluded
+        if (nptmp == 3)
+        {
+            // num of hydrocarbon phase equals 2
+            // Calculate Ks
+            OCP_USI bIdc1 = n * numCom_1;
+            for (USI i = 0; i < numCom_1; i++)
+            {
+                Ks[bIdc1 + i] = flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
+            }
+        }
+
+        if (flashCal[pvtnum]->GetFtype() == 0)
+        {
+            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+            if (flagSkip[n])
+            {
+                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+                for (USI j = 0; j < numPhase - 1; j++)
+                {
+                    if (phaseExist[bIdp + j])
+                    {
+                        for (USI i = 0; i < numCom - 1; i++)
+                        {
+                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                        }
+                        break;
+                    }
+                }
+                PSkip[n] = P[n];
+            }
+        }
+
+        if (miscible) {
+            surTen[n] = flashCal[pvtnum]->GetSurTen();
+        }
+    }
+}
+
 void Bulk::PassFlashValueDeriv(const OCP_USI &n)
 {
     OCP_FUNCNAME;
@@ -1644,9 +1703,12 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
         {
             // num of hydrocarbon phase equals 2
             // Calculate Ks
+            // IMPORTANT!!!
+            // Ks will change as long as nums of hydroncarbon phase equals 2, and it will has an effect
+            // on phase spliting calculation as a intial value. So you should not expect to obtain
+            // the exact same result with identical P, T, Ni if the final mixture contains 2 hydroncarbon phase.
             OCP_USI bIdc1 = n * numCom_1;
-            for (USI i = 0; i < numCom_1; i++)
-            {
+            for (USI i = 0; i < numCom_1; i++) {
                 Ks[bIdc1 + i] = flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
             }
         }
@@ -1927,26 +1989,55 @@ void Bulk::CheckDiff()
         {
             id = n * numPhase + j;
             tmp = fabs(phaseExist[id] - lphaseExist[id]);
-            if (tmp != 0.0)
+            if (tmp >= 1E-10)
             {
                 cout << "Difference in phaseExist\t" << tmp << "\n";
             }
             if (lphaseExist[id] || phaseExist[id])
             {
                 tmp = fabs(S[id] - lS[id]);
-                if (tmp != 0.0)
+                if (tmp >= 1E-10)
                 {
+                    cout << scientific << setprecision(16);
+                    cout << "Bulk[" << n << "]" << endl;
+                    cout << "Saturation" << endl;
+                    for (USI j = 0; j < numPhase; j++) {
+                        cout << S[n * numPhase + j] << "   " << lS[n * numPhase + j] << endl;
+                    }
+                    cout << "Pressure" << endl;
+                    cout << P[n] << "   " << lP[n] << endl;
+                    cout << "Ni" << endl;
+                    for (USI i = 0; i < numCom; i++) {
+                        cout << Ni[n * numCom + i] << "   " << lNi[n * numCom + i] << endl;
+                    }
+                    cout << "PhaseNum" << endl;
+                    cout << phaseNum[n] << "   " << lphaseNum[n] << endl;
+                    cout << "minEigenSkip" << endl;
+                    cout << minEigenSkip[n] << "   " << lminEigenSkip[n] << endl;
+                    cout << "flagSkip" << endl;
+                    cout << flagSkip[n] << "   " << lflagSkip[n] << endl;
+                    cout << "PSkip" << endl;
+                    cout << PSkip[n] << "   " << lPSkip[n] << endl;
+                    cout << "ziSkip" << endl;
+                    for (USI i = 0; i < numCom; i++) {
+                        cout << ziSkip[n * numCom + i] << "   " << lziSkip[n * numCom + i] << endl;
+                    }
+                    cout << "Ks" << endl;
+                    for (USI i = 0; i < numCom; i++) {
+                        cout << Ks[n * numCom_1 + i] << "   " << lKs[n * numCom_1 + i] << endl;
+                    }
+
                     cout << "Difference in S\t" << tmp << "  " << phaseExist[id]
                          << "\n";
                 }
                 tmp = fabs(xi[id] - lxi[id]);
-                if (tmp != 0.0)
+                if (tmp >= 1E-10)
                 {
                     cout << "Difference in Xi\t" << tmp << "  " << phaseExist[id]
                          << "\n";
                 }
                 tmp = fabs(rho[id] - lrho[id]);
-                if (tmp != 0.0)
+                if (tmp >= 1E-10)
                 {
                     cout << "Difference in rho\t" << tmp << "  " << phaseExist[id]
                          << "\n";
@@ -2466,7 +2557,7 @@ void Bulk::CalRelResFIM(ResFIM &resFIM) const
      //cout << scientific;
      //if (tmpid01 < numBulk) {
      //    cout << "maxRelRes_v: " << tmpid01 << "   " << S[tmpid01 * numPhase] << "   "
-     //        << S[tmpid02 * numPhase + 1] << "   " << S[tmpid02 * numPhase + 2] <<
+     //        << S[tmpid01 * numPhase + 1] << "   " << S[tmpid01 * numPhase + 2] <<
      //        "   " << resFIM.maxRelRes_v << endl;
      //}
      //if (tmpid02 < numBulk) {
@@ -3090,17 +3181,19 @@ void Bulk::ResetFIMBulk()
 }
 
 
-void Bulk::ShowFIMBulk() const
+void Bulk::ShowFIMBulk(const bool& flag) const
 {
     cout << numFIMBulk << "   " << fixed << setprecision(3)
         << numFIMBulk * 100.0 / numBulk << "%" << endl;
-    for (USI n = 0; n < numFIMBulk; n++) {
-        cout << setw(6) << FIMBulk[n] << "   ";
-        if ((n+1) % 10 == 0) {
-            cout << endl;
+    if (flag) {
+        for (USI n = 0; n < numFIMBulk; n++) {
+            cout << setw(6) << FIMBulk[n] << "   ";
+            if ((n + 1) % 10 == 0) {
+                cout << endl;
+            }
         }
-    }
-    cout << endl;
+        cout << endl;
+    } 
 }
 
 
@@ -3177,11 +3270,82 @@ void Bulk::FlashBLKOILAIMc()
         }
 
         flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
-        PassFlashValue(n);
+        PassFlashValueAIMc(n);
     }
 }
 
 void Bulk::FlashCOMPAIMc()
+{
+    USI ftype;
+    OCP_USI bId;
+    OCP_DBL Ntw;
+    OCP_DBL minEig;
+    // cout << endl << "==================================" << endl;
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        if (map_Bulk2FIM[n] > -1) {
+            // FIM bulk
+            continue;
+        }
+
+        ftype = 1;
+        if (flagSkip[n])
+        {
+            minEig = minEigenSkip[n];
+            if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10)
+            {
+                ftype = 0;
+            }
+            // cout << setprecision(2) << scientific << minEig / 10 << "   " << fabs(1 - lP[n] / P[n]) << "   ";
+            if (ftype == 1)
+            {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom - 1];
+                for (USI i = 0; i < numCom - 1; i++)
+                {
+                    // cout << fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) << "   ";
+                    if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10)
+                    {
+                        ftype = 0;
+                        break;
+                    }
+                }
+            }
+            // cout << n << endl;
+        }
+        else {
+            ftype = 0;
+        }
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
+        PassFlashValueAIMc(n);
+    }
+}
+
+void Bulk::FlashAIMc01()
+{
+    if (comps) {
+        FlashCOMPAIMc01();
+    }
+    else {
+        FlashBLKOILAIMc01();
+    }
+}
+
+void Bulk::FlashBLKOILAIMc01()
+{
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        if (map_Bulk2FIM[n] > -1) {
+            // FIM bulk
+            continue;
+        }
+
+        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        PassFlashValue(n);
+    }
+}
+
+void Bulk::FlashCOMPAIMc01()
 {
     USI ftype;
     OCP_USI bId;
@@ -3287,6 +3451,7 @@ void Bulk::FlashDerivCOMPAIMc()
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n], &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
+        // lphaseNum[n];
     }
 }
 
@@ -3316,6 +3481,91 @@ void Bulk::CalKrPcDerivAIMc()
             &dPcj_dS[bId * numPhase]);
         for (USI j = 0; j < numPhase; j++)
             Pj[bId + j] = P[n] + Pc[bId + j];
+    }
+}
+
+void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+    const OCP_DBL& dSmaxlim)
+{
+    NRdSmax = 0;
+    NRdPmax = 0;
+    OCP_DBL dP;
+    USI row = numPhase * (numCom + 1);
+    USI col = numCom + 1;
+    USI bsize = row * col;
+    vector<OCP_DBL> dtmp(row, 0);
+    OCP_DBL chopmin = 1;
+    OCP_DBL choptmp = 0;
+
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        if (map_Bulk2FIM[n] < 0) {
+            // IMPEC Bulk
+            P[n] += u[n * col];
+            for (USI i = 0; i < numCom; i++)
+            {
+                Ni[n * numCom + i] += u[n * col + 1 + i];
+
+                // if (Ni[n * numCom + i] < 0) {
+                //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin <<
+                //    "   " << chopmin << endl;
+                //}
+            }
+            continue;
+        }
+        
+        // FIM Bulk
+
+        chopmin = 1;
+
+        // compute the chop
+        fill(dtmp.begin(), dtmp.end(), 0.0);
+        DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
+            dtmp.data());
+
+        for (USI j = 0; j < numPhase; j++)
+        {
+
+            choptmp = 1;
+            if (fabs(dtmp[j]) > dSmaxlim)
+            {
+                choptmp = dSmaxlim / fabs(dtmp[j]);
+            }
+            else if (S[n * numPhase + j] + dtmp[j] < 0.0)
+            {
+                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
+            }
+
+            chopmin = min(chopmin, choptmp);
+            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
+        }
+        dP = u[n * col];
+        choptmp = dPmaxlim / fabs(dP);
+        chopmin = min(chopmin, choptmp);
+        NRdPmax = max(NRdPmax, fabs(dP));
+        P[n] += dP; // seems better
+
+        //// Correct chopmin
+        // for (USI i = 0; i < numCom; i++) {
+        //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
+        //        chopmin = 0.9 * min(chopmin, fabs(Ni[n * numCom + i] / u[n * col + 1 +
+        //        i]));
+
+        //        //if (chopmin < 0 || !isfinite(chopmin)) {
+        //        //    OCP_ABORT("Wrong Chop!");
+        //        //}
+        //    }
+        //}
+
+        for (USI i = 0; i < numCom; i++)
+        {
+            Ni[n * numCom + i] += u[n * col + 1 + i] * chopmin;
+
+            // if (Ni[n * numCom + i] < 0) {
+            //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin <<
+            //    "   " << chopmin << endl;
+            //}
+        }
     }
 }
 

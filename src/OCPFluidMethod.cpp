@@ -381,16 +381,50 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
     // Calculate FIM Bulk properties
-    rs.CalFlashDerivAIMc();
-    rs.CalKrPcDerivAIMc();
+	rs.CalFlashDerivAIMc();
+	rs.CalKrPcDerivAIMc();
+	// rs.bulk.CheckDiff();
+	rs.UpdateLastStepFIM();
 
-    rs.bulk.ShowFIMBulk();
+    // rs.bulk.ShowFIMBulk(false);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
 {
     rs.AssembleMatAIMc(myLS, dt);
     myLS.AssembleRhs(resFIM.res);
+}
+
+void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
+{
+#ifdef _DEBUG
+    myLS.CheckEquation();
+#endif // DEBUG
+
+    myLS.AssembleMatLinearSolver();
+
+    GetWallTime Timer;
+    Timer.Start();
+    int status = myLS.Solve();
+    if (status < 0) {
+        status = myLS.GetNumIters();
+    }
+    // cout << "LS step = " << status << endl;
+
+#ifdef DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
+    myLS.CheckSolution();
+#endif // DEBUG
+
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.UpdateIterLS(status);
+    ctrl.UpdateIterNR();
+
+    rs.GetSolutionAIMc(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    // rs.GetSolution01FIM(myLS.GetSolution());
+    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
+    myLS.ClearData();
 }
 
 bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
@@ -410,6 +444,12 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Update reservoir properties
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
+    rs.CalFlashAIMc();
+
+    // Update reservoir properties
+    //rs.CalFlashDerivFIM();
+    //rs.CalKrPcDerivFIM();
+
     rs.CalVpore();
     rs.CalWellTrans();
     rs.CalWellFlux();
@@ -467,7 +507,7 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             return false;
         default:
             // Update IMPEC Bulk Properties
-            rs.CalFlashAIMc();
+            rs.CalFlashAIMc01();
             rs.CalKrPcAIMc();
             return true;
             break;

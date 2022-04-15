@@ -606,7 +606,7 @@ void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMat_AIMc01(myLS, bulk, dt);
+    conn.AssembleMat_AIMc(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);
 }
 
@@ -629,6 +629,11 @@ void Reservoir::CalFlashAIMc()
     bulk.FlashAIMc();
 }
 
+void Reservoir::CalFlashAIMc01()
+{
+    bulk.FlashAIMc01();
+}
+
 void Reservoir::CalKrPcAIMc()
 {
     bulk.CalKrPcAIMc();
@@ -646,6 +651,30 @@ void Reservoir::CalFlashDerivAIMc()
 void Reservoir::CalKrPcDerivAIMc()
 {
     bulk.CalKrPcDerivAIMc();
+}
+
+void Reservoir::GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+    const OCP_DBL& dSmax)
+{
+    bulk.GetSolAIMc(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+}
+
+void Reservoir::InitAIMc()
+{
+    OCP_FUNCNAME;
+
+    if (bulk.GetMixMode() == BLKOIL)
+        bulk.InitSjPcBo(50);
+    else if (bulk.GetMixMode() == EOS_PVTW)
+        bulk.InitSjPcComp(50, grid);
+
+    bulk.CalVpore();
+    bulk.InitFlash(false);
+    bulk.CalKrPc();
+    conn.CalFluxFIM(bulk);
+    allWells.InitBHP(bulk);
+    UpdateLastStepFIM();
 }
 
 

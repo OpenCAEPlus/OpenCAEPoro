@@ -48,8 +48,11 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
         rs.InitIMPEC();
         break;
     case FIM:
+        rs.InitFIM();
+        break;
     case AIMc:
         rs.InitFIM();
+        // rs.InitAIMc();
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -114,8 +117,10 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
         impec.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     case FIM:
-    case AIMc:
         fim.SolveLinearSystem(FLSolver, rs, ctrl);
+        break;
+    case AIMc:
+        aimc.SolveLinearSystem(FLSolver, rs, ctrl);
         break;
     case AIMs:
         aims.SolveLinearSystem(FLSolver, rs, ctrl);

@@ -97,6 +97,7 @@ public:
     void FlashDerivCOMP();
     /// Pass values from Flash to Bulk after Flash calculation.
     void PassFlashValue(const OCP_USI& n);
+    void PassFlashValueAIMc(const OCP_USI& n);
     /// Pass derivative values from Flash to Bulk after Flash calculation.
     void PassFlashValueDeriv(const OCP_USI& n);
     /// Reset variables in flash calculations.
@@ -449,7 +450,7 @@ public:
         const OCP_DBL& dSmaxlim);
     void UpdateLastStepAIM();
     void ResetFIMBulk();
-    void ShowFIMBulk() const;
+    void ShowFIMBulk(const bool& flag = false) const;
     /// Check if negative Ni occurs, return false if so.
     bool CheckNiFIMBulk() const;
     /// Ni in FIM Bulk -> FIMNi
@@ -468,6 +469,11 @@ public:
     void FlashBLKOILAIMc();
     /// Perform flash calculation with Ni in Compositional Model
     void FlashCOMPAIMc();
+
+    void FlashAIMc01();
+    void FlashBLKOILAIMc01();
+    void FlashCOMPAIMc01();
+
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDerivAIMc();
     /// Perform flash calculation with Ni in Black Oil Model
@@ -478,6 +484,8 @@ public:
     void CalKrPcAIMc();
     /// Calculate relative permeability and capillary pressure and their derivatives.
     void CalKrPcDerivAIMc();
+    void GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+        const OCP_DBL& dSmaxlim);
 
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor

@@ -289,22 +289,6 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     // d xi / dP, d xi / d Ni, d xi / d xij
     CalXiPNX();
 
-    // cout << setprecision(6);
-    // for (USI j = 0; j < NP; j++) {
-    //	cout << "xi" << endl;
-    //	cout << xiC[j] << endl;
-    //	cout << "xij" << endl;
-    //	for (USI i = 0; i < NC; i++)
-    //		cout << x[j][i] << "    ";
-    //	cout << endl;
-    //	cout << "xiP" << endl;
-    //	cout << xiPC[j] << endl;
-    //	cout << "xix" << endl;
-    //	for (USI i = 0; i < NC; i++)
-    //		cout << xixC[j * NC + i] << "    ";
-    //	cout << endl;
-    //}
-
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
@@ -371,42 +355,6 @@ void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
 {
     setPT(Pin, Tin);
     setNi(Niin);
-
-    // P = 3141.918998650599405664;
-    // T = 620;
-    // Ni[0] = 41602.131481952070316765;
-    // Ni[1] = 11440.761357378274624352;
-    // Ni[2] = 1955.137836561682888714;
-    // Ni[3] = 337.768923412141248264;
-    // Ni[4] = 276.965621027262329790;
-    // Ni[5] = 93.492433020052502002;
-    //
-    // P = 3141.891199116627376497;
-    // T = 620;
-    // Ni[0] = 41602.572555854152597021;
-    // Ni[1] = 11440.882654558850845206;
-    // Ni[2] = 1955.158565313887720549;
-    // Ni[3] = 337.772504504064784214;
-    // Ni[4] = 276.968557470729479064;
-    // Ni[5] = 93.493424245039747689;
-
-    // P = 3141.891199116627376497;
-    // T = 620.000000000000000000;
-    // Ni[0] = 41602.572555854152597021;
-    // Ni[1] = 11440.882654558850845206;
-    // Ni[2] = 1955.158565313887720549;
-    // Ni[3] = 337.772504504064784214;
-    // Ni[4] = 276.968557470729479064;
-    // Ni[5] = 93.493424245039747689;
-
-    // P = 3211.937138268530816276;
-    // T = 620.000000000000000000;
-    // Ni[0] = 41692.343588740142877214;
-    // Ni[1] = 11485.541047459752007853;
-    // Ni[2] = 1973.898169547999714268;
-    // Ni[3] = 354.912643337034239721;
-    // Ni[4] = 289.460231227657970976;
-    // Ni[5] = 97.367441114446421579;
 
     nu[0] = 1;
     nu[1] = 0;
@@ -1088,32 +1036,6 @@ bool MixtureComp::StableSSM01(const USI& Id)
                 Sk += pow(log(ks[i]), 2);
             }
 
-            // if (Yt > 1 + 1E-12 && Yt < 2 && iter > 0) {
-            //	cout << setprecision(6) << scientific << Se;
-            //	cout << "         ";
-            //	cout << setprecision(6) << scientific << Sk;
-            //	cout << "         ";
-            //	cout << setprecision(6) << scientific << dY;
-            //	cout << "         ";
-            //	cout << setprecision(12) << scientific << Yt;
-            //	cout << "         " << iter << endl;
-            //	PrintDX(NC, &xj[0]);
-            //	PrintDX(NC, &Y[0]);
-            //}
-
-            // if (P < 20 || true) {
-            //	cout << setprecision(6) << scientific << Se;
-            //	cout << "         ";
-            //	cout << setprecision(6) << scientific << Sk;
-            //	cout << "         ";
-            //	cout << setprecision(6) << scientific << dY;
-            //	cout << "         ";
-            //	cout << setprecision(12) << scientific << Yt;
-            //	cout << "         " << iter << endl;
-            //	PrintDX(NC, &xj[0]);
-            //	PrintDX(NC, &Y[0]);
-            //}
-
             iter++;
             if (Se < Stol) {
                 flag = true;
@@ -1716,7 +1638,6 @@ void MixtureComp::SplitNR()
         PrintDX(NC, &x[NP - 1][0]);
         cout << "---------------------" << endl;
 #endif
-
         CalFugPhiAll();
         CalResSP();
         eNR = Dnorm2(len, &resSP[0]);
@@ -1725,6 +1646,7 @@ void MixtureComp::SplitNR()
             break;
         }
 
+        // Maybe it should be execute before "eNR > eNR0 || iter > EoSctrl.NRsp.maxIt"
         en = 0;
         for (USI j = 0; j < NP; j++) {
             Daxpy(NC, -1, &n[j][0], &ln[j][0]);

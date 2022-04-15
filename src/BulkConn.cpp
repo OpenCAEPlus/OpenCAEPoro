@@ -751,6 +751,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             if (!myBulk.phaseExist[uId_np_j]) continue;
             tmp = dt * Akd * myBulk.xi[uId_np_j] *
                   myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+
             for (USI i = 0; i < nc; i++) {
                 dNi = tmp * myBulk.xij[uId_np_j * nc + i];
                 res[bId * len + 1 + i] += dNi;
@@ -764,7 +765,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 // AIMt
 /////////////////////////////////////////////////////////////////////
 
-void BulkConn::SetupFIMBulk(Bulk& myBulk)
+void BulkConn::SetupFIMBulk(Bulk& myBulk) const
 {
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
@@ -781,7 +782,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk)
         flag = false;
         // cfl
         for (USI j = 0; j < np; j++) {
-            if (myBulk.cfl[bIdp + j] > 0.8) {
+            if (myBulk.cfl[bIdp + j] > -0.8) {
                 flag = true;
                 break;
             }
@@ -1784,8 +1785,10 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
 			uId = upblock[c * np + j];
 			uId_np_j = uId * np + j;
 			if (!myBulk.phaseExist[uId_np_j]) continue;
-			dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
-				myBulk.rho[bId * np + j] * dGamma;
+            dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
+                upblock_Rho[c * np + j] * dGamma;
+			//dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
+			//	myBulk.rho[bId * np + j] * dGamma;
 			xi = myBulk.xi[uId_np_j];
 			kr = myBulk.kr[uId_np_j];
 			mu = myBulk.mu[uId_np_j];
@@ -2091,7 +2094,7 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 
         // End
         bmat = dFdXpE;
-        if (bIdFIM) {
+        if (eIdFIM) {
             DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
                 bmat.data());
         }       
@@ -2188,11 +2191,20 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 			upblock_Rho[c * np + j] = rho;
 			upblock[c * np + j] = uId;
 
-            if (exup)  upblock_Velocity[c * np + j] = Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
-            else       upblock_Velocity[c * np + j] = 0;
+            if (exup) {
+                upblock_Velocity[c * np + j] = Akd * myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+            }
+            else { 
+                upblock_Velocity[c * np + j] = 0; 
+                continue;
+            }
 			
-			if (!exup) continue;
-			tmp = dt * upblock_Velocity[c * np + j] * myBulk.xi[uId_np_j];
+            // in AIMc
+			// tmp = dt * upblock_Velocity[c * np + j] * myBulk.xi[uId_np_j];
+            // in FIM
+            tmp = dt * Akd * myBulk.xi[uId_np_j] *
+                myBulk.kr[uId_np_j] / myBulk.mu[uId_np_j] * dP;
+
 			for (USI i = 0; i < nc; i++) {
 				dNi = tmp * myBulk.xij[uId_np_j * nc + i];
 				res[bId * len + 1 + i] += dNi;

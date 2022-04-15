@@ -85,6 +85,9 @@ public:
     /// Assemble Matrix
     void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
 
+    /// Solve the linear system.
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
+
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 

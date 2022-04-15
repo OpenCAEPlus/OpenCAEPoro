@@ -41,7 +41,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
             output.SetVal(rs, ctrl);
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
-        // output.PrintInfo();
+        output.PrintInfo();
         // rs.allWells.ShowWellStatus(rs.bulk);
     }
 
