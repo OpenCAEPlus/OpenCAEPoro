@@ -490,7 +490,8 @@ public:
     void CalKrPcDerivAIMc();
     void GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
-
+    void UpdatePj();
+       
 private:
     vector<OCP_USI>   wellBulkId;   ///< Index of bulks which are penetrated by wells ans their K-neighbor
     vector<OCP_INT>   map_Bulk2FIM; ///< Stores the index of FIM bulk in equations

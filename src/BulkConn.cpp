@@ -798,7 +798,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk) const
         flag = false;
         // cfl
         for (USI j = 0; j < np; j++) {
-            if (myBulk.cfl[bIdp + j] > -0.8) {
+            if (myBulk.cfl[bIdp + j] > 0.8) {
                 flag = true;
                 break;
             }
@@ -2144,6 +2144,9 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 
 void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
 {
+    // IMPORTANT!!!
+    // in AIMc for IMPEC Bulk, P was updated in each Newton Step, but Pj didn't.
+    // So here Pj must be replaced with P + Pcj, otherwise wrong results will arise
 
 	OCP_FUNCNAME;
 

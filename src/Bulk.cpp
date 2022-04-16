@@ -3194,7 +3194,7 @@ void Bulk::ShowFIMBulk(const bool& flag) const
         }
         cout << endl;
     } 
-    if (true) {
+    if (false) {
         for (USI n = 0; n < numBulk; n++) {
             cout << setw(6) << map_Bulk2FIM[n] << "   ";
             if ((n + 1) % 10 == 0) {
@@ -3574,6 +3574,15 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             //    cout << Ni[n * numCom + i] << "  " << u[n * col + 1 + i] * chopmin <<
             //    "   " << chopmin << endl;
             //}
+        }
+    }
+}
+
+void Bulk::UpdatePj()
+{
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        for (USI j = 0; j < numPhase; j++) {
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }
     }
 }

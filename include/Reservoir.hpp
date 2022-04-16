@@ -222,6 +222,7 @@ public:
     void GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
         const OCP_DBL& dSmax);
     void InitAIMc();
+    void UpdatePj() { bulk.UpdatePj(); }
     
 };
 

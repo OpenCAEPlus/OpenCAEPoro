@@ -294,6 +294,9 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
         << "  " << NRdPmax << endl;
+    for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
+        cout << resFIM.res[n] << endl;
+    }
 #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -381,10 +384,10 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
     // Calculate FIM Bulk properties
-	//rs.CalFlashDerivAIMc();
-	//rs.CalKrPcDerivAIMc();
-	//// rs.bulk.CheckDiff();
-	//rs.UpdateLastStepFIM();
+	rs.CalFlashDerivAIMc();
+	rs.CalKrPcDerivAIMc();
+	// rs.bulk.CheckDiff();
+	rs.UpdateLastStepFIM();
 
     // rs.bulk.ShowFIMBulk(false);
 }
@@ -411,7 +414,7 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef DEBUG
+#ifdef _DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
     myLS.OutputSolution("testx.out");
     myLS.CheckSolution();
@@ -445,10 +448,8 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
     rs.CalFlashAIMc();
-
-    // Update reservoir properties
-    //rs.CalFlashDerivFIM();
-    //rs.CalKrPcDerivFIM();
+    // Important, Pj must be updated with current and last Pc for IMPEC Bulk
+    rs.UpdatePj();
 
     rs.CalVpore();
     rs.CalWellTrans();
@@ -466,6 +467,9 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
        << "  " << NRdPmax << endl;
+    for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
+        cout << resFIM.res[n] << endl;
+    }
 #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
