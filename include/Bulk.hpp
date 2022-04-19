@@ -123,7 +123,7 @@ public:
     /// Check if negative P occurs, return false if so.
     bool CheckP() const;
     /// Check if negative Ni occurs, return false if so.
-    bool CheckNi() const;
+    bool CheckNi();
     /// Check if relative volume error is out of range, return false if so.
     bool CheckVe(const OCP_DBL& Vlim) const;
     /// Check if the sum of saturations is one.

@@ -71,7 +71,7 @@ public:
     /// Check if abnormal Pressure occurs
     OCP_INT CheckP(const bool& bulkCheck = true, const bool& wellCheck = true);
     /// Check if abnormal Pressure occurs
-    bool CheckNi() const;
+    bool CheckNi();
     /// Check error between Fluids and Pores
     bool CheckVe(const OCP_DBL& Vlim) const;
     /// Return the num of Bulk

@@ -245,7 +245,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
     myLS.OutputSolution("testx.out");
     myLS.CheckSolution();
@@ -290,13 +290,13 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-#ifdef _DEBUG
+#ifdef DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
         << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
         << "  " << NRdPmax << endl;
-    for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
-        cout << resFIM.res[n] << endl;
-    }
+    //for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
+    //    cout << resFIM.res[n] << endl;
+    //}
 #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -389,7 +389,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 	// rs.bulk.CheckDiff();
 	rs.UpdateLastStepFIM();
 
-    // rs.bulk.ShowFIMBulk(false);
+    rs.bulk.ShowFIMBulk(false);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
@@ -414,7 +414,7 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.OutputLinearSystem("testA.out", "testb.out");
     myLS.OutputSolution("testx.out");
     myLS.CheckSolution();

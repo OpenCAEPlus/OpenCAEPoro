@@ -113,7 +113,7 @@ OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
     return 0;
 }
 
-bool Reservoir::CheckNi() const
+bool Reservoir::CheckNi()
 {
     OCP_FUNCNAME;
 

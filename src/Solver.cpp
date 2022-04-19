@@ -65,7 +65,8 @@ void Solver::GoOneStep(Reservoir &rs, OCPControl &ctrl)
 
     if (ctrl.printLevel > 0) {
         cout << "### DEBUG: " << setprecision(3) << fixed << ctrl.GetCurTime() << " Days";
-        cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << endl;
+        cout << "  NR: " << ctrl.GetNRiterT() << "  LS: " << ctrl.GetLSiterT() << "     ";
+        cout << "Last dt  " << ctrl.last_dt << " Days" << endl;
     }
     
     // Prepare for time marching

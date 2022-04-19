@@ -1938,7 +1938,7 @@ bool Bulk::CheckP() const
 }
 
 /// Return true if no negative Ni and false otherwise.
-bool Bulk::CheckNi() const
+bool Bulk::CheckNi()
 {
     OCP_FUNCNAME;
 
@@ -1947,13 +1947,20 @@ bool Bulk::CheckNi() const
     {
         if (Ni[n] < 0.0)
         {
-            OCP_USI bId = n / numCom;
-            USI cId = n - bId * numCom;
-            std::ostringstream NiStringSci;
-            NiStringSci << std::scientific << Ni[n];
-            OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
-                        std::to_string(bId) + "] = " + NiStringSci.str());
-            return false;
+            if (Ni[n] > -1E-3 * Nt[n / numCom]) {
+                Ni[n] = 0;
+            }
+            else {
+                OCP_USI bId = n / numCom;
+                USI cId = n - bId * numCom;
+                std::ostringstream NiStringSci;
+                NiStringSci << std::scientific << Ni[n];
+                OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
+                    std::to_string(bId) + "] = " + NiStringSci.str() + "    Nt = " +
+                    std::to_string(Nt[n / numCom]));
+                // cout << "Nt " << Nt[n / numCom] << endl;
+                return false;
+            }
         }
     }
     return true;

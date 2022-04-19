@@ -2144,7 +2144,7 @@ void MixtureComp::CalFugPAll()
              (Bp * zj - Zp[j] * bj);
         for (USI i = 0; i < NC; i++) {
 
-            C = xj[i] * P / (zj - bj);
+            C = P / (zj - bj);
             // D = Bi[i] / bj * (zj - 1);
 
             tmp = 0;
@@ -2154,13 +2154,25 @@ void MixtureComp::CalFugPAll()
 
             E = -aj / ((delta1 - delta2) * bj) * (2 * tmp / aj - Bi[i] / bj);
 
-            Cp = xj[i] / ((zj - bj) * (zj - bj)) * ((zj - bj) - P * (Zp[j] - Bp));
+            Cp = ((zj - bj) - P * (Zp[j] - Bp)) / ((zj - bj) * (zj - bj));
             Dp = Bi[i] / bj * Zp[j];
             // Ep = 0;
 
-            fugp[i] = 1 / C * Cp + Dp + E / G * Gp;
+            // Attention that if xj[i] = 0, then fugp[i] = nan
+            // but Cp also contains xj[i], so eliminate it first
+            fugp[i] = Cp / C  + Dp + E / G * Gp;
         }
     }
+
+#ifdef OCP_NANCHECK
+    for (USI j = 0; j < NP; j++) {
+        if (!CheckNan(fugP[j].size(), &fugP[j][0])) 
+        {
+            OCP_ABORT("INF or NAN in fugP !");
+        }
+    }
+#endif // NANCHECK
+
 }
 
 void MixtureComp::CalXiPNX()
@@ -2563,17 +2575,18 @@ void MixtureComp::CalVfiVfp()
             }
         }
         vfp *= CgTP;
+
+
     }
 
-    // check
-    // for (USI i = 0; i < NC; i++) {
-    //	if (!isfinite(vfi[i])) {
-    //		cout << "NAN or INF" << endl;
-    //	}
-    //}
-    // if (!isfinite(vfp)) {
-    //	cout << "NAN or INF" << endl;
-    //}
+#ifdef OCP_NANCHECK
+    if (!CheckNan(vfi.size(), &vfi[0])) {
+        OCP_ABORT("INF or NAN in vfi !");
+    }
+    if (!CheckNan(1, &vfp)) {
+        OCP_ABORT("INF or NAN in vfp !");
+    }
+#endif // NANCHECK
 }
 
 void MixtureComp::AssembleMatVfiVfp()
@@ -2625,6 +2638,14 @@ void MixtureComp::AssembleRhsVfiVfp()
             rhstmp[j * NC + i] = fugP[NP - 1][i] - fugP[j][i];
         }
     }
+
+
+#ifdef OCP_NANCHECK
+    if (!CheckNan(rhsDer.size(), &rhsDer[0])) {
+        OCP_ABORT("INF or NAN in rhsDer !");
+    }
+#endif // NANCHECK
+
 }
 
 void MixtureComp::CaldXsdXp()

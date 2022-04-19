@@ -535,7 +535,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
             for (USI i = 0; i < nc; i++) {
                 xij = myBulk.xij[uId_np_j * nc + i];
                 transIJ = xij * xi * transJ;
-                             
+                                           
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
@@ -625,6 +625,13 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
         Dscalar(bsize, -1, bmat.data());
         myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());
 
+#ifdef OCP_NANCHECK
+        if (!CheckNan(bmat.size(), &bmat[0]))
+        {
+            OCP_ABORT("INF or INF in bmat !");
+        }
+#endif
+
         // End
         bmat = dFdXpE;
         DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
@@ -638,6 +645,14 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
         for (USI i = 0; i < bsize; i++) {
             myLS.diagVal[eId * bsize + i] += bmat[i];
         }
+
+#ifdef OCP_NANCHECK
+        if (!CheckNan(bmat.size(), &bmat[0]))
+        {
+            OCP_ABORT("INF or INF in bmat !");
+        }
+#endif
+
     }
     // Add the rest of diag value. Important!
     for (OCP_USI n = 0; n < numBulk; n++) {
