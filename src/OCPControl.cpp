@@ -146,6 +146,7 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
             ctrlTimeSet[i].timeMax  = ctrlFast.timeMax;
             ctrlTimeSet[i].timeMin  = ctrlFast.timeMin;
         }
+        printLevel = ctrlFast.printLevel;
     }
 }
 

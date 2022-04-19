@@ -1591,12 +1591,7 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
 
     OCP_USI bIdp = n * numPhase;
     USI pvtnum = PVTNUM[n];
-    USI nptmp = 0;
-    for (USI j = 0; j < numPhase; j++) {
-        if (flashCal[pvtnum]->phaseExist[j]) {
-            nptmp++;
-        }
-    }
+
 
     Nt[n] = flashCal[pvtnum]->Nt;
     vf[n] = flashCal[pvtnum]->vf;
@@ -1609,6 +1604,13 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
 
     if (comps)
     {
+        USI nptmp = 0;
+        for (USI j = 0; j < numPhase; j++) {
+            if (flashCal[pvtnum]->phaseExist[j]) {
+                nptmp++;
+            }
+        }
+
         phaseNum[n] = nptmp - 1; // water is excluded
         if (nptmp == 3)
         {

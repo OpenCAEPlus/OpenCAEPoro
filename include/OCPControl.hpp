@@ -204,6 +204,9 @@ private:
     USI wastedIterNR{0}; ///< Number of wasted Newton iterations
     USI wastedIterLS{0}; ///< Number of wasted linear iterations
 
+    // Print level
+    USI printLevel{ 0 };
+
     // Includes time controler, error controler, and iteration controler, all of which
     // could change at different critical time step.
     ControlTime            ctrlTime;
@@ -212,7 +215,8 @@ private:
     vector<ControlPreTime> ctrlPreTimeSet;
     ControlNR              ctrlNR;
     vector<ControlNR>      ctrlNRSet;
-    FastControl            ctrlFast; ///< TODO: What is it for?
+    /// receive instructions directly from command lines, which take precedence than others
+    FastControl            ctrlFast; 
 };
 
 #endif /* end if __OCP_Control_HEADER__ */
