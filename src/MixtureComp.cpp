@@ -898,7 +898,7 @@ void MixtureComp::PhaseEquilibrium()
         case 1:
             // Skip Phase Stability analysis, only single phase exists
             NP = 1;
-            // cout << "NP = 1   ";
+            // cout << "SKIP:    NP = 1   ";
             break;
 
         case 2:

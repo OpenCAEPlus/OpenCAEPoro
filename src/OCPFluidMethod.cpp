@@ -445,6 +445,17 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     }
 
     // Update reservoir properties
+    //cout << "=========================================" << endl;
+    //for (OCP_USI n = 0; n < rs.bulk.numBulk; n++) {
+    //    cout << "Bulk[" << n << "]  " << rs.bulk.flagSkip[n] << "   " << rs.bulk.phaseNum[n] << "   ";
+    //    if (rs.bulk.map_Bulk2FIM[n] < 0) {
+    //        cout << "EEE" << endl;
+    //    }
+    //    else {
+    //        cout << "III" << endl;
+    //    }
+    //}
+
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
     rs.CalFlashAIMc();
