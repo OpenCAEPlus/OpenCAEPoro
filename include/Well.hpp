@@ -250,7 +250,8 @@ public:
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                    const OCP_USI& wId, const vector<Well>& allWell) const;
-
+    void ShowRes(const OCP_USI& wId, const vector<OCP_DBL>& res, const Bulk& myBulk) const;
+    
     /////////////////////////////////////////////////////////////////////
     // AIMt, AIMs
     /////////////////////////////////////////////////////////////////////

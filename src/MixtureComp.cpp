@@ -1312,6 +1312,15 @@ void MixtureComp::CalFugXSTA()
     //	}
     //	cout << endl;
     //}
+
+#ifdef OCP_NANCHECK
+    for (USI j = 0; j < NP; j++) {
+        if (!CheckNan(fugX[j].size(), &fugX[j][0]))
+        {
+            OCP_ABORT("INF or NAN in fugX !");
+        }
+    }
+#endif // NANCHECK
 }
 
 void MixtureComp::AssembleJmatSTA()
@@ -1744,6 +1753,14 @@ void MixtureComp::CalFugNAll()
         }
     }
     // PrintFugN();
+#ifdef OCP_NANCHECK
+    for (USI j = 0; j < NP; j++) {
+        if (!CheckNan(fugN[j].size(), &fugN[j][0]))
+        {
+            OCP_ABORT("INF or NAN in fugN !");
+        }
+    }
+#endif // NANCHECK
 }
 
 void MixtureComp::PrintFugN()
@@ -2112,6 +2129,15 @@ void MixtureComp::CalFugXAll()
             }
         }
     }
+#ifdef OCP_NANCHECK
+    for (USI j = 0; j < NP; j++) {
+        if (!CheckNan(fugX[j].size(), &fugX[j][0]))
+        {
+            OCP_ABORT("INF or NAN in fugX !");
+        }
+    }
+#endif // NANCHECK
+    
 }
 
 void MixtureComp::CalFugPAll()

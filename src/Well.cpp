@@ -2002,6 +2002,53 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
     }
 }
 
+void Well::ShowRes(const OCP_USI& wId, const vector<OCP_DBL>& res, const Bulk& myBulk) const
+{
+    // Well to Bulk
+    const USI nc = myBulk.numCom;
+    const USI len = nc + 1;
+
+    OCP_USI bId = (myBulk.numBulk + wId) * len;
+    cout << name << "   " << res[bId] << "   ";
+    // Well Self
+    if (opt.type == INJ) {
+        // Injection
+        switch (opt.optMode) {
+        case BHP_MODE:
+            cout << "BHPMode" << endl;
+            break;
+        case RATE_MODE:
+        case ORATE_MODE:
+        case GRATE_MODE:
+        case WRATE_MODE:
+        case LRATE_MODE:
+            cout << opt.maxRate << "   " << fabs(res[bId] / opt.maxRate) << endl;
+            break;
+        default:
+            OCP_ABORT("Wrong well opt mode!");
+            break;
+        }
+    }
+    else {
+        // Production
+        switch (opt.optMode) {
+        case BHP_MODE:
+            cout << "BHPMode" << endl;
+            break;
+        case RATE_MODE:
+        case ORATE_MODE:
+        case GRATE_MODE:
+        case WRATE_MODE:
+        case LRATE_MODE:
+            cout << opt.maxRate << "   " << fabs(res[bId] / opt.maxRate) << endl;
+            break;
+        default:
+            OCP_ABORT("Wrong well opt mode!");
+            break;
+        }
+    }
+}
+
 
 void Well::AssembleMatINJ_AIMt(const Bulk& myBulk, LinearSystem& myLS,
     const OCP_DBL& dt) const

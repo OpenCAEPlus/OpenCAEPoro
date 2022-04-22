@@ -22,6 +22,7 @@ void Reservoir::InputParam(ParamRead& param)
     grid.InputParam(param.paramRs);
     bulk.InputParam(param.paramRs);
     allWells.InputParam(param.paramWell);
+
 }
 
 void Reservoir::Setup()
@@ -454,6 +455,12 @@ void Reservoir::PrintSolFIM(const string& outfile) const
     outu.close();
 }
 
+void Reservoir::ShowRes(const vector<OCP_DBL>& res) const
+{
+    bulk.ShowRes(res);
+    allWells.ShowRes(res, bulk);
+}
+
 
 /////////////////////////////////////////////////////////////////////
 // AIMt
@@ -670,7 +677,7 @@ void Reservoir::InitAIMc()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
-    bulk.InitFlash(false);
+    bulk.InitFlash(true);
     bulk.CalKrPc();
     conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);

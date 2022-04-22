@@ -25,6 +25,9 @@ public:
     /// Setup IMPEC
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
+    /// Init
+    void InitReservoir(Reservoir& rs) const;
+
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
@@ -50,6 +53,9 @@ public:
     /// Setup FIM
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
 
+    /// Init
+    void InitReservoir(Reservoir& rs) const;
+
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
@@ -68,6 +74,7 @@ public:
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
+
 protected:
     /// Resiual for FIM
     ResFIM resFIM;
@@ -78,6 +85,9 @@ class OCP_AIMc : public OCP_FIM
 public:
     /// Setup AIMc
     void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
+
+    /// Init
+    void InitReservoir(Reservoir& rs) const;
 
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);

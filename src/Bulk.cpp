@@ -422,7 +422,7 @@ void Bulk::InitSjPcBo(const USI &tabrow)
     else
     {
         beginId = distance(Ztmp.begin(), find_if(Ztmp.begin(), Ztmp.end(),
-                                                 [s = Dref](auto t)
+                                                 [s = Dref](auto& t)
                                                  { return t > s; }));
         beginId--;
     }
@@ -926,7 +926,7 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
     else
     {
         beginId = distance(Ztmp.begin(), find_if(Ztmp.begin(), Ztmp.end(),
-                                                 [s = Dref](auto t)
+                                                 [s = Dref](auto& t)
                                                  { return t > s; }));
         beginId--;
     }
@@ -1942,22 +1942,32 @@ bool Bulk::CheckNi()
 {
     OCP_FUNCNAME;
 
+    //cout << "Bulk[1]" << endl;
+    //cout << fixed << setprecision(3) << endl;
+    //for (USI i = 0; i < numCom; i++) {
+    //    cout << "[" << i << "]  " << setw(10) << Ni[numCom + i] << "   "
+    //        << setw(10) << lNi[numCom + i] << "    " << endl;
+    //}
+
     OCP_USI len = numBulk * numCom;
     for (OCP_USI n = 0; n < len; n++)
     {
-        if (Ni[n] < 0.0)
+        if (Ni[n] < 0)
         {
-            if (Ni[n] > -1E-3 * Nt[n / numCom]) {
-                Ni[n] = 0;
+            OCP_USI bId = n / numCom;
+            if (Ni[n] > -1E-3 * Nt[bId] && false) {
+                Ni[n] = 1E-8 * Nt[bId];
+                // Ni[n] = 0;
             }
             else {
-                OCP_USI bId = n / numCom;
                 USI cId = n - bId * numCom;
                 std::ostringstream NiStringSci;
                 NiStringSci << std::scientific << Ni[n];
                 OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
-                    std::to_string(bId) + "] = " + NiStringSci.str() + "    Nt = " +
-                    std::to_string(Nt[n / numCom]));
+                    std::to_string(bId) + "] = " + NiStringSci.str()
+                    + "     lNi[" + std::to_string(cId) + "] in Bulk[" +
+                    std::to_string(bId) + "] = " + std::to_string(lNi[n])
+                    + "    Nt = " + std::to_string(Nt[bId]));
                 // cout << "Nt " << Nt[n / numCom] << endl;
                 return false;
             }
@@ -2418,6 +2428,8 @@ void Bulk::AllocateAuxFIM()
     ldSec_dPri.resize(numBulk * lendSdP);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
+
+    NRstep.resize(numBulk);
 }
 
 void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
@@ -2428,10 +2440,11 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
     NRdSmax = 0;
     NRdPmax = 0;
     OCP_DBL dP;
+    USI row0 = numPhase;
     USI row = numPhase * (numCom + 1);
     USI col = numCom + 1;
     USI bsize = row * col;
-    vector<OCP_DBL> dtmp(row, 0);
+    vector<OCP_DBL> dtmp(row0, 0);
     OCP_DBL chopmin = 1;
     OCP_DBL choptmp = 0;
 
@@ -2442,12 +2455,11 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
 
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
-        DaAxpby(row, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
+        DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
                 dtmp.data());
 
         for (USI j = 0; j < numPhase; j++)
         {
-
             choptmp = 1;
             if (fabs(dtmp[j]) > dSmaxlim)
             {
@@ -2467,6 +2479,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
         NRdPmax = max(NRdPmax, fabs(dP));
         P[n] += dP; // seems better
 
+
+        NRstep[n] = chopmin;
         //// Correct chopmin
         // for (USI i = 0; i < numCom; i++) {
         //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
@@ -2579,6 +2593,40 @@ void Bulk::CalRelResFIM(ResFIM &resFIM) const
      //        << S[tmpid02 * numPhase + 1] << "   " << S[tmpid02 * numPhase + 2] <<
      //        "   " << resFIM.maxRelRes_mol << endl;
      //}
+}
+
+void Bulk::ShowRes(const vector<OCP_DBL>& res) const
+{
+    OCP_USI bId;
+
+    const USI len = numCom + 1;
+    for (OCP_USI n = 0; n < numBulk; n++)
+    {
+        bId = n * len;
+        for (USI i = 0; i < len; i++) {
+            if (i == 0) {
+                cout << endl;
+                cout << "Bulk[" << setw(3) << n << "]   ";
+                cout << "Vp  " << rockVp[n] << "   ";
+                cout << "Nt  " << Nt[n] << "   ";
+                cout << "NRstep  " <<  NRstep[n] << "   ";
+                cout << "Pressure   " << P[n] << "   ";
+                cout << "PhaseNum   " << phaseNum[n] << "   ";
+                cout << endl;
+            }
+            cout << "[" << setw(2) << i << "]" << "   ";
+            // cout << res[bId + i] << "   ";
+            cout << fabs(res[bId + i] / rockVp[n]) << "   ";
+            if (i > 0) {
+                cout << fabs(res[bId + i] / Nt[n]) << "   ";
+                cout << Ni[n * numCom + i] << "   " << lNi[n * numCom + i] << "   ";
+                cout << (Ni[n * numCom + i] - lNi[n * numCom + i]) << "   ";
+                cout << (Ni[n * numCom + i] - lNi[n * numCom + i]) / lNi[n * numCom + i] << "   ";
+            }
+            
+            cout << endl;
+        }
+    }
 }
 
 void Bulk::ResetFIM()

@@ -26,15 +26,12 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
 {
     GetWallTime timer;
     timer.Start();
-
-    USI numTSteps = ctrl.GetNumTSteps();
     output.PrintInfoSched(rs, ctrl, timer.Stop());
-
+    USI numTSteps = ctrl.GetNumTSteps();
     for (USI d = 0; d < numTSteps - 1; d++)
     {
         rs.ApplyControl(d);
         ctrl.ApplyControl(d);
-        ctrl.InitTime(d);
         while (!ctrl.IsCriticalTime(d + 1))
         {
             GoOneStep(rs, ctrl);

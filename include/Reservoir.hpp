@@ -165,6 +165,7 @@ public:
     /// Return NRdSmax
     OCP_DBL GetNRdSmax() const { return bulk.GetNRdSmax(); }
     void    PrintSolFIM(const string& outfile) const;
+    void    ShowRes(const vector<OCP_DBL>& res) const;
 
     /////////////////////////////////////////////////////////////////////
     // AIMs, AIMt

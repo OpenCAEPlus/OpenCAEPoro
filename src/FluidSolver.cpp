@@ -45,14 +45,13 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
     case IMPEC:
     case AIMt:
     case AIMs:
-        rs.InitIMPEC();
+        impec.InitReservoir(rs);
         break;
     case FIM:
-        rs.InitFIM();
+        fim.InitReservoir(rs);
         break;
     case AIMc:
-        rs.InitFIM();
-        // rs.InitAIMc();
+        aimc.InitReservoir(rs);
         break;
     default:
         OCP_ABORT("Wrong method type!");

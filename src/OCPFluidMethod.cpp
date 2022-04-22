@@ -25,6 +25,12 @@ void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     myLS.SetupLinearSolver(SCALARFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
+/// Init
+void OCP_IMPEC::InitReservoir(Reservoir& rs) const
+{
+    rs.InitIMPEC();
+}
+
 void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
@@ -214,6 +220,11 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
+void OCP_FIM::InitReservoir(Reservoir& rs) const
+{
+    rs.InitFIM();
+}
+
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
@@ -290,14 +301,14 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-#ifdef DEBUG
-    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
-        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-        << "  " << NRdPmax << endl;
-    //for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
-    //    cout << resFIM.res[n] << endl;
-    //}
-#endif
+//#ifdef DEBUG
+    //cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
+    //    << "  " << NRdPmax << "    ";
+    //cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size();
+    //cout << endl;
+    //rs.ShowRes(resFIM.res);
+//#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -328,6 +339,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
+                cout << "-----" << endl;
                 return false;
             case 2:
                 ctrl.current_dt /= 1;
@@ -335,6 +347,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
+                cout << "-----" << endl;
                 return false;
             default:
                 return true;
@@ -354,6 +367,7 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.UpdateIters();
 }
 
+
 ////////////////////////////////////////////
 // OCP_AIMc
 ////////////////////////////////////////////
@@ -370,6 +384,11 @@ void OCP_AIMc::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 
+}
+
+void OCP_AIMc::InitReservoir(Reservoir& rs) const
+{
+    rs.InitAIMc();
 }
 
 void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
@@ -474,14 +493,14 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
        << "  " << NRdPmax << endl;
-    for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
-        cout << resFIM.res[n] << endl;
-    }
-#endif
+    //for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
+    //    cout << resFIM.res[n] << endl;
+    //}
+//#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -514,7 +533,7 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             ctrl.ResetIterNRLS();
             return false;
         case 2:
-            ctrl.current_dt /= 1;
+            // ctrl.current_dt /= 1;
             rs.ResetFIM(true);
             rs.CalResAIMc(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;

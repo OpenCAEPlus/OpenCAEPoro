@@ -310,7 +310,7 @@ public:
 	bool StableSSM(const USI& Id);
 	bool StableSSM01(const USI& Id);
 	bool StableNR(const USI& Id);
-	void CalFugXSTA(); ///< Calculate dFug / dx for Y
+	void CalFugXSTA(); ///< Calculate d ln(Fug) / dx for Y
 	void AssembleJmatSTA();
 	bool CheckSplit();
 	void PhaseSplit();

@@ -383,6 +383,8 @@ public:
 
     /// Calculate relative resiual for FIM.
     void CalRelResFIM(ResFIM& resFIM) const;
+    // Show Res
+    void ShowRes(const vector<OCP_DBL>& res) const;
     /// Reset FIM.
     void ResetFIM();
     /// Update values of last step for FIM.
@@ -419,6 +421,8 @@ private:
 
     OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
     OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
+
+    vector<OCP_DBL> NRstep; ///< NRstep for FIM
 
 public:
     // for debug!

@@ -244,6 +244,8 @@ public:
                      const OCP_DBL& alpha);
     /// Calculate Resiual and relative Resiual for FIM
     void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
+    /// Show Res
+    void ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const;
 
     /////////////////////////////////////////////////////////////////////
     // AIMt, AIMs

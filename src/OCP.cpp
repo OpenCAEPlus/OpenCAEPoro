@@ -23,6 +23,9 @@ void OpenCAEPoro::InputParam(ParamRead &param)
 void OpenCAEPoro::SetupSimulator(ParamRead &param, const USI &argc,
                                  const char *optset[])
 {
+    GetWallTime timer;
+    timer.Start();
+
     // Read parameters from input file
     InputParam(param);
     // Read Fast control
@@ -33,10 +36,22 @@ void OpenCAEPoro::SetupSimulator(ParamRead &param, const USI &argc,
     output.Setup(reservoir, control);
     // Setup static information for solver
     solver.Setup(reservoir, control);
+   
+    cout << endl << "Setup Simulation Finishes   Wall time : " << fixed << setprecision(3) << timer.Stop() / 1000 << " Sec" << endl << endl;
+    control.RecordTotalTime(timer.Stop() / 1000);
 }
 
 /// Initialize the reservoir class.
-void OpenCAEPoro::InitReservoir() { solver.InitReservoir(reservoir); }
+void OpenCAEPoro::InitReservoir() 
+{ 
+    GetWallTime timer;
+    timer.Start();
+
+    solver.InitReservoir(reservoir);
+
+    cout << endl << "Inilization Finishes   Wall time : " << fixed << setprecision(3) << timer.Stop() / 1000 << " Sec" << endl;
+    control.RecordTotalTime(timer.Stop()/1000);
+}
 
 /// Call IMPEC, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()

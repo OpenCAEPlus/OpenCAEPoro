@@ -162,7 +162,7 @@ public:
     void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }
 
     /// Record the total time of simulation.
-    void RecordTotalTime(const OCP_DBL& t) { totalSimTime = t; }
+    void RecordTotalTime(const OCP_DBL& t) { totalSimTime += t; }
 
     /// Calculate the next time step according to max change of some variables.
     void CalNextTstepIMPEC(const Reservoir& reservoir);
@@ -194,6 +194,7 @@ private:
     OCP_DBL end_time;        ///< Next Critical time
     OCP_DBL totalSimTime{0}; ///< Total simulation time
     OCP_DBL totalLStime{0};  ///< Total linear solver time
+    OCP_DBL init_dt;         ///< from prediction for next TSTEP
 
     // Record iteration information
     USI numTstep{0};     ///< Number of time step

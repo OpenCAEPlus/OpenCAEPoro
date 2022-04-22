@@ -581,6 +581,20 @@ void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) 
     // cout << "Well  " << resFIM.maxRelRes_v;
 }
 
+void AllWells::ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const
+{
+    USI wId = 0;
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].WellState()) {
+            cout << endl;
+            wells[w].ShowRes(wId, res, myBulk);
+            wId++;
+        }
+    }
+    cout << endl;
+}
+
+
 /////////////////////////////////////////////////////////////////////
 // AIMt
 /////////////////////////////////////////////////////////////////////

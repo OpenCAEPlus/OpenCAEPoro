@@ -112,13 +112,23 @@ void OCPControl::ApplyControl(const USI& i)
     ctrlPreTime = ctrlPreTimeSet[i];
     ctrlNR      = ctrlNRSet[i];
     end_time    = criticalTime[i + 1];
+    InitTime(i);
 }
 
 void OCPControl::InitTime(const USI& i)
 {
     OCP_DBL dt = criticalTime[i + 1] - current_time;
     if (dt <= 0) OCP_ABORT("Non-positive time stepsize!");
-    current_dt = min(dt, ctrlTime.timeInit);
+
+    static bool firstflag = true;
+    if (firstflag || true) {
+        current_dt = min(dt, ctrlTime.timeInit);
+        firstflag = false;
+    }
+    else {
+        current_dt = min(dt, init_dt);
+    }
+    
 }
 
 void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
@@ -217,8 +227,11 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
     if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
 
+    init_dt = current_dt;
+
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
+
 }
 
 void OCPControl::UpdateIters()
