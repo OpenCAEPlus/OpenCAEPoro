@@ -796,7 +796,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 // AIMt
 /////////////////////////////////////////////////////////////////////
 
-void BulkConn::SetupFIMBulk(Bulk& myBulk) const
+void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
 {
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
@@ -811,31 +811,47 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk) const
         bIdp = n * np;
         bIdc = n * nc;
         flag = false;
-        // cfl
+        // CFL
         for (USI j = 0; j < np; j++) {
             if (myBulk.cfl[bIdp + j] > 0.8) {
                 flag = true;
                 break;
             }
         }
-        // Ni
-        //if (!flag) {
-        //    for (USI i = 0; i < nc; i++) {
-        //        if (myBulk.Ni[bIdc + i] < 0) {
-        //            flag = true;
-        //            break;
-        //        }
-        //    }
-        //}
         // Volume error
         if (!flag) {
-            if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 0.001) {
+            if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 1E-3) {
                 flag = true;
+            }
+        }
+        
+        // NR Step
+        if (!flag && NRflag) {
+            // cout << "[" << n << "]" << endl;
+            // dP
+            if (fabs(myBulk.dPNR[n] / myBulk.P[n]) > 1E-3) {        
+                flag = true;
+                //cout << scientific << "P  " << myBulk.dPNR[n] / myBulk.P[n] << "   ";
+                //cout << myBulk.dPNR[n] << "   " << myBulk.P[n] << "   ";
+                //cout << endl;
+            }
+            // dNi
+            if (!flag) {
+                for (USI i = 0; i < myBulk.numCom; i++) {
+                    if (fabs(myBulk.dNiNR[bIdc + i] / myBulk.Ni[bIdc + i]) > 1E-3) {
+                        flag = true;
+                        //cout << scientific << "Ni[" << i << "]  " << myBulk.dNiNR[bIdc + i] / myBulk.Ni[bIdc + i]<< "   ";
+                        //cout << myBulk.dNiNR[bIdc + i] << "   " << myBulk.Ni[bIdc + i] << "   ";
+                        //cout << endl;
+                        break;
+                    }                       
+                }
             }
         }
 
         if (flag) {
             // find it
+            // myBulk.map_Bulk2FIM[n] = 1;
             for (auto& v : neighbor[n]) {
                 // n is included also
                 myBulk.map_Bulk2FIM[v] = 1;

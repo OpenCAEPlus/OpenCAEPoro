@@ -379,7 +379,7 @@ public:
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                    const OCP_DBL& dSmaxlim);
     /// Get the solution for FIM after a Newton iteration???
-    OCP_DBL GetSol01FIM(const vector<OCP_DBL>& u);
+    void GetSol01FIM(const vector<OCP_DBL>& u);
 
     /// Calculate relative resiual for FIM.
     void CalRelResFIM(ResFIM& resFIM) const;
@@ -390,9 +390,12 @@ public:
     /// Update values of last step for FIM.
     void UpdateLastStepFIM();
     /// Return NRdPmax.
-    OCP_DBL GetNRdPmax() const { return NRdPmax; }
+    OCP_DBL GetNRdPmax();
     /// Return NRdSmax.
-    OCP_DBL GetNRdSmax() const { return NRdSmax; }
+    OCP_DBL GetNRdSmax();
+    OCP_DBL GetNRdNmax();
+    void CorrectNi(const vector<OCP_DBL>& res);
+
 
 private:
     // Derivatives for FIM
@@ -419,8 +422,13 @@ private:
     vector<OCP_DBL> ldKr_dS;     ///< last dKr_dS
     vector<OCP_DBL> ldSec_dPri;  ///< last dSec_dPri
 
+    vector<OCP_DBL> dNiNR;       ///< Ni change between NR steps
+    vector<OCP_DBL> dPNR;        ///< dP change between NR steps
+
     OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
+    OCP_DBL NRdNmax; ///< Max Ni difference in an NR step
     OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
+
 
     vector<OCP_DBL> NRstep; ///< NRstep for FIM
 
@@ -493,6 +501,8 @@ public:
     /// Calculate relative permeability and capillary pressure and their derivatives.
     void CalKrPcDerivAIMc();
     void GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+        const OCP_DBL& dSmaxlim);
+    void GetSolAIMc01(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
     void UpdatePj();
        

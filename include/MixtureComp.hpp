@@ -392,15 +392,25 @@ public:
     void CalFugXAll();
     void CalFugPAll();
 
-    void CalXiPNX();
-    void CalRhoPX();
-    void CalMuPX();
-    void CalMuPXLBC();
-    void CalVfiVfp();
-    void AssembleMatVfiVfp();
-    void AssembleRhsVfiVfp();
-    void CaldXsdXp();
-    void CaldXsdXp(const OCP_DBL& vw, const OCP_DBL& vwp);
+    void CalXiPNX_partial();
+    void CalRhoPX_partial();
+    void CalMuPX_partial();
+    void CalMuPXLBC_partial();
+
+    void CalXiPNX_full();
+    void CalRhoPX_full();
+    void CalMuPX_full();
+    void CalMuPXLBC_full();
+    void CalVfiVfp_full01();
+    void AssembleMatVfiVfp_full01();
+    void AssembleRhsVfiVfp_full01();
+    void CaldXsdXp01();
+    void CaldXsdXpAPI01();
+
+    void CalVfiVfp_full02();
+    void AssembleMatVfiVfp_full02();
+    void AssembleRhsVfiVfp_full02();
+    void CaldXsdXpAPI02();
 
 private:
     // Phase properties and auxiliary variables

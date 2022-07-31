@@ -81,6 +81,7 @@ void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
      *  B: k x n
      *  C: m x n
      *  all column majored matrices, no tranpose
+     *  A' in col-order in Fortran = A in row-order in C/Cpp
      */
 
     const char transa = 'N', transb = 'N';

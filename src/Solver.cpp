@@ -39,7 +39,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
         if (ctrl.printLevel > 1) {
-            // Print Summary and critical information iat every TSTEP
+            // Print Summary and critical information at every TSTEP
             output.PrintInfo();
         }       
         // rs.allWells.ShowWellStatus(rs.bulk);

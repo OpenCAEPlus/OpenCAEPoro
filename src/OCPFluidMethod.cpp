@@ -276,6 +276,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
+
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
@@ -293,22 +294,39 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
+
+    //if (rs.bulk.NRdPmax < 1E-4) {
+    //    // correct
+    //    cout << "correct" << endl;
+    //    rs.bulk.CorrectNi(resFIM.res);
+    //    // Update reservoir properties
+    //    rs.CalFlashDerivFIM();
+    //    rs.CalKrPcDerivFIM();
+    //    rs.CalVpore();
+    //    rs.CalWellTrans();
+    //    rs.CalWellFlux();
+    //    rs.CalResFIM(resFIM, dt);
+    //}
+
     return true;
 }
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL NRdPmax = rs.GetNRdPmax();
-    OCP_DBL NRdSmax = rs.GetNRdSmax();
+    const OCP_DBL NRdPmax = rs.GetNRdPmax();
+    const OCP_DBL NRdNmax = rs.GetNRdNmax();
+    const OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-//#ifdef DEBUG
-    //cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
-    //    << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-    //    << "  " << NRdPmax << "    ";
-    //cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size();
-    //cout << endl;
-    //rs.ShowRes(resFIM.res);
-//#endif
+#ifdef DEBUG
+    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
+        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdPmax
+        << "  " << NRdSmax << "    ";
+    // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size() << "   ";
+    // cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(), &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   ";
+    // cout << "SdNi " << Dnorm1(rs.bulk.dNiNR.size(), &rs.bulk.dNiNR[0]) / rs.bulk.dNiNR.size() << "   ";
+    cout << endl;
+    // rs.ShowRes(resFIM.res);
+#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -402,6 +420,12 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.CalCFL(dt);
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
+    //rs.bulk.FIMBulk.resize(rs.bulk.numBulk, 0);
+    //for (OCP_USI n = 0; n < rs.bulk.numBulk; n++) {
+    //    rs.bulk.FIMBulk[n] = n;
+    //    rs.bulk.map_Bulk2FIM[n] = n;
+    //}
+    //rs.bulk.numFIMBulk = rs.bulk.numBulk;
     // Calculate FIM Bulk properties
 	rs.CalFlashDerivAIMc();
 	rs.CalKrPcDerivAIMc();
@@ -451,7 +475,7 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
 
 bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL& dt = ctrl.current_dt;
+    OCP_DBL& dt = ctrl.current_dt; 
 
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
@@ -462,18 +486,6 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         cout << "Cut time stepsize and repeat!\n";
         return false;
     }
-
-    // Update reservoir properties
-    //cout << "=========================================" << endl;
-    //for (OCP_USI n = 0; n < rs.bulk.numBulk; n++) {
-    //    cout << "Bulk[" << n << "]  " << rs.bulk.flagSkip[n] << "   " << rs.bulk.phaseNum[n] << "   ";
-    //    if (rs.bulk.map_Bulk2FIM[n] < 0) {
-    //        cout << "EEE" << endl;
-    //    }
-    //    else {
-    //        cout << "III" << endl;
-    //    }
-    //}
 
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
@@ -490,13 +502,14 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL NRdPmax = rs.GetNRdPmax();
-    OCP_DBL NRdSmax = rs.GetNRdSmax();
+    const OCP_DBL NRdPmax = rs.GetNRdPmax();
+    const OCP_DBL NRdNmax = rs.GetNRdNmax();
+    const OCP_DBL NRdSmax = rs.GetNRdSmax();
 
 //#ifdef _DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
-       << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdSmax
-       << "  " << NRdPmax << endl;
+       << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdPmax
+       << "  " << NRdSmax << endl;
     //for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
     //    cout << resFIM.res[n] << endl;
     //}
@@ -548,6 +561,15 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         }
     }
     else {
+        //// Set FIMBulk
+        //rs.CalCFL(ctrl.current_dt);
+        //rs.SetupWellBulk();
+        //rs.SetupFIMBulk(true);
+        //// Calculate FIM Bulk properties
+        //rs.CalFlashDerivAIMc();
+        //rs.CalKrPcDerivAIMc();
+        //// Show FIM Bulk
+        //rs.bulk.ShowFIMBulk(false);
         return false;
     }
 }

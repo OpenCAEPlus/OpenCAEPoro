@@ -663,6 +663,18 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         rhox[0] = -rhoo_rs * xij[1] / tmp;  // dRhoo / dXoo
         rhox[1] = rhoo_rs / xij[0];         // dRhoo / dXgo
 
+        // New! right I think
+        //OCP_DBL tmp_new = (1 + rs) * (1 + rs);
+
+        //mux[0] = -muo_rs * tmp_new;         // dMuo / dXoo
+        //mux[1] = muo_rs * tmp_new;          // dMuo / dXgo
+
+        //xix[0] = -xio_rs * tmp_new;         // dXio / dXoo
+        //xix[1] = xio_rs * tmp_new;          // dXio / dXgo
+
+        //rhox[0] = -rhoo_rs * tmp_new;       // dRhoo / dXoo
+        //rhox[1] = rhoo_rs * tmp_new;        // dRhoo / dXgo
+
         break;
     }
     case PHASE_ODGW: {

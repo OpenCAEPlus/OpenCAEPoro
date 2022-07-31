@@ -1401,7 +1401,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Molar Density of OIL
-    if (BOIL && rs.bulk.oil)
+    if (BOIL && rs.bulk.oil && rs.bulk.comps)
     {
         outF << sep02 << "\n";
         outF << "BOIL : lb-M/rb"
@@ -1442,7 +1442,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Molar Density of GAS
-    if (BGAS && rs.bulk.gas)
+    if (BGAS && rs.bulk.gas && rs.bulk.comps)
     {
         outF << sep02 << "\n";
         outF << "BGAS : lb-M/rb"

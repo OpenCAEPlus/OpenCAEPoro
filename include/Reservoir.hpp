@@ -161,9 +161,10 @@ public:
     /// Reset FIM
     void ResetFIM(const bool& flag);
     /// Return NRdPmax
-    OCP_DBL GetNRdPmax() const { return bulk.GetNRdPmax(); }
+    OCP_DBL GetNRdPmax(){ return bulk.GetNRdPmax(); }
     /// Return NRdSmax
-    OCP_DBL GetNRdSmax() const { return bulk.GetNRdSmax(); }
+    OCP_DBL GetNRdSmax(){ return bulk.GetNRdSmax(); }
+    OCP_DBL GetNRdNmax() { return bulk.GetNRdNmax(); }
     void    PrintSolFIM(const string& outfile) const;
     void    ShowRes(const vector<OCP_DBL>& res) const;
 
@@ -177,7 +178,7 @@ public:
     /// Allocate Maxmimum memory for internal Matirx for local FIM
     void AllocateMatAIMt(LinearSystem& myLS) const;
     /// Setup FIMBulk
-    void SetupFIMBulk() { conn.SetupFIMBulk(bulk); }
+    void SetupFIMBulk(const bool& NRflag = false) { conn.SetupFIMBulk(bulk, NRflag); }
     void AddFIMBulk() { conn.AddFIMBulk(bulk); }
     void SetupFIMBulkBoundAIMs() { conn.SetupFIMBulkBoundAIMs(bulk); }
     
