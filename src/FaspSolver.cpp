@@ -487,9 +487,10 @@ OCP_INT VectorFaspSolver::Solve()
                 break;
             case PC_FASP4_SHARE: // zhaoli 2021.04.24
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
-#if WITH_FASP4CUDA // zhaoli 2022.04.04
-                OCP_ABORT("Preconditioner type " + to_string(precond_type) +
-                          " not supported on GPU!");
+#if WITH_FASP4CUDA // zhaoli 2022.08.03
+                status = fasp_solver_dbsr_krylov_FASP4_cuda_share_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
+                    RESET_CONST);
 #else                
                 status = fasp_solver_dbsr_krylov_FASP4_share_interface(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,

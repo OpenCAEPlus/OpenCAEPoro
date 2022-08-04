@@ -175,7 +175,7 @@ public:
 		const OCP_DBL* Ziin) override ;
 	void setPT(const OCP_DBL& p, const OCP_DBL& t) { P = p; T = t; }
 	void setZi(const OCP_DBL* Ziin) { Dcopy(NC, &zi[0], Ziin); }
-	void setZi() { for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nt; }
+	void setZi() { for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nh; }
 	void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
 	void CallId();
     USI GetFtype() override { return ftype; }
@@ -288,6 +288,7 @@ private:
 	// Phase Variables
 	USI lNP{ 0 };  ///< last num of hydrocarbon phase
 	USI NP;   ///< current num of hydrocarbon phase
+    OCP_DBL Nh; ///< total moles of components exclude water
 	vector<OCP_DBL> vC; ///< vC represents the volume of phase
 	vector<OCP_DBL> nu; ///< nu[j] represents the mole fraction of jth phase in flash calculation
 	vector<vector<OCP_DBL>> x;   ///< x[j][i] represents the mole fraction of ith comp in jth phase
@@ -397,16 +398,19 @@ public:
     void CalMuPX_partial();
     void CalMuPXLBC_partial();
 
-    void CalXiPNX_full();
-    void CalRhoPX_full();
-    void CalMuPX_full();
-    void CalMuPXLBC_full();
+    void CalRhoPNX_full();
+
+    void CalXiPNX_full01();
+    void CalRhoPNX_full01();  
+    void CalMuPX_full01();
+    void CalMuPXLBC_full01();
     void CalVfiVfp_full01();
     void AssembleMatVfiVfp_full01();
     void AssembleRhsVfiVfp_full01();
     void CaldXsdXp01();
     void CaldXsdXpAPI01();
 
+    void CalXiPNX_full02();
     void CalVfiVfp_full02();
     void AssembleMatVfiVfp_full02();
     void AssembleRhsVfiVfp_full02();
