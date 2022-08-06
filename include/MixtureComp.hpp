@@ -399,6 +399,10 @@ public:
     void CalMuPXLBC_partial();
 
     void CalRhoPNX_full();
+    void CalXiPN_pfull();
+    void CalRhoPN_pfull();
+    void CalMuPN_pfull();
+    void CalMuPNLBC_pfull();
 
     void CalXiPNX_full01();
     void CalRhoPNX_full01();  
