@@ -150,7 +150,7 @@ protected:
 
     // Derivatives
 
-    vector<vector<OCP_DBL>> vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS
+    vector<vector<OCP_DBL>> vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnji
     vector<OCP_DBL> vjp; ///< dvj / dp, used in 2 hydrocarbon phase in EOS
 
     OCP_DBL vfp; ///< dVf / dP, the derivative of volume of total fluids with respect to

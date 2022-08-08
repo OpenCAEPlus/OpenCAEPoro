@@ -316,10 +316,13 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     vjp[numPhase - 1] = vwp;
 
     CaldXsdXpAPI02();
-
+ 
     CalXiPNX_partial();
     CalRhoPX_partial();
     CalMuPX_partial();
+
+    //CalXiRhoMuPN_pfull();
+
     // Correct Sj
     CalSaturation();
 }
@@ -2174,6 +2177,14 @@ void MixtureComp::CalFugPAll()
 
 }
 
+void MixtureComp::CalVjpVfpVfn_partial()
+{
+    // Vfi = 0
+    // Vjp, Vfp
+
+
+}
+
 void MixtureComp::CalXiPNX_partial()
 {
     // Here!
@@ -2256,6 +2267,7 @@ void MixtureComp::CalRhoPX_partial()
 void MixtureComp::CalMuPX_partial()
 {
     fill(muP.begin(), muP.end() - 1, 0.0);
+    fill(muN.begin(), muN.end() - numCom, 0.0);
     fill(mux.begin(), mux.end() - numCom, 0.0);
 
     CalMuPXLBC_partial();
@@ -2357,7 +2369,7 @@ void MixtureComp::CalMuPXLBC_partial()
 
 void MixtureComp::CalXiPNX_full01()
 {
-    // call CalVfiVfp_full01() before
+    // call CalVfiVfp_full01() before, use rhsDer
     // Calculate xiPC, xiNC, xixC
     // Calculate xixC first
     OCP_DBL CgTP = GAS_CONSTANT * T / P;
@@ -2453,7 +2465,7 @@ void MixtureComp::CalXiPNX_full02()
     // Attention!
     // NP = 1 or NP = 2
     
-    // Call CalVfiVfp_full02() before
+    // Call CalVfiVfp_full02() before, use rhsder
     // Calculate xiPC, xiNC, xixC
     // Calculate xixC first
     OCP_DBL CgTP = GAS_CONSTANT * T / P;
@@ -2825,7 +2837,7 @@ void MixtureComp::CalMuPXLBC_full01()
 void MixtureComp::CalXiPN_pfull()
 {
     // Using dXsdXp
-    CalXiPNX_partial();
+    //CalXiPNX_partial();
     const USI ncol = numCom + 1;
     const OCP_DBL* xijPN = &dXsdXp[numPhase * ncol];
 
@@ -2862,7 +2874,7 @@ void MixtureComp::CalXiPN_pfull()
 void MixtureComp::CalRhoPN_pfull()
 {
     // Using dXsdXp
-    CalRhoPX_partial();
+    //CalRhoPX_partial();
     const USI ncol = numCom + 1;
     const OCP_DBL* xijPN = &dXsdXp[numPhase * ncol];
 
@@ -2899,9 +2911,9 @@ void MixtureComp::CalRhoPN_pfull()
 
 void MixtureComp::CalMuPN_pfull()
 {
-    fill(muP.begin(), muP.end() - 1, 0.0);
+    //fill(muP.begin(), muP.end() - 1, 0.0);
     fill(muN.begin(), muN.end() - numCom, 0.0);
-    fill(mux.begin(), mux.end() - numCom, 0.0);
+    //fill(mux.begin(), mux.end() - numCom, 0.0);
 
     CalMuPNLBC_pfull();
 }
@@ -2910,7 +2922,7 @@ void MixtureComp::CalMuPN_pfull()
 void MixtureComp::CalMuPNLBC_pfull()
 {
     // Using dXsdXp
-    CalMuPXLBC_partial();
+    //CalMuPXLBC_partial();
     const USI ncol = numCom + 1;
     const OCP_DBL* xijPN = &dXsdXp[numPhase * ncol];
 
@@ -2942,6 +2954,51 @@ void MixtureComp::CalMuPNLBC_pfull()
             xijPN += ncol;
         }
     }  
+}
+
+void MixtureComp::CalXiRhoMuPN_pfull()
+{
+    // Using dXsdXp
+    // CalXiPNX_partial(),CalRhoPX_partial(),CalMuPX_partial() have been called
+    const USI ncol = numCom + 1;
+    const OCP_DBL* xijPN = &dXsdXp[numPhase * ncol];
+
+    if (NP == 1) {
+        const USI j1 = phaseLabel[0];
+        const USI bId = j1 * numCom;
+        xijPN += bId * ncol;
+        for (USI i = 0; i < NC; i++) {
+            xijPN++;
+            // dN
+            for (USI m = 0; m < NC; m++) {
+                xiN[bId + m] += xix[bId + i] * xijPN[m];
+                rhoN[bId + m] += rhox[bId + i] * xijPN[m];
+                muN[bId + m] += mux[bId + i] * xijPN[m];
+            }
+            xijPN += numCom;
+        }
+    }
+    else {
+        for (USI j = 0; j < NP; j++) {
+            const USI bId = j * numCom;
+            for (USI i = 0; i < NC; i++) {
+                // dP
+                xiP[j] += xix[bId + i] * xijPN[0];
+                rhoP[j] += rhox[bId + i] * xijPN[0];
+                muP[j] += mux[bId + i] * xijPN[0];
+                xijPN++;
+                // xiN
+                for (USI m = 0; m < NC; m++) {
+                    xiN[bId + m] += xix[bId + i] * xijPN[m];
+                    rhoN[bId + m] += rhox[bId + i] * xijPN[m];
+                    muN[bId + m] += mux[bId + i] * xijPN[m];
+                }
+                xijPN += numCom;
+            }
+            // skip water
+            xijPN += ncol;
+        }
+    }
 }
 
 

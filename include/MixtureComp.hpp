@@ -393,6 +393,7 @@ public:
     void CalFugXAll();
     void CalFugPAll();
 
+    void CalVjpVfpVfn_partial();
     void CalXiPNX_partial();
     void CalRhoPX_partial();
     void CalMuPX_partial();
@@ -403,6 +404,8 @@ public:
     void CalRhoPN_pfull();
     void CalMuPN_pfull();
     void CalMuPNLBC_pfull();
+    void CalXiRhoMuPN_pfull();
+
 
     void CalXiPNX_full01();
     void CalRhoPNX_full01();  
