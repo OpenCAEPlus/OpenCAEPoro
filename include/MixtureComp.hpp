@@ -394,6 +394,11 @@ public:
     void CalFugPAll();
 
     void CalVjpVfpVfn_partial();
+    void CalXiPn_partial();
+    void CalRhoPn_partial();
+    void CalMuPn_partial();
+    void CalMuPnLBC_partial();
+
     void CalXiPNX_partial();
     void CalRhoPX_partial();
     void CalMuPX_partial();

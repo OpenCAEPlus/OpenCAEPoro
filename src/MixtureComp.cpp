@@ -2177,13 +2177,198 @@ void MixtureComp::CalFugPAll()
 
 }
 
+
 void MixtureComp::CalVjpVfpVfn_partial()
 {
     // Vfi = 0
     // Vjp, Vfp
-
-
+    // Vjn(dVj / dnij) in Vji
+    OCP_DBL CgTP = GAS_CONSTANT * T / P;
+    fill(vfi.begin(), vfi.end(), 0.0);
+    vfp = 0;
+    
+    for (USI j = 0; j < NP; j++) {
+        const OCP_DBL& aj = Aj[j];
+        const OCP_DBL& bj = Bj[j];
+        const OCP_DBL& zj = Zj[j];
+        const vector<OCP_DBL>& xj = x[j];
+        vector<OCP_DBL>& Znj = Zn[j];
+        OCP_DBL                tmp;
+        const USI j1 = phaseLabel[j];
+        for (USI i = 0; i < NC; i++) {
+            tmp = 0;
+            for (USI m = 0; m < NC; m++) {
+                tmp += (1 - BIC[i * NC + m]) * sqrt(Ai[i] * Ai[m]) * xj[m];
+            }
+            An[i] = 2 / nu[j] * (tmp - aj);
+            Bn[i] = 1 / nu[j] * (Bi[i] - bj);
+            Znj[i] =
+                ((bj - zj) * An[i] +
+                    ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
+                        ((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj -
+                        (delta1 + delta2 - 1) * zj * zj) *
+                    Bn[i]) /
+                (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
+                    (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
+            vji[j1][i] = CgTP * (zj + nu[j] * Znj[i]);
+        }
+        Zp[j] = ((bj - zj) * aj +
+            ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
+                ((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj -
+                (delta1 + delta2 - 1) * zj * zj) *
+            bj) /
+            P /
+            (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
+                (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
+        vjp[j1] = CgTP * nu[j] * (Zp[j] - zj / P);
+        vfp += vjp[j1];
+    }
 }
+
+
+void MixtureComp::CalXiPn_partial()
+{
+    // xiN = 0
+    // xiP
+    // xin(dxi_j / d nij) in xix
+    OCP_DBL CgTP = GAS_CONSTANT * T / P;
+    OCP_DBL tmp;
+    fill(xiN.begin(), xiN.end() - numCom, 0.0);
+
+    for (USI j = 0; j < NP; j++) {
+        const vector<OCP_DBL>& xj = x[j];
+        OCP_DBL                aj = Aj[j];
+        OCP_DBL                bj = Bj[j];
+        OCP_DBL                zj = Zj[j];
+        const USI j1 = phaseLabel[j];
+
+        tmp = -xi[j1] * xi[j1] * CgTP;
+        for (USI i = 0; i < NC; i++) {
+            xix[j1 * numCom + i] = tmp * Zn[j][i];
+        }
+        xiP[j1] = tmp * (Zp[j] - Zj[j] / P);
+    }
+}
+
+
+void MixtureComp::CalRhoPn_partial()
+{
+    // rhoN = 0
+    // rhoP
+    // rhon(drhoj / d nij) in rhox
+    fill(rhoN.begin(), rhoN.end() - numCom, 0.0);
+    USI j1;
+    for (USI j = 0; j < NP; j++) {
+        j1 = phaseLabel[j];
+        rhoP[j1] = xiP[j1] * MW[j];
+        for (USI m = 0; m < NC; m++) {
+            rhox[j1 * numCom + m] = xix[j1 * numCom + m] * MW[j] 
+                + xi[j1] / nu[j] * (MWC[m] - MW[j]);
+        }
+    }
+}
+
+
+void MixtureComp::CalMuPn_partial()
+{
+    CalMuPnLBC_partial();
+}
+
+
+void MixtureComp::CalMuPnLBC_partial()
+{
+    // muN = 0
+    // muP
+    // mun in mux
+
+    fill(muN.begin(), muN.end() - numCom, 0.0);
+
+    OCP_DBL val1IJ, val2IJ;
+    OCP_DBL der1IJ, der2IJ, der3J, der4J, der6J, der7J, der8J;
+    OCP_DBL Tri, tmp;
+    OCP_DBL xTj, xPj, xVj;
+    OCP_DBL derxTj, derxPj, derMWj, derxVj;
+
+    // dxij / dP = 0, d MJ / dP = 0
+    // Calculate dmuj / dP
+    // der2IJ = der3J = der4J = der6J = 0;
+
+    for (USI j = 0; j < NP; j++) {
+        const USI j1 = phaseLabel[j];
+        const vector<OCP_DBL>& xj = x[j];
+        const vector<OCP_DBL>& muAuxj = muAux[j];
+
+        xTj = xPj = xVj = 0;
+        for (USI i = 0; i < NC; i++) {
+            xTj += xj[i] * Tc[i];
+            xPj += xj[i] * Pc[i];
+            xVj += xj[i] * Vcvis[i];
+        }
+        der7J = xVj * xiP[j1];
+        if (muAuxj[3] <= 0.18 && false) {
+            muP[j1] = (2.05 * 1E-4) * der7J / muAuxj[2];
+        }
+        else {
+            der8J = der7J * (LBCcoef[1] +
+                muAuxj[3] * (2 * LBCcoef[2] +
+                    muAuxj[3] * (3 * LBCcoef[3] +
+                        muAuxj[3] * 4 * LBCcoef[4])));
+            muP[j1] = (4 * 1E-4) * pow(muAuxj[4], 3) * der8J / muAuxj[2];
+        }
+
+        // Calculate dmuj / nkj
+        const USI bId = numCom * j1;
+        for (USI k = 0; k < NC; k++) {
+            derxTj = (Tc[k] - xTj) / nu[j];
+            derxPj = (Pc[k] - xPj) / nu[j];
+            derMWj = (MWC[k] - MW[j]) / nu[j];
+            der3J = 0;
+            der4J = sqrtMWi[k];
+            for (USI i = 0; i < NC; i++) {
+                val1IJ = muAux1I[i] / sqrt(MW[j]);
+                der1IJ = -(1 / 2) * muAux1I[i] * pow(MW[j], -1.5) * derMWj;
+                Tri = T / Tc[i];
+                if (Tri <= 1.5) {
+                    tmp = 34 * 1E-5 * pow(Tri, 0.94);
+                }
+                else {
+                    tmp = 17.78 * 1E-5 * pow(4.58 * Tri - 1.67, 0.625);
+                }
+                val2IJ = tmp / val1IJ;
+                der2IJ = -tmp * der1IJ / (val1IJ * val1IJ);
+                der3J += sqrtMWi[i] * (xj[i] * der2IJ + (delta(i, k) - xj[i]) * val2IJ / nu[j]);
+                der4J -= xj[i] * sqrtMWi[i];
+            }           
+            der4J /= nu[j];
+            der6J =
+                5.4402 *
+                (1.0 / 6 * pow(xTj, -5.0 / 6) * derxTj -
+                    pow(xTj, 1.0 / 6) * (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj)) /
+                (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
+            der7J = xix[j1 * numCom + k] * xVj + (Vcvis[k] - xVj) * xi[j1] / nu[j];
+            if (muAuxj[3] <= 0.18 && false) {
+                mux[bId + k] =
+                    (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1]) +
+                    2.05 * 1E-4 * (der7J * muAuxj[2] - muAuxj[3] * der6J) /
+                    (muAuxj[2] * muAuxj[2]);
+            }
+            else {
+                der8J =
+                    der7J * (LBCcoef[1] +
+                        muAuxj[3] * (2 * LBCcoef[2] +
+                            muAuxj[3] * (3 * LBCcoef[3] +
+                                muAuxj[3] * 4 * LBCcoef[4])));
+                mux[bId + k] =
+                    (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1]) +
+                    1E-4 *
+                    (4 * pow(muAuxj[4], 3) * der8J * muAuxj[2] -
+                        (pow(muAuxj[4], 4) - 1) * der6J) /
+                    (muAuxj[2] * muAuxj[2]);
+            }
+        }
+    }
+}
+
 
 void MixtureComp::CalXiPNX_partial()
 {
@@ -2228,12 +2413,12 @@ void MixtureComp::CalXiPNX_partial()
     }
 
     // xiNC
-    fill(xiNC.begin(), xiNC.end(), 0.0);
+    //fill(xiNC.begin(), xiNC.end(), 0.0);
 
     // Copoy to xiP, xix
     //fill(xiP.begin(), xiP.end(), 0.0);
     //fill(xix.begin(), xix.end(), 0.0);
-    fill(xiN.begin(), xiN.end(), 0.0);
+    //fill(xiN.begin(), xiN.end(), 0.0);
     USI j1;
     for (USI j = 0; j < NP; j++) {
         j1 = phaseLabel[j];
@@ -2241,6 +2426,7 @@ void MixtureComp::CalXiPNX_partial()
         Dcopy(NC, &xix[j1 * numCom], &xixC[j * NC]);
     }
 }
+
 
 void MixtureComp::CalRhoPX_partial()
 {
@@ -2251,7 +2437,7 @@ void MixtureComp::CalRhoPX_partial()
     // See MixtureComp::CalRhoPNX_full()
 
     //fill(rhox.begin(), rhox.end() - numCom, 0.0);
-    fill(rhoN.begin(), rhoN.end() - numCom, 0.0);
+    //fill(rhoN.begin(), rhoN.end() - numCom, 0.0);
     //fill(rhoP.begin(), rhoP.end() - 1, 0.0);
 
     USI j1;
@@ -2264,11 +2450,12 @@ void MixtureComp::CalRhoPX_partial()
     }
 }
 
+
 void MixtureComp::CalMuPX_partial()
 {
-    fill(muP.begin(), muP.end() - 1, 0.0);
-    fill(muN.begin(), muN.end() - numCom, 0.0);
-    fill(mux.begin(), mux.end() - numCom, 0.0);
+    //fill(muP.begin(), muP.end() - 1, 0.0);
+    //fill(muN.begin(), muN.end() - numCom, 0.0);
+    //fill(mux.begin(), mux.end() - numCom, 0.0);
 
     CalMuPXLBC_partial();
 }
