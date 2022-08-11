@@ -288,7 +288,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
     CalVfiVfp_full02();
-  
+
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
@@ -316,12 +316,12 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     vjp[numPhase - 1] = vwp;
 
     CaldXsdXpAPI02();
- 
+
     CalXiPNX_partial();
     CalRhoPX_partial();
     CalMuPX_partial();
 
-    //CalXiRhoMuPN_pfull();
+    //CalXiRhoMuPN_pfullx();
 
     // Correct Sj
     CalSaturation();
@@ -836,6 +836,8 @@ void MixtureComp::AllocateMethod()
     pivot.resize((NC + 1) * NPmax, 1);
     lJmatWork = NC * (NPmax - 1);
     JmatWork.resize(lJmatWork);
+
+    pivot.resize(NPmax * NC + numPhase, 1);
 }
 
 void MixtureComp::CalKwilson()
@@ -1928,6 +1930,11 @@ void MixtureComp::AllocateOthers()
     xixC.resize(NPmax * NC);
     xiPC.resize(NPmax);
     xiNC.resize(NPmax * NC);
+
+    // new
+    JmatDer.resize((numPhase + NPmax * NC) * (numPhase + NPmax * NC));
+    JmatTmp = JmatDer;
+    rhsDer.resize((numPhase + NPmax * NC) * (numCom + 1));
 }
 
 void MixtureComp::IdentifyPhase()
@@ -3021,7 +3028,7 @@ void MixtureComp::CalMuPXLBC_full01()
     }
 }
 
-void MixtureComp::CalXiPN_pfull()
+void MixtureComp::CalXiPN_pfullx()
 {
     // Using dXsdXp
     //CalXiPNX_partial();
@@ -3058,7 +3065,7 @@ void MixtureComp::CalXiPN_pfull()
     }
 }
 
-void MixtureComp::CalRhoPN_pfull()
+void MixtureComp::CalRhoPN_pfullx()
 {
     // Using dXsdXp
     //CalRhoPX_partial();
@@ -3096,17 +3103,17 @@ void MixtureComp::CalRhoPN_pfull()
 }
 
 
-void MixtureComp::CalMuPN_pfull()
+void MixtureComp::CalMuPN_pfullx()
 {
     //fill(muP.begin(), muP.end() - 1, 0.0);
     fill(muN.begin(), muN.end() - numCom, 0.0);
     //fill(mux.begin(), mux.end() - numCom, 0.0);
 
-    CalMuPNLBC_pfull();
+    CalMuPNLBC_pfullx();
 }
 
 
-void MixtureComp::CalMuPNLBC_pfull()
+void MixtureComp::CalMuPNLBC_pfullx()
 {
     // Using dXsdXp
     //CalMuPXLBC_partial();
@@ -3143,7 +3150,7 @@ void MixtureComp::CalMuPNLBC_pfull()
     }  
 }
 
-void MixtureComp::CalXiRhoMuPN_pfull()
+void MixtureComp::CalXiRhoMuPN_pfullx()
 {
     // Using dXsdXp
     // CalXiPNX_partial(),CalRhoPX_partial(),CalMuPX_partial() have been called
@@ -3499,9 +3506,9 @@ void MixtureComp::CaldXsdXp01()
     }
     // dFx / dXs
     for (USI j = 0; j < NP; j++) {
-        // dFn / dSm
+        // dFx / dSm
         MTmp += NP;
-        // dFn / dxnm, m = j
+        // dFx / dxnm, m = j
         MTmp += j * NC;
         for (USI n = 0; n < NC; n++) {
             MTmp[n] = 1.0;
@@ -3513,9 +3520,9 @@ void MixtureComp::CaldXsdXp01()
         const OCP_DBL* fugXJ  = &fugX[j][0];
         const OCP_DBL* fugXNP = &fugX[NP - 1][0];
         for (USI i = 0; i < NC; i++) {
-            // dFn / dSm
+            // dFf / dSm
             MTmp += NP;
-            // dFn / dxnm, m = j or m = np-1
+            // dFf / dxnm, m = j or m = np-1
             // m = j
             MTmp += j * NC;
             for (USI n = 0; n < NC; n++) {
@@ -3744,7 +3751,7 @@ void MixtureComp::CaldXsdXpAPI02()
         USI j0 = phaseLabel[0];
         OCP_DBL* bId = &dXsdXp[j0 * ncol];
         // dS / dP
-        bId[0] = ((vfp - vwp) * vf - vfp * vC[0]) / vf2;
+        bId[0] = ((vfp - vwp) * vf - vfp * v[j0]) / vf2;
         bId++;
         // dSh / dNm
         for (USI m = 0; m < NC; m++) {
@@ -3752,8 +3759,8 @@ void MixtureComp::CaldXsdXpAPI02()
         }
         bId += NC;
         // dSh / dNw
-        bId[0] = -vfi[numCom - 1] * vC[0] / vf2;
-        // dSw / dP
+        bId[0] = -vfi[numCom - 1] * v[j0] / vf2;
+        // dSw / dP, dNm
         bId = &dXsdXp[(numPhase - 1) * ncol];
         for (USI m = 0; m < ncol; m++) {
             bId[m] = -dXsdXp[j0 * ncol + m];
@@ -3761,8 +3768,8 @@ void MixtureComp::CaldXsdXpAPI02()
         // dxij / dNm
         bId = &dXsdXp[(numPhase + j0 * numCom) * ncol + 1];       
         for (USI i = 0; i < NC; i++) {
-            for (USI k = 0; k < NC; k++) {
-                bId[k] = (delta(i, k) * Nh - Ni[i]) / (Nh * Nh);
+            for (USI m = 0; m < NC; m++) {
+                bId[m] = (delta(i, m) * Nh - Ni[i]) / (Nh * Nh);
             }
             bId += ncol;
         }
@@ -3775,11 +3782,11 @@ void MixtureComp::CaldXsdXpAPI02()
             const USI j1 = phaseLabel[j];
             bId = &dXsdXp[j1 * ncol];
             // dSj / dP
-            bId[0] = (vjp[j1] * vf - vfp * vC[j]) / vf2;
+            bId[0] = (vjp[j1] * vf - vfp * v[j1]) / vf2;
             bId++;
             // dSj / dNm
             for (USI m = 0; m < numCom; m++) {
-                bId[m] = (vji[j1][m] * vf - vfi[m] * vC[j]) / vf2;
+                bId[m] = (vji[j1][m] * vf - vfi[m] * v[j1]) / vf2;
             }
         }
         // dSw / dP, dSw / dNm
@@ -3827,6 +3834,258 @@ void MixtureComp::CaldXsdXpAPI02()
         }
     }
 }
+
+
+void MixtureComp::CaldXsdXpAPI03()
+{
+    // p : P, Ni
+    // s : S, nij
+    // water not in oil or gas; hydroncarbon not in water
+
+    // water is included
+    fill(dXsdXp.begin(), dXsdXp.end(), 0);
+    USI ncol = numCom + 1;
+    OCP_DBL vf2 = vf * vf;
+    OCP_DBL vwp = vjp[numPhase - 1];
+    OCP_DBL vw = v[numPhase - 1];
+
+    if (NP == 1) {
+        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon    
+        USI j0 = phaseLabel[0];
+        OCP_DBL* bId = &dXsdXp[j0 * ncol];
+        // dS / dP
+        bId[0] = ((vfp - vwp) * vf - vfp * v[j0]) / vf2;
+        bId++;
+        // dSh / dNm
+        for (USI m = 0; m < NC; m++) {
+            bId[m] = vfi[m] * vw / vf2;
+        }
+        bId += NC;
+        // dSh / dNw
+        bId[0] = -vfi[numCom - 1] * v[j0] / vf2;
+        // dSw / dP, dNm
+        bId = &dXsdXp[(numPhase - 1) * ncol];
+        for (USI m = 0; m < ncol; m++) {
+            bId[m] = -dXsdXp[j0 * ncol + m];
+        }
+        // dnij / dNm
+        bId = &dXsdXp[(numPhase + j0 * numCom) * ncol + 1];
+        for (USI i = 0; i < NC; i++) {
+            bId[i] = 1;
+            bId += ncol;
+        }
+    }
+    else {
+        // temp
+        CalFugNAll();
+        CalFugPAll();
+        CaldXsdXp03();
+        // Assemble dXsdXp --- transpose rhsder and reorder nij
+        const OCP_DBL* STmp = &rhsDer[0];
+        const USI nrhs = numCom + 1;
+        const USI nrow = numPhase + NP * NC;
+        USI bId;
+        for (USI i = 0; i < nrhs; i++) {
+            // S
+            for (USI j = 0; j < numPhase; j++) {
+                dXsdXp[j * nrhs + i] = STmp[j];
+            }
+            STmp += numPhase;
+            // nij
+            for (USI j = 0; j < NP; j++) {
+                bId = numPhase + phaseLabel[j] * NC;
+                for (USI k = 0; k < NC; k++) {
+                    dXsdXp[(bId + k) * nrhs + i] = STmp[k];
+                }             
+                STmp += NC;
+            }
+        }
+    }
+}
+
+
+void MixtureComp::CaldXsdXp03()
+{
+    // p : P, Ni
+    // s : S, nij
+    
+    fill(JmatTmp.begin(), JmatTmp.end(), 0.0);
+    OCP_DBL* MTmp = &JmatTmp[0];
+    const USI dim = numPhase + NP * NC;
+    const OCP_DBL vf2 = vf * vf;
+    // -dF / ds
+
+    // -dFf / ds
+    for (USI j = 0; j < NP - 1; j++) {
+        const OCP_DBL* fugNJ = &fugN[j][0];
+        const OCP_DBL* fugNNP = &fugN[NP - 1][0];
+        for (USI i = 0; i < NC; i++) {
+            // -dFf / dS = 0
+            MTmp += numPhase;
+            // -dFf / dnij
+            MTmp += j * NC;
+            for (USI k = 0; k < NC; k++) {
+                MTmp[k] = -fugNJ[k];
+            }
+            fugNJ += NC;
+            // np-1 phase
+            MTmp += (NP - 1 - j) * NC;
+            for (USI k = 0; k < NC; k++) {
+                MTmp[k] = fugNNP[k];
+            }
+            fugNNP += NC;
+            MTmp += NC;
+        }
+    }
+    // -dFn / ds
+    for (USI i = 0; i < NC; i++) {
+        // -dFn / dS = 0
+        MTmp += numPhase;
+        // -dFn / dnij
+        for (USI j = 0; j < NP; j++) {
+            MTmp[i] = 1;
+            MTmp += NC;
+        }
+    }
+    // -dFs / ds  ---- Hydroncarbon
+    for (USI j = 0; j < NP; j++) {
+        const USI j1 = phaseLabel[j];
+        // -dFs / dS
+        MTmp[j1] = -1;
+        MTmp += numPhase;
+        // -dFs / dnkm
+        for (USI m = 0; m < NP; m++) {
+            const USI m1 = phaseLabel[m];
+            if (m1 == j1) {
+                for (USI k = 0; k < NC; k++) {
+                    MTmp[k] = vji[j1][k] * (vf - v[j1]) / vf2;
+                }
+            }
+            else{
+                for (USI k = 0; k < NC; k++) {
+                    MTmp[k] = -vji[m1][k] * v[j1] / vf2;
+                }                
+            }
+            MTmp += NC;
+        }
+    }
+    // -dFsw / ds
+    // -dFsw / dSw
+    MTmp[numPhase - 1] = -1;
+    MTmp += numPhase;
+    // -dFsw / dnkm
+    for (USI m = 0; m < NP; m++) {
+        const USI m1 = phaseLabel[m];
+        for (USI k = 0; k < NC; k++) {
+            MTmp[k] = -vji[m1][k] * v[numPhase-1] / vf2;
+        }
+        MTmp += NC;
+    }
+
+    //cout << "dFdS" << endl;
+    //cout << scientific << setprecision(1);
+    //for (USI i = 0; i < dim; i++) {
+    //    for (USI j = 0; j < dim; j++)
+    //        cout << JmatTmp[i * dim + j] << " ";
+    //    cout << endl;
+    //    if (i == dim - 3)
+    //        cout << endl;
+    //}
+
+    // Transpose JmatTmp
+    for (USI i = 0; i < dim; i++) {
+        for (USI j = 0; j < dim; j++) {
+            JmatDer[i * dim + j] = JmatTmp[j * dim + i];
+        }
+    }
+
+    fill(JmatTmp.begin(), JmatTmp.end(), 0.0);
+    MTmp = &JmatTmp[0];
+
+    // dF / dp
+    const USI ncol2 = numCom + 1;
+    // dFf / dp
+    for (USI j = 0; j < NP - 1; j++) {
+        for (USI i = 0; i < NC; i++) {
+            MTmp[0] = fugP[j][i] - fugP[NP - 1][i];
+            MTmp += ncol2;
+        }
+    }
+    // dFn / dp
+    for (USI i = 0; i < NC; i++) {
+        MTmp++;
+        MTmp[i] = 1;
+        MTmp += numCom;
+    }
+    // dFs / dp   ---- Hydroncarbon
+    for (USI j = 0; j < NP; j++) {
+        const USI j1 = phaseLabel[j];
+        // dFs / dP
+        MTmp[0] = (vfp * v[j1] - vjp[j1] * vf) / vf2;
+        // dFs / dNh 
+        MTmp += numCom;
+        // dFs / dNw
+        MTmp[0] = vfi[numCom - 1] * v[j1] / vf2;
+        MTmp++;
+    }
+    // dFsw / dp
+    // dFsw / dP
+    MTmp[0] = (vfp * v[numPhase - 1] - vjp[numPhase - 1] * vf) / vf2;
+    // dFsw / dNh
+    MTmp += numCom;
+    // dFsw / dNw
+    MTmp[0] = vfi[numCom - 1] * (v[numPhase - 1] - vf) / vf2;
+    MTmp++;
+
+    //cout << "dFdp" << endl;
+    //cout << scientific << setprecision(3);
+    //for (USI i = 0; i < dim; i++) {
+    //    for (USI j = 0; j < numCom+1; j++)
+    //        cout << JmatTmp[i * (numCom + 1) + j] << "   ";
+    //    cout << endl;
+    //}
+
+    // Transpose JmatTmp
+    const USI nrhs = numCom + 1;
+    const USI nrow = NP * NC + numPhase;
+    for (USI i = 0; i < nrhs; i++) {
+        for (USI j = 0; j < nrow; j++) {
+            rhsDer[i * nrow + j] = JmatTmp[j * nrhs + i];
+        }
+    }
+
+    LUSolve(numCom + 1, NP* NC + numPhase, &JmatDer[0], &rhsDer[0], &pivot[0]);
+
+}
+
+void MixtureComp::CalVfiVfp_full03()
+{
+    // use dXsdXp: s = Sj,nij; p = P,Ni
+    USI j1;
+    if (NP == 1) {
+        // vfp = vfp; vfi = vji
+        j1 = phaseLabel[0];
+        for (USI i = 0; i < NC; i++) {
+            vfi[i] = vji[j1][i];
+        }
+    }
+    else {
+        const USI ncol = numCom + 1;
+        const OCP_DBL* nijPN = &dXsdXp[numPhase * ncol];
+        for (USI j = 0; j < NP; j++) {
+            for (USI i = 0; i < NC; i++) {
+                vfp += vji[j][i] * nijPN[0];
+                nijPN++;
+                for (USI m = 0; m < NC; m++) {
+                    vfi[m] += vji[j][i] * nijPN[m];
+                }
+                nijPN += numCom;
+            }
+            // don't skip water, no water in dXsdXp here.
+        }
+    }
+}
+
 
 USI MixtureComp::CubicRoot(const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c,
                            const bool& NTflag) const

@@ -405,11 +405,11 @@ public:
     void CalMuPXLBC_partial();
 
     void CalRhoPNX_full();
-    void CalXiPN_pfull();
-    void CalRhoPN_pfull();
-    void CalMuPN_pfull();
-    void CalMuPNLBC_pfull();
-    void CalXiRhoMuPN_pfull();
+    void CalXiPN_pfullx();
+    void CalRhoPN_pfullx();
+    void CalMuPN_pfullx();
+    void CalMuPNLBC_pfullx();
+    void CalXiRhoMuPN_pfullx();
 
 
     void CalXiPNX_full01();
@@ -427,6 +427,10 @@ public:
     void AssembleMatVfiVfp_full02();
     void AssembleRhsVfiVfp_full02();
     void CaldXsdXpAPI02();
+
+    void CaldXsdXpAPI03();
+    void CaldXsdXp03();
+    void CalVfiVfp_full03();
 
 private:
     // Phase properties and auxiliary variables
