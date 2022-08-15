@@ -323,7 +323,7 @@ public:
 	void UpdateXRR(); ///< Update X according to RR
 	void SplitNR();
 	void CalResSP();
-	void CalFugNAll();
+	void CalFugNAll(const bool& Znflag = true);
 	void PrintFugN();
 	void AssembleJmatSP();
     /// Calculate d ln phi[i][j] / d n[k][j]
@@ -391,26 +391,16 @@ public:
     void CalViscoLBC();
     void CalViscoHZYT();
     void CalFugXAll();
-    void CalFugPAll();
+    void CalFugPAll(const bool& Zpflag = true);
 
-    void CalVjpVfpVfn_partial();
-    void CalXiPn_partial();
-    void CalRhoPn_partial();
-    void CalMuPn_partial();
-    void CalMuPnLBC_partial();
 
     void CalXiPNX_partial();
     void CalRhoPX_partial();
     void CalMuPX_partial();
     void CalMuPXLBC_partial();
-
-    void CalRhoPNX_full();
-    void CalXiPN_pfullx();
-    void CalRhoPN_pfullx();
-    void CalMuPN_pfullx();
-    void CalMuPNLBC_pfullx();
     void CalXiRhoMuPN_pfullx();
 
+    void CalRhoPNX_full();
 
     void CalXiPNX_full01();
     void CalRhoPNX_full01();  
@@ -428,9 +418,19 @@ public:
     void AssembleRhsVfiVfp_full02();
     void CaldXsdXpAPI02();
 
+    void CalVjpVfpVfn_partial();
+    void CalXiPn_partial();
+    void CalRhoPn_partial();
+    void CalMuPn_partial();
+    void CalMuPnLBC_partial();
+    void CalXiRhoMuPN_pfulln();
+
     void CaldXsdXpAPI03();
     void CaldXsdXp03();
     void CalVfiVfp_full03();
+
+    void CalKeyDerx();
+    void CalKeyDern();
 
 private:
     // Phase properties and auxiliary variables

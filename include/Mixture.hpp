@@ -40,8 +40,9 @@ public:
         Ni.resize(numCom);
         phaseExist.resize(numPhase);
         v.resize(numPhase);
-        S.resize(numPhase);
+        S.resize(numPhase);      
         xi.resize(numPhase);
+        nj.resize(numPhase);
         xij.resize(numPhase * numCom);
         rho.resize(numPhase);
         mu.resize(numPhase);
@@ -62,6 +63,9 @@ public:
         xix.resize(numPhase * numCom);
         mux.resize(numPhase * numCom);
         dXsdXp.resize((numCom + 1) * (numPhase + numPhase * numCom));
+        // water not in hydrocarbon, hydrocarbon not in water
+        keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
+        
     };
     virtual void SetPVTW(){};
     /// return type of mixture.
@@ -142,6 +146,7 @@ protected:
     vector<OCP_DBL> xi;         ///< molar density of phase: numPhase
     vector<OCP_DBL> xij; ///< Nij / Nj: numPhase*numCom, Nij is the moles of component i
                          ///< in phase j, Nj is the moles of phase j.
+    vector<OCP_DBL> nj;  ///< mole number of phase j
     vector<OCP_DBL> mu;  ///< viscosity of phase: numPhase
     vector<OCP_DBL> v;   ///< volume of phase: numPhase;
 
@@ -169,7 +174,9 @@ protected:
     vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
 
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
-
+    
+    
+    vector<OCP_DBL> keyDer; ///< d (xij*xi/mu) / dP or dNk
 };
 
 #endif /* end if __MIXTURE_HEADER__ */
