@@ -35,6 +35,7 @@ int main(int argc, const char* argv[])
         return -1;
     }
 
+
     // Step 0. Print simulator version information.
     OpenCAEPoro simulator;
     simulator.PrintVersion();

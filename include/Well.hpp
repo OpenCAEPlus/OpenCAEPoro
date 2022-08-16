@@ -253,6 +253,18 @@ public:
     void ShowRes(const OCP_USI& wId, const vector<OCP_DBL>& res, const Bulk& myBulk) const;
     
     /////////////////////////////////////////////////////////////////////
+    // FIM(new)
+    /////////////////////////////////////////////////////////////////////
+
+    /// Assemble matrix for FIM, parts related to Injection well are included.
+    void AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
+    /// Assemble matrix for FIM, parts related to Production well are included.
+    void AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
+
+
+    /////////////////////////////////////////////////////////////////////
     // AIMt, AIMs
     /////////////////////////////////////////////////////////////////////
 

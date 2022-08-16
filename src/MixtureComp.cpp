@@ -340,14 +340,14 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         cout << endl << endl;
 
 
-        //cout << "dXsdXp" << endl;
-        //for (USI i = 0; i < numPhase + NP*numCom; i++) {
-        //    for (USI j = 0; j < numCom + 1; j++) {
-        //        cout << dXsdXp[i * (numCom + 1) + j] << "   ";
-        //    }
-        //    cout << endl;
-        //}
-        //cout << endl;
+        cout << "dXsdXp" << endl;
+        for (USI i = 0; i < numPhase + numPhase *numCom; i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << dXsdXp[i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
 
         xiN = tmpxiN;
         for (USI j = 0; j < numPhase - 1; j++) {
@@ -416,7 +416,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         CalXiPn_partial();
         CalRhoPn_partial();
         CalMuPn_partial();
-        CalXiRhoMuPN_pfulln();
+        CalXiRhoMuPN_pfullxn(false);
         
         CalVfiVfp_full03();
         cout << vfp << "   ";
@@ -425,14 +425,14 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         }
         cout << endl << endl;
 
-        //cout << "dXsdXp" << endl;
-        //for (USI i = 0; i < NP + 1 + NP * NC; i++) {
-        //    for (USI j = 0; j < numCom + 1; j++) {
-        //        cout << dXsdXp[i * (numCom + 1) + j] << "   ";
-        //    }
-        //    cout << endl;
-        //}
-        //cout << endl;
+        cout << "dXsdXp" << endl;
+        for (USI i = 0; i < NP + 1 + NP * NC; i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << dXsdXp[i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
        
         for (USI j = 0; j < NP; j++) {
             USI j1 = phaseLabel[j];
@@ -455,15 +455,15 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         cout << endl;
 
 
-        cout << "KeyDern" << endl;
-        CalKeyDern();
-        for (USI i = 0; i < NP * NC + 1; i++) {
-            for (USI j = 0; j < numCom + 1; j++) {
-                cout << keyDer[i * (numCom + 1) + j] << "   ";
-            }
-            cout << endl;
-        }
-        cout << endl;
+        //cout << "KeyDern" << endl;
+        //CalKeyDern();
+        //for (USI i = 0; i < NP * NC + 1; i++) {
+        //    for (USI j = 0; j < numCom + 1; j++) {
+        //        cout << keyDer[i * (numCom + 1) + j] << "   ";
+        //    }
+        //    cout << endl;
+        //}
+        //cout << endl;
 
         vf -= v[Wpid];
     }
@@ -501,14 +501,15 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     vji[numPhase - 1][numCom - 1] = vfi[Wcid];
     vjp[numPhase - 1] = vwp;
 
-    CaldXsdXpAPI02();
+    
 
     if (NP == 2 && false) {
 
+        CaldXsdXpAPI02p();
         CalXiPNX_partial();
         CalRhoPX_partial();
         CalMuPX_partial();
-        CalXiRhoMuPN_pfullx();
+        CalXiRhoMuPN_pfullxn();
         cout << endl << "02" << endl;
 
         cout << vfp << "   ";
@@ -517,13 +518,13 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         }
         cout << endl << endl;
 
-        //for (USI i = 0; i < numPhase + numPhase * numCom; i++) {
-        //    for (USI j = 0; j < numCom + 1; j++) {
-        //        cout << dXsdXp[i * (numCom + 1) + j] << "   ";
-        //    }
-        //    cout << endl;
-        //}
-        //cout << endl;
+        for (USI i = 0; i < numPhase + numPhase * numCom; i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << dXsdXp[i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
 
         for (USI j = 0; j < NP; j++) {
             USI j1 = phaseLabel[j];
@@ -545,17 +546,18 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         }
         cout << endl;
 
-        cout << "KeyDerx" << endl;
-        CalKeyDerx();
-        for (USI i = 0; i < NP * NC + 1; i++) {
-            for (USI j = 0; j < numCom + 1; j++) {
-                cout << keyDer[i * (numCom + 1) + j] << "   ";
-            }
-            cout << endl;
-        }
-        cout << endl;
+        //cout << "KeyDerx" << endl;
+        //CalKeyDerx();
+        //for (USI i = 0; i < NP * NC + 1; i++) {
+        //    for (USI j = 0; j < numCom + 1; j++) {
+        //        cout << keyDer[i * (numCom + 1) + j] << "   ";
+        //    }
+        //    cout << endl;
+        //}
+        //cout << endl;
     }
 
+    CaldXsdXpAPI02();
 
     CalXiPNX_partial();
     CalRhoPX_partial();
@@ -3331,14 +3333,14 @@ void MixtureComp::CalXiRhoMuPN_pfullx()
     }
 }
 
-void MixtureComp::CalXiRhoMuPN_pfulln()
+void MixtureComp::CalXiRhoMuPN_pfullxn(const bool& xflag)
 {
     // Using dXsdXp
-    // s: S,n; p: P,N  Call CaldXsdXpAPI02 before
+    // s: S,n; p: P,N  Call CaldXsdXpAPI03, CaldXsdXpAPI02p before
     // CalXiPn_partial(); CalRhoPn_partial(); CalMuPn_partial() have been called
 
 
-    if (NP == 1) {
+    if (NP == 1 && !xflag) {
         const USI j1 = phaseLabel[0];
         const USI bId = j1 * numCom;
 
@@ -3353,7 +3355,7 @@ void MixtureComp::CalXiRhoMuPN_pfulln()
         const USI ncol = numCom + 1;
         const OCP_DBL* xijPN = &dXsdXp[(NP + 1) * ncol];
 
-        for (USI j = 0; j < numPhase-1; j++) {
+        for (USI j = 0; j < numPhase - 1; j++) {
 
             if (!phaseExist[j]) // skip
                 continue;
@@ -4007,6 +4009,116 @@ void MixtureComp::CaldXsdXpAPI02()
                 njDerSum += dnkjdNP[i];
             bId1 = bId + j0 * numCom * ncol + m + 1;
             bId2 = bId + j1 * numCom * ncol + m + 1;
+            for (USI i = 0; i < NC; i++) {
+                bId1[0] = (dnkjdNP[i] * nu[0] - njDerSum * Nh * n[0][i]) / (nu[0] * nu[0]);
+                bId2[0] = ((delta(i, m) - dnkjdNP[i]) * nu[1] - (1 - njDerSum) * Nh * n[1][i]) / (nu[1] * nu[1]);
+                bId1 += ncol;
+                bId2 += ncol;
+            }
+            dnkjdNP += NC;
+        }
+    }
+}
+
+
+void MixtureComp::CaldXsdXpAPI02p()
+{
+    // Attention!
+    // NP = 1 or NP = 2
+
+    // water not in oil or gas; hydroncarbon not in water
+    // inexist phase will bot be stored
+    // only hydrocarbon phases, hydrocarbon components, water phase will be stored
+    
+    // dS / dP
+    // S = Sj, xij
+    // P = P, Ni
+    // water is included
+    fill(dXsdXp.begin(), dXsdXp.end(), 0);
+    USI ncol = numCom + 1;
+
+    OCP_DBL vf2 = vf * vf;
+    OCP_DBL vwp = vjp[numPhase - 1];
+    OCP_DBL vw = v[numPhase - 1];
+
+    if (NP == 1) {
+        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon 
+        const USI j1 = phaseLabel[0];
+        OCP_DBL* bId = &dXsdXp[0];
+        // dS / dP
+        bId[0] = ((vfp - vwp) * vf - vfp * v[j1]) / vf2;
+        bId++;
+        // dSh / dNm
+        for (USI m = 0; m < NC; m++) {
+            bId[m] = vfi[m] * vw / vf2;
+        }
+        bId += NC;
+        // dSh / dNw
+        bId[0] = -vfi[numCom - 1] * v[j1] / vf2;
+        bId++;
+        // dSw / dP, dNm
+        for (USI m = 0; m < ncol; m++) {
+            bId[m] = -dXsdXp[m];
+        }
+        bId += ncol + 1;
+        // dxij / dNm
+        for (USI i = 0; i < NC; i++) {
+            for (USI m = 0; m < NC; m++) {
+                bId[m] = (delta(i, m) * Nh - Ni[i]) / (Nh * Nh);
+            }
+            bId += ncol;
+        }
+    }
+    else {
+        // NP = 2   
+        // dSj / dP, dSj / dNm
+        OCP_DBL* bId;
+        for (USI j = 0; j < 2; j++) {
+            const USI j1 = phaseLabel[j];
+            bId = &dXsdXp[j1 * ncol];
+            // dSj / dP
+            bId[0] = (vjp[j1] * vf - vfp * v[j1]) / vf2;
+            bId++;
+            // dSj / dNm
+            for (USI m = 0; m < numCom; m++) {
+                bId[m] = (vji[j1][m] * vf - vfi[m] * v[j1]) / vf2;
+            }
+        }
+        // dSw / dP, dSw / dNm
+        bId = &dXsdXp[(numPhase - 1) * ncol];
+        // dSw / dP
+        bId[0] = (vwp * vf - vfp * vw) / vf2;
+        bId++;
+        // dSw / dNm
+        for (USI m = 0; m < numCom; m++) {
+            bId[m] = (vji[(numPhase - 1)][m] * vf - vfi[m] * vw) / vf2;
+        }
+        bId += numCom;
+
+        // dxij / dP, dxij / dNm      
+        const USI j0 = phaseLabel[0];
+        const USI j1 = phaseLabel[1];
+        const OCP_DBL* dnkjdNP = &rhsDer[0];
+        OCP_DBL* bId1 = bId + j0 * NC * ncol;
+        OCP_DBL* bId2 = bId + j1 * NC * ncol;
+        OCP_DBL njDerSum = 0;
+        // dxij / dP
+        for (USI i = 0; i < NC; i++)
+            njDerSum += dnkjdNP[i];
+        for (USI i = 0; i < NC; i++) {
+            bId1[0] = (dnkjdNP[i] * nu[0] - njDerSum * Nh * n[0][i]) / (nu[0] * nu[0]);
+            bId2[0] = (-dnkjdNP[i] * nu[1] + njDerSum * Nh * n[1][i]) / (nu[1] * nu[1]);
+            bId1 += ncol;
+            bId2 += ncol;
+        }
+        dnkjdNP += NC;
+        // dxij / dNm
+        for (USI m = 0; m < NC; m++) {
+            njDerSum = 0;
+            for (USI i = 0; i < NC; i++)
+                njDerSum += dnkjdNP[i];
+            bId1 = bId + j0 * NC * ncol + m + 1;
+            bId2 = bId + j1 * NC * ncol + m + 1;
             for (USI i = 0; i < NC; i++) {
                 bId1[0] = (dnkjdNP[i] * nu[0] - njDerSum * Nh * n[0][i]) / (nu[0] * nu[0]);
                 bId2[0] = ((delta(i, m) - dnkjdNP[i]) * nu[1] - (1 - njDerSum) * Nh * n[1][i]) / (nu[1] * nu[1]);

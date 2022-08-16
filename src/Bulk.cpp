@@ -1708,7 +1708,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 
     // test
-    phaseNum[n] = nptmp - 1;
+    phaseNum[n] = nptmp - 1; // So water must exist!!!
     // test
 
     if (comps)

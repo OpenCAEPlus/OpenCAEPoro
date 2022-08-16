@@ -417,13 +417,14 @@ public:
     void AssembleMatVfiVfp_full02();
     void AssembleRhsVfiVfp_full02();
     void CaldXsdXpAPI02();
+    void CaldXsdXpAPI02p();
 
     void CalVjpVfpVfn_partial();
     void CalXiPn_partial();
     void CalRhoPn_partial();
     void CalMuPn_partial();
     void CalMuPnLBC_partial();
-    void CalXiRhoMuPN_pfulln();
+    void CalXiRhoMuPN_pfullxn(const bool& xflag = true);
 
     void CaldXsdXpAPI03();
     void CaldXsdXp03();
