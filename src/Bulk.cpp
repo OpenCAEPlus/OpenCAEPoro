@@ -1661,9 +1661,12 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     OCP_USI bIdp = n * numPhase;
     USI pvtnum = PVTNUM[n];
     USI nptmp = 0;
+    USI len = 0;
     for (USI j = 0; j < numPhase; j++)
     {
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
+        pEnumCom[bIdp + j] = flashCal[pvtnum]->pEnumCom[j];
+        len += pEnumCom[bIdp + j];
         // Important! Saturation must be passed no matter if the phase exists. This is
         // because it will be used to calculate relative permeability and capillary
         // pressure at each time step. Make sure that all saturations are updated at
@@ -1706,10 +1709,11 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     //dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
     //                 flashCal[pvtnum]->dXsdXp.end());
     
-    
+    len += nptmp;
+    len *= (numCom + 1);
     
 #ifdef OCP_NEW_FIM
-    const USI len = (nptmp + (nptmp - 1) * (numCom - 1)) * (numCom + 1);
+    //const USI len = (nptmp + (nptmp - 1) * (numCom - 1)) * (numCom + 1);
     dSdPindex[n + 1] = dSdPindex[n] + len;
     Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
 #else
@@ -2447,6 +2451,7 @@ void Bulk::AllocateAuxFIM()
     lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
     dSec_dPri.resize(numBulk * lendSdP);
     dSdPindex.resize(numBulk + 1, 0);
+    pEnumCom.resize(numBulk * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2476,6 +2481,7 @@ void Bulk::AllocateAuxFIM()
     lrhox.resize(numBulk * numCom * numPhase);
     ldSec_dPri.resize(numBulk * lendSdP);
     ldSdPindex.resize(numBulk + 1, 0);
+    lpEnumCom.resize(numBulk * numPhase);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2522,29 +2528,28 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
                 dtmp.data());
         newFIM = false;
 #endif // OCP_NEW_FIM
-
         
-        USI jx = 0;
-        for (USI j = 0; j < numPhase; j++)
-        {
-            
-            if (!phaseExist[n * numPhase + j] && newFIM) {
-                continue;
-            }
-                       
-            choptmp = 1;
-            if (fabs(dtmp[jx]) > dSmaxlim)
-            {
-                choptmp = dSmaxlim / fabs(dtmp[jx]);
-            }
-            else if (S[n * numPhase + j] + dtmp[jx] < 0.0)
-            {
-                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[jx]);
-            }           
-            chopmin = min(chopmin, choptmp);
-            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[jx]));
-            jx++;
-        }
+        //USI jx = 0;
+        //for (USI j = 0; j < numPhase; j++)
+        //{
+        //    
+        //    if (!phaseExist[n * numPhase + j] && newFIM) {
+        //        continue;
+        //    }
+        //               
+        //    choptmp = 1;
+        //    if (fabs(dtmp[jx]) > dSmaxlim)
+        //    {
+        //        choptmp = dSmaxlim / fabs(dtmp[jx]);
+        //    }
+        //    else if (S[n * numPhase + j] + dtmp[jx] < 0.0)
+        //    {
+        //        choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[jx]);
+        //    }           
+        //    chopmin = min(chopmin, choptmp);
+        //    NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[jx]));
+        //    jx++;
+        //}
 
         //cout << "chopS" << scientific << setprecision(12) << setw(20) << chopmin
         //    << setw(15) << n << endl;
@@ -2709,6 +2714,7 @@ void Bulk::ResetFIM()
     rhox = lrhox;
     dSec_dPri = ldSec_dPri;
     dSdPindex = ldSdPindex;
+    pEnumCom = lpEnumCom;
     dKr_dS = ldKr_dS;
     dPcj_dS = ldPcj_dS;
 }
@@ -2748,6 +2754,7 @@ void Bulk::UpdateLastStepFIM()
     lrhox = rhox;
     ldSec_dPri = dSec_dPri;
     ldSdPindex = dSdPindex;
+    lpEnumCom = pEnumCom;
     ldKr_dS = dKr_dS;
     ldPcj_dS = dPcj_dS;
 }

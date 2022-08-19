@@ -410,7 +410,9 @@ private:
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
     USI             lendSdP;   ///< length of dSec_dPri in a bulk.
     vector<OCP_USI> dSdPindex; ///< store the starting position of dSec_dPri of each bulk.
-    // Size: (numPhase + numPhase * numCom) * (numCom + 1) * numBulk
+    // if phase is inexisting or num of components <= 1, set it to zero
+    // it is an auxiliary variable of dSec_dPri
+    vector<USI>     pEnumCom;  ///< Effective number of components in each phase in each bulk
 
     // vars at last step
     vector<OCP_DBL> lmuP;        ///< last muP
@@ -422,7 +424,8 @@ private:
     vector<OCP_DBL> ldPcj_dS;    ///< last Pcj_dS
     vector<OCP_DBL> ldKr_dS;     ///< last dKr_dS
     vector<OCP_DBL> ldSec_dPri;  ///< last dSec_dPri
-    vector<OCP_USI> ldSdPindex;   ///< last SdPindex
+    vector<OCP_USI> ldSdPindex;  ///< last SdPindex
+    vector<USI>     lpEnumCom;   ///< last pEnumCom
 
     vector<OCP_DBL> dNiNR;       ///< Ni change between NR steps
     vector<OCP_DBL> dPNR;        ///< dP change between NR steps

@@ -600,6 +600,12 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     // Correct Sj
     CalSaturation();
 
+    // Calculate pEnumCom
+    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
+    if (phaseExist[0]) pEnumCom[0] = NC;
+    if (phaseExist[1]) pEnumCom[1] = NC;
+ 
+
     //if (NP == 2 && S[0] > 0.1) {
     //    cout << scientific << setprecision(12);
     //    for (USI i = 0; i < NC; i++)

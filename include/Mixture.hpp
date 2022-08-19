@@ -63,6 +63,7 @@ public:
         xix.resize(numPhase * numCom);
         mux.resize(numPhase * numCom);
         dXsdXp.resize((numCom + 1) * (numPhase + numPhase * numCom));
+        pEnumCom.resize(numPhase);
         // water not in hydrocarbon, hydrocarbon not in water
         keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
         
@@ -174,7 +175,7 @@ protected:
     vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
 
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
-    
+    vector<USI>     pEnumCom; ///< see pEnumCom in bulk
     
     vector<OCP_DBL> keyDer; ///< d (xij*xi/mu) / dP or dNk
 };
