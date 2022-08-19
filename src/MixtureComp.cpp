@@ -469,8 +469,6 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     }
 
 
-
-
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
     CalVfiVfp_full02();
@@ -557,8 +555,42 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         //cout << endl;
     }
 
-    CaldXsdXpAPI02();
+    
 
+#ifdef OCP_NEW_FIM
+    CaldXsdXpAPI02p();
+#else
+    CaldXsdXpAPI02();
+#endif // OCP_NEW_FIM
+
+    if (NP == 2 && false) {
+        // CaldXsdXpAPI02p();
+        cout << "dXsdXp01" << endl;
+        cout << scientific << setprecision(6);
+        for (USI i = 0; i < NP + 1 + NP * NC; i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << setw(13) << dXsdXp[i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+        cout << endl;
+    }
+
+
+    if (NP == 1 && false) {
+        cout << "dXsdXp02" << endl;
+        cout << scientific << setprecision(6);
+        for (USI i = 0; i < numPhase + numPhase * numCom; i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << setw(13) << dXsdXp[i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+
+    
     CalXiPNX_partial();
     CalRhoPX_partial();
     CalMuPX_partial();
@@ -567,6 +599,15 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
     // Correct Sj
     CalSaturation();
+
+    //if (NP == 2 && S[0] > 0.1) {
+    //    cout << scientific << setprecision(12);
+    //    for (USI i = 0; i < NC; i++)
+    //        cout << zi[i] << endl;
+    //    cout << S[0] << endl;
+    //    cout << S[1] << endl;
+    //}
+
 }
 
 void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
@@ -4167,12 +4208,12 @@ void MixtureComp::CaldXsdXpAPI03()
             bId[m] = -dXsdXp[m];
         }
 
-        // dnij / dNm, don't store
-        //bId = &dXsdXp[2 * ncol + 1];
-        //for (USI i = 0; i < NC; i++) {
-        //    bId[i] = 1;
-        //    bId += ncol;
-        //}
+        // dnij / dNm
+        bId = &dXsdXp[2 * ncol + 1];
+        for (USI i = 0; i < NC; i++) {
+            bId[i] = 1;
+            bId += ncol;
+        }
     }
     else {
         CalFugNAll(false);

@@ -361,8 +361,19 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
+
+#ifdef OCP_NEW_FIM
+    //conn.AssembleMat_FIM(myLS, bulk, dt);
+    //allWells.AssemblaMatFIM(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new(myLS, bulk, dt);
+    allWells.AssemblaMatFIM_new(myLS, bulk, dt);
+#else
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);
+    //conn.AssembleMat_FIM_new(myLS, bulk, dt);
+    //allWells.AssemblaMatFIM_new(myLS, bulk, dt);
+#endif // OCP_NEW_FIM
+
 }
 
 void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,

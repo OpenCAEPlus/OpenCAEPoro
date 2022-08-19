@@ -506,6 +506,10 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
 
+
+    vector<int> flagB(3, 0);
+    vector<int> flagE(3, 0);
+
     // Becareful when first bulk has no neighbors!
     OCP_USI lastbId = iteratorConn[0].EId;
     for (OCP_USI c = 0; c < numConn; c++) {
@@ -517,6 +521,13 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);        
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+
+
+        for (USI j = 0; j < np; j++) {
+            flagB[j] = myBulk.phaseExist[bId * np + j];
+            flagE[j] = myBulk.phaseExist[eId * np + j];
+        }
+
 
         for (USI j = 0; j < np; j++) {
             uId      = upblock[c * np + j];
@@ -616,10 +627,43 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
             lastbId = bId;
         }
 
+        if (false) {
+            cout << "dFdXpB" << "   " << myBulk.phaseExist[bId * np] << "   "
+                << myBulk.phaseExist[bId * np + 1] << "   "
+                << myBulk.phaseExist[bId * np + 2] << endl;
+            cout << scientific << setprecision(2);
+            for (USI i = 0; i < ncol2; i++) {
+                cout << setw(3) << i;
+                for (USI j = 0; j < ncol; j++) {
+                    cout << setw(10) << dFdXsB[j * ncol2 + i] << "  ";
+                }
+                cout << endl;
+            }
+            cout << endl;
+
+            cout << "dXsdXp" << endl;
+            for (USI i = 0; i < ncol2; i++) {
+                cout << setw(3) << i;
+                for (USI j = 0; j < ncol; j++) {
+                    cout << setw(10) << myBulk.dSec_dPri[bId * bsize2 + i * ncol + j] << "  ";
+                }
+                cout << endl;
+            }
+            cout << endl;
+        }
+
+        
+
         // Assemble
+
         bmat = dFdXpB;
+        //myDABpCp1(ncol, ncol2, ncol, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], bmat.data(), &flagB[0], nc - 1);
+        //myDABpCp(ncol, ncol2, ncol, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], bmat.data(), &flagB[0], nc - 1);
+        //myDABpC(ncol, ncol2, ncol, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], bmat.data());
         DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
                 bmat.data());
+
+
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Add
@@ -640,6 +684,9 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
 
         // End
         bmat = dFdXpE;
+        //myDABpCp1(ncol, ncol2, ncol, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], bmat.data(), &flagE[0], nc - 1);
+        //myDABpCp(ncol, ncol2, ncol, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], bmat.data(), &flagE[0], nc - 1);
+        //myDABpC(ncol, ncol2, ncol, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], bmat.data());
         DaABpbC(ncol, ncol, ncol2, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
                 bmat.data());
         Dscalar(bsize, dt, bmat.data());
@@ -852,6 +899,9 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
 
+    vector<int> flagB(3, 0);
+    vector<int> flagE(3, 0);
+
     // Becareful when first bulk has no neighbors!
     OCP_USI lastbId = iteratorConn[0].EId;
     for (OCP_USI c = 0; c < numConn; c++) {
@@ -865,21 +915,31 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
         const USI npB = myBulk.phaseNum[bId] + 1;
-        const USI ncolB = npB + (npB - 1) * nch;
+        const USI ncolB = npB + (npB - 1) * nch;    
         const USI npE = myBulk.phaseNum[eId] + 1;
         const USI ncolE = npE + (npE - 1) * nch;
         
+        
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[bId * np + j];
-            phaseExistE[j] = myBulk.phaseExist[bId * np + j];
+            phaseExistE[j] = myBulk.phaseExist[eId * np + j]; 
         }        
+
+        for (USI j = 0; j < np; j++) {
+            flagB[j] = myBulk.phaseExist[bId * np + j];
+            flagE[j] = myBulk.phaseExist[eId * np + j];
+        }
         
-        USI jx = 0;
+        USI jxB = 0;  USI jxE = 0;
         for (USI j = 0; j < np; j++) {
             uId = upblock[c * np + j];
 
-            phaseExistU = uId == bId ? phaseExistB[j] : phaseExistE[j];           
-            if (!phaseExistU) continue;
+            phaseExistU = (uId == bId ? phaseExistB[j] : phaseExistE[j]);
+            if (!phaseExistU) {
+                if (phaseExistB[j])  jxB++;
+                if (phaseExistE[j])  jxE++;
+                continue;
+            }
 
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
@@ -896,7 +956,10 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
             rhoP = myBulk.rhoP[uId_np_j];
             transJ = Akd * kr / mu;
 
-            for (USI i = 0; i < nc; i++) {
+
+            USI ib = 0; USI ie = nch;
+            if (j == np - 1) { ib = nc - 1; ie = nc; } // water phase 
+            for (USI i = ib; i < ie; i++) {
                 xij = myBulk.xij[uId_np_j * nc + i];
                 transIJ = xij * xi * transJ;
 
@@ -913,45 +976,50 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                     dFdXpE[(i + 1) * ncol] += tmp;
                 }
 
+
+                /*if (myBulk.phaseNum[bId] == 2 && bId == uId && i == 9 && jx == 2)
+                    cout << "get it" << endl;*/
+
+
                 // Saturation -- Second var
-                USI j1B = 0; USI j1E = 0;
+                USI j1SB = 0; USI j1SE = 0;
                 if (bId == uId) {
                     for (USI j1 = 0; j1 < np; j1++) {
                         if (phaseExistB[j1]) {
-                            dFdXsB[(i + 1) * ncolB + j1B] +=
+                            dFdXsB[(i + 1) * ncolB + j1SB] +=
                                 transIJ * myBulk.dPcj_dS[bId_np_j * np + j1];
                             tmp = Akd * xij * xi / mu *
                                 myBulk.dKr_dS[uId_np_j * np + j1] * dP;
-                            dFdXsB[(i + 1) * ncolB + j1B] += tmp;
-                            j1B++;
+                            dFdXsB[(i + 1) * ncolB + j1SB] += tmp;
+                            j1SB++;
                         }
                         if (phaseExistE[j1]) {
-                            dFdXsE[(i + 1) * ncolE + j1E] -=
+                            dFdXsE[(i + 1) * ncolE + j1SE] -=
                                 transIJ * myBulk.dPcj_dS[eId_np_j * np + j1];
-                            j1E++;
+                            j1SE++;
                         }
                     }
                 }
                 else {
                     for (USI j1 = 0; j1 < np; j1++) {
                         if (phaseExistB[j1]) {
-                            dFdXsB[(i + 1) * ncolB + j1B] +=
+                            dFdXsB[(i + 1) * ncolB + j1SB] +=
                                 transIJ * myBulk.dPcj_dS[bId_np_j * np + j1];
-                            j1B++;
+                            j1SB++;
                         }
                         if (phaseExistE[j1]) {
-                            dFdXsE[(i + 1) * ncolE + j1E] -=
+                            dFdXsE[(i + 1) * ncolE + j1SE] -=
                                 transIJ * myBulk.dPcj_dS[eId_np_j * np + j1];
                             tmp = Akd * xij * xi / mu *
                                 myBulk.dKr_dS[uId_np_j * np + j1] * dP;
-                            dFdXsE[(i + 1) * ncolE + j1E] += tmp;
-                            j1E++;
-                        }                       
+                            dFdXsE[(i + 1) * ncolE + j1SE] += tmp;
+                            j1SE++;
+                        }
                     }
                 }
 
-                if (j == np - 1) break;   // skip water phase
-
+                if (j == np - 1) continue;   // skip water phase
+                               
                 // Cij -- Third var
                 if (bId == uId) {
                     for (USI k = 0; k < nch; k++) {
@@ -961,9 +1029,10 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                         tmp = -transIJ * rhox * dGamma;
                         tmp += xij * transJ * xix * dP;
                         tmp += -transIJ * mux / mu * dP;
-                        dFdXsB[(i + 1) * ncolB + npB + jx * nch + k] += tmp;
+                        dFdXsB[(i + 1) * ncolB + npB + jxB * nch + k] += tmp;
                     }
-                    dFdXsB[(i + 1) * ncolB + npB + jx * nch + i] += xi * transJ * dP;
+                    // WARNING !!!
+                    dFdXsB[(i + 1) * ncolB + npB + jxB * nch + i] += xi * transJ * dP;                   
                 }
                 else {
                     for (USI k = 0; k < nch; k++) {
@@ -973,12 +1042,14 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                         tmp = -transIJ * rhox * dGamma;
                         tmp += xij * transJ * xix * dP;
                         tmp += -transIJ * mux / mu * dP;
-                        dFdXsE[(i + 1) * ncolE + npE + jx * nch + k] += tmp;
+                        dFdXsE[(i + 1) * ncolE + npE + jxE * nch + k] += tmp;                      
                     }
-                    dFdXsE[(i + 1) * ncolE + npE + jx * nch + i] += xi * transJ * dP;
+                    // WARNING !!!
+                    dFdXsE[(i + 1) * ncolE + npE + jxE * nch + i] += xi * transJ * dP;
                 }
             }
-            jx++;
+            if (phaseExistB[j])  jxB++;
+            if (phaseExistE[j])  jxE++;
         }
 
         USI diagptr = myLS.diagPtr[bId];
@@ -995,7 +1066,9 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
 
         // Assemble
         bmat = dFdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
+        //myDABpCp2(ncol, ncolB, ncol, dFdXsB.data(), &myBulk.dSec_dPri[bId*bsize2], bmat.data(), &flagB[0], nc - 1);
+        //myDABpC(ncol, ncolB, ncol, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], 1,
             bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin
@@ -1011,13 +1084,14 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
 #ifdef OCP_NANCHECK
         if (!CheckNan(bmat.size(), &bmat[0]))
         {
-            OCP_ABORT("INF or INF in bmat !");
+            OCP_ABORT("INF or NAN in bmat !");
         }
 #endif
 
         // End
-        bmat = dFdXpE;
-        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
+        bmat = dFdXpE; 
+        //myDABpC(ncol, ncolE, ncol, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], bmat.data());
+        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], 1,
             bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin

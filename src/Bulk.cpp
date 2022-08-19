@@ -1705,11 +1705,37 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     }
     //dSec_dPri.insert(dSec_dPri.end(), flashCal[pvtnum]->dXsdXp.begin(),
     //                 flashCal[pvtnum]->dXsdXp.end());
+    
+    
+    
+#ifdef OCP_NEW_FIM
+    const USI len = (nptmp + (nptmp - 1) * (numCom - 1)) * (numCom + 1);
+    dSdPindex[n + 1] = dSdPindex[n] + len;
+    Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
+#else
     Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
+#endif // OCP_NEW_FIM
 
+
+    if (nptmp == 3 && false) {
+        // CaldXsdXpAPI02p();
+        cout << "dXsdXp02" << endl;
+        cout << scientific << setprecision(6);
+        for (USI i = 0; i < (nptmp + (nptmp - 1) * (numCom - 1)); i++) {
+            for (USI j = 0; j < numCom + 1; j++) {
+                cout << setw(13) << dSec_dPri[dSdPindex[n] + i * (numCom + 1) + j] << "   ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+        cout << endl;
+    }
+    
+
+
+  
     // test
     phaseNum[n] = nptmp - 1; // So water must exist!!!
-    // test
 
     if (comps)
     {
@@ -2420,6 +2446,7 @@ void Bulk::AllocateAuxFIM()
     rhox.resize(numBulk * numCom * numPhase);
     lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
     dSec_dPri.resize(numBulk * lendSdP);
+    dSdPindex.resize(numBulk + 1, 0);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2448,6 +2475,7 @@ void Bulk::AllocateAuxFIM()
     lxix.resize(numBulk * numCom * numPhase);
     lrhox.resize(numBulk * numCom * numPhase);
     ldSec_dPri.resize(numBulk * lendSdP);
+    ldSdPindex.resize(numBulk + 1, 0);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2472,32 +2500,55 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
     vector<OCP_DBL> dtmp(row0, 0);
     OCP_DBL chopmin = 1;
     OCP_DBL choptmp = 0;
-
+     
     for (OCP_USI n = 0; n < numBulk; n++)
     {
+
+        //cout << scientific << setprecision(12) << setw(20) << u[n * col]
+        //    << setw(15) << n << endl;
 
         chopmin = 1;
 
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
+
+        bool newFIM;
+#ifdef OCP_NEW_FIM
+        DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n], u.data() + n * col, 1,
+            dtmp.data());
+        newFIM = true;
+#else
         DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
                 dtmp.data());
+        newFIM = false;
+#endif // OCP_NEW_FIM
 
+        
+        USI jx = 0;
         for (USI j = 0; j < numPhase; j++)
         {
+            
+            if (!phaseExist[n * numPhase + j] && newFIM) {
+                continue;
+            }
+                       
             choptmp = 1;
-            if (fabs(dtmp[j]) > dSmaxlim)
+            if (fabs(dtmp[jx]) > dSmaxlim)
             {
-                choptmp = dSmaxlim / fabs(dtmp[j]);
+                choptmp = dSmaxlim / fabs(dtmp[jx]);
             }
-            else if (S[n * numPhase + j] + dtmp[j] < 0.0)
+            else if (S[n * numPhase + j] + dtmp[jx] < 0.0)
             {
-                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
-            }
-
+                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[jx]);
+            }           
             chopmin = min(chopmin, choptmp);
-            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[j]));
+            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[jx]));
+            jx++;
         }
+
+        //cout << "chopS" << scientific << setprecision(12) << setw(20) << chopmin
+        //    << setw(15) << n << endl;
+
         dP = u[n * col];
         choptmp = dPmaxlim / fabs(dP);
         chopmin = min(chopmin, choptmp);
@@ -2506,6 +2557,14 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
         dPNR[n] = dP;
 
         NRstep[n] = chopmin;
+
+        /*cout << "dN" << scientific << setprecision(12) << setw(20) << u[n * col + 1]
+            << setw(15) << n << endl;*/
+        //cout << "chop" << scientific << setprecision(12) << setw(20) << chopmin
+        //    << setw(15) << n << endl;
+
+
+
         //// Correct chopmin
         // for (USI i = 0; i < numCom; i++) {
         //    if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
@@ -2523,6 +2582,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
             dNiNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;
             Ni[n * numCom + i] += dNiNR[n * numCom + i];
         }
+        
     }
 }
 
@@ -2648,6 +2708,7 @@ void Bulk::ResetFIM()
     xix = lxix;
     rhox = lrhox;
     dSec_dPri = ldSec_dPri;
+    dSdPindex = ldSdPindex;
     dKr_dS = ldKr_dS;
     dPcj_dS = ldPcj_dS;
 }
@@ -2686,6 +2747,7 @@ void Bulk::UpdateLastStepFIM()
     lxix = xix;
     lrhox = rhox;
     ldSec_dPri = dSec_dPri;
+    ldSdPindex = dSdPindex;
     ldKr_dS = dKr_dS;
     ldPcj_dS = dPcj_dS;
 }

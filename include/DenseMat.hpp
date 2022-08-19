@@ -99,6 +99,12 @@ void Daxpy(const int& n, const double& alpha, const double* x, double* y);
 void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
              const double* A, const double* B, const double& beta, double* C);
 
+// test
+void myDABpC(const int& m, const int& n, const int& k, const double* A, const double* B, double* C);
+void myDABpCp(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N);
+void myDABpCp1(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N);
+void myDABpCp2(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N);
+
 /// Computes y = a A x + b y.
 void DaAxpby(const int& m, const int& n, const double& a, const double* A,
              const double* x, const double& b, double* y);

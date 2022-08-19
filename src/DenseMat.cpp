@@ -88,6 +88,88 @@ void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
     dgemm_(&transa, &transb, &n, &m, &k, &alpha, B, &n, A, &k, &beta, C, &n);
 }
 
+
+void myDABpC(const int& m, const int& n, const int& k, const double* A, const double* B, double* C)
+{
+    // C = AB + C
+    // A: m*n  B:n*k  C:m*k
+    // all matrix are row majored matrices
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < k; j++) {
+            for (int m = 0; m < n; m++) {
+                C[i * k + j] += A[i * n + m] * B[m * k + j];
+            }
+        }
+    }
+}
+
+void myDABpCp(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+{
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < k; j++) {
+            for (int p = 0; p < 3; p++) {
+                if (flag[p] != 0)
+                    C[i * k + j] += A[i * n + p] * B[p * k + j];
+            }
+            for (int p = 0; p < 2; p++) {
+                if (flag[p] != 0) {
+                    for (int m = 0; m < N; m++) {
+                        C[i * k + j] += A[i * n + 3 + p * (N + 1) + m] * B[(3 + p * (N + 1) + m) * k + j];
+                    }
+                }
+            }
+        }
+    }
+}
+
+void myDABpCp1(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+{
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < k; j++) {
+            int s = 0;
+            for (int p = 0; p < 3; p++) {
+                if (flag[p] != 0) {
+                    C[i * k + j] += A[i * n + p] * B[s * k + j];
+                    s++;
+                }                   
+            }
+            for (int p = 0; p < 2; p++) {
+                if (flag[p] != 0) {
+                    for (int m = 0; m < N; m++) {
+                        C[i * k + j] += A[i * n + 3 + p * (N + 1) + m] * B[s * k + j];
+                        s++;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void myDABpCp2(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+{
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < k; j++) {
+            int s = 0;
+            for (int p = 0; p < 3; p++) {
+                if (flag[p] != 0) {
+                    C[i * k + j] += A[i * n + s] * B[p * k + j];
+                    s++;
+                }                   
+            }
+            for (int p = 0; p < 2; p++) {
+                if (flag[p] != 0) {
+                    for (int m = 0; m < N; m++) {
+                        C[i * k + j] += A[i * n + s] * B[(3 + p * (N + 1) + m) * k + j];
+                        s++;
+                    }
+                }
+            }
+        }
+    }
+}
+
 void DaAxpby(const int& m, const int& n, const double& a, const double* A,
              const double* x, const double& b, double* y)
 {

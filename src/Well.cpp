@@ -1500,11 +1500,21 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
+    vector<int> flagB(3, 0);
+
+
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI n = perf[p].location;
+        const OCP_USI n = perf[p].location;
         fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
         fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
         fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
+
+
+        for (USI j = 0; j < np; j++) {
+            flagB[j] = myBulk.phaseExist[n * np + j];
+        }
+
+
 
         dP = myBulk.P[n] - BHP - dG[p];
 
@@ -1536,6 +1546,9 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
         }
         // Bulk to Well
         bmat = dQdXpB;
+        //myDABpCp1(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data(), &flagB[0], nc - 1);
+        //myDABpCp(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+        //myDABpC(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data());
         DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1,
                 bmat.data());
         Dscalar(bsize, dt, bmat.data());
@@ -1569,6 +1582,9 @@ void Well::AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
                 // OffDiag
                 bmat = dQdXpB;
+                //myDABpCp1(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data(), &flagB[0], nc - 1);
+                //myDABpCp(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+                //myDABpC(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data());
                 DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
@@ -1640,11 +1656,13 @@ void Well::AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
+    vector<int> flagB(3, 0);
+
     // Set Prod Weight
     if (opt.optMode != BHP_MODE) CalProdWeight(myBulk);
 
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI n = perf[p].location;
+        const OCP_USI n = perf[p].location;
         fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
         fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
         fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
@@ -1658,6 +1676,12 @@ void Well::AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
             mu  = myBulk.mu[n_np_j];
             muP = myBulk.muP[n_np_j];
             xiP = myBulk.xiP[n_np_j];
+
+
+            for (USI j = 0; j < np; j++) {
+                flagB[j] = myBulk.phaseExist[n * np + j];
+            }
+
 
             for (USI i = 0; i < nc; i++) {
                 xij = myBulk.xij[n_np_j * nc + i];
@@ -1684,15 +1708,16 @@ void Well::AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
                     tmp = dP * perf[p].transj[j] * xij *
                           (myBulk.xix[n_np_j * nc + k] -
                            xi / mu * myBulk.mux[n_np_j * nc + k]);
-                    if (k == i) {
-                        tmp += perf[p].transj[j] * xi * dP;
-                    }
                     dQdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
                 }
+                dQdXsB[(i + 1) * ncol2 + np + j * nc + i] += perf[p].transj[j] * xi * dP;
             }
         }
         // Bulk to Well
         bmat = dQdXpB;
+        //myDABpCp1(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data(), &flagB[0], nc - 1);
+        //myDABpCp(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+        //myDABpC(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data());
         DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1,
                 bmat.data());
 
@@ -1727,6 +1752,9 @@ void Well::AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
 
                 // OffDiag
                 bmat = dQdXpB;
+                //myDABpCp1(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data(), &flagB[0], nc - 1);
+                //myDABpCp(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+                //myDABpC(ncol, ncol2, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data());
                 DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
@@ -2086,8 +2114,10 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXsB(bsize2, 0);
     vector<bool>    phaseExistB(np, false);
 
+    vector<int> flagB(3, 0);
+
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI n = perf[p].location;
+        const OCP_USI n = perf[p].location;
         fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
         fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
         fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
@@ -2100,7 +2130,11 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
         }
 
-        USI jx = 0;
+        for (USI j = 0; j < np; j++) {
+            flagB[j] = myBulk.phaseExist[n * np + j];
+        }
+
+        USI jxB = 0;
         for (USI j = 0; j < np; j++) {
             
             if (!phaseExistB[j]) continue;
@@ -2125,19 +2159,21 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
                         j1B++;
                     }
                 }
-                // dQ / dxij
-                if (j == np - 1) break;  // skip water phase
 
+                if (j == np - 1)  continue;  // skip water phase
+                // dQ / dxij               
                 for (USI k = 0; k < nch; k++) {
-                    dQdXsB[(i + 1) * ncolB + npB + jx * nch + k] +=
+                    dQdXsB[(i + 1) * ncolB + npB + jxB * nch + k] +=
                         -transIJ * dP / mu * myBulk.mux[n_np_j * nc + k];
                 }
             }
-            jx++;
+            jxB++;
         }
         // Bulk to Well
         bmat = dQdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1,
+        //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+        //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
             bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Add
@@ -2170,8 +2206,10 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
 
             // OffDiag
             bmat = dQdXpB;
+            //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+            //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
             DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
+                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
@@ -2245,6 +2283,8 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXsB(bsize2, 0);
     vector<bool>    phaseExistB(np, false);
 
+    vector<int> flagB(3, 0);
+
     // Set Prod Weight
     if (opt.optMode != BHP_MODE) CalProdWeight(myBulk);
 
@@ -2260,7 +2300,11 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
         }
 
-        USI jx = 0;
+        for (USI j = 0; j < np; j++) {
+            flagB[j] = myBulk.phaseExist[n * np + j];
+        }
+
+        USI jxB = 0;
         for (USI j = 0; j < np; j++) {
             
             if (!phaseExistB[j]) continue;
@@ -2272,7 +2316,10 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
             muP = myBulk.muP[n_np_j];
             xiP = myBulk.xiP[n_np_j];
 
-            for (USI i = 0; i < nc; i++) {
+
+            USI ib = 0; USI ie = nch;
+            if (j == np - 1) { ib = nc - 1; ie = nc; } // water phase 
+            for (USI i = ib; i < ie; i++) {
                 xij = myBulk.xij[n_np_j * nc + i];
                 // dQ / dP
                 transIJ = perf[p].transj[j] * xi * xij;
@@ -2294,28 +2341,31 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
                         tmp += transIJ * myBulk.dPcj_dS[n_np_j * np + j1];
                         dQdXsB[(i + 1) * ncolB + j1B] += tmp;
                         j1B++;
-                    }                    
+                    }
                 }
 
                 // dQ / dCij
-                if (j == np - 1) break;
+                if (j == np - 1)  continue; // skip water
 
-                for (USI k = 0; k < nc; k++) {
+                for (USI k = 0; k < nch; k++) {
                     tmp = dP * perf[p].transj[j] * xij *
                         (myBulk.xix[n_np_j * nc + k] -
                             xi / mu * myBulk.mux[n_np_j * nc + k]);
-                    if (k == i) {
-                        tmp += perf[p].transj[j] * xi * dP;
-                    }
-                    dQdXsB[(i + 1) * ncolB + npB + jx * nch + k] += tmp;
+                    dQdXsB[(i + 1) * ncolB + npB + jxB * nch + k] += tmp;
+
+                    if (npB + jxB * nch + k >= ncolB)
+                        cout << "get it" << endl;
                 }
+                dQdXsB[(i + 1) * ncolB + npB + jxB * nch + i] += perf[p].transj[j] * xi * dP;;
             }
-            jx++;
+            jxB++;
         }
         // Bulk to Well
         bmat = dQdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], 1,
-            bmat.data());
+        //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+        myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+        /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
+            bmat.data());*/
 
         Dscalar(bsize, dt, bmat.data());
         // Add
@@ -2348,8 +2398,10 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
 
             // OffDiag
             bmat = dQdXpB;
-            DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                &myBulk.dSec_dPri[n * bsize2], 1, bmat.data());
+            //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
+            myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+            /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
+                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());*/
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, prodWeight[i], bmat.data() + (i + 1) * ncol,
