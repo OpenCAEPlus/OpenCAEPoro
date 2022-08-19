@@ -1286,9 +1286,9 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem& myLS, const Bulk& myBulk,
 
         // Assemble
         bmat = dFdXpB;       
-        myDABpC(ncol, ncolB, ncol, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], bmat.data());
-        /*DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], 1,
-            bmat.data());*/
+        //myDABpC(ncol, ncolB, ncol, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[bId]], 1,
+            bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Add
@@ -1309,9 +1309,9 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem& myLS, const Bulk& myBulk,
 
         // End
         bmat = dFdXpE;
-        myDABpC(ncol, ncolE, ncol, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], bmat.data());
-        /*DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], 1,
-            bmat.data());*/
+        //myDABpC(ncol, ncolE, ncol, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], bmat.data());
+        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[eId]], 1,
+            bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Insert

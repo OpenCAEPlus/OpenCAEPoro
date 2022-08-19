@@ -2536,9 +2536,9 @@ void Well::AssembleMatINJ_FIM_new1(const Bulk& myBulk, LinearSystem& myLS,
         // Bulk to Well
         bmat = dQdXpB;
         //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
-        myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
-        /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
-            bmat.data());*/
+        //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
+            bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Add
         USI ptr = myLS.diagPtr[n];
@@ -2571,9 +2571,9 @@ void Well::AssembleMatINJ_FIM_new1(const Bulk& myBulk, LinearSystem& myLS,
             // OffDiag
             bmat = dQdXpB;
             //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
-            myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
-            /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());*/
+            //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+            DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
+                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
@@ -2723,9 +2723,9 @@ void Well::AssembleMatPROD_FIM_new1(const Bulk& myBulk, LinearSystem& myLS,
         // Bulk to Well
         bmat = dQdXpB;
         //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
-        myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
-        /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
-            bmat.data());*/
+        //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1,
+            bmat.data());
 
         Dscalar(bsize, dt, bmat.data());
         // Add
@@ -2759,9 +2759,9 @@ void Well::AssembleMatPROD_FIM_new1(const Bulk& myBulk, LinearSystem& myLS,
             // OffDiag
             bmat = dQdXpB;
             //myDABpCp2(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2], bmat.data(), &flagB[0], nc - 1);
-            myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
-            /*DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());*/
+            //myDABpC(ncol, ncolB, ncol, dQdXsB.data(), &myBulk.dSec_dPri[myBulk.dSdPindex[n]], bmat.data());
+            DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
+                &myBulk.dSec_dPri[myBulk.dSdPindex[n]], 1, bmat.data());
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < nc; i++) {
                 Daxpy(ncol, prodWeight[i], bmat.data() + (i + 1) * ncol,

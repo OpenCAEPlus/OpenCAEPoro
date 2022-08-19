@@ -575,10 +575,10 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         vfi[1] = 1000 * bg;
         vfi[2] = CONV1 * bw;
 
-        // dXsdXp[0] = 0; // dSo / dP
+        dXsdXp[0] = 0; // dSo / dP
         dXsdXp[1] = CONV1 * bo / vf; // dSo / dNo
-        // dXsdXp[2] = 0;   // dSo / dNg
-        // dXsdXp[3] = 0;   // dSo / dNw
+        dXsdXp[2] = 0;   // dSo / dNg
+        dXsdXp[3] = 0;   // dSo / dNw
 
         dXsdXp[1 * 4 + 0] = (1000 * Ni[1] * cbg - S[1] * vfp) / vf;   // dSg / dP
         dXsdXp[1 * 4 + 1] = (-1000 * rs * bg - S[1] * vfi[0]) / vf; // dSg / dNo
@@ -642,9 +642,9 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
 
         dXsdXp[0] = (-CONV1 * Ni[0] * cbosat * bosat - S[0] * vfp) / vf;  // dSo / dP
-        dXsdXp[1] = (CONV1 * bo - CONV1 * dBo_drs * (Ni[1] / Ni[0]) - S[0] * vfi[0]) / vf; // dSg / dNo
-        dXsdXp[2] = (CONV1 * dBo_drs - S[0] * vfi[1]) / vf; // dSg / dNg
-        dXsdXp[3] = -S[0] / vf * vfi[2]; // dSg / dNw
+        dXsdXp[1] = (CONV1 * bo - CONV1 * dBo_drs * (Ni[1] / Ni[0]) - S[0] * vfi[0]) / vf; // dSo / dNo
+        dXsdXp[2] = (CONV1 * dBo_drs - S[0] * vfi[1]) / vf; // dSo / dNg
+        dXsdXp[3] = -S[0] / vf * vfi[2]; // dSo / dNw
 
         dXsdXp[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
         dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo

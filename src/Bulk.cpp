@@ -2529,27 +2529,27 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
         newFIM = false;
 #endif // OCP_NEW_FIM
         
-        //USI jx = 0;
-        //for (USI j = 0; j < numPhase; j++)
-        //{
-        //    
-        //    if (!phaseExist[n * numPhase + j] && newFIM) {
-        //        continue;
-        //    }
-        //               
-        //    choptmp = 1;
-        //    if (fabs(dtmp[jx]) > dSmaxlim)
-        //    {
-        //        choptmp = dSmaxlim / fabs(dtmp[jx]);
-        //    }
-        //    else if (S[n * numPhase + j] + dtmp[jx] < 0.0)
-        //    {
-        //        choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[jx]);
-        //    }           
-        //    chopmin = min(chopmin, choptmp);
-        //    NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[jx]));
-        //    jx++;
-        //}
+        USI jx = 0;
+        for (USI j = 0; j < numPhase; j++)
+        {
+            
+            if (!phaseExist[n * numPhase + j] && newFIM) {
+                continue;
+            }
+                       
+            choptmp = 1;
+            if (fabs(dtmp[jx]) > dSmaxlim)
+            {
+                choptmp = dSmaxlim / fabs(dtmp[jx]);
+            }
+            else if (S[n * numPhase + j] + dtmp[jx] < 0.0)
+            {
+                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[jx]);
+            }           
+            chopmin = min(chopmin, choptmp);
+            NRdSmax = max(NRdSmax, choptmp * fabs(dtmp[jx]));
+            jx++;
+        }
 
         //cout << "chopS" << scientific << setprecision(12) << setw(20) << chopmin
         //    << setw(15) << n << endl;
