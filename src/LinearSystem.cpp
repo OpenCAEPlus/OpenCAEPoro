@@ -58,7 +58,7 @@ void LinearSystem::AssembleRhs(const vector<OCP_DBL>& rhs)
 {
     OCP_USI nrow = dim * blockDim;
     for (OCP_USI i = 0; i < nrow; i++) {
-        b[i] = rhs[i];
+        b[i] += rhs[i];
     }
 }
 

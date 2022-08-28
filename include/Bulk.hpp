@@ -91,15 +91,19 @@ public:
     void FlashCOMP();
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDeriv();
+    void FlashDeriv_n();
     /// Perform flash calculation with Ni in Black Oil Model
     void FlashDerivBLKOIL();
+    void FlashDerivBLKOIL_n();
     /// Perform flash calculation with Ni in Compositional Model
     void FlashDerivCOMP();
+    void FlashDerivCOMP_n();
     /// Pass values from Flash to Bulk after Flash calculation.
     void PassFlashValue(const OCP_USI& n);
     void PassFlashValueAIMc(const OCP_USI& n);
     /// Pass derivative values from Flash to Bulk after Flash calculation.
     void PassFlashValueDeriv(const OCP_USI& n);
+    void PassFlashValueDeriv_n(const OCP_USI& n);
     /// Reset variables in flash calculations.
     void ResetFlash();
 
@@ -225,6 +229,7 @@ private:
     USI               SATmode;  ///< Identify SAT mode.
     vector<USI>       SATNUM;   ///< Identify SAT region: numBulk.
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
+    vector<vector<OCP_DBL>> satcm; ///< critical saturation when phase becomes mobile / immobile.
  
     // Skip stability analysis
     vector<USI>       phaseNum;     ///< Num of hydrocarbon phase in each bulk
@@ -269,6 +274,7 @@ private:
     vector<OCP_DBL> Pc;         ///< Capillary pressure of phase: numPhase*numBulk.
     vector<bool>    phaseExist; ///< Existence of phase: numPhase*numBulk.
     vector<OCP_DBL> S;          ///< Saturation of phase j: numPhase*numBulk.
+    vector<OCP_DBL> nj;         ///< moles number of phase j: numPhase*numBulk.
     vector<OCP_DBL> rho;        ///< Mass density of phase: numPhase*numBulk.
     vector<OCP_DBL> xi;         ///< Moles density of phase: numPhase*numBulk.
     vector<OCP_DBL> xij;        ///< Nij / Nj: numPhase*numCom*numBulk.
@@ -295,6 +301,7 @@ private:
     vector<OCP_DBL> lPc;         ///< Capillary pressure: numPhase*numBulk.
     vector<bool>    lphaseExist; ///< Existence of phases: numPhase*numBulk.
     vector<OCP_DBL> lS;          ///< Saturation of phase: numPhase*numBulk.
+    vector<OCP_DBL> lnj;         ///< last nj: numPhase*numBulk.
     vector<OCP_DBL> lrho;        ///< Mass density of phase: numPhase*numBulk.
     vector<OCP_DBL> lxi;         ///< Moles density of phase: numPhase*numBulk.
     vector<OCP_DBL> lxij;        ///< Nij / Nj: numPhase*numCom*numBulk.
@@ -378,6 +385,8 @@ public:
     /// Get the solution for FIM after a Newton iteration.
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                    const OCP_DBL& dSmaxlim);
+    void GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
+        const OCP_DBL& dSmaxlim);
     /// Get the solution for FIM after a Newton iteration???
     void GetSol01FIM(const vector<OCP_DBL>& u);
 
@@ -408,8 +417,11 @@ private:
     vector<OCP_DBL> dPcj_dS;   ///< d Pcj  / d Sk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dKr_dS;    ///< d Krj  / d Sk: numPhase * numPhase * bulk.
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
+    vector<OCP_DBL> res_n;     ///< ...
+    vector<OCP_DBL> resPc;     ///< a precalculated value
     USI             lendSdP;   ///< length of dSec_dPri in a bulk.
     vector<OCP_USI> dSdPindex; ///< store the starting position of dSec_dPri of each bulk.
+    vector<OCP_USI> resIndex;  ///< store the starting position of res_n of each bulk.
     // if phase is inexisting or num of components <= 1, set it to zero
     // it is an auxiliary variable of dSec_dPri
     vector<USI>     pEnumCom;  ///< Effective number of components in each phase in each bulk
@@ -424,7 +436,10 @@ private:
     vector<OCP_DBL> ldPcj_dS;    ///< last Pcj_dS
     vector<OCP_DBL> ldKr_dS;     ///< last dKr_dS
     vector<OCP_DBL> ldSec_dPri;  ///< last dSec_dPri
+    vector<OCP_DBL> lres_n;      ///< last res_n
+    vector<OCP_DBL> lresPc;      ///< last lresPc;
     vector<OCP_USI> ldSdPindex;  ///< last SdPindex
+    vector<OCP_USI> lresIndex;   ///< last res_n
     vector<USI>     lpEnumCom;   ///< last pEnumCom
 
     vector<OCP_DBL> dNiNR;       ///< Ni change between NR steps

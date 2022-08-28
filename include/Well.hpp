@@ -262,6 +262,10 @@ public:
     /// Assemble matrix for FIM, parts related to Production well are included.
     void AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt) const;
+    void AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
+    void AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
+        const OCP_DBL& dt) const;
 
 
     /////////////////////////////////////////////////////////////////////

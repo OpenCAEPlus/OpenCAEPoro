@@ -98,6 +98,7 @@ class OCPControl
     friend class Reservoir;
 
     friend class OCP_FIM;
+    friend class OCP_FIMn;
     friend class OCP_IMPEC;
     friend class OCP_AIMc;
     friend class OCP_AIMs;

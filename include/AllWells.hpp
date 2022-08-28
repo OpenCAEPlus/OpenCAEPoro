@@ -254,6 +254,8 @@ public:
     /// Assemble matrix, parts related to well are included for FIM
     void AssemblaMatFIM_new(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+    void AssemblaMatFIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
     // AIMt, AIMs

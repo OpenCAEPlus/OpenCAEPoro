@@ -143,6 +143,7 @@ public:
     void InitFIM();
     /// Calculate Flash for FIM, some derivatives are needed
     void CalFlashDerivFIM();
+    void CalFlashDerivFIM_n();
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
     void CalKrPcDerivFIM();
     /// Update value of last step for FIM.
@@ -151,10 +152,13 @@ public:
     void AllocateMatFIM(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
+    void AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
     /// Exactly, it's a Newton step.
     void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
                         const OCP_DBL& dSmax);
+    void GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+        const OCP_DBL& dSmax);
     void GetSolution01FIM(const vector<OCP_DBL>& u);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);

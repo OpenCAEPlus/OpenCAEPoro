@@ -240,7 +240,7 @@ void OCP_FIM::AssembleMat(LinearSystem& myLS, const Reservoir& rs,
     myLS.AssembleRhs(resFIM.res);
 }
 
-void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
+void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const
 {
 #ifdef _DEBUG
     myLS.CheckEquation();
@@ -257,8 +257,8 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     // cout << "LS step = " << status << endl;
 
 #ifdef DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");
+    myLS.OutputLinearSystem("testA_FIM.out", "testb_FIM.out");
+    myLS.OutputSolution("testx_FIM.out");
     myLS.CheckSolution();
 #endif // DEBUG
 
@@ -313,20 +313,21 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-    const OCP_DBL NRdPmax = rs.GetNRdPmax();
+    OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
-    const OCP_DBL NRdSmax = rs.GetNRdSmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-#ifdef DEBUG
-    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
-        << resFIM.maxRelRes_v << "  " << resFIM.maxRelRes_mol << "  " << NRdPmax
-        << "  " << NRdSmax << "    ";
+//#ifdef _DEBUG
+    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "   "
+        << resFIM.maxRelRes_v << "   " << resFIM.maxRelRes_mol << "   " << NRdPmax
+        << "   " << NRdSmax << "   " << NRdNmax;
     // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size() << "   ";
     // cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(), &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   ";
     // cout << "SdNi " << Dnorm1(rs.bulk.dNiNR.size(), &rs.bulk.dNiNR[0]) / rs.bulk.dNiNR.size() << "   ";
     cout << endl;
     // rs.ShowRes(resFIM.res);
-#endif
+//#endif
+
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
@@ -376,13 +377,86 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
-void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
+void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 {
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     rs.UpdateLastStepFIM();
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
+}
+
+
+////////////////////////////////////////////
+// OCP_FIMn
+////////////////////////////////////////////
+
+
+/// Assemble Matrix
+void OCP_FIMn::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
+{
+    rs.AssembleMatFIM_n(myLS, dt);
+    myLS.AssembleRhs(resFIM.res);
+}
+
+/// Solve the linear system.
+void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const
+{
+#ifdef _DEBUG
+    myLS.CheckEquation();
+#endif // DEBUG
+
+    myLS.AssembleMatLinearSolver();
+
+    GetWallTime Timer;
+    Timer.Start();
+    int status = myLS.Solve();
+    if (status < 0) {
+        status = myLS.GetNumIters();
+    }
+    // cout << "LS step = " << status << endl;
+
+#ifdef DEBUG
+    myLS.OutputLinearSystem("testA.out", "testb.out");
+    myLS.OutputSolution("testx.out");
+    myLS.CheckSolution();
+#endif // DEBUG
+
+    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.UpdateIterLS(status);
+    ctrl.UpdateIterNR();
+
+    rs.GetSolutionFIM_n(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    // rs.GetSolution01FIM(myLS.GetSolution());
+    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
+    myLS.ClearData();
+}
+
+/// Update properties of fluids.
+bool OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL& dt = ctrl.current_dt;
+
+
+    // Second check: Ni check and bulk Pressure check
+    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+        dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIM(false);
+        rs.CalResFIM(resFIM, dt);
+        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        cout << "Cut time stepsize and repeat!\n";
+        return false;
+    }
+
+    // Update reservoir properties
+    rs.CalFlashDerivFIM_n();
+    rs.CalKrPcDerivFIM();
+    rs.CalVpore();
+    rs.CalWellTrans();
+    rs.CalWellFlux();
+    rs.CalResFIM(resFIM, dt);
+
+    return true;
 }
 
 

@@ -183,7 +183,8 @@ public:
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
     void AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
-
+    void AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
     // AIMs, AIMt

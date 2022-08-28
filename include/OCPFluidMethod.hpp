@@ -63,7 +63,7 @@ public:
     void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
 
     /// Solve the linear system.
-    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const;
 
     /// Update properties of fluids.
     bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
@@ -72,12 +72,27 @@ public:
     bool FinishNR(Reservoir& rs, OCPControl& ctrl);
 
     /// Finish a time step.
-    void FinishStep(Reservoir& rs, OCPControl& ctrl);
+    void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
 
 
 protected:
     /// Resiual for FIM
     ResFIM resFIM;
+};
+
+
+class OCP_FIMn : public OCP_FIM
+{
+public:
+    /// Assemble Matrix
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
+
+    /// Solve the linear system.
+    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const;
+
+    /// Update properties of fluids.
+    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+
 };
 
 class OCP_AIMc : public OCP_FIM

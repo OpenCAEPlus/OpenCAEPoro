@@ -176,6 +176,15 @@ FlowUnit_ODGW01::FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i)
     cdata.resize(4, 0);
 
     Generate_SWPCWG();
+
+    Scm.resize(3, 0);
+    // oil, set to zero now
+    OCP_INT tmprow;
+    tmprow = SGOF.GetRowZero(1);
+    if (tmprow >= 0)  Scm[1] = SGOF.GetCol(0)[tmprow]; 
+    tmprow = SWOF.GetRowZero(1);
+    if (tmprow >= 0)  Scm[2] = SWOF.GetCol(0)[tmprow];
+
 }
 
 void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
@@ -342,14 +351,6 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
         OCP_DBL So = S_in[0];
         OCP_DBL Sg = S_in[1];
         OCP_DBL Sw = S_in[2];
-
-        // OCP test
-        // So = 0.10870; Sg = 0.62855; Sw = 0.26276;  surTen = 1.16374;
-        // So = 0.21475; Sg = 0.54852; Sw = 0.23673;  surTen = 0.31070;
-        // E300 test
-        // So = 0.13817; Sg = 0.59902; Sw = 0.26281;  surTen = 1.22620;
-        // So = 0.21254; Sg = 0.55070; Sw = 0.23676;  surTen = 0.31420;
-        // So = 0.52922; Sg = 0.21719; Sw = 0.25359;  surTen = 0.21234;
 
         Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
         Fp = min(surTenPc, surTen / surTenRef);

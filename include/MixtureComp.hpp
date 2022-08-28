@@ -165,6 +165,10 @@ public:
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override;
+    void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
+        const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
+        const USI& lastNP, const OCP_DBL* lastKs)override;
 	OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
 	OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
 		const OCP_DBL* Ziin) override;
@@ -288,6 +292,7 @@ private:
 	// Phase Variables
 	USI lNP{ 0 };  ///< last num of hydrocarbon phase
 	USI NP;   ///< current num of hydrocarbon phase
+    USI inputNP; ///< input NP
     OCP_DBL Nh; ///< total moles of components exclude water
 	vector<OCP_DBL> vC; ///< vC represents the volume of phase
 	vector<OCP_DBL> nu; ///< nu[j] represents the mole fraction of jth phase in flash calculation
@@ -394,12 +399,15 @@ public:
     void CalFugPAll(const bool& Zpflag = true);
 
 
+    void CalVjpVfpVfx_partial();
     void CalXiPNX_partial();
     void CalRhoPX_partial();
     void CalMuPX_partial();
     void CalMuPXLBC_partial();
     void CalXiRhoMuPN_pfullx();
-
+    void CaldXsdXpAPI04();
+    void CaldXsdXp04();
+    
     void CalRhoPNX_full();
 
     void CalXiPNX_full01();

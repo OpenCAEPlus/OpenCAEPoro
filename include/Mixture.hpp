@@ -64,6 +64,7 @@ public:
         mux.resize(numPhase * numCom);
         dXsdXp.resize((numCom + 1) * (numPhase + numPhase * numCom));
         pEnumCom.resize(numPhase);
+        res.resize(numPhase + numPhase * numCom + 1); // a precomputed value stored in last position
         // water not in hydrocarbon, hydrocarbon not in water
         keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
         
@@ -85,6 +86,10 @@ public:
     virtual void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) = 0;
+    virtual void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
+        const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
+        const USI& lastNP, const OCP_DBL* lastKs) = 0;
     /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
     virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
@@ -176,6 +181,8 @@ protected:
 
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
     vector<USI>     pEnumCom; ///< see pEnumCom in bulk
+    vector<OCP_DBL> res;     ///< residual of a set of equations
+    OCP_DBL         resPc;    ///< a precalculated value
     
     vector<OCP_DBL> keyDer; ///< d (xij*xi/mu) / dP or dNk
 };

@@ -41,6 +41,9 @@ public:
     /// return the column num of table.
     USI GetColNum() const { return nCol; }
 
+    /// return the row index of the last zero of some colnum, which is sorted in increasing order.
+    OCP_INT GetRowZero(const USI& mycol)const;
+
     /// push v into the last column of table.
     void PushCol(const vector<OCP_DBL>& v) { data.push_back(v); }
 

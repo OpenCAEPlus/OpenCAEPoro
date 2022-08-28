@@ -330,6 +330,13 @@ void Reservoir::CalFlashDerivFIM()
     bulk.FlashDeriv();
 }
 
+void Reservoir::CalFlashDerivFIM_n()
+{
+    OCP_FUNCNAME;
+
+    bulk.FlashDeriv_n();
+}
+
 void Reservoir::CalKrPcDerivFIM()
 {
     OCP_FUNCNAME;
@@ -363,27 +370,41 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     conn.SetupMatSparsity(myLS);
 
 #ifdef OCP_NEW_FIM
-    //conn.AssembleMat_FIM(myLS, bulk, dt);
-    //allWells.AssemblaMatFIM(myLS, bulk, dt);
     conn.AssembleMat_FIM_new(myLS, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #else
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);
-    //conn.AssembleMat_FIM_new(myLS, bulk, dt);
-    //allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #endif // OCP_NEW_FIM
+}
 
+
+void Reservoir::AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
+
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMat_FIM_new_n(myLS, bulk, dt);
+    allWells.AssemblaMatFIM_new_n(myLS, bulk, dt);
 }
 
 void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
                                const OCP_DBL& dSmax)
 {
-    OCP_FUNCNAME;
-
-    bulk.GetSolFIM(u, dPmax, dSmax);
+    bulk.GetSolFIM(u, dPmax, dSmax); 
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
+
+
+void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
+    const OCP_DBL& dSmax)
+{
+    OCP_FUNCNAME;
+
+    bulk.GetSolFIM_n(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+}
+
 
 // Not useful
 void Reservoir::GetSolution01FIM(const vector<OCP_DBL>& u)
