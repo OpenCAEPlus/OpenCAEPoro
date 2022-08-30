@@ -43,7 +43,7 @@ public:
     virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
                     const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) = 0;
     virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) = 0;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) = 0;
 
 };
 
@@ -61,7 +61,7 @@ public:
     void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
 
     OCP_DBL GetSwco() const  override { return Swco; };
 
@@ -91,7 +91,7 @@ public:
     void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
  
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override {
         return SWOF.Eval(0, sw, 3);
@@ -130,7 +130,7 @@ public:
     void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg)  override {
         return SGOF.Eval(0, sg, 3);
     }
@@ -192,7 +192,7 @@ public:
     virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
 
     OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
         OCP_DBL dkrwdSw, OCP_DBL dkrowdSw, OCP_DBL dkrgdSg,
@@ -260,7 +260,7 @@ public:
     void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
                 const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
 
 private:
 
@@ -294,7 +294,7 @@ public:
     void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-        OCP_DBL* dkrdS, OCP_DBL* dPcjdS) override;
+        OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
     OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
         OCP_DBL dkrwdSw, OCP_DBL dkrowdSo, OCP_DBL dkrgdSg,
         OCP_DBL dkrogdSo, OCP_DBL& out_dkrodSo) const;

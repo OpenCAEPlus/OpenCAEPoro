@@ -129,6 +129,16 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     return true;
 }
 
+
+bool OCP_IMPEC::FinishNR(const Reservoir& rs)
+{ 
+    //for (USI j = 0; j < rs.bulk.numPhase; j++)
+    //    cout << rs.bulk.totalPhaseNum[j] << "   ";
+    //cout << endl;
+    return true; 
+}
+
+
 bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
@@ -317,7 +327,11 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
     OCP_DBL NRdSmax = rs.GetNRdSmax();
 
-//#ifdef _DEBUG
+    //for (USI j = 0; j < rs.bulk.numPhase; j++)
+    //    cout << rs.bulk.totalPhaseNum[j] << "   ";
+    //cout << endl;
+
+#ifdef _DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "   "
         << resFIM.maxRelRes_v << "   " << resFIM.maxRelRes_mol << "   " << NRdPmax
         << "   " << NRdSmax << "   " << NRdNmax;
@@ -326,7 +340,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // cout << "SdNi " << Dnorm1(rs.bulk.dNiNR.size(), &rs.bulk.dNiNR[0]) / rs.bulk.dNiNR.size() << "   ";
     cout << endl;
     // rs.ShowRes(resFIM.res);
-//#endif
+#endif
 
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {

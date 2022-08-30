@@ -202,7 +202,8 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     // correct vj, vf with new Nt
     Dscalar(NPmax, Nh, &v[0]);
     vf *= Nh;
-    CalVfiVfp_full01();
+    //CalVfiVfp_full01();
+    CalVfiVfp_full02();
     // Calculate Ni
     for (USI i = 0; i < NC; i++) {
         Ni[i] = zi[i] * Nh;
@@ -243,11 +244,12 @@ void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* N
         Dcopy(NC, &lKs[0], lastKs);
     }
     
-
     CalFlash(Pin, Tin, Niin);
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
-    CalVfiVfp_full01();
+    // CalVfiVfp_full01();
+    CalVfiVfp_full02();
+
 
     // Water Properties
     USI Wpid                  = numPhase - 1;

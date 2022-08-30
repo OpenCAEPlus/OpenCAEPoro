@@ -172,7 +172,7 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
     switch (method) {
         case IMPEC:
         case AIMt:
-            return impec.FinishNR();
+            return impec.FinishNR(rs);
             // return impec.FinishNR01(rs, ctrl);
         case AIMs:
             return aims.FinishNR(rs, ctrl);

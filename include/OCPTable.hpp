@@ -67,6 +67,10 @@ public:
     /// the target column.
     OCP_DBL Eval(const USI& j, const OCP_DBL& val, const USI& destj);
 
+    /// interpolate the specified monotonically increasing column in table to evaluate
+    /// the target column, and return corresponding slope.
+    OCP_DBL Eval(const USI& j, const OCP_DBL& val, const USI& destj, OCP_DBL& myK);
+
     /// interpolate the specified monotonically decreasing column in table to evaluate
     /// the target column.
 

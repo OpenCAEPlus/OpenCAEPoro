@@ -173,10 +173,12 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     OCP_DBL c1, c2, c3, c4, c;
     c1 = c2 = c3 = c4 = 10;
 
-    OCP_DBL dPmax = reservoir.bulk.GetdPmax();
-    OCP_DBL dNmax = reservoir.bulk.GetdNmax();
-    OCP_DBL dSmax = reservoir.bulk.GetdSmax();
-    OCP_DBL dVmax = reservoir.bulk.GetdVmax();
+    const OCP_DBL dPmax = reservoir.bulk.GetdPmax();
+    const OCP_DBL dNmax = reservoir.bulk.GetdNmax();
+    const OCP_DBL dSmax = reservoir.bulk.GetdSmax();
+    const OCP_DBL dVmax = reservoir.bulk.GetdVmax();
+
+    //cout << dPmax << "   " << dSmax << endl;
 
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
@@ -207,14 +209,16 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     OCP_DBL c1, c2, c;
     c1 = c2 = 10;
 
-    OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
-    OCP_DBL dPmaxW = reservoir.allWells.GetdBHPmax();
-    OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
-
-    OCP_DBL dSmax = reservoir.bulk.GetdSmax();
+    const OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
+    const OCP_DBL dPmaxW = reservoir.allWells.GetdBHPmax();
+    const OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
+    const OCP_DBL dSmax = reservoir.bulk.GetdSmax();
 
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
+
+    cout << "dSmax =    " << dSmax << endl;
+
 
     OCP_DBL c3 = 1.5;
 
@@ -234,7 +238,7 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
 
     init_dt = current_dt;
 
-    OCP_DBL dt = end_time - current_time;
+    const OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
 
 }

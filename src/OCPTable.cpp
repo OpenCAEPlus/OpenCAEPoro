@@ -111,6 +111,36 @@ OCP_DBL OCPTable::Eval(const USI& j, const OCP_DBL& val, const USI& destj)
     }
 }
 
+
+OCP_DBL OCPTable::Eval(const USI& j, const OCP_DBL& val, const USI& destj, OCP_DBL& myK)
+{
+    // becareful when the memory outdata and slope have not be allocated before
+
+    if (val >= data[j][bId]) {
+        for (USI i = bId + 1; i < nRow; i++) {
+            if (val < data[j][i]) {
+                bId = i - 1;
+                myK = (data[destj][bId + 1] - data[destj][bId]) /
+                    (data[j][bId + 1] - data[j][bId]);
+                return (data[destj][bId] + myK * (val - data[j][bId]));
+            }
+        }
+        return data[destj].back();
+    }
+    else {
+        for (OCP_INT i = bId - 1; i >= 0; i--) {
+            if (val >= data[j][i]) {
+                bId = i;
+                myK = (data[destj][bId + 1] - data[destj][bId]) /
+                    (data[j][bId + 1] - data[j][bId]);
+                return (data[destj][bId] + myK * (val - data[j][bId]));
+            }
+        }
+        return data[destj].front();
+    }
+}
+
+
 OCP_DBL OCPTable::Eval_Inv(const USI& j, const OCP_DBL& val, const USI& destj)
 {
     // becareful when the memory outdata and slope have not be allocated before

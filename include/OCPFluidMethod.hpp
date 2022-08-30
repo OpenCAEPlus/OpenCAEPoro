@@ -39,7 +39,7 @@ public:
     bool UpdateProperty01(Reservoir& rs, OCPControl& ctrl);
 
     /// Determine if NR iteration finishes.
-    bool FinishNR() { return true; }
+    bool FinishNR(const Reservoir& rs);
     bool FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
