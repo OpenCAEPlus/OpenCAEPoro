@@ -35,6 +35,10 @@ public:
     OCP_DBL        maxRelRes0_v;
     OCP_DBL        maxRelRes_v;
     OCP_DBL        maxRelRes_mol;
+
+    // use negative number to represent well number (ToDo)
+    OCP_INT        maxId_v;
+    OCP_INT        maxId_mol;
 };
 
 #endif

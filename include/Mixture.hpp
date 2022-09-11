@@ -131,6 +131,7 @@ public:
     virtual bool GetFlagSkip() = 0; 
     virtual OCP_DBL GetSurTen() = 0;
 
+    virtual OCP_DBL GetErrorPEC() = 0;
     virtual OCP_ULL GetSSMSTAiters() = 0;
     virtual OCP_ULL GetNRSTAiters() = 0;
     virtual OCP_ULL GetSSMSPiters() = 0; 

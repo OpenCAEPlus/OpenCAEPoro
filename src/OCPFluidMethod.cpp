@@ -323,24 +323,46 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
+    OCP_USI dSn;
+
+    const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
-    OCP_DBL NRdSmax = rs.GetNRdSmax();
+    OCP_DBL NRdSmaxP = rs.GetNRdSmaxP();
 
     //for (USI j = 0; j < rs.bulk.numPhase; j++)
     //    cout << rs.bulk.totalPhaseNum[j] << "   ";
     //cout << endl;
 
-#ifdef _DEBUG
-    cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "   "
-        << resFIM.maxRelRes_v << "   " << resFIM.maxRelRes_mol << "   " << NRdPmax
-        << "   " << NRdSmax << "   " << NRdNmax;
+    
+
+//#ifdef _DEBUG
+    cout << "### Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
+        << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
+        << setw(80) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
+        << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP] << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  "
+        << setw(6) << rs.bulk.index_maxNRdSSP << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl << endl;
+
+    cout << "S:" << setw(6) << dSn << setw(12) << rs.bulk.eV[dSn] << setw(12) << rs.bulk.eN[dSn]
+        << setw(12) << rs.bulk.ePEC[dSn] << setw(5) << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12) << rs.bulk.dPNR[dSn]
+        << setw(8) << "  |" << setw(12) <<  rs.bulk.S[dSn * 3] << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
+        << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12) << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1] << endl;
+
+    cout << "V:" << setw(6) << resFIM.maxId_v << setw(12) << rs.bulk.eV[resFIM.maxId_v] << setw(12) << rs.bulk.eN[resFIM.maxId_v]
+        << setw(12) << rs.bulk.ePEC[resFIM.maxId_v] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_v] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_v] << setw(12) << rs.bulk.dPNR[resFIM.maxId_v]
+        << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3]
+        << setw(12) << rs.bulk.S[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3 + 1] << endl;
+
+    cout << "N:" << setw(6) << resFIM.maxId_mol << setw(12) << rs.bulk.eV[resFIM.maxId_mol] << setw(12) << rs.bulk.eN[resFIM.maxId_mol]
+        << setw(12) << rs.bulk.ePEC[resFIM.maxId_mol] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_mol] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_mol] << setw(12) << rs.bulk.dPNR[resFIM.maxId_mol]
+        << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3]
+        << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3 + 1] << endl;
     // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size() << "   ";
     // cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(), &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   ";
-    // cout << "SdNi " << Dnorm1(rs.bulk.dNiNR.size(), &rs.bulk.dNiNR[0]) / rs.bulk.dNiNR.size() << "   ";
+    // cout << "SdNi " << Dnorm1(rs.bulk.dNNR.size(), &rs.bulk.dNNR[0]) / rs.bulk.dNNR.size() << "   ";
     cout << endl;
     // rs.ShowRes(resFIM.res);
-#endif
+//#endif
 
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -353,10 +375,10 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         return false;
     }
 
-    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+    if ((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
-        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
+        (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);
 #if DEBUG
@@ -592,7 +614,7 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
-    const OCP_DBL NRdSmax = rs.GetNRdSmax();
+    const OCP_DBL NRdSmax = rs.GetNRdSmaxP();
 
 //#ifdef _DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
@@ -775,7 +797,7 @@ bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL NRdPmax = rs.GetNRdPmax();
-    OCP_DBL NRdSmax = rs.GetNRdSmax();
+    OCP_DBL NRdSmax = rs.GetNRdSmaxP();
 
 #ifdef _DEBUG
      cout << "### DEBUG: Residuals = " << setprecision(3) << scientific << resFIM.maxRelRes0_v << "  "
@@ -994,11 +1016,11 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
         //cout << scientific << resFIM.maxRelRes_v;
         //cout << endl << endl;
         OCP_DBL NRdPmax = rs.GetNRdPmax();
-        OCP_DBL NRdSmax = rs.GetNRdSmax();
+        OCP_DBL NRdSmax = rs.GetNRdSmaxP();
         ctrl.iterNR++;
         //cout << ctrl.iterNR << "   " << resFIM.maxRelRes_v << "   "
         //    << resFIM.maxRelRes_mol << "   " << NRdPmax << "   "
-        //    << NRdSmax << "   " << endl;
+        //    << NRdSmaxP << "   " << endl;
         
         if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
             resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||

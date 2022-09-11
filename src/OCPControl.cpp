@@ -217,12 +217,9 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
 
-    cout << "dSmax =    " << dSmax << endl;
-
-
     OCP_DBL c3 = 1.5;
 
-    if (iterNR < 3) {
+    if (iterNR < 30) { // temp
         c3 = 2;
     } else if (iterNR > 8) {
         c3 = 0.5;

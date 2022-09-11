@@ -244,6 +244,9 @@ public:
     FlowUnit_ODGW01_Miscible(const ParamReservoir& rs_param, const USI& i) : 
         FlowUnit_ODGW01(rs_param, i){
 
+        // gas is mobilable all the time
+        Scm[1] = 0;
+
         USI len = rs_param.miscstr.surTenRef.size();
         if (len > 0) {
             surTenRef = rs_param.miscstr.surTenRef[0];

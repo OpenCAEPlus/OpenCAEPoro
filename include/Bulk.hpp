@@ -197,7 +197,7 @@ public:
     /// Reset Kr to the ones of the last time step.
     void ResetKr() { kr = lkr; }
     /// Reset Vp to the ones of the last time step.
-    void ResetVp() { rockVp = rockLVp; }
+    void ResetVp() { rockVp = lrockVp; }
     void CalSomeInfo(const Grid& myGrid) const;
     
     /// Allocate memory for WellbulkId
@@ -235,7 +235,8 @@ private:
  
     // Skip stability analysis
     vector<USI>       phaseNum;     ///< Num of hydrocarbon phase in each bulk
-    vector<USI>       lphaseNum;    ///< last phaseNum 
+    vector<USI>       lphaseNum;    ///< last phaseNum
+    vector<USI>       NRphaseNum;   ///< phaseNum in NR step
     /// minimal eigenvalue used to determinined if skip the stability analysis
     vector<OCP_SIN>   minEigenSkip; 
     vector<bool>      flagSkip;
@@ -248,7 +249,7 @@ private:
 
     // phase split calculation
     // IMPORTANT!!!
-    // Ks will change as long as nums of hydroncarbon phase equals 2, and it will has an effect
+    // Ks will change as long as nums of hydroncarbon phase equals 2, and it will has an important effect
     // on phase spliting calculation as a intial value. So you should not expect to obtain
     // the exact same result with identical P, T, Ni if the final mixture contains 2 hydroncarbon phase.
     vector<OCP_DBL>   Ks;  ///< Equilibrium constant in phase split calculation
@@ -315,12 +316,13 @@ private:
     vector<OCP_DBL> lNt;        ///< last Nt
     vector<OCP_DBL> lvfi;        ///< dVf / dNi: numCom*numBulk.
     vector<OCP_DBL> lvfp;        ///< dVf / dP: numBulk.
-    vector<OCP_DBL> rockLVp;     ///< Pore volume: numBulk.
+    vector<OCP_DBL> lrockVp;     ///< Pore volume: numBulk.
 
     vector<OCP_DBL> surTen;      ///< surface tensions of hydroncarbon phase.
     vector<OCP_DBL> Fk;          ///< The relative permeability interpolation parameter
     vector<OCP_DBL> Fp;          ///< The capillary pressure interpolation parameter
     
+    vector<OCP_DBL> lsurTen;     ///< last surTen.
 
     /////////////////////////////////////////////////////////////////////
     // Reservoir rock infomation of each bulk (size = numBulk)
@@ -359,6 +361,14 @@ private:
     OCP_DBL dVmax; ///< Max relative diff between fluid and pore volume.
 
     /////////////////////////////////////////////////////////////////////
+    // Error
+    /////////////////////////////////////////////////////////////////////
+
+    vector<OCP_DBL> ePEC; ///< error for fugacity balance equations
+    mutable vector<OCP_DBL> eN; ///< error for mass conservation equations
+    mutable vector<OCP_DBL> eV; ///< error for volume conservation equations
+
+    /////////////////////////////////////////////////////////////////////
     // For IMPEC
     /////////////////////////////////////////////////////////////////////
 
@@ -391,7 +401,6 @@ public:
         const OCP_DBL& dSmaxlim);
     /// Get the solution for FIM after a Newton iteration???
     void GetSol01FIM(const vector<OCP_DBL>& u);
-
     /// Calculate relative resiual for FIM.
     void CalRelResFIM(ResFIM& resFIM) const;
     // Show Res
@@ -400,10 +409,13 @@ public:
     void ResetFIM();
     /// Update values of last step for FIM.
     void UpdateLastStepFIM();
+    /// Calculate some auxiliary variable, for example, dSmax
+    OCP_DBL CalNRdSmax(OCP_USI& index);
+
     /// Return NRdPmax.
     OCP_DBL GetNRdPmax();
-    /// Return NRdSmax.
-    OCP_DBL GetNRdSmax();
+    /// Return NRdSmaxP.
+    OCP_DBL GetNRdSmaxP();
     OCP_DBL GetNRdNmax();
     void CorrectNi(const vector<OCP_DBL>& res);
 
@@ -444,12 +456,19 @@ private:
     vector<OCP_USI> lresIndex;   ///< last res_n
     vector<USI>     lpEnumCom;   ///< last pEnumCom
 
-    vector<OCP_DBL> dNiNR;       ///< Ni change between NR steps
+
+    vector<OCP_DBL> dSNR;        ///< saturation change between NR steps
+    vector<OCP_DBL> dSNRP;       ///< predicted saturation change between NR steps
+    vector<OCP_DBL> dNNR;        ///< Ni change between NR steps
     vector<OCP_DBL> dPNR;        ///< dP change between NR steps
 
-    OCP_DBL NRdPmax; ///< Max pressure difference in an NR step
-    OCP_DBL NRdNmax; ///< Max Ni difference in an NR step
-    OCP_DBL NRdSmax; ///< Max saturation difference in an NR step(Predict)
+    OCP_DBL NRdSSP;  ///< difference between dSNR and dSNRP, 2-norm
+    OCP_DBL maxNRdSSP; ///< max difference between dSNR and dSNRP
+    OCP_USI index_maxNRdSSP;
+    OCP_DBL NRdPmax;  ///< Max pressure difference in an NR step
+    OCP_DBL NRdNmax;  ///< Max Ni difference in an NR step
+    OCP_DBL NRdSmax;  ///< Max saturation difference in an NR step(Real)
+    OCP_DBL NRdSmaxP; ///< Max saturation difference in an NR step(Predict)
 
 
     vector<OCP_DBL> NRstep; ///< NRstep for FIM

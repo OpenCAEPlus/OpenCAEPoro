@@ -1091,7 +1091,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
         for (USI i = 0; i < bsize; i++) {
             myLS.diagVal[n * bsize + i] = bmat[i];
         }
-        myLS.b[n * ncol] += myBulk.resPc[n];
+        myLS.b[n * ncol] -= myBulk.resPc[n];
     }
 
     // flux term
@@ -1270,7 +1270,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
         // Assemble rhs
         // Begin
         if (npB > 2) {
-            DaAxpby(ncol, ncolB, 1.0, dFdXsB.data(),
+            DaAxpby(ncol, ncolB, -1.0, dFdXsB.data(),
                 &myBulk.res_n[myBulk.resIndex[bId]], 1.0, &myLS.b[bId * ncol]);
 
             //cout << "----------- " << bId << " ------------" << endl;
@@ -1303,7 +1303,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
         // Assemble rhs
         // End
         if (npE > 2) {
-            DaAxpby(ncol, ncolE, 1.0, dFdXsE.data(),
+            DaAxpby(ncol, ncolE, -1.0, dFdXsE.data(),
                 &myBulk.res_n[myBulk.resIndex[eId]], 1.0, &myLS.b[eId * ncol]);
 
             //cout << "----------- " << eId << " ------------" << endl;
@@ -1388,10 +1388,10 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
             // dNi
             if (!flag) {
                 for (USI i = 0; i < myBulk.numCom; i++) {
-                    if (fabs(myBulk.dNiNR[bIdc + i] / myBulk.Ni[bIdc + i]) > 1E-3) {
+                    if (fabs(myBulk.dNNR[bIdc + i] / myBulk.Ni[bIdc + i]) > 1E-3) {
                         flag = true;
-                        //cout << scientific << "Ni[" << i << "]  " << myBulk.dNiNR[bIdc + i] / myBulk.Ni[bIdc + i]<< "   ";
-                        //cout << myBulk.dNiNR[bIdc + i] << "   " << myBulk.Ni[bIdc + i] << "   ";
+                        //cout << scientific << "Ni[" << i << "]  " << myBulk.dNNR[bIdc + i] / myBulk.Ni[bIdc + i]<< "   ";
+                        //cout << myBulk.dNNR[bIdc + i] << "   " << myBulk.Ni[bIdc + i] << "   ";
                         //cout << endl;
                         break;
                     }                       

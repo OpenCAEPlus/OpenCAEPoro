@@ -424,7 +424,7 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
     allWells.CalResFIM(resFIM, bulk, dt);
     // Calculate RelRes
     bulk.CalRelResFIM(resFIM);
-    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+    Dscalar(resFIM.res.size(), -1.0, resFIM.res.data());
 
     // Calculate Res2 and ResMax
     // OCP_DBL resmax = 0;

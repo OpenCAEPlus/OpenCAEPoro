@@ -49,6 +49,7 @@ class WellOpt
 {
     friend class Well;
     friend class AllWells;
+    friend class DetailInfo;
 
 public:
     /// Default constructor.
@@ -100,6 +101,7 @@ private:
 class Well
 {
     friend class AllWells;
+    friend class DetailInfo;
 
 public:
     Well() = default;

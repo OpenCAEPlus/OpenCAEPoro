@@ -70,6 +70,7 @@ class AllWells
 
     // temp
     friend class Reservoir;
+    friend class DetailInfo;
 
 public:
     AllWells() = default;

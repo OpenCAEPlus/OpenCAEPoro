@@ -999,6 +999,80 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
     flag = false;
 
+
+    // Well infor
+    USI numWell = rs.allWells.GetWellNum();
+    outF << "Well Information" << "                    ";
+    outF << fixed << setprecision(3) << days << "  DAYS" << endl;
+    // INJ
+    for (USI w = 0; w < numWell; w++) {
+        if (rs.allWells.wells[w].opt.type == INJ) {
+            outF << "-------------------------------------" << endl;
+            outF << rs.allWells.wells[w].name << "   " << w << "   "
+                << rs.allWells.wells[w].depth << " (feet)     ";
+            outF << rs.allWells.wells[w].I << "   "
+                << rs.allWells.wells[w].J << endl;
+
+            if (rs.allWells.wells[w].opt.state == OPEN) {
+                outF << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t" << rs.allWells.wells[w].WWIR << " (STB/DAY)" << endl;
+            }
+            else {
+                outF << "SHUTIN" << endl;
+            }
+            // perf
+            for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
+                outF << "perf" << p << "   "
+                    << rs.allWells.wells[w].perf[p].I << "   "
+                    << rs.allWells.wells[w].perf[p].J << "   "
+                    << rs.allWells.wells[w].perf[p].K << "   "
+                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                if (rs.allWells.wells[w].perf[p].state == OPEN) {
+                    outF << "OPEN";
+                }
+                else {
+                    outF << "SHUTIN";
+                }
+                outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
+            }
+        }
+    }
+    // PROD
+    for (USI w = 0; w < numWell; w++) {
+        if (rs.allWells.wells[w].opt.type == PROD) {
+            outF << "-------------------------------------" << endl;
+            outF << rs.allWells.wells[w].name << "   " << w << "   "
+                << rs.allWells.wells[w].depth << " (feet)     ";
+            outF << rs.allWells.wells[w].I << "   "
+                << rs.allWells.wells[w].J << endl;
+
+            if (rs.allWells.wells[w].opt.state == OPEN) {
+                outF << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t" << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t" << rs.allWells.wells[w].WWPR << " (STB/DAY)" << endl;
+            }
+            else {
+                outF << "SHUTIN" << endl;
+            }
+            // perf
+            for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
+                outF << "perf" << p << "   "
+                    << rs.allWells.wells[w].perf[p].I << "   "
+                    << rs.allWells.wells[w].perf[p].J << "   "
+                    << rs.allWells.wells[w].perf[p].K << "   "
+                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                if (rs.allWells.wells[w].perf[p].state == OPEN) {
+                    outF << "OPEN";
+                }
+                else {
+                    outF << "SHUTIN";
+                }
+                outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
+            }
+        }
+    }
+
+    outF << endl << endl;
+
+
+
     // PRESSURE
     if (PRE)
     {

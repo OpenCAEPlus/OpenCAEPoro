@@ -2509,7 +2509,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         // Assemble rhs
         // Well
         if (npB > 2) {
-            DaAxpby(ncol, ncolB, 1.0, dQdXsB.data(),
+            DaAxpby(ncol, ncolB, -1.0, dQdXsB.data(),
                 &myBulk.res_n[myBulk.resIndex[n]], 1.0, &myLS.b[n * ncol]);
         }
 
@@ -2701,7 +2701,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         // Assemble rhs
         // Well
         if (npB > 2) {
-            DaAxpby(ncol, ncolB, 1.0, dQdXsB.data(),
+            DaAxpby(ncol, ncolB, -1.0, dQdXsB.data(),
                 &myBulk.res_n[myBulk.resIndex[n]], 1.0, &myLS.b[n * ncol]);
         }
 

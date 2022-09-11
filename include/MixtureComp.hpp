@@ -32,8 +32,10 @@ public:
 	OCP_DBL tol;	///< Tolerance
 	OCP_DBL Ktol{ 1E-4 };   ///< tolerace^2 for K
 	OCP_DBL dYtol{ 1E-6 };
-	OCP_DBL eYt{ 1E-8 };    ///< if Yt > 1 + eYt, than single phase is unstable
+	OCP_DBL eYt{ 1E-8 };    ///< if Yt > 1 + eYt, then single phase is unstable
 	OCP_DBL tol2;   ///< tol*tol
+    OCP_DBL realTol; ///< Real tol
+    bool    conflag; ///< convergence flag, if converges, conflag = true
 	// test
     USI curIt; ///< current Iterations
     OCP_DBL curSk;
@@ -46,6 +48,8 @@ public:
     USI     maxIt; ///< Max Iteration
     OCP_DBL tol;   ///< Tolerance
     OCP_DBL tol2;  ///< tol*tol
+    OCP_DBL realTol; ///< Real tol
+    bool    conflag; ///< convergence flag, if converges, conflag = true
     // test
     USI curIt;     ///< current Iters
 };
@@ -124,18 +128,23 @@ class MixtureComp : public Mixture
 {
 
 public:
-
+    OCP_DBL GetErrorPEC() override { return ePEC; }
     OCP_ULL GetSSMSTAiters() override { return SSMSTAiters; }
     OCP_ULL GetNRSTAiters() override { return NRSTAiters; }
     OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
     OCP_ULL GetNRSPiters() override { return NRSPiters; }
 
 private:
+    // total iters
 	// for dubug
 	OCP_ULL SSMSTAiters{ 0 };
 	OCP_ULL NRSTAiters{ 0 };
 	OCP_ULL SSMSPiters{ 0 };
 	OCP_ULL NRSPiters{ 0 };
+    // phase equilibrium calculation error
+    // if NP = 1, it's from phase stable analysis, if skiped, it's 0
+    // if NP > 1, it's from phase spliting calculation
+    OCP_DBL ePEC;
 
 public:
 	MixtureComp() = default;
@@ -313,8 +322,8 @@ public:
 	void PhaseEquilibrium();
 	void CalKwilson();
 	bool PhaseStable();
-	bool StableSSM(const USI& Id);
-	bool StableSSM01(const USI& Id);
+	bool StableSSM(const USI& Id);    ///< strict SSM
+	bool StableSSM01(const USI& Id);  ///< relaxable SSM
 	bool StableNR(const USI& Id);
 	void CalFugXSTA(); ///< Calculate d ln(Fug) / dx for Y
 	void AssembleJmatSTA();

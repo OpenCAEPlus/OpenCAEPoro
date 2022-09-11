@@ -167,8 +167,11 @@ public:
     /// Return NRdPmax
     OCP_DBL GetNRdPmax(){ return bulk.GetNRdPmax(); }
     /// Return NRdSmax
-    OCP_DBL GetNRdSmax(){ return bulk.GetNRdSmax(); }
+    OCP_DBL GetNRdSmax(OCP_USI& index) { return bulk.CalNRdSmax(index); }
+    /// Return NRdNmax
     OCP_DBL GetNRdNmax() { return bulk.GetNRdNmax(); }
+    /// Return NRdSmaxP
+    OCP_DBL GetNRdSmaxP() { return bulk.GetNRdSmaxP(); }
     void    PrintSolFIM(const string& outfile) const;
     void    ShowRes(const vector<OCP_DBL>& res) const;
 
