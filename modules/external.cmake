@@ -51,10 +51,8 @@ endif(USE_FASP4BLKOIL)
 ##################################################################
 # For UMFPACK
 ##################################################################
-if(USE_UMFPACK)
 
-    # set the path to find specific modules
-    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules")
+if(USE_UMFPACK)
 
     # set some path to the UMFPACK pacakge
     # metis is not part of suitesparse, so theremay be also some other metis dir.
@@ -64,7 +62,6 @@ if(USE_UMFPACK)
     if (UMFPACK_FOUND)
         add_definitions("-DWITH_UMFPACK=1")
         include_directories(${UMFPACK_INCLUDE_DIRS})
-        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${UMFPACK_LIBRARIES})
     else(UMFPACK_FOUND)
         message("-- WARNING: UMFPACK was requested but not supported! Continue without it.")
     endif(UMFPACK_FOUND)
@@ -74,11 +71,10 @@ endif(USE_UMFPACK)
 ##################################################################
 # For SuperLU
 ##################################################################
+
 if(USE_SUPERLU)
 
     # set the path to find specific modules
-    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules")
-
     set(SUPERLU_DIR "${SUPERLU_DIR}")
 
     # try to find SuperLU
@@ -87,8 +83,7 @@ if(USE_SUPERLU)
     if (SUPERLU_FOUND)
         add_definitions("-DWITH_SuperLU=1")
         include_directories(${SUPERLU_INCLUDE_DIRS})
-        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${SUPERLU_LIBRARIES})
-   else(SUPERLU_FOUND)
+    else(SUPERLU_FOUND)
         message("-- WARNING: SuperLU was requested but not supported! Continue without it.")
     endif(SUPERLU_FOUND)
 
@@ -97,20 +92,19 @@ endif(USE_SUPERLU)
 ##################################################################
 # For MUMPS
 ##################################################################
+
 if(USE_MUMPS)
 
     # set the path to find specific modules
-    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules")
-
     set(MUMPS_DIR "${MUMPS_DIR}")
 
-    # try to find MUMPS
+    # try to find MUMPS and METIS (as dependency)
+    find_package(METIS)
     find_package(MUMPS)
 
     if (MUMPS_FOUND)
         add_definitions("-DWITH_MUMPS=1")
         include_directories(${MUMPS_INCLUDE_DIRS})
-        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${MUMPS_LIBRARIES})
     else(MUMPS_FOUND)
         message("-- WARNING: MUMPS was requested but not supported! Continue without it.")
     endif(MUMPS_FOUND)
@@ -123,8 +117,6 @@ endif(USE_MUMPS)
 if(USE_PARDISO)
 
     # set the path to find specific modules
-    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules")
-
     set(MKL_DIR "${MKL_DIR}")
 
     # try to find MKL
@@ -133,7 +125,6 @@ if(USE_PARDISO)
     if (MKL_FOUND)
         add_definitions("-DWITH_PARDISO=1")
         include_directories(${MKL_INCLUDE_DIRS})
-        set(OPTIONAL_LIBS ${OPTIONAL_LIBS} ${MKL_LIBRARIES})
     else(MKL_FOUND)
         message("-- WARNING: Intel MKL was requested but not supported! Continue without it.")
     endif(MKL_FOUND)
@@ -143,6 +134,7 @@ endif(USE_PARDISO)
 ##################################################################
 # For Doxygen
 ##################################################################
+
 if(USE_DOXYGEN)
 
     find_package(Doxygen)
