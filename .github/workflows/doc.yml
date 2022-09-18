@@ -1,0 +1,42 @@
+name: Build and publish doc
+on:
+    workflow_dispatch:
+        inputs:
+            logLevel:
+                description: "Log level"
+                required: true
+                default: "warning"
+            tags:
+                description: "Test scenario tags"
+                required: false
+env:
+    CI: false
+jobs:
+    lin-doc-publish:
+        runs-on: [self-hosted, Linux]
+        defaults:
+            run:
+                working-directory: Publish
+                shell: bash
+        steps:
+            - name: Basic info
+              run: |
+                  echo "Build for ${{ github.ref }} branch in ${{ github.repository }} repository."
+                  echo "Job triggered by ${{ github.event_name }}, on self-hosted ${{ runner.os }}."  
+                    echo "Log level: ${{ github.event.inputs.logLevel }}"
+                  echo "Tags: ${{ github.event.inputs.tags }}"
+            - name: Check out repository
+              uses: actions/checkout@v3
+              with:
+                  path: Publish
+            - name: Build doc
+              run: pnpm doc:effprop:build:vitepress
+            - name: Commit dist.zip
+              uses: EndBug/add-and-commit@v9
+              with:
+                  message: "update dist.zip for effprop ${{ github.event.inputs.tags }}"
+                  add: "apps/EffectiveProperties/doc/manual/docs/.vitepress/dist.zip"
+                  committer_name: GitHub Actions
+                  cwd: "Publish"
+            - name: Trigger publish
+              run: pnpm doc:effprop:publish:render

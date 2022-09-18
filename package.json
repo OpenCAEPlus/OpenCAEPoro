@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "OpenCAEPoro",
+    "version": "1.0.0",
+    "packageManager": "pnpm@7.6.0",
+    "engines": {
+      "node": ">=14.0.0"
+    },
+    "scripts": {
+      "doc:build:markdown": "pnpm --filter opencaeporo-doc install && bash ./scripts/doc/build/markdown.sh",
+      "doc:dev": "pnpm doc:build:markdown && pnpm --filter opencaeporo-doc docs:dev",
+      "doc:build:latex": "bash ./scripts/doc/build/latex.sh",
+      "doc:build:vitepress": "pnpm doc:build:markdown && bash ./scripts/doc/build/vitepress.sh",
+      "doc:publish:render": "bash ./scripts/doc/publish/render.sh"
+    }
+  }
