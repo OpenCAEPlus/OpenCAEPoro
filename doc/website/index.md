@@ -2,15 +2,15 @@
 layout: home
 hero:
   name: OpenCAEPoro
-  text: Desktop Version
+  text: Part of OpenCAE+
   tagline: Simulating multicomponent multiphase flows in porous media
   actions:
     - theme: brand
-      text: Get example
-      link: /manual/
+      text: Get started
+      link: /manual/Design
     - theme: alt
-      text: View examples
-      link: /api/
+      text: View API
+      link: /api/indexpage
 features:
   - title: Open Source
     details: GPL license

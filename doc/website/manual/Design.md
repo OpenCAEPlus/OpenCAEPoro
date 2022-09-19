@@ -18,19 +18,19 @@
 
 ## Overall design
 
-<img src="OCPStructure.png" alt="Structure" width="500"
+<img src="./OCPStructure.png" alt="Structure" width="500"
      style="display: block; margin: 0 auto"/>
 
 <div STYLE="page-break-after: always;"></div>
 
 ## Flow chart
 
-<img src="FlowChart.png" alt="Flow chart" width="600"
+<img src="./FlowChart.png" alt="Flow chart" width="600"
      style="display: block; margin: 0 auto"/>
 
 <div STYLE="page-break-after: always;"></div>
 
 ## Linear solution methods
 
-<img src="OCPLinearSolver.png" alt="Linear solver" width="500"
+<img src="./OCPLinearSolver.png" alt="Linear solver" width="500"
      style="display: block; margin: 0 auto"/>

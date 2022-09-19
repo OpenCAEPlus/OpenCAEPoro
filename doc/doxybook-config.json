@@ -1,5 +1,5 @@
 {
-    "baseUrl": "/manual",
+    "baseUrl": "/api/",
     "indexInFolders": false,
     "linkSuffix": "",
     "indexRelatedPagesName": "index",

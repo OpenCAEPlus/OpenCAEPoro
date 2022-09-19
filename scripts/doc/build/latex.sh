@@ -1,8 +1,8 @@
 #!/bin/bash
-cd apps/EffectiveProperties/doc/manual
-rm -rf doxygen-out doxybook-out docs/manual
+cd doc
+rm -rf doxygen-out
 doxygen Doxyfile
 cd doxygen-out/latex
 make
 cd -
-cd ../../../..
+cd ..
