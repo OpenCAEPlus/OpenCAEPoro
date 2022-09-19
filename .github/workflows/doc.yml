@@ -30,13 +30,13 @@ jobs:
               with:
                   path: Publish
             - name: Build doc
-              run: pnpm doc:effprop:build:vitepress
+              run: pnpm doc:build:vitepress
             - name: Commit dist.zip
               uses: EndBug/add-and-commit@v9
               with:
                   message: "update dist.zip for effprop ${{ github.event.inputs.tags }}"
-                  add: "apps/EffectiveProperties/doc/manual/docs/.vitepress/dist.zip"
+                  add: "doc/website/.vitepress/dist.zip"
                   committer_name: GitHub Actions
                   cwd: "Publish"
             - name: Trigger publish
-              run: pnpm doc:effprop:publish:render
+              run: pnpm doc:publish:render
