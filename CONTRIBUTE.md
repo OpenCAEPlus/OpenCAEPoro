@@ -7,6 +7,8 @@ We are using a trunk based development strategy, which means:
 1. Commit to main branch directly when possible, such as when the issue is small and just changing a few lines are enough. Include "closes IssueId" to the commit message. For external developers (cannot commit to main branch), please use the normal github flow, fork and create pull request.
 2. When more changes are needed for a functionality, create new branch, but only create short-living branches. Branches should preferrably live less than one day, maybe at most two days. If it is impossible to finish a branch within one day, then you should split your issue into smaller goals, and have the original issue as a project in linear.
 
+Check the [linear doc](https://linear.app/docs/github?tabs=b5eb539099f9#basics) for more on the PR and commit integration with github.
+
 ## Commit guide (on main branch)
 
 1. Keep commit small, for example commit every new function added instead of a whole new functionality 
