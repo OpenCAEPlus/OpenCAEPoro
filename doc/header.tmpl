@@ -1,3 +1,9 @@
 ---
-{% if exists("title") %}title: {{title}}{% else if exists("name") %}title: {{name}}{% endif %}
+head:
+  - - link
+    - rel: stylesheet
+      href: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css
+{% if exists("title") -%}
+title: {{title}}
+{% endif -%}
 ---
