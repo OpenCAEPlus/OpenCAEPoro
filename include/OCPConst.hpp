@@ -26,6 +26,11 @@ typedef int                OCP_INT; ///< Long integer
 typedef double             OCP_DBL; ///< Double precision
 typedef float              OCP_SIN; ///< Single precision
 
+// General error type
+const int OCP_SUCCESS         = 0;    ///< Finish without trouble
+const int OCP_ERROR_NUM_INPUT = -1;   ///< Wrong number of input param
+const int OCP_ERROR           = -100; ///< Unidentified error
+
 // General consts
 const OCP_DBL GAS_CONSTANT = 10.73159;    ///< Gas Constant
 const OCP_DBL TINY         = 1E-8;        ///< Small constant
@@ -64,14 +69,14 @@ const USI GENERAL_GRID    = 3; ///< Grid type = general
 // Solution methods
 const USI IMPEC = 1; ///< Solution method = IMPEC
 const USI FIM   = 2; ///< Solution method = FIM
-const USI AIMs = 3;  ///< Adaptive implicit
-const USI AIMt = 4;  ///< improved version of IMPEC, loacl FIM after IMPEC
-const USI AIMc = 5; ///< Adaptive implicit ---- Collins
-const USI FIMn = 6; ///< Solution method = FIM
+const USI AIMs  = 3; ///< Adaptive implicit
+const USI AIMt  = 4; ///< improved version of IMPEC, loacl FIM after IMPEC
+const USI AIMc  = 5; ///< Adaptive implicit ---- Collins
+const USI FIMn  = 6; ///< Solution method = FIM
 
 // Linear Solver
-const USI SCALARFASP = 1;  ///< Use scalar linear solver in Fasp 
-const USI VECTORFASP = 2;  ///< Use vector linear solver in Fasp
+const USI SCALARFASP = 1; ///< Use scalar linear solver in Fasp
+const USI VECTORFASP = 2; ///< Use vector linear solver in Fasp
 
 // Fluid types
 const USI OIL     = 0; ///< Fluid type = oil
@@ -88,14 +93,14 @@ const USI EOS_PR  = 1; ///< EoS model = PR
 const USI EOS_SRK = 2; ///< EoS model = SRK
 
 // Phase types
-const USI PHASE_W    = 1; ///< Phase type = water only
-const USI PHASE_GW   = 2; ///< Phase type = gas-water
-const USI PHASE_OW   = 3; ///< Phase type = oil-water
-const USI PHASE_OG   = 4; ///< Phase type = oil-gas
-const USI PHASE_ODGW = 5; ///< Phase type = oil-dry gas-water
-const USI PHASE_DOGW = 6; ///< Phase type = dead oil-gas-water
-const USI PHASE_ODGW01 = 51; ///< Phase type = oil-dry gas-water
-const USI PHASE_ODGW02 = 52; ///< Phase type = oil-dry gas-water
+const USI PHASE_W               = 1;   ///< Phase type = water only
+const USI PHASE_GW              = 2;   ///< Phase type = gas-water
+const USI PHASE_OW              = 3;   ///< Phase type = oil-water
+const USI PHASE_OG              = 4;   ///< Phase type = oil-gas
+const USI PHASE_ODGW            = 5;   ///< Phase type = oil-dry gas-water
+const USI PHASE_DOGW            = 6;   ///< Phase type = dead oil-gas-water
+const USI PHASE_ODGW01          = 51;  ///< Phase type = oil-dry gas-water
+const USI PHASE_ODGW02          = 52;  ///< Phase type = oil-dry gas-water
 const USI PHASE_ODGW01_MISCIBLE = 511; ///< Phase type = oil-dry gas-water
 
 // Well params
@@ -130,4 +135,5 @@ const USI Z_DIRECTION = 3; ///< z-direction
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*  Chensong Zhang      Oct/27/2021      Unify error check                    */
 /*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
+/*  Chensong Zhang      Sep/21/2022      Add error messages                   */
 /*----------------------------------------------------------------------------*/
