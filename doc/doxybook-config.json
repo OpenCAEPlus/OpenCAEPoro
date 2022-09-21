@@ -1,0 +1,18 @@
+{
+    "baseUrl": "/api/",
+    "indexInFolders": false,
+    "linkSuffix": "",
+    "indexRelatedPagesName": "index",
+    "mainPageInRoot": true,
+    "mainPageName": "indexpage",
+    "formulaInlineStart": "$",
+    "formulaInlineEnd": "$",
+    "formulaBlockStart": "\\[",
+    "formulaBlockEnd": "\\]",
+    "foldersToGenerate": [
+        "modules", "classes", "files", "pages", "namespaces", "examples"
+    ],
+    "folderRelatedPagesName": "",
+    "copyImages": true,
+    "imagesFolder": ""
+  }

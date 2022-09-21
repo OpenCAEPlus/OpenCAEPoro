@@ -1,0 +1,18 @@
+{
+    "name": "opencaeporo-doc",
+    "private": true,
+    "devDependencies": {
+      "vitepress": "1.0.0-alpha.5",
+      "vue": "^3.2.37"
+    },
+    "dependencies": {
+      "markdown-it-footnote": "^3.0.3",
+      "markdown-it-katex": "^2.0.3",
+      "mermaid": "^9.1.2"
+    },
+    "scripts": {
+      "doc:dev": "vitepress dev website",
+      "doc:build": "vitepress build website",
+      "doc:serve": "vitepress serve website --port 3003"
+    }
+  }

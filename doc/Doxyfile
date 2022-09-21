@@ -1,0 +1,38 @@
+DOXYFILE_ENCODING = UTF-8
+PROJECT_NAME = "OpenCAEPoro Documentation"
+OUTPUT_DIRECTORY = doxygen-out
+OUTPUT_LANGUAGE = English
+GENERATE_LATEX = YES
+LATEX_CMD_NAME = pdflatex
+LATEX_OUTPUT = latex
+QUIET = YES
+CITE_BIB_FILES = opencaeporo.bib
+LATEX_BIB_STYLE = plain
+
+# The necessary stuff!
+GENERATE_XML = YES
+XML_OUTPUT = xml
+INPUT = ./doxygen \
+        ../src \
+        ../include
+RECURSIVE = YES
+FILE_PATTERNS = *.dox *.cpp *.hpp
+INPUT_ENCODING =UTF-8
+
+# Html related stuff, optional
+SHOW_NAMESPACES = YES
+EXTRACT_ALL = YES
+GENERATE_HTML = YES
+
+# This is here just so we don't have to mess
+# with dot executable on continous integration.
+CALL_GRAPH = NO
+HAVE_DOT = NO
+
+IMAGE_PATH = ./doxygen/image
+
+REFERENCES_LINK_SOURCE = YES
+SOURCE_BROWSER = YES
+VERBATIM_HEADERS = YES
+OPTIMIZE_OUTPUT_FOR_C = YES
+INLINE_SOURCES = YES
