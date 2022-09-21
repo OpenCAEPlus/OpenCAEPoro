@@ -17,6 +17,8 @@ env:
 jobs:
     lin-doc-publish:
         runs-on: [self-hosted, Linux]
+        permissions:
+            contents: write
         defaults:
             run:
                 working-directory: Publish
