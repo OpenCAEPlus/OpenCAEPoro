@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -107,6 +106,15 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a50ffd4c393da2ed5978aeb984bdb0909"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a50ffd4c393da2ed5978aeb984bdb0909">OCP_SUCCESS</a> = 0</td></tr>
+<tr class="memdesc:a50ffd4c393da2ed5978aeb984bdb0909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish without trouble.  <a href="OCPConst_8hpp.html#a50ffd4c393da2ed5978aeb984bdb0909">More...</a><br /></td></tr>
+<tr class="separator:a50ffd4c393da2ed5978aeb984bdb0909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b742ff9111ce75cca2d9fd94f17a7bc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">OCP_ERROR_NUM_INPUT</a> = -1</td></tr>
+<tr class="memdesc:a9b742ff9111ce75cca2d9fd94f17a7bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrong number of input param.  <a href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">More...</a><br /></td></tr>
+<tr class="separator:a9b742ff9111ce75cca2d9fd94f17a7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eab89bac765e44d8a33bce51e8fe684"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a7eab89bac765e44d8a33bce51e8fe684">OCP_ERROR</a> = -100</td></tr>
+<tr class="memdesc:a7eab89bac765e44d8a33bce51e8fe684"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unidentified error.  <a href="OCPConst_8hpp.html#a7eab89bac765e44d8a33bce51e8fe684">More...</a><br /></td></tr>
+<tr class="separator:a7eab89bac765e44d8a33bce51e8fe684"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf2d5c7d361941d6394ac1c9dc3e5628"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#acf2d5c7d361941d6394ac1c9dc3e5628">GAS_CONSTANT</a> = 10.73159</td></tr>
 <tr class="memdesc:acf2d5c7d361941d6394ac1c9dc3e5628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gas Constant.  <a href="OCPConst_8hpp.html#acf2d5c7d361941d6394ac1c9dc3e5628">More...</a><br /></td></tr>
 <tr class="separator:acf2d5c7d361941d6394ac1c9dc3e5628"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,11 +170,17 @@ Variables</h2></td></tr>
 <tr class="memdesc:acceeb5bbcfec087d0873141428dca9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard temperature.  <a href="OCPConst_8hpp.html#acceeb5bbcfec087d0873141428dca9aa">More...</a><br /></td></tr>
 <tr class="separator:acceeb5bbcfec087d0873141428dca9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d05bd9d04bf54565f5192d547dd415f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> = 5.61458</td></tr>
-<tr class="memdesc:a2d05bd9d04bf54565f5192d547dd415f"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 bbl = 5.61458 ft3  <a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">More...</a><br /></td></tr>
+<tr class="memdesc:a2d05bd9d04bf54565f5192d547dd415f"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 bbl = CONV1 ft3  <a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">More...</a><br /></td></tr>
 <tr class="separator:a2d05bd9d04bf54565f5192d547dd415f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa282da104aab8f046a09e9dffb6f680"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a> = 1.12712E-3</td></tr>
-<tr class="memdesc:afa282da104aab8f046a09e9dffb6f680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Darcy constant in Field.  <a href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">More...</a><br /></td></tr>
+<tr class="memdesc:afa282da104aab8f046a09e9dffb6f680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Darcy constant in field unit.  <a href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">More...</a><br /></td></tr>
 <tr class="separator:afa282da104aab8f046a09e9dffb6f680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c0b69b63221a2a3784482b15e85bfd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a77c0b69b63221a2a3784482b15e85bfd">CONV3</a> = 0.45359237</td></tr>
+<tr class="memdesc:a77c0b69b63221a2a3784482b15e85bfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 lb = CONV3 kg  <a href="OCPConst_8hpp.html#a77c0b69b63221a2a3784482b15e85bfd">More...</a><br /></td></tr>
+<tr class="separator:a77c0b69b63221a2a3784482b15e85bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7c3f542dfd05ecad80b6ee97eed1bab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#af7c3f542dfd05ecad80b6ee97eed1bab">CONV4</a> = 0.02831685</td></tr>
+<tr class="memdesc:af7c3f542dfd05ecad80b6ee97eed1bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 ft3 = CONV4 m3  <a href="OCPConst_8hpp.html#af7c3f542dfd05ecad80b6ee97eed1bab">More...</a><br /></td></tr>
+<tr class="separator:af7c3f542dfd05ecad80b6ee97eed1bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e922afbb7dc32b9f6a8f7b49e02f1fe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">ORTHOGONAL_GRID</a> = 1</td></tr>
 <tr class="memdesc:a5e922afbb7dc32b9f6a8f7b49e02f1fe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> type = orthogonal.  <a href="OCPConst_8hpp.html#a5e922afbb7dc32b9f6a8f7b49e02f1fe">More...</a><br /></td></tr>
 <tr class="separator:a5e922afbb7dc32b9f6a8f7b49e02f1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,6 +196,24 @@ Variables</h2></td></tr>
 <tr class="memitem:a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a> = 2</td></tr>
 <tr class="memdesc:a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solution method = FIM.  <a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">More...</a><br /></td></tr>
 <tr class="separator:a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e00ef2e95a073dbc0c93386c654ed6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a12e00ef2e95a073dbc0c93386c654ed6">AIMs</a> = 3</td></tr>
+<tr class="memdesc:a12e00ef2e95a073dbc0c93386c654ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptive implicit.  <a href="OCPConst_8hpp.html#a12e00ef2e95a073dbc0c93386c654ed6">More...</a><br /></td></tr>
+<tr class="separator:a12e00ef2e95a073dbc0c93386c654ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f1ab38d06a031d261e455d82dd692db"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a1f1ab38d06a031d261e455d82dd692db">AIMt</a> = 4</td></tr>
+<tr class="memdesc:a1f1ab38d06a031d261e455d82dd692db"><td class="mdescLeft">&#160;</td><td class="mdescRight">improved version of IMPEC, loacl FIM after IMPEC  <a href="OCPConst_8hpp.html#a1f1ab38d06a031d261e455d82dd692db">More...</a><br /></td></tr>
+<tr class="separator:a1f1ab38d06a031d261e455d82dd692db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdb022423b0bcbead41cb49a6d68a2ff"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">AIMc</a> = 5</td></tr>
+<tr class="memdesc:abdb022423b0bcbead41cb49a6d68a2ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptive implicit -&mdash; Collins.  <a href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">More...</a><br /></td></tr>
+<tr class="separator:abdb022423b0bcbead41cb49a6d68a2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d32a0b2d17c64fd923685ccbc4a93d4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a> = 6</td></tr>
+<tr class="memdesc:a4d32a0b2d17c64fd923685ccbc4a93d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solution method = FIM.  <a href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">More...</a><br /></td></tr>
+<tr class="separator:a4d32a0b2d17c64fd923685ccbc4a93d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ca1ecfe42ae25af74e291b59ac59e9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#ad0ca1ecfe42ae25af74e291b59ac59e9">SCALARFASP</a> = 1</td></tr>
+<tr class="memdesc:ad0ca1ecfe42ae25af74e291b59ac59e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use scalar linear solver in Fasp.  <a href="OCPConst_8hpp.html#ad0ca1ecfe42ae25af74e291b59ac59e9">More...</a><br /></td></tr>
+<tr class="separator:ad0ca1ecfe42ae25af74e291b59ac59e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a038c1241f7ffc6a37b1b4e99dcab9cd9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">VECTORFASP</a> = 2</td></tr>
+<tr class="memdesc:a038c1241f7ffc6a37b1b4e99dcab9cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use vector linear solver in Fasp.  <a href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">More...</a><br /></td></tr>
+<tr class="separator:a038c1241f7ffc6a37b1b4e99dcab9cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a704c56c5968152c30c92dbac7dae7be1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a> = 0</td></tr>
 <tr class="memdesc:a704c56c5968152c30c92dbac7dae7be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fluid type = oil.  <a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">More...</a><br /></td></tr>
 <tr class="separator:a704c56c5968152c30c92dbac7dae7be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,6 +262,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a64800e9e850c7d573751946f2a7930e6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#a64800e9e850c7d573751946f2a7930e6">PHASE_ODGW02</a> = 52</td></tr>
 <tr class="memdesc:a64800e9e850c7d573751946f2a7930e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase type = oil-dry gas-water.  <a href="OCPConst_8hpp.html#a64800e9e850c7d573751946f2a7930e6">More...</a><br /></td></tr>
 <tr class="separator:a64800e9e850c7d573751946f2a7930e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab170b84b786752f24636f1f47a9ee4d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#aab170b84b786752f24636f1f47a9ee4d">PHASE_ODGW01_MISCIBLE</a> = 511</td></tr>
+<tr class="memdesc:aab170b84b786752f24636f1f47a9ee4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase type = oil-dry gas-water.  <a href="OCPConst_8hpp.html#aab170b84b786752f24636f1f47a9ee4d">More...</a><br /></td></tr>
+<tr class="separator:aab170b84b786752f24636f1f47a9ee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae37f81091d617a936c92b2cc1ba0c522"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a> = 1</td></tr>
 <tr class="memdesc:ae37f81091d617a936c92b2cc1ba0c522"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classWell.html">Well</a> type = injector.  <a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">More...</a><br /></td></tr>
 <tr class="separator:ae37f81091d617a936c92b2cc1ba0c522"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -396,6 +431,60 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="abdb022423b0bcbead41cb49a6d68a2ff" name="abdb022423b0bcbead41cb49a6d68a2ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdb022423b0bcbead41cb49a6d68a2ff">&#9670;&nbsp;</a></span>AIMc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> AIMc = 5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adaptive implicit -&mdash; Collins. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00074">74</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a12e00ef2e95a073dbc0c93386c654ed6" name="a12e00ef2e95a073dbc0c93386c654ed6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e00ef2e95a073dbc0c93386c654ed6">&#9670;&nbsp;</a></span>AIMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> AIMs = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adaptive implicit. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00072">72</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f1ab38d06a031d261e455d82dd692db" name="a1f1ab38d06a031d261e455d82dd692db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f1ab38d06a031d261e455d82dd692db">&#9670;&nbsp;</a></span>AIMt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> AIMt = 4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>improved version of IMPEC, loacl FIM after IMPEC </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00073">73</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
 <a id="ae977bf9562c2c63895c4efc43f080225" name="ae977bf9562c2c63895c4efc43f080225"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae977bf9562c2c63895c4efc43f080225">&#9670;&nbsp;</a></span>BHP_MODE</h2>
 
@@ -410,7 +499,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed bottom-hole-pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00104">104</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00120">120</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -428,7 +517,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classMixture.html">Mixture</a> model = black-oil. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00073">73</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00088">88</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -446,7 +535,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = closed. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00096">96</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00112">112</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -462,9 +551,9 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
-<p>1 bbl = 5.61458 ft3 </p>
+<p>1 bbl = CONV1 ft3 </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00054">54</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00059">59</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -480,9 +569,45 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
-<p>Darcy constant in Field. </p>
+<p>Darcy constant in field unit. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00055">55</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00060">60</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a77c0b69b63221a2a3784482b15e85bfd" name="a77c0b69b63221a2a3784482b15e85bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77c0b69b63221a2a3784482b15e85bfd">&#9670;&nbsp;</a></span>CONV3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> CONV3 = 0.45359237</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1 lb = CONV3 kg </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00061">61</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af7c3f542dfd05ecad80b6ee97eed1bab" name="af7c3f542dfd05ecad80b6ee97eed1bab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7c3f542dfd05ecad80b6ee97eed1bab">&#9670;&nbsp;</a></span>CONV4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> CONV4 = 0.02831685</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1 ft3 = CONV4 m3 </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00062">62</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -500,7 +625,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> type = corner-point. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00059">59</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00066">66</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -518,7 +643,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>EoS model = PR. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00077">77</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00092">92</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -536,7 +661,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classMixture.html">Mixture</a> model = equation-of-state. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00074">74</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00089">89</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +679,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>EoS model = SRK. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00078">78</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00093">93</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -572,7 +697,25 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Solution method = FIM. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00064">64</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00071">71</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d32a0b2d17c64fd923685ccbc4a93d4" name="a4d32a0b2d17c64fd923685ccbc4a93d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d32a0b2d17c64fd923685ccbc4a93d4">&#9670;&nbsp;</a></span>FIMn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> FIMn = 6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solution method = FIM. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00075">75</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -590,7 +733,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Fluid type = gas. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00068">68</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00083">83</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -608,7 +751,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Gas Constant. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00030">30</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00035">35</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -626,7 +769,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> type = general. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00060">60</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00067">67</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -644,7 +787,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed gas rate. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00101">101</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00117">117</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -662,7 +805,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>0.00694444 ft2 psi / lb </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00047">47</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00052">52</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -680,7 +823,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = horizontal. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00093">93</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00109">109</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -698,7 +841,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Solution method = IMPEC. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00063">63</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00070">70</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -716,7 +859,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = injector. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00091">91</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00107">107</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -734,7 +877,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed fluid rate??? </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00103">103</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00119">119</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -752,7 +895,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Maximal pressure change. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00041">41</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00046">46</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -770,7 +913,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Maximal saturation change. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00042">42</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00047">47</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -788,7 +931,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Maximal time stepsize. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00035">35</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00040">40</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -806,7 +949,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Maximal volume error. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00040">40</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00045">45</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -824,7 +967,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Minimal time stepsize of current step ??? </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00037">37</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00042">42</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -842,7 +985,61 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Minimal time stepsize. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00036">36</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00041">41</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7eab89bac765e44d8a33bce51e8fe684" name="a7eab89bac765e44d8a33bce51e8fe684"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eab89bac765e44d8a33bce51e8fe684">&#9670;&nbsp;</a></span>OCP_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OCP_ERROR = -100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unidentified error. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00032">32</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b742ff9111ce75cca2d9fd94f17a7bc" name="a9b742ff9111ce75cca2d9fd94f17a7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b742ff9111ce75cca2d9fd94f17a7bc">&#9670;&nbsp;</a></span>OCP_ERROR_NUM_INPUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OCP_ERROR_NUM_INPUT = -1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrong number of input param. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00031">31</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a50ffd4c393da2ed5978aeb984bdb0909" name="a50ffd4c393da2ed5978aeb984bdb0909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50ffd4c393da2ed5978aeb984bdb0909">&#9670;&nbsp;</a></span>OCP_SUCCESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int OCP_SUCCESS = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finish without trouble. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00030">30</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -860,7 +1057,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Fluid type = oil. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00067">67</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00082">82</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -878,7 +1075,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = open. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00095">95</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00111">111</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -896,7 +1093,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed oil rate. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00100">100</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00116">116</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -914,7 +1111,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> type = orthogonal. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00058">58</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00065">65</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -932,7 +1129,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = dead oil-gas-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00086">86</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00101">101</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -950,7 +1147,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = gas-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00082">82</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00097">97</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -968,7 +1165,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = oil-dry gas-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00085">85</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00100">100</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -986,7 +1183,25 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = oil-dry gas-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00087">87</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00102">102</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aab170b84b786752f24636f1f47a9ee4d" name="aab170b84b786752f24636f1f47a9ee4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab170b84b786752f24636f1f47a9ee4d">&#9670;&nbsp;</a></span>PHASE_ODGW01_MISCIBLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> PHASE_ODGW01_MISCIBLE = 511</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Phase type = oil-dry gas-water. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00104">104</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1004,7 +1219,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = oil-dry gas-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00088">88</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00103">103</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1022,7 +1237,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = oil-gas. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00084">84</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00099">99</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1040,7 +1255,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = oil-water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00083">83</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00098">98</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1058,7 +1273,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Phase type = water only. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00081">81</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00096">96</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1291,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Pi. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00032">32</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00037">37</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1094,7 +1309,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>14.6959 psia = 1 atm </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00050">50</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00055">55</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1112,7 +1327,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = producer. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00092">92</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00108">108</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1130,7 +1345,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed total rate??? </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00099">99</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00115">115</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1148,7 +1363,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Air density in lb / ft3. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00049">49</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00054">54</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1166,7 +1381,25 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Water density in lb / ft3. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00048">48</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00053">53</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad0ca1ecfe42ae25af74e291b59ac59e9" name="ad0ca1ecfe42ae25af74e291b59ac59e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ca1ecfe42ae25af74e291b59ac59e9">&#9670;&nbsp;</a></span>SCALARFASP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> SCALARFASP = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Use scalar linear solver in Fasp. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00078">78</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1184,7 +1417,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Fluid type = solvent. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00070">70</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00085">85</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1202,7 +1435,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Target pressure change. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00043">43</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00048">48</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1220,7 +1453,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Target saturation change. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00044">44</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00049">49</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1238,7 +1471,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Standard temperature. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00051">51</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00056">56</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1256,7 +1489,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Time stepsize amplification ratio. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00039">39</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00044">44</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1274,7 +1507,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Time stepsize cut ratio. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00038">38</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00043">43</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1292,7 +1525,25 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Small constant. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00031">31</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00036">36</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a038c1241f7ffc6a37b1b4e99dcab9cd9" name="a038c1241f7ffc6a37b1b4e99dcab9cd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a038c1241f7ffc6a37b1b4e99dcab9cd9">&#9670;&nbsp;</a></span>VECTORFASP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> VECTORFASP = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Use vector linear solver in Fasp. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00079">79</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1310,7 +1561,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> type = vectical. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00094">94</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00110">110</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1328,7 +1579,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Fluid type = water. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00069">69</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00084">84</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1346,7 +1597,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p><a class="el" href="classWell.html">Well</a> option = fixed water rate. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00102">102</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00118">118</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1364,7 +1615,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>x-direction </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00107">107</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00123">123</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +1633,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>y-direction </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00108">108</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00124">124</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
@@ -1400,14 +1651,14 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>z-direction </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00109">109</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPConst_8hpp_source.html#l00125">125</a> of file <a class="el" href="OCPConst_8hpp_source.html">OCPConst.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:36 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

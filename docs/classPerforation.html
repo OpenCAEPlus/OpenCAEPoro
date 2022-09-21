@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -96,6 +95,8 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr class="memitem:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPerforation.html#a4e3e7daa4cf4821cb69714edb365d2bc">Well</a></td></tr>
 <tr class="separator:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f10e7b06ff0ae8e2a08e917e81801ac"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPerforation.html#a7f10e7b06ff0ae8e2a08e917e81801ac">DetailInfo</a></td></tr>
+<tr class="separator:a7f10e7b06ff0ae8e2a08e917e81801ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classPerforation.html" title="Perforation describe the connections between wells and bulks.">Perforation</a> describe the connections between wells and bulks. </p>
@@ -127,8 +128,8 @@ Friends</h2></td></tr>
 
 <p>Return the location of perf: index of bulk. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00035">35</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{ <span class="keywordflow">return</span> location; }</div>
+<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00036">36</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{ <span class="keywordflow">return</span> location; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -158,12 +159,36 @@ Friends</h2></td></tr>
 
 <p>Set state of perf. </p>
 
-<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00033">33</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{ state = flag; };</div>
+<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00034">34</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{ state = flag; };</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a7f10e7b06ff0ae8e2a08e917e81801ac" name="a7f10e7b06ff0ae8e2a08e917e81801ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f10e7b06ff0ae8e2a08e917e81801ac">&#9670;&nbsp;</a></span>DetailInfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classDetailInfo.html">DetailInfo</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="WellPerf_8hpp_source.html#l00027">27</a> of file <a class="el" href="WellPerf_8hpp_source.html">WellPerf.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a4e3e7daa4cf4821cb69714edb365d2bc" name="a4e3e7daa4cf4821cb69714edb365d2bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e3e7daa4cf4821cb69714edb365d2bc">&#9670;&nbsp;</a></span>Well</h2>
 
@@ -194,7 +219,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -83,6 +82,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa207d83bfc12e673b288d8c0ae5b0427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">PrintVersion</a> () const</td></tr>
 <tr class="memdesc:aa207d83bfc12e673b288d8c0ae5b0427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output <a class="el" href="classOpenCAEPoro.html" title="Top-level data structure for the OpenCAEPoro simulator.">OpenCAEPoro</a> version information.  <a href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">More...</a><br /></td></tr>
 <tr class="separator:aa207d83bfc12e673b288d8c0ae5b0427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed58e04f34903750d41b38191f97efd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a> (string cmdname) const</td></tr>
+<tr class="memdesc:a4ed58e04f34903750d41b38191f97efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide at least InputFileName for the input data.  <a href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">More...</a><br /></td></tr>
+<tr class="separator:a4ed58e04f34903750d41b38191f97efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0becddcbf7c4a51417a20f8e42b10ba5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a> (<a class="el" href="classParamRead.html">ParamRead</a> &amp;param)</td></tr>
 <tr class="memdesc:a0becddcbf7c4a51417a20f8e42b10ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read input parameters to an internal structure.  <a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">More...</a><br /></td></tr>
 <tr class="separator:a0becddcbf7c4a51417a20f8e42b10ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,11 +124,23 @@ Public Member Functions</h2></td></tr>
 <p>Initialize or get intitial status of reserovir. </p>
 <p >Initialize the reservoir class. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00039">39</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{ solver.<a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir); }</div>
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00045">45</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{ </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="classGetWallTime.html">GetWallTime</a> timer;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    timer.<a class="code hl_function" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    solver.<a class="code hl_function" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    cout &lt;&lt; endl &lt;&lt; <span class="stringliteral">&quot;Inilization Finishes   Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    control.<a class="code hl_function" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>()/1000);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="ttc" id="aclassGetWallTime_html"><div class="ttname"><a href="classGetWallTime.html">GetWallTime</a></div><div class="ttdoc">Get elapsed wall-time in millisecond.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00031">UtilTiming.hpp:32</a></div></div>
+<div class="ttc" id="aclassGetWallTime_html_a6554ac2f01206c503f15a5efa39c5605"><div class="ttname"><a href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">GetWallTime::Stop</a></div><div class="ttdeci">__inline__ double Stop() const</div><div class="ttdoc">Stop the timer and return duration from start() in ms.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00054">UtilTiming.hpp:54</a></div></div>
+<div class="ttc" id="aclassGetWallTime_html_a89f0126e2428cd5a45c0ebf790f96bc9"><div class="ttname"><a href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">GetWallTime::Start</a></div><div class="ttdeci">__inline__ void Start()</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00051">UtilTiming.hpp:51</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00166">OCPControl.hpp:166</a></div></div>
 <div class="ttc" id="aclassSolver_html_ac39f1047bf3d1c2f03dfe62dd718d6ff"><div class="ttname"><a href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">Solver::InitReservoir</a></div><div class="ttdeci">void InitReservoir(Reservoir &amp;rs) const</div><div class="ttdoc">Initialize the reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00018">Solver.cpp:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00018">Solver::InitReservoir()</a>.</p>
+<p class="reference">References <a class="el" href="Solver_8cpp_source.html#l00018">Solver::InitReservoir()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00166">OCPControl::RecordTotalTime()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
 
 </div>
 </div>
@@ -155,12 +169,12 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    control.<a class="code hl_function" href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">InputParam</a>(param.<a class="code hl_variable" href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">paramControl</a>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    output.InputParam(param.<a class="code hl_variable" href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">paramOutput</a>);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00063">OCPControl.cpp:63</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00071">OCPControl.cpp:71</a></div></div>
 <div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
 <div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00044">ParamRead.hpp:44</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a4f3088521df8019f73ad1861004fc1c0"><div class="ttname"><a href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00018">Reservoir.cpp:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00063">OCPControl::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00018">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramOutput</a>.</p>
+<p class="reference">References <a class="el" href="OCPControl_8cpp_source.html#l00071">OCPControl::InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00018">Reservoir::InputParam()</a>, <a class="el" href="ParamRead_8hpp_source.html#l00044">ParamRead::paramControl</a>, and <a class="el" href="ParamRead_8hpp_source.html#l00045">ParamRead::paramOutput</a>.</p>
 
 </div>
 </div>
@@ -182,20 +196,62 @@ Public Member Functions</h2></td></tr>
 <p>Output necessary information for post-processing. </p>
 <p >Print summary information on screen and SUMMARY.out file. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00062">62</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    cout &lt;&lt; <span class="stringliteral">&quot;Final time:          &quot;</span> &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.numTstep &lt;&lt; endl;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total Newton steps:  &quot;</span> &lt;&lt; control.iterNR_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>         &lt;&lt; control.wastedIterNR &lt;&lt; <span class="stringliteral">&quot; wasted steps)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total linear steps:  &quot;</span> &lt;&lt; control.iterLS_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>         &lt;&lt; control.wastedIterLS &lt;&lt; <span class="stringliteral">&quot; wasted steps)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    output.PrintInfo();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00089">89</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    cout &lt;&lt; <span class="stringliteral">&quot;Final time:          &quot;</span> &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total time steps:    &quot;</span> &lt;&lt; control.numTstep &lt;&lt; endl;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total Newton steps:  &quot;</span> &lt;&lt; control.iterNR_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>         &lt;&lt; control.wastedIterNR &lt;&lt; <span class="stringliteral">&quot; wasted steps)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    cout &lt;&lt; <span class="stringliteral">&quot;Total linear steps:  &quot;</span> &lt;&lt; control.iterLS_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>         &lt;&lt; control.wastedIterLS &lt;&lt; <span class="stringliteral">&quot; wasted steps)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    cout &lt;&lt; <span class="stringliteral">&quot;Linear solve time:   &quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:     &quot;</span> &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    output.PrintInfo();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4ed58e04f34903750d41b38191f97efd" name="a4ed58e04f34903750d41b38191f97efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed58e04f34903750d41b38191f97efd">&#9670;&nbsp;</a></span>PrintUsage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCAEPoro::PrintUsage </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>cmdname</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provide at least InputFileName for the input data. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCP_8hpp_source.html#l00039">39</a> of file <a class="el" href="OCP_8hpp_source.html">OCP.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; std::endl</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                  &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname &lt;&lt; <span class="stringliteral">&quot; &lt;InputFileName&gt; [Optional Method Parameters]&quot;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                  &lt;&lt; std::endl &lt;&lt; std::endl</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                  &lt;&lt; <span class="stringliteral">&quot;For example: &quot;</span> &lt;&lt; std::endl</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                  &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                  &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data  %% Solve SPE1a in default setting&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                  &lt;&lt; std::endl</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                  &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                  &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data FIM 1 10 0.1  %% Solve SPE1a using FIM&quot;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                  &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -228,8 +284,9 @@ Public Member Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; std::endl</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                  &lt;&lt; <span class="stringliteral">&quot;OpenCAEPoro Version-&quot;</span> &lt;&lt; <a class="code hl_define" href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a> &lt;&lt; std::endl</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                  &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                  &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; std::endl</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                  &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
 <div class="ttc" id="aOCP_8hpp_html_ab07473bc09450555830e8819d19908a9"><div class="ttname"><a href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a></div><div class="ttdeci">#define OCPVersion</div><div class="ttdoc">Software version tag used for git.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00023">OCP.hpp:23</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="OCP_8hpp_source.html#l00023">OCPVersion</a>.</p>
@@ -254,31 +311,47 @@ Public Member Functions</h2></td></tr>
 <p>Run dynamic simulation. </p>
 <p >Call IMPEC, FIM, etc for dynamic simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00042">42</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">switch</span> (control.<a class="code hl_function" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">GetMethod</a>())</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with IMPEC&quot;</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with FIM&quot;</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method type!&quot;</span>);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    solver.<a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(reservoir, control, output);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><div class="ttname"><a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a></div><div class="ttdeci">const USI FIM</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00064">OCPConst.hpp:64</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ac14d31821c31b6fc2624e8e0c304023c"><div class="ttname"><a href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a></div><div class="ttdeci">const USI IMPEC</div><div class="ttdoc">Solution method = IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00063">OCPConst.hpp:63</a></div></div>
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00057">57</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">switch</span> (control.<a class="code hl_function" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">GetMethod</a>())</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with IMPEC&quot;</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with FIM&quot;</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with FIMn&quot;</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">AIMc</a>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with AIMc&quot;</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a12e00ef2e95a073dbc0c93386c654ed6">AIMs</a>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with AIMs&quot;</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">case</span> <a class="code hl_variable" href="OCPConst_8hpp.html#a1f1ab38d06a031d261e455d82dd692db">AIMt</a>:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with AIMt&quot;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method type!&quot;</span>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    solver.<a class="code hl_function" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(reservoir, control, output);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a12e00ef2e95a073dbc0c93386c654ed6"><div class="ttname"><a href="OCPConst_8hpp.html#a12e00ef2e95a073dbc0c93386c654ed6">AIMs</a></div><div class="ttdeci">const USI AIMs</div><div class="ttdoc">Adaptive implicit.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00072">OCPConst.hpp:72</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a1f1ab38d06a031d261e455d82dd692db"><div class="ttname"><a href="OCPConst_8hpp.html#a1f1ab38d06a031d261e455d82dd692db">AIMt</a></div><div class="ttdeci">const USI AIMt</div><div class="ttdoc">improved version of IMPEC, loacl FIM after IMPEC</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00073">OCPConst.hpp:73</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a4d32a0b2d17c64fd923685ccbc4a93d4"><div class="ttname"><a href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a></div><div class="ttdeci">const USI FIMn</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00075">OCPConst.hpp:75</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><div class="ttname"><a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a></div><div class="ttdeci">const USI FIM</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00071">OCPConst.hpp:71</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_abdb022423b0bcbead41cb49a6d68a2ff"><div class="ttname"><a href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">AIMc</a></div><div class="ttdeci">const USI AIMc</div><div class="ttdoc">Adaptive implicit -— Collins.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00074">OCPConst.hpp:74</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac14d31821c31b6fc2624e8e0c304023c"><div class="ttname"><a href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a></div><div class="ttdeci">const USI IMPEC</div><div class="ttdoc">Solution method = IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00070">OCPConst.hpp:70</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_ac7d3146b8657a177d20ca1b86bb26b45"><div class="ttname"><a href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl::GetMethod</a></div><div class="ttdeci">USI GetMethod() const</div><div class="ttdoc">Return type of the solution method.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00118">OCPControl.hpp:118</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_ac7d3146b8657a177d20ca1b86bb26b45"><div class="ttname"><a href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl::GetMethod</a></div><div class="ttdeci">USI GetMethod() const</div><div class="ttdoc">Return type of the solution method.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00124">OCPControl.hpp:124</a></div></div>
 <div class="ttc" id="aclassSolver_html_aa28d73a396ce4671abadf95ded8aeb34"><div class="ttname"><a href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a></div><div class="ttdeci">void RunSimulation(Reservoir &amp;rs, OCPControl &amp;ctrl, OCPOutput &amp;output)</div><div class="ttdoc">Start simulation.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00025">Solver.cpp:25</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00064">FIM</a>, <a class="el" href="OCPControl_8hpp_source.html#l00118">OCPControl::GetMethod()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00063">IMPEC</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="Solver_8cpp_source.html#l00025">Solver::RunSimulation()</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00074">AIMc</a>, <a class="el" href="OCPConst_8hpp_source.html#l00072">AIMs</a>, <a class="el" href="OCPConst_8hpp_source.html#l00073">AIMt</a>, <a class="el" href="OCPConst_8hpp_source.html#l00071">FIM</a>, <a class="el" href="OCPConst_8hpp_source.html#l00075">FIMn</a>, <a class="el" href="OCPControl_8hpp_source.html#l00124">OCPControl::GetMethod()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00070">IMPEC</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="Solver_8cpp_source.html#l00025">Solver::RunSimulation()</a>.</p>
 
 </div>
 </div>
@@ -319,23 +392,29 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00023">23</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// Read parameters from input file</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(param);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// Read Fast control</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    control.<a class="code hl_function" href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">SetupFastControl</a>(argc, optset);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// Setup static infomation for reservoir</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    reservoir.<a class="code hl_function" href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Setup</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="comment">// Setup output for dynamic simulation</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    output.Setup(reservoir, control);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">// Setup static information for solver</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    solver.<a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Setup</a>(reservoir, control);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00112">OCPControl.cpp:112</a></div></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="classGetWallTime.html">GetWallTime</a> timer;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    timer.<a class="code hl_function" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// Read parameters from input file</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_function" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(param);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// Read Fast control</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    control.<a class="code hl_function" href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">SetupFastControl</a>(argc, optset);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// Setup static infomation for reservoir</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    reservoir.<a class="code hl_function" href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Setup</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// Setup output for dynamic simulation</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    output.Setup(reservoir, control);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// Setup static information for solver</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    solver.<a class="code hl_function" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Setup</a>(reservoir, control);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>   </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    cout &lt;&lt; endl &lt;&lt; <span class="stringliteral">&quot;Setup Simulation Finishes   Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    control.<a class="code hl_function" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code hl_function" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00138">OCPControl.cpp:138</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00027">Reservoir.cpp:27</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00028">Reservoir.cpp:28</a></div></div>
 <div class="ttc" id="aclassSolver_html_a8d0439530ba5eb621ae4515168df367d"><div class="ttname"><a href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup Solver.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00015">Solver.cpp:15</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00027">Reservoir::Setup()</a>, <a class="el" href="Solver_8cpp_source.html#l00015">Solver::Setup()</a>, and <a class="el" href="OCPControl_8cpp_source.html#l00112">OCPControl::SetupFastControl()</a>.</p>
+<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00015">InputParam()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00166">OCPControl::RecordTotalTime()</a>, <a class="el" href="Reservoir_8cpp_source.html#l00028">Reservoir::Setup()</a>, <a class="el" href="Solver_8cpp_source.html#l00015">Solver::Setup()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00138">OCPControl::SetupFastControl()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
 
 </div>
 </div>
@@ -346,7 +425,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

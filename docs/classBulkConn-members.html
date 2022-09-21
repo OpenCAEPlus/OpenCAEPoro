@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -72,17 +71,27 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classBulkConn.html">BulkConn</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#aefc3cc60009acf19dbdf51099e231832">AllocateAuxFIM</a>(const USI &amp;np)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">AllocateAuxIMPEC</a>(const USI &amp;np)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">AllocateMat</a>(LinearSystem &amp;myLS) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a438992d31661ee39e0f456f451e5903f">AssembleMat_FIM</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">AssembleMatIMPEC</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a29a2e7b5ac50a8c5cf2210def306fcb1">BulkConn</a>()=default</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#aef03b3f72e154174446d2755ccfd92ce">CalCFL01IMPEC</a>(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a735a3dcedd718b80c36be365ee935f16">CalCFLIMPEC</a>(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>AddFIMBulk</b>(Bulk &amp;myBulk) (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a1c9fb61b13b8879e59ce6eee5b4bdaad">AllocateAuxAIMc</a>(const USI &amp;np)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a68d7e880d624859aa0786ced3e27b6bc">AllocateAuxAIMt</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#aefc3cc60009acf19dbdf51099e231832">AllocateAuxFIM</a>(const USI &amp;np)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a627c90927dfbf83c050298fd36a9dbc3">AllocateAuxIMPEC</a>(const USI &amp;np)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#acc5697d9a56a115dc94fb63da324b9cd">AllocateMat</a>(LinearSystem &amp;myLS) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>AssembleMat_AIMc</b>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>AssembleMat_AIMc01</b>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#af99ca1dabcae599c0ba5249397b6f43f">AssembleMat_AIMs</a>(LinearSystem &amp;myLS, vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#af99bc753420afe8df204dd9ec496394d">AssembleMat_AIMt</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a438992d31661ee39e0f456f451e5903f">AssembleMat_FIM</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#ab667f0062fef9f3844c10d16f84afe74">AssembleMat_FIM_new</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>AssembleMat_FIM_new_n</b>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a1f352d5dc2deaa10c799d07ff59b0238">AssembleMatIMPEC</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a29a2e7b5ac50a8c5cf2210def306fcb1">BulkConn</a>()=default</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a590f1a680ff8ade3463e603a5af020ff">CalCFL</a>(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">CalFluxFIM</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#aa8d9f52fc6bf62216f76b93337e61800">CalFluxIMPEC</a>(const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#ab492d5bd1170fc61b2100aab60535a08">CalIteratorConn</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a9ab2c3c03232cf9f6caefdf21a9ab20d">CalResAIMc</a>(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#af53709058318f495ce488fe94c7b860a">CalResAIMs</a>(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#ad6e5af0ddf423bcaf94d6c5dac8f2d8a">CalResAIMt</a>(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">CalResFIM</a>(vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk, const OCP_DBL &amp;dt)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">CheckDiff</a>() const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a053e197b2713ce047a4ff697bb6cab34">GetBulkNum</a>() const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -90,17 +99,17 @@ $(function() {
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe">PrintConnectionInfo</a>(const Grid &amp;myGrid) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>PrintConnectionInfoCoor</b>(const Grid &amp;myGrid) const (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8">Reset</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a7cfed4909799f8c9c6aa46462eb36f81">ResetUpblockFIM</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">Setup</a>(const Grid &amp;myGrid, const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a00717664b7df1b169100a756b1e1f641">SetupFlashOrder</a>(Bulk &amp;myBulk) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a02929d17cdc2fa1cc2c3b9f7a05dcf86">Setup</a>(const Grid &amp;myGrid, const Bulk &amp;myBulk)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>SetupFIMBulk</b>(Bulk &amp;myBulk, const bool &amp;NRflag=false) const (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SetupFIMBulkBoundAIMs</b>(Bulk &amp;myBulk) (defined in <a class="el" href="classBulkConn.html">BulkConn</a>)</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a23a353095f0ecc4ef9518a71d0c1b60b">SetupMatSparsity</a>(LinearSystem &amp;myLS) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a0bba8dbf8c32d3d90e0d4c84d68929ab">SetupNeighbor_K</a>(Bulk &amp;myBulk) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">UpdateLastStep</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a68eaf0188bcb842298f8ac62b2aabbae">UpdateLastUpblockFIM</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#ace963045f1ed118525cbb23974932ec8">SetupMatSparsityAIMt</a>(LinearSystem &amp;myLS, const Bulk &amp;myBulk) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classBulkConn.html#a167894f44ddfd5b6516af41bf6601fec">SetupWellBulk_K</a>(Bulk &amp;myBulk) const</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classBulkConn.html#a0a644bf4c4e2eefee31fb98f0d2cd9df">UpdateLastStep</a>()</td><td class="entry"><a class="el" href="classBulkConn.html">BulkConn</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -15,9 +15,12 @@ var searchData=
   ['min_5ftime_5fstep_12',['MIN_TIME_STEP',['../OCPConst_8hpp.html#a51b85526eddfc1a239f7700529f2c268',1,'OCPConst.hpp']]],
   ['minbhp_13',['minBHP',['../classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21',1,'WellOptParam']]],
   ['minchopfac_14',['minChopFac',['../classControlTime.html#aa6781b46d00c251ca13fb1e0cf568a41',1,'ControlTime']]],
-  ['mixturetype_15',['mixtureType',['../classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370',1,'Mixture']]],
-  ['mu_16',['mu',['../classMixture.html#a170e493a88e391f9afe0896181d76786',1,'Mixture']]],
-  ['mup_17',['muP',['../classMixture.html#ae1531b7594246b0b03bdb7d974800ca4',1,'Mixture']]],
-  ['mux_18',['mux',['../classMixture.html#ae63dab2d31711b0246096c5c128f2080',1,'Mixture']]],
-  ['mw_19',['MW',['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP::MW()'],['../classEoSparam.html#a6586430dc581b86c09bc09f9bec8b4ae',1,'EoSparam::MW()']]]
+  ['miscible_15',['miscible',['../classEoSparam.html#affd2338845c0778f142a399f48302217',1,'EoSparam']]],
+  ['miscstr_16',['miscstr',['../classParamReservoir.html#ae2fa01362816a5a161c4c9a9aa2c44a2',1,'ParamReservoir']]],
+  ['mixturetype_17',['mixtureType',['../classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370',1,'Mixture']]],
+  ['mu_18',['mu',['../classMixture.html#a170e493a88e391f9afe0896181d76786',1,'Mixture']]],
+  ['mun_19',['muN',['../classMixture.html#a7897e0172e682f205e6c58688368c12e',1,'Mixture']]],
+  ['mup_20',['muP',['../classMixture.html#ae1531b7594246b0b03bdb7d974800ca4',1,'Mixture']]],
+  ['mux_21',['mux',['../classMixture.html#ae63dab2d31711b0246096c5c128f2080',1,'Mixture']]],
+  ['mw_22',['MW',['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP::MW()'],['../classEoSparam.html#a6586430dc581b86c09bc09f9bec8b4ae',1,'EoSparam::MW()']]]
 ];

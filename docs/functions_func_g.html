@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -112,12 +111,15 @@ $(function() {
 <li>GetLsFile()&#160;:&#160;<a class="el" href="classOCPControl.html#ac379e9830e2c10266281bb3420c98539">OCPControl</a></li>
 <li>GetLSiter()&#160;:&#160;<a class="el" href="classOCPControl.html#aaa1c8afb5b780923d1c7ef606fb572b0">OCPControl</a></li>
 <li>GetLSiterT()&#160;:&#160;<a class="el" href="classOCPControl.html#ab5468ce4e4128b5f67374631a42a2c24">OCPControl</a></li>
+<li>GetMaxFIMBulk()&#160;:&#160;<a class="el" href="classReservoir.html#a6377db002d74cad39fc220a13272ce4e">Reservoir</a></li>
 <li>GetMaxWellPerNum()&#160;:&#160;<a class="el" href="classAllWells.html#a19418a0c7c4696283a1b0b5ac5aef9c7">AllWells</a></li>
 <li>GetMethod()&#160;:&#160;<a class="el" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl</a></li>
 <li>GetMixMode()&#160;:&#160;<a class="el" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk</a></li>
 <li>GetMixture()&#160;:&#160;<a class="el" href="classBulk.html#a6b3f82ebd26550c3a6abcd88f35525d8">Bulk</a></li>
-<li>GetNRdPmax()&#160;:&#160;<a class="el" href="classBulk.html#a782210fccb8fa17751be0ac87ffd65fd">Bulk</a>, <a class="el" href="classReservoir.html#a1d14741b162a407b9ff1a509b1209a8a">Reservoir</a></li>
-<li>GetNRdSmax()&#160;:&#160;<a class="el" href="classBulk.html#a30ee33cae8c342c1598b4da17697ef7f">Bulk</a>, <a class="el" href="classReservoir.html#a5e02282830214ca2af45c66094bba62f">Reservoir</a></li>
+<li>GetNRdNmax()&#160;:&#160;<a class="el" href="classReservoir.html#ad840f0032c3de3620d1d40e3365fe338">Reservoir</a></li>
+<li>GetNRdPmax()&#160;:&#160;<a class="el" href="classBulk.html#a1ffade6171a20bc230c9d45a7fedfb1e">Bulk</a>, <a class="el" href="classReservoir.html#a7b595fd360a031e9d2fcbfdf65989fb6">Reservoir</a></li>
+<li>GetNRdSmax()&#160;:&#160;<a class="el" href="classReservoir.html#a3c3e902324d28075e8f00b53ce12fb38">Reservoir</a></li>
+<li>GetNRdSmaxP()&#160;:&#160;<a class="el" href="classBulk.html#a55c12a95f60c4aba7e5b80433a827f96">Bulk</a>, <a class="el" href="classReservoir.html#a496b267aec3542c6e2a07f333dec04a5">Reservoir</a></li>
 <li>GetNRiter()&#160;:&#160;<a class="el" href="classOCPControl.html#a57e53a1adc8fc16423e16a4af8ee1149">OCPControl</a></li>
 <li>GetNRiterT()&#160;:&#160;<a class="el" href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">OCPControl</a></li>
 <li>GetNumIters()&#160;:&#160;<a class="el" href="classFaspSolver.html#ae12f376052f9f1d6cfd16193bc5886f7">FaspSolver</a>, <a class="el" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">LinearSolver</a>, <a class="el" href="classLinearSystem.html#a04470bc0392d570b74459d23b6888b3c">LinearSystem</a></li>
@@ -127,16 +129,20 @@ $(function() {
 <li>GetPcowBySw()&#160;:&#160;<a class="el" href="classFlowUnit.html#af482898d617e66a1089d20ddc6b642c3">FlowUnit</a>, <a class="el" href="classFlowUnit__ODGW01.html#a3d92ff4496ca8428eba82600cb475181">FlowUnit_ODGW01</a>, <a class="el" href="classFlowUnit__ODGW02.html#ae7de5b427ff14931850279d8ec1a2f71">FlowUnit_ODGW02</a>, <a class="el" href="classFlowUnit__OG.html#ad18b6c1562d3bf73a206dd8107608e27">FlowUnit_OG</a>, <a class="el" href="classFlowUnit__OW.html#a699610d6cbfd85176e5823dd6852eabb">FlowUnit_OW</a>, <a class="el" href="classFlowUnit__W.html#a8453f8328f30b0516f229d03371fde08">FlowUnit_W</a></li>
 <li>GetPerfPre()&#160;:&#160;<a class="el" href="classWell.html#a78d04e63b30bc4dca680b69ee91ed225">Well</a></li>
 <li>GetPhaseNum()&#160;:&#160;<a class="el" href="classBulk.html#a05eccc1ed7f6e8619228e2c7ce45ec15">Bulk</a></li>
+<li>GetRowZero()&#160;:&#160;<a class="el" href="classOCPTable.html#a67211c556ab6e554c592fc5d6b48cc35">OCPTable</a></li>
 <li>GetSGAS()&#160;:&#160;<a class="el" href="classBulk.html#a96f9ff9bf4c3c684936b073bf39c14e1">Bulk</a></li>
 <li>GetSOIL()&#160;:&#160;<a class="el" href="classBulk.html#a7b43113018d9ce3ba4f559acf65dd760">Bulk</a></li>
-<li>GetSol01FIM()&#160;:&#160;<a class="el" href="classBulk.html#a799c3248ccc66762e1de6a0930c0ff19">Bulk</a></li>
+<li>GetSol01FIM()&#160;:&#160;<a class="el" href="classBulk.html#a8d9e28a4f0c4c130c7e806ea73057f4b">Bulk</a></li>
+<li>GetSolAIMt()&#160;:&#160;<a class="el" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells</a>, <a class="el" href="classBulk.html#a76902cd41197c610c5f4698da6bea196">Bulk</a></li>
 <li>GetSolFIM()&#160;:&#160;<a class="el" href="classAllWells.html#aa227cf746f8c53783da25aea63776906">AllWells</a>, <a class="el" href="classBulk.html#afe271a220488edfca396399e74a76bfd">Bulk</a></li>
+<li>GetSolFIM_n()&#160;:&#160;<a class="el" href="classBulk.html#ae686932dc7bf90a4ce9be862e5b727f5">Bulk</a></li>
 <li>GetSolIMPEC()&#160;:&#160;<a class="el" href="classAllWells.html#aa4b6edc8baaa8ded03d3a53f9f9d15b8">AllWells</a>, <a class="el" href="classBulk.html#a1e8a15fd47a345ad761da5707c866683">Bulk</a></li>
 <li>GetSolution()&#160;:&#160;<a class="el" href="classLinearSystem.html#aa09121cf9aee73f88f0d48096968ecd8">LinearSystem</a></li>
+<li>GetSolutionAIMt()&#160;:&#160;<a class="el" href="classReservoir.html#a79cb6eec1e7f8eaccbf6b7a5b3365b64">Reservoir</a></li>
 <li>GetSolutionFIM()&#160;:&#160;<a class="el" href="classReservoir.html#a340e980c38b9cfcd92997999fa01c18f">Reservoir</a></li>
 <li>GetSolutionIMPEC()&#160;:&#160;<a class="el" href="classReservoir.html#a3ee1bec4aaddc971973e536ace3a0dc6">Reservoir</a></li>
 <li>GetSWAT()&#160;:&#160;<a class="el" href="classBulk.html#a8c2b56ce1f80ffe711591994e086eb86">Bulk</a></li>
-<li>GetSwByPcgw()&#160;:&#160;<a class="el" href="classFlowUnit.html#a116e1235e4f35bb92a6046021dd1b146">FlowUnit</a>, <a class="el" href="classFlowUnit__ODGW01.html#a445e44d7fb82e65ae2904e12478845ac">FlowUnit_ODGW01</a>, <a class="el" href="classFlowUnit__ODGW02.html#a433d76ea5f7d8525a45e32a7ebfc93da">FlowUnit_ODGW02</a>, <a class="el" href="classFlowUnit__OG.html#a4a861fe5688fa0134cf40a4e3f26f626">FlowUnit_OG</a>, <a class="el" href="classFlowUnit__OW.html#a410ecec7a5b597b71450b6d0f62645fd">FlowUnit_OW</a>, <a class="el" href="classFlowUnit__W.html#a48894e6d6307c278641f370f36c54153">FlowUnit_W</a></li>
+<li>GetSwByPcgw()&#160;:&#160;<a class="el" href="classFlowUnit.html#a116e1235e4f35bb92a6046021dd1b146">FlowUnit</a>, <a class="el" href="classFlowUnit__ODGW01.html#a445e44d7fb82e65ae2904e12478845ac">FlowUnit_ODGW01</a>, <a class="el" href="classFlowUnit__ODGW02.html#a433d76ea5f7d8525a45e32a7ebfc93da">FlowUnit_ODGW02</a>, <a class="el" href="classFlowUnit__OG.html#a4a861fe5688fa0134cf40a4e3f26f626">FlowUnit_OG</a>, <a class="el" href="classFlowUnit__OW.html#a037a01dbc1fae4c79f5219c5d372edb5">FlowUnit_OW</a>, <a class="el" href="classFlowUnit__W.html#a48894e6d6307c278641f370f36c54153">FlowUnit_W</a></li>
 <li>GetType()&#160;:&#160;<a class="el" href="classMixture.html#adb753547a2e6c1d098e2a3fde0b8a9ad">Mixture</a></li>
 <li>GetWBHP()&#160;:&#160;<a class="el" href="classAllWells.html#a651a3e998fb32be08cf263f8d5706079">AllWells</a></li>
 <li>GetWellDg()&#160;:&#160;<a class="el" href="classAllWells.html#ab2c604fba572d4457d4c20b63d324290">AllWells</a></li>
@@ -159,7 +165,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -131,6 +130,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a529719daffcb01f268151df20aca25cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a529719daffcb01f268151df20aca25cc">VWAT</a> {false}</td></tr>
 <tr class="memdesc:a529719daffcb01f268151df20aca25cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Water viscosity of grids.  <a href="classOutputDetail.html#a529719daffcb01f268151df20aca25cc">More...</a><br /></td></tr>
 <tr class="separator:a529719daffcb01f268151df20aca25cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f155fbcd914f2830bea9960b086d63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a58f155fbcd914f2830bea9960b086d63">XMF</a> {false}</td></tr>
+<tr class="memdesc:a58f155fbcd914f2830bea9960b086d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">liquid component mole fractions.  <a href="classOutputDetail.html#a58f155fbcd914f2830bea9960b086d63">More...</a><br /></td></tr>
+<tr class="separator:a58f155fbcd914f2830bea9960b086d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea9360b459d20ace348cffdb4721e3fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#aea9360b459d20ace348cffdb4721e3fc">YMF</a> {false}</td></tr>
+<tr class="memdesc:aea9360b459d20ace348cffdb4721e3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">gas component mole fractions.  <a href="classOutputDetail.html#aea9360b459d20ace348cffdb4721e3fc">More...</a><br /></td></tr>
+<tr class="separator:aea9360b459d20ace348cffdb4721e3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf0bafdf4204aba8962707a71e6def2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutputDetail.html#a7bf0bafdf4204aba8962707a71e6def2">PCW</a> {false}</td></tr>
+<tr class="memdesc:a7bf0bafdf4204aba8962707a71e6def2"><td class="mdescLeft">&#160;</td><td class="mdescRight">capilary pressure: Po - Pw.  <a href="classOutputDetail.html#a7bf0bafdf4204aba8962707a71e6def2">More...</a><br /></td></tr>
+<tr class="separator:a7bf0bafdf4204aba8962707a71e6def2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classOutputDetail.html">OutputDetail</a> is a part of <a class="el" href="classParamOutput.html">ParamOutput</a>, it's used to control the output of detailed information of reservoir. For example, pressure in every grid, due to excessive data volume, this option is usually used in Debug Model. </p>
@@ -299,6 +307,24 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7bf0bafdf4204aba8962707a71e6def2" name="a7bf0bafdf4204aba8962707a71e6def2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf0bafdf4204aba8962707a71e6def2">&#9670;&nbsp;</a></span>PCW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::PCW {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>capilary pressure: Po - Pw. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00115">115</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a5fe27a87edc0d4cf24124da98cd87393" name="a5fe27a87edc0d4cf24124da98cd87393"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5fe27a87edc0d4cf24124da98cd87393">&#9670;&nbsp;</a></span>PGAS</h2>
 
@@ -461,13 +487,49 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a58f155fbcd914f2830bea9960b086d63" name="a58f155fbcd914f2830bea9960b086d63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58f155fbcd914f2830bea9960b086d63">&#9670;&nbsp;</a></span>XMF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::XMF {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>liquid component mole fractions. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00113">113</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aea9360b459d20ace348cffdb4721e3fc" name="aea9360b459d20ace348cffdb4721e3fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea9360b459d20ace348cffdb4721e3fc">&#9670;&nbsp;</a></span>YMF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutputDetail::YMF {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gas component mole fractions. </p>
+
+<p class="definition">Definition at line <a class="el" href="ParamOutput_8hpp_source.html#l00114">114</a> of file <a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="ParamOutput_8hpp_source.html">ParamOutput.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

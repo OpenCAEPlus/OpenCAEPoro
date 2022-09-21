@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -112,6 +111,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a33c4d5102d9a866029e0f66a42c2e64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a986527d330c4fbcc8b5a14fd231eff1a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#a986527d330c4fbcc8b5a14fd231eff1a">GetFlagSkip</a> () override</td></tr>
 <tr class="separator:a986527d330c4fbcc8b5a14fd231eff1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c3a81e04afeebc1cb5d259c348d10c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#a10c3a81e04afeebc1cb5d259c348d10c">GetSurTen</a> () override</td></tr>
+<tr class="separator:a10c3a81e04afeebc1cb5d259c348d10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af42886abecfdc05808dbcbb79bab88b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#af42886abecfdc05808dbcbb79bab88b3">GetErrorPEC</a> () override</td></tr>
+<tr class="separator:af42886abecfdc05808dbcbb79bab88b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaaf9538b54410e5595b44e9426fbf33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#afaaf9538b54410e5595b44e9426fbf33">GetSSMSTAiters</a> () override</td></tr>
 <tr class="separator:afaaf9538b54410e5595b44e9426fbf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7afeed5d649c74a465984ab15b7b7e98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#a7afeed5d649c74a465984ab15b7b7e98">GetNRSTAiters</a> () override</td></tr>
@@ -141,6 +144,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d5ffc780d16baf60a3bafaa971abf87 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a8d5ffc780d16baf60a3bafaa971abf87">FlashDeriv</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
 <tr class="memdesc:a8d5ffc780d16baf60a3bafaa971abf87 inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components and Calculate the derivative.  <a href="classMixture.html#a8d5ffc780d16baf60a3bafaa971abf87">More...</a><br /></td></tr>
 <tr class="separator:a8d5ffc780d16baf60a3bafaa971abf87 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ad6f03ad8524049546a6d35f8fd7376 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9ad6f03ad8524049546a6d35f8fd7376">FlashDeriv_n</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *njin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *phaseExistin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
+<tr class="separator:a9ad6f03ad8524049546a6d35f8fd7376 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac4ca8c6f7eeddb4b51ef075f49ec6bb inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb">XiPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
 <tr class="separator:aac4ca8c6f7eeddb4b51ef075f49ec6bb inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf1be0ad34ced8062a5d4da2deb54d8e inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e">RhoPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
@@ -201,6 +206,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:afad5616464982e92b25adba0c84f4eb5 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9958b097000a344df9bfbdc845db850c inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a></td></tr>
 <tr class="separator:a9958b097000a344df9bfbdc845db850c inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d6fa9514fce1774cc277826d304061 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a></td></tr>
+<tr class="memdesc:aa0d6fa9514fce1774cc277826d304061 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">mole number of phase j  <a href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">More...</a><br /></td></tr>
+<tr class="separator:aa0d6fa9514fce1774cc277826d304061 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a170e493a88e391f9afe0896181d76786 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a></td></tr>
 <tr class="memdesc:a170e493a88e391f9afe0896181d76786 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">viscosity of phase: numPhase  <a href="classMixture.html#a170e493a88e391f9afe0896181d76786">More...</a><br /></td></tr>
 <tr class="separator:a170e493a88e391f9afe0896181d76786 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,6 +221,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a9d5376ba600228135d16bbd76d4b38de inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a></td></tr>
 <tr class="memdesc:a9d5376ba600228135d16bbd76d4b38de inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total moles of Components.  <a href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">More...</a><br /></td></tr>
 <tr class="separator:a9d5376ba600228135d16bbd76d4b38de inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382c30078dd1579e7f375ad2f60e2f44 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">vji</a></td></tr>
+<tr class="memdesc:a382c30078dd1579e7f375ad2f60e2f44 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij  <a href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">More...</a><br /></td></tr>
+<tr class="separator:a382c30078dd1579e7f375ad2f60e2f44 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334d229b6dbbc015a9e7de974f08c76d inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">vjp</a></td></tr>
+<tr class="memdesc:a334d229b6dbbc015a9e7de974f08c76d inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">dvj / dp, used in 2 hydrocarbon phase in EOS  <a href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">More...</a><br /></td></tr>
+<tr class="separator:a334d229b6dbbc015a9e7de974f08c76d inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf4f5e549cc50a366951dba65d196198 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#adf4f5e549cc50a366951dba65d196198">vfp</a></td></tr>
 <tr class="separator:adf4f5e549cc50a366951dba65d196198 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4dd3e54d542aca8eccdcbd208a38504 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a></td></tr>
@@ -226,6 +240,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a0a42129a94c1ba7c92c9577f0eb0234f inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a></td></tr>
 <tr class="memdesc:a0a42129a94c1ba7c92c9577f0eb0234f inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho / dP: numphase  <a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">More...</a><br /></td></tr>
 <tr class="separator:a0a42129a94c1ba7c92c9577f0eb0234f inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7897e0172e682f205e6c58688368c12e inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a7897e0172e682f205e6c58688368c12e">muN</a></td></tr>
+<tr class="memdesc:a7897e0172e682f205e6c58688368c12e inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d N[i]: numphase * numCom  <a href="classMixture.html#a7897e0172e682f205e6c58688368c12e">More...</a><br /></td></tr>
+<tr class="separator:a7897e0172e682f205e6c58688368c12e inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3476f1a61b94f0b58c00a90643e1861a inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">xiN</a></td></tr>
+<tr class="memdesc:a3476f1a61b94f0b58c00a90643e1861a inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d N[i]: numphase * numCom  <a href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">More...</a><br /></td></tr>
+<tr class="separator:a3476f1a61b94f0b58c00a90643e1861a inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e2798ac8ab094b3a17cff16111f70b inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">rhoN</a></td></tr>
+<tr class="memdesc:ad9e2798ac8ab094b3a17cff16111f70b inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho[j] / d N[i]: numphase * numCom  <a href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">More...</a><br /></td></tr>
+<tr class="separator:ad9e2798ac8ab094b3a17cff16111f70b inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae63dab2d31711b0246096c5c128f2080 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
 <tr class="memdesc:ae63dab2d31711b0246096c5c128f2080 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom  <a href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">More...</a><br /></td></tr>
 <tr class="separator:ae63dab2d31711b0246096c5c128f2080 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,6 +261,18 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a15908a1b8da8390dd9e8d7c2bd822bf4 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
 <tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables  <a href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">More...</a><br /></td></tr>
 <tr class="separator:a15908a1b8da8390dd9e8d7c2bd822bf4 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12f16b1b3d45f0052be513f14d323835 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">pEnumCom</a></td></tr>
+<tr class="memdesc:a12f16b1b3d45f0052be513f14d323835 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">see pEnumCom in bulk  <a href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">More...</a><br /></td></tr>
+<tr class="separator:a12f16b1b3d45f0052be513f14d323835 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6c518e1735459e4da660fe989fbcf1d inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">res</a></td></tr>
+<tr class="memdesc:ae6c518e1735459e4da660fe989fbcf1d inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">residual of a set of equations  <a href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">More...</a><br /></td></tr>
+<tr class="separator:ae6c518e1735459e4da660fe989fbcf1d inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06e0f35248973da46366c82943f6a085 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a06e0f35248973da46366c82943f6a085">resPc</a></td></tr>
+<tr class="memdesc:a06e0f35248973da46366c82943f6a085 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">a precalculated value  <a href="classMixture.html#a06e0f35248973da46366c82943f6a085">More...</a><br /></td></tr>
+<tr class="separator:a06e0f35248973da46366c82943f6a085 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad49e1236014cca81fa4faedf12806bb0 inherit pro_attribs_classMixture"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">keyDer</a></td></tr>
+<tr class="memdesc:ad49e1236014cca81fa4faedf12806bb0 inherit pro_attribs_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">d (xij*xi/mu) / dP or dNk  <a href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">More...</a><br /></td></tr>
+<tr class="separator:ad49e1236014cca81fa4faedf12806bb0 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classBOMixture.html" title="BOMixture is inherited class of Mixture, it&#39;s used for black oil model.">BOMixture</a> is inherited class of <a class="el" href="classMixture.html">Mixture</a>, it's used for black oil model. </p>
@@ -283,24 +318,24 @@ Protected Attributes</h2></td></tr>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_variable" href="classBOMixture.html#ab388b42b630e61e7e4e21cae04b105aa">std_GammaW</a> = <a class="code hl_variable" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * <a class="code hl_variable" href="classBOMixture.html#a50d0e4b50f22291b9db6048cea7d327a">std_RhoW</a>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a1457bcdb311848998b260c5e95da83bb"><div class="ttname"><a href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a></div><div class="ttdeci">const USI BLKOIL</div><div class="ttdoc">Mixture model = black-oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00073">OCPConst.hpp:73</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a340b34fe6fb4d1bc8b7544ed32eee7e8"><div class="ttname"><a href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a></div><div class="ttdeci">const OCP_DBL GRAVITY_FACTOR</div><div class="ttdoc">0.00694444 ft2 psi / lb</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00047">OCPConst.hpp:47</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a538f927b5893c9896717163bb2a798ee"><div class="ttname"><a href="OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee">RHOW_STD</a></div><div class="ttdeci">const OCP_DBL RHOW_STD</div><div class="ttdoc">Water density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00048">OCPConst.hpp:48</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_aedff4c911b34955eaffe685938585415"><div class="ttname"><a href="OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415">RHOAIR_STD</a></div><div class="ttdeci">const OCP_DBL RHOAIR_STD</div><div class="ttdoc">Air density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00049">OCPConst.hpp:49</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_a0f5236ad142293a877a039d2ae403fa7"><div class="ttname"><a href="classBOMixture.html#a0f5236ad142293a877a039d2ae403fa7">BOMixture::std_GammaO</a></div><div class="ttdeci">OCP_DBL std_GammaO</div><div class="ttdoc">std_RhoO * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00057">MixtureBO.hpp:57</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_a50d0e4b50f22291b9db6048cea7d327a"><div class="ttname"><a href="classBOMixture.html#a50d0e4b50f22291b9db6048cea7d327a">BOMixture::std_RhoW</a></div><div class="ttdeci">OCP_DBL std_RhoW</div><div class="ttdoc">mass density of water phase in standard condition.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00060">MixtureBO.hpp:60</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_aa04958bff5a4f76a845dcc62035ef8ef"><div class="ttname"><a href="classBOMixture.html#aa04958bff5a4f76a845dcc62035ef8ef">BOMixture::std_RhoG</a></div><div class="ttdeci">OCP_DBL std_RhoG</div><div class="ttdoc">mass density of gas phase in standard condition.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00058">MixtureBO.hpp:58</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_ab37d31a45452133ecb68297b993eb116"><div class="ttname"><a href="classBOMixture.html#ab37d31a45452133ecb68297b993eb116">BOMixture::std_RhoO</a></div><div class="ttdeci">OCP_DBL std_RhoO</div><div class="ttdoc">&lt; others.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00056">MixtureBO.hpp:56</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_ab388b42b630e61e7e4e21cae04b105aa"><div class="ttname"><a href="classBOMixture.html#ab388b42b630e61e7e4e21cae04b105aa">BOMixture::std_GammaW</a></div><div class="ttdeci">OCP_DBL std_GammaW</div><div class="ttdoc">std_RhoW * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00061">MixtureBO.hpp:61</a></div></div>
-<div class="ttc" id="aclassBOMixture_html_ad00be0ce75fd52508248fb4ca7a0ceef"><div class="ttname"><a href="classBOMixture.html#ad00be0ce75fd52508248fb4ca7a0ceef">BOMixture::std_GammaG</a></div><div class="ttdeci">OCP_DBL std_GammaG</div><div class="ttdoc">std_RhoG * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00059">MixtureBO.hpp:59</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00125">Mixture.hpp:125</a></div></div>
-<div class="ttc" id="aclassMixture_html_a33b6d34ba499a57d9923d5316b652efc"><div class="ttname"><a href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">Mixture::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phases.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00124">Mixture.hpp:124</a></div></div>
-<div class="ttc" id="aclassMixture_html_aed7f515dd957ccf0a6fec5ed94c83370"><div class="ttname"><a href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">Mixture::mixtureType</a></div><div class="ttdeci">USI mixtureType</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00121">Mixture.hpp:121</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a1457bcdb311848998b260c5e95da83bb"><div class="ttname"><a href="OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb">BLKOIL</a></div><div class="ttdeci">const USI BLKOIL</div><div class="ttdoc">Mixture model = black-oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a340b34fe6fb4d1bc8b7544ed32eee7e8"><div class="ttname"><a href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a></div><div class="ttdeci">const OCP_DBL GRAVITY_FACTOR</div><div class="ttdoc">0.00694444 ft2 psi / lb</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00052">OCPConst.hpp:52</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a538f927b5893c9896717163bb2a798ee"><div class="ttname"><a href="OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee">RHOW_STD</a></div><div class="ttdeci">const OCP_DBL RHOW_STD</div><div class="ttdoc">Water density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00053">OCPConst.hpp:53</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aedff4c911b34955eaffe685938585415"><div class="ttname"><a href="OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415">RHOAIR_STD</a></div><div class="ttdeci">const OCP_DBL RHOAIR_STD</div><div class="ttdoc">Air density in lb / ft3.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00054">OCPConst.hpp:54</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_a0f5236ad142293a877a039d2ae403fa7"><div class="ttname"><a href="classBOMixture.html#a0f5236ad142293a877a039d2ae403fa7">BOMixture::std_GammaO</a></div><div class="ttdeci">OCP_DBL std_GammaO</div><div class="ttdoc">std_RhoO * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00059">MixtureBO.hpp:59</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_a50d0e4b50f22291b9db6048cea7d327a"><div class="ttname"><a href="classBOMixture.html#a50d0e4b50f22291b9db6048cea7d327a">BOMixture::std_RhoW</a></div><div class="ttdeci">OCP_DBL std_RhoW</div><div class="ttdoc">mass density of water phase in standard condition.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00062">MixtureBO.hpp:62</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_aa04958bff5a4f76a845dcc62035ef8ef"><div class="ttname"><a href="classBOMixture.html#aa04958bff5a4f76a845dcc62035ef8ef">BOMixture::std_RhoG</a></div><div class="ttdeci">OCP_DBL std_RhoG</div><div class="ttdoc">mass density of gas phase in standard condition.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00060">MixtureBO.hpp:60</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_ab37d31a45452133ecb68297b993eb116"><div class="ttname"><a href="classBOMixture.html#ab37d31a45452133ecb68297b993eb116">BOMixture::std_RhoO</a></div><div class="ttdeci">OCP_DBL std_RhoO</div><div class="ttdoc">&lt; others.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00058">MixtureBO.hpp:58</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_ab388b42b630e61e7e4e21cae04b105aa"><div class="ttname"><a href="classBOMixture.html#ab388b42b630e61e7e4e21cae04b105aa">BOMixture::std_GammaW</a></div><div class="ttdeci">OCP_DBL std_GammaW</div><div class="ttdoc">std_RhoW * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00063">MixtureBO.hpp:63</a></div></div>
+<div class="ttc" id="aclassBOMixture_html_ad00be0ce75fd52508248fb4ca7a0ceef"><div class="ttname"><a href="classBOMixture.html#ad00be0ce75fd52508248fb4ca7a0ceef">BOMixture::std_GammaG</a></div><div class="ttdeci">OCP_DBL std_GammaG</div><div class="ttdoc">std_RhoG * gravity factor.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureBO_8hpp_source.html#l00061">MixtureBO.hpp:61</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00145">Mixture.hpp:145</a></div></div>
+<div class="ttc" id="aclassMixture_html_a33b6d34ba499a57d9923d5316b652efc"><div class="ttname"><a href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">Mixture::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phases.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00144">Mixture.hpp:144</a></div></div>
+<div class="ttc" id="aclassMixture_html_aed7f515dd957ccf0a6fec5ed94c83370"><div class="ttname"><a href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">Mixture::mixtureType</a></div><div class="ttdeci">USI mixtureType</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00141">Mixture.hpp:141</a></div></div>
 <div class="ttc" id="aclassMixture_html_af9cd3ebf3d96509594d15bc1891ad801"><div class="ttname"><a href="classMixture.html#af9cd3ebf3d96509594d15bc1891ad801">Mixture::Allocate</a></div><div class="ttdeci">void Allocate()</div><div class="ttdoc">Allocate memory for common variables for basic class.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00038">Mixture.hpp:38</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a2875a113ebf22ea380bec5c5682d139b"><div class="ttname"><a href="classParamReservoir.html#a2875a113ebf22ea380bec5c5682d139b">ParamReservoir::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">Number of phases.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00195">ParamReservoir.hpp:195</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a5c17baa4bc0875a9b986e5b557c5f06e"><div class="ttname"><a href="classParamReservoir.html#a5c17baa4bc0875a9b986e5b557c5f06e">ParamReservoir::density</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; density</div><div class="ttdoc">Density of oil, water, gas in standard conditions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00164">ParamReservoir.hpp:164</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_a6d6acb6b7054c58a4482086b9a827bd5"><div class="ttname"><a href="classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5">ParamReservoir::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">Number of components, used in BlackOil Model.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00196">ParamReservoir.hpp:196</a></div></div>
-<div class="ttc" id="aclassParamReservoir_html_abd537e664cfcaf4c70ff6331f2a8a92a"><div class="ttname"><a href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">ParamReservoir::gravity</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; gravity</div><div class="ttdoc">Gravity of oil, water, gas in standard conditions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00165">ParamReservoir.hpp:165</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a2875a113ebf22ea380bec5c5682d139b"><div class="ttname"><a href="classParamReservoir.html#a2875a113ebf22ea380bec5c5682d139b">ParamReservoir::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">Number of phases.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00209">ParamReservoir.hpp:209</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a5c17baa4bc0875a9b986e5b557c5f06e"><div class="ttname"><a href="classParamReservoir.html#a5c17baa4bc0875a9b986e5b557c5f06e">ParamReservoir::density</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; density</div><div class="ttdoc">Density of oil, water, gas in standard conditions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00177">ParamReservoir.hpp:177</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_a6d6acb6b7054c58a4482086b9a827bd5"><div class="ttname"><a href="classParamReservoir.html#a6d6acb6b7054c58a4482086b9a827bd5">ParamReservoir::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">Number of components, used in BlackOil Model.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00210">ParamReservoir.hpp:210</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_abd537e664cfcaf4c70ff6331f2a8a92a"><div class="ttname"><a href="classParamReservoir.html#abd537e664cfcaf4c70ff6331f2a8a92a">ParamReservoir::gravity</a></div><div class="ttdeci">Type_A_r&lt; OCP_DBL &gt; gravity</div><div class="ttdoc">Gravity of oil, water, gas in standard conditions.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00178">ParamReservoir.hpp:178</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -478,6 +513,36 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af42886abecfdc05808dbcbb79bab88b3" name="af42886abecfdc05808dbcbb79bab88b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af42886abecfdc05808dbcbb79bab88b3">&#9670;&nbsp;</a></span>GetErrorPEC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> BOMixture::GetErrorPEC </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00043">43</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{ <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0; }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a986527d330c4fbcc8b5a14fd231eff1a" name="a986527d330c4fbcc8b5a14fd231eff1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a986527d330c4fbcc8b5a14fd231eff1a">&#9670;&nbsp;</a></span>GetFlagSkip()</h2>
 
@@ -504,7 +569,7 @@ Protected Attributes</h2></td></tr>
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00041">41</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="fragment"><div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{ <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>);  <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -593,9 +658,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00048">48</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                    { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00050">50</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                    { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -624,9 +689,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00044">44</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                     { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00046">46</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                     { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -655,9 +720,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00046">46</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                     { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00048">48</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                     { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -686,9 +751,39 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00044">44</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                      { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a10c3a81e04afeebc1cb5d259c348d10c" name="a10c3a81e04afeebc1cb5d259c348d10c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c3a81e04afeebc1cb5d259c348d10c">&#9670;&nbsp;</a></span>GetSurTen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> BOMixture::GetSurTen </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00042">42</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                                      { <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="fragment"><div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{ <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>); <span class="keywordflow">return</span> 0; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -715,7 +810,7 @@ Protected Attributes</h2></td></tr>
 
 <p>std_RhoG * gravity factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00059">59</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00061">61</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -741,7 +836,7 @@ Protected Attributes</h2></td></tr>
 
 <p>std_RhoO * gravity factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00057">57</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00059">59</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -767,7 +862,7 @@ Protected Attributes</h2></td></tr>
 
 <p>std_RhoW * gravity factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00061">61</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00063">63</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -793,7 +888,7 @@ Protected Attributes</h2></td></tr>
 
 <p>mass density of gas phase in standard condition. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00058">58</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00060">60</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -820,7 +915,7 @@ Protected Attributes</h2></td></tr>
 <p>&lt; others. </p>
 <p >mass density of oil phase in standard condition. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00056">56</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00058">58</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -846,7 +941,7 @@ Protected Attributes</h2></td></tr>
 
 <p>mass density of water phase in standard condition. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00060">60</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00062">62</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -857,7 +952,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:36 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

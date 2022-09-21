@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -72,11 +71,12 @@ $(function() {
 <li>CalActiveGrid()&#160;:&#160;<a class="el" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">Grid</a></li>
 <li>CalAkdCornerGrid()&#160;:&#160;<a class="el" href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">Grid</a></li>
 <li>CalAkdOrthogonalGrid()&#160;:&#160;<a class="el" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">Grid</a></li>
-<li>CalCFL01IMPEC()&#160;:&#160;<a class="el" href="classAllWells.html#a3a05d0cc1f331211c663b3195f73efc4">AllWells</a>, <a class="el" href="classBulk.html#a2db03765663c821f21ddd9c57b9295ce">Bulk</a>, <a class="el" href="classBulkConn.html#aef03b3f72e154174446d2755ccfd92ce">BulkConn</a>, <a class="el" href="classReservoir.html#a663f227336c0a9675703a81017401c68">Reservoir</a>, <a class="el" href="classWell.html#af050eac32e6afc9a9a2eb3af0a73c745">Well</a></li>
-<li>CalCFLIMPEC()&#160;:&#160;<a class="el" href="classAllWells.html#accbc928a1fb1ec49af5acb327ae4e679">AllWells</a>, <a class="el" href="classBulkConn.html#a735a3dcedd718b80c36be365ee935f16">BulkConn</a>, <a class="el" href="classReservoir.html#a23285a51e18a2dbb2d47903778645e35">Reservoir</a>, <a class="el" href="classWell.html#aeed8f1f0c91e4a7935686f9fdc969162">Well</a></li>
+<li>CalCFL()&#160;:&#160;<a class="el" href="classAllWells.html#ae8e387f1cdfce6881976f01fe752c60b">AllWells</a>, <a class="el" href="classBulk.html#a9539a41a4513bbb4b4e3e8d439992d4f">Bulk</a>, <a class="el" href="classBulkConn.html#a590f1a680ff8ade3463e603a5af020ff">BulkConn</a>, <a class="el" href="classReservoir.html#ad3c47ee0d3b82b14e20b8fb85c24c5fb">Reservoir</a>, <a class="el" href="classWell.html#af919af7b5163096761c1dbd197b4f687">Well</a></li>
 <li>CalConnFluxIMPEC()&#160;:&#160;<a class="el" href="classReservoir.html#a957448933e0b62741f14bb4963707bca">Reservoir</a></li>
 <li>CalDepthVOrthogonalGrid()&#160;:&#160;<a class="el" href="classGrid.html#af6d2528e58283f52259581095c4c1187">Grid</a></li>
 <li>CaldG()&#160;:&#160;<a class="el" href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">AllWells</a>, <a class="el" href="classWell.html#a98c5c54987ca460ab025504f014ce96e">Well</a></li>
+<li>CalFlashDerivAIM()&#160;:&#160;<a class="el" href="classReservoir.html#a3481ee9b4f48cd8d06bf591168a83253">Reservoir</a></li>
+<li>CalFlashDerivAIMc()&#160;:&#160;<a class="el" href="classReservoir.html#a9515cdf5078cf06c9b2233330afad225">Reservoir</a></li>
 <li>CalFlashDerivFIM()&#160;:&#160;<a class="el" href="classReservoir.html#ae09bfdab3ed8e5969b810d4fff4165fd">Reservoir</a></li>
 <li>CalFlashIMPEC()&#160;:&#160;<a class="el" href="classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8">Reservoir</a></li>
 <li>CalFlux()&#160;:&#160;<a class="el" href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">AllWells</a>, <a class="el" href="classWell.html#a874b5ec76145d0c252c953d809c9de77">Well</a></li>
@@ -89,27 +89,36 @@ $(function() {
 <li>CalInjQi()&#160;:&#160;<a class="el" href="classWell.html#ad62966161bb54a44198e080830ff17b7">Well</a></li>
 <li>CalInjRate()&#160;:&#160;<a class="el" href="classWell.html#a6cc2b46a286a40ed3fffaa9921c099bc">Well</a></li>
 <li>CalIPRT()&#160;:&#160;<a class="el" href="classAllWells.html#a9618cb7b8208943549909c4a25d366d3">AllWells</a>, <a class="el" href="classReservoir.html#ad04b82ae53ea6f0b60e800a50341e6d5">Reservoir</a></li>
-<li>CalIteratorConn()&#160;:&#160;<a class="el" href="classBulkConn.html#ab492d5bd1170fc61b2100aab60535a08">BulkConn</a></li>
-<li>CalKrPc()&#160;:&#160;<a class="el" href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">Bulk</a>, <a class="el" href="classFlowUnit.html#a1b62c8f26746cb2a655de8c722654124">FlowUnit</a>, <a class="el" href="classFlowUnit__ODGW01.html#a37f6231ea3153fbe6741a7298901482e">FlowUnit_ODGW01</a>, <a class="el" href="classFlowUnit__ODGW02.html#a06b2f31db883ce6bc7162d40b3305160">FlowUnit_ODGW02</a>, <a class="el" href="classFlowUnit__OG.html#a1ddc8778b3b465f1c2ff18e43851df21">FlowUnit_OG</a>, <a class="el" href="classFlowUnit__OW.html#ae1cc51b84e2043969f728aab017d8954">FlowUnit_OW</a>, <a class="el" href="classFlowUnit__W.html#ae2d07a2787f0a82b2f397da0e7cc938a">FlowUnit_W</a>, <a class="el" href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">Reservoir</a></li>
+<li>CalKrPc()&#160;:&#160;<a class="el" href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">Bulk</a>, <a class="el" href="classFlowUnit.html#ac0bf71f9864bf1d205fa2d614819e97c">FlowUnit</a>, <a class="el" href="classFlowUnit__ODGW01.html#accf68bb34481c531cd31847de49e1a36">FlowUnit_ODGW01</a>, <a class="el" href="classFlowUnit__ODGW01__Miscible.html#a21aa3107e2a15634f7535e8a0ce8f08c">FlowUnit_ODGW01_Miscible</a>, <a class="el" href="classFlowUnit__ODGW02.html#af7e4a8241a6950b290fa3c309db2ff85">FlowUnit_ODGW02</a>, <a class="el" href="classFlowUnit__OG.html#a00c18e94a537302824353cacb19efa6f">FlowUnit_OG</a>, <a class="el" href="classFlowUnit__OW.html#a314d23cd33088d83373359eb9b907fa6">FlowUnit_OW</a>, <a class="el" href="classFlowUnit__W.html#a2ecf01234cdc363b01efcef75a0af869">FlowUnit_W</a>, <a class="el" href="classReservoir.html#a2822b8803a1c36d6adc3567fba06a673">Reservoir</a></li>
+<li>CalKrPcAIMc()&#160;:&#160;<a class="el" href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad">Bulk</a></li>
 <li>CalKrPcDeriv()&#160;:&#160;<a class="el" href="classBulk.html#a8122d1e0a5aad95dd761af0f13ba2af2">Bulk</a></li>
+<li>CalKrPcDerivAIM()&#160;:&#160;<a class="el" href="classBulk.html#aa7c7a703e9a5456002f8a1c8f07e1f5d">Bulk</a>, <a class="el" href="classReservoir.html#a6e8a1723cac4d9bd8dfc29301330f4c7">Reservoir</a></li>
+<li>CalKrPcDerivAIMc()&#160;:&#160;<a class="el" href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87">Bulk</a>, <a class="el" href="classReservoir.html#ad9ceb0c10e877f278d2e9e3699769bb1">Reservoir</a></li>
 <li>CalKrPcDerivFIM()&#160;:&#160;<a class="el" href="classReservoir.html#ada3967563e081ee876891dfd97c0c160">Reservoir</a></li>
 <li>CalMaxChange()&#160;:&#160;<a class="el" href="classBulk.html#a3d26a907b0e9e276cdd7b3279f7872d8">Bulk</a>, <a class="el" href="classReservoir.html#a7e050f9b8ed0aa28c9e488d6634b5d9b">Reservoir</a></li>
 <li>CalNextTstepIMPEC()&#160;:&#160;<a class="el" href="classOCPControl.html#a1e9225825933d72ba9c78327d1ff10b5">OCPControl</a></li>
+<li>CalNRdSmax()&#160;:&#160;<a class="el" href="classBulk.html#a894eceea1143849282d9d40d9ee1b5bf">Bulk</a></li>
 <li>CalPhiNSTA()&#160;:&#160;<a class="el" href="classMixtureComp.html#a3bc05dc7dba2aa52761afe81bd033a26">MixtureComp</a></li>
 <li>CalProddG()&#160;:&#160;<a class="el" href="classWell.html#a9694b4878637482973e4acd418f011d4">Well</a></li>
 <li>CalProdQiBO()&#160;:&#160;<a class="el" href="classWell.html#a7ccdf3ea2007ed2bcfd0ac943c46cff9">Well</a></li>
 <li>CalProdQj()&#160;:&#160;<a class="el" href="classWell.html#a5652700f8794f38a207e456446f3af6a">Well</a></li>
 <li>CalProdQjCOMP()&#160;:&#160;<a class="el" href="classWell.html#a212401b0959b1c0e2326130660ef07fb">Well</a></li>
 <li>CalProdRate()&#160;:&#160;<a class="el" href="classWell.html#ae407a93cddfb1779310b26e1fc56415a">Well</a></li>
-<li>CalProdWeight()&#160;:&#160;<a class="el" href="classWell.html#aec590ac7af6378dac3a47923d34b7ec4">Well</a></li>
+<li>CalProdWeight()&#160;:&#160;<a class="el" href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">AllWells</a>, <a class="el" href="classWell.html#aec590ac7af6378dac3a47923d34b7ec4">Well</a></li>
 <li>CalReInjFluid()&#160;:&#160;<a class="el" href="classAllWells.html#ae38fd52cc7a694f6afd876271d469416">AllWells</a>, <a class="el" href="classWell.html#a641566b22ab12a33945a2642e2aba5ce">Well</a></li>
+<li>CalRelResAIMs()&#160;:&#160;<a class="el" href="classBulk.html#a1dc15a2dbdde58aea798bc8b784bb2b3">Bulk</a></li>
+<li>CalRelResAIMt()&#160;:&#160;<a class="el" href="classBulk.html#af7ec1cf707a75eb2d927ca80e98821a0">Bulk</a></li>
 <li>CalRelResFIM()&#160;:&#160;<a class="el" href="classBulk.html#a68e74b1bb9e0ef4116e5c436a1c9e8d7">Bulk</a></li>
+<li>CalResAIMc()&#160;:&#160;<a class="el" href="classBulkConn.html#a9ab2c3c03232cf9f6caefdf21a9ab20d">BulkConn</a>, <a class="el" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">Reservoir</a></li>
+<li>CalResAIMs()&#160;:&#160;<a class="el" href="classBulkConn.html#af53709058318f495ce488fe94c7b860a">BulkConn</a>, <a class="el" href="classReservoir.html#ae3796dee84779991241352ad786bb942">Reservoir</a></li>
+<li>CalResAIMt()&#160;:&#160;<a class="el" href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">AllWells</a>, <a class="el" href="classBulkConn.html#ad6e5af0ddf423bcaf94d6c5dac8f2d8a">BulkConn</a>, <a class="el" href="classReservoir.html#afeda875edb2ec539ccd211a7ebcc2672">Reservoir</a>, <a class="el" href="classWell.html#ac17c4bf5985cdaa38381fe33bbdee2bf">Well</a></li>
 <li>CalResFIM()&#160;:&#160;<a class="el" href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">AllWells</a>, <a class="el" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">BulkConn</a>, <a class="el" href="classReservoir.html#aed8990a10e7e8ea9a7bcca1275d80787">Reservoir</a>, <a class="el" href="classWell.html#afb6e645104039ad4ff35e92b123c8ee3">Well</a></li>
 <li>CalTrans()&#160;:&#160;<a class="el" href="classAllWells.html#a146b158a9549b1fe940038a7efb14f63">AllWells</a>, <a class="el" href="classWell.html#a869e7fb570c02e1c9999576bcc12ba5e">Well</a></li>
 <li>CalVpore()&#160;:&#160;<a class="el" href="classBulk.html#a64db443dbb4fe11d3989e30235df770f">Bulk</a>, <a class="el" href="classReservoir.html#a537cc8f6816f874a2b3170e3d6c79b3f">Reservoir</a></li>
 <li>CalWellFlux()&#160;:&#160;<a class="el" href="classReservoir.html#aed6f0b4d05274d6de8c9745d4c6c46ba">Reservoir</a></li>
 <li>CalWellTrans()&#160;:&#160;<a class="el" href="classReservoir.html#aaccdf5f7916abcbfd01349f689ffdaa2">Reservoir</a></li>
 <li>CalWI_Peaceman_Vertical()&#160;:&#160;<a class="el" href="classWell.html#a2e894e0c7d9960483db283add94d34f4">Well</a></li>
+<li>cdata&#160;:&#160;<a class="el" href="classFlowUnit__ODGW01.html#a8c0c7759da930df7d450f5b35b442d0d">FlowUnit_ODGW01</a></li>
 <li>CheckCrossFlow()&#160;:&#160;<a class="el" href="classWell.html#ab166b401ceae3c2290de9eb5f85c2c51">Well</a></li>
 <li>CheckDenGra()&#160;:&#160;<a class="el" href="classParamReservoir.html#abe43b34bb82b897ffbd397a71d80a179">ParamReservoir</a></li>
 <li>CheckDiff()&#160;:&#160;<a class="el" href="classBulk.html#a21a116347f73bf148840ddbd99ce28f8">Bulk</a>, <a class="el" href="classBulkConn.html#a0b8ae52f901a4315cc81b84162990610">BulkConn</a></li>
@@ -118,7 +127,8 @@ $(function() {
 <li>CheckEQUIL()&#160;:&#160;<a class="el" href="classParamReservoir.html#a0b2631390134a78a00e571d99e654c03">ParamReservoir</a></li>
 <li>CheckGrid()&#160;:&#160;<a class="el" href="classParamReservoir.html#a8c09b6008c9125efe79dc95f09bb8298">ParamReservoir</a></li>
 <li>CheckInitVpore()&#160;:&#160;<a class="el" href="classBulk.html#a86a97487648be68ee623bedc844ba298">Bulk</a></li>
-<li>CheckNi()&#160;:&#160;<a class="el" href="classBulk.html#a591a556f17e45d359d267be82c4a5e3c">Bulk</a>, <a class="el" href="classMixture.html#aaab2d76696ec295ba643032353883031">Mixture</a>, <a class="el" href="classReservoir.html#a284a66318459ff1ff38baa8e2bdca933">Reservoir</a></li>
+<li>CheckNi()&#160;:&#160;<a class="el" href="classBulk.html#ad66cf088e885bb86a092f4d7ea2e7a34">Bulk</a>, <a class="el" href="classMixture.html#aaab2d76696ec295ba643032353883031">Mixture</a>, <a class="el" href="classReservoir.html#a414167160fef871780b597e7a1d28688">Reservoir</a></li>
+<li>CheckNiFIMBulk()&#160;:&#160;<a class="el" href="classBulk.html#a8feebb0831b41075d23e7118af08af6b">Bulk</a></li>
 <li>CheckOptMode()&#160;:&#160;<a class="el" href="classWell.html#a1dcdd933eca7605282cc48f8a870eedb">Well</a></li>
 <li>CheckP()&#160;:&#160;<a class="el" href="classAllWells.html#a370e61c20debfbae428ab3f6cda6f70b">AllWells</a>, <a class="el" href="classBulk.html#af7d51290f40683d3268d9cf64433e034">Bulk</a>, <a class="el" href="classReservoir.html#a81f6e96bacae6a501d42b8861c75e5ba">Reservoir</a>, <a class="el" href="classWell.html#a2f1d44fd7586866a902cfc90e3538e8a">Well</a></li>
 <li>CheckParam()&#160;:&#160;<a class="el" href="classParamRead.html#ae0969b62e2f77c029e5e121a9d22c525">ParamRead</a>, <a class="el" href="classParamReservoir.html#a13cc147fa6e3f7ec9fb3195e1fb48b23">ParamReservoir</a>, <a class="el" href="classParamWell.html#a5c0749b4f944eea674b7f81d09cd8566">ParamWell</a></li>
@@ -136,7 +146,7 @@ $(function() {
 <li>colNum&#160;:&#160;<a class="el" href="classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9">TableSet</a></li>
 <li>COM&#160;:&#160;<a class="el" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">EoSparam</a></li>
 <li>comps&#160;:&#160;<a class="el" href="classParamReservoir.html#ad6718da19a7028baf1847b23fce9d558">ParamReservoir</a></li>
-<li>conflag&#160;:&#160;<a class="el" href="classNRparamSP.html#a9c9b51d4724052f1f8d382cd33ba2b0a">NRparamSP</a>, <a class="el" href="classSSMparamSP.html#a05d81a40beea3948897c6d30d27a4bc2">SSMparamSP</a></li>
+<li>conflag&#160;:&#160;<a class="el" href="classNRparamSP.html#a9c9b51d4724052f1f8d382cd33ba2b0a">NRparamSP</a>, <a class="el" href="classNRparamSTA.html#a3acf7b521ae923bea18cb7317773877f">NRparamSTA</a>, <a class="el" href="classSSMparamSP.html#a05d81a40beea3948897c6d30d27a4bc2">SSMparamSP</a>, <a class="el" href="classSSMparamSTA.html#a8edb30773a4bf5767ba6020519277d7b">SSMparamSTA</a></li>
 <li>coord&#160;:&#160;<a class="el" href="classParamReservoir.html#abc8b18c6d81135e6ab9959da62e914fd">ParamReservoir</a></li>
 <li>CopyPhase()&#160;:&#160;<a class="el" href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">MixtureComp</a></li>
 <li>CopyVal()&#160;:&#160;<a class="el" href="classParamReservoir.html#a6fd7d561cfbedc3e34f0a9c0a6bf291f">ParamReservoir</a></li>
@@ -149,7 +159,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -5,7 +5,8 @@ var searchData=
   ['operator_2b_2',['operator+',['../classPoint3D.html#a2706f669ee04221a3f15446b0dab0856',1,'Point3D']]],
   ['operator_2d_3',['operator-',['../classPoint3D.html#a0b10d649556d95c40bd0087d2110f24f',1,'Point3D']]],
   ['operator_3d_4',['operator=',['../classPoint3D.html#a4a22932923a76af8c32bee188c1f12a3',1,'Point3D']]],
-  ['outputlinearsystem_5',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
-  ['outputresults_6',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
-  ['outputsolution_7',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]]
+  ['outfimni_5',['OutFIMNi',['../classBulk.html#a479f836520c46f27f0f1986d68e998f6',1,'Bulk']]],
+  ['outputlinearsystem_6',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
+  ['outputresults_7',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
+  ['outputsolution_8',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]]
 ];

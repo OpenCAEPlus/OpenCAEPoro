@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -112,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d5ffc780d16baf60a3bafaa971abf87"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a8d5ffc780d16baf60a3bafaa971abf87">FlashDeriv</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
 <tr class="memdesc:a8d5ffc780d16baf60a3bafaa971abf87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components and Calculate the derivative.  <a href="classMixture.html#a8d5ffc780d16baf60a3bafaa971abf87">More...</a><br /></td></tr>
 <tr class="separator:a8d5ffc780d16baf60a3bafaa971abf87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ad6f03ad8524049546a6d35f8fd7376"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9ad6f03ad8524049546a6d35f8fd7376">FlashDeriv_n</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *njin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *phaseExistin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
+<tr class="separator:a9ad6f03ad8524049546a6d35f8fd7376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac4ca8c6f7eeddb4b51ef075f49ec6bb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb">XiPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
 <tr class="separator:aac4ca8c6f7eeddb4b51ef075f49ec6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf1be0ad34ced8062a5d4da2deb54d8e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e">RhoPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
@@ -139,6 +140,12 @@ virtual <a class="el" href="OCPConst_8hpp.html#a4cf987f6993b48c88ec4970ad351b100
 <tr class="memitem:ad54b6d8750bcb9e1586f052b91ab84e0"><td class="memItemLeft" align="right" valign="top"><a id="ad54b6d8750bcb9e1586f052b91ab84e0" name="ad54b6d8750bcb9e1586f052b91ab84e0"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>GetFlagSkip</b> ()=0</td></tr>
 <tr class="separator:ad54b6d8750bcb9e1586f052b91ab84e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c3ccfb5f2afeee4241c836dda34297"><td class="memItemLeft" align="right" valign="top"><a id="a24c3ccfb5f2afeee4241c836dda34297" name="a24c3ccfb5f2afeee4241c836dda34297"></a>
+virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSurTen</b> ()=0</td></tr>
+<tr class="separator:a24c3ccfb5f2afeee4241c836dda34297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f9d946334b948b26a9a09ca3c0b6c9"><td class="memItemLeft" align="right" valign="top"><a id="ab8f9d946334b948b26a9a09ca3c0b6c9" name="ab8f9d946334b948b26a9a09ca3c0b6c9"></a>
+virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetErrorPEC</b> ()=0</td></tr>
+<tr class="separator:ab8f9d946334b948b26a9a09ca3c0b6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03b87933ec276ea4491a6c826fc30417"><td class="memItemLeft" align="right" valign="top"><a id="a03b87933ec276ea4491a6c826fc30417" name="a03b87933ec276ea4491a6c826fc30417"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSSMSTAiters</b> ()=0</td></tr>
 <tr class="separator:a03b87933ec276ea4491a6c826fc30417"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,6 +192,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:afad5616464982e92b25adba0c84f4eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9958b097000a344df9bfbdc845db850c"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a></td></tr>
 <tr class="separator:a9958b097000a344df9bfbdc845db850c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d6fa9514fce1774cc277826d304061"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a></td></tr>
+<tr class="memdesc:aa0d6fa9514fce1774cc277826d304061"><td class="mdescLeft">&#160;</td><td class="mdescRight">mole number of phase j  <a href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">More...</a><br /></td></tr>
+<tr class="separator:aa0d6fa9514fce1774cc277826d304061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a170e493a88e391f9afe0896181d76786"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a></td></tr>
 <tr class="memdesc:a170e493a88e391f9afe0896181d76786"><td class="mdescLeft">&#160;</td><td class="mdescRight">viscosity of phase: numPhase  <a href="classMixture.html#a170e493a88e391f9afe0896181d76786">More...</a><br /></td></tr>
 <tr class="separator:a170e493a88e391f9afe0896181d76786"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,6 +207,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a9d5376ba600228135d16bbd76d4b38de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a></td></tr>
 <tr class="memdesc:a9d5376ba600228135d16bbd76d4b38de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total moles of Components.  <a href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">More...</a><br /></td></tr>
 <tr class="separator:a9d5376ba600228135d16bbd76d4b38de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382c30078dd1579e7f375ad2f60e2f44"><td class="memItemLeft" align="right" valign="top">vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">vji</a></td></tr>
+<tr class="memdesc:a382c30078dd1579e7f375ad2f60e2f44"><td class="mdescLeft">&#160;</td><td class="mdescRight">dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij  <a href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">More...</a><br /></td></tr>
+<tr class="separator:a382c30078dd1579e7f375ad2f60e2f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334d229b6dbbc015a9e7de974f08c76d"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">vjp</a></td></tr>
+<tr class="memdesc:a334d229b6dbbc015a9e7de974f08c76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dvj / dp, used in 2 hydrocarbon phase in EOS  <a href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">More...</a><br /></td></tr>
+<tr class="separator:a334d229b6dbbc015a9e7de974f08c76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf4f5e549cc50a366951dba65d196198"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#adf4f5e549cc50a366951dba65d196198">vfp</a></td></tr>
 <tr class="separator:adf4f5e549cc50a366951dba65d196198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4dd3e54d542aca8eccdcbd208a38504"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a></td></tr>
@@ -210,6 +226,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a></td></tr>
 <tr class="memdesc:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho / dP: numphase  <a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">More...</a><br /></td></tr>
 <tr class="separator:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7897e0172e682f205e6c58688368c12e"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a7897e0172e682f205e6c58688368c12e">muN</a></td></tr>
+<tr class="memdesc:a7897e0172e682f205e6c58688368c12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d N[i]: numphase * numCom  <a href="classMixture.html#a7897e0172e682f205e6c58688368c12e">More...</a><br /></td></tr>
+<tr class="separator:a7897e0172e682f205e6c58688368c12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3476f1a61b94f0b58c00a90643e1861a"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">xiN</a></td></tr>
+<tr class="memdesc:a3476f1a61b94f0b58c00a90643e1861a"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d N[i]: numphase * numCom  <a href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">More...</a><br /></td></tr>
+<tr class="separator:a3476f1a61b94f0b58c00a90643e1861a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e2798ac8ab094b3a17cff16111f70b"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">rhoN</a></td></tr>
+<tr class="memdesc:ad9e2798ac8ab094b3a17cff16111f70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho[j] / d N[i]: numphase * numCom  <a href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">More...</a><br /></td></tr>
+<tr class="separator:ad9e2798ac8ab094b3a17cff16111f70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae63dab2d31711b0246096c5c128f2080"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
 <tr class="memdesc:ae63dab2d31711b0246096c5c128f2080"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom  <a href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">More...</a><br /></td></tr>
 <tr class="separator:ae63dab2d31711b0246096c5c128f2080"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,6 +247,18 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
 <tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables  <a href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">More...</a><br /></td></tr>
 <tr class="separator:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12f16b1b3d45f0052be513f14d323835"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">pEnumCom</a></td></tr>
+<tr class="memdesc:a12f16b1b3d45f0052be513f14d323835"><td class="mdescLeft">&#160;</td><td class="mdescRight">see pEnumCom in bulk  <a href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">More...</a><br /></td></tr>
+<tr class="separator:a12f16b1b3d45f0052be513f14d323835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6c518e1735459e4da660fe989fbcf1d"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">res</a></td></tr>
+<tr class="memdesc:ae6c518e1735459e4da660fe989fbcf1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">residual of a set of equations  <a href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">More...</a><br /></td></tr>
+<tr class="separator:ae6c518e1735459e4da660fe989fbcf1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06e0f35248973da46366c82943f6a085"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a06e0f35248973da46366c82943f6a085">resPc</a></td></tr>
+<tr class="memdesc:a06e0f35248973da46366c82943f6a085"><td class="mdescLeft">&#160;</td><td class="mdescRight">a precalculated value  <a href="classMixture.html#a06e0f35248973da46366c82943f6a085">More...</a><br /></td></tr>
+<tr class="separator:a06e0f35248973da46366c82943f6a085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad49e1236014cca81fa4faedf12806bb0"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">keyDer</a></td></tr>
+<tr class="memdesc:ad49e1236014cca81fa4faedf12806bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">d (xij*xi/mu) / dP or dNk  <a href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">More...</a><br /></td></tr>
+<tr class="separator:ad49e1236014cca81fa4faedf12806bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -296,41 +333,64 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>.resize(<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_variable" href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">phaseExist</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_variable" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_variable" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);      </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_variable" href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">xi</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_variable" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_variable" href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">rho</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_variable" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_variable" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>.resize(<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="comment">// Derivatives for FIM</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_variable" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_variable" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_variable" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_variable" href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">rhox</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_variable" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_variable" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_variable" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a>.resize((<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + 1) * (<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> + <a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>));</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    };</div>
-<div class="ttc" id="aclassMixture_html_a0a42129a94c1ba7c92c9577f0eb0234f"><div class="ttname"><a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">Mixture::rhoP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhoP</div><div class="ttdoc">d rho / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00151">Mixture.hpp:151</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00125">Mixture.hpp:125</a></div></div>
-<div class="ttc" id="aclassMixture_html_a15908a1b8da8390dd9e8d7c2bd822bf4"><div class="ttname"><a href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">Mixture::dXsdXp</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dXsdXp</div><div class="ttdoc">the derivates of second variables wrt. primary variables</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00156">Mixture.hpp:156</a></div></div>
-<div class="ttc" id="aclassMixture_html_a16c6595220dc0a04cfa960d44f3016c7"><div class="ttname"><a href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">Mixture::rho</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rho</div><div class="ttdoc">mass density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00132">Mixture.hpp:132</a></div></div>
-<div class="ttc" id="aclassMixture_html_a170e493a88e391f9afe0896181d76786"><div class="ttname"><a href="classMixture.html#a170e493a88e391f9afe0896181d76786">Mixture::mu</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; mu</div><div class="ttdoc">viscosity of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00136">Mixture.hpp:136</a></div></div>
-<div class="ttc" id="aclassMixture_html_a1a1b7838c46e07a94c3a95ae9b37e511"><div class="ttname"><a href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">Mixture::phaseExist</a></div><div class="ttdeci">vector&lt; bool &gt; phaseExist</div><div class="ttdoc">existence of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00130">Mixture.hpp:130</a></div></div>
-<div class="ttc" id="aclassMixture_html_a33b6d34ba499a57d9923d5316b652efc"><div class="ttname"><a href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">Mixture::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phases.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00124">Mixture.hpp:124</a></div></div>
-<div class="ttc" id="aclassMixture_html_a3f517560e2ec30f08afca9f6dc3ff71c"><div class="ttname"><a href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">Mixture::xix</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xix</div><div class="ttdoc">d xi[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00153">Mixture.hpp:153</a></div></div>
-<div class="ttc" id="aclassMixture_html_a62615d0052ef8b34c3894e728951c06e"><div class="ttname"><a href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">Mixture::rhox</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhox</div><div class="ttdoc">d rho[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00154">Mixture.hpp:154</a></div></div>
-<div class="ttc" id="aclassMixture_html_a7463b9517217397b77d51012f4367a28"><div class="ttname"><a href="classMixture.html#a7463b9517217397b77d51012f4367a28">Mixture::v</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; v</div><div class="ttdoc">volume of phase: numPhase;</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00137">Mixture.hpp:137</a></div></div>
-<div class="ttc" id="aclassMixture_html_a763d1e12b91ae451b2df175cbc45ef84"><div class="ttname"><a href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">Mixture::S</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; S</div><div class="ttdoc">saturation of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00131">Mixture.hpp:131</a></div></div>
-<div class="ttc" id="aclassMixture_html_a9958b097000a344df9bfbdc845db850c"><div class="ttname"><a href="classMixture.html#a9958b097000a344df9bfbdc845db850c">Mixture::xij</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xij</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00134">Mixture.hpp:134</a></div></div>
-<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00129">Mixture.hpp:129</a></div></div>
-<div class="ttc" id="aclassMixture_html_ab4dd3e54d542aca8eccdcbd208a38504"><div class="ttname"><a href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">Mixture::vfi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; vfi</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00146">Mixture.hpp:146</a></div></div>
-<div class="ttc" id="aclassMixture_html_ad86bd94527d09c2afcf767ce6e3a8a71"><div class="ttname"><a href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">Mixture::xiP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xiP</div><div class="ttdoc">d xi / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00150">Mixture.hpp:150</a></div></div>
-<div class="ttc" id="aclassMixture_html_ae1531b7594246b0b03bdb7d974800ca4"><div class="ttname"><a href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">Mixture::muP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; muP</div><div class="ttdoc">d mu / dP: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00149">Mixture.hpp:149</a></div></div>
-<div class="ttc" id="aclassMixture_html_ae63dab2d31711b0246096c5c128f2080"><div class="ttname"><a href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">Mixture::mux</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; mux</div><div class="ttdoc">d mu[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00152">Mixture.hpp:152</a></div></div>
-<div class="ttc" id="aclassMixture_html_afad5616464982e92b25adba0c84f4eb5"><div class="ttname"><a href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">Mixture::xi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xi</div><div class="ttdoc">molar density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00133">Mixture.hpp:133</a></div></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_variable" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_variable" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_variable" href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">rho</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_variable" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_variable" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>.resize(<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_variable" href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">vji</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a> : <a class="code hl_variable" href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">vji</a>) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_variable" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>.resize(<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>, 0);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_variable" href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">vjp</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>, 0);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">// Derivatives for FIM</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_variable" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_variable" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_variable" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_variable" href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">rhoN</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_variable" href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">xiN</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_variable" href="classMixture.html#a7897e0172e682f205e6c58688368c12e">muN</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_variable" href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">rhox</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_variable" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_variable" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_variable" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a>.resize((<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + 1) * (<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> + <a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>));</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_variable" href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">pEnumCom</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_variable" href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">res</a>.resize(<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> + <a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> * <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + 1); <span class="comment">// a precomputed value stored in last position</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="comment">// water not in hydrocarbon, hydrocarbon not in water</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_variable" href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">keyDer</a>.resize((<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + 1) * ((<a class="code hl_variable" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1) * (<a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> - 1) + 1));</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    };</div>
+<div class="ttc" id="aclassMixture_html_a0a42129a94c1ba7c92c9577f0eb0234f"><div class="ttname"><a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">Mixture::rhoP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhoP</div><div class="ttdoc">d rho / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00175">Mixture.hpp:175</a></div></div>
+<div class="ttc" id="aclassMixture_html_a12f16b1b3d45f0052be513f14d323835"><div class="ttname"><a href="classMixture.html#a12f16b1b3d45f0052be513f14d323835">Mixture::pEnumCom</a></div><div class="ttdeci">vector&lt; USI &gt; pEnumCom</div><div class="ttdoc">see pEnumCom in bulk</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00184">Mixture.hpp:184</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00145">Mixture.hpp:145</a></div></div>
+<div class="ttc" id="aclassMixture_html_a15908a1b8da8390dd9e8d7c2bd822bf4"><div class="ttname"><a href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">Mixture::dXsdXp</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; dXsdXp</div><div class="ttdoc">the derivates of second variables wrt. primary variables</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00183">Mixture.hpp:183</a></div></div>
+<div class="ttc" id="aclassMixture_html_a16c6595220dc0a04cfa960d44f3016c7"><div class="ttname"><a href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">Mixture::rho</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rho</div><div class="ttdoc">mass density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00152">Mixture.hpp:152</a></div></div>
+<div class="ttc" id="aclassMixture_html_a170e493a88e391f9afe0896181d76786"><div class="ttname"><a href="classMixture.html#a170e493a88e391f9afe0896181d76786">Mixture::mu</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; mu</div><div class="ttdoc">viscosity of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00157">Mixture.hpp:157</a></div></div>
+<div class="ttc" id="aclassMixture_html_a1a1b7838c46e07a94c3a95ae9b37e511"><div class="ttname"><a href="classMixture.html#a1a1b7838c46e07a94c3a95ae9b37e511">Mixture::phaseExist</a></div><div class="ttdeci">vector&lt; bool &gt; phaseExist</div><div class="ttdoc">existence of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00150">Mixture.hpp:150</a></div></div>
+<div class="ttc" id="aclassMixture_html_a334d229b6dbbc015a9e7de974f08c76d"><div class="ttname"><a href="classMixture.html#a334d229b6dbbc015a9e7de974f08c76d">Mixture::vjp</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; vjp</div><div class="ttdoc">dvj / dp, used in 2 hydrocarbon phase in EOS</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00166">Mixture.hpp:166</a></div></div>
+<div class="ttc" id="aclassMixture_html_a33b6d34ba499a57d9923d5316b652efc"><div class="ttname"><a href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">Mixture::numPhase</a></div><div class="ttdeci">USI numPhase</div><div class="ttdoc">num of phases.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00144">Mixture.hpp:144</a></div></div>
+<div class="ttc" id="aclassMixture_html_a3476f1a61b94f0b58c00a90643e1861a"><div class="ttname"><a href="classMixture.html#a3476f1a61b94f0b58c00a90643e1861a">Mixture::xiN</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xiN</div><div class="ttdoc">d xi[j] / d N[i]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00177">Mixture.hpp:177</a></div></div>
+<div class="ttc" id="aclassMixture_html_a382c30078dd1579e7f375ad2f60e2f44"><div class="ttname"><a href="classMixture.html#a382c30078dd1579e7f375ad2f60e2f44">Mixture::vji</a></div><div class="ttdeci">vector&lt; vector&lt; OCP_DBL &gt; &gt; vji</div><div class="ttdoc">dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00165">Mixture.hpp:165</a></div></div>
+<div class="ttc" id="aclassMixture_html_a3f517560e2ec30f08afca9f6dc3ff71c"><div class="ttname"><a href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">Mixture::xix</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xix</div><div class="ttdoc">d xi[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00180">Mixture.hpp:180</a></div></div>
+<div class="ttc" id="aclassMixture_html_a62615d0052ef8b34c3894e728951c06e"><div class="ttname"><a href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">Mixture::rhox</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhox</div><div class="ttdoc">d rho[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00181">Mixture.hpp:181</a></div></div>
+<div class="ttc" id="aclassMixture_html_a7463b9517217397b77d51012f4367a28"><div class="ttname"><a href="classMixture.html#a7463b9517217397b77d51012f4367a28">Mixture::v</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; v</div><div class="ttdoc">volume of phase: numPhase;</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00158">Mixture.hpp:158</a></div></div>
+<div class="ttc" id="aclassMixture_html_a763d1e12b91ae451b2df175cbc45ef84"><div class="ttname"><a href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">Mixture::S</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; S</div><div class="ttdoc">saturation of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00151">Mixture.hpp:151</a></div></div>
+<div class="ttc" id="aclassMixture_html_a7897e0172e682f205e6c58688368c12e"><div class="ttname"><a href="classMixture.html#a7897e0172e682f205e6c58688368c12e">Mixture::muN</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; muN</div><div class="ttdoc">d mu[j] / d N[i]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00176">Mixture.hpp:176</a></div></div>
+<div class="ttc" id="aclassMixture_html_a9958b097000a344df9bfbdc845db850c"><div class="ttname"><a href="classMixture.html#a9958b097000a344df9bfbdc845db850c">Mixture::xij</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xij</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00154">Mixture.hpp:154</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa0d6fa9514fce1774cc277826d304061"><div class="ttname"><a href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">Mixture::nj</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; nj</div><div class="ttdoc">mole number of phase j</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00156">Mixture.hpp:156</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00149">Mixture.hpp:149</a></div></div>
+<div class="ttc" id="aclassMixture_html_ab4dd3e54d542aca8eccdcbd208a38504"><div class="ttname"><a href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">Mixture::vfi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; vfi</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00170">Mixture.hpp:170</a></div></div>
+<div class="ttc" id="aclassMixture_html_ad49e1236014cca81fa4faedf12806bb0"><div class="ttname"><a href="classMixture.html#ad49e1236014cca81fa4faedf12806bb0">Mixture::keyDer</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; keyDer</div><div class="ttdoc">d (xij*xi/mu) / dP or dNk</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00188">Mixture.hpp:188</a></div></div>
+<div class="ttc" id="aclassMixture_html_ad86bd94527d09c2afcf767ce6e3a8a71"><div class="ttname"><a href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">Mixture::xiP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xiP</div><div class="ttdoc">d xi / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00174">Mixture.hpp:174</a></div></div>
+<div class="ttc" id="aclassMixture_html_ad9e2798ac8ab094b3a17cff16111f70b"><div class="ttname"><a href="classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b">Mixture::rhoN</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhoN</div><div class="ttdoc">d rho[j] / d N[i]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00178">Mixture.hpp:178</a></div></div>
+<div class="ttc" id="aclassMixture_html_ae1531b7594246b0b03bdb7d974800ca4"><div class="ttname"><a href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">Mixture::muP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; muP</div><div class="ttdoc">d mu / dP: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00173">Mixture.hpp:173</a></div></div>
+<div class="ttc" id="aclassMixture_html_ae63dab2d31711b0246096c5c128f2080"><div class="ttname"><a href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">Mixture::mux</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; mux</div><div class="ttdoc">d mu[j] / d x[i][j]: numphase * numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00179">Mixture.hpp:179</a></div></div>
+<div class="ttc" id="aclassMixture_html_ae6c518e1735459e4da660fe989fbcf1d"><div class="ttname"><a href="classMixture.html#ae6c518e1735459e4da660fe989fbcf1d">Mixture::res</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; res</div><div class="ttdoc">residual of a set of equations</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00185">Mixture.hpp:185</a></div></div>
+<div class="ttc" id="aclassMixture_html_afad5616464982e92b25adba0c84f4eb5"><div class="ttname"><a href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">Mixture::xi</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; xi</div><div class="ttdoc">molar density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00153">Mixture.hpp:153</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00156">dXsdXp</a>, <a class="el" href="Mixture_8hpp_source.html#l00136">mu</a>, <a class="el" href="Mixture_8hpp_source.html#l00149">muP</a>, <a class="el" href="Mixture_8hpp_source.html#l00152">mux</a>, <a class="el" href="Mixture_8hpp_source.html#l00129">Ni</a>, <a class="el" href="Mixture_8hpp_source.html#l00125">numCom</a>, <a class="el" href="Mixture_8hpp_source.html#l00124">numPhase</a>, <a class="el" href="Mixture_8hpp_source.html#l00130">phaseExist</a>, <a class="el" href="Mixture_8hpp_source.html#l00132">rho</a>, <a class="el" href="Mixture_8hpp_source.html#l00151">rhoP</a>, <a class="el" href="Mixture_8hpp_source.html#l00154">rhox</a>, <a class="el" href="Mixture_8hpp_source.html#l00131">S</a>, <a class="el" href="Mixture_8hpp_source.html#l00137">v</a>, <a class="el" href="Mixture_8hpp_source.html#l00146">vfi</a>, <a class="el" href="Mixture_8hpp_source.html#l00133">xi</a>, <a class="el" href="Mixture_8hpp_source.html#l00134">xij</a>, <a class="el" href="Mixture_8hpp_source.html#l00150">xiP</a>, and <a class="el" href="Mixture_8hpp_source.html#l00153">xix</a>.</p>
+<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00183">dXsdXp</a>, <a class="el" href="Mixture_8hpp_source.html#l00188">keyDer</a>, <a class="el" href="Mixture_8hpp_source.html#l00157">mu</a>, <a class="el" href="Mixture_8hpp_source.html#l00176">muN</a>, <a class="el" href="Mixture_8hpp_source.html#l00173">muP</a>, <a class="el" href="Mixture_8hpp_source.html#l00179">mux</a>, <a class="el" href="Mixture_8hpp_source.html#l00149">Ni</a>, <a class="el" href="Mixture_8hpp_source.html#l00156">nj</a>, <a class="el" href="Mixture_8hpp_source.html#l00145">numCom</a>, <a class="el" href="Mixture_8hpp_source.html#l00144">numPhase</a>, <a class="el" href="Mixture_8hpp_source.html#l00184">pEnumCom</a>, <a class="el" href="Mixture_8hpp_source.html#l00150">phaseExist</a>, <a class="el" href="Mixture_8hpp_source.html#l00185">res</a>, <a class="el" href="Mixture_8hpp_source.html#l00152">rho</a>, <a class="el" href="Mixture_8hpp_source.html#l00178">rhoN</a>, <a class="el" href="Mixture_8hpp_source.html#l00175">rhoP</a>, <a class="el" href="Mixture_8hpp_source.html#l00181">rhox</a>, <a class="el" href="Mixture_8hpp_source.html#l00151">S</a>, <a class="el" href="Mixture_8hpp_source.html#l00158">v</a>, <a class="el" href="Mixture_8hpp_source.html#l00170">vfi</a>, <a class="el" href="Mixture_8hpp_source.html#l00165">vji</a>, <a class="el" href="Mixture_8hpp_source.html#l00166">vjp</a>, <a class="el" href="Mixture_8hpp_source.html#l00153">xi</a>, <a class="el" href="Mixture_8hpp_source.html#l00154">xij</a>, <a class="el" href="Mixture_8hpp_source.html#l00177">xiN</a>, <a class="el" href="Mixture_8hpp_source.html#l00174">xiP</a>, and <a class="el" href="Mixture_8hpp_source.html#l00180">xix</a>.</p>
 
 </div>
 </div>
@@ -359,22 +419,22 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >check if Ni input from param is negative, it's used in debug mode to check Hidden trouble. actually, very small error in very short time may not make trouble. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00098">98</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordtype">bool</span> flag = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                flag = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">if</span> (!flag) <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00116">116</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordtype">bool</span> flag = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code hl_variable" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code hl_variable" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                flag = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">if</span> (!flag) <a class="code hl_define" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00129">Ni</a>, <a class="el" href="Mixture_8hpp_source.html#l00125">numCom</a>, and <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
+<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00149">Ni</a>, <a class="el" href="Mixture_8hpp_source.html#l00145">numCom</a>, and <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
 </div>
 </div>
@@ -503,6 +563,92 @@ Friends</h2></td></tr>
 <p>Flash calculation with moles of components and Calculate the derivative. </p>
 
 <p>Implemented in <a class="el" href="classBOMixture__W.html#ab15fbdafd27539b8d2b3950b0c4fb5ba">BOMixture_W</a>, <a class="el" href="classBOMixture__OW.html#af40d9144071eb0e899b424ab1f66db6b">BOMixture_OW</a>, <a class="el" href="classBOMixture__ODGW.html#a9172e6fd37808182b73b8d07f4fba96f">BOMixture_ODGW</a>, and <a class="el" href="classMixtureComp.html#a2ceb9b4dc6753763425bb5c52249a1ac">MixtureComp</a>.</p>
+
+</div>
+</div>
+<a id="a9ad6f03ad8524049546a6d35f8fd7376" name="a9ad6f03ad8524049546a6d35f8fd7376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ad6f03ad8524049546a6d35f8fd7376">&#9670;&nbsp;</a></span>FlashDeriv_n()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Mixture::FlashDeriv_n </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>Pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>Tin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
+          <td class="paramname"><em>Niin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
+          <td class="paramname"><em>Sjin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
+          <td class="paramname"><em>xijin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
+          <td class="paramname"><em>njin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>ftype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *&#160;</td>
+          <td class="paramname"><em>phaseExistin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>lastNP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
+          <td class="paramname"><em>lastKs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMixtureComp.html#aec54b4c31ae55907ffd7449e63f38eac">MixtureComp</a>.</p>
 
 </div>
 </div>
@@ -676,11 +822,11 @@ Friends</h2></td></tr>
 
 <p>return type of mixture. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00060">60</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">mixtureType</a>; }</div>
-<div class="ttc" id="aclassMixture_html_aed7f515dd957ccf0a6fec5ed94c83370"><div class="ttname"><a href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">Mixture::mixtureType</a></div><div class="ttdeci">USI mixtureType</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00121">Mixture.hpp:121</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00074">74</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">mixtureType</a>; }</div>
+<div class="ttc" id="aclassMixture_html_aed7f515dd957ccf0a6fec5ed94c83370"><div class="ttname"><a href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">Mixture::mixtureType</a></div><div class="ttdeci">USI mixtureType</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00141">Mixture.hpp:141</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00121">mixtureType</a>.</p>
+<p class="reference">References <a class="el" href="Mixture_8hpp_source.html#l00141">mixtureType</a>.</p>
 
 </div>
 </div>
@@ -773,8 +919,8 @@ Friends</h2></td></tr>
 
 <p>Check whether Table PVDG is empty, it will only be used in black oil model. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00062">62</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; };</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00076">76</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -847,8 +993,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00058">58</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{};</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00072">72</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{};</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -993,7 +1139,33 @@ Friends</h2></td></tr>
 
 <p>the derivates of second variables wrt. primary variables </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00156">156</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00183">183</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad49e1236014cca81fa4faedf12806bb0" name="ad49e1236014cca81fa4faedf12806bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad49e1236014cca81fa4faedf12806bb0">&#9670;&nbsp;</a></span>keyDer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::keyDer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>d (xij*xi/mu) / dP or dNk </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00188">188</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1018,7 +1190,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >indicates the type of mixture, black oil or compositional or others. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00121">121</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00141">141</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1044,7 +1216,33 @@ Friends</h2></td></tr>
 
 <p>viscosity of phase: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00136">136</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00157">157</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7897e0172e682f205e6c58688368c12e" name="a7897e0172e682f205e6c58688368c12e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7897e0172e682f205e6c58688368c12e">&#9670;&nbsp;</a></span>muN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::muN</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>d mu[j] / d N[i]: numphase * numCom </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1070,7 +1268,7 @@ Friends</h2></td></tr>
 
 <p>d mu / dP: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00149">149</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00173">173</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1096,7 +1294,7 @@ Friends</h2></td></tr>
 
 <p>d mu[j] / d x[i][j]: numphase * numCom </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00152">152</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00179">179</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1122,7 +1320,33 @@ Friends</h2></td></tr>
 
 <p>moles of component: numCom </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00129">129</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00149">149</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa0d6fa9514fce1774cc277826d304061" name="aa0d6fa9514fce1774cc277826d304061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d6fa9514fce1774cc277826d304061">&#9670;&nbsp;</a></span>nj</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::nj</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>mole number of phase j </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00156">156</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1148,7 +1372,7 @@ Friends</h2></td></tr>
 
 <p>Total moles of Components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00140">140</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00161">161</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1174,7 +1398,7 @@ Friends</h2></td></tr>
 
 <p>num of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00125">125</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00145">145</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1200,7 +1424,7 @@ Friends</h2></td></tr>
 
 <p>num of phases. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00124">124</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00144">144</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1450,33 @@ Friends</h2></td></tr>
 
 <p>pressure when flash calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00126">126</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00146">146</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a12f16b1b3d45f0052be513f14d323835" name="a12f16b1b3d45f0052be513f14d323835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12f16b1b3d45f0052be513f14d323835">&#9670;&nbsp;</a></span>pEnumCom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&gt; Mixture::pEnumCom</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>see pEnumCom in bulk </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00184">184</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1252,7 +1502,59 @@ Friends</h2></td></tr>
 
 <p>existence of phase: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00130">130</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00150">150</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6c518e1735459e4da660fe989fbcf1d" name="ae6c518e1735459e4da660fe989fbcf1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6c518e1735459e4da660fe989fbcf1d">&#9670;&nbsp;</a></span>res</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::res</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>residual of a set of equations </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00185">185</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a06e0f35248973da46366c82943f6a085" name="a06e0f35248973da46366c82943f6a085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06e0f35248973da46366c82943f6a085">&#9670;&nbsp;</a></span>resPc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Mixture::resPc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>a precalculated value </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00186">186</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1278,7 +1580,33 @@ Friends</h2></td></tr>
 
 <p>mass density of phase: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00132">132</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00152">152</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9e2798ac8ab094b3a17cff16111f70b" name="ad9e2798ac8ab094b3a17cff16111f70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e2798ac8ab094b3a17cff16111f70b">&#9670;&nbsp;</a></span>rhoN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::rhoN</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>d rho[j] / d N[i]: numphase * numCom </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00178">178</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1304,7 +1632,7 @@ Friends</h2></td></tr>
 
 <p>d rho / dP: numphase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00151">151</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00175">175</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1330,7 +1658,7 @@ Friends</h2></td></tr>
 
 <p>d rho[j] / d x[i][j]: numphase * numCom </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00154">154</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00181">181</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1356,7 +1684,7 @@ Friends</h2></td></tr>
 
 <p>saturation of phase: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00131">131</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00151">151</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +1710,7 @@ Friends</h2></td></tr>
 
 <p>temperature when flash calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00127">127</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00147">147</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1408,7 +1736,7 @@ Friends</h2></td></tr>
 
 <p>volume of phase: numPhase; </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00137">137</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00158">158</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1434,7 +1762,7 @@ Friends</h2></td></tr>
 
 <p>volume of total fluids. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00139">139</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00160">160</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1459,7 +1787,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >dVf / dNi: numCom the derivative of volume of total fluids with respect to moles of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00146">146</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00170">170</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1484,7 +1812,59 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >dVf / dP, the derivative of volume of total fluids with respect to pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00144">144</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00168">168</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a382c30078dd1579e7f375ad2f60e2f44" name="a382c30078dd1579e7f375ad2f60e2f44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a382c30078dd1579e7f375ad2f60e2f44">&#9670;&nbsp;</a></span>vji</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; &gt; Mixture::vji</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00165">165</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a334d229b6dbbc015a9e7de974f08c76d" name="a334d229b6dbbc015a9e7de974f08c76d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a334d229b6dbbc015a9e7de974f08c76d">&#9670;&nbsp;</a></span>vjp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::vjp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>dvj / dp, used in 2 hydrocarbon phase in EOS </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00166">166</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1510,7 +1890,7 @@ Friends</h2></td></tr>
 
 <p>molar density of phase: numPhase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00133">133</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00153">153</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1535,7 +1915,33 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >Nij / Nj: numPhase*numCom, Nij is the moles of component i in phase j, Nj is the moles of phase j. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00134">134</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00154">154</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3476f1a61b94f0b58c00a90643e1861a" name="a3476f1a61b94f0b58c00a90643e1861a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3476f1a61b94f0b58c00a90643e1861a">&#9670;&nbsp;</a></span>xiN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::xiN</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>d xi[j] / d N[i]: numphase * numCom </p>
+
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00177">177</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1561,7 +1967,7 @@ Friends</h2></td></tr>
 
 <p>d xi / dP: numphase </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00150">150</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00174">174</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1587,7 +1993,7 @@ Friends</h2></td></tr>
 
 <p>d xi[j] / d x[i][j]: numphase * numCom </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00153">153</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00180">180</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1597,7 +2003,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

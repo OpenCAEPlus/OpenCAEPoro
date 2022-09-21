@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -129,13 +128,13 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l03001">3001</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l03002" name="l03002"></a><span class="lineno"> 3002</span>{</div>
-<div class="line"><a id="l03003" name="l03003"></a><span class="lineno"> 3003</span>    <span class="keywordflow">if</span> (i == j) {</div>
-<div class="line"><a id="l03004" name="l03004"></a><span class="lineno"> 3004</span>        <span class="keywordflow">return</span> 1.0;</div>
-<div class="line"><a id="l03005" name="l03005"></a><span class="lineno"> 3005</span>    }</div>
-<div class="line"><a id="l03006" name="l03006"></a><span class="lineno"> 3006</span>    <span class="keywordflow">return</span> 0.0;</div>
-<div class="line"><a id="l03007" name="l03007"></a><span class="lineno"> 3007</span>}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l04913">4913</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l04914" name="l04914"></a><span class="lineno"> 4914</span>{</div>
+<div class="line"><a id="l04915" name="l04915"></a><span class="lineno"> 4915</span>    <span class="keywordflow">if</span> (i == j) {</div>
+<div class="line"><a id="l04916" name="l04916"></a><span class="lineno"> 4916</span>        <span class="keywordflow">return</span> 1.0;</div>
+<div class="line"><a id="l04917" name="l04917"></a><span class="lineno"> 4917</span>    }</div>
+<div class="line"><a id="l04918" name="l04918"></a><span class="lineno"> 4918</span>    <span class="keywordflow">return</span> 0.0;</div>
+<div class="line"><a id="l04919" name="l04919"></a><span class="lineno"> 4919</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -177,31 +176,31 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l03009">3009</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l03010" name="l03010"></a><span class="lineno"> 3010</span>{</div>
-<div class="line"><a id="l03011" name="l03011"></a><span class="lineno"> 3011</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> e = root * (root * (root + a) + b) + c;</div>
-<div class="line"><a id="l03012" name="l03012"></a><span class="lineno"> 3012</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> df;</div>
-<div class="line"><a id="l03013" name="l03013"></a><span class="lineno"> 3013</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> iter    = 0;</div>
-<div class="line"><a id="l03014" name="l03014"></a><span class="lineno"> 3014</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> optroot = root;</div>
-<div class="line"><a id="l03015" name="l03015"></a><span class="lineno"> 3015</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> opte    = fabs(e);</div>
-<div class="line"><a id="l03016" name="l03016"></a><span class="lineno"> 3016</span> </div>
-<div class="line"><a id="l03017" name="l03017"></a><span class="lineno"> 3017</span>    <span class="keywordflow">while</span> (fabs(e) &gt; 1E-8) {</div>
-<div class="line"><a id="l03018" name="l03018"></a><span class="lineno"> 3018</span> </div>
-<div class="line"><a id="l03019" name="l03019"></a><span class="lineno"> 3019</span>        df   = root * (3 * root + 2 * a) + b;</div>
-<div class="line"><a id="l03020" name="l03020"></a><span class="lineno"> 3020</span>        root = root - e / df;</div>
-<div class="line"><a id="l03021" name="l03021"></a><span class="lineno"> 3021</span>        iter++;</div>
-<div class="line"><a id="l03022" name="l03022"></a><span class="lineno"> 3022</span>        <span class="keywordflow">if</span> (iter &gt; 10) {</div>
-<div class="line"><a id="l03023" name="l03023"></a><span class="lineno"> 3023</span>            <span class="comment">// std::cout &lt;&lt; &quot;WARNING: INEXACT ROOT FOR CUBIC EQUATIONS&quot; &lt;&lt; std::endl;</span></div>
-<div class="line"><a id="l03024" name="l03024"></a><span class="lineno"> 3024</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l03025" name="l03025"></a><span class="lineno"> 3025</span>        }</div>
-<div class="line"><a id="l03026" name="l03026"></a><span class="lineno"> 3026</span>        e = root * (root * (root + a) + b) + c;</div>
-<div class="line"><a id="l03027" name="l03027"></a><span class="lineno"> 3027</span>        <span class="keywordflow">if</span> (fabs(e) &lt;= opte) {</div>
-<div class="line"><a id="l03028" name="l03028"></a><span class="lineno"> 3028</span>            opte    = fabs(e);</div>
-<div class="line"><a id="l03029" name="l03029"></a><span class="lineno"> 3029</span>            optroot = root;</div>
-<div class="line"><a id="l03030" name="l03030"></a><span class="lineno"> 3030</span>        }</div>
-<div class="line"><a id="l03031" name="l03031"></a><span class="lineno"> 3031</span>    }</div>
-<div class="line"><a id="l03032" name="l03032"></a><span class="lineno"> 3032</span>    root = optroot;</div>
-<div class="line"><a id="l03033" name="l03033"></a><span class="lineno"> 3033</span>}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l04921">4921</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l04922" name="l04922"></a><span class="lineno"> 4922</span>{</div>
+<div class="line"><a id="l04923" name="l04923"></a><span class="lineno"> 4923</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> e = root * (root * (root + a) + b) + c;</div>
+<div class="line"><a id="l04924" name="l04924"></a><span class="lineno"> 4924</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> df;</div>
+<div class="line"><a id="l04925" name="l04925"></a><span class="lineno"> 4925</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> iter    = 0;</div>
+<div class="line"><a id="l04926" name="l04926"></a><span class="lineno"> 4926</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> optroot = root;</div>
+<div class="line"><a id="l04927" name="l04927"></a><span class="lineno"> 4927</span>    <a class="code hl_typedef" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> opte    = fabs(e);</div>
+<div class="line"><a id="l04928" name="l04928"></a><span class="lineno"> 4928</span> </div>
+<div class="line"><a id="l04929" name="l04929"></a><span class="lineno"> 4929</span>    <span class="keywordflow">while</span> (fabs(e) &gt; 1E-8) {</div>
+<div class="line"><a id="l04930" name="l04930"></a><span class="lineno"> 4930</span> </div>
+<div class="line"><a id="l04931" name="l04931"></a><span class="lineno"> 4931</span>        df   = root * (3 * root + 2 * a) + b;</div>
+<div class="line"><a id="l04932" name="l04932"></a><span class="lineno"> 4932</span>        root = root - e / df;</div>
+<div class="line"><a id="l04933" name="l04933"></a><span class="lineno"> 4933</span>        iter++;</div>
+<div class="line"><a id="l04934" name="l04934"></a><span class="lineno"> 4934</span>        <span class="keywordflow">if</span> (iter &gt; 10) {</div>
+<div class="line"><a id="l04935" name="l04935"></a><span class="lineno"> 4935</span>            <span class="comment">// std::cout &lt;&lt; &quot;WARNING: INEXACT ROOT FOR CUBIC EQUATIONS&quot; &lt;&lt; std::endl;</span></div>
+<div class="line"><a id="l04936" name="l04936"></a><span class="lineno"> 4936</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l04937" name="l04937"></a><span class="lineno"> 4937</span>        }</div>
+<div class="line"><a id="l04938" name="l04938"></a><span class="lineno"> 4938</span>        e = root * (root * (root + a) + b) + c;</div>
+<div class="line"><a id="l04939" name="l04939"></a><span class="lineno"> 4939</span>        <span class="keywordflow">if</span> (fabs(e) &lt;= opte) {</div>
+<div class="line"><a id="l04940" name="l04940"></a><span class="lineno"> 4940</span>            opte    = fabs(e);</div>
+<div class="line"><a id="l04941" name="l04941"></a><span class="lineno"> 4941</span>            optroot = root;</div>
+<div class="line"><a id="l04942" name="l04942"></a><span class="lineno"> 4942</span>        }</div>
+<div class="line"><a id="l04943" name="l04943"></a><span class="lineno"> 4943</span>    }</div>
+<div class="line"><a id="l04944" name="l04944"></a><span class="lineno"> 4944</span>    root = optroot;</div>
+<div class="line"><a id="l04945" name="l04945"></a><span class="lineno"> 4945</span>}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -224,23 +223,23 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 <p>Return the sign of double di. </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l02990">2990</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l02991" name="l02991"></a><span class="lineno"> 2991</span>{</div>
-<div class="line"><a id="l02992" name="l02992"></a><span class="lineno"> 2992</span>    <span class="keywordflow">if</span> (d &gt; 0) {</div>
-<div class="line"><a id="l02993" name="l02993"></a><span class="lineno"> 2993</span>        <span class="keywordflow">return</span> 1.0;</div>
-<div class="line"><a id="l02994" name="l02994"></a><span class="lineno"> 2994</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (d &lt; 0) {</div>
-<div class="line"><a id="l02995" name="l02995"></a><span class="lineno"> 2995</span>        <span class="keywordflow">return</span> -1.0;</div>
-<div class="line"><a id="l02996" name="l02996"></a><span class="lineno"> 2996</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l02997" name="l02997"></a><span class="lineno"> 2997</span>        <span class="keywordflow">return</span> 0.0;</div>
-<div class="line"><a id="l02998" name="l02998"></a><span class="lineno"> 2998</span>    }</div>
-<div class="line"><a id="l02999" name="l02999"></a><span class="lineno"> 2999</span>}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l04902">4902</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l04903" name="l04903"></a><span class="lineno"> 4903</span>{</div>
+<div class="line"><a id="l04904" name="l04904"></a><span class="lineno"> 4904</span>    <span class="keywordflow">if</span> (d &gt; 0) {</div>
+<div class="line"><a id="l04905" name="l04905"></a><span class="lineno"> 4905</span>        <span class="keywordflow">return</span> 1.0;</div>
+<div class="line"><a id="l04906" name="l04906"></a><span class="lineno"> 4906</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (d &lt; 0) {</div>
+<div class="line"><a id="l04907" name="l04907"></a><span class="lineno"> 4907</span>        <span class="keywordflow">return</span> -1.0;</div>
+<div class="line"><a id="l04908" name="l04908"></a><span class="lineno"> 4908</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l04909" name="l04909"></a><span class="lineno"> 4909</span>        <span class="keywordflow">return</span> 0.0;</div>
+<div class="line"><a id="l04910" name="l04910"></a><span class="lineno"> 4910</span>    }</div>
+<div class="line"><a id="l04911" name="l04911"></a><span class="lineno"> 4911</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:36 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

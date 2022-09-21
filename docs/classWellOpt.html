@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -92,6 +91,8 @@ Friends</h2></td></tr>
 <tr class="separator:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af97b4b6b1676302fa31f67b2d1c7cf91"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellOpt.html#af97b4b6b1676302fa31f67b2d1c7cf91">AllWells</a></td></tr>
 <tr class="separator:af97b4b6b1676302fa31f67b2d1c7cf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f10e7b06ff0ae8e2a08e917e81801ac"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWellOpt.html#a7f10e7b06ff0ae8e2a08e917e81801ac">DetailInfo</a></td></tr>
+<tr class="separator:a7f10e7b06ff0ae8e2a08e917e81801ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classWellOpt.html">WellOpt</a> describes the operation mode of a well. usually it changes over time, specifically, each attributes could be changed including the well type. </p>
@@ -162,16 +163,16 @@ Friends</h2></td></tr>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    maxBHP      = Optparam.<a class="code hl_variable" href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">maxBHP</a>;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    minBHP      = Optparam.<a class="code hl_variable" href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">minBHP</a>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a3615008dac3cda340c4587ef1622ca74"><div class="ttname"><a href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a></div><div class="ttdeci">const USI LRATE_MODE</div><div class="ttdoc">Well option = fixed fluid rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00103">OCPConst.hpp:103</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a36e159b6de59020f171c2cef277108e8"><div class="ttname"><a href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a></div><div class="ttdeci">const USI WRATE_MODE</div><div class="ttdoc">Well option = fixed water rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00102">OCPConst.hpp:102</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a6bc5e2a2d158c83db657edc1dcfeb723"><div class="ttname"><a href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a></div><div class="ttdeci">const USI ORATE_MODE</div><div class="ttdoc">Well option = fixed oil rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00100">OCPConst.hpp:100</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a76b7aa8829497fc7baf1b3c5df7ac9ee"><div class="ttname"><a href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a></div><div class="ttdeci">const bool CLOSE</div><div class="ttdoc">Well type = closed.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00096">OCPConst.hpp:96</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a97181f08046f57424cf2458c5263a4a7"><div class="ttname"><a href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a></div><div class="ttdeci">const USI RATE_MODE</div><div class="ttdoc">Well option = fixed total rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00099">OCPConst.hpp:99</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_aa908ad563dca6c66910a2c59261da1f2"><div class="ttname"><a href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a></div><div class="ttdeci">const bool OPEN</div><div class="ttdoc">Well type = open.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00095">OCPConst.hpp:95</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00092">OCPConst.hpp:92</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00091">OCPConst.hpp:91</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae977bf9562c2c63895c4efc43f080225"><div class="ttname"><a href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a></div><div class="ttdeci">const USI BHP_MODE</div><div class="ttdoc">Well option = fixed bottom-hole-pressure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00104">OCPConst.hpp:104</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_af273249c7a6a295eee8bb2443287c5b3"><div class="ttname"><a href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a></div><div class="ttdeci">const USI GRATE_MODE</div><div class="ttdoc">Well option = fixed gas rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00101">OCPConst.hpp:101</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a3615008dac3cda340c4587ef1622ca74"><div class="ttname"><a href="OCPConst_8hpp.html#a3615008dac3cda340c4587ef1622ca74">LRATE_MODE</a></div><div class="ttdeci">const USI LRATE_MODE</div><div class="ttdoc">Well option = fixed fluid rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00119">OCPConst.hpp:119</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a36e159b6de59020f171c2cef277108e8"><div class="ttname"><a href="OCPConst_8hpp.html#a36e159b6de59020f171c2cef277108e8">WRATE_MODE</a></div><div class="ttdeci">const USI WRATE_MODE</div><div class="ttdoc">Well option = fixed water rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00118">OCPConst.hpp:118</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a6bc5e2a2d158c83db657edc1dcfeb723"><div class="ttname"><a href="OCPConst_8hpp.html#a6bc5e2a2d158c83db657edc1dcfeb723">ORATE_MODE</a></div><div class="ttdeci">const USI ORATE_MODE</div><div class="ttdoc">Well option = fixed oil rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00116">OCPConst.hpp:116</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a76b7aa8829497fc7baf1b3c5df7ac9ee"><div class="ttname"><a href="OCPConst_8hpp.html#a76b7aa8829497fc7baf1b3c5df7ac9ee">CLOSE</a></div><div class="ttdeci">const bool CLOSE</div><div class="ttdoc">Well type = closed.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00112">OCPConst.hpp:112</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a97181f08046f57424cf2458c5263a4a7"><div class="ttname"><a href="OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7">RATE_MODE</a></div><div class="ttdeci">const USI RATE_MODE</div><div class="ttdoc">Well option = fixed total rate???</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00115">OCPConst.hpp:115</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aa908ad563dca6c66910a2c59261da1f2"><div class="ttname"><a href="OCPConst_8hpp.html#aa908ad563dca6c66910a2c59261da1f2">OPEN</a></div><div class="ttdeci">const bool OPEN</div><div class="ttdoc">Well type = open.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00111">OCPConst.hpp:111</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00108">OCPConst.hpp:108</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00107">OCPConst.hpp:107</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae977bf9562c2c63895c4efc43f080225"><div class="ttname"><a href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a></div><div class="ttdeci">const USI BHP_MODE</div><div class="ttdoc">Well option = fixed bottom-hole-pressure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00120">OCPConst.hpp:120</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_af273249c7a6a295eee8bb2443287c5b3"><div class="ttname"><a href="OCPConst_8hpp.html#af273249c7a6a295eee8bb2443287c5b3">GRATE_MODE</a></div><div class="ttdeci">const USI GRATE_MODE</div><div class="ttdoc">Well option = fixed gas rate.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00117">OCPConst.hpp:117</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a144f37940d5f85961f915fddeb560b40"><div class="ttname"><a href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">WellOptParam::maxBHP</a></div><div class="ttdeci">OCP_DBL maxBHP</div><div class="ttdoc">Maximum allowable pressure in the injection well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00039">ParamWell.hpp:39</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a199ec03af9d7fa4897d8b95fac8a2723"><div class="ttname"><a href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">WellOptParam::type</a></div><div class="ttdeci">string type</div><div class="ttdoc">Type of well, injection or production?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00033">ParamWell.hpp:33</a></div></div>
@@ -181,7 +182,7 @@ Friends</h2></td></tr>
 <div class="ttc" id="aclassWellOptParam_html_af0ad9a5c5f25d0284d05813d6d0eba21"><div class="ttname"><a href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">WellOptParam::minBHP</a></div><div class="ttdeci">OCP_DBL minBHP</div><div class="ttdoc">Minimum allowable pressure in the production well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00040">ParamWell.hpp:40</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_af84616d229f5c4420f57f9f3d1278391"><div class="ttname"><a href="classWellOptParam.html#af84616d229f5c4420f57f9f3d1278391">WellOptParam::state</a></div><div class="ttdeci">string state</div><div class="ttdoc">State of well, open or close?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00035">ParamWell.hpp:35</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00104">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00096">CLOSE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00034">WellOptParam::fluidType</a>, <a class="el" href="OCPConst_8hpp_source.html#l00101">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00091">INJ</a>, <a class="el" href="OCPConst_8hpp_source.html#l00103">LRATE_MODE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00039">WellOptParam::maxBHP</a>, <a class="el" href="ParamWell_8hpp_source.html#l00038">WellOptParam::maxRate</a>, <a class="el" href="ParamWell_8hpp_source.html#l00040">WellOptParam::minBHP</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00095">OPEN</a>, <a class="el" href="ParamWell_8hpp_source.html#l00036">WellOptParam::optMode</a>, <a class="el" href="OCPConst_8hpp_source.html#l00100">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00092">PROD</a>, <a class="el" href="OCPConst_8hpp_source.html#l00099">RATE_MODE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00035">WellOptParam::state</a>, <a class="el" href="ParamWell_8hpp_source.html#l00033">WellOptParam::type</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00102">WRATE_MODE</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00120">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00112">CLOSE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00034">WellOptParam::fluidType</a>, <a class="el" href="OCPConst_8hpp_source.html#l00117">GRATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00107">INJ</a>, <a class="el" href="OCPConst_8hpp_source.html#l00119">LRATE_MODE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00039">WellOptParam::maxBHP</a>, <a class="el" href="ParamWell_8hpp_source.html#l00038">WellOptParam::maxRate</a>, <a class="el" href="ParamWell_8hpp_source.html#l00040">WellOptParam::minBHP</a>, <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00111">OPEN</a>, <a class="el" href="ParamWell_8hpp_source.html#l00036">WellOptParam::optMode</a>, <a class="el" href="OCPConst_8hpp_source.html#l00116">ORATE_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00108">PROD</a>, <a class="el" href="OCPConst_8hpp_source.html#l00115">RATE_MODE</a>, <a class="el" href="ParamWell_8hpp_source.html#l00035">WellOptParam::state</a>, <a class="el" href="ParamWell_8hpp_source.html#l00033">WellOptParam::type</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00118">WRATE_MODE</a>.</p>
 
 </div>
 </div>
@@ -207,6 +208,30 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00051">51</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f10e7b06ff0ae8e2a08e917e81801ac" name="a7f10e7b06ff0ae8e2a08e917e81801ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f10e7b06ff0ae8e2a08e917e81801ac">&#9670;&nbsp;</a></span>DetailInfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classDetailInfo.html">DetailInfo</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Well_8hpp_source.html#l00052">52</a> of file <a class="el" href="Well_8hpp_source.html">Well.hpp</a>.</p>
 
 </div>
 </div>
@@ -241,7 +266,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:10 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

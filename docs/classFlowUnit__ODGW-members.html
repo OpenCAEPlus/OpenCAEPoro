@@ -14,7 +14,6 @@
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -24,7 +23,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="OCPLogo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.2.0 March/20/2022</span>
+   <div id="projectname">OpenCAEPoro<span id="projectnumber">&#160;0.1.8 Sep/22/2022</span>
    </div>
    <div id="projectbrief">A simulator for multicomponent porous media flow</div>
   </td>
@@ -74,20 +73,23 @@ $(function() {
 <table class="directory">
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>CalKro_Default</b>(const OCP_DBL &amp;Sg, const OCP_DBL &amp;Sw, const OCP_DBL &amp;krog, const OCP_DBL &amp;krow) const (defined in <a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a>)</td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>CalKro_Stone2</b>(const OCP_DBL &amp;krow, const OCP_DBL &amp;krog, const OCP_DBL &amp;krw, const OCP_DBL &amp;krg) const (defined in <a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a>)</td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a1b62c8f26746cb2a655de8c722654124">CalKrPc</a>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>CalKrPcDeriv</b>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out, OCP_DBL *dkrdS, OCP_DBL *dPcjdS)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#ac0bf71f9864bf1d205fa2d614819e97c">CalKrPc</a>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out, const OCP_DBL &amp;MySurTen, OCP_DBL &amp;MyFk, OCP_DBL &amp;MyFp)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>CalKrPcDeriv</b>(const OCP_DBL *S_in, OCP_DBL *kr_out, OCP_DBL *pc_out, OCP_DBL *dkrdS, OCP_DBL *dPcjdS, const OCP_DBL &amp;MySurTen, OCP_DBL &amp;MyFk, OCP_DBL &amp;MyFp)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1">FlowUnit</a>()=default</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#a44f154d43b3261b5b8349addb712dcf3">GetPcgoBySg</a>(const OCP_DBL &amp;sg)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#af482898d617e66a1089d20ddc6b642c3">GetPcowBySw</a>(const OCP_DBL &amp;sw)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetSgByPcgo</b>(const OCP_DBL &amp;pcgo)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classFlowUnit.html#a116e1235e4f35bb92a6046021dd1b146">GetSwByPcgw</a>(const OCP_DBL &amp;pcgw)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetSwByPcow</b>(const OCP_DBL &amp;pcow)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetScm</b>() const override (defined in <a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a>)</td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetSgByPcgo</b>(const OCP_DBL &amp;pcgo)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit.html#a116e1235e4f35bb92a6046021dd1b146">GetSwByPcgw</a>(const OCP_DBL &amp;pcgw)=0</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetSwByPcow</b>(const OCP_DBL &amp;pcow)=0 (defined in <a class="el" href="classFlowUnit.html">FlowUnit</a>)</td><td class="entry"><a class="el" href="classFlowUnit.html">FlowUnit</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetSwco</b>() const override (defined in <a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a>)</td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classFlowUnit__ODGW.html#a1803fb942b3611299d95e92d985cd920">kroMax</a></td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit__ODGW.html#a1e2190417c6acf19eb3a763be12d56b4">Swco</a></td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classFlowUnit__ODGW.html#a1d3c2386d194359f205f00bddaf4bc0d">Scm</a></td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classFlowUnit__ODGW.html#a1e2190417c6acf19eb3a763be12d56b4">Swco</a></td><td class="entry"><a class="el" href="classFlowUnit__ODGW.html">FlowUnit_ODGW</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 19 2022 09:10:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Sep 21 2022 21:13:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
