@@ -8,7 +8,7 @@ var searchData=
   ['eosp_5',['EoSp',['../classParamReservoir.html#aff3d0f65d7a1faedf1eaa87b415395e0',1,'ParamReservoir']]],
   ['eosparam_6',['EoSparam',['../classEoSparam.html',1,'']]],
   ['equil_7',['EQUIL',['../classParamReservoir.html#a2290127fca5524192133eff718854d7e',1,'ParamReservoir']]],
-  ['eval_8',['Eval',['../classOCPTable.html#a8e4a02821b093ad993b7e7ca52fe6dc8',1,'OCPTable']]],
+  ['eval_8',['Eval',['../classOCPTable.html#a8e4a02821b093ad993b7e7ca52fe6dc8',1,'OCPTable::Eval(const USI &amp;j, const OCP_DBL &amp;val, const USI &amp;destj)'],['../classOCPTable.html#a0fd38882eb135b5d2234cbfac4788d6c',1,'OCPTable::Eval(const USI &amp;j, const OCP_DBL &amp;val, const USI &amp;destj, OCP_DBL &amp;myK)']]],
   ['eval_5fall_9',['Eval_All',['../classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b',1,'OCPTable']]],
   ['eval_5finv_10',['Eval_Inv',['../classOCPTable.html#a06fb9e1ee34ea5cb49fa6af85799da41',1,'OCPTable']]],
   ['eyt_11',['eYt',['../classSSMparamSTA.html#a35963a0398ba071ce0a6edf969afae88',1,'SSMparamSTA']]]

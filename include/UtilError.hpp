@@ -78,7 +78,7 @@
     do {                                                                               \
         std::cout << __FUNCTION__ << std::endl;                                        \
     } while (false)
-#endif // !OCPFUNCNAME
+#endif
 
 #endif /* end if for __ERRORLOG_HXX__ */
 

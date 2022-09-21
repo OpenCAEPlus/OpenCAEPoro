@@ -28,17 +28,18 @@ using namespace std;
 //    -- (5) Output summary and other results.
 int main(int argc, const char* argv[])
 {
-    if (argc <= 1) {
-        // Provide at least InputFileName for the input data
-        cout << "Wrong number of arguments. Usage: " << argv[0] << " <InputFileName>"
-             << endl;
-        return -1;
-    }
-
-
     // Step 0. Print simulator version information.
     OpenCAEPoro simulator;
-    simulator.PrintVersion();
+    if (argc < 2) {
+        simulator.PrintUsage(argv[0]);
+        return OCP_ERROR_NUM_INPUT;
+    } else { // Need at least one parameter: data file name
+        simulator.PrintVersion();
+        if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
+            simulator.PrintUsage(argv[0]);
+            return OCP_SUCCESS;
+        }
+    }
 
     // Step 1. Read params from an input file to internal params data structure.
     // Note: The keywords are almost compatible with Ecl simulator; see Keywords.md.
@@ -66,7 +67,7 @@ int main(int argc, const char* argv[])
     // a summary file in your input data directory.
     simulator.OutputResults();
 
-    return 0;
+    return OCP_SUCCESS;
 }
 
 /*----------------------------------------------------------------------------*/

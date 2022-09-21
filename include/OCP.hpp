@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.2.0" ///< Software version tag used for git
+#define OCPVersion "0.1.8" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -31,14 +31,30 @@ public:
     {
         std::cout << "=========================================" << std::endl
                   << "OpenCAEPoro Version-" << OCPVersion << std::endl
-                  << "=========================================" << std::endl;
+                  << "=========================================" << std::endl
+                  << std::endl;
     };
 
+    /// Provide at least InputFileName for the input data
+    void PrintUsage(string cmdname) const
+    {
+        std::cout << "Usage: " << std::endl
+                  << "  " << cmdname << " <InputFileName> [Optional Method Parameters]"
+                  << std::endl << std::endl
+                  << "For example: " << std::endl
+                  << "  " << cmdname
+                  << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting"
+                  << std::endl
+                  << "  " << cmdname
+                  << " examples/spe1a/spe1a.data FIM 1 10 0.1  %% Solve SPE1a using FIM"
+                  << std::endl;
+    }
+
     /// Read input parameters to an internal structure.
-    void InputParam(ParamRead& param);
+    void InputParam(ParamRead &param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupSimulator(ParamRead& param, const USI& argc, const char* optset[]);
+    void SetupSimulator(ParamRead &param, const USI &argc, const char *optset[]);
 
     /// Initialize or get intitial status of reserovir.
     void InitReservoir();
@@ -73,4 +89,5 @@ private:
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
 /*  Chensong Zhang      Jan/08/2022      New tag info                         */
+/*  Chensong Zhang      Sep/21/2022      Add PrintUsage                       */
 /*----------------------------------------------------------------------------*/
