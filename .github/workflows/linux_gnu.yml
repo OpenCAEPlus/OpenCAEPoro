@@ -1,0 +1,21 @@
+name: Linux GNU Build
+on:
+    push:
+        branches:
+            - 'main'
+env:
+    CI: false
+jobs:
+    doc-publish:
+        runs-on: [self-hosted, Linux]
+        steps:
+            - name: Basic info
+              run: |
+                  echo "Build for ${{ github.ref }} branch in ${{ github.repository }} repository."
+                  echo "Job triggered by ${{ github.event_name }}, on self-hosted ${{ runner.os }}."  
+                    echo "Log level: ${{ github.event.inputs.logLevel }}"
+                  echo "Tags: ${{ github.event.inputs.tags }}"
+            - name: Check out repository
+              uses: actions/checkout@v3
+            - name: Build 
+              run: pnpm build:linux:gnu:debug

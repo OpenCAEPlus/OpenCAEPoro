@@ -7,6 +7,10 @@
         "node": ">=14.0.0"
     },
     "scripts": {
+        "build:linux:gnu:debug": "bash ./scripts/build/linux/gnu-build.sh Debug",
+        "build:linux:gnu:debug:clean": "bash ./scripts/build/linux/gnu-clean.sh Debug",
+        "build:linux:gnu:release": "bash ./scripts/build/linux/gnu-build.sh Release",
+        "build:linux:gnu:release:clean": "bash ./scripts/build/linux/gnu-clean.sh Release",
         "doc:dev": "pnpm doc:build:markdown && pnpm --filter opencaeporo-doc doc:dev",
         "doc:build:doxygen": "bash ./scripts/doc/build/doxygen.sh",
         "doc:build:markdown": "pnpm doc:build:doxygen && bash ./scripts/doc/build/markdown.sh",

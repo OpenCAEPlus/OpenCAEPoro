@@ -1,8 +1,16 @@
 # OpenCAEPoro
 
-[![Build and publish doc](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml)
+[![Doc](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml)
+[![Pages](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml)
 
-[![Github pages](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml)
+
+
+
+|               | Build | Test |
+|:-------------:|:-----:|:----:|
+|   Linux GNU   |[![Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml)|      |
+
+
 
 OpenCAEPoro or OCP is part of the OpenCAEPlus project written in C++. OCP
 focuses on simulating multicomponent multiphase flows in porous media. For 
@@ -47,6 +55,17 @@ To make the library and install it, run:
 
 Standard **uninstall** and **clean** targets are also provided. You may safely 
 remove the **Build** directory as well. 
+
+You may also use the provided scripts to build the whole project.
+```bash
+  >>> source ./scripts/build/linux/gnu-build.sh Debug # change the arguement to Release for release build
+  >>> source ./scripts/build/linux/gnu-clean.sh Debug # For clean up the build directory
+```
+
+Or if you have pnpm installed, you can also use the package.json scripts.
+```bash
+  >>> pnpm build:linux:gnu:build
+```
 
 ## Structure
 The directory structure of OpenCAEPoro is designed as follows:
