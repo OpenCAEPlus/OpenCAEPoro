@@ -6,9 +6,9 @@
 
 
 
-|               | Build | Test |
-|:-------------:|:-----:|:----:|
-|   Linux GNU   |[![Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml)|      |
+| Build | Test |
+|:-----:|:----:|
+|[![Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml)|      |
 
 
 
@@ -59,7 +59,7 @@ remove the **Build** directory as well.
 You may also use the provided scripts to build the whole project.
 ```bash
   >>> source ./scripts/build/linux/gnu-build.sh Debug # change the arguement to Release for release build
-  >>> source ./scripts/build/linux/gnu-clean.sh Debug # For clean up the build directory
+  >>> source ./scripts/build/linux/clean.sh gnu Debug # For clean up the build directory
 ```
 
 Or if you have pnpm installed, you can also use the package.json scripts.
