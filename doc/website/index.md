@@ -9,13 +9,16 @@ hero:
       text: Get started
       link: /manual/Design
     - theme: alt
+      text: Windows Users
+      link: /manual/OCP4Win10
+    - theme: alt
       text: View API
       link: /api/indexpage
 features:
   - title: Open Source
-    details: GPL license
+    details: LGPL license
   - title: FASP based
-    details: Using the FASP solver
+    details: Using the FASP solvers
   - title: C++
     details: Part of OpenCAE+
 ---

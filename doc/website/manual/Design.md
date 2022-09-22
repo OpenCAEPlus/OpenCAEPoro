@@ -11,7 +11,7 @@
 - Easy to add a new spatial discretization
 - Easy to add a new temporal discretization
   
-## For optimzation
+## For performance
 - Easy to add a new linear solution method
 - Easy to parallelize linear solvers
 - Easy to optimize code at certain steps

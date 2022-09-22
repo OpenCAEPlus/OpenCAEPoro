@@ -11,16 +11,16 @@ Check the [linear doc](https://linear.app/docs/github?tabs=b5eb539099f9#basics) 
 
 ## Commit guide (on main branch)
 
-1. Keep commit small, for example commit every new function added instead of a whole new functionality 
-2. As few files as possible to reduce your chance of getting conflicts with others
-3. Push multiple times a day to keep the main branch always update and resolve conflicts when it's still managable.
-4. Try to keep the HEAD on main branch always buildable
-5. Copy issue id from linear and include in your commit message
+1. Keep commit small, for example commit every new function added instead of a whole new functionality;
+2. As few files as possible to reduce your chance of getting conflicts with others;
+3. Push multiple times a day to keep the main branch always update and resolve conflicts when it's still managable;
+4. Try to keep the HEAD on main branch always buildable;
+5. Copy issue id from linear and include in your commit message.
 
 ## Pull Request Guide
 
-1. only have short-living branches
-2. user linear generate branch name
+1. Only keep short-living branches
+2. Use [Linear](https://linear.app/) generate branch name
 
 ## Development Environment Setup
 

@@ -74,13 +74,18 @@
  *
  * Project coordinator:
  *
- * - Zhang, Chensong (AMSS, Chinese Academy of Sciences, China)
+ * - Zhang, Chensong
+ *
  *
  * Developers (in alphabetic order):
  *
- * - Li, Shizhe (AMSS, Chinese Academy of Sciences, China)
+ * - Li, Shizhe
  *
  * - Qiao, Changhe
+ * 
+ * - Zhao, Li
+ * 
+ * - Chen, Xiaoxing
  *
  */
 
