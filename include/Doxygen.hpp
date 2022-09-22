@@ -59,11 +59,13 @@
  * ```
  *
  * (2) Build with verbose on (with building messages):
+ * 
  * ```bash
  *  $ cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
  * ```
  *
  * (3) Build with UMFPACK support (requires setting SUITESPARSE_DIR variable):
+ * 
  * ```bash
  *  $ cmake -DUSE_UMFPACK=ON ..
  * ```
@@ -96,7 +98,7 @@
  * future maintainance minimized. You can obtain the software (Windows, Linux and
  * OS X) as well as its manual on the official website
  *
- * http://www.doxygen.org
+ * https://doxygen.nl/
  *
  * For an ordinary user, Doxygen is completely trivial to use. We only need to use
  * some special marker in the usual comment as we put in c-files.
