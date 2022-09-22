@@ -131,8 +131,8 @@ export default defineConfig({
         text: version,
         items: [
           {
-            text: "Changelog",
-            link: "https://github.com/FaspDevTeam/OpenCAEPoro/blob/main/CHANGELOG.md",
+            text: "Readme",
+            link: "https://github.com/FaspDevTeam/OpenCAEPoro/blob/main/README.md",
           },
           {
             text: "Contribute",
