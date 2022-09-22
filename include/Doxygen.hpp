@@ -77,7 +77,7 @@
 /**
  * \page developers Developers
  *
- * Developers (in alphabetic order):
+ * # Developers (in alphabetic order):
  *
  * - Chen, Xiaoxing
  *
@@ -89,7 +89,7 @@
  *
  * - Zhao, Li
  *
- * Project coordinator:
+ * # Project coordinator:
  *
  * - Zhang, Chensong
  * 
