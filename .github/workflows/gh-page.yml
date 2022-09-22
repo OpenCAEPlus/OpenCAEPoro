@@ -1,4 +1,4 @@
-name: Build and publish doc
+name: Github pages
 on:
     push:
         branches:
