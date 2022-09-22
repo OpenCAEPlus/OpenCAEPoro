@@ -1,5 +1,7 @@
 # OpenCAEPoro
 
+[![Build and publish doc](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml)
+
 OpenCAEPoro or OCP is part of the OpenCAEPlus project written in C++. OCP
 focuses on simulating multicomponent multiphase flows in porous media. For 
 more information, please see 
