@@ -1,15 +1,14 @@
 # OpenCAEPoro
 
-[![Doc](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml)
-[![Pages](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml)
+[![Build and publish doc](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/doc.yml)
+[![Github pages](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml)
 
 
 
 
 | Build | Test |
 |:-----:|:----:|
-|[![Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu.yml)|      |
-
+|[![Linux GNU Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml)|      |
 
 
 OpenCAEPoro or OCP is part of the OpenCAEPlus project written in C++. OCP
