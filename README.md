@@ -48,20 +48,20 @@ remove the **Build** directory as well.
 
 ## Structure
 The directory structure of OpenCAEPoro is designed as follows:
-  - data: Input files for test examples
-  - doc: Documentation website 
-  - include: Header files
-  - scripts: Automation scripts to make life easier
-  - src: Source files
-  - stash: For files that are no longer needed, but still wants to keep for future references
-  - main: Main source code 
-  - manual: User manual and design considerations
+  - data/: Output files for comparison purposes
+  - doc/: Documentation website
+  - examples/: Input files for test examples 
+  - include/: Header files
+  - scripts/: Automation scripts to make life easier
+  - src/: Source files
+  - stash/: Files that are no longer needed, but keep for future references
+  - main/: Main source code for executables 
   - CMakelist.txt: Main cmake script
-  - LICENSE: LGPL license agreement
-  - README.md: This document
   - CONTRIBUTE.md: Guidence for open source contributors
-  - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: Files for the OpenCAEPoro website
-  - .clang-format: For auto source code formatting
+  - LICENSE: License agreement
+  - README.md: This document
+  - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: Files for the OCP website
+  - .clang-format: For automatic source code formatting
 
 ## License
 This software is free software distributed under the Lesser General Public
