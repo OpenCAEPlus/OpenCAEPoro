@@ -15,8 +15,8 @@
 
 ### Markdown
 
-
 ## Build
+
 To build doc, you need to first setup the development environment
 
 ### Environment Setup
