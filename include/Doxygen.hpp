@@ -69,26 +69,30 @@
  * ```bash
  *  $ cmake -DUSE_UMFPACK=ON ..
  * ```
+ * 
+ * You can also use alternative direct solver packages like MUMPS, SUPERLU, or MKL 
+ * PARDISO instead of UMFPACK. They can be compiled in a similar way. 
  */
 
 /**
  * \page developers Developers
  *
- * Project coordinator:
- *
- * - Zhang, Chensong
- *
- *
  * Developers (in alphabetic order):
+ *
+ * - Chen, Xiaoxing
  *
  * - Li, Shizhe
  *
  * - Qiao, Changhe
- * 
- * - Zhao, Li
- * 
- * - Chen, Xiaoxing
  *
+ * - Zhang, Chensong
+ *
+ * - Zhao, Li
+ *
+ * Project coordinator:
+ *
+ * - Zhang, Chensong
+ * 
  */
 
 /**
