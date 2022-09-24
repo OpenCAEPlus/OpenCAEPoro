@@ -52,7 +52,7 @@ BLACKOIL
 
 ## OIL (e)
 
-OIL 表明在模拟过程中油相可能存在，示例
+OIL 表明在模拟过程中油相可能存在，用于黑油模型，示例
 
 ```
 OIL
@@ -62,7 +62,7 @@ OIL
 
 ## GAS (e)
 
-GAS 表明在模拟过程中气相可能存在，示例
+GAS 表明在模拟过程中气相可能存在，用于黑油模型，示例
 
 ```
 GAS
@@ -72,7 +72,7 @@ GAS
 
 ## WATER (e)
 
-WATER 表明在模拟过程中水相可能存在，示例
+WATER 表明在模拟过程中水相可能存在，当前的组分模型中，水相一定存在，示例
 
 ```
 WATER
@@ -82,7 +82,7 @@ WATER
 
 ## DISGAS (e)
 
-DISGAS 表明在模拟过程中溶解气可能存在于油相中，示例
+DISGAS 表明在模拟过程中溶解气可能存在于油相中，用于黑油模型，示例
 
 ```
 DISGAS
@@ -92,10 +92,11 @@ DISGAS
 
 ## COMPS
 
-COMPS 定义了组分模型，示例
+COMPS 激活了组分模型，可以输入组分数，但并不起作用，烃组分数和最大烃相数目前由 NCNP 输入，示例
 
 ```
 COMPS
+6
 ```
 
 
@@ -119,6 +120,7 @@ TABDIMS 定义了饱和度表格和PVT表格的最大数量，不同的饱和度
 
 ```
 TABDIMS
+-- NTSFUN  NTPVT
 1  2
 ```
 
@@ -232,7 +234,7 @@ ACTNUM
 
 
 
-## PVTNUM 
+## PVTNUM (e)(/)
 PVTNUM 用来定义PVT区域，即指定网格块使用相应的PVT关系
 ```
 PVTNUM
@@ -429,7 +431,7 @@ PBVD 通过表格数据给出了初始油藏下，泡点压力关于位置深度
 在混溶模型中，对界面的表面张量进行设置。必须先打开 MISCIBLE 选项。需要输入三个值
 
 * 最大混溶表面张量：当表面张量大于次值时，油气不混溶， dynes/cm
-* 所期待的最大表面张量：dynes/cm
+* 所期待的最大表面张量：dynes/cm (暂时没有用上)
 * 用来放缩输入毛管力曲线的最大表面张量：dynes/cm
 
 
@@ -536,21 +538,25 @@ TSTEP
 /
 ```
 
-在输入文件中一般包含多个 TSTEP 关键字，当前 TSTEP 到下一个 TSTEP 之间的内容属于当前 TSTEP 关键字中的最后一个时间节点的作用域，例如
-
+在输入文件中一般包含多个 TSTEP 关键字。对同一对象的控制作用范围为这两个控制关键字中间的时间段，如下，第一个 TUNING 的作用范围为中间的 115 天
 ```
-TSTEP
-1  10  50  
+TUNING
+******
 /
 
-**
+TSTEP
+5 10
+/
 
 TSTEP
-100 2*100
+100
+/
+
+TUNING
+******
 /
 ```
-
-则 ** 中与**时间相关**的控制从第 61 天开始激活，到第 161 天结束，这可能包括井控制方式的改变，求解参数的调整。另外，如果激活了 **RPTSCHED** 关键字，则会在每一个时间节点打印关键字里对应的信息，例如在上面的例子中，信息会在第 0, 1, 11, 61, 161, 261, 361 天被打印。
+此外，如果激活了 **RPTSCHED** 关键字，则会在每一个时间节点打印关键字里对应的信息。
 
 
 
@@ -610,11 +616,11 @@ PROD1   G   10  10    1*
 
 在井的信息输入中，可能会使用默认值，如上面的 `1*`，表示对应的位置是默认值。如果是 `m*`，则表示对应的 m 个位置的值为默认值。
 
-在 WELSPECS 中，只有井的深度允许为默认值，当它被设为**默认值**或者**负数**时，井的位置位于第 0 个射孔的位置，关于射孔的排序，见 **COMPDAT**
+在 WELSPECS 中，只有井的深度允许为默认值，当它被设为**默认值**或者**负数**时，井的位置位于第 0 个射孔的位置，关于射孔的排序，见 [COMPDAT](#_COMPDAT)
 
 
 
-## COMPDAT (/)
+## <span id=_COMPDAT>COMPDAT</span> (/)
 
 COMPDAT 用于定义井的射孔，使用该关键字时，需要将所定义的射孔的信息匹配到对应的井上去，目前有精确匹配和模糊匹配两种匹配方式。
 
@@ -703,7 +709,7 @@ INJE2   GAS   OPEN   BHP    1*            10000
 
 
 
-## WCONPROD (/)
+## <span id=_WCONPROD>WCONPROD</span> (/)
 
 WCONPROD  用于对生产井的控制，这是与**时间相关**的控制，见 **TSTEP**。请注意，在OpenCAEPoro中，一口井是生产井还是注入井，这只是一个暂时的状态，而不是一开始就确定的结果，这意味着井的类型是可以随时切换的。因此，WCONPROD 不仅赋予了井的一般控制，也赋予了井的类型。
 
@@ -745,7 +751,7 @@ PROD*  ORAT  100.0
 
 
 
-## WELLSTRE (e)(/)
+## <span id=_WELLSTRE>WELLSTRE</span> (e)(/)
 
 WELLSTRE 用于组分模型，定义了注入流体的各组分摩尔占比。如果在 **WCONINJE** 中，给出了某一非基本注入物(即非水)的名称，则需要在 WELLSTRE 中给出各组分的摩尔占比。示例
 
@@ -774,8 +780,8 @@ NCNP
 
 
 
-## CNAMES (e)
-CNAMES 用于输入组分的名字，需要先输入 NCNP
+## <span id=_CNAMES>CNAMES</span> (e)
+CNAMES 用于输入烃组分的名字，需要先输入 NCNP
 ```
 CNAMES
 Meth Ethane C3-C6 C7+
@@ -783,11 +789,11 @@ Meth Ethane C3-C6 C7+
 
 
 
-## ZI (e)
+## <span id=_ZI>ZI</span> (e)
 
 ZI 用组分模型，它给出了油藏(每个网格块)初始的组分摩尔占比(不包括水组分)
 
-对于多区域的计算，应当有多组组分的摩尔占比作为初始条件 **(Todo)**
+目前仍是简单的初始化，没有涉及关于深度的插值变化 **(Todo)**
 
 ```
 ZI
@@ -796,8 +802,8 @@ ZI
 
 
 
-## TCRIT (e)(/)
-TCRIT 定义了各组分的临界温度，单位 $^{\circ}$ R，如有多区域则以 / 区分，区域数量应与 NTPVT 一致，示例
+## <span id=_TCRIT>TCRIT</span> (e)(/)
+TCRIT 定义了烃组分的临界温度，单位 $^{\circ}$ R，如有多区域则以 / 区分，区域数量应与 NTPVT 一致，示例
 ```
 140 270 450 670  /
 100 200 300 400
@@ -806,6 +812,48 @@ TCRIT 定义了各组分的临界温度，单位 $^{\circ}$ R，如有多区域�
 
 
 
+## PCRIT (e)(/)
+TCRIT 定义了烃组分的临界压力，单位 psia，格式同 [TCRIT](#_TCRIT)
+
+
+
+## VCRIT (e)(/)
+VCRIT 定义了烃组分的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$，格式同 [TCRIT](#_TCRIT)
+
+
+
+## ZCRIT (e)(/)
+ZCRIT 定义了烃组分的临界Z-factor，格式同 [TCRIT](#_TCRIT)
+
+
+
+## MW (e)(/)
+MW 定义了烃组分的分子质量，单位 $\mathrm{lb/lb\text{-}M}$。格式同 [TCRIT](#_TCRIT)
+
+
+
+## ACF (e)(/)
+ACF 定义了烃组分的偏心因子，格式同 [TCRIT](#_TCRIT)
+
+
+
+## OMEGAA，OMEGAB (e)(/)
+OMEGAA，OMEGAB 分别定义了用于状态方程计算的系数 $\Omega_{A},\Omega_{B}$，格式同 TCRIT。默认时 $\Omega_{A}=0.457235529,\Omega_{B}=0.077796074$，当前仅限于 PR 方程
+，格式同 [TCRIT](#_TCRIT)
+
+
+## SSHIFT (e)(/)
+SSHIFT 定义了烃组分的体积偏移参数，默认时值为 0。格式同 [TCRIT](#_TCRIT)
+
+
+
+## PARACHOR (e)(/)
+PARACHOR 用于混溶模型的表面张量计算，需要打开 MISCIBLE 选项，单位 $\mathrm{(dynes/cm)}^{1/4}\mathrm{cc}/\mathrm{gm\text{-}M}$ ，格式同 [TCRIT](#_TCRIT)
+
+
+
+## VCRITVIS (e)(/)
+VCRITVIS 定义了仅用于粘性计算的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$。如果未输入，则使用 ZCRIT 进行计算，若 ZCRIT 也没有输入，则赋值为 VCRIT。格式同 [TCRIT](#_TCRIT)
 
 
 ## BIC (/)
@@ -826,7 +874,12 @@ BIC
 .1     .1      .130663   .006   .006    0         0        0        0
 /
 ```
+也可以只输入下半部分(不含对角线)
 
+
+
+## LBCCOEF
+LBCCOEF 定义了使用 Lorentz-Bray-Clark 粘性计算公式时的参数，默认时为 0.1023, 0.023364, 0.058533, -0.040758, 0.0093324，格式同 [TCRIT](#_TCRIT)
 
 
 ## RR
