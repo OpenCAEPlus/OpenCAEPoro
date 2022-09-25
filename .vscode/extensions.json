@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "cheshirekow.cmake-format"
+        "cheshirekow.cmake-format",
+        "streetsidesoftware.code-spell-checker"
     ]
 }

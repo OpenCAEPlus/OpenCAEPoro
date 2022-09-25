@@ -41,7 +41,7 @@ Config the environment for building with cmake:
   >>> mkdir Build; cd Build; cmake ..
 ```
 
-After succesfully configing, to make the library as well as examples without
+After successfully configuring, to make the library as well as examples without
 installing them, just run:
 ```bash
   >>> make
@@ -76,8 +76,8 @@ The directory structure of OpenCAEPoro is designed as follows:
   - src/: Source files
   - stash/: Files that are no longer needed, but keep for future references
   - main/: Main source code for executables 
-  - CMakelist.txt: Main cmake script
-  - CONTRIBUTE.md: Guidence for open source contributors
+  - CMakeLists.txt: Main cmake script
+  - CONTRIBUTE.md: Guidance for open source contributors
   - LICENSE: License agreement
   - README.md: This document
   - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: Files for the OCP website
