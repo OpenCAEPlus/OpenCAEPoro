@@ -22,8 +22,8 @@
 ###############################################################################
 
 # Minimum cmake version needed
-cmake_minimum_required(VERSION 3.0)
-
+cmake_minimum_required(VERSION 3.13)
+cmake_policy(SET CMP0076 NEW)
 # Default C compiler look-up order
 find_program(THE_C NAMES $ENV{CC} gcc clang icc icx icl)
 set(CMAKE_C_COMPILER ${THE_C} CACHE INTERNAL "the C compiler" FORCE)
@@ -113,30 +113,11 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 ## Project specific parameters
 ###############################################################################
 
-# Add include directory
-set(INC_FILES ${PROJECT_SOURCE_DIR}/include/)
-
-# Find source code from src
-file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c[px][px]) 
-file(GLOB_RECURSE EXE_FILES ${PROJECT_SOURCE_DIR}/main/*.c[px][px]) 
-
 # The OpenCAEPoro library target
-add_library(OpenCAEPoro STATIC ${SRC_FILES})
-target_include_directories(OpenCAEPoro PRIVATE ${INC_FILES})
-
-# Main executable target: testOpenCAEPoro
-add_executable(testOpenCAEPoro ${EXE_FILES})
-target_include_directories(testOpenCAEPoro PRIVATE ${INC_FILES})
-target_link_libraries(testOpenCAEPoro
-                      OpenCAEPoro
-                      ${OPTIONAL_LIBS}
-                      ${FASP_LIBRARIES}
-                      ${LAPACK_LIBRARIES}
-                      ${BLAS_LIBRARIES} 
-                      ${ADD_STDLIBS})
-install(TARGETS testOpenCAEPoro
-        DESTINATION ${PROJECT_SOURCE_DIR})
-		
+add_library(OpenCAEPoro STATIC)
+add_subdirectory(src)
+add_subdirectory(include)
+add_subdirectory(main)
 ###############################################################################
 ## Installtion targets for lib and executable files
 ###############################################################################
