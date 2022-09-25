@@ -32,6 +32,10 @@ Recommend Intel oneapi for easier cross platform compatibility.
 
 GCC setup guide ....
 
+### CMake
+
+Make sure you adopt the modern cmake approach when writing CMakeLists.txt file. Here is a list of good articles you should read, [modern cmake](https://cliutils.gitlab.io/modern-cmake/), [some modern cmake tips](https://www.incredibuild.com/blog/modern-cmake-tips-and-tricks), [on target_sources](https://crascit.com/2016/01/31/enhanced-source-file-handling-with-target_sources/), [on PRIVATE PUBLIC INTERFACE](https://kubasejdak.com/modern-cmake-is-like-inheritance)
+
 ## Documentation Environment Setup
 
 Install texlive ...
