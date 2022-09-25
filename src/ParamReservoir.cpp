@@ -497,7 +497,8 @@ void ParamReservoir::InputMISCSTR(ifstream& ifs)
         if (vbuf.back() == "/")  vbuf.pop_back();
 
         USI len = vbuf.size();
-        for (USI i = 0; i < len; i++) {
+        if (len != 3) OCP_WARNING("WRONG INPUT in MISCSTR!");
+        for (USI i = 0; i < 3; i++) {
             miscstr.surTenRef.push_back(stod(vbuf[i]));
         }
     }

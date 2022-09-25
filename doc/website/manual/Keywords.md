@@ -40,7 +40,7 @@ DIMENS  /  comments
 
 
 
-## BLACKOIL (e)
+## <span id=_BLACKOIL>BLACKOIL</span> (e)
 
 BLACKOIL 用来定义黑油模型，示例
 
@@ -50,9 +50,9 @@ BLACKOIL
 
 
 
-## OIL (e)
+## <span id=_OIL>OIL</span> (e)
 
-OIL 表明在模拟过程中油相可能存在，示例
+OIL 表明在模拟过程中油相可能存在，用于黑油模型，示例
 
 ```
 OIL
@@ -60,9 +60,9 @@ OIL
 
 
 
-## GAS (e)
+## <span id=_GAS>GAS</span> (e)
 
-GAS 表明在模拟过程中气相可能存在，示例
+GAS 表明在模拟过程中气相可能存在，用于黑油模型，示例
 
 ```
 GAS
@@ -70,9 +70,9 @@ GAS
 
 
 
-## WATER (e)
+## <span id=_WATER>WATER</span> (e)
 
-WATER 表明在模拟过程中水相可能存在，示例
+WATER 表明在模拟过程中水相可能存在，当前的组分模型中，水相一定存在，示例
 
 ```
 WATER
@@ -80,9 +80,9 @@ WATER
 
 
 
-## DISGAS (e)
+## <span id=_DISGAS>DISGAS</span> (e)
 
-DISGAS 表明在模拟过程中溶解气可能存在于油相中，示例
+DISGAS 表明在模拟过程中溶解气可能存在于油相中，用于黑油模型，示例
 
 ```
 DISGAS
@@ -90,17 +90,18 @@ DISGAS
 
 
 
-## COMPS
+## <span id=_COMPS>COMPS</span>
 
-COMPS 定义了组分模型，示例
+COMPS 激活了组分模型，可以输入组分数，但并不起作用，烃组分数和最大烃相数目前由 NCNP 输入，示例
 
 ```
 COMPS
+6
 ```
 
 
 
-## DIMENS (e)(/)
+## <span id=_DIMENS>DIMENS</span> (e)(/)
 
 DIMENS 用来定义储层网格的规模，适用于三维结构网格，用三个数字分别给出了 x，y，z 方向上网格的维度，示例
 
@@ -113,20 +114,21 @@ DIMENS
 
 
 
-## TABDIMS
+## <span id=_TABDIMS>TABDIMS</span>
 
 TABDIMS 定义了饱和度表格和PVT表格的最大数量，不同的饱和度表格和PVT表格可能用在不同的网格区域，这将通过 **SATNUM** 和 **PVTNUM** 来定义。示例
 
 ```
 TABDIMS
+-- NTSFUN  NTPVT
 1  2
 ```
 
-表明储层中至少有一个饱和度计算区域和两个PVT计算区域。
+表明储层中至少有一个饱和度计算区域和两个 PVT 计算区域。
 
 
 
-## EQUALS (e)(/)
+## <span id=_EQUALS>EQUALS</span> (e)(/)
 
 EQUALS 用来批量定义油藏的性质，其中的子关键字具有如下的一般格式
 
@@ -166,9 +168,9 @@ TOPS      / 顶层网格块的上表面的深度，feet。由于顶层的 z 坐�
 
 
 
-## COPY (e)(/)
+## <span id=_COPY>COPY</span> (e)(/)
 
-COPY 用于对EQUALS中子关键字的内容进行相互拷贝，其坐标格式与EQUALS中一致，例如
+COPY 用于对 [EQUALS](#_EQUALS) 中子关键字的内容进行相互拷贝，其坐标格式与 EQUALS 中一致，例如
 
 ```
 PERMX  PERMY   1  3  1  3  1  3
@@ -178,9 +180,9 @@ PERMX  PERMY   1  3  1  3  1  3
 
 
 
-## MULTIPLY (e)(/)
+## <span id=_MULTIPLY>MULTIPLY</span> (e)(/)
 
-MULTIPLY关键字用于对EQUALS中子关键字的内容进行放缩，其坐标格式与EQUALS中一致，例如
+MULTIPLY关键字用于对 [EQUALS](#_EQUALS) 中子关键字的内容进行放缩，其坐标格式与 EQUALS 中一致，例如
 
 ```
 PERMZ  0.1  1  3  1  3  1  3
@@ -190,18 +192,59 @@ PERMZ  0.1  1  3  1  3  1  3
 
 
 
-## DX DY DZ PORO NTG PERMX PERMY PERMZ TOPS (/)
+## DX DY DZ PORO NTG PERMX PERMY PERMZ TOPS (e)(/)
 
-关键字用于定义每个网格块的对应属性的值，**见EQUALS**，网格块依照 x -> y -> z 的坐标字典序。鉴于潜在的效率问题，目前未支持如 Eclipse 中如下的简写 **(Todo)**
+关键字用于定义每个网格块的对应属性的值，见 [EQUALS](#_EQUALS)，网格块依照 x -> y -> z 的坐标字典序。
 
 ```
 DX
 10  12  6*20
+/
 ```
 
 
 
-## COORD (e)(/)
+## <span id=_SWITINIT>SWITINIT</span> (e)(/)
+SWITINIT 用于定义初始水相饱和度，并以此缩放毛管力曲线使得水相饱和度与初始平衡解一致
+```
+SWATINIT
+0.2  0.25  6*0.3
+/
+```
+
+
+
+## <span id=_SATNUM>SATNUM</span> (e)(/)
+SATNUM 用来定义饱和度表格作用区域，即指定网格块使用相应的饱和度表格
+```
+SATNUM
+1  2   10*3
+/
+```
+
+
+
+## <span id=_ACTNUM>ACTNUM</span> (e)(/)
+ACTNUM 用来定义网格块的状态，目前，0 表示死网格，1表示活网格
+```
+ACTNUM
+1  0   10*1
+/
+```
+
+
+
+## <span id=_PVTNUM>PVTNUM</span> (e)(/)
+PVTNUM 用来定义PVT区域，即指定网格块使用相应的PVT关系
+```
+PVTNUM
+1  2   10*3
+/
+```
+
+
+
+## <span id=_COORD>COORD</span> (e)(/)
 
 COORD 用于角点网格的定义，它给出了角点网格的“骨架”，如果网格规模为 Nx * Ny * Nz，那么在 COORD 中就需要给出(Nx + 1)(Ny + 1) 条纵轴方向的线，按照 x -> y 的顺序，而每条线由两个三维点表示，顶层的点在前，底层的点在后，往下为正，单位英尺，例如，对于 Nx = 3，Ny = 2
 
@@ -224,9 +267,9 @@ COORD
 
 
 
-## ZCORN (/)
+## <span id=_ZCORN>ZCORN</span> (e)(/)
 
-COORD 用于角点网格的定义，它通过给出每个网格的8个角点在对应“骨架”(见**COORD**)上的深度，按照 x -> y -> z 的网格块顺序，而在每个网格块中，按照如下顺序给出
+ZCORN 用于角点网格的定义，它通过给出每个网格的8个角点在对应“骨架”(见 [COORD](#_COORD) )上的深度。
 
 ```
  3 -- 4
@@ -237,12 +280,15 @@ COORD 用于角点网格的定义，它通过给出每个网格的8个角点在�
 |/   /
 5 -- 6
 ```
+给出顺序为：
+* 网格层： (k=1 -> k=nZ)
+* 每一行网格(k固定，j -> nY)：给出各网格块节点 1 和 2 的深度，先给出 j = 1 行，$v_{1,1},v_{2,1},...,v_{1,nX},v_{2,nX}$，其后是 $v_{3,1},v_{4,1},...,v_{3,nX},v_{4,nX}$，再依次给出后面的行
+* 上一点结束后，同样的方式给出 $v_{5,1},v_{6,1},...,v_{5,nX},v_{6,nX}$，其后是 $v_{7,1},v_{8,1},...,v_{7,nX},v_{8,nX}$
 
-ZCORN目前不支持 Eclipse 中的简写，需要按照上述顺序给出每一个值。**(Todo)**
 
 
 
-## RTEMP (e)
+## <span id=_RTEMP>RTEMP</span> (e)
 
 RTEMP 用来定义恒温油藏的温度，单位为 °F，示例
 
@@ -253,9 +299,9 @@ RTEMP
 
 
 
-## SWOF (e)(/)
+## <span id=_SWOF>SWOF</span> (e)(/)
 
-SWOF 用来定义当油相和水相存在时的饱和度表格。如果有多个表格，则需用 `/` 隔开。在SWOF中一共由四列数据，水的饱和度作为自变量，这四列分别表示
+SWOF 用来定义当油相和水相存在时的饱和度表格。如果有多个表格，则需用 `/` 隔开。在SWOF中一共由四列数据，水相的饱和度作为自变量，这四列数据分别表示
 
 ```
 SWOF
@@ -286,9 +332,18 @@ SWOF
 
 
 
-## SGOF (e)(/)
+## <span id=_SWFN>SWFN</span> (e)(/)
 
-SWOF 用来定义当气相和水相存在时的饱和度表格。如果有多个表格，则需用 `/` 隔开，与SWOF类似。在SGOF中一共由四列数据，气的饱和度作为自变量，这四列分别表示
+SWFN 用来定义水相的饱和度表格。如果有多个表格，则需用 / 隔开，与 [SWOF](#_SWOF) 类似。在 SWFN 中一共有三列数据，水相的饱和度作为自变量，这三列数据分别表示
+* Sw : 水相的饱和度，dimensionless
+* Krw : 对应的水相相对渗透率
+* Pcow : 对应的水相的毛管力 Po - Pw，psia
+
+
+
+## <span id=_SGOF>SGOF</span> (e)(/)
+
+SGOF 用来定义当气相和水相存在时的饱和度表格。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。在SGOF中一共由四列数据，气相的饱和度作为自变量，这四列数据分别表示
 
 * Sg : 水的饱和度，dimensionless
 * Krg : 对应的气相的相对渗透率，dimensionless
@@ -297,9 +352,27 @@ SWOF 用来定义当气相和水相存在时的饱和度表格。如果有多个
 
 
 
-## PVCO (e)(/)
+## <span id=_SGFN>SGFN</span> (e)(/)
 
-PVCO 用于黑油模型，通过表格数据提供了活油（含有溶解气）的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与SWOF类似。PVCO一共有六列数据，其中，前两列作为自变量(泡点压力和气油比)，即其余的量随着它们之一的改变而改变。这六列分别表示
+SGFN 用来定义气相的饱和度表格。如果有多个表格，则需用 / 隔开，与 [SWOF](#_SWOF) 类似。在 SGFN 中一共有三列数据，气相的饱和度作为自变量，这三列数据分别表示
+* Sg : 气相的饱和度，dimensionless
+* Krg : 对应的气相相对渗透率
+* Pcog : 对应的气相毛管力 Pg - Po，psia
+
+
+
+## <span id=_SOF3>SOF3</span> (e)(/)
+
+SOF3 用来定义油相的饱和度表格(用于三相模型)。如果有多个表格，则需用 / 隔开，与 [SWOF](#_SWOF) 类似。在 SGFN 中一共有三列数据，油相的饱和度作为自变量，这三列数据分别表示
+* So : 油相的饱和度，dimensionless
+* Krog : 当仅有油相和水相存在时，对应的油相的相对渗透率，dimensionless
+* Krow : 当油相，气相和束缚水存在时，对应的油相相对渗透率，dimensionless
+
+
+
+## <span id=_PVCO>PVCO</span> (e)(/)
+
+PVCO 用于黑油模型，通过表格数据提供了活油（含有溶解气）的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。PVCO一共有六列数据，其中，前两列作为自变量(泡点压力和气油比)，即其余的量随着它们之一的改变而改变。这六列分别表示
 
 * Pbub : 油相的泡点压力，psia
 * Rs : 油相的气油比，Mscf/stb。它等于标准状态下从油相中析出的气体的体积与油相的体积之比。
@@ -310,9 +383,9 @@ PVCO 用于黑油模型，通过表格数据提供了活油（含有溶解气）
 
 
 
-## PVDO (e)(/)
+## <span id=_PVDO>PVDO</span> (e)(/)
 
-PVDO 用于黑油模型，通过表格数据提供了死油 (不含有溶解气) 的PVT 性质。如果有多个表格，则需用 `/` 隔开，与SWOF类似。PVDO 一共有三列数据，其中油相压力为自变量，这三列分别表示
+PVDO 用于黑油模型，通过表格数据提供了死油 (不含有溶解气) 的PVT 性质。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。PVDO 一共有三列数据，其中油相压力为自变量，这三列分别表示
 
 * Po : 油相压力，psia
 * Bo : 对应的油相体积系数，rb/stb
@@ -320,9 +393,9 @@ PVDO 用于黑油模型，通过表格数据提供了死油 (不含有溶解气)
 
 
 
-## PVDG (e)(/)
+## <span id=_PVDG>PVDG</span> (e)(/)
 
-PVDG 用于黑油模型，通过表格数据提供了干燥气的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与SWOF类似。PVCO 一共有三列数据，气相的压力作为自变量，这三列数据分别表示
+PVDG 用于黑油模型，通过表格数据提供了干燥气的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。PVCO 一共有三列数据，气相的压力作为自变量，这三列数据分别表示
 
 * Pg : 气相压力，psia
 * Bg : 对应的气相体积系数，rb/Mscf
@@ -330,9 +403,9 @@ PVDG 用于黑油模型，通过表格数据提供了干燥气的 PVT 性质。�
 
 
 
-## PVTW (e)(/)
+## <span id=_PVTW>PVTW</span> (e)(/)
 
-PVTW 用于黑油模型或者单独考虑水相的组分模型，通过表格数据提供了水相的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与SWOF类似。PVTW 一共有五列数据，水相的压力作为自变量，这五列数据分别表示
+PVTW 用于黑油模型或者单独考虑水相的组分模型，通过表格数据提供了水相的 PVT 性质。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。PVTW 一共有五列数据，水相的压力作为自变量，这五列数据分别表示
 
 * Pw : 水相的压力，psia
 * Bw : 对应的水相体积系数，rb/stb
@@ -342,16 +415,31 @@ PVTW 用于黑油模型或者单独考虑水相的组分模型，通过表格数
 
 
 
-## PBVD (e)(/)
+## <span id=_PBVD>PBVD</span> (e)(/)
 
-PBVD 通过表格数据给出了初始油藏下，泡点压力关于位置深度的关系。如果有多个表格，则需用 `/` 隔开，与SWOF类似。PBVD 一共有两列数据，分别是
+PBVD 通过表格数据给出了初始油藏下，泡点压力关于位置深度的关系。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。PBVD 一共有两列数据，分别是
 
 * Depth : 采样点深度，feet
 * Pbub : 对应的泡点压力，psia。
 
 
 
-## EQUIL 
+
+## <span id=_MISCIBLE>MISCIBLE</span> (e300)
+在组分模型中，MISCIBLE 关键字开启了混溶选项。
+
+
+
+## <span id=_MISCSTR>MISCSTR</span> (e)
+在混溶模型中，对界面的表面张量进行设置。必须先打开 [MISCIBLE](#_MISCIBLE) 选项。需要输入三个值
+
+* 最大混溶表面张量：当表面张量大于次值时，油气不混溶， dynes/cm
+* 所期待的最大表面张量：dynes/cm (暂时没有用上)
+* 用来放缩输入毛管力曲线的最大表面张量：dynes/cm
+
+
+
+## <span id=_EQUIL>EQUIL</span> 
 
 EQUIL 用于油藏初始条件的计算，它给出了参考深度处的油藏压力，油气接触面的深度及毛管力，油水接触面的深度及毛管力。它的六列依次为
 
@@ -371,11 +459,11 @@ EQUIL 用于油藏初始条件的计算，它给出了参考深度处的油藏�
   * D1 为气水接触面深度，P1 = Pg - Pw
   * D2 和 P2 无需给出
 
-EQUIL 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
+EQUIL 应与上述的饱和度表格与 PVT 表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
 
 
 
-## ROCK 
+## <span id=_ROCK>ROCK</span> 
 
 ROCK 给出了岩石的可压缩性，一共有两列数据，分别表示
 
@@ -386,7 +474,7 @@ ROCK 应与上述的饱和度表格与PVT表格一样，在不同的区域有不
 
 
 
-## GRAVITY 
+## <span id=_GRAVITY>GRAVITY</span> 
 
 GRAVITY 用于黑油模型或单独考虑水相的组分模型，用于计算流体的密度(重力因子：密度乘以重力常数)，分别需要键入油，水，气三相的重力因子
 
@@ -400,7 +488,7 @@ GRAVITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有
 
 
 
-## DENSITY
+## <span id=_DENSITY>DENSITY</span>
 
 DENSITY 用于黑油模型或单独考虑水相的组分模型，用于计算流体的密度(重力因子：密度乘以重力常数)，分别需要键入油，水，气三相的密度
 
@@ -414,9 +502,9 @@ DENSITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有
 
 
 
-## INCLUDE (e)
+## <span id=_INCLUDE>INCLUDE</span> (e)
 
-INCLUDE 关键字用于分文件编写输入文件，需要输入被包含文件的相对路劲，被包含文件的格式与主输入文件是一致的，示例
+INCLUDE 关键字用于分文件编写输入文件，需要输入被包含文件的  **相对路径**，被包含文件的格式与主输入文件是一致的，示例
 
 ```
 INCLUDE
@@ -425,9 +513,9 @@ INCLUDE
 
 
 
-## METHOD
+## <span id=_METHOD>METHOD</span>
 
-METHOD 关键字用来确定所使用的的离散方法以及所调用的线性求解器，离散方法包括 IMPEC (隐式压力显式组分)，FIM (全隐式类方法)，线性求解器默认使用FASP (如需使用别的求解器，需要在程序中补充对应的接口)，因此，对应地需要给出求解常量矩阵或块状矩阵的FASP输入文件 (相对路径)，例如
+METHOD 关键字用来确定所使用的的离散方法以及所调用的线性求解器，离散方法包括 IMPEC (隐式压力显式组分)，FIM (全隐式类方法)，线性求解器默认使用FASP (如需使用别的求解器，需要在程序中补充对应的接口)，因此，对应地需要给出求解常量矩阵或块状矩阵的FASP输入文件 (**相对路径**)，例如
 
 ```
 METHOD
@@ -443,7 +531,7 @@ FIM ./bsr.fasp
 
 
 
-## TSTEP (e)(/)
+## <span id=_TSTEP>TSTEP</span> (e)(/)
 
 TSTEP 关键字通过时间间隔给出了模拟的关键时间节点 (day)，这是在模拟中会强制到达的时间点。在这些时间节点上，井的控制方式可能会发生改变，油藏状态可能会进入不同的阶段 (根据经验预估)，由此求解参数可能会做出调整。第 0 天始终为第 1 个时间节点，因此无需再输入。TSTEP 关键字支持简写，例如 2*100 表示两个 100 天的间隔。于是下面的关键时间节点为第 0, 5, 15, 45, 145, 245 天。
 
@@ -453,27 +541,31 @@ TSTEP
 /
 ```
 
-在输入文件中一般包含多个 TSTEP 关键字，当前 TSTEP 到下一个 TSTEP 之间的内容属于当前 TSTEP 关键字中的最后一个时间节点的作用域，例如
-
+在输入文件中一般包含多个 TSTEP 关键字。对同一对象的控制作用范围为这两个控制关键字中间的时间段，如下，第一个 [TUNING](#_TUNING) 的作用范围为中间的 115 天
 ```
-TSTEP
-1  10  50  
+TUNING
+******
 /
 
-**
+TSTEP
+5 10
+/
 
 TSTEP
-100 2*100
+100
+/
+
+TUNING
+******
 /
 ```
-
-则 ** 中与**时间相关**的控制从第 61 天开始激活，到第 161 天结束，这可能包括井控制方式的改变，求解参数的调整。另外，如果激活了 **RPTSCHED** 关键字，则会在每一个时间节点打印关键字里对应的信息，例如在上面的例子中，信息会在第 0, 1, 11, 61, 161, 261, 361 天被打印。
-
+此外，如果激活了 [RPTSCHED](#_RPTSCHED) 关键字，则会在每一个时间节点打印关键字里对应的信息。
 
 
-## TUNING (/)
 
-TUNING 关键字给出了模拟求解的参数，包括时间步长控制参数和非线性求解控制参数，它是与**时间相关**的控制，见**TSTEP**。TUNING 关键字的内容分为三部分，每一部分内容结束后需用 `/` 结尾，前两部分与时间步长的控制相关，最后一部分与非线性求解相关，主要用于 FIM 类方法。示例
+## <span id=_TUNING>TUNING</span> (/)
+
+TUNING 关键字给出了模拟求解的参数，包括时间步长控制参数和非线性求解控制参数，它是与**时间相关**的控制，见 [TSTEP](#_TSTEP)。TUNING 关键字的内容分为三部分，每一部分内容结束后需用 `/` 结尾，前两部分与时间步长的控制相关，最后一部分与非线性求解相关，主要用于 FIM 类方法。示例
 
 ```
 TUNING
@@ -508,7 +600,7 @@ TUNING
 
 
 
-## WELSPECS (/)
+## <span id=_WELSPECS>WELSPECS</span> (/)
 
 WELSPECS 用来输入井的信息，包括
 
@@ -527,11 +619,11 @@ PROD1   G   10  10    1*
 
 在井的信息输入中，可能会使用默认值，如上面的 `1*`，表示对应的位置是默认值。如果是 `m*`，则表示对应的 m 个位置的值为默认值。
 
-在 WELSPECS 中，只有井的深度允许为默认值，当它被设为**默认值**或者**负数**时，井的位置位于第 0 个射孔的位置，关于射孔的排序，见 **COMPDAT**
+在 WELSPECS 中，只有井的深度允许为默认值，当它被设为**默认值**或者**负数**时，井的位置位于第 0 个射孔的位置，关于射孔的排序，见 [COMPDAT](#_COMPDAT)
 
 
 
-## COMPDAT (/)
+## <span id=_COMPDAT>COMPDAT</span> (/)
 
 COMPDAT 用于定义井的射孔，使用该关键字时，需要将所定义的射孔的信息匹配到对应的井上去，目前有精确匹配和模糊匹配两种匹配方式。
 
@@ -590,14 +682,14 @@ PROD1   1   3   3   3     1*   0.5   3*
 
 
 
-## WCONINJE (/)
+## <span id=_WCONINJE>WCONINJE</span> (/)
 
-WCONINJE 用于对注入井的控制，这是与时间相关的控制，见 **TSTEP**。请注意，在OpenCAEPoro中，一口井是生产井还是注入井，这只是一个暂时的状态，而不是一开始就确定的结果，这意味着井的类型是可以随时切换的。因此，WCONINJE 不仅赋予了井的一般控制，也赋予了井的类型。
+WCONINJE 用于对注入井的控制，这是与时间相关的控制，见 [TSTEP](#_TSTEP)。请注意，在OpenCAEPoro中，一口井是生产井还是注入井，这只是一个暂时的状态，而不是一开始就确定的结果，这意味着井的类型是可以随时切换的。因此，WCONINJE 不仅赋予了井的一般控制，也赋予了井的类型。
 
-在 WCONINJE 中，同样需要匹配井的名字，方式同 **COMPDAT**。 WCONINJE 中包含如下的控制
+在 WCONINJE 中，同样需要匹配井的名字，方式同 [COMPDAT](#_COMPDAT)。 WCONINJE 中包含如下的控制
 
 1. 所需匹配的井的信息
-2. 注入流体的类型：包括水相 `WAT 或 WATER`，气相 `GAS`，在组分模型中，也可以是任意的流体，但需要在 **WELLSTRE** 中给出对应的组分比例。
+2. 注入流体的类型：包括水相 `WAT 或 WATER`，气相 `GAS`，在组分模型中，也可以是任意的流体，但需要在 [WELLSTRE](#_WELLSTRE) 中给出对应的组分比例。
 3. 井的状态：开 `OPEN`，关 `CLOSE`
 4. 井的控制方式：注入气体的流速控制 `RATE`，注入井的恒压控制(井的参考位置处) `BHP`
 5. 流速控制的值或流速上限：注入气的单位为 Mscf/day，注入水的单位为 stb/day
@@ -620,11 +712,11 @@ INJE2   GAS   OPEN   BHP    1*            10000
 
 
 
-## WCONPROD (/)
+## <span id=_WCONPROD>WCONPROD</span> (/)
 
-WCONPROD  用于对生产井的控制，这是与**时间相关**的控制，见 **TSTEP**。请注意，在OpenCAEPoro中，一口井是生产井还是注入井，这只是一个暂时的状态，而不是一开始就确定的结果，这意味着井的类型是可以随时切换的。因此，WCONPROD 不仅赋予了井的一般控制，也赋予了井的类型。
+WCONPROD  用于对生产井的控制，这是与**时间相关**的控制，见 [TSTEP](#_TSTEP)。请注意，在OpenCAEPoro中，一口井是生产井还是注入井，这只是一个暂时的状态，而不是一开始就确定的结果，这意味着井的类型是可以随时切换的。因此，WCONPROD 不仅赋予了井的一般控制，也赋予了井的类型。
 
-在 WCONPROD 中，需要匹配井的名字，方式同 **COMPDAT**。WCONPROD 中包含如下的控制
+在 WCONPROD 中，需要匹配井的名字，方式同 [COMPDAT](#_COMPDAT)。WCONPROD 中包含如下的控制
 
 1. 所需匹配的井的信息
 2. 井的状态：开 `OPEN`，关 `CLOSE`
@@ -646,9 +738,9 @@ PROD*   OPEN    ORAT   20000.0     1000
 
 
 
-## WELTARG (e)(/)
+## <span id=_WELTARG>WELTARG</span>(WELLTARG)  (e)(/)
 
-WELTARG 用于改变井的控制方式，这是与**时间相关**的控制，见 **TSTEP**。在 WELTARG 中，需要匹配井的名字，方式同 **COMPDAT**。
+WELTARG 用于改变井的控制方式，这是与**时间相关**的控制，见 [TSTEP](#_TSTEP)。在 WELTARG 中，需要匹配井的名字，方式同 [COMPDAT](#_COMPDAT)。
 
 示例
 
@@ -662,9 +754,9 @@ PROD*  ORAT  100.0
 
 
 
-## WELLSTRE (e)(/)
+## <span id=_WELLSTRE>WELLSTRE</span> (e)(/)
 
-WELLSTRE 用于组分模型，定义了注入流体的各组分摩尔占比。如果在 **WCONINJE** 中，给出了某一非基本注入物(即非水)的名称，则需要在 WELLSTRE 中给出各组分的摩尔占比。示例
+WELLSTRE 用于组分模型，定义了注入流体的各组分摩尔占比。如果在 [WCONINJE](#_WCONINJE) 中，给出了某一非基本注入物(即非水)的名称，则需要在 WELLSTRE 中给出各组分的摩尔占比。示例
 
 ```
 WCONINJE
@@ -680,7 +772,7 @@ Solvent  0.6  0.3  0.05  0.02  0.03
 
 
 
-## NCNP
+## <span id=_NCNP>NCNP</span>
 
 NCNP 关键字用于组分模型，它给出了组分的数量(不包括水组分)和烃相的最大数量。示例
 
@@ -691,11 +783,20 @@ NCNP
 
 
 
-## ZI (e)
+## <span id=_CNAMES>CNAMES</span> (e)
+CNAMES 用于输入烃组分的名字，需要先输入 NCNP
+```
+CNAMES
+Meth Ethane C3-C6 C7+
+```
+
+
+
+## <span id=_ZI>ZI</span> (e)
 
 ZI 用组分模型，它给出了油藏(每个网格块)初始的组分摩尔占比(不包括水组分)
 
-对于多区域的计算，应当有多组组分的摩尔占比作为初始条件 **(Todo)**
+目前仍是简单的初始化，没有涉及关于深度的插值变化 **(Todo)**
 
 ```
 ZI
@@ -704,40 +805,61 @@ ZI
 
 
 
-## COM (/)
-
-COM 关键字用于组分模型，给出了各组分的详细信息，包括
-
-1. 组分的名字
-2. 组分的临界压力，psia
-3. 组分的临界温度，°R
-4. 组分的偏心因子，dimensionless
-5. 组分的分子质量，lb/lb-M
-6. 组分的临界体积 (ft3/lb-M)，confused
-7. 状态方程的参数 $\Omega_{A}$
-8. 状态方程的参数 $\Omega_{B}$
-9. Vshifts
-
-示例
-
+## <span id=_TCRIT>TCRIT</span> (e)(/)
+TCRIT 定义了烃组分的临界温度，单位 $^{\circ}$ R，如有多区域则以 / 区分，区域数量应与 NTPVT 一致，示例
 ```
-COM
-# component critical information
-'CO2'	1071.33111	548.46000	.22500		44.01000	0.0342145862	.4572355	.0777961	0
-'N2'	492.31265	227.16000	.04000		28.01300	0.1115375871	.4572355	.0777961	0
-'C1'	667.78170	343.08000	.01300 		16.04300	0.0978526529	.5340210	.0777961	0
-'C2'	708.34238	549.77400	.09860		30.07000	0.0788410297	.4572355	.0777961	0
-'C3'	618.69739	665.64000	.15240		44.09700	0.0726520446	.4572355	.0777961	0
-'C4-6'	514.92549	806.54054	.21575		66.86942	0.0694794489	.4572355	.0777961	0
-'C7+1'	410.74956	838.11282	.31230		107.77943	0.0530672691	.6373344	.0872878   	0  
-'C7+2'	247.56341	1058.03863	.55670 		198.56203	0.0524473524	.6373344	.0872878	0
-'C7+3'	160.41589	1291.89071	.91692 		335.19790	0.0519201505	.6373344	.0872878	0
+140 270 450 670  /
+100 200 300 400
 /
 ```
 
 
 
-## BIC (/)
+## <span id=_PCRIT>PCRIT</span> (e)(/)
+PCRIT 定义了烃组分的临界压力，单位 psia，格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_VCRIT>VCRIT</span> (e)(/)
+VCRIT 定义了烃组分的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$，格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_ZCRIT>ZCRIT</span> (e)(/)
+ZCRIT 定义了烃组分的临界Z-factor，格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_MW>MW</span> (e)(/)
+MW 定义了烃组分的分子质量，单位 $\mathrm{lb/lb\text{-}M}$。格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_ACF>ACF</span> (e)(/)
+ACF 定义了烃组分的偏心因子，格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_OMEGAA>OMEGAA</span>，<span id=_OMEGAB>OMEGAB</span> (e)(/)
+OMEGAA，OMEGAB 分别定义了用于状态方程计算的系数 $\Omega_{A},\Omega_{B}$，格式同 TCRIT。默认时 $\Omega_{A}=0.457235529,\Omega_{B}=0.077796074$，当前仅限于 PR 方程
+，格式同 [TCRIT](#_TCRIT)
+
+
+## <span id=_SSHIFT>SSHIFT</span> (e)(/)
+SSHIFT 定义了烃组分的体积偏移参数，默认时值为 0。格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_PARACHOR>PARACHOR</span> (e)(/)
+PARACHOR 用于混溶模型的表面张量计算，需要打开 MISCIBLE 选项，单位 $\mathrm{(dynes/cm)}^{1/4}\mathrm{cc}/\mathrm{gm\text{-}M}$ ，格式同 [TCRIT](#_TCRIT)
+
+
+
+## <span id=_VCRITVIS>VCRITVIS</span> (e)(/)
+VCRITVIS 定义了仅用于粘性计算的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$。如果未输入，则使用 ZCRIT 进行计算，若 ZCRIT 也没有输入，则赋值为 VCRIT。格式同 [TCRIT](#_TCRIT)
+
+
+## <span id=_BIC>BIC</span> (e)(/)
 
 BIC 关键字用于组分模型，定义了组分间的二元相互系数，它是一个实对称矩阵，示例
 
@@ -755,10 +877,15 @@ BIC
 .1     .1      .130663   .006   .006    0         0        0        0
 /
 ```
+也可以只输入下半部分(不含对角线)
 
 
 
-## RR
+## <span id=_LBCCOEF>LBCCOEF</span>
+LBCCOEF 定义了使用 Lorentz-Bray-Clark 粘性计算公式时的参数，默认时为 0.1023, 0.023364, 0.058533, -0.040758, 0.0093324，格式同 [TCRIT](#_TCRIT)
+
+
+## <span id=_RR>RR</span>
 
 RR 关键字用于组分模型，给出了在相分裂计算中用 Newton 法求解 Rachford-Rice 方程的求解参数，包括
 
@@ -767,7 +894,7 @@ RR 关键字用于组分模型，给出了在相分裂计算中用 Newton 法求
 
 
 
-## SSMSTA
+## <span id=_SSMSTA>SSMSTA</span>
 
 SSMSTA 关键字用于组分模型，给出了在相稳定性分析 SSM 的求解参数，包括
 
@@ -776,7 +903,7 @@ SSMSTA 关键字用于组分模型，给出了在相稳定性分析 SSM 的求�
 
 
 
-## NRSTA
+## <span id=_NRSTA>NRSTA</span>
 
 NRSTA 关键字用于组分模型，给出了在相稳定性分析中 Newton 法的求解参数，包括
 
@@ -785,7 +912,7 @@ NRSTA 关键字用于组分模型，给出了在相稳定性分析中 Newton 法
 
 
 
-## SSMSP
+## <span id=_SSMSP>SSMSP</span>
 
 SSMSP 关键字用于组分模型，给出了在相分裂计算中 SSM 的求解参数，包括
 
@@ -794,7 +921,7 @@ SSMSP 关键字用于组分模型，给出了在相分裂计算中 SSM 的求解
 
 
 
-## NRSP
+## <span id=_NRSP>NRSP</span>
 
 NRSP 关键字用于组分模型，给出了在相分裂计算中 Newton 法的求解参数，包括
 
@@ -805,7 +932,7 @@ NRSP 关键字用于组分模型，给出了在相分裂计算中 Newton 法的�
 
 -----
 
-## SUMMARY (/)
+## <span id=_SUMMARY>SUMMARY</span> (/)
 
 SUMMARY 关键字用于控制输出每个时间步的各指标信息，其结果将保存在 `SUMMARY.out` 文件中。
 
@@ -887,9 +1014,9 @@ SUMMARY 关键字用于控制输出每个时间步的各指标信息，其结果
 
 
 
-## RPTSCHED (/)
+## <span id=_RPTSCHED>RPTSCHED</span> (/)
 
-RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 **TSTEP**。其结果将打印在`RPT.out`
+RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 [TSTEP](#_TSTEP)。其结果将打印在`RPT.out`
 
 可控制的输出信息包括
 
