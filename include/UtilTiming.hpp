@@ -32,7 +32,7 @@ class GetWallTime
 {
 
 private:
-    std::chrono::system_clock::time_point timeStamp; ///< Current CPU time
+    std::chrono::steady_clock::time_point timeStamp; ///< Current CPU time
 
 public:
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
@@ -48,77 +48,17 @@ public:
     }
 #else
     /// Start the timer
-    __inline__ void Start() { timeStamp = std::chrono::system_clock::now(); }
+    __inline__ void Start() { timeStamp = std::chrono::steady_clock::now(); }
 
     /// Stop the timer and return duration from start() in ms
     __inline__ double Stop() const
     {
-        auto elapsedTime = std::chrono::system_clock::now() - timeStamp;
+        auto elapsedTime = std::chrono::steady_clock::now() - timeStamp;
         return std::chrono::duration<double, std::milli>(elapsedTime).count();
     }
 #endif
     /// Stop the timer and print out duration time
     void StopInfo(const std::string& info, std::ostream& out = std::cout) const;
-};
-
-/*! \class GetCycleNum
- *  \brief Get CPU-cycle number
- *
- *  Read the CPU cycles and return number of cycles from start() to stop().
- */
-class GetCycleNum
-{
-
-private:
-    uint64 cycleClock = 0; ///< Current CPU cycle counter
-
-#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
-    // for Window file system
-    void startRDTSC()
-    {
-        std::cout << "WARNING: Not available in Windows!" << std::endl;
-    }
-    void stopRDTSCP()
-    {
-        std::cout << "WARNING: Not available in Windows!" << std::endl;
-    }
-#else
-    /// Read Time Stamp Counter (TSC)
-    static inline uint64 startRDTSC()
-    {
-        unsigned cycleLow, cycleHigh;
-        asm volatile("CPUID\n\t"
-                     "RDTSC\n\t"
-                     "mov %%edx, %0\n\t"
-                     "mov %%eax, %1\n\t"
-                     : "=r"(cycleHigh), "=r"(cycleLow)::"%rax", "%rbx", "%rcx", "%rdx");
-        return (static_cast<uint64>(cycleHigh) << 32) | cycleLow;
-    }
-
-    /// Read Time Stamp Counter and Processor ID (TSCP)
-    static inline uint64 stopRDTSCP()
-    {
-        unsigned cycleLow, cycleHigh;
-        asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t"
-                     "mov %%eax, %1\n\t"
-                     "CPUID\n\t"
-                     : "=r"(cycleHigh), "=r"(cycleLow)::"%rax", "%rbx", "%rcx", "%rdx");
-        return (static_cast<uint64>(cycleHigh) << 32) | cycleLow;
-    }
-#endif
-public:
-#if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
-    // for Window file system
-    void Start() { std::cout << "WARNING: Not available in Windows!" << std::endl; }
-    void Stop() { std::cout << "WARNING: Not available in Windows!" << std::endl; }
-#else
-    /// Start the cycle count clock
-    __inline__ void Start() { cycleClock = startRDTSC(); }
-
-    /// Stop the cycle count clock and return number of cycles from start()
-    __inline__ unsigned long long Stop() const { return stopRDTSCP() - cycleClock; }
-#endif
 };
 
 #endif /*-- end if for __TIMING_HEADER__ --*/
@@ -130,4 +70,5 @@ public:
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Chensong Zhang      Oct/15/2021      Format file                          */
+/*  Chensong Zhang      Sep/26/2022      Do not use RTC for x86               */
 /*----------------------------------------------------------------------------*/
