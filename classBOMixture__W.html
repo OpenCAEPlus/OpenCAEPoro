@@ -93,6 +93,9 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture__W.html#a724cf199a749962724e756be8df5cbc7">InitFlash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin) override</td></tr>
 <tr class="memdesc:a724cf199a749962724e756be8df5cbc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">flash calculation with saturation of phases. <br /></td></tr>
 <tr class="separator:a724cf199a749962724e756be8df5cbc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9068c77a7a9bfc3bf48592a56403d41f"><td class="memItemLeft" align="right" valign="top"><a id="a9068c77a7a9bfc3bf48592a56403d41f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin) override</td></tr>
+<tr class="separator:a9068c77a7a9bfc3bf48592a56403d41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abafb72ffddbbc4c9c0182b758075cd6f"><td class="memItemLeft" align="right" valign="top"><a id="abafb72ffddbbc4c9c0182b758075cd6f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture__W.html#abafb72ffddbbc4c9c0182b758075cd6f">Flash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs) override</td></tr>
 <tr class="memdesc:abafb72ffddbbc4c9c0182b758075cd6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components. <br /></td></tr>
@@ -377,8 +380,8 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00097">97</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{ <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Not Completed!&quot;</span>); <span class="keywordflow">return</span> 0; };</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00103">103</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{ <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Not Completed!&quot;</span>); <span class="keywordflow">return</span> 0; };</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
@@ -391,7 +394,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 26 2022 01:14:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Sep 26 2022 06:44:28 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
