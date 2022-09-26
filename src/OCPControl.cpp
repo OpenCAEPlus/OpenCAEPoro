@@ -42,7 +42,81 @@ ControlNR::ControlNR(const vector<OCP_DBL>& src)
 
 void FastControl::ReadParam(const USI& argc, const char* optset[])
 {
-    if (argc >= 6) {
+    activity = false;
+    timeInit = timeMax = timeMin = -1.0;
+
+    std::stringstream buffer;
+    string             tmp;
+    string            key;
+    string             value;
+    for (USI n = 2; n < argc; n++) {
+        buffer << optset[n];
+        buffer >> tmp;
+
+        OCP_INT pos = tmp.find_last_of('=');
+        key         = tmp.substr(0, pos);
+        value       = tmp.substr(pos + 1, tmp.size() - pos);
+
+        switch (Map_Str2Int(&key[0],key.size())) 
+        {
+
+            case Map_Str2Int("method",6):
+                if (value == "FIM") {
+                    method = FIM;
+                } else if (value == "FIMn") {
+                    method = FIMn;
+                } else if (value == "IMPEC") {
+                    method = IMPEC;
+                } else if (value == "AIMc") {
+                    method = AIMc;
+                } else if (value == "AIMs") {
+                    method = AIMs;
+                } else if (value == "AIMt") {
+                    method = AIMt;
+                } else {
+                    OCP_ABORT("Wrong method param in command line!");
+                }
+                activity = true;
+                if (method == FIM || method == FIMn || method == AIMc) {
+                    if (timeInit <= 0) timeInit = 0.1;
+                    if (timeMax <= 0) timeMax = 10.0;
+                    if (timeMin <= 0) timeMin = 0.1;
+                } else {
+                    if (timeInit <= 0) timeInit = 0.1;
+                    if (timeMax <= 0) timeMax = 1.0;
+                    if (timeMin <= 0) timeMin = 0.1;
+                }               
+                break;
+
+            case Map_Str2Int("dtInit", 6):
+                timeInit = stod(value);
+                break;
+
+            case Map_Str2Int("dtMin", 5):
+                timeMin = stod(value);
+                break;
+
+            case Map_Str2Int("dtMax", 5):
+                timeMax = stod(value);
+                break;
+
+            case Map_Str2Int("pl", 2):
+                printLevel = stoi(value);
+                break;
+
+            default:
+                break;
+        }
+
+        buffer.clear();
+    }
+
+
+
+
+
+
+    if (argc >= 6 && false) {
         activity = true;
         if (string(optset[2]) == "FIM") {
             method = FIM;

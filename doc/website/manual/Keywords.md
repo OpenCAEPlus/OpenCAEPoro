@@ -116,7 +116,7 @@ DIMENS
 
 ## <span id=_TABDIMS>TABDIMS</span>
 
-TABDIMS 定义了饱和度表格和PVT表格的最大数量，不同的饱和度表格和PVT表格可能用在不同的网格区域，这将通过 **SATNUM** 和 **PVTNUM** 来定义。示例
+TABDIMS 定义了饱和度表格和PVT表格的最大数量，不同的饱和度表格和PVT表格可能用在不同的网格区域，这将通过 [SATNUM](#_SATNUM) 和 [PVTNUM](#_PVTNUM) 来定义。示例
 
 ```
 TABDIMS

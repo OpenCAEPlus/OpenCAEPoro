@@ -375,7 +375,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if ((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);
