@@ -1,5 +1,5 @@
-/*! \file    FluidSolver.cpp
- *  \brief   FluidSolver class definition
+/*! \file    IsothermalSolver.cpp
+ *  \brief   IsothermalSolver class definition
  *  \author  Shizhe Li
  *  \date    Oct/21/2021
  *
@@ -9,39 +9,39 @@
  *-----------------------------------------------------------------------------------
  */
 
-#include "FluidSolver.hpp"
+#include "IsothermalSolver.hpp"
 
 /// Setup solution methods, including IMPEC and FIM.
-void FluidSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
+void IsothermalSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 {
     method = ctrl.GetMethod();
 
     switch (method)
     {
     case AIMt:
-        aimt.Setup(rs, FLSolver, auxFLSolver, ctrl);
+        aimt.Setup(rs, LSolver, auxLSolver, ctrl);
         break;
     case AIMs:
-        aims.Setup(rs, FLSolver, ctrl);       
+        aims.Setup(rs, LSolver, ctrl);       
         break;
     case IMPEC:
-        impec.Setup(rs, FLSolver, ctrl);        
+        impec.Setup(rs, LSolver, ctrl);        
         break;
     case AIMc:
-        aimc.Setup(rs, FLSolver, ctrl);
+        aimc.Setup(rs, LSolver, ctrl);
         break;
     case FIMn:
-        fim_n.Setup(rs, FLSolver, ctrl);
+        fim_n.Setup(rs, LSolver, ctrl);
         break;
     case FIM:
     default:
-        fim.Setup(rs, FLSolver, ctrl);                
+        fim.Setup(rs, LSolver, ctrl);                
         break;
     }   
 }
 
 /// Setup solution methods, including IMPEC and FIM.
-void FluidSolver::InitReservoir(Reservoir &rs) const
+void IsothermalSolver::InitReservoir(Reservoir &rs) const
 {
     switch (method)
     {
@@ -65,7 +65,7 @@ void FluidSolver::InitReservoir(Reservoir &rs) const
 }
 
 /// Prepare solution methods, including IMPEC and FIM.
-void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
+void IsothermalSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
 {
     switch (method)
     {
@@ -93,25 +93,25 @@ void FluidSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
 }
 
 /// Assemble linear systems for IMPEC and FIM.
-void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
+void IsothermalSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
 {
     switch (method)
     {
     case IMPEC:
     case AIMt:
-        rs.AssembleMatIMPEC(FLSolver, dt);
+        rs.AssembleMatIMPEC(LSolver, dt);
         break;
     case FIMn:
-        fim_n.AssembleMat(FLSolver, rs, dt);
+        fim_n.AssembleMat(LSolver, rs, dt);
         break;
     case FIM:
-        fim.AssembleMat(FLSolver, rs, dt);
+        fim.AssembleMat(LSolver, rs, dt);
         break;
     case AIMc:
-        aimc.AssembleMat(FLSolver, rs, dt);
+        aimc.AssembleMat(LSolver, rs, dt);
         break;
     case AIMs:
-        aims.AssembleMat(FLSolver, rs, dt);
+        aims.AssembleMat(LSolver, rs, dt);
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -119,25 +119,25 @@ void FluidSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
 }
 
 /// Solve linear systems for IMPEC and FIM.
-void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
+void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method)
     {
     case IMPEC:
     case AIMt:
-        impec.SolveLinearSystem(FLSolver, rs, ctrl);
+        impec.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     case FIMn:
-        fim_n.SolveLinearSystem(FLSolver, rs, ctrl);
+        fim_n.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     case FIM:
-        fim.SolveLinearSystem(FLSolver, rs, ctrl);
+        fim.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     case AIMc:
-        aimc.SolveLinearSystem(FLSolver, rs, ctrl);
+        aimc.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     case AIMs:
-        aims.SolveLinearSystem(FLSolver, rs, ctrl);
+        aims.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -145,7 +145,7 @@ void FluidSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Update physical properties for IMPEC and FIM.
-bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
+bool IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -160,14 +160,14 @@ bool FluidSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
         case AIMs:
             return aims.UpdateProperty(rs, ctrl);
         case AIMt:
-            return aimt.UpdateProperty(rs, ctrl, auxFLSolver);
+            return aimt.UpdateProperty(rs, ctrl, auxLSolver);
         default:
             OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Finish up Newton-Raphson iteration for IMPEC and FIM.
-bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
+bool IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -188,7 +188,7 @@ bool FluidSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Finish up time step for IMPEC and FIM.
-void FluidSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
+void IsothermalSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method)
     {

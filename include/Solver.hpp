@@ -10,7 +10,7 @@
  */
 
 // OpenCAEPoro header files
-#include "FluidSolver.hpp"
+#include "IsothermalSolver.hpp"
 #include "OCPOutput.hpp"
 
 #ifndef __SOLVER_HEADER__
@@ -44,7 +44,7 @@ private:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
-    FluidSolver  FSolver;
+    IsothermalSolver  FSolver;
     LinearSystem LSolver;
 };
 

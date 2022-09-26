@@ -1,5 +1,5 @@
-/*! \file    FluidSolver.hpp
- *  \brief   FluidSolver class declaration
+/*! \file    IsothermalSolver.hpp
+ *  \brief   IsothermalSolver class declaration
  *  \author  Shizhe Li
  *  \date    Oct/21/2021
  *
@@ -15,8 +15,8 @@
 // OpenCAEPoro header files
 #include "OCPFluidMethod.hpp"
 
-/// FluidSolver class for fluid solution method.
-class FluidSolver
+/// IsothermalSolver class for fluid solution method.
+class IsothermalSolver
 {
 public:
     /// Setup the fluid solver.
@@ -38,8 +38,8 @@ public:
 
 private:
     USI           method = FIM;
-    LinearSystem  FLSolver;
-    LinearSystem  auxFLSolver;
+    LinearSystem  LSolver;
+    LinearSystem  auxLSolver;
     OCP_IMPEC     impec;
     OCP_FIM       fim;
     OCP_FIMn      fim_n;
