@@ -86,6 +86,7 @@ public:
     void InitFlash(const bool& flag = false);
     /// Perform flash calculation with saturations and calculate derivatives.
     void InitFlashDer();
+    void InitFlashDer_n();
     /// Perform flash calculation with Ni.
     void Flash();
     /// Perform flash calculation with Ni in Black Oil Model

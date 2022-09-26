@@ -241,7 +241,68 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                   const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                   const OCP_DBL* Ziin)
 {
-    InitFlash(Pin, Pbbin, Tin, Sjin, Vpore, Ziin);
+    // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
+    ftype = 0;
+    lNP   = 0;
+
+    Nh    = 1;
+    nu[0] = 1;
+    setPT(Pin, Tin);
+    setZi(Ziin);
+    PhaseEquilibrium();
+    // Attention Nt = 1 now
+    CalMW();
+    CalVfXiRho();
+    CalViscosity();
+    CalSurfaceTension();
+    IdentifyPhase();
+    CopyPhase();
+
+    // Calulate Nt, water is exclued
+    OCP_DBL Sw = Sjin[numPhase - 1];
+    Nh         = Vpore * (1 - Sw) / vf;
+
+    // Next, nu represents moles of phase instead of molar fraction of phase
+    Dscalar(NP, Nh, &nu[0]);
+    // correct vj, vf with new Nt
+    Dscalar(NPmax, Nh, &v[0]);
+    vf *= Nh;
+    // CalVfiVfp_full01();
+    CalVfiVfp_full02();
+    // Calculate Ni
+    for (USI i = 0; i < NC; i++) {
+        Ni[i] = zi[i] * Nh;
+    }
+
+    // Water Properties
+    USI Wpid                  = numPhase - 1;
+    USI Wcid                  = numCom - 1;
+    phaseExist[Wpid]          = true;
+    xij[Wpid * numCom + Wcid] = 1.0;
+    PVTW.Eval_All(0, P, data, cdata);
+    OCP_DBL Pw0       = data[0];
+    OCP_DBL bw0       = data[1];
+    OCP_DBL cbw       = data[2];
+    OCP_DBL bw        = bw0 * (1 - cbw * (P - Pw0));
+    OCP_DBL bwp       = -cbw * bw0;
+    mu[Wpid]          = data[3];
+    xi[Wpid]          = 1 / (CONV1 * bw);
+    rho[Wpid]         = std_RhoW / bw;
+    muP[Wpid]         = cdata[3];
+    xiP[Wpid]         = -bwp / (bw * bw * CONV1);
+    rhoP[Wpid]        = CONV1 * xiP[Wpid] * std_RhoW;
+    Ni[Wcid]          = Vpore * Sw * xi[Wpid];
+    nj[Wpid]          = Ni[Wcid];
+    Nt                = Nh + Ni[Wcid];
+    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vfi[Wcid]         = CONV1 * bw;
+    const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
+    vf += v[Wpid];
+    vfp += vwp;
+    vji[numPhase - 1][numCom - 1] = vfi[Wcid];
+    vjp[numPhase - 1]             = vwp;
+
+    CalSaturation();
 
 #ifdef OCP_NEW_FIM
     CaldXsdXpAPI02p();
@@ -260,6 +321,87 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     if (phaseExist[0]) pEnumCom[0] = NC;
     if (phaseExist[1]) pEnumCom[1] = NC;
 }
+
+
+
+void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+                                 const OCP_DBL& Tin,
+                    const OCP_DBL* Sjin, const OCP_DBL& Vpore, const OCP_DBL* Ziin)
+{
+    // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
+
+    ftype = 0;
+    lNP   = 0;
+
+    Nh    = 1;
+    nu[0] = 1;
+    setPT(Pin, Tin);
+    setZi(Ziin);
+    PhaseEquilibrium();
+    // Attention Nt = 1 now
+    CalMW();
+    CalVfXiRho();
+    CalViscosity();
+    CalSurfaceTension();
+    IdentifyPhase();
+    CopyPhase();
+
+    // Calulate Nt, water is exclued
+    OCP_DBL Sw = Sjin[numPhase - 1];
+    Nh         = Vpore * (1 - Sw) / vf;
+
+    // Next, nu represents moles of phase instead of molar fraction of phase
+    Dscalar(NP, Nh, &nu[0]);
+    // correct vj, vf with new Nt
+    Dscalar(NPmax, Nh, &v[0]);
+    vf *= Nh;
+    // Calculate Ni
+    for (USI i = 0; i < NC; i++) {
+        Ni[i] = zi[i] * Nh;
+    }
+
+    CalVjpVfpVfn_partial();
+    // Water Properties
+    USI Wpid                  = numPhase - 1;
+    USI Wcid                  = numCom - 1;
+    phaseExist[Wpid]          = true;
+    xij[Wpid * numCom + Wcid] = 1.0;
+    PVTW.Eval_All(0, P, data, cdata);
+    OCP_DBL Pw0       = data[0];
+    OCP_DBL bw0       = data[1];
+    OCP_DBL cbw       = data[2];
+    OCP_DBL bw        = bw0 * (1 - cbw * (P - Pw0));
+    OCP_DBL bwp       = -cbw * bw0;
+    mu[Wpid]          = data[3];
+    xi[Wpid]          = 1 / (CONV1 * bw);
+    rho[Wpid]         = std_RhoW / bw;
+    muP[Wpid]         = cdata[3];
+    xiP[Wpid]         = -bwp / (bw * bw * CONV1);
+    rhoP[Wpid]        = CONV1 * xiP[Wpid] * std_RhoW;
+    Ni[Wcid]          = Vpore * Sw * xi[Wpid];
+    nj[Wpid]          = Ni[Wcid];
+    Nt                = Nh + Ni[Wcid];
+    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vfi[Wcid]         = CONV1 * bw;
+    const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
+    vf += v[Wpid];
+    vfp += vwp;
+    vji[numPhase - 1][numCom - 1] = vfi[Wcid];
+    vjp[numPhase - 1]             = vwp;
+
+    CalSaturation();
+    CaldXsdXpAPI03();
+    CalXiPn_partial();
+    CalRhoPn_partial();
+    CalMuPn_partial();
+    CalVfiVfp_full03();
+
+    // Calculate pEnumCom
+    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
+    if (phaseExist[0]) pEnumCom[0] = NC;
+    if (phaseExist[1]) pEnumCom[1] = NC;
+}
+
 
 
 void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
@@ -317,13 +459,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
-
-#ifdef OCP_NEW_FIM_n
-    CalVjpVfpVfn_partial();
-#else
     CalVfiVfp_full02();
-#endif // OCP_NEW_FIM_n
-
 
     // Water Properties
     USI Wpid                  = numPhase - 1;
@@ -354,13 +490,6 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
     CalSaturation();
 
-#ifdef OCP_NEW_FIM_n 
-    CaldXsdXpAPI03();
-    CalXiPn_partial();
-    CalRhoPn_partial();
-    CalMuPn_partial();
-    CalVfiVfp_full03();
-#else
 #ifdef OCP_NEW_FIM
     CaldXsdXpAPI02p();
     CalXiPNX_partial();
@@ -372,7 +501,6 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalRhoPX_partial();
     CalMuPX_partial();
 #endif // OCP_NEW_FIM
-#endif // OCP_NEW_FIM_n
 
     // Calculate pEnumCom
     fill(pEnumCom.begin(), pEnumCom.end(), 0.0);

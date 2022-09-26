@@ -81,6 +81,9 @@ public:
     virtual void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
+    virtual void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+                              const OCP_DBL& Tin, const OCP_DBL* Sjin,
+                              const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
     /// Flash calculation with moles of components.
     virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,

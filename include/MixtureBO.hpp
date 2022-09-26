@@ -83,8 +83,15 @@ public:
                       const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                       const OCP_DBL* Ziin) override
     {
+        OCP_ABORT("Not Used!");
+    };
+    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+                                const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+                        const OCP_DBL* Ziin) override
+    {
         OCP_ABORT("Not Completed!");
     };
+
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override {
         OCP_ABORT("Not Completed!");
@@ -124,6 +131,12 @@ public:
     void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                       const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                       const OCP_DBL* Ziin) override
+    {
+        OCP_ABORT("Not Used!");
+    };
+    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+                        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+                        const OCP_DBL* Ziin) override
     {
         OCP_ABORT("Not Completed!");
     };
@@ -170,8 +183,14 @@ public:
                       const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                       const OCP_DBL* Ziin) override
     {
-        OCP_ABORT("Not Completed!");
+        OCP_ABORT("Not Used!");
     }
+    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+                        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+                        const OCP_DBL* Ziin) override
+    {
+        OCP_ABORT("Not Completed!");
+    };
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override;
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,

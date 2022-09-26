@@ -1431,6 +1431,26 @@ void Bulk::InitFlashDer()
 }
 
 
+
+void Bulk::InitFlashDer_n() 
+{
+    OCP_FUNCNAME;
+
+    if (comps) {
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            flashCal[PVTNUM[n]]->InitFlashDer_n(P[n], Pb[n], T, &S[n * numPhase],
+                                              rockVp[n], initZi.data());
+            for (USI i = 0; i < numCom; i++) {
+                Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
+            }
+            PassFlashValueDeriv_n(n);
+        }
+    } else {
+        OCP_ABORT("Not Completed in BLKOIL MODEL!");
+    }
+}
+
+
 /// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::Flash()
 {
@@ -1893,15 +1913,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     }
     
     len += nptmp;
-    
-    
-#ifdef OCP_NEW_FIM_n
-    resIndex[n + 1] = resIndex[n] + len;
-    Dcopy(len, &res_n[0] + resIndex[n], &flashCal[pvtnum]->res[0]);
-    len *= (numCom + 1);
-    dSdPindex[n + 1] = dSdPindex[n] + len;
-    Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
-#else
+      
 #ifdef OCP_NEW_FIM
     len *= (numCom + 1);
     dSdPindex[n + 1] = dSdPindex[n] + len;
@@ -1909,7 +1921,6 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
 #else
     Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_NEW_FIM
-#endif // OCP_NEW_FIM_n
 
   
     // test

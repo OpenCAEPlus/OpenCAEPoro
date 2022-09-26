@@ -322,6 +322,25 @@ void Reservoir::InitFIM()
     UpdateLastStepFIM();
 }
 
+
+void Reservoir::InitFIM_n() 
+{
+    OCP_FUNCNAME;
+
+    if (bulk.GetMixMode() == BLKOIL)
+        bulk.InitSjPcBo(50);
+    else if (bulk.GetMixMode() == EOS_PVTW)
+        bulk.InitSjPcComp(50, grid);
+
+    bulk.CalVpore();
+    bulk.InitFlashDer_n();
+    bulk.CalKrPcDeriv();
+    conn.CalFluxFIM(bulk);
+    allWells.InitBHP(bulk);
+    UpdateLastStepFIM();
+}
+
+
 void Reservoir::CalFlashDerivFIM()
 {
     OCP_FUNCNAME;
