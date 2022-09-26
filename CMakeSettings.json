@@ -12,14 +12,9 @@
       "ctestCommandArgs": "",
       "variables": [
         {
-          "name": "FASP_INCLUDE_DIRS",
-          "value": "C:/Program Files (x86)/faspsolver/include",
+          "name": "FASP_DIR",
+          "value": "C:/Program Files (x86)/faspsolver",
           "type": "PATH"
-        },
-        {
-          "name": "FASP_LIBRARIES",
-          "value": "C:/Program Files (x86)/faspsolver/lib/fasp.lib",
-          "type": "FILEPATH"
         }
       ]
     }
