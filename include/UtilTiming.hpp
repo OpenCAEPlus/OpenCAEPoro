@@ -38,12 +38,12 @@ public:
 #if defined(_CONSOLE) || defined(_WIN32) || defined(_WIN64)
     // for Window file system
     /// Start the timer
-    inline void Start() { timeStamp = std::chrono::system_clock::now(); }
+    inline void Start() { timeStamp = std::chrono::steady_clock::now(); }
 
     /// Stop the timer and return duration from start() in ms
     inline double Stop() const
     {
-        auto elapsedTime = std::chrono::system_clock::now() - timeStamp;
+        auto elapsedTime = std::chrono::steady_clock::now() - timeStamp;
         return std::chrono::duration<double, std::milli>(elapsedTime).count();
     }
 #else
