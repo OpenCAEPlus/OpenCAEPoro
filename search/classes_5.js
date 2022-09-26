@@ -9,6 +9,5 @@ var searchData=
   ['flowunit_5fodgw02_965',['FlowUnit_ODGW02',['../classFlowUnit__ODGW02.html',1,'']]],
   ['flowunit_5fog_966',['FlowUnit_OG',['../classFlowUnit__OG.html',1,'']]],
   ['flowunit_5fow_967',['FlowUnit_OW',['../classFlowUnit__OW.html',1,'']]],
-  ['flowunit_5fw_968',['FlowUnit_W',['../classFlowUnit__W.html',1,'']]],
-  ['fluidsolver_969',['FluidSolver',['../classFluidSolver.html',1,'']]]
+  ['flowunit_5fw_968',['FlowUnit_W',['../classFlowUnit__W.html',1,'']]]
 ];
