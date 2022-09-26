@@ -1,4 +1,4 @@
-name: Windows Intel Build
+name: Mac X64 Intel Build
 on:
     push:
         branches:
@@ -10,7 +10,7 @@ env:
     CI: false
 jobs:
     build:
-        runs-on: [self-hosted, macOS]
+        runs-on: [self-hosted, macOS, X64]
         steps:
             - name: Basic info
               run: |

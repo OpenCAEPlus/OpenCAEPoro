@@ -9,7 +9,8 @@
 | Build | Test |
 |:-----:|:----:|
 |[![Linux GNU Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml)|      |
-|[![Windows GNU Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml)||
+|[![Windows Intel Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml)||
+|[![Mac X64 Intel Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/mac_x64_intel_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/mac_x64_intel_build.yml)||
 
 
 OpenCAEPoro or OCP is part of the OpenCAEPlus project written in C++. OCP
