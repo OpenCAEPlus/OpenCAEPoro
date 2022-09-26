@@ -84,6 +84,8 @@ public:
     void InitSjPcComp(const USI& tabrow, const Grid& myGrid);
     /// Perform flash calculation with saturations.
     void InitFlash(const bool& flag = false);
+    /// Perform flash calculation with saturations and calculate derivatives.
+    void InitFlashDer();
     /// Perform flash calculation with Ni.
     void Flash();
     /// Perform flash calculation with Ni in Black Oil Model

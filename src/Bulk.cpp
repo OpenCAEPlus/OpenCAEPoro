@@ -1409,6 +1409,28 @@ void Bulk::InitFlash(const bool &flag)
 #endif // DEBUG
 }
 
+
+
+void Bulk::InitFlashDer()
+{
+    OCP_FUNCNAME;
+
+    if (comps) {
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            flashCal[PVTNUM[n]]->InitFlashDer(P[n], Pb[n], T, &S[n * numPhase],
+                                              rockVp[n], initZi.data());
+            for (USI i = 0; i < numCom; i++) {
+                Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
+            }
+            PassFlashValueDeriv(n);
+        }
+    } else {
+        InitFlash(false);
+        FlashDeriv();
+    }
+}
+
+
 /// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::Flash()
 {

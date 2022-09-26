@@ -315,8 +315,7 @@ void Reservoir::InitFIM()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
-    bulk.InitFlash(false);
-    bulk.FlashDeriv();
+    bulk.InitFlashDer();
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);

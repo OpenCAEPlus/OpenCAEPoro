@@ -44,7 +44,7 @@ private:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
-    IsothermalSolver  FSolver;
+    IsothermalSolver  IsoTSolver;
     LinearSystem LSolver;
 };
 

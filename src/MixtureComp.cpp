@@ -234,6 +234,34 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalSaturation();
 }
 
+
+
+void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+                               const OCP_DBL& Tin,
+                  const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+                  const OCP_DBL* Ziin)
+{
+    InitFlash(Pin, Pbbin, Tin, Sjin, Vpore, Ziin);
+
+#ifdef OCP_NEW_FIM
+    CaldXsdXpAPI02p();
+    CalXiPNX_partial();
+    CalRhoPX_partial();
+    CalMuPX_partial();
+#else
+    CaldXsdXpAPI02();
+    CalXiPNX_partial();
+    CalRhoPX_partial();
+    CalMuPX_partial();
+#endif // OCP_NEW_FIM
+
+    // Calculate pEnumCom
+    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
+    if (phaseExist[0]) pEnumCom[0] = NC;
+    if (phaseExist[1]) pEnumCom[1] = NC;
+}
+
+
 void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
                         const USI& Myftype, const USI& lastNP,
     const OCP_DBL* lastKs)
