@@ -38,7 +38,9 @@ void Bulk::InputParam(ParamReservoir &rs_param)
     miscible = rs_param.EoSp.miscible;
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];
-    
+    NTPVT      = rs_param.NTPVT;
+    NTSFUN     = rs_param.NTSFUN;
+
 
     if (rs_param.PBVD_T.data.size() > 0)
         EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
@@ -106,14 +108,14 @@ void Bulk::InputParam(ParamReservoir &rs_param)
             OCP_ABORT("Wrong Type!");
             break;
         case PHASE_OW:
-            for (USI i = 0; i < rs_param.NTPVT; i++)
+            for (USI i = 0; i < NTPVT; i++)
                 flashCal.push_back(new BOMixture_OW(rs_param, i));
             break;
         case PHASE_DOGW:
             OCP_ABORT("Wrong Type!");
             break;
         case PHASE_ODGW:
-            for (USI i = 0; i < rs_param.NTPVT; i++)
+            for (USI i = 0; i < NTPVT; i++)
                 flashCal.push_back(new BOMixture_ODGW(rs_param, i));
             break;
         default:
@@ -151,7 +153,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
             SATmode = PHASE_ODGW01;
         }
 
-        for (USI i = 0; i < rs_param.NTPVT; i++)
+        for (USI i = 0; i < NTPVT; i++)
             flashCal.push_back(new MixtureComp(rs_param, i));
 
         cout << "Bulk::InputParam --- COMPOSITIONAL" << endl;
@@ -161,32 +163,32 @@ void Bulk::InputParam(ParamReservoir &rs_param)
         SATmode = PHASE_ODGW01_MISCIBLE;
     }
 
-    satcm.resize(rs_param.NTSFUN);
+    satcm.resize(NTSFUN);
 
     switch (SATmode)
     {
     case PHASE_W:
-        for (USI i = 0; i < rs_param.NTSFUN; i++)
+        for (USI i = 0; i < NTSFUN; i++)
             flow.push_back(new FlowUnit_W(rs_param, i));
         break;
     case PHASE_OW:
-        for (USI i = 0; i < rs_param.NTSFUN; i++)
+        for (USI i = 0; i < NTSFUN; i++)
             flow.push_back(new FlowUnit_OW(rs_param, i));
         break;
     case PHASE_ODGW01:
-        for (USI i = 0; i < rs_param.NTSFUN; i++) {
+        for (USI i = 0; i < NTSFUN; i++) {
             flow.push_back(new FlowUnit_ODGW01(rs_param, i));
             satcm[i] = flow[i]->GetScm();
         }           
         break;
     case PHASE_ODGW01_MISCIBLE:
-        for (USI i = 0; i < rs_param.NTSFUN; i++) {
+        for (USI i = 0; i < NTSFUN; i++) {
             flow.push_back(new FlowUnit_ODGW01_Miscible(rs_param, i));
             satcm[i] = flow[i]->GetScm();
         }           
         break;
     case PHASE_ODGW02:
-        for (USI i = 0; i < rs_param.NTSFUN; i++)
+        for (USI i = 0; i < NTSFUN; i++)
             flow.push_back(new FlowUnit_ODGW02(rs_param, i));
         break;
     default:
@@ -804,6 +806,15 @@ void Bulk::InitSjPcBo(const USI &tabrow)
 
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
+    // if capillary between water and oil is considered
+    vector<bool> FlagPcow(NTSFUN, true);
+    for (USI i = 0; i < NTSFUN; i++) {
+        if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY &&
+            fabs(flow[i]->GetPcowBySw(1.0 + TINY) < TINY)) {
+            FlagPcow[i] = false;
+        }
+    }
+
     for (OCP_USI n = 0; n < numBulk; n++)
     {
         DepthP.Eval_All(0, depth[n], data, cdata);
@@ -812,34 +823,34 @@ void Bulk::InitSjPcBo(const USI &tabrow)
         OCP_DBL Pw = data[3];
         OCP_DBL Pcgo = Pg - Po;
         OCP_DBL Pcow = Po - Pw;
-        OCP_DBL Sw = flow[0]->GetSwByPcow(Pcow);
+        OCP_DBL Sw   = flow[SATNUM[n]]->GetSwByPcow(Pcow);
         OCP_DBL Sg = 0;
         if (gas)
         {
-            Sg = flow[0]->GetSgByPcgo(Pcgo);
+            Sg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
         }
         if (Sw + Sg > 1)
         {
             // should me modified
             OCP_DBL Pcgw = Pcow + Pcgo;
-            Sw = flow[0]->GetSwByPcgw(Pcgw);
+            Sw           = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
             Sg = 1 - Sw;
         }
 
         if (1 - Sw < TINY)
         {
             // all water
-            Po = Pw + flow[0]->GetPcowBySw(1.0);
+            Po = Pw + flow[SATNUM[n]]->GetPcowBySw(1.0);
         }
         else if (1 - Sg < TINY)
         {
             // all gas
-            Po = Pg - flow[0]->GetPcgoBySg(1.0);
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(1.0);
         }
         else if (1 - Sw - Sg < TINY)
         {
             // water and gas
-            Po = Pg - flow[0]->GetPcgoBySg(Sg);
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(Sg);
         }
         P[n] = Po;
 
@@ -869,16 +880,16 @@ void Bulk::InitSjPcBo(const USI &tabrow)
             Pw = data[3];
             Pcow = Po - Pw;
             Pcgo = Pg - Po;
-            tmpSw = flow[0]->GetSwByPcow(Pcow);
+            tmpSw = flow[SATNUM[n]]->GetSwByPcow(Pcow);
             if (gas)
             {
-                tmpSg = flow[0]->GetSgByPcgo(Pcgo);
+                tmpSg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
             }
             if (tmpSw + tmpSg > 1)
             {
                 // should me modified
                 OCP_DBL Pcgw = Pcow + Pcgo;
-                tmpSw = flow[0]->GetSwByPcgw(Pcgw);
+                tmpSw        = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
                 tmpSg = 1 - tmpSw;
             }
             Sw += tmpSw;
@@ -889,6 +900,11 @@ void Bulk::InitSjPcBo(const USI &tabrow)
         S[n * numPhase + numPhase - 1] = Sw;
         if (gas) {
             S[n * numPhase + numPhase - 2] = Sg;
+        }
+
+        // correct if Pcow is not considered
+        if (!FlagPcow[SATNUM[n]]) {
+            S[n * numPhase + numPhase - 1] = flow[SATNUM[n]]->GetSwco();
         }
     }
 }
@@ -907,7 +923,6 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
     OCP_DBL Zmin = 1E8;
     OCP_DBL Zmax = 0;
 
-    OCP_DBL swco = flow[0]->GetSwco();
     OCP_DBL tmp;
 
     for (OCP_USI n = 0; n < numBulk; n++)
@@ -1243,6 +1258,13 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
 
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
+    // if capillary between water and oil is considered
+    vector<bool> FlagPcow(NTSFUN, true);
+    for (USI i = 0; i < NTSFUN; i++) {
+        if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY && fabs(flow[i]->GetPcowBySw(1.0 + TINY) < TINY)){
+            FlagPcow[i] = false;
+        }
+    }
 
     for (OCP_USI n = 0; n < numBulk; n++)
     {
@@ -1252,38 +1274,44 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
         OCP_DBL Pg = data[3];
         OCP_DBL Pcgo = Pg - Po;
         OCP_DBL Pcow = Po - Pw;
-        OCP_DBL Sw = flow[0]->GetSwByPcow(Pcow);
+        OCP_DBL Sw   = flow[SATNUM[n]]->GetSwByPcow(Pcow);
         OCP_DBL Sg = 0;
         if (gas)
         {
-            Sg = flow[0]->GetSgByPcgo(Pcgo);
+            Sg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
         }
         if (Sw + Sg > 1)
         {
             // should me modified
             OCP_DBL Pcgw = Pcow + Pcgo;
-            Sw = flow[0]->GetSwByPcgw(Pcgw);
+            Sw           = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
             Sg = 1 - Sw;
         }
 
         if (1 - Sw < TINY)
         {
             // all water
-            Po = Pw + flow[0]->GetPcowBySw(1.0);
+            Po = Pw + flow[SATNUM[n]]->GetPcowBySw(1.0);
         }
         else if (1 - Sg < TINY)
         {
             // all gas
-            Po = Pg - flow[0]->GetPcgoBySg(1.0);
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(1.0);
         }
         else if (1 - Sw - Sg < TINY)
         {
             // water and gas
-            Po = Pg - flow[0]->GetPcgoBySg(Sg);
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(Sg);
         }
         P[n] = Po;
 
-        // cal Sg and Sw
+        // cal Sw  --- Sg is not needed in initialization of Compositional Model
+        OCP_DBL swco = flow[SATNUM[n]]->GetSwco();
+        if (!FlagPcow[SATNUM[n]]) {
+            S[n * numPhase + numPhase - 1] = swco;
+            continue;
+        }
+               
         Sw = 0;
         Sg = 0;
         USI ncut = 10;
@@ -1301,23 +1329,23 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
             Pcow = Po - Pw;
             Pcgo = Pg - Po;
             avePcow += Pcow;
-            tmpSw = flow[0]->GetSwByPcow(Pcow);
+            tmpSw = flow[SATNUM[n]]->GetSwByPcow(Pcow);
             if (gas)
             {
-                tmpSg = flow[0]->GetSgByPcgo(Pcgo);
+                tmpSg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
             }
             if (tmpSw + tmpSg > 1)
             {
-                // should me modified
+                // should be modified
                 OCP_DBL Pcgw = Pcow + Pcgo;
-                tmpSw = flow[0]->GetSwByPcgw(Pcgw);
+                tmpSw        = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
                 tmpSg = 1 - tmpSw;
             }
             Sw += tmpSw;
-            Sg += tmpSg;
+            //Sg += tmpSg;
         }
         Sw /= ncut;
-        Sg /= ncut;
+        //Sg /= ncut;
         avePcow /= ncut;
 
         if (SwatInitExist) {
@@ -1331,7 +1359,7 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
                 Sw = SwatInit[n];
                 if (ScalePcow) {
                     if (avePcow > 0) {
-                        tmp = flow[0]->GetPcowBySw(Sw);
+                        tmp = flow[SATNUM[n]]->GetPcowBySw(Sw);
                         if (tmp > 0) {
                             ScaleValuePcow[n] = avePcow / tmp;                           
                             /*USI I, J, K;
@@ -1344,10 +1372,10 @@ void Bulk::InitSjPcComp(const USI &tabrow, const Grid& myGrid)
             }           
         }        
         S[n * numPhase + numPhase - 1] = Sw;
-        if (gas)
-        {
-            S[n * numPhase + numPhase - 2] = Sg;
-        }
+        //if (gas)
+        //{
+        //    S[n * numPhase + numPhase - 2] = Sg;
+        //}
     }
 }
 

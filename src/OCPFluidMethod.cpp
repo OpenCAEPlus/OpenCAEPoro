@@ -334,9 +334,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     //    cout << rs.bulk.totalPhaseNum[j] << "   ";
     //cout << endl;
 
-    
-
-//#ifdef _DEBUG
+#ifdef _DEBUG
     cout << "### Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
         << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
         << setw(80) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
@@ -362,7 +360,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // cout << "SdNi " << Dnorm1(rs.bulk.dNNR.size(), &rs.bulk.dNNR[0]) / rs.bulk.dNNR.size() << "   ";
     cout << endl;
     // rs.ShowRes(resFIM.res);
-//#endif
+#endif
 
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -377,7 +375,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if ((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);

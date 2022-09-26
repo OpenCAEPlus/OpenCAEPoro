@@ -227,9 +227,11 @@ private:
 
     USI               PVTmode;  ///< Identify PVT mode in blackoil model.
     vector<USI>       PVTNUM;   ///< Identify PVT region in blackoil model: numBulk.
+    USI               NTPVT;    ///< num of PVT regions
     vector<Mixture*>  flashCal; ///< Flash calculation class.
     USI               SATmode;  ///< Identify SAT mode.
     vector<USI>       SATNUM;   ///< Identify SAT region: numBulk.
+    USI               NTSFUN;   ///< num of SAT regions
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
     vector<vector<OCP_DBL>> satcm; ///< critical saturation when phase becomes mobile / immobile.
  
