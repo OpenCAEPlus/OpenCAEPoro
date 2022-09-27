@@ -66,8 +66,9 @@ public:
                   << "pl:       determine the print level."
                   << std::endl
                   << std::endl
-                  << "Only when method option is specified, does other options will work."
+                  << "Only when method option is specified, does other options will work. If length of "
                   << std::endl
+                  << "time step (dtInit,dtMax,dtMin) havn't been given, defaulted values will be used."
                   << std::endl;
         std::cout << "for examples" << std::endl;
         std::cout << "  " << cmdname
