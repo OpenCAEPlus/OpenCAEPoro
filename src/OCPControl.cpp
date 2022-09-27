@@ -54,6 +54,9 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
         buffer >> tmp;
 
         OCP_INT pos = tmp.find_last_of('=');
+
+        if (pos == string::npos) OCP_ABORT("Unknown Usage!");
+
         key         = tmp.substr(0, pos);
         value       = tmp.substr(pos + 1, tmp.size() - pos);
 
@@ -105,6 +108,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
                 break;
 
             default:
+                OCP_ABORT("Unknown Options: " + key);
                 break;
         }
 
