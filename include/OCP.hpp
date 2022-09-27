@@ -64,7 +64,11 @@ public:
                   << "dtMin:    determine the minimum time step."
                   << std::endl
                   << "pl:       determine the print level."
-                  << std::endl << std::endl;
+                  << std::endl
+                  << std::endl
+                  << "Only when method option is specified, does other options will work."
+                  << std::endl
+                  << std::endl;
         std::cout << "for examples" << std::endl;
         std::cout << "  " << cmdname
                   << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1  %% Solve SPE1a using FIM"
