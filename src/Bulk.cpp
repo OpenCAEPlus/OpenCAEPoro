@@ -2952,8 +2952,9 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
             dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;
             if (fabs(NRdNmax) < fabs(dNNR[n * numCom + i]) / Nt[n])
                 NRdNmax = dNNR[n * numCom + i] / Nt[n];
+
             Ni[n * numCom + i] += dNNR[n * numCom + i];
-        }      
+        }
         //cout << scientific << setprecision(6) << dP << "   " << n << endl;
     }
 }
