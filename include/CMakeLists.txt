@@ -2,7 +2,7 @@ target_sources(
   OpenCAEPoro
   PUBLIC AllWells.hpp
          Doxygen.hpp
-         FluidSolver.hpp
+         IsothermalSolver.hpp
          LinearSystem.hpp
          Mixture.hpp
          OCPFluidMethod.hpp

@@ -9,7 +9,7 @@ on:
 env:
     CI: false
 jobs:
-    doc-publish:
+    build:
         runs-on: [self-hosted, Linux]
         steps:
             - name: Basic info
