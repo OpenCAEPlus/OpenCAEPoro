@@ -502,6 +502,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
 
     OCP_USI bId, eId, uId;
     OCP_USI bId_np_j, eId_np_j, uId_np_j;
+    bool    phaseExistBj, phaseExistEj;
     OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
@@ -523,11 +524,14 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
             uId_np_j = uId * np + j;
+            
             if (!myBulk.phaseExist[uId_np_j]) continue;
+
+            phaseExistBj = myBulk.phaseExist[bId_np_j];
+            phaseExistEj = myBulk.phaseExist[eId_np_j];
+
             dP = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] -
                 upblock_Rho[c * np + j] * dGamma;
-            //dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
-            //    myBulk.rho[uId * np + j] * dGamma;
             xi     = myBulk.xi[uId_np_j];
             kr     = myBulk.kr[uId_np_j];
             mu     = myBulk.mu[uId_np_j];
@@ -543,13 +547,43 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
-                tmp = transIJ * (-rhoP * dGamma);
-                tmp += xij * transJ * xiP * dP;
-                tmp += -transIJ * muP / mu * dP;
-                if (bId == uId) {
-                    dFdXpB[(i + 1) * ncol] += tmp;
-                } else {
-                    dFdXpE[(i + 1) * ncol] += tmp;
+
+                const bool flag = false;
+
+                if (flag) {
+                    tmp = transIJ * (-rhoP * dGamma);
+                    tmp += xij * transJ * xiP * dP;
+                    tmp += -transIJ * muP / mu * dP;
+                    if (bId == uId) {
+                        dFdXpB[(i + 1) * ncol] += tmp;
+                    }
+                    else {
+                        dFdXpE[(i + 1) * ncol] += tmp;
+                    }
+                }
+                else {
+                    tmp = xij * transJ * xiP * dP;
+                    tmp += -transIJ * muP / mu * dP;
+                    if (!phaseExistEj) {
+                        tmp += transIJ * (-rhoP * dGamma);
+                        dFdXpB[(i + 1) * ncol] += tmp;
+                    }
+                    else if (!phaseExistBj) {
+                        tmp += transIJ * (-rhoP * dGamma);
+                        dFdXpE[(i + 1) * ncol] += tmp;
+                    }
+                    else {
+                        dFdXpB[(i + 1) * ncol] +=
+                            transIJ * (-myBulk.rhoP[bId_np_j] * dGamma) / 2;
+                        dFdXpE[(i + 1) * ncol] +=
+                            transIJ * (-myBulk.rhoP[eId_np_j] * dGamma) / 2;
+                        if (bId == uId) {
+                            dFdXpB[(i + 1) * ncol] += tmp;
+                        }
+                        else {
+                            dFdXpE[(i + 1) * ncol] += tmp;
+                        }
+                    }
                 }
 
                 // Second var
@@ -565,16 +599,45 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
                             transIJ * myBulk.dPcj_dS[eId_np_j * np + k];
 					}
                     // Cij
-                    for (USI k = 0; k < nc; k++) {
-                        rhox = myBulk.rhox[uId_np_j * nc + k];
-                        xix = myBulk.xix[uId_np_j * nc + k];
-                        mux = myBulk.mux[uId_np_j * nc + k];
-                        tmp = -transIJ * rhox * dGamma;
-                        tmp += xij * transJ * xix * dP;
-                        tmp += -transIJ * mux / mu * dP;
-                        dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                    if (flag) {
+                        for (USI k = 0; k < nc; k++) {
+                            rhox = myBulk.rhox[uId_np_j * nc + k];
+                            xix = myBulk.xix[uId_np_j * nc + k];
+                            mux = myBulk.mux[uId_np_j * nc + k];
+                            tmp = -transIJ * rhox * dGamma;
+                            tmp += xij * transJ * xix * dP;
+                            tmp += -transIJ * mux / mu * dP;
+                            dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                        }
+                        dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
                     }
-                    dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                    else {
+                        if (!phaseExistEj) {
+                            for (USI k = 0; k < nc; k++) {
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                            }
+                            dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                        }
+                        else {
+                            for (USI k = 0; k < nc; k++) {
+                                rhox = myBulk.rhox[bId_np_j * nc + k] / 2;
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * myBulk.rhox[eId_np_j * nc + k] / 2 * dGamma;
+                            }
+                            dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                        }
+                    }
 				}
 				else {
                     // Saturation
@@ -588,16 +651,45 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
 						dFdXsE[(i + 1) * ncol2 + k] += tmp;
 					}
                     // Cij
-                    for (USI k = 0; k < nc; k++) {
-                        rhox = myBulk.rhox[uId_np_j * nc + k];
-                        xix = myBulk.xix[uId_np_j * nc + k];
-                        mux = myBulk.mux[uId_np_j * nc + k];
-                        tmp = -transIJ * rhox * dGamma;
-                        tmp += xij * transJ * xix * dP;
-                        tmp += -transIJ * mux / mu * dP;
-                        dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                    if (flag) {
+                        for (USI k = 0; k < nc; k++) {
+                            rhox = myBulk.rhox[uId_np_j * nc + k];
+                            xix = myBulk.xix[uId_np_j * nc + k];
+                            mux = myBulk.mux[uId_np_j * nc + k];
+                            tmp = -transIJ * rhox * dGamma;
+                            tmp += xij * transJ * xix * dP;
+                            tmp += -transIJ * mux / mu * dP;
+                            dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                        }
+                        dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
                     }
-                    dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                    else {
+                        if (!phaseExistBj) {
+                            for (USI k = 0; k < nc; k++) {
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                            }
+                            dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                        }
+                        else {
+                            for (USI k = 0; k < nc; k++) {
+                                rhox = myBulk.rhox[eId_np_j * nc + k] / 2;
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * myBulk.rhox[bId_np_j * nc + k] / 2 * dGamma;
+                            }
+                            dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
+                        }
+                    }
 				}
             }
         }
@@ -901,8 +993,6 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
             uId_np_j = uId * np + j;
             dP = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] -
                 upblock_Rho[c * np + j] * dGamma;
-            //dP = myBulk.Pj[bId * np + j] - myBulk.Pj[eId * np + j] -
-            //    myBulk.rho[uId * np + j] * dGamma;
             xi = myBulk.xi[uId_np_j];
             kr = myBulk.kr[uId_np_j];
             mu = myBulk.mu[uId_np_j];
@@ -921,7 +1011,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                 dFdXpE[(i + 1) * ncol] -= transIJ;
 
 
-                const bool flag = true;
+                const bool flag = false;
 
                 if (flag) {
                     tmp = transIJ * (-rhoP * dGamma);
@@ -993,7 +1083,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                     else {
                         if (!phaseExistE[j]) {
                             for (USI k = 0; k < pEnumComB[j]; k++) {
-                                rhox = myBulk.rhox[bId_np_j * nc + k];
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
                                 xix = myBulk.xix[uId_np_j * nc + k];
                                 mux = myBulk.mux[uId_np_j * nc + k];
                                 tmp = -transIJ * rhox * dGamma;
@@ -1057,7 +1147,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
                     else {
                         if (!phaseExistB[j]) {
                             for (USI k = 0; k < pEnumComE[j]; k++) {
-                                rhox = myBulk.rhox[eId_np_j * nc + k];
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
                                 xix = myBulk.xix[uId_np_j * nc + k];
                                 mux = myBulk.mux[uId_np_j * nc + k];
                                 tmp = -transIJ * rhox * dGamma;
