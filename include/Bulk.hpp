@@ -217,7 +217,7 @@ private:
     USI     numPhase; ///< Number of phase.
     USI     numCom;   ///< Number of component.
     USI     numCom_1; ///< numCom - 1
-    vector<OCP_USI> totalPhaseNum; ///< total num of phase in reservoir
+
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
     vector<OCP_DBL>   initZi;   ///< Initial proportion of each component.

@@ -38,7 +38,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
             output.SetVal(rs, ctrl);
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
-        if (ctrl.printLevel > 1) {
+        if (ctrl.printLevel > 2) {
             // Print Summary and critical information at every TSTEP
             output.PrintInfo();
         }       

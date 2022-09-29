@@ -273,7 +273,6 @@ void Bulk::Setup(const Grid &myGrid)
     Nt.resize(numBulk);
 
     // Phase num
-    totalPhaseNum.resize(numPhase);
     phaseNum.resize(numBulk);
     lphaseNum.resize(numBulk);
     NRphaseNum.resize(numBulk);
@@ -1484,7 +1483,6 @@ void Bulk::FlashCOMP()
     OCP_USI bId;
     OCP_DBL Ntw;
     OCP_DBL minEig;
-    fill(totalPhaseNum.begin(), totalPhaseNum.end(), 0);
     // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++)
     {
@@ -1577,7 +1575,6 @@ void Bulk::FlashDerivCOMP()
     OCP_USI bId;
     OCP_DBL Ntw;
     OCP_DBL minEig;
-    fill(totalPhaseNum.begin(), totalPhaseNum.end(), 0);
     NRdSSP = 0;
     maxNRdSSP = 0;
     index_maxNRdSSP = 0;
@@ -1715,7 +1712,6 @@ void Bulk::PassFlashValue(const OCP_USI &n)
         S[bIdp + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j   fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
             xi[bIdp + j] = flashCal[pvtnum]->xi[j];
@@ -1877,7 +1873,6 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
         len += pEnumCom[bIdp + j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             nj[bIdp + j] = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
@@ -2001,7 +1996,6 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         len += pEnumCom[bIdp + j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             nj[bIdp + j] = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
