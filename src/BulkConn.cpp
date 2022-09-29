@@ -1358,16 +1358,44 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
                 // Pressure -- Primary var
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
-                tmp = transIJ * (-rhoP * dGamma);
-                tmp += xij * transJ * xiP * dP;
-                tmp += -transIJ * muP / mu * dP;
-                if (bId == uId) {
-                    dFdXpB[(i + 1) * ncol] += tmp;
+
+                const bool flag = false;
+
+                if (flag) {
+                    tmp = transIJ * (-rhoP * dGamma);
+                    tmp += xij * transJ * xiP * dP;
+                    tmp += -transIJ * muP / mu * dP;
+                    if (bId == uId) {
+                        dFdXpB[(i + 1) * ncol] += tmp;
+                    }
+                    else {
+                        dFdXpE[(i + 1) * ncol] += tmp;
+                    }
                 }
                 else {
-                    dFdXpE[(i + 1) * ncol] += tmp;
+                    tmp = xij * transJ * xiP * dP;
+                    tmp += -transIJ * muP / mu * dP;
+                    if (!phaseExistE[j]) {
+                        tmp += transIJ * (-rhoP * dGamma);
+                        dFdXpB[(i + 1) * ncol] += tmp;
+                    }
+                    else if (!phaseExistB[j]) {
+                        tmp += transIJ * (-rhoP * dGamma);
+                        dFdXpE[(i + 1) * ncol] += tmp;
+                    }
+                    else {
+                        dFdXpB[(i + 1) * ncol] +=
+                            transIJ * (-myBulk.rhoP[bId_np_j] * dGamma) / 2;
+                        dFdXpE[(i + 1) * ncol] +=
+                            transIJ * (-myBulk.rhoP[eId_np_j] * dGamma) / 2;
+                        if (bId == uId) {
+                            dFdXpB[(i + 1) * ncol] += tmp;
+                        }
+                        else {
+                            dFdXpE[(i + 1) * ncol] += tmp;
+                        }
+                    }
                 }
-
                 // Second var
                 USI j1SB = 0; USI j1SE = 0;
                 if (bId == uId) {
@@ -1387,20 +1415,55 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
                             j1SE++;
                         }
                     }
-                    // Cij                    
-                    for (USI k = 0; k < pEnumComB[j]; k++) {
-                        rhox = myBulk.rhox[uId_np_j * nc + k];
-                        xix = myBulk.xix[uId_np_j * nc + k];
-                        mux = myBulk.mux[uId_np_j * nc + k];
-                        tmp = -transIJ * rhox * dGamma;
-                        tmp += xij * transJ * xix * dP;
-                        tmp += -transIJ * mux / mu * dP;
-                        tmp -= transIJ * dP / myBulk.nj[uId_np_j];
-                        dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
+                    // Cij
+                    if (flag) {
+                        for (USI k = 0; k < pEnumComB[j]; k++) {
+                            rhox = myBulk.rhox[uId_np_j * nc + k];
+                            xix = myBulk.xix[uId_np_j * nc + k];
+                            mux = myBulk.mux[uId_np_j * nc + k];
+                            tmp = -transIJ * rhox * dGamma;
+                            tmp += xij * transJ * xix * dP;
+                            tmp += -transIJ * mux / mu * dP;
+                            tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                            dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
+                        }
+                        // WARNING !!!
+                        if (i < pEnumComB[j])
+                            dFdXsB[(i + 1) * ncolB + jxB + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
                     }
-                    // WARNING !!!
-                    if (i < pEnumComB[j])
-                        dFdXsB[(i + 1) * ncolB + jxB + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                    else {
+                        if (!phaseExistE[j]) {
+                            for (USI k = 0; k < pEnumComB[j]; k++) {
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                                dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
+                            }
+                            // WARNING !!!
+                            if (i < pEnumComB[j])
+                                dFdXsB[(i + 1) * ncolB + jxB + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                        }
+                        else {
+                            for (USI k = 0; k < pEnumComB[j]; k++) {
+                                rhox = myBulk.rhox[bId_np_j * nc + k] / 2;
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                                dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
+                                dFdXsE[(i + 1) * ncolE + jxE + k] += -transIJ * myBulk.rhox[eId_np_j * nc + k] / 2 * dGamma;
+                            }
+                            // WARNING !!!
+                            if (i < pEnumComB[j])
+                                dFdXsB[(i + 1) * ncolB + jxB + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                        }
+                    }
                 }
                 else {
                     // Saturation
@@ -1419,20 +1482,55 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
                             j1SE++;
                         }
                     }
-                    // Cij                    
-                    for (USI k = 0; k < pEnumComE[j]; k++) {
-                        rhox = myBulk.rhox[uId_np_j * nc + k];
-                        xix = myBulk.xix[uId_np_j * nc + k];
-                        mux = myBulk.mux[uId_np_j * nc + k];
-                        tmp = -transIJ * rhox * dGamma;
-                        tmp += xij * transJ * xix * dP;
-                        tmp += -transIJ * mux / mu * dP;
-                        tmp -= transIJ * dP / myBulk.nj[uId_np_j];
-                        dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
+                    // Cij
+                    if (flag) {
+                        for (USI k = 0; k < pEnumComE[j]; k++) {
+                            rhox = myBulk.rhox[uId_np_j * nc + k];
+                            xix = myBulk.xix[uId_np_j * nc + k];
+                            mux = myBulk.mux[uId_np_j * nc + k];
+                            tmp = -transIJ * rhox * dGamma;
+                            tmp += xij * transJ * xix * dP;
+                            tmp += -transIJ * mux / mu * dP;
+                            tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                            dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
+                        }
+                        // WARNING !!!
+                        if (i < pEnumComE[j])
+                            dFdXsE[(i + 1) * ncolE + jxE + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
                     }
-                    // WARNING !!!
-                    if (i < pEnumComE[j])
-                        dFdXsE[(i + 1) * ncolE + jxE + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                    else {
+                        if (!phaseExistB[j]) {
+                            for (USI k = 0; k < pEnumComE[j]; k++) {
+                                rhox = myBulk.rhox[uId_np_j * nc + k];
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                                dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
+                            }
+                            // WARNING !!!
+                            if (i < pEnumComE[j])
+                                dFdXsE[(i + 1) * ncolE + jxE + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                        }
+                        else {
+                            for (USI k = 0; k < pEnumComE[j]; k++) {
+                                rhox = myBulk.rhox[eId_np_j * nc + k] / 2;
+                                xix = myBulk.xix[uId_np_j * nc + k];
+                                mux = myBulk.mux[uId_np_j * nc + k];
+                                tmp = -transIJ * rhox * dGamma;
+                                tmp += xij * transJ * xix * dP;
+                                tmp += -transIJ * mux / mu * dP;
+                                tmp -= transIJ * dP / myBulk.nj[uId_np_j];
+                                dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
+                                dFdXsB[(i + 1) * ncolB + jxB + k] += -transIJ * myBulk.rhox[bId_np_j * nc + k] / 2 * dGamma;
+                            }
+                            // WARNING !!!
+                            if (i < pEnumComE[j])
+                                dFdXsE[(i + 1) * ncolE + jxE + i] += xi * transJ * dP / myBulk.nj[uId_np_j];
+                        }
+                    }
                 }
             }
             jxB += pEnumComB[j];
