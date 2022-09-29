@@ -14,7 +14,7 @@ var searchData=
   ['allocatematimpec_1115',['AllocateMatIMPEC',['../classReservoir.html#a09d8bdf2a71df7c71c9bd15fc9da1ada',1,'Reservoir']]],
   ['allocaterowmem_1116',['AllocateRowMem',['../classLinearSystem.html#a97b1b8a843d49ac3968278c68fce975d',1,'LinearSystem']]],
   ['allocatewellbulkid_1117',['AllocateWellBulkId',['../classBulk.html#a1c36a02a068ea25e70ae194349302748',1,'Bulk']]],
-  ['applycontrol_1118',['ApplyControl',['../classAllWells.html#a6687a89061fd6a296715c85279580b0b',1,'AllWells::ApplyControl()'],['../classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff',1,'OCPControl::ApplyControl()'],['../classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1',1,'Reservoir::ApplyControl()']]],
+  ['applycontrol_1118',['ApplyControl',['../classAllWells.html#a6687a89061fd6a296715c85279580b0b',1,'AllWells::ApplyControl()'],['../classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50',1,'OCPControl::ApplyControl()'],['../classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1',1,'Reservoir::ApplyControl()']]],
   ['assemblamataims_1119',['AssemblaMatAIMs',['../classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30',1,'AllWells']]],
   ['assemblamataimt_1120',['AssemblaMatAIMt',['../classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749',1,'AllWells']]],
   ['assemblamatfim_1121',['AssemblaMatFIM',['../classAllWells.html#a1d11a622e6c8580a7d502c4c03376424',1,'AllWells']]],

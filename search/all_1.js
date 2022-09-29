@@ -25,7 +25,7 @@ var searchData=
   ['allwells_2ecpp_25',['AllWells.cpp',['../AllWells_8cpp.html',1,'']]],
   ['allwells_2ehpp_26',['AllWells.hpp',['../AllWells_8hpp.html',1,'']]],
   ['amgparam_27',['amgParam',['../classFaspSolver.html#a16da73f5ea99b4745f7d268b247efd9a',1,'FaspSolver']]],
-  ['applycontrol_28',['ApplyControl',['../classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1',1,'Reservoir::ApplyControl()'],['../classAllWells.html#a6687a89061fd6a296715c85279580b0b',1,'AllWells::ApplyControl()'],['../classOCPControl.html#a7ef84146cd9357f8f97f9f41f37315ff',1,'OCPControl::ApplyControl()']]],
+  ['applycontrol_28',['ApplyControl',['../classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1',1,'Reservoir::ApplyControl()'],['../classAllWells.html#a6687a89061fd6a296715c85279580b0b',1,'AllWells::ApplyControl()'],['../classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50',1,'OCPControl::ApplyControl()']]],
   ['area_29',['area',['../classGPair.html#a2b5874523bda006f4227518e222f0282',1,'GPair']]],
   ['assemblamataims_30',['AssemblaMatAIMs',['../classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30',1,'AllWells']]],
   ['assemblamataimt_31',['AssemblaMatAIMt',['../classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749',1,'AllWells']]],
