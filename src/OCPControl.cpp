@@ -188,12 +188,13 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
     }
 }
 
-void OCPControl::ApplyControl(const USI& i)
+void OCPControl::ApplyControl(const USI& i, const Reservoir& rs)
 {
     ctrlTime    = ctrlTimeSet[i];
     ctrlPreTime = ctrlPreTimeSet[i];
     ctrlNR      = ctrlNRSet[i];
     end_time    = criticalTime[i + 1];
+    wellChange = rs.allWells.GetWellChange();
     InitTime(i);
 }
 
@@ -203,7 +204,7 @@ void OCPControl::InitTime(const USI& i)
     if (dt <= 0) OCP_ABORT("Non-positive time stepsize!");
 
     static bool firstflag = true;
-    if (firstflag || true) {
+    if (wellChange || firstflag) {
         current_dt = min(dt, ctrlTime.timeInit);
         firstflag = false;
     }

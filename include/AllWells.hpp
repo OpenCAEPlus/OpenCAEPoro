@@ -190,7 +190,7 @@ public:
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
     OCP_DBL CalWellQT();
     void ShowWellStatus(const Bulk& myBulk) { for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk); }
-
+    bool GetWellChange() const { return wellChange; }
 
 private:
     USI          numWell;   ///< num of wells.
@@ -198,6 +198,7 @@ private:
     USI          numGroup; ///< num of groups
     vector<WellGroup> wellGroup; ///< wellGroup set
 
+    bool         wellChange; ///< if wells change, then true
     vector<SolventINJ> solvents; ///< Sets of Solvent
     OCP_DBL            dPmax{0}; ///< Maximum BHP change
 

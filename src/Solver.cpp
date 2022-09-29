@@ -31,7 +31,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
     for (USI d = 0; d < numTSteps - 1; d++)
     {
         rs.ApplyControl(d);
-        ctrl.ApplyControl(d);
+        ctrl.ApplyControl(d, rs);
         while (!ctrl.IsCriticalTime(d + 1))
         {
             GoOneStep(rs, ctrl);

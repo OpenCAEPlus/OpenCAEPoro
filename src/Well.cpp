@@ -62,15 +62,15 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
 
 bool WellOpt::operator !=(const WellOpt& Opt) const
 {
-    if (this->type != Opt.type)                 return false;
-    if (this->state != Opt.state)               return false;
-    if (this->optMode != Opt.optMode)           return false;
-    if (this->initOptMode != Opt.initOptMode)   return false;
-    if (this->maxRate != Opt.maxRate)           return false;
-    if (this->maxBHP != Opt.maxBHP)             return false;
-    if (this->minBHP != Opt.minBHP)             return false;
+    if (this->type != Opt.type)                 return true;
+    if (this->state != Opt.state)               return true;
+    if (this->optMode != Opt.optMode)           return true;
+    if (this->initOptMode != Opt.initOptMode)   return true;
+    if (this->maxRate != Opt.maxRate)           return true;
+    if (this->maxBHP != Opt.maxBHP)             return true;
+    if (this->minBHP != Opt.minBHP)             return true;
     for (USI i = 0; i < zi.size(); i++) {
-        if (fabs(zi[i] - Opt.zi[i]) > TINY)     return false;
+        if (fabs(zi[i] - Opt.zi[i]) > TINY)     return true;
     }
     return false;
 }
