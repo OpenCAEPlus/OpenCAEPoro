@@ -339,77 +339,79 @@ $(function() {
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>;</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">if</span> (current_dt &lt; ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>;</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt = end_time - current_time;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; dt) current_dt = dt;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;FactorT: &quot; &lt;&lt; c &lt;&lt; &quot;   Next dt: &quot; &lt;&lt; dt &lt;&lt; endl;</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;}</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keywordtype">void</span> OCPControl::CalNextTstepFIM(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir)</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;{</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    last_dt = current_dt;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    current_time += current_dt;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> c1, c2, c;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    c1 = c2 = 10;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmaxB = reservoir.bulk.<a class="code" href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">GetdPmax</a>();</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmaxW = reservoir.allWells.GetdBHPmax();</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmax  = max(dPmaxB, dPmaxW);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dSmax = reservoir.bulk.<a class="code" href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">GetdSmax</a>();</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span> (dPmax &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) c1 = ctrlPreTime.<a class="code" href="classControlPreTime.html#a8cb29379ca77e5d5e9e560d881dd7ef8">dPlim</a> / dPmax;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keywordflow">if</span> (dSmax &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) c2 = ctrlPreTime.<a class="code" href="classControlPreTime.html#a3dca6d60f34e4b73766a53958f3be9d3">dSlim</a> / dSmax;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> c3 = 1.5;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    init_dt = current_dt;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt = end_time - current_time;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; dt) current_dt = dt;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;FactorT: &quot; &lt;&lt; c &lt;&lt; &quot;   Next dt: &quot; &lt;&lt; dt &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="keywordtype">void</span> OCPControl::CalNextTstepFIM(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir)</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;{</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    last_dt = current_dt;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    current_time += current_dt;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> c1, c2, c;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    c1 = c2 = 10;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmaxB = reservoir.bulk.<a class="code" href="classBulk.html#ac81795732f0229683d9766b4bc99ca4c">GetdPmax</a>();</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmaxW = reservoir.allWells.GetdBHPmax();</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dPmax  = max(dPmaxB, dPmaxW);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dSmax = reservoir.bulk.<a class="code" href="classBulk.html#aa5ad01a5860101685946e77e4c20677f">GetdSmax</a>();</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">if</span> (dPmax &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) c1 = ctrlPreTime.<a class="code" href="classControlPreTime.html#a8cb29379ca77e5d5e9e560d881dd7ef8">dPlim</a> / dPmax;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keywordflow">if</span> (dSmax &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) c2 = ctrlPreTime.<a class="code" href="classControlPreTime.html#a3dca6d60f34e4b73766a53958f3be9d3">dSlim</a> / dSmax;</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">if</span> (iterNR &lt; 30) { <span class="comment">// temp</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        c3 = 2;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (iterNR &gt; 8) {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        c3 = 0.5;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    }</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    c = min(min(c1, c2), c3);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    c = max(ctrlTime.<a class="code" href="classControlTime.html#aa6781b46d00c251ca13fb1e0cf568a41">minChopFac</a>, c);</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    c = min(ctrlTime.<a class="code" href="classControlTime.html#af5056bfeb2aae028d12e8d85ee3f1aa5">maxIncreFac</a>, c);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    current_dt *= c;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> (current_dt &lt; ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    init_dt = current_dt;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> c3 = 1.5;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> (iterNR &lt; 30) { <span class="comment">// temp</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        c3 = 2;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (iterNR &gt; 8) {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        c3 = 0.5;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    }</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    c = min(min(c1, c2), c3);</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    c = max(ctrlTime.<a class="code" href="classControlTime.html#aa6781b46d00c251ca13fb1e0cf568a41">minChopFac</a>, c);</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    c = min(ctrlTime.<a class="code" href="classControlTime.html#af5056bfeb2aae028d12e8d85ee3f1aa5">maxIncreFac</a>, c);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    current_dt *= c;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a567c47ef8d0937c6641b312ac60ec2ad">timeMax</a>;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">if</span> (current_dt &lt; ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>) current_dt = ctrlTime.<a class="code" href="classControlTime.html#a722ddfd2753f459a404058702d983a9f">timeMin</a>;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt = end_time - current_time;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; dt) current_dt = dt;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    init_dt = current_dt;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt = end_time - current_time;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordflow">if</span> (current_dt &gt; dt) current_dt = dt;</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
-<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">  322</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">OCPControl::UpdateIters</a>()</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;{</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    numTstep += 1;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    iterNR_total += iterNR;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    iterLS_total += iterLS;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    iterNR = 0;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    iterLS = 0;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno"><a class="line" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">  331</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">OCPControl::ResetIterNRLS</a>()</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;{</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    wastedIterNR += iterNR;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    iterNR = 0;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    wastedIterLS += iterLS;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    iterLS = 0;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;}</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;}</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
+<div class="line"><a name="l00324"></a><span class="lineno"><a class="line" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">  324</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">OCPControl::UpdateIters</a>()</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;{</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    numTstep += 1;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    iterNR_total += iterNR;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    iterLS_total += iterLS;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    iterNR = 0;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    iterLS = 0;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">  333</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">OCPControl::ResetIterNRLS</a>()</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;{</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    wastedIterNR += iterNR;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    iterNR = 0;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    wastedIterLS += iterLS;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    iterLS = 0;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;}</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a12e00ef2e95a073dbc0c93386c654ed6"><div class="ttname"><a href="OCPConst_8hpp.html#a12e00ef2e95a073dbc0c93386c654ed6">AIMs</a></div><div class="ttdeci">const USI AIMs</div><div class="ttdoc">Adaptive implicit.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00072">OCPConst.hpp:72</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00036">OCPConst.hpp:36</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a1f1ab38d06a031d261e455d82dd692db"><div class="ttname"><a href="OCPConst_8hpp.html#a1f1ab38d06a031d261e455d82dd692db">AIMt</a></div><div class="ttdeci">const USI AIMt</div><div class="ttdoc">improved version of IMPEC, loacl FIM after IMPEC</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00073">OCPConst.hpp:73</a></div></div>
@@ -456,8 +458,8 @@ $(function() {
 <div class="ttc" id="aclassOCPControl_html_a122d51e2cb41d6be5fc593e546e2ec65"><div class="ttname"><a href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">OCPControl::SetupFastControl</a></div><div class="ttdeci">void SetupFastControl(const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup fast Control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00217">OCPControl.cpp:217</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_a1e9225825933d72ba9c78327d1ff10b5"><div class="ttname"><a href="classOCPControl.html#a1e9225825933d72ba9c78327d1ff10b5">OCPControl::CalNextTstepIMPEC</a></div><div class="ttdeci">void CalNextTstepIMPEC(const Reservoir &amp;reservoir)</div><div class="ttdoc">Calculate the next time step according to max change of some variables.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00247">OCPControl.cpp:247</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_a7990f8f4b2dccf6df42d10a33f320133"><div class="ttname"><a href="classOCPControl.html#a7990f8f4b2dccf6df42d10a33f320133">OCPControl::InputParam</a></div><div class="ttdeci">void InputParam(const ParamControl &amp;CtrlParam)</div><div class="ttdoc">Input parameters for control.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00149">OCPControl.cpp:149</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a90d96fc1a7bbb27f435c4c630694088d"><div class="ttname"><a href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">OCPControl::UpdateIters</a></div><div class="ttdeci">void UpdateIters()</div><div class="ttdoc">Update the number of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00322">OCPControl.cpp:322</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_abd447792ee50b20ad738c8ef1fdeab1d"><div class="ttname"><a href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">OCPControl::ResetIterNRLS</a></div><div class="ttdeci">void ResetIterNRLS()</div><div class="ttdoc">Reset the number of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00331">OCPControl.cpp:331</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a90d96fc1a7bbb27f435c4c630694088d"><div class="ttname"><a href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">OCPControl::UpdateIters</a></div><div class="ttdeci">void UpdateIters()</div><div class="ttdoc">Update the number of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00324">OCPControl.cpp:324</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_abd447792ee50b20ad738c8ef1fdeab1d"><div class="ttname"><a href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">OCPControl::ResetIterNRLS</a></div><div class="ttdeci">void ResetIterNRLS()</div><div class="ttdoc">Reset the number of iterations.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00333">OCPControl.cpp:333</a></div></div>
 <div class="ttc" id="aclassOCPControl_html_ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba"><div class="ttname"><a href="classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba">OCPControl::InitTime</a></div><div class="ttdeci">void InitTime(const USI &amp;i)</div><div class="ttdoc">Initialize time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00201">OCPControl.cpp:201</a></div></div>
 <div class="ttc" id="aclassParamControl_html"><div class="ttname"><a href="classParamControl.html">ParamControl</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8hpp_source.html#l00045">ParamControl.hpp:46</a></div></div>
 <div class="ttc" id="aclassParamControl_html_a099e2adb0b2ad44d35a405a836b7f039"><div class="ttname"><a href="classParamControl.html#a099e2adb0b2ad44d35a405a836b7f039">ParamControl::criticalTime</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; criticalTime</div><div class="ttdef"><b>Definition:</b> <a href="ParamControl_8hpp_source.html#l00056">ParamControl.hpp:56</a></div></div>
@@ -469,7 +471,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 29 2022 03:06:26 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Sep 29 2022 04:12:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
