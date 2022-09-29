@@ -273,6 +273,8 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
     if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
 
+    init_dt = current_dt;
+
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
 
