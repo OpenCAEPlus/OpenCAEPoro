@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['eoscontrol_957',['EoScontrol',['../classEoScontrol.html',1,'']]],
-  ['eosparam_958',['EoSparam',['../classEoSparam.html',1,'']]]
+  ['eoscontrol_959',['EoScontrol',['../classEoScontrol.html',1,'']]],
+  ['eosparam_960',['EoSparam',['../classEoSparam.html',1,'']]]
 ];
