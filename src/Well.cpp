@@ -59,6 +59,23 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     minBHP      = Optparam.minBHP;
 }
 
+
+bool WellOpt::operator !=(const WellOpt& Opt) const
+{
+    if (this->type != Opt.type)                 return true;
+    if (this->state != Opt.state)               return true;
+    if (this->optMode != Opt.optMode)           return true;
+    if (this->initOptMode != Opt.initOptMode)   return true;
+    if (this->maxRate != Opt.maxRate)           return true;
+    if (this->maxBHP != Opt.maxBHP)             return true;
+    if (this->minBHP != Opt.minBHP)             return true;
+    for (USI i = 0; i < zi.size(); i++) {
+        if (fabs(zi[i] - Opt.zi[i]) > TINY)     return true;
+    }
+    return false;
+}
+
+
 void Well::InputPerfo(const WellParam& well)
 {
     OCP_FUNCNAME;

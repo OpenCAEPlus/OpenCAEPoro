@@ -42,7 +42,85 @@ ControlNR::ControlNR(const vector<OCP_DBL>& src)
 
 void FastControl::ReadParam(const USI& argc, const char* optset[])
 {
-    if (argc >= 6) {
+    activity = false;
+    timeInit = timeMax = timeMin = -1.0;
+
+    std::stringstream buffer;
+    string             tmp;
+    string            key;
+    string             value;
+    for (USI n = 2; n < argc; n++) {
+        buffer << optset[n];
+        buffer >> tmp;
+
+        OCP_INT pos = tmp.find_last_of('=');
+
+        if (pos == string::npos) OCP_ABORT("Unknown Usage! See -h");
+
+        key         = tmp.substr(0, pos);
+        value       = tmp.substr(pos + 1, tmp.size() - pos);
+
+        switch (Map_Str2Int(&key[0],key.size())) 
+        {
+
+            case Map_Str2Int("method",6):
+                if (value == "FIM") {
+                    method = FIM;
+                } else if (value == "FIMn") {
+                    method = FIMn;
+                } else if (value == "IMPEC") {
+                    method = IMPEC;
+                } else if (value == "AIMc") {
+                    method = AIMc;
+                } else if (value == "AIMs") {
+                    method = AIMs;
+                } else if (value == "AIMt") {
+                    method = AIMt;
+                } else {
+                    OCP_ABORT("Wrong method param in command line!");
+                }
+                activity = true;
+                if (method == FIM || method == FIMn || method == AIMc) {
+                    if (timeInit <= 0) timeInit = 0.1;
+                    if (timeMax <= 0) timeMax = 10.0;
+                    if (timeMin <= 0) timeMin = 0.1;
+                } else {
+                    if (timeInit <= 0) timeInit = 0.1;
+                    if (timeMax <= 0) timeMax = 1.0;
+                    if (timeMin <= 0) timeMin = 0.1;
+                }               
+                break;
+
+            case Map_Str2Int("dtInit", 6):
+                timeInit = stod(value);
+                break;
+
+            case Map_Str2Int("dtMin", 5):
+                timeMin = stod(value);
+                break;
+
+            case Map_Str2Int("dtMax", 5):
+                timeMax = stod(value);
+                break;
+
+            case Map_Str2Int("pl", 2):
+                printLevel = stoi(value);
+                break;
+
+            default:
+                OCP_ABORT("Unknown Options: " + key + "   See -h");
+                break;
+        }
+
+        buffer.clear();
+    }
+
+
+
+
+
+
+    if (argc >= 6 && false) {
         activity = true;
         if (string(optset[2]) == "FIM") {
             method = FIM;
@@ -110,12 +188,13 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
     }
 }
 
-void OCPControl::ApplyControl(const USI& i)
+void OCPControl::ApplyControl(const USI& i, const Reservoir& rs)
 {
     ctrlTime    = ctrlTimeSet[i];
     ctrlPreTime = ctrlPreTimeSet[i];
     ctrlNR      = ctrlNRSet[i];
     end_time    = criticalTime[i + 1];
+    wellChange = rs.allWells.GetWellChange();
     InitTime(i);
 }
 
@@ -125,7 +204,7 @@ void OCPControl::InitTime(const USI& i)
     if (dt <= 0) OCP_ABORT("Non-positive time stepsize!");
 
     static bool firstflag = true;
-    if (firstflag || true) {
+    if (wellChange || firstflag) {
         current_dt = min(dt, ctrlTime.timeInit);
         firstflag = false;
     }
@@ -193,6 +272,8 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
 
     if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
     if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
+
+    init_dt = current_dt;
 
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;

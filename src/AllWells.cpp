@@ -149,6 +149,7 @@ void AllWells::SetupWellBulk(Bulk& myBulk) const
 void AllWells::ApplyControl(const USI& i)
 {
     OCP_FUNCNAME;
+    wellChange = false;
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
         wells[w].opt = wells[w].optSet[i];
@@ -156,6 +157,8 @@ void AllWells::ApplyControl(const USI& i)
             wells[w].wEId = wId;
             wId++;
         }
+        if (i > 0 && wells[w].opt != wells[w].optSet[i - 1])
+            wellChange = true;
     }
 }
 

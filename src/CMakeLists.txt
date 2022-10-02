@@ -2,7 +2,7 @@ target_sources(
   OpenCAEPoro
   PRIVATE AllWells.cpp
          DenseMat.cpp
-         FluidSolver.cpp
+         IsothermalSolver.cpp
          MixtureBO2_OW.cpp
          MixtureComp.cpp
          OCPFluidMethod.cpp

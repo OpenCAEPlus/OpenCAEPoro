@@ -23,9 +23,23 @@
 
 <div STYLE="page-break-after: always;"></div>
 
-## Flow chart
+## Top Structure
 
-<img src="./FlowChart.png" alt="Flow chart" width="600"
+<img src="./TopStructure.png" alt="Top Structure" width="600"
+     style="display: block; margin: 0 auto"/>
+
+<div STYLE="page-break-after: always;"></div>
+
+## Solve Structure
+
+<img src="./SolveStructure.png" alt="Solve Structure" width="600"
+     style="display: block; margin: 0 auto"/>
+
+<div STYLE="page-break-after: always;"></div>
+
+## WorkFlow
+
+<img src="./WorkFlow.png" alt="WorkFlow" width="600"
      style="display: block; margin: 0 auto"/>
 
 <div STYLE="page-break-after: always;"></div>

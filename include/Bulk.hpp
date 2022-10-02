@@ -84,6 +84,9 @@ public:
     void InitSjPcComp(const USI& tabrow, const Grid& myGrid);
     /// Perform flash calculation with saturations.
     void InitFlash(const bool& flag = false);
+    /// Perform flash calculation with saturations and calculate derivatives.
+    void InitFlashDer();
+    void InitFlashDer_n();
     /// Perform flash calculation with Ni.
     void Flash();
     /// Perform flash calculation with Ni in Black Oil Model
@@ -214,7 +217,7 @@ private:
     USI     numPhase; ///< Number of phase.
     USI     numCom;   ///< Number of component.
     USI     numCom_1; ///< numCom - 1
-    vector<OCP_USI> totalPhaseNum; ///< total num of phase in reservoir
+
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
     vector<OCP_DBL>   initZi;   ///< Initial proportion of each component.

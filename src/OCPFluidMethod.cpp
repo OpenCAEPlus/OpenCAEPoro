@@ -330,37 +330,56 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
     OCP_DBL NRdSmaxP = rs.GetNRdSmaxP();
 
-    //for (USI j = 0; j < rs.bulk.numPhase; j++)
-    //    cout << rs.bulk.totalPhaseNum[j] << "   ";
-    //cout << endl;
 
-#ifdef _DEBUG
-    cout << "### Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
-        << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
-        << setw(80) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
-        << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP] << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  "
-        << setw(6) << rs.bulk.index_maxNRdSSP << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl << endl;
 
-    cout << "S:" << setw(6) << dSn << setw(12) << rs.bulk.eV[dSn] << setw(12) << rs.bulk.eN[dSn]
-        << setw(12) << rs.bulk.ePEC[dSn] << setw(5) << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12) << rs.bulk.dPNR[dSn]
-        << setw(8) << "  |" << setw(12) <<  rs.bulk.S[dSn * 3] << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
-        << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12) << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1] << endl;
+    if (ctrl.printLevel > 1) {
 
-    cout << "V:" << setw(6) << resFIM.maxId_v << setw(12) << rs.bulk.eV[resFIM.maxId_v] << setw(12) << rs.bulk.eN[resFIM.maxId_v]
-        << setw(12) << rs.bulk.ePEC[resFIM.maxId_v] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_v] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_v] << setw(12) << rs.bulk.dPNR[resFIM.maxId_v]
-        << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3]
-        << setw(12) << rs.bulk.S[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3 + 1] << endl;
+        if (true) {
+            vector<OCP_INT> totalPhaseNum(3, 0);
+            vector<OCP_INT> ltotalPhaseNum(3, 0);
+            for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
+                if (rs.bulk.NRphaseNum[n] == 1)  ltotalPhaseNum[0]++;
+                if (rs.bulk.NRphaseNum[n] == 2)  ltotalPhaseNum[1]++;
+                if (rs.bulk.NRphaseNum[n] == 3)  ltotalPhaseNum[2]++;
+                if (rs.bulk.phaseNum[n] == 1)  totalPhaseNum[0]++;
+                if (rs.bulk.phaseNum[n] == 2)  totalPhaseNum[1]++;
+                if (rs.bulk.phaseNum[n] == 3)  totalPhaseNum[2]++;
+            }
+            cout << to_string(totalPhaseNum[0]) + " (" + to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 / rs.GetBulkNum())
+                + "%)      " << to_string(totalPhaseNum[1]) + " (" + to_string((totalPhaseNum[1] - ltotalPhaseNum[1]) * 100.0 / rs.GetBulkNum())
+                + "%)      " << to_string(totalPhaseNum[2]) + " (" + to_string((totalPhaseNum[2] - ltotalPhaseNum[2]) * 100.0 / rs.GetBulkNum())
+                + "%)      " << endl;
+        }
+        
 
-    cout << "N:" << setw(6) << resFIM.maxId_mol << setw(12) << rs.bulk.eV[resFIM.maxId_mol] << setw(12) << rs.bulk.eN[resFIM.maxId_mol]
-        << setw(12) << rs.bulk.ePEC[resFIM.maxId_mol] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_mol] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_mol] << setw(12) << rs.bulk.dPNR[resFIM.maxId_mol]
-        << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3]
-        << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3 + 1] << endl;
-    // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size() << "   ";
-    // cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(), &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   ";
-    // cout << "SdNi " << Dnorm1(rs.bulk.dNNR.size(), &rs.bulk.dNNR[0]) / rs.bulk.dNNR.size() << "   ";
-    cout << endl;
-    // rs.ShowRes(resFIM.res);
-#endif
+        cout << "### Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
+            << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
+            << setw(80) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
+            << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP] << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  "
+            << setw(6) << rs.bulk.index_maxNRdSSP << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl << endl;
+
+        cout << "S:" << setw(6) << dSn << setw(12) << rs.bulk.eV[dSn] << setw(12) << rs.bulk.eN[dSn]
+            << setw(12) << rs.bulk.ePEC[dSn] << setw(5) << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12) << rs.bulk.dPNR[dSn]
+            << setw(8) << "  |" << setw(12) << rs.bulk.S[dSn * 3] << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
+            << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12) << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1] << endl;
+
+        cout << "V:" << setw(6) << resFIM.maxId_v << setw(12) << rs.bulk.eV[resFIM.maxId_v] << setw(12) << rs.bulk.eN[resFIM.maxId_v]
+            << setw(12) << rs.bulk.ePEC[resFIM.maxId_v] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_v] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_v] << setw(12) << rs.bulk.dPNR[resFIM.maxId_v]
+            << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3]
+            << setw(12) << rs.bulk.S[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_v * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_v * 3 + 1] << endl;
+
+        cout << "N:" << setw(6) << resFIM.maxId_mol << setw(12) << rs.bulk.eV[resFIM.maxId_mol] << setw(12) << rs.bulk.eN[resFIM.maxId_mol]
+            << setw(12) << rs.bulk.ePEC[resFIM.maxId_mol] << setw(5) << rs.bulk.phaseNum[resFIM.maxId_mol] << setw(5) << rs.bulk.NRphaseNum[resFIM.maxId_mol] << setw(12) << rs.bulk.dPNR[resFIM.maxId_mol]
+            << setw(8) << "  |" << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3]
+            << setw(12) << rs.bulk.S[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNR[resFIM.maxId_mol * 3 + 1] << setw(12) << rs.bulk.dSNRP[resFIM.maxId_mol * 3 + 1] << endl;
+        // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) / resFIM.res.size() << "   ";
+        // cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(), &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   ";
+        // cout << "SdNi " << Dnorm1(rs.bulk.dNNR.size(), &rs.bulk.dNNR[0]) / rs.bulk.dNNR.size() << "   ";
+        cout << endl;
+        // rs.ShowRes(resFIM.res);
+    }
+
+
 
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
@@ -424,6 +443,12 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 ////////////////////////////////////////////
 // OCP_FIMn
 ////////////////////////////////////////////
+
+
+void OCP_FIMn::InitReservoir(Reservoir& rs)const 
+{ 
+    rs.InitFIM_n(); 
+}
 
 
 /// Assemble Matrix

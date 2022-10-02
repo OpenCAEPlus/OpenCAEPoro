@@ -8,29 +8,29 @@
 ---------------------------------------------------
 OCP_IMPEC_1
 
-.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  IMPEC  0.1  1  0.1
+.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          3655.500 Days
-Total time steps:    5271
-Total Newton steps:  5271 (+39 wasted steps)
-Total linear steps:  8327 (+73 wasted steps)
-Linear solve time:   0.833s (56.367%)
-Simulation time:     1.478s
+Total time steps:    4633
+Total Newton steps:  4633 (+47 wasted steps)
+Total linear steps:  7748 (+91 wasted steps)
+Linear solve time:   0.772s (56.857%)
+Simulation time:     1.357s
 
 
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  FIM  1  10  0.1
+.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 69
 
 Final time:          3655.500 Days
-Total time steps:    420
-Total Newton steps:  477 (+1 wasted steps)
-Total linear steps:  6222 (+18 wasted steps)
-Linear solve time:   0.458s (57.173%)
-Simulation time:     0.800s
+Total time steps:    64
+Total Newton steps:  147 (+2 wasted steps)
+Total linear steps:  2274 (+34 wasted steps)
+Linear solve time:   0.162s (52.650%)
+Simulation time:     0.308s
 ```
 
 
@@ -43,29 +43,29 @@ Simulation time:     0.800s
 ---------------------------------------------------
 OCP_IMPEC_1
 
- .\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  IMPEC  0.1  1  0.1
+.\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          3655.500 Days
-Total time steps:    3849
-Total Newton steps:  3849 (+9 wasted steps)
-Total linear steps:  7198 (+15 wasted steps)
-Linear solve time:   0.667s (58.381%)
-Simulation time:     1.143s
+Total time steps:    3852
+Total Newton steps:  3852 (+8 wasted steps)
+Total linear steps:  7209 (+14 wasted steps)
+Linear solve time:   0.659s (58.432%)
+Simulation time:     1.127s
 
 
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  FIM  1  10  0.1 
+.\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 69
 
 Final time:          3655.500 Days
-Total time steps:    422
-Total Newton steps:  498 (+1 wasted steps)
-Total linear steps:  6255 (+19 wasted steps)
-Linear solve time:   0.466s (56.441%)
-Simulation time:     0.826s
+Total time steps:    75
+Total Newton steps:  175 (+2 wasted steps)
+Total linear steps:  2599 (+37 wasted steps)
+Linear solve time:   0.189s (53.695%)
+Simulation time:     0.352s
 ```
 
 
@@ -81,10 +81,10 @@ OCP_IMPEC_1
 
 Final time:          900.000 Days
 Total time steps:    7486
-Total Newton steps:  7486 (+43 wasted steps)
-Total linear steps:  9897 (+96 wasted steps)
-Linear solve time:   57.486s (61.776%)
-Simulation time:     93.056s
+Total Newton steps:  7486 (+42 wasted steps)
+Total linear steps:  9900 (+96 wasted steps)
+Linear solve time:   55.246s (62.154%)
+Simulation time:     88.885s
 
 
 ---------------------------------------------------
@@ -95,11 +95,11 @@ OCP_FIM_10
 precond_type             = 69
 
 Final time:          900.000 Days
-Total time steps:    165
-Total Newton steps:  213 (+67 wasted steps)
-Total linear steps:  3094 (+849 wasted steps)
-Linear solve time:   8.896s (53.585%)
-Simulation time:     16.601s
+Total time steps:    140
+Total Newton steps:  185 (+67 wasted steps)
+Total linear steps:  2751 (+852 wasted steps)
+Linear solve time:   7.817s (52.918%)
+Simulation time:     14.771s
 ```
 
 
@@ -145,29 +145,29 @@ Simulation time:     1827.200s
 ---------------------------------------------------
 OCP_IMPEC_1
 
- .\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  IMPEC  0.1  1  0.1
+.\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          1000.000 Days
 Total time steps:    1999
 Total Newton steps:  1999 (+3 wasted steps)
-Total linear steps:  13516 (+35 wasted steps)
-Linear solve time:   0.043s (39.826%)
-Simulation time:     0.109s
+Total linear steps:  13542 (+35 wasted steps)
+Linear solve time:   0.044s (29.720%)
+Simulation time:     0.148s
 
 
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  FIM 1  10  0.1
+.\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
  
 precond_type             = 69
 
 Final time:          1000.000 Days
-Total time steps:    143
-Total Newton steps:  240 (+6 wasted steps)
-Total linear steps:  2234 (+57 wasted steps)
-Linear solve time:   0.038s (30.290%)
-Simulation time:     0.083s
+Total time steps:    66
+Total Newton steps:  154 (+3 wasted steps)
+Total linear steps:  1582 (+24 wasted steps)
+Linear solve time:   0.024s (25.256%)
+Simulation time:     0.096s
 
 ```
 
@@ -182,145 +182,58 @@ Simulation time:     0.083s
 ---------------------------------------------------
 OCP_IMPEC
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  IMPEC  0.1  1  0.1
+.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
-SSMSTA:     6829509
-NRSTA:      20699
-SSMSP:      9985287
-NRSP:       1798777
+SSMSTA:     6347464
+NRSTA:      20264
+SSMSP:      9455434
+NRSP:       1665916
 =========================================
 Final time:          7305.000 Days
-Total time steps:    11608
-Total Newton steps:  11608 (+65 wasted steps)
-Total linear steps:  18085 (+129 wasted steps)
-Linear solve time:   1.239s (7.837%)
-Simulation time:     15.815s
+Total time steps:    10791
+Total Newton steps:  10791 (+25 wasted steps)
+Total linear steps:  17352 (+49 wasted steps)
+Linear solve time:   1.140s (8.054%)
+Simulation time:     14.159s
 
 
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIM  1  10  0.1
+.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=FIM  dtInit=1 dtMax=50 dtMin=0.1
 
 precond_type             = 64
 
-SSMSTA:     979435
-NRSTA:      6790
-SSMSP:      1491102
-NRSP:       201120
+SSMSTA:     549520
+NRSTA:      2639
+SSMSP:      769094
+NRSP:       120125
 =========================================
 Final time:          7305.000 Days
-Total time steps:    859
-Total Newton steps:  1359 (+10 wasted steps)
-Total linear steps:  3624 (+22 wasted steps)
-Linear solve time:   8.888s (75.365%)
-Simulation time:     11.793s
-
-OCP_FIM
-
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIM  1  50  0.1
-
-precond_type             = 64
-
-SSMSTA:     595065
-NRSTA:      3226
-SSMSP:      789150
-NRSP:       119160
-=========================================
-Final time:          7305.000 Days
-Total time steps:    336
-Total Newton steps:  797 (+8 wasted steps)
-Total linear steps:  2551 (+20 wasted steps)
-Linear solve time:   6.803s (79.795%)
-Simulation time:     8.526s
-
-OCP_FIM
-
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIM  1  100  0.1
-
-precond_type             = 64
-
-TUNING
--- Init     max    min   incre   chop    cut
-   1       100     0.1      5    0.3    0.3                    /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     0.2    0.3    0.001                               /
--- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-6   200    0.2    0.1      1E-3    0.01          /
-/
-
-SSMSTA:     923073
-NRSTA:      6930
-SSMSP:      1061139
-NRSP:       173833
-=========================================
-Final time:          7305.000 Days
-Total time steps:    357
-Total Newton steps:  1279 (+27 wasted steps)
-Total linear steps:  4074 (+106 wasted steps)
-Linear solve time:   10.307s (80.368%)
-Simulation time:     12.825s
+Total time steps:    311
+Total Newton steps:  767 (+23 wasted steps)
+Total linear steps:  2500 (+66 wasted steps)
+Linear solve time:   6.473s (79.102%)
+Simulation time:     8.183s
 
 ---------------------------------------------------
-OCP_NEW_FIMn
+OCP_FIMn
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIMn  1  10  0.1
-
-precond_type             = 64
-
-SSMSTA:     1005243
-NRSTA:      5634
-SSMSP:      1497622
-NRSP:       218647
-=========================================
-Final time:          7305.000 Days
-Total time steps:    853
-Total Newton steps:  1464 (+5 wasted steps)
-Total linear steps:  3862 (+7 wasted steps)
-Linear solve time:   9.421s (73.430%)
-Simulation time:     12.830s
-
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIMn  1  50  0.1
+.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=FIMn  dtInit=1 dtMax=50 dtMin=0.1
 
 precond_type             = 64
 
-SSMSTA:     641364
-NRSTA:      3560
-SSMSP:      846803
-NRSP:       130213
+SSMSTA:     638384
+NRSTA:      4939
+SSMSP:      910204
+NRSP:       128626
 =========================================
 Final time:          7305.000 Days
-Total time steps:    351
-Total Newton steps:  860 (+19 wasted steps)
-Total linear steps:  2651 (+39 wasted steps)
-Linear solve time:   6.927s (76.865%)
-Simulation time:     9.011s
-
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  FIMn  1  100  0.1
-
-precond_type             = 64
-
-TUNING
--- Init     max    min   incre   chop    cut
-   1       100     0.1      5    0.3    0.3                    /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     0.2    0.3    0.001                               /
--- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-6   200    0.2    0.1      1E-3    0.01          /
-/
-
-
-SSMSTA:     1042349
-NRSTA:      11796
-SSMSP:      1226341
-NRSP:       185670
-=========================================
-Final time:          7305.000 Days
-Total time steps:    365
-Total Newton steps:  1323 (+51 wasted steps)
-Total linear steps:  4076 (+214 wasted steps)
-Linear solve time:   10.651s (77.696%)
-Simulation time:     13.709s
+Total time steps:    304
+Total Newton steps:  807 (+36 wasted steps)
+Total linear steps:  2573 (+177 wasted steps)
+Linear solve time:   6.819s (76.855%)
+Simulation time:     8.873s
 
 ```
 
@@ -334,142 +247,58 @@ Simulation time:     13.709s
 ---------------------------------------------------
 OCP_IMPEC
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  IMPEC  0.1  1  0.1
+.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
-SSMSTA:     23835204
-NRSTA:      19506
-SSMSP:      24063413
-NRSP:       1468737
+SSMSTA:     23725633
+NRSTA:      19451
+SSMSP:      23979137
+NRSP:       1462997
 =========================================
 Final time:          3650.000 Days
-Total time steps:    3670
-Total Newton steps:  3670 (+0 wasted steps)
-Total linear steps:  7318 (+0 wasted steps)
-Linear solve time:   1.078s (2.714%)
-Simulation time:     39.726s
+Total time steps:    3652
+Total Newton steps:  3652 (+0 wasted steps)
+Total linear steps:  7307 (+0 wasted steps)
+Linear solve time:   1.042s (2.698%)
+Simulation time:     38.641s
 
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIM  1  10  0.1
+.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 64
 
-SSMSTA:     3891265
-NRSTA:      10763
-SSMSP:      3784500
-NRSP:       229583
+SSMSTA:     750655
+NRSTA:      4772
+SSMSP:      884275
+NRSP:       38973
 =========================================
 Final time:          3650.000 Days
-Total time steps:    390
-Total Newton steps:  542 (+0 wasted steps)
-Total linear steps:  719 (+0 wasted steps)
-Linear solve time:   4.025s (33.470%)
-Simulation time:     12.026s
+Total time steps:    46
+Total Newton steps:  80 (+0 wasted steps)
+Total linear steps:  121 (+0 wasted steps)
+Linear solve time:   0.668s (29.790%)
+Simulation time:     2.243s
 
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIM  1  50  0.1
-
-precond_type             = 64
-
-SSMSTA:     1867933
-NRSTA:      9174
-SSMSP:      1665461
-NRSP:       96855
-=========================================
-Final time:          3650.000 Days
-Total time steps:    131
-Total Newton steps:  233 (+2 wasted steps)
-Total linear steps:  351 (+3 wasted steps)
-Linear solve time:   2.286s (38.824%)
-Simulation time:     5.888s
-
-
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIM  1  100  0.1
-
-precond_type             = 64
-
-TUNING
--- Init     max    min   incre   chop    cut
-   1       100    0.1      5    0.3    0.3                    /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     1    0.3    0.001                               /
--- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-6   200    0.2    0.1    1E-3    0.01          /
-/
-
-SSMSTA:     2422183
-NRSTA:      9080
-SSMSP:      1666641
-NRSP:       124831
-=========================================
-Final time:          3650.000 Days
-Total time steps:    107
-Total Newton steps:  336 (+26 wasted steps)
-Total linear steps:  551 (+32 wasted steps)
-Linear solve time:   3.258s (42.629%)
-Simulation time:     7.643s
 
 ---------------------------------------------------
+OCP_FIMn
 
-OCP_NEW_FIM
-
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIMn  1  10  0.1
-
-precond_type             = 64
-
-SSMSTA:     3879409
-NRSTA:      11023
-SSMSP:      3736899
-NRSP:       224124
-=========================================
-Final time:          3650.000 Days
-Total time steps:    390
-Total Newton steps:  529 (+0 wasted steps)
-Total linear steps:  732 (+0 wasted steps)
-Linear solve time:   4.012s (31.939%)
-Simulation time:     12.560s
-
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIMn  1  50  0.1
+.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=FIMn  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 64
 
-SSMSTA:     1642488
-NRSTA:      9156
-SSMSP:      1609287
-NRSP:       85851
+SSMSTA:     777437
+NRSTA:      4900
+SSMSP:      874045
+NRSP:       40469
 =========================================
 Final time:          3650.000 Days
-Total time steps:    131
-Total Newton steps:  199 (+1 wasted steps)
-Total linear steps:  315 (+2 wasted steps)
-Linear solve time:   2.099s (37.360%)
-Simulation time:     5.618s
-
-
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  FIMn  1  100  0.1
-
-precond_type             = 64
-
-TUNING
--- Init     max    min   incre   chop    cut
-   1       100    0.1      5    0.3    0.3                    /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     1    0.3    0.001                               /
--- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-6   200    0.2    0.1    1E-3    0.01          /
-/
-
-SSMSTA:     1805051
-NRSTA:      9007
-SSMSP:      1489732
-NRSP:       91106
-=========================================
-Final time:          3650.000 Days
-Total time steps:    104
-Total Newton steps:  241 (+4 wasted steps)
-Total linear steps:  426 (+6 wasted steps)
-Linear solve time:   2.528s (40.577%)
-Simulation time:     6.229s
+Total time steps:    46
+Total Newton steps:  86 (+0 wasted steps)
+Total linear steps:  132 (+0 wasted steps)
+Linear solve time:   0.773s (30.430%)
+Simulation time:     2.540s
 ```
 
 ## SPE5r
@@ -478,37 +307,37 @@ Simulation time:     6.229s
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIM  1  10  0.1
+.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=10  dtMin=0.1  pl=1
 
 precond_type   =  64
 
-SSMSTA:     204184086
-NRSTA:      83
-SSMSP:      140490334
-NRSP:       50132302
+SSMSTA:     185640490
+NRSTA:      76
+SSMSP:      140723299
+NRSP:       50135363
 =========================================
 Final time:          730.000 Days
-Total time steps:    84
-Total Newton steps:  263 (+29 wasted steps)
-Total linear steps:  897 (+75 wasted steps)
-Linear solve time:   602.064s (46.405%)
-Simulation time:     1297.405s
+Total time steps:    82
+Total Newton steps:  260 (+27 wasted steps)
+Total linear steps:  896 (+87 wasted steps)
+Linear solve time:   542.995s (47.367%)
+Simulation time:     1146.347s
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIM  1  20  0.1
+.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=20  dtMin=0.1  pl=1
 
 precond_type   =  64
 
-SSMSTA:     201297580
-NRSTA:      72
-SSMSP:      116490470
-NRSP:       41681486
+SSMSTA:     157185627
+NRSTA:      81
+SSMSP:      115716480
+NRSP:       41758653
 =========================================
 Final time:          730.000 Days
-Total time steps:    51
-Total Newton steps:  223 (+48 wasted steps)
-Total linear steps:  807 (+127 wasted steps)
-Linear solve time:   584.719s (48.015%)
-Simulation time:     1217.790s
+Total time steps:    48
+Total Newton steps:  213 (+24 wasted steps)
+Total linear steps:  790 (+77 wasted steps)
+Linear solve time:   465.497s (48.439%)
+Simulation time:     961.001s
 
 
 .\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIM  1  50  0.1

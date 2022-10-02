@@ -58,6 +58,9 @@ public:
     /// Constructor well operation mode using params.
     WellOpt(const WellOptParam& Optparam);
 
+    /// overload inequality
+    bool operator !=(const WellOpt& Opt) const;
+
 private:
     USI type{0}; ///< type of well, Inj or Prod.
     /// indicate which type of fluids will be injected, water, gas, or other solvent.

@@ -273,7 +273,6 @@ void Bulk::Setup(const Grid &myGrid)
     Nt.resize(numBulk);
 
     // Phase num
-    totalPhaseNum.resize(numPhase);
     phaseNum.resize(numBulk);
     lphaseNum.resize(numBulk);
     NRphaseNum.resize(numBulk);
@@ -1409,6 +1408,48 @@ void Bulk::InitFlash(const bool &flag)
 #endif // DEBUG
 }
 
+
+
+void Bulk::InitFlashDer()
+{
+    OCP_FUNCNAME;
+
+    if (comps) {
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            flashCal[PVTNUM[n]]->InitFlashDer(P[n], Pb[n], T, &S[n * numPhase],
+                                              rockVp[n], initZi.data());
+            for (USI i = 0; i < numCom; i++) {
+                Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
+            }
+            PassFlashValueDeriv(n);
+        }
+    } else {
+        InitFlash(false);
+        FlashDeriv();
+    }
+}
+
+
+
+void Bulk::InitFlashDer_n() 
+{
+    OCP_FUNCNAME;
+
+    if (comps) {
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            flashCal[PVTNUM[n]]->InitFlashDer_n(P[n], Pb[n], T, &S[n * numPhase],
+                                              rockVp[n], initZi.data());
+            for (USI i = 0; i < numCom; i++) {
+                Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
+            }
+            PassFlashValueDeriv_n(n);
+        }
+    } else {
+        OCP_ABORT("Not Completed in BLKOIL MODEL!");
+    }
+}
+
+
 /// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::Flash()
 {
@@ -1442,7 +1483,6 @@ void Bulk::FlashCOMP()
     OCP_USI bId;
     OCP_DBL Ntw;
     OCP_DBL minEig;
-    fill(totalPhaseNum.begin(), totalPhaseNum.end(), 0);
     // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++)
     {
@@ -1535,7 +1575,6 @@ void Bulk::FlashDerivCOMP()
     OCP_USI bId;
     OCP_DBL Ntw;
     OCP_DBL minEig;
-    fill(totalPhaseNum.begin(), totalPhaseNum.end(), 0);
     NRdSSP = 0;
     maxNRdSSP = 0;
     index_maxNRdSSP = 0;
@@ -1673,7 +1712,6 @@ void Bulk::PassFlashValue(const OCP_USI &n)
         S[bIdp + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j   fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
             xi[bIdp + j] = flashCal[pvtnum]->xi[j];
@@ -1835,7 +1873,6 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
         len += pEnumCom[bIdp + j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             nj[bIdp + j] = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
@@ -1871,15 +1908,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
     }
     
     len += nptmp;
-    
-    
-#ifdef OCP_NEW_FIM_n
-    resIndex[n + 1] = resIndex[n] + len;
-    Dcopy(len, &res_n[0] + resIndex[n], &flashCal[pvtnum]->res[0]);
-    len *= (numCom + 1);
-    dSdPindex[n + 1] = dSdPindex[n] + len;
-    Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
-#else
+      
 #ifdef OCP_NEW_FIM
     len *= (numCom + 1);
     dSdPindex[n + 1] = dSdPindex[n] + len;
@@ -1887,7 +1916,6 @@ void Bulk::PassFlashValueDeriv(const OCP_USI &n)
 #else
     Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_NEW_FIM
-#endif // OCP_NEW_FIM_n
 
   
     // test
@@ -1968,7 +1996,6 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         len += pEnumCom[bIdp + j];
         if (phaseExist[bIdp + j])
         { // j -> bId + j fix bugs.
-            totalPhaseNum[j]++;
             nptmp++;
             nj[bIdp + j] = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
@@ -2919,8 +2946,9 @@ void Bulk::GetSolFIM(const vector<OCP_DBL> &u, const OCP_DBL &dPmaxlim,
             dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;
             if (fabs(NRdNmax) < fabs(dNNR[n * numCom + i]) / Nt[n])
                 NRdNmax = dNNR[n * numCom + i] / Nt[n];
+
             Ni[n * numCom + i] += dNNR[n * numCom + i];
-        }      
+        }
         //cout << scientific << setprecision(6) << dP << "   " << n << endl;
     }
 }

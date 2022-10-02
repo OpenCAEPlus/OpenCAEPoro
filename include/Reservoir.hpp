@@ -141,6 +141,7 @@ public:
     void AllocateAuxFIM();
     /// Initialize the properties of Reservoir for FIM
     void InitFIM();
+    void InitFIM_n();
     /// Calculate Flash for FIM, some derivatives are needed
     void CalFlashDerivFIM();
     void CalFlashDerivFIM_n();

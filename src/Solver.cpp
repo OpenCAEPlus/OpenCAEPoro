@@ -18,7 +18,7 @@ void Solver::Setup(Reservoir &rs, const OCPControl &ctrl) { SetupMethod(rs, ctrl
 void Solver::InitReservoir(Reservoir &rs) const
 {
     // Initialize the fluid part
-    FSolver.InitReservoir(rs);
+    IsoTSolver.InitReservoir(rs);
 }
 
 /// Simulation will go through all time steps and call GoOneStep at each step.
@@ -31,14 +31,14 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
     for (USI d = 0; d < numTSteps - 1; d++)
     {
         rs.ApplyControl(d);
-        ctrl.ApplyControl(d);
+        ctrl.ApplyControl(d, rs);
         while (!ctrl.IsCriticalTime(d + 1))
         {
             GoOneStep(rs, ctrl);
             output.SetVal(rs, ctrl);
         }
         output.PrintInfoSched(rs, ctrl, timer.Stop());
-        if (ctrl.printLevel > 1) {
+        if (ctrl.printLevel > 2) {
             // Print Summary and critical information at every TSTEP
             output.PrintInfo();
         }       
@@ -92,42 +92,42 @@ void Solver::GoOneStep(Reservoir &rs, OCPControl &ctrl)
 void Solver::Prepare(Reservoir &rs, OCP_DBL &dt)
 {
     // Prepare for the fluid part
-    FSolver.Prepare(rs, dt);
+    IsoTSolver.Prepare(rs, dt);
 }
 
 void Solver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 {
-    FSolver.SetupMethod(rs, ctrl);
+    IsoTSolver.SetupMethod(rs, ctrl);
 }
 
 /// Assemble linear system and then solve it.
 void Solver::AssembleSolve(Reservoir &rs, OCPControl &ctrl)
 {
     // Assemble linear system
-    FSolver.AssembleMat(rs, ctrl.current_dt);
+    IsoTSolver.AssembleMat(rs, ctrl.current_dt);
     // Solve linear system
-    FSolver.SolveLinearSystem(rs, ctrl);
+    IsoTSolver.SolveLinearSystem(rs, ctrl);
 }
 
 /// Update properties after solving.
 bool Solver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
     // Update for the fluid part
-    return FSolver.UpdateProperty(rs, ctrl);
+    return IsoTSolver.UpdateProperty(rs, ctrl);
 }
 
 /// Clean up Newton-Raphson iteration if there is any.
 bool Solver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     // Clean up the fluid part
-    return FSolver.FinishNR(rs, ctrl);
+    return IsoTSolver.FinishNR(rs, ctrl);
 }
 
 /// Clean up time step.
 void Solver::FinishStep(Reservoir &rs, OCPControl &ctrl)
 {
     // Clean up the fluid part
-    FSolver.FinishStep(rs, ctrl);
+    IsoTSolver.FinishStep(rs, ctrl);
 }
 
 /*----------------------------------------------------------------------------*/

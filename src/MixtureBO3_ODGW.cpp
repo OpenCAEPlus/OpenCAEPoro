@@ -229,6 +229,8 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
     }
 }
 
+
+
 void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
     const OCP_DBL* lastKs)
 {

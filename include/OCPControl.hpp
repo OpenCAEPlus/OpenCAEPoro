@@ -112,7 +112,7 @@ public:
     void InputParam(const ParamControl& CtrlParam);
 
     /// Apply control for time step i.
-    void ApplyControl(const USI& i);
+    void ApplyControl(const USI& i, const Reservoir& rs);
 
     /// Initialize time step i.
     void InitTime(const USI& i);
@@ -181,6 +181,9 @@ public:
     /// Return linear solver file name.
     string GetLsFile() const { return linearsolveFile; }
 
+    // Set wellChange
+    void SetWellChange(const bool& flag) { wellChange = flag; }
+
 private:
     USI    method;  ///< Discrete method
     string workDir; ///< Current work directory
@@ -219,6 +222,9 @@ private:
     vector<ControlNR>      ctrlNRSet;
     /// receive instructions directly from command lines, which take precedence than others
     FastControl            ctrlFast; 
+
+    // Well 
+    bool wellChange;       ///< if wells change, then false
 };
 
 #endif /* end if __OCP_Control_HEADER__ */

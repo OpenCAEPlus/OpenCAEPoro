@@ -40,13 +40,39 @@ public:
     {
         std::cout << "Usage: " << std::endl
                   << "  " << cmdname << " <InputFileName> [Optional Method Parameters]"
-                  << std::endl << std::endl
-                  << "For example: " << std::endl
+                  << std::endl
+                  << std::endl;
+
+        std::cout << "The simplest usage is as follow, and everything will be honor of the input file:" << std::endl
                   << "  " << cmdname
                   << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting"
                   << std::endl
-                  << "  " << cmdname
-                  << " examples/spe1a/spe1a.data FIM 1 10 0.1  %% Solve SPE1a using FIM"
+                  << std::endl;
+
+        std::cout << "Also, you could add some options followed by the input file, but attention, these "
+                  << std::endl 
+                  << "options will override the corresponding contents in the input file and take effect "
+                  << std::endl
+                  << "all the time, available options are as follows: " 
+                  << std::endl
+                  << "method:   determine which method will be used."
+                  << std::endl
+                  << "dtInit:   determine the initial time step."
+                  << std::endl
+                  << "dtMax:    determine the maximun time step."
+                  << std::endl
+                  << "dtMin:    determine the minimum time step."
+                  << std::endl
+                  << "pl:       determine the print level."
+                  << std::endl
+                  << std::endl
+                  << "Only when method option is specified, does other options will work. If length of "
+                  << std::endl
+                  << "time step (dtInit,dtMax,dtMin) havn't been given, defaulted values will be used."
+                  << std::endl;
+        std::cout << "for examples" << std::endl;
+        std::cout << "  " << cmdname
+                  << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1  %% Solve SPE1a using FIM"
                   << std::endl;
     }
 

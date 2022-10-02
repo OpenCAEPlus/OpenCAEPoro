@@ -84,6 +84,10 @@ protected:
 class OCP_FIMn : public OCP_FIM
 {
 public:
+
+    /// Init
+    void InitReservoir(Reservoir& rs) const;
+
     /// Assemble Matrix
     void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
 
