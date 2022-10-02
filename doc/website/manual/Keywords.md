@@ -8,7 +8,7 @@ PVTW (e)(/)
 /
 ```
 
-文本中的 `'` 和 `,` 将会自动替换成空格。**(Todo)** 标识了目前尚不完善的地方。
+文本中的 `'` 和 `,` 将会自动被替换成空格。**(Todo)** 标识了目前尚不完善的地方。
 
 注意：目前，从关键字读入的数据只适用于**英制**单位。
 
@@ -32,7 +32,7 @@ PVTW (e)(/)
   6  6  6  / comments
   ```
 
-注意：不应在关键字后面注释，否则该关键字将被忽略，例如 ([EQUALS](#_EQUALS) 下的子关键字除外)
+注意：不可在关键字后面注释 ([EQUALS](#_EQUALS) 下的子关键字除外)，否则该关键字将被忽略，例如
 
 ```
 DIMENS  /  comments
@@ -161,7 +161,7 @@ PERMY     / 网格块 y 轴方向的绝对渗透率，mD
 PERMZ     / 网格块 z 轴方向的绝对渗透率，mD
 SATNUM    / 网格块所使用的的饱和度表格编号
 PVTNUM    / 网格块所使用的的PVT表格编号
-TOPS      / 顶层网格块的上表面的深度，feet。由于顶层的 z 坐标为1，因此后两个数字为1。
+TOPS      / 顶层网格块的上表面的深度（由于顶层的 z 坐标为1，因此后两个数字为1），feet
 ```
 
 
@@ -355,7 +355,7 @@ SGOF 定义当气相和水相同时存在时的饱和度表格。如果有多个
 
 SGFN 定义气相的饱和度表格。如果有多个表格，则需用 / 隔开，与 [SWOF](#_SWOF) 类似。在 SGFN 中一共有三列数据，气相的饱和度作为自变量，这三列数据分别表示
 * Sg : 气相的饱和度，dimensionless
-* Krg : 对应的气相相对渗透率
+* Krg : 对应的气相相对渗透率，dimensionless
 * Pcog : 对应的气相毛管力 Pg - Po，psia
 
 
@@ -507,7 +507,7 @@ INCLUDE 关键字用于分文件编写输入文件，需要输入被包含文件
 
 ```
 INCLUDE
-./others.out
+./SomeFile.inc
 ```
 
 
@@ -568,12 +568,12 @@ TUNING 关键字给出了模拟求解的参数，包括时间步长控制参数�
 
 ```
 TUNING
--- Init     max    min   incre   chop    cut
-     1      10    0.1      3    0.15    0.3 /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     0.5    0.3    0.001           /
+-- Init   max    min    incre   chop    cut
+   1      10     0.1    3       0.15    0.3               /
+-- dPlim  dSlim   dNlim   dVerrlim
+   300    0.5     0.3     0.001                           /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-2   2000    2    1      0.01    0.01  /
+   10       1E-2   2000   2      1       0.01    0.01     /
 /
 ```
 
@@ -705,9 +705,6 @@ INJE1   GAS   OPEN   RATE   100000.0      10000
 INJE2   GAS   OPEN   BHP    1*            10000
 /
 ```
-
-
-
 
 
 ## WCONPROD<span id=_WCONPROD></span> (/)
@@ -937,8 +934,8 @@ SUMMARY 关键字用于控制输出每个时间步的各指标信息，其结果
 
 对于一些基本指标会默认输出，包括：
 * Time：当前时间点，day
-* NRiter：到目前为止花费的总牛顿迭代，dimensionless
-* LSiter：到目前为止花费的总线性迭代，dimensionless
+* NRiter：到目前为止花费的总牛顿迭代次数
+* LSiter：到目前为止花费的总线性迭代次数
 
 可控制输出的变量如下，这些都是 SUMMARY 关键字下的**子关键字**。对于子关键字一共有三种格式，此处分别记为 S，N，L
 
@@ -1059,14 +1056,12 @@ WATER
 GAS
 DISGAS
 
-
 -- Field unit used
 FIELD
 
 -- Only one saturation region and one PVT region
 TABDIMS
 1   1
-
 
 -- grid information
 
@@ -1088,11 +1083,9 @@ EQUALS
 'TOPS'  8325   4* 1 1  /
 /
 
-
 COPY
 'PERMX' 'PERMY' 4* 1 3 /
 /
-
 
 SWOF 
 0.12000    0.00000   1.00000    0.00000
@@ -1155,17 +1148,11 @@ PVTW
 4014.7      1.0     3E-6       0.3100    0.0  /
 /
 
-
 ROCK
 4014.7      0.3000E-05    /
 
 GRAVITY
-59.53       1.000987           0.792   /
-
---DENSITY
---oil    water      gas
---49.10    64.79    0.01078   /
-
+59.53       1.000987      0.792   /
 
 EQUIL
 8500  4825.22  8500  0  7000  0  1 /
@@ -1233,7 +1220,6 @@ METHOD
 IMPEC
 /
 
-
 -- 10 years simulation
 TSTEP
 1    3    9    29    8  
@@ -1250,11 +1236,10 @@ TSTEP
 TSTEP
 7*365.25
 /
-
 ```
 
 ## 参考示例 (SPE5)
-SPE5 是三相十组分组分模型，其中九个烃组分，先无注入生产两年，再交替注入水，气十八年
+SPE5 是三相十组分组分模型，其中九个烃组分，先无注入生产两年，再交替注入水/气十八年
 
 ```
 ------------------------------------------------------------------------
@@ -1282,7 +1267,6 @@ COMPS
 6
 /
 
-
 -- Only one saturation region and one PVT region
 TABDIMS
 1 1
@@ -1291,10 +1275,7 @@ TABDIMS
 DIMENS
 7 7 3 /
 
-
-
 -- GRID information  
-
 EQUALS
 'DX'     500   6*        /
 'DY'     500   6*        /
@@ -1323,7 +1304,6 @@ EGOIL.in
 RTEMP
 160 
 /
-
 
 SWOF
 --SW         KRW     KROW    PCOW
@@ -1360,15 +1340,12 @@ PVTW
 14.7   1.00    3.3E-06      0.7     0.00E-01
 /
 
-
 ROCK
 3990.30 5E-06
 /
 
 GRAVITY
 1*       1*           1*   /
-
-
 
 EQUIL
 8400 4000 9000 0 7000 0 1 1 0  /
@@ -1407,24 +1384,21 @@ DENO  DENG  DENW
 SOIL  SGAS  SWAT
 /
 
-
 SCHEDULE    ==========================================================
 
 TUNING
--- Init     max    min   incre   chop    cut
-   1       10     0.1      5    0.3    0.3                    /
---  dPlim  dSlim   dNlim   dVerrlim
-     300     1    0.3    0.001                               /
+-- Init   max     min     incre    chop    cut
+   1      10      0.1     5        0.3     0.3             /
+-- dPlim  dSlim   dNlim   dVerrlim
+   300    1       0.3     0.001                            /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       20    1E-3   200    0.2    1      1E-2    0.01          /
+   20       1E-3   200    0.2    1       1E-2    0.01      /
 /
-
 
 -- Use FIM and defaulted linear solver
 METHOD
 FIM 
 /
-
 
 -- Well information
 
@@ -1761,5 +1735,4 @@ SSMSP
 NRSP
 55  1e-12
 /
-
 ```
