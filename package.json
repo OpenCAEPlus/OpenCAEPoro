@@ -7,6 +7,7 @@
         "node": ">=14.0.0"
     },
     "scripts": {
+        "test:linux:gnu": "bash ./scripts/test/linux/gnu-test.sh",
         "build:linux:gnu:debug": "bash ./scripts/build/linux/gnu-build.sh Debug",
         "build:linux:gnu:debug:clean": "bash ./scripts/build/linux/clean.sh gnu Debug",
         "build:linux:gnu:release": "bash ./scripts/build/linux/gnu-build.sh Release",
