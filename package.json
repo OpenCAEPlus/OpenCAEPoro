@@ -11,7 +11,7 @@
         "build:linux:gnu:debug:clean": "bash ./scripts/build/linux/clean.sh gnu Debug",
         "build:linux:gnu:release": "bash ./scripts/build/linux/gnu-build.sh Release",
         "build:linux:gnu:release:clean": "bash ./scripts/build/linux/clean.sh gnu Release",
-        "doc:dev": "pnpm doc:build:markdown && pnpm --filter opencaeporo-doc doc:dev",
+        "doc:dev": "pnpm doc:build:markdown && pnpm --filter opencaeporo-doc install && pnpm --filter opencaeporo-doc doc:dev",
         "doc:build:doxygen": "bash ./scripts/doc/build/doxygen.sh",
         "doc:build:markdown": "pnpm doc:build:doxygen && bash ./scripts/doc/build/markdown.sh",
         "doc:build:vitepress": "pnpm --filter opencaeporo-doc install && pnpm doc:build:markdown && bash ./scripts/doc/build/vitepress.sh",
