@@ -8,7 +8,7 @@ PVTW (e)(/)
 /
 ```
 
-文本中的 `'` 和 `,` 将会自动被替换成空格。**(Todo)** 标识了目前尚不完善的地方。
+文本中的 `'` 和 `,` 将会自动被替换成空格。**(TODO)** 标识了目前尚不完善的地方。
 
 注意：目前，从关键字读入的数据只适用于**英制**单位。
 
@@ -92,7 +92,7 @@ DISGAS
 
 ## COMPS<span id=_COMPS></span>
 
-COMPS 激活了组分模型，可以输入组分数，但目前并不起作用(Todo 将NCNP的作用转移于此)，烃组分数和最大烃相数目前由 NCNP 输入，示例
+COMPS 激活了组分模型，可以输入组分数，但目前并不起作用(TODO 将NCNP的作用转移于此)，烃组分数和最大烃相数目前由 NCNP 输入，示例
 
 ```
 COMPS
@@ -161,7 +161,7 @@ PERMY     / 网格块 y 轴方向的绝对渗透率，mD
 PERMZ     / 网格块 z 轴方向的绝对渗透率，mD
 SATNUM    / 网格块所使用的的饱和度表格编号
 PVTNUM    / 网格块所使用的的PVT表格编号
-TOPS      / 顶层网格块的上表面的深度（由于顶层的 z 坐标为1，因此后两个数字为1），feet
+TOPS      / 顶层网格块的上表面深度（顶层的 z 坐标为1，因此后两个数字为1），feet
 ```
 
 
@@ -226,6 +226,7 @@ SATNUM
 
 ## ACTNUM<span id=_ACTNUM></span> (e)(/)
 ACTNUM 用来定义网格块的状态，目前，0 表示死网格，1表示活网格
+
 ```
 ACTNUM
 2*1  0   24*1
@@ -236,6 +237,7 @@ ACTNUM
 
 ## PVTNUM<span id=_PVTNUM></span> (e)(/)
 PVTNUM 用来定义PVT区域，即指定网格块使用相应的PVT关系，与 [SATNUM](#_SATNUM) 类似
+
 ```
 PVTNUM
 2*1   2   24*3
@@ -333,7 +335,7 @@ SWOF
 
 ## SWFN<span id=_SWFN></span> (e)(/)
 
-SWFN 定义水相的饱和度表格。如果有多个表格，则需用 / 隔开，与 [SWOF](#_SWOF) 类似。在 SWFN 中一共有三列数据，水相的饱和度作为自变量，这三列数据分别表示
+SWFN 定义水相的饱和度表格。如果有多个表格，则需用 `/` 隔开，与 [SWOF](#_SWOF) 类似。在 SWFN 中一共有三列数据，水相的饱和度作为自变量，这三列数据分别表示
 * Sw : 水相的饱和度，dimensionless
 * Krw : 对应的水相相对渗透率，dimensionless
 * Pcow : 对应的水相的毛管力 Po - Pw，psia
@@ -458,7 +460,7 @@ EQUIL 用于油藏初始条件的计算，它给出了参考深度处的油藏�
   * D1 为气水接触面深度，P1 = Pg - Pw
   * D2 和 P2 无需给出
 
-EQUIL 应与上述的饱和度表格与 PVT 表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
+EQUIL 应与上述的饱和度表格与 PVT 表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(TODO)**
 
 
 
@@ -469,7 +471,7 @@ ROCK 给出了岩石的可压缩性，一共有两列数据，分别表示
 * Pref : 参考压力，psia
 * C : 岩石的可压缩性，1/psia，它是岩石体积关于压力的相对变化率。
 
-ROCK 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
+ROCK 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(TODO)**
 
 
 
@@ -483,7 +485,7 @@ GRAVITY 用于黑油模型或单独考虑水相的组分模型，用于计算标
 
 对于组分模型，只需给出水相的信息即可。
 
-GRAVITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
+GRAVITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(TODO)**
 
 
 
@@ -497,7 +499,7 @@ DENSITY 用于黑油模型或单独考虑水相的组分模型，给出了标准
 
 对于组分模型，只需给出水相的信息即可
 
-DENSITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(Todo)**
+DENSITY 应与上述的饱和度表格与PVT表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(TODO)**
 
 
 
@@ -675,7 +677,7 @@ PROD1   1   3   3   3     1*   0.5   3*
 
 对于井 PROD1，它拥有一个坐标位置在 (1,3,3) 的一个射孔，射孔直径为 0.5ft，其余皆为默认值。
 
-注意，在 OpenCAEPoro 中，要求给出的射孔顺序是由高至低的 (这由于射孔间静水压差的计算方式决定)，目前并没有在内部依据射孔深度对射孔进行排序；同时如果井的深度是默认的，则井的深度则为位置最高的射孔的深度。**(Todo)**
+注意，在 OpenCAEPoro 中，要求给出的射孔顺序是由高至低的 (这由于射孔间静水压差的计算方式决定)，目前并没有在内部依据射孔深度对射孔进行排序；同时如果井的深度是默认的，则井的深度则为位置最高的射孔的深度。**(TODO)**
 
 
 
@@ -687,7 +689,7 @@ WCONINJE 用于对注入井的控制，这是与时间相关的控制，见 [TST
 在 WCONINJE 中，同样需要匹配井的名字，方式同 [COMPDAT](#_COMPDAT)。 WCONINJE 中包含如下的控制
 
 1. 所需匹配的井的信息
-2. 注入流体的类型：包括水相 `WAT 或 WATER`，气相 `GAS`；在组分模型中，也可以是任意的流体，但需要在 [WELLSTRE](#_WELLSTRE) 中给出对应的组分比例
+2. 注入流体的类型：包括水相 `WAT` 或 `WATER`，气相 `GAS`；在组分模型中，也可以是任意的流体，但需要在 [WELLSTRE](#_WELLSTRE) 中给出对应的组分比例
 3. 井的状态：开 `OPEN`，关 `CLOSE`
 4. 井的控制方式：注入气体的流速控制 `RATE`，注入井的恒压控制(井的参考位置处) `BHP`
 5. 流速控制的值或流速上限：注气的单位为 Mscf/day，注液的单位为 stb/day
@@ -791,7 +793,7 @@ Meth Ethane C3-C6 C7+
 
 ZI 用组分模型，它给出了油藏(每个网格块)初始的组分摩尔占比(不包括水组分)
 
-目前仍是简单的初始化，没有涉及关于深度的插值变化 **(Todo)**
+目前仍是简单的初始化，没有涉及关于深度的插值变化 **(TODO)**
 
 ```
 ZI
@@ -812,47 +814,47 @@ TCRIT
 
 
 ## PCRIT<span id=_PCRIT></span> (e)(/)
-PCRIT 定义了烃组分的临界压力，单位 psia，格式同 [TCRIT](#_TCRIT)
+PCRIT 定义了烃组分的临界压力，单位 psia，格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## VCRIT<span id=_VCRIT></span> (e)(/)
-VCRIT 定义了烃组分的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$，格式同 [TCRIT](#_TCRIT)
+VCRIT 定义了烃组分的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$，格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## ZCRIT<span id=_ZCRIT></span> (e)(/)
-ZCRIT 定义了烃组分的临界Z-factor，格式同 [TCRIT](#_TCRIT)
+ZCRIT 定义了烃组分的临界Z-factor，格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## MW<span id=_MW></span> (e)(/)
-MW 定义了烃组分的分子质量，单位 $\mathrm{lb/lb\text{-}M}$。格式同 [TCRIT](#_TCRIT)
+MW 定义了烃组分的分子质量，单位 $\mathrm{lb/lb\text{-}M}$。格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## ACF<span id=_ACF></span> (e)(/)
-ACF 定义了烃组分的偏心因子，格式同 [TCRIT](#_TCRIT)
+ACF 定义了烃组分的偏心因子，格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## OMEGAA,OMEGAB<span id=_OMEGAA></span> <span id=_OMEGAB></span> (e)(/)
 OMEGAA，OMEGAB 分别定义了用于状态方程计算的系数 $\Omega_{A},\Omega_{B}$，格式同 TCRIT。默认时 $\Omega_{A}=0.457235529,\Omega_{B}=0.077796074$，当前仅限于 PR 方程
-，格式同 [TCRIT](#_TCRIT)
+，格式同 [TCRIT](#_TCRIT)。
 
 
 ## SSHIFT<span id=_SSHIFT></span> (e)(/)
-SSHIFT 定义了烃组分的体积偏移参数，默认时值为 0。格式同 [TCRIT](#_TCRIT)
+SSHIFT 定义了烃组分的体积偏移参数，默认时值为 0。格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## PARACHOR<span id=_PARACHOR></span> (e)(/)
-PARACHOR 用于混溶模型的表面张量计算，需要打开 MISCIBLE 选项，单位 $\mathrm{(dynes/cm)}^{1/4}\mathrm{cc}/\mathrm{gm\text{-}M}$ ，格式同 [TCRIT](#_TCRIT)
+PARACHOR 用于混溶模型的表面张量计算，需要打开 MISCIBLE 选项，单位 $\mathrm{(dynes/cm)}^{1/4}\mathrm{cc}/\mathrm{gm\text{-}M}$ ，格式同 [TCRIT](#_TCRIT)。
 
 
 
 ## VCRITVIS<span id=_VCRITVIS></span> (e)(/)
-VCRITVIS 定义了仅用于粘性计算的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$。如果未输入，则使用 ZCRIT 进行计算，若 ZCRIT 也没有输入，则赋值为 VCRIT。格式同 [TCRIT](#_TCRIT)
+VCRITVIS 定义了仅用于粘性计算的临界摩尔体积，单位 $\mathrm{ft}^{3}/\mathrm{lb\text{-}M}$。如果未输入，则使用 ZCRIT 进行计算，若 ZCRIT 也没有输入，则赋值为 VCRIT。格式同 [TCRIT](#_TCRIT)。
 
 
 ## BIC<span id=_BIC></span> (e)(/)
@@ -862,15 +864,15 @@ BIC 关键字用于组分模型，定义了组分间的二元相互系数，它�
 ```
 BIC
 #BIC matrix
-0	   -.02	   .1	     .13    .135	0.1277	  .1	   .1	    .1	
--.02   0       .036      .05    .08     .1002     .1       .1       .1
-.1     .036     0        0      0       .092810   .130663  .130663  .130663
-.13    .05      0        0      0       0         .006     .006     .006
-.135   .08      0        0      0       0         .006     .006     .006
-.1277  .1002   .092810   0      0       0         0        0        0
-.1     .1      .130663   .006   .006    0         0        0        0
-.1     .1      .130663   .006   .006    0         0        0        0
-.1     .1      .130663   .006   .006    0         0        0        0
+0    -.02     .1        .13    .135   0.1277    .1       .1       .1	
+-.02   0      .036      .05    .08    .1002     .1       .1       .1
+.1     .036   0         0      0      .092810   .130663  .130663  .130663
+.13    .05    0         0      0      0         .006     .006     .006
+.135   .08    0         0      0      0         .006     .006     .006
+.1277  .1002  .092810   0      0      0         0        0        0
+.1     .1     .130663   .006   .006   0         0        0        0
+.1     .1     .130663   .006   .006   0         0        0        0
+.1     .1     .130663   .006   .006   0         0        0        0
 /
 ```
 也可以只输入下半部分(不含对角线)
@@ -878,7 +880,7 @@ BIC
 
 
 ## LBCCOEF<span id=_LBCCOEF></span>
-LBCCOEF 定义了使用 Lorentz-Bray-Clark 粘性计算公式时的参数，默认时为 0.1023, 0.023364, 0.058533, -0.040758, 0.0093324，格式同 [TCRIT](#_TCRIT)
+LBCCOEF 定义了使用 Lorentz-Bray-Clark 粘性计算公式时的参数，默认时为 0.1023, 0.023364, 0.058533, -0.040758, 0.0093324，格式同 [TCRIT](#_TCRIT)。
 
 
 ## RR<span id=_RR></span>
@@ -1622,18 +1624,6 @@ TSTEP
 1*365.25 
 /
 
-
--- suplement file within Keyword INCLUDE
-
-#	Flash calculation input file
-#	for compositional simulation
-#	
-#       Specifying the input file the SPE5 fluids.
-#	version 1
-VERSION
-3
-/
-
 NCNP
 # number of component; maximum number of phases
 6 2
@@ -1736,3 +1726,8 @@ NRSP
 55  1e-12
 /
 ```
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+</script>

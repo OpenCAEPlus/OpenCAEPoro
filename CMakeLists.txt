@@ -49,17 +49,8 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
-# Find FASP, requires faspsolver
-find_package(FASP REQUIRED)
-if (FASP_FOUND)
-    include_directories(${FASP_INCLUDE_DIRS})
-    add_definitions(-D__SOLVER_FASP__) 
-else(FASP_FOUND)
-    message("-- ERROR: FASP was requested but not found!")
-endif(FASP_FOUND)
 
-# Optional external libraries, including direct solvers
-include(external)
+
 
 ###############################################################################
 ## Find compiler support for OpenMP. Since cmake 3.9, we can use 
@@ -114,7 +105,9 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 ###############################################################################
 
 # The OpenCAEPoro library target
+add_subdirectory(external)
 add_library(OpenCAEPoro STATIC)
+target_link_libraries(OpenCAEPoro PUBLIC fasp)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(main)
@@ -124,6 +117,7 @@ if(BUILD_TEST)
     include(CTest)
     # add_subdirectory(test)
 endif()
+
 ###############################################################################
 ## Installtion targets for lib and executable files
 ###############################################################################
