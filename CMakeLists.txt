@@ -118,6 +118,12 @@ add_library(OpenCAEPoro STATIC)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(main)
+
+option(BUILD_TEST "Build test" OFF)
+if(BUILD_TEST)
+    include(CTest)
+    # add_subdirectory(test)
+endif()
 ###############################################################################
 ## Installtion targets for lib and executable files
 ###############################################################################
