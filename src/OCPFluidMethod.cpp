@@ -380,8 +380,6 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     }
 
 
-
-
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM(false);

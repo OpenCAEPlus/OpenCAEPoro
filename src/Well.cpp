@@ -454,18 +454,19 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
     // PrintDX(myBulk.numCom, &tmpNiP[0]);
 }
 
-/// Pressure in injection well equals minial ones in injection well,
+/// Pressure in injection well equals maximum ones in injection well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalInjRate(const Bulk& myBulk)
+OCP_DBL Well::CalInjRate(const Bulk& myBulk, const bool& maxBHP)
 {
     OCP_FUNCNAME;
 
     OCP_DBL qj = 0;
+    OCP_DBL Pwell = maxBHP ? opt.maxBHP : BHP;
 
     for (USI p = 0; p < numPerf; p++) {
 
-        OCP_DBL Pperf = opt.maxBHP + dG[p];
+        OCP_DBL Pperf = Pwell + dG[p];
         OCP_USI k     = perf[p].location;
 
         OCP_DBL dP = Pperf - myBulk.P[k];
@@ -477,17 +478,18 @@ OCP_DBL Well::CalInjRate(const Bulk& myBulk)
 /// Pressure in production well equals minial ones in production well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalProdRate(const Bulk& myBulk)
+OCP_DBL Well::CalProdRate(const Bulk& myBulk, const bool& minBHP)
 {
     OCP_FUNCNAME;
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
     OCP_DBL   qj = 0;
+    OCP_DBL Pwell = minBHP ? opt.minBHP : BHP;
 
     for (USI p = 0; p < numPerf; p++) {
 
-        OCP_DBL Pperf = opt.minBHP + dG[p];
+        OCP_DBL Pperf = Pwell + dG[p];
         OCP_USI k     = perf[p].location;
 
         for (USI j = 0; j < np; j++) {
@@ -969,9 +971,46 @@ void Well::SmoothdG()
 void Well::CheckOptMode(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
-    if (opt.initOptMode != BHP_MODE) {
+    if (opt.initOptMode == BHP_MODE) {
+        //if (opt.type == INJ) {
+        //    OCP_DBL q = CalInjRate(myBulk, false);
+        //    // for INJ well, maxRate has been switch to lbmols
+        //    OCP_DBL tarRate = opt.maxRate;
+        //    if (opt.reInj) {
+        //        if (opt.injPhase == GAS)
+        //            tarRate = WGIR;
+        //        else if (opt.injPhase == WATER)
+        //            tarRate = WWIR;
+        //    }
+        //    if (q > tarRate) {
+        //        opt.optMode = opt.initOptMode;
+        //    }
+        //    else {
+        //        opt.optMode = BHP_MODE;
+        //        BHP = opt.maxBHP;
+        //    }
+        //}
+        //else {
+        //    OCP_DBL q = CalProdRate(myBulk, false);
+        //    // cout << q << endl;
+        //    if (q > opt.maxRate) {
+        //        opt.optMode = opt.initOptMode;
+        //    }
+        //    else {
+        //        opt.optMode = BHP_MODE;
+        //        BHP = opt.minBHP;
+        //    }
+        //}
+
+        opt.optMode = BHP_MODE;
+        if (opt.type == INJ)
+            BHP = opt.maxBHP;
+        else
+            BHP = opt.minBHP;
+
+    } else {
         if (opt.type == INJ) {
-            OCP_DBL q = CalInjRate(myBulk);
+            OCP_DBL q = CalInjRate(myBulk, true);
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
@@ -983,26 +1022,23 @@ void Well::CheckOptMode(const Bulk& myBulk)
 
             if (q > tarRate) {
                 opt.optMode = opt.initOptMode;
-            } else {
-                opt.optMode = BHP_MODE;
-                BHP         = opt.maxBHP;
             }
-        } else {
-            OCP_DBL q = CalProdRate(myBulk);
+            else {
+                opt.optMode = BHP_MODE;
+                BHP = opt.maxBHP;
+            }
+        }
+        else {
+            OCP_DBL q = CalProdRate(myBulk, true);
             // cout << q << endl;
             if (q > opt.maxRate) {
                 opt.optMode = opt.initOptMode;
-            } else {
+            }
+            else {
                 opt.optMode = BHP_MODE;
-                BHP         = opt.minBHP;
+                BHP = opt.minBHP;
             }
         }
-    } else {
-        opt.optMode = BHP_MODE;
-        if (opt.type == INJ)
-            BHP = opt.maxBHP;
-        else
-            BHP = opt.minBHP;
     }
 }
 
