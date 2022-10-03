@@ -7,6 +7,7 @@
 # Chensong Zhang    Oct/16/2021    Fix duplications
 # Chensong Zhang    Jan/19/2022    Use FASP open-source part as default solver
 # Chensong Zhang    Feb/18/2022    Fix math.lib linkage problem
+# Xiaoxing Chen     Oct/03/2022    Automatically download faspsolver if needed
 #
 # Some sample usages:
 #   cmake .                             // build in default configuration
@@ -24,6 +25,7 @@
 # Minimum cmake version needed
 cmake_minimum_required(VERSION 3.13)
 cmake_policy(SET CMP0076 NEW)
+
 # Default C compiler look-up order
 find_program(THE_C NAMES $ENV{CC} gcc clang icc icx icl)
 set(CMAKE_C_COMPILER ${THE_C} CACHE INTERNAL "the C compiler" FORCE)
@@ -48,9 +50,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 # Find BLAS and LAPACK implementations
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
-
-
-
+include(external)
 
 ###############################################################################
 ## Find compiler support for OpenMP. Since cmake 3.9, we can use 
