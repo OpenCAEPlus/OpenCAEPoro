@@ -92,7 +92,7 @@ DISGAS
 
 ## COMPS<span id=_COMPS></span>
 
-COMPS 激活了组分模型，可以输入组分数，但目前并不起作用(TODO 将NCNP的作用转移于此)，烃组分数和最大烃相数目前由 NCNP 输入，示例
+COMPS 激活了组分模型，并输入烃组分数，示例
 
 ```
 COMPS
@@ -463,6 +463,14 @@ EQUIL 用于油藏初始条件的计算，它给出了参考深度处的油藏�
 EQUIL 应与上述的饱和度表格与 PVT 表格一样，在不同的区域有不同的数值，但由于多区域功能目前并未完全实现，因此只读入一行数据。**(TODO)**
 
 
+## ZMFVD<span id=_ZMFVD></span> (e)(/)
+ZMFVD 用于组分模型，输入油藏中烃组分摩尔占比 (dimensionless) 关于深度 (feet) 的变化关系表，输入格式具体可参见 [SWOF](#_SWOF)。如下是一个六种烃组分的示例
+```
+ZMFVD
+1000.0   0.5  0.03  0.07  0.2  0.15  0.05
+10000.0  0.5  0.03  0.07  0.2  0.15  0.05 
+/
+```
 
 ## ROCK<span id=_ROCK></span> 
 
@@ -768,38 +776,12 @@ Solvent  0.6  0.3  0.05  0.02  0.03
 各组分的摩尔占比和应为 1，末尾的 0 可以省略。
 
 
-
-## NCNP<span id=_NCNP></span>
-
-NCNP 关键字用于组分模型，它给出了组分的数量(不包括水组分)和烃相的最大数量。示例
-
-```
-NCNP
-6 2
-```
-
-
-
 ## CNAMES<span id=_CNAMES></span> (e)
 CNAMES 用于输入烃组分的名字，需要先输入 NCNP
 ```
 CNAMES
 Meth Ethane C3-C6 C7+
 ```
-
-
-
-## ZI<span id=_ZI></span> (e)
-
-ZI 用组分模型，它给出了油藏(每个网格块)初始的组分摩尔占比(不包括水组分)
-
-目前仍是简单的初始化，没有涉及关于深度的插值变化 **(TODO)**
-
-```
-ZI
-0.5 0.03 0.07 0.2 0.15 0.05
-```
-
 
 
 ## TCRIT<span id=_TCRIT></span> (e)(/)
@@ -1357,6 +1339,11 @@ PBVD
 9000    4014.7
 /
 
+ZMFVD
+1000.0   0.5  0.03  0.07  0.2  0.15  0.05
+10000.0  0.5  0.03  0.07  0.2  0.15  0.05 
+/
+
 -- SUMMARY output
 SUMMARY
 EXCEL
@@ -1624,15 +1611,6 @@ TSTEP
 1*365.25 
 /
 
-NCNP
-# number of component; maximum number of phases
-6 2
-/
-
--- initial components distribution
-ZI
-0.5 0.03 0.07 0.2 0.15 0.05
-/
 
 CNAMES
 C1
