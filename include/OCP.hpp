@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.1.8" ///< Software version tag used for git
+#define OCPVersion "0.2.0" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -29,58 +29,55 @@ public:
     /// Output OpenCAEPoro version information.
     void PrintVersion() const
     {
-        std::cout << "=========================================" << std::endl
-                  << "OpenCAEPoro Version-" << OCPVersion << std::endl
-                  << "=========================================" << std::endl
-                  << std::endl;
+        cout << "=========================================" << endl
+             << "OpenCAEPoro Version-" << OCPVersion << endl
+             << "=========================================" << endl
+             << endl;
     };
 
     /// Provide at least InputFileName for the input data
     void PrintUsage(string cmdname) const
     {
-        std::cout << "Usage: " << std::endl
-                  << "  " << cmdname << " <InputFileName> [Optional Method Parameters]"
-                  << std::endl
-                  << std::endl;
+        cout << "Usage: " << endl
+             << "  " << cmdname << " <InputFileName> [Optional Method Parameters]"
+             << endl
+             << endl;
 
-        std::cout << "The simplest usage is as follow, and everything will be honor of the input file:" << std::endl
-                  << "  " << cmdname
-                  << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting"
-                  << std::endl
-                  << std::endl;
+        cout << "The simplest usage is as follows, where parameters are read from file:"
+             << endl
+             << "  " << cmdname
+             << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting" << endl
+             << endl;
 
-        std::cout << "Also, you could add some options followed by the input file, but attention, these "
-                  << std::endl 
-                  << "options will override the corresponding contents in the input file and take effect "
-                  << std::endl
-                  << "all the time, available options are as follows: " 
-                  << std::endl
-                  << "method:   determine which method will be used."
-                  << std::endl
-                  << "dtInit:   determine the initial time step."
-                  << std::endl
-                  << "dtMax:    determine the maximun time step."
-                  << std::endl
-                  << "dtMin:    determine the minimum time step."
-                  << std::endl
-                  << "pl:       determine the print level."
-                  << std::endl
-                  << std::endl
-                  << "Only when method option is specified, does other options will work. If length of "
-                  << std::endl
-                  << "time step (dtInit,dtMax,dtMin) havn't been given, defaulted values will be used."
-                  << std::endl;
-        std::cout << "for examples" << std::endl;
-        std::cout << "  " << cmdname
-                  << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1  %% Solve SPE1a using FIM"
-                  << std::endl;
+        cout << "You can also pass some command-line options followed by the "
+                "input file:"
+             << endl
+             << "  method:   determine which method will be used " << endl
+             << "  dtInit:   determine the initial time step     " << endl
+             << "  dtMax:    determine the maximun time step     " << endl
+             << "  dtMin:    determine the minimum time step     " << endl
+             << "  pl:       determine the print level           " << endl
+             << endl;
+
+        cout << "For example: solve SPE1a using FIM" << endl
+             << "  " << cmdname
+             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1"
+             << endl;
+
+        cout << endl
+             << "Attention: " << endl
+             << "  - These options override those from the input file;" << endl
+             << "  - Only if the method option is specified, other options will work;"
+             << endl
+             << "  - If (dtInit,dtMax,dtMin) are not set, default values will be used."
+             << endl;
     }
 
     /// Read input parameters to an internal structure.
-    void InputParam(ParamRead &param);
+    void InputParam(ParamRead& param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupSimulator(ParamRead &param, const USI &argc, const char *optset[]);
+    void SetupSimulator(ParamRead& param, const USI& argc, const char* optset[]);
 
     /// Initialize or get intitial status of reserovir.
     void InitReservoir();
