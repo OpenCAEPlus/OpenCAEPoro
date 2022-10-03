@@ -23,6 +23,8 @@ jobs:
                   echo "Tags: ${{ github.event.inputs.tags }}"
             - name: Check out repository
               uses: actions/checkout@v3
+            - name: Build sphinx
+              run: pnpm doc:build:sphinx
             - name: Build doc
               run: pnpm doc:build:vitepress
             - name: Commit dist.zip
