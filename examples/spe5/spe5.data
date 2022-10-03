@@ -70,9 +70,9 @@ INCLUDE
 EGOIL.in
 /
 
---Specify initial liquid composition
-ZI
-0.5 0.03 0.07 0.2 0.15 0.05
+ZMFVD
+1000.0  0.5 0.03 0.07 0.2 0.15 0.05
+10000.0 0.5 0.03 0.07 0.2 0.15 0.05 
 /
 
 RTEMP
@@ -172,9 +172,9 @@ TUNING
 -- Init     max    min   incre   chop    cut
    1       10     0.1      5    0.3    0.3                    /
 --  dPlim  dSlim   dNlim   dVerrlim
-     300     0.2    0.3    0.001                               /
+     300     1    0.3    0.001                               /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-3   200    2    1      0.01    0.01          /
+       20    1E-3   200    0.2    1      1E-2    0.01          /
 /
 
 

@@ -458,8 +458,8 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
     USI                     col = obj->colNum;
     if (tabName == "ZMFVD") {
         if (!comps) OCP_ABORT("COMPS isn't set correctly!");
-        obj->colNum = numCom;
-        col = numCom;
+        obj->colNum = numCom + 1;
+        col = obj->colNum;
     }
     vector<vector<OCP_DBL>> tmpTab(col);
 
@@ -760,25 +760,6 @@ void EoSparam::InitEoSparam()
     LBCcoef[4] = 0.0093324;
 }
 
-
-/// TODO: Add Doxygen
-void EoSparam::InputZI(ifstream& ifs)
-{
-    OCP_ASSERT(numCom > 0, "Wrong NC!");
-
-    vector<string> vbuf;
-    ReadLine(ifs, vbuf);  
-    zi.resize(numCom);
-    for (USI i = 0; i < numCom; i++) {
-        zi[i] = stod(vbuf[i]);
-    }
-    OCP_FUNCNAME;
-    cout << "Init Zi" << endl;
-    for (USI i = 0; i < numCom; i++) {
-        cout << zi[i] << "   ";
-    }
-    cout << endl << endl;
-}
 
 /// TODO: Add Doxygen
 void EoSparam::InputCOM(ifstream& ifs)

@@ -8,7 +8,7 @@
 ---------------------------------------------------
 OCP_IMPEC_1
 
-.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe1a\spe1a.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          3655.500 Days
 Total time steps:    4633
@@ -21,7 +21,7 @@ Simulation time:     1.357s
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\spe1a\spe1a.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe1a\spe1a.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 69
 
@@ -43,7 +43,7 @@ Simulation time:     0.308s
 ---------------------------------------------------
 OCP_IMPEC_1
 
-.\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe1b\spe1b.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          3655.500 Days
 Total time steps:    3852
@@ -56,7 +56,7 @@ Simulation time:     1.127s
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\spe1b\spe1b.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe1b\spe1b.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 69
 
@@ -77,7 +77,7 @@ Simulation time:     0.352s
 ---------------------------------------------------
 OCP_IMPEC_1
 
-.\OpenCAEPoro.exe ..\..\data\spe9\spe9_IMPEC.data
+.\OpenCAEPoro.exe ..\..\examples\spe9\spe9_IMPEC.data
 
 Final time:          900.000 Days
 Total time steps:    7486
@@ -90,7 +90,7 @@ Simulation time:     88.885s
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\spe9\spe9_FIM.data
+.\OpenCAEPoro.exe ..\..\examples\spe9\spe9_FIM.data
 
 precond_type             = 69
 
@@ -123,7 +123,7 @@ Simulation time:     2905.24s
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe10\spe10.data
+.\OpenCAEPoro.exe ..\..\examples\spe10\spe10.data
 
 Final time:          2000.000 Days
 Total time steps:    53
@@ -145,7 +145,7 @@ Simulation time:     1827.200s
 ---------------------------------------------------
 OCP_IMPEC_1
 
-.\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\cornerpoint\CP.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 Final time:          1000.000 Days
 Total time steps:    1999
@@ -158,7 +158,7 @@ Simulation time:     0.148s
 ---------------------------------------------------
 OCP_FIM_10
 
-.\OpenCAEPoro.exe ..\..\data\cornerpoint\CP.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\cornerpoint\CP.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
  
 precond_type             = 69
 
@@ -182,7 +182,7 @@ Simulation time:     0.096s
 ---------------------------------------------------
 OCP_IMPEC
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5\spe5.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 SSMSTA:     6347464
 NRSTA:      20264
@@ -200,7 +200,7 @@ Simulation time:     14.159s
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=FIM  dtInit=1 dtMax=50 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5\spe5.data  method=FIM  dtInit=1 dtMax=50 dtMin=0.1
 
 precond_type             = 64
 
@@ -219,7 +219,7 @@ Simulation time:     8.183s
 ---------------------------------------------------
 OCP_FIMn
 
-.\OpenCAEPoro.exe ..\..\data\spe5\spe5.data  method=FIMn  dtInit=1 dtMax=50 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5\spe5.data  method=FIMn  dtInit=1 dtMax=50 dtMin=0.1
 
 precond_type             = 64
 
@@ -247,7 +247,7 @@ Simulation time:     8.873s
 ---------------------------------------------------
 OCP_IMPEC
 
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe3\spe3.data  method=IMPEC  dtInit=0.1 dtMax=1 dtMin=0.1
 
 SSMSTA:     23725633
 NRSTA:      19451
@@ -264,7 +264,7 @@ Simulation time:     38.641s
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe3\spe3.data  method=FIM  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 64
 
@@ -284,7 +284,7 @@ Simulation time:     2.243s
 ---------------------------------------------------
 OCP_FIMn
 
-.\OpenCAEPoro.exe ..\..\data\spe3\spe3.data  method=FIMn  dtInit=1 dtMax=100 dtMin=0.1
+.\OpenCAEPoro.exe ..\..\examples\spe3\spe3.data  method=FIMn  dtInit=1 dtMax=100 dtMin=0.1
 
 precond_type             = 64
 
@@ -307,7 +307,7 @@ Simulation time:     2.540s
 ---------------------------------------------------
 OCP_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=10  dtMin=0.1  pl=1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=10  dtMin=0.1  pl=1
 
 precond_type   =  64
 
@@ -323,7 +323,7 @@ Total linear steps:  896 (+87 wasted steps)
 Linear solve time:   542.995s (47.367%)
 Simulation time:     1146.347s
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=20  dtMin=0.1  pl=1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  method=FIM  dtInit=1 dtMax=20  dtMin=0.1  pl=1
 
 precond_type   =  64
 
@@ -340,7 +340,7 @@ Linear solve time:   465.497s (48.439%)
 Simulation time:     961.001s
 
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIM  1  50  0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIM  1  50  0.1
 
 precond_type   =  64
 
@@ -359,7 +359,7 @@ Simulation time:     1412.269s
 ---------------------------------------------------
 OCP_NEW_FIM
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIMn  1  10  0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIMn  1  10  0.1
 
 precond_type   =  64
 
@@ -375,7 +375,7 @@ Total linear steps:  864 (+24 wasted steps)
 Linear solve time:   552.229s (42.005%)
 Simulation time:     1314.664s
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIMn  1  20  0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIMn  1  20  0.1
 
 precond_type   =  64
 
@@ -391,7 +391,7 @@ Total linear steps:  807 (+112 wasted steps)
 Linear solve time:   545.601s (43.609%)
 Simulation time:     1251.113s
 
-.\OpenCAEPoro.exe ..\..\data\spe5refine\spe5-70x70x30-2y.data  FIMn  1  50  0.1
+.\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIMn  1  50  0.1
 
 precond_type   =  64
 

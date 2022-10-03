@@ -68,8 +68,6 @@ public:
     // Basic params
     /// Init Params
     void InitEoSparam();
-    /// Input the initial moles fraction of hydrocarbon components
-    void InputZI(ifstream& ifs);
     /// Input the information of components
     void InputCOM(ifstream& ifs); // useless now
 
@@ -95,8 +93,6 @@ public:
     USI NTPVT{1}; ///< num of EoS region, constant now.
     USI numCom{0};  ///< num of components, water is excluded.
     USI numPhase{2}; ///< num of phase, water is excluded, constant now.
-    vector<OCP_DBL>
-        zi; ///< molar fraction of components in initial reservoir, water is excluded.
     vector<vector<string>>  COM; ///< Components information
     vector<string> Cname; ///< Name of hydrocarbon components
     Type_A_r<vector<OCP_DBL>> Tc; ///< Critical temperature of hydrocarbon components
@@ -207,7 +203,7 @@ public:
 
     // PVT properties
     USI      numPhase; ///< Number of phases
-    USI      numCom;   ///< Number of components, used in BlackOil Model
+    USI      numCom;   ///< Number of components(hydrocarbon components), used in Compositional Model when input
     TableSet PVCO_T;   ///< Table set of PVCO.
     TableSet PVDO_T;   ///< Table set of PVDO.
     TableSet PVDG_T;   ///< Table set of PVDG.
@@ -299,7 +295,6 @@ public:
     // Input EoSparam
     // Basic params
     void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
-    void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
     void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
     void InputCOMPONENTS(ifstream& ifs, const string& keyword) { EoSp.InputCOMPONENTS(ifs, keyword); }
     void InputLBCCOEF(ifstream& ifs) { EoSp.InputLBCCOEF(ifs); }

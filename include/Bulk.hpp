@@ -220,8 +220,9 @@ private:
 
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
-    vector<OCP_DBL>   initZi;   ///< Initial proportion of each component.
-    
+    vector<OCP_DBL>   initZi;
+    vector<OCPTable>  initZi_T; ///< InitZi set
+
     vector<OCP_DBL>   SwatInit; ///< Initial water saturation.
     bool SwatInitExist{false};    ///< If SwatInit has been given.
     vector<OCP_DBL>  ScaleValuePcow; ///< Scale valus for Pcow.

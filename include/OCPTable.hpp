@@ -29,8 +29,11 @@ public:
     /// Default constructor.
     OCPTable() = default;
 
-    /// Constructor a table of fixed size.
+    /// Construct a table of fixed size.
     OCPTable(const USI& row, const USI& col);
+
+    /// Construct from existing data
+    OCPTable(const vector<vector<OCP_DBL>>& src);
 
     /// Setup tables from existing data of table.
     void Setup(const vector<vector<OCP_DBL>>& src);
@@ -59,9 +62,13 @@ public:
     }
 
     /// interpolate the specified monotonically increasing column in table to evaluate
-    /// all columns.
+    /// all columns and return slope
     USI Eval_All(const USI& j, const OCP_DBL& val, vector<OCP_DBL>& outdata,
                  vector<OCP_DBL>& slope);
+
+    /// interpolate the specified monotonically increasing column in table to evaluate
+    /// all columns, j = 0 here and index of returnning date begins from 1
+    USI Eval_All0(const OCP_DBL& val, vector<OCP_DBL>& outdata);
 
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// the target column.

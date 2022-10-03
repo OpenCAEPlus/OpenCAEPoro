@@ -224,10 +224,6 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputCNAMES(ifs);
                 break;
 
-            case Map_Str2Int("ZI", 2):
-                paramRs.InputZI(ifs);
-                break;
-
             case Map_Str2Int("COM", 3):
                 paramRs.InputCOM(ifs);
                 break;

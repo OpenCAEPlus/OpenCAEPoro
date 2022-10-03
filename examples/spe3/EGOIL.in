@@ -1,21 +1,3 @@
-#	Flash calculation input file
-#	for compositional simulation
-#	
-#       Specifying the input file the SPE5 fluids.
-#	version 1
-VERSION
-3
-/
-
-NCNP
-# number of component; maximum number of phases
-9 2
-/
-
-ZI
-.01210	.01940	.65990	.08690	.05910	.09670	.04745	.01515	.00330
-/
-
 CNAMES
 CO2 N2 C1 C2 C3 C4-6 C7+1 C7+2 C7+3 /
 

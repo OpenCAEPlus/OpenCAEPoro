@@ -22,6 +22,13 @@ OCPTable::OCPTable(const USI& row, const USI& col)
     }
 }
 
+
+OCPTable::OCPTable(const vector<vector<OCP_DBL>>& src)
+{
+    this->Setup(src);
+}
+
+
 void OCPTable::Setup(const std::vector<std::vector<OCP_DBL>>& src)
 {
     data = src;
@@ -83,6 +90,47 @@ USI OCPTable::Eval_All(const USI& j, const OCP_DBL& val, vector<OCP_DBL>& outdat
     }
     return bId;
 }
+
+
+USI OCPTable::Eval_All0(const OCP_DBL& val, vector<OCP_DBL>& outdata)
+{
+    const USI j = 0;
+    OCP_DBL tmpk = 0;
+    if (val >= data[j][bId]) {
+        for (USI i = bId + 1; i < nRow; i++) {
+            if (val < data[j][i]) {
+                bId = i - 1;
+                for (USI k = 1; k < nCol; k++) {
+                    tmpk = (data[k][bId + 1] - data[k][bId]) /
+                        (data[j][bId + 1] - data[j][bId]);
+                    outdata[k - 1] = data[k][bId] + tmpk * (val - data[j][bId]);
+                }
+                return bId;
+            }
+        }
+        for (USI k = 1; k < nCol; k++) {
+            outdata[k - 1] = data[k].back();
+        }
+    }
+    else {
+        for (OCP_INT i = bId - 1; i >= 0; i--) {
+            if (val >= data[j][i]) {
+                bId = i;
+                for (USI k = 1; k < nCol; k++) {
+                    tmpk = (data[k][bId + 1] - data[k][bId]) /
+                        (data[j][bId + 1] - data[j][bId]);
+                    outdata[k - 1] = data[k][bId] + tmpk * (val - data[j][bId]);
+                }
+                return bId;
+            }
+        }
+        for (USI k = 1; k < nCol; k++) {
+            outdata[k - 1] = data[k].front();
+        }
+    }
+    return bId;
+}
+
 
 OCP_DBL OCPTable::Eval(const USI& j, const OCP_DBL& val, const USI& destj)
 {
