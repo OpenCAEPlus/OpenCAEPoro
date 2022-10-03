@@ -107,7 +107,7 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 # The OpenCAEPoro library target
 add_subdirectory(external)
 add_library(OpenCAEPoro STATIC)
-target_link_libraries(OpenCAEPoro PUBLIC fasp)
+target_link_libraries(OpenCAEPoro PUBLIC fasp ecl)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(main)
