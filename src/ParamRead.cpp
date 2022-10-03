@@ -132,6 +132,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("PVDG", 4):
             case Map_Str2Int("PVTW", 4):
             case Map_Str2Int("PBVD", 4):
+            case Map_Str2Int("ZMFVD",5):
                 paramRs.InputTABLE(ifs, keyword);
                 break;
 
@@ -217,10 +218,6 @@ void ParamRead::ReadFile(const string& filename)
 
             case Map_Str2Int("RPTSCHED", 8):
                 paramOutput.InputRPTSCHED(ifs);
-                break;
-
-            case Map_Str2Int("NCNP", 4):
-                paramRs.InputNCNP(ifs);
                 break;
 
             case Map_Str2Int("CNAMES", 6):

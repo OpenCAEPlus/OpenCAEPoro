@@ -150,6 +150,10 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
         case Map_Str2Int("PVTW", 4):
             myPtr = &PVTW_T;
             break;
+
+        case Map_Str2Int("ZMFVD", 5):
+            myPtr = &ZMFVD_T;
+            break;
     }
 
     return myPtr;
@@ -198,6 +202,7 @@ void ParamReservoir::InitTable()
     PVDG_T.colNum = 3;
     PVTW_T.name   = "PVTW";
     PVTW_T.colNum = 5;
+    ZMFVD_T.name = "ZMFVD"; // colnum equals numCom(hydrocarbon) + 1
 }
 
 /// TODO: Add Doxygen
@@ -264,7 +269,11 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     comps = true;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    numCom = stoi(vbuf[0]) + 1;
+    numCom = stoi(vbuf[0]);
+    EoSp.numCom = numCom;
+    EoSp.InitEoSparam();
+
+    cout << "COMPS" << endl << numCom << "\n/\n";
 }
 
 /// TODO: Add Doxygen
@@ -447,6 +456,11 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
     }
 
     USI                     col = obj->colNum;
+    if (tabName == "ZMFVD") {
+        if (!comps) OCP_ABORT("COMPS isn't set correctly!");
+        obj->colNum = numCom;
+        col = numCom;
+    }
     vector<vector<OCP_DBL>> tmpTab(col);
 
     vector<string> vbuf;
@@ -748,32 +762,19 @@ void EoSparam::InitEoSparam()
 
 
 /// TODO: Add Doxygen
-void EoSparam::InputNCNP(ifstream& ifs)
-{
-    vector<string> vbuf;
-    ReadLine(ifs, vbuf);
-    numComp  = stoi(vbuf[0]);
-    numPhase = stoi(vbuf[1]);
-    OCP_FUNCNAME;
-    cout << "NC = " << numComp << "   NPmax = " << numPhase << endl << endl;
-
-    InitEoSparam();
-}
-
-/// TODO: Add Doxygen
 void EoSparam::InputZI(ifstream& ifs)
 {
-    OCP_ASSERT(numComp > 0, "Wrong NC!");
+    OCP_ASSERT(numCom > 0, "Wrong NC!");
 
     vector<string> vbuf;
     ReadLine(ifs, vbuf);  
-    zi.resize(numComp);
-    for (USI i = 0; i < numComp; i++) {
+    zi.resize(numCom);
+    for (USI i = 0; i < numCom; i++) {
         zi[i] = stod(vbuf[i]);
     }
     OCP_FUNCNAME;
     cout << "Init Zi" << endl;
-    for (USI i = 0; i < numComp; i++) {
+    for (USI i = 0; i < numCom; i++) {
         cout << zi[i] << "   ";
     }
     cout << endl << endl;
@@ -782,13 +783,13 @@ void EoSparam::InputZI(ifstream& ifs)
 /// TODO: Add Doxygen
 void EoSparam::InputCOM(ifstream& ifs)
 {
-    OCP_ASSERT(numComp > 0, "Wrong NC!");
-    COM.resize(numComp);
+    OCP_ASSERT(numCom > 0, "Wrong NC!");
+    COM.resize(numCom);
     USI len = 9;
 
     vector<string> vbuf;
 
-    for (USI c = 0; c < numComp; c++) {
+    for (USI c = 0; c < numCom; c++) {
         COM[c].resize(len);
         ReadLine(ifs, vbuf);
         for (USI i = 0; i < len; i++) {
@@ -876,7 +877,7 @@ Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
 
 void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
-    OCP_ASSERT((numComp > 0) && (NTPVT > 0), "NPNC hasn't be input!");
+    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
 
     Type_A_r<vector<OCP_DBL>>* objPtr = nullptr;
     objPtr = FindPtr(keyword);
@@ -917,7 +918,7 @@ void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 
 void EoSparam::InputCNAMES(ifstream& ifs)
 {
-    OCP_ASSERT(numComp > 0, "NCNP hasn't be input!");
+    OCP_ASSERT(numCom > 0, "NCNP hasn't be input!");
 
     vector<string> vbuf;
     while (true) {
@@ -935,7 +936,7 @@ void EoSparam::InputCNAMES(ifstream& ifs)
 
     OCP_FUNCNAME;
     cout << "CNAMES" << endl;
-    for (USI i = 0; i < numComp; i++) {
+    for (USI i = 0; i < numCom; i++) {
         cout << Cname[i] << "   ";
     }
     cout << endl << endl;
@@ -963,7 +964,7 @@ void EoSparam::InputLBCCOEF(ifstream& ifs)
 /// Input Binary Interaction Coefficients Matrix
 void EoSparam::InputBIC(ifstream& ifs)
 {
-    OCP_ASSERT((numComp > 0) && (NTPVT > 0), "NCNP hasn't been input!");
+    OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NCNP hasn't been input!");
   
     BIC.resize(NTPVT);
 

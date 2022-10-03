@@ -68,8 +68,6 @@ public:
     // Basic params
     /// Init Params
     void InitEoSparam();
-    /// Input the num of hydrocarbon components and hydrocarbon phases
-    void InputNCNP(ifstream& ifs);
     /// Input the initial moles fraction of hydrocarbon components
     void InputZI(ifstream& ifs);
     /// Input the information of components
@@ -94,9 +92,9 @@ public:
     void InputRR(ifstream& ifs);
 
 public:
-    USI NTPVT{0}; ///< num of EoS region
-    USI numComp{0};  ///< num of components, water is excluded.
-    USI numPhase{0}; ///< num of phase, water is excluded.
+    USI NTPVT{1}; ///< num of EoS region, constant now.
+    USI numCom{0};  ///< num of components, water is excluded.
+    USI numPhase{2}; ///< num of phase, water is excluded, constant now.
     vector<OCP_DBL>
         zi; ///< molar fraction of components in initial reservoir, water is excluded.
     vector<vector<string>>  COM; ///< Components information
@@ -203,6 +201,8 @@ public:
     TableSet        SGOF_T; ///< Table set of SGOF.
     TableSet        SOF3_T; ///< Table set of SOF3.
     TableSet        PBVD_T; ///< Table set of PBVD.
+    // initial zi vs depth
+    TableSet        ZMFVD_T;///< Table set of ZMFVD
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 
     // PVT properties
@@ -298,7 +298,6 @@ public:
 
     // Input EoSparam
     // Basic params
-    void InputNCNP(ifstream& ifs) { OCP_ASSERT(NTPVT > 0, "TABDIM hasn't been input!"); EoSp.NTPVT = NTPVT; EoSp.InputNCNP(ifs); };
     void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
     void InputZI(ifstream& ifs) { EoSp.InputZI(ifs); };
     void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };

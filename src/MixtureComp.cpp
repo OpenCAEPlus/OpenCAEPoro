@@ -29,12 +29,13 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
 {
     // if Water don't exist?
     // for Mixture class
+    // Now, only one case is considered: oil, gas, water could exist
     numPhase = param.numPhase + 1;
-    numCom   = param.numComp + 1;
+    numCom   = param.numCom + 1;
     Allocate();
 
     // for MixtureComp class
-    NC    = param.numComp;
+    NC    = param.numCom;
     NPmax = param.numPhase;
 
     zi.resize(NC);

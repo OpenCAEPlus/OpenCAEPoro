@@ -137,7 +137,7 @@ void Bulk::InputParam(ParamReservoir &rs_param)
         initZi.push_back(0.0); // include water
 
         numPhase = rs_param.EoSp.numPhase + 1;
-        numCom = rs_param.EoSp.numComp + 1;
+        numCom = rs_param.EoSp.numCom + 1;
         numCom_1 = numCom - 1;
         EQUIL.DOWC = rs_param.EQUIL[2];
         EQUIL.PcOW = rs_param.EQUIL[3];
