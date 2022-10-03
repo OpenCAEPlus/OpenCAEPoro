@@ -19,6 +19,7 @@
         "doc:dev": "pnpm doc:build:markdown && pnpm --filter opencaeporo-doc install && pnpm --filter opencaeporo-doc doc:dev",
         "doc:build:doxygen": "bash ./scripts/doc/build/doxygen.sh",
         "doc:build:markdown": "pnpm doc:build:doxygen && bash ./scripts/doc/build/markdown.sh",
+        "doc:build:sphinx": "bash ./scripts/doc/build/sphinx.sh",
         "doc:build:vitepress": "pnpm --filter opencaeporo-doc install && pnpm doc:build:markdown && bash ./scripts/doc/build/vitepress.sh",
         "doc:publish:render": "bash ./scripts/doc/publish/render.sh"
     }
