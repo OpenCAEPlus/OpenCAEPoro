@@ -79,6 +79,7 @@ The directory structure of OpenCAEPoro is designed as follows:
   - CONTRIBUTE.md: Guidance for open source contributors
   - LICENSE: License agreement
   - README.md: This document
+  - VERSION: Version information generated from git tag
   - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: Files for the website
   - .clang-format: For automatic source code formatting
 

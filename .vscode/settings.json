@@ -73,6 +73,25 @@
         "unordered_map": "cpp",
         "variant": "cpp",
         "vector": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "__tree": "cpp",
+        "bit": "cpp",
+        "codecvt": "cpp",
+        "condition_variable": "cpp",
+        "map": "cpp",
+        "numbers": "cpp",
+        "numeric": "cpp",
+        "queue": "cpp",
+        "random": "cpp",
+        "semaphore": "cpp",
+        "set": "cpp",
+        "thread": "cpp",
+        "*.tcc": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "utility": "cpp",
+        "stop_token": "cpp",
+        "cinttypes": "cpp"
     }
 }
