@@ -2,9 +2,10 @@
 
 ## Directory and Files
 
-- build, scripts for building the OpenCAEPoro on MacOS, Windows, and Linux
-- publish, script for publishing OpenCAEPoro releases
-- doc, script for building documentations
+- build/:   scripts for building the OpenCAEPoro on MacOS, Windows, and Linux
+- publish/: scripts for publishing OpenCAEPoro releases
+- doc/:     scripts for building documentations
+- other/:   other scripts
 
 ## Important
 
