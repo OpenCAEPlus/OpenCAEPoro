@@ -39,7 +39,7 @@ public:
     void PrintUsage(string cmdname) const
     {
         cout << "Usage: " << endl
-             << "  " << cmdname << " <InputFileName> [Optional Method Parameters]"
+             << "  " << cmdname << " <InputFileName> [<options>]"
              << endl
              << endl;
 
@@ -49,12 +49,11 @@ public:
              << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting" << endl
              << endl;
 
-        cout << "You can also pass some command-line options followed by the "
-                "input file:"
+        cout << "You can also pass command-line options after the input file:"
              << endl
              << "  method:   determine which method will be used " << endl
              << "  dtInit:   determine the initial time step     " << endl
-             << "  dtMax:    determine the maximun time step     " << endl
+             << "  dtMax:    determine the maximum time step     " << endl
              << "  dtMin:    determine the minimum time step     " << endl
              << "  pl:       determine the print level           " << endl
              << endl;
@@ -66,9 +65,8 @@ public:
 
         cout << endl
              << "Attention: " << endl
-             << "  - These options override those from the input file;" << endl
-             << "  - Only if the method option is specified, other options will work;"
-             << endl
+             << "  - These options will override those from the input file;" << endl
+             << "  - Only if `method' is set, other options will take effect;" << endl
              << "  - If (dtInit,dtMax,dtMin) are not set, default values will be used."
              << endl;
     }
@@ -79,7 +77,7 @@ public:
     /// Setup reservoir based on an internal structure.
     void SetupSimulator(ParamRead& param, const USI& argc, const char* optset[]);
 
-    /// Initialize or get intitial status of reserovir.
+    /// Initialize or get initial status of reservoir.
     void InitReservoir();
 
     /// Run dynamic simulation.
