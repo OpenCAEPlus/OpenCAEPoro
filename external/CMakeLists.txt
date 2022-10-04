@@ -20,9 +20,12 @@ else(FASP_FOUND)
   FetchContent_MakeAvailable(fasp)
 endif(FASP_FOUND)
 
+option(BUILD_ECL "Build ECL" OFF)
+if(BUILD_ECL)
 FetchContent_Declare(
   ecl
   GIT_REPOSITORY https://github.com/billcxx/ecl.git
   GIT_SUBMODULES ""
   GIT_TAG 609fb59)
 FetchContent_MakeAvailable(ecl)
+endif()
