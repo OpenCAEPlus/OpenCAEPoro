@@ -973,7 +973,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
     OCP_FUNCNAME;
     if (opt.initOptMode == BHP_MODE) {
         if (opt.type == INJ) {
-            OCP_DBL q = CalInjRate(myBulk, false);
+            OCP_DBL q = CalInjRate(myBulk, true);
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
