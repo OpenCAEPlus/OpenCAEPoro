@@ -36,7 +36,7 @@ WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
             if (optMode == "BHP")
                 maxRate = 1E10;
             else {
-                cout << "### ERROR: Inj Rate is missing in WCONINJE!" << endl;
+                cout << "### ERROR: Prod Rate is missing in WCONINJE!" << endl;
             }
         } else {
             maxRate = stod(vbuf[3]);

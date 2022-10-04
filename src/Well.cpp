@@ -972,24 +972,31 @@ void Well::CheckOptMode(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
     if (opt.initOptMode == BHP_MODE) {
-        //if (opt.type == INJ) {
-        //    OCP_DBL q = CalInjRate(myBulk, false);
-        //    // for INJ well, maxRate has been switch to lbmols
-        //    OCP_DBL tarRate = opt.maxRate;
-        //    if (opt.reInj) {
-        //        if (opt.injPhase == GAS)
-        //            tarRate = WGIR;
-        //        else if (opt.injPhase == WATER)
-        //            tarRate = WWIR;
-        //    }
-        //    if (q > tarRate) {
-        //        opt.optMode = opt.initOptMode;
-        //    }
-        //    else {
-        //        opt.optMode = BHP_MODE;
-        //        BHP = opt.maxBHP;
-        //    }
-        //}
+        if (opt.type == INJ) {
+            OCP_DBL q = CalInjRate(myBulk, false);
+            // for INJ well, maxRate has been switch to lbmols
+            OCP_DBL tarRate = opt.maxRate;
+            if (opt.reInj) {
+                if (opt.injPhase == GAS)
+                    tarRate = WGIR;
+                else if (opt.injPhase == WATER)
+                    tarRate = WWIR;
+            }
+            if (q > tarRate) {
+                opt.optMode = RATE_MODE;
+            }
+            else {
+                opt.optMode = BHP_MODE;
+                BHP = opt.maxBHP;
+            }
+        }
+        else {
+            opt.optMode = BHP_MODE;
+            if (opt.type == INJ)
+                BHP = opt.maxBHP;
+            else
+                BHP = opt.minBHP;
+        }
         //else {
         //    OCP_DBL q = CalProdRate(myBulk, false);
         //    // cout << q << endl;
@@ -1001,13 +1008,6 @@ void Well::CheckOptMode(const Bulk& myBulk)
         //        BHP = opt.minBHP;
         //    }
         //}
-
-        opt.optMode = BHP_MODE;
-        if (opt.type == INJ)
-            BHP = opt.maxBHP;
-        else
-            BHP = opt.minBHP;
-
     } else {
         if (opt.type == INJ) {
             OCP_DBL q = CalInjRate(myBulk, true);
