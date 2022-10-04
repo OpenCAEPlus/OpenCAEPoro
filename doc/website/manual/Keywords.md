@@ -1678,30 +1678,32 @@ BIC
 RR
 #Rachford Rice equation parameters
 #maxit tolerance
-30	1e-12
+   30	   1e-12
 /
 
 SSMSTA
-#Successive substitution
-#maxit tolerance
-#eYt
-100	1e-12 1e-8
+#Successive substitution for stability analysis
+#maxit  tolerance  eYt(relaxation factor)
+  100	   1e-12     1e-8
 /
 
 NRSTA
-#Newton Raphson 
-#maxit tolerance unknown type
-55 1e-12
+#Newton Raphson for stability analysis
+#maxit tolerance 
+  55     1e-12
 /
 
 
 SSMSP
-#maxit toleranceR toleranceK(indicator for trivial solution)
-100	1E-6
+#SSM for phase splitting calculation
+#maxit toleranceR 
+  100	    1E-6
 /
 
 NRSP
-55  1e-12
+#Newton Raphson for phase splitting calculation
+#maxit toleranceR 
+  55      1e-12
 /
 ```
 
