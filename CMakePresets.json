@@ -34,7 +34,7 @@
             "name": "windows-intel-Release",
             "inherits": "windows-intel-Debug",
             "displayName": "Windows x64 intel Release",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, release build type",
+            "description": "Sets Ninja, intel compilers, x64 architecture, release build, build/install directory",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -43,7 +43,7 @@
             "name": "windows-intel-Debug",
             "inherits": "default",
             "displayName": "Windows x64 intel Debug",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, intel compilers, x64 architecture, debug build, build/install directory",
             "cacheVariables": {
                 "FASP_DIR": "C:/Program Files (x86)/faspsolver"
             },
@@ -59,13 +59,13 @@
             "name": "linux-intel-Debug",
             "inherits": "default",
             "displayName": "Linux x64 intel Debug",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type"
+            "description": "Sets Ninja, intel compilers, x64 architecture, debug build, build/install directory"
         },
         {
             "name": "linux-intel-Release",
             "inherits": "linux-intel-Debug",
             "displayName": "Linux x64 intel Release",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, intel compilers, x64 architecture, release build, build/install directory",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -74,7 +74,7 @@
             "name": "linux-gnu-Debug",
             "inherits": "default",
             "displayName": "Linux x64 gnu Debug",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, gnu compilers, x64 architecture, debug build, build/install directory",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
@@ -84,7 +84,7 @@
             "name": "linux-gnu-Release",
             "inherits": "linux-gnu-Debug",
             "displayName": "Linux x64 gnu Release",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, gnu compilers, x64 architecture, release build, build/install directory",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -93,7 +93,7 @@
             "name": "mac-gnu-Debug",
             "inherits": "default",
             "displayName": "Mac x64 gnu Debug",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, gnu compilers, x64 architecture, debug build, build/install directory",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
@@ -103,7 +103,7 @@
             "name": "mac-gnu-Release",
             "inherits": "mac-gnu-Debug",
             "displayName": "Mac x64 gnu Release",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, gnu compilers, x64 architecture, release build, build/install directory",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -112,7 +112,7 @@
             "name": "mac-intel-Debug",
             "inherits": "default",
             "displayName": "Mac x64 intel Debug",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, intel compilers, x64 architecture, debug build, build/install directory",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "icc",
                 "CMAKE_CXX_COMPILER": "icpc"
@@ -122,7 +122,27 @@
             "name": "mac-intel-Release",
             "inherits": "mac-intel-Debug",
             "displayName": "Mac x64 intel Release",
-            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "description": "Sets Ninja, intel compilers, x64 architecture, release build, build/install directory",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "mac-arm-Debug",
+            "inherits": "default",
+            "displayName": "Mac arm clang Debug",
+            "description": "Sets Ninja, clang compilers, arm architecture, debug build, build/install directory",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "mac-arm-Release",
+            "inherits": "mac-arm-Debug",
+            "displayName": "Mac arm clang Release",
+            "description": "Sets Ninja, clang compilers, arm architecture, release build, build/install directory",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -140,6 +160,10 @@
         {
             "name": "mac-gnu-Debug",
             "configurePreset": "mac-gnu-Debug"
+        },
+        {
+            "name": "mac-arm-Debug",
+            "configurePreset": "mac-arm-Debug"
         },
         {
             "name": "linux-intel-Debug",
@@ -160,6 +184,10 @@
         {
             "name": "mac-gnu-Release",
             "configurePreset": "mac-gnu-Release"
+        },
+        {
+            "name": "mac-arm-Release",
+            "configurePreset": "mac-arm-Release"
         },
         {
             "name": "linux-intel-Release",
@@ -200,6 +228,17 @@
         {
             "name": "mac-intel-Release",
             "configurePreset": "mac-intel-Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mac-arm-Release",
+            "configurePreset": "mac-arm-Release",
             "output": {
                 "outputOnFailure": true
             },
