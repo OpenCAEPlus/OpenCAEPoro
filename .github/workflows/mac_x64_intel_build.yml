@@ -21,4 +21,4 @@ jobs:
             - name: Check out repository
               uses: actions/checkout@v3
             - name: Build 
-              run: pnpm build:mac:intel:debug
+              run: pnpm build:mac:intel
