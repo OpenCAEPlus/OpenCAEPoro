@@ -8,6 +8,8 @@
 # Chensong Zhang    Jan/19/2022    Use FASP open-source part as default solver
 # Chensong Zhang    Feb/18/2022    Fix math.lib linkage problem
 # Xiaoxing Chen     Oct/03/2022    Automatically download faspsolver if needed
+# Li Zhao           Oct/05/2022    Add CUDA support
+# Chensong Zhang    Oct/05/2022    Remove compiler searching preset
 #
 # Some sample usages:
 #   cmake .                             // build in default configuration
@@ -26,14 +28,6 @@
 # Minimum cmake version needed
 cmake_minimum_required(VERSION 3.13)
 cmake_policy(SET CMP0076 NEW)
-
-# Default C compiler look-up order
-find_program(THE_C NAMES $ENV{CC} gcc clang icc icx icl)
-set(CMAKE_C_COMPILER ${THE_C} CACHE INTERNAL "the C compiler" FORCE)
-
-# Default C++ compiler look-up order
-find_program(THE_CXX NAMES $ENV{CXX} g++ clang++ icpc icx icl)
-set(CMAKE_CXX_COMPILER ${THE_CXX} CACHE INTERNAL "the CXX compiler" FORCE)
 
 # Name of the project: should appear after find_program
 project(OpenCAEPoro C CXX)
@@ -104,24 +98,19 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -Wall -g")
 endif()
 
-## requires math library
+# math library might be needed
 if (UNIX OR LINUX)
 	set(ADD_STDLIBS m stdc++)
 endif()
 
-# Set default build type to Release
-set(build_type "Release")
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "${build_type}" CACHE STRING "the build type" FORCE)
-endif()
-message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
+# external packages
+add_subdirectory(external)
 
 ###############################################################################
 ## Project specific parameters
 ###############################################################################
 
-# The OpenCAEPoro library target
-add_subdirectory(external)
+# OpenCAEPoro library targets
 add_library(OpenCAEPoro STATIC)
 if(USE_FASP4CUDA)
     target_link_libraries(OpenCAEPoro PUBLIC fasp cublas cusparse cudart cudadevrt)
@@ -134,6 +123,13 @@ endif()
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(main)
+
+# set default build type: Release
+set(build_type "Release")
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "${build_type}" CACHE STRING "the build type" FORCE)
+endif()
+message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 
 option(BUILD_TEST "Build test" OFF)
 if(BUILD_TEST)
