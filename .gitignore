@@ -12,7 +12,7 @@
 
 *.out
 .DS_Store
-.VSCode**
+.VSCodeCounter/
 [Bb]uild/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
