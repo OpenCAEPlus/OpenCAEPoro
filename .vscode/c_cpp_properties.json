@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/faspsolver/include"
+                "${FASP_DIR}/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
