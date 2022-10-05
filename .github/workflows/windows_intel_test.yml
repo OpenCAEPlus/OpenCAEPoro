@@ -1,11 +1,10 @@
 name: Windows Intel Test
 on:
-    push:
-        branches:
-            - 'main'
-    pull_request:
-        branches:
-            - 'main'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Windows Intel Build"]
+    types:
+      - completed
 env:
     CI: false
 jobs:
