@@ -15,6 +15,7 @@
 #   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on
 #   cmake -DUSE_FASP4BLKOIL=ON .        // build with FASP4BLKOIL support
+#   cmake -DUSE_FASP4CUDA=ON .          // build with FASP4CUDA support
 #   cmake -DUSE_UMFPACK=ON .            // build with UMFPACK support
 #   cmake -DUSE_OPENMP=ON .             // build with OpenMP support
 
@@ -50,6 +51,21 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 # Find BLAS and LAPACK implementations
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
+
+# Find CUDA
+if(USE_FASP4CUDA)
+    set(CUDA_DIR /usr/local/cuda-10.2)
+    set(CUDA_ROOT /usr/local/cuda-10.2) # Set the root directory of CUDA 10.2 version
+    find_package(CUDA REQUIRED)
+
+    LINK_DIRECTORIES(${CUDA_DIR}/lib64)
+    if (CUDA_FOUND)
+        include_directories(${CUDA_INCLUDE_DIRS})
+    else(CUDA_FOUND)
+        message("-- ERROR: CUDA was requested but not found!")
+    endif(CUDA_FOUND)
+endif(USE_FASP4CUDA)
+
 include(external)
 
 ###############################################################################
@@ -107,7 +123,11 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 # The OpenCAEPoro library target
 add_subdirectory(external)
 add_library(OpenCAEPoro STATIC)
-target_link_libraries(OpenCAEPoro PUBLIC fasp)
+if(USE_FASP4CUDA)
+    target_link_libraries(OpenCAEPoro PUBLIC fasp cublas cusparse cudart cudadevrt)
+else()
+    target_link_libraries(OpenCAEPoro PUBLIC fasp)
+endif()
 if(BUILD_ECL)
     target_link_libraries(OpenCAEPoro PUBLIC ecl)
 endif()
