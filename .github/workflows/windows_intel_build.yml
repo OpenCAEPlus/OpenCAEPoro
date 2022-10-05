@@ -24,4 +24,4 @@ jobs:
             - name: Check out repository
               uses: actions/checkout@v3
             - name: Build 
-              run: pnpm build:windows:intel:debug
+              run: pnpm build:windows:intel
