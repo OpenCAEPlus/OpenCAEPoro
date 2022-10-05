@@ -1,0 +1,228 @@
+{
+    "version": 2,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 20,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TEST": "ON",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "FASP_DIR": "/opt/faspsolver",
+                "CMAKE_C_COMPILER": "icx",
+                "CMAKE_CXX_COMPILER": "icx"
+            },
+            "vendor": {
+                "example.com/ExampleIDE/1.0": {
+                    "autoFormat": true
+                }
+            }
+        },
+        {
+            "name": "windows-intel-Release",
+            "inherits": "windows-intel-Debug",
+            "displayName": "Windows x64 intel Release",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, release build type",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "windows-intel-Debug",
+            "inherits": "default",
+            "displayName": "Windows x64 intel Debug",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "FASP_DIR": "C:/Program Files (x86)/faspsolver"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "linux-intel-Debug",
+            "inherits": "default",
+            "displayName": "Linux x64 intel Debug",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type"
+        },
+        {
+            "name": "linux-intel-Release",
+            "inherits": "linux-intel-Debug",
+            "displayName": "Linux x64 intel Release",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux-gnu-Debug",
+            "inherits": "default",
+            "displayName": "Linux x64 gnu Debug",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+        {
+            "name": "linux-gnu-Release",
+            "inherits": "linux-gnu-Debug",
+            "displayName": "Linux x64 gnu Release",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "mac-gnu-Debug",
+            "inherits": "default",
+            "displayName": "Mac x64 gnu Debug",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+        {
+            "name": "mac-gnu-Release",
+            "inherits": "mac-gnu-Debug",
+            "displayName": "Mac x64 gnu Release",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "mac-intel-Debug",
+            "inherits": "default",
+            "displayName": "Mac x64 intel Debug",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "icc",
+                "CMAKE_CXX_COMPILER": "icpc"
+            }
+        },
+        {
+            "name": "mac-intel-Release",
+            "inherits": "mac-intel-Debug",
+            "displayName": "Mac x64 intel Release",
+            "description": "Sets Ninja generator, compilers, x64 architecture, build and install directory, debug build type",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default"
+        },
+        {
+            "name": "mac-intel-Debug",
+            "configurePreset": "mac-intel-Debug"
+        },
+        {
+            "name": "mac-gnu-Debug",
+            "configurePreset": "mac-gnu-Debug"
+        },
+        {
+            "name": "linux-intel-Debug",
+            "configurePreset": "linux-intel-Debug"
+        },
+        {
+            "name": "linux-gnu-Debug",
+            "configurePreset": "linux-gnu-Debug"
+        },
+        {
+            "name": "windows-intel-Debug",
+            "configurePreset": "windows-intel-Debug"
+        },
+        {
+            "name": "mac-intel-Release",
+            "configurePreset": "mac-intel-Release"
+        },
+        {
+            "name": "mac-gnu-Release",
+            "configurePreset": "mac-gnu-Release"
+        },
+        {
+            "name": "linux-intel-Release",
+            "configurePreset": "linux-intel-Release"
+        },
+        {
+            "name": "linux-gnu-Release",
+            "configurePreset": "linux-gnu-Release"
+        },
+        {
+            "name": "windows-intel-Release",
+            "configurePreset": "windows-intel-Release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "linux-gnu-Release",
+            "configurePreset": "linux-gnu-Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "linux-intel-Release",
+            "configurePreset": "linux-intel-Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mac-intel-Release",
+            "configurePreset": "mac-intel-Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "windows-intel-Release",
+            "configurePreset": "windows-intel-Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        }
+    ],
+    "vendor": {
+        "example.com/ExampleIDE/1.0": {
+            "autoFormat": false
+        }
+    }
+}
