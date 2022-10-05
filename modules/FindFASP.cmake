@@ -7,8 +7,6 @@
 #  Chensong Zhang
 #  01/18/2022
 
-# message(STATUS "Looking for FASP")
-
 set(FASP_DIR "${FASP_DIR}")
 
 # Check for header file
@@ -30,4 +28,4 @@ set(FASP_LIBRARIES ${FASP_LIBRARIES})
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(FASP
     "FASP could not be found. Check FASP_DIR."
-    FASP_INCLUDE_DIRS FASP_LIBRARIES)
+    FASP_LIBRARIES FASP_INCLUDE_DIRS)
