@@ -20,7 +20,7 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "BUILD_TEST": "ON",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
-                "FASP_DIR": "${FASP_DIR}",
+                "FASP_DIR": "$env{FASP_DIR}",
                 "CMAKE_C_COMPILER": "icx",
                 "CMAKE_CXX_COMPILER": "icx"
             },
