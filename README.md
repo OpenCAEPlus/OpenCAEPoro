@@ -4,7 +4,7 @@
 [![Github pages](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/gh-page.yml)
 
 | Build | Test |
-|:-----:|:----:|
+|:------|:-----|
 |[![Linux GNU Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_build.yml)| [![Linux GNU Test](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_test.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_gnu_test.yml) |
 |[![Linux Intel Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_intel_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_intel_build.yml)|[![Linux Intel Test](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_intel_test.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/linux_intel_test.yml)|
 |[![Windows Intel Build](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_build.yml)| [![Windows Intel Test](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_test.yml/badge.svg)](https://github.com/FaspDevTeam/OpenCAEPoro/actions/workflows/windows_intel_test.yml) |
