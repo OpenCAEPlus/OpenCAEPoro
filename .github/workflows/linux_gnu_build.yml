@@ -21,4 +21,6 @@ jobs:
             - name: Check out repository
               uses: actions/checkout@v3
             - name: Build 
-              run: pnpm build:linux:gnu
+              run: |
+                  export FASP_DIR=/opt/faspsolver
+                  pnpm build:linux:gnu
