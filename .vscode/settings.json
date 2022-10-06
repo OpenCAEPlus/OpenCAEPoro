@@ -2,12 +2,16 @@
     "cSpell.words": [
         "BLAS",
         "blkoil",
+        "Chensong",
         "Doxygen",
         "FASP",
         "faspsolver",
+        "IMPEC",
         "LAPACK",
         "multicomponent",
-        "Poro"
+        "Poro",
+        "Shizhe",
+        "Zhang"
     ],
     "files.associations": {
         "__bit_reference": "cpp",
