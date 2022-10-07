@@ -1,5 +1,5 @@
 /*! \file    Main.cpp
- *  \brief   An example to demonstrate main steps of our simulator
+ *  \brief   An example to demonstrate main steps of the OCP simulator
  *  \author  Shizhe Li
  *  \date    Oct/01/2021
  *
@@ -20,7 +20,7 @@
 
 using namespace std;
 
-/// The main function performs reservoir simulation in five steps.
+/// The main() function performs simulation in five steps.
 //    -- (1) Read input data;
 //    -- (2) Setup static information;
 //    -- (3) Initialize reservoir status;
