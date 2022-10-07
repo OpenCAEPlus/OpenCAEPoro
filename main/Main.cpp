@@ -32,8 +32,8 @@ int main(int argc, const char* argv[])
     OpenCAEPoro simulator;
     if (argc < 2) {
         simulator.PrintUsage(argv[0]);
-        return OCP_ERROR_NUM_INPUT;
-    } else { // Need at least one parameter: data file name
+        return OCP_ERROR_NUM_INPUT; // Need at least one parameter: input data
+    } else {
         simulator.PrintVersion();
         if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
             simulator.PrintUsage(argv[0]);
@@ -41,30 +41,29 @@ int main(int argc, const char* argv[])
         }
     }
 
-    // Step 1. Read params from an input file to internal params data structure.
-    // Note: The keywords are almost compatible with Ecl simulator; see Keywords.md.
-    {
+    { // Read and process input parameters
         ParamRead rp;
+
+        // Step 1. Read params from an input file to internal params data structure.
+        // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.
         rp.ReadInputFile(argv[1]);
 
-        // Step 2. Set params using command-line and internal params data structure, and
-        // setup static information, such as active grids, and connections between them.
-        // Note: Memory allocation for linear systems will also be done at this time.
+        // Step 2. Set params using command-line and params read from input file.
+        // Remark: It sets up static info, such as active grids and their connections.
+        // Remark: Memory allocation for linear systems will also be done at this time.
         simulator.SetupSimulator(rp, argc, argv);
     }
 
     // Step 3. Initialize the reservoir, which finishes the first step in iterations.
-    // For example: initial pressure, saturations, moles of components, and initial
-    // guess of well pressure.
+    // Examples: Initial pressure, saturations, moles of components, initial guess of
+    // well pressure.
     simulator.InitReservoir();
 
-    // Step 4. Run dynamic simulation using methods like IMPEC and FIM. It's a
-    // combination of functions of various modules which you could make changes
-    // whenever necessary.
+    // Step 4. Run dynamic simulation using methods like IMPEC and FIM.
     simulator.RunSimulation();
 
-    // Step 5. Output the results according to params users give. It will generate
-    // a summary file in your input data directory.
+    // Step 5. Output the results according to control params.
+    // Remark: It will generate a summary file in your input data directory.
     simulator.OutputResults();
 
     return OCP_SUCCESS;
