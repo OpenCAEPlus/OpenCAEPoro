@@ -82,16 +82,16 @@ The directory structure of OpenCAEPoro is designed as follows:
   - LICENSE: License agreement
   - README.md: This document
   - .clang-format: For automatic source code formatting
-  - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: Files for the website
+  - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: For the website
 
-## Tests
+## Test
 
-There are three level of tests:
-- unit test, for testing individual code components
-- integrate test, for testing interfaces between components
-- system test, for testing and benchmark of the whole program  
+There are three levels of tests:
+  - Unit test: for testing individual code components
+  - Integrate test: for testing interfaces between components
+  - System test: for testing and benchmark of the whole program  
 
-Now only system tests are available in the examples folder
+Currently only system tests are provided in the `examples/` folder.
 
 ## License
 This software is free software distributed under the Lesser General Public
