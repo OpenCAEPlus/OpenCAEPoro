@@ -89,7 +89,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac0f2228420376f4db7e1274f2b41667c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">main</a> (int argc, const char *argv[])</td></tr>
+<tr class="memitem:ac0f2228420376f4db7e1274f2b41667c"><td class="memItemLeft" align="right" valign="top"><a id="ac0f2228420376f4db7e1274f2b41667c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">main</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:ac0f2228420376f4db7e1274f2b41667c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c" title="The main() function performs dynamic simulation in five steps.">main()</a> function performs dynamic simulation in five steps. <br /></td></tr>
 <tr class="separator:ac0f2228420376f4db7e1274f2b41667c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -102,96 +104,10 @@ Functions</h2></td></tr>
 Released under the terms of the GNU Lesser General Public License 3.0 or later.</h2>
 
 <p class="definition">Definition in file <a class="el" href="Main_8cpp_source.html">Main.cpp</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ac0f2228420376f4db7e1274f2b41667c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0f2228420376f4db7e1274f2b41667c">&#9670;&nbsp;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>argc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>argv</em>[]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The <a class="el" href="Main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c">main()</a> function performs simulation in five steps. &ndash; (1) Read input data; &ndash; (2) Setup static information; &ndash; (3) Initialize reservoir status; &ndash; (4) Run dynamic simulation; &ndash; (5) Output summary and other results. </p>
-
-<p class="definition">Definition at line <a class="el" href="Main_8cpp_source.html#l00029">29</a> of file <a class="el" href="Main_8cpp_source.html">Main.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// Step 0. Print simulator version information.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classOpenCAEPoro.html">OpenCAEPoro</a> simulator;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (argc &lt; 2) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        simulator.<a class="code" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a>(argv[0]);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">OCP_ERROR_NUM_INPUT</a>; <span class="comment">// Need at least one parameter: input data</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        simulator.<a class="code" href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">PrintVersion</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (!strcmp(argv[1], <span class="stringliteral">&quot;-h&quot;</span>) || !strcmp(argv[1], <span class="stringliteral">&quot;--help&quot;</span>)) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            simulator.<a class="code" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a>(argv[0]);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="OCPConst_8hpp.html#a50ffd4c393da2ed5978aeb984bdb0909">OCP_SUCCESS</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    { <span class="comment">// Read and process input parameters</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classParamRead.html">ParamRead</a> rp;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// Step 1. Read params from an input file to internal params data structure.</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">// Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rp.<a class="code" href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">ReadInputFile</a>(argv[1]);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="comment">// Step 2. Set params using command-line and params read from input file.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">// Remark: It sets up static info, such as active grids and their connections.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">// Remark: Memory allocation for linear systems will also be done at this time.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        simulator.<a class="code" href="classOpenCAEPoro.html#a8730bcb4edbf4857464bcfe33b0bcad1">SetupSimulator</a>(rp, argc, argv);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// Step 3. Initialize the reservoir, which finishes the first step in iterations.</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// Examples: Initial pressure, saturations, moles of components, initial guess of</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// well pressure.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">InitReservoir</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// Step 4. Run dynamic simulation using methods like IMPEC and FIM.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">RunSimulation</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// Step 5. Output the results according to control params.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Remark: It will generate a summary file in your input data directory.</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OutputResults</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="OCPConst_8hpp.html#a50ffd4c393da2ed5978aeb984bdb0909">OCP_SUCCESS</a>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_a50ffd4c393da2ed5978aeb984bdb0909"><div class="ttname"><a href="OCPConst_8hpp.html#a50ffd4c393da2ed5978aeb984bdb0909">OCP_SUCCESS</a></div><div class="ttdeci">const int OCP_SUCCESS</div><div class="ttdoc">Finish without trouble.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00030">OCPConst.hpp:30</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a9b742ff9111ce75cca2d9fd94f17a7bc"><div class="ttname"><a href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">OCP_ERROR_NUM_INPUT</a></div><div class="ttdeci">const int OCP_ERROR_NUM_INPUT</div><div class="ttdoc">Wrong number of input param.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00031">OCPConst.hpp:31</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html"><div class="ttname"><a href="classOpenCAEPoro.html">OpenCAEPoro</a></div><div class="ttdoc">Top-level data structure for the OpenCAEPoro simulator.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00026">OCP.hpp:27</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a4ed58e04f34903750d41b38191f97efd"><div class="ttname"><a href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">OpenCAEPoro::PrintUsage</a></div><div class="ttdeci">void PrintUsage(string cmdname) const</div><div class="ttdoc">Provide at least InputFileName for the input data.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00039">OCP.hpp:39</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00057">OCP.cpp:57</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a6193cc91696ea35e8d9bde039682617a"><div class="ttname"><a href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a></div><div class="ttdeci">void OutputResults() const</div><div class="ttdoc">Output necessary information for post-processing.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00089">OCP.cpp:89</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00045">OCP.cpp:45</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a8730bcb4edbf4857464bcfe33b0bcad1"><div class="ttname"><a href="classOpenCAEPoro.html#a8730bcb4edbf4857464bcfe33b0bcad1">OpenCAEPoro::SetupSimulator</a></div><div class="ttdeci">void SetupSimulator(ParamRead &amp;param, const USI &amp;argc, const char *optset[])</div><div class="ttdoc">Setup reservoir based on an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00023">OCP.cpp:23</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_aa207d83bfc12e673b288d8c0ae5b0427"><div class="ttname"><a href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">OpenCAEPoro::PrintVersion</a></div><div class="ttdeci">void PrintVersion() const</div><div class="ttdoc">Output OpenCAEPoro version information.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00030">OCP.hpp:30</a></div></div>
-<div class="ttc" id="aclassParamRead_html"><div class="ttname"><a href="classParamRead.html">ParamRead</a></div><div class="ttdoc">Pre-processing unit for OpenCAEPoro for reading params from input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00032">ParamRead.hpp:33</a></div></div>
-<div class="ttc" id="aclassParamRead_html_a62e9a14e95058cfebcef6062359d4537"><div class="ttname"><a href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">ParamRead::ReadInputFile</a></div><div class="ttdeci">void ReadInputFile(const string &amp;file)</div><div class="ttdoc">General interface for reading input data.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00039">ParamRead.cpp:39</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00045">OpenCAEPoro::InitReservoir()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00031">OCP_ERROR_NUM_INPUT</a>, <a class="el" href="OCPConst_8hpp_source.html#l00030">OCP_SUCCESS</a>, <a class="el" href="OCP_8cpp_source.html#l00089">OpenCAEPoro::OutputResults()</a>, <a class="el" href="OCP_8hpp_source.html#l00039">OpenCAEPoro::PrintUsage()</a>, <a class="el" href="OCP_8hpp_source.html#l00030">OpenCAEPoro::PrintVersion()</a>, <a class="el" href="ParamRead_8cpp_source.html#l00039">ParamRead::ReadInputFile()</a>, <a class="el" href="OCP_8cpp_source.html#l00057">OpenCAEPoro::RunSimulation()</a>, and <a class="el" href="OCP_8cpp_source.html#l00023">OpenCAEPoro::SetupSimulator()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 7 2022 08:53:00 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 7 2022 09:01:42 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
