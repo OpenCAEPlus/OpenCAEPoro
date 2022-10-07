@@ -1,10 +1,10 @@
 # OpenCAEPoro Contributing Guide
 
-This guide is for developers who want to commit to or create pull requests for this repository.
+This guide is for developers who wish to commit to or create pull requests for this repository.
 
-Please refer to the README file for user guide.
+Please refer to the README.md file for a simple user guide.
 
-We are using a trunk based development strategy, which means:
+We are using a `trunk-based development strategy`, which means:
 
 1. Commit to the main branch directly when possible, such as when the issue is small and just changing a few lines are enough. Include "closes IssueId" in the commit message. For external developers (who cannot commit to the main branch directly), please use the normal github workflow--fork and create pull request.
 
@@ -28,13 +28,26 @@ When commit to the main branch, try to
 
 ## Development Environment Setup
 
+### Code Style
+
+We list a few rule of thumbs for styling the code here:
+
+1. Use .clang-format to format the code automatically;
+2. Naming conventions: 
+    - Files, classes, methods, functions: Upper Camel;
+    - Variables: camel;
+    - Constants: all upper case;
+    - Make your names meaningful.
+3. Keep all functions short and make them do only one thing;
+4. Provide Doxygen-style comments.
+
 ### Code Editor
 
-Recommend using VScode for cross platform compatibility.
+Recommend using VScode for cross-platform compatibility.
 
 ### Compiler
 
-Recommend Intel oneAPI for easier cross platform compatibility.
+Recommend Intel oneAPI for easier cross-platform compatibility.
 
 GCC setup guide ....
 
