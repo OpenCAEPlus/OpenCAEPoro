@@ -20,12 +20,7 @@
 
 using namespace std;
 
-/// The main() function performs simulation in five steps.
-///   -- (1) Read input data;
-///   -- (2) Setup static information;
-///   -- (3) Initialize reservoir status;
-///   -- (4) Run dynamic simulation;
-///   -- (5) Output summary and other results.
+/// The main() function performs dynamic simulation in five steps.
 int main(int argc, const char* argv[])
 {
     // Step 0. Print simulator version information.
