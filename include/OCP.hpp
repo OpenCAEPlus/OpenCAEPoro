@@ -73,7 +73,7 @@ public:
     void InputParam(ParamRead& param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupSimulator(ParamRead& param, const USI& argc, const char* optset[]);
+    void SetupSimulator(ParamRead& param, const USI& argc, const char* options[]);
 
     /// Initialize or get initial status of reservoir.
     void InitReservoir();

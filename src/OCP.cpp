@@ -22,7 +22,7 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 /// Call setup procedures for reservoir, output, and linear solver.
 void OpenCAEPoro::SetupSimulator(ParamRead&  param,
                                  const USI&  argc,
-                                 const char* optset[])
+                                 const char* options[])
 {
     GetWallTime timer;
     timer.Start();
@@ -30,7 +30,7 @@ void OpenCAEPoro::SetupSimulator(ParamRead&  param,
     // Read parameters from input file
     InputParam(param);
     // Read Fast control
-    control.SetupFastControl(argc, optset);
+    control.SetupFastControl(argc, options);
     // Setup static infomation for reservoir
     reservoir.Setup();
     // Setup output for dynamic simulation
@@ -39,7 +39,7 @@ void OpenCAEPoro::SetupSimulator(ParamRead&  param,
     solver.Setup(reservoir, control);
 
     cout << endl
-         << "Setup Simulation Finishes   Wall time : " << fixed << setprecision(3)
+         << "Setup simulation done. Wall time : " << fixed << setprecision(3)
          << timer.Stop() / 1000 << " Sec" << endl
          << endl;
     control.RecordTotalTime(timer.Stop() / 1000);
@@ -54,7 +54,7 @@ void OpenCAEPoro::InitReservoir()
     solver.InitReservoir(reservoir);
 
     cout << endl
-         << "Inilization Finishes   Wall time : " << fixed << setprecision(3)
+         << "Initialization done. Wall time : " << fixed << setprecision(3)
          << timer.Stop() / 1000 << " Sec" << endl;
     control.RecordTotalTime(timer.Stop() / 1000);
 }
@@ -83,7 +83,7 @@ void OpenCAEPoro::RunSimulation()
             cout << "Dynamic simulation with AIMt";
             break;
         default:
-            OCP_ABORT("Wrong method type!");
+            OCP_ABORT("Wrong method type is used!");
     }
     cout << "\n=========================================" << endl;
 
