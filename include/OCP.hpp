@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.2.0" ///< Software version tag used for git
+#define OCPVersion "0.2.1" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -39,8 +39,7 @@ public:
     void PrintUsage(string cmdname) const
     {
         cout << "Usage: " << endl
-             << "  " << cmdname << " <InputFileName> [<options>]"
-             << endl
+             << "  " << cmdname << " <InputFileName> [<options>]" << endl
              << endl;
 
         cout << "The simplest usage is as follows, where parameters are read from file:"
@@ -49,25 +48,24 @@ public:
              << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting" << endl
              << endl;
 
-        cout << "You can also pass command-line options after the input file:"
-             << endl
-             << "  method:   determine which method will be used " << endl
-             << "  dtInit:   determine the initial time step     " << endl
-             << "  dtMax:    determine the maximum time step     " << endl
-             << "  dtMin:    determine the minimum time step     " << endl
-             << "  pl:       determine the print level           " << endl
+        cout << "You can also pass cmd options after the input file:" << endl
+             << "  method: solution method to use " << endl
+             << "  dtInit: initial time stepsize  " << endl
+             << "  dtMax:  maximum time stepsize  " << endl
+             << "  dtMin:  minimum time stepsize  " << endl
+             << "  pl:     print level on screen  " << endl
              << endl;
 
-        cout << "For example: solve SPE1a using FIM" << endl
-             << "  " << cmdname
-             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1"
+        cout << "Attention: " << endl
+             << "  - These cmd options will override those in the input file;" << endl
+             << "  - Only if `method' is set, other options will take effect;" << endl
+             << "  - If (dtInit,dtMax,dtMin) are not set, default values will be used."
              << endl;
 
         cout << endl
-             << "Attention: " << endl
-             << "  - These options will override those from the input file;" << endl
-             << "  - Only if `method' is set, other options will take effect;" << endl
-             << "  - If (dtInit,dtMax,dtMin) are not set, default values will be used."
+             << "For example: solve SPE1a using FIM" << endl
+             << "  " << cmdname
+             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1"
              << endl;
     }
 
@@ -75,7 +73,7 @@ public:
     void InputParam(ParamRead& param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupSimulator(ParamRead& param, const USI& argc, const char* optset[]);
+    void SetupSimulator(ParamRead& param, const USI& argc, const char* options[]);
 
     /// Initialize or get initial status of reservoir.
     void InitReservoir();

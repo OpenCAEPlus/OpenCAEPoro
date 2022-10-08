@@ -12,16 +12,17 @@
 #include "OCP.hpp"
 
 /// Read from input file and set control and output params.
-void OpenCAEPoro::InputParam(ParamRead &param)
+void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
     control.InputParam(param.paramControl);
     output.InputParam(param.paramOutput);
 }
 
-/// Call setup processdures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(ParamRead &param, const USI &argc,
-                                 const char *optset[])
+/// Call setup procedures for reservoir, output, and linear solver.
+void OpenCAEPoro::SetupSimulator(ParamRead&  param,
+                                 const USI&  argc,
+                                 const char* options[])
 {
     GetWallTime timer;
     timer.Start();
@@ -29,56 +30,60 @@ void OpenCAEPoro::SetupSimulator(ParamRead &param, const USI &argc,
     // Read parameters from input file
     InputParam(param);
     // Read Fast control
-    control.SetupFastControl(argc, optset);
+    control.SetupFastControl(argc, options);
     // Setup static infomation for reservoir
     reservoir.Setup();
     // Setup output for dynamic simulation
     output.Setup(reservoir, control);
     // Setup static information for solver
     solver.Setup(reservoir, control);
-   
-    cout << endl << "Setup Simulation Finishes   Wall time : " << fixed << setprecision(3) << timer.Stop() / 1000 << " Sec" << endl << endl;
+
+    cout << endl
+         << "Setup simulation done. Wall time : " << fixed << setprecision(3)
+         << timer.Stop() / 1000 << " Sec" << endl
+         << endl;
     control.RecordTotalTime(timer.Stop() / 1000);
 }
 
 /// Initialize the reservoir class.
-void OpenCAEPoro::InitReservoir() 
-{ 
+void OpenCAEPoro::InitReservoir()
+{
     GetWallTime timer;
     timer.Start();
 
     solver.InitReservoir(reservoir);
 
-    cout << endl << "Inilization Finishes   Wall time : " << fixed << setprecision(3) << timer.Stop() / 1000 << " Sec" << endl;
-    control.RecordTotalTime(timer.Stop()/1000);
+    cout << endl
+         << "Initialization done. Wall time : " << fixed << setprecision(3)
+         << timer.Stop() / 1000 << " Sec" << endl;
+    control.RecordTotalTime(timer.Stop() / 1000);
 }
 
 /// Call IMPEC, FIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()
 {
     cout << "\n=========================================" << endl;
-    switch (control.GetMethod())
-    {
-    case IMPEC:
-        cout << "Dynamic simulation with IMPEC";
-        break;
-    case FIM:
-        cout << "Dynamic simulation with FIM";
-        break;
-    case FIMn:
-        cout << "Dynamic simulation with FIMn";
-        break;
-    case AIMc:
-        cout << "Dynamic simulation with AIMc";
-        break;
-    case AIMs:
-        cout << "Dynamic simulation with AIMs";
-        break;
-    case AIMt:
-        cout << "Dynamic simulation with AIMt";
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (control.GetMethod()) {
+        case IMPEC:
+            cout << "Dynamic simulation with IMPEC";
+            break;
+        case FIM:
+            cout << "Dynamic simulation with FIM";
+            break;
+        case FIMn:
+            cout << "Dynamic simulation with FIMn";
+            break;
+        case AIMc:
+            cout << "Dynamic simulation with AIMc";
+            break;
+        case AIMs:
+            cout << "Dynamic simulation with AIMs";
+            break;
+        case AIMt:
+            cout << "Dynamic simulation with AIMt";
+            break;
+        default:
+            OCP_ABORT("Wrong method type is used!");
     }
     cout << "\n=========================================" << endl;
 

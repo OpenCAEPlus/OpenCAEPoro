@@ -16,6 +16,7 @@
         "preconditioner",
         "Schwarz",
         "Shizhe",
+        "stepsize",
         "Zhang"
     ],
     "files.associations": {
