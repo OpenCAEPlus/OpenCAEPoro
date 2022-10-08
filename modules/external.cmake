@@ -8,6 +8,23 @@
 # For FASP4CUDA
 ##################################################################
 
+# Find CUDA
+if(USE_FASP4CUDA)
+
+    set(CUDA_DIR /usr/local/cuda-10.2)
+    set(CUDA_ROOT /usr/local/cuda-10.2) # Set the root directory of CUDA 10.2 version
+    find_package(CUDA REQUIRED)
+
+    LINK_DIRECTORIES(${CUDA_DIR}/lib64)
+    if (CUDA_FOUND)
+        include_directories(${CUDA_INCLUDE_DIRS})
+    else(CUDA_FOUND)
+        message("-- ERROR: CUDA was requested but not found!")
+    endif(CUDA_FOUND)
+    
+endif(USE_FASP4CUDA)
+
+# Find FASP4CUDA
 if(USE_FASP4CUDA)
 
     # set the path to find specific modules

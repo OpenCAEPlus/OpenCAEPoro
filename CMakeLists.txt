@@ -46,20 +46,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
-# Find CUDA
-if(USE_FASP4CUDA)
-    set(CUDA_DIR /usr/local/cuda-10.2)
-    set(CUDA_ROOT /usr/local/cuda-10.2) # Set the root directory of CUDA 10.2 version
-    find_package(CUDA REQUIRED)
-
-    LINK_DIRECTORIES(${CUDA_DIR}/lib64)
-    if (CUDA_FOUND)
-        include_directories(${CUDA_INCLUDE_DIRS})
-    else(CUDA_FOUND)
-        message("-- ERROR: CUDA was requested but not found!")
-    endif(CUDA_FOUND)
-endif(USE_FASP4CUDA)
-
+# External packages 
 include(external)
 
 ###############################################################################
@@ -125,9 +112,8 @@ add_subdirectory(include)
 add_subdirectory(main)
 
 # set default build type: Release
-set(build_type "Release")
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "${build_type}" CACHE STRING "the build type" FORCE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "the build type" FORCE)
 endif()
 message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 
