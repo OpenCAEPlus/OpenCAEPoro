@@ -23,7 +23,7 @@ var searchData=
   ['setupneighbororthogonalgrid_771',['SetupNeighborOrthogonalGrid',['../classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6',1,'Grid']]],
   ['setuporthogonalgrid_772',['SetupOrthogonalGrid',['../classGrid.html#ac103f53259f2ac72e167aa67e455d3b9',1,'Grid']]],
   ['setupparam_773',['SetupParam',['../classLinearSolver.html#a64ec5c45d54739399c493ddd3a09d989',1,'LinearSolver::SetupParam()'],['../classFaspSolver.html#ad0cbd376cec905a656ce1f8f987a0341',1,'FaspSolver::SetupParam()']]],
-  ['setupsimulator_774',['SetupSimulator',['../classOpenCAEPoro.html#a8730bcb4edbf4857464bcfe33b0bcad1',1,'OpenCAEPoro']]],
+  ['setupsimulator_774',['SetupSimulator',['../classOpenCAEPoro.html#a29cf24d628f7d5da0789365b4465c169',1,'OpenCAEPoro']]],
   ['setupwell_775',['SetupWell',['../classAllWells.html#a2bed879a6d17d50be411e446cc754860',1,'AllWells']]],
   ['setupwellbulk_776',['SetupWellBulk',['../classWell.html#a5f3e25fa5e3a1d0da2641776d6d82dc5',1,'Well::SetupWellBulk()'],['../classAllWells.html#a9f950a86030f86d80a700ea02bec9452',1,'AllWells::SetupWellBulk()']]],
   ['setupwellbulk_5fk_777',['SetupWellBulk_K',['../classBulkConn.html#a167894f44ddfd5b6516af41bf6601fec',1,'BulkConn']]],
