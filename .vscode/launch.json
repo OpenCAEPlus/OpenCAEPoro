@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // SPE1a on mac computer
         {
             "name": "(lldb) Launch SPE1a",
             "type": "cppdbg",
@@ -12,6 +13,26 @@
             "program": "${workspaceFolder}/testOpenCAEPoro",
             "args": [
                 "examples/spe1a/spe1a.data"
+            ],
+            "environment": [
+                {
+                    "name": "config",
+                    "value": "Debug"
+                }
+            ],
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        // SPE5 on mac computer
+        {
+            "name": "(lldb) Launch SPE5",
+            "type": "cppdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/testOpenCAEPoro",
+            "args": [
+                "examples/spe5/spe5.data"
             ],
             "environment": [
                 {
