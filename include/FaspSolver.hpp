@@ -1,5 +1,5 @@
 /*! \file    FaspSolver.hpp
- *  \brief   Declaration of classes related to the FASP
+ *  \brief   Declaration of classes interfacing to the FASP solvers
  *  \author  Shizhe Li
  *  \date    Nov/22/2021
  *
@@ -33,7 +33,8 @@ extern "C" {
 }
 #endif
 
-// fasp4cuda header files, note that don't need extern "C" !!!
+// fasp4cuda header files
+// Note: It should not inside extern "C" {} !
 #if WITH_FASP4CUDA
 #include "fasp4cuda.h"
 #include "fasp4cuda_functs.h"
@@ -45,21 +46,21 @@ extern "C" {
 using namespace std;
 
 // Standard preconditioner types
-#define PC_NULL 60  ///< None: no preconditioner
-#define PC_FASP1 61 ///< FASP1 preconditioner: default for FIM from 2020
-#define PC_FASP2 62 ///< FASP2 preconditioner: experimental
-#define PC_FASP3 63 ///< FASP3 preconditioner: monolithic
-#define PC_FASP4 64 ///< FASP4 preconditioner: default for FIM from 2015
-#define PC_FASP5 65 ///< FASP5 preconditioner: experimental
-#define PC_DIAG 68  ///< DIAG preconditioner
-#define PC_BILU 69  ///< BILU preconditioner
+#define PC_NULL  60 ///< None:  no preconditioner
+#define PC_FASP1 61 ///< FASP1: MSP, default for FIM from 2020
+#define PC_FASP2 62 ///< FASP2: MSP, experimental only
+#define PC_FASP3 63 ///< FASP3: MSP, monolithic preconditioner
+#define PC_FASP4 64 ///< FASP4: MSP, default for FIM from 2015
+#define PC_FASP5 65 ///< FASP5: MSP, experimental only
+#define PC_DIAG  68 ///< DIAG:  diagonal preconditioner
+#define PC_BILU  69 ///< BILU:  block ILU preconditioner
 
 // Experimental preconditioner types
 #define PC_FASP1_SHARE 71 ///< Sharing the setup stage for PC_FASP1
 #define PC_FASP4_SHARE 74 ///< Sharing the setup stage for PC_FASP4
-#define RESET_CONST 35    ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
+#define RESET_CONST    35 ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
 
-/// Basic virtual FASP solver class
+/// Basic FASP solver class
 class FaspSolver : public LinearSolver
 {
 public:
@@ -71,79 +72,92 @@ public:
 
 public:
     string      solveDir;  ///< Current work dir
-    string      solveFile; ///< Relative path of fasp file.
-    input_param inParam;   ///< Parameters from input files.
-    ITS_param   itParam;   ///< Parameters for iterative method.
-    AMG_param   amgParam;  ///< Parameters for AMG method.
-    ILU_param   iluParam;  ///< Parameters for ILU method.
-    SWZ_param   swzParam;  ///< Parameters for Schwarz method.
+    string      solveFile; ///< Relative path of fasp file
+    input_param inParam;   ///< Parameters from input files
+    ITS_param   itParam;   ///< Parameters for iterative method
+    AMG_param   amgParam;  ///< Parameters for AMG method
+    ILU_param   iluParam;  ///< Parameters for ILU method
+    SWZ_param   swzParam;  ///< Parameters for Schwarz method
 };
 
-/// Scalar FASP solvers in CSR format.
+/// Scalar solvers in CSR format from FASP.
 class ScalarFaspSolver : public FaspSolver
 {
     friend class LinearSystem;
 
 private:
     /// Allocate memory for the linear system.
-    void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
-                  const USI& blockDim) override;
+    void Allocate(const vector<USI>& rowCapacity,
+                  const OCP_USI&     maxDim,
+                  const USI&         blockDim) override;
 
     /// Initialize the Params for linear solver.
     void InitParam() override;
 
     /// Assemble coefficient matrix.
     void AssembleMat(const vector<vector<USI>>&     colId,
-                     const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
-                     const USI& blockDim, vector<OCP_DBL>& rhs,
-                     vector<OCP_DBL>& u) override;
+                     const vector<vector<OCP_DBL>>& val,
+                     const OCP_USI&                 dim,
+                     const USI&                     blockDim,
+                     vector<OCP_DBL>&               rhs,
+                     vector<OCP_DBL>&               u) override;
 
     /// Solve the linear system.
     OCP_INT Solve() override;
 
 private:
-    dCSRmat A; ///< Matrix for scalar-value problems.
-    dvector b; ///< Right-hand side for scalar-value problems.
-    dvector x; ///< Solution for scalar-value problems.
+    dCSRmat A; ///< Matrix for scalar-value problems
+    dvector b; ///< Right-hand side for scalar-value problems
+    dvector x; ///< Solution for scalar-value problems
 };
 
-/// Vector FASP solvers in BSR format.
+/// Vector solvers in BSR format from FASP.
 class VectorFaspSolver : public FaspSolver
 {
     friend class LinearSystem;
 
 private:
     /// Allocate memory for the linear system.
-    void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
-                  const USI& blockDim) override;
+    void Allocate(const vector<USI>& rowCapacity,
+                  const OCP_USI&     maxDim,
+                  const USI&         blockDim) override;
 
     /// Initialize the Params for linear solver.
     void InitParam() override;
 
     /// Assemble coefficient matrix.
     void AssembleMat(const vector<vector<USI>>&     colId,
-                     const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
-                     const USI& blockDim, vector<OCP_DBL>& rhs,
-                     vector<OCP_DBL>& u) override;
+                     const vector<vector<OCP_DBL>>& val,
+                     const OCP_USI&                 dim,
+                     const USI&                     blockDim,
+                     vector<OCP_DBL>&               rhs,
+                     vector<OCP_DBL>&               u) override;
 
     /// Solve the linear system.
     OCP_INT Solve() override;
 
     /// Apply decoupling to the linear system.
-    void Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
-                    ivector* order, double* Dmatvec, int decouple_type);
+    void Decoupling(dBSRmat* Absr,
+                    dvector* b,
+                    dBSRmat* Asc,
+                    dvector* fsc,
+                    ivector* order,
+                    double*  Dmatvec,
+                    int      decouple_type);
 
 private:
-    dBSRmat         A;     ///< Matrix for vector-value problems.
-    dvector         b;     ///< Right-hand side for vector-value problems.
-    dvector         x;     ///< Solution for vector-value problems.
-    dBSRmat         Asc;   ///< Scaled matrix for vector-value problems.
-    dvector         fsc;   ///< Scaled right-hand side for vector-value problems.
-    ivector         order; ///< User-defined ordering for smoothing process.
-    vector<OCP_DBL> Dmat;  ///< Decoupling matrices.
+    dBSRmat A; ///< Matrix for vector-value problems
+    dvector b; ///< Right-hand side for vector-value problems
+    dvector x; ///< Solution for vector-value problems
+
+    dBSRmat Asc;   ///< Scaled matrix for vector-value problems
+    dvector fsc;   ///< Scaled right-hand side for vector-value problems
+    ivector order; ///< User-defined ordering for smoothing process
+
+    vector<OCP_DBL> Dmat; ///< Decoupling matrices
 };
 
-#endif
+#endif // __FASPSOLVER_HEADER__
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

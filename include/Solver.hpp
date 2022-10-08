@@ -16,7 +16,7 @@
 #ifndef __SOLVER_HEADER__
 #define __SOLVER_HEADER__
 
-/// Solver class for overall solution method.
+/// Solver class for overall solution methods.
 class Solver
 {
 public:
@@ -44,7 +44,9 @@ private:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
-    IsothermalSolver  IsoTSolver;
+    /// Solver for isothermal models with fixed T
+    IsothermalSolver IsoTSolver;
+    /// Linear solver
     LinearSystem LSolver;
 };
 
@@ -58,5 +60,4 @@ private:
 /*  Shizhe Li           Oct/01/2021      Create file                          */
 /*  Shizhe Li           Oct/21/2021      Change from OCPMethod to Solver      */
 /*  Chensong Zhang      Oct/27/2021      Rearrange and add comments           */
-/*  Chensong Zhang      Jan/16/2022      Update Doxygen                       */
 /*----------------------------------------------------------------------------*/

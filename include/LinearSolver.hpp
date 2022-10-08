@@ -32,14 +32,17 @@ public:
     virtual void InitParam() = 0;
 
     /// Allocate maximum memory for linear solvers.
-    virtual void Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
-                          const USI& blockDim) = 0;
+    virtual void Allocate(const vector<USI>& rowCapacity,
+                          const OCP_USI&     maxDim,
+                          const USI&         blockDim) = 0;
 
     /// Assemble matrix for linear solver from the internal matrix data.
     virtual void AssembleMat(const vector<vector<USI>>&     colId,
-                             const vector<vector<OCP_DBL>>& val, const OCP_USI& dim,
-                             const USI& blockDim, vector<OCP_DBL>& rhs,
-                             vector<OCP_DBL>& u) = 0;
+                             const vector<vector<OCP_DBL>>& val,
+                             const OCP_USI&                 dim,
+                             const USI&                     blockDim,
+                             vector<OCP_DBL>&               rhs,
+                             vector<OCP_DBL>&               u) = 0;
 
     /// Solve the linear system and return the number of iterations.
     virtual OCP_INT Solve() = 0;
