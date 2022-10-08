@@ -55,10 +55,10 @@ using namespace std;
 #define PC_DIAG  68 ///< DIAG:  diagonal preconditioner
 #define PC_BILU  69 ///< BILU:  block ILU preconditioner
 
-// Experimental preconditioner types
-#define PC_FASP1_SHARE 71 ///< Sharing the setup stage for PC_FASP1
-#define PC_FASP4_SHARE 74 ///< Sharing the setup stage for PC_FASP4
-#define RESET_CONST    35 ///< Sharing threshold for PC_FASP1_SHARE and PC_FASP4_SHARE
+// Sharing-setup preconditioner types
+#define PC_FASP1_SHARE 71 ///< Sharing setup stage for PC_FASP1, use with caution
+#define PC_FASP4_SHARE 74 ///< Sharing setup stage for PC_FASP4, use with caution
+#define RESET_CONST    35 ///< Sharing threshold for PC_FASP1_SHARE, PC_FASP4_SHARE
 
 /// Basic FASP solver class
 class FaspSolver : public LinearSolver
