@@ -94,29 +94,32 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classLinearSolver.html#aeaf187fa541a97500b93765ef80b2dde">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinearSolver.html#aeaf187fa541a97500b93765ef80b2dde">InitParam</a>() = 0;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(<span class="keyword">const</span> vector&lt;USI&gt;&amp; rowCapacity, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; maxDim,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                          <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; blockDim) = 0;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classLinearSolver.html#a225e0158dcb25a2b79e9f6476fc89a63">   39</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinearSolver.html#a225e0158dcb25a2b79e9f6476fc89a63">AssembleMat</a>(<span class="keyword">const</span> vector&lt;vector&lt;USI&gt;&gt;&amp;     colId,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                             <span class="keyword">const</span> vector&lt;vector&lt;OCP_DBL&gt;&gt;&amp; val, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; dim,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                             <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; blockDim, vector&lt;OCP_DBL&gt;&amp; rhs,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             vector&lt;OCP_DBL&gt;&amp; u) = 0;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classLinearSolver.html#aa500aa5a1c1767b7809161aa351bca2d">   45</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code" href="classLinearSolver.html#aa500aa5a1c1767b7809161aa351bca2d">Solve</a>() = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinearSolver.html#a557b72e1e621fdd8750d30df2373c748">Allocate</a>(<span class="keyword">const</span> vector&lt;USI&gt;&amp; rowCapacity,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                          <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp;     maxDim,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                          <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp;         blockDim) = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classLinearSolver.html#a225e0158dcb25a2b79e9f6476fc89a63">   40</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinearSolver.html#a225e0158dcb25a2b79e9f6476fc89a63">AssembleMat</a>(<span class="keyword">const</span> vector&lt;vector&lt;USI&gt;&gt;&amp;     colId,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                             <span class="keyword">const</span> vector&lt;vector&lt;OCP_DBL&gt;&gt;&amp; val,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp;                 dim,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                             <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp;                     blockDim,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                             vector&lt;OCP_DBL&gt;&amp;               rhs,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                             vector&lt;OCP_DBL&gt;&amp;               u) = 0;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">   48</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> <a class="code" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">GetNumIters</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// __LINEARSOLVER_HEADER__</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">/*  Shizhe Li           Nov/22/2021      Create file                          */</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/18/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classLinearSolver.html#aa500aa5a1c1767b7809161aa351bca2d">   48</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> <a class="code" href="classLinearSolver.html#aa500aa5a1c1767b7809161aa351bca2d">Solve</a>() = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">   51</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> <a class="code" href="classLinearSolver.html#ae754a7c942a8a1202f244441c6b1388d">GetNumIters</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// __LINEARSOLVER_HEADER__</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/*  Shizhe Li           Nov/22/2021      Create file                          */</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/18/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html"><div class="ttname"><a href="OCPConst_8hpp.html">OCPConst.hpp</a></div><div class="ttdoc">Definition of build-in datatypes and consts.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
@@ -131,7 +134,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 7 2022 12:42:35 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 7 2022 23:38:46 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

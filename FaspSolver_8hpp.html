@@ -78,7 +78,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Declaration of classes related to the FASP.  
+<p>Declaration of classes interfacing to the FASP solvers.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
@@ -94,13 +94,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFaspSolver.html">FaspSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic virtual FASP solver class.  <a href="classFaspSolver.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic FASP solver class.  <a href="classFaspSolver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScalarFaspSolver.html">ScalarFaspSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar FASP solvers in CSR format.  <a href="classScalarFaspSolver.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar solvers in CSR format from FASP.  <a href="classScalarFaspSolver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classVectorFaspSolver.html">VectorFaspSolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector FASP solvers in BSR format.  <a href="classVectorFaspSolver.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector solvers in BSR format from FASP.  <a href="classVectorFaspSolver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -111,31 +111,31 @@ Macros</h2></td></tr>
 <tr class="separator:a5864d1629012204985e7dbf6a135bf9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae134e31e4e0fc662fb04ce45f79751e7"><td class="memItemLeft" align="right" valign="top"><a id="ae134e31e4e0fc662fb04ce45f79751e7"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#ae134e31e4e0fc662fb04ce45f79751e7">PC_FASP1</a>&#160;&#160;&#160;61</td></tr>
-<tr class="memdesc:ae134e31e4e0fc662fb04ce45f79751e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP1 preconditioner: default for FIM from 2020. <br /></td></tr>
+<tr class="memdesc:ae134e31e4e0fc662fb04ce45f79751e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP1: MSP, default for FIM from 2020. <br /></td></tr>
 <tr class="separator:ae134e31e4e0fc662fb04ce45f79751e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a1cd317163bf1e1b01165675da87f15"><td class="memItemLeft" align="right" valign="top"><a id="a1a1cd317163bf1e1b01165675da87f15"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a1a1cd317163bf1e1b01165675da87f15">PC_FASP2</a>&#160;&#160;&#160;62</td></tr>
-<tr class="memdesc:a1a1cd317163bf1e1b01165675da87f15"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP2 preconditioner: experimental. <br /></td></tr>
+<tr class="memdesc:a1a1cd317163bf1e1b01165675da87f15"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP2: MSP, experimental only. <br /></td></tr>
 <tr class="separator:a1a1cd317163bf1e1b01165675da87f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ee39b3ca3e8b9e3ae11a0bdbdfce726"><td class="memItemLeft" align="right" valign="top"><a id="a1ee39b3ca3e8b9e3ae11a0bdbdfce726"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a1ee39b3ca3e8b9e3ae11a0bdbdfce726">PC_FASP3</a>&#160;&#160;&#160;63</td></tr>
-<tr class="memdesc:a1ee39b3ca3e8b9e3ae11a0bdbdfce726"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP3 preconditioner: monolithic. <br /></td></tr>
+<tr class="memdesc:a1ee39b3ca3e8b9e3ae11a0bdbdfce726"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP3: MSP, monolithic preconditioner. <br /></td></tr>
 <tr class="separator:a1ee39b3ca3e8b9e3ae11a0bdbdfce726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df4f9278341969295ca7fdf88952a65"><td class="memItemLeft" align="right" valign="top"><a id="a5df4f9278341969295ca7fdf88952a65"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a5df4f9278341969295ca7fdf88952a65">PC_FASP4</a>&#160;&#160;&#160;64</td></tr>
-<tr class="memdesc:a5df4f9278341969295ca7fdf88952a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP4 preconditioner: default for FIM from 2015. <br /></td></tr>
+<tr class="memdesc:a5df4f9278341969295ca7fdf88952a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP4: MSP, default for FIM from 2015. <br /></td></tr>
 <tr class="separator:a5df4f9278341969295ca7fdf88952a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4409b7b133a9868bfec63cbaa8fe26ca"><td class="memItemLeft" align="right" valign="top"><a id="a4409b7b133a9868bfec63cbaa8fe26ca"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a4409b7b133a9868bfec63cbaa8fe26ca">PC_FASP5</a>&#160;&#160;&#160;65</td></tr>
-<tr class="memdesc:a4409b7b133a9868bfec63cbaa8fe26ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP5 preconditioner: experimental. <br /></td></tr>
+<tr class="memdesc:a4409b7b133a9868bfec63cbaa8fe26ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">FASP5: MSP, experimental only. <br /></td></tr>
 <tr class="separator:a4409b7b133a9868bfec63cbaa8fe26ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eaa5235f0f24f07f09e9990eea24c07"><td class="memItemLeft" align="right" valign="top"><a id="a8eaa5235f0f24f07f09e9990eea24c07"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a8eaa5235f0f24f07f09e9990eea24c07">PC_DIAG</a>&#160;&#160;&#160;68</td></tr>
-<tr class="memdesc:a8eaa5235f0f24f07f09e9990eea24c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">DIAG preconditioner. <br /></td></tr>
+<tr class="memdesc:a8eaa5235f0f24f07f09e9990eea24c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">DIAG: diagonal preconditioner. <br /></td></tr>
 <tr class="separator:a8eaa5235f0f24f07f09e9990eea24c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a129618c064662ba8068c6c69a72dfa99"><td class="memItemLeft" align="right" valign="top"><a id="a129618c064662ba8068c6c69a72dfa99"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#a129618c064662ba8068c6c69a72dfa99">PC_BILU</a>&#160;&#160;&#160;69</td></tr>
-<tr class="memdesc:a129618c064662ba8068c6c69a72dfa99"><td class="mdescLeft">&#160;</td><td class="mdescRight">BILU preconditioner. <br /></td></tr>
+<tr class="memdesc:a129618c064662ba8068c6c69a72dfa99"><td class="mdescLeft">&#160;</td><td class="mdescRight">BILU: block ILU preconditioner. <br /></td></tr>
 <tr class="separator:a129618c064662ba8068c6c69a72dfa99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab699801f7de697d7ec1e740f8ac39706"><td class="memItemLeft" align="right" valign="top"><a id="ab699801f7de697d7ec1e740f8ac39706"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FaspSolver_8hpp.html#ab699801f7de697d7ec1e740f8ac39706">PC_FASP1_SHARE</a>&#160;&#160;&#160;71</td></tr>
@@ -151,7 +151,7 @@ Macros</h2></td></tr>
 <tr class="separator:a53314b56813237bdc719c415aa4c99fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declaration of classes related to the FASP. </p>
+<div class="textblock"><p>Declaration of classes interfacing to the FASP solvers. </p>
 <dl class="section author"><dt>Author</dt><dd>Shizhe Li </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Nov/22/2021</dd></dl>
 <hr  />
@@ -163,7 +163,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 7 2022 12:42:35 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 7 2022 23:38:46 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
