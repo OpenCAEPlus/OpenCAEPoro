@@ -293,7 +293,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-        cout << "Cut time stepsize and repeat!\n";
+        cout << "Cut timestep size and repeat! curretn dt = " << dt << " days\n";
         return false;
     }
 
@@ -338,23 +338,36 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             vector<OCP_INT> totalPhaseNum(3, 0);
             vector<OCP_INT> ltotalPhaseNum(3, 0);
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.NRphaseNum[n] == 1)  ltotalPhaseNum[0]++;
-                if (rs.bulk.NRphaseNum[n] == 2)  ltotalPhaseNum[1]++;
-                if (rs.bulk.NRphaseNum[n] == 3)  ltotalPhaseNum[2]++;
-                if (rs.bulk.phaseNum[n] == 1)  totalPhaseNum[0]++;
-                if (rs.bulk.phaseNum[n] == 2)  totalPhaseNum[1]++;
-                if (rs.bulk.phaseNum[n] == 3)  totalPhaseNum[2]++;
+                if (rs.bulk.NRphaseNum[n] == 0)  ltotalPhaseNum[0]++;
+                if (rs.bulk.NRphaseNum[n] == 1)  ltotalPhaseNum[1]++;
+                if (rs.bulk.NRphaseNum[n] == 2)  ltotalPhaseNum[2]++;
+                if (rs.bulk.phaseNum[n] == 0)  totalPhaseNum[0]++;
+                if (rs.bulk.phaseNum[n] == 1)  totalPhaseNum[1]++;
+                if (rs.bulk.phaseNum[n] == 2)  totalPhaseNum[2]++;
             }
             cout << to_string(totalPhaseNum[0]) + " (" + to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 / rs.GetBulkNum())
                 + "%)      " << to_string(totalPhaseNum[1]) + " (" + to_string((totalPhaseNum[1] - ltotalPhaseNum[1]) * 100.0 / rs.GetBulkNum())
                 + "%)      " << to_string(totalPhaseNum[2]) + " (" + to_string((totalPhaseNum[2] - ltotalPhaseNum[2]) * 100.0 / rs.GetBulkNum())
-                + "%)      " << endl;
+                + "%)      " ;
         }
-        
 
-        cout << "### Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
+        if (true) {
+            OCP_USI eVnum = 0;
+            OCP_USI eNnum = 0;
+            for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
+                if (rs.bulk.eV[n] < ctrl.ctrlNR.NRtol)
+                    eVnum++;
+                if (rs.bulk.eN[n] < ctrl.ctrlNR.NRtol)
+                    eNnum++;
+            }
+            cout << "eVnum : " << setprecision(ceil(log(rs.GetBulkNum()) / log(10))) << fixed << setw(10) << (1 - eVnum * 1.0 / rs.GetBulkNum()) * 100.0 << "%   eNnum : "
+                << setw(10) << (1 - eNnum * 1.0 / rs.GetBulkNum()) * 100.0 << "%" << endl;
+        }
+
+
+        cout << "### NR : " + to_string(ctrl.iterNR) + "    Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
             << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
-            << setw(80) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
+            << setw(70) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
             << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP] << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  "
             << setw(6) << rs.bulk.index_maxNRdSSP << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl << endl;
 
@@ -386,7 +399,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
+        cout << "### WARNING: NR not fully converged! Cut timestep size and repeat!  curretn dt = " << ctrl.current_dt << " days\n";
         return false;
     }
 
