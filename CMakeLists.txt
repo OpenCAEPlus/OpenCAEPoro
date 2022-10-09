@@ -1,17 +1,6 @@
 # Main CMakeLists file for OpenCAEPoro
-# 
-# Author            Date           Action
-# -----------------------------------------------------------------------------
-# Shizhe Li         Sep/21/2021    Create CMakeLists
-# Chensong Zhang    Sep/24/2021    Fix FASP linkage problems
-# Chensong Zhang    Oct/16/2021    Fix duplications
-# Chensong Zhang    Jan/19/2022    Use FASP open-source part as default solver
-# Chensong Zhang    Feb/18/2022    Fix math.lib linkage problem
-# Xiaoxing Chen     Oct/03/2022    Automatically download faspsolver if needed
-# Li Zhao           Oct/05/2022    Add CUDA support
-# Chensong Zhang    Oct/05/2022    Remove compiler searching preset
 #
-# Some sample usages:
+# Sample usages:
 #   cmake .                             // build in default configuration
 #   cmake -DCMAKE_BUILD_TYPE=Release .  // build in Release configuration
 #   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
@@ -39,19 +28,27 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 
 ###############################################################################
-## External libraries
+## External dependencies
 ###############################################################################
 
 # Find BLAS and LAPACK implementations
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
-# External packages 
-include(external)
+# Add math and stdc++ libraries when not included by default
+if (UNIX OR LINUX)
+	set(ADD_STDLIBS m stdc++)
+endif()
+
+# Install external packages (faspsolver and ecl)
+add_subdirectory(external)
+
+# Other optional external packages 
+include(optional)
 
 ###############################################################################
 ## Find compiler support for OpenMP. Since cmake 3.9, we can use 
-## find_package(OpenMP REQUIRED). Keep this for older cmake!!!
+## find_package(OpenMP). Keep this for older cmake!!!
 ###############################################################################
 
 if(USE_OPENMP)
@@ -63,14 +60,13 @@ if(USE_OPENMP)
     if(OPENMP_FOUND)
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")	 
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${OpenMP_C_FLAGS}")
     else(OPENMP_FOUND)
         message("   WARNING: OpenMP was requested but disabled!")
     endif(OPENMP_FOUND)
 endif(USE_OPENMP)
 
 ###############################################################################
-## Set configuration types and their default compiler flags
+## Set configuration types and default compiler flags
 ###############################################################################
 
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "Configs" FORCE)
@@ -84,14 +80,6 @@ else()
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -Wall -g")
 endif()
-
-# math library might be needed
-if (UNIX OR LINUX)
-	set(ADD_STDLIBS m stdc++)
-endif()
-
-# external packages
-add_subdirectory(external)
 
 ###############################################################################
 ## Project specific parameters

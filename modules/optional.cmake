@@ -1,8 +1,4 @@
 # Set optional libraries in OPTIONAL_LIBS
-# 
-# Chensong Zhang
-# 01/18/2022
-# 03/20/2022 FASP4CUDA added by Li Zhao 
 
 ##################################################################
 # For FASP4CUDA
