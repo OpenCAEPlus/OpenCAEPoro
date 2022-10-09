@@ -293,7 +293,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-        cout << "Cut time step size and repeat! curretn dt = " << fixed << setprecision(3) << dt << " days\n";
+        cout << "Cut time step size and repeat! current dt = " << fixed << setprecision(3) << dt << " days\n";
         return false;
     }
 
@@ -400,7 +400,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  curretn dt = " 
+        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  current dt = " 
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return false;
     }

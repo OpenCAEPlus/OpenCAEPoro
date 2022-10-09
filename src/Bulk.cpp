@@ -1451,16 +1451,12 @@ void Bulk::FlashDerivCOMP()
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
                                         &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
-
     }
 }
 
 void Bulk::FlashDerivCOMP_n()
 {
     USI         ftype;
-    OCP_USI     bId;
-    OCP_DBL     Ntw;
-    OCP_DBL     minEig;
     vector<USI> flagB(numPhase, 0);
     NRdSSP          = 0;
     maxNRdSSP       = 0;
@@ -1477,7 +1473,6 @@ void Bulk::FlashDerivCOMP_n()
             &nj[n * numPhase], ftype, &flagB[0], phaseNum[n], &Ks[n * numCom_1]);
 
         PassFlashValueDeriv_n(n);
-
     }
 }
 
@@ -1508,7 +1503,23 @@ USI  Bulk::CalFlashType(const OCP_USI& n) const
         }
     }
     else {
-        ftype = 0;
+        ftype = 2;
+        if (phaseNum[n] == 2 && true) {
+            // if num of hydrocarbon phases is 2 at last NR step and predicted saturations 
+            // indicates that the stae will be kept, then skip phase stability analysis, 
+            // carry phase splitting directly
+            bId = n * numPhase;
+            for (USI j = 0; j < numPhase; j++) {
+                if (dSNR[bId + j] + dSNRP[bId + j] < 1E-4) {
+                    // phases change (predicted)
+                    ftype = 0;
+                    break;
+                }
+            }
+        }
+        else {
+            ftype = 0;
+        }
     }
 
     return ftype;
@@ -2602,7 +2613,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     USI             row   = numPhase * (numCom + 1);
     USI             col   = numCom + 1;
     USI             bsize = row * col;
-    vector<OCP_DBL> dtmp(row0, 0);
+    vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
     OCP_DBL         choptmp = 0;
 
@@ -2612,8 +2623,10 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
 #ifdef OCP_NEW_FIM
-        DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n],
-                u.data() + n * col, 1, dtmp.data());
+        DaAxpby((dSdPindex[n + 1] - dSdPindex[n]) / (col), col, 1, dSec_dPri.data() + dSdPindex[n],
+            u.data() + n * col, 1, dtmp.data());
+        /*DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n],
+                u.data() + n * col, 1, dtmp.data());*/
         const bool newFIM = true;
 #else
         DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
@@ -2637,6 +2650,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             js++;
         }
 
+        // dS
         js = 0;
         for (USI j = 0; j < numPhase; j++) {
             if (!phaseExist[n * numPhase + j] && newFIM) {
@@ -2649,6 +2663,28 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             js++;
         }
 
+        // dxij
+        if (phaseNum[n] == 2 && true) {
+            bool tmpflag = true;
+            OCP_USI bId = 0;
+            for (USI j = 0; j < 2; j++) {
+                bId = n * numPhase * numCom + j * numCom;
+                for (USI i = 0; i < numCom_1; i++) {
+                    xij[bId + i] += chopmin * dtmp[js];
+                    js++;
+                    if (xij[bId + i] < 0) tmpflag = false;
+                }
+            }
+            if (tmpflag || true) {
+                bId = n * numPhase * numCom;
+                for (USI i = 0; i < numCom_1; i++) {
+                    Ks[n * numCom_1 + i] = xij[bId + i] / xij[bId + numCom + i];
+                }
+            }                         
+        }
+
+
+        // dP
         dP = u[n * col];
         // choptmp = dPmaxlim / fabs(dP);
         // chopmin = min(chopmin, choptmp);
@@ -2656,8 +2692,9 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         P[n] += dP; // seems better
         dPNR[n] = dP;
 
-        NRstep[n] = chopmin;
 
+        // dNi
+        NRstep[n] = chopmin;
         for (USI i = 0; i < numCom; i++) {
             dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;
             if (fabs(NRdNmax) < fabs(dNNR[n * numCom + i]) / Nt[n])
@@ -2716,13 +2753,6 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         dSmax = 0;
         chop  = 1;
 
-        if (n == 303 && false) {
-            const USI len = resIndex[n + 1] - resIndex[n];
-            fill(dtmp.begin(), dtmp.end(), 0.0);
-            DaAxpby(len, ncol, 1, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,
-                    1, dtmp.data());
-        }
-
         const USI cNp = phaseNum[n] + 1;
         const USI len = resIndex[n + 1] - resIndex[n];
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2755,29 +2785,6 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                 if (S[n_np_j] + chop * dtmp[js] < 0)
                     chop *= min(1.0, -S[n_np_j] / (chop * dtmp[js]));
                 js++;
-            }
-        }
-
-        if (n == 303 && false) {
-            cout << scientific << setprecision(12);
-            cout << 303 << "   chop =   " << chop << endl;
-            cout << "old xij" << endl;
-            js = 0;
-            for (USI j = 0; j < numPhase - 1; j++) {
-                if (phaseExist[n * numPhase + j]) {
-                    cout << j << "   " << S[n * numPhase + j] << "   "
-                         << chop * dtmp[js] << endl
-                         << endl;
-
-                    for (USI i = 0; i < numCom; i++) {
-                        cout << xij[(n * numPhase + j) * numCom + i] << "   "
-                             << xij[(n * numPhase + j) * numCom + i] *
-                                    nj[n * numPhase + j]
-                             << endl;
-                    }
-                    cout << endl;
-                    js++;
-                }
             }
         }
 
@@ -2846,22 +2853,6 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             if (fabs(NRdNmax) < fabs(dNNR[n * numCom + i]) / Nt[n])
                 NRdNmax = dNNR[n * numCom + i] / Nt[n];
             Ni[n * numCom + i] += dNNR[n * numCom + i];
-        }
-
-        if (n == 303 && false) {
-            cout << "new xij" << endl;
-            for (USI j = 0; j < numPhase - 1; j++) {
-                if (phaseExist[n * numPhase + j]) {
-                    cout << j << "   " << S[n * numPhase + j] << endl << endl;
-                    for (USI i = 0; i < numCom; i++) {
-                        cout << xij[(n * numPhase + j) * numCom + i] << "   "
-                             << xij[(n * numPhase + j) * numCom + i] *
-                                    nj[n * numPhase + j]
-                             << endl;
-                    }
-                    cout << endl;
-                }
-            }
         }
     }
 }

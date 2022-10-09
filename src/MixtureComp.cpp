@@ -1145,20 +1145,17 @@ void MixtureComp::CalKwilson()
 
 void MixtureComp::PhaseEquilibrium()
 {
-    NP   = 1;
-    x[0] = zi;
-    CalAiBi();
-    CalAjBj(Aj[0], Bj[0], x[0]);
-    SolEoS(Zj[0], Aj[0], Bj[0]);
 
     flagSkip = true;
-
-    // tmpFtype = ftype;
-    // ftype = 0;
 
     switch (ftype) {
         case 0:
             // flash from single phase
+            NP = 1;
+            x[0] = zi;
+            CalAiBi();
+            CalAjBj(Aj[0], Bj[0], x[0]);
+            SolEoS(Zj[0], Aj[0], Bj[0]);
             CalKwilson();
             while (!PhaseStable()) {
                 NP++;
@@ -1186,27 +1183,22 @@ void MixtureComp::PhaseEquilibrium()
             break;
         case 1:
             // Skip Phase Stability analysis, only single phase exists
-            NP = 1; 
+            NP = 1;
+            x[0] = zi;
+            CalAiBi();
+            CalAjBj(Aj[0], Bj[0], x[0]);
+            SolEoS(Zj[0], Aj[0], Bj[0]);
             // record error
             ePEC = 0.0;
             break;
 
         case 2:
             // Skip Phase Stability analysis, two phases exist
+            NP = 2;
+            Yt = 1.01;
+            CalAiBi();
             CalKwilson();
-            NP                    = 2;
-            EoSctrl.SSMsp.conflag = false;
-            EoSctrl.NRsp.conflag  = false;
-            Ks[NP - 2]            = Kw[0];
-            SplitSSM(true);
-            SplitNR();
-            while (!EoSctrl.NRsp.conflag) {
-                SplitSSM(true);
-                SplitNR();
-                if (!CheckSplit()) break;
-                if (EoSctrl.SSMsp.conflag) break;
-            }
-            CheckSplit();
+            PhaseSplit();                       
             break;
 
         default:
