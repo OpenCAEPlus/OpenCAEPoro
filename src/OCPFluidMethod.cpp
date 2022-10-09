@@ -293,7 +293,7 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         rs.ResetFIM(false);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-        cout << "Cut timestep size and repeat! curretn dt = " << dt << " days\n";
+        cout << "Cut time step size and repeat! curretn dt = " << fixed << setprecision(3) << dt << " days\n";
         return false;
     }
 
@@ -366,8 +366,9 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
 
         cout << "### NR : " + to_string(ctrl.iterNR) + "    Res:    " << setprecision(2) << scientific << resFIM.maxRelRes0_v << setw(12)
-            << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
-            << setw(70) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
+            << resFIM.maxRelRes_v << setw(12) << resFIM.maxRelRes_mol << setw(11) << resFIM.maxWellRelRes_mol
+            << setw(20) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax          
+            << setw(48) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12) << rs.bulk.maxNRdSSP << "  "
             << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP] << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  "
             << setw(6) << rs.bulk.index_maxNRdSSP << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl << endl;
 
@@ -399,13 +400,15 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR not fully converged! Cut timestep size and repeat!  curretn dt = " << ctrl.current_dt << " days\n";
+        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  curretn dt = " 
+            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return false;
     }
 
-    if ((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+    if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol)
+        && resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);
@@ -665,13 +668,14 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResAIMc(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
+        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!\n";
         return false;
     }
 
-    if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+    if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
         resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
+        resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol)
+        && resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(false, true);

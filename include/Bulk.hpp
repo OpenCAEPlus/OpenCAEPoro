@@ -102,6 +102,8 @@ public:
     /// Perform flash calculation with Ni in Compositional Model
     void FlashDerivCOMP();
     void FlashDerivCOMP_n();
+    /// determine which flash type will be used
+    USI  CalFlashType(const OCP_USI& n) const;
     /// Pass values from Flash to Bulk after Flash calculation.
     void PassFlashValue(const OCP_USI& n);
     void PassFlashValueAIMc(const OCP_USI& n);

@@ -1191,7 +1191,7 @@ void MixtureComp::PhaseEquilibrium()
             ePEC = 0.0;
             break;
 
-        case 2: // not used now
+        case 2:
             // Skip Phase Stability analysis, two phases exist
             CalKwilson();
             NP                    = 2;

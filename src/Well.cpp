@@ -2031,8 +2031,8 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                 }
                  //cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " <<
                  //    fabs(resFIM.res[bId] / opt.maxRate) << endl;
-                resFIM.maxRelRes_mol =
-                    max(resFIM.maxRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
+                resFIM.maxWellRelRes_mol =
+                    max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
             default:
                 OCP_ABORT("Wrong well opt mode!");
@@ -2057,8 +2057,8 @@ void Well::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                 // cout << "Temp(Prod):   " << tmp << endl;
                  //cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "   " 
                  //    << fabs(resFIM.res[bId] / opt.maxRate) << endl;
-                resFIM.maxRelRes_mol =
-                    max(resFIM.maxRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
+                resFIM.maxWellRelRes_mol =
+                    max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
             default:
                 OCP_ABORT("Wrong well opt mode!");

@@ -29,12 +29,14 @@ public:
         fill(res.begin(), res.end(), 0);
         maxRelRes_v   = 0;
         maxRelRes_mol = 0;
+        maxWellRelRes_mol = 0;
     }
 
     vector<double> res;
     OCP_DBL        maxRelRes0_v;
     OCP_DBL        maxRelRes_v;
     OCP_DBL        maxRelRes_mol;
+    OCP_DBL        maxWellRelRes_mol;
 
     // use negative number to represent well number (ToDo)
     OCP_INT        maxId_v;
