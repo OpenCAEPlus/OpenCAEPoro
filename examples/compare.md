@@ -204,17 +204,17 @@ OCP_FIM
 
 precond_type             = 64
 
-SSMSTA:     549520
-NRSTA:      2639
-SSMSP:      769094
-NRSP:       120125
+SSMSTA:     186830
+NRSTA:      124
+SSMSP:      471467
+NRSP:       95568
 =========================================
 Final time:          7305.000 Days
-Total time steps:    311
-Total Newton steps:  767 (+23 wasted steps)
-Total linear steps:  2500 (+66 wasted steps)
-Linear solve time:   6.473s (79.102%)
-Simulation time:     8.183s
+Total time steps:    312
+Total Newton steps:  853 (+46 wasted steps)
+Total linear steps:  2726 (+178 wasted steps)
+Linear solve time:   6.927s (81.680%)
+Simulation time:     8.481s
 
 ---------------------------------------------------
 OCP_FIMn
@@ -268,17 +268,17 @@ OCP_FIM
 
 precond_type             = 64
 
-SSMSTA:     750655
-NRSTA:      4772
-SSMSP:      884275
-NRSP:       38973
+SSMSTA:     249769
+NRSTA:      4769
+SSMSP:      429433
+NRSP:       33115
 =========================================
 Final time:          3650.000 Days
 Total time steps:    46
-Total Newton steps:  80 (+0 wasted steps)
-Total linear steps:  121 (+0 wasted steps)
-Linear solve time:   0.668s (29.790%)
-Simulation time:     2.243s
+Total Newton steps:  85 (+0 wasted steps)
+Total linear steps:  129 (+0 wasted steps)
+Linear solve time:   0.689s (39.492%)
+Simulation time:     1.745s
 
 
 ---------------------------------------------------
@@ -327,17 +327,17 @@ Simulation time:     1146.347s
 
 precond_type   =  64
 
-SSMSTA:     157185627
-NRSTA:      81
-SSMSP:      115716480
-NRSP:       41758653
+SSMSTA:     96792555
+NRSTA:      74
+SSMSP:      52566167
+NRSP:       26468101
 =========================================
 Final time:          730.000 Days
-Total time steps:    48
-Total Newton steps:  213 (+24 wasted steps)
-Total linear steps:  790 (+77 wasted steps)
-Linear solve time:   465.497s (48.439%)
-Simulation time:     961.001s
+Total time steps:    49
+Total Newton steps:  222 (+30 wasted steps)
+Total linear steps:  833 (+85 wasted steps)
+Linear solve time:   474.654s (51.896%)
+Simulation time:     914.624s
 
 
 .\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIM  1  50  0.1
