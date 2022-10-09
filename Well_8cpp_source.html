@@ -2081,8 +2081,8 @@ $(function() {
 <div class="line"><a name="l02031"></a><span class="lineno"> 2031</span>&#160;                }</div>
 <div class="line"><a name="l02032"></a><span class="lineno"> 2032</span>&#160;                 <span class="comment">//cout &lt;&lt; name &lt;&lt; &quot;   &quot; &lt;&lt; resFIM.res[bId] &lt;&lt; &quot;   &quot; &lt;&lt; opt.maxRate &lt;&lt; &quot;   &quot; &lt;&lt;</span></div>
 <div class="line"><a name="l02033"></a><span class="lineno"> 2033</span>&#160;                 <span class="comment">//    fabs(resFIM.res[bId] / opt.maxRate) &lt;&lt; endl;</span></div>
-<div class="line"><a name="l02034"></a><span class="lineno"> 2034</span>&#160;                resFIM.maxRelRes_mol =</div>
-<div class="line"><a name="l02035"></a><span class="lineno"> 2035</span>&#160;                    max(resFIM.maxRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));</div>
+<div class="line"><a name="l02034"></a><span class="lineno"> 2034</span>&#160;                resFIM.maxWellRelRes_mol =</div>
+<div class="line"><a name="l02035"></a><span class="lineno"> 2035</span>&#160;                    max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));</div>
 <div class="line"><a name="l02036"></a><span class="lineno"> 2036</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l02037"></a><span class="lineno"> 2037</span>&#160;            <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l02038"></a><span class="lineno"> 2038</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well opt mode!&quot;</span>);</div>
@@ -2107,8 +2107,8 @@ $(function() {
 <div class="line"><a name="l02057"></a><span class="lineno"> 2057</span>&#160;                <span class="comment">// cout &lt;&lt; &quot;Temp(Prod):   &quot; &lt;&lt; tmp &lt;&lt; endl;</span></div>
 <div class="line"><a name="l02058"></a><span class="lineno"> 2058</span>&#160;                 <span class="comment">//cout &lt;&lt; name &lt;&lt; &quot;   &quot; &lt;&lt; resFIM.res[bId] &lt;&lt; &quot;   &quot; &lt;&lt; opt.maxRate &lt;&lt; &quot;   &quot; </span></div>
 <div class="line"><a name="l02059"></a><span class="lineno"> 2059</span>&#160;                 <span class="comment">//    &lt;&lt; fabs(resFIM.res[bId] / opt.maxRate) &lt;&lt; endl;</span></div>
-<div class="line"><a name="l02060"></a><span class="lineno"> 2060</span>&#160;                resFIM.maxRelRes_mol =</div>
-<div class="line"><a name="l02061"></a><span class="lineno"> 2061</span>&#160;                    max(resFIM.maxRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));</div>
+<div class="line"><a name="l02060"></a><span class="lineno"> 2060</span>&#160;                resFIM.maxWellRelRes_mol =</div>
+<div class="line"><a name="l02061"></a><span class="lineno"> 2061</span>&#160;                    max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));</div>
 <div class="line"><a name="l02062"></a><span class="lineno"> 2062</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l02063"></a><span class="lineno"> 2063</span>&#160;            <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l02064"></a><span class="lineno"> 2064</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well opt mode!&quot;</span>);</div>
@@ -3721,7 +3721,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 8 2022 09:40:52 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 8 2022 22:22:52 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
