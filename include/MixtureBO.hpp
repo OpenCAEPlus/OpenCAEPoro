@@ -49,6 +49,9 @@ public:
     }
     OCP_ULL GetNRSPiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
     }
+    OCP_ULL GetRRiters() override {
+        OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
 
 protected:
     // USI mixtureType; ///< indicates the type of mixture, black oil or compositional or

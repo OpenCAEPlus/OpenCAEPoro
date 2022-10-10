@@ -141,7 +141,8 @@ public:
     virtual OCP_ULL GetSSMSTAiters() = 0;
     virtual OCP_ULL GetNRSTAiters() = 0;
     virtual OCP_ULL GetSSMSPiters() = 0; 
-    virtual OCP_ULL GetNRSPiters() = 0; 
+    virtual OCP_ULL GetNRSPiters() = 0;
+    virtual OCP_ULL GetRRiters() = 0; 
 
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or

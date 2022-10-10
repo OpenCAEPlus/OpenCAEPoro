@@ -1112,7 +1112,6 @@ void MixtureComp::AllocateMethod()
     eigenWork.resize(leigenWork);
     lKs.resize(NC);
 
-    tmpRR.resize(NC);
     resRR.resize(NPmax - 1);
     resSP.resize(NC * NPmax);
     JmatSP.resize(NC * NC * NPmax * NPmax);
@@ -1659,6 +1658,7 @@ void MixtureComp::PhaseSplit()
     EoSctrl.SSMsp.curIt = 0;
     EoSctrl.NRsp.conflag = false;
     EoSctrl.NRsp.curIt = 0;
+    EoSctrl.RR.curIt = 0;
 
     SplitSSM(false);
     SplitNR();
@@ -1672,6 +1672,7 @@ void MixtureComp::PhaseSplit()
 
     SSMSPiters += EoSctrl.SSMsp.curIt;
     NRSPiters += EoSctrl.NRsp.curIt;
+    RRiters += EoSctrl.RR.curIt;
 
     //cout << scientific << setprecision(8);
     //for (USI i = 0; i < NC; i++) {
@@ -1822,33 +1823,43 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
         if (Ktmp[i] > Kmax) Kmax = Ktmp[i];
     }
 
-    OCP_DBL numin = 1 / (1 - Kmax);
-    OCP_DBL numax = 1 / (1 - Kmin);
+    const OCP_DBL numin = 1 / (1 - Kmax);
+    const OCP_DBL numax = 1 / (1 - Kmin);
 
     nu[0] = 0.5 * (numin + numax);
 
     // Solve RR with NR
-    fill(tmpRR.begin(), tmpRR.end(), 0);
-    OCP_DBL rj, J, dnuj, tmp;
+    OCP_DBL tmp, rj, J, dnuj, tmpnu;
+    OCP_DBL f, df;
 
     USI     iter  = 0;
-    OCP_DBL RRtol = EoSctrl.RR.tol;
+    const OCP_DBL tol = EoSctrl.RR.tol;
+    const OCP_DBL maxIt = EoSctrl.RR.maxIt;
     while (true) {
 
         rj = 0;
         J  = 0;
         for (USI i = 0; i < NC; i++) {
-            tmpRR[i] = 1 + nu[0] * (Ktmp[i] - 1);
-            rj += zi[i] * (Ktmp[i] - 1) / tmpRR[i];
-            J -= zi[i] * (Ktmp[i] - 1) * (Ktmp[i] - 1) / (tmpRR[i] * tmpRR[i]);
+            tmp = 1 + nu[0] * (Ktmp[i] - 1);
+            rj += zi[i] * (Ktmp[i] - 1) / tmp;
+            J -= zi[i] * (Ktmp[i] - 1) * (Ktmp[i] - 1) / (tmp * tmp);
         }
 
-        if (fabs(rj) < RRtol || iter > EoSctrl.RR.maxIt) break;
+        if (fabs(rj) < tol || iter > maxIt) break;
+
+        if (fabs(rj) < 5E-2 && false) {
+            f = (nu[0] - numin) * (numax - nu[0]);
+            df = -2 * nu[0] + (numax + numin);
+            J *= f;
+            J += df * rj;
+            rj *= f;
+        }
+
 
         dnuj = -rj / J;
-        tmp  = nu[0] + dnuj;
-        if (tmp < numax && tmp > numin) {
-            nu[0] = tmp;
+        tmpnu = nu[0] + dnuj;
+        if (tmpnu < numax && tmpnu > numin) {
+            nu[0] = tmpnu;
         } else {
             if (dnuj > 0) {
                 nu[0] = (nu[0] + numax) / 2;
@@ -1856,9 +1867,13 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
                 nu[0] = (nu[0] + numin) / 2;
             }
         }
-
         iter++;
     }
+
+    EoSctrl.RR.curIt += iter;
+
+    //cout << iter << "      " << scientific << setprecision(3) << fabs(rj)
+    //    << "      " << nu[0] << "      " << numin << "      " << numax << endl;
 
     // if (iter > EoSctrl.RR.maxIt) {
     //	OCP_WARNING("RR2 not converged!");
@@ -1870,6 +1885,83 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     cout << nu[0] << endl;
 #endif // DEBUG
 }
+
+
+void MixtureComp::RachfordRice2P()
+{
+    // modified RachfordRice equations
+    // less iterations but more divergence --- unstable!
+
+    const vector<OCP_DBL>& Ktmp = Ks[0];
+    OCP_DBL                Kmin = Ktmp[0];
+    OCP_DBL                Kmax = Ktmp[0];
+
+    for (USI i = 1; i < NC; i++) {
+        if (Ktmp[i] < Kmin) Kmin = Ktmp[i];
+        if (Ktmp[i] > Kmax) Kmax = Ktmp[i];
+    }
+
+    const OCP_DBL numin = 1 / (1 - Kmax);
+    const OCP_DBL numax = 1 / (1 - Kmin);
+
+    nu[0] = 0.5 * (numin + numax);
+
+    // Solve RR with NR
+    OCP_DBL tmp, rj, J, dnuj, tmpnu;
+    OCP_DBL f, df;
+
+    USI     iter = 0;
+    const OCP_DBL tol = EoSctrl.RR.tol;
+    const OCP_DBL maxIt = EoSctrl.RR.maxIt;
+    while (true) {
+
+        rj = 0;
+        J = 0;
+        for (USI i = 0; i < NC; i++) {
+            tmp = 1 + nu[0] * (Ktmp[i] - 1);
+            rj += zi[i] * (Ktmp[i] - 1) / tmp;
+            J -= zi[i] * (Ktmp[i] - 1) * (Ktmp[i] - 1) / (tmp * tmp);
+        }
+        f = (nu[0] - numin) * (numax - nu[0]);
+        df = -2 * nu[0] + (numax + numin);       
+        J *= f;
+        J += df * rj;
+        rj *= f;
+
+        if (fabs(rj) < tol || iter > maxIt) break;
+
+        dnuj = -rj / J;
+        tmpnu = nu[0] + dnuj;
+        if (tmpnu < numax && tmpnu > numin) {
+            nu[0] = tmpnu;
+        }
+        else {
+            if (dnuj > 0) {
+                nu[0] = (nu[0] + numax) / 2;
+            }
+            else {
+                nu[0] = (nu[0] + numin) / 2;
+            }
+        }
+        iter++;
+    }
+
+    EoSctrl.RR.curIt += iter;
+
+    cout << iter << "      " << scientific << setprecision(3) << fabs(rj)
+        << "      " << nu[0] << "      " << numin << "      " << numax << endl;
+
+    // if (iter > EoSctrl.RR.maxIt) {
+    //	OCP_WARNING("RR2 not converged!");
+    //}
+
+    nu[1] = 1 - nu[0];
+
+#ifdef DEBUG
+    cout << nu[0] << endl;
+#endif // DEBUG
+}
+
 
 void MixtureComp::RachfordRice3() ///< Used when NP > 2
 {

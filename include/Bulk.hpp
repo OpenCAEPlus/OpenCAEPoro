@@ -488,6 +488,7 @@ public:
     OCP_ULL GetNRSTAiters()const { return flashCal[0]->GetNRSTAiters(); }
     OCP_ULL GetSSMSPiters()const { return flashCal[0]->GetSSMSPiters(); }
     OCP_ULL GetNRSPiters()const { return flashCal[0]->GetNRSPiters(); }
+    OCP_ULL GetRRiters()const { return flashCal[0]->GetRRiters(); }
 
 
     /////////////////////////////////////////////////////////////////////

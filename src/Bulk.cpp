@@ -2619,7 +2619,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     OCP_DBL         choptmp = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        const vector<OCP_DBL>& scm = satcm[SATNUM[n]];
+        //const vector<OCP_DBL>& scm = satcm[SATNUM[n]];
 
         chopmin = 1;
         // compute the chop

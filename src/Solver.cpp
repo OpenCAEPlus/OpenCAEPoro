@@ -51,6 +51,7 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
         cout << "NRSTA:      " << rs.bulk.GetNRSTAiters() << endl;
         cout << "SSMSP:      " << rs.bulk.GetSSMSPiters() << endl;
         cout << "NRSP:       " << rs.bulk.GetNRSPiters() << endl;
+        cout << "NRRR:       " << rs.bulk.GetRRiters() << endl;
     }
     ctrl.RecordTotalTime(timer.Stop() / 1000);
 }

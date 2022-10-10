@@ -133,6 +133,7 @@ public:
     OCP_ULL GetNRSTAiters() override { return NRSTAiters; }
     OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
     OCP_ULL GetNRSPiters() override { return NRSPiters; }
+    OCP_ULL GetRRiters() override { return RRiters; }
 
 private:
     // total iters
@@ -141,6 +142,7 @@ private:
 	OCP_ULL NRSTAiters{ 0 };
 	OCP_ULL SSMSPiters{ 0 };
 	OCP_ULL NRSPiters{ 0 };
+    OCP_ULL RRiters{ 0 };
     // phase equilibrium calculation error
     // if NP = 1, it's from phase stable analysis, if skiped, it's 0
     // if NP > 1, it's from phase spliting calculation
@@ -339,6 +341,7 @@ public:
 	void SplitSSM2(const bool& flag);
 	void SplitSSM3(const bool& flag);
 	void RachfordRice2();  ///< Used when NP = 2
+	void RachfordRice2P();  ///< Used when NP = 2, improved RachfordRice2
 	void RachfordRice3(); ///< Used when NP > 2
 	void UpdateXRR(); ///< Update X according to RR
 	void SplitNR();
@@ -384,7 +387,6 @@ private:
     OCP_INT         leigenWork; ///< length of eigenwork
 
     // SSM in Phase Split
-    vector<OCP_DBL> tmpRR; ///< temp variables for solving Rachford-Rice equations.
     vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.
     // NR in Phase Split
     vector<OCP_DBL> resSP;  ///< d G / d nij, G is Gibbs free energy: ln fij - ln fi,np
