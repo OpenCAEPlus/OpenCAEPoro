@@ -1,0 +1,339 @@
+#!/bin/bash
+system="linux"
+compiler="gnu"
+build="Debug"
+target="all"
+docBuild="doxygen"
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    system="linux"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    system="mac"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    # POSIX compatibility layer and Linux environment emulation for Windows
+    system="cygwin"
+elif [[ "$OSTYPE" == "msys" ]]; then
+    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    system="msys"
+else
+    system="windows"
+fi
+
+helperBuild() {
+    cat <<EOF
+CLI subcommand "build" to compile the source codes.
+
+Usage:
+The command will automatically detect your system, you just need to tell the 
+cli which compiler, build type, and target you want to use
+
+    cli build -c|--compiler -b|--build -t|--target [-h|--help]
+
+Example:
+
+    cli build -c intel -b Debug
+    cli build -c intel -b Debug -t all
+    cli build -c intel -b Debug -t clean
+
+EOF
+    exit 0
+}
+
+helperTest() {
+    cat <<EOF
+CLI subcommand "test" to compile and test the source codes.
+
+Usage:
+The command will automatically detect your system, you just need to tell the 
+cli which compiler, build type, target, and the testing type, either unit or benchmark
+
+    cli test -c|--compiler -b|--build -t|--target -u|--unit -m|--benchmark [-h|--help]
+
+Example:
+
+    cli test -c intel -b Debug
+    cli test -c intel -b Debug -u
+    cli test -c intel -b Debug -m -u
+
+EOF
+    exit 0
+}
+
+helperDoc() {
+    cat <<EOF
+CLI subcommand "doc" to build the documentation
+
+Usage:
+You can choose to build either the vitepress website or latexpdf.
+
+    cli doc -b|--build -p|--publish [-h|--help] 
+
+Example:
+
+    cli doc -b vitepress
+    cli doc -b latexpdf
+
+EOF
+    exit 0
+}
+
+helperCLI() {
+    cat <<EOF
+Command line interface for OpenCAEPlus to make life easier.
+Two subcommands available:
+    
+    cli build
+    cli doc
+
+Use -h or --help option to check the usage for each of the 
+subcommand.
+
+EOF
+    exit 0
+}
+
+echo $1
+case "$1" in
+build)
+    echo "Compile the program"
+    shift
+
+    if [[ ${system} == "linux" ]]; then
+        OPT=$(getopt -o t:c:b:h --long target:,compiler:,build:,help -n 'cli build' -- "$@")
+        eval set -- "${OPT}"
+    elif [[ ${system} == "mac" ]]; then
+        OPT=$(getopt t:c:b:h "$@")
+        set -- $OPT
+    fi
+
+    [ $# -le 1 ] && {
+        helperBuild
+    }
+
+    while true; do
+        case "$1" in
+        -t | --target)
+            target="$2"
+            shift 2
+            ;;
+        -c | --compiler)
+            compiler="$2"
+            shift 2
+            ;;
+        -b | --build)
+            build="$2"
+            shift 2
+            ;;
+        -h | --help)
+            helperBuild
+            shift 1
+            ;;
+        --)
+            # echo "Using all default variables ${system}-${compiler}-${build}-${target}"
+            break
+            ;;
+        *)
+            echo "Unknown options!"
+            helperBuild
+            ;;
+        esac
+    done
+
+    echo ${system}-${compiler}-${build}-${target}
+
+    if [[ ${compiler} = "intel" ]]; then
+        source /opt/intel/oneapi/setvars.sh
+        if [[ ${system} = "mac" ]]; then
+            export CC=icc
+            export CXX=icpc
+        fi
+    fi
+
+    case "$system" in
+    "linux" | "mac")
+        cmake --preset="${system}-${compiler}-${build}" -S "."
+        cmake --build --preset="${system}-${compiler}-${build}" --target ${target}
+        ;;
+    "windows")
+        echo "Please use the cli.bat script on windows "
+        ;;
+    --)
+        break
+        ;;
+    *)
+        echo "System $system not supported"
+        helperBuild
+        ;;
+    esac
+
+    ;;
+
+test)
+    unit_test=0
+    benchmark=0
+    args=""
+    echo "Test the program"
+    shift
+
+    if [[ ${system} == "linux" ]]; then
+        OPT=$(getopt -o t:c:b:hum --long target:,compiler:,build:,help,unit,benchmark -n 'cli build' -- "$@")
+        eval set -- "${OPT}"
+    elif [[ ${system} == "mac" ]]; then
+        OPT=$(getopt t:c:b:hum "$@")
+        set -- $OPT
+    fi
+
+    [ $# -le 1 ] && {
+        helperTest
+    }
+
+    while true; do
+        case "$1" in
+        -t | --target)
+            target="$2"
+            shift 2
+            ;;
+        -c | --compiler)
+            compiler="$2"
+            shift 2
+            ;;
+        -b | --build)
+            build="$2"
+            shift 2
+            ;;
+        -h | --help)
+            helperTest
+            shift
+            ;;
+        -u | --unit)
+            unit_test=1
+            args=args" -DENABLE_TEST_UNIT=ON"
+            shift
+            ;;
+        -m | --benchmark)
+            benchmark=1
+            args=args" -DENABLE_TEST_BENCHMARK=ON"
+            shift
+            ;;
+        --)
+            echo "Using all default variables ${system}-${compiler}-${build}-${target}"
+            break
+            ;;
+        *)
+            echo "Unknown options!"
+            helperTest
+            ;;
+        esac
+    done
+
+    echo ${system}-${compiler}-${build}-${target}
+
+    if [[ ${compiler} = "intel" ]]; then
+        source /opt/intel/oneapi/setvars.sh
+        if [[ ${system} = "mac" ]]; then
+            export CC=icc
+            export CXX=icpc
+        fi
+    fi
+
+    case "$system" in
+    "linux" | "mac")
+        cmake --preset="${system}-${compiler}-${build}" ${args} -S "."
+        cmake --build --preset="${system}-${compiler}-${build}" --target ${target}
+        ctest --preset="${system}-${compiler}-${build}"
+        ;;
+    "windows")
+        echo "Please use the cli.bat script on windows "
+        ;;
+    --)
+        break
+        ;;
+    *)
+        echo "System $system not supported"
+        helperTest
+        ;;
+    esac
+
+    ;;
+
+doc)
+    echo "Build the doc"
+    shift
+
+    if [[ ${system} == "linux" ]]; then
+        OPT=$(getopt -o hb: --long help,build: -n 'cli doc' -- "$@")
+        eval set -- "${OPT}"
+    elif [[ ${system} == "mac" ]]; then
+        OPT=$(getopt b:h "$@")
+        set -- $OPT
+    fi
+
+    [ $# -le 1 ] && {
+        helperDoc
+    }
+
+    while true; do
+        case "$1" in
+        -b | --build)
+            docBuild=$2
+            shift 2
+            ;;
+        -p | --publish)
+            curl https://api.render.com/deploy/srv-ccjuq4un6mpuvklqcav0?key=7zE5DdEWG0Y
+            shift
+            ;;
+        -h | --help)
+            helperDoc
+            shift
+            ;;
+        --)
+            break
+            ;;
+        *)
+            echo "Unknown options!"
+            helperDoc
+            ;;
+        esac
+    done
+
+    echo "Build the doxygen"
+    cd doc
+    rm -rf doxygen-out
+    doxygen Doxyfile
+
+    if [[ $docBuild == "latexpdf" ]]; then
+        # cd doxygen-out/latex
+        # make
+        # cd -
+        make latexpdf
+        cp _build/latex/opencaeporo.pdf website/manual/
+    fi
+
+    if [[ $docBuild == "vitepress" ]]; then
+        rm -rf doxybook-out website/api
+        mkdir -p doxybook-out
+        doxybook2 --input doxygen-out/xml --output doxybook-out --config doxybook-config.json --templates .
+        cp -r doxybook-out website/api
+        pnpm install
+        pnpm doc:build
+        cd website/.vitepress
+        zip -r dist.zip dist
+        cd -
+    fi
+
+    cd ..
+    ;;
+
+-h | --help)
+    helperCLI
+    shift
+    ;;
+--)
+    break
+    ;;
+*)
+    helperCLI
+    shift
+    ;;
+
+esac

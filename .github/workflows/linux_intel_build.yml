@@ -25,4 +25,5 @@ jobs:
             - name: Build 
               run: |
                   export FASP_DIR=/opt/faspsolver
-                  pnpm build:linux:intel
+                  chmod 755 cli
+                  ./cli build -b Debug -c intel -t all

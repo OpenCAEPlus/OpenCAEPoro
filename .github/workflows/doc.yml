@@ -26,9 +26,11 @@ jobs:
               with:
                   fetch-depth: 0
             - name: Build sphinx
-              run: pnpm doc:build:sphinx
+              run: |
+                  chmod 755 cli
+                  ./cli doc --build latexpdf
             - name: Build doc
-              run: pnpm doc:build:vitepress
+              run: ./cli doc --build vitepress
             - name: Commit dist.zip
               uses: EndBug/add-and-commit@v9
               with:
@@ -36,4 +38,4 @@ jobs:
                   add: "doc/website/.vitepress/dist.zip"
                   committer_name: GitHub Actions
             - name: Trigger publish
-              run: pnpm doc:publish:render
+              run: ./cli doc --publish

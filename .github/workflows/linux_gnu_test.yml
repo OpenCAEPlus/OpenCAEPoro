@@ -24,4 +24,5 @@ jobs:
             - name: Build 
               run: |
                   export FASP_DIR=/opt/faspsolver
-                  pnpm test:linux:gnu
+                  chmod 755 cli
+                  ./cli test -b Release -c gnu
