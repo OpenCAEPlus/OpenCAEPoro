@@ -2613,17 +2613,19 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     USI             row   = numPhase * (numCom + 1);
     USI             col   = numCom + 1;
     USI             bsize = row * col;
+    OCP_USI         n_np_j;
     vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
     OCP_DBL         choptmp = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        chopmin = 1;
+        const vector<OCP_DBL>& scm = satcm[SATNUM[n]];
 
+        chopmin = 1;
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
 #ifdef OCP_NEW_FIM
-        DaAxpby((dSdPindex[n + 1] - dSdPindex[n]) / (col), col, 1, dSec_dPri.data() + dSdPindex[n],
+        DaAxpby((dSdPindex[n + 1] - dSdPindex[n]) / col, col, 1, dSec_dPri.data() + dSdPindex[n],
             u.data() + n * col, 1, dtmp.data());
         /*DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n],
                 u.data() + n * col, 1, dtmp.data());*/
@@ -2639,13 +2641,19 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             if (!phaseExist[n * numPhase + j] && newFIM) {
                 continue;
             }
+            n_np_j = n * numPhase + j;
 
             choptmp = 1;
             if (fabs(dtmp[js]) > dSmaxlim) {
                 choptmp = dSmaxlim / fabs(dtmp[js]);
-            } else if (S[n * numPhase + j] + dtmp[js] < 0.0) {
-                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[js]);
+            } else if (S[n_np_j] + dtmp[js] < 0.0) {
+                choptmp = 0.9 * S[n_np_j] / fabs(dtmp[js]);
             }
+
+            //if (fabs(S[n_np_j] - scm[j]) > TINY &&
+            //    (S[n_np_j] - scm[j]) / (choptmp * dtmp[js]) < 0)
+            //    choptmp *= min(1.0, -((S[n_np_j] - scm[j]) / (choptmp * dtmp[js])));
+
             chopmin = min(chopmin, choptmp);
             js++;
         }
@@ -2663,8 +2671,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             js++;
         }
 
-        // dxij
-        if (phaseNum[n] == 2 && true) {
+        // dxij   ---- Compositional model only
+        if (phaseNum[n] == 2 && comps) {
             bool tmpflag = true;
             OCP_USI bId = 0;
             for (USI j = 0; j < 2; j++) {
@@ -2756,9 +2764,12 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const USI cNp = phaseNum[n] + 1;
         const USI len = resIndex[n + 1] - resIndex[n];
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Dcopy(cNp, &dtmp[0], &res_n[resIndex[n]]);
+        /*Dcopy(cNp, &dtmp[0], &res_n[resIndex[n]]);
         DaAxpby(cNp, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,
-                1.0, dtmp.data());
+                1.0, dtmp.data());*/
+        Dcopy(len, &dtmp[0], &res_n[resIndex[n]]);
+        DaAxpby(len, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,
+            1.0, dtmp.data());
 
         // Calculate dSmax
         USI js = 0;
@@ -2789,7 +2800,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         }
 
         // Calculate S, phaseExist, xij, nj
-        // fill(tmpNij.begin(), tmpNij.end(), 0.0);
+        fill(tmpNij.begin(), tmpNij.end(), 0.0);
         // fill(Ni.begin() + n * numCom, Ni.begin() + n * numCom + numCom, 0.0);
 
         js     = 0;
@@ -2806,24 +2817,24 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                 //     phaseExist[n_np_j] = false;
                 // }
                 // js++;
-                // Daxpy(numCom, nj[n_np_j], &xij[n_np_j * numCom], &tmpNij[j *
-                // numCom]); for (USI i = 0; i < pEnumCom[j]; i++) {
-                //     tmpNij[j * numCom + i] += chop * dtmp[jx + i];
-                //     // CheckNi(tmp)
-                //     if (tmpNij[j * numCom + i] < 0) {
-                //         cout << scientific << setprecision(6) << "n" << i << j << " =
-                //         " << tmpNij[j * numCom + i] << endl; OCP_WARNING("Negative
-                //         Ni");
-                //     }
-                // }
-                // jx += pEnumCom[j];
-                // nj[n_np_j] = Dnorm1(numCom, &tmpNij[j * numCom]);
-                // for (USI i = 0; i < numCom; i++) {
-                //     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];
-                //     Ni[n * numCom + i] += tmpNij[j * numCom + i];
-                // }
+                 Daxpy(numCom, nj[n_np_j], &xij[n_np_j * numCom], &tmpNij[j * numCom]); 
+                 for (USI i = 0; i < pEnumCom[j]; i++) {
+                     tmpNij[j * numCom + i] += chop * dtmp[jx + i];
+                 }
+                 jx += pEnumCom[j];
+                 nj[n_np_j] = Dnorm1(numCom, &tmpNij[j * numCom]);
+                 for (USI i = 0; i < numCom; i++) {
+                     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];
+                     // Ni[n * numCom + i] += tmpNij[j * numCom + i];
+                 }
             }
         }
+        if (phaseNum[n] == 2 && false) {
+            for (USI i = 0; i < numCom_1; i++) {
+                Ks[n * numCom_1 + i] = xij[n * numPhase * numCom + i] / xij[n * numPhase * numCom + numCom + i];
+            }
+        }
+        
 
         // Vf correction
         /*        OCP_DBL dVmin = 100 * rockVp[n];
