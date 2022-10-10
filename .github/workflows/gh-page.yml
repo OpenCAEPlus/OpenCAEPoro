@@ -19,6 +19,8 @@ jobs:
                   echo "Tags: ${{ github.event.inputs.tags }}"
             - name: Check out repository
               uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
             - name: Build doc
               run: pnpm doc:build:doxygen
             - name: Doxygen html for github page

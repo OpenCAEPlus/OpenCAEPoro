@@ -1,0 +1,18 @@
+changelog_type: 'pull_request' # or 'pull_request'
+header_prefix: 'Version:'
+commit_changelog: true
+comment_changelog: true
+include_unlabeled_changes: true
+unlabeled_group_title: 'Code Improvements'
+pull_request_title_regex: '^Release'
+version_regex: 'v?([0-9]{1,3})+[.]+([0-9]{1,3})+[.]+([0-9]{1,3})\s\(\d{1,2}-\d{1,2}-\d{4}\)'
+group_config:
+  - title: Bug Fixes
+    labels:
+      - bug
+  - title: New Features
+    labels:
+      - enhancement
+  - title: Documentation Updates
+    labels:
+      - documentation
