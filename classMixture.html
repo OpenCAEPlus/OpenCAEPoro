@@ -178,6 +178,9 @@ virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93
 <tr class="memitem:aa7c4cc31e15cef9015786d773fcfee8a"><td class="memItemLeft" align="right" valign="top"><a id="aa7c4cc31e15cef9015786d773fcfee8a"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNRSPiters</b> ()=0</td></tr>
 <tr class="separator:aa7c4cc31e15cef9015786d773fcfee8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e3fffe9f232b28bc1ac30bc295effc6"><td class="memItemLeft" align="right" valign="top"><a id="a5e3fffe9f232b28bc1ac30bc295effc6"></a>
+virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetRRiters</b> ()=0</td></tr>
+<tr class="separator:a5e3fffe9f232b28bc1ac30bc295effc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -366,8 +369,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00151">Mixture.hpp:151</a></div></div>
-<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00155">Mixture.hpp:155</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00152">Mixture.hpp:152</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00156">Mixture.hpp:156</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
@@ -485,7 +488,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>indicates the type of mixture, black oil or compositional or others. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00147">147</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00148">148</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +513,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dNi: numCom the derivative of volume of total fluids with respect to moles of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00177">177</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -535,7 +538,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dP, the derivative of volume of total fluids with respect to pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00174">174</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00175">175</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +563,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>Nij / Nj: numPhase*numCom, Nij is the moles of component i in phase j, Nj is the moles of phase j. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00160">160</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00161">161</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -570,7 +573,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 9 2022 21:22:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 9 2022 23:56:32 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
