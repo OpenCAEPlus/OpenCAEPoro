@@ -4,27 +4,44 @@ This guide is for developers who wish to commit to or create pull requests for t
 
 Please refer to the README.md file for a simple user guide.
 
-We are using a `trunk-based development strategy`, which means:
+## General guide
 
-1. Commit to the main branch directly when possible, such as when the issue is small and just changing a few lines are enough. Include "closes IssueId" in the commit message. For external developers (who cannot commit to the main branch directly), please use the normal github workflow--fork and create pull request.
+### Workflow explained
 
-2. When more changes are needed for a functionality, create a new branch, but only create short-living branches. Branches should preferably live less than one or two days. If it is impossible to finish a branch within one day, then you should split your issue into smaller goals, and have the original issue as a project in linear.
+1. Create issue and discuss with others the fix or feature you want to have
+2. Either fork (external developer) or branch (internal developer) to develope new code, remember to keep your branch life span as short as possible.
+3. Create pull request 
+4. An action will automatically create a release draft
+5. Once steps 1-4 are repeated multiple times and a new version is ready, repo admin will publish the drafted release and a changelog will be automatically generated.
 
-Check the [Linear Doc](https://linear.app/docs/github?tabs=b5eb539099f9#basics) for more details on the PR and commit integration with github.
+### Commit Guide 
 
-## Commit Guide 
-
-When commit to the main branch, try to
 1. Keep commits small, for example commit every new function added instead of a whole new functionality;
 2. Change as few files as possible to reduce your chance of getting conflicts with others;
 3. Push multiple times a day to keep the main branch always update and resolve conflicts when it's still manageable;
 4. Keep the HEAD on the main branch always buildable;
 5. Copy IssueId from Linear and include it in your commit message.
 
-## Pull Request Guide
+### Pull Request Guide
 
-1. Only keep short-living branches;
-2. Use [Linear](https://linear.app/) generate branch name.
+1. Only keep short-living branches/forks; Branches should preferably live less than one or two days. If it is impossible to finish a branch within one day, then you should split your issue into smaller goals.
+
+
+## For internal developer
+
+We are using a mixture of `trunk-based development strategy` and the `github flow`, which means:
+
+1. For anything that you would like to appear on the release log and change log, you should create a short living branch and pull request.
+2. For anything that doesn't need to appear in change log, you can commit to the main branch directly, such as when the issue is small, nobody has reported it yet, and just changing a few lines are enough. 
+
+
+<!-- Check the [Linear Doc](https://linear.app/docs/github?tabs=b5eb539099f9#basics) for more details on the PR and commit integration with github. -->
+
+## For external developer
+
+Use the `github flow`
+1. fork the repo
+2. develope the code and pull request
 
 ## Development Environment Setup
 
