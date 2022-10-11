@@ -22,6 +22,7 @@ target_sources(
          ParamRead.hpp
          Reservoir.hpp
          UtilInput.hpp
+         UtilOutput.hpp
          WellPerf.hpp
          Bulk.hpp
          DenseMat.hpp
