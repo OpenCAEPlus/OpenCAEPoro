@@ -2,6 +2,7 @@ name: Changelog
 
 on:
   pull_request:
+
     types: [opened]
 
 jobs:
@@ -9,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: deepakputhraya/action-pr-title@master
+        with:
+          allowed_prefixes: 'Release' # title should start with the given prefix
+
       - uses: actions/checkout@v2
 
       - name: Run Changelog CI
@@ -20,3 +25,7 @@ jobs:
         run: |
           echo "${{ steps.changelog-ci.outputs.changelog }}"
           echo "${{ steps.changelog-ci.outputs.changelog }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Get PR number
+        run: |
+          echo ${{ github.event.number }}
