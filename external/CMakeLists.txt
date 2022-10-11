@@ -14,9 +14,9 @@ if(FASP_FOUND)
     fasp PROPERTIES IMPORTED_LOCATION ${FASP_LIBRARIES}
                     INTERFACE_INCLUDE_DIRECTORIES ${FASP_INCLUDE_DIRS})
 else(FASP_FOUND)
-  message("-- ERROR: FASP was requested but not found!")
+  message("-- INFO FASP was requested but not found!")
   FetchContent_Declare(fasp
-                       GIT_REPOSITORY git@github.com:FaspDevTeam/faspsolver.git)
+                       GIT_REPOSITORY https://github.com/FaspDevTeam/faspsolver.git)
   FetchContent_MakeAvailable(fasp)
 endif(FASP_FOUND)
 

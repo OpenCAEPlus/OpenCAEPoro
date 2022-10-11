@@ -1,6 +1,15 @@
 name: Linux Intel Build
 on:
     push:
+        paths:
+            - 'src/**'
+            - 'include/**'
+            - 'main/**'
+            - 'external/**'
+            - 'examples/**'
+            - 'modules/**'
+            - 'cli*'
+            - 'CMake*'
         branches:
             - 'main'
     pull_request:
@@ -25,4 +34,5 @@ jobs:
             - name: Build 
               run: |
                   export FASP_DIR=/opt/faspsolver
-                  pnpm build:linux:intel
+                  chmod 755 cli
+                  ./cli build -b Debug -c intel -t all

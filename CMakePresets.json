@@ -257,6 +257,60 @@
                 "noTestsAction": "error",
                 "stopOnFailure": true
             }
+        },        {
+            "name": "linux-gnu-Debug",
+            "configurePreset": "linux-gnu-Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "linux-intel-Debug",
+            "configurePreset": "linux-intel-Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mac-intel-Debug",
+            "configurePreset": "mac-intel-Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mac-arm-Debug",
+            "configurePreset": "mac-arm-Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "windows-intel-Debug",
+            "configurePreset": "windows-intel-Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
         }
     ],
     "vendor": {

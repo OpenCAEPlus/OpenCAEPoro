@@ -57,22 +57,20 @@ remove the **Build** directory as well.
 
 You may also use the provided scripts to build the whole project：
 ```bash
-  >>> source ./scripts/build/linux/gnu-build.sh Debug # Change the argument to Release for release build
-  >>> source ./scripts/build/linux/clean.sh gnu Debug # Clean up the build directory
+chmod 755 cli
+```
+```bash
+./cli build -c intel -t all -b Debug # Change the argument to Release for release build
 ```
 
-Or if you have pnpm installed, you can use the package.json scripts：
-```bash
-  >>> pnpm build:linux:gnu:build
-```
 
 ## Structure
 The directory structure of OpenCAEPoro is designed as follows:
   - data/: Output files for comparison purposes
   - doc/: Documentation website
   - examples/: Input files for test examples 
+  - external/: external dependencies
   - include/: Header files
-  - scripts/: Automation scripts to make life easier
   - src/: Source files
   - stash/: Files that are no longer needed, but keep for future references
   - main/: Main source code for executables 
@@ -82,8 +80,7 @@ The directory structure of OpenCAEPoro is designed as follows:
   - LICENSE: License agreement
   - README.md: This document
   - .clang-format: For automatic source code formatting
-  - .npmrc, pnpm-lock.yaml, pnpm-workspace.yaml, package.json: For the website
-
+  - cli, cli.bat: the command line interface for build, test, and doc
 ## Test
 
 There are three levels of tests:

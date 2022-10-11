@@ -22,4 +22,5 @@ jobs:
               with:
                   fetch-depth: 0
             - name: Build 
-              run: pnpm test:windows:intel
+              run: |
+                  ./cli.bat test -b Release -c intel

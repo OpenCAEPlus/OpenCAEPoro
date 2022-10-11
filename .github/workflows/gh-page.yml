@@ -22,7 +22,9 @@ jobs:
               with:
                   fetch-depth: 0
             - name: Build doc
-              run: pnpm doc:build:doxygen
+              run: |
+                  chmod 755 cli
+                  ./cli doc --build doxygen
             - name: Doxygen html for github page
               uses: peaceiris/actions-gh-pages@v3
               with:
