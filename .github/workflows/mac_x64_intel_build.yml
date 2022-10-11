@@ -1,6 +1,15 @@
 name: Mac X64 Intel Build
 on:
     push:
+        paths:
+            - 'src/**'
+            - 'include/**'
+            - 'main/**'
+            - 'external/**'
+            - 'examples/**'
+            - 'modules/**'
+            - 'cli*'
+            - 'CMake*'
         branches:
             - 'main'
     pull_request:
