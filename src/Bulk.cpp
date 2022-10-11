@@ -2311,6 +2311,7 @@ void Bulk::CalSomeInfo(const Grid& myGrid) const
     OCP_DBL PerxMin  = 1E8;
     OCP_USI nPerxi   = 0;
     USI     I, J, K;
+    const USI sp = myGrid.GetNumDigitIJK();
     for (OCP_USI n = 0; n < numBulk; n++) {
         // if (!activeMap_G2B[nn].IsAct())
         //     continue;
@@ -2380,47 +2381,33 @@ void Bulk::CalSomeInfo(const Grid& myGrid) const
          << "BULK" << endl
          << "---------------------" << endl;
     myGrid.GetIJKGrid(I, J, K, ndepa);
-    cout << "  Depthmax = " << depthMax << " feet  (" << I << ", " << J << ", " << K
-         << ")" << endl;
+    cout << "  Depthmax = " << depthMax << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, ndepi);
-    cout << "  Depthmin = " << depthMin << " feet  (" << I << ", " << J << ", " << K
-         << ")" << endl;
+    cout << "  Depthmin = " << depthMin << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nxa);
-    cout << "  DXmax    = " << dxMax << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DXmax    = " << dxMax << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nxi);
-    cout << "  DXmin    = " << dxMin << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DXmin    = " << dxMin << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nya);
-    cout << "  DYmax    = " << dyMax << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DYmax    = " << dyMax << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nyi);
-    cout << "  DYmin    = " << dyMin << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DYmin    = " << dyMin << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nza);
-    cout << "  DZmax    = " << dzMax << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DZmax    = " << dzMax << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nzi);
-    cout << "  DZmin    = " << dzMin << " feet  (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  DZmin    = " << dzMin << " feet " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nRVa);
-    cout << "  RVmax    = " << RVMax / CONV1 << " rb   (" << I << ", " << J << ", " << K
-         << ")" << endl;
+    cout << "  RVmax    = " << RVMax / CONV1 << " rb " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nRVi);
-    cout << "  RVmin    = " << RVMin / CONV1 << " rb   (" << I << ", " << J << ", " << K
-         << ")" << endl;
+    cout << "  RVmin    = " << RVMin / CONV1 << " rb " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nRVPa);
-    cout << "  RVmax    = " << RVPMax / CONV1 << " rb   (" << I << ", " << J << ", "
-         << K << ")" << endl;
+    cout << "  RVmax    = " << RVPMax / CONV1 << " rb " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nRVPi);
-    cout << "  RVmin    = " << RVPMin / CONV1 << " rb   (" << I << ", " << J << ", "
-         << K << ")" << endl;
+    cout << "  RVmin    = " << RVPMin / CONV1 << " rb " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nPerxa);
-    cout << "  Perxmax  = " << PerxMax << "   (" << I << ", " << J << ", " << K << ")"
-         << endl;
+    cout << "  Perxmax  = " << PerxMax << "   " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
     myGrid.GetIJKGrid(I, J, K, nPerxi);
-    cout << "  Perxmin  = " << scientific << PerxMin << "   (" << I << ", " << J << ", "
-         << K << ")" << endl;
+    cout << "  Perxmin  = " << scientific << PerxMin << "   " << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << endl;
 }
 
 /////////////////////////////////////////////////////////////////////

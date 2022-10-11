@@ -783,6 +783,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     const USI     nx  = rs.grid.GetGridNx();
     const USI     ny  = rs.grid.GetGridNy();
     const OCP_USI num = rs.grid.GetGridNum();
+    const USI tmpsp = rs.grid.GetNumDigitIJK();
     OCP_USI bId;
     OCP_USI tmpId;
     USI I, J, K;
@@ -807,7 +808,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -836,7 +838,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -865,7 +868,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -894,7 +898,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -923,7 +928,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -952,7 +958,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -981,7 +988,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1089,7 +1097,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1122,7 +1131,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1163,7 +1173,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1204,7 +1215,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1245,7 +1257,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1286,7 +1299,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1327,7 +1341,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1368,7 +1383,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1409,7 +1425,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1450,7 +1467,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1491,7 +1509,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1532,7 +1551,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1573,7 +1593,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1614,7 +1635,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1655,7 +1677,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1696,7 +1719,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1735,7 +1759,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
                 if (n % nx == 0) {
                     rs.grid.GetIJKGrid(I, J, K, n);
-                    outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                    outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                    // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
                 }
 
                 if (rs.grid.MapG2B(n).IsAct()) {
@@ -1772,7 +1797,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
                 if (n % nx == 0) {
                     rs.grid.GetIJKGrid(I, J, K, n);
-                    outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                    outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                    // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
                 }
 
                 if (rs.grid.MapG2B(n).IsAct()) {
@@ -1811,7 +1837,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1844,7 +1871,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1877,7 +1905,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())
@@ -1911,7 +1940,8 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             if (i % nx == 0)
             {
                 rs.grid.GetIJKGrid(I, J, K, i);
-                outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
+                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
+                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
             if (rs.grid.MapG2B(i).IsAct())

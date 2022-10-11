@@ -196,6 +196,7 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
     OCP_USI bIdg, eIdg;
     OCP_USI bIdb, eIdb;
     USI I, J, K;
+    USI sp = myGrid.GetNumDigitIJK();
     cout << "BulkConn : " << numConn << endl;
     for (OCP_USI c = 0; c < numConn; c++) {
         bIdb = iteratorConn[c].BId;
@@ -203,13 +204,13 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
         bIdg = myGrid.activeMap_B2G[bIdb];
         eIdg = myGrid.activeMap_B2G[eIdb];
         myGrid.GetIJKGrid(I, J, K, bIdg);
-        cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        cout << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << "   ";
         cout << setw(6) << bIdg;
         cout << "    ";
         cout << setw(6) << bIdb;
         cout << "    ";
         myGrid.GetIJKGrid(I, J, K, eIdg);
-        cout << "(" << setw(3) << I << "," << setw(3) << J << "," << setw(3) << K << ")    ";
+        cout << GetIJKformat(to_string(I), to_string(J), to_string(K), sp) << "   ";        
         cout << setw(6) << eIdg;
         cout << "    ";
         cout << setw(6) << eIdb;

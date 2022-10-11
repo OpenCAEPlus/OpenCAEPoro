@@ -344,7 +344,8 @@ public:
 	void RachfordRice2P();  ///< Used when NP = 2, improved RachfordRice2
 	void RachfordRice3(); ///< Used when NP > 2
 	void UpdateXRR(); ///< Update X according to RR
-	void SplitNR();
+    void SplitBFGS(); ///< Use BFGS to calculate phase splitting
+	void SplitNR(); ///< Use NR to calculate phase splitting
 	void CalResSP();
 	void CalFugNAll(const bool& Znflag = true);
 	void PrintFugN();
@@ -389,6 +390,7 @@ private:
     // SSM in Phase Split
     vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.
     // NR in Phase Split
+    vector<OCP_DBL> lresSP;  ///< last resSP, used in BFGS
     vector<OCP_DBL> resSP;  ///< d G / d nij, G is Gibbs free energy: ln fij - ln fi,np
     vector<OCP_DBL> JmatSP; ///< Jacobian Matrix of (ln fij - ln fi,np) wrt. nij
     vector<vector<OCP_DBL>>

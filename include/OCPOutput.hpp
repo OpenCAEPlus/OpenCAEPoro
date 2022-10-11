@@ -20,6 +20,7 @@
 #include "OCPControl.hpp"
 #include "ParamOutput.hpp"
 #include "Reservoir.hpp"
+#include "UtilOutput.hpp"
 
 using namespace std;
 

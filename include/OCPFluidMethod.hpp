@@ -17,6 +17,7 @@
 #include "OCPControl.hpp"
 #include "Reservoir.hpp"
 #include "UtilTiming.hpp"
+#include "UtilOutput.hpp"
 
 /// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
 class OCP_IMPEC

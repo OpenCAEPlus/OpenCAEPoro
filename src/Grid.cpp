@@ -73,6 +73,7 @@ void Grid::InputParam(const ParamReservoir &rs_param)
 
 void Grid::Setup()
 {
+    CalNumDigutIJK();
     switch (gridType)
     {
     case ORTHOGONAL_GRID:
@@ -345,10 +346,18 @@ OCP_USI Grid::GetActIndex(const USI &i, const USI &j, const USI &k) const
 void Grid::GetIJKGrid(USI &i, USI &j, USI &k, const OCP_USI &n) const
 {
     // i,j,k begin from 1
+    // n must be the index of grids instead bulks
     k = n / (nx * ny) + 1;
     j = (n - (k - 1) * nx * ny) / nx + 1;
     i = n - (k - 1) * nx * ny - (j - 1) * nx + 1;
 }
+
+
+void Grid::GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const
+{
+    GetIJKGrid(i, j, k, activeMap_B2G[n]);
+}
+
 
 void Grid::CalSomeInfo() const
 {
@@ -427,6 +436,15 @@ void Grid::CalSomeInfo() const
          << "  DYmin    = " << dyMin << endl
          << "  DZmax    = " << dzMax << endl
          << "  DZmin    = " << dzMin << endl;
+}
+
+void Grid::CalNumDigutIJK()
+{
+    OCP_ASSERT((nx > 0 & ny > 0 & nz > 0), "Wrong Dimension!");
+    numDigutIJK = 1;
+    if (log10(nx) > numDigutIJK) numDigutIJK = ceil(log10(nx));
+    if (log10(ny) > numDigutIJK) numDigutIJK = ceil(log10(ny));
+    if (log10(nz) > numDigutIJK) numDigutIJK = ceil(log10(nz));
 }
 
 /*----------------------------------------------------------------------------*/

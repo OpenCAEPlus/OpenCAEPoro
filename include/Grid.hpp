@@ -20,6 +20,7 @@
 #include "CornerGrid.hpp"
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
+#include "UtilOutput.hpp"
 
 using namespace std;
 
@@ -122,6 +123,8 @@ public:
     OCP_USI GetActIndex(const USI& i, const USI& j, const USI& k) const;
     /// Return the 3D coordinate for object grid with Grid index
     void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
+    /// Return the 3D coordinate for object grid with bulk(active grids) index
+    void GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const;
     void CalSomeInfo()const;
 private:
     USI     nx;      ///< Number of cells in x-direction
@@ -164,6 +167,14 @@ private:
     OCP_USI         activeGridNum; ///< Num of active grid.
     vector<OCP_USI> activeMap_B2G; ///< Mapping from active grid to grid: activeGridNum = numBulk
     vector<GB_Pair> activeMap_G2B; ///< Mapping from grid to active grid: numGrid.
+
+private:
+    // Auxiliary variable
+    USI             numDigutIJK;  ///< number of digits of maximum nx,ny,nz
+
+public:
+    void CalNumDigutIJK(); ///< only used in Structural grid
+    USI GetNumDigitIJK() const { return numDigutIJK; }
 };
 
 #endif /* end if __GRID_HEADER__ */

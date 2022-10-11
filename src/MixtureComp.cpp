@@ -1197,7 +1197,14 @@ void MixtureComp::PhaseEquilibrium()
             Yt = 1.01;
             CalAiBi();
             CalKwilson();
-            PhaseSplit();                       
+            PhaseSplit();  
+
+            if (EoSctrl.NRsp.conflag)
+                ePEC = EoSctrl.NRsp.realTol;
+            else if (EoSctrl.SSMsp.conflag)
+                ePEC = EoSctrl.SSMsp.realTol;
+            else
+                ePEC = 1E8;
             break;
 
         default:
@@ -1847,15 +1854,6 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
 
         if (fabs(rj) < tol || iter > maxIt) break;
 
-        if (fabs(rj) < 5E-2 && false) {
-            f = (nu[0] - numin) * (numax - nu[0]);
-            df = -2 * nu[0] + (numax + numin);
-            J *= f;
-            J += df * rj;
-            rj *= f;
-        }
-
-
         dnuj = -rj / J;
         tmpnu = nu[0] + dnuj;
         if (tmpnu < numax && tmpnu > numin) {
@@ -1982,6 +1980,21 @@ void MixtureComp::UpdateXRR()
     }
 }
 
+void MixtureComp::SplitBFGS()
+{
+    // Use BFGS to calculate phase splitting
+    // JmatSP will store the BFGS mat
+    // resSP will store the resSP - lresSP if necessary
+    // n will store the n - ln if necessary
+
+    // get initial value, n and ln, resSP and lresSP, H0
+
+
+
+    // begin BFGS
+}
+
+
 void MixtureComp::SplitNR()
 {
     EoSctrl.NRsp.conflag = false;
@@ -2067,6 +2080,8 @@ void MixtureComp::SplitNR()
     EoSctrl.NRsp.realTol = eNR;
     if (eNR < NRtol) EoSctrl.NRsp.conflag = true;
     EoSctrl.NRsp.curIt += iter;
+
+    // cout << iter << "   " << scientific << setprecision(3) << eNR << endl;
 }
 
 void MixtureComp::CalResSP()
