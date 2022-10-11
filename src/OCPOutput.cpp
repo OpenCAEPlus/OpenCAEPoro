@@ -75,6 +75,8 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
     if (FWIT)
         Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
+    const USI sp = reservoir.grid.GetNumDigitIJK();
+
     USI num;
     USI wellnum = reservoir.allWells.GetWellNum();
     string wellname;
@@ -383,8 +385,8 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         num = BPR.obj.size();
         for (USI i = 0; i < num; i++)
         {
-            string temp = "(" + to_string(BPR.obj[i].I) + "," +
-                          to_string(BPR.obj[i].J) + "," + to_string(BPR.obj[i].K) + ")";
+            string temp = GetIJKformat(to_string(BPR.obj[i].I), to_string(BPR.obj[i].J), 
+                to_string(BPR.obj[i].K), sp);
             Sumdata.push_back(SumPair("BPR", temp, "PSIA"));
             USI I = BPR.obj[i].I - 1;
             USI J = BPR.obj[i].J - 1;
@@ -398,9 +400,8 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         num = SOIL.obj.size();
         for (USI i = 0; i < num; i++)
         {
-            string temp = "(" + to_string(SOIL.obj[i].I) + "," +
-                          to_string(SOIL.obj[i].J) + "," + to_string(SOIL.obj[i].K) +
-                          ")";
+            string temp = GetIJKformat(to_string(SOIL.obj[i].I), to_string(SOIL.obj[i].J),
+                to_string(SOIL.obj[i].K), sp);
             Sumdata.push_back(SumPair("SOIL", temp, "   "));
             USI I = SOIL.obj[i].I - 1;
             USI J = SOIL.obj[i].J - 1;
@@ -414,9 +415,8 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         num = SGAS.obj.size();
         for (USI i = 0; i < num; i++)
         {
-            string temp = "(" + to_string(SGAS.obj[i].I) + "," +
-                          to_string(SGAS.obj[i].J) + "," + to_string(SGAS.obj[i].K) +
-                          ")";
+            string temp = GetIJKformat(to_string(SGAS.obj[i].I), to_string(SGAS.obj[i].J),
+                to_string(SGAS.obj[i].K), sp);
             Sumdata.push_back(SumPair("SGAS", temp, "   "));
             USI I = SGAS.obj[i].I - 1;
             USI J = SGAS.obj[i].J - 1;
@@ -430,9 +430,8 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         num = SWAT.obj.size();
         for (USI i = 0; i < num; i++)
         {
-            string temp = "(" + to_string(SWAT.obj[i].I) + "," +
-                          to_string(SWAT.obj[i].J) + "," + to_string(SWAT.obj[i].K) +
-                          ")";
+            string temp = GetIJKformat(to_string(SWAT.obj[i].I), to_string(SWAT.obj[i].J),
+                to_string(SWAT.obj[i].K), sp);
             Sumdata.push_back(SumPair("SWAT", temp, "   "));
             USI I = SWAT.obj[i].I - 1;
             USI J = SWAT.obj[i].J - 1;
