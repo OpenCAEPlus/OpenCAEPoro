@@ -894,157 +894,157 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 </div><div class="memdoc">
 <p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l02717">2717</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l02719"></a><span class="lineno"> 2719</span>&#160;{</div>
-<div class="line"><a name="l02720"></a><span class="lineno"> 2720</span>&#160;    <span class="comment">// For saturations changes:</span></div>
-<div class="line"><a name="l02721"></a><span class="lineno"> 2721</span>&#160;    <span class="comment">// 1. maximum changes must be less than dSmaxlim,</span></div>
-<div class="line"><a name="l02722"></a><span class="lineno"> 2722</span>&#160;    <span class="comment">// 2. if phases become mobile/immobile, then set it to crtical point,</span></div>
-<div class="line"><a name="l02723"></a><span class="lineno"> 2723</span>&#160;    <span class="comment">// 3. After saturations are determined, then scale the nij to conserve Volume</span></div>
-<div class="line"><a name="l02724"></a><span class="lineno"> 2724</span>&#160;    <span class="comment">// equations.</span></div>
-<div class="line"><a name="l02725"></a><span class="lineno"> 2725</span>&#160; </div>
-<div class="line"><a name="l02726"></a><span class="lineno"> 2726</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l02727"></a><span class="lineno"> 2727</span>&#160; </div>
-<div class="line"><a name="l02728"></a><span class="lineno"> 2728</span>&#160;    dSNR       = S;</div>
-<div class="line"><a name="l02729"></a><span class="lineno"> 2729</span>&#160;    NRphaseNum = phaseNum;</div>
-<div class="line"><a name="l02730"></a><span class="lineno"> 2730</span>&#160;    fill(dSNRP.begin(), dSNRP.end(), 0.0);</div>
-<div class="line"><a name="l02731"></a><span class="lineno"> 2731</span>&#160; </div>
-<div class="line"><a name="l02732"></a><span class="lineno"> 2732</span>&#160;    NRdSmaxP = 0;</div>
-<div class="line"><a name="l02733"></a><span class="lineno"> 2733</span>&#160;    NRdPmax  = 0;</div>
-<div class="line"><a name="l02734"></a><span class="lineno"> 2734</span>&#160;    NRdNmax  = 0;</div>
-<div class="line"><a name="l02735"></a><span class="lineno"> 2735</span>&#160; </div>
-<div class="line"><a name="l02736"></a><span class="lineno"> 2736</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> row  = numPhase * (numCom + 1);</div>
-<div class="line"><a name="l02737"></a><span class="lineno"> 2737</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ncol = numCom + 1;</div>
-<div class="line"><a name="l02738"></a><span class="lineno"> 2738</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n_np_j;</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l02704">2704</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l02706"></a><span class="lineno"> 2706</span>&#160;{</div>
+<div class="line"><a name="l02707"></a><span class="lineno"> 2707</span>&#160;    <span class="comment">// For saturations changes:</span></div>
+<div class="line"><a name="l02708"></a><span class="lineno"> 2708</span>&#160;    <span class="comment">// 1. maximum changes must be less than dSmaxlim,</span></div>
+<div class="line"><a name="l02709"></a><span class="lineno"> 2709</span>&#160;    <span class="comment">// 2. if phases become mobile/immobile, then set it to crtical point,</span></div>
+<div class="line"><a name="l02710"></a><span class="lineno"> 2710</span>&#160;    <span class="comment">// 3. After saturations are determined, then scale the nij to conserve Volume</span></div>
+<div class="line"><a name="l02711"></a><span class="lineno"> 2711</span>&#160;    <span class="comment">// equations.</span></div>
+<div class="line"><a name="l02712"></a><span class="lineno"> 2712</span>&#160; </div>
+<div class="line"><a name="l02713"></a><span class="lineno"> 2713</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l02714"></a><span class="lineno"> 2714</span>&#160; </div>
+<div class="line"><a name="l02715"></a><span class="lineno"> 2715</span>&#160;    dSNR       = S;</div>
+<div class="line"><a name="l02716"></a><span class="lineno"> 2716</span>&#160;    NRphaseNum = phaseNum;</div>
+<div class="line"><a name="l02717"></a><span class="lineno"> 2717</span>&#160;    fill(dSNRP.begin(), dSNRP.end(), 0.0);</div>
+<div class="line"><a name="l02718"></a><span class="lineno"> 2718</span>&#160; </div>
+<div class="line"><a name="l02719"></a><span class="lineno"> 2719</span>&#160;    NRdSmaxP = 0;</div>
+<div class="line"><a name="l02720"></a><span class="lineno"> 2720</span>&#160;    NRdPmax  = 0;</div>
+<div class="line"><a name="l02721"></a><span class="lineno"> 2721</span>&#160;    NRdNmax  = 0;</div>
+<div class="line"><a name="l02722"></a><span class="lineno"> 2722</span>&#160; </div>
+<div class="line"><a name="l02723"></a><span class="lineno"> 2723</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> row  = numPhase * (numCom + 1);</div>
+<div class="line"><a name="l02724"></a><span class="lineno"> 2724</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ncol = numCom + 1;</div>
+<div class="line"><a name="l02725"></a><span class="lineno"> 2725</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n_np_j;</div>
+<div class="line"><a name="l02726"></a><span class="lineno"> 2726</span>&#160; </div>
+<div class="line"><a name="l02727"></a><span class="lineno"> 2727</span>&#160;    vector&lt;OCP_DBL&gt; dtmp(row, 0);</div>
+<div class="line"><a name="l02728"></a><span class="lineno"> 2728</span>&#160;    vector&lt;OCP_DBL&gt; tmpNij(numPhase * numCom, 0);</div>
+<div class="line"><a name="l02729"></a><span class="lineno"> 2729</span>&#160; </div>
+<div class="line"><a name="l02730"></a><span class="lineno"> 2730</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dSmax;</div>
+<div class="line"><a name="l02731"></a><span class="lineno"> 2731</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP;</div>
+<div class="line"><a name="l02732"></a><span class="lineno"> 2732</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> chop = 1;</div>
+<div class="line"><a name="l02733"></a><span class="lineno"> 2733</span>&#160; </div>
+<div class="line"><a name="l02734"></a><span class="lineno"> 2734</span>&#160;    <span class="comment">// vector&lt;OCP_DBL&gt; tmpxi(numPhase, 0);</span></div>
+<div class="line"><a name="l02735"></a><span class="lineno"> 2735</span>&#160;    <span class="comment">// vector&lt;OCP_DBL&gt; tmpVf(numPhase, 0);</span></div>
+<div class="line"><a name="l02736"></a><span class="lineno"> 2736</span>&#160; </div>
+<div class="line"><a name="l02737"></a><span class="lineno"> 2737</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02738"></a><span class="lineno"> 2738</span>&#160;        <span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; scm = satcm[SATNUM[n]];</div>
 <div class="line"><a name="l02739"></a><span class="lineno"> 2739</span>&#160; </div>
-<div class="line"><a name="l02740"></a><span class="lineno"> 2740</span>&#160;    vector&lt;OCP_DBL&gt; dtmp(row, 0);</div>
-<div class="line"><a name="l02741"></a><span class="lineno"> 2741</span>&#160;    vector&lt;OCP_DBL&gt; tmpNij(numPhase * numCom, 0);</div>
-<div class="line"><a name="l02742"></a><span class="lineno"> 2742</span>&#160; </div>
-<div class="line"><a name="l02743"></a><span class="lineno"> 2743</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dSmax;</div>
-<div class="line"><a name="l02744"></a><span class="lineno"> 2744</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dP;</div>
-<div class="line"><a name="l02745"></a><span class="lineno"> 2745</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> chop = 1;</div>
-<div class="line"><a name="l02746"></a><span class="lineno"> 2746</span>&#160; </div>
-<div class="line"><a name="l02747"></a><span class="lineno"> 2747</span>&#160;    <span class="comment">// vector&lt;OCP_DBL&gt; tmpxi(numPhase, 0);</span></div>
-<div class="line"><a name="l02748"></a><span class="lineno"> 2748</span>&#160;    <span class="comment">// vector&lt;OCP_DBL&gt; tmpVf(numPhase, 0);</span></div>
-<div class="line"><a name="l02749"></a><span class="lineno"> 2749</span>&#160; </div>
-<div class="line"><a name="l02750"></a><span class="lineno"> 2750</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02751"></a><span class="lineno"> 2751</span>&#160;        <span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; scm = satcm[SATNUM[n]];</div>
-<div class="line"><a name="l02752"></a><span class="lineno"> 2752</span>&#160; </div>
-<div class="line"><a name="l02753"></a><span class="lineno"> 2753</span>&#160;        dP      = u[n * ncol];</div>
-<div class="line"><a name="l02754"></a><span class="lineno"> 2754</span>&#160;        dPNR[n] = dP;</div>
-<div class="line"><a name="l02755"></a><span class="lineno"> 2755</span>&#160;        P[n] += dP; <span class="comment">// seems better</span></div>
-<div class="line"><a name="l02756"></a><span class="lineno"> 2756</span>&#160;        <span class="keywordflow">if</span> (fabs(NRdPmax) &lt; fabs(dP)) NRdPmax = dP;</div>
-<div class="line"><a name="l02757"></a><span class="lineno"> 2757</span>&#160; </div>
-<div class="line"><a name="l02758"></a><span class="lineno"> 2758</span>&#160;        <span class="comment">// rockVp[n] = rockVpInit[n] * (1 + rockC1 * (P[n] - rockPref));</span></div>
-<div class="line"><a name="l02759"></a><span class="lineno"> 2759</span>&#160;        <span class="comment">// cout &lt;&lt; scientific &lt;&lt; setprecision(6) &lt;&lt; dP &lt;&lt; &quot;   &quot; &lt;&lt; n &lt;&lt; endl;</span></div>
+<div class="line"><a name="l02740"></a><span class="lineno"> 2740</span>&#160;        dP      = u[n * ncol];</div>
+<div class="line"><a name="l02741"></a><span class="lineno"> 2741</span>&#160;        dPNR[n] = dP;</div>
+<div class="line"><a name="l02742"></a><span class="lineno"> 2742</span>&#160;        P[n] += dP; <span class="comment">// seems better</span></div>
+<div class="line"><a name="l02743"></a><span class="lineno"> 2743</span>&#160;        <span class="keywordflow">if</span> (fabs(NRdPmax) &lt; fabs(dP)) NRdPmax = dP;</div>
+<div class="line"><a name="l02744"></a><span class="lineno"> 2744</span>&#160; </div>
+<div class="line"><a name="l02745"></a><span class="lineno"> 2745</span>&#160;        <span class="comment">// rockVp[n] = rockVpInit[n] * (1 + rockC1 * (P[n] - rockPref));</span></div>
+<div class="line"><a name="l02746"></a><span class="lineno"> 2746</span>&#160;        <span class="comment">// cout &lt;&lt; scientific &lt;&lt; setprecision(6) &lt;&lt; dP &lt;&lt; &quot;   &quot; &lt;&lt; n &lt;&lt; endl;</span></div>
+<div class="line"><a name="l02747"></a><span class="lineno"> 2747</span>&#160; </div>
+<div class="line"><a name="l02748"></a><span class="lineno"> 2748</span>&#160;        dSmax = 0;</div>
+<div class="line"><a name="l02749"></a><span class="lineno"> 2749</span>&#160;        chop  = 1;</div>
+<div class="line"><a name="l02750"></a><span class="lineno"> 2750</span>&#160; </div>
+<div class="line"><a name="l02751"></a><span class="lineno"> 2751</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> cNp = phaseNum[n] + 1;</div>
+<div class="line"><a name="l02752"></a><span class="lineno"> 2752</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = resIndex[n + 1] - resIndex[n];</div>
+<div class="line"><a name="l02754"></a><span class="lineno"> 2754</span>&#160;        <span class="comment">/*Dcopy(cNp, &amp;dtmp[0], &amp;res_n[resIndex[n]]);</span></div>
+<div class="line"><a name="l02755"></a><span class="lineno"> 2755</span>&#160;<span class="comment">        DaAxpby(cNp, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,</span></div>
+<div class="line"><a name="l02756"></a><span class="lineno"> 2756</span>&#160;<span class="comment">                1.0, dtmp.data());*/</span></div>
+<div class="line"><a name="l02757"></a><span class="lineno"> 2757</span>&#160;        <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(len, &amp;dtmp[0], &amp;res_n[resIndex[n]]);</div>
+<div class="line"><a name="l02758"></a><span class="lineno"> 2758</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a>(len, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,</div>
+<div class="line"><a name="l02759"></a><span class="lineno"> 2759</span>&#160;            1.0, dtmp.data());</div>
 <div class="line"><a name="l02760"></a><span class="lineno"> 2760</span>&#160; </div>
-<div class="line"><a name="l02761"></a><span class="lineno"> 2761</span>&#160;        dSmax = 0;</div>
-<div class="line"><a name="l02762"></a><span class="lineno"> 2762</span>&#160;        chop  = 1;</div>
-<div class="line"><a name="l02763"></a><span class="lineno"> 2763</span>&#160; </div>
-<div class="line"><a name="l02764"></a><span class="lineno"> 2764</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> cNp = phaseNum[n] + 1;</div>
-<div class="line"><a name="l02765"></a><span class="lineno"> 2765</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = resIndex[n + 1] - resIndex[n];</div>
-<div class="line"><a name="l02767"></a><span class="lineno"> 2767</span>&#160;        <span class="comment">/*Dcopy(cNp, &amp;dtmp[0], &amp;res_n[resIndex[n]]);</span></div>
-<div class="line"><a name="l02768"></a><span class="lineno"> 2768</span>&#160;<span class="comment">        DaAxpby(cNp, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,</span></div>
-<div class="line"><a name="l02769"></a><span class="lineno"> 2769</span>&#160;<span class="comment">                1.0, dtmp.data());*/</span></div>
-<div class="line"><a name="l02770"></a><span class="lineno"> 2770</span>&#160;        <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(len, &amp;dtmp[0], &amp;res_n[resIndex[n]]);</div>
-<div class="line"><a name="l02771"></a><span class="lineno"> 2771</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a>(len, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,</div>
-<div class="line"><a name="l02772"></a><span class="lineno"> 2772</span>&#160;            1.0, dtmp.data());</div>
-<div class="line"><a name="l02773"></a><span class="lineno"> 2773</span>&#160; </div>
-<div class="line"><a name="l02774"></a><span class="lineno"> 2774</span>&#160;        <span class="comment">// Calculate dSmax</span></div>
-<div class="line"><a name="l02775"></a><span class="lineno"> 2775</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> js = 0;</div>
-<div class="line"><a name="l02776"></a><span class="lineno"> 2776</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l02777"></a><span class="lineno"> 2777</span>&#160;            n_np_j = n * numPhase + j;</div>
-<div class="line"><a name="l02778"></a><span class="lineno"> 2778</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
-<div class="line"><a name="l02779"></a><span class="lineno"> 2779</span>&#160;                dSmax = max(fabs(dtmp[js]), dSmax);</div>
-<div class="line"><a name="l02780"></a><span class="lineno"> 2780</span>&#160;                js++;</div>
-<div class="line"><a name="l02781"></a><span class="lineno"> 2781</span>&#160;            }</div>
-<div class="line"><a name="l02782"></a><span class="lineno"> 2782</span>&#160;        }</div>
-<div class="line"><a name="l02783"></a><span class="lineno"> 2783</span>&#160; </div>
-<div class="line"><a name="l02784"></a><span class="lineno"> 2784</span>&#160;        <span class="comment">// Calculate chop</span></div>
-<div class="line"><a name="l02785"></a><span class="lineno"> 2785</span>&#160;        <span class="keywordflow">if</span> (dSmax &gt; dSmaxlim) {</div>
-<div class="line"><a name="l02786"></a><span class="lineno"> 2786</span>&#160;            chop  = min(chop, dSmaxlim / dSmax);</div>
-<div class="line"><a name="l02787"></a><span class="lineno"> 2787</span>&#160;            dSmax = dSmaxlim;</div>
-<div class="line"><a name="l02788"></a><span class="lineno"> 2788</span>&#160;        }</div>
-<div class="line"><a name="l02789"></a><span class="lineno"> 2789</span>&#160;        js = 0;</div>
-<div class="line"><a name="l02790"></a><span class="lineno"> 2790</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l02791"></a><span class="lineno"> 2791</span>&#160;            n_np_j = n * numPhase + j;</div>
-<div class="line"><a name="l02792"></a><span class="lineno"> 2792</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
-<div class="line"><a name="l02793"></a><span class="lineno"> 2793</span>&#160;                <span class="keywordflow">if</span> (fabs(S[n_np_j] - scm[j]) &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a> &amp;&amp;</div>
-<div class="line"><a name="l02794"></a><span class="lineno"> 2794</span>&#160;                    (S[n_np_j] - scm[j]) / (chop * dtmp[js]) &lt; 0)</div>
-<div class="line"><a name="l02795"></a><span class="lineno"> 2795</span>&#160;                    chop *= min(1.0, -((S[n_np_j] - scm[j]) / (chop * dtmp[js])));</div>
-<div class="line"><a name="l02796"></a><span class="lineno"> 2796</span>&#160;                <span class="keywordflow">if</span> (S[n_np_j] + chop * dtmp[js] &lt; 0)</div>
-<div class="line"><a name="l02797"></a><span class="lineno"> 2797</span>&#160;                    chop *= min(1.0, -S[n_np_j] / (chop * dtmp[js]));</div>
-<div class="line"><a name="l02798"></a><span class="lineno"> 2798</span>&#160;                js++;</div>
-<div class="line"><a name="l02799"></a><span class="lineno"> 2799</span>&#160;            }</div>
-<div class="line"><a name="l02800"></a><span class="lineno"> 2800</span>&#160;        }</div>
+<div class="line"><a name="l02761"></a><span class="lineno"> 2761</span>&#160;        <span class="comment">// Calculate dSmax</span></div>
+<div class="line"><a name="l02762"></a><span class="lineno"> 2762</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> js = 0;</div>
+<div class="line"><a name="l02763"></a><span class="lineno"> 2763</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l02764"></a><span class="lineno"> 2764</span>&#160;            n_np_j = n * numPhase + j;</div>
+<div class="line"><a name="l02765"></a><span class="lineno"> 2765</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
+<div class="line"><a name="l02766"></a><span class="lineno"> 2766</span>&#160;                dSmax = max(fabs(dtmp[js]), dSmax);</div>
+<div class="line"><a name="l02767"></a><span class="lineno"> 2767</span>&#160;                js++;</div>
+<div class="line"><a name="l02768"></a><span class="lineno"> 2768</span>&#160;            }</div>
+<div class="line"><a name="l02769"></a><span class="lineno"> 2769</span>&#160;        }</div>
+<div class="line"><a name="l02770"></a><span class="lineno"> 2770</span>&#160; </div>
+<div class="line"><a name="l02771"></a><span class="lineno"> 2771</span>&#160;        <span class="comment">// Calculate chop</span></div>
+<div class="line"><a name="l02772"></a><span class="lineno"> 2772</span>&#160;        <span class="keywordflow">if</span> (dSmax &gt; dSmaxlim) {</div>
+<div class="line"><a name="l02773"></a><span class="lineno"> 2773</span>&#160;            chop  = min(chop, dSmaxlim / dSmax);</div>
+<div class="line"><a name="l02774"></a><span class="lineno"> 2774</span>&#160;            dSmax = dSmaxlim;</div>
+<div class="line"><a name="l02775"></a><span class="lineno"> 2775</span>&#160;        }</div>
+<div class="line"><a name="l02776"></a><span class="lineno"> 2776</span>&#160;        js = 0;</div>
+<div class="line"><a name="l02777"></a><span class="lineno"> 2777</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l02778"></a><span class="lineno"> 2778</span>&#160;            n_np_j = n * numPhase + j;</div>
+<div class="line"><a name="l02779"></a><span class="lineno"> 2779</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
+<div class="line"><a name="l02780"></a><span class="lineno"> 2780</span>&#160;                <span class="keywordflow">if</span> (fabs(S[n_np_j] - scm[j]) &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a> &amp;&amp;</div>
+<div class="line"><a name="l02781"></a><span class="lineno"> 2781</span>&#160;                    (S[n_np_j] - scm[j]) / (chop * dtmp[js]) &lt; 0)</div>
+<div class="line"><a name="l02782"></a><span class="lineno"> 2782</span>&#160;                    chop *= min(1.0, -((S[n_np_j] - scm[j]) / (chop * dtmp[js])));</div>
+<div class="line"><a name="l02783"></a><span class="lineno"> 2783</span>&#160;                <span class="keywordflow">if</span> (S[n_np_j] + chop * dtmp[js] &lt; 0)</div>
+<div class="line"><a name="l02784"></a><span class="lineno"> 2784</span>&#160;                    chop *= min(1.0, -S[n_np_j] / (chop * dtmp[js]));</div>
+<div class="line"><a name="l02785"></a><span class="lineno"> 2785</span>&#160;                js++;</div>
+<div class="line"><a name="l02786"></a><span class="lineno"> 2786</span>&#160;            }</div>
+<div class="line"><a name="l02787"></a><span class="lineno"> 2787</span>&#160;        }</div>
+<div class="line"><a name="l02788"></a><span class="lineno"> 2788</span>&#160; </div>
+<div class="line"><a name="l02789"></a><span class="lineno"> 2789</span>&#160;        <span class="comment">// Calculate S, phaseExist, xij, nj</span></div>
+<div class="line"><a name="l02790"></a><span class="lineno"> 2790</span>&#160;        fill(tmpNij.begin(), tmpNij.end(), 0.0);</div>
+<div class="line"><a name="l02791"></a><span class="lineno"> 2791</span>&#160;        <span class="comment">// fill(Ni.begin() + n * numCom, Ni.begin() + n * numCom + numCom, 0.0);</span></div>
+<div class="line"><a name="l02792"></a><span class="lineno"> 2792</span>&#160; </div>
+<div class="line"><a name="l02793"></a><span class="lineno"> 2793</span>&#160;        js     = 0;</div>
+<div class="line"><a name="l02794"></a><span class="lineno"> 2794</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> jx = cNp;</div>
+<div class="line"><a name="l02795"></a><span class="lineno"> 2795</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l02796"></a><span class="lineno"> 2796</span>&#160;            n_np_j = n * numPhase + j;</div>
+<div class="line"><a name="l02797"></a><span class="lineno"> 2797</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
+<div class="line"><a name="l02798"></a><span class="lineno"> 2798</span>&#160;                dSNRP[n_np_j] = chop * dtmp[js];</div>
+<div class="line"><a name="l02799"></a><span class="lineno"> 2799</span>&#160;                <span class="keywordflow">if</span> (fabs(NRdSmaxP) &lt; fabs(dSNRP[n_np_j])) NRdSmaxP = dSNRP[n_np_j];</div>
+<div class="line"><a name="l02800"></a><span class="lineno"> 2800</span>&#160;                js++;</div>
 <div class="line"><a name="l02801"></a><span class="lineno"> 2801</span>&#160; </div>
-<div class="line"><a name="l02802"></a><span class="lineno"> 2802</span>&#160;        <span class="comment">// Calculate S, phaseExist, xij, nj</span></div>
-<div class="line"><a name="l02803"></a><span class="lineno"> 2803</span>&#160;        fill(tmpNij.begin(), tmpNij.end(), 0.0);</div>
-<div class="line"><a name="l02804"></a><span class="lineno"> 2804</span>&#160;        <span class="comment">// fill(Ni.begin() + n * numCom, Ni.begin() + n * numCom + numCom, 0.0);</span></div>
-<div class="line"><a name="l02805"></a><span class="lineno"> 2805</span>&#160; </div>
-<div class="line"><a name="l02806"></a><span class="lineno"> 2806</span>&#160;        js     = 0;</div>
-<div class="line"><a name="l02807"></a><span class="lineno"> 2807</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> jx = cNp;</div>
-<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l02809"></a><span class="lineno"> 2809</span>&#160;            n_np_j = n * numPhase + j;</div>
-<div class="line"><a name="l02810"></a><span class="lineno"> 2810</span>&#160;            <span class="keywordflow">if</span> (phaseExist[n_np_j]) {</div>
-<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                dSNRP[n_np_j] = chop * dtmp[js];</div>
-<div class="line"><a name="l02812"></a><span class="lineno"> 2812</span>&#160;                <span class="keywordflow">if</span> (fabs(NRdSmaxP) &lt; fabs(dSNRP[n_np_j])) NRdSmaxP = dSNRP[n_np_j];</div>
-<div class="line"><a name="l02813"></a><span class="lineno"> 2813</span>&#160;                js++;</div>
-<div class="line"><a name="l02814"></a><span class="lineno"> 2814</span>&#160; </div>
-<div class="line"><a name="l02815"></a><span class="lineno"> 2815</span>&#160;                <span class="comment">// S[n_np_j] += chop * dtmp[js];</span></div>
-<div class="line"><a name="l02816"></a><span class="lineno"> 2816</span>&#160;                <span class="comment">// if (S[n_np_j] &lt; TINY) {</span></div>
-<div class="line"><a name="l02817"></a><span class="lineno"> 2817</span>&#160;                <span class="comment">//     phaseExist[n_np_j] = false;</span></div>
-<div class="line"><a name="l02818"></a><span class="lineno"> 2818</span>&#160;                <span class="comment">// }</span></div>
-<div class="line"><a name="l02819"></a><span class="lineno"> 2819</span>&#160;                <span class="comment">// js++;</span></div>
-<div class="line"><a name="l02820"></a><span class="lineno"> 2820</span>&#160;                 <a class="code" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(numCom, nj[n_np_j], &amp;xij[n_np_j * numCom], &amp;tmpNij[j * numCom]); </div>
-<div class="line"><a name="l02821"></a><span class="lineno"> 2821</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pEnumCom[j]; i++) {</div>
-<div class="line"><a name="l02822"></a><span class="lineno"> 2822</span>&#160;                     tmpNij[j * numCom + i] += chop * dtmp[jx + i];</div>
-<div class="line"><a name="l02823"></a><span class="lineno"> 2823</span>&#160;                 }</div>
-<div class="line"><a name="l02824"></a><span class="lineno"> 2824</span>&#160;                 jx += pEnumCom[j];</div>
-<div class="line"><a name="l02825"></a><span class="lineno"> 2825</span>&#160;                 nj[n_np_j] = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(numCom, &amp;tmpNij[j * numCom]);</div>
-<div class="line"><a name="l02826"></a><span class="lineno"> 2826</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l02827"></a><span class="lineno"> 2827</span>&#160;                     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];</div>
-<div class="line"><a name="l02828"></a><span class="lineno"> 2828</span>&#160;                     <span class="comment">// Ni[n * numCom + i] += tmpNij[j * numCom + i];</span></div>
-<div class="line"><a name="l02829"></a><span class="lineno"> 2829</span>&#160;                 }</div>
-<div class="line"><a name="l02830"></a><span class="lineno"> 2830</span>&#160;            }</div>
-<div class="line"><a name="l02831"></a><span class="lineno"> 2831</span>&#160;        }</div>
-<div class="line"><a name="l02832"></a><span class="lineno"> 2832</span>&#160;        <span class="keywordflow">if</span> (phaseNum[n] == 2 &amp;&amp; <span class="keyword">false</span>) {</div>
-<div class="line"><a name="l02833"></a><span class="lineno"> 2833</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
-<div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;                Ks[n * numCom_1 + i] = xij[n * numPhase * numCom + i] / xij[n * numPhase * numCom + numCom + i];</div>
-<div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;            }</div>
-<div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;        }</div>
-<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;        </div>
-<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160; </div>
-<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;        <span class="comment">// Vf correction</span></div>
-<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;        <span class="comment">/*        OCP_DBL dVmin = 100 * rockVp[n];</span></div>
-<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;<span class="comment">                USI index = 0;</span></div>
-<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;<span class="comment">                for (USI j = 0; j &lt; numPhase; j++) {</span></div>
-<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;<span class="comment">                    if (phaseExist[n * numPhase + j]) {</span></div>
-<div class="line"><a name="l02844"></a><span class="lineno"> 2844</span>&#160;<span class="comment">                        tmpxi[j] = flashCal[PVTNUM[n]]-&gt;XiPhase(P[n], T, &amp;xij[(n *</span></div>
-<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;<span class="comment">           numPhase + j) * numCom]); tmpVf[j] = nj[n * numPhase + j] / (S[n * numPhase +</span></div>
-<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;<span class="comment">           j] * tmpxi[j]); if (fabs(tmpVf[j] - rockVp[n]) &lt; dVmin) { dVmin =</span></div>
-<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160;<span class="comment">           fabs(tmpVf[j] - rockVp[n]); index = j;</span></div>
-<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;<span class="comment">                        }</span></div>
-<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;<span class="comment">                    }</span></div>
-<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;<span class="comment">                } */</span></div>
-<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160;        <span class="comment">// for (USI j = 0; j &lt; numPhase; j++) {</span></div>
-<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;        <span class="comment">//     if (phaseExist[n * numPhase + j]) {</span></div>
-<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160;        <span class="comment">//         nj[n * numPhase + j] *= (tmpVf[index] / tmpVf[j]);</span></div>
-<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160;        <span class="comment">//         for (USI i = 0; i &lt; numCom; i++) {</span></div>
-<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;        <span class="comment">//             Ni[n * numCom + i] += nj[n * numPhase + j] * xij[(n * numPhase +</span></div>
-<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;        <span class="comment">//             j) * numCom + i];</span></div>
-<div class="line"><a name="l02857"></a><span class="lineno"> 2857</span>&#160;        <span class="comment">//         }</span></div>
-<div class="line"><a name="l02858"></a><span class="lineno"> 2858</span>&#160;        <span class="comment">//     }</span></div>
-<div class="line"><a name="l02859"></a><span class="lineno"> 2859</span>&#160;        <span class="comment">// }</span></div>
-<div class="line"><a name="l02860"></a><span class="lineno"> 2860</span>&#160; </div>
-<div class="line"><a name="l02861"></a><span class="lineno"> 2861</span>&#160;        NRstep[n] = chop;</div>
-<div class="line"><a name="l02862"></a><span class="lineno"> 2862</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l02863"></a><span class="lineno"> 2863</span>&#160;            dNNR[n * numCom + i] = u[n * ncol + 1 + i] * chop;</div>
-<div class="line"><a name="l02864"></a><span class="lineno"> 2864</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdNmax) &lt; fabs(dNNR[n * numCom + i]) / Nt[n])</div>
-<div class="line"><a name="l02865"></a><span class="lineno"> 2865</span>&#160;                NRdNmax = dNNR[n * numCom + i] / Nt[n];</div>
-<div class="line"><a name="l02866"></a><span class="lineno"> 2866</span>&#160;            Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
-<div class="line"><a name="l02867"></a><span class="lineno"> 2867</span>&#160;        }</div>
-<div class="line"><a name="l02868"></a><span class="lineno"> 2868</span>&#160;    }</div>
-<div class="line"><a name="l02869"></a><span class="lineno"> 2869</span>&#160;}</div>
+<div class="line"><a name="l02802"></a><span class="lineno"> 2802</span>&#160;                <span class="comment">// S[n_np_j] += chop * dtmp[js];</span></div>
+<div class="line"><a name="l02803"></a><span class="lineno"> 2803</span>&#160;                <span class="comment">// if (S[n_np_j] &lt; TINY) {</span></div>
+<div class="line"><a name="l02804"></a><span class="lineno"> 2804</span>&#160;                <span class="comment">//     phaseExist[n_np_j] = false;</span></div>
+<div class="line"><a name="l02805"></a><span class="lineno"> 2805</span>&#160;                <span class="comment">// }</span></div>
+<div class="line"><a name="l02806"></a><span class="lineno"> 2806</span>&#160;                <span class="comment">// js++;</span></div>
+<div class="line"><a name="l02807"></a><span class="lineno"> 2807</span>&#160;                 <a class="code" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(numCom, nj[n_np_j], &amp;xij[n_np_j * numCom], &amp;tmpNij[j * numCom]); </div>
+<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pEnumCom[j]; i++) {</div>
+<div class="line"><a name="l02809"></a><span class="lineno"> 2809</span>&#160;                     tmpNij[j * numCom + i] += chop * dtmp[jx + i];</div>
+<div class="line"><a name="l02810"></a><span class="lineno"> 2810</span>&#160;                 }</div>
+<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                 jx += pEnumCom[j];</div>
+<div class="line"><a name="l02812"></a><span class="lineno"> 2812</span>&#160;                 nj[n_np_j] = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(numCom, &amp;tmpNij[j * numCom]);</div>
+<div class="line"><a name="l02813"></a><span class="lineno"> 2813</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l02814"></a><span class="lineno"> 2814</span>&#160;                     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];</div>
+<div class="line"><a name="l02815"></a><span class="lineno"> 2815</span>&#160;                     <span class="comment">// Ni[n * numCom + i] += tmpNij[j * numCom + i];</span></div>
+<div class="line"><a name="l02816"></a><span class="lineno"> 2816</span>&#160;                 }</div>
+<div class="line"><a name="l02817"></a><span class="lineno"> 2817</span>&#160;            }</div>
+<div class="line"><a name="l02818"></a><span class="lineno"> 2818</span>&#160;        }</div>
+<div class="line"><a name="l02819"></a><span class="lineno"> 2819</span>&#160;        <span class="keywordflow">if</span> (phaseNum[n] == 2 &amp;&amp; <span class="keyword">false</span>) {</div>
+<div class="line"><a name="l02820"></a><span class="lineno"> 2820</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
+<div class="line"><a name="l02821"></a><span class="lineno"> 2821</span>&#160;                Ks[n * numCom_1 + i] = xij[n * numPhase * numCom + i] / xij[n * numPhase * numCom + numCom + i];</div>
+<div class="line"><a name="l02822"></a><span class="lineno"> 2822</span>&#160;            }</div>
+<div class="line"><a name="l02823"></a><span class="lineno"> 2823</span>&#160;        }</div>
+<div class="line"><a name="l02824"></a><span class="lineno"> 2824</span>&#160;        </div>
+<div class="line"><a name="l02825"></a><span class="lineno"> 2825</span>&#160; </div>
+<div class="line"><a name="l02826"></a><span class="lineno"> 2826</span>&#160;        <span class="comment">// Vf correction</span></div>
+<div class="line"><a name="l02827"></a><span class="lineno"> 2827</span>&#160;        <span class="comment">/*        OCP_DBL dVmin = 100 * rockVp[n];</span></div>
+<div class="line"><a name="l02828"></a><span class="lineno"> 2828</span>&#160;<span class="comment">                USI index = 0;</span></div>
+<div class="line"><a name="l02829"></a><span class="lineno"> 2829</span>&#160;<span class="comment">                for (USI j = 0; j &lt; numPhase; j++) {</span></div>
+<div class="line"><a name="l02830"></a><span class="lineno"> 2830</span>&#160;<span class="comment">                    if (phaseExist[n * numPhase + j]) {</span></div>
+<div class="line"><a name="l02831"></a><span class="lineno"> 2831</span>&#160;<span class="comment">                        tmpxi[j] = flashCal[PVTNUM[n]]-&gt;XiPhase(P[n], T, &amp;xij[(n *</span></div>
+<div class="line"><a name="l02832"></a><span class="lineno"> 2832</span>&#160;<span class="comment">           numPhase + j) * numCom]); tmpVf[j] = nj[n * numPhase + j] / (S[n * numPhase +</span></div>
+<div class="line"><a name="l02833"></a><span class="lineno"> 2833</span>&#160;<span class="comment">           j] * tmpxi[j]); if (fabs(tmpVf[j] - rockVp[n]) &lt; dVmin) { dVmin =</span></div>
+<div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;<span class="comment">           fabs(tmpVf[j] - rockVp[n]); index = j;</span></div>
+<div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;<span class="comment">                        }</span></div>
+<div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;<span class="comment">                    }</span></div>
+<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;<span class="comment">                } */</span></div>
+<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;        <span class="comment">// for (USI j = 0; j &lt; numPhase; j++) {</span></div>
+<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;        <span class="comment">//     if (phaseExist[n * numPhase + j]) {</span></div>
+<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;        <span class="comment">//         nj[n * numPhase + j] *= (tmpVf[index] / tmpVf[j]);</span></div>
+<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;        <span class="comment">//         for (USI i = 0; i &lt; numCom; i++) {</span></div>
+<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;        <span class="comment">//             Ni[n * numCom + i] += nj[n * numPhase + j] * xij[(n * numPhase +</span></div>
+<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;        <span class="comment">//             j) * numCom + i];</span></div>
+<div class="line"><a name="l02844"></a><span class="lineno"> 2844</span>&#160;        <span class="comment">//         }</span></div>
+<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;        <span class="comment">//     }</span></div>
+<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;        <span class="comment">// }</span></div>
+<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160; </div>
+<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;        NRstep[n] = chop;</div>
+<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;            dNNR[n * numCom + i] = u[n * ncol + 1 + i] * chop;</div>
+<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdNmax) &lt; fabs(dNNR[n * numCom + i]) / Nt[n])</div>
+<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;                NRdNmax = dNNR[n * numCom + i] / Nt[n];</div>
+<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160;            Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
+<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160;        }</div>
+<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;    }</div>
+<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;}</div>
 <div class="ttc" id="aDenseMat_8hpp_html_a509bf5c3f0e217a8459e280b8f48bfa3"><div class="ttname"><a href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a></div><div class="ttdeci">void DaAxpby(const int &amp;m, const int &amp;n, const double &amp;a, const double *A, const double *x, const double &amp;b, double *y)</div><div class="ttdoc">Computes y = a A x + b y.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00173">DenseMat.cpp:173</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a5da432e006319d9f82b5da4c0a186c1f"><div class="ttname"><a href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a></div><div class="ttdeci">void Daxpy(const int &amp;n, const double &amp;alpha, const double *x, double *y)</div><div class="ttdoc">Constant times a vector plus a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00069">DenseMat.cpp:69</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_accb44af625653de07f0a8dba403348d1"><div class="ttname"><a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a></div><div class="ttdeci">double Dnorm1(const int &amp;N, double *x)</div><div class="ttdoc">Computes the L1-norm of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00050">DenseMat.cpp:50</a></div></div>
@@ -2479,7 +2479,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 10 2022 21:57:21 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Oct 11 2022 05:40:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
