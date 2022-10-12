@@ -10,6 +10,9 @@ env:
 jobs:
     test:
         runs-on: [self-hosted, Windows]
+        defaults:
+            run:
+                shell: cmd
         steps:
             - name: Basic info
               run: |
