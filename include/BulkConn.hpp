@@ -175,6 +175,10 @@ public:
     /// Calculate resiual for the Newton iteration in FIM.
     void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 
+    /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
+    void CalFluxFIMS(const Bulk& myBulk);
+    void CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
+
 
     /////////////////////////////////////////////////////////////////////
     // FIM(new)
