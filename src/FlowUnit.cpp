@@ -41,6 +41,7 @@ void FlowUnit_W::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_
 FlowUnit_OW::FlowUnit_OW(const ParamReservoir& rs_param, const USI& i)
 {
     SWOF.Setup(rs_param.SWOF_T.data[i]);
+    Swco = SWOF.GetCol(0)[0];
 
     data.resize(4, 0);
     cdata.resize(4, 0);
