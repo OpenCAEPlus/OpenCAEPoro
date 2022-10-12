@@ -187,14 +187,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (rs.bulk.<a class="code" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">GetMixMode</a>() == <a class="code" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt; rs.bulk.GetSSMSTAiters() &lt;&lt; endl;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt; rs.bulk.GetNRSTAiters() &lt;&lt; endl;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt; rs.bulk.GetSSMSPiters() &lt;&lt; endl;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt; rs.bulk.GetNRSPiters() &lt;&lt; endl;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRRR:       &quot;</span> &lt;&lt; rs.bulk.GetRRiters() &lt;&lt; endl;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    ctrl.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSTAiters()</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            &lt;&lt; setw(15) &lt;&lt; rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSTAiters() </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            &lt;&lt; setw(15) &lt;&lt; rs.bulk.GetNRSTAiters() * 1.0 / rs.bulk.GetNRSTAcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSPiters() </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            &lt;&lt; setw(15) &lt;&lt; rs.bulk.GetSSMSPiters() * 1.0 / rs.bulk.GetSSMSPcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSPiters() </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            &lt;&lt; setw(15) &lt;&lt; rs.bulk.GetNRSPiters() * 1.0 / rs.bulk.GetNRSPcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRRR:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetRRiters() </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            &lt;&lt; setw(15) &lt;&lt; rs.bulk.GetRRiters() * 1.0 / rs.bulk.GetRRcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    ctrl.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a23f681c0d9e8d413e68ed087126a742d"><div class="ttname"><a href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a></div><div class="ttdeci">const USI EOS_PVTW</div><div class="ttdoc">Mixture model = equation-of-state.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00089">OCPConst.hpp:89</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">Return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02270">Bulk.cpp:2270</a></div></div>
@@ -218,7 +223,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 12 2022 07:53:28 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 12 2022 09:18:01 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
