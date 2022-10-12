@@ -85,8 +85,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("DIMENS", 6):
-                paramRs.InputDIMENS(ifs);
-                paramRs.DisplayDIMENS();
+                paramRs.InputDIMENS(ifs);               
                 break;
 
             case Map_Str2Int("RTEMP", 5):

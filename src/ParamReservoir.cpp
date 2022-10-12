@@ -273,7 +273,7 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     EoSp.numCom = numCom;
     EoSp.InitEoSparam();
 
-    cout << "COMPS" << endl << numCom << "\n/\n";
+    cout << "COMPS" << endl << numCom << "\n\n";
 }
 
 /// TODO: Add Doxygen
@@ -285,13 +285,15 @@ void ParamReservoir::InputDIMENS(ifstream& ifs)
     dimens.ny = stoi(vbuf[1]);
     dimens.nz = stoi(vbuf[2]);
     numGrid   = dimens.nx * dimens.ny * dimens.nz;
+
+    DisplayDIMENS();
 }
 
 /// TODO: Add Doxygen
 void ParamReservoir::DisplayDIMENS()
 {
     cout << "DIMENS" << endl;
-    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
+    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << "\n\n";;
 }
 
 /// TODO: Add Doxygen
@@ -309,11 +311,15 @@ void ParamReservoir::InputRTEMP(ifstream& ifs)
 /// TODO: Add Doxygen
 void ParamReservoir::InputEQUALS(ifstream& ifs)
 {
+    cout << "EQUALS" << endl;
+
     vector<USI>    index(6, 0);
     vector<string> vbuf;
 
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
+
+        for (auto v : vbuf) { if (v != "/") cout << setw(10) << v; } cout << "\n";;
 
         index[0] = 0, index[1] = dimens.nx - 1;
         index[2] = 0, index[3] = dimens.ny - 1;
@@ -347,8 +353,7 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
         }
     }
 
-    cout << SATNUM.activity << endl;
-    cout << PVTNUM.activity << endl;
+    cout << "/\n\n";
 }
 
 /// TODO: Add Doxygen
@@ -364,7 +369,7 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
-
+        
         for (auto& str : vbuf) {
             // if m*n occurs, then push back n  m times
             auto pos = str.find('*');
@@ -385,11 +390,15 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 /// TODO: Add Doxygen
 void ParamReservoir::InputCOPY(ifstream& ifs)
 {
+    cout << "COPY" << endl;
+
     vector<string> vbuf;
     vector<USI>    index(6, 0);
 
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
+
+        for (auto v : vbuf) { if (v != "/") cout << setw(10) << v; } cout << "\n";
 
         index[0] = 0, index[1] = dimens.nx - 1;
         index[2] = 0, index[3] = dimens.ny - 1;
@@ -411,6 +420,7 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
             OCP_ABORT("Wrong object names: " + srcName + ", " + objName);
         }
     }
+    cout << "/\n\n";
 }
 
 /// TODO: Add Doxygen
@@ -594,7 +604,9 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     ReadLine(ifs, vbuf);
     NTSFUN = stoi(vbuf[0]);
     NTPVT  = stoi(vbuf[1]);
+
     cout << "TABDIMS" << endl;
+    cout << NTSFUN << "  " << NTPVT << "\n\n";
 }
 
 /// Region information like SATNUM to decide which grid belongs to which saturation
