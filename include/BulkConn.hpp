@@ -181,8 +181,13 @@ public:
     /////////////////////////////////////////////////////////////////////
 
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
+    /// OCP_NEW_FIM
     void AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
+    /// OCP_NEW_FIM rho = (S1*rho1 + S2*rho2)/(S1+S2)
+    void AssembleMat_FIM_newS(LinearSystem& myLS, const Bulk& myBulk,
+        const OCP_DBL& dt) const;
+    /// OCP_NEW_FIMn
     void AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
         const OCP_DBL& dt) const;
 
