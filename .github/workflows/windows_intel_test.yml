@@ -23,4 +23,4 @@ jobs:
                   fetch-depth: 0
             - name: Build 
               run: |
-                  ./cli.bat test -b Release -c intel
+                  cli.bat test -b Release -c intel

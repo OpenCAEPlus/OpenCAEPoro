@@ -36,4 +36,4 @@ jobs:
                   fetch-depth: 0
             - name: Build 
               run: |
-                  ./cli.bat build -b Debug -c intel -t all
+                  cli.bat build -b Debug -c intel -t all

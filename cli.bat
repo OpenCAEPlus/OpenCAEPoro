@@ -96,31 +96,23 @@ GOTO end
 IF %argC%==1 GOTO optionTestHelp
 
 @REM Get command line options
-ECHO %argC%
-
 :optionTestLoop
-
-ECHO %argC%
-
 IF NOT "%1"=="" (
     IF "%1"=="--build" GOTO optionTestBuild
     IF "%1"=="-b" GOTO optionTestBuild
 :optionTestLoopAfterBuild
-
     IF "%1"=="--compiler" GOTO optionTestCompiler 
     IF "%1"=="-c" GOTO optionTestCompiler 
 :optionTestLoopAfterCompiler
-
     IF "%1"=="--help" GOTO optionTestHelp 
     IF "%1"=="-h" GOTO optionTestHelp 
-
     SHIFT
     GOTO :optionTestLoop
 )
 
 ECHO %system%-%compiler%-%build%-%target%
 
-IF %compiler%=intel CALL "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat"
+IF %compiler%==intel CALL "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat"
 
 %CMAKE% --preset="%system%-%compiler%-%build%" -S "."
 %CMAKE% --build --preset="%system%-%compiler%-%build%" --target %target%
@@ -128,15 +120,15 @@ IF %compiler%=intel CALL "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat"
 
 GOTO end
 
-:optionBuildType
+:optionTestBuild
 SET build=%2
 SHIFT
-GOTO optionBuildLoopAfterBuild
+GOTO optionTestLoopAfterBuild
 
-:optionBuildCompiler
+:optionTestCompiler
 SET compiler=%2
 SHIFT
-GOTO optionBuildLoopAfterCompiler
+GOTO optionTestLoopAfterCompiler
 
 :optionTestdHelp
 ECHO CLI subcommand "test" to compile and test the source codes.
