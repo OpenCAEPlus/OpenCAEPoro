@@ -1261,6 +1261,8 @@ bool MixtureComp::PhaseStable()
     }
     SSMSTAiters += EoSctrl.SSMsta.curIt;
     NRSTAiters += EoSctrl.NRsta.curIt;
+    SSMSTAcounts++;
+    NRSTAcounts++;
     //cout << "Yt = " << setprecision(8) << scientific << Yt << "  " << setw(2)
     //    << EoSctrl.SSMsta.curIt << "  " << setw(2) << EoSctrl.NRsta.curIt << "  "
     //    << lNP << "  " << tmpNP << "  " << tmpFtype << "   "
@@ -1680,6 +1682,9 @@ void MixtureComp::PhaseSplit()
     SSMSPiters += EoSctrl.SSMsp.curIt;
     NRSPiters += EoSctrl.NRsp.curIt;
     RRiters += EoSctrl.RR.curIt;
+    SSMSPcounts++;
+    NRSPcounts++;
+    RRcounts++;
 
     //cout << scientific << setprecision(8);
     //for (USI i = 0; i < NC; i++) {

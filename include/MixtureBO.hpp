@@ -49,7 +49,21 @@ public:
     }
     OCP_ULL GetNRSPiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
     }
-    OCP_ULL GetRRiters() override {
+    OCP_ULL GetRRiters() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetSSMSTAcounts() override {
+        OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetNRSTAcounts() override {
+        OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetSSMSPcounts() override {
+        OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetNRSPcounts() override {
+        OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
+    }
+    OCP_ULL GetRRcounts() override {
         OCP_ABORT("Should not be used in Black Oil mode!"); return 0;
     }
 

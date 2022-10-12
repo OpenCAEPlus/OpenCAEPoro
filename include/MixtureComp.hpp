@@ -134,15 +134,25 @@ public:
     OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
     OCP_ULL GetNRSPiters() override { return NRSPiters; }
     OCP_ULL GetRRiters() override { return RRiters; }
+    OCP_ULL GetSSMSTAcounts() override { return SSMSTAcounts; }
+    OCP_ULL GetNRSTAcounts() override { return NRSTAcounts; }
+    OCP_ULL GetSSMSPcounts() override { return SSMSPcounts; }
+    OCP_ULL GetNRSPcounts() override { return NRSPcounts; }
+    OCP_ULL GetRRcounts() override { return RRcounts; }
 
 private:
     // total iters
-	// for dubug
 	OCP_ULL SSMSTAiters{ 0 };
 	OCP_ULL NRSTAiters{ 0 };
 	OCP_ULL SSMSPiters{ 0 };
 	OCP_ULL NRSPiters{ 0 };
     OCP_ULL RRiters{ 0 };
+    // total counts, one count may contain many iters
+    OCP_ULL SSMSTAcounts{ 0 };
+    OCP_ULL NRSTAcounts{ 0 };
+    OCP_ULL SSMSPcounts{ 0 };
+    OCP_ULL NRSPcounts{ 0 };
+    OCP_ULL RRcounts{ 0 };
     // phase equilibrium calculation error
     // if NP = 1, it's from phase stable analysis, if skiped, it's 0
     // if NP > 1, it's from phase spliting calculation

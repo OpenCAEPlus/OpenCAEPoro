@@ -47,11 +47,16 @@ void Solver::RunSimulation(Reservoir &rs, OCPControl &ctrl, OCPOutput &output)
 
     if (rs.bulk.GetMixMode() == EOS_PVTW)
     {
-        cout << "SSMSTA:     " << rs.bulk.GetSSMSTAiters() << endl;
-        cout << "NRSTA:      " << rs.bulk.GetNRSTAiters() << endl;
-        cout << "SSMSP:      " << rs.bulk.GetSSMSPiters() << endl;
-        cout << "NRSP:       " << rs.bulk.GetNRSPiters() << endl;
-        cout << "NRRR:       " << rs.bulk.GetRRiters() << endl;
+        cout << "SSMSTA:     " << setw(12) << rs.bulk.GetSSMSTAiters()
+            << setw(15) << rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() << endl;
+        cout << "NRSTA:      " << setw(12) << rs.bulk.GetNRSTAiters() 
+            << setw(15) << rs.bulk.GetNRSTAiters() * 1.0 / rs.bulk.GetNRSTAcounts() << endl;
+        cout << "SSMSP:      " << setw(12) << rs.bulk.GetSSMSPiters() 
+            << setw(15) << rs.bulk.GetSSMSPiters() * 1.0 / rs.bulk.GetSSMSPcounts() << endl;
+        cout << "NRSP:       " << setw(12) << rs.bulk.GetNRSPiters() 
+            << setw(15) << rs.bulk.GetNRSPiters() * 1.0 / rs.bulk.GetNRSPcounts() << endl;
+        cout << "NRRR:       " << setw(12) << rs.bulk.GetRRiters() 
+            << setw(15) << rs.bulk.GetRRiters() * 1.0 / rs.bulk.GetRRcounts() << endl;
     }
     ctrl.RecordTotalTime(timer.Stop() / 1000);
 }

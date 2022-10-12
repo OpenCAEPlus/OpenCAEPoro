@@ -489,6 +489,11 @@ public:
     OCP_ULL GetSSMSPiters()const { return flashCal[0]->GetSSMSPiters(); }
     OCP_ULL GetNRSPiters()const { return flashCal[0]->GetNRSPiters(); }
     OCP_ULL GetRRiters()const { return flashCal[0]->GetRRiters(); }
+    OCP_ULL GetSSMSTAcounts()const { return flashCal[0]->GetSSMSTAcounts(); }
+    OCP_ULL GetNRSTAcounts()const { return flashCal[0]->GetNRSTAcounts(); }
+    OCP_ULL GetSSMSPcounts()const { return flashCal[0]->GetSSMSPcounts(); }
+    OCP_ULL GetNRSPcounts()const { return flashCal[0]->GetNRSPcounts(); }
+    OCP_ULL GetRRcounts()const { return flashCal[0]->GetRRcounts(); }
 
 
     /////////////////////////////////////////////////////////////////////
