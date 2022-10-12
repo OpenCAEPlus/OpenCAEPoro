@@ -100,11 +100,10 @@ build)
 
     if [[ ${system} == "linux" ]]; then
         OPT=$(getopt -o t:c:b:h --long target:,compiler:,build:,help -n 'cli build' -- "$@")
-        eval set -- "${OPT}"
     elif [[ ${system} == "mac" ]]; then
         OPT=$(getopt t:c:b:h "$@")
-        set -- $OPT
     fi
+    eval set -- ${OPT}
 
     [ $# -le 1 ] && {
         helperBuild
@@ -138,6 +137,8 @@ build)
             ;;
         esac
     done
+
+    set --
 
     echo ${system}-${compiler}-${build}-${target}
 
@@ -177,11 +178,10 @@ test)
 
     if [[ ${system} == "linux" ]]; then
         OPT=$(getopt -o t:c:b:hum --long target:,compiler:,build:,help,unit,benchmark -n 'cli build' -- "$@")
-        eval set -- "${OPT}"
     elif [[ ${system} == "mac" ]]; then
         OPT=$(getopt t:c:b:hum "$@")
-        set -- $OPT
     fi
+    eval set -- ${OPT}
 
     [ $# -le 1 ] && {
         helperTest
@@ -225,6 +225,7 @@ test)
             ;;
         esac
     done
+    set --
 
     echo ${system}-${compiler}-${build}-${target}
 
@@ -262,11 +263,10 @@ doc)
 
     if [[ ${system} == "linux" ]]; then
         OPT=$(getopt -o hb: --long help,build: -n 'cli doc' -- "$@")
-        eval set -- "${OPT}"
     elif [[ ${system} == "mac" ]]; then
         OPT=$(getopt b:h "$@")
-        set -- $OPT
     fi
+    eval set -- "${OPT}"
 
     [ $# -le 1 ] && {
         helperDoc
@@ -296,6 +296,7 @@ doc)
         esac
     done
 
+    set --
     echo "Build the doxygen"
     cd doc
     rm -rf doxygen-out
