@@ -371,17 +371,17 @@ $(function() {
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    CalSaturation();</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="preprocessor">#ifdef OCP_NEW_FIM</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    CaldXsdXpAPI02p();</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="preprocessor">#ifdef OCP_OLD_FIM   </span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    CaldXsdXpAPI02();</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    CalXiPNX_partial();</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    CalRhoPX_partial();</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    CalMuPX_partial();</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    CaldXsdXpAPI02();</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    CaldXsdXpAPI02p();</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    CalXiPNX_partial();</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    CalRhoPX_partial();</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    CalMuPX_partial();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OCP_NEW_FIM</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OCP_OLD_FIM</span></div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="comment">// Calculate pSderExist and pVnumCom</span></div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    fill(<a class="code" href="classMixture.html#ae5b6601d2a79a54f6cb3db67e373fd16">pSderExist</a>.begin(), <a class="code" href="classMixture.html#ae5b6601d2a79a54f6cb3db67e373fd16">pSderExist</a>.end(), <span class="keyword">false</span>);</div>
@@ -561,17 +561,17 @@ $(function() {
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    CalSaturation();</div>
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="preprocessor">#ifdef OCP_NEW_FIM</span></div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    CaldXsdXpAPI02p();</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="preprocessor">#ifdef OCP_OLD_FIM</span></div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    CaldXsdXpAPI02();</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    CalXiPNX_partial();</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    CalRhoPX_partial();</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    CalMuPX_partial();</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    CaldXsdXpAPI02();</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="preprocessor">#else  </span></div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    CaldXsdXpAPI02p();</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    CalXiPNX_partial();</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    CalRhoPX_partial();</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    CalMuPX_partial();</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OCP_NEW_FIM</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OCP_OLD_FIM</span></div>
 <div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
 <div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="comment">// Calculate pSderExist and pVnumCom</span></div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    fill(<a class="code" href="classMixture.html#ae5b6601d2a79a54f6cb3db67e373fd16">pSderExist</a>.begin(), <a class="code" href="classMixture.html#ae5b6601d2a79a54f6cb3db67e373fd16">pSderExist</a>.end(), <span class="keyword">false</span>);</div>
@@ -5430,7 +5430,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 03:17:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 15 2022 04:44:31 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
