@@ -1680,8 +1680,8 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
         }
 
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
-        pEnumCom[bIdp + j]   = flashCal[pvtnum]->pEnumCom[j];
-        len += pEnumCom[bIdp + j];
+        pVnumCom[bIdp + j]   = flashCal[pvtnum]->pVnumCom[j];
+        len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
             nptmp++;
             nj[bIdp + j]  = flashCal[pvtnum]->nj[j];
@@ -1792,8 +1792,8 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         }
 
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
-        pEnumCom[bIdp + j]   = flashCal[pvtnum]->pEnumCom[j];
-        len += pEnumCom[bIdp + j];
+        pVnumCom[bIdp + j]   = flashCal[pvtnum]->pVnumCom[j];
+        len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
             nptmp++;
             nj[bIdp + j]  = flashCal[pvtnum]->nj[j];
@@ -2539,7 +2539,7 @@ void Bulk::AllocateAuxFIM()
     resPc.resize(numBulk);
     dSdPindex.resize(numBulk + 1, 0);
     resIndex.resize(numBulk + 1, 0);
-    pEnumCom.resize(numBulk * numPhase);
+    pVnumCom.resize(numBulk * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2572,7 +2572,7 @@ void Bulk::AllocateAuxFIM()
     lres_n.resize((numPhase + numPhase * numCom) * numBulk);
     ldSdPindex.resize(numBulk + 1, 0);
     lresIndex.resize(numBulk + 1, 0);
-    lpEnumCom.resize(numBulk * numPhase);
+    lpVnumCom.resize(numBulk * numPhase);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
 
@@ -2805,10 +2805,10 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                 // }
                 // js++;
                  Daxpy(numCom, nj[n_np_j], &xij[n_np_j * numCom], &tmpNij[j * numCom]); 
-                 for (USI i = 0; i < pEnumCom[j]; i++) {
+                 for (USI i = 0; i < pVnumCom[j]; i++) {
                      tmpNij[j * numCom + i] += chop * dtmp[jx + i];
                  }
-                 jx += pEnumCom[j];
+                 jx += pVnumCom[j];
                  nj[n_np_j] = Dnorm1(numCom, &tmpNij[j * numCom]);
                  for (USI i = 0; i < numCom; i++) {
                      xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];
@@ -2987,7 +2987,7 @@ void Bulk::ResetFIM()
     resPc      = lresPc;
     dSdPindex  = ldSdPindex;
     resIndex   = lresIndex;
-    pEnumCom   = lpEnumCom;
+    pVnumCom   = lpVnumCom;
     dKr_dS     = ldKr_dS;
     dPcj_dS    = ldPcj_dS;
 
@@ -3035,7 +3035,7 @@ void Bulk::UpdateLastStepFIM()
     lresPc      = resPc;
     ldSdPindex  = dSdPindex;
     lresIndex   = resIndex;
-    lpEnumCom   = pEnumCom;
+    lpVnumCom   = pVnumCom;
     ldKr_dS     = dKr_dS;
     ldPcj_dS    = dPcj_dS;
 

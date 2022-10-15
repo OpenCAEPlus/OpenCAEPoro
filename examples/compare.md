@@ -164,10 +164,10 @@ precond_type             = 69
 
 Final time:          1000.000 Days
 Total time steps:    66
-Total Newton steps:  154 (+3 wasted steps)
-Total linear steps:  1582 (+24 wasted steps)
-Linear solve time:   0.024s (25.256%)
-Simulation time:     0.096s
+Total Newton steps:  155 (+3 wasted steps)
+Total linear steps:  1592 (+24 wasted steps)
+Linear solve time:   0.024s (24.089%)
+Simulation time:     0.098s
 
 ```
 
@@ -204,18 +204,18 @@ OCP_FIM
 
 precond_type             = 64
 
-SSMSTA:     186830
-NRSTA:      124
-SSMSP:      471467
-NRSP:       95568
-NRRR:       2220480
+SSMSTA:           186830         19.484
+NRSTA:               124          0.013
+SSMSP:            471467          5.140
+NRSP:              95568          1.042
+NRRR:            2220480         24.208
 =========================================
 Final time:          7305.000 Days
 Total time steps:    312
 Total Newton steps:  853 (+46 wasted steps)
 Total linear steps:  2726 (+178 wasted steps)
-Linear solve time:   6.848s (79.802%)
-Simulation time:     8.581s
+Linear solve time:   6.942s (81.692%)
+Simulation time:     8.498s
 
 ---------------------------------------------------
 OCP_FIMn
@@ -224,18 +224,18 @@ OCP_FIMn
 
 precond_type             = 64
 
-SSMSTA:     208802
-NRSTA:      493
-SSMSP:      916441
-NRSP:       126747
-NRRR:       3985112
+SSMSTA:           208802         22.437
+NRSTA:               493          0.053
+SSMSP:            916441          9.620
+NRSP:             126747          1.330
+NRRR:            3985112         41.832
 =========================================
 Final time:          7305.000 Days
 Total time steps:    313
 Total Newton steps:  884 (+39 wasted steps)
 Total linear steps:  2837 (+128 wasted steps)
-Linear solve time:   6.968s (76.157%)
-Simulation time:     9.149s
+Linear solve time:   7.123s (77.201%)
+Simulation time:     9.227s
 
 ```
 
@@ -270,18 +270,18 @@ OCP_FIM
 
 precond_type             = 64
 
-SSMSTA:     249769
-NRSTA:      4769
-SSMSP:      429433
-NRSP:       33115
-NRRR:       3655079
+SSMSTA:           249769        120.197
+NRSTA:              4769          2.295
+SSMSP:            429433         18.485
+NRSP:              33115          1.425
+NRRR:            3655079        157.330
 =========================================
 Final time:          3650.000 Days
 Total time steps:    46
 Total Newton steps:  85 (+0 wasted steps)
 Total linear steps:  129 (+0 wasted steps)
-Linear solve time:   0.697s (37.926%)
-Simulation time:     1.837s
+Linear solve time:   0.684s (38.939%)
+Simulation time:     1.756s
 
 
 ---------------------------------------------------
@@ -291,18 +291,18 @@ OCP_FIMn
 
 precond_type             = 64
 
-SSMSTA:     279883
-NRSTA:      4953
-SSMSP:      871176
-NRSP:       40184
-NRRR:       7217422
+SSMSTA:           279883        107.112
+NRSTA:              4953          1.896
+SSMSP:            871176         36.252
+NRSP:              40184          1.672
+NRRR:            7217422        300.338
 =========================================
 Final time:          3650.000 Days
 Total time steps:    46
 Total Newton steps:  91 (+0 wasted steps)
 Total linear steps:  138 (+0 wasted steps)
-Linear solve time:   0.818s (32.780%)
-Simulation time:     2.496s
+Linear solve time:   0.819s (33.864%)
+Simulation time:     2.420s
 ```
 
 ## SPE5r
