@@ -391,7 +391,7 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);  
 #else
-    conn.AssembleMat_FIM_new(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new1(myLS, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #endif // OCP_OLD_FIM
 }

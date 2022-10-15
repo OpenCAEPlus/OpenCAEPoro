@@ -126,11 +126,11 @@ OCP_FIM
 .\OpenCAEPoro.exe ..\..\examples\spe10\spe10.data
 
 Final time:          2000.000 Days
-Total time steps:    53
-Total Newton steps:  215 (+5 wasted steps)
-Total linear steps:  1278 (+40 wasted steps)
-Linear solve time:   1343.855s (73.547%)
-Simulation time:     1827.200s
+Total time steps:    54
+Total Newton steps:  219 (+7 wasted steps)
+Total linear steps:  1325 (+56 wasted steps)
+Linear solve time:   1439.339s (74.672%)
+Simulation time:     1927.552s
 ```
 
 
