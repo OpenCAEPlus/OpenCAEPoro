@@ -62,7 +62,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     ctrl.UpdateIterNR();
 
 #ifdef DEBUG
-    myLS.OutputSolution("testx.out");
+    // myLS.OutputSolution("testx.out");
 #endif // DEBUG
 
     rs.GetSolutionIMPEC(myLS.GetSolution());
