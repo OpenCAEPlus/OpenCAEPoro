@@ -1067,8 +1067,8 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[bId * np + j];
             phaseExistE[j] = myBulk.phaseExist[eId * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];
-            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];
+            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];
             ncolB += pEnumComB[j];
             ncolE += pEnumComE[j];
         }
@@ -1364,8 +1364,8 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem& myLS, const Bulk& myBulk,
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[bId * np + j];
             phaseExistE[j] = myBulk.phaseExist[eId * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];
-            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];
+            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];
             ncolB += pEnumComB[j];
             ncolE += pEnumComE[j];
         }
@@ -1687,8 +1687,8 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[bId * np + j];
             phaseExistE[j] = myBulk.phaseExist[eId * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];
-            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];
+            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];
             ncolB += pEnumComB[j];
             ncolE += pEnumComE[j];
         }

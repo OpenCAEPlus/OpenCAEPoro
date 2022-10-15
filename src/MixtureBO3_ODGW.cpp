@@ -445,7 +445,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     fill(xix.begin(), xix.end(), 0.0);
     fill(mux.begin(), mux.end(), 0.0);
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
-    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
+    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
 
     P  = Pin;
     Nt = 0;
@@ -528,7 +528,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
             dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf;                     // dSw / dNg
             dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf;       // dSw / dNw
 
-            //pEnumCom[0] = 0; pEnumCom[1] = 0; pEnumCom[2] = 0;
+            //pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
             break;
         }
@@ -592,7 +592,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
         dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        //pEnumCom[0] = 0; pEnumCom[1] = 0; pEnumCom[2] = 0;
+        //pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
         break;
     }
@@ -658,7 +658,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[4 * 4 + 1] = -dXsdXp[3 * 4 + 1]; // d Xgo / d No
         dXsdXp[4 * 4 + 2] = -dXsdXp[3 * 4 + 2]; // d Xgo / d Ng
 
-        pEnumCom[0] = 2; pEnumCom[1] = 0; pEnumCom[2] = 0;
+        pVnumCom[0] = 2; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
         OCP_DBL tmp = xij[0] * xij[0];
         
@@ -757,7 +757,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
         dXsdXp[4 * 4 + 0] = -dXsdXp[3 * 4 + 0];  // d Xgo / dP
 
-        pEnumCom[0] = 2; pEnumCom[1] = 0; pEnumCom[2] = 0;
+        pVnumCom[0] = 2; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
         break;
     }

@@ -317,10 +317,10 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMuPX_partial();
 #endif // OCP_NEW_FIM
 
-    // Calculate pEnumCom
-    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
-    if (phaseExist[0]) pEnumCom[0] = NC;
-    if (phaseExist[1]) pEnumCom[1] = NC;
+    // Calculate pVnumCom
+    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    if (phaseExist[0]) pVnumCom[0] = NC;
+    if (phaseExist[1]) pVnumCom[1] = NC;
 }
 
 
@@ -397,10 +397,10 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMuPn_partial();
     CalVfiVfp_full03();
 
-    // Calculate pEnumCom
-    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
-    if (phaseExist[0]) pEnumCom[0] = NC;
-    if (phaseExist[1]) pEnumCom[1] = NC;
+    // Calculate pVnumCom
+    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    if (phaseExist[0]) pVnumCom[0] = NC;
+    if (phaseExist[1]) pVnumCom[1] = NC;
 }
 
 
@@ -503,10 +503,10 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalMuPX_partial();
 #endif // OCP_NEW_FIM
 
-    // Calculate pEnumCom
-    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
-    if (phaseExist[0]) pEnumCom[0] = NC;
-    if (phaseExist[1]) pEnumCom[1] = NC;
+    // Calculate pVnumCom
+    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    if (phaseExist[0]) pVnumCom[0] = NC;
+    if (phaseExist[1]) pVnumCom[1] = NC;
  
 }
 
@@ -612,10 +612,10 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalMuPn_partial();
     CalVfiVfp_full03();
 
-    // Calculate pEnumCom
-    fill(pEnumCom.begin(), pEnumCom.end(), 0.0);
-    if (phaseExist[0]) pEnumCom[0] = NC;
-    if (phaseExist[1]) pEnumCom[1] = NC;
+    // Calculate pVnumCom
+    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    if (phaseExist[0]) pVnumCom[0] = NC;
+    if (phaseExist[1]) pVnumCom[1] = NC;
 
 }
 

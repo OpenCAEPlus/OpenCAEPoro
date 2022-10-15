@@ -2164,7 +2164,7 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
         const USI npB = myBulk.phaseNum[n] + 1;  ncolB = npB;
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[n * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[n * np + j];
             ncolB += pEnumComB[j];
         }
 
@@ -2334,7 +2334,7 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
         const USI npB = myBulk.phaseNum[n] + 1;    ncolB = npB;
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[n * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[n * np + j];
             ncolB += pEnumComB[j];
         }
 
@@ -2516,7 +2516,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         const USI npB = myBulk.phaseNum[n] + 1;  ncolB = npB;
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[n * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[n * np + j];
             ncolB += pEnumComB[j];
         }
 
@@ -2695,7 +2695,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         const USI npB = myBulk.phaseNum[n] + 1;    ncolB = npB;
         for (USI j = 0; j < np; j++) {
             phaseExistB[j] = myBulk.phaseExist[n * np + j];
-            pEnumComB[j] = myBulk.pEnumCom[n * np + j];
+            pEnumComB[j] = myBulk.pVnumCom[n * np + j];
             ncolB += pEnumComB[j];
         }
 
