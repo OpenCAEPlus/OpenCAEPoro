@@ -317,10 +317,12 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMuPX_partial();
 #endif // OCP_NEW_FIM
 
-    // Calculate pVnumCom
+    // Calculate pSderExist and pVnumCom
+    fill(pSderExist.begin(), pSderExist.end(), false);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) pVnumCom[0] = NC;
-    if (phaseExist[1]) pVnumCom[1] = NC;
+    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
+    pSderExist[2] = true;
 }
 
 
@@ -397,10 +399,12 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMuPn_partial();
     CalVfiVfp_full03();
 
-    // Calculate pVnumCom
+    // Calculate pSderExist and pVnumCom
+    fill(pSderExist.begin(), pSderExist.end(), false);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) pVnumCom[0] = NC;
-    if (phaseExist[1]) pVnumCom[1] = NC;
+    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
+    pSderExist[2] = true;
 }
 
 
@@ -503,11 +507,12 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalMuPX_partial();
 #endif // OCP_NEW_FIM
 
-    // Calculate pVnumCom
+    // Calculate pSderExist and pVnumCom
+    fill(pSderExist.begin(), pSderExist.end(), false);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) pVnumCom[0] = NC;
-    if (phaseExist[1]) pVnumCom[1] = NC;
- 
+    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
+    pSderExist[2] = true;
 }
 
 
@@ -612,11 +617,12 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalMuPn_partial();
     CalVfiVfp_full03();
 
-    // Calculate pVnumCom
+    // Calculate pSderExist and pVnumCom
+    fill(pSderExist.begin(), pSderExist.end(), false);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) pVnumCom[0] = NC;
-    if (phaseExist[1]) pVnumCom[1] = NC;
-
+    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
+    pSderExist[2] = true;
 }
 
 

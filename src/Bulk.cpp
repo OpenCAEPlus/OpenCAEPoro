@@ -1680,6 +1680,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
         }
 
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
+        pSderExist[bIdp + j] = flashCal[pvtnum]->pSderExist[j];
         pVnumCom[bIdp + j]   = flashCal[pvtnum]->pVnumCom[j];
         len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
@@ -1792,6 +1793,7 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         }
 
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
+        pSderExist[bIdp + j] = flashCal[pvtnum]->pSderExist[j];
         pVnumCom[bIdp + j]   = flashCal[pvtnum]->pVnumCom[j];
         len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
@@ -2539,6 +2541,7 @@ void Bulk::AllocateAuxFIM()
     resPc.resize(numBulk);
     dSdPindex.resize(numBulk + 1, 0);
     resIndex.resize(numBulk + 1, 0);
+    pSderExist.resize(numBulk * numPhase);
     pVnumCom.resize(numBulk * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
     dPcj_dS.resize(numBulk * numPhase * numPhase);
@@ -2572,6 +2575,7 @@ void Bulk::AllocateAuxFIM()
     lres_n.resize((numPhase + numPhase * numCom) * numBulk);
     ldSdPindex.resize(numBulk + 1, 0);
     lresIndex.resize(numBulk + 1, 0);
+    lpSderExist.resize(numBulk * numPhase);
     lpVnumCom.resize(numBulk * numPhase);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
     ldPcj_dS.resize(numBulk * numPhase * numPhase);
@@ -2987,6 +2991,7 @@ void Bulk::ResetFIM()
     resPc      = lresPc;
     dSdPindex  = ldSdPindex;
     resIndex   = lresIndex;
+    pSderExist = lpSderExist;
     pVnumCom   = lpVnumCom;
     dKr_dS     = ldKr_dS;
     dPcj_dS    = ldPcj_dS;
@@ -3035,6 +3040,7 @@ void Bulk::UpdateLastStepFIM()
     lresPc      = resPc;
     ldSdPindex  = dSdPindex;
     lresIndex   = resIndex;
+    lpSderExist = pSderExist;
     lpVnumCom   = pVnumCom;
     ldKr_dS     = dKr_dS;
     ldPcj_dS    = dPcj_dS;

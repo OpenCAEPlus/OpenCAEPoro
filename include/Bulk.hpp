@@ -446,7 +446,7 @@ private:
     vector<OCP_USI> resIndex;  ///< store the starting position of res_n of each bulk.
 
     // Auxiliary variable for dSec_dPr
-
+    vector<bool>    pSderExist;   ///< Existence of  derivative of phase saturation
     vector<USI>     pVnumCom;  ///< num of variable components in the phase
 
     // vars at last step
@@ -463,6 +463,7 @@ private:
     vector<OCP_DBL> lresPc;      ///< last lresPc;
     vector<OCP_USI> ldSdPindex;  ///< last SdPindex
     vector<OCP_USI> lresIndex;   ///< last res_n
+    vector<bool>    lpSderExist; ///< last pSderExist
     vector<USI>     lpVnumCom;   ///< last pVnumCom
 
 

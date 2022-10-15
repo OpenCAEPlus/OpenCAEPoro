@@ -214,8 +214,8 @@ Final time:          7305.000 Days
 Total time steps:    312
 Total Newton steps:  853 (+46 wasted steps)
 Total linear steps:  2726 (+178 wasted steps)
-Linear solve time:   6.942s (81.692%)
-Simulation time:     8.498s
+Linear solve time:   6.812s (81.700%)
+Simulation time:     8.338s
 
 ---------------------------------------------------
 OCP_FIMn
@@ -280,8 +280,8 @@ Final time:          3650.000 Days
 Total time steps:    46
 Total Newton steps:  85 (+0 wasted steps)
 Total linear steps:  129 (+0 wasted steps)
-Linear solve time:   0.684s (38.939%)
-Simulation time:     1.756s
+Linear solve time:   0.683s (39.936%)
+Simulation time:     1.710s
 
 
 ---------------------------------------------------
