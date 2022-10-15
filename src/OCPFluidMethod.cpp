@@ -47,7 +47,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     myLS.AssembleMatLinearSolver();
 
 #ifdef _DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
+    // myLS.OutputLinearSystem("testA.out", "testb.out");
 #endif // _DEBUG
 
     GetWallTime Timer;
