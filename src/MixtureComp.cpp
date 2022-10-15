@@ -305,17 +305,17 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
 
     CalSaturation();
 
-#ifdef OCP_NEW_FIM
-    CaldXsdXpAPI02p();
-    CalXiPNX_partial();
-    CalRhoPX_partial();
-    CalMuPX_partial();
-#else
+#ifdef OCP_OLD_FIM   
     CaldXsdXpAPI02();
     CalXiPNX_partial();
     CalRhoPX_partial();
     CalMuPX_partial();
-#endif // OCP_NEW_FIM
+#else
+    CaldXsdXpAPI02p();
+    CalXiPNX_partial();
+    CalRhoPX_partial();
+    CalMuPX_partial();
+#endif // OCP_OLD_FIM
 
     // Calculate pSderExist and pVnumCom
     fill(pSderExist.begin(), pSderExist.end(), false);
@@ -495,17 +495,17 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
     CalSaturation();
 
-#ifdef OCP_NEW_FIM
-    CaldXsdXpAPI02p();
-    CalXiPNX_partial();
-    CalRhoPX_partial();
-    CalMuPX_partial();
-#else
+#ifdef OCP_OLD_FIM
     CaldXsdXpAPI02();
     CalXiPNX_partial();
     CalRhoPX_partial();
     CalMuPX_partial();
-#endif // OCP_NEW_FIM
+#else  
+    CaldXsdXpAPI02p();
+    CalXiPNX_partial();
+    CalRhoPX_partial();
+    CalMuPX_partial();
+#endif // OCP_OLD_FIM
 
     // Calculate pSderExist and pVnumCom
     fill(pSderExist.begin(), pSderExist.end(), false);

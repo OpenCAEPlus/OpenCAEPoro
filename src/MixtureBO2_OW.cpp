@@ -127,6 +127,7 @@ void BOMixture_OW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     phaseExist[0] = true;
     phaseExist[1] = true;
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
+    fill(pSderExist.begin(), pSderExist.end(), true);
     fill(pVnumCom.begin(), pVnumCom.end(), 0);
 
     P     = Pin;

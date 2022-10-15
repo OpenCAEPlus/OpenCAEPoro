@@ -445,7 +445,8 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     fill(xix.begin(), xix.end(), 0.0);
     fill(mux.begin(), mux.end(), 0.0);
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
-    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pVnumCom.begin(), pVnumCom.end(), 0);
 
     P  = Pin;
     Nt = 0;
@@ -528,7 +529,8 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
             dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf;                     // dSw / dNg
             dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf;       // dSw / dNw
 
-            //pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
+            pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
+            // pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
             break;
         }
@@ -592,6 +594,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
         dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
+        pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
         //pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
         break;
@@ -648,17 +651,18 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[2] = (CONV1 * dBo_drs - S[0] * vfi[1]) / vf; // dSo / dNg
         dXsdXp[3] = -S[0] / vf * vfi[2]; // dSo / dNw
 
-        dXsdXp[2 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
-        dXsdXp[2 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
-        dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
-        dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
+        dXsdXp[1 * 4 + 0] = (Ni[2] * bwp * CONV1 - S[2] * vfp) / vf; // dSw / dP
+        dXsdXp[1 * 4 + 1] = -S[2] * vfi[0] / vf; // dSw / dNo
+        dXsdXp[1 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
+        dXsdXp[1 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        dXsdXp[3 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d No
-        dXsdXp[3 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d Ng
-        dXsdXp[4 * 4 + 1] = -dXsdXp[3 * 4 + 1]; // d Xgo / d No
-        dXsdXp[4 * 4 + 2] = -dXsdXp[3 * 4 + 2]; // d Xgo / d Ng
+        dXsdXp[2 * 4 + 1] = Ni[1] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d No
+        dXsdXp[2 * 4 + 2] = -Ni[0] / pow((Ni[0] + Ni[1]), 2); // d Xoo / d Ng
+        dXsdXp[3 * 4 + 1] = -dXsdXp[2 * 4 + 1]; // d Xgo / d No
+        dXsdXp[3 * 4 + 2] = -dXsdXp[2 * 4 + 2]; // d Xgo / d Ng
 
-        pVnumCom[0] = 2; pVnumCom[1] = 0; pVnumCom[2] = 0;
+        pSderExist[0] = true; pSderExist[2] = true;
+        pVnumCom[0] = 2; 
 
         OCP_DBL tmp = xij[0] * xij[0];
         
@@ -757,7 +761,8 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
         dXsdXp[4 * 4 + 0] = -dXsdXp[3 * 4 + 0];  // d Xgo / dP
 
-        pVnumCom[0] = 2; pVnumCom[1] = 0; pVnumCom[2] = 0;
+        pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
+        pVnumCom[0] = 2;
 
         break;
     }
