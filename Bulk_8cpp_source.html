@@ -1732,8 +1732,8 @@ $(function() {
 <div class="line"><a name="l01680"></a><span class="lineno"> 1680</span>&#160;        }</div>
 <div class="line"><a name="l01681"></a><span class="lineno"> 1681</span>&#160; </div>
 <div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;        phaseExist[bIdp + j] = flashCal[pvtnum]-&gt;phaseExist[j];</div>
-<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;        pEnumCom[bIdp + j]   = flashCal[pvtnum]-&gt;pEnumCom[j];</div>
-<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;        len += pEnumCom[bIdp + j];</div>
+<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;        pVnumCom[bIdp + j]   = flashCal[pvtnum]-&gt;pVnumCom[j];</div>
+<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;        len += pVnumCom[bIdp + j];</div>
 <div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160;        <span class="keywordflow">if</span> (phaseExist[bIdp + j]) { <span class="comment">// j -&gt; bId + j fix bugs.</span></div>
 <div class="line"><a name="l01686"></a><span class="lineno"> 1686</span>&#160;            nptmp++;</div>
 <div class="line"><a name="l01687"></a><span class="lineno"> 1687</span>&#160;            nj[bIdp + j]  = flashCal[pvtnum]-&gt;nj[j];</div>
@@ -1844,8 +1844,8 @@ $(function() {
 <div class="line"><a name="l01792"></a><span class="lineno"> 1792</span>&#160;        }</div>
 <div class="line"><a name="l01793"></a><span class="lineno"> 1793</span>&#160; </div>
 <div class="line"><a name="l01794"></a><span class="lineno"> 1794</span>&#160;        phaseExist[bIdp + j] = flashCal[pvtnum]-&gt;phaseExist[j];</div>
-<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;        pEnumCom[bIdp + j]   = flashCal[pvtnum]-&gt;pEnumCom[j];</div>
-<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;        len += pEnumCom[bIdp + j];</div>
+<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;        pVnumCom[bIdp + j]   = flashCal[pvtnum]-&gt;pVnumCom[j];</div>
+<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;        len += pVnumCom[bIdp + j];</div>
 <div class="line"><a name="l01797"></a><span class="lineno"> 1797</span>&#160;        <span class="keywordflow">if</span> (phaseExist[bIdp + j]) { <span class="comment">// j -&gt; bId + j fix bugs.</span></div>
 <div class="line"><a name="l01798"></a><span class="lineno"> 1798</span>&#160;            nptmp++;</div>
 <div class="line"><a name="l01799"></a><span class="lineno"> 1799</span>&#160;            nj[bIdp + j]  = flashCal[pvtnum]-&gt;nj[j];</div>
@@ -2583,7 +2583,7 @@ $(function() {
 <div class="line"><a name="l02539"></a><span class="lineno"> 2539</span>&#160;    resPc.resize(numBulk);</div>
 <div class="line"><a name="l02540"></a><span class="lineno"> 2540</span>&#160;    dSdPindex.resize(numBulk + 1, 0);</div>
 <div class="line"><a name="l02541"></a><span class="lineno"> 2541</span>&#160;    resIndex.resize(numBulk + 1, 0);</div>
-<div class="line"><a name="l02542"></a><span class="lineno"> 2542</span>&#160;    pEnumCom.resize(numBulk * numPhase);</div>
+<div class="line"><a name="l02542"></a><span class="lineno"> 2542</span>&#160;    pVnumCom.resize(numBulk * numPhase);</div>
 <div class="line"><a name="l02543"></a><span class="lineno"> 2543</span>&#160;    dKr_dS.resize(numBulk * numPhase * numPhase);</div>
 <div class="line"><a name="l02544"></a><span class="lineno"> 2544</span>&#160;    dPcj_dS.resize(numBulk * numPhase * numPhase);</div>
 <div class="line"><a name="l02545"></a><span class="lineno"> 2545</span>&#160; </div>
@@ -2616,7 +2616,7 @@ $(function() {
 <div class="line"><a name="l02572"></a><span class="lineno"> 2572</span>&#160;    lres_n.resize((numPhase + numPhase * numCom) * numBulk);</div>
 <div class="line"><a name="l02573"></a><span class="lineno"> 2573</span>&#160;    ldSdPindex.resize(numBulk + 1, 0);</div>
 <div class="line"><a name="l02574"></a><span class="lineno"> 2574</span>&#160;    lresIndex.resize(numBulk + 1, 0);</div>
-<div class="line"><a name="l02575"></a><span class="lineno"> 2575</span>&#160;    lpEnumCom.resize(numBulk * numPhase);</div>
+<div class="line"><a name="l02575"></a><span class="lineno"> 2575</span>&#160;    lpVnumCom.resize(numBulk * numPhase);</div>
 <div class="line"><a name="l02576"></a><span class="lineno"> 2576</span>&#160;    ldKr_dS.resize(numBulk * numPhase * numPhase);</div>
 <div class="line"><a name="l02577"></a><span class="lineno"> 2577</span>&#160;    ldPcj_dS.resize(numBulk * numPhase * numPhase);</div>
 <div class="line"><a name="l02578"></a><span class="lineno"> 2578</span>&#160; </div>
@@ -2848,10 +2848,10 @@ $(function() {
 <div class="line"><a name="l02805"></a><span class="lineno"> 2805</span>&#160;                <span class="comment">// }</span></div>
 <div class="line"><a name="l02806"></a><span class="lineno"> 2806</span>&#160;                <span class="comment">// js++;</span></div>
 <div class="line"><a name="l02807"></a><span class="lineno"> 2807</span>&#160;                 <a class="code" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(numCom, nj[n_np_j], &amp;xij[n_np_j * numCom], &amp;tmpNij[j * numCom]); </div>
-<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pEnumCom[j]; i++) {</div>
+<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pVnumCom[j]; i++) {</div>
 <div class="line"><a name="l02809"></a><span class="lineno"> 2809</span>&#160;                     tmpNij[j * numCom + i] += chop * dtmp[jx + i];</div>
 <div class="line"><a name="l02810"></a><span class="lineno"> 2810</span>&#160;                 }</div>
-<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                 jx += pEnumCom[j];</div>
+<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                 jx += pVnumCom[j];</div>
 <div class="line"><a name="l02812"></a><span class="lineno"> 2812</span>&#160;                 nj[n_np_j] = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(numCom, &amp;tmpNij[j * numCom]);</div>
 <div class="line"><a name="l02813"></a><span class="lineno"> 2813</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
 <div class="line"><a name="l02814"></a><span class="lineno"> 2814</span>&#160;                     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];</div>
@@ -3030,7 +3030,7 @@ $(function() {
 <div class="line"><a name="l02987"></a><span class="lineno"> 2987</span>&#160;    resPc      = lresPc;</div>
 <div class="line"><a name="l02988"></a><span class="lineno"> 2988</span>&#160;    dSdPindex  = ldSdPindex;</div>
 <div class="line"><a name="l02989"></a><span class="lineno"> 2989</span>&#160;    resIndex   = lresIndex;</div>
-<div class="line"><a name="l02990"></a><span class="lineno"> 2990</span>&#160;    pEnumCom   = lpEnumCom;</div>
+<div class="line"><a name="l02990"></a><span class="lineno"> 2990</span>&#160;    pVnumCom   = lpVnumCom;</div>
 <div class="line"><a name="l02991"></a><span class="lineno"> 2991</span>&#160;    dKr_dS     = ldKr_dS;</div>
 <div class="line"><a name="l02992"></a><span class="lineno"> 2992</span>&#160;    dPcj_dS    = ldPcj_dS;</div>
 <div class="line"><a name="l02993"></a><span class="lineno"> 2993</span>&#160; </div>
@@ -3078,7 +3078,7 @@ $(function() {
 <div class="line"><a name="l03035"></a><span class="lineno"> 3035</span>&#160;    lresPc      = resPc;</div>
 <div class="line"><a name="l03036"></a><span class="lineno"> 3036</span>&#160;    ldSdPindex  = dSdPindex;</div>
 <div class="line"><a name="l03037"></a><span class="lineno"> 3037</span>&#160;    lresIndex   = resIndex;</div>
-<div class="line"><a name="l03038"></a><span class="lineno"> 3038</span>&#160;    lpEnumCom   = pEnumCom;</div>
+<div class="line"><a name="l03038"></a><span class="lineno"> 3038</span>&#160;    lpVnumCom   = pVnumCom;</div>
 <div class="line"><a name="l03039"></a><span class="lineno"> 3039</span>&#160;    ldKr_dS     = dKr_dS;</div>
 <div class="line"><a name="l03040"></a><span class="lineno"> 3040</span>&#160;    ldPcj_dS    = dPcj_dS;</div>
 <div class="line"><a name="l03041"></a><span class="lineno"> 3041</span>&#160; </div>
@@ -4145,7 +4145,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 01:18:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 15 2022 01:55:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

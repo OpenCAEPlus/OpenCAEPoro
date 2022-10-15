@@ -1011,10 +1011,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <div class="line"><a name="l02805"></a><span class="lineno"> 2805</span>&#160;                <span class="comment">// }</span></div>
 <div class="line"><a name="l02806"></a><span class="lineno"> 2806</span>&#160;                <span class="comment">// js++;</span></div>
 <div class="line"><a name="l02807"></a><span class="lineno"> 2807</span>&#160;                 <a class="code" href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a>(numCom, nj[n_np_j], &amp;xij[n_np_j * numCom], &amp;tmpNij[j * numCom]); </div>
-<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pEnumCom[j]; i++) {</div>
+<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; pVnumCom[j]; i++) {</div>
 <div class="line"><a name="l02809"></a><span class="lineno"> 2809</span>&#160;                     tmpNij[j * numCom + i] += chop * dtmp[jx + i];</div>
 <div class="line"><a name="l02810"></a><span class="lineno"> 2810</span>&#160;                 }</div>
-<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                 jx += pEnumCom[j];</div>
+<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;                 jx += pVnumCom[j];</div>
 <div class="line"><a name="l02812"></a><span class="lineno"> 2812</span>&#160;                 nj[n_np_j] = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(numCom, &amp;tmpNij[j * numCom]);</div>
 <div class="line"><a name="l02813"></a><span class="lineno"> 2813</span>&#160;                 <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
 <div class="line"><a name="l02814"></a><span class="lineno"> 2814</span>&#160;                     xij[n_np_j * numCom + i] = tmpNij[j * numCom + i] / nj[n_np_j];</div>
@@ -2494,7 +2494,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 01:18:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 15 2022 01:55:52 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

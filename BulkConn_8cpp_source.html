@@ -1122,8 +1122,8 @@ $(function() {
 <div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
 <div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;            phaseExistB[j] = myBulk.phaseExist[bId * np + j];</div>
 <div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;            phaseExistE[j] = myBulk.phaseExist[eId * np + j];</div>
-<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];</div>
-<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];</div>
+<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];</div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];</div>
 <div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;            ncolB += pEnumComB[j];</div>
 <div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;            ncolE += pEnumComE[j];</div>
 <div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;        }</div>
@@ -1419,8 +1419,8 @@ $(function() {
 <div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
 <div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;            phaseExistB[j] = myBulk.phaseExist[bId * np + j];</div>
 <div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;            phaseExistE[j] = myBulk.phaseExist[eId * np + j];</div>
-<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];</div>
-<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];</div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];</div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];</div>
 <div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;            ncolB += pEnumComB[j];</div>
 <div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;            ncolE += pEnumComE[j];</div>
 <div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;        }</div>
@@ -1742,8 +1742,8 @@ $(function() {
 <div class="line"><a name="l01687"></a><span class="lineno"> 1687</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
 <div class="line"><a name="l01688"></a><span class="lineno"> 1688</span>&#160;            phaseExistB[j] = myBulk.phaseExist[bId * np + j];</div>
 <div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;            phaseExistE[j] = myBulk.phaseExist[eId * np + j];</div>
-<div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;            pEnumComB[j] = myBulk.pEnumCom[bId * np + j];</div>
-<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;            pEnumComE[j] = myBulk.pEnumCom[eId * np + j];</div>
+<div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;            pEnumComB[j] = myBulk.pVnumCom[bId * np + j];</div>
+<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;            pEnumComE[j] = myBulk.pVnumCom[eId * np + j];</div>
 <div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;            ncolB += pEnumComB[j];</div>
 <div class="line"><a name="l01693"></a><span class="lineno"> 1693</span>&#160;            ncolE += pEnumComE[j];</div>
 <div class="line"><a name="l01694"></a><span class="lineno"> 1694</span>&#160;        }</div>
@@ -3546,7 +3546,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 01:18:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 15 2022 01:55:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
