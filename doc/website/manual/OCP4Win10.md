@@ -109,7 +109,7 @@ Usually, the above two steps are only needed for the first time.
 Now we are ready to build *OpenCAEPoro*. First, download it from 
 
 `
-git@github.com:FaspDevTeam/OpenCAEPoro.git
+git@github.com:OpenCAEPlus/OpenCAEPoro.git
 `
 
 Then follow the standard steps to generate Visual Studio solutions using cmake:

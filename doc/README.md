@@ -3,7 +3,7 @@
 ## Directory and Files
 
 - doxygen, folder for .dox file complimenting the documentation in source code
-- doxygen-site, folder for holding the doxygen generated website, [https://faspdevteam.github.io/OpenCAEPoro/](https://faspdevteam.github.io/OpenCAEPoro/)
+- doxygen-site, folder for holding the doxygen generated website, [https://opencaeplus.github.io/OpenCAEPoro/](https://opencaeplus.github.io/OpenCAEPoro/)
 - website, contain the markdown files and vitepress configuration
 - Doxyfile, doxygen configuration file
 - doxybook-config.json, doxybook2 configuration file, for converting doxygen xml to markdown
