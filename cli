@@ -300,7 +300,7 @@ doc)
     echo "Build the doxygen"
     cd doc
     rm -rf doxygen-out
-    doxygen Doxyfile
+    PROJECT_NUMBER=$(git describe --tags --abbrev=0) doxygen Doxyfile
 
     if [[ $docBuild == "latexpdf" ]]; then
         # cd doxygen-out/latex
