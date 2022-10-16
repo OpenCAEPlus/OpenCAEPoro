@@ -10,9 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: deepakputhraya/action-pr-title@master
+      - name: Filter pull request
+        id: filter
+        uses: deepakputhraya/action-pr-title@master
         with:
           allowed_prefixes: 'Release' # title should start with the given prefix
+
+      - name: return 0
+        run: exit 0
+        if: always() && (steps.filter.outcome == 'failure')
+
 
       - uses: actions/checkout@v2
 
@@ -29,3 +36,4 @@ jobs:
       - name: Get PR number
         run: |
           echo ${{ github.event.number }}
+      
