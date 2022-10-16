@@ -522,7 +522,6 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;

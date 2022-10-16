@@ -133,10 +133,10 @@ bool CheckNan(const int& N, const T* x)
 {
     for (int i = 0; i < N; i++) {
         if (!isfinite(x[i]) || isnan(x[i])) {
-            return OCP_FALSE;
+            return false;
         }
     }
-    return OCP_TRUE;
+    return true;
 }
 
 #endif
