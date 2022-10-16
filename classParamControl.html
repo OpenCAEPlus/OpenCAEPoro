@@ -347,7 +347,7 @@ vector&lt; <a class="el" href="classTuningPair.html">TuningPair</a> &gt;&#160;</
 <p class="definition">Definition at line <a class="el" href="ParamControl_8cpp_source.html#l00100">100</a> of file <a class="el" href="ParamControl_8cpp_source.html">ParamControl.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;FIM&quot;</span>) {</div>
@@ -365,7 +365,7 @@ vector&lt; <a class="el" href="classTuningPair.html">TuningPair</a> &gt;&#160;</
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    cout &lt;&lt; <a class="code" href="classParamControl.html#a2dd4a860adae616de02f0d3982911d4f">method</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamControl.html#ab346ec72a0e77c5919b268e0aa53c852">linearSolve</a> &lt;&lt; endl;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="ttc" id="aUtilInput_8hpp_html_af8345cb8367acfd04919a63010eb4bcd"><div class="ttname"><a href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a></div><div class="ttdeci">bool ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
+<div class="ttc" id="aUtilInput_8hpp_html_a6ff8907e3f0c8e22861efd0f733314e1"><div class="ttname"><a href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a></div><div class="ttdeci">OCP_BOOL ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamControl_8hpp_source.html#l00050">linearSolve</a>, <a class="el" href="ParamControl_8hpp_source.html#l00049">method</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
 
@@ -399,7 +399,7 @@ vector&lt; <a class="el" href="classTuningPair.html">TuningPair</a> &gt;&#160;</
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>            row = 0;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    vector&lt;string&gt; vbuf;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf)) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> len = vbuf.size();</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
@@ -471,7 +471,7 @@ vector&lt; <a class="el" href="classTuningPair.html">TuningPair</a> &gt;&#160;</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

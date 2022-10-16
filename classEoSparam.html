@@ -205,10 +205,10 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#afb68cce409462e42baf65dbe909b8c4f">BIC</a></td></tr>
 <tr class="memdesc:afb68cce409462e42baf65dbe909b8c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary interaction. <br /></td></tr>
 <tr class="separator:afb68cce409462e42baf65dbe909b8c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affd2338845c0778f142a399f48302217"><td class="memItemLeft" align="right" valign="top"><a id="affd2338845c0778f142a399f48302217"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#affd2338845c0778f142a399f48302217">miscible</a> {false}</td></tr>
-<tr class="memdesc:affd2338845c0778f142a399f48302217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Miscible treatment of hydrocarbons, used in compositional Model. <br /></td></tr>
-<tr class="separator:affd2338845c0778f142a399f48302217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a9a0a948bc8c95ad10c96bb4fd4590"><td class="memItemLeft" align="right" valign="top"><a id="a34a9a0a948bc8c95ad10c96bb4fd4590"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#a34a9a0a948bc8c95ad10c96bb4fd4590">miscible</a> {OCP_FALSE}</td></tr>
+<tr class="memdesc:a34a9a0a948bc8c95ad10c96bb4fd4590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Miscible treatment of hydrocarbons, used in compositional Model. <br /></td></tr>
+<tr class="separator:a34a9a0a948bc8c95ad10c96bb4fd4590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa23ca2b1bd8af5c87a524cdbebd3c62e"><td class="memItemLeft" align="right" valign="top"><a id="aa23ca2b1bd8af5c87a524cdbebd3c62e"></a>
 vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEoSparam.html#aa23ca2b1bd8af5c87a524cdbebd3c62e">SSMparamSTA</a></td></tr>
 <tr class="memdesc:aa23ca2b1bd8af5c87a524cdbebd3c62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Params for Solving Phase Spliting with SSM. <br /></td></tr>
@@ -356,8 +356,8 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cla
 <div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160; </div>
 <div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;    vector&lt;string&gt; vbuf;</div>
 <div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nReg = 0;</div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <a class="code" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;    <span class="keywordflow">while</span> (OCP_TRUE) {</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
 <div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) {</div>
 <div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;            nReg++;</div>
 <div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;            <span class="keywordflow">if</span> (nReg &gt;= <a class="code" href="classEoSparam.html#aee5ae57038973265ac311a8058d909f6">NTPVT</a>)</div>
@@ -380,12 +380,12 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cla
 <div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aa790607636d2d185f38ccdc93c56eb09"><div class="ttname"><a href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a></div><div class="ttdeci">#define OCP_ASSERT(cond, msg)</div><div class="ttdoc">Assert condition and log user messages in DEBUG mode.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00058">UtilError.hpp:58</a></div></div>
-<div class="ttc" id="aUtilInput_8hpp_html_af8345cb8367acfd04919a63010eb4bcd"><div class="ttname"><a href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a></div><div class="ttdeci">bool ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
+<div class="ttc" id="aUtilInput_8hpp_html_a6ff8907e3f0c8e22861efd0f733314e1"><div class="ttname"><a href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a></div><div class="ttdeci">OCP_BOOL ReadLine(ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="UtilInput_8cpp_source.html#l00014">UtilInput.cpp:14</a></div></div>
 <div class="ttc" id="aclassEoSparam_html_a3a574c2f2ed1a7079368494e0f6f7569"><div class="ttname"><a href="classEoSparam.html#a3a574c2f2ed1a7079368494e0f6f7569">EoSparam::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components, water is excluded.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00094">ParamReservoir.hpp:94</a></div></div>
 <div class="ttc" id="aclassEoSparam_html_aee5ae57038973265ac311a8058d909f6"><div class="ttname"><a href="classEoSparam.html#aee5ae57038973265ac311a8058d909f6">EoSparam::NTPVT</a></div><div class="ttdeci">USI NTPVT</div><div class="ttdoc">num of EoS region, constant now.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00093">ParamReservoir.hpp:93</a></div></div>
 <div class="ttc" id="aclassEoSparam_html_afb68cce409462e42baf65dbe909b8c4f"><div class="ttname"><a href="classEoSparam.html#afb68cce409462e42baf65dbe909b8c4f">EoSparam::BIC</a></div><div class="ttdeci">vector&lt; vector&lt; OCP_DBL &gt; &gt; BIC</div><div class="ttdoc">Binary interaction.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00112">ParamReservoir.hpp:112</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00112">BIC</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00093">NTPVT</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00094">numCom</a>, <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>, and <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00112">BIC</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00093">NTPVT</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00094">numCom</a>, and <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>.</p>
 
 </div>
 </div>
@@ -418,7 +418,7 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cla
 <div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160; </div>
 <div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> c = 0; c &lt; <a class="code" href="classEoSparam.html#a3a574c2f2ed1a7079368494e0f6f7569">numCom</a>; c++) {</div>
 <div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        <a class="code" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c].resize(len);</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <a class="code" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a>(ifs, vbuf);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
 <div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
 <div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;            <a class="code" href="classEoSparam.html#ac622a6d8f53de624e9d213fe72995f3b">COM</a>[c][i] = vbuf[i];</div>
 <div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;        }</div>
@@ -455,7 +455,7 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cla
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

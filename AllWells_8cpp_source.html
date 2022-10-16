@@ -181,8 +181,8 @@ $(function() {
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// control of group should be update according to input file</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// for test</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        wellGroup[0].reInj = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (OCP_FALSE) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        wellGroup[0].reInj = OCP_TRUE;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        wellGroup[0].saleRate = 1500;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        wellGroup[0].injPhase = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        wellGroup[0].prodGroup = 0;</div>
@@ -213,7 +213,7 @@ $(function() {
 <div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="classAllWells.html#a6687a89061fd6a296715c85279580b0b">  149</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a6687a89061fd6a296715c85279580b0b">AllWells::ApplyControl</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; i)</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;{</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    wellChange = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    wellChange = OCP_FALSE;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        wells[w].opt = wells[w].optSet[i];</div>
@@ -222,7 +222,7 @@ $(function() {
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            wId++;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        }</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">if</span> (i &gt; 0 &amp;&amp; wells[w].opt != wells[w].optSet[i - 1])</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            wellChange = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            wellChange = OCP_TRUE;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
@@ -243,7 +243,7 @@ $(function() {
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            wells[w].CalTrans(myBulk);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            wells[w].CalFlux(myBulk, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            wells[w].CalFlux(myBulk, OCP_TRUE);</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            wells[w].CalProdWeight(myBulk);</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            wells[w].CaldG(myBulk);</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="comment">// test</span></div>
@@ -270,7 +270,7 @@ $(function() {
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            wells[w].CalFlux(myBulk, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            wells[w].CalFlux(myBulk, OCP_FALSE);</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        }</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    }</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;}</div>
@@ -360,7 +360,7 @@ $(function() {
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            <span class="comment">// assign to every open injection well in wG</span></div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wG.wIdINJ) {</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    wells[w].opt.reInj = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    wells[w].opt.reInj = OCP_TRUE;</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                    wells[w].opt.connWell = wG.wIdPROD;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                    wells[w].opt.injPhase = wG.injPhase;</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                    wells[w].opt.zi = wG.zi;</div>
@@ -409,8 +409,8 @@ $(function() {
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="comment">// 1   : negative P, cut the timestep and resolve</span></div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="comment">// 2.1 : change well mode to BHP, resolve</span></div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="comment">// 2.2 : crossflow happens, then close corresponding perf, resolve</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordtype">bool</span> flag2 = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordtype">bool</span> flag3 = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag2 = OCP_FALSE;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag3 = OCP_FALSE;</div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
@@ -423,10 +423,10 @@ $(function() {
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                <span class="keywordflow">case</span> 1:</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                    <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                    flag2 = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                    flag2 = OCP_TRUE;</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                    flag3 = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                    flag3 = OCP_TRUE;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                    <span class="keywordflow">break</span>;</div>
@@ -792,14 +792,15 @@ $(function() {
 <div class="ttc" id="aDenseMat_8hpp_html_accb44af625653de07f0a8dba403348d1"><div class="ttname"><a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a></div><div class="ttdeci">double Dnorm1(const int &amp;N, double *x)</div><div class="ttdoc">Computes the L1-norm of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00050">DenseMat.cpp:50</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_ae3d6d69eb9175bc2ed3414c44bde7a8d"><div class="ttname"><a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a></div><div class="ttdeci">void Dcopy(const int &amp;N, double *dst, const double *src)</div><div class="ttdoc">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00037">DenseMat.cpp:37</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00083">OCPConst.hpp:83</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00086">OCPConst.hpp:86</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00108">OCPConst.hpp:108</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_acceeb5bbcfec087d0873141428dca9aa"><div class="ttname"><a href="OCPConst_8hpp.html#acceeb5bbcfec087d0873141428dca9aa">TEMPERATURE_STD</a></div><div class="ttdeci">const OCP_DBL TEMPERATURE_STD</div><div class="ttdoc">Standard temperature.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00056">OCPConst.hpp:56</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00111">OCPConst.hpp:111</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_acceeb5bbcfec087d0873141428dca9aa"><div class="ttname"><a href="OCPConst_8hpp.html#acceeb5bbcfec087d0873141428dca9aa">TEMPERATURE_STD</a></div><div class="ttdeci">const OCP_DBL TEMPERATURE_STD</div><div class="ttdoc">Standard temperature.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00059">OCPConst.hpp:59</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00107">OCPConst.hpp:107</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_af4fc00d6f7ddbba6c546c1e9d94464a6"><div class="ttname"><a href="OCPConst_8hpp.html#af4fc00d6f7ddbba6c546c1e9d94464a6">PRESSURE_STD</a></div><div class="ttdeci">const OCP_DBL PRESSURE_STD</div><div class="ttdoc">14.6959 psia = 1 atm</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00055">OCPConst.hpp:55</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00110">OCPConst.hpp:110</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_af4fc00d6f7ddbba6c546c1e9d94464a6"><div class="ttname"><a href="OCPConst_8hpp.html#af4fc00d6f7ddbba6c546c1e9d94464a6">PRESSURE_STD</a></div><div class="ttdeci">const OCP_DBL PRESSURE_STD</div><div class="ttdoc">14.6959 psia = 1 atm</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a0eb734bbd0471b876ba18ad32521a6bb"><div class="ttname"><a href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">AllWells::ShowRes</a></div><div class="ttdeci">void ShowRes(const vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk) const</div><div class="ttdoc">Show Res.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00587">AllWells.cpp:587</a></div></div>
@@ -851,7 +852,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

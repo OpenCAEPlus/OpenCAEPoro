@@ -230,11 +230,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    {</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordflow">if</span> (ACTNUM[n] == 0 || poro[n] * ntg[n] &lt; e1 || v[n] &lt; e2)</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        {</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">false</span>, 0);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            <span class="keywordflow">continue</span>;</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        }</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        activeMap_B2G.push_back(n);</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(<span class="keyword">true</span>, count);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        count++;</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    }</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    activeGridNum = count;</div>
@@ -288,7 +288,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    {</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Id is out of Range!&quot;</span>);</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    }</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keywordtype">bool</span> activity = activeMap_G2B[id].IsAct();</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> activity = activeMap_G2B[id].IsAct();</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">if</span> (!activity)</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    {</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
@@ -297,6 +297,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">return</span> id;</div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
@@ -310,7 +311,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

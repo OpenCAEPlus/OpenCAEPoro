@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['bgas_61',['BGAS',['../classOutputDetail.html#adbba5bf745cbd54b427e43027ae3d045',1,'OutputDetail']]],
+  ['bgas_61',['BGAS',['../classOutputDetail.html#ab2a82a2d5dff6b884e1edb69bf41f3e9',1,'OutputDetail']]],
   ['bhp_5fmode_62',['BHP_MODE',['../OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225',1,'OCPConst.hpp']]],
   ['bic_63',['BIC',['../classEoSparam.html#afb68cce409462e42baf65dbe909b8c4f',1,'EoSparam']]],
-  ['blackoil_64',['blackOil',['../classParamReservoir.html#ac5209bd071906af24dbbae8b0677c081',1,'ParamReservoir']]],
+  ['blackoil_64',['blackOil',['../classParamReservoir.html#ab15885b19bd7b73aedf00acde7d929c8',1,'ParamReservoir']]],
   ['blkoil_65',['BLKOIL',['../OCPConst_8hpp.html#a1457bcdb311848998b260c5e95da83bb',1,'OCPConst.hpp']]],
-  ['boil_66',['BOIL',['../classOutputDetail.html#abe594be660552b77d3fa283356eaa3a4',1,'OutputDetail']]],
+  ['boil_66',['BOIL',['../classOutputDetail.html#aaf88a046244646ee06a8aa495ae5ebf7',1,'OutputDetail']]],
   ['bomixture_67',['BOMixture',['../classBOMixture.html',1,'']]],
   ['bomixture_5fodgw_68',['BOMixture_ODGW',['../classBOMixture__ODGW.html',1,'']]],
   ['bomixture_5fow_69',['BOMixture_OW',['../classBOMixture__OW.html',1,'']]],
@@ -19,5 +19,5 @@ var searchData=
   ['bulkconn_2ecpp_77',['BulkConn.cpp',['../BulkConn_8cpp.html',1,'']]],
   ['bulkconn_2ehpp_78',['BulkConn.hpp',['../BulkConn_8hpp.html',1,'']]],
   ['bulkpair_79',['BulkPair',['../classBulkPair.html',1,'BulkPair'],['../classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5',1,'BulkPair::BulkPair()=default'],['../classBulkPair.html#a0d8ad44455344975cc030674d56b0508',1,'BulkPair::BulkPair(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const OCP_DBL &amp;Area)']]],
-  ['bwat_80',['BWAT',['../classOutputDetail.html#a0066635281c3455f5de8f6db6a7dee6c',1,'OutputDetail']]]
+  ['bwat_80',['BWAT',['../classOutputDetail.html#a99add63488f10da6064112529d698df9',1,'OutputDetail']]]
 ];

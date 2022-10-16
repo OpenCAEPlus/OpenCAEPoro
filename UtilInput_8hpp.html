@@ -99,8 +99,8 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ad8c56b4feca661bc6608cc74bc5c9771"><td class="memItemLeft" align="right" valign="top">constexpr long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilInput_8hpp.html#ad8c56b4feca661bc6608cc74bc5c9771">Map_Str2Int</a> (const char *mystr, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;len)</td></tr>
 <tr class="separator:ad8c56b4feca661bc6608cc74bc5c9771"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8345cb8367acfd04919a63010eb4bcd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilInput_8hpp.html#af8345cb8367acfd04919a63010eb4bcd">ReadLine</a> (ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</td></tr>
-<tr class="separator:af8345cb8367acfd04919a63010eb4bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ff8907e3f0c8e22861efd0f733314e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a> (ifstream &amp;ifs, vector&lt; string &gt; &amp;result)</td></tr>
+<tr class="separator:a6ff8907e3f0c8e22861efd0f733314e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11ed6290b3b860d88bd46530e56f6fb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a> (vector&lt; string &gt; &amp;result)</td></tr>
 <tr class="separator:a11ed6290b3b860d88bd46530e56f6fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbd90c8bca56507b8d5c94f3222949ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -290,14 +290,14 @@ template&lt;typename T &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af8345cb8367acfd04919a63010eb4bcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8345cb8367acfd04919a63010eb4bcd">&#9670;&nbsp;</a></span>ReadLine()</h2>
+<a id="a6ff8907e3f0c8e22861efd0f733314e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff8907e3f0c8e22861efd0f733314e1">&#9670;&nbsp;</a></span>ReadLine()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ReadLine </td>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> ReadLine </td>
           <td>(</td>
           <td class="paramtype">ifstream &amp;&#160;</td>
           <td class="paramname"><em>ifs</em>, </td>
@@ -315,7 +315,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>ReadLine is the core function while inputting the file. It will capture the next line which is meanningful, for example, not blank line or comments, and then gets rid of some useless characters such as space, commas. Finally, the segments of rest string will be stored in result. And if return false, it indicates we have reach the end of file. </p>
+<p>ReadLine is the core function while inputting the file. It will capture the next line which is meanningful, for example, not blank line or comments, and then gets rid of some useless characters such as space, commas. Finally, the segments of rest string will be stored in result. And if return OCP_FALSE, it indicates we have reach the end of file. </p>
 
 <p class="definition">Definition at line <a class="el" href="UtilInput_8cpp_source.html#l00014">14</a> of file <a class="el" href="UtilInput_8cpp_source.html">UtilInput.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
@@ -333,7 +333,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// file ends</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (buf.empty()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (buf.empty()) <span class="keywordflow">return</span> OCP_FALSE;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// remove the string behind the &#39;/&#39;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> pos = buf.find_first_of(<span class="charliteral">&#39;/&#39;</span>);</div>
@@ -350,7 +350,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    istringstream tmp(buf);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">while</span> (tmp &gt;&gt; buf) result.push_back(buf);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
@@ -358,7 +358,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

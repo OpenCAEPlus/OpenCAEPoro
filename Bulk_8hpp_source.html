@@ -140,7 +140,7 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOCP__AIMc.html#ae29cf68ec987328efe79ac5ea19f8ddf">Setup</a>(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> InitSjPcBo(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; tabrow);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> InitSjPcComp(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; tabrow, <span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> InitFlash(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; flag = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> InitFlash(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; flag = OCP_FALSE);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> InitFlashDer();</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> InitFlashDer_n();</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> Flash();</div>
@@ -168,9 +168,9 @@ $(function() {
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> CheckSetup() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> CheckInitVpore() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> CheckVpore() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">bool</span> CheckP() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">bool</span> CheckNi();</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">bool</span> CheckVe(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Vlim) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> CheckP() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> CheckNi();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> CheckVe(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; Vlim) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> CheckSat() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> CheckDiff();</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
@@ -237,9 +237,9 @@ $(function() {
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    vector&lt;OCPTable&gt;  initZi_T; </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    vector&lt;OCP_DBL&gt;   SwatInit; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">bool</span> SwatInitExist{<span class="keyword">false</span>};    </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> SwatInitExist{OCP_FALSE};    </div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    vector&lt;OCP_DBL&gt;  ScaleValuePcow; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">bool</span> ScalePcow{<span class="keyword">false</span>};  </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> ScalePcow{OCP_FALSE};  </div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    </div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>               PVTmode;  </div>
@@ -257,11 +257,11 @@ $(function() {
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    vector&lt;USI&gt;       lphaseNum;    </div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    vector&lt;USI&gt;       NRphaseNum;   </div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    vector&lt;OCP_SIN&gt;   minEigenSkip; </div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    vector&lt;bool&gt;      flagSkip;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    vector&lt;OCP_BOOL&gt;      flagSkip;</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    vector&lt;OCP_DBL&gt;   ziSkip;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    vector&lt;OCP_DBL&gt;   PSkip;</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    vector&lt;OCP_SIN&gt;   lminEigenSkip;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    vector&lt;bool&gt;      lflagSkip;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    vector&lt;OCP_BOOL&gt;      lflagSkip;</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    vector&lt;OCP_DBL&gt;   lziSkip;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    vector&lt;OCP_DBL&gt;   lPSkip;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
@@ -275,13 +275,13 @@ $(function() {
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="comment">// Basic model information</span></div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment"></span>    <a class="code" href="classParamEQUIL.html">ParamEQUIL</a> EQUIL;    </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordtype">bool</span>       blackOil; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keywordtype">bool</span>       comps;    </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordtype">bool</span>       oil;      </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordtype">bool</span>       gas;      </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordtype">bool</span>       water;    </div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordtype">bool</span>       disGas;   </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordtype">bool</span>       miscible; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       blackOil; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       comps;    </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       oil;      </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       gas;      </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       water;    </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       disGas;   </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>       miscible; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="comment">// Basic physical variables</span></div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment"></span>    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         T;          </div>
@@ -289,7 +289,7 @@ $(function() {
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    vector&lt;OCP_DBL&gt; P;          </div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    vector&lt;OCP_DBL&gt; Pj;         </div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    vector&lt;OCP_DBL&gt; Pc;         </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    vector&lt;bool&gt;    phaseExist; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    vector&lt;OCP_BOOL&gt;    phaseExist; </div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    vector&lt;OCP_DBL&gt; S;          </div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    vector&lt;OCP_DBL&gt; nj;         </div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    vector&lt;OCP_DBL&gt; rho;        </div>
@@ -312,7 +312,7 @@ $(function() {
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"></span>    vector&lt;OCP_DBL&gt; lP;          </div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    vector&lt;OCP_DBL&gt; lPj;         </div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    vector&lt;OCP_DBL&gt; lPc;         </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    vector&lt;bool&gt;    lphaseExist; </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    vector&lt;OCP_BOOL&gt;    lphaseExist; </div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    vector&lt;OCP_DBL&gt; lS;          </div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    vector&lt;OCP_DBL&gt; lnj;         </div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    vector&lt;OCP_DBL&gt; lrho;        </div>
@@ -422,7 +422,7 @@ $(function() {
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    vector&lt;OCP_USI&gt; resIndex;  </div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <span class="comment">// Auxiliary variable for dSec_dPr</span></div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    vector&lt;bool&gt;    pSderExist;   </div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    vector&lt;OCP_BOOL&gt;    pSderExist;   </div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    vector&lt;USI&gt;     pVnumCom;  </div>
 <div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="comment">// vars at last step</span></div>
@@ -439,7 +439,7 @@ $(function() {
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    vector&lt;OCP_DBL&gt; lresPc;      </div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    vector&lt;OCP_USI&gt; ldSdPindex;  </div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    vector&lt;OCP_USI&gt; lresIndex;   </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    vector&lt;bool&gt;    lpSderExist; </div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    vector&lt;OCP_BOOL&gt;    lpSderExist; </div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    vector&lt;USI&gt;     lpVnumCom;   </div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
@@ -479,9 +479,9 @@ $(function() {
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordtype">void</span> AllocateAuxAIM(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; ratio);</div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> GetMaxFIMBulk()<span class="keyword">const </span>{ <span class="keywordflow">return</span> maxNumFIMBulk; }</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordtype">void</span> FlashDerivAIM(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; IfAIMs);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordtype">void</span> FlashDerivAIM(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; IfAIMs);</div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    <span class="keywordtype">void</span> PassFlashValueDerivAIM(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n);</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keywordtype">void</span> CalKrPcDerivAIM(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; IfAIMs);</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keywordtype">void</span> CalKrPcDerivAIM(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; IfAIMs);</div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keywordtype">void</span> CalRelResAIMt(<a class="code" href="classResFIM.html">ResFIM</a>&amp; <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <span class="keywordtype">void</span> GetSolAIMt(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dPmaxlim,</div>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dSmaxlim);</div>
@@ -491,8 +491,8 @@ $(function() {
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dSmaxlim);</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    <span class="keywordtype">void</span> UpdateLastStepAIM();</div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordtype">void</span> ResetFIMBulk();</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    <span class="keywordtype">void</span> ShowFIMBulk(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; flag = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    <span class="keywordtype">bool</span> CheckNiFIMBulk() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    <span class="keywordtype">void</span> ShowFIMBulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; flag = OCP_FALSE) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> CheckNiFIMBulk() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    <span class="keywordtype">void</span> InFIMNi();</div>
 <div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keywordtype">void</span> OutFIMNi();</div>
 <div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160; </div>
@@ -548,11 +548,12 @@ $(function() {
 <div class="ttc" id="aMixture_8hpp_html"><div class="ttname"><a href="Mixture_8hpp.html">Mixture.hpp</a></div><div class="ttdoc">Mixture class declaration.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html"><div class="ttname"><a href="OCPConst_8hpp.html">OCPConst.hpp</a></div><div class="ttdoc">Definition of build-in datatypes and consts.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00083">OCPConst.hpp:83</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00086">OCPConst.hpp:86</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a41259a3447e9d6f13bb3579683119c29"><div class="ttname"><a href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a></div><div class="ttdeci">const USI WATER</div><div class="ttdoc">Fluid type = water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00082">OCPConst.hpp:82</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a41259a3447e9d6f13bb3579683119c29"><div class="ttname"><a href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a></div><div class="ttdeci">const USI WATER</div><div class="ttdoc">Fluid type = water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00087">OCPConst.hpp:87</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00085">OCPConst.hpp:85</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_af7bad630928e2d245f39e3dc63ab3d93"><div class="ttname"><a href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a></div><div class="ttdeci">unsigned long long OCP_ULL</div><div class="ttdoc">Long long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPStructure_8hpp_html"><div class="ttname"><a href="OCPStructure_8hpp.html">OCPStructure.hpp</a></div><div class="ttdoc">Some Structure in OpenCAEPoro.</div></div>
 <div class="ttc" id="aParamReservoir_8hpp_html"><div class="ttname"><a href="ParamReservoir_8hpp.html">ParamReservoir.hpp</a></div><div class="ttdoc">ParamReservoir class declaration.</div></div>
@@ -595,7 +596,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 15 2022 11:40:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 16 2022 00:21:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
