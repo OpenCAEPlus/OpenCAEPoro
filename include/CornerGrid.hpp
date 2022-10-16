@@ -148,8 +148,8 @@ class COORD
 public:
     void Allocate(const USI& Nx, const USI& Ny, const USI& Nz);
     void InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn);
-    bool InputCOORDDATA(const vector<OCP_DBL>& coord);
-    bool InputZCORNDATA(const vector<OCP_DBL>& zcorn);
+    OCP_BOOL InputCOORDDATA(const vector<OCP_DBL>& coord);
+    OCP_BOOL InputZCORNDATA(const vector<OCP_DBL>& zcorn);
     // New version
     void SetupCornerPoints();
     void SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face);
@@ -181,9 +181,9 @@ private:
     // if the i th point of oFace is higher than the one of Face, then flagpi = -1;
     // if the i th point of oFace is very close to the one of Face, then flagpi = 0;
     OCP_INT flagp0, flagp1, flagp2, flagp3;
-    bool flagQuad;
-    bool upNNC, downNNC;
-    bool flagJump;
+    OCP_BOOL flagQuad;
+    OCP_BOOL upNNC, downNNC;
+    OCP_BOOL flagJump;
     HexahedronFace tmpFace;
     // after the Axes are determined, blocks will be placed along the y+, or along the y-
     // if y+, then flagForward equals 1.0, else -1.0, this relates to calculation of 

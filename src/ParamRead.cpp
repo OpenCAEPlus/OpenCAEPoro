@@ -61,7 +61,7 @@ void ParamRead::ReadFile(const string& filename)
 
         switch (Map_Str2Int(&keyword[0], keyword.size())) {
             case Map_Str2Int("BLACKOIL", 8):
-                paramRs.blackOil = true;
+                paramRs.blackOil = OCP_TRUE;
                 break;
 
             case Map_Str2Int("COMPS", 5):
@@ -69,19 +69,19 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("OIL", 3):
-                paramRs.oil = true;
+                paramRs.oil = OCP_TRUE;
                 break;
 
             case Map_Str2Int("GAS", 3):
-                paramRs.gas = true;
+                paramRs.gas = OCP_TRUE;
                 break;
 
             case Map_Str2Int("WATER", 5):
-                paramRs.water = true;
+                paramRs.water = OCP_TRUE;
                 break;
 
             case Map_Str2Int("DISGAS", 6):
-                paramRs.disGas = true;
+                paramRs.disGas = OCP_TRUE;
                 break;
 
             case Map_Str2Int("DIMENS", 6):
@@ -140,7 +140,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("MISCIBLE", 8):
-                paramRs.EoSp.miscible = true;
+                paramRs.EoSp.miscible = OCP_TRUE;
                 break;
 
             case Map_Str2Int("MISCSTR", 7):

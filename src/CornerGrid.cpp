@@ -620,10 +620,10 @@ void COORD::InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn
     }
 }
 
-bool COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
+OCP_BOOL COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
 {
     // See Eclipse -- COORD
-    bool    flag = false;
+    OCP_BOOL    flag = OCP_FALSE;
     OCP_USI iter = 0;
 
     for (USI J = 0; J < ny + 1; J++) {
@@ -641,14 +641,14 @@ bool COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
         }
     }
 
-    flag = true;
+    flag = OCP_TRUE;
     return flag;
 }
 
-bool COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
+OCP_BOOL COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
 {
     // See Eclipse -- ZCORN
-    bool    flag = false;
+    OCP_BOOL    flag = OCP_FALSE;
     OCP_USI iter = 0;
 
     for (USI K = 0; K < nz; K++) {
@@ -682,7 +682,7 @@ bool COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
         }
     }
 
-    flag = true;
+    flag = OCP_TRUE;
     return flag;
 }
 
@@ -723,16 +723,16 @@ void COORD::SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face)
    
     if (((oFace.p1.z <= Face.p0.z) && (oFace.p2.z <= Face.p3.z)) ||
         ((oFace.p0.z >= Face.p1.z) && (oFace.p3.z >= Face.p2.z))){
-        flagJump = true;
+        flagJump = OCP_TRUE;
     }
     else {
-        flagJump = false;   
+        flagJump = OCP_FALSE;   
         if ((flagp0 * flagp3 >= 0) && (oFace.p0.z <= Face.p1.z) && (oFace.p3.z <= Face.p2.z) &&
             (flagp1 * flagp2 >= 0) && (oFace.p1.z >= Face.p0.z) && (oFace.p2.z >= Face.p3.z)) {
-            flagQuad = true;
+            flagQuad = OCP_TRUE;
         }
         else {
-            flagQuad = false;
+            flagQuad = OCP_FALSE;
         }
     }  
 }
@@ -958,10 +958,10 @@ void COORD::SetupCornerPoints()
                     
                     // then find all NNC for current block
                     // check if upNNC and downNNC exist                   
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                    else                               upNNC = false;                                      
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                    else                               downNNC = false;
+                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                    else                               upNNC = OCP_FALSE;                                      
+                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                    else                               downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
@@ -1011,8 +1011,8 @@ void COORD::SetupCornerPoints()
                             
                         }
                         iznnc--;
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                        else                               upNNC = false;
+                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                        else                               upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
@@ -1063,8 +1063,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc++;
                         
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                        else                               downNNC = false;
+                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                        else                               downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1129,10 +1129,10 @@ void COORD::SetupCornerPoints()
                     }                   
 
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                    else                               upNNC = false;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                    else                               downNNC = false;
+                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                    else                               upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                    else                               downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
@@ -1182,8 +1182,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                        else                               upNNC = false;
+                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                        else                               upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
@@ -1234,8 +1234,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                        else                               downNNC = false;
+                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                        else                               downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1300,10 +1300,10 @@ void COORD::SetupCornerPoints()
                     }                   
 
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                    else                               upNNC = false;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                    else                               downNNC = false;
+                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                    else                               upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                    else                               downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
@@ -1353,8 +1353,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                        else                               upNNC = false;
+                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                        else                               upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
@@ -1405,8 +1405,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                        else                               downNNC = false;
+                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                        else                               downNNC = OCP_FALSE;
                     }
                 }               
 
@@ -1471,10 +1471,10 @@ void COORD::SetupCornerPoints()
                     }
                     
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                    else                               upNNC = false;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                    else                               downNNC = false;
+                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                    else                               upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                    else                               downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
@@ -1524,8 +1524,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = true;
-                        else                               upNNC = false;
+                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
+                        else                               upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
@@ -1576,8 +1576,8 @@ void COORD::SetupCornerPoints()
                         }                       
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = true;
-                        else                               downNNC = false;
+                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
+                        else                               downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1667,7 +1667,7 @@ void COORD::SetupCornerPoints()
             }
             if (blockconn[n].halfConn[j].Ad_dd <= 0 ||
                 blockconn[nn].halfConn[jj].Ad_dd <= 0) {
-                // false connection
+                // OCP_FALSE connection
                 continue;
             }
 

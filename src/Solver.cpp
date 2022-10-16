@@ -76,7 +76,7 @@ void Solver::GoOneStep(Reservoir &rs, OCPControl &ctrl)
     Prepare(rs, dt);
 
     // Time marching with adaptive time stepsize
-    while (true)
+    while (OCP_TRUE)
     {
         if (dt < MIN_TIME_CURSTEP)
             OCP_ABORT("Time stepsize is too small!");
@@ -116,14 +116,14 @@ void Solver::AssembleSolve(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Update properties after solving.
-bool Solver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL Solver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
     // Update for the fluid part
     return IsoTSolver.UpdateProperty(rs, ctrl);
 }
 
 /// Clean up Newton-Raphson iteration if there is any.
-bool Solver::FinishNR(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL Solver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     // Clean up the fluid part
     return IsoTSolver.FinishNR(rs, ctrl);

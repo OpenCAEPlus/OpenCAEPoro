@@ -91,11 +91,11 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     else
         Vshift.resize(NC, 0);
 
-    ParachorAct = true;
+    ParachorAct = OCP_TRUE;
     if (param.Parachor.activity)
         Parachor = param.Parachor.data[tar];
     else
-        ParachorAct = false;
+        ParachorAct = OCP_FALSE;
 
     if (param.Vcvis.activity)
         Vcvis = param.Vcvis.data[tar];
@@ -213,7 +213,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
-    phaseExist[Wpid]          = true;
+    phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     PVTW.Eval_All(0, P, data, cdata);
     OCP_DBL Pw0 = data[0];
@@ -278,7 +278,7 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
-    phaseExist[Wpid]          = true;
+    phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     PVTW.Eval_All(0, P, data, cdata);
     OCP_DBL Pw0       = data[0];
@@ -315,11 +315,11 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalMuPX_partial();
 
     // Calculate pSderExist and pVnumCom
-    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
-    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
-    pSderExist[2] = true;
+    if (phaseExist[0]) { pSderExist[0] = OCP_TRUE; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = OCP_TRUE; pVnumCom[1] = NC; }
+    pSderExist[2] = OCP_TRUE;
 }
 
 
@@ -364,7 +364,7 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
-    phaseExist[Wpid]          = true;
+    phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     PVTW.Eval_All(0, P, data, cdata);
     OCP_DBL Pw0       = data[0];
@@ -397,11 +397,11 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
     CalVfiVfp_full03();
 
     // Calculate pSderExist and pVnumCom
-    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
-    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
-    pSderExist[2] = true;
+    if (phaseExist[0]) { pSderExist[0] = OCP_TRUE; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = OCP_TRUE; pVnumCom[1] = NC; }
+    pSderExist[2] = OCP_TRUE;
 }
 
 
@@ -426,7 +426,7 @@ void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* N
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
-    phaseExist[Wpid]          = true;
+    phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     Nt = Nh + Ni[Wcid];
     PVTW.Eval_All(0, P, data, cdata);
@@ -466,7 +466,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     // Water Properties
     USI Wpid                  = numPhase - 1;
     USI Wcid                  = numCom - 1;
-    phaseExist[Wpid]          = true;
+    phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     nj[Wpid] = Ni[Wcid];
     Nt = Nh + Ni[Wcid];
@@ -502,11 +502,11 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalMuPX_partial();
 
     // Calculate pSderExist and pVnumCom
-    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
-    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
-    pSderExist[2] = true;
+    if (phaseExist[0]) { pSderExist[0] = OCP_TRUE; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = OCP_TRUE; pVnumCom[1] = NC; }
+    pSderExist[2] = OCP_TRUE;
 }
 
 
@@ -523,7 +523,7 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     inputNP--;
 
 
-    if (inputNP == 1 || true) {
+    if (inputNP == 1 || OCP_TRUE) {
         ftype = myftype;
         lNP = lastNP;
         if (lNP == 2) {
@@ -562,7 +562,7 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     // Water Properties
     USI Wpid = numPhase - 1;
     USI Wcid = numCom - 1;
-    phaseExist[Wpid] = true;
+    phaseExist[Wpid] = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     nj[Wpid] = Ni[Wcid];
     Nt = Nh + Ni[Wcid];
@@ -589,7 +589,7 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalSaturation();
 
     // calculate diff    
-    if (inputNP == NP && NP == 2 && false) {
+    if (inputNP == NP && NP == 2 && OCP_FALSE) {
         cout << scientific << setprecision(3);
         cout << "--------- " << NP << " --------- " << inputNP << endl;
         for (USI j = 0; j < NP; j++) {
@@ -612,11 +612,11 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
     CalVfiVfp_full03();
 
     // Calculate pSderExist and pVnumCom
-    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
-    if (phaseExist[0]) { pSderExist[0] = true; pVnumCom[0] = NC; }
-    if (phaseExist[1]) { pSderExist[1] = true; pVnumCom[1] = NC; }
-    pSderExist[2] = true;
+    if (phaseExist[0]) { pSderExist[0] = OCP_TRUE; pVnumCom[0] = NC; }
+    if (phaseExist[1]) { pSderExist[1] = OCP_TRUE; pVnumCom[1] = NC; }
+    pSderExist[2] = OCP_TRUE;
 }
 
 
@@ -760,7 +760,7 @@ void MixtureComp::SolEoS(OCP_DBL& ZjT, const OCP_DBL& AjT, const OCP_DBL& BjT) c
         (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1));
     const OCP_DBL c = -(aj * bj + delta1 * delta2 * bj * bj * (bj + 1));
 
-    USI flag = CubicRoot(a, b, c, true); // True with NT
+    USI flag = CubicRoot(a, b, c, OCP_TRUE); // True with NT
     if (flag == 1) {
         ZjT = Ztmp[0];
     } else {
@@ -1145,7 +1145,7 @@ void MixtureComp::CalKwilson()
 void MixtureComp::PhaseEquilibrium()
 {
 
-    flagSkip = true;
+    flagSkip = OCP_TRUE;
 
     switch (ftype) {
         case 0:
@@ -1212,7 +1212,7 @@ void MixtureComp::PhaseEquilibrium()
             break;
     }
 
-    if (NP > 1)  flagSkip = false;
+    if (NP > 1)  flagSkip = OCP_FALSE;
     if (NP == 1 && ftype == 0 && flagSkip) {
         CalPhiNSTA();
         AssembleSkipMatSTA();
@@ -1228,7 +1228,7 @@ void MixtureComp::PhaseEquilibrium()
     }
 }
 
-bool MixtureComp::PhaseStable()
+OCP_BOOL MixtureComp::PhaseStable()
 {
     if (NP == 1) {
         testPId = 0;
@@ -1237,13 +1237,13 @@ bool MixtureComp::PhaseStable()
         testPId = FindMWmax();
     }
 
-    EoSctrl.SSMsta.conflag = false;
+    EoSctrl.SSMsta.conflag = OCP_FALSE;
     EoSctrl.SSMsta.curIt = 0;
-    EoSctrl.NRsta.conflag = false;
+    EoSctrl.NRsta.conflag = OCP_FALSE;
     EoSctrl.NRsta.curIt  = 0;
 
-    // Test if a phase is stable, if stable return true, else return false
-    bool flag;
+    // Test if a phase is stable, if stable return OCP_TRUE, else return OCP_FALSE
+    OCP_BOOL flag;
     USI  tmpNP = NP;
 
     if (lNP == 0) {
@@ -1256,7 +1256,7 @@ bool MixtureComp::PhaseStable()
 
         if (tmpNP != lNP) {
             flag = StableSSM(testPId);
-            flagSkip = false;
+            flagSkip = OCP_FALSE;
         }
     }
     SSMSTAiters += EoSctrl.SSMsta.curIt;
@@ -1273,10 +1273,10 @@ bool MixtureComp::PhaseStable()
     return flag;
 }
 
-bool MixtureComp::StableSSM01(const USI& Id)
+OCP_BOOL MixtureComp::StableSSM01(const USI& Id)
 {
-    // if unsatble, return false
-    // if stable, return true 
+    // if unsatble, return OCP_FALSE
+    // if stable, return OCP_TRUE 
 
 
     OCP_DBL Stol  = EoSctrl.SSMsta.tol2;
@@ -1287,7 +1287,7 @@ bool MixtureComp::StableSSM01(const USI& Id)
     // OCP_DBL& Sk = EoSctrl.SSMsta.curSk;
     OCP_DBL Se, Sk, dY;
 
-    bool    flag, Tsol; // Tsol, trivial solution
+    OCP_BOOL    flag, Tsol; // Tsol, trivial solution
     USI     iter, k;
 
     const vector<OCP_DBL>& xj = x[Id];
@@ -1299,9 +1299,9 @@ bool MixtureComp::StableSSM01(const USI& Id)
 
         ks   = Kw[k];
         iter = 0;
-        flag = false;
-        Tsol = false;
-        while (true) {
+        flag = OCP_FALSE;
+        Tsol = OCP_FALSE;
+        while (OCP_TRUE) {
             Yt = 0;
             for (USI i = 0; i < NC; i++) {
                 Y[i] = xj[i] * ks[i];
@@ -1316,7 +1316,7 @@ bool MixtureComp::StableSSM01(const USI& Id)
                 }
                 if (dY < dYtol) {
                     // converges
-                    flag = true;
+                    flag = OCP_TRUE;
                     break;
                 }
             }
@@ -1334,13 +1334,13 @@ bool MixtureComp::StableSSM01(const USI& Id)
 
             iter++;
             if (Se < Stol) {
-                flag = true;
+                flag = OCP_TRUE;
                 break;
             }
             if (Sk < Ktol) {
                 // Sk < Ktol -> trivial solution
-                flag = true;
-                Tsol = true;
+                flag = OCP_TRUE;
+                Tsol = OCP_TRUE;
                 break;
             }
             if (iter > maxIt) {
@@ -1360,22 +1360,22 @@ bool MixtureComp::StableSSM01(const USI& Id)
 
         if (flag && Yt > 1 - 0.1 && Sk > 1) {
             // close to phase boundary, or more than 1 phase, So don't skip at next step
-            flagSkip = false;
+            flagSkip = OCP_FALSE;
         }
         if (flag && Yt > 1 + eYt) {
-            EoSctrl.SSMsta.conflag = true;
+            EoSctrl.SSMsta.conflag = OCP_TRUE;
             EoSctrl.SSMsta.realTol = sqrt(Se);
-            return false;
+            return OCP_FALSE;
         }
     }
     EoSctrl.SSMsta.realTol = sqrt(Se);
-    return true;
+    return OCP_TRUE;
 }
 
-bool MixtureComp::StableSSM(const USI& Id)
+OCP_BOOL MixtureComp::StableSSM(const USI& Id)
 {
-    // if unsatble, return false
-    // if stable, return true 
+    // if unsatble, return OCP_FALSE
+    // if stable, return OCP_TRUE 
 
 
     const vector<OCP_DBL>& xj = x[Id];
@@ -1390,7 +1390,7 @@ bool MixtureComp::StableSSM(const USI& Id)
     USI     maxIt = EoSctrl.SSMsta.maxIt;
     OCP_DBL eYt   = EoSctrl.SSMsta.eYt;
     OCP_DBL Se;
-    bool    flag;
+    OCP_BOOL    flag;
     USI     iter;
     USI     k;
 
@@ -1412,7 +1412,7 @@ bool MixtureComp::StableSSM(const USI& Id)
             Se += pow(log(fugSta[i] / fugId[i] * Yt), 2);
         }
 
-        flag = true;
+        flag = OCP_TRUE;
         iter = 0;
 
         // cout << "ssmbegins" << endl;
@@ -1441,7 +1441,7 @@ bool MixtureComp::StableSSM(const USI& Id)
 
             iter++;
             if (iter > maxIt) {
-                flag = false;
+                flag = OCP_FALSE;
                 break;
             }
         }
@@ -1456,9 +1456,9 @@ bool MixtureComp::StableSSM(const USI& Id)
             // setw(3)
             //     << EoSctrl.SSMsta.curIt << "    " << setw(3) << EoSctrl.NRsta.curIt
             //     << "   " << flag << "   " << k << "   " << 2 << "   ";
-            EoSctrl.SSMsta.conflag = true;
+            EoSctrl.SSMsta.conflag = OCP_TRUE;
             EoSctrl.SSMsta.realTol = sqrt(Se);
-            return false;
+            return OCP_FALSE;
         }
     }
     // cout << "Yt = " << setprecision(12) << scientific << Yt << "    " << setw(3)
@@ -1468,10 +1468,10 @@ bool MixtureComp::StableSSM(const USI& Id)
         OCP_WARNING("SSM not converged in Stability Analysis");
     }*/
     EoSctrl.SSMsta.realTol = sqrt(Se);
-    return true;
+    return OCP_TRUE;
 }
 
-bool MixtureComp::StableNR(const USI& Id)
+OCP_BOOL MixtureComp::StableNR(const USI& Id)
 {
 
 #ifdef DEBUG
@@ -1522,9 +1522,9 @@ bool MixtureComp::StableNR(const USI& Id)
             // PrintDX(NC, &Y[0]);
             // cout << "---------------" << endl;
             EoSctrl.NRsta.curIt += iter;
-            EoSctrl.NRsta.conflag = false;
+            EoSctrl.NRsta.conflag = OCP_FALSE;
             EoSctrl.NRsta.realTol = Se;
-            return false;
+            return OCP_FALSE;
         }
 
 #ifdef DEBUG
@@ -1550,9 +1550,9 @@ bool MixtureComp::StableNR(const USI& Id)
     //}
 
     EoSctrl.NRsta.curIt += iter;
-    EoSctrl.NRsta.conflag = true;
+    EoSctrl.NRsta.conflag = OCP_TRUE;
     EoSctrl.NRsta.realTol = Se;
-    return true;
+    return OCP_TRUE;
 }
 
 void MixtureComp::CalFugXSTA()
@@ -1663,16 +1663,16 @@ void MixtureComp::AssembleJmatSTA()
 
 void MixtureComp::PhaseSplit()
 {
-    EoSctrl.SSMsp.conflag = false;   
+    EoSctrl.SSMsp.conflag = OCP_FALSE;   
     EoSctrl.SSMsp.curIt = 0;
-    EoSctrl.NRsp.conflag = false;
+    EoSctrl.NRsp.conflag = OCP_FALSE;
     EoSctrl.NRsp.curIt = 0;
     EoSctrl.RR.curIt = 0;
 
-    SplitSSM(false);
+    SplitSSM(OCP_FALSE);
     SplitNR();
     while (!EoSctrl.NRsp.conflag) {
-        SplitSSM(true);
+        SplitSSM(OCP_TRUE);
         SplitNR();
         if (!CheckSplit()) break;
         if (EoSctrl.SSMsp.conflag) break;
@@ -1700,7 +1700,7 @@ void MixtureComp::PhaseSplit()
     //    << (lNP == NP ? "N" : "Y") << "   ";
 }
 
-bool MixtureComp::CheckSplit()
+OCP_BOOL MixtureComp::CheckSplit()
 {
     if (NP == 2) {
 
@@ -1733,16 +1733,16 @@ bool MixtureComp::CheckSplit()
                 CalAjBj(Aj[0], Bj[0], x[0]);
                 SolEoS(Zj[0], Aj[0], Bj[0]);
 
-                EoSctrl.SSMsta.conflag = false;
-                EoSctrl.NRsta.conflag = false;
-                return false;
+                EoSctrl.SSMsta.conflag = OCP_FALSE;
+                EoSctrl.NRsta.conflag = OCP_FALSE;
+                return OCP_FALSE;
             }
         }
     }
-    return true;
+    return OCP_TRUE;
 }
 
-void MixtureComp::SplitSSM(const bool& flag)
+void MixtureComp::SplitSSM(const OCP_BOOL& flag)
 {
 #ifdef DEBUG
     cout << "SSMSP Begins!" << endl;
@@ -1755,13 +1755,13 @@ void MixtureComp::SplitSSM(const bool& flag)
     }
 }
 
-void MixtureComp::SplitSSM2(const bool& flag)
+void MixtureComp::SplitSSM2(const OCP_BOOL& flag)
 {
     // NP = 2 in this case
     // Ks is very IMPORTANT!
-    // flag = true : Restart SSM
-    // flag = false : New SSM
-    EoSctrl.SSMsp.conflag = true;
+    // flag = OCP_TRUE : Restart SSM
+    // flag = OCP_FALSE : New SSM
+    EoSctrl.SSMsp.conflag = OCP_TRUE;
     OCP_DBL Se            = 1;
     OCP_DBL Stol          = EoSctrl.SSMsp.tol2;
     USI     maxIt         = EoSctrl.SSMsp.maxIt;
@@ -1771,7 +1771,7 @@ void MixtureComp::SplitSSM2(const bool& flag)
             Ks[NP - 2] = lKs;
         }
         else {
-            if (Yt < 1.1 || true) {
+            if (Yt < 1.1 || OCP_TRUE) {
                 Ks[NP - 2] = Kw[0];
             }
             else {
@@ -1813,7 +1813,7 @@ void MixtureComp::SplitSSM2(const bool& flag)
         iter++;
         if (iter > maxIt) {
             // OCP_WARNING("SSM not converged in Phase Spliting!");
-            EoSctrl.SSMsp.conflag = false;
+            EoSctrl.SSMsp.conflag = OCP_FALSE;
             break;
         }
     }
@@ -1822,7 +1822,7 @@ void MixtureComp::SplitSSM2(const bool& flag)
     EoSctrl.SSMsp.curIt += iter; 
 }
 
-void MixtureComp::SplitSSM3(const bool& flag) {}
+void MixtureComp::SplitSSM3(const OCP_BOOL& flag) {}
 
 void MixtureComp::RachfordRice2() ///< Used when NP = 2
 {
@@ -1847,7 +1847,7 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     USI     iter  = 0;
     const OCP_DBL tol = EoSctrl.RR.tol;
     const OCP_DBL maxIt = EoSctrl.RR.maxIt;
-    while (true) {
+    while (OCP_TRUE) {
 
         rj = 0;
         J  = 0;
@@ -1916,7 +1916,7 @@ void MixtureComp::RachfordRice2P()
     USI     iter = 0;
     const OCP_DBL tol = EoSctrl.RR.tol;
     const OCP_DBL maxIt = EoSctrl.RR.maxIt;
-    while (true) {
+    while (OCP_TRUE) {
 
         rj = 0;
         J = 0;
@@ -2002,7 +2002,7 @@ void MixtureComp::SplitBFGS()
 
 void MixtureComp::SplitNR()
 {
-    EoSctrl.NRsp.conflag = false;
+    EoSctrl.NRsp.conflag = OCP_FALSE;
     for (USI j = 0; j < NP; j++) {
         nu[j] = fabs(nu[j]);
     }
@@ -2078,12 +2078,12 @@ void MixtureComp::SplitNR()
             en += Dnorm2(NC, &ln[j][0]);
         }
         if (en / (NP * NC) < 1E-8) {
-            EoSctrl.NRsp.conflag = true;
+            EoSctrl.NRsp.conflag = OCP_TRUE;
             break;
         }
     }
     EoSctrl.NRsp.realTol = eNR;
-    if (eNR < NRtol) EoSctrl.NRsp.conflag = true;
+    if (eNR < NRtol) EoSctrl.NRsp.conflag = OCP_TRUE;
     EoSctrl.NRsp.curIt += iter;
 
     // cout << iter << "   " << scientific << setprecision(3) << eNR << endl;
@@ -2100,7 +2100,7 @@ void MixtureComp::CalResSP()
     }
 }
 
-void MixtureComp::CalFugNAll(const bool& Znflag)
+void MixtureComp::CalFugNAll(const OCP_BOOL& Znflag)
 {
     OCP_DBL C, D, E, G;
     OCP_DBL Cnk, Dnk, Enk, Gnk;
@@ -2381,8 +2381,8 @@ void MixtureComp::AllocateOthers()
 
 void MixtureComp::IdentifyPhase()
 {
-    phaseExist[0] = false;
-    phaseExist[1] = false;
+    phaseExist[0] = OCP_FALSE;
+    phaseExist[1] = OCP_FALSE;
     if (NP == 1) {
         // Critical Temperature Method
         OCP_DBL A = 0;
@@ -2394,10 +2394,10 @@ void MixtureComp::IdentifyPhase()
         OCP_DBL Tc = A / B;
         if (T > Tc) {
             phaseLabel[0] = GAS;
-            phaseExist[1] = true;
+            phaseExist[1] = OCP_TRUE;
         } else {
             phaseLabel[0] = OIL;
-            phaseExist[0] = true;
+            phaseExist[0] = OCP_TRUE;
         }
     } else {
         // Compare MW
@@ -2408,8 +2408,8 @@ void MixtureComp::IdentifyPhase()
             phaseLabel[0] = GAS;
             phaseLabel[1] = OIL;
         }
-        phaseExist[0] = true;
-        phaseExist[1] = true;
+        phaseExist[0] = OCP_TRUE;
+        phaseExist[1] = OCP_TRUE;
     }
 }
 
@@ -2481,7 +2481,7 @@ void MixtureComp::CalViscoLBC()
         muA[2] = 5.4402 * pow(xijT, 1.0 / 6) / sqrt(MW[j]) / pow(xijP, 2.0 / 3);
         muA[3] = xiC[j] * xijV;
 
-        if (muA[3] <= 0.18 && false) {
+        if (muA[3] <= 0.18 && OCP_FALSE) {
             muC[j] = muA[0] / muA[1] + 2.05 * 1E-4 * muA[3] / muA[2];
         } else {
             muA[4] = muA[3] * (muA[3] * (muA[3] * (LBCcoef[4] * muA[3] + LBCcoef[3]) +
@@ -2566,7 +2566,7 @@ void MixtureComp::CalFugXAll()
     
 }
 
-void MixtureComp::CalFugPAll(const bool& Zpflag)
+void MixtureComp::CalFugPAll(const OCP_BOOL& Zpflag)
 {
 
     OCP_DBL C, D, E, G;
@@ -2757,7 +2757,7 @@ void MixtureComp::CalMuPnLBC_partial()
             xVj += xj[i] * Vcvis[i];
         }
         der7J = xVj * xiP[j1];
-        if (muAuxj[3] <= 0.18 && false) {
+        if (muAuxj[3] <= 0.18 && OCP_FALSE) {
             muP[j1] = (2.05 * 1E-4) * der7J / muAuxj[2];
         }
         else {
@@ -2798,7 +2798,7 @@ void MixtureComp::CalMuPnLBC_partial()
                     pow(xTj, 1.0 / 6) * (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj)) /
                 (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
             der7J = xix[j1 * numCom + k] * xVj + (Vcvis[k] - xVj) * xi[j1] / nu[j];
-            if (muAuxj[3] <= 0.18 && false) {
+            if (muAuxj[3] <= 0.18 && OCP_FALSE) {
                 mux[bId + k] =
                     (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1]) +
                     2.05 * 1E-4 * (der7J * muAuxj[2] - muAuxj[3] * der6J) /
@@ -2925,7 +2925,7 @@ void MixtureComp::CaldXsdXpAPI04()
     }
     else {
         CalFugXAll();
-        CalFugPAll(false);
+        CalFugPAll(OCP_FALSE);
         CaldXsdXp04();
     }
 }
@@ -3229,7 +3229,7 @@ void MixtureComp::CalMuPXLBC_partial()
             xVj += xj[i] * Vcvis[i];
         }
         der7J = xVj * xiP[j1];
-        if (muAuxj[3] <= 0.18 && false) {
+        if (muAuxj[3] <= 0.18 && OCP_FALSE) {
             muP[j1] = (2.05 * 1E-4) * der7J / muAuxj[2];
         }
         else {
@@ -3269,7 +3269,7 @@ void MixtureComp::CalMuPXLBC_partial()
                     pow(xTj, 1.0 / 6) * (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj)) /
                 (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
             der7J = xix[j1 * numCom + k] * xVj + xi[j1] * Vcvis[k];
-            if (muAuxj[3] <= 0.18 && false) {
+            if (muAuxj[3] <= 0.18 && OCP_FALSE) {
                 mux[bId + k] =
                     (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1]) +
                     2.05 * 1E-4 * (der7J * muAuxj[2] - muAuxj[3] * der6J) /
@@ -3653,7 +3653,7 @@ void MixtureComp::CalMuPXLBC_full01()
                     (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj)) /
                 (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
             der7J = xix[bId + k] * xVj + xi[j1] * derxVj;
-            if (muAuxj[3] <= 0.18 && false) {
+            if (muAuxj[3] <= 0.18 && OCP_FALSE) {
                 mux[bId + k] = (der3J * muAuxj[1] - muAuxj[0] * der4J) /
                     (muAuxj[1] * muAuxj[1]) +
                     2.05 * 1E-4 *
@@ -3689,7 +3689,7 @@ void MixtureComp::CalMuPXLBC_full01()
             xVj += xj[i] * Vcvis[i];
         }
         der7J = xVj * xiPC[0];
-        if (muAuxj[3] <= 0.18 && false) {
+        if (muAuxj[3] <= 0.18 && OCP_FALSE) {
             muP[phaseLabel[0]] = (2.05 * 1E-4) * der7J / muAuxj[2];
         } else {
             der8J              = der7J * (LBCcoef[1] +
@@ -3740,7 +3740,7 @@ void MixtureComp::CalMuPXLBC_full01()
                 (1.0 / 6 * pow(xTj, -5.0 / 6) * derxTj -
                  pow(xTj, 1.0 / 6) * (0.5 / MW[j] * derMWj + 2.0 / 3 / xPj * derxPj)) /
                 (sqrt(MW[j]) * pow(xPj, 2.0 / 3));
-            if (muAuxj[3] <= 0.18 && false) {
+            if (muAuxj[3] <= 0.18 && OCP_FALSE) {
                 muP[j1] =
                     (der3J * muAuxj[1] - muAuxj[0] * der4J) / (muAuxj[1] * muAuxj[1]) +
                     2.05 * 1E-4 * (der7J * muAuxj[2] - muAuxj[3] * der6J) /
@@ -3818,7 +3818,7 @@ void MixtureComp::CalXiRhoMuPN_pfullx()
     }
 }
 
-void MixtureComp::CalXiRhoMuPN_pfullxn(const bool& xflag)
+void MixtureComp::CalXiRhoMuPN_pfullxn(const OCP_BOOL& xflag)
 {
     // Using dXsdXp
     // s: S,n; p: P,N  Call CaldXsdXpAPI03, CaldXsdXpAPI02p before
@@ -4643,8 +4643,8 @@ void MixtureComp::CaldXsdXpAPI03()
 
     }
     else {
-        CalFugNAll(false);
-        CalFugPAll(false);
+        CalFugNAll(OCP_FALSE);
+        CalFugPAll(OCP_FALSE);
         CaldXsdXp03();
 
         // Assemble dXsdXp
@@ -5103,7 +5103,7 @@ void MixtureComp::CalKeyDern()
 
 
 USI MixtureComp::CubicRoot(const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c,
-                           const bool& NTflag) const
+                           const OCP_BOOL& NTflag) const
 {
 
     OCP_DBL Q = (a * a - 3 * b) / 9;

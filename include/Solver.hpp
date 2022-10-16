@@ -37,9 +37,9 @@ private:
     /// Assemble and Solve: assemble linear system parts together then solve.
     void AssembleSolve(Reservoir& rs, OCPControl& ctrl);
     /// Update reservoir properties after solving for primary variables.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Finish the Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish the current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 

@@ -117,8 +117,8 @@ void AllWells::SetupWellGroup(const Bulk& myBulk)
     // control of group should be update according to input file
 
     // for test
-    if (false) {
-        wellGroup[0].reInj = true;
+    if (OCP_FALSE) {
+        wellGroup[0].reInj = OCP_TRUE;
         wellGroup[0].saleRate = 1500;
         wellGroup[0].injPhase = GAS;
         wellGroup[0].prodGroup = 0;
@@ -149,7 +149,7 @@ void AllWells::SetupWellBulk(Bulk& myBulk) const
 void AllWells::ApplyControl(const USI& i)
 {
     OCP_FUNCNAME;
-    wellChange = false;
+    wellChange = OCP_FALSE;
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
         wells[w].opt = wells[w].optSet[i];
@@ -158,7 +158,7 @@ void AllWells::ApplyControl(const USI& i)
             wId++;
         }
         if (i > 0 && wells[w].opt != wells[w].optSet[i - 1])
-            wellChange = true;
+            wellChange = OCP_TRUE;
     }
 }
 
@@ -179,7 +179,7 @@ void AllWells::PrepareWell(const Bulk& myBulk)
         if (wells[w].WellState()) {
 
             wells[w].CalTrans(myBulk);
-            wells[w].CalFlux(myBulk, true);
+            wells[w].CalFlux(myBulk, OCP_TRUE);
             wells[w].CalProdWeight(myBulk);
             wells[w].CaldG(myBulk);
             // test
@@ -206,7 +206,7 @@ void AllWells::CalFlux(const Bulk& myBulk)
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
-            wells[w].CalFlux(myBulk, false);
+            wells[w].CalFlux(myBulk, OCP_FALSE);
         }
     }
 }
@@ -296,7 +296,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
             // assign to every open injection well in wG
             for (auto& w : wG.wIdINJ) {
                 if (wells[w].WellState()) {
-                    wells[w].opt.reInj = true;
+                    wells[w].opt.reInj = OCP_TRUE;
                     wells[w].opt.connWell = wG.wIdPROD;
                     wells[w].opt.injPhase = wG.injPhase;
                     wells[w].opt.zi = wG.zi;
@@ -345,8 +345,8 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
     // 1   : negative P, cut the timestep and resolve
     // 2.1 : change well mode to BHP, resolve
     // 2.2 : crossflow happens, then close corresponding perf, resolve
-    bool flag2 = false;
-    bool flag3 = false;
+    OCP_BOOL flag2 = OCP_FALSE;
+    OCP_BOOL flag3 = OCP_FALSE;
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].WellState()) {
@@ -359,10 +359,10 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
                 case 1:
                     return 1;
                 case 2:
-                    flag2 = true;
+                    flag2 = OCP_TRUE;
                     break;
                 case 3:
-                    flag3 = true;
+                    flag3 = OCP_TRUE;
                     break;
                 default:
                     break;

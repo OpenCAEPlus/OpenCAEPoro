@@ -57,7 +57,7 @@ public:
 template <typename T> class Type_A_r
 {
 public:
-    bool      activity{false}; ///< If false, this param is not given.
+    OCP_BOOL      activity{OCP_FALSE}; ///< If OCP_FALSE, this param is not given.
     vector<T> data;            ///< Data of param.
 };
 
@@ -111,7 +111,7 @@ public:
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
 
-    bool miscible{false}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    OCP_BOOL miscible{OCP_FALSE}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
@@ -165,19 +165,19 @@ public:
     vector<OCP_DBL> P;  ///< Initial pressure of components in each grid.
     vector<OCP_DBL> Ni; ///< Initial moles of components in each grid.
     vector<OCP_DBL> Swat; ///< Initial water saturation in each grid.
-    bool ScalePcow{false}; ///< whether Pcow should be scaled.
+    OCP_BOOL ScalePcow{OCP_FALSE}; ///< whether Pcow should be scaled.
 
     // phase property
     Type_A_r<OCP_DBL> density; ///< Density of oil, water, gas in standard conditions.
     Type_A_r<OCP_DBL> gravity; ///< Gravity of oil, water, gas in standard conditions.
 
     // Model and Phase
-    bool blackOil{false}; ///< If ture, blackoil model will be used.
-    bool comps{false};    ///< If true, compositional model will be used.
-    bool oil{false};      ///< If true, oil phase could exist.
-    bool gas{false};      ///< If true, gas phase could exist.
-    bool water{false};    ///< If true, water phase could exist.
-    bool disGas{false};   ///< If true, dissolve gas could exist in oil phase.
+    OCP_BOOL blackOil{OCP_FALSE}; ///< If ture, blackoil model will be used.
+    OCP_BOOL comps{OCP_FALSE};    ///< If OCP_TRUE, compositional model will be used.
+    OCP_BOOL oil{OCP_FALSE};      ///< If OCP_TRUE, oil phase could exist.
+    OCP_BOOL gas{OCP_FALSE};      ///< If OCP_TRUE, gas phase could exist.
+    OCP_BOOL water{OCP_FALSE};    ///< If OCP_TRUE, water phase could exist.
+    OCP_BOOL disGas{OCP_FALSE};   ///< If OCP_TRUE, dissolve gas could exist in oil phase.
 
 
     // Compositional Model

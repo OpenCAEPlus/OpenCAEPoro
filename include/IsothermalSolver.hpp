@@ -30,9 +30,9 @@ public:
     /// Solve the linear system in single problem.
     void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluid.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Finish the Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish the current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 

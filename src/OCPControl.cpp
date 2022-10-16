@@ -42,7 +42,7 @@ ControlNR::ControlNR(const vector<OCP_DBL>& src)
 
 void FastControl::ReadParam(const USI& argc, const char* optset[])
 {
-    activity = false;
+    activity = OCP_FALSE;
     timeInit = timeMax = timeMin = -1.0;
 
     std::stringstream buffer;
@@ -79,7 +79,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
                 } else {
                     OCP_ABORT("Wrong method param in command line!");
                 }
-                activity = true;
+                activity = OCP_TRUE;
                 if (method == FIM || method == FIMn || method == AIMc) {
                     if (timeInit <= 0) timeInit = 0.1;
                     if (timeMax <= 0) timeMax = 10.0;
@@ -120,8 +120,8 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
 
 
 
-    if (argc >= 6 && false) {
-        activity = true;
+    if (argc >= 6 && OCP_FALSE) {
+        activity = OCP_TRUE;
         if (string(optset[2]) == "FIM") {
             method = FIM;
         } else if (string(optset[2]) == "FIMn") {
@@ -203,10 +203,10 @@ void OCPControl::InitTime(const USI& i)
     OCP_DBL dt = criticalTime[i + 1] - current_time;
     if (dt <= 0) OCP_ABORT("Non-positive time stepsize!");
 
-    static bool firstflag = true;
+    static OCP_BOOL firstflag = OCP_TRUE;
     if (wellChange || firstflag) {
         current_dt = min(dt, ctrlTime.timeInit);
-        firstflag = false;
+        firstflag = OCP_FALSE;
     }
     else {
         current_dt = min(dt, init_dt);

@@ -20,48 +20,48 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
 
         switch (Map_Str2Int(&keyword[0], keyword.size())) {
             case Map_Str2Int("FPR", 3):
-                summary.FPR = true;
+                summary.FPR = OCP_TRUE;
                 break;
 
             // Field
             case Map_Str2Int("FOPR", 4):
-                summary.FOPR = true;
+                summary.FOPR = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FOPT", 4):
-                summary.FOPT = true;
+                summary.FOPT = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FGPR", 4):
-                summary.FGPR = true;
+                summary.FGPR = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FGPT", 4):
-                summary.FGPt = true;
+                summary.FGPt = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FWPR", 4):
-                summary.FWPR = true;
+                summary.FWPR = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FWPT", 4):
-                summary.FWPT = true;
+                summary.FWPT = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FGIR", 4):
-                summary.FGIR = true;
+                summary.FGIR = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FGIT", 4):
-                summary.FGIT = true;
+                summary.FGIT = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FWIR", 4):
-                summary.FWIR = true;
+                summary.FWIR = OCP_TRUE;
                 break;
 
             case Map_Str2Int("FWIT", 4):
-                summary.FWIT = true;
+                summary.FWIT = OCP_TRUE;
                 break;
 
             // Well
@@ -137,7 +137,7 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
 
 void ParamOutput::InputType_A(ifstream& ifs, Type_A_o& obj)
 {
-    obj.activity = true;
+    obj.activity = OCP_TRUE;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     if (vbuf[0] == "/") {
@@ -169,7 +169,7 @@ void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        obj.activity = true;
+        obj.activity = OCP_TRUE;
         DealDefault(vbuf);
         USI i = stoi(vbuf[0]);
         USI j = stoi(vbuf[1]);
@@ -195,67 +195,67 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs)
             switch (Map_Str2Int(&keyword[0], keyword.size())) {
                 case Map_Str2Int("PRES", 4):
                 case Map_Str2Int("PRESSURE", 8):
-                    detailInfo.PRE = true;
+                    detailInfo.PRE = OCP_TRUE;
                     break;
                 case Map_Str2Int("PGAS", 4):
-                    detailInfo.PGAS = true;
+                    detailInfo.PGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("PWAT", 4):
-                    detailInfo.PWAT = true;
+                    detailInfo.PWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("SOIL", 4):
-                    detailInfo.SOIL = true;
+                    detailInfo.SOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("SGAS", 4):
-                    detailInfo.SGAS = true;
+                    detailInfo.SGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("SWAT", 4):
-                    detailInfo.SWAT = true;
+                    detailInfo.SWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENO", 4):
-                    detailInfo.DENO = true;
+                    detailInfo.DENO = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENG", 4):
-                    detailInfo.DENG = true;
+                    detailInfo.DENG = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENW", 4):
-                    detailInfo.DENW = true;
+                    detailInfo.DENW = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRO", 3):
-                    detailInfo.KRO = true;
+                    detailInfo.KRO = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRG", 3):
-                    detailInfo.KRG = true;
+                    detailInfo.KRG = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRW", 3):
-                    detailInfo.KRW = true;
+                    detailInfo.KRW = OCP_TRUE;
                     break;
                 case Map_Str2Int("BOIL", 4):
-                    detailInfo.BOIL = true;
+                    detailInfo.BOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("BGAS", 4):
-                    detailInfo.BGAS = true;
+                    detailInfo.BGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("BWAT", 4):
-                    detailInfo.BWAT = true;
+                    detailInfo.BWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("VOIL", 4):
-                    detailInfo.VOIL = true;
+                    detailInfo.VOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("VGAS", 4):
-                    detailInfo.VGAS = true;
+                    detailInfo.VGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("VWAT", 4):
-                    detailInfo.VWAT = true;
+                    detailInfo.VWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("XMF", 3):
-                    detailInfo.XMF = true;
+                    detailInfo.XMF = OCP_TRUE;
                     break;
                 case Map_Str2Int("YMF", 3):
-                    detailInfo.YMF = true;
+                    detailInfo.YMF = OCP_TRUE;
                     break;
                 case Map_Str2Int("PCW", 3):
-                    detailInfo.PCW = true;
+                    detailInfo.PCW = OCP_TRUE;
                     break;
                 default:
                     break;

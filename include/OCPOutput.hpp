@@ -65,7 +65,7 @@ public:
         obj.assign(src.obj.begin(), src.obj.end());
         return *this;
     }
-    bool      activity{false};
+    OCP_BOOL      activity{OCP_FALSE};
     vector<T> obj;
     vector<USI>
         index; ///< Records the index of bulk or well, whose properties will be printed
@@ -106,17 +106,17 @@ public:
 private:
     vector<SumPair> Sumdata; ///< Contains all information to be printed.
 
-    bool FPR{false};  ///< Field average Pressure.
-    bool FOPR{false}; ///< Field oil production rate.
-    bool FOPT{false}; ///< Field total oil production.
-    bool FGPR{false}; ///< Field gas production rate.
-    bool FGPt{false}; ///< Field total gas production.
-    bool FWPR{false}; ///< Field water production rate.
-    bool FWPT{false}; ///< Field total water production.
-    bool FGIR{false}; ///< Field gas injection rate.
-    bool FGIT{false}; ///< Field total gas injection.
-    bool FWIR{false}; ///< Field water injection rate.
-    bool FWIT{false}; ///< Field total water injection.
+    OCP_BOOL FPR{OCP_FALSE};  ///< Field average Pressure.
+    OCP_BOOL FOPR{OCP_FALSE}; ///< Field oil production rate.
+    OCP_BOOL FOPT{OCP_FALSE}; ///< Field total oil production.
+    OCP_BOOL FGPR{OCP_FALSE}; ///< Field gas production rate.
+    OCP_BOOL FGPt{OCP_FALSE}; ///< Field total gas production.
+    OCP_BOOL FWPR{OCP_FALSE}; ///< Field water production rate.
+    OCP_BOOL FWPT{OCP_FALSE}; ///< Field total water production.
+    OCP_BOOL FGIR{OCP_FALSE}; ///< Field gas injection rate.
+    OCP_BOOL FGIT{OCP_FALSE}; ///< Field total gas injection.
+    OCP_BOOL FWIR{OCP_FALSE}; ///< Field water injection rate.
+    OCP_BOOL FWIT{OCP_FALSE}; ///< Field total water injection.
 
     OCPType_Sum<string> WOPR; ///< Well oil production rate.
     OCPType_Sum<string> WOPT; ///< Well total oil production.
@@ -169,27 +169,27 @@ public:
     void PrintInfo(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
 
 private:
-    bool PRE{false};  ///< Pressure of grids.
-    bool PGAS{false}; ///< Gas pressure of grids.
-    bool PWAT{false}; ///< Water pressure of grids.
-    bool SOIL{false}; ///< Oil saturation of grids.
-    bool SGAS{false}; ///< Gas saturation of grids.
-    bool SWAT{false}; ///< Water saturation of grids.
-    bool DENO{false}; ///< Oil density of grids.
-    bool DENG{false}; ///< Gas density of grids.
-    bool DENW{false}; ///< Water density of grids.
-    bool KRO{false}; ///< Oil relative permeability of grids.
-    bool KRG{false}; ///< Gas relative permeability of grids.
-    bool KRW{false}; ///< Water relative permeability of grids.
-    bool BOIL{false}; ///< Oil reservoir molar densities of grids.
-    bool BGAS{false}; ///< Gas reservoir molar densities of grids.
-    bool BWAT{false}; ///< Water reservoir molar densities of grids.
-    bool VOIL{false}; ///< Oil viscosity of grids.
-    bool VGAS{false}; ///< Gas viscosity of grids.
-    bool VWAT{false}; ///< Water viscosity of grids.
-    bool XMF{false}; ///< liquid component mole fractions.
-    bool YMF{false}; ///< gas component mole fractions.
-    bool PCW{false}; ///< capilary pressure: Po - Pw.
+    OCP_BOOL PRE{OCP_FALSE};  ///< Pressure of grids.
+    OCP_BOOL PGAS{OCP_FALSE}; ///< Gas pressure of grids.
+    OCP_BOOL PWAT{OCP_FALSE}; ///< Water pressure of grids.
+    OCP_BOOL SOIL{OCP_FALSE}; ///< Oil saturation of grids.
+    OCP_BOOL SGAS{OCP_FALSE}; ///< Gas saturation of grids.
+    OCP_BOOL SWAT{OCP_FALSE}; ///< Water saturation of grids.
+    OCP_BOOL DENO{OCP_FALSE}; ///< Oil density of grids.
+    OCP_BOOL DENG{OCP_FALSE}; ///< Gas density of grids.
+    OCP_BOOL DENW{OCP_FALSE}; ///< Water density of grids.
+    OCP_BOOL KRO{OCP_FALSE}; ///< Oil relative permeability of grids.
+    OCP_BOOL KRG{OCP_FALSE}; ///< Gas relative permeability of grids.
+    OCP_BOOL KRW{OCP_FALSE}; ///< Water relative permeability of grids.
+    OCP_BOOL BOIL{OCP_FALSE}; ///< Oil reservoir molar densities of grids.
+    OCP_BOOL BGAS{OCP_FALSE}; ///< Gas reservoir molar densities of grids.
+    OCP_BOOL BWAT{OCP_FALSE}; ///< Water reservoir molar densities of grids.
+    OCP_BOOL VOIL{OCP_FALSE}; ///< Oil viscosity of grids.
+    OCP_BOOL VGAS{OCP_FALSE}; ///< Gas viscosity of grids.
+    OCP_BOOL VWAT{OCP_FALSE}; ///< Water viscosity of grids.
+    OCP_BOOL XMF{OCP_FALSE}; ///< liquid component mole fractions.
+    OCP_BOOL YMF{OCP_FALSE}; ///< gas component mole fractions.
+    OCP_BOOL PCW{OCP_FALSE}; ///< capilary pressure: Po - Pw.
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.

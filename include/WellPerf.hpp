@@ -31,7 +31,7 @@ public:
     Perforation() = default;
 
     /// Set state of perf
-    void setState(const bool& flag) { state = flag; };
+    void setState(const OCP_BOOL& flag) { state = flag; };
     /// Return the location of perf: index of bulk
     OCP_USI GetLoaction() { return location; }
 
@@ -39,7 +39,7 @@ private:
     USI     I;        ///< I-index of Perforation in grid.
     USI     J;        ///< J-index of Perforation in grid.
     USI     K;        ///< K-index of Perforation in grid.
-    bool    state;    ///< True: perforation is open. False: perforation is close.
+    OCP_BOOL    state;    ///< True: perforation is open. False: perforation is close.
     OCP_USI location; ///< Index of bulks which connects to current perforation.
     OCP_DBL depth;    ///< Depth of bulks which connects to current perforation.
     OCP_DBL trans;    ///< Transmissibility factor of current perforation, not used now.

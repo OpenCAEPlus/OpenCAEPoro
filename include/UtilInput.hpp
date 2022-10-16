@@ -45,9 +45,9 @@ constexpr inline long long Map_Str2Int(const char* mystr, const USI& len)
 /// ReadLine is the core function while inputting the file. It will capture the next
 /// line which is meanningful, for example, not blank line or comments, and then gets
 /// rid of some useless characters such as space, commas. Finally, the segments of rest
-/// string will be stored in result. And if return false, it indicates we have reach the
+/// string will be stored in result. And if return OCP_FALSE, it indicates we have reach the
 /// end of file.
-bool ReadLine(ifstream& ifs, vector<string>& result);
+OCP_BOOL ReadLine(ifstream& ifs, vector<string>& result);
 
 /// DealDefault is used to deal with the expression with asterisk, for example
 /// m*n  -> <n,...,n> size m ,  m* -> <DEFAULT,..., DEFAULT> size m.

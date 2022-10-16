@@ -88,11 +88,11 @@ void ParamWell::InputCOMPDAT(ifstream& ifs)
         DealDefault(vbuf);
         string src   = vbuf[0];
         int    pos   = src.find("*");
-        bool   match = (pos != string::npos);
+        OCP_BOOL   match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
-        bool tmp = false;
+        OCP_BOOL tmp = OCP_FALSE;
 
         for (USI w = 0; w < num; w++) {
             if (match)
@@ -159,7 +159,7 @@ void ParamWell::InputWCONINJE(ifstream& ifs)
         DealDefault(vbuf);
         string src   = vbuf[0];
         int    pos   = src.find("*");
-        bool   match = (pos != string::npos);
+        OCP_BOOL   match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
@@ -194,7 +194,7 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
         DealDefault(vbuf);
         string src   = vbuf[0];
         int    pos   = src.find("*");
-        bool   match = (pos != string::npos);
+        OCP_BOOL   match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
@@ -246,11 +246,11 @@ void ParamWell::InputWELTARG(ifstream& ifs)
         DealDefault(vbuf);
         string src   = vbuf[0];
         int    pos   = src.find("*");
-        bool   match = (pos != string::npos);
+        OCP_BOOL   match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
-        bool tmp = false;
+        OCP_BOOL tmp = OCP_FALSE;
 
         for (USI w = 0; w < num; w++) {
             if (match)
@@ -290,7 +290,7 @@ void ParamWell::InputWELLSTRE(ifstream& ifs)
 }
 
 // check
-void ParamWell::CheckParam(const bool& boModel) const
+void ParamWell::CheckParam(const OCP_BOOL& boModel) const
 {
     if (boModel) {
         CheckINJFluid();

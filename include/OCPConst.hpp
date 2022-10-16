@@ -25,6 +25,7 @@ typedef unsigned int       OCP_USI; ///< Long unsigned integer
 typedef int                OCP_INT; ///< Long integer
 typedef double             OCP_DBL; ///< Double precision
 typedef float              OCP_SIN; ///< Single precision
+typedef unsigned int       OCP_BOOL; ///< OCP_BOOL in OCP
 
 // General error type
 const int OCP_SUCCESS         = 0;    ///< Finish without trouble
@@ -35,6 +36,8 @@ const int OCP_ERROR           = -100; ///< Unidentified error
 const OCP_DBL GAS_CONSTANT = 10.73159;    ///< Gas Constant
 const OCP_DBL TINY         = 1E-8;        ///< Small constant
 const OCP_DBL PI           = 3.141592653; ///< Pi
+const OCP_BOOL OCP_TRUE =  1;
+const OCP_BOOL OCP_FALSE = 0;
 
 // Control consts
 const OCP_DBL MAX_TIME_STEP     = 365.0; ///< Maximal time stepsize
@@ -108,8 +111,8 @@ const USI  INJ        = 1;     ///< Well type = injector
 const USI  PROD       = 2;     ///< Well type = producer
 const USI  HORIZONTAL = 1;     ///< Well type = horizontal
 const USI  VERTICAL   = 2;     ///< Well type = vectical
-const bool OPEN       = true;  ///< Well type = open
-const bool CLOSE      = false; ///< Well type = closed
+const OCP_BOOL OPEN       = OCP_TRUE;  ///< Well type = open
+const OCP_BOOL CLOSE      = OCP_FALSE; ///< Well type = closed
 
 // Well option params
 const USI RATE_MODE  = 1; ///< Well option = fixed total rate???
@@ -123,6 +126,8 @@ const USI BHP_MODE   = 6; ///< Well option = fixed bottom-hole-pressure
 const USI X_DIRECTION = 1; ///< x-direction
 const USI Y_DIRECTION = 2; ///< y-direction
 const USI Z_DIRECTION = 3; ///< z-direction
+
+
 
 #endif // __OPENCAEPORO_CONSTS_HEADER__
 

@@ -69,21 +69,21 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
     myLS.ClearData();
 }
 
-bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
     // first check : Pressure check
-    OCP_INT flagCheck = rs.CheckP(true, true);
+    OCP_INT flagCheck = rs.CheckP(OCP_TRUE, OCP_TRUE);
     switch (flagCheck) {
         case 1:
             // Negative Bulk P, well P, or Perforation P
             dt /= 2;
-            return false;
+            return OCP_FALSE;
         case 2:
             // Switch Well opt Mode, or close the crossflow perforation
             dt /= 1;
-            return false;
+            return OCP_FALSE;
         default:
             // All right
             break;
@@ -98,7 +98,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         dt /= 2;
         rs.ResetVal01IMPEC();
         cout << "CFL is too big" << endl;
-        return false;
+        return OCP_FALSE;
     }
 
     rs.MassConseveIMPEC(dt);
@@ -108,7 +108,7 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         dt /= 2;
         rs.ResetVal02IMPEC();
         cout << "Negative Ni occurs\n";
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalVpore();
@@ -119,27 +119,27 @@ bool OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
         dt /= 2;
         rs.ResetVal03IMPEC();
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
     // rs.allWells.ShowWellStatus(rs.bulk);
 
-    return true;
+    return OCP_TRUE;
 }
 
 
-bool OCP_IMPEC::FinishNR(const Reservoir& rs)
+OCP_BOOL OCP_IMPEC::FinishNR(const Reservoir& rs)
 { 
     //for (USI j = 0; j < rs.bulk.numPhase; j++)
     //    cout << rs.bulk.totalPhaseNum[j] << "   ";
     //cout << endl;
-    return true; 
+    return OCP_TRUE; 
 }
 
 
-bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
@@ -149,11 +149,11 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
     case 1:
         // Negative Bulk P, well P, or Perforation P
         dt /= 2;
-        return false;
+        return OCP_FALSE;
     case 2:
         // Switch Well opt Mode, or close the crossflow perforation
         dt /= 1;
-        return false;
+        return OCP_FALSE;
     default:
         // All right
         break;
@@ -167,7 +167,7 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
         dt /= 2;
         rs.ResetVal01IMPEC();
         cout << "CFL is too big" << endl;
-        return false;
+        return OCP_FALSE;
     }
 
     rs.MassConseveIMPEC(dt);
@@ -177,7 +177,7 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
         dt /= 2;
         rs.ResetVal02IMPEC();
         cout << "Negative Ni occurs\n";
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalVpore();
@@ -185,10 +185,10 @@ bool OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
 
-    return true;
+    return OCP_TRUE;
 }
 
-bool OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
     // fouth check: Volume error check
@@ -199,9 +199,9 @@ bool OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
         rs.allWells.CalFlux(rs.bulk);
         rs.allWells.CalProdWeight(rs.bulk);
         rs.allWells.CaldG(rs.bulk);
-        return false;
+        return OCP_FALSE;
     }
-    return true;
+    return OCP_TRUE;
 }
 
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
@@ -282,19 +282,19 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     myLS.ClearData();
 }
 
-bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
 
     // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetFIM(OCP_FALSE);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time step size and repeat! current dt = " << fixed << setprecision(3) << dt << " days\n";
-        return false;
+        return OCP_FALSE;
     }
 
     // Update reservoir properties
@@ -318,10 +318,10 @@ bool OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     //    rs.CalResFIM(resFIM, dt);
     //}
 
-    return true;
+    return OCP_TRUE;
 }
 
-bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_USI dSn;
 
@@ -334,7 +334,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.printLevel > 1) {
 
-        if (true) {
+        if (OCP_TRUE) {
             vector<OCP_INT> totalPhaseNum(3, 0);
             vector<OCP_INT> ltotalPhaseNum(3, 0);
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
@@ -351,7 +351,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 + "%)      " ;
         }
 
-        if (true) {
+        if (OCP_TRUE) {
             OCP_USI eVnum = 0;
             OCP_USI eNnum = 0;
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
@@ -408,13 +408,13 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetFIM(OCP_FALSE);
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  current dt = " 
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
-        return false;
+        return OCP_FALSE;
     }
 
     if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
@@ -423,7 +423,7 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         && resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(false, true);
+        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
 #if DEBUG
         if (flagCheck > 0) {
             cout << ">> Switch well constraint: Case " << flagCheck << endl;
@@ -433,26 +433,26 @@ bool OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                rs.ResetFIM(true);
+                rs.ResetFIM(OCP_TRUE);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 cout << "-----" << endl;
-                return false;
+                return OCP_FALSE;
             case 2:
                 ctrl.current_dt /= 1;
-                rs.ResetFIM(true);
+                rs.ResetFIM(OCP_TRUE);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 cout << "-----" << endl;
-                return false;
+                return OCP_FALSE;
             default:
-                return true;
+                return OCP_TRUE;
                 break;
         }       
     } else {
-        return false;
+        return OCP_FALSE;
     }
 }
 
@@ -518,19 +518,19 @@ void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
 }
 
 /// Update properties of fluids.
-bool OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
 
     // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetFIM(OCP_FALSE);
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
-        return false;
+        return OCP_FALSE;
     }
 
     // Update reservoir properties
@@ -541,7 +541,7 @@ bool OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
 
-    return true;
+    return OCP_TRUE;
 }
 
 
@@ -591,7 +591,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 	// rs.bulk.CheckDiff();
 	rs.UpdateLastStepFIM();
 
-    rs.bulk.ShowFIMBulk(false);
+    rs.bulk.ShowFIMBulk(OCP_FALSE);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
@@ -632,18 +632,18 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     myLS.ClearData();
 }
 
-bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt; 
 
     // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetFIM(OCP_FALSE);
         rs.CalResAIMc(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalFlashDerivAIMc();
@@ -656,10 +656,10 @@ bool OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResAIMc(resFIM, dt);
-    return true;
+    return OCP_TRUE;
 }
 
-bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
@@ -676,12 +676,12 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(false);
+        rs.ResetFIM(OCP_FALSE);
         rs.CalResAIMc(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!\n";
-        return false;
+        return OCP_FALSE;
     }
 
     if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
@@ -690,7 +690,7 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         && resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(false, true);
+        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
 #if DEBUG
         if (flagCheck > 0) {
             cout << ">> Switch well constraint: Case " << flagCheck << endl;
@@ -700,23 +700,23 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
         case 1:
             ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-            rs.ResetFIM(true);
+            rs.ResetFIM(OCP_TRUE);
             rs.CalResAIMc(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
-            return false;
+            return OCP_FALSE;
         case 2:
             // ctrl.current_dt /= 1;
-            rs.ResetFIM(true);
+            rs.ResetFIM(OCP_TRUE);
             rs.CalResAIMc(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
-            return false;
+            return OCP_FALSE;
         default:
             // Update IMPEC Bulk Properties
             rs.CalFlashAIMc01();
             rs.CalKrPcAIMc();
-            return true;
+            return OCP_TRUE;
             break;
         }
     }
@@ -724,13 +724,13 @@ bool OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         //// Set FIMBulk
         //rs.CalCFL(ctrl.current_dt);
         //rs.SetupWellBulk();
-        //rs.SetupFIMBulk(true);
+        //rs.SetupFIMBulk(OCP_TRUE);
         //// Calculate FIM Bulk properties
         //rs.CalFlashDerivAIMc();
         //rs.CalKrPcDerivAIMc();
         //// Show FIM Bulk
-        //rs.bulk.ShowFIMBulk(false);
-        return false;
+        //rs.bulk.ShowFIMBulk(OCP_FALSE);
+        return OCP_FALSE;
     }
 }
 
@@ -770,8 +770,8 @@ void OCP_AIMs::Prepare(Reservoir& rs, OCP_DBL& dt)
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
     // Calculat property of FIM Bulk
-    rs.CalFlashDerivAIM(true);
-    rs.CalKrPcDerivAIM(true);
+    rs.CalFlashDerivAIM(OCP_TRUE);
+    rs.CalKrPcDerivAIM(OCP_TRUE);
 
     // Store particular property of FIM Bulk
     rs.bulk.UpdateLastStepAIM();
@@ -815,25 +815,25 @@ void OCP_AIMs::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     myLS.ClearData();
 }
 
-bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
     // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(true, false) != 0) {
+    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetValAIM();
         rs.CalResAIMs(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!  --  01\n";
-        return false;
+        return OCP_FALSE;
     }
 
     // Update reservoir properties
     rs.CalFlashIMPEC();
     rs.CalKrPc();
-    rs.CalFlashDerivAIM(true);
-    rs.CalKrPcDerivAIM(true);
+    rs.CalFlashDerivAIM(OCP_TRUE);
+    rs.CalKrPcDerivAIM(OCP_TRUE);
     rs.CalVpore();
     rs.CalFLuxIMPEC();
     rs.CalWellTrans();
@@ -841,10 +841,10 @@ bool OCP_AIMs::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalConnFluxIMPEC();
     rs.CalResAIMs(resFIM, dt);
       
-    return true;
+    return OCP_TRUE;
 }
 
-bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
+OCP_BOOL OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL NRdPmax = rs.GetNRdPmax();
     OCP_DBL NRdSmax = rs.GetNRdSmaxP();
@@ -862,7 +862,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time stepsize and repeat!\n";
-        return false;
+        return OCP_FALSE;
     }
 
     if (resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
@@ -870,7 +870,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
         resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol ||
         (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(false, true);
+        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
 #if DEBUG
         if (flagCheck > 0) {
             cout << ">> Switch well constraint: Case " << flagCheck << endl;
@@ -884,14 +884,14 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             rs.CalResAIMs(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
-            return false;
+            return OCP_FALSE;
         case 2:
             ctrl.current_dt /= 1;
             rs.ResetValAIM();
             rs.CalResAIMs(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             ctrl.ResetIterNRLS();
-            return false;
+            return OCP_FALSE;
         default:
             break;
         }
@@ -905,7 +905,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             rs.CalResAIMs(resFIM, ctrl.current_dt);
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
             cout << "Cut time stepsize and repeat!\n";
-            return false;
+            return OCP_FALSE;
         }
         if (!rs.CheckVe(0.01)) {
             // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
@@ -920,8 +920,8 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
             // Calculat property of FIM Bulk
-            rs.CalFlashDerivAIM(true);
-            rs.CalKrPcDerivAIM(true);
+            rs.CalFlashDerivAIM(OCP_TRUE);
+            rs.CalKrPcDerivAIM(OCP_TRUE);
 
             // Store particular property of FIM Bulk
             rs.bulk.UpdateLastStepAIM();
@@ -933,7 +933,7 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             ctrl.ResetIterNRLS();
 
             cout << "Cut time stepsize and repeat!  --  02\n";
-            return false;
+            return OCP_FALSE;
         }
         OCP_DBL cfl = rs.CalCFLAIM(ctrl.current_dt);
         if (cfl > 1) {
@@ -941,12 +941,12 @@ bool OCP_AIMs::FinishNR(Reservoir& rs, OCPControl& ctrl)
             ctrl.current_dt /= 2;
             rs.ResetValAIM();
             ctrl.ResetIterNRLS();           
-            return false;
+            return OCP_FALSE;
         }
-        return true;
+        return OCP_TRUE;
     }
     else {
-        return false;
+        return OCP_FALSE;
     }
 }
 
@@ -994,7 +994,7 @@ void OCP_AIMt::Prepare(Reservoir& rs, OCP_DBL& dt)
 }
 
 
-bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS)
+OCP_BOOL OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
@@ -1007,7 +1007,7 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
         dt /= 2;
         rs.ResetVal03IMPEC();
         cout << "Negative Ni occurs\n";
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalVpore();
@@ -1024,8 +1024,8 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     //}
     //cout << endl << endl;
 
-    rs.bulk.FlashDerivAIM(false);
-    rs.CalKrPcDerivAIM(false);
+    rs.bulk.FlashDerivAIM(OCP_FALSE);
+    rs.CalKrPcDerivAIM(OCP_FALSE);
    
     rs.CalResAIMt(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
@@ -1036,7 +1036,7 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
     //cout << endl << endl;
     ctrl.iterNR = 0;
     // cout << ctrl.iterNR << "   " << resFIM.maxRelRes0_v << endl;
-    while (true) {
+    while (OCP_TRUE) {
         rs.AssembleMatAIMt(myAuxLS, dt);
         myAuxLS.AssembleRhs(resFIM.res);
         myAuxLS.AssembleMatLinearSolver();
@@ -1050,11 +1050,11 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
             dt /= 2;
             rs.ResetVal03IMPEC();
             cout << "Negative Ni occurs\n";
-            return false;
+            return OCP_FALSE;
         }
        
-        rs.bulk.FlashDerivAIM(false);
-        rs.CalKrPcDerivAIM(false);
+        rs.bulk.FlashDerivAIM(OCP_FALSE);
+        rs.CalKrPcDerivAIM(OCP_FALSE);
         rs.CalVpore();
         rs.CalWellTrans();
         rs.CalWellFlux();
@@ -1082,21 +1082,21 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
             ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
             rs.ResetVal03IMPEC();
             cout << "Local FIM Failed!" << endl;
-            return false;
+            return OCP_FALSE;
         }
     }
     
     // Pressure check
-    OCP_INT flagCheck = rs.CheckP(true, true);
+    OCP_INT flagCheck = rs.CheckP(OCP_TRUE, OCP_TRUE);
     switch (flagCheck) {
     case 1:
         // Negative Bulk P, well P, or Perforation P
         dt /= 2;
-        return false;
+        return OCP_FALSE;
     case 2:
         // Switch Well opt Mode, or close the crossflow perforation
         dt /= 1;
-        return false;
+        return OCP_FALSE;
     default:
         // All right
         break;
@@ -1107,13 +1107,13 @@ bool OCP_AIMt::UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myA
         // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
         dt /= 2;
         rs.ResetVal03IMPEC();
-        return false;
+        return OCP_FALSE;
     }
 
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
 
-    return true;
+    return OCP_TRUE;
 }
 
 

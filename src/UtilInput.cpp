@@ -11,7 +11,7 @@
 
 #include "UtilInput.hpp"
 
-bool ReadLine(ifstream& ifs, vector<string>& result)
+OCP_BOOL ReadLine(ifstream& ifs, vector<string>& result)
 {
     result.resize(0);
     string buf;
@@ -27,7 +27,7 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
     }
 
     // file ends
-    if (buf.empty()) return false;
+    if (buf.empty()) return OCP_FALSE;
 
     // remove the string behind the '/'
     auto pos = buf.find_first_of('/');
@@ -44,7 +44,7 @@ bool ReadLine(ifstream& ifs, vector<string>& result)
     istringstream tmp(buf);
     while (tmp >> buf) result.push_back(buf);
 
-    return true;
+    return OCP_TRUE;
 }
 
 void DealDefault(vector<string>& result)

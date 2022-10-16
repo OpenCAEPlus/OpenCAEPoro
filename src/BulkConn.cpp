@@ -88,10 +88,10 @@ void BulkConn::SetupWellBulk_K(Bulk& myBulk) const
     for (USI n = 0; n < len; n++) {
         for (auto& v : neighbor[n]) {
             USI clen = myBulk.wellBulkId.size();
-            bool flag = false;
+            OCP_BOOL flag = OCP_FALSE;
             for (USI i = 0; i < clen; i++) {
                 if (v == myBulk.wellBulkId[n]) {
-                    flag = true;
+                    flag = OCP_TRUE;
                     break;
                 }
             }
@@ -371,8 +371,8 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend   = myBulk.phaseExist[eId_np_j];
+            OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+            OCP_BOOL exend   = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
@@ -398,7 +398,7 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
             }
 
             uId          = bId;
-            bool    exup = exbegin;
+            OCP_BOOL    exup = exbegin;
             OCP_DBL dP   = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
                          (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
             if (dP < 0) {
@@ -503,7 +503,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
 
     OCP_USI bId, eId, uId;
     OCP_USI bId_np_j, eId_np_j, uId_np_j;
-    bool    phaseExistBj, phaseExistEj;
+    OCP_BOOL    phaseExistBj, phaseExistEj;
     OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
@@ -741,8 +741,8 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend   = myBulk.phaseExist[eId_np_j];
+            OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+            OCP_BOOL exend   = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
@@ -810,8 +810,8 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend   = myBulk.phaseExist[eId_np_j];
+            OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+            OCP_BOOL exend   = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
@@ -873,8 +873,8 @@ void BulkConn::CalFluxFIMS(const Bulk& myBulk)
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend = myBulk.phaseExist[eId_np_j];
+            OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+            OCP_BOOL exend = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
@@ -946,8 +946,8 @@ void BulkConn::CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            bool exbegin = myBulk.phaseExist[bId_np_j];
-            bool exend = myBulk.phaseExist[eId_np_j];
+            OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+            OCP_BOOL exend = myBulk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 Pbegin = myBulk.Pj[bId_np_j];
@@ -1035,11 +1035,11 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
     vector<OCP_DBL> dFdXpE(bsize, 0);
     vector<OCP_DBL> dFdXsB(bsize2, 0);
     vector<OCP_DBL> dFdXsE(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phaseExistE(np, false);
-    bool            phaseExistU;
-    vector<bool>    phasedS_B(np, false);
-    vector<bool>    phasedS_E(np, false);
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phaseExistE(np, OCP_FALSE);
+    OCP_BOOL            phaseExistU;
+    vector<OCP_BOOL>    phasedS_B(np, OCP_FALSE);
+    vector<OCP_BOOL>    phasedS_E(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     vector<USI>     pVnumComE(np, 0);
     USI             ncolB, ncolE;
@@ -1304,8 +1304,9 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
 
 void BulkConn::AssembleMat_FIM_new1(LinearSystem& myLS, const Bulk& myBulk,
     const OCP_DBL& dt) const
-
 {
+    // less than AssembleMat_FIM_new() but loops can be execute with multithreads
+
     OCP_FUNCNAME;
 
     const USI np = myBulk.numPhase;
@@ -1339,11 +1340,11 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem& myLS, const Bulk& myBulk,
     vector<OCP_DBL> dFdXpE(bsize, 0);
     vector<OCP_DBL> dFdXsB(bsize2, 0);
     vector<OCP_DBL> dFdXsE(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phaseExistE(np, false);
-    bool            phaseExistU;
-    vector<bool>    phasedS_B(np, false);
-    vector<bool>    phasedS_E(np, false);
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phaseExistE(np, OCP_FALSE);
+    OCP_BOOL            phaseExistU;
+    vector<OCP_BOOL>    phasedS_B(np, OCP_FALSE);
+    vector<OCP_BOOL>    phasedS_E(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     vector<USI>     pVnumComE(np, 0);
     vector<USI>     jsB(np, 0);
@@ -1654,9 +1655,9 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem& myLS, const Bulk& myBulk,
     vector<OCP_DBL> dFdXpE(bsize, 0);
     vector<OCP_DBL> dFdXsB(bsize2, 0);
     vector<OCP_DBL> dFdXsE(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phaseExistE(np, false);
-    bool            phaseExistU;
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phaseExistE(np, OCP_FALSE);
+    OCP_BOOL            phaseExistU;
     vector<USI>     pEnumComB(np, 0);
     vector<USI>     pEnumComE(np, 0);
     USI             ncolB, ncolE;
@@ -1977,11 +1978,11 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
     vector<OCP_DBL> dFdXpE(bsize, 0);
     vector<OCP_DBL> dFdXsB(bsize2, 0);
     vector<OCP_DBL> dFdXsE(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phaseExistE(np, false);
-    bool            phaseExistU;
-    vector<bool>    phasedS_B(np, false);
-    vector<bool>    phasedS_E(np, false);
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phaseExistE(np, OCP_FALSE);
+    OCP_BOOL            phaseExistU;
+    vector<OCP_BOOL>    phasedS_B(np, OCP_FALSE);
+    vector<OCP_BOOL>    phasedS_E(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     vector<USI>     pVnumComE(np, 0);
     USI             ncolB, ncolE;
@@ -2282,7 +2283,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
 // AIMt
 /////////////////////////////////////////////////////////////////////
 
-void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
+void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
 {
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
@@ -2291,23 +2292,23 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
     fill(myBulk.map_Bulk2FIM.begin(), myBulk.map_Bulk2FIM.end(), -1);
 
     OCP_USI bIdp, bIdc;
-    bool flag;
+    OCP_BOOL flag;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         bIdp = n * np;
         bIdc = n * nc;
-        flag = false;
+        flag = OCP_FALSE;
         // CFL
         for (USI j = 0; j < np; j++) {
             if (myBulk.cfl[bIdp + j] > 0.8) {
-                flag = true;
+                flag = OCP_TRUE;
                 break;
             }
         }
         // Volume error
         if (!flag) {
             if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 1E-3) {
-                flag = true;
+                flag = OCP_TRUE;
             }
         }
         
@@ -2316,7 +2317,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
             // cout << "[" << n << "]" << endl;
             // dP
             if (fabs(myBulk.dPNR[n] / myBulk.P[n]) > 1E-3) {        
-                flag = true;
+                flag = OCP_TRUE;
                 //cout << scientific << "P  " << myBulk.dPNR[n] / myBulk.P[n] << "   ";
                 //cout << myBulk.dPNR[n] << "   " << myBulk.P[n] << "   ";
                 //cout << endl;
@@ -2325,7 +2326,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const bool& NRflag) const
             if (!flag) {
                 for (USI i = 0; i < myBulk.numCom; i++) {
                     if (fabs(myBulk.dNNR[bIdc + i] / myBulk.Ni[bIdc + i]) > 1E-3) {
-                        flag = true;
+                        flag = OCP_TRUE;
                         //cout << scientific << "Ni[" << i << "]  " << myBulk.dNNR[bIdc + i] / myBulk.Ni[bIdc + i]<< "   ";
                         //cout << myBulk.dNNR[bIdc + i] << "   " << myBulk.Ni[bIdc + i] << "   ";
                         //cout << endl;
@@ -2378,16 +2379,16 @@ void BulkConn::AddFIMBulk(Bulk& myBulk)
     fill(myBulk.map_Bulk2FIM.begin(), myBulk.map_Bulk2FIM.end(), -1);
 
     OCP_USI bIdp, bIdc;
-    bool flag;
+    OCP_BOOL flag;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         bIdp = n * np;
         bIdc = n * nc;
-        flag = false;
+        flag = OCP_FALSE;
         // cfl
         //for (USI j = 0; j < np; j++) {
         //    if (myBulk.cfl[bIdp + j] > 0.8) {
-        //        flag = true;
+        //        flag = OCP_TRUE;
         //        break;
         //    }
         //}
@@ -2395,7 +2396,7 @@ void BulkConn::AddFIMBulk(Bulk& myBulk)
         if (!flag) {
             for (USI i = 0; i < nc; i++) {
                 if (myBulk.Ni[bIdc + i] < 0) {
-                    flag = true;
+                    flag = OCP_TRUE;
                     break;
                 }
             }
@@ -2403,7 +2404,7 @@ void BulkConn::AddFIMBulk(Bulk& myBulk)
         // Volume error
         if (!flag) {
             if ((fabs(myBulk.vf[n] - myBulk.rockVp[n]) / myBulk.rockVp[n]) > 0.001) {
-                flag = true;
+                flag = OCP_TRUE;
             }
         }
 
@@ -2530,7 +2531,7 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
     OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
-    bool flagFIM;
+    OCP_BOOL flagFIM;
     USI count = 0;
 
     for (OCP_USI fn = 0; fn < myBulk.numFIMBulk; fn++) {
@@ -2557,8 +2558,8 @@ void BulkConn::AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
             // cout << iteratorConn[c].BId << "   " << iteratorConn[c].EId << endl;
 
             eIde = myBulk.map_Bulk2FIM[eId];
-            if (eIde < 0)  flagFIM = false;
-            else           flagFIM = true; 
+            if (eIde < 0)  flagFIM = OCP_FALSE;
+            else           flagFIM = OCP_TRUE; 
 
             fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
             fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
@@ -2759,8 +2760,8 @@ void BulkConn::CalResAIMt(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
                 bId_np_j = bId * np + j;
                 eId_np_j = eId * np + j;
 
-                bool exbegin = myBulk.phaseExist[bId_np_j];
-                bool exend = myBulk.phaseExist[eId_np_j];
+                OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+                OCP_BOOL exend = myBulk.phaseExist[eId_np_j];
 
                 if ((exbegin) && (exend)) {
                     Pbegin = myBulk.Pj[bId_np_j];
@@ -2859,8 +2860,8 @@ void BulkConn::CalResAIMs(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
                 bId_np_j = bId * np + j;
                 eId_np_j = eId * np + j;
 
-                bool exbegin = myBulk.phaseExist[bId_np_j];
-                bool exend = myBulk.phaseExist[eId_np_j];
+                OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+                OCP_BOOL exend = myBulk.phaseExist[eId_np_j];
 
                 if ((exbegin) && (exend)) {
                     Pbegin = myBulk.Pj[bId_np_j];
@@ -2959,8 +2960,8 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
     OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
-    bool bIdFIM, eIdFIM;
-    bool otherFIM;
+    OCP_BOOL bIdFIM, eIdFIM;
+    OCP_BOOL otherFIM;
     OCP_USI FIMbId, FIMeId, FIMbIde, FIMeIde;
     OCP_USI IMPECbId, IMPECeId;
     USI diagptr;
@@ -2983,9 +2984,9 @@ void BulkConn::AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const 
         bIde = myBulk.map_Bulk2FIM[bId];
         eIde = myBulk.map_Bulk2FIM[eId];
 
-        bIdFIM = eIdFIM = false;
-        if (bIde > -1 && bIde < myBulk.numFIMBulk)  bIdFIM = true;
-        if (eIde > -1 && eIde < myBulk.numFIMBulk)  eIdFIM = true;
+        bIdFIM = eIdFIM = OCP_FALSE;
+        if (bIde > -1 && bIde < myBulk.numFIMBulk)  bIdFIM = OCP_TRUE;
+        if (eIde > -1 && eIde < myBulk.numFIMBulk)  eIdFIM = OCP_TRUE;
 
         if (bIdFIM || eIdFIM) {
             // There exist at least one FIM bulk
@@ -3296,7 +3297,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
 	OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
 	OCP_DBL dP, dGamma;
 	OCP_DBL tmp;
-    bool bIdFIM, eIdFIM;
+    OCP_BOOL bIdFIM, eIdFIM;
 
 	// Becareful when first bulk has no neighbors!
 	OCP_USI lastbId = iteratorConn[0].EId;
@@ -3310,9 +3311,9 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
 		fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
 		dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
-        bIdFIM = eIdFIM = false;
-        if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = true;
-        if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = true;
+        bIdFIM = eIdFIM = OCP_FALSE;
+        if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = OCP_TRUE;
+        if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = OCP_TRUE;
 
 		for (USI j = 0; j < np; j++) {
 			uId = upblock[c * np + j];
@@ -3480,7 +3481,7 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 	OCP_DBL kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
 	OCP_DBL dP, dGamma;
 	OCP_DBL tmp;
-    bool bIdFIM, eIdFIM, uIdFIM;
+    OCP_BOOL bIdFIM, eIdFIM, uIdFIM;
 	USI diagptr;
 
 	OCP_DBL         Akd;
@@ -3497,9 +3498,9 @@ void BulkConn::AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const 
 		eId = iteratorConn[c].EId;
 		Akd = CONV1 * CONV2 * iteratorConn[c].area;
 
-		bIdFIM = eIdFIM = false;
-		if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = true;
-		if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = true;
+		bIdFIM = eIdFIM = OCP_FALSE;
+		if (myBulk.map_Bulk2FIM[bId] > -1)  bIdFIM = OCP_TRUE;
+		if (myBulk.map_Bulk2FIM[eId] > -1)  eIdFIM = OCP_TRUE;
 
         fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
@@ -3699,8 +3700,8 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 			bId_np_j = bId * np + j;
 			eId_np_j = eId * np + j;
 
-			bool exbegin = myBulk.phaseExist[bId_np_j];
-			bool exend = myBulk.phaseExist[eId_np_j];
+			OCP_BOOL exbegin = myBulk.phaseExist[bId_np_j];
+			OCP_BOOL exend = myBulk.phaseExist[eId_np_j];
 
 			if ((exbegin) && (exend)) {
 				Pbegin = myBulk.Pj[bId_np_j];
@@ -3725,7 +3726,7 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 			}
 
 			uId = bId;
-            bool    exup = exbegin;
+            OCP_BOOL    exup = exbegin;
 			dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
 				(Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
 			if (dP < 0) {

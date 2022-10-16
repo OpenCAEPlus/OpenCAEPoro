@@ -80,7 +80,7 @@ public:
     void ReadParam(const USI& argc, const char* optset[]);
 
 public:
-    bool    activity{false};
+    OCP_BOOL    activity{OCP_FALSE};
     USI     method;        ///< IMPEC or FIM
     OCP_DBL timeInit;      ///< Maximum Init step length of next timestep
     OCP_DBL timeMax;       ///< Maximum time step during running
@@ -170,7 +170,7 @@ public:
     void CalNextTstepFIM(const Reservoir& reservoir);
 
     /// Determine whether the critical time point has been reached.
-    bool IsCriticalTime(const USI& d)
+    OCP_BOOL IsCriticalTime(const USI& d)
     {
         return ((criticalTime[d] - current_time) < TINY);
     }
@@ -182,7 +182,7 @@ public:
     string GetLsFile() const { return linearsolveFile; }
 
     // Set wellChange
-    void SetWellChange(const bool& flag) { wellChange = flag; }
+    void SetWellChange(const OCP_BOOL& flag) { wellChange = flag; }
 
 private:
     USI    method;  ///< Discrete method
@@ -224,7 +224,7 @@ private:
     FastControl            ctrlFast; 
 
     // Well 
-    bool wellChange;       ///< if wells change, then false
+    OCP_BOOL wellChange;       ///< if wells change, then OCP_FALSE
 };
 
 #endif /* end if __OCP_Control_HEADER__ */

@@ -145,7 +145,7 @@ void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Update physical properties for IMPEC and FIM.
-bool IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -167,7 +167,7 @@ bool IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Finish up Newton-Raphson iteration for IMPEC and FIM.
-bool IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:

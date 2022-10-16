@@ -60,19 +60,19 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
 }
 
 
-bool WellOpt::operator !=(const WellOpt& Opt) const
+OCP_BOOL WellOpt::operator !=(const WellOpt& Opt) const
 {
-    if (this->type != Opt.type)                 return true;
-    if (this->state != Opt.state)               return true;
-    if (this->optMode != Opt.optMode)           return true;
-    if (this->initOptMode != Opt.initOptMode)   return true;
-    if (this->maxRate != Opt.maxRate)           return true;
-    if (this->maxBHP != Opt.maxBHP)             return true;
-    if (this->minBHP != Opt.minBHP)             return true;
+    if (this->type != Opt.type)                 return OCP_TRUE;
+    if (this->state != Opt.state)               return OCP_TRUE;
+    if (this->optMode != Opt.optMode)           return OCP_TRUE;
+    if (this->initOptMode != Opt.initOptMode)   return OCP_TRUE;
+    if (this->maxRate != Opt.maxRate)           return OCP_TRUE;
+    if (this->maxBHP != Opt.maxBHP)             return OCP_TRUE;
+    if (this->minBHP != Opt.minBHP)             return OCP_TRUE;
     for (USI i = 0; i < zi.size(); i++) {
-        if (fabs(zi[i] - Opt.zi[i]) > TINY)     return true;
+        if (fabs(zi[i] - Opt.zi[i]) > TINY)     return OCP_TRUE;
     }
-    return false;
+    return OCP_FALSE;
 }
 
 
@@ -370,7 +370,7 @@ void Well::CalTrans(const Bulk& myBulk)
     //}
 }
 
-void Well::CalFlux(const Bulk& myBulk, const bool flag)
+void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
 {
     OCP_FUNCNAME;
 
@@ -431,10 +431,10 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
             }
 
             // check if perf[p].qi_lbmol is zero vector
-            // bool flag = false;
+            // OCP_BOOL flag = OCP_FALSE;
             // for (USI i = 0; i < nc; i++) {
             //    if (perf[p].qi_lbmol[i] != 0) {
-            //        flag = true;
+            //        flag = OCP_TRUE;
             //        break;
             //    }
             //}
@@ -457,7 +457,7 @@ void Well::CalFlux(const Bulk& myBulk, const bool flag)
 /// Pressure in injection well equals maximum ones in injection well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalInjRate(const Bulk& myBulk, const bool& maxBHP)
+OCP_DBL Well::CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP)
 {
     OCP_FUNCNAME;
 
@@ -478,7 +478,7 @@ OCP_DBL Well::CalInjRate(const Bulk& myBulk, const bool& maxBHP)
 /// Pressure in production well equals minial ones in production well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
-OCP_DBL Well::CalProdRate(const Bulk& myBulk, const bool& minBHP)
+OCP_DBL Well::CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP)
 {
     OCP_FUNCNAME;
 
@@ -973,7 +973,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
     OCP_FUNCNAME;
     if (opt.initOptMode == BHP_MODE) {
         if (opt.type == INJ) {
-            OCP_DBL q = CalInjRate(myBulk, true);
+            OCP_DBL q = CalInjRate(myBulk, OCP_TRUE);
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
@@ -998,7 +998,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
                 BHP = opt.minBHP;
         }
         //else {
-        //    OCP_DBL q = CalProdRate(myBulk, false);
+        //    OCP_DBL q = CalProdRate(myBulk, OCP_FALSE);
         //    // cout << q << endl;
         //    if (q > opt.maxRate) {
         //        opt.optMode = opt.initOptMode;
@@ -1010,7 +1010,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
         //}
     } else {
         if (opt.type == INJ) {
-            OCP_DBL q = CalInjRate(myBulk, true);
+            OCP_DBL q = CalInjRate(myBulk, OCP_TRUE);
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
@@ -1029,7 +1029,7 @@ void Well::CheckOptMode(const Bulk& myBulk)
             }
         }
         else {
-            OCP_DBL q = CalProdRate(myBulk, true);
+            OCP_DBL q = CalProdRate(myBulk, OCP_TRUE);
             // cout << q << endl;
             if (q > opt.maxRate) {
                 opt.optMode = opt.initOptMode;
@@ -1093,7 +1093,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     OCP_USI k;
-    bool    flagC = true;
+    OCP_BOOL    flagC = OCP_TRUE;
 
     if (opt.type == PROD) {
         for (USI p = 0; p < numPerf; p++) {
@@ -1105,7 +1105,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
                      << "Bulk P = " << minP << endl;
                 perf[p].state      = CLOSE;
                 perf[p].multiplier = 0;
-                flagC              = false;
+                flagC              = OCP_FALSE;
                 break;
             } else if (perf[p].state == CLOSE && minP > perf[p].P) {
                 perf[p].state      = OPEN;
@@ -1121,7 +1121,7 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
                      << "Bulk P = " << myBulk.P[k] << endl;
                 perf[p].state      = CLOSE;
                 perf[p].multiplier = 0;
-                flagC              = false;
+                flagC              = OCP_FALSE;
                 break;
             } else if (perf[p].state == CLOSE && myBulk.P[k] < perf[p].P) {
                 perf[p].state      = OPEN;
@@ -1130,11 +1130,11 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
         }
     }
 
-    bool flag = false;
+    OCP_BOOL flag = OCP_FALSE;
     // check well --  if all perf are closed, open the depthest perf
     for (USI p = 0; p < numPerf; p++) {
         if (perf[p].state == OPEN) {
-            flag = true;
+            flag = OCP_TRUE;
             break;
         }
     }
@@ -2148,8 +2148,8 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpB(bsize, 0);
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phasedS_B(np, false);
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phasedS_B(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     USI             ncolB;
 
@@ -2321,8 +2321,8 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpB(bsize, 0);
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phasedS_B(np, false);
+    vector<OCP_BOOL>    phaseExistB(np, OCP_FALSE);
+    vector<OCP_BOOL>    phasedS_B(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     USI             ncolB;
 
@@ -2508,9 +2508,9 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpB(bsize, 0);
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
+    vector<char>    phaseExistB(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
-    vector<bool>    phasedS_B(np, false);
+    vector<char>    phasedS_B(np, OCP_FALSE);
     USI             ncolB;
 
 
@@ -2690,8 +2690,8 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
     vector<OCP_DBL> dQdXpB(bsize, 0);
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
-    vector<bool>    phaseExistB(np, false);
-    vector<bool>    phasedS_B(np, false);
+    vector<char>    phaseExistB(np, OCP_FALSE);
+    vector<char>    phasedS_B(np, OCP_FALSE);
     vector<USI>     pVnumComB(np, 0);
     USI             ncolB;
 

@@ -32,7 +32,7 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
     const OCP_DBL* Sjin, const OCP_DBL& Vpore,
     const OCP_DBL* Ziin)
 {
-    for (USI j = 0; j < 3; j++) phaseExist[j] = false;
+    for (USI j = 0; j < 3; j++) phaseExist[j] = OCP_FALSE;
     for (USI i = 0; i < 3; i++) Ni[i] = 0;
     fill(xij.begin(), xij.end(), 0.0);
     
@@ -69,7 +69,7 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
     switch (phasecae) {
         case PHASE_W: {
             // water
-            phaseExist[2]  = true;
+            phaseExist[2]  = OCP_TRUE;
             S[0]           = 0;
             S[1]           = 0;
             S[2]           = 1;
@@ -98,8 +98,8 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
         }
         case PHASE_GW: {
             // water, gas
-            phaseExist[1]  = true;
-            phaseExist[2]  = true;
+            phaseExist[1]  = OCP_TRUE;
+            phaseExist[2]  = OCP_TRUE;
             xij[1 * 3 + 1] = 1;
             xij[2 * 3 + 2] = 1;
 
@@ -135,8 +135,8 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
         }
         case PHASE_OW: {
             // water, oil, unsaturated
-            phaseExist[0] = true;
-            phaseExist[2] = true;
+            phaseExist[0] = OCP_TRUE;
+            phaseExist[2] = OCP_TRUE;
 
             // oil property
             OCP_DBL Pbb = Pbbin;
@@ -178,9 +178,9 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
             break;
         }
         case PHASE_ODGW: {
-            phaseExist[0] = true;
-            phaseExist[1] = true;
-            phaseExist[2] = true;
+            phaseExist[0] = OCP_TRUE;
+            phaseExist[1] = OCP_TRUE;
+            phaseExist[2] = OCP_TRUE;
 
             // oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -234,7 +234,7 @@ void BOMixture_ODGW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const O
 void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
     const OCP_DBL* lastKs)
 {
-    for (USI j = 0; j < 3; j++) phaseExist[j] = false;
+    for (USI j = 0; j < 3; j++) phaseExist[j] = OCP_FALSE;
     fill(xij.begin(), xij.end(), 0.0);
 
     P  = Pin;
@@ -272,7 +272,7 @@ void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
     switch (phasecase) {
         case PHASE_W: {
             // water
-            phaseExist[2]  = true;
+            phaseExist[2]  = OCP_TRUE;
             S[0]           = 0;
             S[1]           = 0;
             S[2]           = 1;
@@ -301,8 +301,8 @@ void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
         }
         case PHASE_GW: {
             // water, gas
-            phaseExist[1]  = true;
-            phaseExist[2]  = true;
+            phaseExist[1]  = OCP_TRUE;
+            phaseExist[2]  = OCP_TRUE;
             xij[1 * 3 + 1] = 1;
             xij[2 * 3 + 2] = 1;
 
@@ -344,8 +344,8 @@ void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
         }
         case PHASE_OW: {
             // water, oil
-            phaseExist[0]  = true;
-            phaseExist[2]  = true;
+            phaseExist[0]  = OCP_TRUE;
+            phaseExist[2]  = OCP_TRUE;
             xij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
             xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
             xij[1 * 3 + 1] = 1;
@@ -383,9 +383,9 @@ void BOMixture_ODGW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
             break;
         }
         case PHASE_ODGW: {
-            phaseExist[0] = true;
-            phaseExist[1] = true;
-            phaseExist[2] = true;
+            phaseExist[0] = OCP_TRUE;
+            phaseExist[1] = OCP_TRUE;
+            phaseExist[2] = OCP_TRUE;
 
             // oil property
             PVCO.Eval_All(0, P, data, cdata);
@@ -437,7 +437,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     const OCP_DBL* lastKs)
 {
     for (USI j = 0; j < 3; j++) {
-        phaseExist[j] = false;
+        phaseExist[j] = OCP_FALSE;
         rhoP[j] = 0; xiP[j] = 0; muP[j] = 0;
     }
     fill(xij.begin(), xij.end(), 0.0);
@@ -445,7 +445,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     fill(xix.begin(), xix.end(), 0.0);
     fill(mux.begin(), mux.end(), 0.0);
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
-    fill(pSderExist.begin(), pSderExist.end(), false);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0);
 
     P  = Pin;
@@ -489,7 +489,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     switch (phasecase) {
         case PHASE_W: {
             // water
-            phaseExist[2]  = true;
+            phaseExist[2]  = OCP_TRUE;
             S[0]           = 0;
             S[1]           = 0;
             S[2]           = 1;
@@ -529,15 +529,15 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
             dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf;                     // dSw / dNg
             dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf;       // dSw / dNw
 
-            pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
+            pSderExist[0] = OCP_TRUE; pSderExist[1] = OCP_TRUE; pSderExist[2] = OCP_TRUE;
             // pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
             break;
         }
         case PHASE_GW: {
             // water, gas
-            phaseExist[1]  = true;
-            phaseExist[2]  = true;
+            phaseExist[1]  = OCP_TRUE;
+            phaseExist[2]  = OCP_TRUE;
             xij[1 * 3 + 1] = 1;
             xij[2 * 3 + 2] = 1;
 
@@ -594,15 +594,15 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[2 * 4 + 2] = -S[2] * vfi[1] / vf; // dSw / dNg
         dXsdXp[2 * 4 + 3] = (CONV1 * bw - S[2] * vfi[2]) / vf; // dSw / dNw
 
-        pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
+        pSderExist[0] = OCP_TRUE; pSderExist[1] = OCP_TRUE; pSderExist[2] = OCP_TRUE;
         //pVnumCom[0] = 0; pVnumCom[1] = 0; pVnumCom[2] = 0;
 
         break;
     }
     case PHASE_OW: {
         // water, oil
-        phaseExist[0] = true;
-        phaseExist[2] = true;
+        phaseExist[0] = OCP_TRUE;
+        phaseExist[2] = OCP_TRUE;
         xij[0 * 3 + 0] = Ni[0] / (Ni[0] + Ni[1]);
         xij[0 * 3 + 1] = 1 - xij[0 * 3 + 0];
         xij[1 * 3 + 1] = 1;
@@ -674,7 +674,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
 
 #endif // DEBUG
         
-        pSderExist[0] = true; pSderExist[2] = true;
+        pSderExist[0] = OCP_TRUE; pSderExist[2] = OCP_TRUE;
         pVnumCom[0] = 2; 
 
         OCP_DBL tmp = xij[0] * xij[0];
@@ -703,9 +703,9 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         break;
     }
     case PHASE_ODGW: {
-        phaseExist[0] = true;
-        phaseExist[1] = true;
-        phaseExist[2] = true;
+        phaseExist[0] = OCP_TRUE;
+        phaseExist[1] = OCP_TRUE;
+        phaseExist[2] = OCP_TRUE;
 
         // oil property
         PVCO.Eval_All(0, P, data, cdata);
@@ -774,7 +774,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         dXsdXp[3 * 4 + 0] = -crs / ((1 + rs) * (1 + rs)); // d Xoo / dP
         dXsdXp[4 * 4 + 0] = -dXsdXp[3 * 4 + 0];  // d Xgo / dP
 
-        pSderExist[0] = true; pSderExist[1] = true; pSderExist[2] = true;
+        pSderExist[0] = OCP_TRUE; pSderExist[1] = OCP_TRUE; pSderExist[2] = OCP_TRUE;
         pVnumCom[0] = 2;
 
         break;

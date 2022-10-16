@@ -69,11 +69,11 @@ public:
     /// Calculate num of Injection, Production
     void CalIPRT(const OCP_DBL& dt);
     /// Check if abnormal Pressure occurs
-    OCP_INT CheckP(const bool& bulkCheck = true, const bool& wellCheck = true);
+    OCP_INT CheckP(const OCP_BOOL& bulkCheck = OCP_TRUE, const OCP_BOOL& wellCheck = OCP_TRUE);
     /// Check if abnormal Pressure occurs
-    bool CheckNi();
+    OCP_BOOL CheckNi();
     /// Check error between Fluids and Pores
-    bool CheckVe(const OCP_DBL& Vlim) const;
+    OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return MaxNUMFIMBulk
@@ -164,7 +164,7 @@ public:
     /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM
-    void ResetFIM(const bool& flag);
+    void ResetFIM(const OCP_BOOL& flag);
     /// Return NRdPmax
     OCP_DBL GetNRdPmax(){ return bulk.GetNRdPmax(); }
     /// Return NRdSmax
@@ -186,14 +186,14 @@ public:
     /// Allocate Maxmimum memory for internal Matirx for local FIM
     void AllocateMatAIMt(LinearSystem& myLS) const;
     /// Setup FIMBulk
-    void SetupFIMBulk(const bool& NRflag = false) { conn.SetupFIMBulk(bulk, NRflag); }
+    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(bulk, NRflag); }
     void AddFIMBulk() { conn.AddFIMBulk(bulk); }
     void SetupFIMBulkBoundAIMs() { conn.SetupFIMBulkBoundAIMs(bulk); }
     
     /// Calculate Flash for local FIM, some derivatives are needed
-    void CalFlashDerivAIM(const bool& IfAIMs);
+    void CalFlashDerivAIM(const OCP_BOOL& IfAIMs);
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcDerivAIM(const bool& IfAIMs);
+    void CalKrPcDerivAIM(const OCP_BOOL& IfAIMs);
     /// Calculate the Resiual for local FIM, it's also RHS of Linear System
     void CalResAIMt(ResFIM& resFIM, const OCP_DBL& dt);
     /// Assemble Matrix for AIMt ---- local FIM here

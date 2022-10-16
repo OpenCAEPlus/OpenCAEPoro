@@ -114,9 +114,9 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     } else if (comps) {
 
         // Water exists and is excluded in EoS model NOW!
-        oil   = true;
-        gas   = true;
-        water = true;
+        oil   = OCP_TRUE;
+        gas   = OCP_TRUE;
+        water = OCP_TRUE;
 
         numPhase   = rs_param.EoSp.numPhase + 1;
         numCom     = rs_param.EoSp.numCom + 1;
@@ -201,7 +201,7 @@ void Bulk::Setup(const Grid& myGrid)
     PVTNUM.resize(numBulk, 0);
 
     if (myGrid.SwatInit.size() > 0) {
-        SwatInitExist = true;
+        SwatInitExist = OCP_TRUE;
         SwatInit.resize(numBulk);
     }
     if (ScalePcow) {
@@ -720,11 +720,11 @@ void Bulk::InitSjPcBo(const USI& tabrow)
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
     // if capillary between water and oil is considered
-    vector<bool> FlagPcow(NTSFUN, true);
+    vector<OCP_BOOL> FlagPcow(NTSFUN, OCP_TRUE);
     for (USI i = 0; i < NTSFUN; i++) {
         if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY &&
             fabs(flow[i]->GetPcowBySw(1.0 + TINY) < TINY)) {
-            FlagPcow[i] = false;
+            FlagPcow[i] = OCP_FALSE;
         }
     }
 
@@ -1159,11 +1159,11 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
     // if capillary between water and oil is considered
-    vector<bool> FlagPcow(NTSFUN, true);
+    vector<OCP_BOOL> FlagPcow(NTSFUN, OCP_TRUE);
     for (USI i = 0; i < NTSFUN; i++) {
         if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY &&
             fabs(flow[i]->GetPcowBySw(1.0 + TINY) < TINY)) {
-            FlagPcow[i] = false;
+            FlagPcow[i] = OCP_FALSE;
         }
     }
 
@@ -1277,7 +1277,7 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 /// Use initial saturation in blackoil model and initial Zi in compositional model.
 /// It gives initial properties and some derivatives for IMPEC
 /// It just gives Ni for FIM
-void Bulk::InitFlash(const bool& flag)
+void Bulk::InitFlash(const OCP_BOOL& flag)
 {
     OCP_FUNCNAME;
 
@@ -1313,7 +1313,7 @@ void Bulk::InitFlashDer()
             PassFlashValueDeriv(n);
         }
     } else {
-        InitFlash(false);
+        InitFlash(OCP_FALSE);
         FlashDeriv();
     }
 }
@@ -1504,7 +1504,7 @@ USI  Bulk::CalFlashType(const OCP_USI& n) const
     }
     else {
         ftype = 2;
-        if (phaseNum[n] == 2 && true) {
+        if (phaseNum[n] == 2 && OCP_TRUE) {
             // if num of hydrocarbon phases is 2 at last NR step and predicted saturations 
             // indicates that the stae will be kept, then skip phase stability analysis, 
             // carry phase splitting directly
@@ -2091,8 +2091,8 @@ void Bulk::CalMaxChange()
     // }
 }
 
-/// Return true if no negative pressure and false otherwise.
-bool Bulk::CheckP() const
+/// Return OCP_TRUE if no negative pressure and OCP_FALSE otherwise.
+OCP_BOOL Bulk::CheckP() const
 {
     OCP_FUNCNAME;
 
@@ -2103,15 +2103,15 @@ bool Bulk::CheckP() const
             OCP_WARNING("Negative pressure: P[" + std::to_string(n) +
                         "] = " + PStringSci.str());
             cout << "P = " << P[n] << endl;
-            return false;
+            return OCP_FALSE;
         }
     }
 
-    return true;
+    return OCP_TRUE;
 }
 
-/// Return true if no negative Ni and false otherwise.
-bool Bulk::CheckNi()
+/// Return OCP_TRUE if no negative Ni and OCP_FALSE otherwise.
+OCP_BOOL Bulk::CheckNi()
 {
     OCP_FUNCNAME;
 
@@ -2119,7 +2119,7 @@ bool Bulk::CheckNi()
     for (OCP_USI n = 0; n < len; n++) {
         if (Ni[n] < 0) {
             OCP_USI bId = n / numCom;
-            if (Ni[n] > -1E-3 * Nt[bId] && false) {
+            if (Ni[n] > -1E-3 * Nt[bId] && OCP_FALSE) {
                 Ni[n] = 1E-8 * Nt[bId];
                 // Ni[n] = 0;
             } else {
@@ -2149,19 +2149,19 @@ bool Bulk::CheckNi()
                         cout << endl;
                     }
                 }
-                return false;
+                return OCP_FALSE;
             }
         }
     }
-    return true;
+    return OCP_TRUE;
 }
 
-/// Return true if all Ve < Vlim and false otherwise.
-bool Bulk::CheckVe(const OCP_DBL& Vlim) const
+/// Return OCP_TRUE if all Ve < Vlim and OCP_FALSE otherwise.
+OCP_BOOL Bulk::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
-    // bool tmpflag = true;
+    // OCP_BOOL tmpflag = OCP_TRUE;
 
     OCP_DBL dVe = 0.0;
     for (OCP_USI n = 0; n < numBulk; n++) {
@@ -2170,13 +2170,13 @@ bool Bulk::CheckVe(const OCP_DBL& Vlim) const
             cout << "Volume error at Bulk[" << n << "] = " << setprecision(6) << dVe
                  << " is too big!" << endl;
             // OutputInfo(n);
-            return false;
-            // tmpflag = false;
+            return OCP_FALSE;
+            // tmpflag = OCP_FALSE;
         }
     }
     // OutputInfo(39);
-    // if (!tmpflag) return false;
-    return true;
+    // if (!tmpflag) return OCP_FALSE;
+    return OCP_TRUE;
 }
 
 void Bulk::CheckDiff()
@@ -2617,13 +2617,13 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
 #ifdef OCP_OLD_FIM        
         DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
             dtmp.data());
-        const bool newFIM = false;
+        const OCP_BOOL newFIM = OCP_FALSE;
 #else
         DaAxpby((dSdPindex[n + 1] - dSdPindex[n]) / col, col, 1, dSec_dPri.data() + dSdPindex[n],
             u.data() + n * col, 1, dtmp.data());
         //DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n],
         //        u.data() + n * col, 1, dtmp.data());
-        const bool newFIM = true;
+        const OCP_BOOL newFIM = OCP_TRUE;
 #endif // OCP_OLD_FIM
 
         USI js = 0;
@@ -2664,17 +2664,17 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         // dxij   ---- Compositional model only
         if (comps) {
             if (phaseNum[n] == 2) {
-                bool tmpflag = true;
+                OCP_BOOL tmpflag = OCP_TRUE;
                 OCP_USI bId = 0;
                 for (USI j = 0; j < 2; j++) {
                     bId = n * numPhase * numCom + j * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
                         xij[bId + i] += chopmin * dtmp[js];
                         js++;
-                        if (xij[bId + i] < 0) tmpflag = false;
+                        if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
                     }
                 }
-                if (tmpflag || true) {
+                if (tmpflag || OCP_TRUE ) {
                     bId = n * numPhase * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
                         Ks[n * numCom_1 + i] = xij[bId + i] / xij[bId + numCom + i];
@@ -2806,7 +2806,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
 
                 // S[n_np_j] += chop * dtmp[js];
                 // if (S[n_np_j] < TINY) {
-                //     pSderExist[n_np_j] = false;
+                //     pSderExist[n_np_j] = OCP_FALSE;
                 // }
                 // js++;
                  Daxpy(numCom, nj[n_np_j], &xij[n_np_j * numCom], &tmpNij[j * numCom]); 
@@ -2821,7 +2821,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                  }
             }
         }
-        if (phaseNum[n] == 2 && false) {
+        if (phaseNum[n] == 2 && OCP_FALSE) {
             for (USI i = 0; i < numCom_1; i++) {
                 Ks[n * numCom_1 + i] = xij[n * numPhase * numCom + i] / xij[n * numPhase * numCom + numCom + i];
             }
@@ -3177,7 +3177,7 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     FIMNi.resize(maxNumFIMBulk * numCom);
 }
 
-void Bulk::FlashDerivAIM(const bool& IfAIMs)
+void Bulk::FlashDerivAIM(const OCP_BOOL& IfAIMs)
 {
     OCP_FUNCNAME;
 
@@ -3313,7 +3313,7 @@ void Bulk::PassFlashValueDerivAIM(const OCP_USI& fn)
     }
 }
 
-void Bulk::CalKrPcDerivAIM(const bool& IfAIMs)
+void Bulk::CalKrPcDerivAIM(const OCP_BOOL& IfAIMs)
 {
     OCP_FUNCNAME;
 
@@ -3563,7 +3563,7 @@ void Bulk::ResetFIMBulk()
     dSec_dPri = ldSec_dPri;
 }
 
-void Bulk::ShowFIMBulk(const bool& flag) const
+void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const
 {
     cout << numFIMBulk << "   " << fixed << setprecision(3)
          << numFIMBulk * 100.0 / numBulk << "%" << endl;
@@ -3576,7 +3576,7 @@ void Bulk::ShowFIMBulk(const bool& flag) const
         }
         cout << endl;
     }
-    if (false) {
+    if (OCP_FALSE) {
         for (USI n = 0; n < numBulk; n++) {
             cout << setw(6) << map_Bulk2FIM[n] << "   ";
             if ((n + 1) % 10 == 0) {
@@ -3587,7 +3587,7 @@ void Bulk::ShowFIMBulk(const bool& flag) const
     }
 }
 
-bool Bulk::CheckNiFIMBulk() const
+OCP_BOOL Bulk::CheckNiFIMBulk() const
 {
     OCP_FUNCNAME;
 
@@ -3600,10 +3600,10 @@ bool Bulk::CheckNiFIMBulk() const
             NiStringSci << std::scientific << Ni[n];
             OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
                         std::to_string(bId) + "] = " + NiStringSci.str());
-            return false;
+            return OCP_FALSE;
         }
     }
-    return true;
+    return OCP_TRUE;
 }
 
 void Bulk::InFIMNi()

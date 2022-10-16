@@ -83,7 +83,7 @@ public:
     /// Calculate initial equilibrium for compositional model according to EQUIL.
     void InitSjPcComp(const USI& tabrow, const Grid& myGrid);
     /// Perform flash calculation with saturations.
-    void InitFlash(const bool& flag = false);
+    void InitFlash(const OCP_BOOL& flag = OCP_FALSE);
     /// Perform flash calculation with saturations and calculate derivatives.
     void InitFlashDer();
     void InitFlashDer_n();
@@ -130,12 +130,12 @@ public:
     void CheckInitVpore() const;
     /// Check pore volume.
     void CheckVpore() const;
-    /// Check if negative P occurs, return false if so.
-    bool CheckP() const;
-    /// Check if negative Ni occurs, return false if so.
-    bool CheckNi();
-    /// Check if relative volume error is out of range, return false if so.
-    bool CheckVe(const OCP_DBL& Vlim) const;
+    /// Check if negative P occurs, return OCP_FALSE if so.
+    OCP_BOOL CheckP() const;
+    /// Check if negative Ni occurs, return OCP_FALSE if so.
+    OCP_BOOL CheckNi();
+    /// Check if relative volume error is out of range, return OCP_FALSE if so.
+    OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
     /// Check if the sum of saturations is one.
     void CheckSat() const;
     /// Check difference from last time step, for Debug and Test.
@@ -226,9 +226,9 @@ private:
     vector<OCPTable>  initZi_T; ///< InitZi set
 
     vector<OCP_DBL>   SwatInit; ///< Initial water saturation.
-    bool SwatInitExist{false};    ///< If SwatInit has been given.
+    OCP_BOOL SwatInitExist{OCP_FALSE};    ///< If SwatInit has been given.
     vector<OCP_DBL>  ScaleValuePcow; ///< Scale valus for Pcow.
-    bool ScalePcow{false};  ///< whether Pcow should be scaled.
+    OCP_BOOL ScalePcow{OCP_FALSE};  ///< whether Pcow should be scaled.
     
 
     USI               PVTmode;  ///< Identify PVT mode in blackoil model.
@@ -247,11 +247,11 @@ private:
     vector<USI>       NRphaseNum;   ///< phaseNum in NR step
     /// minimal eigenvalue used to determinined if skip the stability analysis
     vector<OCP_SIN>   minEigenSkip; 
-    vector<bool>      flagSkip;
+    vector<OCP_BOOL>      flagSkip;
     vector<OCP_DBL>   ziSkip;
     vector<OCP_DBL>   PSkip;
     vector<OCP_SIN>   lminEigenSkip;
-    vector<bool>      lflagSkip;
+    vector<OCP_BOOL>      lflagSkip;
     vector<OCP_DBL>   lziSkip;
     vector<OCP_DBL>   lPSkip;
 
@@ -267,13 +267,13 @@ private:
     // Basic model information
     /////////////////////////////////////////////////////////////////////
     ParamEQUIL EQUIL;    ///< Initial Equilibration.
-    bool       blackOil; ///< If true, blackoil model will be used.
-    bool       comps;    ///< If true, compositional model will be used.
-    bool       oil;      ///< If true, oil phase could exist.
-    bool       gas;      ///< If true, gas phase could exist.
-    bool       water;    ///< If true, water phase could exist.
-    bool       disGas;   ///< If true, dissolve gas in live oil could exist.
-    bool       miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    OCP_BOOL       blackOil; ///< If OCP_TRUE, blackoil model will be used.
+    OCP_BOOL       comps;    ///< If OCP_TRUE, compositional model will be used.
+    OCP_BOOL       oil;      ///< If OCP_TRUE, oil phase could exist.
+    OCP_BOOL       gas;      ///< If OCP_TRUE, gas phase could exist.
+    OCP_BOOL       water;    ///< If OCP_TRUE, water phase could exist.
+    OCP_BOOL       disGas;   ///< If OCP_TRUE, dissolve gas in live oil could exist.
+    OCP_BOOL       miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     /////////////////////////////////////////////////////////////////////
     // Basic physical variables
@@ -283,7 +283,7 @@ private:
     vector<OCP_DBL> P;          ///< Pressure: numBulk.
     vector<OCP_DBL> Pj;         ///< Pressure of phase: numPhase*numBulk.
     vector<OCP_DBL> Pc;         ///< Capillary pressure of phase: numPhase*numBulk.
-    vector<bool>    phaseExist; ///< Existence of phase: numPhase*numBulk.
+    vector<OCP_BOOL>    phaseExist; ///< Existence of phase: numPhase*numBulk.
     vector<OCP_DBL> S;          ///< Saturation of phase j: numPhase*numBulk.
     vector<OCP_DBL> nj;         ///< moles number of phase j: numPhase*numBulk.
     vector<OCP_DBL> rho;        ///< Mass density of phase: numPhase*numBulk.
@@ -310,7 +310,7 @@ private:
     vector<OCP_DBL> lP;          ///< Pressure: numBulk.
     vector<OCP_DBL> lPj;         ///< Pressure of phase: numPhase*numBulk.
     vector<OCP_DBL> lPc;         ///< Capillary pressure: numPhase*numBulk.
-    vector<bool>    lphaseExist; ///< Existence of phases: numPhase*numBulk.
+    vector<OCP_BOOL>    lphaseExist; ///< Existence of phases: numPhase*numBulk.
     vector<OCP_DBL> lS;          ///< Saturation of phase: numPhase*numBulk.
     vector<OCP_DBL> lnj;         ///< last nj: numPhase*numBulk.
     vector<OCP_DBL> lrho;        ///< Mass density of phase: numPhase*numBulk.
@@ -446,7 +446,7 @@ private:
     vector<OCP_USI> resIndex;  ///< store the starting position of res_n of each bulk.
 
     // Auxiliary variable for dSec_dPr
-    vector<bool>    pSderExist;   ///< Existence of  derivative of phase saturation
+    vector<OCP_BOOL>    pSderExist;   ///< Existence of  derivative of phase saturation
     vector<USI>     pVnumCom;  ///< num of variable components in the phase
 
     // vars at last step
@@ -463,7 +463,7 @@ private:
     vector<OCP_DBL> lresPc;      ///< last lresPc;
     vector<OCP_USI> ldSdPindex;  ///< last SdPindex
     vector<OCP_USI> lresIndex;   ///< last res_n
-    vector<bool>    lpSderExist; ///< last pSderExist
+    vector<OCP_BOOL>    lpSderExist; ///< last pSderExist
     vector<USI>     lpVnumCom;   ///< last pVnumCom
 
 
@@ -507,10 +507,10 @@ public:
     void AllocateAuxAIM(const OCP_DBL& ratio);
     OCP_USI GetMaxFIMBulk()const { return maxNumFIMBulk; }
     /// Perform flash calculation with Ni and calculate derivatives.
-    void FlashDerivAIM(const bool& IfAIMs);
+    void FlashDerivAIM(const OCP_BOOL& IfAIMs);
     void PassFlashValueDerivAIM(const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure and their derivatives.
-    void CalKrPcDerivAIM(const bool& IfAIMs);
+    void CalKrPcDerivAIM(const OCP_BOOL& IfAIMs);
     /// Calculate relative resiual for local FIM.
     void CalRelResAIMt(ResFIM& resFIM) const;
     /// Get the solution for local FIM after a Newton iteration.
@@ -523,9 +523,9 @@ public:
         const OCP_DBL& dSmaxlim);
     void UpdateLastStepAIM();
     void ResetFIMBulk();
-    void ShowFIMBulk(const bool& flag = false) const;
-    /// Check if negative Ni occurs, return false if so.
-    bool CheckNiFIMBulk() const;
+    void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
+    /// Check if negative Ni occurs, return OCP_FALSE if so.
+    OCP_BOOL CheckNiFIMBulk() const;
     /// Ni in FIM Bulk -> FIMNi
     void InFIMNi();
     /// FIMNi -> Ni in FIM Bulk

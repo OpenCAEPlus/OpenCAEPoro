@@ -135,7 +135,7 @@ public:
 
     // check
     /// Check if wrong params are input.
-    void CheckParam(const bool& boModel) const;
+    void CheckParam(const OCP_BOOL& boModel) const;
     /// Check if params of Perforation is wrong.
     void CheckPerf() const;
     void CheckINJFluid() const;

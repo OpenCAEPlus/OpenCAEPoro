@@ -35,7 +35,7 @@ public:
     GPair(const OCP_USI& Id, const OCP_DBL& Area)
         : id(Id)
         , area(Area){};
-    static bool lessG(const GPair& G1, const GPair& G2) { return G1.id < G2.id; }
+    static OCP_BOOL lessG(const GPair& G1, const GPair& G2) { return G1.id < G2.id; }
 
     OCP_USI id;   ///< Id of a neighboring cell
     OCP_DBL area; ///< Effective area between this cell and the neighbor indicated by id
@@ -51,18 +51,18 @@ public:
     GB_Pair() = default;
 
     /// Constructor with given information. TODO: needed???
-    GB_Pair(bool act, OCP_USI i)
+    GB_Pair(OCP_BOOL act, OCP_USI i)
         : activity(act)
         , index(i){};
 
     /// Return whether this cell is active or not.
-    bool IsAct() const { return activity; }
+    OCP_BOOL IsAct() const { return activity; }
 
     /// Return the index of this cell among active cells.
     OCP_USI GetId() const { return index; }
 
 private:
-    bool    activity; ///< Activeness of a grid cell.
+    OCP_BOOL    activity; ///< Activeness of a grid cell.
     OCP_USI index;    ///< Active index of grid if active
 };
 

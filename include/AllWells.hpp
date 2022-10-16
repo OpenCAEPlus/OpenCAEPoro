@@ -38,7 +38,7 @@ private:
     vector<USI> wIdPROD; ///< Prod well index in AllWells  
     
     // for Reinjection
-    bool reInj{false}; ///< if Reinjection happens
+    OCP_BOOL reInj{OCP_FALSE}; ///< if Reinjection happens
     USI injPhase; ///< phase of injfluid, which decides zi
     USI prodGroup{0}; ///< nominated group which supply reinjection
     /// sale rate of current group, after times -xi, it will be passed to maxRate in injWell
@@ -190,7 +190,7 @@ public:
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
     OCP_DBL CalWellQT();
     void ShowWellStatus(const Bulk& myBulk) { for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk); }
-    bool GetWellChange() const { return wellChange; }
+    OCP_BOOL GetWellChange() const { return wellChange; }
 
 private:
     USI          numWell;   ///< num of wells.
@@ -198,7 +198,7 @@ private:
     USI          numGroup; ///< num of groups
     vector<WellGroup> wellGroup; ///< wellGroup set
 
-    bool         wellChange; ///< if wells change, then true
+    OCP_BOOL         wellChange; ///< if wells change, then OCP_TRUE
     vector<SolventINJ> solvents; ///< Sets of Solvent
     OCP_DBL            dPmax{0}; ///< Maximum BHP change
 

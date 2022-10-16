@@ -202,7 +202,7 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    void SetupFIMBulk(Bulk& myBulk, const bool& NRflag = false) const;
+    void SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag = OCP_FALSE) const;
     void AddFIMBulk(Bulk& myBulk);
     void SetupFIMBulkBoundAIMs(Bulk& myBulk);
     /// Allocate memory for auxiliary variables used by the AIMt method.

@@ -312,11 +312,11 @@ void Grid::CalActiveGrid(const OCP_DBL &e1, const OCP_DBL &e2)
     {
         if (ACTNUM[n] == 0 || poro[n] * ntg[n] < e1 || v[n] < e2)
         {
-            activeMap_G2B[n] = GB_Pair(false, 0);
+            activeMap_G2B[n] = GB_Pair(OCP_FALSE, 0);
             continue;
         }
         activeMap_B2G.push_back(n);
-        activeMap_G2B[n] = GB_Pair(true, count);
+        activeMap_G2B[n] = GB_Pair(OCP_TRUE, count);
         count++;
     }
     activeGridNum = count;
@@ -332,7 +332,7 @@ OCP_USI Grid::GetActIndex(const USI &i, const USI &j, const USI &k) const
     {
         OCP_ABORT("Id is out of Range!");
     }
-    bool activity = activeMap_G2B[id].IsAct();
+    OCP_BOOL activity = activeMap_G2B[id].IsAct();
     if (!activity)
     {
         OCP_ABORT("(" + to_string(i) + "," + to_string(j) + "," + to_string(k) +

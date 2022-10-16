@@ -30,8 +30,8 @@ void BOMixture_OW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP
     const OCP_DBL* Sjin, const OCP_DBL& Vpore,
     const OCP_DBL* Ziin)
 {
-    phaseExist[0] = true;
-    phaseExist[1] = true;
+    phaseExist[0] = OCP_TRUE;
+    phaseExist[1] = OCP_TRUE;
 
     P    = Pin;
     S[1] = Sjin[1];
@@ -77,8 +77,8 @@ void BOMixture_OW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP
 void BOMixture_OW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
     const OCP_DBL* lastKs)
 {
-    phaseExist[0] = true;
-    phaseExist[1] = true;
+    phaseExist[0] = OCP_TRUE;
+    phaseExist[1] = OCP_TRUE;
 
     P     = Pin;
     Ni[0] = Niin[0];
@@ -124,10 +124,10 @@ void BOMixture_OW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
     const OCP_DBL* lastKs)
 {
-    phaseExist[0] = true;
-    phaseExist[1] = true;
+    phaseExist[0] = OCP_TRUE;
+    phaseExist[1] = OCP_TRUE;
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
-    fill(pSderExist.begin(), pSderExist.end(), true);
+    fill(pSderExist.begin(), pSderExist.end(), OCP_TRUE);
     fill(pVnumCom.begin(), pVnumCom.end(), 0);
 
     P     = Pin;

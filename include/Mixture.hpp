@@ -74,7 +74,7 @@ public:
     /// return type of mixture.
     USI GetType() const { return mixtureType; }
     /// Check whether Table PVDG is empty, it will only be used in black oil model.
-    virtual bool IsEmpty_PVDG() const { return true; };
+    virtual OCP_BOOL IsEmpty_PVDG() const { return OCP_TRUE; };
     /// flash calculation with saturation of phases.
     virtual void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
@@ -122,11 +122,11 @@ public:
     /// trouble.
     void CheckNi(const OCP_DBL* Ni)
     {
-        bool flag = true;
+        OCP_BOOL flag = OCP_TRUE;
         for (USI i = 0; i < numCom; i++) {
             if (Ni[i] < 0) {
                 cout << "Ni[" << i << "] = " << Ni[i] << endl;
-                flag = false;
+                flag = OCP_FALSE;
                 break; // skip the rest checks
             }
         }
@@ -135,7 +135,7 @@ public:
     // used in Compositional Model
     virtual USI GetFtype() = 0;
     virtual OCP_SIN GetMinEigenSkip() = 0;
-    virtual bool GetFlagSkip() = 0; 
+    virtual OCP_BOOL GetFlagSkip() = 0; 
     virtual OCP_DBL GetSurTen() = 0;
 
     virtual OCP_DBL GetErrorPEC() = 0;
@@ -160,7 +160,7 @@ protected:
     OCP_DBL T;        ///< temperature when flash calculation.
 
     vector<OCP_DBL> Ni;         ///< moles of component: numCom
-    vector<bool>    phaseExist; ///< existence of phase: numPhase
+    vector<OCP_BOOL>    phaseExist; ///< existence of phase: numPhase
     vector<OCP_DBL> S;          ///< saturation of phase: numPhase
     vector<OCP_DBL> rho;        ///< mass density of phase: numPhase
     vector<OCP_DBL> xi;         ///< molar density of phase: numPhase
@@ -196,7 +196,7 @@ protected:
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
     
     // Auxiliary variable for dSec_dPr
-    vector<bool>    pSderExist;   ///< Existence of  derivative of phase saturation 
+    vector<OCP_BOOL>    pSderExist;   ///< Existence of  derivative of phase saturation 
     vector<USI>     pVnumCom; ///< num of variable components in the phase
     
     vector<OCP_DBL> res;     ///< residual of a set of equations

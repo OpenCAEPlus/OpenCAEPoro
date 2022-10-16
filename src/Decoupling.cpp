@@ -119,7 +119,7 @@ static void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     for (i = 0; i < ROW; ++i) {
         double Tt = 0.0;
         // get the diagonal sub-blocks
-        // mat2 is true-IMPES matrix.
+        // mat2 is OCP_TRUE-IMPES matrix.
         fasp_smat_identity(mat2, nb, nb2);
         // mat1 is the mobility ratio matrix
         fasp_smat_identity(mat1, nb, nb2);

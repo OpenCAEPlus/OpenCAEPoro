@@ -792,7 +792,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
     outF << sep01 << "\n";
 
-    static bool flag = false;
+    static OCP_BOOL flag = OCP_FALSE;
     // Print once
     if (flag)
     {
@@ -1004,7 +1004,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
         outF << "\n\n\n";
     }
 
-    flag = false;
+    flag = OCP_FALSE;
 
 
     // Well infor
@@ -1820,7 +1820,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // surface tension
-    if (rs.bulk.miscible && false)
+    if (rs.bulk.miscible && OCP_FALSE)
     {
         outF << sep02 << "\n";
         outF << "STEN"
@@ -1854,7 +1854,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fk
-    if (rs.bulk.miscible && false)
+    if (rs.bulk.miscible && OCP_FALSE)
     {
         outF << sep02 << "\n";
         outF << "FMISC"
@@ -1888,7 +1888,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fp
-    if (rs.bulk.miscible && false)
+    if (rs.bulk.miscible && OCP_FALSE)
     {
         outF << sep02 << "\n";
         outF << "FPC"

@@ -31,7 +31,7 @@
         info << std::setprecision(16);                                                 \
         info << msg << OCP_LOCATION << '\n';                                           \
         std::cerr << info.str().c_str();                                               \
-    } while (false)
+    } while (OCP_FALSE)
 
 /// Log warning messages
 //  msg: user-defined warning message
@@ -39,7 +39,7 @@
 #define OCP_WARNING(msg)                                                               \
     do {                                                                               \
         OCP_MESSAGE("### WARNING: " << (msg));                                         \
-    } while (false)
+    } while (OCP_FALSE)
 
 /// Abort if critical error happens
 //  msg: user-defined abort message
@@ -48,7 +48,7 @@
     do {                                                                               \
         OCP_MESSAGE("### ABORT: " << (msg));                                           \
         std::abort();                                                                  \
-    } while (false)
+    } while (OCP_FALSE)
 
 /// Assert condition and log user messages in DEBUG mode
 //  cond: check condition
@@ -57,7 +57,7 @@
 #ifndef DEBUG
 #define OCP_ASSERT(cond, msg)                                                          \
     do {                                                                               \
-    } while (false)
+    } while (OCP_FALSE)
 #else
 #define OCP_ASSERT(cond, msg)                                                          \
     do {                                                                               \
@@ -65,19 +65,19 @@
             OCP_MESSAGE("### ASSERT: " << (msg) << " (" << #cond << ")");              \
             std::abort();                                                              \
         }                                                                              \
-    } while (false)
+    } while (OCP_FALSE)
 #endif
 
 /// Print Function Name
 #ifndef OCPFUNCNAME
 #define OCP_FUNCNAME                                                                   \
     do {                                                                               \
-    } while (false)
+    } while (OCP_FALSE)
 #else
 #define OCP_FUNCNAME                                                                   \
     do {                                                                               \
         std::cout << __FUNCTION__ << std::endl;                                        \
-    } while (false)
+    } while (OCP_FALSE)
 #endif
 
 #endif /* end if for __ERRORLOG_HXX__ */

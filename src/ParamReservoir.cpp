@@ -85,17 +85,17 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
         case Map_Str2Int("SWATINIT", 8):
             Swat.reserve(numGrid);
             myPtr = &Swat;
-            ScalePcow = true;
+            ScalePcow = OCP_TRUE;
             break;
 
         case Map_Str2Int("SATNUM", 6):
-            SATNUM.activity = true;
+            SATNUM.activity = OCP_TRUE;
             SATNUM.data.reserve(numGrid);
             myPtr = &SATNUM.data;
             break;
 
         case Map_Str2Int("PVTNUM", 6):
-            PVTNUM.activity = true;
+            PVTNUM.activity = OCP_TRUE;
             PVTNUM.data.reserve(numGrid);
             myPtr = &PVTNUM.data;
             break;
@@ -266,7 +266,7 @@ void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
 /// TODO: Add Doxygen
 void ParamReservoir::InputCOMPS(ifstream& ifs)
 {
-    comps = true;
+    comps = OCP_TRUE;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     numCom = stoi(vbuf[0]);
@@ -535,7 +535,7 @@ void ParamReservoir::InputMISCSTR(ifstream& ifs)
 /// Read data from the GRAVITY keyword.
 void ParamReservoir::InputGRAVITY(ifstream& ifs)
 {
-    gravity.activity = true;
+    gravity.activity = OCP_TRUE;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     if (vbuf[0] == "/") return;
@@ -565,7 +565,7 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
     OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword DENSITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
-            density.activity = true;
+            density.activity = OCP_TRUE;
             density.data[i]  = stod(vbuf[i]);
         }
     }
@@ -624,7 +624,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         ptr = &ACTNUM;
     }
 
-    ptr->activity = true;
+    ptr->activity = OCP_TRUE;
     ptr->data.reserve(numGrid);
     vector<string>  vbuf;
     vector<OCP_USI> obj;
@@ -877,13 +877,13 @@ void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
     if (objPtr == nullptr) {
         OCP_ABORT("Unknown keyword!");
     }
-    objPtr->activity = true;
+    objPtr->activity = OCP_TRUE;
 
     vector<string> vbuf;
     vector<OCP_DBL> tmp;
     USI nReg = 0;
 
-    while (true) {
+    while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") {
             nReg++;
@@ -914,7 +914,7 @@ void EoSparam::InputCNAMES(ifstream& ifs)
     OCP_ASSERT(numCom > 0, "NCNP hasn't be input!");
 
     vector<string> vbuf;
-    while (true) {
+    while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") {
             break;
@@ -963,7 +963,7 @@ void EoSparam::InputBIC(ifstream& ifs)
 
     vector<string> vbuf;
     USI nReg = 0;
-    while (true) {
+    while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") {
             nReg++;

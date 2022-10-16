@@ -39,7 +39,7 @@ public:
     void Setup(const vector<vector<OCP_DBL>>& src);
 
     /// judge if table is empty.
-    bool IsEmpty() const { return data.empty(); }
+    OCP_BOOL IsEmpty() const { return data.empty(); }
 
     /// return the column num of table.
     USI GetColNum() const { return nCol; }

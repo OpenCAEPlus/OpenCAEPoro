@@ -36,12 +36,12 @@ public:
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    bool UpdateProperty01(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty01(Reservoir& rs, OCPControl& ctrl);
 
     /// Determine if NR iteration finishes.
-    bool FinishNR(const Reservoir& rs);
-    bool FinishNR01(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(const Reservoir& rs);
+    OCP_BOOL FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
@@ -67,10 +67,10 @@ public:
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const;
 
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 
     /// Finish a Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
 
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
@@ -96,7 +96,7 @@ public:
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl) const;
 
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 
 };
 
@@ -119,10 +119,10 @@ public:
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
 
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 
     /// Finish a Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
 };
 
 /// perform AIM in space, that is, some grids will be implicit, others will be explicit at the same time step
@@ -138,9 +138,9 @@ public:
     /// Solve the linear system.
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Finish a Newton-Raphson iteration.
-    bool FinishNR(Reservoir& rs, OCPControl& ctrl);
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
@@ -159,7 +159,7 @@ public:
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Update properties of fluids.
-    bool UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS);
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS);
 
 private:
     /// Resiual for FIM

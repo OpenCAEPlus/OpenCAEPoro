@@ -95,7 +95,7 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)
     allWells.CalReInjFluid(bulk);
 }
 
-OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
+OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
 {
     OCP_FUNCNAME;
 
@@ -114,14 +114,14 @@ OCP_INT Reservoir::CheckP(const bool& bulkCheck, const bool& wellCheck)
     return 0;
 }
 
-bool Reservoir::CheckNi()
+OCP_BOOL Reservoir::CheckNi()
 {
     OCP_FUNCNAME;
 
     return bulk.CheckNi();
 }
 
-bool Reservoir::CheckVe(const OCP_DBL& Vlim) const
+OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
@@ -157,7 +157,7 @@ void Reservoir::InitIMPEC()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
-    bulk.InitFlash(true);
+    bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
     bulk.UpdateLastStepIMPEC();
     conn.CalFluxIMPEC(bulk);
@@ -391,7 +391,7 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);  
 #else
-    conn.AssembleMat_FIM_new1(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new(myLS, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #endif // OCP_OLD_FIM
 }
@@ -468,7 +468,7 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
     // cout << endl;
 }
 
-void Reservoir::ResetFIM(const bool& flag)
+void Reservoir::ResetFIM(const OCP_BOOL& flag)
 {
     bulk.ResetFIM();
     allWells.ResetBHP();
@@ -534,13 +534,13 @@ void Reservoir::AllocateMatAIMt(LinearSystem& myLS) const
 }
 
 
-void Reservoir::CalFlashDerivAIM(const bool& IfAIMs)
+void Reservoir::CalFlashDerivAIM(const OCP_BOOL& IfAIMs)
 {
     bulk.FlashDerivAIM(IfAIMs);
 }
 
 
-void Reservoir::CalKrPcDerivAIM(const bool& IfAIMs)
+void Reservoir::CalKrPcDerivAIM(const OCP_BOOL& IfAIMs)
 {
     bulk.CalKrPcDerivAIM(IfAIMs);
 }
@@ -620,7 +620,7 @@ void Reservoir::ResetValAIM()
     allWells.CalTrans(bulk);
     allWells.CalFlux(bulk);
 
-    if (false) {
+    if (OCP_FALSE) {
         allWells.CaldG(bulk);
         allWells.CalFlux(bulk);
     }  
@@ -725,7 +725,7 @@ void Reservoir::InitAIMc()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
-    bulk.InitFlash(true);
+    bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
     conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);

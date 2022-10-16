@@ -59,14 +59,14 @@ public:
     WellOpt(const WellOptParam& Optparam);
 
     /// overload inequality
-    bool operator !=(const WellOpt& Opt) const;
+    OCP_BOOL operator !=(const WellOpt& Opt) const;
 
 private:
     USI type{0}; ///< type of well, Inj or Prod.
     /// indicate which type of fluids will be injected, water, gas, or other solvent.
     /// it's decided by users and only useful for injection well.
     string fluidType;
-    bool   state{false}; ///< state of well, close or open.
+    OCP_BOOL   state{OCP_FALSE}; ///< state of well, close or open.
     USI optMode; ///< control mode of well: constant pressure, or constant flow rate of
                  ///< specified fluids.
     USI initOptMode; ///< Init opt mode during current step
@@ -91,7 +91,7 @@ private:
     vector<OCP_DBL> zi;
     OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
     // for Reinjection
-    bool reInj{false}; ///< if true, reinjection happens
+    OCP_BOOL reInj{OCP_FALSE}; ///< if OCP_TRUE, reinjection happens
     USI injPhase; ///< phase of Reinjection fluid
     OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
     vector<USI> connWell; ///< Well which connects to current Well
@@ -125,11 +125,11 @@ public:
     /// Calculate transmissibility for each phase in perforations.
     void CalTrans(const Bulk& myBulk);
     /// Calculate the flux for each perforations.
-    void CalFlux(const Bulk& myBulk, const bool flag = false);
+    void CalFlux(const Bulk& myBulk, const OCP_BOOL flag = OCP_FALSE);
     /// calculate flow rate of moles of components for injection well with maxBHP
-    OCP_DBL CalInjRate(const Bulk& myBulk, const bool& maxBHP);
+    OCP_DBL CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP);
     /// calculate flow rate of moles of components for production well with minBHP
-    OCP_DBL CalProdRate(const Bulk& myBulk, const bool& minBHP);
+    OCP_DBL CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP);
     /// Calculate flow rate of moles of components for injection well
     void CalInjQi(const Bulk& myBulk, const OCP_DBL& dt);
     /// Calculate flow rate of moles of phase for production well
@@ -169,7 +169,7 @@ public:
     /// Setup bulks which are penetrated by wells
     void SetupWellBulk(Bulk& myBulk) const;
     /// Return the state of the well, Open or Close.
-    bool WellState() const { return opt.state; }
+    OCP_BOOL WellState() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; }
     /// Return Pressure of Perf p

@@ -35,7 +35,7 @@ public:
 	OCP_DBL eYt{ 1E-8 };    ///< if Yt > 1 + eYt, then single phase is unstable
 	OCP_DBL tol2;   ///< tol*tol
     OCP_DBL realTol; ///< Real tol
-    bool    conflag; ///< convergence flag, if converges, conflag = true
+    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
 	// test
     USI curIt; ///< current Iterations
     OCP_DBL curSk;
@@ -49,7 +49,7 @@ public:
     OCP_DBL tol;   ///< Tolerance
     OCP_DBL tol2;  ///< tol*tol
     OCP_DBL realTol; ///< Real tol
-    bool    conflag; ///< convergence flag, if converges, conflag = true
+    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
     USI curIt;     ///< current Iters
 };
@@ -63,7 +63,7 @@ public:
     OCP_DBL tol;     ///< Tolerance
     OCP_DBL tol2;    ///< tol*tol
     OCP_DBL realTol; ///< Real tol
-    bool    conflag; ///< convergence flag, if converges, conflag = true
+    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
     USI curIt;     ///< current Iters
 };
@@ -77,7 +77,7 @@ public:
     OCP_DBL tol;     ///< Tolerance
     OCP_DBL tol2;    ///< tol*tol
     OCP_DBL realTol; ///< Real tol
-    bool    conflag; ///< convergence flag, if converges, conflag = true
+    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
     USI curIt;     ///< current Iters
 };
@@ -227,7 +227,7 @@ private:
 	vector<OCP_DBL> Vshift; ///< Volume shift of hydrocarbon components
 	vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
 	vector<OCP_DBL> Zc; ///< Critical Z-factor of hydrocarbon components
-	bool ParachorAct;
+	OCP_BOOL ParachorAct;
 	// for viscosity calculation
 	vector<OCP_DBL> Vcvis; ///< Critical volume used for viscosity calculations only.
 	vector<OCP_DBL> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
@@ -235,7 +235,7 @@ private:
     vector<OCP_DBL> BIC; ///< Binary interaction between hydrocarbon components
 
     // Model information
-    bool miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    OCP_BOOL miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
     OCP_DBL surTen; ///< Surface tension
 
 	// Initial properties
@@ -276,7 +276,7 @@ public:
     void CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const OCP_DBL* xj) const;
     /// Result is stored in Ztmp.
     USI CubicRoot(const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c,
-                  const bool& NTflag = false) const;
+                  const OCP_BOOL& NTflag = OCP_FALSE) const;
     /// test
     void PrintZtmp()
     {
@@ -339,17 +339,17 @@ public:
 	void AllocateMethod();
 	void PhaseEquilibrium();
 	void CalKwilson();
-	bool PhaseStable();
-	bool StableSSM(const USI& Id);    ///< strict SSM
-	bool StableSSM01(const USI& Id);  ///< relaxable SSM
-	bool StableNR(const USI& Id);
+	OCP_BOOL PhaseStable();
+	OCP_BOOL StableSSM(const USI& Id);    ///< strict SSM
+	OCP_BOOL StableSSM01(const USI& Id);  ///< relaxable SSM
+	OCP_BOOL StableNR(const USI& Id);
 	void CalFugXSTA(); ///< Calculate d ln(Fug) / dx for Y
 	void AssembleJmatSTA();
-	bool CheckSplit();
+	OCP_BOOL CheckSplit();
 	void PhaseSplit();
-	void SplitSSM(const bool& flag);
-	void SplitSSM2(const bool& flag);
-	void SplitSSM3(const bool& flag);
+	void SplitSSM(const OCP_BOOL& flag);
+	void SplitSSM2(const OCP_BOOL& flag);
+	void SplitSSM3(const OCP_BOOL& flag);
 	void RachfordRice2();  ///< Used when NP = 2
 	void RachfordRice2P();  ///< Used when NP = 2, improved RachfordRice2
 	void RachfordRice3(); ///< Used when NP > 2
@@ -357,7 +357,7 @@ public:
     void SplitBFGS(); ///< Use BFGS to calculate phase splitting
 	void SplitNR(); ///< Use NR to calculate phase splitting
 	void CalResSP();
-	void CalFugNAll(const bool& Znflag = true);
+	void CalFugNAll(const OCP_BOOL& Znflag = OCP_TRUE);
 	void PrintFugN();
 	void AssembleJmatSP();
     /// Calculate d ln phi[i][j] / d n[k][j]
@@ -367,7 +367,7 @@ public:
 
     
     OCP_SIN GetMinEigenSkip() override { return eigenSkip[0]; }
-    bool GetFlagSkip() override { return flagSkip; }
+    OCP_BOOL GetFlagSkip() override { return flagSkip; }
 
 private:
     // Method Variables
@@ -390,7 +390,7 @@ private:
     vector<OCP_DBL>         Bx;      ///< d Bj / d xkj, j is fixed
     vector<OCP_DBL>         Zx;      ///< d Zj / d xkj, j is fixed
     // Skip Stability Analysis
-    bool flagSkip; ///< if check skipping Stability Analysis
+    OCP_BOOL flagSkip; ///< if check skipping Stability Analysis
     vector<OCP_DBL> phiN;    ///< d ln phi[i][j] / d n[k][j]
     vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
     vector<OCP_SIN> eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
@@ -425,7 +425,7 @@ public:
     void CalViscoLBC();
     void CalViscoHZYT();
     void CalFugXAll();
-    void CalFugPAll(const bool& Zpflag = true);
+    void CalFugPAll(const OCP_BOOL& Zpflag = OCP_TRUE);
 
 
     void CalVjpVfpVfx_partial();
@@ -461,7 +461,7 @@ public:
     void CalRhoPn_partial();
     void CalMuPn_partial();
     void CalMuPnLBC_partial();
-    void CalXiRhoMuPN_pfullxn(const bool& xflag = true);
+    void CalXiRhoMuPN_pfullxn(const OCP_BOOL& xflag = OCP_TRUE);
 
     void CaldXsdXpAPI03();
     void CaldXsdXp03();
