@@ -25,7 +25,7 @@ author = 'OpenCAX+'
 # The full version, including alpha/beta/rc tags
 tags = subprocess.getoutput('git describe --tags --abbrev=0')
 print(tags)
-release = tags #'0.2.0'
+release = tags
 
 
 # -- General configuration ---------------------------------------------------
