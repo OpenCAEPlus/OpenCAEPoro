@@ -27,7 +27,6 @@ tags = subprocess.getoutput('git describe --tags --abbrev=0')
 print(tags)
 release = tags
 
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
