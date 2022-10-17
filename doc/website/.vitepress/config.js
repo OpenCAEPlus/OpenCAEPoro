@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import markdownItKatex from "markdown-it-katex";
 import markdownItFootnote from "markdown-it-footnote";
-import { version } from "../../../package.json";
+import { version } from "../../package.json";
 
 const customElements = [
   "math",

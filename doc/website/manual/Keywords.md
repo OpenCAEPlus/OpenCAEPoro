@@ -1,3 +1,11 @@
+---
+head:
+  - - link
+    - rel: stylesheet
+      href: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css
+title: Introduction to OpenCAEPoro Keywords
+---
+
 # Introduction to OpenCAEPoro Keywords
 
 OpenCAEPoro 目前用一套关键字体系来构建模拟选项，控制模拟过程，大部分关键字格式与内容与斯伦贝谢的 Eclipse 保持一致，对于这些关键字，将在其后用 **(e)** 或 **(e300)** 标出，**(e300)** 表示仅和适用于 E300 的选项匹配。有些关键字后面还会用 **(/)** 标出，这表示必须在其内容结束的**下一行**使用 `/` 表示其已结束，例如
@@ -1707,7 +1715,7 @@ NRSP
 /
 ```
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
+<!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
-</script>
+</script> -->
