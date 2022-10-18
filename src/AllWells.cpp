@@ -556,18 +556,6 @@ void AllWells::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI
     }
 }
 
-void AllWells::GetSol01FIM(const vector<OCP_DBL>& u, const OCP_USI& bId,
-                            const USI& len, const OCP_DBL& alpha)
-{
-    USI wId = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
-            wells[w].BHP += u[(bId + wId) * len] * alpha;
-            wells[w].UpdatePerfP();
-            wId++;
-        }
-    }
-}
 
 void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const
 {

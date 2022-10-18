@@ -1719,11 +1719,11 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 
 
 #ifdef OCP_OLD_FIM  
-    Dcopy(maxLendSdP, &dSec_dPri[0] + n * maxLendSdP, &flashCal[pvtnum]->dXsdXp[0]);
+    Dcopy(maxLendSdP, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #else
     bRowSizedSdP[n] = len;
     len *= (numCom + 1);
-    Dcopy(len, &dSec_dPri[0] + n * maxLendSdP, &flashCal[pvtnum]->dXsdXp[0]);
+    Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
 
@@ -2614,7 +2614,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         fill(dtmp.begin(), dtmp.end(), 0.0);
 
 #ifdef OCP_OLD_FIM        
-        DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
+        DaAxpby(row0, col, 1, &dSec_dPri[n * bsize], u.data() + n * col, 1,
             dtmp.data());
         const OCP_BOOL newFIM = OCP_FALSE;
 #else
@@ -2853,7 +2853,6 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     }
 }
 
-void Bulk::GetSol01FIM(const vector<OCP_DBL>& u) { GetSolAIMc(u, 1, 1); }
 
 void Bulk::CalRelResFIM(ResFIM& resFIM) const
 {
@@ -3378,7 +3377,7 @@ void Bulk::GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         chopmin = 1;
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
-        DaAxpby(row, col, 1, dSec_dPri.data() + fn * bsize, u.data() + fn * col, 1,
+        DaAxpby(row, col, 1, &dSec_dPri[fn * bsize], u.data() + fn * col, 1,
                 dtmp.data());
 
         for (USI j = 0; j < numPhase; j++) {
@@ -3485,7 +3484,7 @@ void Bulk::GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             chopmin = 1;
             // compute the chop
             fill(dtmp.begin(), dtmp.end(), 0.0);
-            DaAxpby(row, col, 1, dSec_dPri.data() + bIde * bsize, u.data() + bIde * col,
+            DaAxpby(row, col, 1, &dSec_dPri[bIde * bsize], u.data() + bIde * col,
                     1, dtmp.data());
 
             for (USI j = 0; j < numPhase; j++) {
@@ -3843,56 +3842,8 @@ void Bulk::CalKrPcDerivAIMc()
     }
 }
 
+
 void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
-                      const OCP_DBL& dSmaxlim)
-{
-    NRdPmax = 0;
-    NRdNmax = 0;
-    OCP_DBL tmp;
-    USI     row     = numPhase * (numCom + 1);
-    USI     col     = numCom + 1;
-    OCP_DBL chopmin = 1;
-    OCP_DBL choptmp = 0;
-
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        // cout << "[" << n << "]" << endl;
-        // cout << scientific << P[n] << "   " << u[n * ncol] << "   " << u[n * ncol] /
-        // P[n] << endl;
-
-        dPNR[n] = u[n * col];
-        tmp     = fabs(dPNR[n] / P[n]);
-        P[n] += dPNR[n];
-
-        if (tmp > NRdPmax) {
-            NRdPmax = tmp;
-        }
-
-        for (USI i = 0; i < numCom; i++) {
-            /*cout << Ni[n * numCom + i] << "   " << u[n * ncol + 1 + i] << "   "
-                << u[n * ncol + 1 + i] / Ni[n * numCom + i] << endl;*/
-
-            if (Ni[n * numCom + i] + u[n * col + 1 + i] < 0) {
-                dNNR[n * numCom + i] = -Ni[n * numCom + i];
-                tmp                  = 1;
-                Ni[n * numCom + i]   = 1E-8 * Nt[n];
-                // cout << Ni[n * numCom + i] << "   " << u[n * ncol + 1 + i] << endl;
-            } else if (u[n * col + 1 + i] > Ni[n * numCom + i]) {
-                dNNR[n * numCom + i] = Ni[n * numCom + i];
-                tmp                  = 1;
-                Ni[n * numCom + i] += dNNR[n * numCom + i];
-            } else {
-                dNNR[n * numCom + i] = u[n * col + 1 + i];
-                tmp                  = fabs(dNNR[n * numCom + i]) / Ni[n * numCom + i];
-                Ni[n * numCom + i] += dNNR[n * numCom + i];
-            }
-            if (tmp > NRdNmax) {
-                NRdNmax = tmp;
-            }
-        }
-    }
-}
-
-void Bulk::GetSolAIMc01(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
                         const OCP_DBL& dSmaxlim)
 {
     NRdSmaxP = 0;
@@ -3926,7 +3877,7 @@ void Bulk::GetSolAIMc01(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         chopmin = 1;
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
-        DaAxpby(row0, col, 1, dSec_dPri.data() + n * bsize, u.data() + n * col, 1,
+        DaAxpby(row0, col, 1, &dSec_dPri[n * bsize], u.data() + n * col, 1,
                 dtmp.data());
 
         for (USI j = 0; j < numPhase; j++) {

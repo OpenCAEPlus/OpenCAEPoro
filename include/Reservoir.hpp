@@ -160,7 +160,6 @@ public:
                         const OCP_DBL& dSmax);
     void GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
         const OCP_DBL& dSmax);
-    void GetSolution01FIM(const vector<OCP_DBL>& u);
     /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM

@@ -3241,6 +3241,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
     const USI ncol2 = np * nc + np;
     const USI bsize = ncol * ncol;
     const USI bsize2 = ncol * ncol2;
+    const USI lendSdP = myBulk.maxLendSdP;
 
     vector<OCP_DBL> bmat(bsize, 0);
 
@@ -3328,6 +3329,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
             }
         }
         else if ((bIdFIM && !eIdFIM) || (!bIdFIM && eIdFIM)) {
+
             // one is explicit, one is implicit
             fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
             fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
@@ -3372,6 +3374,8 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
                 bId_np_j = bId * np + j;
                 eId_np_j = eId * np + j;
                 uId_np_j = uId * np + j;
+                dP = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] -
+                    upblock_Rho[c * np + j] * dGamma;
                 xi = myBulk.xi[uId_np_j];
                 kr = myBulk.kr[uId_np_j];
                 mu = myBulk.mu[uId_np_j];
@@ -3665,11 +3669,10 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
         if (bIdFIM && !eIdFIM) ncolB = ncolI;
         else if (!bIdFIM && eIdFIM) ncolE = ncolI;
 
-
         // Assemble
         bmat = dFdXpB;
         if (bIdFIM) {
-            DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
+            DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * lendSdP], 1,
                 bmat.data());
         }
         Dscalar(bsize, dt, bmat.data());
@@ -3693,7 +3696,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
         // End
         bmat = dFdXpE;
         if (eIdFIM) {
-            DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * bsize2], 1,
+            DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * lendSdP], 1,
                 bmat.data());
         }       
         Dscalar(bsize, dt, bmat.data());

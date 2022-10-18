@@ -315,7 +315,11 @@ void Reservoir::InitFIM()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalVpore();
+
     bulk.InitFlashDer();
+    //bulk.InitFlash();
+    //bulk.FlashDeriv();
+
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);
@@ -423,13 +427,6 @@ void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
-
-// Not useful
-void Reservoir::GetSolution01FIM(const vector<OCP_DBL>& u)
-{
-    bulk.GetSol01FIM(u);
-    allWells.GetSol01FIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1, 1);
-}
 
 void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
 {
@@ -711,7 +708,7 @@ void Reservoir::CalKrPcDerivAIMc()
 void Reservoir::GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
     const OCP_DBL& dSmax)
 {
-    bulk.GetSolAIMc01(u, dPmax, dSmax);
+    bulk.GetSolAIMc(u, dPmax, dSmax);
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 

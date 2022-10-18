@@ -266,7 +266,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& c
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef DEBUG
+#ifdef _DEBUG
     myLS.OutputLinearSystem("testA_FIM.out", "testb_FIM.out");
     myLS.OutputSolution("testx_FIM.out");
     myLS.CheckSolution();

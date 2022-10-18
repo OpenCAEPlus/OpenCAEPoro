@@ -407,8 +407,6 @@ public:
                    const OCP_DBL& dSmaxlim);
     void GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
-    /// Get the solution for FIM after a Newton iteration???
-    void GetSol01FIM(const vector<OCP_DBL>& u);
     /// Calculate relative resiual for FIM.
     void CalRelResFIM(ResFIM& resFIM) const;
     // Show Res
@@ -558,8 +556,6 @@ public:
     /// Calculate relative permeability and capillary pressure and their derivatives.
     void CalKrPcDerivAIMc();
     void GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
-        const OCP_DBL& dSmaxlim);
-    void GetSolAIMc01(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         const OCP_DBL& dSmaxlim);
     void UpdatePj();
        
