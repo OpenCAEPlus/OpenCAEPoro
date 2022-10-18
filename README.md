@@ -57,14 +57,14 @@ Note: You can also use the provided scripts to build the whole project:
 
 The directory structure of OpenCAEPoro is designed as follows:
 
-- data/: Output files for comparison purposes
-- doc/: Documentation website
-- examples/: Input files for test examples
-- external/: External dependencies
-- include/: Header files
-- src/: Source files
-- stash/: Files that are no longer needed, keep for future references
-- main/: Main source code for executables
+- `data/` : Output files for comparison purposes
+- `doc/` : Documentation website
+- `examples/` : Input files for test examples
+- `external/` : External dependencies
+- `include/` : Header files
+- `src/` : Source files
+- `stash/` : Files that are no longer needed, keep for future references
+- `main/` : Main source code for executables
 - CMakeLists.txt: Main cmake script
 - CMakePresets.json: Preset settings for cmake
 - CONTRIBUTE.md: Guidance for open source contributors
