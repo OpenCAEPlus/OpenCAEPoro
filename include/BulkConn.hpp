@@ -181,7 +181,7 @@ public:
 
 
     /////////////////////////////////////////////////////////////////////
-    // FIM(new)
+    // FIM(new) assemble
     /////////////////////////////////////////////////////////////////////
 
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
@@ -198,30 +198,11 @@ public:
         const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
-    // AIMs, AIMt
+    // AIMc
     /////////////////////////////////////////////////////////////////////
 
 public:
     void SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag = OCP_FALSE) const;
-    void AddFIMBulk(Bulk& myBulk);
-    void SetupFIMBulkBoundAIMs(Bulk& myBulk);
-    /// Allocate memory for auxiliary variables used by the AIMt method.
-    void AllocateAuxAIMt();
-    /// Setup sparsity pattern of the coefficient matrix for AIMt
-    void SetupMatSparsityAIMt(LinearSystem& myLS, const Bulk& myBulk) const;
-    /// Assmeble coefficient matrix for FIM, terms related to bulks only.
-    void AssembleMat_AIMt(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-    /// Calculate resiual for the Newton iteration in local FIM.
-    void CalResAIMt(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-    /// Calculate resiual for the Newton iteration in AIMs.
-    /// Only parts using local FIM are considered.
-    void CalResAIMs(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-    /// Assmeble coefficient matrix for AIMs, terms related to bulks only
-    /// parts related to FIM A, IMPEC A, and IMPEC b
-    void AssembleMat_AIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-
     /// Allocate memory for auxiliary variables used by the AIMc method.
     void AllocateAuxAIMc(const USI& np);
     void AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;

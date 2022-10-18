@@ -271,29 +271,6 @@ public:
         const OCP_DBL& dt) const;
     void AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt) const;
-
-
-    /////////////////////////////////////////////////////////////////////
-    // AIMt, AIMs
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Assemble matrix for AIMt, parts related to Injection well are included.
-    void AssembleMatINJ_AIMt(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    /// Assemble matrix for AIMt, parts related to Production well are included.
-    void AssembleMatPROD_AIMt(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    /// Calculate Resiual and relative Resiual for local FIM.
-    void CalResAIMt(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
-        const OCP_USI& wId, const vector<Well>& allWell) const;
-
-    /// Assemble matrix for AIMs, parts related to Injection well are included.
-    void AssembleMatINJ_AIMs(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    /// Assemble matrix for AIMs, parts related to Production well are included.
-    void AssembleMatPROD_AIMs(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELL_HEADER__ */

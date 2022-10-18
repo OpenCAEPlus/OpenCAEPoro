@@ -101,9 +101,6 @@ class OCPControl
     friend class OCP_FIMn;
     friend class OCP_IMPEC;
     friend class OCP_AIMc;
-    friend class OCP_AIMs;
-    friend class OCP_AIMt;
-    friend class OCP_FIM_IMPEC;
     // temp
     friend class Solver; 
 

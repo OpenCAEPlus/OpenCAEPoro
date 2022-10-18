@@ -125,49 +125,6 @@ public:
     OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
 };
 
-/// perform AIM in space, that is, some grids will be implicit, others will be explicit at the same time step
-class OCP_AIMs
-{
-public:
-    /// Setup AIMs
-    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
-    /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-    /// Assemble Matrix
-    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt);
-    /// Solve the linear system.
-    void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
-    /// Update properties of fluids.
-    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    /// Finish a Newton-Raphson iteration.
-    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
-    /// Finish a time step.
-    void FinishStep(Reservoir& rs, OCPControl& ctrl);
-
-private:
-    /// Resiual for AIMs
-    ResFIM resFIM;
-
-};
-
-/// perform AIM in time, that is, local FIM will be performed after global IMPEC performs
-class OCP_AIMt
-{
-public:
-    /// Setup AIMt
-    void Setup(Reservoir& rs, LinearSystem& myLS, LinearSystem& myAuxLS, const OCPControl& ctrl);
-    /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-    /// Update properties of fluids.
-    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl, LinearSystem& myAuxLS);
-
-private:
-    /// Resiual for FIM
-    ResFIM resFIM;
-
-};
-
-
 #endif /* end if __OCPFLUIDMETHOD_HEADER__ */
 
 /*----------------------------------------------------------------------------*/

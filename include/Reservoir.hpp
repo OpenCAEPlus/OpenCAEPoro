@@ -37,8 +37,6 @@ class Reservoir
     // temp
     friend class OCP_IMPEC;
     friend class OCP_FIM;
-    friend class OCP_AIMs;
-    friend class OCP_AIMt;
     friend class OCP_AIMc;
     friend class Solver;
 
@@ -76,8 +74,6 @@ public:
     OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
-    /// Return MaxNUMFIMBulk
-    OCP_USI GetMaxFIMBulk() const { return bulk.GetMaxFIMBulk(); }
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
@@ -134,7 +130,7 @@ private:
 
 public:
     /////////////////////////////////////////////////////////////////////
-    // FIM
+    // FIM(n)
     /////////////////////////////////////////////////////////////////////
 
     /// Allocate memory for auxiliary variables used for FIM
@@ -175,46 +171,15 @@ public:
     void    PrintSolFIM(const string& outfile) const;
     void    ShowRes(const vector<OCP_DBL>& res) const;
 
+
     /////////////////////////////////////////////////////////////////////
-    // AIMs, AIMt
+    // AIMc
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Allocate memory for auxiliary variables used for AIMt
-    void AllocateAuxAIMt();
-    /// Allocate Maxmimum memory for internal Matirx for local FIM
-    void AllocateMatAIMt(LinearSystem& myLS) const;
+
     /// Setup FIMBulk
     void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(bulk, NRflag); }
-    void AddFIMBulk() { conn.AddFIMBulk(bulk); }
-    void SetupFIMBulkBoundAIMs() { conn.SetupFIMBulkBoundAIMs(bulk); }
-    
-    /// Calculate Flash for local FIM, some derivatives are needed
-    void CalFlashDerivAIM(const OCP_BOOL& IfAIMs);
-    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcDerivAIM(const OCP_BOOL& IfAIMs);
-    /// Calculate the Resiual for local FIM, it's also RHS of Linear System
-    void CalResAIMt(ResFIM& resFIM, const OCP_DBL& dt);
-    /// Assemble Matrix for AIMt ---- local FIM here
-    void AssembleMatAIMt(LinearSystem& myLS, const OCP_DBL& dt) const;
-    /// Return the Solution to Reservoir Pressure and moles of Components for FIM
-    /// Exactly, it's a Newton step.
-    void GetSolutionAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-        const OCP_DBL& dSmax);
-
-    /// Allocate memory for auxiliary variables used for AIMs
-    void AllocateAuxAIMs();
-    /// Calculate the Resiual for AIMs, it's also RHS of Linear System
-    void CalResAIMs(ResFIM& resFIM, const OCP_DBL& dt);
-    /// Assemble Matrix for AIMs
-    void AssembleMatAIMs(LinearSystem& myLS, vector<OCP_DBL>& res, const OCP_DBL& dt) const;
-    void GetSolutionAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-        const OCP_DBL& dSmax);
-    void ResetValAIM();
-    OCP_DBL CalCFLAIM(const OCP_DBL& dt);
-    /// Update value of last step for IMPEC
-    void UpdateLastStepAIM();
-
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxAIMc();
     /// Assemble Matrix for AIMc

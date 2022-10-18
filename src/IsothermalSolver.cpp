@@ -18,12 +18,6 @@ void IsothermalSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 
     switch (method)
     {
-    case AIMt:
-        aimt.Setup(rs, LSolver, auxLSolver, ctrl);
-        break;
-    case AIMs:
-        aims.Setup(rs, LSolver, ctrl);       
-        break;
     case IMPEC:
         impec.Setup(rs, LSolver, ctrl);        
         break;
@@ -46,8 +40,6 @@ void IsothermalSolver::InitReservoir(Reservoir &rs) const
     switch (method)
     {
     case IMPEC:
-    case AIMt:
-    case AIMs:
         impec.InitReservoir(rs);
         break;
     case FIM:   
@@ -81,12 +73,6 @@ void IsothermalSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
     case AIMc:
         aimc.Prepare(rs, dt);
         break;
-    case AIMs:
-        aims.Prepare(rs, dt);
-        break;
-    case AIMt:
-        aimt.Prepare(rs, dt);
-        break;
     default:
         OCP_ABORT("Wrong method type!");
     }
@@ -98,7 +84,6 @@ void IsothermalSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     switch (method)
     {
     case IMPEC:
-    case AIMt:
         rs.AssembleMatIMPEC(LSolver, dt);
         break;
     case FIMn:
@@ -109,9 +94,6 @@ void IsothermalSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
         break;
     case AIMc:
         aimc.AssembleMat(LSolver, rs, dt);
-        break;
-    case AIMs:
-        aims.AssembleMat(LSolver, rs, dt);
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -124,7 +106,6 @@ void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
     switch (method)
     {
     case IMPEC:
-    case AIMt:
         impec.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     case FIMn:
@@ -135,9 +116,6 @@ void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
         break;
     case AIMc:
         aimc.SolveLinearSystem(LSolver, rs, ctrl);
-        break;
-    case AIMs:
-        aims.SolveLinearSystem(LSolver, rs, ctrl);
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -157,10 +135,6 @@ OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
             return fim.UpdateProperty(rs, ctrl);
         case AIMc:
             return aimc.UpdateProperty(rs, ctrl);
-        case AIMs:
-            return aims.UpdateProperty(rs, ctrl);
-        case AIMt:
-            return aimt.UpdateProperty(rs, ctrl, auxLSolver);
         default:
             OCP_ABORT("Wrong method type!");
     }
@@ -171,11 +145,8 @@ OCP_BOOL IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 {
     switch (method) {
         case IMPEC:
-        case AIMt:
             return impec.FinishNR(rs);
             // return impec.FinishNR01(rs, ctrl);
-        case AIMs:
-            return aims.FinishNR(rs, ctrl);
         case FIMn:
             return fim_n.FinishNR(rs, ctrl);
         case FIM:
@@ -193,15 +164,12 @@ void IsothermalSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     switch (method)
     {
     case IMPEC:
-    case AIMt:
         return impec.FinishStep(rs, ctrl);
     case FIMn:
         return fim_n.FinishStep(rs, ctrl);
     case FIM:
     case AIMc:
         return fim.FinishStep(rs, ctrl);
-    case AIMs:
-        return aims.FinishStep(rs, ctrl);
     default:
         OCP_ABORT("Wrong method type!");
     }

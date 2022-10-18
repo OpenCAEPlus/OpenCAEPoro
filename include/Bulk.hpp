@@ -64,7 +64,6 @@ class Bulk
     friend class OCP_IMPEC;
     friend class OCP_FIM;
     friend class Reservoir;
-    friend class OCP_AIMt;
     friend class OCP_AIMc;
 
     /////////////////////////////////////////////////////////////////////
@@ -497,42 +496,13 @@ public:
 
 
     /////////////////////////////////////////////////////////////////////
-    // For AIMs, AIMt
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for auxiliary variables used for AIMt.
-    void AllocateAuxAIM(const OCP_DBL& ratio);
-    OCP_USI GetMaxFIMBulk()const { return maxNumFIMBulk; }
-    /// Perform flash calculation with Ni and calculate derivatives.
-    void FlashDerivAIM(const OCP_BOOL& IfAIMs);
-    void PassFlashValueDerivAIM(const OCP_USI& n);
-    /// Calculate relative permeability and capillary pressure and their derivatives.
-    void CalKrPcDerivAIM(const OCP_BOOL& IfAIMs);
-    /// Calculate relative resiual for local FIM.
-    void CalRelResAIMt(ResFIM& resFIM) const;
-    /// Get the solution for local FIM after a Newton iteration.
-    void GetSolAIMt(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
-        const OCP_DBL& dSmaxlim);
-
-    /// Calculate relative resiual for AIMs, parts related to FIM are considered.
-    void CalRelResAIMs(ResFIM& resFIM) const;
-    void GetSolAIMs(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
-        const OCP_DBL& dSmaxlim);
-    void UpdateLastStepAIM();
-    void ResetFIMBulk();
-    void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
-    /// Check if negative Ni occurs, return OCP_FALSE if so.
-    OCP_BOOL CheckNiFIMBulk() const;
-    /// Ni in FIM Bulk -> FIMNi
-    void InFIMNi();
-    /// FIMNi -> Ni in FIM Bulk
-    void OutFIMNi();
-
-    /////////////////////////////////////////////////////////////////////
     // For AIMc
     /////////////////////////////////////////////////////////////////////
 
+public:
+    // Print FIM Bulk
+    void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
+    // Allocate auxiliary varialbe 
     void AllocateAuxAIMc();
     /// Perform flash calculation with Ni.
     void FlashAIMc();
