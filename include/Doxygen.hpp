@@ -16,7 +16,7 @@
  *
  * OpenCAEPoro is part of the OpenCAEPlus project written in C++. It focuses on
  * multicomponent multiphase flow simulation in porous media. Check out our
- * <a href="https://github.com/FaspDevTeam/OpenCAEPoro">Github repository</a>
+ * <a href="https://github.com/OpenCAEPlus/OpenCAEPoro">Github repository</a>
  * for the source codes.
  *
  * For design goals and user manual, please refer to
@@ -32,7 +32,7 @@
 /**
  * \page download How to obtain OpenCAEPoro
  *
- * The code is freely available on GitHub https://github.com/FaspDevTeam/OpenCAEPoro.
+ * The code is freely available on GitHub https://github.com/OpenCAEPlus/OpenCAEPoro.
  *
  */
 

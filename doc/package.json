@@ -1,5 +1,8 @@
 {
     "name": "opencaeporo-doc",
+    "version": "v0.3.0",
+    "author": "OpenCAEPoro",
+    "description": "Open source simulator for porous media flow",
     "private": true,
     "devDependencies": {
       "vitepress": "1.0.0-alpha.5",

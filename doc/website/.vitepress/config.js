@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import markdownItKatex from "markdown-it-katex";
 import markdownItFootnote from "markdown-it-footnote";
-import { version } from "../../../package.json";
+import { version } from "../../package.json";
 
 const customElements = [
   "math",
@@ -132,17 +132,17 @@ export default defineConfig({
         items: [
           {
             text: "Readme",
-            link: "https://github.com/FaspDevTeam/OpenCAEPoro/blob/main/README.md",
+            link: "https://github.com/OpenCAEPlus/OpenCAEPoro/blob/main/README.md",
           },
           {
             text: "Contribute",
-            link: "https://github.com/FaspDevTeam/OpenCAEPoro/blob/main/CONTRIBUTE.md",
+            link: "https://github.com/OpenCAEPlus/OpenCAEPoro/blob/main/CONTRIBUTE.md",
           },
         ],
       },
     ],
     socialLinks: [
-      { icon: "github", link: "https://github.com/FaspDevTeam/OpenCAEPoro" },
+      { icon: "github", link: "https://github.com/OpenCAEPlus/OpenCAEPoro" },
     ],
     sidebar: {
       "/manual/": getManual(),
@@ -150,7 +150,7 @@ export default defineConfig({
     },
     editLink: {
       pattern:
-        "https://github.com/FaspDevTeam/OpenCAEPoro/edit/main/doc/website/:path",
+        "https://github.com/OpenCAEPlus/OpenCAEPoro/edit/main/doc/website/:path",
       text: "Edit this page on GitHub",
     },
   },

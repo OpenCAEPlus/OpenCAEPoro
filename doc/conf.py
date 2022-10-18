@@ -14,16 +14,18 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sys, os, subprocess
 
 # -- Project information -----------------------------------------------------
 
 project = 'OpenCAEPoro'
-copyright = '2022, FaspDevTeam'
-author = 'FaspDevTeam'
+copyright = '2022, OpenCAX+'
+author = 'OpenCAX+'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2.0'
-
+tags = subprocess.getoutput('git describe --tags --abbrev=0')
+print(tags)
+release = tags
 
 # -- General configuration ---------------------------------------------------
 
