@@ -24,7 +24,7 @@ static void decouple_abf(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     // Create a link to dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -44,7 +44,6 @@ static void decouple_abf(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -62,7 +61,7 @@ static void decouple_anl(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -85,7 +84,6 @@ static void decouple_anl(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -102,7 +100,7 @@ static void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, j, k, l, m;
+    INT i, k, l, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -140,7 +138,6 @@ static void decouple_truetrans(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -160,7 +157,7 @@ static void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, j, k, l, m;
+    INT i, k, l, m;
 
     // Create a link to dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -201,7 +198,6 @@ static void decouple_truetrans_alg(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -222,7 +218,7 @@ static void decouple_abftrue(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -249,7 +245,6 @@ static void decouple_abftrue(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -266,7 +261,7 @@ static void decouple_true_scale(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -290,7 +285,6 @@ static void decouple_true_scale(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -307,7 +301,7 @@ static void decouple_rotate(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     // Create a dBSRmat 'B'
     INT*  IAb  = B->IA;
@@ -338,7 +332,6 @@ static void decouple_rotate(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -356,7 +349,7 @@ static void decouple_quasi(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     INT*  IAb  = B->IA;
     INT*  JAb  = B->JA;
@@ -379,7 +372,6 @@ static void decouple_quasi(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
@@ -397,7 +389,7 @@ static void decouple_trueabf(dBSRmat* A, REAL* diaginv, dBSRmat* B)
     const INT* JA  = A->JA;
     REAL*      val = A->val;
 
-    INT i, k, m, j;
+    INT i, k, m;
 
     INT*  IAb  = B->IA;
     INT*  JAb  = B->JA;
@@ -419,54 +411,19 @@ static void decouple_trueabf(dBSRmat* A, REAL* diaginv, dBSRmat* B)
         // compute D^{-1}*A
         for (k = IA[i]; k < IA[i + 1]; ++k) {
             m = k * nb2;
-            j = JA[k];
-            fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
-        }
-    } // end of main loop
-}
-
-static void decouple_rowsum(dBSRmat* A, REAL* diaginv, dBSRmat* B)
-{
-    // members of A
-    const INT  ROW = A->ROW;
-    const INT  NNZ = A->NNZ;
-    const INT  nb  = A->nb;
-    const INT  nb2 = nb * nb;
-    const INT* IA  = A->IA;
-    const INT* JA  = A->JA;
-    REAL*      val = A->val;
-
-    INT i, k, m, j;
-
-    // Variables for OpenMP
-    INT*  IAb  = B->IA;
-    INT*  JAb  = B->JA;
-    REAL* valb = B->val;
-    memcpy(IAb, IA, (ROW + 1) * sizeof(INT));
-    memcpy(JAb, JA, NNZ * sizeof(INT));
-
-    for (i = 0; i < ROW; ++i) {
-        // get the diagonal sub-blocks
-        for (k = IA[i]; k < IA[i + 1]; ++k) {
-            if (JA[k] == i) {
-                m = k * nb2;
-                fasp_smat_identity(diaginv + i * nb2, nb, nb2);
-                for (int l = 0; l < nb - 1; l++) diaginv[i * nb2 + 1 + l] = 1;
-            }
-        }
-
-        // compute D^{-1}*A
-        for (k = IA[i]; k < IA[i + 1]; ++k) {
-            m = k * nb2;
-            j = JA[k];
             fasp_blas_smat_mul(diaginv + i * nb2, val + m, valb + m, nb);
         }
     } // end of main loop
 }
 
 /// Applying a decoupling algorithm for linear systems of FIM
-void VectorFaspSolver::Decoupling(dBSRmat* Absr, dvector* b, dBSRmat* Asc, dvector* fsc,
-                                  ivector* order, double* Dmatvec, int decoupleType)
+void VectorFaspSolver::Decoupling(dBSRmat* Absr,
+                                  dvector* b,
+                                  dBSRmat* Asc,
+                                  dvector* fsc,
+                                  ivector* order,
+                                  double*  Dmatvec,
+                                  int      decoupleType)
 {
     int              nrow = Absr->ROW;
     int              nb   = Absr->nb;

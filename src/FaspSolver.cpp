@@ -38,8 +38,9 @@ void FaspSolver::SetupParam(const string& dir, const string& file)
     fasp_param_init(&inParam, &itParam, &amgParam, &iluParam, &swzParam);
 }
 
-void ScalarFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
-                                const USI& blockDim)
+void ScalarFaspSolver::Allocate(const vector<USI>& rowCapacity,
+                                const OCP_USI&     maxDim,
+                                const USI&         blockDim)
 {
     OCP_USI nnz = 0;
     for (OCP_USI n = 0; n < maxDim; n++) {
@@ -118,8 +119,10 @@ void ScalarFaspSolver::InitParam()
 
 void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
                                    const vector<vector<OCP_DBL>>& val,
-                                   const OCP_USI& dim, const USI& blockDim,
-                                   vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
+                                   const OCP_USI&                 dim,
+                                   const USI&                     blockDim,
+                                   vector<OCP_DBL>&               rhs,
+                                   vector<OCP_DBL>&               u)
 {
     // b & x
     b.row = dim;
@@ -258,8 +261,9 @@ OCP_INT ScalarFaspSolver::Solve()
     return status;
 }
 
-void VectorFaspSolver::Allocate(const vector<USI>& rowCapacity, const OCP_USI& maxDim,
-                                const USI& blockDim)
+void VectorFaspSolver::Allocate(const vector<USI>& rowCapacity,
+                                const OCP_USI&     maxDim,
+                                const USI&         blockDim)
 {
     OCP_USI nnz = 0;
     for (OCP_USI n = 0; n < maxDim; n++) {
@@ -343,8 +347,10 @@ void VectorFaspSolver::InitParam()
 
 void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
                                    const vector<vector<OCP_DBL>>& val,
-                                   const OCP_USI& dim, const USI& blockDim,
-                                   vector<OCP_DBL>& rhs, vector<OCP_DBL>& u)
+                                   const OCP_USI&                 dim,
+                                   const USI&                     blockDim,
+                                   vector<OCP_DBL>&               rhs,
+                                   vector<OCP_DBL>&               u)
 {
     OCP_USI nrow = dim * blockDim;
     // b & x
@@ -397,18 +403,14 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
 #ifdef _DEBUG
     // check x and b  ----  for test
     for (OCP_USI i = 0; i < nrow; i++) {
-        if (!isfinite(b.val[i]))
-            OCP_ABORT("vFasp b is infinite!");
-        if (!isfinite(x.val[i]))
-            OCP_ABORT("vFasp x is infinite!");
+        if (!isfinite(b.val[i])) OCP_ABORT("vFasp b is infinite!");
+        if (!isfinite(x.val[i])) OCP_ABORT("vFasp x is infinite!");
     }
     // check A ----  for test
     for (OCP_USI i = 0; i < A.NNZ; i++) {
-        if (!isfinite(A.val[i]))
-            OCP_ABORT("vFasp A is infinite!");
+        if (!isfinite(A.val[i])) OCP_ABORT("vFasp A is infinite!");
     }
 #endif // DEBUG
-    
 }
 
 OCP_INT VectorFaspSolver::Solve()
@@ -448,22 +450,24 @@ OCP_INT VectorFaspSolver::Solve()
             case PC_FASP1:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
 #if WITH_FASP4CUDA // zhaoli 2022.04.04
-     		    status = fasp_solver_dbsr_krylov_FASP1_cuda_interface(
+                status = fasp_solver_dbsr_krylov_FASP1_cuda_interface(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-#else     
+#else
                 status = fasp_solver_dbsr_krylov_FASP1a(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-#endif                
-		break;
+#endif
+                break;
             case PC_FASP1_SHARE: // zhaoli 2021.03.24
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
 #if WITH_FASP4CUDA
-     		    status = fasp_solver_dbsr_krylov_FASP1_cuda_share_interface(
-                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order, RESET_CONST);
-#else     
+                status = fasp_solver_dbsr_krylov_FASP1_cuda_share_interface(
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
+                    RESET_CONST);
+#else
                 status = fasp_solver_dbsr_krylov_FASP1a_share_interface(
-                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order, RESET_CONST);
-#endif                  
+                    &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
+                    RESET_CONST);
+#endif
                 break;
             case PC_FASP2:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
@@ -478,9 +482,9 @@ OCP_INT VectorFaspSolver::Solve()
             case PC_FASP4:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
 #if WITH_FASP4CUDA
- 		        status = fasp_solver_dbsr_krylov_FASP4_cuda(
+                status = fasp_solver_dbsr_krylov_FASP4_cuda(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
-#else                
+#else
                 status = fasp_solver_dbsr_krylov_FASP4(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order);
 #endif
@@ -491,11 +495,11 @@ OCP_INT VectorFaspSolver::Solve()
                 status = fasp_solver_dbsr_krylov_FASP4_cuda_share_interface(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
                     RESET_CONST);
-#else                
+#else
                 status = fasp_solver_dbsr_krylov_FASP4_share_interface(
                     &Asc, &fsc, &x, &itParam, &iluParam, &amgParam, NULL, &order,
                     RESET_CONST);
-#endif                    
+#endif
                 break;
             case PC_FASP5:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
