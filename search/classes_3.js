@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['detailinfo_968',['DetailInfo',['../classDetailInfo.html',1,'']]],
-  ['dimens_969',['Dimens',['../classDimens.html',1,'']]]
+  ['detailinfo_935',['DetailInfo',['../classDetailInfo.html',1,'']]],
+  ['dimens_936',['Dimens',['../classDimens.html',1,'']]]
 ];
