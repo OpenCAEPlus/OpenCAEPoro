@@ -74,7 +74,7 @@ public:
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
 
-    const vector<OCP_DBL>& GetScm() const override {}
+    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
 
 protected:
     OCP_DBL Swco;
@@ -108,7 +108,7 @@ public:
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
 
-    const vector<OCP_DBL>& GetScm() const override {}
+    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
 
 private:
     OCPTable        SWOF;  ///< saturation table about water and oil.
@@ -142,7 +142,7 @@ public:
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
     OCP_DBL GetSwco() const override { return 0; };
 
-    const vector<OCP_DBL>& GetScm() const override {}
+    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
 
 private:
     OCPTable        SGOF;  ///< saturation table about gas and oil.

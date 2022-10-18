@@ -2411,7 +2411,6 @@ void BulkConn::AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OC
 	OCP_DBL dP, dGamma;
 	OCP_DBL tmp;
     OCP_BOOL bIdFIM, eIdFIM, uIdFIM;
-	USI diagptr;
 
 	// Be careful when first bulk has no neighbors!
 	OCP_USI lastbId = iteratorConn[0].EId;

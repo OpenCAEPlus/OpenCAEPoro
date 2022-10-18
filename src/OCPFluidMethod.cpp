@@ -190,7 +190,6 @@ OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
 
 OCP_BOOL OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL& dt = ctrl.current_dt;
     // fouth check: Volume error check
     if (!rs.CheckVe(0.01)) {
         // continue NR 

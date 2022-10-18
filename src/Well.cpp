@@ -2119,7 +2119,6 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
-    const USI nch = nc - 1;
     const USI ncol = nc + 1;
     const USI ncol2 = np * nc + np;
     const USI bsize = ncol * ncol;
@@ -2288,7 +2287,6 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
-    const USI nch = nc - 1;
     const USI ncol = nc + 1;
     const USI ncol2 = np * nc + np;
     const USI bsize = ncol * ncol;
@@ -2473,7 +2471,6 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
-    const USI nch = nc - 1;
     const USI ncol = nc + 1;
     const USI ncol2 = np * nc + np;
     const USI bsize = ncol * ncol;
@@ -2651,7 +2648,6 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
-    const USI nch = nc - 1;
     const USI ncol = nc + 1;
     const USI ncol2 = np * nc + np;
     const USI bsize = ncol * ncol;

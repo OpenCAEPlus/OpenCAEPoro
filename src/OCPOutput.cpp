@@ -1924,8 +1924,6 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     // Po - Pw
     if (PCW)
     {
-        OCP_DBL tmp = 1.0;
-
         outF << "PCW : psia"
             << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";

@@ -122,7 +122,6 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     CallId();
 
     USI len   = NC * NC;
-    USI count = 0;
     BIC.resize(len, 0);
 
     if (param.BIC[tar].size() != len) {
@@ -1263,13 +1262,6 @@ OCP_BOOL MixtureComp::PhaseStable()
     NRSTAiters += EoSctrl.NRsta.curIt;
     SSMSTAcounts++;
     NRSTAcounts++;
-    //cout << "Yt = " << setprecision(8) << scientific << Yt << "  " << setw(2)
-    //    << EoSctrl.SSMsta.curIt << "  " << setw(2) << EoSctrl.NRsta.curIt << "  "
-    //    << lNP << "  " << tmpNP << "  " << tmpFtype << "   "
-    //    << (lNP == tmpNP ? "N" : "Y") << "  ";
-    //if (lNP == 1 && tmpNP == 2 && tmpFtype == 1) {
-    //    cout << "AAA" << "  ";
-    //}
     return flag;
 }
 
@@ -1586,7 +1578,7 @@ void MixtureComp::CalFugXSTA()
                  (aj + m1Tm2 * bj * bj - (m1Pm2)*bj * (bj + 1)));
     }
 
-    OCP_DBL  C, D, E, G;
+    OCP_DBL  C, E, G;
     OCP_DBL  Cxk, Dxk, Exk, Gxk;
     OCP_DBL  aik;
     G = (zj + m1 * bj) / (zj + m2 * bj);
@@ -1842,7 +1834,6 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
 
     // Solve RR with NR
     OCP_DBL tmp, rj, J, dnuj, tmpnu;
-    OCP_DBL f, df;
 
     USI     iter  = 0;
     const OCP_DBL tol = EoSctrl.RR.tol;
@@ -2102,7 +2093,7 @@ void MixtureComp::CalResSP()
 
 void MixtureComp::CalFugNAll(const OCP_BOOL& Znflag)
 {
-    OCP_DBL C, D, E, G;
+    OCP_DBL C, E, G;
     OCP_DBL Cnk, Dnk, Enk, Gnk;
     OCP_DBL tmp, aik;
 
@@ -2234,7 +2225,7 @@ void MixtureComp::AssembleJmatSP()
 
 void MixtureComp::CalPhiNSTA()
 {
-    OCP_DBL C, D, E, G;
+    OCP_DBL C, E, G;
     OCP_DBL Cnk, Dnk, Enk, Gnk;
     OCP_DBL tmp, aik;
 
@@ -2523,7 +2514,7 @@ void MixtureComp::CalFugXAll()
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
         }
 
-        OCP_DBL  C, D, E, G;
+        OCP_DBL  C, E, G;
         OCP_DBL  Cxk, Dxk, Exk, Gxk;
         OCP_DBL  aik;
         G = (zj + delta1 * bj) / (zj + delta2 * bj);
@@ -2569,8 +2560,8 @@ void MixtureComp::CalFugXAll()
 void MixtureComp::CalFugPAll(const OCP_BOOL& Zpflag)
 {
 
-    OCP_DBL C, D, E, G;
-    OCP_DBL Cp, Dp, Ep, Gp;
+    OCP_DBL C, E, G;
+    OCP_DBL Cp, Dp, Gp;
     OCP_DBL tmp;
 
     for (USI j = 0; j < NP; j++) {
@@ -2688,10 +2679,6 @@ void MixtureComp::CalXiPn_partial()
     fill(xiN.begin(), xiN.end() - numCom, 0.0);
 
     for (USI j = 0; j < NP; j++) {
-        const vector<OCP_DBL>& xj = x[j];
-        OCP_DBL                aj = Aj[j];
-        OCP_DBL                bj = Bj[j];
-        OCP_DBL                zj = Zj[j];
         const USI j1 = phaseLabel[j];
 
         tmp = -xi[j1] * xi[j1] * CgTP;
@@ -2739,7 +2726,7 @@ void MixtureComp::CalMuPnLBC_partial()
     OCP_DBL der1IJ, der2IJ, der3J, der4J, der6J, der7J, der8J;
     OCP_DBL Tri, tmp;
     OCP_DBL xTj, xPj, xVj;
-    OCP_DBL derxTj, derxPj, derMWj, derxVj;
+    OCP_DBL derxTj, derxPj, derMWj;
 
     // dxij / dP = 0, d MJ / dP = 0
     // Calculate dmuj / dP
@@ -3211,7 +3198,7 @@ void MixtureComp::CalMuPXLBC_partial()
     OCP_DBL der1IJ, der2IJ, der3J, der4J, der6J, der7J, der8J;
     OCP_DBL Tri, tmp;
     OCP_DBL xTj, xPj, xVj;
-    OCP_DBL derxTj, derxPj, derMWj, derxVj;
+    OCP_DBL derxTj, derxPj, derMWj;
 
     // dxij / dP = 0, d MJ / dP = 0
     // Calculate dmuj / dP
@@ -4187,7 +4174,7 @@ void MixtureComp::CaldXsdXp01()
         }
     }
 
-    USI row01 = NP * (NC + 1);
+    // USI row01 = NP * (NC + 1);
     // USI col01 = row01;
     // cout << "FsXs" << endl;
     // for (USI i = 0; i < row01; i++) {
@@ -4251,8 +4238,8 @@ void MixtureComp::CaldXsdXp01()
         }
     }
 
-    USI row02 = NP * (NC + 1);
-    USI col02 = NC + 1;
+    // USI row02 = NP * (NC + 1);
+    // USI col02 = NC + 1;
     // cout << "FsXp" << endl;
     // for (USI i = 0; i < row02; i++) {
     //	for (USI j = 0; j < col02; j++) {
@@ -4318,7 +4305,6 @@ void MixtureComp::CaldXsdXpAPI01()
         OCP_DBL*       DTmp;
         const OCP_DBL* STmp;
         USI            nrow  = NP * (NC + 1); // row num of rhsDer
-        USI            ncol  = NC + 1;        // col num of rhsDer
         USI            ncol2 = numCom + 1;    // col num of dXsdXp
         // Saturation
         for (USI j = 0; j < NP; j++) {
@@ -4664,7 +4650,6 @@ void MixtureComp::CaldXsdXpAPI03()
         const OCP_DBL* STmp = &rhsDer[0];
         const USI nrhs = numCom + 1;
         const USI wNP = NP + 1;
-        const USI nrow = wNP + NP * NC;
         
         USI bId;
         for (USI i = 0; i < nrhs; i++) {
@@ -4719,6 +4704,7 @@ void MixtureComp::CaldXsdXpAPI03()
         //fill(res.begin(), res.end(), 0.0);
 
         //cout << "res1" << endl;
+        // const USI nrow = wNP + NP * NC;
         //for (USI i = 0; i < nrow; i++) {
         //    for (USI j = nrhs; j < nrhs + 1; j++) {
         //        cout << setw(12) << rhsDer[j * nrow + i] << "   ";

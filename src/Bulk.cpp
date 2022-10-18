@@ -2600,7 +2600,6 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     USI             row0  = numPhase;
     USI             row   = numPhase * (numCom + 1);
     USI             col   = numCom + 1;
-    USI             bsize = row * col;
     OCP_USI         n_np_j;
     vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
@@ -3386,10 +3385,8 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     NRdSmaxP = 0;
     NRdPmax  = 0;
     OCP_DBL         dP;
-    USI             row0  = numPhase;
     USI             row   = numPhase * (numCom + 1);
     USI             col   = numCom + 1;
-    USI             bsize = row * col;
     OCP_USI         n_np_j;
     vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;

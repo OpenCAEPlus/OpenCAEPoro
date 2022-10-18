@@ -47,6 +47,7 @@ OCP_INT OCPTable::GetRowZero(const USI& mycol) const
             return i - 1;
         }
     }
+    return nRow - 1;
 }
 
 
