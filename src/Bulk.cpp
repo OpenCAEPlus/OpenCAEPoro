@@ -3853,9 +3853,11 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
     USI             row   = numPhase * (numCom + 1);
     USI             col   = numCom + 1;
     USI             bsize = row * col;
-    vector<OCP_DBL> dtmp(row0, 0);
+    OCP_USI         n_np_j;
+    vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
     OCP_DBL         choptmp = 0;
+
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (map_Bulk2FIM[n] < 0) {
@@ -3877,33 +3879,91 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         chopmin = 1;
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
-        DaAxpby(row0, col, 1, &dSec_dPri[n * bsize], u.data() + n * col, 1,
-                dtmp.data());
+        DaAxpby(bRowSizedSdP[n], col, 1, &dSec_dPri[n * maxLendSdP],
+            u.data() + n * col, 1, dtmp.data());
 
+        USI js = 0;
         for (USI j = 0; j < numPhase; j++) {
+            if (!pSderExist[n * numPhase + j]) {
+                continue;
+            }
+            n_np_j = n * numPhase + j;
+
             choptmp = 1;
-            if (fabs(dtmp[j]) > dSmaxlim) {
-                choptmp = dSmaxlim / fabs(dtmp[j]);
-            } else if (S[n * numPhase + j] + dtmp[j] < 0.0) {
-                choptmp = 0.9 * S[n * numPhase + j] / fabs(dtmp[j]);
+            if (fabs(dtmp[js]) > dSmaxlim) {
+                choptmp = dSmaxlim / fabs(dtmp[js]);
+            }
+            else if (S[n_np_j] + dtmp[js] < 0.0) {
+                choptmp = 0.9 * S[n_np_j] / fabs(dtmp[js]);
             }
 
-            chopmin  = min(chopmin, choptmp);
-            NRdSmaxP = max(NRdSmaxP, choptmp * fabs(dtmp[j]));
-        }
-        dP      = u[n * col];
-        choptmp = dPmaxlim / fabs(dP);
-        chopmin = min(chopmin, choptmp);
-        NRdPmax = max(NRdPmax, fabs(dP));
-        P[n] += dP; // seems better
-        dPNR[n]   = dP;
-        NRstep[n] = chopmin;
+            //if (fabs(S[n_np_j] - scm[j]) > TINY &&
+            //    (S[n_np_j] - scm[j]) / (choptmp * dtmp[js]) < 0)
+            //    choptmp *= min(1.0, -((S[n_np_j] - scm[j]) / (choptmp * dtmp[js])));
 
+            chopmin = min(chopmin, choptmp);
+            js++;
+        }
+
+        // dS
+        js = 0;
+        for (USI j = 0; j < numPhase; j++) {
+            if (!pSderExist[n * numPhase + j]) {
+                dSNRP[n * numPhase + j] = 0;
+                continue;
+            }
+            dSNRP[n * numPhase + j] = chopmin * dtmp[js];
+            if (fabs(NRdSmaxP) < fabs(dSNRP[n * numPhase + j]))
+                NRdSmaxP = dSNRP[n * numPhase + j];
+            js++;
+        }
+
+        // dxij   ---- Compositional model only
+        if (comps) {
+            if (phaseNum[n] == 2) {
+                OCP_BOOL tmpflag = OCP_TRUE;
+                OCP_USI bId = 0;
+                for (USI j = 0; j < 2; j++) {
+                    bId = n * numPhase * numCom + j * numCom;
+                    for (USI i = 0; i < numCom_1; i++) {
+                        xij[bId + i] += chopmin * dtmp[js];
+                        js++;
+                        if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
+                    }
+                }
+                if (tmpflag || OCP_TRUE) {
+                    bId = n * numPhase * numCom;
+                    for (USI i = 0; i < numCom_1; i++) {
+                        Ks[n * numCom_1 + i] = xij[bId + i] / xij[bId + numCom + i];
+                    }
+                }
+            }
+        }
+
+        // dP
+        dP = u[n * col];
+        if (fabs(NRdPmax) < fabs(dP)) NRdPmax = dP;
+        P[n] += dP; // seems better
+        dPNR[n] = dP;
+
+        // dNi
+        NRstep[n] = chopmin;
         for (USI i = 0; i < numCom; i++) {
             dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;
+            if (fabs(NRdNmax) < fabs(dNNR[n * numCom + i]) / Nt[n])
+                NRdNmax = dNNR[n * numCom + i] / Nt[n];
+
             Ni[n * numCom + i] += dNNR[n * numCom + i];
         }
     }
+
+    //cout << scientific << setprecision(12);
+    //for (OCP_USI n = 0; n < numBulk; n++) {
+    //    cout << P[n] << endl;
+    //    for (USI i = 0; i < numCom; i++) {
+    //        cout << Ni[n * numCom + i] << endl;
+    //    }
+    //}
 }
 
 void Bulk::UpdatePj()
