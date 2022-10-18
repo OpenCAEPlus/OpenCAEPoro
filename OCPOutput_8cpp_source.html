@@ -1989,87 +1989,85 @@ $(function() {
 <div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;    <span class="comment">// Po - Pw</span></div>
 <div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;    <span class="keywordflow">if</span> (PCW)</div>
 <div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160;    {</div>
-<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 1.0;</div>
-<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160; </div>
-<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;PCW : psia&quot;</span></div>
-<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;                   &quot;</span>;</div>
-<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;        outF &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot;  DAYS&quot;</span>;</div>
-<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; num; i++)</div>
-<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;        {</div>
-<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;            <span class="keywordflow">if</span> (i % nx == 0)</div>
-<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160;            <span class="keywordflow">if</span> (i % (nx * ny) == 0)</div>
-<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\n\n&quot;</span>;</div>
-<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160; </div>
-<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160;            <span class="keywordflow">if</span> (i % nx == 0)</div>
-<div class="line"><a name="l01940"></a><span class="lineno"> 1940</span>&#160;            {</div>
-<div class="line"><a name="l01941"></a><span class="lineno"> 1941</span>&#160;                rs.grid.<a class="code" href="classGrid.html#a7bb96f42fc087736a7fb63edde229b20">GetIJKGrid</a>(I, J, K, i);</div>
-<div class="line"><a name="l01942"></a><span class="lineno"> 1942</span>&#160;                outF &lt;&lt; GetIJKformat(<span class="stringliteral">&quot;*&quot;</span>, to_string(J), to_string(K), tmpsp);</div>
-<div class="line"><a name="l01943"></a><span class="lineno"> 1943</span>&#160;                <span class="comment">// outF &lt;&lt; &quot;(*,&quot; &lt;&lt; setw(3) &lt;&lt; J &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; K &lt;&lt; &quot;)&quot;;</span></div>
-<div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;            }</div>
-<div class="line"><a name="l01945"></a><span class="lineno"> 1945</span>&#160; </div>
-<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160;            <span class="keywordflow">if</span> (rs.grid.<a class="code" href="classGrid.html#a31ff51d2c4442c2b8719c5c02a369015">MapG2B</a>(i).<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>())</div>
-<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160;            {                </div>
-<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160;                bId = rs.grid.<a class="code" href="classGrid.html#a31ff51d2c4442c2b8719c5c02a369015">MapG2B</a>(i).<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
-<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;                outF &lt;&lt; setw(12) &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; -rs.bulk.Pc[bId * np + WIndex];</div>
-<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;            }</div>
-<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;            {</div>
-<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;                outF &lt;&lt; setw(12) &lt;&lt; <span class="stringliteral">&quot;-----  &quot;</span>;</div>
-<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;            }</div>
-<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;        }</div>
-<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n\n\n&quot;</span>;</div>
-<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160;    }</div>
-<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160; </div>
-<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160; </div>
-<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160;    outF.close();</div>
-<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;}</div>
-<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160; </div>
-<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160;<span class="keywordtype">void</span> OCPOutput::InputParam(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a> &amp;paramOutput)</div>
-<div class="line"><a name="l01964"></a><span class="lineno"> 1964</span>&#160;{</div>
-<div class="line"><a name="l01965"></a><span class="lineno"> 1965</span>&#160;    summary.<a class="code" href="classSummary.html#aedf1b94772a88a41acc27611d4f2898e">InputParam</a>(paramOutput.<a class="code" href="classParamOutput.html#ab52cc794e39c58cf344a1fcec8aafac1">summary</a>);</div>
-<div class="line"><a name="l01966"></a><span class="lineno"> 1966</span>&#160;    dtlInfo.InputParam(paramOutput.<a class="code" href="classParamOutput.html#a11ca7571876e60e0f4b7201da7fa15b2">detailInfo</a>);</div>
-<div class="line"><a name="l01967"></a><span class="lineno"> 1967</span>&#160;}</div>
-<div class="line"><a name="l01968"></a><span class="lineno"> 1968</span>&#160; </div>
-<div class="line"><a name="l01969"></a><span class="lineno"> 1969</span>&#160;<span class="keywordtype">void</span> OCPOutput::Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
-<div class="line"><a name="l01970"></a><span class="lineno"> 1970</span>&#160;{</div>
-<div class="line"><a name="l01971"></a><span class="lineno"> 1971</span>&#160;    wordDir = ctrl.workDir;</div>
-<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;    summary.<a class="code" href="classSummary.html#a045ea177150680ac955b14221f8901d1">Setup</a>(reservoir, ctrl.criticalTime.back());</div>
-<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a9956941d7c671f673562352f52d61212">Setup</a>(ctrl.criticalTime.back());</div>
-<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160;    dtlInfo.Setup(wordDir);</div>
-<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;}</div>
-<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160; </div>
-<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160;<span class="keywordtype">void</span> OCPOutput::SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
-<div class="line"><a name="l01978"></a><span class="lineno"> 1978</span>&#160;{</div>
-<div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;    summary.<a class="code" href="classSummary.html#a44782c36e8ab8988f8df4a824b7baceb">SetVal</a>(reservoir, ctrl);</div>
-<div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a213a6529c997f6fca4c10b2156d3bd85">SetVal</a>(reservoir, ctrl);</div>
-<div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;}</div>
-<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160; </div>
-<div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfo()<span class="keyword"> const</span></div>
-<div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160;    summary.<a class="code" href="classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6">PrintInfo</a>(wordDir);</div>
-<div class="line"><a name="l01986"></a><span class="lineno"> 1986</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a36c1b5bdd45b24b78bf394cd864d3f4b">PrintInfo</a>(wordDir);</div>
-<div class="line"><a name="l01987"></a><span class="lineno"> 1987</span>&#160;}</div>
-<div class="line"><a name="l01988"></a><span class="lineno"> 1988</span>&#160; </div>
-<div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;rs, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl,</div>
-<div class="line"><a name="l01990"></a><span class="lineno"> 1990</span>&#160;                               <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;time)<span class="keyword"> const</span></div>
-<div class="line"><a name="l01991"></a><span class="lineno"> 1991</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l01992"></a><span class="lineno"> 1992</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
-<div class="line"><a name="l01993"></a><span class="lineno"> 1993</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Timestep &quot;</span> &lt;&lt; setw(6) &lt;&lt; left &lt;&lt; ctrl.numTstep</div>
-<div class="line"><a name="l01994"></a><span class="lineno"> 1994</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; fixed &lt;&lt; setw(10) &lt;&lt; setprecision(3) &lt;&lt; right &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span></div>
-<div class="line"><a name="l01995"></a><span class="lineno"> 1995</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;    Wall time: &quot;</span> &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l01996"></a><span class="lineno"> 1996</span>&#160;    dtlInfo.PrintInfo(wordDir, rs, days);</div>
-<div class="line"><a name="l01997"></a><span class="lineno"> 1997</span>&#160;}</div>
-<div class="line"><a name="l01998"></a><span class="lineno"> 1998</span>&#160; </div>
+<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;PCW : psia&quot;</span></div>
+<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;                   &quot;</span>;</div>
+<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;        outF &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot;  DAYS&quot;</span>;</div>
+<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> i = 0; i &lt; num; i++)</div>
+<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;        {</div>
+<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;            <span class="keywordflow">if</span> (i % nx == 0)</div>
+<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;            <span class="keywordflow">if</span> (i % (nx * ny) == 0)</div>
+<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\n\n&quot;</span>;</div>
+<div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160; </div>
+<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;            <span class="keywordflow">if</span> (i % nx == 0)</div>
+<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160;            {</div>
+<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160;                rs.grid.<a class="code" href="classGrid.html#a7bb96f42fc087736a7fb63edde229b20">GetIJKGrid</a>(I, J, K, i);</div>
+<div class="line"><a name="l01940"></a><span class="lineno"> 1940</span>&#160;                outF &lt;&lt; GetIJKformat(<span class="stringliteral">&quot;*&quot;</span>, to_string(J), to_string(K), tmpsp);</div>
+<div class="line"><a name="l01941"></a><span class="lineno"> 1941</span>&#160;                <span class="comment">// outF &lt;&lt; &quot;(*,&quot; &lt;&lt; setw(3) &lt;&lt; J &lt;&lt; &quot;,&quot; &lt;&lt; setw(3) &lt;&lt; K &lt;&lt; &quot;)&quot;;</span></div>
+<div class="line"><a name="l01942"></a><span class="lineno"> 1942</span>&#160;            }</div>
+<div class="line"><a name="l01943"></a><span class="lineno"> 1943</span>&#160; </div>
+<div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;            <span class="keywordflow">if</span> (rs.grid.<a class="code" href="classGrid.html#a31ff51d2c4442c2b8719c5c02a369015">MapG2B</a>(i).<a class="code" href="classGB__Pair.html#a420ac8073c7c2ad65d65ebc0b418c985">IsAct</a>())</div>
+<div class="line"><a name="l01945"></a><span class="lineno"> 1945</span>&#160;            {                </div>
+<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160;                bId = rs.grid.<a class="code" href="classGrid.html#a31ff51d2c4442c2b8719c5c02a369015">MapG2B</a>(i).<a class="code" href="classGB__Pair.html#a89469eb8092da8ccd1c8914bd4f1e808">GetId</a>();</div>
+<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160;                outF &lt;&lt; setw(12) &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; -rs.bulk.Pc[bId * np + WIndex];</div>
+<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160;            }</div>
+<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;            {</div>
+<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;                outF &lt;&lt; setw(12) &lt;&lt; <span class="stringliteral">&quot;-----  &quot;</span>;</div>
+<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;            }</div>
+<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;        }</div>
+<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n\n\n&quot;</span>;</div>
+<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;    }</div>
+<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160; </div>
+<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160; </div>
+<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;    outF.close();</div>
+<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;}</div>
+<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160; </div>
+<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;<span class="keywordtype">void</span> OCPOutput::InputParam(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a> &amp;paramOutput)</div>
+<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160;{</div>
+<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160;    summary.<a class="code" href="classSummary.html#aedf1b94772a88a41acc27611d4f2898e">InputParam</a>(paramOutput.<a class="code" href="classParamOutput.html#ab52cc794e39c58cf344a1fcec8aafac1">summary</a>);</div>
+<div class="line"><a name="l01964"></a><span class="lineno"> 1964</span>&#160;    dtlInfo.InputParam(paramOutput.<a class="code" href="classParamOutput.html#a11ca7571876e60e0f4b7201da7fa15b2">detailInfo</a>);</div>
+<div class="line"><a name="l01965"></a><span class="lineno"> 1965</span>&#160;}</div>
+<div class="line"><a name="l01966"></a><span class="lineno"> 1966</span>&#160; </div>
+<div class="line"><a name="l01967"></a><span class="lineno"> 1967</span>&#160;<span class="keywordtype">void</span> OCPOutput::Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a name="l01968"></a><span class="lineno"> 1968</span>&#160;{</div>
+<div class="line"><a name="l01969"></a><span class="lineno"> 1969</span>&#160;    wordDir = ctrl.workDir;</div>
+<div class="line"><a name="l01970"></a><span class="lineno"> 1970</span>&#160;    summary.<a class="code" href="classSummary.html#a045ea177150680ac955b14221f8901d1">Setup</a>(reservoir, ctrl.criticalTime.back());</div>
+<div class="line"><a name="l01971"></a><span class="lineno"> 1971</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a9956941d7c671f673562352f52d61212">Setup</a>(ctrl.criticalTime.back());</div>
+<div class="line"><a name="l01972"></a><span class="lineno"> 1972</span>&#160;    dtlInfo.Setup(wordDir);</div>
+<div class="line"><a name="l01973"></a><span class="lineno"> 1973</span>&#160;}</div>
+<div class="line"><a name="l01974"></a><span class="lineno"> 1974</span>&#160; </div>
+<div class="line"><a name="l01975"></a><span class="lineno"> 1975</span>&#160;<span class="keywordtype">void</span> OCPOutput::SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</div>
+<div class="line"><a name="l01976"></a><span class="lineno"> 1976</span>&#160;{</div>
+<div class="line"><a name="l01977"></a><span class="lineno"> 1977</span>&#160;    summary.<a class="code" href="classSummary.html#a44782c36e8ab8988f8df4a824b7baceb">SetVal</a>(reservoir, ctrl);</div>
+<div class="line"><a name="l01978"></a><span class="lineno"> 1978</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a213a6529c997f6fca4c10b2156d3bd85">SetVal</a>(reservoir, ctrl);</div>
+<div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;}</div>
+<div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160; </div>
+<div class="line"><a name="l01981"></a><span class="lineno"> 1981</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfo()<span class="keyword"> const</span></div>
+<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160;    summary.<a class="code" href="classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6">PrintInfo</a>(wordDir);</div>
+<div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a36c1b5bdd45b24b78bf394cd864d3f4b">PrintInfo</a>(wordDir);</div>
+<div class="line"><a name="l01985"></a><span class="lineno"> 1985</span>&#160;}</div>
+<div class="line"><a name="l01986"></a><span class="lineno"> 1986</span>&#160; </div>
+<div class="line"><a name="l01987"></a><span class="lineno"> 1987</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a> &amp;rs, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a> &amp;ctrl,</div>
+<div class="line"><a name="l01988"></a><span class="lineno"> 1988</span>&#160;                               <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;time)<span class="keyword"> const</span></div>
+<div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l01990"></a><span class="lineno"> 1990</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
+<div class="line"><a name="l01991"></a><span class="lineno"> 1991</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Timestep &quot;</span> &lt;&lt; setw(6) &lt;&lt; left &lt;&lt; ctrl.numTstep</div>
+<div class="line"><a name="l01992"></a><span class="lineno"> 1992</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; fixed &lt;&lt; setw(10) &lt;&lt; setprecision(3) &lt;&lt; right &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span></div>
+<div class="line"><a name="l01993"></a><span class="lineno"> 1993</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;    Wall time: &quot;</span> &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l01994"></a><span class="lineno"> 1994</span>&#160;    dtlInfo.PrintInfo(wordDir, rs, days);</div>
+<div class="line"><a name="l01995"></a><span class="lineno"> 1995</span>&#160;}</div>
+<div class="line"><a name="l01996"></a><span class="lineno"> 1996</span>&#160; </div>
+<div class="line"><a name="l01997"></a><span class="lineno"> 1997</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l01998"></a><span class="lineno"> 1998</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
 <div class="line"><a name="l01999"></a><span class="lineno"> 1999</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02000"></a><span class="lineno"> 2000</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l02000"></a><span class="lineno"> 2000</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
 <div class="line"><a name="l02001"></a><span class="lineno"> 2001</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02002"></a><span class="lineno"> 2002</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l02003"></a><span class="lineno"> 2003</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02004"></a><span class="lineno"> 2004</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l02005"></a><span class="lineno"> 2005</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l02006"></a><span class="lineno"> 2006</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
-<div class="line"><a name="l02007"></a><span class="lineno"> 2007</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l02002"></a><span class="lineno"> 2002</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l02003"></a><span class="lineno"> 2003</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l02004"></a><span class="lineno"> 2004</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l02005"></a><span class="lineno"> 2005</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
@@ -2197,7 +2195,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 18 2022 06:46:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Oct 18 2022 07:19:49 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
