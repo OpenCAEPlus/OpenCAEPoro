@@ -251,9 +251,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMatFIM_n</b> 
 <tr class="memitem:aca3601c9c71700d26106850bbb0a750e"><td class="memItemLeft" align="right" valign="top"><a id="aca3601c9c71700d26106850bbb0a750e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>GetSolutionFIM_n</b> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dPmax, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dSmax)</td></tr>
 <tr class="separator:aca3601c9c71700d26106850bbb0a750e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca20d0ea5101f6dfc7ccbef21aef0cfe"><td class="memItemLeft" align="right" valign="top"><a id="aca20d0ea5101f6dfc7ccbef21aef0cfe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetSolution01FIM</b> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u)</td></tr>
-<tr class="separator:aca20d0ea5101f6dfc7ccbef21aef0cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed8990a10e7e8ea9a7bcca1275d80787"><td class="memItemLeft" align="right" valign="top"><a id="aed8990a10e7e8ea9a7bcca1275d80787"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReservoir.html#aed8990a10e7e8ea9a7bcca1275d80787">CalResFIM</a> (<a class="el" href="classResFIM.html">ResFIM</a> &amp;resFIM, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
 <tr class="memdesc:aed8990a10e7e8ea9a7bcca1275d80787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the Resiual for FIM, it's also RHS of Linear System. <br /></td></tr>
@@ -456,16 +453,16 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b></td></tr>
 </div><div class="memdoc">
 <p>Return the Solution to <a class="el" href="classReservoir.html">Reservoir</a> Pressure and moles of Components for FIM Exactly, it's a Newton step. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00570">570</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;{</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;    bulk.<a class="code" href="classBulk.html#a76902cd41197c610c5f4698da6bea196">GetSolAIMt</a>(u, dPmax, dSmax);</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    allWells.<a class="code" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">GetSolAIMt</a>(u, bulk.numFIMBulk, bulk.<a class="code" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>() + 1);</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;}</div>
-<div class="ttc" id="aclassAllWells_html_a9fdd96a0a0d50e4cb96da8f53a0abeb6"><div class="ttname"><a href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00692">AllWells.cpp:692</a></div></div>
-<div class="ttc" id="aclassBulk_html_a76902cd41197c610c5f4698da6bea196"><div class="ttname"><a href="classBulk.html#a76902cd41197c610c5f4698da6bea196">Bulk::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_DBL &amp;dPmaxlim, const OCP_DBL &amp;dSmaxlim)</div><div class="ttdoc">Get the solution for local FIM after a Newton iteration.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l03360">Bulk.cpp:3360</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00567">567</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;{</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    bulk.<a class="code" href="classBulk.html#a76902cd41197c610c5f4698da6bea196">GetSolAIMt</a>(u, dPmax, dSmax);</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    allWells.<a class="code" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">GetSolAIMt</a>(u, bulk.numFIMBulk, bulk.<a class="code" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>() + 1);</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;}</div>
+<div class="ttc" id="aclassAllWells_html_a9fdd96a0a0d50e4cb96da8f53a0abeb6"><div class="ttname"><a href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00680">AllWells.cpp:680</a></div></div>
+<div class="ttc" id="aclassBulk_html_a76902cd41197c610c5f4698da6bea196"><div class="ttname"><a href="classBulk.html#a76902cd41197c610c5f4698da6bea196">Bulk::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_DBL &amp;dPmaxlim, const OCP_DBL &amp;dSmaxlim)</div><div class="ttdoc">Get the solution for local FIM after a Newton iteration.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l03359">Bulk.cpp:3359</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad4381cb94449aee799e66ded4ca7a2b9"><div class="ttname"><a href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">Bulk::GetComNum</a></div><div class="ttdeci">USI GetComNum() const</div><div class="ttdoc">Return the number of components.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00147">Bulk.hpp:147</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00147">Bulk::GetComNum()</a>, <a class="el" href="Bulk_8cpp_source.html#l03360">Bulk::GetSolAIMt()</a>, and <a class="el" href="AllWells_8cpp_source.html#l00692">AllWells::GetSolAIMt()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8hpp_source.html#l00147">Bulk::GetComNum()</a>, <a class="el" href="Bulk_8cpp_source.html#l03359">Bulk::GetSolAIMt()</a>, and <a class="el" href="AllWells_8cpp_source.html#l00680">AllWells::GetSolAIMt()</a>.</p>
 
 </div>
 </div>
@@ -502,11 +499,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b></td></tr>
 </div><div class="memdoc">
 <p>Return the Solution to <a class="el" href="classReservoir.html">Reservoir</a> Pressure and moles of Components for FIM Exactly, it's a Newton step. </p>
 
-<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00409">409</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;{</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    bulk.<a class="code" href="classBulk.html#afe271a220488edfca396399e74a76bfd">GetSolFIM</a>(u, dPmax, dSmax); </div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    allWells.<a class="code" href="classAllWells.html#aa227cf746f8c53783da25aea63776906">GetSolFIM</a>(u, bulk.<a class="code" href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">GetBulkNum</a>(), bulk.<a class="code" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>() + 1);</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Reservoir_8cpp_source.html#l00413">413</a> of file <a class="el" href="Reservoir_8cpp_source.html">Reservoir.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;{</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    bulk.<a class="code" href="classBulk.html#afe271a220488edfca396399e74a76bfd">GetSolFIM</a>(u, dPmax, dSmax); </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    allWells.<a class="code" href="classAllWells.html#aa227cf746f8c53783da25aea63776906">GetSolFIM</a>(u, bulk.<a class="code" href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">GetBulkNum</a>(), bulk.<a class="code" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>() + 1);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;}</div>
 <div class="ttc" id="aclassAllWells_html_aa227cf746f8c53783da25aea63776906"><div class="ttname"><a href="classAllWells.html#aa227cf746f8c53783da25aea63776906">AllWells::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00545">AllWells.cpp:545</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad1fe116878b1f29b28515f4692a9d2c9"><div class="ttname"><a href="classBulk.html#ad1fe116878b1f29b28515f4692a9d2c9">Bulk::GetBulkNum</a></div><div class="ttdeci">OCP_USI GetBulkNum() const</div><div class="ttdoc">Return the number of bulks.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00145">Bulk.hpp:145</a></div></div>
 <div class="ttc" id="aclassBulk_html_afe271a220488edfca396399e74a76bfd"><div class="ttname"><a href="classBulk.html#afe271a220488edfca396399e74a76bfd">Bulk::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_DBL &amp;dPmaxlim, const OCP_DBL &amp;dSmaxlim)</div><div class="ttdoc">Get the solution for FIM after a Newton iteration.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02588">Bulk.cpp:2588</a></div></div>
@@ -606,7 +603,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2022 23:18:04 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Oct 18 2022 03:20:25 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

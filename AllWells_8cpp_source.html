@@ -616,177 +616,165 @@ $(function() {
 <div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    }</div>
 <div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;}</div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="keywordtype">void</span> AllWells::GetSol01FIM(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; bId,</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;                            <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; len, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; alpha)</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;{</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;            wells[w].BHP += u[(bId + wId) * len] * alpha;</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;            wells[w].UpdatePerfP();</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;            wId++;</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        }</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    }</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;}</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160; </div>
+<div class="line"><a name="l00560"></a><span class="lineno"><a class="line" href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">  560</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">AllWells::CalResFIM</a>(<a class="code" href="classResFIM.html">ResFIM</a>&amp; resFIM, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160; </div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;            wells[w].CalResFIM(resFIM, myBulk, dt, wId, wells);</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;            wId++;</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;        }</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    }</div>
 <div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160; </div>
-<div class="line"><a name="l00572"></a><span class="lineno"><a class="line" href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">  572</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">AllWells::CalResFIM</a>(<a class="code" href="classResFIM.html">ResFIM</a>&amp; resFIM, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160; </div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;            wells[w].CalResFIM(resFIM, myBulk, dt, wId, wells);</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;            wId++;</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        }</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    }</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160; </div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;Well  &quot; &lt;&lt; resFIM.maxRelRes_v;</span></div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;}</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
-<div class="line"><a name="l00587"></a><span class="lineno"><a class="line" href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">  587</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">AllWells::ShowRes</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;            cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;            wells[w].ShowRes(wId, res, myBulk);</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;            wId++;</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;        }</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    }</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;}</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment">// AFIM(new)</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160; </div>
-<div class="line"><a name="l00606"></a><span class="lineno"><a class="line" href="classAllWells.html#a829931542020b8717646c55734816cc5">  606</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a829931542020b8717646c55734816cc5">AllWells::AssemblaMatFIM_new</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160; </div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                wells[w].AssembleMatINJ_FIM_new(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                wells[w].AssembleMatPROD_FIM_new(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;            }</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        }</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    }</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;}</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160; </div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="keywordtype">void</span> AllWells::AssemblaMatFIM_new_n(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160; </div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                wells[w].AssembleMatINJ_FIM_new_n(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;                wells[w].AssembleMatPROD_FIM_new_n(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;            }</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;        }</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;    }</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;}</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;Well  &quot; &lt;&lt; resFIM.maxRelRes_v;</span></div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;}</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160; </div>
+<div class="line"><a name="l00575"></a><span class="lineno"><a class="line" href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">  575</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">AllWells::ShowRes</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; res, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;            cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;            wells[w].ShowRes(wId, res, myBulk);</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;            wId++;</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        }</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    }</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;}</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160; </div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment">// AFIM(new)</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160; </div>
+<div class="line"><a name="l00594"></a><span class="lineno"><a class="line" href="classAllWells.html#a829931542020b8717646c55734816cc5">  594</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a829931542020b8717646c55734816cc5">AllWells::AssemblaMatFIM_new</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160; </div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;                wells[w].AssembleMatINJ_FIM_new(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                wells[w].AssembleMatPROD_FIM_new(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;            }</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        }</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    }</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;}</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160; </div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="keywordtype">void</span> AllWells::AssemblaMatFIM_new_n(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160; </div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160; </div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;                wells[w].AssembleMatINJ_FIM_new_n(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;                wells[w].AssembleMatPROD_FIM_new_n(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;            }</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        }</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    }</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;}</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160; </div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160; </div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160; </div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="comment">// AIMt</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00645"></a><span class="lineno"><a class="line" href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">  645</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">AllWells::AssemblaMatAIMt</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
 <div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160; </div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160; </div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160; </div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="comment">// AIMt</span></div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00657"></a><span class="lineno"><a class="line" href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">  657</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">AllWells::AssemblaMatAIMt</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;                wells[w].AssembleMatINJ_AIMt(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;                wells[w].AssembleMatPROD_AIMt(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;            }</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        }</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    }</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;}</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                wells[w].AssembleMatINJ_AIMt(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;                wells[w].AssembleMatPROD_AIMt(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;            }</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        }</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    }</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;}</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160; </div>
+<div class="line"><a name="l00665"></a><span class="lineno"><a class="line" href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">  665</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">AllWells::CalResAIMt</a>(<a class="code" href="classResFIM.html">ResFIM</a>&amp; resFIM, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160; </div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;            wells[w].CalResAIMt(resFIM, myBulk, dt, wId, wells);</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;            wId++;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;        }</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    }</div>
 <div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160; </div>
-<div class="line"><a name="l00677"></a><span class="lineno"><a class="line" href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">  677</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">AllWells::CalResAIMt</a>(<a class="code" href="classResFIM.html">ResFIM</a>&amp; resFIM, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160; </div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;            wells[w].CalResAIMt(resFIM, myBulk, dt, wId, wells);</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;            wId++;</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        }</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    }</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160; </div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;Well  &quot; &lt;&lt; resFIM.maxRelRes_v;</span></div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;}</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160; </div>
-<div class="line"><a name="l00692"></a><span class="lineno"><a class="line" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">  692</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; bId, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; len)</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;{</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160; </div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;Well  &quot; &lt;&lt; resFIM.maxRelRes_v;</span></div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;}</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160; </div>
+<div class="line"><a name="l00680"></a><span class="lineno"><a class="line" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">  680</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a>(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; bId, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; len)</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;{</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160; </div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> wId = 0;</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;            wells[w].BHP += u[(bId + wId) * len];</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;            wells[w].UpdatePerfP();</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;            wId++;</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        }</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    }</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;}</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160; </div>
+<div class="line"><a name="l00694"></a><span class="lineno"><a class="line" href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">  694</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">AllWells::AssemblaMatAIMs</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;            wells[w].BHP += u[(bId + wId) * len];</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;            wells[w].UpdatePerfP();</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;            wId++;</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;        }</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    }</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;}</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160; </div>
-<div class="line"><a name="l00706"></a><span class="lineno"><a class="line" href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">  706</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">AllWells::AssemblaMatAIMs</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <span class="keyword">const</span> <a class="code" href="classBulk.html">Bulk</a>&amp; myBulk,</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; dt)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; numWell; w++) {</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;        <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160; </div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                wells[w].AssembleMatINJ_AIMs(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;                wells[w].AssembleMatPROD_AIMs(myBulk, myLS, dt);</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            }</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        }</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    }</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;}</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;            <span class="keywordflow">switch</span> (wells[w].WellType()) {</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a>:</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                wells[w].AssembleMatINJ_AIMs(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a>:</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                wells[w].AssembleMatPROD_AIMs(myBulk, myLS, dt);</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong well type&quot;</span>);</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;            }</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;        }</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;    }</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;}</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160; </div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aAllWells_8hpp_html"><div class="ttname"><a href="AllWells_8hpp.html">AllWells.hpp</a></div><div class="ttdoc">AllWells class declaration.</div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a5da432e006319d9f82b5da4c0a186c1f"><div class="ttname"><a href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a></div><div class="ttdeci">void Daxpy(const int &amp;n, const double &amp;alpha, const double *x, double *y)</div><div class="ttdoc">Constant times a vector plus a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00069">DenseMat.cpp:69</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_accb44af625653de07f0a8dba403348d1"><div class="ttname"><a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a></div><div class="ttdeci">double Dnorm1(const int &amp;N, double *x)</div><div class="ttdoc">Computes the L1-norm of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00050">DenseMat.cpp:50</a></div></div>
@@ -803,26 +791,26 @@ $(function() {
 <div class="ttc" id="aOCPConst_8hpp_html_af4fc00d6f7ddbba6c546c1e9d94464a6"><div class="ttname"><a href="OCPConst_8hpp.html#af4fc00d6f7ddbba6c546c1e9d94464a6">PRESSURE_STD</a></div><div class="ttdeci">const OCP_DBL PRESSURE_STD</div><div class="ttdoc">14.6959 psia = 1 atm</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00058">OCPConst.hpp:58</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a036fa821da91b2d4a661830a7f8310ee"><div class="ttname"><a href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a></div><div class="ttdeci">#define OCP_FUNCNAME</div><div class="ttdoc">Print Function Name.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00073">UtilError.hpp:73</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a0eb734bbd0471b876ba18ad32521a6bb"><div class="ttname"><a href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">AllWells::ShowRes</a></div><div class="ttdeci">void ShowRes(const vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk) const</div><div class="ttdoc">Show Res.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00587">AllWells.cpp:587</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a0f30e26693af5bcf6df826da1c5a1876"><div class="ttname"><a href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">AllWells::CalResAIMt</a></div><div class="ttdeci">void CalResAIMt(ResFIM &amp;resFIM, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate Resiual and relative Resiual for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00677">AllWells.cpp:677</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a0eb734bbd0471b876ba18ad32521a6bb"><div class="ttname"><a href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">AllWells::ShowRes</a></div><div class="ttdeci">void ShowRes(const vector&lt; OCP_DBL &gt; &amp;res, const Bulk &amp;myBulk) const</div><div class="ttdoc">Show Res.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00575">AllWells.cpp:575</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a0f30e26693af5bcf6df826da1c5a1876"><div class="ttname"><a href="classAllWells.html#a0f30e26693af5bcf6df826da1c5a1876">AllWells::CalResAIMt</a></div><div class="ttdeci">void CalResAIMt(ResFIM &amp;resFIM, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate Resiual and relative Resiual for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00665">AllWells.cpp:665</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a0f5418984c94a2878eb35a8c795fe903"><div class="ttname"><a href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">AllWells::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate volume flow rate and moles flow rate of each perforation.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00203">AllWells.cpp:203</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a146b158a9549b1fe940038a7efb14f63"><div class="ttname"><a href="classAllWells.html#a146b158a9549b1fe940038a7efb14f63">AllWells::CalTrans</a></div><div class="ttdeci">void CalTrans(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Transmissibility of Wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00192">AllWells.cpp:192</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a187f1afb3db7a0fd1b70363696b1a987"><div class="ttname"><a href="classAllWells.html#a187f1afb3db7a0fd1b70363696b1a987">AllWells::AllocateMat</a></div><div class="ttdeci">void AllocateMat(LinearSystem &amp;myLS, const USI &amp;bulknum) const</div><div class="ttdoc">Calculate memory for Matrix.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00318">AllWells.cpp:318</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a19418a0c7c4696283a1b0b5ac5aef9c7"><div class="ttname"><a href="classAllWells.html#a19418a0c7c4696283a1b0b5ac5aef9c7">AllWells::GetMaxWellPerNum</a></div><div class="ttdeci">USI GetMaxWellPerNum() const</div><div class="ttdoc">Calculate mamimum num of perforations of all Wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00400">AllWells.cpp:400</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a1d11a622e6c8580a7d502c4c03376424"><div class="ttname"><a href="classAllWells.html#a1d11a622e6c8580a7d502c4c03376424">AllWells::AssemblaMatFIM</a></div><div class="ttdeci">void AssemblaMatFIM(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00512">AllWells.cpp:512</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a2bed879a6d17d50be411e446cc754860"><div class="ttname"><a href="classAllWells.html#a2bed879a6d17d50be411e446cc754860">AllWells::SetupWell</a></div><div class="ttdeci">void SetupWell(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">complete the information of well according to Grid and Bulk.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00066">AllWells.cpp:66</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a354a600e5c1e9c4181eb10d3eebb8749"><div class="ttname"><a href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">AllWells::AssemblaMatAIMt</a></div><div class="ttdeci">void AssemblaMatAIMt(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for AIMt.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00657">AllWells.cpp:657</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a354a600e5c1e9c4181eb10d3eebb8749"><div class="ttname"><a href="classAllWells.html#a354a600e5c1e9c4181eb10d3eebb8749">AllWells::AssemblaMatAIMt</a></div><div class="ttdeci">void AssemblaMatAIMt(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for AIMt.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00645">AllWells.cpp:645</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a3614ec1b5d163e1cd551fd91dc5656e7"><div class="ttname"><a href="classAllWells.html#a3614ec1b5d163e1cd551fd91dc5656e7">AllWells::AssemblaMatIMPEC</a></div><div class="ttdeci">void AssemblaMatIMPEC(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00461">AllWells.cpp:461</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a36d1a6c65cf8e8a95abefdc1432db2fb"><div class="ttname"><a href="classAllWells.html#a36d1a6c65cf8e8a95abefdc1432db2fb">AllWells::MassConserveIMPEC</a></div><div class="ttdeci">void MassConserveIMPEC(Bulk &amp;myBulk, OCP_DBL dt)</div><div class="ttdoc">Update moles of components in Bulks which connects to well.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00450">AllWells.cpp:450</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a370e61c20debfbae428ab3f6cda6f70b"><div class="ttname"><a href="classAllWells.html#a370e61c20debfbae428ab3f6cda6f70b">AllWells::CheckP</a></div><div class="ttdeci">OCP_INT CheckP(const Bulk &amp;myBulk)</div><div class="ttdoc">Check if unreasonable well pressure or perforation pressure occurs.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00340">AllWells.cpp:340</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a521b341baaef80dfb93666f93d9e303d"><div class="ttname"><a href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">AllWells::CaldG</a></div><div class="ttdeci">void CaldG(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate dG.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00225">AllWells.cpp:225</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a6687a89061fd6a296715c85279580b0b"><div class="ttname"><a href="classAllWells.html#a6687a89061fd6a296715c85279580b0b">AllWells::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply the operation mode at the ith critical time.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00149">AllWells.cpp:149</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a7baf7e66473d0323c5f0121731b18a19"><div class="ttname"><a href="classAllWells.html#a7baf7e66473d0323c5f0121731b18a19">AllWells::SetupMixture</a></div><div class="ttdeci">void SetupMixture(const Bulk &amp;myBulk)</div><div class="ttdoc">get the mixture from bulk -— usless now</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00132">AllWells.cpp:132</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a829931542020b8717646c55734816cc5"><div class="ttname"><a href="classAllWells.html#a829931542020b8717646c55734816cc5">AllWells::AssemblaMatFIM_new</a></div><div class="ttdeci">void AssemblaMatFIM_new(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00606">AllWells.cpp:606</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a829931542020b8717646c55734816cc5"><div class="ttname"><a href="classAllWells.html#a829931542020b8717646c55734816cc5">AllWells::AssemblaMatFIM_new</a></div><div class="ttdeci">void AssemblaMatFIM_new(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00594">AllWells.cpp:594</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a8d3cd6c2b20a4d2ab5a5e792aa16f562"><div class="ttname"><a href="classAllWells.html#a8d3cd6c2b20a4d2ab5a5e792aa16f562">AllWells::GetWellPerfNum</a></div><div class="ttdeci">USI GetWellPerfNum() const</div><div class="ttdoc">Return the num of perforations of all wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00391">AllWells.cpp:391</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a9618cb7b8208943549909c4a25d366d3"><div class="ttname"><a href="classAllWells.html#a9618cb7b8208943549909c4a25d366d3">AllWells::CalIPRT</a></div><div class="ttdeci">void CalIPRT(const Bulk &amp;myBulk, OCP_DBL dt)</div><div class="ttdoc">Calculate Injection rate, total Injection, Production rate, total Production.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00236">AllWells.cpp:236</a></div></div>
 <div class="ttc" id="aclassAllWells_html_a9f950a86030f86d80a700ea02bec9452"><div class="ttname"><a href="classAllWells.html#a9f950a86030f86d80a700ea02bec9452">AllWells::SetupWellBulk</a></div><div class="ttdeci">void SetupWellBulk(Bulk &amp;myBulk) const</div><div class="ttdoc">Setup bulks which are penetrated by wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00139">AllWells.cpp:139</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a9fdd96a0a0d50e4cb96da8f53a0abeb6"><div class="ttname"><a href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00692">AllWells.cpp:692</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a9fdd96a0a0d50e4cb96da8f53a0abeb6"><div class="ttname"><a href="classAllWells.html#a9fdd96a0a0d50e4cb96da8f53a0abeb6">AllWells::GetSolAIMt</a></div><div class="ttdeci">void GetSolAIMt(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for local FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00680">AllWells.cpp:680</a></div></div>
 <div class="ttc" id="aclassAllWells_html_aa227cf746f8c53783da25aea63776906"><div class="ttname"><a href="classAllWells.html#aa227cf746f8c53783da25aea63776906">AllWells::GetSolFIM</a></div><div class="ttdeci">void GetSolFIM(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId, const USI &amp;len)</div><div class="ttdoc">Get solution from solver class after linear system is solved for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00545">AllWells.cpp:545</a></div></div>
 <div class="ttc" id="aclassAllWells_html_aa4b6edc8baaa8ded03d3a53f9f9d15b8"><div class="ttname"><a href="classAllWells.html#aa4b6edc8baaa8ded03d3a53f9f9d15b8">AllWells::GetSolIMPEC</a></div><div class="ttdeci">void GetSolIMPEC(const vector&lt; OCP_DBL &gt; &amp;u, const OCP_USI &amp;bId)</div><div class="ttdoc">Update Well P and Perforation P after linear system is solved for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00494">AllWells.cpp:494</a></div></div>
 <div class="ttc" id="aclassAllWells_html_aab8182bbfa501c83c18012c6235f3659"><div class="ttname"><a href="classAllWells.html#aab8182bbfa501c83c18012c6235f3659">AllWells::InitBHP</a></div><div class="ttdeci">void InitBHP(const Bulk &amp;myBulk)</div><div class="ttdoc">Set the initial well pressure.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00165">AllWells.cpp:165</a></div></div>
@@ -831,11 +819,11 @@ $(function() {
 <div class="ttc" id="aclassAllWells_html_acc1f9fe7925ca8685d7ebef88f4d5929"><div class="ttname"><a href="classAllWells.html#acc1f9fe7925ca8685d7ebef88f4d5929">AllWells::GetIndex</a></div><div class="ttdeci">USI GetIndex(const string &amp;name) const</div><div class="ttdoc">Return the index of specified well.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00379">AllWells.cpp:379</a></div></div>
 <div class="ttc" id="aclassAllWells_html_acc431b1d158b5e16a154700064625b1e"><div class="ttname"><a href="classAllWells.html#acc431b1d158b5e16a154700064625b1e">AllWells::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid, const Bulk &amp;myBulk)</div><div class="ttdoc">Setup well in allWells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00058">AllWells.cpp:58</a></div></div>
 <div class="ttc" id="aclassAllWells_html_ace7824de322ddcc0921e0431f41fdcd2"><div class="ttname"><a href="classAllWells.html#ace7824de322ddcc0921e0431f41fdcd2">AllWells::PrepareWell</a></div><div class="ttdeci">void PrepareWell(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate well properties at the beginning of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00174">AllWells.cpp:174</a></div></div>
-<div class="ttc" id="aclassAllWells_html_acf76967c465f9b5da8581c3f90270504"><div class="ttname"><a href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">AllWells::CalResFIM</a></div><div class="ttdeci">void CalResFIM(ResFIM &amp;resFIM, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate Resiual and relative Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00572">AllWells.cpp:572</a></div></div>
+<div class="ttc" id="aclassAllWells_html_acf76967c465f9b5da8581c3f90270504"><div class="ttname"><a href="classAllWells.html#acf76967c465f9b5da8581c3f90270504">AllWells::CalResFIM</a></div><div class="ttdeci">void CalResFIM(ResFIM &amp;resFIM, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate Resiual and relative Resiual for FIM.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00560">AllWells.cpp:560</a></div></div>
 <div class="ttc" id="aclassAllWells_html_ae38fd52cc7a694f6afd876271d469416"><div class="ttname"><a href="classAllWells.html#ae38fd52cc7a694f6afd876271d469416">AllWells::CalReInjFluid</a></div><div class="ttdeci">void CalReInjFluid(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Reinjection fluid.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00273">AllWells.cpp:273</a></div></div>
 <div class="ttc" id="aclassAllWells_html_ae68a3bb44392690c42f75425995f5801"><div class="ttname"><a href="classAllWells.html#ae68a3bb44392690c42f75425995f5801">AllWells::InputParam</a></div><div class="ttdeci">void InputParam(const ParamWell &amp;paramWell)</div><div class="ttdoc">Input param from ParamWell.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00019">AllWells.cpp:19</a></div></div>
 <div class="ttc" id="aclassAllWells_html_ae8e387f1cdfce6881976f01fe752c60b"><div class="ttname"><a href="classAllWells.html#ae8e387f1cdfce6881976f01fe752c60b">AllWells::CalCFL</a></div><div class="ttdeci">void CalCFL(const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Calculate the CFL number for each perforation and return the maximum one.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00439">AllWells.cpp:439</a></div></div>
-<div class="ttc" id="aclassAllWells_html_afb937742bcf7ac0d01ae8751cf33bb30"><div class="ttname"><a href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">AllWells::AssemblaMatAIMs</a></div><div class="ttdeci">void AssemblaMatAIMs(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for AIMt.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00706">AllWells.cpp:706</a></div></div>
+<div class="ttc" id="aclassAllWells_html_afb937742bcf7ac0d01ae8751cf33bb30"><div class="ttname"><a href="classAllWells.html#afb937742bcf7ac0d01ae8751cf33bb30">AllWells::AssemblaMatAIMs</a></div><div class="ttdeci">void AssemblaMatAIMs(LinearSystem &amp;myLS, const Bulk &amp;myBulk, const OCP_DBL &amp;dt) const</div><div class="ttdoc">Assemble matrix, parts related to well are included for AIMt.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00694">AllWells.cpp:694</a></div></div>
 <div class="ttc" id="aclassBulk_html"><div class="ttname"><a href="classBulk.html">Bulk</a></div><div class="ttdoc">Physical information of each active reservoir bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00057">Bulk.hpp:58</a></div></div>
 <div class="ttc" id="aclassBulk_html_a8255ad6451e44e315dc572848028be99"><div class="ttname"><a href="classBulk.html#a8255ad6451e44e315dc572848028be99">Bulk::GetMixture</a></div><div class="ttdeci">const vector&lt; Mixture * &gt; &amp; GetMixture() const</div><div class="ttdoc">Return flash results (it has not been used by far).</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00153">Bulk.hpp:153</a></div></div>
 <div class="ttc" id="aclassBulk_html_ad4381cb94449aee799e66ded4ca7a2b9"><div class="ttname"><a href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">Bulk::GetComNum</a></div><div class="ttdeci">USI GetComNum() const</div><div class="ttdoc">Return the number of components.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00147">Bulk.hpp:147</a></div></div>
@@ -852,7 +840,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2022 23:18:04 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Oct 18 2022 03:20:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
