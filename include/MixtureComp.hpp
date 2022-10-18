@@ -248,7 +248,6 @@ private:
 	USI lId; ///< index of lightest components
 	EoScontrol EoSctrl; ///< method params for solving phase equilibrium
 	USI ftype{ 0 };
-    USI tmpFtype;
 
 	vector<OCP_DBL> Plist;
 	vector<OCP_DBL> Tlist;
