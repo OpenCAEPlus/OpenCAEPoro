@@ -1719,11 +1719,11 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 
 
 #ifdef OCP_OLD_FIM  
-    Dcopy(lendSdP, &dSec_dPri[0] + n * lendSdP, &flashCal[pvtnum]->dXsdXp[0]);
+    Dcopy(maxLendSdP, &dSec_dPri[0] + n * maxLendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 #else
+    bRowSizedSdP[n] = len;
     len *= (numCom + 1);
-    dSdPindex[n + 1] = dSdPindex[n] + len;
-    Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
+    Dcopy(len, &dSec_dPri[0] + n * maxLendSdP, &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
 
@@ -1832,9 +1832,8 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
     resIndex[n + 1] = resIndex[n] + len;
     Dcopy(len, &res_n[0] + resIndex[n], &flashCal[pvtnum]->res[0]);
     len *= (numCom + 1);
-    dSdPindex[n + 1] = dSdPindex[n] + len;
-    Dcopy(len, &dSec_dPri[0] + dSdPindex[n], &flashCal[pvtnum]->dXsdXp[0]);
-
+    Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
+   
     resPc[n] = flashCal[pvtnum]->resPc;
 
 
@@ -2533,11 +2532,11 @@ void Bulk::AllocateAuxFIM()
     mux.resize(numBulk * numCom * numPhase);
     xix.resize(numBulk * numCom * numPhase);
     rhox.resize(numBulk * numCom * numPhase);
-    lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
-    dSec_dPri.resize(numBulk * lendSdP);
+    maxLendSdP = (numCom + 1) * (numCom + 1) * numPhase;
+    dSec_dPri.resize(numBulk * maxLendSdP);
     res_n.resize((numPhase + numPhase * numCom) * numBulk);
     resPc.resize(numBulk);
-    dSdPindex.resize(numBulk + 1, 0);
+    bRowSizedSdP.resize(numBulk);
     resIndex.resize(numBulk + 1, 0);
     pSderExist.resize(numBulk * numPhase);
     pVnumCom.resize(numBulk * numPhase);
@@ -2569,9 +2568,9 @@ void Bulk::AllocateAuxFIM()
     lmux.resize(numBulk * numCom * numPhase);
     lxix.resize(numBulk * numCom * numPhase);
     lrhox.resize(numBulk * numCom * numPhase);
-    ldSec_dPri.resize(numBulk * lendSdP);
+    ldSec_dPri.resize(numBulk * maxLendSdP);
     lres_n.resize((numPhase + numPhase * numCom) * numBulk);
-    ldSdPindex.resize(numBulk + 1, 0);
+    lbRowSizedSdP.resize(numBulk);
     lresIndex.resize(numBulk + 1, 0);
     lpSderExist.resize(numBulk * numPhase);
     lpVnumCom.resize(numBulk * numPhase);
@@ -2619,10 +2618,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
             dtmp.data());
         const OCP_BOOL newFIM = OCP_FALSE;
 #else
-        DaAxpby((dSdPindex[n + 1] - dSdPindex[n]) / col, col, 1, dSec_dPri.data() + dSdPindex[n],
+        DaAxpby(bRowSizedSdP[n], col, 1, &dSec_dPri[n*maxLendSdP],
             u.data() + n * col, 1, dtmp.data());
-        //DaAxpby(phaseNum[n] + 1, col, 1, dSec_dPri.data() + dSdPindex[n],
-        //        u.data() + n * col, 1, dtmp.data());
         const OCP_BOOL newFIM = OCP_TRUE;
 #endif // OCP_OLD_FIM
 
@@ -2755,12 +2752,8 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
 
         const USI cNp = phaseNum[n] + 1;
         const USI len = resIndex[n + 1] - resIndex[n];
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /*Dcopy(cNp, &dtmp[0], &res_n[resIndex[n]]);
-        DaAxpby(cNp, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,
-                1.0, dtmp.data());*/
         Dcopy(len, &dtmp[0], &res_n[resIndex[n]]);
-        DaAxpby(len, ncol, 1.0, dSec_dPri.data() + dSdPindex[n], u.data() + n * ncol,
+        DaAxpby(len, ncol, 1.0, &dSec_dPri[n * maxLendSdP], u.data() + n * ncol,
             1.0, dtmp.data());
 
         // Calculate dSmax
@@ -2990,7 +2983,7 @@ void Bulk::ResetFIM()
     dSec_dPri  = ldSec_dPri;
     res_n      = lres_n;
     resPc      = lresPc;
-    dSdPindex  = ldSdPindex;
+    bRowSizedSdP   = lbRowSizedSdP;
     resIndex   = lresIndex;
     pSderExist = lpSderExist;
     pVnumCom   = lpVnumCom;
@@ -3039,7 +3032,7 @@ void Bulk::UpdateLastStepFIM()
     ldSec_dPri  = dSec_dPri;
     lres_n      = res_n;
     lresPc      = resPc;
-    ldSdPindex  = dSdPindex;
+    lbRowSizedSdP   = bRowSizedSdP;
     lresIndex   = resIndex;
     lpSderExist = pSderExist;
     lpVnumCom   = pVnumCom;
@@ -3159,8 +3152,8 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     mux.resize(maxNumFIMBulk * numCom * numPhase);
     xix.resize(maxNumFIMBulk * numCom * numPhase);
     rhox.resize(maxNumFIMBulk * numCom * numPhase);
-    lendSdP = (numCom + 1) * (numCom + 1) * numPhase;
-    dSec_dPri.resize(maxNumFIMBulk * lendSdP);
+    maxLendSdP = (numCom + 1) * (numCom + 1) * numPhase;
+    dSec_dPri.resize(maxNumFIMBulk * maxLendSdP);
     dKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
     dPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
 
@@ -3170,7 +3163,7 @@ void Bulk::AllocateAuxAIM(const OCP_DBL& ratio)
     lmux.resize(maxNumFIMBulk * numCom * numPhase);
     lxix.resize(maxNumFIMBulk * numCom * numPhase);
     lrhox.resize(maxNumFIMBulk * numCom * numPhase);
-    ldSec_dPri.resize(maxNumFIMBulk * lendSdP);
+    ldSec_dPri.resize(maxNumFIMBulk * maxLendSdP);
     ldKr_dS.resize(maxNumFIMBulk * numPhase * numPhase);
     ldPcj_dS.resize(maxNumFIMBulk * numPhase * numPhase);
 
@@ -3545,9 +3538,10 @@ void Bulk::UpdateLastStepAIM()
     lmux       = mux;
     lxix       = xix;
     lrhox      = rhox;
-    ldPcj_dS   = dPcj_dS;
+    ldPcj_dS   = dPcj_dS;   
     ldKr_dS    = dKr_dS;
     ldSec_dPri = dSec_dPri;
+    lbRowSizedSdP  = bRowSizedSdP;
 }
 
 void Bulk::ResetFIMBulk()
@@ -3561,6 +3555,7 @@ void Bulk::ResetFIMBulk()
     dPcj_dS   = ldPcj_dS;
     dKr_dS    = ldKr_dS;
     dSec_dPri = ldSec_dPri;
+    bRowSizedSdP  = lbRowSizedSdP;
 }
 
 void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const

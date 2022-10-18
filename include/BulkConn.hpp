@@ -225,7 +225,6 @@ public:
     /// Allocate memory for auxiliary variables used by the AIMc method.
     void AllocateAuxAIMc(const USI& np);
     void AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
-    void AssembleMat_AIMc01(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Calculate resiual for the Newton iteration in FIM.
     void CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 };

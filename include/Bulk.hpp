@@ -441,8 +441,8 @@ private:
     vector<OCP_DBL> dSec_dPri; ///< d Secondary variable / d Primary variable.
     vector<OCP_DBL> res_n;     ///< ...
     vector<OCP_DBL> resPc;     ///< a precalculated value
-    USI             lendSdP;   ///< length of dSec_dPri in a bulk.
-    vector<OCP_USI> dSdPindex; ///< store the starting position of dSec_dPri of each bulk.
+    USI             maxLendSdP;   ///< length of dSec_dPri.
+    vector<USI>     bRowSizedSdP;  ///< length of dSec_dPri in each bulk
     vector<OCP_USI> resIndex;  ///< store the starting position of res_n of each bulk.
 
     // Auxiliary variable for dSec_dPr
@@ -461,7 +461,7 @@ private:
     vector<OCP_DBL> ldSec_dPri;  ///< last dSec_dPri
     vector<OCP_DBL> lres_n;      ///< last res_n
     vector<OCP_DBL> lresPc;      ///< last lresPc;
-    vector<OCP_USI> ldSdPindex;  ///< last SdPindex
+    vector<USI>     lbRowSizedSdP;   ///< last bRowSizedSdP
     vector<OCP_USI> lresIndex;   ///< last res_n
     vector<OCP_BOOL>    lpSderExist; ///< last pSderExist
     vector<USI>     lpVnumCom;   ///< last pVnumCom

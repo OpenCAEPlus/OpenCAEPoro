@@ -590,7 +590,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 	// rs.bulk.CheckDiff();
 	rs.UpdateLastStepFIM();
 
-    rs.bulk.ShowFIMBulk(OCP_FALSE);
+    rs.bulk.ShowFIMBulk(OCP_TRUE);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
@@ -615,9 +615,9 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     }
     // cout << "LS step = " << status << endl;
 
-#ifdef DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");
+#ifdef _DEBUG
+    myLS.OutputLinearSystem("testA_AIMc.out", "testb_AIMc.out");
+    myLS.OutputSolution("testx_AIMc.out");
     myLS.CheckSolution();
 #endif // DEBUG
 
