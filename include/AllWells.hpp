@@ -18,7 +18,7 @@
 
 using namespace std;
 
-/// WellGroup contains a well group, which is responsible for managing the production 
+/// WellGroup contains a well group, which is responsible for managing the production
 /// and injection targets and interactions of some wells, etc. it will be initialized
 /// in the beginning of simulation, if necessary, it should be updated, for example,
 /// the types of well changes or the wells are regrouped.
@@ -28,27 +28,32 @@ class WellGroup
 
 public:
     WellGroup() = default;
-    WellGroup(const string& gname) :name(gname) {};
+    WellGroup(const string& gname)
+        : name(gname){};
 
 private:
+    string      name;    ///< name of wellGroup
+    vector<USI> wId;     ///< Well index in wellGroup
+    vector<USI> wIdINJ;  ///< Inj well index in AllWells
+    vector<USI> wIdPROD; ///< Prod well index in AllWells
 
-    string name; ///< name of wellGroup
-    vector<USI> wId; ///< Well index in wellGroup
-    vector<USI> wIdINJ; ///< Inj well index in AllWells
-    vector<USI> wIdPROD; ///< Prod well index in AllWells  
-    
     // for Reinjection
-    OCP_BOOL reInj{OCP_FALSE}; ///< if Reinjection happens
-    USI injPhase; ///< phase of injfluid, which decides zi
-    USI prodGroup{0}; ///< nominated group which supply reinjection
-    /// sale rate of current group, after times -xi, it will be passed to maxRate in injWell
-    OCP_DBL saleRate;
-    /// mole density of reinjection fluid in std, it will be passed to INJxi in opt of injwell
-    OCP_DBL xi;
-    /// mole fraction of components for Reinjection, it should be passed to injWell
-    vector<OCP_DBL> zi;
-    OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
+    OCP_BOOL reInj{OCP_FALSE}; ///< if reinjection happens
+    USI      injPhase;         ///< phase of injected fluid, which decides zi
 
+    /// nominated group which supply reinjection sale rate of current group, after times
+    /// -xi, it will be passed to maxRate in injWell
+    USI     prodGroup{0};
+    OCP_DBL saleRate;
+    /// mole density of reinjection fluid in std, it will be passed to INJxi in opt of
+    /// injwell
+    OCP_DBL xi;
+    /// mole fraction of components for reinjection, it should be passed to injWell
+    vector<OCP_DBL> zi;
+    OCP_DBL
+    factor; ///< one moles Group production fluid has factor mole reinjection fluid
+
+    /*
     OCP_DBL GOPR{0}; ///< Group oil production rate
     OCP_DBL GGPR{0}; ///< Group gas production rate
     OCP_DBL GWPR{0}; ///< Group water production rate
@@ -59,8 +64,8 @@ private:
     OCP_DBL GWIR{0}; ///< Group water injection rate
     OCP_DBL GGIT{0}; ///< Group gas total injection
     OCP_DBL GWIT{0}; ///< Group gas total injection
+    */
 };
-
 
 /// AllWells contains all wells now, it's used to manages all wells uniformly in
 /// reservoirs. actually, you can regard it as an interface between wells and other
@@ -102,7 +107,7 @@ public:
     void CalTrans(const Bulk& myBulk);
     /// Calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
-    /// Calculate Prodweight 
+    /// Calculate Prodweight
     void CalProdWeight(const Bulk& myBulk);
     /// Calculate dG.
     void CaldG(const Bulk& myBulk);
@@ -112,7 +117,10 @@ public:
     void CalReInjFluid(const Bulk& myBulk);
     /// Calculate memory for Matrix
     void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
-    void UpdateLastBHP() { for (auto& w : wells) w.lBHP = w.BHP; }
+    void UpdateLastBHP()
+    {
+        for (auto& w : wells) w.lBHP = w.BHP;
+    }
     void ResetBHP();
     /// Reset dG to ldG for each well.
     void UpdateLastDg()
@@ -180,7 +188,8 @@ public:
     /// Return total water injection of the wth well.
     OCP_DBL GetWWIT(const USI& w) const { return wells[w].WWIT; }
     /// Return the BHP of wth well.
-    OCP_DBL GetWBHP(const USI& w) const { 
+    OCP_DBL GetWBHP(const USI& w) const
+    {
         if (wells[w].WellState())
             return wells[w].BHP;
         else
@@ -189,18 +198,21 @@ public:
     /// Return the pth dG of wth well.
     OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
     OCP_DBL CalWellQT();
-    void ShowWellStatus(const Bulk& myBulk) { for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk); }
+    void    ShowWellStatus(const Bulk& myBulk)
+    {
+        for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk);
+    }
     OCP_BOOL GetWellChange() const { return wellChange; }
 
 private:
-    USI          numWell;   ///< num of wells.
-    vector<Well> wells; ///< well set.
-    USI          numGroup; ///< num of groups
+    USI               numWell;   ///< num of wells.
+    vector<Well>      wells;     ///< well set.
+    USI               numGroup;  ///< num of groups
     vector<WellGroup> wellGroup; ///< wellGroup set
 
-    OCP_BOOL         wellChange; ///< if wells change, then OCP_TRUE
-    vector<SolventINJ> solvents; ///< Sets of Solvent
-    OCP_DBL            dPmax{0}; ///< Maximum BHP change
+    OCP_BOOL           wellChange; ///< if wells change, then OCP_TRUE
+    vector<SolventINJ> solvents;   ///< Sets of Solvent
+    OCP_DBL            dPmax{0};   ///< Maximum BHP change
 
     vector<Mixture*> flashCal; ///< Uesless now.
 
@@ -227,8 +239,8 @@ public:
     /// Update moles of components in Bulks which connects to well
     void MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt);
     /// Assemble matrix, parts related to well are included for IMPEC
-    void AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
-                          const OCP_DBL& dt) const;
+    void
+    AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Update Well P and Perforation P after linear system is solved for IMPEC
     void GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
 
@@ -238,8 +250,8 @@ public:
 
 public:
     /// Assemble matrix, parts related to well are included for FIM
-    void AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk,
-                        const OCP_DBL& dt) const;
+    void
+    AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Get solution from solver class after linear system is solved for FIM
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
     /// Calculate Resiual and relative Resiual for FIM
@@ -247,17 +259,16 @@ public:
     /// Show Res
     void ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const;
 
-
     /////////////////////////////////////////////////////////////////////
     // FIM(new)
     /////////////////////////////////////////////////////////////////////
 
     /// Assemble matrix, parts related to well are included for FIM
-    void AssemblaMatFIM_new(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-    void AssemblaMatFIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-
+    void
+    AssemblaMatFIM_new(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
+    void AssemblaMatFIM_new_n(LinearSystem&  myLS,
+                              const Bulk&    myBulk,
+                              const OCP_DBL& dt) const;
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

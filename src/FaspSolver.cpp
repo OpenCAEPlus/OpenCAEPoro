@@ -420,9 +420,12 @@ OCP_INT VectorFaspSolver::Solve()
     // Set local parameters
     const OCP_INT print_level  = inParam.print_level;
     const OCP_INT solver_type  = inParam.solver_type;
-    const OCP_INT decoup_type  = inParam.decoup_type;
     const OCP_INT precond_type = inParam.precond_type;
     const OCP_INT output_type  = inParam.output_type;
+
+#if WITH_FASP4BLKOIL // Currently, only fasp4blkoil requires decoupling
+    const OCP_INT decoup_type = inParam.decoup_type;
+#endif
 
     if (output_type) {
         const char* outputfile = "../output/test.out";

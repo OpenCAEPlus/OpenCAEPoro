@@ -46,24 +46,23 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
     timeInit = timeMax = timeMin = -1.0;
 
     std::stringstream buffer;
-    string             tmp;
+    string            tmp;
     string            key;
-    string             value;
+    string            value;
     for (USI n = 2; n < argc; n++) {
         buffer << optset[n];
         buffer >> tmp;
 
-        OCP_INT pos = tmp.find_last_of('=');
+        const unsigned long pos = tmp.find_last_of('=');
 
         if (pos == string::npos) OCP_ABORT("Unknown Usage! See -h");
 
-        key         = tmp.substr(0, pos);
-        value       = tmp.substr(pos + 1, tmp.size() - pos);
+        key   = tmp.substr(0, pos);
+        value = tmp.substr(pos + 1, tmp.size() - pos);
 
-        switch (Map_Str2Int(&key[0],key.size())) 
-        {
+        switch (Map_Str2Int(&key[0], key.size())) {
 
-            case Map_Str2Int("method",6):
+            case Map_Str2Int("method", 6):
                 if (value == "FIM") {
                     method = FIM;
                 } else if (value == "FIMn") {
@@ -72,7 +71,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
                     method = IMPEC;
                 } else if (value == "AIMc") {
                     method = AIMc;
-                }else {
+                } else {
                     OCP_ABORT("Wrong method param in command line!");
                 }
                 activity = OCP_TRUE;
@@ -84,7 +83,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
                     if (timeInit <= 0) timeInit = 0.1;
                     if (timeMax <= 0) timeMax = 1.0;
                     if (timeMin <= 0) timeMin = 0.1;
-                }               
+                }
                 break;
 
             case Map_Str2Int("dtInit", 6):
@@ -111,11 +110,6 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
         buffer.clear();
     }
 
-
-
-
-
-
     if (argc >= 6 && OCP_FALSE) {
         activity = OCP_TRUE;
         if (string(optset[2]) == "FIM") {
@@ -126,7 +120,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
             method = IMPEC;
         } else if (string(optset[2]) == "AIMc") {
             method = AIMc;
-        }else {
+        } else {
             OCP_ABORT("Wrong method param in command line!");
         }
         timeInit = stod(optset[3]);
@@ -149,13 +143,13 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
         method = FIMn;
     } else if (CtrlParam.method == "AIMc") {
         method = AIMc;
-    }else {
+    } else {
         OCP_ABORT("Wrong method specified!");
     }
 
     linearsolveFile = CtrlParam.linearSolve;
-    criticalTime = CtrlParam.criticalTime;
-    
+    criticalTime    = CtrlParam.criticalTime;
+
     USI t = CtrlParam.criticalTime.size();
     ctrlTimeSet.resize(t);
     ctrlPreTimeSet.resize(t);
@@ -182,7 +176,7 @@ void OCPControl::ApplyControl(const USI& i, const Reservoir& rs)
     ctrlPreTime = ctrlPreTimeSet[i];
     ctrlNR      = ctrlNRSet[i];
     end_time    = criticalTime[i + 1];
-    wellChange = rs.allWells.GetWellChange();
+    wellChange  = rs.allWells.GetWellChange();
     InitTime(i);
 }
 
@@ -194,12 +188,10 @@ void OCPControl::InitTime(const USI& i)
     static OCP_BOOL firstflag = OCP_TRUE;
     if (wellChange || firstflag) {
         current_dt = min(dt, ctrlTime.timeInit);
-        firstflag = OCP_FALSE;
-    }
-    else {
+        firstflag  = OCP_FALSE;
+    } else {
         current_dt = min(dt, init_dt);
     }
-    
 }
 
 void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
@@ -244,7 +236,7 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     const OCP_DBL dSmax = reservoir.bulk.GetdSmax();
     const OCP_DBL dVmax = reservoir.bulk.GetdVmax();
 
-    //cout << dPmax << "   " << dSmax << endl;
+    // cout << dPmax << "   " << dSmax << endl;
 
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
@@ -265,7 +257,6 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
 
-
     // cout << "FactorT: " << c << "   Next dt: " << dt << endl;
 }
 
@@ -280,7 +271,7 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     const OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
     const OCP_DBL dPmaxW = reservoir.allWells.GetdBHPmax();
     const OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
-    const OCP_DBL dSmax = reservoir.bulk.GetdSmax();
+    const OCP_DBL dSmax  = reservoir.bulk.GetdSmax();
 
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
@@ -305,7 +296,6 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
 
     const OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
-
 }
 
 void OCPControl::UpdateIters()
