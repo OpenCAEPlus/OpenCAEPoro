@@ -158,9 +158,9 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">string</span> src   = vbuf[0];</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">int</span>    pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>   match = (pos != string::npos);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">string</span>              src   = vbuf[0];</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>            match = (pos != string::npos);</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> (match) {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            src.erase(pos);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
@@ -300,9 +300,9 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">string</span> src   = vbuf[0];</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordtype">int</span>    pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>   match = (pos != string::npos);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordtype">string</span>              src   = vbuf[0];</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>            match = (pos != string::npos);</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">if</span> (match) {</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            src.erase(pos);</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        }</div>
@@ -357,9 +357,9 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordtype">string</span> src   = vbuf[0];</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordtype">int</span>    pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>   match = (pos != string::npos);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordtype">string</span>              src   = vbuf[0];</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>            match = (pos != string::npos);</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span> (match) {</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            src.erase(pos);</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
@@ -476,9 +476,9 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordtype">string</span> src   = vbuf[0];</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordtype">int</span>    pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>   match = (pos != string::npos);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordtype">string</span>              src   = vbuf[0];</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>            match = (pos != string::npos);</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">if</span> (match) {</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            src.erase(pos);</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        }</div>
@@ -527,7 +527,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 19 2022 02:50:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 19 2022 03:02:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

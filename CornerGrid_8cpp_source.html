@@ -1222,7 +1222,7 @@ $(function() {
 <div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160; </div>
 <div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;                    iznnc = -1;</div>
 <div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;                    <span class="keywordflow">while</span> (upNNC) {</div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;                        <span class="keywordflow">if</span> (-iznnc &gt; k) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;                        <span class="keywordflow">if</span> (-iznnc - k &gt; 0) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;                        <span class="comment">// find object block</span></div>
 <div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;                        <span class="keyword">const</span> <a class="code" href="classHexahedron.html">Hexahedron</a>&amp; rightblock =</div>
 <div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;                            cornerPoints[i + 1][j][k + iznnc];</div>
@@ -1396,7 +1396,7 @@ $(function() {
 <div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160; </div>
 <div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;                    iznnc = -1;</div>
 <div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;                    <span class="keywordflow">while</span> (upNNC) {</div>
-<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;                        <span class="keywordflow">if</span> (-iznnc &gt; k) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;                        <span class="keywordflow">if</span> (-iznnc - k &gt; 0) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;                        <span class="comment">// find object block</span></div>
 <div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;                        <span class="keyword">const</span> <a class="code" href="classHexahedron.html">Hexahedron</a>&amp; backblock = cornerPoints[i][j - 1][k + iznnc];</div>
 <div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;                        oindex   = (k + iznnc) * nxny + (j - 1) * nx + i;</div>
@@ -1568,7 +1568,7 @@ $(function() {
 <div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160; </div>
 <div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;                    iznnc = -1;</div>
 <div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;                    <span class="keywordflow">while</span> (upNNC) {</div>
-<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;                        <span class="keywordflow">if</span> (-iznnc &gt; k) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;                        <span class="keywordflow">if</span> (-iznnc - k &gt; 0) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;                        <span class="comment">// find object block</span></div>
 <div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;                        <span class="keyword">const</span> <a class="code" href="classHexahedron.html">Hexahedron</a>&amp; frontblock =</div>
 <div class="line"><a name="l01510"></a><span class="lineno"> 1510</span>&#160;                            cornerPoints[i][j + 1][k + iznnc];</div>
@@ -1813,7 +1813,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 19 2022 02:50:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 19 2022 03:02:08 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
