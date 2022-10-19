@@ -24,6 +24,8 @@ There is a top level cmake configuration file to build the OpenCAEPoro lib and t
 
 > Before building OpenCAEPoro, you need to make sure that VTK, BLAS, LAPACK, and FASP are available. VTK, BLAS and LAPACK are ready on most systems and can be found by cmake automatically. The FASP package (open-source) can be downloaded from its GitHub repository [faspsolver](https://github.com/FaspDevTeam/faspsolver). More solver options are provided in [faspcpr](https://github.com/FaspDevTeam/faspcpr) and [fasp4blkoil](https://github.com/FaspDevTeam/fasp4blkoil).
 
+> VTK is a very large library which may take 10s of minutes to build. Thus, though the build system will try to download and build vtk if it is not found in your system, we highly recommend you install VTK on your system before building OpenCAEPoro.
+
 The typical command for compiling OpenCAEPoro is:
 
 **Step 1a.** Config the environment for building with cmake:
