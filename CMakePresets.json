@@ -22,7 +22,7 @@
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
                 "FASP_DIR": "$env{FASP_DIR}",
                 "CMAKE_C_COMPILER": "icx",
-                "CMAKE_CXX_COMPILER": "icx"
+                "CMAKE_CXX_COMPILER": "icpx"
             },
             "vendor": {
                 "example.com/ExampleIDE/1.0": {
