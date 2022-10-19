@@ -182,6 +182,8 @@ void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
 
 void ParamOutput::InputRPTSCHED(ifstream& ifs)
 {
+    detailInfo.useRPT = OCP_TRUE;
+
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;

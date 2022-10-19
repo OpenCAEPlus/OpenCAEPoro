@@ -92,6 +92,8 @@ public:
 class OutputDetail
 {
 public:
+    OCP_BOOL    useRPT{ OCP_FALSE };
+
     OCP_BOOL PRE{OCP_FALSE};  ///< Pressure of grids.
     OCP_BOOL PGAS{OCP_FALSE}; ///< Gas pressure of grids.
     OCP_BOOL PWAT{OCP_FALSE}; ///< Water pressure of grids.
