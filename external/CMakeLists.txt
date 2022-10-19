@@ -33,15 +33,16 @@ endif()
 set(LINK_VTK_COMPONENTS CommonCore IOXML)
 find_package(VTK COMPONENTS ${LINK_VTK_COMPONENTS})
 if(VTK_FOUND)
-  message(STATUS "Found vtk")
+  message(STATUS "Found vtk in system")
 else()
-  message(STATUS "Auto download and build vtk")
+  message(STATUS "Use vtk in local folder")
   FetchContent_Declare(
     vtk
     GIT_REPOSITORY https://gitlab.kitware.com/vtk/vtk.git
     GIT_TAG v9.2.2)
   FetchContent_GetProperties(vtk)
   if(NOT vtk_POPULATED)
+    message(STATUS "Auto download and build vtk")
     # Fetch the content using previously declared details
     FetchContent_Populate(vtk)
     add_custom_target(
