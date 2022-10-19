@@ -166,12 +166,12 @@ SCHEDULE  =======================================
 --/
 
 WELSPECS
-'INJE1'   'G'   1   1     1*    'GAS'   /
-'PROD1'   'G'   10  10    1*    'OIL'   /
+'INJE1'   'G'   1    1     1*    'GAS'   /
+'PROD1'   'G'   400  400   1*    'OIL'   /
 /
 
 COMPDAT
-'INJE**'   2*   1   1     1*   0.5   3*   /
+'INJE*'   2*   1   1     1*   0.5   3*   /
 'PROD1'   2*   3   3     1*   0.5   3*   /
 /
 
@@ -184,20 +184,17 @@ WCONPROD
 /
 
 TUNING
--- Init     max    min   incre   chop    cut
-     0.01    0.01     0.01      5    0.3    0.3                    /
+--  Init     max    min   incre   chop   cut
+     0.01    0.01   0.01     5    0.3    0.3                    /
 --  dPlim  dSlim   dNlim   dVerrlim
-     300     0.2       0.3         0.001                                /
+     300     0.2    0.3     0.001                               /
 -- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
-       10    1E-3   200    0.2    1E-0      1E-2    0.01          /
+     10     1E-3    200    0.2    1E-0    1E-2    0.01          /
 /
-
 
 METHOD
 IMPEC
 /
 
-
 TSTEP
 1
-
