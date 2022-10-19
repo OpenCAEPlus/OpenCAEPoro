@@ -95,6 +95,8 @@ endif()
 if(BUILD_ECL)
     target_link_libraries(OpenCAEPoro PUBLIC ecl)
 endif()
+target_link_libraries(OpenCAEPoro PUBLIC ${VTK_LIBRARIES})
+
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(main)
