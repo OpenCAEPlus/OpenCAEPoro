@@ -11,9 +11,9 @@
 
 #include "OCPOutput.hpp"
 
-void Summary::InputParam(const OutputSummary &summary_param)
+void Summary::InputParam(const OutputSummary& summary_param)
 {
-    FPR = summary_param.FPR;
+    FPR  = summary_param.FPR;
     FOPR = summary_param.FOPR;
     FOPT = summary_param.FOPT;
     FGPR = summary_param.FGPR;
@@ -37,9 +37,9 @@ void Summary::InputParam(const OutputSummary &summary_param)
     WWIT = summary_param.WWIT;
 
     WBHP = summary_param.WBHP;
-    DG = summary_param.DG;
+    DG   = summary_param.DG;
 
-    BPR = summary_param.BPR;
+    BPR  = summary_param.BPR;
     SOIL = summary_param.SOIL;
     SGAS = summary_param.SGAS;
     SWAT = summary_param.SWAT;
@@ -47,331 +47,246 @@ void Summary::InputParam(const OutputSummary &summary_param)
     // cout << "Summary::InputParam" << endl;
 }
 
-void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
+void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 {
     Sumdata.push_back(SumPair("TIME", "  ", "DAY"));
     Sumdata.push_back(SumPair("NRiter", "  ", "  "));
     Sumdata.push_back(SumPair("LSiter", "  ", "  "));
-    if (FPR)
-        Sumdata.push_back(SumPair("FPR", "  ", "PSIA"));
-    if (FOPR)
-        Sumdata.push_back(SumPair("FOPR", "  ", "STB/DAY"));
-    if (FOPT)
-        Sumdata.push_back(SumPair("FOPT", "  ", "STB"));
-    if (FGPR)
-        Sumdata.push_back(SumPair("FGPR", "  ", "MSCF/DAY"));
-    if (FGPt)
-        Sumdata.push_back(SumPair("FGPT", "  ", "MSCF"));
-    if (FWPR)
-        Sumdata.push_back(SumPair("FWPR", "  ", "STB/DAY"));
-    if (FWPT)
-        Sumdata.push_back(SumPair("FWPT", "  ", "STB"));
-    if (FGIR)
-        Sumdata.push_back(SumPair("FGIR", "  ", "MSCF/DAY"));
-    if (FGIT)
-        Sumdata.push_back(SumPair("FGIT", "  ", "MSCF"));
-    if (FWIR)
-        Sumdata.push_back(SumPair("FWIR", "  ", "STB/DAY"));
-    if (FWIT)
-        Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
+    if (FPR) Sumdata.push_back(SumPair("FPR", "  ", "PSIA"));
+    if (FOPR) Sumdata.push_back(SumPair("FOPR", "  ", "STB/DAY"));
+    if (FOPT) Sumdata.push_back(SumPair("FOPT", "  ", "STB"));
+    if (FGPR) Sumdata.push_back(SumPair("FGPR", "  ", "MSCF/DAY"));
+    if (FGPt) Sumdata.push_back(SumPair("FGPT", "  ", "MSCF"));
+    if (FWPR) Sumdata.push_back(SumPair("FWPR", "  ", "STB/DAY"));
+    if (FWPT) Sumdata.push_back(SumPair("FWPT", "  ", "STB"));
+    if (FGIR) Sumdata.push_back(SumPair("FGIR", "  ", "MSCF/DAY"));
+    if (FGIT) Sumdata.push_back(SumPair("FGIT", "  ", "MSCF"));
+    if (FWIR) Sumdata.push_back(SumPair("FWIR", "  ", "STB/DAY"));
+    if (FWIT) Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
     const USI sp = reservoir.grid.GetNumDigitIJK();
 
-    USI num;
-    USI wellnum = reservoir.allWells.GetWellNum();
+    USI    num;
+    USI    wellnum = reservoir.allWells.GetWellNum();
     string wellname;
 
-    if (WOPR.activity)
-    {
-        if (WOPR.obj[0] == "All")
-        {
+    if (WOPR.activity) {
+        if (WOPR.obj[0] == "All") {
             WOPR.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WOPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WOPR", wellname, "STB/DAY"));
                 WOPR.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WOPR.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WOPR", WOPR.obj[w], "STB/DAY"));
                 WOPR.index.push_back(reservoir.allWells.GetIndex(WOPR.obj[w]));
             }
         }
     }
 
-    if (WOPT.activity)
-    {
-        if (WOPT.obj[0] == "All")
-        {
+    if (WOPT.activity) {
+        if (WOPT.obj[0] == "All") {
             WOPT.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WOPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WOPT", wellname, "STB"));
                 WOPT.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WOPT.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WOPT", WOPT.obj[w], "STB"));
                 WOPT.index.push_back(reservoir.allWells.GetIndex(WOPT.obj[w]));
             }
         }
     }
 
-    if (WGPR.activity)
-    {
-        if (WGPR.obj[0] == "All")
-        {
+    if (WGPR.activity) {
+        if (WGPR.obj[0] == "All") {
             WGPR.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WGPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGPR", wellname, "MSCF/DAY"));
                 WGPR.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WGPR.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGPR", WGPR.obj[w], "MSCF/DAY"));
                 WGPR.index.push_back(reservoir.allWells.GetIndex(WGPR.obj[w]));
             }
         }
     }
 
-    if (WGPT.activity)
-    {
-        if (WGPT.obj[0] == "All")
-        {
+    if (WGPT.activity) {
+        if (WGPT.obj[0] == "All") {
             WGPT.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WGPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGPT", wellname, "MSCF"));
                 WGPT.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WGPT.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGPT", WGPT.obj[w], "MSCF"));
                 WGPT.index.push_back(reservoir.allWells.GetIndex(WGPT.obj[w]));
             }
         }
     }
 
-    if (WWPR.activity)
-    {
-        if (WWPR.obj[0] == "All")
-        {
+    if (WWPR.activity) {
+        if (WWPR.obj[0] == "All") {
             WWPR.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WWPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWPR", wellname, "STB/DAY"));
                 WWPR.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WWPR.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWPR", WWPR.obj[w], "STB/DAY"));
                 WWPR.index.push_back(reservoir.allWells.GetIndex(WWPR.obj[w]));
             }
         }
     }
 
-    if (WWPT.activity)
-    {
-        if (WWPT.obj[0] == "All")
-        {
+    if (WWPT.activity) {
+        if (WWPT.obj[0] == "All") {
             WWPT.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WWPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWPT", wellname, "STB"));
                 WWPT.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WWPT.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWPT", WWPT.obj[w], "STB"));
                 WWPT.index.push_back(reservoir.allWells.GetIndex(WWPT.obj[w]));
             }
         }
     }
 
-    if (WGIR.activity)
-    {
-        if (WGIR.obj[0] == "All")
-        {
+    if (WGIR.activity) {
+        if (WGIR.obj[0] == "All") {
             WGIR.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WGIR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGIR", wellname, "MSCF/DAY"));
                 WGIR.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WGIR.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGIR", WGIR.obj[w], "MSCF/DAY"));
                 WGIR.index.push_back(reservoir.allWells.GetIndex(WGIR.obj[w]));
             }
         }
     }
 
-    if (WGIT.activity)
-    {
-        if (WGIT.obj[0] == "All")
-        {
+    if (WGIT.activity) {
+        if (WGIT.obj[0] == "All") {
             WGIT.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WGIT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGIT", wellname, "MSCF"));
                 WGIT.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WGIT.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGIT", WGIT.obj[w], "MSCF"));
                 WGIT.index.push_back(reservoir.allWells.GetIndex(WGIT.obj[w]));
             }
         }
     }
 
-    if (WWIR.activity)
-    {
-        if (WWIR.obj[0] == "All")
-        {
+    if (WWIR.activity) {
+        if (WWIR.obj[0] == "All") {
             WWIR.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WWIR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWIR", wellname, "STB/DAY"));
                 WWIR.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WWIR.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWIR", WWIR.obj[w], "STB/DAY"));
                 WWIR.index.push_back(reservoir.allWells.GetIndex(WWIR.obj[w]));
             }
         }
     }
 
-    if (WWIT.activity)
-    {
-        if (WWIT.obj[0] == "All")
-        {
+    if (WWIT.activity) {
+        if (WWIT.obj[0] == "All") {
             WWIT.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WWIT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWIT", wellname, "STB"));
                 WWIT.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WWIT.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWIT", WWIT.obj[w], "STB"));
                 WWIT.index.push_back(reservoir.allWells.GetIndex(WWIT.obj[w]));
             }
         }
     }
 
-    if (WBHP.activity)
-    {
-        if (WBHP.obj[0] == "All")
-        {
+    if (WBHP.activity) {
+        if (WBHP.obj[0] == "All") {
             WBHP.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 wellname = reservoir.allWells.GetWellName(w);
                 WBHP.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WBHP", wellname, "PSIA"));
                 WBHP.index.push_back(w);
             }
-        }
-        else
-        {
+        } else {
             num = WBHP.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
+            for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WBHP", WBHP.obj[w], "PSIA"));
                 WBHP.index.push_back(reservoir.allWells.GetIndex(WBHP.obj[w]));
             }
         }
     }
 
-    if (DG.activity)
-    {
-        if (DG.obj[0] == "All")
-        {
+    if (DG.activity) {
+        if (DG.obj[0] == "All") {
             DG.obj.clear();
-            for (USI w = 0; w < wellnum; w++)
-            {
+            for (USI w = 0; w < wellnum; w++) {
                 string wellname = reservoir.allWells.GetWellName(w);
                 DG.obj.push_back(wellname);
                 USI perfnum = reservoir.allWells.GetWellPerfNum(w);
-                for (USI p = 0; p < perfnum; p++)
-                {
+                for (USI p = 0; p < perfnum; p++) {
                     Sumdata.push_back(
                         SumPair("DG", wellname + " Perf" + to_string(p), "PSIA"));
                     DG.index.push_back(w);
                 }
             }
-        }
-        else
-        {
+        } else {
             num = DG.obj.size();
-            for (USI w = 0; w < num; w++)
-            {
-                USI wId = reservoir.allWells.GetIndex(DG.obj[w]);
+            for (USI w = 0; w < num; w++) {
+                USI wId     = reservoir.allWells.GetIndex(DG.obj[w]);
                 USI perfnum = reservoir.allWells.GetWellPerfNum(wId);
-                for (USI p = 0; p < perfnum; p++)
-                {
+                for (USI p = 0; p < perfnum; p++) {
                     Sumdata.push_back(
                         SumPair("DG", DG.obj[w] + " P" + to_string(p), "PSIA"));
                     DG.index.push_back(wId);
@@ -380,13 +295,11 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         }
     }
 
-    if (BPR.activity)
-    {
+    if (BPR.activity) {
         num = BPR.obj.size();
-        for (USI i = 0; i < num; i++)
-        {
-            string temp = GetIJKformat(to_string(BPR.obj[i].I), to_string(BPR.obj[i].J), 
-                to_string(BPR.obj[i].K), sp);
+        for (USI i = 0; i < num; i++) {
+            string temp = GetIJKformat(to_string(BPR.obj[i].I), to_string(BPR.obj[i].J),
+                                       to_string(BPR.obj[i].K), sp);
             Sumdata.push_back(SumPair("BPR", temp, "PSIA"));
             USI I = BPR.obj[i].I - 1;
             USI J = BPR.obj[i].J - 1;
@@ -395,13 +308,12 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         }
     }
 
-    if (SOIL.activity)
-    {
+    if (SOIL.activity) {
         num = SOIL.obj.size();
-        for (USI i = 0; i < num; i++)
-        {
-            string temp = GetIJKformat(to_string(SOIL.obj[i].I), to_string(SOIL.obj[i].J),
-                to_string(SOIL.obj[i].K), sp);
+        for (USI i = 0; i < num; i++) {
+            string temp =
+                GetIJKformat(to_string(SOIL.obj[i].I), to_string(SOIL.obj[i].J),
+                             to_string(SOIL.obj[i].K), sp);
             Sumdata.push_back(SumPair("SOIL", temp, "   "));
             USI I = SOIL.obj[i].I - 1;
             USI J = SOIL.obj[i].J - 1;
@@ -410,13 +322,12 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         }
     }
 
-    if (SGAS.activity)
-    {
+    if (SGAS.activity) {
         num = SGAS.obj.size();
-        for (USI i = 0; i < num; i++)
-        {
-            string temp = GetIJKformat(to_string(SGAS.obj[i].I), to_string(SGAS.obj[i].J),
-                to_string(SGAS.obj[i].K), sp);
+        for (USI i = 0; i < num; i++) {
+            string temp =
+                GetIJKformat(to_string(SGAS.obj[i].I), to_string(SGAS.obj[i].J),
+                             to_string(SGAS.obj[i].K), sp);
             Sumdata.push_back(SumPair("SGAS", temp, "   "));
             USI I = SGAS.obj[i].I - 1;
             USI J = SGAS.obj[i].J - 1;
@@ -425,13 +336,12 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
         }
     }
 
-    if (SWAT.activity)
-    {
+    if (SWAT.activity) {
         num = SWAT.obj.size();
-        for (USI i = 0; i < num; i++)
-        {
-            string temp = GetIJKformat(to_string(SWAT.obj[i].I), to_string(SWAT.obj[i].J),
-                to_string(SWAT.obj[i].K), sp);
+        for (USI i = 0; i < num; i++) {
+            string temp =
+                GetIJKformat(to_string(SWAT.obj[i].I), to_string(SWAT.obj[i].J),
+                             to_string(SWAT.obj[i].K), sp);
             Sumdata.push_back(SumPair("SWAT", temp, "   "));
             USI I = SWAT.obj[i].I - 1;
             USI J = SWAT.obj[i].J - 1;
@@ -443,15 +353,14 @@ void Summary::Setup(const Reservoir &reservoir, const OCP_DBL &totalTime)
     // Allocate memory
     USI rs = totalTime / 0.1;
     USI cs = Sumdata.size();
-    for (USI i = 0; i < cs; i++)
-    {
+    for (USI i = 0; i < cs; i++) {
         Sumdata[i].val.reserve(rs);
     }
 
     // cout << "Summary::Setup" << endl;
 }
 
-void Summary::SetVal(const Reservoir &rs, const OCPControl &ctrl)
+void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
     USI n = 0;
 
@@ -463,28 +372,17 @@ void Summary::SetVal(const Reservoir &rs, const OCPControl &ctrl)
     Sumdata[n++].val.push_back(ctrl.GetLSiterT());
 
     // FPR
-    if (FPR)
-        Sumdata[n++].val.push_back(rs.bulk.CalFPR());
-    if (FOPR)
-        Sumdata[n++].val.push_back(rs.allWells.GetFOPR());
-    if (FOPT)
-        Sumdata[n++].val.push_back(rs.allWells.GetFOPT());
-    if (FGPR)
-        Sumdata[n++].val.push_back(rs.allWells.GetFGPR());
-    if (FGPt)
-        Sumdata[n++].val.push_back(rs.allWells.GetFGPT());
-    if (FWPR)
-        Sumdata[n++].val.push_back(rs.allWells.GetFWPR());
-    if (FWPT)
-        Sumdata[n++].val.push_back(rs.allWells.GetFWPT());
-    if (FGIR)
-        Sumdata[n++].val.push_back(rs.allWells.GetFGIR());
-    if (FGIT)
-        Sumdata[n++].val.push_back(rs.allWells.GetFGIT());
-    if (FWIR)
-        Sumdata[n++].val.push_back(rs.allWells.GetFWIR());
-    if (FWIT)
-        Sumdata[n++].val.push_back(rs.allWells.GetFWIT());
+    if (FPR) Sumdata[n++].val.push_back(rs.bulk.CalFPR());
+    if (FOPR) Sumdata[n++].val.push_back(rs.allWells.GetFOPR());
+    if (FOPT) Sumdata[n++].val.push_back(rs.allWells.GetFOPT());
+    if (FGPR) Sumdata[n++].val.push_back(rs.allWells.GetFGPR());
+    if (FGPt) Sumdata[n++].val.push_back(rs.allWells.GetFGPT());
+    if (FWPR) Sumdata[n++].val.push_back(rs.allWells.GetFWPR());
+    if (FWPT) Sumdata[n++].val.push_back(rs.allWells.GetFWPT());
+    if (FGIR) Sumdata[n++].val.push_back(rs.allWells.GetFGIR());
+    if (FGIT) Sumdata[n++].val.push_back(rs.allWells.GetFGIT());
+    if (FWIR) Sumdata[n++].val.push_back(rs.allWells.GetFWIR());
+    if (FWIT) Sumdata[n++].val.push_back(rs.allWells.GetFWIT());
 
     USI len = 0;
     // WOPR
@@ -544,11 +442,9 @@ void Summary::SetVal(const Reservoir &rs, const OCPControl &ctrl)
 
     // DG
     len = DG.obj.size();
-    for (USI w = 0; w < len; w++)
-    {
+    for (USI w = 0; w < len; w++) {
         USI numperf = rs.allWells.GetWellPerfNum(DG.index[w]);
-        for (USI p = 0; p < numperf; p++)
-        {
+        for (USI p = 0; p < numperf; p++) {
             Sumdata[n++].val.push_back(rs.allWells.GetWellDg(DG.index[w], p));
         }
     }
@@ -575,25 +471,23 @@ void Summary::SetVal(const Reservoir &rs, const OCPControl &ctrl)
 }
 
 /// Write output information in the dir/SUMMARY.out file.
-void Summary::PrintInfo(const string &dir) const
+void Summary::PrintInfo(const string& dir) const
 {
-    string FileOut = dir + "SUMMARY.out";
+    string   FileOut = dir + "SUMMARY.out";
     ofstream outF(FileOut);
-    if (!outF.is_open())
-    {
+    if (!outF.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    USI ns = 12;
+    USI ns  = 12;
     USI col = 10;
     USI row = 0;
     USI num = Sumdata.size();
     USI len = Sumdata[0].val.size();
-    USI id = 0;
-    USI ID = 1;
+    USI id  = 0;
+    USI ID  = 1;
 
-    while (id != num)
-    {
+    while (id != num) {
 
         outF << "Row " << ++row << endl;
 
@@ -602,11 +496,9 @@ void Summary::PrintInfo(const string &dir) const
         outF << "\t" << setw(ns) << Sumdata[0].Item;
 
         id = ID;
-        for (USI i = 1; i < col; i++)
-        {
+        for (USI i = 1; i < col; i++) {
             outF << "\t" << setw(ns) << Sumdata[id++].Item;
-            if (id == num)
-                break;
+            if (id == num) break;
         }
         outF << endl;
 
@@ -615,11 +507,9 @@ void Summary::PrintInfo(const string &dir) const
         outF << "\t" << setw(ns) << Sumdata[0].Unit;
 
         id = ID;
-        for (USI i = 1; i < col; i++)
-        {
+        for (USI i = 1; i < col; i++) {
             outF << "\t" << setw(ns) << Sumdata[id++].Unit;
-            if (id == num)
-                break;
+            if (id == num) break;
         }
         outF << endl;
 
@@ -628,27 +518,22 @@ void Summary::PrintInfo(const string &dir) const
         outF << "\t" << setw(ns) << Sumdata[0].Obj;
 
         id = ID;
-        for (USI i = 1; i < col; i++)
-        {
+        for (USI i = 1; i < col; i++) {
             outF << "\t" << setw(ns) << Sumdata[id++].Obj;
-            if (id == num)
-                break;
+            if (id == num) break;
         }
         outF << endl;
 
         // Data
-        for (USI l = 0; l < len; l++)
-        {
+        for (USI l = 0; l < len; l++) {
 
             // Time
             outF << "\t" << setw(ns) << Sumdata[0].val[l];
 
             id = ID;
-            for (USI i = 1; i < col; i++)
-            {
+            for (USI i = 1; i < col; i++) {
                 outF << "\t" << setw(ns) << Sumdata[id++].val[l];
-                if (id == num)
-                    break;
+                if (id == num) break;
             }
             outF << endl;
         }
@@ -661,7 +546,7 @@ void Summary::PrintInfo(const string &dir) const
     outF.close();
 }
 
-void CriticalInfo::Setup(const OCP_DBL &totalTime)
+void CriticalInfo::Setup(const OCP_DBL& totalTime)
 {
     // Allocate memory
     USI rc = totalTime / 0.1;
@@ -674,7 +559,7 @@ void CriticalInfo::Setup(const OCP_DBL &totalTime)
     cfl.reserve(rc);
 }
 
-void CriticalInfo::SetVal(const Reservoir &reservoir, const OCPControl &ctrl)
+void CriticalInfo::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     time.push_back(ctrl.GetCurTime());
     dt.push_back(ctrl.GetLastDt());
@@ -685,12 +570,11 @@ void CriticalInfo::SetVal(const Reservoir &reservoir, const OCPControl &ctrl)
     cfl.push_back(reservoir.cfl);
 }
 
-void CriticalInfo::PrintInfo(const string &dir) const
+void CriticalInfo::PrintInfo(const string& dir) const
 {
-    string FileOut = dir + "FastReview.out";
+    string   FileOut = dir + "FastReview.out";
     ofstream outF(FileOut);
-    if (!outF.is_open())
-    {
+    if (!outF.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
 
@@ -712,8 +596,7 @@ void CriticalInfo::PrintInfo(const string &dir) const
     outF << "\t" << setw(10) << "    \n\n";
 
     USI n = time.size();
-    for (USI i = 0; i < n; i++)
-    {
+    for (USI i = 0; i < n; i++) {
         outF << "\t" << setw(10) << time[i];
         outF << "\t" << setw(10) << dt[i];
         outF << "\t" << setw(10) << dPmax[i];
@@ -727,9 +610,9 @@ void CriticalInfo::PrintInfo(const string &dir) const
     outF.close();
 }
 
-void DetailInfo::InputParam(const OutputDetail &detail_param)
+void DetailInfo::InputParam(const OutputDetail& detail_param)
 {
-    PRE = detail_param.PRE;
+    PRE  = detail_param.PRE;
     PGAS = detail_param.PGAS;
     PWAT = detail_param.PWAT;
     SOIL = detail_param.SOIL;
@@ -738,54 +621,53 @@ void DetailInfo::InputParam(const OutputDetail &detail_param)
     DENO = detail_param.DENO;
     DENG = detail_param.DENG;
     DENW = detail_param.DENW;
-    KRO = detail_param.KRO;
-    KRG = detail_param.KRG;
-    KRW = detail_param.KRW;
+    KRO  = detail_param.KRO;
+    KRG  = detail_param.KRG;
+    KRW  = detail_param.KRW;
     BOIL = detail_param.BOIL;
     BGAS = detail_param.BGAS;
     BWAT = detail_param.BWAT;
     VOIL = detail_param.VOIL;
     VGAS = detail_param.VGAS;
     VWAT = detail_param.VWAT;
-    XMF = detail_param.XMF;
-    YMF = detail_param.YMF;
-    PCW = detail_param.PCW;
+    XMF  = detail_param.XMF;
+    YMF  = detail_param.YMF;
+    PCW  = detail_param.PCW;
 }
 
-void DetailInfo::Setup(const string &dir)
+void DetailInfo::Setup(const string& dir)
 {
-    string FileOut = dir + "RPT.out";
+    string   FileOut = dir + "RPT.out";
     ofstream outF(FileOut);
-    if (!outF.is_open())
-    {
+    if (!outF.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
     outF.close();
 }
 
-void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
-                           const OCP_DBL &days) const
+void DetailInfo::PrintInfo(const string&    dir,
+                           const Reservoir& rs,
+                           const OCP_DBL&   days) const
 {
-    string FileOut = dir + "RPT.out";
+    string   FileOut = dir + "RPT.out";
     ofstream outF;
     outF.open(FileOut, ios::app);
-    if (!outF.is_open())
-    {
+    if (!outF.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    const USI     np = rs.bulk.numPhase;
-    const USI     nc = rs.bulk.numCom;
-    const USI OIndex = rs.bulk.phase2Index[OIL];
-    const USI GIndex = rs.bulk.phase2Index[GAS];
-    const USI WIndex = rs.bulk.phase2Index[WATER];
-    const USI     nx  = rs.grid.GetGridNx();
-    const USI     ny  = rs.grid.GetGridNy();
-    const OCP_USI num = rs.grid.GetGridNum();
-    const USI tmpsp = rs.grid.GetNumDigitIJK();
-    OCP_USI bId;
-    OCP_USI tmpId;
-    USI I, J, K;
+    const USI     np     = rs.bulk.numPhase;
+    const USI     nc     = rs.bulk.numCom;
+    const USI     OIndex = rs.bulk.phase2Index[OIL];
+    const USI     GIndex = rs.bulk.phase2Index[GAS];
+    const USI     WIndex = rs.bulk.phase2Index[WATER];
+    const USI     nx     = rs.grid.GetGridNx();
+    const USI     ny     = rs.grid.GetGridNy();
+    const OCP_USI num    = rs.grid.GetGridNum();
+    const USI     tmpsp  = rs.grid.GetNumDigitIJK();
+    OCP_USI       bId;
+    OCP_USI       tmpId;
+    USI           I, J, K;
 
     const string sep01(50, '=');
     const string sep02(50, '-');
@@ -794,210 +676,154 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
     static OCP_BOOL flag = OCP_FALSE;
     // Print once
-    if (flag)
-    {
+    if (flag) {
         outF << "DX : feet";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.dx[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "DY : feet";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.dy[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "DZ : feet";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.dz[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "Depth : feet";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(1) << rs.bulk.depth[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "PERMX : MDarcy";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKxInit[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "PERMY : MDarcy";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKyInit[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-    if (flag)
-    {
+    if (flag) {
         outF << "PERMZ : MDarcy";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKzInit[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
@@ -1006,37 +832,34 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
     flag = OCP_FALSE;
 
-
     // Well infor
     USI numWell = rs.allWells.GetWellNum();
-    outF << "Well Information" << "                    ";
+    outF << "Well Information"
+         << "                    ";
     outF << fixed << setprecision(3) << days << "  DAYS" << endl;
     // INJ
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == INJ) {
             outF << "-------------------------------------" << endl;
             outF << rs.allWells.wells[w].name << "   " << w << "   "
-                << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   "
-                << rs.allWells.wells[w].J << endl;
+                 << rs.allWells.wells[w].depth << " (feet)     ";
+            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << endl;
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
-                outF << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t" << rs.allWells.wells[w].WWIR << " (STB/DAY)" << endl;
-            }
-            else {
+                outF << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t"
+                     << rs.allWells.wells[w].WWIR << " (STB/DAY)" << endl;
+            } else {
                 outF << "SHUTIN" << endl;
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outF << "perf" << p << "   "
-                    << rs.allWells.wells[w].perf[p].I << "   "
-                    << rs.allWells.wells[w].perf[p].J << "   "
-                    << rs.allWells.wells[w].perf[p].K << "   "
-                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                outF << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
+                     << rs.allWells.wells[w].perf[p].J << "   "
+                     << rs.allWells.wells[w].perf[p].K << "   "
+                     << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
                     outF << "OPEN";
-                }
-                else {
+                } else {
                     outF << "SHUTIN";
                 }
                 outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
@@ -1048,27 +871,25 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
         if (rs.allWells.wells[w].opt.type == PROD) {
             outF << "-------------------------------------" << endl;
             outF << rs.allWells.wells[w].name << "   " << w << "   "
-                << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   "
-                << rs.allWells.wells[w].J << endl;
+                 << rs.allWells.wells[w].depth << " (feet)     ";
+            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << endl;
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
-                outF << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t" << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t" << rs.allWells.wells[w].WWPR << " (STB/DAY)" << endl;
-            }
-            else {
+                outF << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t"
+                     << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
+                     << rs.allWells.wells[w].WWPR << " (STB/DAY)" << endl;
+            } else {
                 outF << "SHUTIN" << endl;
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outF << "perf" << p << "   "
-                    << rs.allWells.wells[w].perf[p].I << "   "
-                    << rs.allWells.wells[w].perf[p].J << "   "
-                    << rs.allWells.wells[w].perf[p].K << "   "
-                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                outF << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
+                     << rs.allWells.wells[w].perf[p].J << "   "
+                     << rs.allWells.wells[w].perf[p].K << "   "
+                     << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
                     outF << "OPEN";
-                }
-                else {
+                } else {
                     outF << "SHUTIN";
                 }
                 outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
@@ -1078,35 +899,25 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
 
     outF << endl << endl;
 
-
-
     // PRESSURE
-    if (PRE)
-    {
+    if (PRE) {
         outF << "PRESSURE : psia"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(12) << fixed << setprecision(3) << rs.bulk.P[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
@@ -1114,41 +925,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // DENSITY of OIL
-    if (DENO && rs.bulk.oil)
-    {
+    if (DENO && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "DENO : lb/ft3"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1156,41 +956,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // DENSITY of GAS
-    if (DENG && rs.bulk.gas)
-    {
+    if (DENG && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "DENG : lb/ft3"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1198,41 +987,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // DENSITY of WATER
-    if (DENW && rs.bulk.water)
-    {
+    if (DENW && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "DENW : lb/ft3"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1240,41 +1018,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // SATURATION of OIL
-    if (SOIL && rs.bulk.oil)
-    {
+    if (SOIL && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "SOIL"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1282,41 +1049,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // SATURATION of GAS
-    if (SGAS && rs.bulk.gas)
-    {
+    if (SGAS && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "SGAS"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1324,41 +1080,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // SATURATION of WATER
-    if (SWAT && rs.bulk.water)
-    {
+    if (SWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "SWAT"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1366,41 +1111,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Relative Permeability of OIL
-    if (KRO && rs.bulk.oil)
-    {
+    if (KRO && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "KRO"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1408,41 +1142,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Relative Permeability of GAS
-    if (KRG && rs.bulk.gas)
-    {
+    if (KRG && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "KRG"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1450,41 +1173,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Relative Permeability of WATER
-    if (KRW && rs.bulk.water)
-    {
+    if (KRW && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "KRW"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1492,41 +1204,31 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Molar Density of OIL
-    if (BOIL && rs.bulk.oil && rs.bulk.comps)
-    {
+    if (BOIL && rs.bulk.oil && rs.bulk.comps) {
         outF << sep02 << "\n";
         outF << "BOIL : lb-M/rb"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1;
-                }
-                else
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << setw(10) << fixed << setprecision(5)
+                         << rs.bulk.xi[tmpId] * CONV1;
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1534,41 +1236,31 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Molar Density of GAS
-    if (BGAS && rs.bulk.gas && rs.bulk.comps)
-    {
+    if (BGAS && rs.bulk.gas && rs.bulk.comps) {
         outF << sep02 << "\n";
         outF << "BGAS : lb-M/rb"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * CONV1;
-                }
-                else
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << setw(10) << fixed << setprecision(5)
+                         << rs.bulk.xi[tmpId] * CONV1;
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1576,41 +1268,31 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Molar Density of WATER
-    if (BWAT && rs.bulk.water)
-    {
+    if (BWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "BWAT : lb-M/rb"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.xi[tmpId] * (CONV1 * 19.437216);
-                }
-                else
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
+                    outF << setw(10) << fixed << setprecision(5)
+                         << rs.bulk.xi[tmpId] * (CONV1 * 19.437216);
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1618,41 +1300,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Viscosity of OIL
-    if (VOIL && rs.bulk.oil)
-    {
+    if (VOIL && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "VOIL : cp"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1660,41 +1331,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Viscosity of GAS
-    if (VGAS && rs.bulk.gas)
-    {
+    if (VGAS && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "VGAS : cp"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1702,41 +1362,30 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Viscosity of WATER
-    if (VWAT && rs.bulk.water)
-    {
+    if (VWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "VWAT : cp"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
-                bId = rs.grid.MapG2B(i).GetId();
+            if (rs.grid.MapG2B(i).IsAct()) {
+                bId   = rs.grid.MapG2B(i).GetId();
                 tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId])
-                {
+                if (rs.bulk.phaseExist[tmpId]) {
                     outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                }
-                else
-                {
+                } else {
                     outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
                 }
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1744,12 +1393,12 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // liquid component mole fractions.
-    if (XMF && rs.bulk.comps) {     
+    if (XMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
             // the ith component
             outF << sep02 << "\n";
-            outF << "XMF : Oil  " << i+1 << "th Component"
-                << "                   ";
+            outF << "XMF : Oil  " << i + 1 << "th Component"
+                 << "                   ";
             outF << fixed << setprecision(3) << days << "  DAYS";
 
             for (OCP_USI n = 0; n < num; n++) {
@@ -1763,17 +1412,16 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 }
 
                 if (rs.grid.MapG2B(n).IsAct()) {
-                    bId = rs.grid.MapG2B(n).GetId();
+                    bId   = rs.grid.MapG2B(n).GetId();
                     tmpId = bId * np + OIndex;
                     if (rs.bulk.phaseExist[tmpId]) {
                         tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId];
-                    }
-                    else {
+                        outF << setw(10) << fixed << setprecision(6)
+                             << rs.bulk.xij[tmpId];
+                    } else {
                         outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
                     }
-                }
-                else {
+                } else {
                     outF << setw(10) << " --- ";
                 }
             }
@@ -1787,7 +1435,7 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
             // the ith component
             outF << sep02 << "\n";
             outF << "YMF : Gas  " << i << "th Component"
-                << "                   ";
+                 << "                   ";
             outF << fixed << setprecision(3) << days << "  DAYS";
 
             for (OCP_USI n = 0; n < num; n++) {
@@ -1801,17 +1449,16 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
                 }
 
                 if (rs.grid.MapG2B(n).IsAct()) {
-                    bId = rs.grid.MapG2B(n).GetId();
+                    bId   = rs.grid.MapG2B(n).GetId();
                     tmpId = bId * np + GIndex;
                     if (rs.bulk.phaseExist[tmpId]) {
                         tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6) << rs.bulk.xij[tmpId];
-                    }
-                    else {
+                        outF << setw(10) << fixed << setprecision(6)
+                             << rs.bulk.xij[tmpId];
+                    } else {
                         outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
                     }
-                }
-                else {
+                } else {
                     outF << setw(10) << " --- ";
                 }
             }
@@ -1820,33 +1467,25 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // surface tension
-    if (rs.bulk.miscible && OCP_FALSE)
-    {
+    if (rs.bulk.miscible & OCP_FALSE) {
         outF << sep02 << "\n";
         outF << "STEN"
-            << "                   ";
+             << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(10) << fixed << setprecision(5) << rs.bulk.surTen[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1854,33 +1493,25 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fk
-    if (rs.bulk.miscible && OCP_FALSE)
-    {
+    if (rs.bulk.miscible & OCP_FALSE) {
         outF << sep02 << "\n";
         outF << "FMISC"
-            << "                   ";
+             << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fk[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1888,33 +1519,25 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Fp
-    if (rs.bulk.miscible && OCP_FALSE)
-    {
+    if (rs.bulk.miscible & OCP_FALSE) {
         outF << sep02 << "\n";
         outF << "FPC"
-            << "                   ";
+             << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
                 outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fp[bId];
-            }
-            else
-            {
+            } else {
                 outF << setw(10) << " --- ";
             }
         }
@@ -1922,49 +1545,41 @@ void DetailInfo::PrintInfo(const string &dir, const Reservoir &rs,
     }
 
     // Po - Pw
-    if (PCW)
-    {
+    if (PCW) {
         outF << "PCW : psia"
-            << "                   ";
+             << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++)
-        {
-            if (i % nx == 0)
-                outF << "\n";
-            if (i % (nx * ny) == 0)
-                outF << "\n\n";
+        for (OCP_USI i = 0; i < num; i++) {
+            if (i % nx == 0) outF << "\n";
+            if (i % (nx * ny) == 0) outF << "\n\n";
 
-            if (i % nx == 0)
-            {
+            if (i % nx == 0) {
                 rs.grid.GetIJKGrid(I, J, K, i);
                 outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
                 // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
             }
 
-            if (rs.grid.MapG2B(i).IsAct())
-            {                
+            if (rs.grid.MapG2B(i).IsAct()) {
                 bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(3) << -rs.bulk.Pc[bId * np + WIndex];
-            }
-            else
-            {
+                outF << setw(12) << fixed << setprecision(3)
+                     << -rs.bulk.Pc[bId * np + WIndex];
+            } else {
                 outF << setw(12) << "-----  ";
             }
         }
         outF << "\n\n\n";
     }
 
-
     outF.close();
 }
 
-void OCPOutput::InputParam(const ParamOutput &paramOutput)
+void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
     summary.InputParam(paramOutput.summary);
     dtlInfo.InputParam(paramOutput.detailInfo);
 }
 
-void OCPOutput::Setup(const Reservoir &reservoir, const OCPControl &ctrl)
+void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     wordDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
@@ -1972,7 +1587,7 @@ void OCPOutput::Setup(const Reservoir &reservoir, const OCPControl &ctrl)
     dtlInfo.Setup(wordDir);
 }
 
-void OCPOutput::SetVal(const Reservoir &reservoir, const OCPControl &ctrl)
+void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 {
     summary.SetVal(reservoir, ctrl);
     crtInfo.SetVal(reservoir, ctrl);
@@ -1984,12 +1599,13 @@ void OCPOutput::PrintInfo() const
     crtInfo.PrintInfo(wordDir);
 }
 
-void OCPOutput::PrintInfoSched(const Reservoir &rs, const OCPControl &ctrl,
-                               const OCP_DBL &time) const
+void OCPOutput::PrintInfoSched(const Reservoir&  rs,
+                               const OCPControl& ctrl,
+                               const OCP_DBL&    time) const
 {
     OCP_DBL days = ctrl.current_time;
-    cout << "Timestep " << setw(6) << left << ctrl.numTstep
-         << ": " << fixed << setw(10) << setprecision(3) << right << days << " Days"
+    cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
+         << setprecision(3) << right << days << " Days"
          << "    Wall time: " << time / 1000 << " Sec" << endl;
     dtlInfo.PrintInfo(wordDir, rs, days);
 }

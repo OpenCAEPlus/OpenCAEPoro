@@ -41,13 +41,22 @@ public:
     virtual const vector<OCP_DBL>& GetScm() const = 0;
 
     /// Calculate relative permeability and capillary pressure.
-    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                         const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) = 0;
+    virtual void CalKrPc(const OCP_DBL* S_in,
+                         OCP_DBL*       kr_out,
+                         OCP_DBL*       pc_out,
+                         const OCP_DBL& MySurTen,
+                         OCP_DBL&       MyFk,
+                         OCP_DBL&       MyFp) = 0;
 
     /// Calculate derivatives of relative permeability and capillary pressure.
-    virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                              OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                              OCP_DBL& MyFk, OCP_DBL& MyFp) = 0;
+    virtual void CalKrPcDeriv(const OCP_DBL* S_in,
+                              OCP_DBL*       kr_out,
+                              OCP_DBL*       pc_out,
+                              OCP_DBL*       dkrdS,
+                              OCP_DBL*       dPcjdS,
+                              const OCP_DBL& MySurTen,
+                              OCP_DBL&       MyFk,
+                              OCP_DBL&       MyFp) = 0;
 };
 
 ///////////////////////////////////////////////
@@ -60,11 +69,20 @@ public:
     FlowUnit_W() = default;
     FlowUnit_W(const ParamReservoir& rs_param, const USI& i){};
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                 const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                      OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                      OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    void CalKrPc(const OCP_DBL* S_in,
+                 OCP_DBL*       kr_out,
+                 OCP_DBL*       pc_out,
+                 const OCP_DBL& MySurTen,
+                 OCP_DBL&       MyFk,
+                 OCP_DBL&       MyFp) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in,
+                      OCP_DBL*       kr_out,
+                      OCP_DBL*       pc_out,
+                      OCP_DBL*       dkrdS,
+                      OCP_DBL*       dPcjdS,
+                      const OCP_DBL& MySurTen,
+                      OCP_DBL&       MyFk,
+                      OCP_DBL&       MyFp) override;
 
     OCP_DBL GetSwco() const override { return Swco; };
 
@@ -74,7 +92,10 @@ public:
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
 
-    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
+    const vector<OCP_DBL>& GetScm() const override
+    {
+        OCP_ABORT("Not Completed in this Condition!");
+    }
 
 protected:
     OCP_DBL Swco;
@@ -90,11 +111,20 @@ public:
     FlowUnit_OW() = default;
     FlowUnit_OW(const ParamReservoir& rs_param, const USI& i);
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                 const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                      OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                      OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    void CalKrPc(const OCP_DBL* S_in,
+                 OCP_DBL*       kr_out,
+                 OCP_DBL*       pc_out,
+                 const OCP_DBL& MySurTen,
+                 OCP_DBL&       MyFk,
+                 OCP_DBL&       MyFp) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in,
+                      OCP_DBL*       kr_out,
+                      OCP_DBL*       pc_out,
+                      OCP_DBL*       dkrdS,
+                      OCP_DBL*       dPcjdS,
+                      const OCP_DBL& MySurTen,
+                      OCP_DBL&       MyFk,
+                      OCP_DBL&       MyFp) override;
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return SWOF.Eval(0, sw, 3); }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override
@@ -108,14 +138,17 @@ public:
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
 
-    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
+    const vector<OCP_DBL>& GetScm() const override
+    {
+        OCP_ABORT("Not Completed in this Condition!");
+    }
 
 private:
     OCPTable        SWOF;  ///< saturation table about water and oil.
     vector<OCP_DBL> data;  ///< container to store the values of interpolation.
     vector<OCP_DBL> cdata; ///< container to store the slopes of interpolation.
-    OCP_DBL         kroMax;
-    OCP_DBL         Swco; ///< Saturation of connate water.
+    OCP_DBL         Swco;  ///< Saturation of connate water.
+    // OCP_DBL         kroMax;
 };
 
 ///////////////////////////////////////////////
@@ -128,21 +161,33 @@ public:
     FlowUnit_OG() = default;
     FlowUnit_OG(const ParamReservoir& rs_param, const USI& i);
 
-    void    CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                    const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    void    CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                         OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                         OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    void    CalKrPc(const OCP_DBL* S_in,
+                    OCP_DBL*       kr_out,
+                    OCP_DBL*       pc_out,
+                    const OCP_DBL& MySurTen,
+                    OCP_DBL&       MyFk,
+                    OCP_DBL&       MyFp) override;
+    void    CalKrPcDeriv(const OCP_DBL* S_in,
+                         OCP_DBL*       kr_out,
+                         OCP_DBL*       pc_out,
+                         OCP_DBL*       dkrdS,
+                         OCP_DBL*       dPcjdS,
+                         const OCP_DBL& MySurTen,
+                         OCP_DBL&       MyFk,
+                         OCP_DBL&       MyFp) override;
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg) override { return SGOF.Eval(0, sg, 3); }
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return SGOF.Eval(3, pcgo, 0); }
 
-    // uesless
+    // useless
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return 0; }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
     OCP_DBL GetSwco() const override { return 0; };
 
-    const vector<OCP_DBL>& GetScm() const override { OCP_ABORT("Not Completed in this Condition!"); }
+    const vector<OCP_DBL>& GetScm() const override
+    {
+        OCP_ABORT("Not Completed in this Condition!");
+    }
 
 private:
     OCPTable        SGOF;  ///< saturation table about gas and oil.
@@ -158,10 +203,14 @@ private:
 class FlowUnit_ODGW : public FlowUnit
 {
 public:
-    OCP_DBL CalKro_Stone2(const OCP_DBL& krow, const OCP_DBL& krog, const OCP_DBL& krw,
+    OCP_DBL CalKro_Stone2(const OCP_DBL& krow,
+                          const OCP_DBL& krog,
+                          const OCP_DBL& krw,
                           const OCP_DBL& krg) const;
 
-    OCP_DBL CalKro_Default(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
+    OCP_DBL CalKro_Default(const OCP_DBL& Sg,
+                           const OCP_DBL& Sw,
+                           const OCP_DBL& krog,
                            const OCP_DBL& krow) const;
 
     OCP_DBL                GetSwco() const override { return Swco; };
@@ -184,21 +233,39 @@ public:
     FlowUnit_ODGW01() = default;
     FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i);
 
-    virtual void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                         const OCP_DBL& MySurTen, OCP_DBL& MyFk,
-                         OCP_DBL& MyFp) override;
-    virtual void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                              OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                              OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    virtual void CalKrPc(const OCP_DBL* S_in,
+                         OCP_DBL*       kr_out,
+                         OCP_DBL*       pc_out,
+                         const OCP_DBL& MySurTen,
+                         OCP_DBL&       MyFk,
+                         OCP_DBL&       MyFp) override;
+    virtual void CalKrPcDeriv(const OCP_DBL* S_in,
+                              OCP_DBL*       kr_out,
+                              OCP_DBL*       pc_out,
+                              OCP_DBL*       dkrdS,
+                              OCP_DBL*       dPcjdS,
+                              const OCP_DBL& MySurTen,
+                              OCP_DBL&       MyFk,
+                              OCP_DBL&       MyFp) override;
 
-    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
-                             OCP_DBL dkrwdSw, OCP_DBL dkrowdSw, OCP_DBL dkrgdSg,
-                             OCP_DBL dkrogdSg, OCP_DBL& out_dkrodSw,
+    OCP_DBL CalKro_Stone2Der(OCP_DBL  krow,
+                             OCP_DBL  krog,
+                             OCP_DBL  krw,
+                             OCP_DBL  krg,
+                             OCP_DBL  dkrwdSw,
+                             OCP_DBL  dkrowdSw,
+                             OCP_DBL  dkrgdSg,
+                             OCP_DBL  dkrogdSg,
+                             OCP_DBL& out_dkrodSw,
                              OCP_DBL& out_dkrodSg) const;
-    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
-                              const OCP_DBL& krow, const OCP_DBL& dkrogSg,
-                              const OCP_DBL& dkrowSw, OCP_DBL& dkroSg,
-                              OCP_DBL& dkroSw) const;
+    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg,
+                              const OCP_DBL& Sw,
+                              const OCP_DBL& krog,
+                              const OCP_DBL& krow,
+                              const OCP_DBL& dkrogSg,
+                              const OCP_DBL& dkrowSw,
+                              OCP_DBL&       dkroSg,
+                              OCP_DBL&       dkroSw) const;
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return SWOF.Eval(0, sw, 3); }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override
@@ -250,25 +317,36 @@ public:
         }
     }
 
-    void CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                 const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    void CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                      OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                      OCP_DBL& MyFk, OCP_DBL& MyFp) override;
+    void CalKrPc(const OCP_DBL* S_in,
+                 OCP_DBL*       kr_out,
+                 OCP_DBL*       pc_out,
+                 const OCP_DBL& MySurTen,
+                 OCP_DBL&       MyFk,
+                 OCP_DBL&       MyFp) override;
+    void CalKrPcDeriv(const OCP_DBL* S_in,
+                      OCP_DBL*       kr_out,
+                      OCP_DBL*       pc_out,
+                      OCP_DBL*       dkrdS,
+                      OCP_DBL*       dPcjdS,
+                      const OCP_DBL& MySurTen,
+                      OCP_DBL&       MyFk,
+                      OCP_DBL&       MyFp) override;
 
 private:
-    OCP_DBL kroMis{0};  ///< miscible oil relative permeability
-    OCP_DBL krgMis{0};  ///< miscible gas relative permeability
-    OCP_DBL PcogMis{0}; ///< miscible gas capillary pressure
-    OCP_DBL socrMis{0}; ///< oil critical miscible saturations
-    OCP_DBL sgcrMis{0}; ///< gas critical miscible saturations
-
     OCP_DBL Fk{0};        ///< The relative permeability interpolation parameter
     OCP_DBL Fp{0};        ///< The capillary pressure interpolation parameter
     OCP_DBL surTenRef{0}; ///< Reference surface tension
     OCP_DBL Fkexp{0.25};  ///< Exponent set used to calculate Fk
     OCP_DBL surTenPc{0};  ///< Maximum surface tension for capillary pressure/surTenRef
     OCP_DBL surTen{0};    ///< Surface tension
+
+    /*
+    OCP_DBL kroMis{0};  ///< miscible oil relative permeability
+    OCP_DBL krgMis{0};  ///< miscible gas relative permeability
+    OCP_DBL PcogMis{0}; ///< miscible gas capillary pressure
+    OCP_DBL socrMis{0}; ///< oil critical miscible saturations
+    OCP_DBL sgcrMis{0}; ///< gas critical miscible saturations
+    */
 };
 
 ///////////////////////////////////////////////
@@ -281,17 +359,36 @@ public:
     FlowUnit_ODGW02() = default;
     FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i);
 
-    void    CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                    const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    void    CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                         OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen,
-                         OCP_DBL& MyFk, OCP_DBL& MyFp) override;
-    OCP_DBL CalKro_Stone2Der(OCP_DBL krow, OCP_DBL krog, OCP_DBL krw, OCP_DBL krg,
-                             OCP_DBL dkrwdSw, OCP_DBL dkrowdSo, OCP_DBL dkrgdSg,
-                             OCP_DBL dkrogdSo, OCP_DBL& out_dkrodSo) const;
-    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg, const OCP_DBL& Sw, const OCP_DBL& krog,
-                              const OCP_DBL& krow, const OCP_DBL& dkrogSo,
-                              const OCP_DBL& dkrowSo, OCP_DBL& dkroSo) const;
+    void    CalKrPc(const OCP_DBL* S_in,
+                    OCP_DBL*       kr_out,
+                    OCP_DBL*       pc_out,
+                    const OCP_DBL& MySurTen,
+                    OCP_DBL&       MyFk,
+                    OCP_DBL&       MyFp) override;
+    void    CalKrPcDeriv(const OCP_DBL* S_in,
+                         OCP_DBL*       kr_out,
+                         OCP_DBL*       pc_out,
+                         OCP_DBL*       dkrdS,
+                         OCP_DBL*       dPcjdS,
+                         const OCP_DBL& MySurTen,
+                         OCP_DBL&       MyFk,
+                         OCP_DBL&       MyFp) override;
+    OCP_DBL CalKro_Stone2Der(OCP_DBL  krow,
+                             OCP_DBL  krog,
+                             OCP_DBL  krw,
+                             OCP_DBL  krg,
+                             OCP_DBL  dkrwdSw,
+                             OCP_DBL  dkrowdSo,
+                             OCP_DBL  dkrgdSg,
+                             OCP_DBL  dkrogdSo,
+                             OCP_DBL& out_dkrodSo) const;
+    OCP_DBL CalKro_DefaultDer(const OCP_DBL& Sg,
+                              const OCP_DBL& Sw,
+                              const OCP_DBL& krog,
+                              const OCP_DBL& krow,
+                              const OCP_DBL& dkrogSo,
+                              const OCP_DBL& dkrowSo,
+                              OCP_DBL&       dkroSo) const;
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return SWFN.Eval(0, sw, 2); }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override

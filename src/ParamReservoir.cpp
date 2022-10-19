@@ -84,7 +84,7 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
 
         case Map_Str2Int("SWATINIT", 8):
             Swat.reserve(numGrid);
-            myPtr = &Swat;
+            myPtr     = &Swat;
             ScalePcow = OCP_TRUE;
             break;
 
@@ -109,8 +109,7 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
 {
     TableSet* myPtr = nullptr;
 
-    switch (Map_Str2Int(&varName[0], varName.size())) 
-    {
+    switch (Map_Str2Int(&varName[0], varName.size())) {
         case Map_Str2Int("SWFN", 4):
             myPtr = &SWFN_T;
             break;
@@ -202,7 +201,7 @@ void ParamReservoir::InitTable()
     PVDG_T.colNum = 3;
     PVTW_T.name   = "PVTW";
     PVTW_T.colNum = 5;
-    ZMFVD_T.name = "ZMFVD"; // colnum equals numCom(hydrocarbon) + 1
+    ZMFVD_T.name  = "ZMFVD"; // colnum equals numCom(hydrocarbon) + 1
 }
 
 /// TODO: Add Doxygen
@@ -226,7 +225,8 @@ void ParamReservoir::setVal(vector<T>& obj, const T& val, const vector<USI>& ind
 
 /// TODO: Add Doxygen
 template <typename T>
-void ParamReservoir::CopyVal(vector<T>& obj, const vector<T>& src,
+void ParamReservoir::CopyVal(vector<T>&         obj,
+                             const vector<T>&   src,
                              const vector<USI>& index)
 {
     USI     Nx   = dimens.nx;
@@ -245,7 +245,8 @@ void ParamReservoir::CopyVal(vector<T>& obj, const vector<T>& src,
 }
 
 /// TODO: Add Doxygen
-void ParamReservoir::MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
+void ParamReservoir::MultiplyVal(vector<OCP_DBL>&   obj,
+                                 const OCP_DBL&     val,
                                  const vector<USI>& index)
 {
     USI     Nx   = dimens.nx;
@@ -269,7 +270,7 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     comps = OCP_TRUE;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    numCom = stoi(vbuf[0]);
+    numCom      = stoi(vbuf[0]);
     EoSp.numCom = numCom;
     EoSp.InitEoSparam();
 
@@ -293,7 +294,8 @@ void ParamReservoir::InputDIMENS(ifstream& ifs)
 void ParamReservoir::DisplayDIMENS()
 {
     cout << "DIMENS" << endl;
-    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << "\n\n";;
+    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << "\n\n";
+    ;
 }
 
 /// TODO: Add Doxygen
@@ -319,7 +321,11 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        for (auto v : vbuf) { if (v != "/") cout << setw(10) << v; } cout << "\n";;
+        for (auto v : vbuf) {
+            if (v != "/") cout << setw(10) << v;
+        }
+        cout << "\n";
+        ;
 
         index[0] = 0, index[1] = dimens.nx - 1;
         index[2] = 0, index[3] = dimens.ny - 1;
@@ -369,20 +375,18 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
-        
+
         for (auto& str : vbuf) {
             // if m*n occurs, then push back n  m times
             auto pos = str.find('*');
             if (pos == string::npos) {
                 objPtr->push_back(stod(str));
-            }
-            else {
-                USI len = str.size();
+            } else {
+                USI     len = str.size();
                 OCP_USI num = stoi(str.substr(0, pos));
                 OCP_DBL val = stod(str.substr(pos + 1, len - (pos + 1)));
-                for (USI i = 0; i < num; i++)
-                    objPtr->push_back(val);
-            }           
+                for (USI i = 0; i < num; i++) objPtr->push_back(val);
+            }
         }
     }
 }
@@ -398,7 +402,10 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        for (auto v : vbuf) { if (v != "/") cout << setw(10) << v; } cout << "\n";
+        for (auto v : vbuf) {
+            if (v != "/") cout << setw(10) << v;
+        }
+        cout << "\n";
 
         index[0] = 0, index[1] = dimens.nx - 1;
         index[2] = 0, index[3] = dimens.ny - 1;
@@ -465,11 +472,11 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
         OCP_ABORT("Wrong table name :" + tabName);
     }
 
-    USI                     col = obj->colNum;
+    USI col = obj->colNum;
     if (tabName == "ZMFVD") {
         if (!comps) OCP_ABORT("COMPS isn't set correctly!");
         obj->colNum = numCom + 1;
-        col = obj->colNum;
+        col         = obj->colNum;
     }
     vector<vector<OCP_DBL>> tmpTab(col);
 
@@ -514,11 +521,11 @@ void ParamReservoir::InputMISCSTR(ifstream& ifs)
 {
     if (!EoSp.miscible) {
         OCP_WARNING("MISCIBLE has not been declared, this keyword will be ignored!");
-    }else{
+    } else {
         vector<string> vbuf;
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") return;
-        if (vbuf.back() == "/")  vbuf.pop_back();
+        if (vbuf.back() == "/") vbuf.pop_back();
 
         USI len = vbuf.size();
         for (USI i = 0; i < len; i++) {
@@ -527,8 +534,7 @@ void ParamReservoir::InputMISCSTR(ifstream& ifs)
     }
 
     cout << "MISCSTR" << endl;
-    for (auto& v : miscstr.surTenRef)
-        cout << v << "   ";
+    for (auto& v : miscstr.surTenRef) cout << v << "   ";
     cout << endl << endl;
 }
 
@@ -543,7 +549,7 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
     OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword GRAVITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
-            gravity.data[i]  = stod(vbuf[i]);
+            gravity.data[i] = stod(vbuf[i]);
         }
     }
 
@@ -619,8 +625,7 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
     if (keyword == "SATNUM") {
         ptr = &SATNUM;
         lim = NTSFUN;
-    }
-    else if (keyword == "ACTNUM") {
+    } else if (keyword == "ACTNUM") {
         ptr = &ACTNUM;
     }
 
@@ -638,13 +643,11 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
             auto pos = str.find('*');
             if (pos == string::npos) {
                 ptr->data.push_back(stod(str));
-            }
-            else {
-                USI len = str.size();
+            } else {
+                USI     len = str.size();
                 OCP_USI num = stoi(str.substr(0, pos));
                 OCP_DBL val = stod(str.substr(pos + 1, len - (pos + 1)));
-                for (USI i = 0; i < num; i++)
-                    ptr->data.push_back(val);
+                for (USI i = 0; i < num; i++) ptr->data.push_back(val);
             }
         }
     }
@@ -772,7 +775,6 @@ void EoSparam::InitEoSparam()
     LBCcoef[4] = 0.0093324;
 }
 
-
 /// TODO: Add Doxygen
 void EoSparam::InputCOM(ifstream& ifs)
 {
@@ -812,84 +814,80 @@ Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
 {
     Type_A_r<vector<OCP_DBL>>* myPtr = nullptr;
 
-    switch (Map_Str2Int(&varName[0], varName.size())) 
-    {
-    case Map_Str2Int("TCRIT", 5):
-        myPtr = &Tc;
-        break;
+    switch (Map_Str2Int(&varName[0], varName.size())) {
+        case Map_Str2Int("TCRIT", 5):
+            myPtr = &Tc;
+            break;
 
-    case Map_Str2Int("PCRIT", 5):
-        myPtr = &Pc;
-        break;
+        case Map_Str2Int("PCRIT", 5):
+            myPtr = &Pc;
+            break;
 
-    case Map_Str2Int("VCRIT", 5):
-        myPtr = &Vc;
-        break;
+        case Map_Str2Int("VCRIT", 5):
+            myPtr = &Vc;
+            break;
 
-    case Map_Str2Int("ZCRIT", 5):
-        myPtr = &Zc;
-        break;
+        case Map_Str2Int("ZCRIT", 5):
+            myPtr = &Zc;
+            break;
 
-    case Map_Str2Int("MW", 2):
-        myPtr = &MW;
-        break;
+        case Map_Str2Int("MW", 2):
+            myPtr = &MW;
+            break;
 
-    case Map_Str2Int("ACF", 3):
-        myPtr = &Acf;
-        break;
+        case Map_Str2Int("ACF", 3):
+            myPtr = &Acf;
+            break;
 
-    case Map_Str2Int("OMEGAA", 6):
-        myPtr = &OmegaA;
-        break;
+        case Map_Str2Int("OMEGAA", 6):
+            myPtr = &OmegaA;
+            break;
 
-    case Map_Str2Int("OMEGAB", 6):
-        myPtr = &OmegaB;
-        break;
+        case Map_Str2Int("OMEGAB", 6):
+            myPtr = &OmegaB;
+            break;
 
-    case Map_Str2Int("SSHIFT", 6):
-        myPtr = &Vshift;
-        break;
+        case Map_Str2Int("SSHIFT", 6):
+            myPtr = &Vshift;
+            break;
 
-    case Map_Str2Int("PARACHOR", 8):
-        myPtr = &Parachor;
-        break;
+        case Map_Str2Int("PARACHOR", 8):
+            myPtr = &Parachor;
+            break;
 
-    case Map_Str2Int("VCRITVIS", 8):
-        myPtr = &Vcvis;
-        break;
+        case Map_Str2Int("VCRITVIS", 8):
+            myPtr = &Vcvis;
+            break;
 
-    case Map_Str2Int("ZCRITVIS", 8):
-        myPtr = &Zcvis;
-        break;
-
+        case Map_Str2Int("ZCRITVIS", 8):
+            myPtr = &Zcvis;
+            break;
     }
 
     return myPtr;
 }
-
 
 void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
 
     Type_A_r<vector<OCP_DBL>>* objPtr = nullptr;
-    objPtr = FindPtr(keyword);
+    objPtr                            = FindPtr(keyword);
     if (objPtr == nullptr) {
         OCP_ABORT("Unknown keyword!");
     }
     objPtr->activity = OCP_TRUE;
 
-    vector<string> vbuf;
+    vector<string>  vbuf;
     vector<OCP_DBL> tmp;
-    USI nReg = 0;
+    USI             nReg = 0;
 
     while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") {
             nReg++;
             objPtr->data.push_back(tmp);
-            if (nReg >= NTPVT)
-                break;
+            if (nReg >= NTPVT) break;
             tmp.clear();
             continue;
         }
@@ -902,12 +900,10 @@ void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
             nReg++;
             objPtr->data.push_back(tmp);
             tmp.clear();
-            if (nReg >= NTPVT)
-                break;
-        }     
+            if (nReg >= NTPVT) break;
+        }
     }
 }
-
 
 void EoSparam::InputCNAMES(ifstream& ifs)
 {
@@ -920,11 +916,9 @@ void EoSparam::InputCNAMES(ifstream& ifs)
             break;
         }
         for (auto& v : vbuf) {
-            if (v != "/")
-                Cname.push_back(v);
+            if (v != "/") Cname.push_back(v);
         }
-        if (vbuf.back() == "/")
-            break;
+        if (vbuf.back() == "/") break;
     }
 
     OCP_FUNCNAME;
@@ -935,15 +929,13 @@ void EoSparam::InputCNAMES(ifstream& ifs)
     cout << endl << endl;
 }
 
-
 void EoSparam::InputLBCCOEF(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     DealDefault(vbuf);
     for (USI i = 0; i < 5; i++) {
-        if (vbuf[i] != "DEFAULT")
-        LBCcoef[i] = stod(vbuf[i]);
+        if (vbuf[i] != "DEFAULT") LBCcoef[i] = stod(vbuf[i]);
     }
 
     OCP_FUNCNAME;
@@ -958,30 +950,28 @@ void EoSparam::InputLBCCOEF(ifstream& ifs)
 void EoSparam::InputBIC(ifstream& ifs)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NCNP hasn't been input!");
-  
+
     BIC.resize(NTPVT);
 
     vector<string> vbuf;
-    USI nReg = 0;
+    USI            nReg = 0;
     while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") {
             nReg++;
-            if (nReg >= NTPVT)
-                break;
+            if (nReg >= NTPVT) break;
             continue;
         }
         for (auto& v : vbuf) {
             if (v != "/") {
                 BIC[nReg].push_back(stod(v));
                 cout << setw(10) << BIC[nReg].back();
-            }                
+            }
         }
         cout << endl;
         if (vbuf.back() == "/") {
             nReg++;
-            if (nReg >= NTPVT)
-                break;
+            if (nReg >= NTPVT) break;
         }
     }
 }
@@ -992,11 +982,11 @@ void EoSparam::InputSSMSTA(ifstream& ifs)
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     int len = vbuf.size();
-    for (USI i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         SSMparamSTA.push_back(vbuf[i]);
     }
     OCP_FUNCNAME;
-    for (USI i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         cout << SSMparamSTA[i] << "   ";
     }
     cout << endl << endl;
@@ -1007,11 +997,11 @@ void EoSparam::InputNRSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    for (USI i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
         NRparamSTA.push_back(vbuf[i]);
     }
     OCP_FUNCNAME;
-    for (USI i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
         cout << NRparamSTA[i] << "   ";
     }
     cout << endl << endl;

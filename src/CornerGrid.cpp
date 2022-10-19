@@ -19,7 +19,6 @@ Point3D& Point3D::operator=(const Point3D& other)
     return *this;
 }
 
-
 Point3D Point3D::operator+(const Point3D& other) const
 {
     return Point3D(x + other.x, y + other.y, z + other.z);
@@ -184,7 +183,7 @@ OCP_DBL CalAreaNotQuadr(const HexahedronFace& FACE1, const HexahedronFace& FACE2
     //       2 --- 3        3 --- 2
     // p0, p1 are upper, p2, p3 are lower
     // y must be depth!!!
-    // 
+    //
     OCP_DBL CalAreaNotQuadr;
     //
     //   LOCALS
@@ -548,8 +547,11 @@ void ConnGrid::Allocate(const USI& max_neighbor)
     halfConn.resize(maxConn);
 }
 
-void ConnGrid::AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D& d,
-                           const USI& direction, const OCP_DBL& flag)
+void ConnGrid::AddHalfConn(const OCP_USI& n,
+                           const Point3D& area,
+                           const Point3D& d,
+                           const USI&     direction,
+                           const OCP_DBL& flag)
 {
     if (nConn >= maxConn) {
         maxConn *= 2;
@@ -559,7 +561,7 @@ void ConnGrid::AddHalfConn(const OCP_USI& n, const Point3D& area, const Point3D&
             // OCP_ABORT("Too many Neighbors!");
         }
     }
-    halfConn[nConn].Ad_dd = area * d / (d * d) * flag;
+    halfConn[nConn].Ad_dd         = area * d / (d * d) * flag;
     halfConn[nConn].d             = d;
     halfConn[nConn].neigh         = n;
     halfConn[nConn].directionType = direction;
@@ -623,8 +625,8 @@ void COORD::InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn
 OCP_BOOL COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
 {
     // See Eclipse -- COORD
-    OCP_BOOL    flag = OCP_FALSE;
-    OCP_USI iter = 0;
+    OCP_BOOL flag = OCP_FALSE;
+    OCP_USI  iter = 0;
 
     for (USI J = 0; J < ny + 1; J++) {
         for (USI I = 0; I < nx + 1; I++) {
@@ -648,8 +650,8 @@ OCP_BOOL COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
 OCP_BOOL COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
 {
     // See Eclipse -- ZCORN
-    OCP_BOOL    flag = OCP_FALSE;
-    OCP_USI iter = 0;
+    OCP_BOOL flag = OCP_FALSE;
+    OCP_USI  iter = 0;
 
     for (USI K = 0; K < nz; K++) {
         for (USI J = 0; J < ny; J++) {
@@ -686,63 +688,66 @@ OCP_BOOL COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
     return flag;
 }
 
-
 void COORD::SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face)
 {
     tmpFace = Face;
 
     if (oFace.p0.z > Face.p0.z + TEENY) {
-        tmpFace.p0 = oFace.p0;                  flagp0 =  1;
-    }
-    else if (oFace.p0.z < Face.p0.z - TEENY)    flagp0 = -1;
-    else                                        flagp0 =  0;
-    
-    
-    if (oFace.p1.z > Face.p1.z + TEENY)         flagp1 =  1;
-    else if (oFace.p1.z < Face.p1.z - TEENY) {
-        tmpFace.p1 = oFace.p1;                  flagp1 = -1;
-    }
-    else                                        flagp1 =  0;
+        tmpFace.p0 = oFace.p0;
+        flagp0     = 1;
+    } else if (oFace.p0.z < Face.p0.z - TEENY)
+        flagp0 = -1;
+    else
+        flagp0 = 0;
 
-    
-    if (oFace.p2.z > Face.p2.z + TEENY)         flagp2 =  1;
+    if (oFace.p1.z > Face.p1.z + TEENY)
+        flagp1 = 1;
+    else if (oFace.p1.z < Face.p1.z - TEENY) {
+        tmpFace.p1 = oFace.p1;
+        flagp1     = -1;
+    } else
+        flagp1 = 0;
+
+    if (oFace.p2.z > Face.p2.z + TEENY)
+        flagp2 = 1;
     else if (oFace.p2.z < Face.p2.z - TEENY) {
-        tmpFace.p2 = oFace.p2;                  flagp2 = -1;
-    }
-    else                                        flagp2 =  0;
+        tmpFace.p2 = oFace.p2;
+        flagp2     = -1;
+    } else
+        flagp2 = 0;
 
     if (oFace.p3.z > Face.p3.z + TEENY) {
-        tmpFace.p3 = oFace.p3;                  flagp3 =  1;
-    }
-    else if (oFace.p3.z < Face.p3.z - TEENY)    flagp3 = -1;
-    else                                        flagp3 =  0;
-    
+        tmpFace.p3 = oFace.p3;
+        flagp3     = 1;
+    } else if (oFace.p3.z < Face.p3.z - TEENY)
+        flagp3 = -1;
+    else
+        flagp3 = 0;
+
     // check if interface is empty set
     // check if interface is quadrilateral
     // check if the one contains the other one
-   
+
     if (((oFace.p1.z <= Face.p0.z) && (oFace.p2.z <= Face.p3.z)) ||
-        ((oFace.p0.z >= Face.p1.z) && (oFace.p3.z >= Face.p2.z))){
+        ((oFace.p0.z >= Face.p1.z) && (oFace.p3.z >= Face.p2.z))) {
         flagJump = OCP_TRUE;
-    }
-    else {
-        flagJump = OCP_FALSE;   
-        if ((flagp0 * flagp3 >= 0) && (oFace.p0.z <= Face.p1.z) && (oFace.p3.z <= Face.p2.z) &&
-            (flagp1 * flagp2 >= 0) && (oFace.p1.z >= Face.p0.z) && (oFace.p2.z >= Face.p3.z)) {
+    } else {
+        flagJump = OCP_FALSE;
+        if ((flagp0 * flagp3 >= 0) && (oFace.p0.z <= Face.p1.z) &&
+            (oFace.p3.z <= Face.p2.z) && (flagp1 * flagp2 >= 0) &&
+            (oFace.p1.z >= Face.p0.z) && (oFace.p2.z >= Face.p3.z)) {
             flagQuad = OCP_TRUE;
-        }
-        else {
+        } else {
             flagQuad = OCP_FALSE;
         }
-    }  
+    }
 }
-
 
 void COORD::SetupCornerPoints()
 {
     OCP_USI cindex, oindex; // current block index and the other block index
     OCP_USI nxny = nx * ny;
-     
+
     // allocate memoery for connections
     vector<ConnGrid> blockconn(numGrid);
     for (OCP_USI iloop = 0; iloop < numGrid; iloop++) {
@@ -757,91 +762,106 @@ void COORD::SetupCornerPoints()
                 //
                 // corner point 0 and 4
                 //
-                xtop = COORDDATA[0][0][j * (nx + 1) + i];
-                ytop = COORDDATA[1][0][j * (nx + 1) + i];
-                ztop = COORDDATA[2][0][j * (nx + 1) + i];
+                xtop    = COORDDATA[0][0][j * (nx + 1) + i];
+                ytop    = COORDDATA[1][0][j * (nx + 1) + i];
+                ztop    = COORDDATA[2][0][j * (nx + 1) + i];
                 xbottom = COORDDATA[0][1][j * (nx + 1) + i];
                 ybottom = COORDDATA[1][1][j * (nx + 1) + i];
                 zbottom = COORDDATA[2][1][j * (nx + 1) + i];
 
                 zvalue = ZCORNDATA[i][j][k][0];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p0 = Point3D(xvalue, yvalue, zvalue);
 
                 zvalue = ZCORNDATA[i][j][k][4];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p4 = Point3D(xvalue, yvalue, zvalue);
                 //
                 //    corner point 1 and 5
                 //
-                xtop = COORDDATA[0][0][j * (nx + 1) + i + 1];
-                ytop = COORDDATA[1][0][j * (nx + 1) + i + 1];
-                ztop = COORDDATA[2][0][j * (nx + 1) + i + 1];
+                xtop    = COORDDATA[0][0][j * (nx + 1) + i + 1];
+                ytop    = COORDDATA[1][0][j * (nx + 1) + i + 1];
+                ztop    = COORDDATA[2][0][j * (nx + 1) + i + 1];
                 xbottom = COORDDATA[0][1][j * (nx + 1) + i + 1];
                 ybottom = COORDDATA[1][1][j * (nx + 1) + i + 1];
                 zbottom = COORDDATA[2][1][j * (nx + 1) + i + 1];
 
                 zvalue = ZCORNDATA[i][j][k][1];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p1 = Point3D(xvalue, yvalue, zvalue);
-                
+
                 zvalue = ZCORNDATA[i][j][k][5];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p5 = Point3D(xvalue, yvalue, zvalue);
                 //
                 //    corner point 2 and 6
                 //
-                xtop = COORDDATA[0][0][(j + 1) * (nx + 1) + i + 1];
-                ytop = COORDDATA[1][0][(j + 1) * (nx + 1) + i + 1];
-                ztop = COORDDATA[2][0][(j + 1) * (nx + 1) + i + 1];
+                xtop    = COORDDATA[0][0][(j + 1) * (nx + 1) + i + 1];
+                ytop    = COORDDATA[1][0][(j + 1) * (nx + 1) + i + 1];
+                ztop    = COORDDATA[2][0][(j + 1) * (nx + 1) + i + 1];
                 xbottom = COORDDATA[0][1][(j + 1) * (nx + 1) + i + 1];
                 ybottom = COORDDATA[1][1][(j + 1) * (nx + 1) + i + 1];
                 zbottom = COORDDATA[2][1][(j + 1) * (nx + 1) + i + 1];
 
                 zvalue = ZCORNDATA[i][j][k][2];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p2 = Point3D(xvalue, yvalue, zvalue);
 
                 zvalue = ZCORNDATA[i][j][k][6];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p6 = Point3D(xvalue, yvalue, zvalue);
                 //
                 //    corner point 3 and 7
                 //
-                xtop = COORDDATA[0][0][(j + 1) * (nx + 1) + i];
-                ytop = COORDDATA[1][0][(j + 1) * (nx + 1) + i];
-                ztop = COORDDATA[2][0][(j + 1) * (nx + 1) + i];
+                xtop    = COORDDATA[0][0][(j + 1) * (nx + 1) + i];
+                ytop    = COORDDATA[1][0][(j + 1) * (nx + 1) + i];
+                ztop    = COORDDATA[2][0][(j + 1) * (nx + 1) + i];
                 xbottom = COORDDATA[0][1][(j + 1) * (nx + 1) + i];
                 ybottom = COORDDATA[1][1][(j + 1) * (nx + 1) + i];
                 zbottom = COORDDATA[2][1][(j + 1) * (nx + 1) + i];
 
                 zvalue = ZCORNDATA[i][j][k][3];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p3 = Point3D(xvalue, yvalue, zvalue);
 
                 zvalue = ZCORNDATA[i][j][k][7];
-                xvalue = xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
-                yvalue = ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
+                xvalue =
+                    xbottom - (zbottom - zvalue) / (zbottom - ztop) * (xbottom - xtop);
+                yvalue =
+                    ybottom - (zbottom - zvalue) / (zbottom - ztop) * (ybottom - ytop);
                 cornerPoints[i][j][k].p7 = Point3D(xvalue, yvalue, zvalue);
-                
-                      
+
                 //    calculate volumes and pore volumes
                 cindex = k * nxny + j * nx + i;
                 //
                 // NOTE: if there are several points not well ordered, the calculated
                 // volume will be negative.
                 //
-                v[cindex] = VolumHexahedron(cornerPoints[i][j][k]); // NTG
-                v[cindex] = fabs(v[cindex]);
+                v[cindex]      = VolumHexahedron(cornerPoints[i][j][k]); // NTG
+                v[cindex]      = fabs(v[cindex]);
                 center[cindex] = CenterHexahedron(cornerPoints[i][j][k]);
-                depth[cindex] = center[cindex].z;
+                depth[cindex]  = center[cindex].z;
             }
         }
     }
@@ -849,50 +869,51 @@ void COORD::SetupCornerPoints()
     // find neighbor and calculate transmissibility
     OCP_USI num_conn = 0; // record the num of connection, a->b & b->a are both included
     Point3D Pcenter, Pface, Pc2f; // center of Hexahedron
-    HexahedronFace Face, oFace; // current face, the other face
+    HexahedronFace Face, oFace;   // current face, the other face
     HexahedronFace FaceP, oFaceP; // Projection of Face and the other face
-    Point3D areaV; // area vector of interface
-    OCP_DBL areaP; // area of projection of interface
-    OCP_INT iznnc;
-    Point3D dxpoint, dypoint, dzpoint;
+    Point3D        areaV;         // area vector of interface
+    OCP_DBL        areaP;         // area of projection of interface
+    OCP_INT        iznnc;
+    Point3D        dxpoint, dypoint, dzpoint;
 
-    // test 
-    //cornerPoints[13][1][72].p0; cornerPoints[13][1][72].p1;
-    //cornerPoints[13][1][72].p2; cornerPoints[13][1][72].p3;
-    //cornerPoints[13][1][72].p4; cornerPoints[13][1][72].p5;
-    //cornerPoints[13][1][72].p6; cornerPoints[13][1][72].p7;
+    // test
+    // cornerPoints[13][1][72].p0; cornerPoints[13][1][72].p1;
+    // cornerPoints[13][1][72].p2; cornerPoints[13][1][72].p3;
+    // cornerPoints[13][1][72].p4; cornerPoints[13][1][72].p5;
+    // cornerPoints[13][1][72].p6; cornerPoints[13][1][72].p7;
 
-    //cornerPoints[13][2][74].p0; cornerPoints[13][2][74].p1;
-    //cornerPoints[13][2][74].p2; cornerPoints[13][2][74].p3;
-    //cornerPoints[13][2][74].p4; cornerPoints[13][2][74].p5;
-    //cornerPoints[13][2][74].p6; cornerPoints[13][2][74].p7;
-
+    // cornerPoints[13][2][74].p0; cornerPoints[13][2][74].p1;
+    // cornerPoints[13][2][74].p2; cornerPoints[13][2][74].p3;
+    // cornerPoints[13][2][74].p4; cornerPoints[13][2][74].p5;
+    // cornerPoints[13][2][74].p6; cornerPoints[13][2][74].p7;
 
     /////////////////////////////////////////////////////////////////////
     // Attention that The coordinate axis follows the right-hand rule ! //
     /////////////////////////////////////////////////////////////////////
-    //          
-    //      o----> x 
+    //
+    //      o----> x
     //     /|
-    //    y z 
+    //    y z
     // For a face, p0 and p3 are the points of upper edge of quadrilateral,
     // p1 and p2 are the points of lower edge
     //       p0 ---- p3
     //        |       |
     //        |       |
     //       p1 ---- p2
-    
+
     // Determine flagForward
-    if (COORDDATA[1][0][nx + 1] > COORDDATA[1][0][0])   flagForward =  1.0;
-    else                                                flagForward = -1.0;
+    if (COORDDATA[1][0][nx + 1] > COORDDATA[1][0][0])
+        flagForward = 1.0;
+    else
+        flagForward = -1.0;
 
     for (USI k = 0; k < nz; k++) {
         for (USI j = 0; j < ny; j++) {
             for (USI i = 0; i < nx; i++) {
-                // begin from each block             
+                // begin from each block
                 const Hexahedron& block = cornerPoints[i][j][k];
-                cindex = k * nxny + j * nx + i;
-                Pcenter = center[cindex];
+                cindex                  = k * nxny + j * nx + i;
+                Pcenter                 = center[cindex];
 
                 // cout << "============= " << cindex << " =============" << endl;
                 //
@@ -903,18 +924,17 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p4;
                 Face.p2 = block.p7;
                 Face.p3 = block.p3;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dxpoint = Pc2f;
 
-                if (i == 0) {   
+                if (i == 0) {
                     // nothing to do
-                }
-                else {
+                } else {
 
-                    const Hexahedron& leftblock = cornerPoints[i-1][j][k];
-                    oindex = k * nxny + j * nx + i - 1;
-                    
+                    const Hexahedron& leftblock = cornerPoints[i - 1][j][k];
+                    oindex                      = k * nxny + j * nx + i - 1;
+
                     oFace.p0 = leftblock.p1;
                     oFace.p1 = leftblock.p5;
                     oFace.p2 = leftblock.p6;
@@ -925,50 +945,52 @@ void COORD::SetupCornerPoints()
                     // calculate the interface of two face
                     if (flagJump) {
                         // nothing to do
-                    }
-                    else {
+                    } else {
                         if (flagQuad) {
                             areaV = VectorFace(tmpFace);
-                        }
-                        else {
-                            FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                            FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                            FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                            FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                        } else {
+                            FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                            FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                            FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                            FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                             oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                             oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                             oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                             oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                            areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                            areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                             // attention the direction of vector
                             areaV = VectorFace(Face);
                             // correct
                             if (fabs(areaV.x) < 1E-6) {
                                 OCP_WARNING("x is too small");
-                            }
-                            else {
+                            } else {
                                 areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                 areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                 areaV.x = OCP_SIGN(areaV.x) * areaP;
                             }
                         }
-                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                      flagForward);
                         num_conn++;
                     }
-                    
+
                     // then find all NNC for current block
-                    // check if upNNC and downNNC exist                   
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                    else                               upNNC = OCP_FALSE;                                      
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                    else                               downNNC = OCP_FALSE;
+                    // check if upNNC and downNNC exist
+                    if ((flagp0 > 0) || (flagp3 > 0))
+                        upNNC = OCP_TRUE;
+                    else
+                        upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))
+                        downNNC = OCP_TRUE;
+                    else
+                        downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k)  break;
+                        if (-iznnc - k > 0) break;
                         // find object block
-                        const Hexahedron& leftblock = cornerPoints[i - 1][j][k + iznnc];   
-                        oindex = (k + iznnc) * nxny + j * nx + i - 1;
+                        const Hexahedron& leftblock = cornerPoints[i - 1][j][k + iznnc];
+                        oindex   = (k + iznnc) * nxny + j * nx + i - 1;
                         oFace.p0 = leftblock.p1;
                         oFace.p1 = leftblock.p5;
                         oFace.p2 = leftblock.p6;
@@ -979,48 +1001,47 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                                FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                                FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                                FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                                FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                                FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                                FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.x) < 1E-6) {
                                     OCP_WARNING("x is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                     areaV.x = OCP_SIGN(areaV.x) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                          flagForward);
                             num_conn++;
-                            
                         }
                         iznnc--;
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                        else                               upNNC = OCP_FALSE;
+                        if ((flagp0 > 0) || (flagp3 > 0))
+                            upNNC = OCP_TRUE;
+                        else
+                            upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
                     while (downNNC) {
-                        if (k + iznnc > nz - 1)  break;
+                        if (k + iznnc > nz - 1) break;
                         // find object block
                         const Hexahedron& leftblock = cornerPoints[i - 1][j][k + iznnc];
-                        oindex = (k + iznnc) * nxny + j * nx + i - 1;
+                        oindex   = (k + iznnc) * nxny + j * nx + i - 1;
                         oFace.p0 = leftblock.p1;
                         oFace.p1 = leftblock.p5;
                         oFace.p2 = leftblock.p6;
@@ -1031,40 +1052,40 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                                FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                                FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                                FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                                FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                                FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                                FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.x) < 1E-6) {
                                     OCP_WARNING("x is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                     areaV.x = OCP_SIGN(areaV.x) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc++;
-                        
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                        else                               downNNC = OCP_FALSE;
+
+                        if ((flagp1 < 0) || (flagp2 < 0))
+                            downNNC = OCP_TRUE;
+                        else
+                            downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1075,18 +1096,17 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p6;
                 Face.p2 = block.p5;
                 Face.p3 = block.p1;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dxpoint = Pc2f - dxpoint;
 
                 if (i == nx - 1) {
                     // nothing to do
-                }
-                else {
+                } else {
 
                     const Hexahedron& rightblock = cornerPoints[i + 1][j][k];
-                    oindex = k * nxny + j * nx + i + 1;
-                    
+                    oindex                       = k * nxny + j * nx + i + 1;
+
                     oFace.p0 = rightblock.p3;
                     oFace.p1 = rightblock.p7;
                     oFace.p2 = rightblock.p4;
@@ -1097,49 +1117,52 @@ void COORD::SetupCornerPoints()
                     // calculate the interface of two face
                     if (flagJump) {
                         // nothing to do
-                    }
-                    else {
+                    } else {
                         if (flagQuad) {
                             areaV = VectorFace(tmpFace);
-                        }
-                        else {
-                            FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                            FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                            FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                            FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                        } else {
+                            FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                            FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                            FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                            FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                             oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                             oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                             oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                             oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                            areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                            areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                             // attention the direction of vector
                             areaV = VectorFace(Face);
                             // correct
                             if (fabs(areaV.x) < 1E-6) {
                                 OCP_WARNING("x is too small");
-                            }
-                            else {
+                            } else {
                                 areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                 areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                 areaV.x = OCP_SIGN(areaV.x) * areaP;
                             }
                         }
-                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                      flagForward);
                         num_conn++;
-                    }                   
+                    }
 
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                    else                               upNNC = OCP_FALSE;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                    else                               downNNC = OCP_FALSE;
+                    if ((flagp0 > 0) || (flagp3 > 0))
+                        upNNC = OCP_TRUE;
+                    else
+                        upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))
+                        downNNC = OCP_TRUE;
+                    else
+                        downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k)  break;
+                        if (-iznnc - k > 0) break;
                         // find object block
-                        const Hexahedron& rightblock = cornerPoints[i + 1][j][k + iznnc];
-                        oindex = (k + iznnc) * nxny + j * nx + i + 1;
+                        const Hexahedron& rightblock =
+                            cornerPoints[i + 1][j][k + iznnc];
+                        oindex   = (k + iznnc) * nxny + j * nx + i + 1;
                         oFace.p0 = rightblock.p3;
                         oFace.p1 = rightblock.p7;
                         oFace.p2 = rightblock.p4;
@@ -1150,48 +1173,49 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                                FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                                FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                                FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                                FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                                FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                                FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.x) < 1E-6) {
                                     OCP_WARNING("x is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                     areaV.x = OCP_SIGN(areaV.x) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                        else                               upNNC = OCP_FALSE;
+                        if ((flagp0 > 0) || (flagp3 > 0))
+                            upNNC = OCP_TRUE;
+                        else
+                            upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
                     while (downNNC) {
-                        if (k + iznnc > nz - 1)  break;
+                        if (k + iznnc > nz - 1) break;
                         // find object block
-                        const Hexahedron& rightblock = cornerPoints[i + 1][j][k + iznnc];
-                        oindex = (k + iznnc) * nxny + j * nx + i + 1;
+                        const Hexahedron& rightblock =
+                            cornerPoints[i + 1][j][k + iznnc];
+                        oindex   = (k + iznnc) * nxny + j * nx + i + 1;
                         oFace.p0 = rightblock.p3;
                         oFace.p1 = rightblock.p7;
                         oFace.p2 = rightblock.p4;
@@ -1202,40 +1226,40 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p3.y, Face.p3.z, 0);
-                                FaceP.p1 = Point3D(Face.p0.y, Face.p0.z, 0);
-                                FaceP.p2 = Point3D(Face.p1.y, Face.p1.z, 0);
-                                FaceP.p3 = Point3D(Face.p2.y, Face.p2.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p3.y, Face.p3.z, 0);
+                                FaceP.p1  = Point3D(Face.p0.y, Face.p0.z, 0);
+                                FaceP.p2  = Point3D(Face.p1.y, Face.p1.z, 0);
+                                FaceP.p3  = Point3D(Face.p2.y, Face.p2.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p3.y, oFace.p3.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p0.y, oFace.p0.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p1.y, oFace.p1.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p2.y, oFace.p2.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.x) < 1E-6) {
                                     OCP_WARNING("x is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.y = areaV.y / fabs(areaV.x) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.x) * areaP;
                                     areaV.x = OCP_SIGN(areaV.x) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 1,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                        else                               downNNC = OCP_FALSE;
+                        if ((flagp1 < 0) || (flagp2 < 0))
+                            downNNC = OCP_TRUE;
+                        else
+                            downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1246,18 +1270,17 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p5;
                 Face.p2 = block.p4;
                 Face.p3 = block.p0;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dypoint = Pc2f;
 
                 if (j == 0) {
                     // nothing to do
-                }
-                else {
+                } else {
 
                     const Hexahedron& backblock = cornerPoints[i][j - 1][k];
-                    oindex = k * nxny + (j - 1) * nx + i;
-                    
+                    oindex                      = k * nxny + (j - 1) * nx + i;
+
                     oFace.p0 = backblock.p2;
                     oFace.p1 = backblock.p6;
                     oFace.p2 = backblock.p7;
@@ -1268,49 +1291,51 @@ void COORD::SetupCornerPoints()
                     // calculate the interface of two face
                     if (flagJump) {
                         // nothing to do
-                    }
-                    else {
+                    } else {
                         if (flagQuad) {
                             areaV = VectorFace(tmpFace);
-                        }
-                        else {
-                            FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                            FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                            FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                            FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                        } else {
+                            FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                            FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                            FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                            FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                             oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                             oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                             oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                             oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                            areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                            areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                             // attention the direction of vector
                             areaV = VectorFace(Face);
                             // correct
                             if (fabs(areaV.y) < 1E-6) {
                                 OCP_WARNING("y is too small");
-                            }
-                            else {
+                            } else {
                                 areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                 areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                 areaV.y = OCP_SIGN(areaV.y) * areaP;
                             }
                         }
-                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                      flagForward);
                         num_conn++;
-                    }                   
+                    }
 
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                    else                               upNNC = OCP_FALSE;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                    else                               downNNC = OCP_FALSE;
+                    if ((flagp0 > 0) || (flagp3 > 0))
+                        upNNC = OCP_TRUE;
+                    else
+                        upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))
+                        downNNC = OCP_TRUE;
+                    else
+                        downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k)  break;
+                        if (-iznnc - k > 0) break;
                         // find object block
                         const Hexahedron& backblock = cornerPoints[i][j - 1][k + iznnc];
-                        oindex = (k + iznnc) * nxny + (j - 1) * nx + i;
+                        oindex   = (k + iznnc) * nxny + (j - 1) * nx + i;
                         oFace.p0 = backblock.p2;
                         oFace.p1 = backblock.p6;
                         oFace.p2 = backblock.p7;
@@ -1321,48 +1346,48 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                                FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                                FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                                FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                                FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                                FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                                FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.y) < 1E-6) {
                                     OCP_WARNING("y is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                     areaV.y = OCP_SIGN(areaV.y) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                        else                               upNNC = OCP_FALSE;
+                        if ((flagp0 > 0) || (flagp3 > 0))
+                            upNNC = OCP_TRUE;
+                        else
+                            upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
                     while (downNNC) {
-                        if (k + iznnc > nz - 1)  break;
+                        if (k + iznnc > nz - 1) break;
                         // find object block
                         const Hexahedron& backblock = cornerPoints[i][j - 1][k + iznnc];
-                        oindex = (k + iznnc) * nxny + (j - 1) * nx + i;
+                        oindex   = (k + iznnc) * nxny + (j - 1) * nx + i;
                         oFace.p0 = backblock.p2;
                         oFace.p1 = backblock.p6;
                         oFace.p2 = backblock.p7;
@@ -1373,42 +1398,42 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                                FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                                FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                                FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                                FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                                FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                                FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.y) < 1E-6) {
                                     OCP_WARNING("y is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                     areaV.y = OCP_SIGN(areaV.y) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                        else                               downNNC = OCP_FALSE;
+                        if ((flagp1 < 0) || (flagp2 < 0))
+                            downNNC = OCP_TRUE;
+                        else
+                            downNNC = OCP_FALSE;
                     }
-                }               
+                }
 
                 //
                 // (y+) direction
@@ -1417,18 +1442,17 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p7;
                 Face.p2 = block.p6;
                 Face.p3 = block.p2;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dypoint = Pc2f - dypoint;
 
                 if (j == ny - 1) {
                     // nothing to do
-                }
-                else {
+                } else {
 
                     const Hexahedron& frontblock = cornerPoints[i][j + 1][k];
-                    oindex = k * nxny + (j + 1) * nx + i;
-                    
+                    oindex                       = k * nxny + (j + 1) * nx + i;
+
                     oFace.p0 = frontblock.p0;
                     oFace.p1 = frontblock.p4;
                     oFace.p2 = frontblock.p5;
@@ -1439,49 +1463,52 @@ void COORD::SetupCornerPoints()
                     // calculate the interface of two face
                     if (flagJump) {
                         // nothing to do
-                    }
-                    else {
+                    } else {
                         if (flagQuad) {
                             areaV = VectorFace(tmpFace);
-                        }
-                        else {
-                            FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                            FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                            FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                            FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                        } else {
+                            FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                            FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                            FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                            FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                             oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                             oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                             oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                             oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                            areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                            areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                             // attention the direction of vector
                             areaV = VectorFace(Face);
                             // correct
                             if (fabs(areaV.y) < 1E-6) {
                                 OCP_WARNING("y is too small");
-                            }
-                            else {
+                            } else {
                                 areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                 areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                 areaV.y = OCP_SIGN(areaV.y) * areaP;
                             }
                         }
-                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                        blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                      flagForward);
                         num_conn++;
                     }
-                    
+
                     // then find all NNC for current block
-                    if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                    else                               upNNC = OCP_FALSE;
-                    if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                    else                               downNNC = OCP_FALSE;
+                    if ((flagp0 > 0) || (flagp3 > 0))
+                        upNNC = OCP_TRUE;
+                    else
+                        upNNC = OCP_FALSE;
+                    if ((flagp1 < 0) || (flagp2 < 0))
+                        downNNC = OCP_TRUE;
+                    else
+                        downNNC = OCP_FALSE;
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k)  break;
+                        if (-iznnc - k > 0) break;
                         // find object block
-                        const Hexahedron& frontblock = cornerPoints[i][j + 1][k + iznnc];
-                        oindex = (k + iznnc) * nxny + (j + 1) * nx + i;
+                        const Hexahedron& frontblock =
+                            cornerPoints[i][j + 1][k + iznnc];
+                        oindex   = (k + iznnc) * nxny + (j + 1) * nx + i;
                         oFace.p0 = frontblock.p0;
                         oFace.p1 = frontblock.p4;
                         oFace.p2 = frontblock.p5;
@@ -1492,48 +1519,49 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                                FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                                FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                                FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                                FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                                FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                                FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.y) < 1E-6) {
                                     OCP_WARNING("y is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                     areaV.y = OCP_SIGN(areaV.y) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc--;
 
-                        if ((flagp0 > 0) || (flagp3 > 0))  upNNC = OCP_TRUE;
-                        else                               upNNC = OCP_FALSE;
+                        if ((flagp0 > 0) || (flagp3 > 0))
+                            upNNC = OCP_TRUE;
+                        else
+                            upNNC = OCP_FALSE;
                     }
 
                     iznnc = 1;
                     while (downNNC) {
-                        if (k + iznnc > nz - 1)  break;
+                        if (k + iznnc > nz - 1) break;
                         // find object block
-                        const Hexahedron& frontblock = cornerPoints[i][j + 1][k + iznnc];
-                        oindex = (k + iznnc) * nxny + (j + 1) * nx + i;
+                        const Hexahedron& frontblock =
+                            cornerPoints[i][j + 1][k + iznnc];
+                        oindex   = (k + iznnc) * nxny + (j + 1) * nx + i;
                         oFace.p0 = frontblock.p0;
                         oFace.p1 = frontblock.p4;
                         oFace.p2 = frontblock.p5;
@@ -1544,40 +1572,40 @@ void COORD::SetupCornerPoints()
                         // calculate the interface of two face
                         if (flagJump) {
                             // nothing to do
-                        }
-                        else {
+                        } else {
                             if (flagQuad) {
                                 areaV = VectorFace(tmpFace);
-                            }
-                            else {
-                                FaceP.p0 = Point3D(Face.p0.x, Face.p0.z, 0);
-                                FaceP.p1 = Point3D(Face.p3.x, Face.p3.z, 0);
-                                FaceP.p2 = Point3D(Face.p2.x, Face.p2.z, 0);
-                                FaceP.p3 = Point3D(Face.p1.x, Face.p1.z, 0);
+                            } else {
+                                FaceP.p0  = Point3D(Face.p0.x, Face.p0.z, 0);
+                                FaceP.p1  = Point3D(Face.p3.x, Face.p3.z, 0);
+                                FaceP.p2  = Point3D(Face.p2.x, Face.p2.z, 0);
+                                FaceP.p3  = Point3D(Face.p1.x, Face.p1.z, 0);
                                 oFaceP.p0 = Point3D(oFace.p0.x, oFace.p0.z, 0);
                                 oFaceP.p1 = Point3D(oFace.p3.x, oFace.p3.z, 0);
                                 oFaceP.p2 = Point3D(oFace.p2.x, oFace.p2.z, 0);
                                 oFaceP.p3 = Point3D(oFace.p1.x, oFace.p1.z, 0);
-                                areaP = CalAreaNotQuadr(FaceP, oFaceP);
+                                areaP     = CalAreaNotQuadr(FaceP, oFaceP);
                                 // attention the direction of vector
                                 areaV = VectorFace(Face);
                                 // correct
                                 if (fabs(areaV.y) < 1E-6) {
                                     OCP_WARNING("y is too small");
-                                }
-                                else {
+                                } else {
                                     areaV.x = areaV.x / fabs(areaV.y) * areaP;
                                     areaV.z = areaV.z / fabs(areaV.y) * areaP;
                                     areaV.y = OCP_SIGN(areaV.y) * areaP;
                                 }
                             }
-                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2, flagForward);
+                            blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 2,
+                                                          flagForward);
                             num_conn++;
-                        }                       
+                        }
                         iznnc++;
 
-                        if ((flagp1 < 0) || (flagp2 < 0))  downNNC = OCP_TRUE;
-                        else                               downNNC = OCP_FALSE;
+                        if ((flagp1 < 0) || (flagp2 < 0))
+                            downNNC = OCP_TRUE;
+                        else
+                            downNNC = OCP_FALSE;
                     }
                 }
 
@@ -1588,18 +1616,17 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p3;
                 Face.p2 = block.p2;
                 Face.p3 = block.p1;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dzpoint = Pc2f;
                 if (k == 0) {
-                    // nothing to do                   
-                }
-                else {
+                    // nothing to do
+                } else {
                     // upblock
                     oindex = (k - 1) * nxny + j * nx + i;
-                    
+
                     tmpFace = Face;
-                    areaV = VectorFace(tmpFace);
+                    areaV   = VectorFace(tmpFace);
                     blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 3, flagForward);
                     num_conn++;
                 }
@@ -1611,30 +1638,29 @@ void COORD::SetupCornerPoints()
                 Face.p1 = block.p6;
                 Face.p2 = block.p7;
                 Face.p3 = block.p4;
-                Pface = CenterFace(Face);
-                Pc2f = Pface - Pcenter;
+                Pface   = CenterFace(Face);
+                Pc2f    = Pface - Pcenter;
                 dzpoint = Pc2f - dzpoint;
 
                 if (k == nz - 1) {
-                    // nothing to do                   
-                }
-                else {
+                    // nothing to do
+                } else {
                     // downblock
                     oindex = (k + 1) * nxny + j * nx + i;
-                    
+
                     tmpFace = Face;
-                    areaV = VectorFace(tmpFace);                    
+                    areaV   = VectorFace(tmpFace);
                     blockconn[cindex].AddHalfConn(oindex, areaV, Pc2f, 3, flagForward);
                     num_conn++;
                 }
 
                 // calculate dx,dy,dz
                 dx[cindex] = sqrt(dxpoint.x * dxpoint.x + dxpoint.y * dxpoint.y +
-                    dxpoint.z * dxpoint.z);
+                                  dxpoint.z * dxpoint.z);
                 dy[cindex] = sqrt(dypoint.x * dypoint.x + dypoint.y * dypoint.y +
-                    dypoint.z * dypoint.z);
+                                  dypoint.z * dypoint.z);
                 dz[cindex] = sqrt(dzpoint.x * dzpoint.x + dzpoint.y * dzpoint.y +
-                    dzpoint.z * dzpoint.z);
+                                  dzpoint.z * dzpoint.z);
 
                 OCP_ASSERT(!isfinite(dx[cindex]), "Wrong dx!");
                 OCP_ASSERT(!isfinite(dy[cindex]), "Wrong dy!");
@@ -1642,7 +1668,6 @@ void COORD::SetupCornerPoints()
             }
         }
     }
-
 
     OCP_ASSERT(num_conn % 2 == 0, "Wrong Conn!");
     numConnMax = num_conn / 2;
@@ -1675,17 +1700,16 @@ void COORD::SetupCornerPoints()
             // now, blockconn[n].halfConn[j]
             //     blockconn[nn].halfConn[jj]
             //     are a pair of connections
-            connect[iter_conn].begin = n;
-            connect[iter_conn].Ad_dd_begin = blockconn[n].halfConn[j].Ad_dd;
-            connect[iter_conn].end = nn;
-            connect[iter_conn].Ad_dd_end = blockconn[nn].halfConn[jj].Ad_dd;
+            connect[iter_conn].begin         = n;
+            connect[iter_conn].Ad_dd_begin   = blockconn[n].halfConn[j].Ad_dd;
+            connect[iter_conn].end           = nn;
+            connect[iter_conn].Ad_dd_end     = blockconn[nn].halfConn[jj].Ad_dd;
             connect[iter_conn].directionType = blockconn[n].halfConn[j].directionType;
             iter_conn++;
         }
     }
     numConn = iter_conn;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

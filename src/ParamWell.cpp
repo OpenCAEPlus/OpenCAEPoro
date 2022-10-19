@@ -86,9 +86,9 @@ void ParamWell::InputCOMPDAT(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string src   = vbuf[0];
-        int    pos   = src.find("*");
-        OCP_BOOL   match = (pos != string::npos);
+        string            src   = vbuf[0];
+        string::size_type pos   = src.find("*");
+        OCP_BOOL          match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
@@ -157,9 +157,9 @@ void ParamWell::InputWCONINJE(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string src   = vbuf[0];
-        int    pos   = src.find("*");
-        OCP_BOOL   match = (pos != string::npos);
+        string            src   = vbuf[0];
+        string::size_type pos   = src.find("*");
+        OCP_BOOL          match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
@@ -192,9 +192,9 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string src   = vbuf[0];
-        int    pos   = src.find("*");
-        OCP_BOOL   match = (pos != string::npos);
+        string            src   = vbuf[0];
+        string::size_type pos   = src.find("*");
+        OCP_BOOL          match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
@@ -244,9 +244,9 @@ void ParamWell::InputWELTARG(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string src   = vbuf[0];
-        int    pos   = src.find("*");
-        OCP_BOOL   match = (pos != string::npos);
+        string            src   = vbuf[0];
+        string::size_type pos   = src.find("*");
+        OCP_BOOL          match = (pos != string::npos);
         if (match) {
             src.erase(pos);
         }
