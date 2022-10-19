@@ -45,8 +45,8 @@ constexpr inline long long Map_Str2Int(const char* mystr, const USI& len)
 /// ReadLine is the core function while inputting the file. It will capture the next
 /// line which is meanningful, for example, not blank line or comments, and then gets
 /// rid of some useless characters such as space, commas. Finally, the segments of rest
-/// string will be stored in result. And if return OCP_FALSE, it indicates we have reach the
-/// end of file.
+/// string will be stored in result. And if return OCP_FALSE, it indicates we have reach
+/// the end of file.
 OCP_BOOL ReadLine(ifstream& ifs, vector<string>& result);
 
 /// DealDefault is used to deal with the expression with asterisk, for example
@@ -62,7 +62,6 @@ void DealData(const vector<string>& vbuf, vector<OCP_USI>& obj, vector<T>& regio
     region.resize(0);
     for (auto& str : vbuf) {
         auto pos = str.find('*');
-
         if (pos != string::npos) {
             USI     len = str.size();
             OCP_USI num = stoi(str.substr(0, pos));
