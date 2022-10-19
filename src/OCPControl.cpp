@@ -53,8 +53,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
         buffer << optset[n];
         buffer >> tmp;
 
-        const unsigned long pos = tmp.find_last_of('=');
-
+        size_t pos = tmp.find_last_of('=');
         if (pos == string::npos) OCP_ABORT("Unknown Usage! See -h");
 
         key   = tmp.substr(0, pos);
