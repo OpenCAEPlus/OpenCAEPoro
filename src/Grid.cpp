@@ -381,7 +381,7 @@ void Grid::CalSomeInfo() const
 
 void Grid::CalNumDigutIJK()
 {
-    OCP_ASSERT((nx > 0 & ny > 0 & nz > 0), "Wrong Dimension!");
+    OCP_ASSERT((nx > 0 && ny > 0 && nz > 0), "Wrong Dimension!");
     numDigutIJK = 1;
     if (log10(nx) > numDigutIJK) numDigutIJK = ceil(log10(nx));
     if (log10(ny) > numDigutIJK) numDigutIJK = ceil(log10(ny));
