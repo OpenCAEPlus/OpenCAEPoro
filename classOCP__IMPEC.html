@@ -85,9 +85,8 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a9a4a9e6ce7acd1624360adb138d2b59d">Setup</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
 <tr class="memdesc:a9a4a9e6ce7acd1624360adb138d2b59d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup IMPEC. <br /></td></tr>
 <tr class="separator:a9a4a9e6ce7acd1624360adb138d2b59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58f7cfe8df3f2eb319b7c3f05f190cbb"><td class="memItemLeft" align="right" valign="top"><a id="a58f7cfe8df3f2eb319b7c3f05f190cbb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a58f7cfe8df3f2eb319b7c3f05f190cbb">InitReservoir</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
-<tr class="memdesc:a58f7cfe8df3f2eb319b7c3f05f190cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init. <br /></td></tr>
+<tr class="memitem:a58f7cfe8df3f2eb319b7c3f05f190cbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#a58f7cfe8df3f2eb319b7c3f05f190cbb">InitReservoir</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
+<tr class="memdesc:a58f7cfe8df3f2eb319b7c3f05f190cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init.  <a href="classOCP__IMPEC.html#a58f7cfe8df3f2eb319b7c3f05f190cbb">More...</a><br /></td></tr>
 <tr class="separator:a58f7cfe8df3f2eb319b7c3f05f190cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae0637215f124a63787ea19d2528fef1"><td class="memItemLeft" align="right" valign="top"><a id="aae0637215f124a63787ea19d2528fef1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1">Prepare</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
@@ -119,14 +118,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>FinishStep</b> (<a cl
 <div class="textblock"><p><a class="el" href="classOCP__IMPEC.html" title="OCP_IMPEC is IMPEC (implict pressure explict saturation) method.">OCP_IMPEC</a> is IMPEC (implict pressure explict saturation) method. </p>
 
 <p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8hpp_source.html#l00023">23</a> of file <a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a58f7cfe8df3f2eb319b7c3f05f190cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58f7cfe8df3f2eb319b7c3f05f190cbb">&#9670;&nbsp;</a></span>InitReservoir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OCP_IMPEC::InitReservoir </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classReservoir.html">Reservoir</a> &amp;&#160;</td>
+          <td class="paramname"><em>rs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init. </p>
+<p>Initialize reservoir. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPFluidMethod_8cpp_source.html#l00029">29</a> of file <a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{ rs.<a class="code" href="classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba">InitIMPEC</a>(); }</div>
+<div class="ttc" id="aclassReservoir_html_a5c7f38bc2fe311fbf19d8a14b58a4fba"><div class="ttname"><a href="classReservoir.html#a5c7f38bc2fe311fbf19d8a14b58a4fba">Reservoir::InitIMPEC</a></div><div class="ttdeci">void InitIMPEC()</div><div class="ttdoc">Initialize the properties of Reservoir for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00150">Reservoir.cpp:150</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00150">Reservoir::InitIMPEC()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="OCPFluidMethod_8hpp_source.html">OCPFluidMethod.hpp</a></li>
 <li><a class="el" href="OCPFluidMethod_8cpp_source.html">OCPFluidMethod.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 18 2022 21:02:27 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 19 2022 02:50:22 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
