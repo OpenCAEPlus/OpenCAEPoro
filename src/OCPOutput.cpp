@@ -612,31 +612,36 @@ void CriticalInfo::PrintInfo(const string& dir) const
 
 void DetailInfo::InputParam(const OutputDetail& detail_param)
 {
-    PRE  = detail_param.PRE;
-    PGAS = detail_param.PGAS;
-    PWAT = detail_param.PWAT;
-    SOIL = detail_param.SOIL;
-    SGAS = detail_param.SGAS;
-    SWAT = detail_param.SWAT;
-    DENO = detail_param.DENO;
-    DENG = detail_param.DENG;
-    DENW = detail_param.DENW;
-    KRO  = detail_param.KRO;
-    KRG  = detail_param.KRG;
-    KRW  = detail_param.KRW;
-    BOIL = detail_param.BOIL;
-    BGAS = detail_param.BGAS;
-    BWAT = detail_param.BWAT;
-    VOIL = detail_param.VOIL;
-    VGAS = detail_param.VGAS;
-    VWAT = detail_param.VWAT;
-    XMF  = detail_param.XMF;
-    YMF  = detail_param.YMF;
-    PCW  = detail_param.PCW;
+    useRPT = detail_param.useRPT;
+    if (!useRPT) return;
+
+    bgp.PRE  = detail_param.PRE;
+    bgp.PGAS = detail_param.PGAS;
+    bgp.PWAT = detail_param.PWAT;
+    bgp.SOIL = detail_param.SOIL;
+    bgp.SGAS = detail_param.SGAS;
+    bgp.SWAT = detail_param.SWAT;
+    bgp.DENO = detail_param.DENO;
+    bgp.DENG = detail_param.DENG;
+    bgp.DENW = detail_param.DENW;
+    bgp.KRO  = detail_param.KRO;
+    bgp.KRG  = detail_param.KRG;
+    bgp.KRW  = detail_param.KRW;
+    bgp.BOIL = detail_param.BOIL;
+    bgp.BGAS = detail_param.BGAS;
+    bgp.BWAT = detail_param.BWAT;
+    bgp.VOIL = detail_param.VOIL;
+    bgp.VGAS = detail_param.VGAS;
+    bgp.VWAT = detail_param.VWAT;
+    bgp.XMF  = detail_param.XMF;
+    bgp.YMF  = detail_param.YMF;
+    bgp.PCW  = detail_param.PCW;
 }
 
 void DetailInfo::Setup(const string& dir)
 {
+    if (!useRPT) return;
+
     string   FileOut = dir + "RPT.out";
     ofstream outF(FileOut);
     if (!outF.is_open()) {
@@ -649,6 +654,9 @@ void DetailInfo::PrintInfo(const string&    dir,
                            const Reservoir& rs,
                            const OCP_DBL&   days) const
 {
+
+    if (!useRPT) return;
+
     string   FileOut = dir + "RPT.out";
     ofstream outF;
     outF.open(FileOut, ios::app);
@@ -900,7 +908,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     outF << endl << endl;
 
     // PRESSURE
-    if (PRE) {
+    if (bgp.PRE) {
         outF << "PRESSURE : psia"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
@@ -925,7 +933,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // DENSITY of OIL
-    if (DENO && rs.bulk.oil) {
+    if (bgp.DENO && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "DENO : lb/ft3"
              << "                   ";
@@ -956,7 +964,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // DENSITY of GAS
-    if (DENG && rs.bulk.gas) {
+    if (bgp.DENG && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "DENG : lb/ft3"
              << "                   ";
@@ -987,7 +995,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // DENSITY of WATER
-    if (DENW && rs.bulk.water) {
+    if (bgp.DENW && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "DENW : lb/ft3"
              << "                   ";
@@ -1018,7 +1026,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // SATURATION of OIL
-    if (SOIL && rs.bulk.oil) {
+    if (bgp.SOIL && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "SOIL"
              << "                   ";
@@ -1049,7 +1057,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // SATURATION of GAS
-    if (SGAS && rs.bulk.gas) {
+    if (bgp.SGAS && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "SGAS"
              << "                   ";
@@ -1080,7 +1088,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // SATURATION of WATER
-    if (SWAT && rs.bulk.water) {
+    if (bgp.SWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "SWAT"
              << "                   ";
@@ -1111,7 +1119,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Relative Permeability of OIL
-    if (KRO && rs.bulk.oil) {
+    if (bgp.KRO && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "KRO"
              << "                   ";
@@ -1142,7 +1150,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Relative Permeability of GAS
-    if (KRG && rs.bulk.gas) {
+    if (bgp.KRG && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "KRG"
              << "                   ";
@@ -1173,7 +1181,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Relative Permeability of WATER
-    if (KRW && rs.bulk.water) {
+    if (bgp.KRW && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "KRW"
              << "                   ";
@@ -1204,7 +1212,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Molar Density of OIL
-    if (BOIL && rs.bulk.oil && rs.bulk.comps) {
+    if (bgp.BOIL && rs.bulk.oil && rs.bulk.comps) {
         outF << sep02 << "\n";
         outF << "BOIL : lb-M/rb"
              << "                   ";
@@ -1236,7 +1244,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Molar Density of GAS
-    if (BGAS && rs.bulk.gas && rs.bulk.comps) {
+    if (bgp.BGAS && rs.bulk.gas && rs.bulk.comps) {
         outF << sep02 << "\n";
         outF << "BGAS : lb-M/rb"
              << "                   ";
@@ -1268,7 +1276,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Molar Density of WATER
-    if (BWAT && rs.bulk.water) {
+    if (bgp.BWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "BWAT : lb-M/rb"
              << "                   ";
@@ -1300,7 +1308,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Viscosity of OIL
-    if (VOIL && rs.bulk.oil) {
+    if (bgp.VOIL && rs.bulk.oil) {
         outF << sep02 << "\n";
         outF << "VOIL : cp"
              << "                   ";
@@ -1331,7 +1339,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Viscosity of GAS
-    if (VGAS && rs.bulk.gas) {
+    if (bgp.VGAS && rs.bulk.gas) {
         outF << sep02 << "\n";
         outF << "VGAS : cp"
              << "                   ";
@@ -1362,7 +1370,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Viscosity of WATER
-    if (VWAT && rs.bulk.water) {
+    if (bgp.VWAT && rs.bulk.water) {
         outF << sep02 << "\n";
         outF << "VWAT : cp"
              << "                   ";
@@ -1393,7 +1401,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // liquid component mole fractions.
-    if (XMF && rs.bulk.comps) {
+    if (bgp.XMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
             // the ith component
             outF << sep02 << "\n";
@@ -1430,7 +1438,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // gas component mole fractions.
-    if (YMF && rs.bulk.comps) {
+    if (bgp.YMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
             // the ith component
             outF << sep02 << "\n";
@@ -1545,7 +1553,7 @@ void DetailInfo::PrintInfo(const string&    dir,
     }
 
     // Po - Pw
-    if (PCW) {
+    if (bgp.PCW) {
         outF << "PCW : psia"
              << "                   ";
         outF << fixed << setprecision(3) << days << "  DAYS";
@@ -1573,6 +1581,18 @@ void DetailInfo::PrintInfo(const string&    dir,
     outF.close();
 }
 
+
+void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
+{
+    if (!useVtk) return;
+
+    string title = to_string(days) + " Days";
+
+    out4vtk.Init(dir + "grid" + to_string(index) + ".vtk", title,
+        VTK_ASCII, VTK_UNSTRUCTURED_GRID);   
+}
+
+
 void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
     summary.InputParam(paramOutput.summary);
@@ -1581,10 +1601,10 @@ void OCPOutput::InputParam(const ParamOutput& paramOutput)
 
 void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
 {
-    wordDir = ctrl.workDir;
+    workDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
     crtInfo.Setup(ctrl.criticalTime.back());
-    dtlInfo.Setup(wordDir);
+    dtlInfo.Setup(workDir);
 }
 
 void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
@@ -1595,8 +1615,8 @@ void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 
 void OCPOutput::PrintInfo() const
 {
-    summary.PrintInfo(wordDir);
-    crtInfo.PrintInfo(wordDir);
+    summary.PrintInfo(workDir);
+    crtInfo.PrintInfo(workDir);
 }
 
 void OCPOutput::PrintInfoSched(const Reservoir&  rs,
@@ -1607,7 +1627,8 @@ void OCPOutput::PrintInfoSched(const Reservoir&  rs,
     cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
          << setprecision(3) << right << days << " Days"
          << "    Wall time: " << time / 1000 << " Sec" << endl;
-    dtlInfo.PrintInfo(wordDir, rs, days);
+    dtlInfo.PrintInfo(workDir, rs, days);
+    out4VTK.PrintVTK(workDir, rs, days);
 }
 
 /*----------------------------------------------------------------------------*/
