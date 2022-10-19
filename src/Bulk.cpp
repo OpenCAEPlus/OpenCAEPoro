@@ -2613,7 +2613,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmaxlim,
         fill(dtmp.begin(), dtmp.end(), 0.0);
 
 #ifdef OCP_OLD_FIM        
-        DaAxpby(row0, col, 1, &dSec_dPri[n * bsize], u.data() + n * col, 1,
+        DaAxpby(row0, col, 1, &dSec_dPri[n * maxLendSdP], u.data() + n * col, 1,
             dtmp.data());
         const OCP_BOOL newFIM = OCP_FALSE;
 #else

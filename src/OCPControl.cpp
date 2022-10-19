@@ -204,6 +204,7 @@ void OCPControl::InitTime(const USI& i)
 
 void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
 {
+    ctrlFast.printLevel = 0;
     ctrlFast.ReadParam(argc, optset);
     if (ctrlFast.activity) {
         method = ctrlFast.method;
@@ -225,9 +226,9 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
             ctrlTimeSet[i].timeInit = ctrlFast.timeInit;
             ctrlTimeSet[i].timeMax  = ctrlFast.timeMax;
             ctrlTimeSet[i].timeMin  = ctrlFast.timeMin;
-        }
-        printLevel = ctrlFast.printLevel;
+        }        
     }
+    printLevel = ctrlFast.printLevel;
 }
 
 void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
