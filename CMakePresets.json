@@ -45,7 +45,8 @@
             "displayName": "Windows x64 intel Debug",
             "description": "Sets Ninja, intel compilers, x64 architecture, debug build, build/install directory",
             "cacheVariables": {
-                "FASP_DIR": "C:/Program Files (x86)/faspsolver"
+                "FASP_DIR": "C:/Program Files (x86)/faspsolver",
+                "CMAKE_CXX_COMPILER": "icx"
             },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
