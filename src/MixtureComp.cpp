@@ -900,7 +900,7 @@ void MixtureComp::CalFugPhi(vector<OCP_DBL>&       phiT,
     OCP_DBL tmp;
     for (USI i = 0; i < NC; i++) {
         tmp = 0;
-        for (int k = 0; k < NC; k++) {
+        for (USI k = 0; k < NC; k++) {
             tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
         }
         phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
@@ -943,7 +943,7 @@ void MixtureComp::CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj)
     OCP_DBL tmp;
     for (USI i = 0; i < NC; i++) {
         tmp = 0;
-        for (int k = 0; k < NC; k++) {
+        for (USI k = 0; k < NC; k++) {
             tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
         }
         phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
@@ -981,7 +981,7 @@ void MixtureComp::CalFugPhi(OCP_DBL* fugT, const OCP_DBL* xj)
     OCP_DBL tmp;
     for (USI i = 0; i < NC; i++) {
         tmp = 0;
-        for (int k = 0; k < NC; k++) {
+        for (USI k = 0; k < NC; k++) {
             tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
         }
         tmp     = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
@@ -1015,7 +1015,7 @@ void MixtureComp::CalFugPhiAll()
 
         for (USI i = 0; i < NC; i++) {
             tmp = 0;
-            for (int k = 0; k < NC; k++) {
+            for (USI k = 0; k < NC; k++) {
                 tmp += 2 * (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
             }
             phiT[i] = exp(Bi[i] / bj * (zj - 1) - log(zj - bj) -
