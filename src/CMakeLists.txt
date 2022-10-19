@@ -17,6 +17,7 @@ target_sources(
          MixtureBO3_ODGW.cpp
          OCPControl.cpp
          OCPOutput.cpp
+         Output4Vtk.cpp
          ParamOutput.cpp
          ParamWell.cpp
          UtilInput.cpp

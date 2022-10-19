@@ -19,6 +19,7 @@ target_sources(
          OCPConst.hpp
          OCP.hpp
          OCPTable.hpp
+         Output4Vtk.hpp
          ParamRead.hpp
          Reservoir.hpp
          UtilInput.hpp
