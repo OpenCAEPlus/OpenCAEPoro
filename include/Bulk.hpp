@@ -59,6 +59,7 @@ class Bulk
     friend class BulkConn;
     friend class Well;
     friend class DetailInfo;
+    friend class Out4VTK;
 
     // temp
     friend class OCP_IMPEC;

@@ -24,7 +24,14 @@
 
 using namespace std;
 
-
+class OCPpolyhedron
+{
+public:
+    OCPpolyhedron() = default;
+    OCPpolyhedron(const USI& n) :numPoints(n) {};
+    vector<Point3D> Points;
+    USI             numPoints;
+};
 
 
 /// Effective area of intersection surfaces with neighboring cells.
@@ -77,6 +84,7 @@ class Grid
     friend class Bulk;
     friend class BulkConn;
     friend class Well;
+    friend class Out4VTK;
 
 public:
     /// Default constructor.
@@ -167,6 +175,18 @@ private:
     OCP_USI         activeGridNum; ///< Num of active grid.
     vector<OCP_USI> activeMap_B2G; ///< Mapping from active grid to grid: activeGridNum = numBulk
     vector<GB_Pair> activeMap_G2B; ///< Mapping from grid to active grid: numGrid.
+
+
+private:
+    // for output
+    OCP_BOOL        output4vtk{ OCP_FALSE };
+    vector<OCPpolyhedron>  polyhedronGrid;
+
+public:
+    void SetHexaherdronGridOrthogonal();
+    void SetHexaherdronGridCorner();
+
+
 
 private:
     // Auxiliary variable

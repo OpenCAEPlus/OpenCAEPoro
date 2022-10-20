@@ -210,8 +210,8 @@ public:
     void PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
 private:
 
-    OCP_BOOL    useVtk{ OCP_FALSE };
-    USI         index{ 0 };   ///< index of output file
+    OCP_BOOL     useVtk{ OCP_TRUE };
+    mutable USI  index{ 0 };   ///< index of output file
     BasicGridProperty bgp;
     Output4Vtk  out4vtk;
 };

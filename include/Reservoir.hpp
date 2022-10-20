@@ -33,6 +33,7 @@ class Reservoir
     friend class Summary;
     friend class CriticalInfo;
     friend class DetailInfo;
+    friend class Out4VTK;
 
     // temp
     friend class OCP_IMPEC;
