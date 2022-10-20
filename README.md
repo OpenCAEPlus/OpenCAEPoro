@@ -87,6 +87,17 @@ The directory structure of OpenCAEPoro is designed as follows:
 - cli, cli.bat: Command line interface for build, test, and doc
 - .clang-format: For automatic source code formatting
 
+## Build
+
+### External dependencies
+There are required and optional external dependencies for the OpenCAEPoro library. All of them are now handled by the CMakeLists file in the external folder. 
+
+For each dependency, there is a corresponding cmake include file in the modules folder, dealing with things such as fetch content, create imported target, link to the OpenCAEPoro library, and etc.
+
+Since now everything is taken cared withing each of the include file, things become cleaner in the root's and main's CMakeLists files.
+
+To add a new dependency, you just need to create a new include file in the modules folder and then include it in the external CMakeLists file.
+
 ## Test
 
 There are three levels of tests:
