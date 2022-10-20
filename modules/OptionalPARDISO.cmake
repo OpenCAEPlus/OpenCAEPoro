@@ -1,5 +1,3 @@
-
-
 ##################################################################
 # For Intel MKL PARDISO
 ##################################################################
@@ -17,6 +15,7 @@ if(USE_PARDISO)
     if (MKL_FOUND)
         add_definitions("-DWITH_PARDISO=1")
         include_directories(${MKL_INCLUDE_DIRS})
+        target_link_libraries(${LIBNAME} PUBLIC ${MKL_LIBRARIES})
     else(MKL_FOUND)
         message("-- WARNING: Intel MKL was requested but not supported! Continue without it.")
     endif(MKL_FOUND)

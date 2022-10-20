@@ -75,7 +75,6 @@ message(STATUS "Set build type to ${CMAKE_BUILD_TYPE} configuration")
 option(BUILD_TEST "Build test" OFF)
 if(BUILD_TEST)
     include(CTest)
-    # add_subdirectory(test)
 endif()
 
 ###############################################################################

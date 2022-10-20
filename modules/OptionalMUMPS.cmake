@@ -1,7 +1,7 @@
-
 ##################################################################
 # For MUMPS
 ##################################################################
+
 option(USE_MUMPS "Use MUMPS" OFF)
 
 if(USE_MUMPS)
@@ -16,6 +16,7 @@ if(USE_MUMPS)
     if (MUMPS_FOUND)
         add_definitions("-DWITH_MUMPS=1")
         include_directories(${MUMPS_INCLUDE_DIRS})
+        target_link_libraries(${LIBNAME} PUBLIC ${METIS_LIBRARIES} ${MUMPS_LIBRARIES})
     else(MUMPS_FOUND)
         message("-- WARNING: MUMPS was requested but not supported! Continue without it.")
     endif(MUMPS_FOUND)

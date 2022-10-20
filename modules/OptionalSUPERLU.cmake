@@ -1,4 +1,3 @@
-
 ##################################################################
 # For SuperLU
 ##################################################################
@@ -15,6 +14,7 @@ if(USE_SUPERLU)
     if (SUPERLU_FOUND)
         add_definitions("-DWITH_SuperLU=1")
         include_directories(${SUPERLU_INCLUDE_DIRS})
+        target_link_libraries(${LIBNAME} PUBLIC ${SUPERLU_LIBRARIES})
     else(SUPERLU_FOUND)
         message("-- WARNING: SuperLU was requested but not supported! Continue without it.")
     endif(SUPERLU_FOUND)

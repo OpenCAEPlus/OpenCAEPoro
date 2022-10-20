@@ -1,4 +1,3 @@
-
 ##################################################################
 # For UMFPACK
 ##################################################################
@@ -15,6 +14,7 @@ if(USE_UMFPACK)
     if (UMFPACK_FOUND)
         add_definitions("-DWITH_UMFPACK=1")
         include_directories(${UMFPACK_INCLUDE_DIRS})
+        target_link_libraries(${LIBNAME} PUBLIC ${UMFPACK_LIBRARIES})
     else(UMFPACK_FOUND)
         message("-- WARNING: UMFPACK was requested but not supported! Continue without it.")
     endif(UMFPACK_FOUND)
