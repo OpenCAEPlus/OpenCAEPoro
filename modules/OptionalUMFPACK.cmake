@@ -8,7 +8,7 @@ if(USE_UMFPACK)
 
   # set some path to the UMFPACK pacakge metis is not part of suitesparse, so
   # theremay be also some other metis dir.
-  set(METIS_DIR "${SUITESPARSE_DIR}")
+  set(SUITESPARSE_DIR "${SUITESPARSE_DIR}")
   find_package(UMFPACK)
   if(UMFPACK_FOUND)
     message(STATUS "INFO: UMFPACK found")
