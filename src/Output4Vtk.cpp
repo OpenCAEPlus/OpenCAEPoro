@@ -48,7 +48,7 @@ void Output4Vtk::Init(const string& myFile, const string& shortInfo, const strin
 }
 
 
-void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHex, const string& dataType) const
+void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell, const string& dataType) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -59,14 +59,29 @@ void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>&
     ios::sync_with_stdio(false);
     myVtk.tie(0);
 
-    const VTK_USI numGrid = myHex.size();
-    myVtk << VTK_POINTS << " " << numGrid * 8 << " " << VTK_FLOAT << "\n";
+    // Grid Points
+    const VTK_USI numGrid = myHexGrid.size();
+    const VTK_USI numWell = myHexWell.size();
+    VTK_USI numWellPoints = numGrid * 8;
+    for (auto& w : myHexWell) {
+        numWellPoints += w.numPoints;
+    }
+    myVtk << VTK_POINTS << " " << numWellPoints << " " << VTK_FLOAT << "\n";
 
     for (VTK_USI i = 0; i < numGrid; i++) {
-        for (USI j = 0; j < myHex[i].numPoints; j++) {
-            myVtk << setw(6) << myHex[i].Points[j].x << "   "
-                << setw(6) << myHex[i].Points[j].y << "   "
-                << setw(6) << myHex[i].Points[j].z << "\n";
+        for (USI j = 0; j < myHexGrid[i].numPoints; j++) {
+            myVtk << setw(6) << myHexGrid[i].Points[j].x << "   "
+                << setw(6) << myHexGrid[i].Points[j].y << "   "
+                << setw(6) << myHexGrid[i].Points[j].z << "\n";
+        }
+    }
+
+    // Well Points
+    for (VTK_USI w = 0; w < numWell; w++) {
+        for (USI j = 0; j < myHexWell[w].numPoints; j++) {
+            myVtk << setw(6) << myHexWell[w].Points[j].x << "   "
+                << setw(6) << myHexWell[w].Points[j].y << "   "
+                << setw(6) << myHexWell[w].Points[j].z << "\n";
         }
     }
 
@@ -75,7 +90,7 @@ void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>&
 }
 
 
-void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHex) const
+void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -85,13 +100,25 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
 
     ios::sync_with_stdio(false);
     myVtk.tie(0);
+   
+    const VTK_USI numGrid = myHexGrid.size();
+    const USI numWell = myHexWell.size();
 
-    const VTK_USI numGrid = myHex.size();
-    myVtk << VTK_CELLS << " " << numGrid << " " << numGrid + numGrid * 8 << "\n";
+    USI numSize = numGrid + numWell;
+    for (VTK_USI n = 0; n < numGrid; n++) {
+        numSize += myHexGrid[n].numPoints;
+    }
+    for (USI w = 0; w < numWell; w++) {
+        numSize += myHexWell[w].numPoints;
+    }
+
+
+    myVtk << VTK_CELLS << " " << (numGrid + numWell) << " " << numSize << "\n";
     
     // EASY output!
+    // Grid Cell
     VTK_USI tmp = 0;
-    for (VTK_USI i = 0; i < numGrid; i++) {
+    for (VTK_USI n = 0; n < numGrid; n++) {
         myVtk << 8 << "  ";
         for (VTK_USI j = 0; j < 8; j++) {
             myVtk << j + tmp << "   ";
@@ -100,12 +127,23 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
         tmp += 8;
     }
 
+    // Well Cell
+    for (USI w = 0; w < numWell; w++) {
+        myVtk << myHexWell[w].numPoints << "  ";
+        for (VTK_USI j = 0; j < myHexWell[w].numPoints; j++) {
+            myVtk << j + tmp << "   ";
+        }
+        myVtk << "\n";
+        tmp += myHexWell[w].numPoints;
+    }
+
+
     myVtk << "\n";
     myVtk.close();
 }
 
 
-void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex) const
+void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -116,12 +154,19 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
     ios::sync_with_stdio(false);
     myVtk.tie(0);
 
-    const VTK_USI numGrid = myHex.size();
-    myVtk << VTK_CELL_TYPES << " " << numGrid << "\n";
+    const VTK_USI numGrid = myHexGrid.size();
+    const USI numWell = myHexWell.size();
+    myVtk << VTK_CELL_TYPES << " " << (numGrid + numWell) << "\n";
 
     // EASY output!
-    for (VTK_USI i = 0; i < numGrid; i++) {
+    // Grid Cell
+    for (VTK_USI n = 0; n < numGrid; n++) {
         myVtk << VTK_HEXAHEDRON << "\n";
+    }
+
+    // Well Cell
+    for (USI w = 0; w < numWell; w++) {
+        myVtk << VTK_POLY_LINE << "\n";
     }
 
     myVtk << "\n";
@@ -130,7 +175,7 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
 
 
 void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-    const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair) const
+    const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -151,15 +196,22 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
     myVtk << VTK_SCALARS << " " << dataName << " " << dataType << " " << 1 << "\n";
     myVtk << VTK_LOOKUP_TABLE << " " << VTK_DEFAULT << "\n";
 
-    
-    for (VTK_USI n = 0; n < numGrid; n++) {
-        if (gbPair[n].IsAct()) {
-            myVtk << val[gbPair[n].GetId() * gap] << "\n";
-        }
-        else {
-            myVtk << val[0] << "\n"; //tmp
+    if (useActive) {
+        for (VTK_USI n = 0; n < numGrid; n++) {
+            if (gbPair[n].IsAct()) {
+                myVtk << val[gbPair[n].GetId() * gap] << "\n";
+            }
+            else {
+                myVtk << val[0] << "\n"; //tmp
+            }
         }
     }
+    else {
+        for (VTK_USI n = 0; n < numGrid; n++) {
+                myVtk << val[gbPair[n].GetId() * gap] << "\n";
+        }
+    }
+    
 
     myVtk << "\n";
     myVtk.close();

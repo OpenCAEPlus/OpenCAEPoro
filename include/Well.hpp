@@ -271,6 +271,9 @@ public:
         const OCP_DBL& dt) const;
     void AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt) const;
+
+    // for output
+    void SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol);
 };
 
 #endif /* end if __WELL_HEADER__ */

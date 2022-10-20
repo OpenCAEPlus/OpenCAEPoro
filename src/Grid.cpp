@@ -390,7 +390,7 @@ void Grid::SetHexaherdronGridOrthogonal()
 {
     // x,y-coordinate begins from 0
 
-    if (!output4vtk) return;
+    if (!useVtk) return;
 
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);
@@ -424,7 +424,7 @@ void Grid::SetHexaherdronGridOrthogonal()
 
 void Grid::SetHexaherdronGridCorner()
 {
-    if (!output4vtk) return;
+    if (!useVtk) return;
 }
 
 

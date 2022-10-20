@@ -78,7 +78,7 @@ private:
 //  reservoir. Considering there exist inactive cells (whose porosity or cell volume is
 //  too small) and activeness status might change, the Grid class is necessary. The Grid
 //  class is static while simulating, active grids will be stored in bulks, which is
-//  "area" for calculating???
+//  "area" for calculating
 class Grid
 {
     friend class Bulk;
@@ -179,13 +179,13 @@ private:
 
 private:
     // for output
-    OCP_BOOL        output4vtk{ OCP_FALSE };
+    OCP_BOOL        useVtk{ OCP_FALSE };
     vector<OCPpolyhedron>  polyhedronGrid;
 
 public:
+    OCP_BOOL IfUseVtk()const { return useVtk; }
     void SetHexaherdronGridOrthogonal();
     void SetHexaherdronGridCorner();
-
 
 
 private:

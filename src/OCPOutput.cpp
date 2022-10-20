@@ -1591,9 +1591,9 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     string title = "test";
 
     out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID);
-    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, VTK_FLOAT);
-    out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid);
-    out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid);
+    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell, VTK_FLOAT);
+    out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
+    out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
 
     for (USI i = 1; i < ndates; i++) {
         index++;
@@ -1610,11 +1610,13 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 
 void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
 {
+    if (!useVtk) return;
+
     string file = dir + "grid" + to_string(index) + ".vtk";
   
-    out4vtk.BeginCellData();
-    out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B);
-    out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[OIL]], rs.bulk.numPhase, rs.grid.activeMap_G2B);
+    //out4vtk.BeginCellData();
+    //out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+    //out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[OIL]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);
     
     index++;
 }

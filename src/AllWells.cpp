@@ -60,6 +60,7 @@ void AllWells::Setup(const Grid& myGrid, const Bulk& myBulk)
     OCP_FUNCNAME;
 
     SetupWell(myGrid, myBulk);
+    SetPolyhedronWell(myGrid);
     SetupMixture(myBulk);
 }
 
@@ -633,6 +634,16 @@ void AllWells::AssemblaMatFIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
                 OCP_ABORT("Wrong well type");
             }
         }
+    }
+}
+
+void AllWells::SetPolyhedronWell(const Grid& myGrid)
+{
+    if (!myGrid.IfUseVtk()) return;
+
+    polyhedronWell.resize(numWell);
+    for (USI w = 0; w < numWell; w++) {
+        wells[w].SetPolyhedronWell(myGrid, polyhedronWell[w]);
     }
 }
 

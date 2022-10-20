@@ -76,6 +76,7 @@ class AllWells
     // temp
     friend class Reservoir;
     friend class DetailInfo;
+    friend class Out4VTK;
 
 public:
     AllWells() = default;
@@ -269,6 +270,13 @@ public:
     void AssemblaMatFIM_new_n(LinearSystem&  myLS,
                               const Bulk&    myBulk,
                               const OCP_DBL& dt) const;
+
+    // for output
+private:
+    vector<OCPpolyhedron>  polyhedronWell;
+
+public:
+    void SetPolyhedronWell(const Grid& myGrid);
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

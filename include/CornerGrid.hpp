@@ -61,6 +61,10 @@ public:
     Point3D operator+(const Point3D& other) const; ///< Addition
     Point3D operator-(const Point3D& other) const; ///< Substraction
     OCP_DBL operator*(const Point3D& other) const; ///< Multiplication
+    Point3D& operator+=(const Point3D& other);
+    Point3D& operator*=(const OCP_DBL& a);
+    Point3D& operator/=(const OCP_DBL& a);
+    void Reset() { x = 0; y = 0; z = 0; };
 };
 
 Point3D operator*(const Point3D& p, const OCP_DBL& a);      ///< Point * a

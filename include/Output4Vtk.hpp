@@ -45,6 +45,9 @@ const string VTK_SCALARS = "SCALARS";
 
 // Basic Cell Type
 const VTK_USI VTK_HEXAHEDRON = 12;
+const VTK_USI VTK_POLY_LINE = 4;
+
+
 
 const string VTK_FLOAT = "float";
 
@@ -54,12 +57,12 @@ class Output4Vtk
 
 public:
 	void Init(const string& myFile, const string& shortInfo, const string& myCodeWay, const string& girdType) const; ///< create a new file and write basic information
-	void OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHex, const string& dataType) const;
-	void OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHex) const;
-	void OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex) const;
+	void OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell, const string& dataType) const;
+	void OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const;
+	void OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex, const vector<OCPpolyhedron>& myHexWell) const;
 	void OutputPOINT_DATA();
 	void OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-		const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair) const;
+		const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive) const;
 	void BeginCellData() const { cellData = true; };
 
 private:

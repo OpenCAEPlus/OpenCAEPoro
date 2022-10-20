@@ -2831,6 +2831,32 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
 }
 
 
+void Well::SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol)
+{
+    // set a virtual point
+    mypol.numPoints = numPerf + 1;
+    mypol.Points.resize(mypol.numPoints);
+
+    OCP_USI k;
+    Point3D tmpP;
+    
+    
+    for (USI p = 0; p < numPerf; p++) {
+        tmpP.Reset();
+        k = myGrid.activeMap_B2G[perf[p].location];
+        for (USI i = 0; i < myGrid.polyhedronGrid[k].numPoints; i++) {
+            tmpP += myGrid.polyhedronGrid[k].Points[i];
+        }
+        tmpP /= myGrid.polyhedronGrid[k].numPoints;
+        mypol.Points[p + 1] = tmpP;
+    }
+
+    // Set virtual perf
+    mypol.Points[0] = mypol.Points[1];
+    mypol.Points[0].z /= 2;
+}
+
+
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/
