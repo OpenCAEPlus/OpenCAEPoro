@@ -151,6 +151,7 @@ The directory structure of OpenCAEPoro is designed as follows:
 - `src/` : Source files
 - `stash/` : Files that are no longer needed, keep for future references
 - `main/` : Main source code for executables
+- `modules/` : Cmake files for finding and setting dependencies
 - CMakeLists.txt: Main cmake script
 - CMakePresets.json: Preset settings for cmake
 - CONTRIBUTE.md: Guidance for open source contributors
