@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD 14)
 # Set module lookup path
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 
-# Add math and stdc++ libraries when not included by default
+# Add math and stdc++ libraries if not included by default
 if (UNIX OR LINUX)
     set(ADD_STDLIBS m stdc++)
 endif()
@@ -40,6 +40,7 @@ add_library(OpenCAEPoro STATIC)
 ###############################################################################
 ## External dependencies
 ###############################################################################
+
 add_subdirectory(external)
 
 ###############################################################################

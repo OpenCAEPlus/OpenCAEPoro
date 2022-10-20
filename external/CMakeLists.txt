@@ -1,3 +1,8 @@
+# Since everything is taken cared of in each of the include file, things 
+# become cleaner in the root's and main's CMakeLists files. To add a new 
+# dependency, you just need to create a new include file in the modules 
+# folder and then include it in this file.
+
 include(FetchContent)
 # FetchContent_MakeAvailable was not added until CMake 3.14; use our shim
 if(${CMAKE_VERSION} VERSION_LESS 3.14)
