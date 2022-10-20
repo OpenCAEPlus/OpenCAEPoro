@@ -4,12 +4,12 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
   include(add_FetchContent_MakeAvailable.cmake)
 endif()
 
-# Find BLAS and LAPACK implementations
-find_package(BLAS REQUIRED)
-find_package(LAPACK REQUIRED)
-
-# Find FASP, will be installed if not found
+# Find Required dependencies 
+include(RequiredBLAS)
+include(RequiredLAPACK)
 include(RequiredFASP)
+
+# OpenCAEPoro library targets
 
 # Find Optional dependencies
 include(OptionalOPENMP)
@@ -22,6 +22,7 @@ include(OptionalPARDISO)
 include(OptionalSUPERLU)
 include(OptionalUMFPACK)
 include(OptionalDoxygen)
+
 
 # For future, if we have external source to be included, we can put it under
 # external and add_subdirectory()

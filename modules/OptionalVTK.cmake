@@ -46,4 +46,7 @@ if(USE_VTK)
   set_target_properties(
     vtk PROPERTIES IMPORTED_LOCATION ${VTK_LIBRARIES}
                    INTERFACE_INCLUDE_DIRECTORIES ${VTK_INCLUDE_DIRS})
+
+  target_link_libraries(${LIBNAME} PUBLIC vtk)
+
 endif()

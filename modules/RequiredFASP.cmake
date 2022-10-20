@@ -13,3 +13,5 @@ else(FASP_FOUND)
     fasp GIT_REPOSITORY https://github.com/FaspDevTeam/faspsolver.git)
   FetchContent_MakeAvailable(fasp)
 endif(FASP_FOUND)
+
+target_link_libraries(${LIBNAME} PUBLIC fasp)

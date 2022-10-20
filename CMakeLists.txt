@@ -32,6 +32,9 @@ if (UNIX OR LINUX)
     set(ADD_STDLIBS m stdc++)
 endif()
 
+set(LIBNAME OpenCAEPoro CACHE INTERNAL "The library name")
+add_library(OpenCAEPoro STATIC)
+
 ###############################################################################
 ## External dependencies
 ###############################################################################
@@ -56,18 +59,6 @@ endif()
 ###############################################################################
 ## Project specific parameters
 ###############################################################################
-
-# OpenCAEPoro library targets
-add_library(OpenCAEPoro STATIC)
-if(USE_FASP4CUDA)
-    target_link_libraries(OpenCAEPoro PUBLIC fasp cublas cusparse cudart cudadevrt)
-else()
-    target_link_libraries(OpenCAEPoro PUBLIC fasp)
-endif()
-if(BUILD_ECL)
-    target_link_libraries(OpenCAEPoro PUBLIC ecl)
-endif()
-target_link_libraries(OpenCAEPoro PUBLIC ${VTK_LIBRARIES})
 
 add_subdirectory(src)
 add_subdirectory(include)

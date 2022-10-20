@@ -39,4 +39,7 @@ if(USE_FASP4CUDA)
     )
   endif(FASP4CUDA_FOUND)
 
+  target_link_libraries(${LIBNAME} PUBLIC cublas cusparse cudart cudadevrt
+                                           ${FASP4CUDA_LIBRARIES})
+
 endif(USE_FASP4CUDA)

@@ -7,4 +7,7 @@ if(USE_ECL)
     GIT_SUBMODULES ""
     GIT_TAG 609fb59)
   FetchContent_MakeAvailable(ecl)
+
+  target_link_libraries(${LIBNAME} PUBLIC ecl)
+
 endif()
