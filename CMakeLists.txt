@@ -32,6 +32,8 @@ if (UNIX OR LINUX)
     set(ADD_STDLIBS m stdc++)
 endif()
 
+# LIBNAME is used in the external dependencies, to make it easier if we 
+# decide the change the new in the future
 set(LIBNAME OpenCAEPoro CACHE INTERNAL "The library name")
 add_library(OpenCAEPoro STATIC)
 
