@@ -25,45 +25,22 @@ project(OpenCAEPoro C CXX)
 set(CMAKE_CXX_STANDARD 14)
 
 # Set module lookup path
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
+
+# Add math and stdc++ libraries when not included by default
+if (UNIX OR LINUX)
+    set(ADD_STDLIBS m stdc++)
+endif()
+
+# LIBNAME is used in the external dependencies, to make it easier if we 
+# decide the change the new in the future
+set(LIBNAME OpenCAEPoro CACHE INTERNAL "The library name")
+add_library(OpenCAEPoro STATIC)
 
 ###############################################################################
 ## External dependencies
 ###############################################################################
-
-# Find BLAS and LAPACK implementations
-find_package(BLAS REQUIRED)
-find_package(LAPACK REQUIRED)
-
-# Add math and stdc++ libraries when not included by default
-if (UNIX OR LINUX)
-	set(ADD_STDLIBS m stdc++)
-endif()
-
-# Install external packages (faspsolver and ecl)
 add_subdirectory(external)
-
-# Other optional external packages 
-include(optional)
-
-###############################################################################
-## Find compiler support for OpenMP. Since cmake 3.9, we can use 
-## find_package(OpenMP). Keep this for older cmake!!!
-###############################################################################
-
-if(USE_OPENMP)
-    if(CMAKE_VERSION VERSION_GREATER 3)
-        cmake_policy(SET "CMP0054" NEW)
-    endif()
-
-    find_package(OpenMP)
-    if(OPENMP_FOUND)
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")	 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-    else(OPENMP_FOUND)
-        message("   WARNING: OpenMP was requested but disabled!")
-    endif(OPENMP_FOUND)
-endif(USE_OPENMP)
 
 ###############################################################################
 ## Set configuration types and default compiler flags
@@ -84,18 +61,6 @@ endif()
 ###############################################################################
 ## Project specific parameters
 ###############################################################################
-
-# OpenCAEPoro library targets
-add_library(OpenCAEPoro STATIC)
-if(USE_FASP4CUDA)
-    target_link_libraries(OpenCAEPoro PUBLIC fasp cublas cusparse cudart cudadevrt)
-else()
-    target_link_libraries(OpenCAEPoro PUBLIC fasp)
-endif()
-if(BUILD_ECL)
-    target_link_libraries(OpenCAEPoro PUBLIC ecl)
-endif()
-target_link_libraries(OpenCAEPoro PUBLIC ${VTK_LIBRARIES})
 
 add_subdirectory(src)
 add_subdirectory(include)

@@ -489,7 +489,7 @@ void Summary::PrintInfo(const string& dir) const
 
     while (id != num) {
 
-        outF << "Row " << ++row << endl;
+        outF << "Row " << ++row << "\n";
 
         // Item
         // Time
@@ -500,7 +500,7 @@ void Summary::PrintInfo(const string& dir) const
             outF << "\t" << setw(ns) << Sumdata[id++].Item;
             if (id == num) break;
         }
-        outF << endl;
+        outF << "\n";
 
         // Unit
         // Time
@@ -511,7 +511,7 @@ void Summary::PrintInfo(const string& dir) const
             outF << "\t" << setw(ns) << Sumdata[id++].Unit;
             if (id == num) break;
         }
-        outF << endl;
+        outF << "\n";
 
         // Obj
         // Time
@@ -522,7 +522,7 @@ void Summary::PrintInfo(const string& dir) const
             outF << "\t" << setw(ns) << Sumdata[id++].Obj;
             if (id == num) break;
         }
-        outF << endl;
+        outF << "\n";
 
         // Data
         for (USI l = 0; l < len; l++) {
@@ -535,12 +535,12 @@ void Summary::PrintInfo(const string& dir) const
                 outF << "\t" << setw(ns) << Sumdata[id++].val[l];
                 if (id == num) break;
             }
-            outF << endl;
+            outF << "\n";
         }
 
         ID += (col - 1);
 
-        outF << endl;
+        outF << "\n";
     }
 
     outF.close();
@@ -844,20 +844,20 @@ void DetailInfo::PrintInfo(const string&    dir,
     USI numWell = rs.allWells.GetWellNum();
     outF << "Well Information"
          << "                    ";
-    outF << fixed << setprecision(3) << days << "  DAYS" << endl;
+    outF << fixed << setprecision(3) << days << "  DAYS" << "\n";
     // INJ
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == INJ) {
-            outF << "-------------------------------------" << endl;
+            outF << "-------------------------------------" << "\n";
             outF << rs.allWells.wells[w].name << "   " << w << "   "
                  << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << endl;
+            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
                 outF << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t"
-                     << rs.allWells.wells[w].WWIR << " (STB/DAY)" << endl;
+                     << rs.allWells.wells[w].WWIR << " (STB/DAY)" << "\n";
             } else {
-                outF << "SHUTIN" << endl;
+                outF << "SHUTIN" << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
@@ -870,24 +870,24 @@ void DetailInfo::PrintInfo(const string&    dir,
                 } else {
                     outF << "SHUTIN";
                 }
-                outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
+                outF << "   " << rs.allWells.wells[w].perf[p].location << "\n";
             }
         }
     }
     // PROD
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == PROD) {
-            outF << "-------------------------------------" << endl;
+            outF << "-------------------------------------" << "\n";
             outF << rs.allWells.wells[w].name << "   " << w << "   "
                  << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << endl;
+            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
                 outF << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t"
                      << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
-                     << rs.allWells.wells[w].WWPR << " (STB/DAY)" << endl;
+                     << rs.allWells.wells[w].WWPR << " (STB/DAY)" << "\n";
             } else {
-                outF << "SHUTIN" << endl;
+                outF << "SHUTIN" << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
@@ -900,12 +900,12 @@ void DetailInfo::PrintInfo(const string&    dir,
                 } else {
                     outF << "SHUTIN";
                 }
-                outF << "   " << rs.allWells.wells[w].perf[p].location << endl;
+                outF << "   " << rs.allWells.wells[w].perf[p].location << "\n";
             }
         }
     }
 
-    outF << endl << endl;
+    outF << "\n\n";
 
     // PRESSURE
     if (bgp.PRE) {
@@ -1584,12 +1584,18 @@ void DetailInfo::PrintInfo(const string&    dir,
 
 void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
 {
+
     if (!useVtk) return;
 
-    string title = to_string(days) + " Days";
-
-    out4vtk.Init(dir + "grid" + to_string(index) + ".vtk", title,
-        VTK_ASCII, VTK_UNSTRUCTURED_GRID);   
+    string file = dir + "grid" + to_string(index) + ".vtk";
+    string title = "At " + to_string(days) + " Days";
+    
+    out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID);
+    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, VTK_FLOAT);
+    out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid);
+    out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid);
+    out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, rs.bulk.P, rs.grid.activeMap_G2B);
+    index++;
 }
 
 

@@ -86,6 +86,9 @@ void Grid::SetupOrthogonalGrid()
     SetupNeighborOrthogonalGrid();
     CalDepthVOrthogonalGrid();
     CalActiveGrid(1E-6, 1E-6);
+    
+    // for output
+    SetHexaherdronGridOrthogonal();
 }
 
 void Grid::SetupNeighborOrthogonalGrid()
@@ -201,6 +204,9 @@ void Grid::SetupCornerGrid()
     coordTmp.SetupCornerPoints();
     SetupNeighborCornerGrid(coordTmp);
     CalActiveGrid(1E-6, 1E-6);
+
+    // for output
+    SetHexaherdronGridCorner();
 }
 
 void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
@@ -378,6 +384,50 @@ void Grid::CalSomeInfo() const
          << "  dzMax    = " << dzMax << endl
          << "  dzMin    = " << dzMin << endl;
 }
+
+
+void Grid::SetHexaherdronGridOrthogonal()
+{
+    // x,y-coordinate begins from 0
+
+    if (!output4vtk) return;
+
+    polyhedronGrid.reserve(numGrid);
+    OCPpolyhedron tmpP(8);
+    OCP_DBL tmpX, tmpY;
+    OCP_USI id;
+
+    for (USI k = 0; k < nz; k++) {
+        tmpY = 0;
+        for (USI j = 0; j < ny; j++) {
+            tmpX = 0;
+            for (USI i = 0; i < nx; i++) {
+                id = k * nx * ny + j * nx + i;
+                tmpP.Points.push_back(Point3D(tmpX, tmpY, depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY, depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX, tmpY + dy[id], depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX, tmpY, depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY, depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(Point3D(tmpX, tmpY + dy[id], depth[id] - dz[id] / 2));
+
+                polyhedronGrid.push_back(tmpP);
+                tmpP.Points.clear();
+                tmpX += dx[id];
+            }
+            tmpY += dy[id];
+        }
+    }
+}
+
+
+void Grid::SetHexaherdronGridCorner()
+{
+    if (!output4vtk) return;
+}
+
+
 
 void Grid::CalNumDigutIJK()
 {
