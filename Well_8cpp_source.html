@@ -2879,14 +2879,40 @@ $(function() {
 <div class="line"><a name="l02831"></a><span class="lineno"> 2831</span>&#160;}</div>
 <div class="line"><a name="l02832"></a><span class="lineno"> 2832</span>&#160; </div>
 <div class="line"><a name="l02833"></a><span class="lineno"> 2833</span>&#160; </div>
-<div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;<span class="keywordtype">void</span> Well::SetPolyhedronWell(<span class="keyword">const</span> <a class="code" href="classGrid.html">Grid</a>&amp; myGrid, <a class="code" href="classOCPpolyhedron.html">OCPpolyhedron</a>&amp; mypol)</div>
+<div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;{</div>
+<div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;    <span class="comment">// set a virtual point</span></div>
+<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;    mypol.numPoints = numPerf + 1;</div>
+<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;    mypol.Points.resize(mypol.numPoints);</div>
+<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160; </div>
+<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> k;</div>
+<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;    <a class="code" href="classPoint3D.html">Point3D</a> tmpP;</div>
+<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;    </div>
+<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;    </div>
+<div class="line"><a name="l02844"></a><span class="lineno"> 2844</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; numPerf; p++) {</div>
+<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;        tmpP.Reset();</div>
+<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;        k = myGrid.activeMap_B2G[perf[p].location];</div>
+<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; myGrid.polyhedronGrid[k].numPoints; i++) {</div>
+<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;            tmpP += myGrid.polyhedronGrid[k].Points[i];</div>
+<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;        }</div>
+<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;        tmpP /= myGrid.polyhedronGrid[k].numPoints;</div>
+<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160;        mypol.Points[p + 1] = tmpP;</div>
+<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;    }</div>
+<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160; </div>
+<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160;    <span class="comment">// Set virtual perf</span></div>
+<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;    mypol.Points[0] = mypol.Points[1];</div>
+<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;    mypol.Points[0].z /= 2;</div>
+<div class="line"><a name="l02857"></a><span class="lineno"> 2857</span>&#160;}</div>
+<div class="line"><a name="l02858"></a><span class="lineno"> 2858</span>&#160; </div>
+<div class="line"><a name="l02859"></a><span class="lineno"> 2859</span>&#160; </div>
+<div class="line"><a name="l02860"></a><span class="lineno"> 2860</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l02861"></a><span class="lineno"> 2861</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l02862"></a><span class="lineno"> 2862</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l02863"></a><span class="lineno"> 2863</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l02864"></a><span class="lineno"> 2864</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l02865"></a><span class="lineno"> 2865</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l02866"></a><span class="lineno"> 2866</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l02867"></a><span class="lineno"> 2867</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a2dedd031947f85613a20d2bcadfb6d29"><div class="ttname"><a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a></div><div class="ttdeci">void DaABpbC(const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</div><div class="ttdoc">Computes C' = alpha B'A' + beta C', all matrices are column-major.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00076">DenseMat.cpp:76</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a3fb701e3ab34443119b7b2ba7a2bc6c7"><div class="ttname"><a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a></div><div class="ttdeci">void Dscalar(const int &amp;n, const double &amp;alpha, double *x)</div><div class="ttdoc">Scales a vector by a constant.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00062">DenseMat.cpp:62</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a509bf5c3f0e217a8459e280b8f48bfa3"><div class="ttname"><a href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a></div><div class="ttdeci">void DaAxpby(const int &amp;m, const int &amp;n, const double &amp;a, const double *A, const double *x, const double &amp;b, double *y)</div><div class="ttdoc">Computes y = a A x + b y.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00173">DenseMat.cpp:173</a></div></div>
@@ -2933,6 +2959,8 @@ $(function() {
 <div class="ttc" id="aclassBulk_html"><div class="ttname"><a href="classBulk.html">Bulk</a></div><div class="ttdoc">Physical information of each active reservoir bulk.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00057">Bulk.hpp:58</a></div></div>
 <div class="ttc" id="aclassGrid_html"><div class="ttname"><a href="classGrid.html">Grid</a></div><div class="ttdoc">Basic information of computational grid, including the rock properties.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00082">Grid.hpp:83</a></div></div>
 <div class="ttc" id="aclassLinearSystem_html"><div class="ttname"><a href="classLinearSystem.html">LinearSystem</a></div><div class="ttdoc">Linear solvers for discrete systems.</div><div class="ttdef"><b>Definition:</b> <a href="LinearSystem_8hpp_source.html#l00030">LinearSystem.hpp:31</a></div></div>
+<div class="ttc" id="aclassOCPpolyhedron_html"><div class="ttname"><a href="classOCPpolyhedron.html">OCPpolyhedron</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00027">Grid.hpp:28</a></div></div>
+<div class="ttc" id="aclassPoint3D_html"><div class="ttname"><a href="classPoint3D.html">Point3D</a></div><div class="ttdoc">A point in 3D.</div><div class="ttdef"><b>Definition:</b> <a href="CornerGrid_8hpp_source.html#l00046">CornerGrid.hpp:47</a></div></div>
 <div class="ttc" id="aclassResFIM_html"><div class="ttname"><a href="classResFIM.html">ResFIM</a></div><div class="ttdoc">FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00024">OCPStructure.hpp:25</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html"><div class="ttname"><a href="classWellOptParam.html">WellOptParam</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00028">ParamWell.hpp:29</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a144f37940d5f85961f915fddeb560b40"><div class="ttname"><a href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">WellOptParam::maxBHP</a></div><div class="ttdeci">OCP_DBL maxBHP</div><div class="ttdoc">Maximum allowable pressure in the injection well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00039">ParamWell.hpp:39</a></div></div>
@@ -2993,7 +3021,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 20 2022 08:15:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Oct 20 2022 10:01:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
