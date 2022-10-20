@@ -141,7 +141,7 @@ public:
 };
 
 /// ???
-class COORD
+class OCP_COORD
 {
     friend class Grid;
 

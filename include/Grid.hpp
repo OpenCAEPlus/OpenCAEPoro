@@ -107,7 +107,7 @@ public:
     /// Setup a corner-point grid.
     void SetupCornerGrid();
     /// Setup the neighboring info for a corner-point grid.
-    void SetupNeighborCornerGrid(const COORD& CoTmp);
+    void SetupNeighborCornerGrid(const OCP_COORD& CoTmp);
     /// Calculate Akd for a corner-point grid.
     OCP_DBL CalAkdCornerGrid(const GeneralConnect& conn);
 

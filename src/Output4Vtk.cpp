@@ -14,6 +14,7 @@
 
 
 
+
 void Output4Vtk::Init(const string& myFile, const string& shortInfo, const string& myCodeWay, const string& girdType) const
 {
     ofstream myVtk(myFile);
@@ -129,7 +130,7 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
 
 
 void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-    const vector<VTK_DBL>& val, const vector<GB_Pair>& gbPair) const
+    const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -140,16 +141,23 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
     ios::sync_with_stdio(false);
     myVtk.tie(0);
 
-    const VTK_USI numGrid = gbPair.size();
 
-    myVtk << VTK_CELL_DATA << " " << numGrid << "\n";
+    const VTK_USI numGrid = gbPair.size();
+    if (cellData) {
+        myVtk << VTK_CELL_DATA << " " << numGrid << "\n";
+        cellData = false;
+    }  
+    
     myVtk << VTK_SCALARS << " " << dataName << " " << dataType << " " << 1 << "\n";
     myVtk << VTK_LOOKUP_TABLE << " " << VTK_DEFAULT << "\n";
 
     
     for (VTK_USI n = 0; n < numGrid; n++) {
         if (gbPair[n].IsAct()) {
-            myVtk << val[gbPair[n].GetId()] << "\n";
+            myVtk << val[gbPair[n].GetId() * gap] << "\n";
+        }
+        else {
+            myVtk << val[0] << "\n"; //tmp
         }
     }
 

@@ -570,7 +570,7 @@ void ConnGrid::AddHalfConn(const OCP_USI& n,
     // cout << n << "   " << direction << "   " << halfConn[nConn-1].Ad_dd << endl;
 }
 
-void COORD::Allocate(const USI& Nx, const USI& Ny, const USI& Nz)
+void OCP_COORD::Allocate(const USI& Nx, const USI& Ny, const USI& Nz)
 {
     nx      = Nx;
     ny      = Ny;
@@ -612,7 +612,7 @@ void COORD::Allocate(const USI& Nx, const USI& Ny, const USI& Nz)
     center.resize(numGrid);
 }
 
-void COORD::InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn)
+void OCP_COORD::InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn)
 {
     if (coord.empty() || !InputCOORDDATA(coord)) {
         OCP_ABORT("ERROR COORD!");
@@ -622,7 +622,7 @@ void COORD::InputData(const vector<OCP_DBL>& coord, const vector<OCP_DBL>& zcorn
     }
 }
 
-OCP_BOOL COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
+OCP_BOOL OCP_COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
 {
     // See Eclipse -- COORD
     OCP_BOOL flag = OCP_FALSE;
@@ -647,7 +647,7 @@ OCP_BOOL COORD::InputCOORDDATA(const vector<OCP_DBL>& coord)
     return flag;
 }
 
-OCP_BOOL COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
+OCP_BOOL OCP_COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
 {
     // See Eclipse -- ZCORN
     OCP_BOOL flag = OCP_FALSE;
@@ -688,7 +688,7 @@ OCP_BOOL COORD::InputZCORNDATA(const vector<OCP_DBL>& zcorn)
     return flag;
 }
 
-void COORD::SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face)
+void OCP_COORD::SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face)
 {
     tmpFace = Face;
 
@@ -743,7 +743,7 @@ void COORD::SetAllFlags(const HexahedronFace& oFace, const HexahedronFace& Face)
     }
 }
 
-void COORD::SetupCornerPoints()
+void OCP_COORD::SetupCornerPoints()
 {
     OCP_USI cindex, oindex; // current block index and the other block index
     OCP_USI nxny = nx * ny;

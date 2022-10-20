@@ -23,6 +23,7 @@
 #include "UtilOutput.hpp"
 #include "Output4Vtk.hpp"
 
+
 using namespace std;
 
 /// 3D coordinate representation in OpenCAEPoro
@@ -207,6 +208,7 @@ private:
 class Out4VTK
 {
 public:
+    void Setup(const string& dir, const Reservoir& rs, const USI& ndates);
     void PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
 private:
 

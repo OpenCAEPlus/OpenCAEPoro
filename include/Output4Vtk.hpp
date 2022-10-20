@@ -59,7 +59,11 @@ public:
 	void OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex) const;
 	void OutputPOINT_DATA();
 	void OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-		const vector<VTK_DBL>& val, const vector<GB_Pair>& gbPair) const;
+		const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair) const;
+	void BeginCellData() const { cellData = true; };
+
+private:
+	mutable bool cellData{ false };
 
 };
 

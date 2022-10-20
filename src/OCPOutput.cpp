@@ -1582,19 +1582,40 @@ void DetailInfo::PrintInfo(const string&    dir,
 }
 
 
-void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
+void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 {
-
     if (!useVtk) return;
 
     string file = dir + "grid" + to_string(index) + ".vtk";
-    string title = "At " + to_string(days) + " Days";
-    
+    string newfile;
+    string title = "test";
+
     out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID);
     out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, VTK_FLOAT);
     out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid);
     out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid);
-    out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, rs.bulk.P, rs.grid.activeMap_G2B);
+
+    for (USI i = 1; i < ndates; i++) {
+        index++;
+        newfile = dir + "grid" + to_string(index) + ".vtk";;
+        ifstream source(file, ios::binary);
+        ofstream dest(newfile, ios::binary);
+        dest << source.rdbuf();
+        source.close();
+        dest.close();
+    }
+    index = 0;
+}
+
+
+void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
+{
+    string file = dir + "grid" + to_string(index) + ".vtk";
+  
+    out4vtk.BeginCellData();
+    out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B);
+    out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[OIL]], rs.bulk.numPhase, rs.grid.activeMap_G2B);
+    
     index++;
 }
 
@@ -1611,6 +1632,7 @@ void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
     summary.Setup(reservoir, ctrl.criticalTime.back());
     crtInfo.Setup(ctrl.criticalTime.back());
     dtlInfo.Setup(workDir);
+    out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());
 }
 
 void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)

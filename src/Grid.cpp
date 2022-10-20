@@ -197,7 +197,7 @@ void Grid::CalDepthVOrthogonalGrid()
 
 void Grid::SetupCornerGrid()
 {
-    COORD coordTmp;
+    OCP_COORD coordTmp;
     coordTmp.Allocate(nx, ny, nz);
     coordTmp.InputData(coord, zcorn);
     // coordTmp.CalConn();
@@ -209,7 +209,7 @@ void Grid::SetupCornerGrid()
     SetHexaherdronGridCorner();
 }
 
-void Grid::SetupNeighborCornerGrid(const COORD& CoTmp)
+void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
 {
 
     dx    = CoTmp.dx;
