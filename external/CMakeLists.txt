@@ -4,17 +4,13 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
   include(add_FetchContent_MakeAvailable.cmake)
 endif()
 
-# Find Required dependencies 
+# Find required dependencies 
 include(RequiredBLAS)
 include(RequiredLAPACK)
 include(RequiredFASP)
 
-# OpenCAEPoro library targets
-
-# Find Optional dependencies
+# Find optional dependencies
 include(OptionalOPENMP)
-include(OptionalECL)
-include(OptionalVTK)
 include(OptionalFASP4BLKOIL)
 include(OptionalFASP4CUDA)
 include(OptionalMUMPS)
@@ -22,7 +18,8 @@ include(OptionalPARDISO)
 include(OptionalSUPERLU)
 include(OptionalUMFPACK)
 include(OptionalDoxygen)
-
+include(OptionalECL)
+include(OptionalVTK)
 
 # For future, if we have external source to be included, we can put it under
 # external and add_subdirectory()
