@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['ocp_5faimc_973',['OCP_AIMc',['../classOCP__AIMc.html',1,'']]],
+  ['ocp_5faimc_972',['OCP_AIMc',['../classOCP__AIMc.html',1,'']]],
+  ['ocp_5fcoord_973',['OCP_COORD',['../classOCP__COORD.html',1,'']]],
   ['ocp_5ffim_974',['OCP_FIM',['../classOCP__FIM.html',1,'']]],
   ['ocp_5ffimn_975',['OCP_FIMn',['../classOCP__FIMn.html',1,'']]],
   ['ocp_5fimpec_976',['OCP_IMPEC',['../classOCP__IMPEC.html',1,'']]],

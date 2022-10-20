@@ -125,34 +125,39 @@ $(function() {
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> OutputCELL_TYPES(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; myFile, <span class="keyword">const</span> vector&lt;OCPpolyhedron&gt;&amp; myHex) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> OutputPOINT_DATA();</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> OutputCELL_DATA_SCALARS(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; myFile, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dataName, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dataType,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">const</span> vector&lt;VTK_DBL&gt;&amp; val, <span class="keyword">const</span> vector&lt;GB_Pair&gt;&amp; gbPair) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">const</span> VTK_DBL* val, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; gap, <span class="keyword">const</span> vector&lt;GB_Pair&gt;&amp; gbPair) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> BeginCellData()<span class="keyword"> const </span>{ cellData = <span class="keyword">true</span>; };</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">mutable</span> <span class="keywordtype">bool</span> cellData{ <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; <span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; <span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; <span class="comment">/*  Shizhe Li           Oct/19/2022      Create file                          */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; <span class="comment">/*  Brief Change History of This File                                         */</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; <span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; <span class="comment">/*  Shizhe Li           Oct/19/2022      Create file                          */</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; <span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aGrid_8hpp_html"><div class="ttname"><a href="Grid_8hpp.html">Grid.hpp</a></div><div class="ttdoc">Grid class declaration.</div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a4cf987f6993b48c88ec4970ad351b100"><div class="ttname"><a href="OCPConst_8hpp.html#a4cf987f6993b48c88ec4970ad351b100">OCP_SIN</a></div><div class="ttdeci">float OCP_SIN</div><div class="ttdoc">Single precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_af7bad630928e2d245f39e3dc63ab3d93"><div class="ttname"><a href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a></div><div class="ttdeci">unsigned long long OCP_ULL</div><div class="ttdoc">Long long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html"><div class="ttname"><a href="UtilError_8hpp.html">UtilError.hpp</a></div><div class="ttdoc">Logging error and warning messages.</div></div>
-<div class="ttc" id="aclassOut4VTK_html"><div class="ttname"><a href="classOut4VTK.html">Out4VTK</a></div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00207">OCPOutput.hpp:208</a></div></div>
+<div class="ttc" id="aclassOut4VTK_html"><div class="ttname"><a href="classOut4VTK.html">Out4VTK</a></div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00208">OCPOutput.hpp:209</a></div></div>
 <div class="ttc" id="aclassOutput4Vtk_html"><div class="ttname"><a href="classOutput4Vtk.html">Output4Vtk</a></div><div class="ttdef"><b>Definition:</b> <a href="Output4Vtk_8hpp_source.html#l00051">Output4Vtk.hpp:52</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 20 2022 03:31:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Oct 20 2022 08:15:56 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

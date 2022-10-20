@@ -6,6 +6,5 @@ var searchData=
   ['controlpretime_937',['ControlPreTime',['../classControlPreTime.html',1,'']]],
   ['controltime_938',['ControlTime',['../classControlTime.html',1,'']]],
   ['cooijk_939',['COOIJK',['../classCOOIJK.html',1,'']]],
-  ['coord_940',['COORD',['../classCOORD.html',1,'']]],
-  ['criticalinfo_941',['CriticalInfo',['../classCriticalInfo.html',1,'']]]
+  ['criticalinfo_940',['CriticalInfo',['../classCriticalInfo.html',1,'']]]
 ];
