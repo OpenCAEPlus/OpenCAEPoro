@@ -81,21 +81,21 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOutput4Vtk.html#a4263f197c0f0a823bc7f1dd967c747d2">Init</a> (const string &amp;myFile, const string &amp;shortInfo, const string &amp;myCodeWay, const string &amp;girdType) const</td></tr>
 <tr class="memdesc:a4263f197c0f0a823bc7f1dd967c747d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new file and write basic information <br /></td></tr>
 <tr class="separator:a4263f197c0f0a823bc7f1dd967c747d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c63b6f21c960c4c54aae5668258a97b"><td class="memItemLeft" align="right" valign="top"><a id="a6c63b6f21c960c4c54aae5668258a97b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputPOINTS</b> ()</td></tr>
-<tr class="separator:a6c63b6f21c960c4c54aae5668258a97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71cded96ef1e87b0653b6dcbafffe72e"><td class="memItemLeft" align="right" valign="top"><a id="a71cded96ef1e87b0653b6dcbafffe72e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELLS</b> ()</td></tr>
-<tr class="separator:a71cded96ef1e87b0653b6dcbafffe72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fb12e762f91a4b3cdfb52d8289eedd7"><td class="memItemLeft" align="right" valign="top"><a id="a9fb12e762f91a4b3cdfb52d8289eedd7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELL_TYPES</b> ()</td></tr>
-<tr class="separator:a9fb12e762f91a4b3cdfb52d8289eedd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf4032615624f9be543d7379e55c573e"><td class="memItemLeft" align="right" valign="top"><a id="adf4032615624f9be543d7379e55c573e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputPOINTS</b> (const string &amp;myFile, const vector&lt; <a class="el" href="classOCPpolyhedron.html">OCPpolyhedron</a> &gt; &amp;myHex, const string &amp;dataType) const</td></tr>
+<tr class="separator:adf4032615624f9be543d7379e55c573e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e5067fe335b8abbef2b23f78c66632f"><td class="memItemLeft" align="right" valign="top"><a id="a2e5067fe335b8abbef2b23f78c66632f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELLS</b> (const string &amp;myFile, const vector&lt; <a class="el" href="classOCPpolyhedron.html">OCPpolyhedron</a> &gt; &amp;myHex) const</td></tr>
+<tr class="separator:a2e5067fe335b8abbef2b23f78c66632f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588e77f75cc4861924505db3dfda0ec0"><td class="memItemLeft" align="right" valign="top"><a id="a588e77f75cc4861924505db3dfda0ec0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELL_TYPES</b> (const string &amp;myFile, const vector&lt; <a class="el" href="classOCPpolyhedron.html">OCPpolyhedron</a> &gt; &amp;myHex) const</td></tr>
+<tr class="separator:a588e77f75cc4861924505db3dfda0ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2467604adf631f54deb24dbe3a53afe"><td class="memItemLeft" align="right" valign="top"><a id="ad2467604adf631f54deb24dbe3a53afe"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputPOINT_DATA</b> ()</td></tr>
 <tr class="separator:ad2467604adf631f54deb24dbe3a53afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf52472eace970e7f15e6158bfa34e8"><td class="memItemLeft" align="right" valign="top"><a id="a3bf52472eace970e7f15e6158bfa34e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELL_DATA</b> ()</td></tr>
-<tr class="separator:a3bf52472eace970e7f15e6158bfa34e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33e75eebff391657de0e124ecef4ecfa"><td class="memItemLeft" align="right" valign="top"><a id="a33e75eebff391657de0e124ecef4ecfa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputCELL_DATA_SCALARS</b> (const string &amp;myFile, const string &amp;dataName, const string &amp;dataType, const vector&lt; VTK_DBL &gt; &amp;val, const vector&lt; <a class="el" href="classGB__Pair.html">GB_Pair</a> &gt; &amp;gbPair) const</td></tr>
+<tr class="separator:a33e75eebff391657de0e124ecef4ecfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -105,7 +105,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Output4Vtk_8hpp_source.html#l00042">42</a> of file <a class="el" href="Output4Vtk_8hpp_source.html">Output4Vtk.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Output4Vtk_8hpp_source.html#l00051">51</a> of file <a class="el" href="Output4Vtk_8hpp_source.html">Output4Vtk.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="Output4Vtk_8hpp_source.html">Output4Vtk.hpp</a></li>
 <li><a class="el" href="Output4Vtk_8cpp_source.html">Output4Vtk.cpp</a></li>
@@ -113,7 +113,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 19 2022 19:34:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Oct 20 2022 00:23:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

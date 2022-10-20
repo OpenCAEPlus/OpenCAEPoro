@@ -139,7 +139,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keywordflow">while</span> (<span class="keywordtype">id</span> != num) {</div>
 <div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;Row &quot;</span> &lt;&lt; ++row &lt;&lt; endl;</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;Row &quot;</span> &lt;&lt; ++row &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;        <span class="comment">// Item</span></div>
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        <span class="comment">// Time</span></div>
@@ -150,7 +150,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Item;</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        }</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;        outF &lt;&lt; endl;</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;        <span class="comment">// Unit</span></div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;        <span class="comment">// Time</span></div>
@@ -161,7 +161,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Unit;</div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;        }</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        outF &lt;&lt; endl;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
 <div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        <span class="comment">// Obj</span></div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        <span class="comment">// Time</span></div>
@@ -172,7 +172,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Obj;</div>
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        }</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        outF &lt;&lt; endl;</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="comment">// Data</span></div>
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> l = 0; l &lt; len; l++) {</div>
@@ -185,12 +185,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].val[l];</div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;                <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;            }</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            outF &lt;&lt; endl;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        }</div>
 <div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160; </div>
 <div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        ID += (col - 1);</div>
 <div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160; </div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        outF &lt;&lt; endl;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    }</div>
 <div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160; </div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    outF.close();</div>
@@ -209,7 +209,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 19 2022 19:34:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Oct 20 2022 00:23:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
