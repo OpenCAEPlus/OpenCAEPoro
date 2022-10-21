@@ -28,7 +28,7 @@ class OCPpolyhedron
 {
 public:
     OCPpolyhedron() = default;
-    OCPpolyhedron(const USI& n) :numPoints(n) {};
+    OCPpolyhedron(const USI& n) :numPoints(n) { Points.reserve(numPoints); };
     vector<Point3D> Points;
     USI             numPoints;
 };
@@ -185,7 +185,7 @@ private:
 public:
     OCP_BOOL IfUseVtk()const { return useVtk; }
     void SetHexaherdronGridOrthogonal();
-    void SetHexaherdronGridCorner();
+    void SetHexaherdronGridCorner(const OCP_COORD& mycord);
 
 
 private:

@@ -206,7 +206,7 @@ void Grid::SetupCornerGrid()
     CalActiveGrid(1E-6, 1E-6);
 
     // for output
-    SetHexaherdronGridCorner();
+    SetHexaherdronGridCorner(coordTmp);
 }
 
 void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
@@ -422,9 +422,29 @@ void Grid::SetHexaherdronGridOrthogonal()
 }
 
 
-void Grid::SetHexaherdronGridCorner()
+void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
 {
     if (!useVtk) return;
+
+    polyhedronGrid.reserve(numGrid);
+    OCPpolyhedron tmpP(8);
+
+    for (USI k = 0; k < nz; k++) {
+        for (USI j = 0; j < ny; j++) {
+            for (USI i = 0; i < nx; i++) {
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p4);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p5);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p6);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p7);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p0);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p1);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p2);
+                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p3);
+                polyhedronGrid.push_back(tmpP);
+                tmpP.Points.clear();
+            }
+        }
+    }
 }
 
 

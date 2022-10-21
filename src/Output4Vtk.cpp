@@ -202,7 +202,7 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
                 myVtk << val[gbPair[n].GetId() * gap] << "\n";
             }
             else {
-                myVtk << val[0] << "\n"; //tmp
+                myVtk << 1 << "\n"; //tmp
             }
         }
     }
@@ -210,8 +210,7 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
         for (VTK_USI n = 0; n < numGrid; n++) {
                 myVtk << val[gbPair[n].GetId() * gap] << "\n";
         }
-    }
-    
+    }  
 
     myVtk << "\n";
     myVtk.close();

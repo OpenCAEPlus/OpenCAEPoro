@@ -1614,9 +1614,9 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
 
     string file = dir + "grid" + to_string(index) + ".vtk";
   
-    //out4vtk.BeginCellData();
-    //out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
-    //out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[OIL]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);
+    out4vtk.BeginCellData();
+    // out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+    out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);
     
     index++;
 }
