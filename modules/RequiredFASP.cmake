@@ -5,14 +5,16 @@
 find_package(FASP)
 
 if(FASP_FOUND)
-  include_directories(${FASP_INCLUDE_DIRS})
-  add_definitions(-D__SOLVER_FASP__)
+  # include_directories(${FASP_INCLUDE_DIRS}) add_definitions(-D__SOLVER_FASP__)
+  message(STATUS "INFO: FASP found")
   add_library(fasp STATIC IMPORTED GLOBAL)
-  set_target_properties(
-    fasp PROPERTIES IMPORTED_LOCATION ${FASP_LIBRARIES}
-                    INTERFACE_INCLUDE_DIRECTORIES ${FASP_INCLUDE_DIRS})
+  set_property(TARGET fasp PROPERTY IMPORTED_LOCATION ${FASP_LIBRARIES})
+  set_property(TARGET fasp PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+                                    ${FASP_INCLUDE_DIRS})
+  set_property(TARGET fasp PROPERTY COMPILE_DEFINITIONS -D__SOLVER_FASP__)
 else(FASP_FOUND)
-  message("-- INFO FASP was requested but not found!")
+  message(STATUS "INFO: FASP was requested but not found!")
+  message(STATUS "INFO: Going to try download and install from git repo")
   FetchContent_Declare(
     fasp GIT_REPOSITORY https://github.com/FaspDevTeam/faspsolver.git)
   FetchContent_MakeAvailable(fasp)
