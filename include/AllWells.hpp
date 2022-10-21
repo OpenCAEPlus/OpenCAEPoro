@@ -273,10 +273,15 @@ public:
 
     // for output
 private:
+    OCP_BOOL        useVTK{ OCP_FALSE };
     vector<OCPpolyhedron>  polyhedronWell;
+    // When the well is under the BHP control, then give it's BHP
+    // When the well is under the RATE control, then give it's RATE
+    mutable vector<OCP_DBL>   wellVal;   ///< characteristics for well 
 
 public:
     void SetPolyhedronWell(const Grid& myGrid);
+    void SetWellVal() const;
 };
 
 #endif /* end if __WELLGROUP_HEADER__ */

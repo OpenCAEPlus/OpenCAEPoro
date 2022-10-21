@@ -58,7 +58,6 @@ void AllWells::InputParam(const ParamWell& paramWell)
 void AllWells::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
-
     SetupWell(myGrid, myBulk);
     SetPolyhedronWell(myGrid);
     SetupMixture(myBulk);
@@ -639,11 +638,35 @@ void AllWells::AssemblaMatFIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
 
 void AllWells::SetPolyhedronWell(const Grid& myGrid)
 {
-    if (!myGrid.IfUseVtk()) return;
+    useVTK = myGrid.IfUseVtk();
+    if (!useVTK) return;
 
+    wellVal.resize(numWell);
     polyhedronWell.resize(numWell);
     for (USI w = 0; w < numWell; w++) {
         wells[w].SetPolyhedronWell(myGrid, polyhedronWell[w]);
+    }
+}
+
+
+void AllWells::SetWellVal() const
+{   
+    if (!useVTK) return;
+
+    for (USI w = 0; w < numWell; w++) {
+        if (wells[w].opt.state) {
+            if (wells[w].opt.type == INJ) {
+                if (wells[w].opt.optMode == BHP_MODE)  wellVal[w] = wells[w].opt.maxBHP;
+                else                                   wellVal[w] = wells[w].opt.maxRate;
+            }
+            else {
+                if (wells[w].opt.optMode == BHP_MODE)  wellVal[w] = wells[w].opt.minBHP;
+                else                                   wellVal[w] = wells[w].opt.maxRate;
+            }            
+        }
+        else {
+            wellVal[w] = 0;
+        }
     }
 }
 

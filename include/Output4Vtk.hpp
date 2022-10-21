@@ -99,7 +99,7 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
                 myVtk << gridVal[gbPair[n].GetId() * gap] << "\n";
             }
             else {
-                myVtk << gridVal[0] << "\n"; //tmp
+                myVtk << 0 << "\n";
             }
         }
     }
