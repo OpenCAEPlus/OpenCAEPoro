@@ -90,10 +90,10 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aa384b0141247ad8d79380850984d1394">InputParam</a> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param)</td></tr>
 <tr class="memdesc:aa384b0141247ad8d79380850984d1394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters from the internal param structure. <br /></td></tr>
 <tr class="separator:aa384b0141247ad8d79380850984d1394"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab42e1172203f3dbeb09b9943361f0a57"><td class="memItemLeft" align="right" valign="top"><a id="ab42e1172203f3dbeb09b9943361f0a57"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Setup</a> ()</td></tr>
-<tr class="memdesc:ab42e1172203f3dbeb09b9943361f0a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the grid information and calculate the properties. <br /></td></tr>
-<tr class="separator:ab42e1172203f3dbeb09b9943361f0a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a47862bf3f3208855a59a3f90a447ce"><td class="memItemLeft" align="right" valign="top"><a id="a6a47862bf3f3208855a59a3f90a447ce"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a6a47862bf3f3208855a59a3f90a447ce">Setup</a> (const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;myVTK)</td></tr>
+<tr class="memdesc:a6a47862bf3f3208855a59a3f90a447ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the grid information and calculate the properties. <br /></td></tr>
+<tr class="separator:a6a47862bf3f3208855a59a3f90a447ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac103f53259f2ac72e167aa67e455d3b9"><td class="memItemLeft" align="right" valign="top"><a id="ac103f53259f2ac72e167aa67e455d3b9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a> ()</td></tr>
 <tr class="memdesc:ac103f53259f2ac72e167aa67e455d3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an orthogonal grid. <br /></td></tr>
@@ -233,24 +233,24 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 <p>Calculate the activeness of grid cells. </p>
 <p>If porosity or volume of the grid cell is too small, then the cell is inactive. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00283">283</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;{</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    activeMap_B2G.reserve(numGrid);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    activeMap_G2B.resize(numGrid);</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keywordflow">if</span> (ACTNUM[n] == 0 || poro[n] * ntg[n] &lt; e1 || v[n] &lt; e2) {</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        }</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        activeMap_B2G.push_back(n);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        count++;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    }</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    activeGridNum = count;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    cout &lt;&lt; (numGrid - activeGridNum) * 100.0 / numGrid &lt;&lt; <span class="stringliteral">&quot;% (&quot;</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;         &lt;&lt; (numGrid - activeGridNum) &lt;&lt; <span class="stringliteral">&quot;) of grid cell is inactive&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00284">284</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;{</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    activeMap_B2G.reserve(numGrid);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    activeMap_G2B.resize(numGrid);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">if</span> (ACTNUM[n] == 0 || poro[n] * ntg[n] &lt; e1 || v[n] &lt; e2) {</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        }</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        activeMap_B2G.push_back(n);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        count++;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    }</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    activeGridNum = count;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    cout &lt;&lt; (numGrid - activeGridNum) * 100.0 / numGrid &lt;&lt; <span class="stringliteral">&quot;% (&quot;</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;         &lt;&lt; (numGrid - activeGridNum) &lt;&lt; <span class="stringliteral">&quot;) of grid cell is inactive&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 <div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00054">Grid.hpp:55</a></div></div>
 </div><!-- fragment -->
@@ -291,20 +291,20 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 <p>Return the index of active cell (i, j, k). </p>
 <p>Return id of the active cell and abort if the cell is inactive! </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00303">303</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;{</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = k * nx * ny + j * nx + i;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &gt; numGrid) {</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Id is out of Range!&quot;</span>);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> activity = activeMap_G2B[id].IsAct();</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">if</span> (!activity) {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                  <span class="stringliteral">&quot;) is inactive&quot;</span>);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00304">304</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;{</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = k * nx * ny + j * nx + i;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &gt; numGrid) {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Id is out of Range!&quot;</span>);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> activity = activeMap_G2B[id].IsAct();</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordflow">if</span> (!activity) {</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                  <span class="stringliteral">&quot;) is inactive&quot;</span>);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    }</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">return</span> id;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
@@ -319,7 +319,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 21 2022 01:10:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 21 2022 02:57:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

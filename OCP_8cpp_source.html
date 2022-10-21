@@ -96,7 +96,7 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// Read Fast control</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    control.<a class="code" href="classOCPControl.html#a122d51e2cb41d6be5fc593e546e2ec65">SetupFastControl</a>(argc, options);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// Setup static infomation for reservoir</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    reservoir.<a class="code" href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Setup</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    reservoir.<a class="code" href="classReservoir.html#a3d16590e5cb1a68965e227aa00c99e8b">Setup</a>(output.IfOutputVTK());</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// Setup output for dynamic simulation</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    output.Setup(reservoir, control);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">// Setup static information for solver</span></div>
@@ -191,7 +191,7 @@ $(function() {
 <div class="ttc" id="aclassParamRead_html"><div class="ttname"><a href="classParamRead.html">ParamRead</a></div><div class="ttdoc">Pre-processing unit for OpenCAEPoro for reading params from input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00032">ParamRead.hpp:33</a></div></div>
 <div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
 <div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00044">ParamRead.hpp:44</a></div></div>
-<div class="ttc" id="aclassReservoir_html_a2b65a15f3c8a6ce1f5fefe340d3598a6"><div class="ttname"><a href="classReservoir.html#a2b65a15f3c8a6ce1f5fefe340d3598a6">Reservoir::Setup</a></div><div class="ttdeci">void Setup()</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00028">Reservoir.cpp:28</a></div></div>
+<div class="ttc" id="aclassReservoir_html_a3d16590e5cb1a68965e227aa00c99e8b"><div class="ttname"><a href="classReservoir.html#a3d16590e5cb1a68965e227aa00c99e8b">Reservoir::Setup</a></div><div class="ttdeci">void Setup(const OCP_BOOL &amp;useVTK)</div><div class="ttdoc">Setup static information for reservoir with input params.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00028">Reservoir.cpp:28</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a4f3088521df8019f73ad1861004fc1c0"><div class="ttname"><a href="classReservoir.html#a4f3088521df8019f73ad1861004fc1c0">Reservoir::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00018">Reservoir.cpp:18</a></div></div>
 <div class="ttc" id="aclassSolver_html_a8d0439530ba5eb621ae4515168df367d"><div class="ttname"><a href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Solver::Setup</a></div><div class="ttdeci">void Setup(Reservoir &amp;rs, const OCPControl &amp;ctrl)</div><div class="ttdoc">Setup Solver.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00015">Solver.cpp:15</a></div></div>
 <div class="ttc" id="aclassSolver_html_aa28d73a396ce4671abadf95ded8aeb34"><div class="ttname"><a href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">Solver::RunSimulation</a></div><div class="ttdeci">void RunSimulation(Reservoir &amp;rs, OCPControl &amp;ctrl, OCPOutput &amp;output)</div><div class="ttdoc">Start simulation.</div><div class="ttdef"><b>Definition:</b> <a href="Solver_8cpp_source.html#l00025">Solver.cpp:25</a></div></div>
@@ -199,7 +199,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 21 2022 01:10:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 21 2022 02:57:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
