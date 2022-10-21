@@ -637,7 +637,7 @@ void BasicGridProperty::SetBasicGridProperty(const BasicGridPropertyParam& param
 }
 
 
-void OutputRPT::InputParam(const OutputRPTParam& RPTparam)
+void Out4RPT::InputParam(const OutputRPTParam& RPTparam)
 {
     useRPT = RPTparam.useRPT;
     if (!useRPT) return;
@@ -646,7 +646,7 @@ void OutputRPT::InputParam(const OutputRPTParam& RPTparam)
 }
 
 
-void OutputRPT::Setup(const string& dir)
+void Out4RPT::Setup(const string& dir)
 {
     if (!useRPT) return;
 
@@ -658,7 +658,7 @@ void OutputRPT::Setup(const string& dir)
     outF.close();
 }
 
-void OutputRPT::PrintRPT(const string&    dir,
+void Out4RPT::PrintRPT(const string&    dir,
                            const Reservoir& rs,
                            const OCP_DBL&   days) const
 {
@@ -1642,7 +1642,7 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
 void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
     summary.InputParam(paramOutput.summary);
-    outRPT.InputParam(paramOutput.outRPTParam);
+    out4RPT.InputParam(paramOutput.outRPTParam);
     out4VTK.InputParam(paramOutput.outVTKParam);
 }
 
@@ -1651,7 +1651,7 @@ void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
     workDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
     crtInfo.Setup(ctrl.criticalTime.back());
-    outRPT.Setup(workDir);
+    out4RPT.Setup(workDir);
     out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());
 }
 
@@ -1675,7 +1675,7 @@ void OCPOutput::PrintInfoSched(const Reservoir&  rs,
     cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
          << setprecision(3) << right << days << " Days"
          << "    Wall time: " << time / 1000 << " Sec" << endl;
-    outRPT.PrintRPT(workDir, rs, days);
+    out4RPT.PrintRPT(workDir, rs, days);
     out4VTK.PrintVTK(workDir, rs, days);
 }
 

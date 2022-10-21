@@ -94,7 +94,7 @@ class OCPControl
 {
     friend class OpenCAEPoro;
     friend class OCPOutput;
-    friend class OutputRPT;
+    friend class Out4RPT;
     friend class Reservoir;
 
     friend class OCP_FIM;

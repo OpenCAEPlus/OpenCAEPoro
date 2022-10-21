@@ -32,7 +32,7 @@ class Reservoir
     friend class OCPControl;
     friend class Summary;
     friend class CriticalInfo;
-    friend class OutputRPT;
+    friend class Out4RPT;
     friend class Out4VTK;
 
     // temp

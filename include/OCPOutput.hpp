@@ -165,7 +165,7 @@ private:
 /// Basic grid properties for output
 class BasicGridProperty
 {
-    friend class OutputRPT;
+    friend class Out4RPT;
     friend class Out4VTK;
 
 public:
@@ -196,7 +196,7 @@ private:
 };
 
 /// Collect more detailed information of each time step.
-class OutputRPT
+class Out4RPT
 {
 public:
     void InputParam(const OutputRPTParam& RPTparam);
@@ -246,7 +246,7 @@ private:
     string       workDir;
     Summary      summary;
     CriticalInfo crtInfo;
-    OutputRPT   outRPT;
+    Out4RPT   out4RPT;
     Out4VTK      out4VTK;
 };
 
