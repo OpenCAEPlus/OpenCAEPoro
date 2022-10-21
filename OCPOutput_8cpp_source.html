@@ -1676,83 +1676,87 @@ $(function() {
 <div class="line"><a name="l01611"></a><span class="lineno"> 1611</span>&#160;    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell, VTK_FLOAT);</div>
 <div class="line"><a name="l01612"></a><span class="lineno"> 1612</span>&#160;    out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);</div>
 <div class="line"><a name="l01613"></a><span class="lineno"> 1613</span>&#160;    out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);</div>
-<div class="line"><a name="l01614"></a><span class="lineno"> 1614</span>&#160; </div>
-<div class="line"><a name="l01615"></a><span class="lineno"> 1615</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; ndates; i++) {</div>
-<div class="line"><a name="l01616"></a><span class="lineno"> 1616</span>&#160;        index++;</div>
-<div class="line"><a name="l01617"></a><span class="lineno"> 1617</span>&#160;        newfile = dir + <span class="stringliteral">&quot;grid&quot;</span> + to_string(index) + <span class="stringliteral">&quot;.vtk&quot;</span>;;</div>
-<div class="line"><a name="l01618"></a><span class="lineno"> 1618</span>&#160;        ifstream source(file, ios::binary);</div>
-<div class="line"><a name="l01619"></a><span class="lineno"> 1619</span>&#160;        ofstream dest(newfile, ios::binary);</div>
-<div class="line"><a name="l01620"></a><span class="lineno"> 1620</span>&#160;        dest &lt;&lt; source.rdbuf();</div>
-<div class="line"><a name="l01621"></a><span class="lineno"> 1621</span>&#160;        source.close();</div>
-<div class="line"><a name="l01622"></a><span class="lineno"> 1622</span>&#160;        dest.close();</div>
-<div class="line"><a name="l01623"></a><span class="lineno"> 1623</span>&#160;    }</div>
-<div class="line"><a name="l01624"></a><span class="lineno"> 1624</span>&#160;    index = 0;</div>
-<div class="line"><a name="l01625"></a><span class="lineno"> 1625</span>&#160;}</div>
-<div class="line"><a name="l01626"></a><span class="lineno"> 1626</span>&#160; </div>
-<div class="line"><a name="l01627"></a><span class="lineno"> 1627</span>&#160; </div>
-<div class="line"><a name="l01628"></a><span class="lineno"> 1628</span>&#160;<span class="keywordtype">void</span> Out4VTK::PrintVTK(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dir, <span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; days)<span class="keyword"> const</span></div>
-<div class="line"><a name="l01629"></a><span class="lineno"> 1629</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l01630"></a><span class="lineno"> 1630</span>&#160;    <span class="keywordflow">if</span> (!useVTK) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l01614"></a><span class="lineno"> 1614</span>&#160;    out4vtk.BeginCellData();</div>
+<div class="line"><a name="l01615"></a><span class="lineno"> 1615</span>&#160;    <span class="comment">// output dead grid, live grid, well</span></div>
+<div class="line"><a name="l01616"></a><span class="lineno"> 1616</span>&#160;    vector&lt;USI&gt; tmpW(rs.allWells.numWell, 2);</div>
+<div class="line"><a name="l01617"></a><span class="lineno"> 1617</span>&#160;    out4vtk.OutputCELL_DATA_SCALARS(file, <span class="stringliteral">&quot;CellType&quot;</span>, VTK_UNSIGNED_INT, &amp;rs.grid.activityFlag[0],</div>
+<div class="line"><a name="l01618"></a><span class="lineno"> 1618</span>&#160;        1, rs.grid.activeMap_G2B, OCP_FALSE, tmpW);</div>
+<div class="line"><a name="l01619"></a><span class="lineno"> 1619</span>&#160; </div>
+<div class="line"><a name="l01620"></a><span class="lineno"> 1620</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; ndates; i++) {</div>
+<div class="line"><a name="l01621"></a><span class="lineno"> 1621</span>&#160;        index++;</div>
+<div class="line"><a name="l01622"></a><span class="lineno"> 1622</span>&#160;        newfile = dir + <span class="stringliteral">&quot;grid&quot;</span> + to_string(index) + <span class="stringliteral">&quot;.vtk&quot;</span>;;</div>
+<div class="line"><a name="l01623"></a><span class="lineno"> 1623</span>&#160;        ifstream source(file, ios::binary);</div>
+<div class="line"><a name="l01624"></a><span class="lineno"> 1624</span>&#160;        ofstream dest(newfile, ios::binary);</div>
+<div class="line"><a name="l01625"></a><span class="lineno"> 1625</span>&#160;        dest &lt;&lt; source.rdbuf();</div>
+<div class="line"><a name="l01626"></a><span class="lineno"> 1626</span>&#160;        source.close();</div>
+<div class="line"><a name="l01627"></a><span class="lineno"> 1627</span>&#160;        dest.close();</div>
+<div class="line"><a name="l01628"></a><span class="lineno"> 1628</span>&#160;    }</div>
+<div class="line"><a name="l01629"></a><span class="lineno"> 1629</span>&#160;    index = 0;</div>
+<div class="line"><a name="l01630"></a><span class="lineno"> 1630</span>&#160;}</div>
 <div class="line"><a name="l01631"></a><span class="lineno"> 1631</span>&#160; </div>
-<div class="line"><a name="l01632"></a><span class="lineno"> 1632</span>&#160;    <span class="keywordtype">string</span> file = dir + <span class="stringliteral">&quot;grid&quot;</span> + to_string(index) + <span class="stringliteral">&quot;.vtk&quot;</span>;</div>
-<div class="line"><a name="l01633"></a><span class="lineno"> 1633</span>&#160;  </div>
-<div class="line"><a name="l01634"></a><span class="lineno"> 1634</span>&#160;    out4vtk.BeginCellData();</div>
-<div class="line"><a name="l01635"></a><span class="lineno"> 1635</span>&#160;    <span class="comment">// out4vtk.OutputCELL_DATA_SCALARS(file, &quot;PRESSURE&quot;, VTK_FLOAT, &amp;rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);</span></div>
-<div class="line"><a name="l01636"></a><span class="lineno"> 1636</span>&#160;    <span class="comment">// out4vtk.OutputCELL_DATA_SCALARS(file, &quot;SOIL&quot;, VTK_FLOAT, &amp;rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);</span></div>
-<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;    </div>
-<div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160;    index++;</div>
-<div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;}</div>
-<div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160; </div>
-<div class="line"><a name="l01641"></a><span class="lineno"> 1641</span>&#160; </div>
-<div class="line"><a name="l01642"></a><span class="lineno"> 1642</span>&#160;<span class="keywordtype">void</span> OCPOutput::InputParam(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a>&amp; paramOutput)</div>
-<div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160;{</div>
-<div class="line"><a name="l01644"></a><span class="lineno"> 1644</span>&#160;    summary.<a class="code" href="classSummary.html#aedf1b94772a88a41acc27611d4f2898e">InputParam</a>(paramOutput.<a class="code" href="classParamOutput.html#ab52cc794e39c58cf344a1fcec8aafac1">summary</a>);</div>
-<div class="line"><a name="l01645"></a><span class="lineno"> 1645</span>&#160;    out4RPT.InputParam(paramOutput.<a class="code" href="classParamOutput.html#ac548eb8151256a42503a9da336f12def">outRPTParam</a>);</div>
-<div class="line"><a name="l01646"></a><span class="lineno"> 1646</span>&#160;    out4VTK.InputParam(paramOutput.<a class="code" href="classParamOutput.html#a879eac9b71ccf39f8ef5aad0a596a8a5">outVTKParam</a>);</div>
-<div class="line"><a name="l01647"></a><span class="lineno"> 1647</span>&#160;}</div>
-<div class="line"><a name="l01648"></a><span class="lineno"> 1648</span>&#160; </div>
-<div class="line"><a name="l01649"></a><span class="lineno"> 1649</span>&#160;<span class="keywordtype">void</span> OCPOutput::Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a name="l01650"></a><span class="lineno"> 1650</span>&#160;{</div>
-<div class="line"><a name="l01651"></a><span class="lineno"> 1651</span>&#160;    workDir = ctrl.workDir;</div>
-<div class="line"><a name="l01652"></a><span class="lineno"> 1652</span>&#160;    summary.<a class="code" href="classSummary.html#a045ea177150680ac955b14221f8901d1">Setup</a>(reservoir, ctrl.criticalTime.back());</div>
-<div class="line"><a name="l01653"></a><span class="lineno"> 1653</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a9956941d7c671f673562352f52d61212">Setup</a>(ctrl.criticalTime.back());</div>
-<div class="line"><a name="l01654"></a><span class="lineno"> 1654</span>&#160;    out4RPT.Setup(workDir);</div>
-<div class="line"><a name="l01655"></a><span class="lineno"> 1655</span>&#160;    out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());</div>
-<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;}</div>
-<div class="line"><a name="l01657"></a><span class="lineno"> 1657</span>&#160; </div>
-<div class="line"><a name="l01658"></a><span class="lineno"> 1658</span>&#160;<span class="keywordtype">void</span> OCPOutput::SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
-<div class="line"><a name="l01659"></a><span class="lineno"> 1659</span>&#160;{</div>
-<div class="line"><a name="l01660"></a><span class="lineno"> 1660</span>&#160;    summary.<a class="code" href="classSummary.html#a44782c36e8ab8988f8df4a824b7baceb">SetVal</a>(reservoir, ctrl);</div>
-<div class="line"><a name="l01661"></a><span class="lineno"> 1661</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a213a6529c997f6fca4c10b2156d3bd85">SetVal</a>(reservoir, ctrl);</div>
-<div class="line"><a name="l01662"></a><span class="lineno"> 1662</span>&#160;}</div>
-<div class="line"><a name="l01663"></a><span class="lineno"> 1663</span>&#160; </div>
-<div class="line"><a name="l01664"></a><span class="lineno"> 1664</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfo()<span class="keyword"> const</span></div>
-<div class="line"><a name="l01665"></a><span class="lineno"> 1665</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l01666"></a><span class="lineno"> 1666</span>&#160;    summary.<a class="code" href="classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6">PrintInfo</a>(workDir);</div>
-<div class="line"><a name="l01667"></a><span class="lineno"> 1667</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a4392a14d1629fa1b04f9485726001ea5">PrintFastReview</a>(workDir);</div>
-<div class="line"><a name="l01668"></a><span class="lineno"> 1668</span>&#160;}</div>
-<div class="line"><a name="l01669"></a><span class="lineno"> 1669</span>&#160; </div>
-<div class="line"><a name="l01670"></a><span class="lineno"> 1670</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp;  rs,</div>
-<div class="line"><a name="l01671"></a><span class="lineno"> 1671</span>&#160;                               <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl,</div>
-<div class="line"><a name="l01672"></a><span class="lineno"> 1672</span>&#160;                               <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;    time)<span class="keyword"> const</span></div>
-<div class="line"><a name="l01673"></a><span class="lineno"> 1673</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l01674"></a><span class="lineno"> 1674</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
-<div class="line"><a name="l01675"></a><span class="lineno"> 1675</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Timestep &quot;</span> &lt;&lt; setw(6) &lt;&lt; left &lt;&lt; ctrl.numTstep &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; fixed &lt;&lt; setw(10)</div>
-<div class="line"><a name="l01676"></a><span class="lineno"> 1676</span>&#160;         &lt;&lt; setprecision(3) &lt;&lt; right &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span></div>
-<div class="line"><a name="l01677"></a><span class="lineno"> 1677</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;    Wall time: &quot;</span> &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l01678"></a><span class="lineno"> 1678</span>&#160;    out4RPT.PrintRPT(workDir, rs, days);</div>
-<div class="line"><a name="l01679"></a><span class="lineno"> 1679</span>&#160;    out4VTK.PrintVTK(workDir, rs, days);</div>
-<div class="line"><a name="l01680"></a><span class="lineno"> 1680</span>&#160;}</div>
-<div class="line"><a name="l01681"></a><span class="lineno"> 1681</span>&#160; </div>
-<div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l01632"></a><span class="lineno"> 1632</span>&#160; </div>
+<div class="line"><a name="l01633"></a><span class="lineno"> 1633</span>&#160;<span class="keywordtype">void</span> Out4VTK::PrintVTK(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dir, <span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp; days)<span class="keyword"> const</span></div>
+<div class="line"><a name="l01634"></a><span class="lineno"> 1634</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l01635"></a><span class="lineno"> 1635</span>&#160;    <span class="keywordflow">if</span> (!useVTK) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l01636"></a><span class="lineno"> 1636</span>&#160; </div>
+<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;    <span class="keywordtype">string</span> file = dir + <span class="stringliteral">&quot;grid&quot;</span> + to_string(index) + <span class="stringliteral">&quot;.vtk&quot;</span>;</div>
+<div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160;     </div>
+<div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;    <span class="comment">// out4vtk.OutputCELL_DATA_SCALARS(file, &quot;PRESSURE&quot;, VTK_FLOAT, &amp;rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);</span></div>
+<div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160;    <span class="comment">// out4vtk.OutputCELL_DATA_SCALARS(file, &quot;SOIL&quot;, VTK_FLOAT, &amp;rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);</span></div>
+<div class="line"><a name="l01641"></a><span class="lineno"> 1641</span>&#160;    </div>
+<div class="line"><a name="l01642"></a><span class="lineno"> 1642</span>&#160;    index++;</div>
+<div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160;}</div>
+<div class="line"><a name="l01644"></a><span class="lineno"> 1644</span>&#160; </div>
+<div class="line"><a name="l01645"></a><span class="lineno"> 1645</span>&#160; </div>
+<div class="line"><a name="l01646"></a><span class="lineno"> 1646</span>&#160;<span class="keywordtype">void</span> OCPOutput::InputParam(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a>&amp; paramOutput)</div>
+<div class="line"><a name="l01647"></a><span class="lineno"> 1647</span>&#160;{</div>
+<div class="line"><a name="l01648"></a><span class="lineno"> 1648</span>&#160;    summary.<a class="code" href="classSummary.html#aedf1b94772a88a41acc27611d4f2898e">InputParam</a>(paramOutput.<a class="code" href="classParamOutput.html#ab52cc794e39c58cf344a1fcec8aafac1">summary</a>);</div>
+<div class="line"><a name="l01649"></a><span class="lineno"> 1649</span>&#160;    out4RPT.InputParam(paramOutput.<a class="code" href="classParamOutput.html#ac548eb8151256a42503a9da336f12def">outRPTParam</a>);</div>
+<div class="line"><a name="l01650"></a><span class="lineno"> 1650</span>&#160;    out4VTK.InputParam(paramOutput.<a class="code" href="classParamOutput.html#a879eac9b71ccf39f8ef5aad0a596a8a5">outVTKParam</a>);</div>
+<div class="line"><a name="l01651"></a><span class="lineno"> 1651</span>&#160;}</div>
+<div class="line"><a name="l01652"></a><span class="lineno"> 1652</span>&#160; </div>
+<div class="line"><a name="l01653"></a><span class="lineno"> 1653</span>&#160;<span class="keywordtype">void</span> OCPOutput::Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
+<div class="line"><a name="l01654"></a><span class="lineno"> 1654</span>&#160;{</div>
+<div class="line"><a name="l01655"></a><span class="lineno"> 1655</span>&#160;    workDir = ctrl.workDir;</div>
+<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;    summary.<a class="code" href="classSummary.html#a045ea177150680ac955b14221f8901d1">Setup</a>(reservoir, ctrl.criticalTime.back());</div>
+<div class="line"><a name="l01657"></a><span class="lineno"> 1657</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a9956941d7c671f673562352f52d61212">Setup</a>(ctrl.criticalTime.back());</div>
+<div class="line"><a name="l01658"></a><span class="lineno"> 1658</span>&#160;    out4RPT.Setup(workDir);</div>
+<div class="line"><a name="l01659"></a><span class="lineno"> 1659</span>&#160;    out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());</div>
+<div class="line"><a name="l01660"></a><span class="lineno"> 1660</span>&#160;}</div>
+<div class="line"><a name="l01661"></a><span class="lineno"> 1661</span>&#160; </div>
+<div class="line"><a name="l01662"></a><span class="lineno"> 1662</span>&#160;<span class="keywordtype">void</span> OCPOutput::SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
+<div class="line"><a name="l01663"></a><span class="lineno"> 1663</span>&#160;{</div>
+<div class="line"><a name="l01664"></a><span class="lineno"> 1664</span>&#160;    summary.<a class="code" href="classSummary.html#a44782c36e8ab8988f8df4a824b7baceb">SetVal</a>(reservoir, ctrl);</div>
+<div class="line"><a name="l01665"></a><span class="lineno"> 1665</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a213a6529c997f6fca4c10b2156d3bd85">SetVal</a>(reservoir, ctrl);</div>
+<div class="line"><a name="l01666"></a><span class="lineno"> 1666</span>&#160;}</div>
+<div class="line"><a name="l01667"></a><span class="lineno"> 1667</span>&#160; </div>
+<div class="line"><a name="l01668"></a><span class="lineno"> 1668</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfo()<span class="keyword"> const</span></div>
+<div class="line"><a name="l01669"></a><span class="lineno"> 1669</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l01670"></a><span class="lineno"> 1670</span>&#160;    summary.<a class="code" href="classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6">PrintInfo</a>(workDir);</div>
+<div class="line"><a name="l01671"></a><span class="lineno"> 1671</span>&#160;    crtInfo.<a class="code" href="classCriticalInfo.html#a4392a14d1629fa1b04f9485726001ea5">PrintFastReview</a>(workDir);</div>
+<div class="line"><a name="l01672"></a><span class="lineno"> 1672</span>&#160;}</div>
+<div class="line"><a name="l01673"></a><span class="lineno"> 1673</span>&#160; </div>
+<div class="line"><a name="l01674"></a><span class="lineno"> 1674</span>&#160;<span class="keywordtype">void</span> OCPOutput::PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp;  rs,</div>
+<div class="line"><a name="l01675"></a><span class="lineno"> 1675</span>&#160;                               <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl,</div>
+<div class="line"><a name="l01676"></a><span class="lineno"> 1676</span>&#160;                               <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;    time)<span class="keyword"> const</span></div>
+<div class="line"><a name="l01677"></a><span class="lineno"> 1677</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l01678"></a><span class="lineno"> 1678</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> days = ctrl.current_time;</div>
+<div class="line"><a name="l01679"></a><span class="lineno"> 1679</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Timestep &quot;</span> &lt;&lt; setw(6) &lt;&lt; left &lt;&lt; ctrl.numTstep &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; fixed &lt;&lt; setw(10)</div>
+<div class="line"><a name="l01680"></a><span class="lineno"> 1680</span>&#160;         &lt;&lt; setprecision(3) &lt;&lt; right &lt;&lt; days &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span></div>
+<div class="line"><a name="l01681"></a><span class="lineno"> 1681</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;    Wall time: &quot;</span> &lt;&lt; time / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;    out4RPT.PrintRPT(workDir, rs, days);</div>
+<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;    out4VTK.PrintVTK(workDir, rs, days);</div>
+<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;}</div>
+<div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160; </div>
 <div class="line"><a name="l01686"></a><span class="lineno"> 1686</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l01687"></a><span class="lineno"> 1687</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l01688"></a><span class="lineno"> 1688</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l01687"></a><span class="lineno"> 1687</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l01688"></a><span class="lineno"> 1688</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
 <div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l01693"></a><span class="lineno"> 1693</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l01694"></a><span class="lineno"> 1694</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00084">OCPConst.hpp:84</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
@@ -1884,7 +1888,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 21 2022 02:57:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Oct 21 2022 03:51:26 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
