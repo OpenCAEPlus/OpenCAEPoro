@@ -175,7 +175,7 @@ private:
     OCP_USI         activeGridNum; ///< Num of active grid.
     vector<OCP_USI> activeMap_B2G; ///< Mapping from active grid to grid: activeGridNum = numBulk
     vector<GB_Pair> activeMap_G2B; ///< Mapping from grid to active grid: numGrid.
-
+    vector<USI>     activityFlag;  ///< dead grid is 0, active grid is 1
 
 private:
     // for output
@@ -186,7 +186,7 @@ public:
     OCP_BOOL IfUseVtk()const { return useVTK; }
     void SetHexaherdronGridOrthogonal();
     void SetHexaherdronGridCorner(const OCP_COORD& mycord);
-
+    void SetActivityFlag();
 
 private:
     // Auxiliary variable

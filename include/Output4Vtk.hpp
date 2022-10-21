@@ -47,9 +47,8 @@ const string VTK_SCALARS = "SCALARS";
 const VTK_USI VTK_HEXAHEDRON = 12;
 const VTK_USI VTK_POLY_LINE = 4;
 
-
-
 const string VTK_FLOAT = "float";
+const string VTK_UNSIGNED_INT = "unsigned_int";
 
 class Output4Vtk
 {
@@ -60,8 +59,9 @@ public:
 	void OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell, const string& dataType) const;
 	void OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const;
 	void OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex, const vector<OCPpolyhedron>& myHexWell) const;
+	template <typename T>
 	void OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-		const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive) const;
+		const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const vector<T>& wellVal) const;
 	void BeginCellData() const { cellData = true; };
 
 private:
@@ -70,6 +70,53 @@ private:
 	VTK_USI numWell;
 	VTK_USI numCell;
 };
+
+template <typename T>
+void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
+    const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const vector<T>& wellVal) const
+{
+    ofstream myVtk;
+    myVtk.open(myFile, ios::app);
+    if (!myVtk.is_open()) {
+        OCP_ABORT("Can not open " + myFile);
+    }
+
+    ios::sync_with_stdio(false);
+    myVtk.tie(0);
+
+    if (cellData) {
+        myVtk << VTK_CELL_DATA << " " << numCell << "\n";
+        cellData = false;
+    }
+
+    myVtk << VTK_SCALARS << " " << dataName << " " << dataType << " " << 1 << "\n";
+    myVtk << VTK_LOOKUP_TABLE << " " << VTK_DEFAULT << "\n";
+
+    // Grid
+    if (useActive) {
+        for (VTK_USI n = 0; n < numGrid; n++) {
+            if (gbPair[n].IsAct()) {
+                myVtk << gridVal[gbPair[n].GetId() * gap] << "\n";
+            }
+            else {
+                myVtk << gridVal[0] << "\n"; //tmp
+            }
+        }
+    }
+    else {
+        for (VTK_USI n = 0; n < numGrid; n++) {
+            myVtk << gridVal[n * gap] << "\n";
+        }
+    }
+
+    // Well
+    for (USI w = 0; w < numWell; w++) {
+        myVtk << wellVal[w] << "\n";
+    }
+
+    myVtk << "\n";
+    myVtk.close();
+}
 
 
 

@@ -171,45 +171,6 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
 }
 
 
-void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-    const VTK_DBL* val, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive) const
-{
-    ofstream myVtk;
-    myVtk.open(myFile, ios::app);
-    if (!myVtk.is_open()) {
-        OCP_ABORT("Can not open " + myFile);
-    }
-
-    ios::sync_with_stdio(false);
-    myVtk.tie(0);
-
-    if (cellData) {
-        myVtk << VTK_CELL_DATA << " " << numGrid << "\n";
-        cellData = false;
-    }  
-    
-    myVtk << VTK_SCALARS << " " << dataName << " " << dataType << " " << 1 << "\n";
-    myVtk << VTK_LOOKUP_TABLE << " " << VTK_DEFAULT << "\n";
-
-    if (useActive) {
-        for (VTK_USI n = 0; n < numGrid; n++) {
-            if (gbPair[n].IsAct()) {
-                myVtk << val[gbPair[n].GetId() * gap] << "\n";
-            }
-            else {
-                myVtk << val[0] << "\n"; //tmp
-            }
-        }
-    }
-    else {
-        for (VTK_USI n = 0; n < numGrid; n++) {
-                myVtk << val[gbPair[n].GetId() * gap] << "\n";
-        }
-    }  
-
-    myVtk << "\n";
-    myVtk.close();
-}
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

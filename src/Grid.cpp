@@ -393,6 +393,8 @@ void Grid::SetHexaherdronGridOrthogonal()
 
     if (!useVTK) return;
 
+    SetActivityFlag();
+
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);
     OCP_DBL tmpX, tmpY;
@@ -427,6 +429,8 @@ void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
 {
     if (!useVTK) return;
 
+    SetActivityFlag();
+
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);
 
@@ -448,6 +452,15 @@ void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
     }
 }
 
+
+void Grid::SetActivityFlag()
+{
+    activityFlag.resize(numGrid);
+    for (OCP_USI n = 0; n < numGrid; n++) {
+        if (activeMap_G2B[n].IsAct())  activityFlag[n] = 1;
+        else                           activityFlag[n] = 0;
+    }
+}
 
 
 void Grid::CalNumDigutIJK()
