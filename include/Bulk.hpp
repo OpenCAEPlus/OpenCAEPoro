@@ -58,7 +58,7 @@ class Bulk
 {
     friend class BulkConn;
     friend class Well;
-    friend class DetailInfo;
+    friend class OutputRPT;
     friend class Out4VTK;
 
     // temp

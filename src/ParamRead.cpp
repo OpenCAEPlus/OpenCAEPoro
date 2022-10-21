@@ -216,7 +216,8 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("RPTSCHED", 8):
-                paramOutput.InputRPTSCHED(ifs);
+            case Map_Str2Int("VTKSCHED", 8):
+                paramOutput.InputRPTSCHED(ifs, keyword);
                 break;
 
             case Map_Str2Int("CNAMES", 6):

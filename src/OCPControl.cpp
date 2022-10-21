@@ -195,7 +195,6 @@ void OCPControl::InitTime(const USI& i)
 
 void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
 {
-    ctrlFast.printLevel = 0;
     ctrlFast.ReadParam(argc, optset);
     if (ctrlFast.activity) {
         method = ctrlFast.method;

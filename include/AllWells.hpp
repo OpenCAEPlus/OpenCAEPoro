@@ -75,7 +75,7 @@ class AllWells
 
     // temp
     friend class Reservoir;
-    friend class DetailInfo;
+    friend class OutputRPT;
     friend class Out4VTK;
 
 public:

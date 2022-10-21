@@ -32,7 +32,7 @@ void OpenCAEPoro::SetupSimulator(ParamRead&  param,
     // Read Fast control
     control.SetupFastControl(argc, options);
     // Setup static infomation for reservoir
-    reservoir.Setup();
+    reservoir.Setup(output.IfOutputVTK());
     // Setup output for dynamic simulation
     output.Setup(reservoir, control);
     // Setup static information for solver

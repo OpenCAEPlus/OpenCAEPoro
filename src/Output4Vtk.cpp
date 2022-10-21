@@ -13,9 +13,7 @@
 #include "Output4Vtk.hpp"
 
 
-
-
-void Output4Vtk::Init(const string& myFile, const string& shortInfo, const string& myCodeWay, const string& girdType) const
+void Output4Vtk::Init(const string& myFile, const string& shortInfo, const string& myCodeWay, const string& girdType, const VTK_USI& nG, const VTK_USI& nW)
 {
     ofstream myVtk(myFile);
     if (!myVtk.is_open()) {
@@ -45,6 +43,12 @@ void Output4Vtk::Init(const string& myFile, const string& shortInfo, const strin
 
     myVtk << "\n";
     myVtk.close();
+
+
+    // Init numGrid and numGrid
+    numGrid = nG;
+    numWell = nW;
+    numCell = numGrid + numWell;
 }
 
 
@@ -60,8 +64,6 @@ void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>&
     myVtk.tie(0);
 
     // Grid Points
-    const VTK_USI numGrid = myHexGrid.size();
-    const VTK_USI numWell = myHexWell.size();
     VTK_USI numWellPoints = numGrid * 8;
     for (auto& w : myHexWell) {
         numWellPoints += w.numPoints;
@@ -100,11 +102,8 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
 
     ios::sync_with_stdio(false);
     myVtk.tie(0);
-   
-    const VTK_USI numGrid = myHexGrid.size();
-    const USI numWell = myHexWell.size();
 
-    USI numSize = numGrid + numWell;
+    USI numSize = numCell;
     for (VTK_USI n = 0; n < numGrid; n++) {
         numSize += myHexGrid[n].numPoints;
     }
@@ -113,7 +112,7 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
     }
 
 
-    myVtk << VTK_CELLS << " " << (numGrid + numWell) << " " << numSize << "\n";
+    myVtk << VTK_CELLS << " " << numCell << " " << numSize << "\n";
     
     // EASY output!
     // Grid Cell
@@ -154,9 +153,7 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
     ios::sync_with_stdio(false);
     myVtk.tie(0);
 
-    const VTK_USI numGrid = myHexGrid.size();
-    const USI numWell = myHexWell.size();
-    myVtk << VTK_CELL_TYPES << " " << (numGrid + numWell) << "\n";
+    myVtk << VTK_CELL_TYPES << " " << numCell << "\n";
 
     // EASY output!
     // Grid Cell
@@ -186,8 +183,6 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
     ios::sync_with_stdio(false);
     myVtk.tie(0);
 
-
-    const VTK_USI numGrid = gbPair.size();
     if (cellData) {
         myVtk << VTK_CELL_DATA << " " << numGrid << "\n";
         cellData = false;
@@ -202,7 +197,7 @@ void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dat
                 myVtk << val[gbPair[n].GetId() * gap] << "\n";
             }
             else {
-                myVtk << 1 << "\n"; //tmp
+                myVtk << val[0] << "\n"; //tmp
             }
         }
     }

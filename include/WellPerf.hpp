@@ -24,7 +24,7 @@ using namespace std;
 class Perforation
 {
     friend class Well;
-    friend class DetailInfo;
+    friend class OutputRPT;
 
 public:
     /// Default constuctor.

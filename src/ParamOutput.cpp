@@ -180,9 +180,21 @@ void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
     cout << "Type_B" << endl;
 }
 
-void ParamOutput::InputRPTSCHED(ifstream& ifs)
+void ParamOutput::InputRPTSCHED(ifstream& ifs, const string& keyword)
 {
-    detailInfo.useRPT = OCP_TRUE;
+    BasicGridPropertyParam* tmpBgpp;
+    if (keyword == "RPTSCHED") {
+        outRPTParam.useRPT = OCP_TRUE;
+        tmpBgpp = &outRPTParam.bgp;
+    }
+    else if (keyword == "VTKSCHED") {
+        outVTKParam.useVTK = OCP_TRUE;
+        tmpBgpp = &outVTKParam.bgp;
+    }
+    else {
+        return;
+    }
+    
 
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
@@ -197,74 +209,74 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs)
             switch (Map_Str2Int(&keyword[0], keyword.size())) {
                 case Map_Str2Int("PRES", 4):
                 case Map_Str2Int("PRESSURE", 8):
-                    detailInfo.PRE = OCP_TRUE;
+                    tmpBgpp->PRE = OCP_TRUE;
                     break;
                 case Map_Str2Int("PGAS", 4):
-                    detailInfo.PGAS = OCP_TRUE;
+                    tmpBgpp->PGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("PWAT", 4):
-                    detailInfo.PWAT = OCP_TRUE;
+                    tmpBgpp->PWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("SOIL", 4):
-                    detailInfo.SOIL = OCP_TRUE;
+                    tmpBgpp->SOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("SGAS", 4):
-                    detailInfo.SGAS = OCP_TRUE;
+                    tmpBgpp->SGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("SWAT", 4):
-                    detailInfo.SWAT = OCP_TRUE;
+                    tmpBgpp->SWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENO", 4):
-                    detailInfo.DENO = OCP_TRUE;
+                    tmpBgpp->DENO = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENG", 4):
-                    detailInfo.DENG = OCP_TRUE;
+                    tmpBgpp->DENG = OCP_TRUE;
                     break;
                 case Map_Str2Int("DENW", 4):
-                    detailInfo.DENW = OCP_TRUE;
+                    tmpBgpp->DENW = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRO", 3):
-                    detailInfo.KRO = OCP_TRUE;
+                    tmpBgpp->KRO = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRG", 3):
-                    detailInfo.KRG = OCP_TRUE;
+                    tmpBgpp->KRG = OCP_TRUE;
                     break;
                 case Map_Str2Int("KRW", 3):
-                    detailInfo.KRW = OCP_TRUE;
+                    tmpBgpp->KRW = OCP_TRUE;
                     break;
                 case Map_Str2Int("BOIL", 4):
-                    detailInfo.BOIL = OCP_TRUE;
+                    tmpBgpp->BOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("BGAS", 4):
-                    detailInfo.BGAS = OCP_TRUE;
+                    tmpBgpp->BGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("BWAT", 4):
-                    detailInfo.BWAT = OCP_TRUE;
+                    tmpBgpp->BWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("VOIL", 4):
-                    detailInfo.VOIL = OCP_TRUE;
+                    tmpBgpp->VOIL = OCP_TRUE;
                     break;
                 case Map_Str2Int("VGAS", 4):
-                    detailInfo.VGAS = OCP_TRUE;
+                    tmpBgpp->VGAS = OCP_TRUE;
                     break;
                 case Map_Str2Int("VWAT", 4):
-                    detailInfo.VWAT = OCP_TRUE;
+                    tmpBgpp->VWAT = OCP_TRUE;
                     break;
                 case Map_Str2Int("XMF", 3):
-                    detailInfo.XMF = OCP_TRUE;
+                    tmpBgpp->XMF = OCP_TRUE;
                     break;
                 case Map_Str2Int("YMF", 3):
-                    detailInfo.YMF = OCP_TRUE;
+                    tmpBgpp->YMF = OCP_TRUE;
                     break;
                 case Map_Str2Int("PCW", 3):
-                    detailInfo.PCW = OCP_TRUE;
+                    tmpBgpp->PCW = OCP_TRUE;
                     break;
                 default:
                     break;
             }
         }
     }
-    cout << "RPTSCHDE" << endl;
+    cout << keyword << endl;
 }
 
 /*----------------------------------------------------------------------------*/

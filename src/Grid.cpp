@@ -62,8 +62,9 @@ void Grid::InputParam(const ParamReservoir& rs_param)
     }
 }
 
-void Grid::Setup()
+void Grid::Setup(const OCP_BOOL& myVTK)
 {
+    useVTK = myVTK;
     CalNumDigutIJK();
     switch (gridType) {
         case ORTHOGONAL_GRID:
@@ -390,7 +391,7 @@ void Grid::SetHexaherdronGridOrthogonal()
 {
     // x,y-coordinate begins from 0
 
-    if (!useVtk) return;
+    if (!useVTK) return;
 
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);
@@ -424,7 +425,7 @@ void Grid::SetHexaherdronGridOrthogonal()
 
 void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
 {
-    if (!useVtk) return;
+    if (!useVTK) return;
 
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);

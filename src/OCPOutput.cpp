@@ -570,7 +570,7 @@ void CriticalInfo::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
     cfl.push_back(reservoir.cfl);
 }
 
-void CriticalInfo::PrintInfo(const string& dir) const
+void CriticalInfo::PrintFastReview(const string& dir) const
 {
     string   FileOut = dir + "FastReview.out";
     ofstream outF(FileOut);
@@ -610,35 +610,43 @@ void CriticalInfo::PrintInfo(const string& dir) const
     outF.close();
 }
 
-void DetailInfo::InputParam(const OutputDetail& detail_param)
-{
-    useRPT = detail_param.useRPT;
-    if (!useRPT) return;
 
-    bgp.PRE  = detail_param.PRE;
-    bgp.PGAS = detail_param.PGAS;
-    bgp.PWAT = detail_param.PWAT;
-    bgp.SOIL = detail_param.SOIL;
-    bgp.SGAS = detail_param.SGAS;
-    bgp.SWAT = detail_param.SWAT;
-    bgp.DENO = detail_param.DENO;
-    bgp.DENG = detail_param.DENG;
-    bgp.DENW = detail_param.DENW;
-    bgp.KRO  = detail_param.KRO;
-    bgp.KRG  = detail_param.KRG;
-    bgp.KRW  = detail_param.KRW;
-    bgp.BOIL = detail_param.BOIL;
-    bgp.BGAS = detail_param.BGAS;
-    bgp.BWAT = detail_param.BWAT;
-    bgp.VOIL = detail_param.VOIL;
-    bgp.VGAS = detail_param.VGAS;
-    bgp.VWAT = detail_param.VWAT;
-    bgp.XMF  = detail_param.XMF;
-    bgp.YMF  = detail_param.YMF;
-    bgp.PCW  = detail_param.PCW;
+void BasicGridProperty::SetBasicGridProperty(const BasicGridPropertyParam& param)
+{
+    PRE = param.PRE;
+    PGAS = param.PGAS;
+    PWAT = param.PWAT;
+    SOIL = param.SOIL;
+    SGAS = param.SGAS;
+    SWAT = param.SWAT;
+    DENO = param.DENO;
+    DENG = param.DENG;
+    DENW = param.DENW;
+    KRO = param.KRO;
+    KRG = param.KRG;
+    KRW = param.KRW;
+    BOIL = param.BOIL;
+    BGAS = param.BGAS;
+    BWAT = param.BWAT;
+    VOIL = param.VOIL;
+    VGAS = param.VGAS;
+    VWAT = param.VWAT;
+    XMF = param.XMF;
+    YMF = param.YMF;
+    PCW = param.PCW;
 }
 
-void DetailInfo::Setup(const string& dir)
+
+void OutputRPT::InputParam(const OutputRPTParam& RPTparam)
+{
+    useRPT = RPTparam.useRPT;
+    if (!useRPT) return;
+
+    bgp.SetBasicGridProperty(RPTparam.bgp);
+}
+
+
+void OutputRPT::Setup(const string& dir)
 {
     if (!useRPT) return;
 
@@ -650,7 +658,7 @@ void DetailInfo::Setup(const string& dir)
     outF.close();
 }
 
-void DetailInfo::PrintInfo(const string&    dir,
+void OutputRPT::PrintRPT(const string&    dir,
                            const Reservoir& rs,
                            const OCP_DBL&   days) const
 {
@@ -1582,15 +1590,24 @@ void DetailInfo::PrintInfo(const string&    dir,
 }
 
 
+void Out4VTK::InputParam(const OutputVTKParam& VTKParam)
+{
+    useVTK = VTKParam.useVTK;
+    if (!useVTK) return;
+
+    bgp.SetBasicGridProperty(VTKParam.bgp);
+}
+
+
 void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 {
-    if (!useVtk) return;
+    if (!useVTK) return;
 
     string file = dir + "grid" + to_string(index) + ".vtk";
     string newfile;
     string title = "test";
 
-    out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID);
+    out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID, rs.grid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
     out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell, VTK_FLOAT);
     out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
     out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
@@ -1610,13 +1627,13 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 
 void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
 {
-    if (!useVtk) return;
+    if (!useVTK) return;
 
     string file = dir + "grid" + to_string(index) + ".vtk";
   
     out4vtk.BeginCellData();
     // out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
-    out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);
+    // out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE);
     
     index++;
 }
@@ -1625,7 +1642,8 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
 void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
     summary.InputParam(paramOutput.summary);
-    dtlInfo.InputParam(paramOutput.detailInfo);
+    outRPT.InputParam(paramOutput.outRPTParam);
+    out4VTK.InputParam(paramOutput.outVTKParam);
 }
 
 void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
@@ -1633,7 +1651,7 @@ void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
     workDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
     crtInfo.Setup(ctrl.criticalTime.back());
-    dtlInfo.Setup(workDir);
+    outRPT.Setup(workDir);
     out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());
 }
 
@@ -1646,7 +1664,7 @@ void OCPOutput::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
 void OCPOutput::PrintInfo() const
 {
     summary.PrintInfo(workDir);
-    crtInfo.PrintInfo(workDir);
+    crtInfo.PrintFastReview(workDir);
 }
 
 void OCPOutput::PrintInfoSched(const Reservoir&  rs,
@@ -1657,7 +1675,7 @@ void OCPOutput::PrintInfoSched(const Reservoir&  rs,
     cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
          << setprecision(3) << right << days << " Days"
          << "    Wall time: " << time / 1000 << " Sec" << endl;
-    dtlInfo.PrintInfo(workDir, rs, days);
+    outRPT.PrintRPT(workDir, rs, days);
     out4VTK.PrintVTK(workDir, rs, days);
 }
 

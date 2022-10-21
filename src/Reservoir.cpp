@@ -25,11 +25,11 @@ void Reservoir::InputParam(ParamRead& param)
 
 }
 
-void Reservoir::Setup()
+void Reservoir::Setup(const OCP_BOOL& useVTK)
 {
     OCP_FUNCNAME;
 
-    grid.Setup();
+    grid.Setup(useVTK);
     bulk.Setup(grid);
     conn.Setup(grid, bulk);
     allWells.Setup(grid, bulk);

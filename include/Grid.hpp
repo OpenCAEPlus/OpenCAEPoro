@@ -92,7 +92,7 @@ public:
     /// Input parameters from the internal param structure.
     void InputParam(const ParamReservoir& rs_param);
     /// Setup the grid information and calculate the properties.
-    void Setup();
+    void Setup(const OCP_BOOL& myVTK);
 
     /// Setup an orthogonal grid.
     void SetupOrthogonalGrid();
@@ -179,11 +179,11 @@ private:
 
 private:
     // for output
-    OCP_BOOL        useVtk{ OCP_FALSE };
+    OCP_BOOL        useVTK{ OCP_FALSE };
     vector<OCPpolyhedron>  polyhedronGrid;
 
 public:
-    OCP_BOOL IfUseVtk()const { return useVtk; }
+    OCP_BOOL IfUseVtk()const { return useVTK; }
     void SetHexaherdronGridOrthogonal();
     void SetHexaherdronGridCorner(const OCP_COORD& mycord);
 

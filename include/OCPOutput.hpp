@@ -150,7 +150,7 @@ public:
     void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
 
     /// TODO: Add Doxygen
-    void PrintInfo(const string& dir) const;
+    void PrintFastReview(const string& dir) const;
 
 private:
     vector<OCP_DBL> time;  ///< TODO: Add Doxygen
@@ -165,8 +165,11 @@ private:
 /// Basic grid properties for output
 class BasicGridProperty
 {
-    friend class DetailInfo;
+    friend class OutputRPT;
     friend class Out4VTK;
+
+public:
+    void SetBasicGridProperty(const BasicGridPropertyParam& param);
 
 private:
     OCP_BOOL PRE{ OCP_FALSE };  ///< Pressure of grids.
@@ -193,12 +196,12 @@ private:
 };
 
 /// Collect more detailed information of each time step.
-class DetailInfo
+class OutputRPT
 {
 public:
-    void InputParam(const OutputDetail& detail_param);
+    void InputParam(const OutputRPTParam& RPTparam);
     void Setup(const string& dir);
-    void PrintInfo(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
+    void PrintRPT(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
 
 private:
     OCP_BOOL    useRPT{ OCP_FALSE };
@@ -208,11 +211,13 @@ private:
 class Out4VTK
 {
 public:
+    void InputParam(const OutputVTKParam& VTKParam);
     void Setup(const string& dir, const Reservoir& rs, const USI& ndates);
     void PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
+    OCP_BOOL IfOutputVTK()const { return useVTK; }
 private:
 
-    OCP_BOOL     useVtk{ OCP_TRUE };
+    OCP_BOOL     useVTK{ OCP_FALSE };
     mutable USI  index{ 0 };   ///< index of output file
     BasicGridProperty bgp;
     Output4Vtk  out4vtk;
@@ -235,13 +240,13 @@ public:
     void PrintInfo() const;
     void PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
                         const OCP_DBL& time) const;
+    OCP_BOOL IfOutputVTK() const { return out4VTK.IfOutputVTK(); }
 
 private:
     string       workDir;
     Summary      summary;
     CriticalInfo crtInfo;
-    DetailInfo   dtlInfo;
-
+    OutputRPT   outRPT;
     Out4VTK      out4VTK;
 };
 

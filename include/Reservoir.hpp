@@ -32,7 +32,7 @@ class Reservoir
     friend class OCPControl;
     friend class Summary;
     friend class CriticalInfo;
-    friend class DetailInfo;
+    friend class OutputRPT;
     friend class Out4VTK;
 
     // temp
@@ -50,7 +50,7 @@ public:
     /// input files.
     void InputParam(ParamRead& param);
     /// Setup static information for reservoir with input params.
-    void Setup();
+    void Setup(const OCP_BOOL& useVTK);
     /// Apply the control of ith critical time point.
     void ApplyControl(const USI& i);
     /// Calculate Well Properties at the beginning of each time step.
