@@ -17,9 +17,9 @@ if(USE_FASP4BLKOIL)
       TARGET fasp4blkoil
       APPEND
       PROPERTY IMPORTED_LOCATION ${FASP4BLKOIL_LIBRARIES})
-    set_property(TARGET umfpack APPEND COMPILE_DEFINITIONS
+    set_property(TARGET fasp4blkoil APPEND COMPILE_DEFINITIONS
                                 "-DWITH_FASP4BLKOIL=1")
-    set_property(TARGET umfpack APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET fasp4blkoil APPEND INTERFACE_INCLUDE_DIRECTORIES
                                 ${FASP4BLKOIL_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC fasp4blkoil)
 
