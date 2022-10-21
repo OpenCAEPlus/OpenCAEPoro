@@ -16,10 +16,10 @@ if(USE_MUMPS)
   if(MUMPS_FOUND)
     message(STATUs "INFO: MUMPS found")
     add_library(mumps INTERFACE IMPORTED GLOBAL)
-    set_property(TARGET mumps APPEND INTERFACE_LINK_LIBRARIES
+    set_property(TARGET mumps APPEND PROPERTY INTERFACE_LINK_LIBRARIES
                               ${METIS_LIBRARIES} ${MUMPS_LIBRARIES})
-    set_property(TARGET mumps APPEND COMPILE_DEFINITIONS "-DWITH_MUMPS=1")
-    set_property(TARGET mumps APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET mumps APPEND PROPERTY COMPILE_DEFINITIONS "-DWITH_MUMPS=1")
+    set_property(TARGET mumps APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                               ${MUMPS_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC mumps)
 

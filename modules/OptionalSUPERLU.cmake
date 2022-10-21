@@ -14,8 +14,8 @@ if(USE_SUPERLU)
   if(SUPERLU_FOUND)
   message(STATUS "INFO: SuperLU found")
     add_library(superlu INTERFACE IMPORTED GLOBAL)
-    set_property(TARGET superlu APPEND COMPILE_DEFINITIONS "-DWITH_SuperLU=1")
-    set_property(TARGET superlu APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET superlu APPEND PROPERTY COMPILE_DEFINITIONS "-DWITH_SuperLU=1")
+    set_property(TARGET superlu APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                                 ${SUPERLU_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC superlu)
 

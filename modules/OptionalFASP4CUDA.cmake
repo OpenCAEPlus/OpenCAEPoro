@@ -18,10 +18,10 @@ if(USE_FASP4CUDA)
     # include_directories(${CUDA_INCLUDE_DIRS})
     message(STATUS "INFO: CUDA found")
     add_library(cuda INTERFACE IMPORTED GLOBAL)
-    set_property(TARGET cuda APPEND LINK_DIRECTORIES ${CUDA_DIR}/lib64)
-    set_property(TARGET cuda APPEND INTERFACE_LINK_LIBRARIES cublas cusparse
+    set_property(TARGET cuda APPEND PROPERTY LINK_DIRECTORIES ${CUDA_DIR}/lib64)
+    set_property(TARGET cuda APPEND PROPERTY INTERFACE_LINK_LIBRARIES cublas cusparse
                              cudart cudadevrt)
-    set_property(TARGET cuda APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET cuda APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                              ${CUDA_INCLUDE_DIRS})
   else(CUDA_FOUND)
     message(FATAL_ERROR "ERROR: CUDA was requested but not found!")
