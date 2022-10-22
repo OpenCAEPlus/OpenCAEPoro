@@ -646,7 +646,7 @@ void Out4RPT::InputParam(const OutputRPTParam& RPTparam)
 }
 
 
-void Out4RPT::Setup(const string& dir)
+void Out4RPT::Setup(const string& dir, const Reservoir& rs)
 {
     if (!useRPT) return;
 
@@ -656,6 +656,11 @@ void Out4RPT::Setup(const string& dir)
         OCP_ABORT("Can not open " + FileOut);
     }
     outF.close();
+
+    nx = rs.grid.nx;
+    ny = rs.grid.ny;
+    numGrid = rs.grid.numGrid;
+    IJKspace = rs.grid.numDigutIJK;
 }
 
 void Out4RPT::PrintRPT(const string&    dir,
@@ -666,9 +671,9 @@ void Out4RPT::PrintRPT(const string&    dir,
     if (!useRPT) return;
 
     string   FileOut = dir + "RPT.out";
-    ofstream outF;
-    outF.open(FileOut, ios::app);
-    if (!outF.is_open()) {
+    ofstream outRPT;
+    outRPT.open(FileOut, ios::app);
+    if (!outRPT.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
 
@@ -688,905 +693,220 @@ void Out4RPT::PrintRPT(const string&    dir,
     const string sep01(50, '=');
     const string sep02(50, '-');
 
-    outF << sep01 << "\n";
+    outRPT << OCP_SEP02(50) << "\n";
 
-    static OCP_BOOL flag = OCP_FALSE;
-    // Print once
-    if (flag) {
-        outF << "DX : feet";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dx[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "DY : feet";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dy[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "DZ : feet";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.dz[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "Depth : feet";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(1) << rs.bulk.depth[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "PERMX : MDarcy";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKxInit[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "PERMY : MDarcy";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKyInit[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    if (flag) {
-        outF << "PERMZ : MDarcy";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(5) << rs.bulk.rockKzInit[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
-    }
-
-    flag = OCP_FALSE;
-
-    // Well infor
+    // Well Info
     USI numWell = rs.allWells.GetWellNum();
-    outF << "Well Information"
-         << "                    ";
-    outF << fixed << setprecision(3) << days << "  DAYS" << "\n";
+    outRPT << "Well Information"
+        << "                    ";
+    outRPT << fixed << setprecision(3) << days << "  DAYS" << "\n";
     // INJ
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == INJ) {
-            outF << "-------------------------------------" << "\n";
-            outF << rs.allWells.wells[w].name << "   " << w << "   "
-                 << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
+            outRPT << "-------------------------------------" << "\n";
+            outRPT << rs.allWells.wells[w].name << "   " << w << "   "
+                << rs.allWells.wells[w].depth << " (feet)     ";
+            outRPT << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
-                outF << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t"
-                     << rs.allWells.wells[w].WWIR << " (STB/DAY)" << "\n";
-            } else {
-                outF << "SHUTIN" << "\n";
+                outRPT << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t"
+                    << rs.allWells.wells[w].WWIR << " (STB/DAY)" << "\n";
+            }
+            else {
+                outRPT << "SHUTIN" << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outF << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
-                     << rs.allWells.wells[w].perf[p].J << "   "
-                     << rs.allWells.wells[w].perf[p].K << "   "
-                     << rs.allWells.wells[w].perf[p].depth << "   ";
+                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
+                    << rs.allWells.wells[w].perf[p].J << "   "
+                    << rs.allWells.wells[w].perf[p].K << "   "
+                    << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
-                    outF << "OPEN";
-                } else {
-                    outF << "SHUTIN";
+                    outRPT << "OPEN";
                 }
-                outF << "   " << rs.allWells.wells[w].perf[p].location << "\n";
+                else {
+                    outRPT << "SHUTIN";
+                }
+                outRPT << "   " << rs.allWells.wells[w].perf[p].location << "\n";
             }
         }
     }
     // PROD
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == PROD) {
-            outF << "-------------------------------------" << "\n";
-            outF << rs.allWells.wells[w].name << "   " << w << "   "
-                 << rs.allWells.wells[w].depth << " (feet)     ";
-            outF << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
+            outRPT << "-------------------------------------" << "\n";
+            outRPT << rs.allWells.wells[w].name << "   " << w << "   "
+                << rs.allWells.wells[w].depth << " (feet)     ";
+            outRPT << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
-                outF << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t"
-                     << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
-                     << rs.allWells.wells[w].WWPR << " (STB/DAY)" << "\n";
-            } else {
-                outF << "SHUTIN" << "\n";
+                outRPT << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t"
+                    << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
+                    << rs.allWells.wells[w].WWPR << " (STB/DAY)" << "\n";
+            }
+            else {
+                outRPT << "SHUTIN" << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outF << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
-                     << rs.allWells.wells[w].perf[p].J << "   "
-                     << rs.allWells.wells[w].perf[p].K << "   "
-                     << rs.allWells.wells[w].perf[p].depth << "   ";
+                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
+                    << rs.allWells.wells[w].perf[p].J << "   "
+                    << rs.allWells.wells[w].perf[p].K << "   "
+                    << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
-                    outF << "OPEN";
-                } else {
-                    outF << "SHUTIN";
+                    outRPT << "OPEN";
                 }
-                outF << "   " << rs.allWells.wells[w].perf[p].location << "\n";
+                else {
+                    outRPT << "SHUTIN";
+                }
+                outRPT << "   " << rs.allWells.wells[w].perf[p].location << "\n";
             }
         }
     }
 
-    outF << "\n\n";
+    outRPT << "\n\n";
+
+
+    static OCP_BOOL flag = OCP_FALSE;
+    // Print once
+    if (flag) {
+        PrintRPT_Scalar(outRPT, "DX : feet", days, &rs.grid.dx[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DY : feet", days, &rs.grid.dy[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DZ : feet", days, &rs.grid.dz[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        flag = OCP_FALSE;
+    }
+    
 
     // PRESSURE
     if (bgp.PRE) {
-        outF << "PRESSURE : psia"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(3) << rs.bulk.P[bId];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
+        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // DENSITY of OIL
     if (bgp.DENO && rs.bulk.oil) {
-        outF << sep02 << "\n";
-        outF << "DENO : lb/ft3"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[rs.bulk.phase2Index[OIL]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
+    outRPT << endl;
 
     // DENSITY of GAS
     if (bgp.DENG && rs.bulk.gas) {
-        outF << sep02 << "\n";
-        outF << "DENG : lb/ft3"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[rs.bulk.phase2Index[GAS]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // DENSITY of WATER
     if (bgp.DENW && rs.bulk.water) {
-        outF << sep02 << "\n";
-        outF << "DENW : lb/ft3"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(3) << rs.bulk.rho[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(2) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // SATURATION of OIL
     if (bgp.SOIL && rs.bulk.oil) {
-        outF << sep02 << "\n";
-        outF << "SOIL"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[rs.bulk.phase2Index[OIL]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // SATURATION of GAS
     if (bgp.SGAS && rs.bulk.gas) {
-        outF << sep02 << "\n";
-        outF << "SGAS"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[rs.bulk.phase2Index[GAS]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // SATURATION of WATER
     if (bgp.SWAT && rs.bulk.water) {
-        outF << sep02 << "\n";
-        outF << "SWAT"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.S[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Relative Permeability of OIL
     if (bgp.KRO && rs.bulk.oil) {
-        outF << sep02 << "\n";
-        outF << "KRO"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[rs.bulk.phase2Index[OIL]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Relative Permeability of GAS
     if (bgp.KRG && rs.bulk.gas) {
-        outF << sep02 << "\n";
-        outF << "KRG"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[rs.bulk.phase2Index[GAS]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Relative Permeability of WATER
     if (bgp.KRW && rs.bulk.water) {
-        outF << sep02 << "\n";
-        outF << "KRW"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.kr[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Molar Density of OIL
     if (bgp.BOIL && rs.bulk.oil && rs.bulk.comps) {
-        outF << sep02 << "\n";
-        outF << "BOIL : lb-M/rb"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5)
-                         << rs.bulk.xi[tmpId] * CONV1;
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[rs.bulk.phase2Index[OIL]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Molar Density of GAS
     if (bgp.BGAS && rs.bulk.gas && rs.bulk.comps) {
-        outF << sep02 << "\n";
-        outF << "BGAS : lb-M/rb"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5)
-                         << rs.bulk.xi[tmpId] * CONV1;
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[rs.bulk.phase2Index[GAS]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Molar Density of WATER
     if (bgp.BWAT && rs.bulk.water) {
-        outF << sep02 << "\n";
-        outF << "BWAT : lb-M/rb"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5)
-                         << rs.bulk.xi[tmpId] * (CONV1 * 19.437216);
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE, (CONV1 * 19.437216));
     }
 
     // Viscosity of OIL
     if (bgp.VOIL && rs.bulk.oil) {
-        outF << sep02 << "\n";
-        outF << "VOIL : cp"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + OIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[rs.bulk.phase2Index[OIL]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Viscosity of GAS
     if (bgp.VGAS && rs.bulk.gas) {
-        outF << sep02 << "\n";
-        outF << "VGAS : cp"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + GIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[rs.bulk.phase2Index[GAS]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Viscosity of WATER
     if (bgp.VWAT && rs.bulk.water) {
-        outF << sep02 << "\n";
-        outF << "VWAT : cp"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId   = rs.grid.MapG2B(i).GetId();
-                tmpId = bId * np + WIndex;
-                if (rs.bulk.phaseExist[tmpId]) {
-                    outF << setw(10) << fixed << setprecision(5) << rs.bulk.mu[tmpId];
-                } else {
-                    outF << setw(9) << fixed << setprecision(4) << 0.0 << "N";
-                }
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // liquid component mole fractions.
     if (bgp.XMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            // the ith component
-            outF << sep02 << "\n";
-            outF << "XMF : Oil  " << i + 1 << "th Component"
-                 << "                   ";
-            outF << fixed << setprecision(3) << days << "  DAYS";
-
-            for (OCP_USI n = 0; n < num; n++) {
-                if (n % nx == 0) outF << "\n";
-                if (n % (nx * ny) == 0) outF << "\n";
-
-                if (n % nx == 0) {
-                    rs.grid.GetIJKGrid(I, J, K, n);
-                    outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                    // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-                }
-
-                if (rs.grid.MapG2B(n).IsAct()) {
-                    bId   = rs.grid.MapG2B(n).GetId();
-                    tmpId = bId * np + OIndex;
-                    if (rs.bulk.phaseExist[tmpId]) {
-                        tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6)
-                             << rs.bulk.xij[tmpId];
-                    } else {
-                        outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
-                    }
-                } else {
-                    outF << setw(10) << " --- ";
-                }
-            }
-            outF << "\n\n";
+            PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[rs.bulk.phase2Index[OIL] * nc + i], np * nc, rs.grid.activeMap_G2B, OCP_TRUE);
         }
     }
 
     // gas component mole fractions.
     if (bgp.YMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            // the ith component
-            outF << sep02 << "\n";
-            outF << "YMF : Gas  " << i << "th Component"
-                 << "                   ";
-            outF << fixed << setprecision(3) << days << "  DAYS";
-
-            for (OCP_USI n = 0; n < num; n++) {
-                if (n % nx == 0) outF << "\n";
-                if (n % (nx * ny) == 0) outF << "\n";
-
-                if (n % nx == 0) {
-                    rs.grid.GetIJKGrid(I, J, K, n);
-                    outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                    // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-                }
-
-                if (rs.grid.MapG2B(n).IsAct()) {
-                    bId   = rs.grid.MapG2B(n).GetId();
-                    tmpId = bId * np + GIndex;
-                    if (rs.bulk.phaseExist[tmpId]) {
-                        tmpId = tmpId * nc + i;
-                        outF << setw(10) << fixed << setprecision(6)
-                             << rs.bulk.xij[tmpId];
-                    } else {
-                        outF << setw(9) << fixed << setprecision(5) << 0.0 << "N";
-                    }
-                } else {
-                    outF << setw(10) << " --- ";
-                }
-            }
-            outF << "\n\n";
+            PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[rs.bulk.phase2Index[GAS] * nc + i], np * nc, rs.grid.activeMap_G2B, OCP_TRUE);
         }
     }
 
     // surface tension
     if (rs.bulk.miscible & OCP_FALSE) {
-        outF << sep02 << "\n";
-        outF << "STEN"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.surTen[bId];
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Fk
     if (rs.bulk.miscible & OCP_FALSE) {
-        outF << sep02 << "\n";
-        outF << "FMISC"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fk[bId];
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Fp
     if (rs.bulk.miscible & OCP_FALSE) {
-        outF << sep02 << "\n";
-        outF << "FPC"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(10) << fixed << setprecision(5) << rs.bulk.Fp[bId];
-            } else {
-                outF << setw(10) << " --- ";
-            }
-        }
-        outF << "\n\n";
+        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
     // Po - Pw
     if (bgp.PCW) {
-        outF << "PCW : psia"
-             << "                   ";
-        outF << fixed << setprecision(3) << days << "  DAYS";
-        for (OCP_USI i = 0; i < num; i++) {
-            if (i % nx == 0) outF << "\n";
-            if (i % (nx * ny) == 0) outF << "\n\n";
-
-            if (i % nx == 0) {
-                rs.grid.GetIJKGrid(I, J, K, i);
-                outF << GetIJKformat("*", to_string(J), to_string(K), tmpsp);
-                // outF << "(*," << setw(3) << J << "," << setw(3) << K << ")";
-            }
-
-            if (rs.grid.MapG2B(i).IsAct()) {
-                bId = rs.grid.MapG2B(i).GetId();
-                outF << setw(12) << fixed << setprecision(3)
-                     << -rs.bulk.Pc[bId * np + WIndex];
-            } else {
-                outF << setw(12) << "-----  ";
-            }
-        }
-        outF << "\n\n\n";
+        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[rs.bulk.phase2Index[WATER]], np, rs.grid.activeMap_G2B, OCP_TRUE);
     }
 
-    outF.close();
+    outRPT.close();
+}
+
+
+void Out4RPT::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
+{
+    // i,j,k begin from 1
+    // n must be the index of grids instead bulks
+    k = n / (nx * ny) + 1;
+    j = (n - (k - 1) * nx * ny) / nx + 1;
+    i = n - (k - 1) * nx * ny - (j - 1) * nx + 1;
 }
 
 
@@ -1664,7 +984,7 @@ void OCPOutput::Setup(const Reservoir& reservoir, const OCPControl& ctrl)
     workDir = ctrl.workDir;
     summary.Setup(reservoir, ctrl.criticalTime.back());
     crtInfo.Setup(ctrl.criticalTime.back());
-    out4RPT.Setup(workDir);
+    out4RPT.Setup(workDir, reservoir);
     out4VTK.Setup(workDir, reservoir, ctrl.criticalTime.size());
 }
 
