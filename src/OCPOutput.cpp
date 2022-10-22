@@ -682,6 +682,7 @@ void Out4RPT::PrintRPT(const string&    dir,
     const USI     OIndex = rs.bulk.phase2Index[OIL];
     const USI     GIndex = rs.bulk.phase2Index[GAS];
     const USI     WIndex = rs.bulk.phase2Index[WATER];
+    const vector<GB_Pair>& g2bp = rs.grid.activeMap_G2B;
 
     outRPT << OCP_SEP02(50) << "\n";
 
@@ -760,130 +761,130 @@ void Out4RPT::PrintRPT(const string&    dir,
     static OCP_BOOL flag = OCP_FALSE;
     // Print once
     if (flag) {
-        PrintRPT_Scalar(outRPT, "DX : feet", days, &rs.grid.dx[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "DY : feet", days, &rs.grid.dy[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "DZ : feet", days, &rs.grid.dz[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, rs.grid.activeMap_G2B, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DX : feet", days, &rs.grid.dx[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DY : feet", days, &rs.grid.dy[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DZ : feet", days, &rs.grid.dz[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, g2bp, OCP_FALSE);
         flag = OCP_FALSE;
     }
     
 
     // PRESSURE
     if (bgp.PRE) {
-        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, g2bp, OCP_TRUE);
     }
 
     // DENSITY of OIL
     if (bgp.DENO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[OIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[OIndex], np, g2bp, OCP_TRUE);
     }
     outRPT << endl;
 
     // DENSITY of GAS
     if (bgp.DENG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[GIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // DENSITY of WATER
     if (bgp.DENW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of OIL
     if (bgp.SOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[OIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of GAS
     if (bgp.SGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[GIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of WATER
     if (bgp.SWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of OIL
     if (bgp.KRO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[OIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of GAS
     if (bgp.KRG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[GIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of WATER
     if (bgp.KRW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of OIL
     if (bgp.BOIL && rs.bulk.oil && rs.bulk.comps) {
-        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of GAS
     if (bgp.BGAS && rs.bulk.gas && rs.bulk.comps) {
-        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of WATER
     if (bgp.BWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE, (CONV1 * 19.437216));
+        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[WIndex], np, g2bp, OCP_TRUE, (CONV1 * 19.437216));
     }
 
     // Viscosity of OIL
     if (bgp.VOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[OIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Viscosity of GAS
     if (bgp.VGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[GIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Viscosity of WATER
     if (bgp.VWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // liquid component mole fractions.
     if (bgp.XMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[OIndex * nc + i], np * nc, rs.grid.activeMap_G2B, OCP_TRUE);
+            PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[OIndex * nc + i], np * nc, g2bp, OCP_TRUE);
         }
     }
 
     // gas component mole fractions.
     if (bgp.YMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[GIndex * nc + i], np * nc, rs.grid.activeMap_G2B, OCP_TRUE);
+            PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[GIndex * nc + i], np * nc, g2bp, OCP_TRUE);
         }
     }
 
     // surface tension
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, g2bp, OCP_TRUE);
     }
 
     // Fk
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, g2bp, OCP_TRUE);
     }
 
     // Fp
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, g2bp, OCP_TRUE);
     }
 
     // Po - Pw
     if (bgp.PCW) {
-        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[WIndex], np, rs.grid.activeMap_G2B, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[WIndex], np, g2bp, OCP_TRUE);
     }
 
     outRPT.close();
@@ -948,15 +949,22 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
     // Calulcate Well val for output
     rs.allWells.SetWellVal();
 
+    const USI     np = rs.bulk.numPhase;
+    const USI     OIndex = rs.bulk.phase2Index[OIL];
+    const USI     GIndex = rs.bulk.phase2Index[GAS];
+    const USI     WIndex = rs.bulk.phase2Index[WATER];
+    const vector<GB_Pair>& g2bp = rs.grid.activeMap_G2B;
+    const vector<OCP_DBL>& well = rs.allWells.wellVal;
+
     // output
     if (bgp.PRE)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, rs.grid.activeMap_G2B, OCP_TRUE, rs.allWells.wellVal);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, g2bp, OCP_TRUE, well);
     if (bgp.SOIL)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[OIL]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE, rs.allWells.wellVal);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE, well);
     if (bgp.SGAS)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[GAS]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE, rs.allWells.wellVal);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE, well);
     if (bgp.SWAT)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[rs.bulk.phase2Index[WATER]], rs.bulk.numPhase, rs.grid.activeMap_G2B, OCP_TRUE, rs.allWells.wellVal);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE, well);
 
     index++;
 }
