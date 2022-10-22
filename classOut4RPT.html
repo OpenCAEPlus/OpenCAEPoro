@@ -84,12 +84,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af5b3be63b2d6846c3baf7d4cedd278a0"><td class="memItemLeft" align="right" valign="top"><a id="af5b3be63b2d6846c3baf7d4cedd278a0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>InputParam</b> (const <a class="el" href="classOutputRPTParam.html">OutputRPTParam</a> &amp;RPTparam)</td></tr>
 <tr class="separator:af5b3be63b2d6846c3baf7d4cedd278a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a481de2426d9657b86a10f36f5283f05c"><td class="memItemLeft" align="right" valign="top"><a id="a481de2426d9657b86a10f36f5283f05c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Setup</b> (const string &amp;dir)</td></tr>
-<tr class="separator:a481de2426d9657b86a10f36f5283f05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a177f42f09afa9607252dcf9e58242d00"><td class="memItemLeft" align="right" valign="top"><a id="a177f42f09afa9607252dcf9e58242d00"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Setup</b> (const string &amp;dir, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;reservoir)</td></tr>
+<tr class="separator:a177f42f09afa9607252dcf9e58242d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16513e94d45b5bd42146e26a0916b77c"><td class="memItemLeft" align="right" valign="top"><a id="a16513e94d45b5bd42146e26a0916b77c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PrintRPT</b> (const string &amp;dir, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;days) const</td></tr>
 <tr class="separator:a16513e94d45b5bd42146e26a0916b77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a451a21ebf5a10a16d4dc49af42d59811"><td class="memTemplParams" colspan="2"><a id="a451a21ebf5a10a16d4dc49af42d59811"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a451a21ebf5a10a16d4dc49af42d59811"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PrintRPT_Scalar</b> (ofstream &amp;ifs, const string &amp;dataName, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;days, const T *gridVal, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;gap, const vector&lt; <a class="el" href="classGB__Pair.html">GB_Pair</a> &gt; &amp;gbPair, const bool &amp;useActive, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;alpha=1.0) const</td></tr>
+<tr class="separator:a451a21ebf5a10a16d4dc49af42d59811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8cd7e424f2f64ce2a317317e4a7fd36"><td class="memItemLeft" align="right" valign="top"><a id="ae8cd7e424f2f64ce2a317317e4a7fd36"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>GetIJKGrid</b> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
+<tr class="separator:ae8cd7e424f2f64ce2a317317e4a7fd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Collect more detailed information of each time step. </p>
@@ -102,7 +109,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PrintRPT</b> (const s
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 22 2022 00:02:11 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 22 2022 02:24:27 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
