@@ -22,6 +22,7 @@
 #include "Reservoir.hpp"
 #include "UtilOutput.hpp"
 #include "Output4Vtk.hpp"
+#include "UtilTiming.hpp"
 
 
 using namespace std;
@@ -303,6 +304,8 @@ private:
     CriticalInfo crtInfo;
     Out4RPT   out4RPT;
     Out4VTK      out4VTK;
+
+    mutable OCP_DBL outputTime{ 0 }; ///< Total time for main output
 };
 
 #endif /* end if __OCPOUTPUT_HEADER__ */

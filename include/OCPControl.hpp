@@ -156,9 +156,15 @@ public:
     /// Reset the number of iterations.
     void ResetIterNRLS();
 
-    /// Update time used for linear solver.
-    void UpdateTimeLS(const OCP_DBL& t) { totalLStime += t; }
+    /// Record time used for linear solver.
+    void RecordTimeLS(const OCP_DBL& t) { totalLStime += t; }
 
+    /// Record time used for assemble matrix
+    void RecordTimeAssembleMat(const OCP_DBL& t) { totalAssembleMatTime += t; }
+
+    /// Record time used for update property 
+    void RecordTimeUpdateProperty(const OCP_DBL& t) { totalUpdatePropertyTime += t; }
+    
     /// Record the total time of simulation.
     void RecordTotalTime(const OCP_DBL& t) { totalSimTime += t; }
 
@@ -189,14 +195,17 @@ private:
     vector<OCP_DBL> criticalTime; ///< Set of Critical time by user
 
     // Record time information
+    OCP_DBL init_dt;         ///< from prediction for next TSTEP
     OCP_DBL current_dt;      ///< Current time step
     OCP_DBL last_dt;         ///< last time step
     OCP_DBL current_time{0}; ///< Current time
     OCP_DBL end_time;        ///< Next Critical time
-    OCP_DBL totalSimTime{0}; ///< Total simulation time
-    OCP_DBL totalLStime{0};  ///< Total linear solver time
-    OCP_DBL init_dt;         ///< from prediction for next TSTEP
 
+    OCP_DBL totalSimTime{0}; ///< Total simulation time
+    OCP_DBL totalUpdatePropertyTime{0}; ///< Total UpdateProperty Time
+    OCP_DBL totalAssembleMatTime{0}; ///< Total AssembleMat time
+    OCP_DBL totalLStime{0};  ///< Total linear solver time
+    
     // Record iteration information
     USI numTstep{0};     ///< Number of time step
     USI iterLS{0};       ///< Current iterations of linear solver

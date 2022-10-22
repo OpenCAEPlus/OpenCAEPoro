@@ -26,7 +26,7 @@ public:
     /// Prepare for assembling Mat.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
     /// Assemble Mat.
-    void AssembleMat(const Reservoir& rs, const OCP_DBL& dt);
+    void AssembleMat(const Reservoir& rs, OCPControl& ctrl);
     /// Solve the linear system in single problem.
     void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
     /// Update properties of fluid.

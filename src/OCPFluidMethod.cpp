@@ -54,7 +54,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
         status = myLS.GetNumIters();
     }
 
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.RecordTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
@@ -266,7 +266,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS,
     myLS.CheckSolution();
 #endif // DEBUG
 
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.RecordTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
@@ -527,7 +527,7 @@ void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS,
     myLS.CheckSolution();
 #endif // DEBUG
 
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.RecordTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
@@ -638,7 +638,7 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     myLS.CheckSolution();
 #endif // DEBUG
 
-    ctrl.UpdateTimeLS(Timer.Stop() / 1000);
+    ctrl.RecordTimeLS(Timer.Stop() / 1000);
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 

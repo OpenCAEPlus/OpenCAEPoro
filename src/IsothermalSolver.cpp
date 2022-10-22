@@ -79,8 +79,13 @@ void IsothermalSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
 }
 
 /// Assemble linear systems for IMPEC and FIM.
-void IsothermalSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
+void IsothermalSolver::AssembleMat(const Reservoir &rs, OCPControl& ctrl)
 {
+    const OCP_DBL dt = ctrl.GetCurDt();
+
+    GetWallTime timer;
+    timer.Start();
+
     switch (method)
     {
     case IMPEC:
@@ -98,6 +103,8 @@ void IsothermalSolver::AssembleMat(const Reservoir &rs, const OCP_DBL &dt)
     default:
         OCP_ABORT("Wrong method type!");
     }
+
+    ctrl.RecordTimeAssembleMat(timer.Stop() / 1000);
 }
 
 /// Solve linear systems for IMPEC and FIM.
@@ -125,19 +132,32 @@ void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
 /// Update physical properties for IMPEC and FIM.
 OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
 {
+    OCP_BOOL flag;
+
+    GetWallTime timer;
+    timer.Start();
+
     switch (method) {
         case IMPEC:
-            return impec.UpdateProperty(rs, ctrl);
+            flag = impec.UpdateProperty(rs, ctrl);
             // return impec.UpdateProperty01(rs, ctrl);
+            break;
         case FIMn:
-            return fim_n.UpdateProperty(rs, ctrl);
+            flag = fim_n.UpdateProperty(rs, ctrl);
+            break;
         case FIM:
-            return fim.UpdateProperty(rs, ctrl);
+            flag = fim.UpdateProperty(rs, ctrl);
+            break;
         case AIMc:
-            return aimc.UpdateProperty(rs, ctrl);
+            flag = aimc.UpdateProperty(rs, ctrl);
+            break;
         default:
             OCP_ABORT("Wrong method type!");
     }
+
+    ctrl.RecordTimeUpdateProperty(timer.Stop() / 1000);
+
+    return flag;
 }
 
 /// Finish up Newton-Raphson iteration for IMPEC and FIM.

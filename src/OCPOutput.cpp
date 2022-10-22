@@ -1006,8 +1006,14 @@ void OCPOutput::PrintInfoSched(const Reservoir&  rs,
     cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
          << setprecision(3) << right << days << " Days"
          << "    Wall time: " << time / 1000 << " Sec" << endl;
+
+    GetWallTime timer;
+    timer.Start();
+
     out4RPT.PrintRPT(workDir, rs, days);
     out4VTK.PrintVTK(workDir, rs, days);
+
+    outputTime += timer.Stop() / 1000;
 }
 
 /*----------------------------------------------------------------------------*/
