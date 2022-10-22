@@ -917,7 +917,7 @@ SUMMARY 关键字用于控制输出每个时间步的各指标信息，其结果
 
 ## RPTSCHED<span id=_RPTSCHED></span> (/)
 
-RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 [TSTEP](#_TSTEP)。其结果将打印在`RPT.out`
+RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 [TSTEP](#_TSTEP)。其结果将打印在`RPT.out`。
 
 可控制的输出信息包括：
 
@@ -933,9 +933,7 @@ RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 [TSTEP]
 
 ## VTKSCHED<span id=_VTKSCHED></span> 
 
-VTKSCHED 会将所指定的信息在每一个 TSTEP 输出成 VTK 的文件格式，可输出的信息参见 [RPTSCHED](#_RPTSCHED)
-
------
+VTKSCHED 会将所指定的信息在每一个 TSTEP 输出成 VTK 的文件格式，可输出的信息参见 [RPTSCHED](#_RPTSCHED)。
 
 示例：
 
@@ -944,6 +942,8 @@ RPTSCHED
 PRES   SOIL   SWAT
 /
 ```
+
+-----
 
 ## 参考示例 (SPE1)
 
