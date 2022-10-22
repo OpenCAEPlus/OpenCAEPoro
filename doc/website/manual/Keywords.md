@@ -1018,6 +1018,10 @@ RPTSCHED 用来控制输出各个关键时间节点的详细信息，见 [TSTEP]
 * SGAS：各网格块中气相饱和度，dimensionless
 * SWAT：各网格块中水相饱和度，dimensionless
 
+
+## VTKSCHED<span id=_RPTSCHED></span> 
+VTKSCHED 会将所指定的信息在每一个 TSTEP 输出成 VTK 的文件格式，可输出的信息参见 [RPTSCHED](#_RPTSCHED)
+
 -----
 
 示例
