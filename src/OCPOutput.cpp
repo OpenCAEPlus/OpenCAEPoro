@@ -683,9 +683,6 @@ void Out4RPT::PrintRPT(const string&    dir,
     const USI     GIndex = rs.bulk.phase2Index[GAS];
     const USI     WIndex = rs.bulk.phase2Index[WATER];
 
-    const string sep01(50, '=');
-    const string sep02(50, '-');
-
     outRPT << OCP_SEP02(50) << "\n";
 
     // Well Info
