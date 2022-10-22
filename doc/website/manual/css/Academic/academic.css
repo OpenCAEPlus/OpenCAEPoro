@@ -89,6 +89,13 @@ html {
     padding-top: 5%;
 }
 
+write {
+    font-family:'Microsoft YaHei',"Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.5em;
+    padding: 10%;
+    padding-top: 5%;
+}
+
 .file-list-item-summary {
     height: 36px;
 }
