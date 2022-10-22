@@ -24,6 +24,11 @@
 
 using namespace std;
 
+template<typename T>
+constexpr auto OCP_SEP01(T n) { return string(n, '-'); }
+
+template<typename T>
+constexpr auto OCP_SEP02(T n) { return string(n, '='); }
 
 string GetIJKformat(const string& i, const string& j, const string& k, const USI& s);
 

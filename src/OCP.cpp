@@ -88,15 +88,21 @@ void OpenCAEPoro::RunSimulation()
 void OpenCAEPoro::OutputResults() const
 {
     cout << "=========================================" << endl;
-    cout << "Final time:          " << control.current_time << " Days" << endl;
-    cout << "Total time steps:    " << control.numTstep << endl;
-    cout << "Total Newton steps:  " << control.iterNR_total << " (+"
+    cout << "Final time:             " << control.current_time << " Days" << endl;
+    cout << "Total time steps:       " << control.numTstep << endl;
+    cout << "Total Newton steps:     " << control.iterNR_total << " (+"
          << control.wastedIterNR << " wasted steps)" << endl;
-    cout << "Total linear steps:  " << control.iterLS_total << " (+"
+    cout << "Total linear steps:     " << control.iterLS_total << " (+"
          << control.wastedIterLS << " wasted steps)" << endl;
-    cout << "Linear solve time:   " << control.totalLStime << "s"
+    cout << "Linear solve time:      " << control.totalLStime << "s"
          << " (" << 100.0 * control.totalLStime / control.totalSimTime << "%)" << endl;
-    cout << "Simulation time:     " << control.totalSimTime << "s" << endl;
+    cout << "Assemble Mat time:      " << control.totalAssembleMatTime << "s"
+         << " (" << 100.0 * control.totalAssembleMatTime / control.totalSimTime << "%)" << endl;
+    cout << "Update Property time:   " << control.totalUpdatePropertyTime << "s"
+         << " (" << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << "%)" << endl;
+    cout << "Sched output time:      " << output.outputTime << "s"
+         << " (" << 100.0 * output.outputTime / control.totalSimTime << "%)" << endl;
+    cout << "Simulation time:        " << control.totalSimTime << "s" << endl;
     output.PrintInfo();
 }
 

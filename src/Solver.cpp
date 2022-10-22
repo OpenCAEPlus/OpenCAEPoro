@@ -110,7 +110,7 @@ void Solver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
 void Solver::AssembleSolve(Reservoir &rs, OCPControl &ctrl)
 {
     // Assemble linear system
-    IsoTSolver.AssembleMat(rs, ctrl.current_dt);
+    IsoTSolver.AssembleMat(rs, ctrl);
     // Solve linear system
     IsoTSolver.SolveLinearSystem(rs, ctrl);
 }

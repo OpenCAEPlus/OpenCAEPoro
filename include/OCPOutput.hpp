@@ -22,6 +22,7 @@
 #include "Reservoir.hpp"
 #include "UtilOutput.hpp"
 #include "Output4Vtk.hpp"
+#include "UtilTiming.hpp"
 
 
 using namespace std;
@@ -200,13 +201,68 @@ class Out4RPT
 {
 public:
     void InputParam(const OutputRPTParam& RPTparam);
-    void Setup(const string& dir);
+    void Setup(const string& dir, const Reservoir& reservoir);
     void PrintRPT(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
+    template <typename T>
+    void PrintRPT_Scalar(ofstream& ifs, const string& dataName, const OCP_DBL& days, const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const OCP_DBL& alpha = 1.0) const;
+    void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
 
 private:
     OCP_BOOL    useRPT{ OCP_FALSE };
+    OCP_USI     numGrid;
+    OCP_USI     nx;
+    OCP_USI     ny;
+    USI         IJKspace;
     BasicGridProperty bgp;
 };
+
+template <typename T>
+void Out4RPT::PrintRPT_Scalar(ofstream& myRPT, const string& dataName, const OCP_DBL& days, const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const OCP_DBL& alpha) const
+{
+    USI I, J, K;
+    OCP_USI bId;
+
+    myRPT << OCP_SEP01(50) << "\n";
+    myRPT << dataName << "                   "
+          << fixed << setprecision(3) << days << "  DAYS";
+
+    if (useActive) {
+        for (OCP_USI n = 0; n < numGrid; n++) {
+            if (n % nx == 0) myRPT << "\n";
+            if (n % (nx * ny) == 0) myRPT << "\n\n";
+
+            if (n % nx == 0) {
+                GetIJKGrid(I, J, K, n);
+                myRPT << GetIJKformat("*", to_string(J), to_string(K), IJKspace);
+            }
+           
+            if (gbPair[n].IsAct()) {
+                bId = gbPair[n].GetId();
+                myRPT << setw(10) << fixed << setprecision(3) << gridVal[bId * gap] * alpha;
+            }
+            else {
+                myRPT << setw(10) << " --- ";
+            }
+        }
+    }
+    else {
+        for (OCP_USI n = 0; n < numGrid; n++) {
+            if (n % nx == 0) myRPT << "\n";
+            if (n % (nx * ny) == 0) myRPT << "\n\n";
+
+            if (n % nx == 0) {
+                GetIJKGrid(I, J, K, n);
+                myRPT << GetIJKformat("*", to_string(J), to_string(K), IJKspace);
+            }
+            myRPT << setw(10) << fixed << setprecision(3) << gridVal[n * gap] * alpha;
+        }
+    }
+
+
+    myRPT << "\n\n\n";
+}
+
+
 
 class Out4VTK
 {
@@ -248,6 +304,8 @@ private:
     CriticalInfo crtInfo;
     Out4RPT   out4RPT;
     Out4VTK      out4VTK;
+
+    mutable OCP_DBL outputTime{ 0 }; ///< Total time for main output
 };
 
 #endif /* end if __OCPOUTPUT_HEADER__ */
