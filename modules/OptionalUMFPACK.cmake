@@ -13,10 +13,10 @@ if(USE_UMFPACK)
   if(UMFPACK_FOUND)
     message(STATUS "INFO: UMFPACK found")
     add_library(umfpack INTERFACE IMPORTED GLOBAL)
-    set_property(TARGET umfpack APPEND INTERFACE_LINK_LIBRARIES
+    set_property(TARGET umfpack APPEND PROPERTY INTERFACE_LINK_LIBRARIES
                                 ${UMFPACK_LIBRARIES})
-    set_property(TARGET umfpack APPEND COMPILE_DEFINITIONS "-DWITH_UMFPACK=1")
-    set_property(TARGET umfpack APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET umfpack APPEND PROPERTY COMPILE_DEFINITIONS "-DWITH_UMFPACK=1")
+    set_property(TARGET umfpack APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                                 ${UMFPACK_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC umfpack)
     # add_definitions("-DWITH_UMFPACK=1")

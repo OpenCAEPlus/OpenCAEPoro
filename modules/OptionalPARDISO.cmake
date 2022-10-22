@@ -15,10 +15,10 @@ if(USE_PARDISO)
   if(MKL_FOUND)
     message(STATUS "INFO: Intel MKL found")
     add_library(pardiso INTERFACE IMPORTED GLOBAL)
-    set_property(TARGET pardiso APPEND INTERFACE_LINK_LIBRARIES
+    set_property(TARGET pardiso APPEND PROPERTY INTERFACE_LINK_LIBRARIES
                                 ${MKL_LIBRARIES})
-    set_property(TARGET pardiso APPEND COMPILE_DEFINITIONS "-DWITH_PARDISO=1")
-    set_property(TARGET pardiso APPEND INTERFACE_INCLUDE_DIRECTORIES
+    set_property(TARGET pardiso APPEND PROPERTY COMPILE_DEFINITIONS "-DWITH_PARDISO=1")
+    set_property(TARGET pardiso APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                                 ${MKL_INCLUDE_DIRS})
 
     target_link_libraries(${LIBNAME} PUBLIC pardiso)
