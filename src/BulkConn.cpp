@@ -1218,6 +1218,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         bmat = dFdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * lendSdP],
                 1, bmat.data());
+
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Add
@@ -1239,6 +1240,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         bmat = dFdXpE;
         DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * lendSdP],
                 1, bmat.data());
+
         Dscalar(bsize, dt, bmat.data());
         // Begin
         // Insert

@@ -2202,6 +2202,7 @@ void Well::AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
         bmat = dQdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * lendSdP], 1,
             bmat.data());
+
         Dscalar(bsize, dt, bmat.data());
         // Add
         USI ptr = myLS.diagPtr[n];
@@ -2384,7 +2385,6 @@ void Well::AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
         bmat = dQdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * lendSdP], 1,
             bmat.data());
-
         Dscalar(bsize, dt, bmat.data());
         // Add
         USI ptr = myLS.diagPtr[n];

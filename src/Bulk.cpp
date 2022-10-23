@@ -2995,7 +2995,6 @@ void Bulk::ResetFIM()
     pVnumCom     = lpVnumCom;
     dKr_dS       = ldKr_dS;
     dPcj_dS      = ldPcj_dS;
-
     if (miscible) {
         surTen = lsurTen;
     }

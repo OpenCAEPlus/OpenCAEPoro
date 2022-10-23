@@ -519,7 +519,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
 
     // Calculate pSderExist and pVnumCom
     fill(pSderExist.begin(), pSderExist.end(), OCP_FALSE);
-    fill(pVnumCom.begin(), pVnumCom.end(), 0.0);
+    fill(pVnumCom.begin(), pVnumCom.end(), 0);
     if (phaseExist[0]) {
         pSderExist[0] = OCP_TRUE;
         pVnumCom[0]   = NC;
@@ -1895,6 +1895,7 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     }
 
     EoSctrl.RR.curIt += iter;
+
 
     // cout << iter << "      " << scientific << setprecision(3) << fabs(rj)
     //     << "      " << nu[0] << "      " << numin << "      " << numax << endl;

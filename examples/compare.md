@@ -333,17 +333,21 @@ Simulation time:     1146.347s
 
 precond_type   =  64
 
-SSMSTA:     96792555
-NRSTA:      74
-SSMSP:      52566167
-NRSP:       26468101
+SSMSTA:         96792555          9.633
+NRSTA:                74          0.000
+SSMSP:          52566167          2.070
+NRSP:           26468101          1.042
+NRRR:          150473178          5.924
 =========================================
-Final time:          730.000 Days
-Total time steps:    49
-Total Newton steps:  222 (+30 wasted steps)
-Total linear steps:  833 (+85 wasted steps)
-Linear solve time:   474.654s (51.896%)
-Simulation time:     914.624s
+Final time:             730.000 Days
+Total time steps:       49
+Total Newton steps:     222 (+30 wasted steps)
+Total linear steps:     833 (+85 wasted steps)
+Linear solve time:      445.557s (51.180%)
+Assemble Mat time:      167.293s (19.217%)
+Update Property time:   223.045s (25.621%)
+Sched output time:      0.000s (0.000%)
+Simulation time:        870.567s
 
 
 .\OpenCAEPoro.exe ..\..\examples\spe5refine\spe5-70x70x30-2y.data  FIM  1  50  0.1
