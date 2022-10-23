@@ -521,50 +521,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;        bmat = dFdXpB;</div>
 <div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncolB, 1, dFdXsB.data(), &amp;myBulk.dSec_dPri[bId * lendSdP],</div>
 <div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;                1, bmat.data());</div>
-<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
-<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;        <span class="comment">// Begin</span></div>
-<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;        <span class="comment">// Add</span></div>
-<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
-<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;            myLS.val[bId][diagptr * bsize + i] += bmat[i];</div>
-<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;        }</div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;        <span class="comment">// End</span></div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;        <span class="comment">// Insert</span></div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());</div>
-<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160; </div>
-<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;<span class="preprocessor">#ifdef OCP_NANCHECK</span></div>
-<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="DenseMat_8hpp.html#a56bc3abd4d498e5055b3da3a58d45bad">CheckNan</a>(bmat.size(), &amp;bmat[0])) {</div>
-<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;INF or NAN in bmat !&quot;</span>);</div>
-<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;        }</div>
-<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160; </div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;        <span class="comment">// End</span></div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;        bmat = dFdXpE;</div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncolE, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * lendSdP],</div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;                1, bmat.data());</div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
-<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;        <span class="comment">// Begin</span></div>
-<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;        <span class="comment">// Insert</span></div>
-<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());</div>
-<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;        <span class="comment">// Add</span></div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;            myLS.diagVal[eId * bsize + i] += bmat[i];</div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;        }</div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160; </div>
-<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;<span class="preprocessor">#ifdef OCP_NANCHECK</span></div>
-<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="DenseMat_8hpp.html#a56bc3abd4d498e5055b3da3a58d45bad">CheckNan</a>(bmat.size(), &amp;bmat[0])) {</div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;INF or INF in bmat !&quot;</span>);</div>
-<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;        }</div>
-<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;    }</div>
-<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;    <span class="comment">// Add the rest of diag value. Important!</span></div>
-<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;        <span class="keywordflow">if</span> (myLS.val[n].size() == myLS.diagPtr[n] * bsize)</div>
-<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,</div>
-<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;                               myLS.diagVal.data() + n * bsize + bsize);</div>
-<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;    }</div>
-<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;}</div>
+<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160; </div>
+<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
+<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;        <span class="comment">// Begin</span></div>
+<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;        <span class="comment">// Add</span></div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;            myLS.val[bId][diagptr * bsize + i] += bmat[i];</div>
+<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;        }</div>
+<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;        <span class="comment">// End</span></div>
+<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;        <span class="comment">// Insert</span></div>
+<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());</div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160; </div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;<span class="preprocessor">#ifdef OCP_NANCHECK</span></div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="DenseMat_8hpp.html#a56bc3abd4d498e5055b3da3a58d45bad">CheckNan</a>(bmat.size(), &amp;bmat[0])) {</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;INF or NAN in bmat !&quot;</span>);</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;        }</div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160; </div>
+<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;        <span class="comment">// End</span></div>
+<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;        bmat = dFdXpE;</div>
+<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a>(ncol, ncol, ncolE, 1, dFdXsE.data(), &amp;myBulk.dSec_dPri[eId * lendSdP],</div>
+<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;                1, bmat.data());</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160; </div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, dt, bmat.data());</div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;        <span class="comment">// Begin</span></div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;        <span class="comment">// Insert</span></div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());</div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;        <span class="comment">// Add</span></div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a>(bsize, -1, bmat.data());</div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; bsize; i++) {</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;            myLS.diagVal[eId * bsize + i] += bmat[i];</div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;        }</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160; </div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;<span class="preprocessor">#ifdef OCP_NANCHECK</span></div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="DenseMat_8hpp.html#a56bc3abd4d498e5055b3da3a58d45bad">CheckNan</a>(bmat.size(), &amp;bmat[0])) {</div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;INF or INF in bmat !&quot;</span>);</div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;        }</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;    }</div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;    <span class="comment">// Add the rest of diag value. Important!</span></div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;        <span class="keywordflow">if</span> (myLS.val[n].size() == myLS.diagPtr[n] * bsize)</div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,</div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;                               myLS.diagVal.data() + n * bsize + bsize);</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;    }</div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;}</div>
 <div class="ttc" id="aDenseMat_8hpp_html_a2dedd031947f85613a20d2bcadfb6d29"><div class="ttname"><a href="DenseMat_8hpp.html#a2dedd031947f85613a20d2bcadfb6d29">DaABpbC</a></div><div class="ttdeci">void DaABpbC(const int &amp;m, const int &amp;n, const int &amp;k, const double &amp;alpha, const double *A, const double *B, const double &amp;beta, double *C)</div><div class="ttdoc">Computes C' = alpha B'A' + beta C', all matrices are column-major.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00076">DenseMat.cpp:76</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a3fb701e3ab34443119b7b2ba7a2bc6c7"><div class="ttname"><a href="DenseMat_8hpp.html#a3fb701e3ab34443119b7b2ba7a2bc6c7">Dscalar</a></div><div class="ttdeci">void Dscalar(const int &amp;n, const double &amp;alpha, double *x)</div><div class="ttdoc">Scales a vector by a constant.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00062">DenseMat.cpp:62</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a56bc3abd4d498e5055b3da3a58d45bad"><div class="ttname"><a href="DenseMat_8hpp.html#a56bc3abd4d498e5055b3da3a58d45bad">CheckNan</a></div><div class="ttdeci">bool CheckNan(const int &amp;N, const T *x)</div><div class="ttdoc">check NaN</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8hpp_source.html#l00132">DenseMat.hpp:132</a></div></div>
@@ -682,7 +684,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 22 2022 07:09:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 23 2022 06:19:26 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
