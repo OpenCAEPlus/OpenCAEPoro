@@ -26,5 +26,5 @@ jobs:
                   fetch-depth: 0
             - name: test 
               run: |
-                  set FASP_DIR="C:/Program Files (x86)/faspsolver"
+                  set FASP_DIR=C:/Program Files (x86)/faspsolver
                   cli.bat test -b Release -c intel
