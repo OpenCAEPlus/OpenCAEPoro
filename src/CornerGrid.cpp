@@ -1015,7 +1015,8 @@ void OCP_COORD::SetupCornerPoints()
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k) break;
+                        // if (-iznnc > k) break;
+                        if (-iznnc - static_cast<OCP_INT>(k) > 0) break;
                         // find object block
                         const Hexahedron& leftblock = cornerPoints[i - 1][j][k + iznnc];
                         oindex   = (k + iznnc) * nxny + j * nx + i - 1;
@@ -1186,7 +1187,8 @@ void OCP_COORD::SetupCornerPoints()
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k) break;
+                        // if (-iznnc > k) break;
+                        if (-iznnc - static_cast<OCP_INT>(k) > 0) break;
                         // find object block
                         const Hexahedron& rightblock =
                             cornerPoints[i + 1][j][k + iznnc];
@@ -1360,7 +1362,8 @@ void OCP_COORD::SetupCornerPoints()
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k) break;
+                        // if (-iznnc > k) break;
+                        if (-iznnc - static_cast<OCP_INT>(k) > 0) break;
                         // find object block
                         const Hexahedron& backblock = cornerPoints[i][j - 1][k + iznnc];
                         oindex   = (k + iznnc) * nxny + (j - 1) * nx + i;
@@ -1532,7 +1535,8 @@ void OCP_COORD::SetupCornerPoints()
 
                     iznnc = -1;
                     while (upNNC) {
-                        if (-iznnc > k) break;
+                        // if (-iznnc > k) break;
+                        if (-iznnc - static_cast<OCP_INT>(k) > 0) break;
                         // find object block
                         const Hexahedron& frontblock =
                             cornerPoints[i][j + 1][k + iznnc];
