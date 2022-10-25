@@ -142,8 +142,10 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                     case PHASE_OW:
                         if (opt.optMode == ORATE_MODE)
                             opt.zi[0] = 1;
-                        else
+                        else if (opt.optMode == WRATE_MODE)
                             opt.zi[1] = 1;
+                        else // LRATE_MODE
+                            opt.zi[0] = opt.zi[1] = 1;
                         break;
                     case PHASE_DOGW:
                     case PHASE_ODGW:                   
