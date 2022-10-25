@@ -36,4 +36,5 @@ jobs:
                   fetch-depth: 0
             - name: Build 
               run: |
+                  set FASP_DIR=C:/Program Files (x86)/faspsolver
                   cli.bat build -b Debug -c intel -t all
