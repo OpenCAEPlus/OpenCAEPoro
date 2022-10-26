@@ -185,16 +185,13 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs, const string& keyword)
     BasicGridPropertyParam* tmpBgpp;
     if (keyword == "RPTSCHED") {
         outRPTParam.useRPT = OCP_TRUE;
-        tmpBgpp = &outRPTParam.bgp;
-    }
-    else if (keyword == "VTKSCHED") {
+        tmpBgpp            = &outRPTParam.bgp;
+    } else if (keyword == "VTKSCHED") {
         outVTKParam.useVTK = OCP_TRUE;
-        tmpBgpp = &outVTKParam.bgp;
-    }
-    else {
+        tmpBgpp            = &outVTKParam.bgp;
+    } else {
         return;
     }
-    
 
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {

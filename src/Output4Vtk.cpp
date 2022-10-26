@@ -9,11 +9,14 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #include "Output4Vtk.hpp"
 
-
-void Output4Vtk::Init(const string& myFile, const string& shortInfo, const string& myCodeWay, const string& girdType, const VTK_USI& nG, const VTK_USI& nW)
+void Output4Vtk::Init(const string&  myFile,
+                      const string&  shortInfo,
+                      const string&  myCodeWay,
+                      const string&  girdType,
+                      const VTK_USI& nG,
+                      const VTK_USI& nW)
 {
     ofstream myVtk(myFile);
     if (!myVtk.is_open()) {
@@ -29,12 +32,12 @@ void Output4Vtk::Init(const string& myFile, const string& shortInfo, const strin
     // Title
     if (shortInfo.size() > VTK_MAX_TITLE_LENGTH) {
         OCP_WARNING("length of title is beyond the limit: 256");
-        myVtk << "Invalid short info, Too many characters" << "\n";
-    }
-    else {
+        myVtk << "Invalid short info, Too many characters"
+              << "\n";
+    } else {
         myVtk << shortInfo << "\n";
     }
-    
+
     // Code
     myVtk << myCodeWay << "\n";
 
@@ -44,15 +47,16 @@ void Output4Vtk::Init(const string& myFile, const string& shortInfo, const strin
     myVtk << "\n";
     myVtk.close();
 
-
     // Init numGrid and numGrid
     numGrid = nG;
     numWell = nW;
     numCell = numGrid + numWell;
 }
 
-
-void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell, const string& dataType) const
+void Output4Vtk::OutputPOINTS(const string&                myFile,
+                              const vector<OCPpolyhedron>& myHexGrid,
+                              const vector<OCPpolyhedron>& myHexWell,
+                              const string&                dataType) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -72,18 +76,18 @@ void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>&
 
     for (VTK_USI i = 0; i < numGrid; i++) {
         for (USI j = 0; j < myHexGrid[i].numPoints; j++) {
-            myVtk << setw(6) << myHexGrid[i].Points[j].x << "   "
-                << setw(6) << myHexGrid[i].Points[j].y << "   "
-                << setw(6) << myHexGrid[i].Points[j].z << "\n";
+            myVtk << setw(6) << myHexGrid[i].Points[j].x << "   " << setw(6)
+                  << myHexGrid[i].Points[j].y << "   " << setw(6)
+                  << myHexGrid[i].Points[j].z << "\n";
         }
     }
 
     // Well Points
     for (VTK_USI w = 0; w < numWell; w++) {
         for (USI j = 0; j < myHexWell[w].numPoints; j++) {
-            myVtk << setw(6) << myHexWell[w].Points[j].x << "   "
-                << setw(6) << myHexWell[w].Points[j].y << "   "
-                << setw(6) << myHexWell[w].Points[j].z << "\n";
+            myVtk << setw(6) << myHexWell[w].Points[j].x << "   " << setw(6)
+                  << myHexWell[w].Points[j].y << "   " << setw(6)
+                  << myHexWell[w].Points[j].z << "\n";
         }
     }
 
@@ -91,8 +95,9 @@ void Output4Vtk::OutputPOINTS(const string& myFile, const vector<OCPpolyhedron>&
     myVtk.close();
 }
 
-
-void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const
+void Output4Vtk::OutputCELLS(const string&                myFile,
+                             const vector<OCPpolyhedron>& myHexGrid,
+                             const vector<OCPpolyhedron>& myHexWell) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -111,9 +116,8 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
         numSize += myHexWell[w].numPoints;
     }
 
-
     myVtk << VTK_CELLS << " " << numCell << " " << numSize << "\n";
-    
+
     // EASY output!
     // Grid Cell
     VTK_USI tmp = 0;
@@ -136,13 +140,13 @@ void Output4Vtk::OutputCELLS(const string& myFile, const vector<OCPpolyhedron>& 
         tmp += myHexWell[w].numPoints;
     }
 
-
     myVtk << "\n";
     myVtk.close();
 }
 
-
-void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHexGrid, const vector<OCPpolyhedron>& myHexWell) const
+void Output4Vtk::OutputCELL_TYPES(const string&                myFile,
+                                  const vector<OCPpolyhedron>& myHexGrid,
+                                  const vector<OCPpolyhedron>& myHexWell) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
@@ -169,8 +173,6 @@ void Output4Vtk::OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedr
     myVtk << "\n";
     myVtk.close();
 }
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
