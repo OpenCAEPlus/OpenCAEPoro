@@ -31,13 +31,13 @@ The typical two-step `cmake` building is adopted by OpenCAEPoro:
 **Step 1.** To config the environment for building with cmake:
 
 ```bash
-  >>> mkdir Build; cd Build; cmake ..
+  > mkdir Build; cd Build; cmake ..
 ```
 
 **Step 2.** To build the library and test program and then install:
 
 ```bash
-  >>> make install
+  > make install
 ```
 
 If you do not want to `install` the lib and test examples, just run `make` without any specific target. Standard `uninstall` and `clean` targets are provided in the generated Makefile. You may safely remove the `Build` directory as well.
@@ -45,8 +45,8 @@ If you do not want to `install` the lib and test examples, just run `make` witho
 > Note: You can also use the provided scripts to build the whole project:
 
 ```bash
-  >>> chmod 755 cli
-  >>> ./cli build -c intel -t all -b Debug 
+  > chmod 755 cli
+  > ./cli build -c intel -t all -b Debug 
 ```
 
 > Note: You may change the arguments for your own setting. For example, change `Debug` to `Release` for a release build.
@@ -64,9 +64,9 @@ We now give a list of optional dependencies:
 [MUMPS](http://mumps-solver.org/) is a massively parallel sparse direct solver mainly based on the multifrontal approach. In order to be able to call the solvers from MUMPS, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_MUMPS=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_MUMPS=ON ..
+  > make -j 8 install
 ```
 
 ### SuperLU
@@ -74,9 +74,9 @@ We now give a list of optional dependencies:
 [SuperLU](https://portal.nersc.gov/project/sparse/superlu/) is a general purpose library for the LU and ILU factorization methods for linear algebraic equations. It uses MPI, OpenMP, and CUDA to support various forms of parallelism. In order to be able to call the solvers from SuperLU, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_SUPERLU=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_SUPERLU=ON ..
+  > make -j 8 install
 ```
 
 ### Strumpack
@@ -84,9 +84,9 @@ We now give a list of optional dependencies:
 [Strumpack](https://github.com/pghysels/STRUMPACK) is a software library providing linear algebra routines and linear system solvers for sparse and for dense rank-structured linear systems. In order to be able to call the solvers from Strumpack, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build; 
-  >>> cmake -DUSE_STRUMPACK=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build; 
+  > cmake -DUSE_STRUMPACK=ON ..
+  > make -j 8 install
 ```
 
 ### UMFPack in SuiteSparse
@@ -94,9 +94,9 @@ We now give a list of optional dependencies:
 UMFPack is one of the sparse direct solvers provided in [SuiteSparse](http://suitesparse.com). In order to be able to call the solvers from UMFPack, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_UMFPACK=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_UMFPACK=ON ..
+  > make -j 8 install
 ```
 
 ### Intel MKL Pardiso
@@ -104,9 +104,9 @@ UMFPack is one of the sparse direct solvers provided in [SuiteSparse](http://sui
 Pardiso has two versions. We now use the version in [Intel oneMKL](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#base-kit) for simplicity and ease to use with Intel compiler tool chain. In order to link with Paridso, make sure that oneAPI base toolkit has been installed and the appropriate environment variables has been set. You need to run:
 
 ```bash
-    >>> mkdir Build; cd Build; 
-    >>> cmake -DUSE_PARDISO=ON ..
-    >>> make -j 8 install
+    > mkdir Build; cd Build; 
+    > cmake -DUSE_PARDISO=ON ..
+    > make -j 8 install
 ```
 
 ### fasp4blkoil
@@ -114,9 +114,9 @@ Pardiso has two versions. We now use the version in [Intel oneMKL](https://www.i
 The above methods are all based on Gaussian elimination. If you need efficient iterative solvers, you can link with [fasp4blkoil](https://github.com/FaspDevTeam/fasp4blkoil) or [faspcpr](https://github.com/FaspDevTeam/faspcpr). These packages contain multistage preconditioners. If you wish to use preconditioners in fasp4blkoil (with UMFPACK support), for example, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_FASP4BLKOIL=ON -DUSE_UMFPACK=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_FASP4BLKOIL=ON -DUSE_UMFPACK=ON ..
+  > make -j 8 install
 ```
 
 > Note: Other direct solvers listed above can also be used with `fasp4blkoil` or `faspcpr`. Just make sure you compile them with the corresponding direct solvers.
@@ -126,9 +126,9 @@ The above methods are all based on Gaussian elimination. If you need efficient i
 [VTK](https://vtk.org/) is an open-source, freely available software system for 3D computer graphics, modeling, image processing, volume rendering, scientific visualization, and 2D plotting. If you need it for visualization, you can run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_VTK=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_VTK=ON ..
+  > make -j 8 install
 ```
 
 > Note: VTK is a very large library which may take a long time to build. Thus, though the build system will try to download and build vtk if it is not found in your system, we highly recommend you install and set up VTK on your system before building OpenCAEPoro.
@@ -138,9 +138,9 @@ The above methods are all based on Gaussian elimination. If you need efficient i
 [ECL](https://github.com/equinor/ecl) a package for reading and writing the result files from the Eclipse reservoir simulator, which is often used as industry benchmark. In order to output simulation results in the Eclipse format, you need to run:
 
 ```bash
-  >>> mkdir Build; cd Build
-  >>> cmake -DUSE_ECL=ON ..
-  >>> make -j 8 install
+  > mkdir Build; cd Build
+  > cmake -DUSE_ECL=ON ..
+  > make -j 8 install
 ```
 
 ## Structure
