@@ -101,38 +101,38 @@ void OpenCAEPoro::OutputResults() const
 {
     // find an appropriate size for printing times
     int fixWidth =
-        MAX(log10(control.current_time), log10(MAX(control.totalSimTime, 1.0))) + 2;
+        MAX(log10(control.current_time), log10(MAX(control.totalSimTime, 1.0))) + 6;
 
     cout << "==================================================" << endl;
 
     // print numbers of steps
-    cout << "Final time:             " << right << fixed << setprecision(3)
-         << setw(fixWidth + 9) << control.current_time << " (Days)" << endl;
-    cout << " - Avg time step size ......." << setw(fixWidth + 4)
+    cout << "Final time:                  " << right << fixed << setprecision(3)
+         << setw(fixWidth) << control.current_time << " (Days)" << endl;
+    cout << " - Avg time step size ......." << setw(fixWidth)
          << control.current_time / control.numTstep << " (" << control.numTstep
          << " steps)" << endl;
-    cout << " - Avg Newton steps ........." << setw(fixWidth + 4)
+    cout << " - Avg Newton steps ........." << setw(fixWidth)
          << static_cast<double>(control.iterNR_total) / control.numTstep << " ("
          << control.iterNR_total << " succeeded + " << control.wastedIterNR
          << " wasted)" << endl;
-    cout << " - Avg linear steps ........." << setw(fixWidth + 4)
+    cout << " - Avg linear steps ........." << setw(fixWidth)
          << static_cast<double>(control.iterLS_total) / control.iterNR_total << " ("
          << control.iterLS_total << " succeeded + " << control.wastedIterLS
          << " wasted)" << endl;
 
     // print time usages
-    cout << "Simulation time:        " << setw(fixWidth + 9) << control.totalSimTime
+    cout << "Simulation time:             " << setw(fixWidth) << control.totalSimTime
          << " (Seconds)" << endl;
-    cout << " - % Assembling ............." << setw(fixWidth + 4)
+    cout << " - % Assembling ............." << setw(fixWidth)
          << 100.0 * control.totalAssembleMatTime / control.totalSimTime << " ("
          << control.totalAssembleMatTime << "s)" << endl;
-    cout << " - % Linear solver .........." << setw(fixWidth + 4)
+    cout << " - % Linear solver .........." << setw(fixWidth)
          << 100.0 * control.totalLStime / control.totalSimTime << " ("
          << control.totalLStime << "s)" << endl;
-    cout << " - % Updating properties ...." << setw(fixWidth + 4)
+    cout << " - % Updating properties ...." << setw(fixWidth)
          << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << " ("
          << control.totalUpdatePropertyTime << "s)" << endl;
-    cout << " - % Scheduled output ......." << setw(fixWidth + 4)
+    cout << " - % Scheduled output ......." << setw(fixWidth)
          << 100.0 * output.outputTime / control.totalSimTime << " ("
          << output.outputTime << "s)" << endl;
 
