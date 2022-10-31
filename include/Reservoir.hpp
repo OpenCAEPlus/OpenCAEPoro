@@ -160,7 +160,7 @@ public:
     /// Calculate the Resiual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM
-    void ResetFIM(const OCP_BOOL& flag);
+    void ResetFIM();
     /// Return NRdPmax
     OCP_DBL GetNRdPmax(){ return bulk.GetNRdPmax(); }
     /// Return NRdSmax

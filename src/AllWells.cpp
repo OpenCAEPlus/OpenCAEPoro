@@ -179,9 +179,9 @@ void AllWells::PrepareWell(const Bulk& myBulk)
         if (wells[w].WellState()) {
 
             wells[w].CalTrans(myBulk);
-            wells[w].CalFlux(myBulk, OCP_TRUE);
-            wells[w].CalProdWeight(myBulk);
             wells[w].CaldG(myBulk);
+            wells[w].CalFlux(myBulk, OCP_TRUE);
+            wells[w].CalProdWeight(myBulk);           
             // test
             // wells[w].SmoothdG();
             wells[w].CheckOptMode(myBulk);

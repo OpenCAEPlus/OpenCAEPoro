@@ -190,9 +190,9 @@ OCP_BOOL OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
         // continue NR
         rs.bulk.ResetNi();
         rs.allWells.CalTrans(rs.bulk);
-        rs.allWells.CalFlux(rs.bulk);
-        rs.allWells.CalProdWeight(rs.bulk);
         rs.allWells.CaldG(rs.bulk);
+        rs.allWells.CalFlux(rs.bulk);
+        rs.allWells.CalProdWeight(rs.bulk);       
         return OCP_FALSE;
     }
     return OCP_TRUE;
@@ -283,7 +283,7 @@ OCP_BOOL OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(OCP_FALSE);
+        rs.ResetFIM();
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time step size and repeat! current dt = " << fixed
@@ -298,20 +298,6 @@ OCP_BOOL OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
-
-    // if (rs.bulk.NRdPmax < 1E-4) {
-    //     // correct
-    //     cout << "correct" << endl;
-    //     rs.bulk.CorrectNi(resFIM.res);
-    //     // Update reservoir properties
-    //     rs.CalFlashDerivFIM();
-    //     rs.CalKrPcDerivFIM();
-    //     rs.CalVpore();
-    //     rs.CalWellTrans();
-    //     rs.CalWellFlux();
-    //     rs.CalResFIM(resFIM, dt);
-    // }
-
     return OCP_TRUE;
 }
 
@@ -428,7 +414,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(OCP_FALSE);
+        rs.ResetFIM();
         rs.CalResFIM(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
@@ -455,7 +441,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                rs.ResetFIM(OCP_TRUE);
+                rs.ResetFIM();
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
@@ -466,7 +452,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 return OCP_FALSE;
             case 2:
                 ctrl.current_dt /= 1;
-                rs.ResetFIM(OCP_TRUE);
+                rs.ResetFIM();
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
@@ -551,7 +537,7 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(OCP_FALSE);
+        rs.ResetFIM();
         rs.CalResFIM(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
@@ -661,7 +647,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(OCP_FALSE);
+        rs.ResetFIM();
         rs.CalResAIMc(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
@@ -697,7 +683,7 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM(OCP_FALSE);
+        rs.ResetFIM();
         rs.CalResAIMc(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
@@ -721,14 +707,14 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                rs.ResetFIM(OCP_TRUE);
+                rs.ResetFIM();
                 rs.CalResAIMc(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             case 2:
                 // ctrl.current_dt /= 1;
-                rs.ResetFIM(OCP_TRUE);
+                rs.ResetFIM();
                 rs.CalResAIMc(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();

@@ -397,10 +397,8 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
                 perf[p].xi =
                     myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
             }
-            // cout << "xi:  " << setprecision(6) << perf[p].xi << endl;
-            OCP_DBL xi = perf[p].xi;
             for (USI i = 0; i < nc; i++) {
-                perf[p].qi_lbmol[i] = perf[p].qt_ft3 * xi * opt.zi[i];
+                perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.zi[i];
                 qi_lbmol[i] += perf[p].qi_lbmol[i];
             }
         }
@@ -583,7 +581,7 @@ void Well::CaldG(const Bulk& myBulk)
     if (opt.type == INJ)
         CalInjdG(myBulk);
     else
-        CalProddG(myBulk);
+        CalProddG01(myBulk);
 }
 
 void Well::CalInjdG(const Bulk& myBulk)
@@ -697,6 +695,12 @@ void Well::CalProddG01(const Bulk& myBulk)
                         perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
                 }
             }
+            OCP_DBL tmpSum = Dnorm1(nc, &tmpNi[0]);
+            if (tmpSum < TINY) {
+                for (USI i = 0; i < nc; i++) {
+                    tmpNi[i] = myBulk.Ni[n * nc + i];
+                }
+            }
 
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
@@ -743,6 +747,12 @@ void Well::CalProddG01(const Bulk& myBulk)
                 for (USI k = 0; k < nc; k++) {
                     tmpNi[k] +=
                         perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
+                }
+            }
+            OCP_DBL tmpSum = Dnorm1(nc, &tmpNi[0]);
+            if (tmpSum < TINY) {
+                for (USI i = 0; i < nc; i++) {
+                    tmpNi[i] = myBulk.Ni[n * nc + i];
                 }
             }
 
@@ -940,16 +950,12 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             }
             // in some cases, qi_lbmol may be zero, so use other methods
             OCP_DBL qt = 0;
+            OCP_BOOL flag = OCP_TRUE;
             for (USI i = 0; i < myBulk.numCom; i++) {
                 qt += qi_lbmol[i];
+                if (qi_lbmol[i] < 0) flag = OCP_FALSE;
             }
-            if (fabs(qt) > TINY && qt > 0) {
-
-                /*cout << name << endl;
-                vector<OCP_DBL> tmpNiP(qi_lbmol);
-                Dscalar(myBulk.numCom, 1 / qt * 100, &tmpNiP[0]);
-                PrintDX(myBulk.numCom, &tmpNiP[0]);*/
-
+            if (flag) {
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0],
                                           0, 0, 0);
             } else {
@@ -969,27 +975,9 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                     }
                 }
                 qt = Dnorm1(nc, &tmpNi[0]);
-
-                /*cout << name << endl;
-                vector<OCP_DBL> tmpNiP(tmpNi);
-                Dscalar(nc, 1 / qt, &tmpNiP[0]);
-                PrintDX(nc, &tmpNiP[0]);*/
-
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0], 0,
                                           0, 0);
             }
-            // test
-            // USI nc = myBulk.numCom;
-            // USI np = myBulk.numPhase;
-            // cout << "OIL : ";
-            // for (USI i = 0; i < nc; i++) {
-            //    cout << myBulk.flashCal[0]->xij[i] * 100 << "   ";
-            //}
-            // cout << endl << "GAS : ";
-            // for (USI i = 0; i < nc; i++) {
-            //    cout << myBulk.flashCal[0]->xij[nc + i] * 100 << "   ";
-            //}
-            // cout << endl;
 
             fill(factor.begin(), factor.end(), 0);
             if (myBulk.flashCal[0]->phaseExist[0]) { // improve
