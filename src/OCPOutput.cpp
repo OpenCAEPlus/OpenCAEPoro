@@ -926,7 +926,7 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     // output dead grid, live grid, well
     vector<USI> tmpW(rs.allWells.numWell, 2);
     out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT, &rs.grid.activityFlag[0],
-        1, rs.grid.activeMap_G2B, OCP_FALSE, tmpW);
+        1, rs.grid.activeMap_G2B, OCP_FALSE, &tmpW[0]);
 
     for (USI i = 1; i < ndates; i++) {
         index++;
@@ -938,6 +938,8 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
         dest.close();
     }
     index = 0;
+
+    metisTest.Setup(rs);
 }
 
 
@@ -958,13 +960,23 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
 
     // output
     if (bgp.PRE)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, g2bp, OCP_TRUE, well);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, g2bp, OCP_TRUE, &well[0]);
     if (bgp.SOIL)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE, well);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE, &well[0]);
     if (bgp.SGAS)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE, well);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE, &well[0]);
     if (bgp.SWAT)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE, well);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE, &well[0]);
+
+    if (metisTest.useMetis) {
+        // partion and print
+        // vertex weights set to 1 now
+        metisTest.vwgt.resize(metisTest.nvtxs, 1);
+        // metisTest.MyPartionFunc(METIS_PartGraphRecursive);
+        metisTest.MyPartionFunc(METIS_PartGraphKway);
+        metisTest.SetPartions(rs.grid.activeMap_B2G);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT, &metisTest.partions[0], 1, g2bp, OCP_FALSE, &metisTest.partions[metisTest.ng]);
+    }
 
     index++;
 }

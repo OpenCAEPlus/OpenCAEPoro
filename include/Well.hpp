@@ -106,6 +106,9 @@ class Well
     friend class AllWells;
     friend class Out4RPT;
 
+    // temp
+    friend class MyMetisTest;
+
 public:
     Well() = default;
 
@@ -175,6 +178,8 @@ public:
     USI WellType() const { return opt.type; }
     /// Return Pressure of Perf p
     OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
+    /// Return location of Perf p
+    OCP_USI GetPerLocation(const USI& p)const { return perf[p].location; }
     /// Display operation mode of well and state of perforations.
     void ShowPerfStatus(const Bulk& myBulk) const;
     

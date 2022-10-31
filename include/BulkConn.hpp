@@ -56,6 +56,9 @@ private:
 // bulks and matrix assembling with contributions from bulks only are included.
 class BulkConn
 {
+    // temp
+    friend class MyMetisTest;
+    friend class Out4VTK;
 
 public:
     BulkConn() = default; ///< Default constructor.
@@ -101,10 +104,6 @@ private:
     //  Note: The i-th entry stores the i-th bulk's neighbors, which is sorted in an
     //  increasing order.
     vector<vector<OCP_USI>> neighbor;
-
-    // sum of num of neighbors who has the bigger Index than current bulk
-    // used to find the location in iteratorConn, upblock, etc.
-    vector<USI> neighborNumGacc;
 
     /// Self-pointer, the indiecs of the i-th bulk in neighbor[i]: activeGridNum???
     vector<USI> selfPtr;

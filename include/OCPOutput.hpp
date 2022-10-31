@@ -258,7 +258,6 @@ void Out4RPT::PrintRPT_Scalar(ofstream& myRPT, const string& dataName, const OCP
         }
     }
 
-
     myRPT << "\n\n\n";
 }
 
@@ -278,35 +277,125 @@ private:
     BasicGridProperty bgp;
     Output4Vtk  out4vtk;
 
-
     // test for Parallel version
-    class MyMetisTest
+    mutable class MyMetisTest
     {
-        OCP_BOOL        useMetis;
-        idx_t           nVertices;
-        idx_t           nWeights;
-        idx_t           nEdges;
-        idx_t           nParts;
-        vector<idx_t>   xadj;
-        vector<idx_t>   adjncy;
-        vector<idx_t>   adjwgt;
-        vector<idx_t>   vwgt;
-        vector<idx_t>   part;
+        friend class Out4VTK;
+    private:
+        OCP_BOOL        useMetis{ OCP_TRUE };
 
-        OCP_DBL         partTime{ 0 };
+        OCP_USI nb;
+        OCP_USI nw;
+        OCP_USI ng;
+   
+        mutable idx_t           nvtxs;
+        mutable idx_t           nedges;
+        mutable idx_t           ncon{ 1 };
+        mutable idx_t           nparts{ 8 };
+        mutable vector<idx_t>   xadj;
+        mutable vector<idx_t>   adjncy;
+        mutable vector<idx_t>   adjwgt;
+        mutable vector<idx_t>   vwgt;
+        mutable vector<idx_t>   part;
+        const idx_t MAXWEIGHT = 100000000;
 
-        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) {
+        mutable vector<USI>     partions;
+        mutable OCP_DBL         partTime{ 0 };
+
+    public:
+        void Setup(const Reservoir& rs)
+        {         
+            if (!useMetis) return;
+            nb = rs.GetBulkNum();
+            nw = rs.GetWellNum();
+            ng = rs.grid.GetGridNum();
+
+            nvtxs = nb + nw;
+            nedges = 0;
+            vector<vector<OCP_USI>> tmpConn = rs.conn.neighbor;
+            vector<OCP_USI> tmp;
+            for (USI w = 0; w < rs.allWells.numWell; w++) {
+                tmp.clear();
+                for (USI p = 0; p < rs.allWells.GetWellPerfNum(w); p++) {
+                    OCP_USI n = rs.allWells.wells[w].GetPerLocation(p);
+                    tmpConn[n].push_back(nb + w);
+                    tmp.push_back(n);
+                }
+                tmpConn.push_back(tmp);
+                nedges += rs.allWells.GetWellPerfNum(w) * 2;
+            }
+
+            const vector<vector<OCP_USI>>& myConn = tmpConn;
+
+            for (OCP_USI n = 0; n < nb; n++) {
+                nedges += rs.conn.neighborNum[n];
+            }
+            nedges -= nb;
+                  
+            // generate xadj  adjncy  adjwgt
+            xadj.resize(nvtxs + 1);
+            xadj[0] = 0;
+            adjncy.reserve(nedges);
+            adjwgt.reserve(nedges);
+            // Bulk
+            for (OCP_USI n = 0; n < nb; n++) {
+                xadj[n + 1] = xadj[n] + myConn[n].size() - 1;
+                USI i = 0;
+                // left
+                for (i = 0; i < rs.conn.selfPtr[n]; i++) {
+                    adjncy.push_back(myConn[n][i]);
+                    adjwgt.push_back(1);
+                }
+                // right
+                for (i = rs.conn.selfPtr[n] + 1; i < rs.conn.neighborNum[n]; i++) {
+                    adjncy.push_back(myConn[n][i]);
+                    adjwgt.push_back(1);
+                }
+                // well
+                for (i = rs.conn.neighborNum[n]; i < myConn[n].size(); i++) {
+                    adjncy.push_back(myConn[n][i]);
+                    adjwgt.push_back(MAXWEIGHT);
+                }
+            }
+            // Well
+            for (USI w = 0; w < nw; w++) {
+                xadj[nb + w + 1] += xadj[nb + w] + myConn[nb + w].size();
+                for (auto v : myConn[nb + w]) {
+                    adjncy.push_back(v);
+                    adjwgt.push_back(MAXWEIGHT);
+                }
+            }
+            // Setup active/inactive grid flags
+            // inactive grids' flags equal nparts
+            part.resize(nvtxs, 0);
+            partions.resize(ng + nw, nparts);           
+        }
+        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) const {
+
+            if (!useMetis) return;
             idx_t objval;
-
-            int ret = METIS_PartGraphFunc(&nVertices, &nWeights, xadj.data(), adjncy.data(),
-                vwgt.data(), NULL, adjwgt.data(), &nParts, NULL,
+            int ret = METIS_PartGraphFunc(&nvtxs, &ncon, xadj.data(), adjncy.data(),
+                vwgt.data(), NULL, adjwgt.data(), &nparts, NULL,
                 NULL, NULL, &objval, part.data());
 
             if (ret != rstatus_et::METIS_OK) { OCP_ABORT("METIS ERROR"); }
             cout << "METIS_OK" << endl;
             cout << "objval: " << objval << endl;
         }
-        
+        void SetPartions(const vector<USI> b2g) const
+        {
+            if (!useMetis) return;
+            // bulk
+            OCP_USI n = 0;
+            for (n = 0; n < nb; n++) {
+                partions[b2g[n]] = part[n];
+            }
+            // well
+            for (USI w = 0; w < nw; w++) {
+                partions[ng + w] = part[n];
+                n++;
+            }
+        }
     }metisTest;
 
 };

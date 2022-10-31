@@ -61,7 +61,7 @@ public:
 	void OutputCELL_TYPES(const string& myFile, const vector<OCPpolyhedron>& myHex, const vector<OCPpolyhedron>& myHexWell) const;
 	template <typename T>
 	void OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-		const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const vector<T>& wellVal) const;
+		const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const T* wellVal) const;
 	void BeginCellData() const { cellData = true; };
 
 private:
@@ -73,7 +73,7 @@ private:
 
 template <typename T>
 void Output4Vtk::OutputCELL_DATA_SCALARS(const string& myFile, const string& dataName, const string& dataType,
-    const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const vector<T>& wellVal) const
+    const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const T* wellVal) const
 {
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
