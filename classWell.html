@@ -187,6 +187,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWell.html#a78d04e63b30bc4dca680b69ee91ed225">GetPerfPre</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;p) const</td></tr>
 <tr class="memdesc:a78d04e63b30bc4dca680b69ee91ed225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return Pressure of Perf p. <br /></td></tr>
 <tr class="separator:a78d04e63b30bc4dca680b69ee91ed225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ddf9eabf4d47e402929452828b629ef"><td class="memItemLeft" align="right" valign="top"><a id="a5ddf9eabf4d47e402929452828b629ef"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWell.html#a5ddf9eabf4d47e402929452828b629ef">GetPerLocation</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;p) const</td></tr>
+<tr class="memdesc:a5ddf9eabf4d47e402929452828b629ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return location of Perf p. <br /></td></tr>
+<tr class="separator:a5ddf9eabf4d47e402929452828b629ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac84da132c940fdd6f89cbdbe35a0fc95"><td class="memItemLeft" align="right" valign="top"><a id="ac84da132c940fdd6f89cbdbe35a0fc95"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWell.html#ac84da132c940fdd6f89cbdbe35a0fc95">ShowPerfStatus</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk) const</td></tr>
 <tr class="memdesc:ac84da132c940fdd6f89cbdbe35a0fc95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display operation mode of well and state of perforations. <br /></td></tr>
@@ -252,6 +256,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 <tr class="memitem:a77d0d9fafc66aee9ebb93487ebecdedd"><td class="memItemLeft" align="right" valign="top"><a id="a77d0d9fafc66aee9ebb93487ebecdedd"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr>
 <tr class="separator:a77d0d9fafc66aee9ebb93487ebecdedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af18861ad878fbe440af3095067c2294a"><td class="memItemLeft" align="right" valign="top"><a id="af18861ad878fbe440af3095067c2294a"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>MyMetisTest</b></td></tr>
+<tr class="separator:af18861ad878fbe440af3095067c2294a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classWell.html">Well</a> class defines well, and any operations referred to wells are in it. <a class="el" href="classWell.html">Well</a> connects to the bulks by perforations, which serve as source and sink. Due to practical difficulties in production, a good treatment for well is important, excellent treatment will make the flow rate in well more stable. </p>
@@ -448,9 +455,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = CONV1 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae977bf9562c2c63895c4efc43f080225"><div class="ttname"><a href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a></div><div class="ttdeci">const USI BHP_MODE</div><div class="ttdoc">Well option = fixed bottom-hole-pressure.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00121">OCPConst.hpp:121</a></div></div>
-<div class="ttc" id="aclassWell_html_a3079a96aee12e74ae05716c3d6ca80e2"><div class="ttname"><a href="classWell.html#a3079a96aee12e74ae05716c3d6ca80e2">Well::WellState</a></div><div class="ttdeci">OCP_BOOL WellState() const</div><div class="ttdoc">Return the state of the well, Open or Close.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00173">Well.hpp:173</a></div></div>
+<div class="ttc" id="aclassWell_html_a3079a96aee12e74ae05716c3d6ca80e2"><div class="ttname"><a href="classWell.html#a3079a96aee12e74ae05716c3d6ca80e2">Well::WellState</a></div><div class="ttdeci">OCP_BOOL WellState() const</div><div class="ttdoc">Return the state of the well, Open or Close.</div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00176">Well.hpp:176</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00121">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00062">CONV1</a>, <a class="el" href="DenseMat_8cpp_source.html#l00076">DaABpbC()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00069">Daxpy()</a>, and <a class="el" href="Well_8hpp_source.html#l00173">WellState()</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00121">BHP_MODE</a>, <a class="el" href="OCPConst_8hpp_source.html#l00062">CONV1</a>, <a class="el" href="DenseMat_8cpp_source.html#l00076">DaABpbC()</a>, <a class="el" href="DenseMat_8cpp_source.html#l00069">Daxpy()</a>, and <a class="el" href="Well_8hpp_source.html#l00176">WellState()</a>.</p>
 
 </div>
 </div>
@@ -576,7 +583,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr
 <div class="line"><a name="l01600"></a><span class="lineno"> 1600</span>&#160;    }</div>
 <div class="line"><a name="l01601"></a><span class="lineno"> 1601</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00121">BHP_MODE</a>, and <a class="el" href="Well_8hpp_source.html#l00173">WellState()</a>.</p>
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00121">BHP_MODE</a>, and <a class="el" href="Well_8hpp_source.html#l00176">WellState()</a>.</p>
 
 </div>
 </div>
@@ -911,7 +918,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 31 2022 01:17:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 31 2022 02:43:01 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
