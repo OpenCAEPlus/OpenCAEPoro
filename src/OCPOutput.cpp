@@ -939,7 +939,9 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     }
     index = 0;
 
+#ifdef USE_METIS
     metisTest.Setup(rs);
+#endif // USE_METIS
 }
 
 
@@ -968,6 +970,7 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
     if (bgp.SWAT)
         out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE, &well[0]);
 
+#ifdef USE_METIS
     if (metisTest.useMetis) {
         // partion and print
         // vertex weights set to 1 now
@@ -976,7 +979,8 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
         metisTest.MyPartionFunc(METIS_PartGraphKway);
         metisTest.SetPartions(rs.grid.activeMap_B2G);
         out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT, &metisTest.partions[0], 1, g2bp, OCP_FALSE, &metisTest.partions[metisTest.ng]);
-    }
+}
+#endif // USE_METIS
 
     index++;
 }

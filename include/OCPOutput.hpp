@@ -23,7 +23,10 @@
 #include "UtilOutput.hpp"
 #include "Output4Vtk.hpp"
 #include "UtilTiming.hpp"
-#include "metis.h"
+
+#ifdef USE_METIS
+    #include "metis.h"
+#endif
 
 using namespace std;
 
@@ -278,6 +281,8 @@ private:
     Output4Vtk  out4vtk;
 
     // test for Parallel version
+#ifdef USE_METIS
+
     mutable class MyMetisTest
     {
         friend class Out4VTK;
@@ -397,7 +402,7 @@ private:
             }
         }
     }metisTest;
-
+#endif // USE_METIS
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.
