@@ -2,7 +2,7 @@
 # For ECL
 # ##############################################################################
 
-option(USE_ECL "Use ECL" ON)
+option(USE_ECL "Use ECL" OFF)
 
 if(USE_ECL)
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL Intel OR ${CMAKE_CXX_COMPILER_ID}
