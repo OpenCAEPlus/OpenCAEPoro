@@ -102,90 +102,102 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">// Setup static information for solver</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    solver.<a class="code" href="classSolver.html#a8d0439530ba5eb621ae4515168df367d">Setup</a>(reservoir, control);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    cout &lt;&lt; endl</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;Setup simulation done. Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;         &lt;&lt; timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;         &lt;&lt; endl;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    control.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a>()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classGetWallTime.html">GetWallTime</a> timer;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    timer.<a class="code" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    solver.<a class="code" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    cout &lt;&lt; endl</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;Initialization done. Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         &lt;&lt; timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000 &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    control.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a>()</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">switch</span> (control.<a class="code" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">GetMethod</a>()) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with IMPEC&quot;</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with FIM&quot;</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with FIMn&quot;</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">AIMc</a>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Dynamic simulation with AIMc&quot;</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method type is used!&quot;</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n=========================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    solver.<a class="code" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(reservoir, control, output);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">   88</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;==================================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Final time:             &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(12)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;         &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total time steps.......&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.numTstep &lt;&lt; endl;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total Newton steps.....&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.iterNR_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;         &lt;&lt; control.wastedIterNR &lt;&lt; <span class="stringliteral">&quot; wasted)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total linear steps.....&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.iterLS_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         &lt;&lt; control.wastedIterLS &lt;&lt; <span class="stringliteral">&quot; wasted)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:        &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(12)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot; Seconds&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Assembling.............&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         &lt;&lt; 100.0 * control.totalAssembleMatTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalAssembleMatTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Linear solver..........&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Updating properties....&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;         &lt;&lt; 100.0 * control.totalUpdatePropertyTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalUpdatePropertyTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Scheduled output.......&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;         &lt;&lt; 100.0 * output.outputTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; output.outputTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;==================================================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    output.PrintInfo();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">/*  Chensong Zhang      Dec/05/2021      Format file                          */</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">double</span> finalTime = timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        cout &lt;&lt; endl</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;Setup simulation done. Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;             &lt;&lt; finalTime &lt;&lt; <span class="stringliteral">&quot; Sec&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    control.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(finalTime);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a>()</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classGetWallTime.html">GetWallTime</a> timer;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    timer.<a class="code" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    solver.<a class="code" href="classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff">InitReservoir</a>(reservoir);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">double</span> finalTime = timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        cout &lt;&lt; endl</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;Initialization done. Wall time : &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;             &lt;&lt; finalTime &lt;&lt; <span class="stringliteral">&quot; Sesc&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    control.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(finalTime);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a>()</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">switch</span> (control.<a class="code" href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">GetMethod</a>()) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ac14d31821c31b6fc2624e8e0c304023c">IMPEC</a>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;\nDynamic simulation with IMPEC\n&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;\nDynamic simulation with FIM\n&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;\nDynamic simulation with FIMn\n&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#abdb022423b0bcbead41cb49a6d68a2ff">AIMc</a>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">if</span> (control.printLevel &gt;= PRINT_MIN) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;\nDynamic simulation with AIMc\n&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong method type is used!&quot;</span>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    solver.<a class="code" href="classSolver.html#aa28d73a396ce4671abadf95ded8aeb34">RunSimulation</a>(reservoir, control, output);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">  100</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;==================================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Final time:             &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(12)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         &lt;&lt; control.current_time &lt;&lt; <span class="stringliteral">&quot; Days&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total time steps.......&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.numTstep &lt;&lt; endl;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total Newton steps.....&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.iterNR_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;         &lt;&lt; control.wastedIterNR &lt;&lt; <span class="stringliteral">&quot; wasted)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Total linear steps.....&quot;</span> &lt;&lt; setw(6) &lt;&lt; control.iterLS_total &lt;&lt; <span class="stringliteral">&quot; (+&quot;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         &lt;&lt; control.wastedIterLS &lt;&lt; <span class="stringliteral">&quot; wasted)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Simulation time:        &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(12)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;         &lt;&lt; control.totalSimTime &lt;&lt; <span class="stringliteral">&quot; Seconds&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Assembling.............&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         &lt;&lt; 100.0 * control.totalAssembleMatTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalAssembleMatTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Linear solver..........&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;         &lt;&lt; 100.0 * control.totalLStime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalLStime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Updating properties....&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         &lt;&lt; 100.0 * control.totalUpdatePropertyTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; control.totalUpdatePropertyTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot; - Scheduled output.......&quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; setw(10)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         &lt;&lt; 100.0 * output.outputTime / control.totalSimTime &lt;&lt; <span class="stringliteral">&quot;%&quot;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; output.outputTime &lt;&lt; <span class="stringliteral">&quot;s)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;==================================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    output.PrintInfo();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">/*  Chensong Zhang      Dec/05/2021      Format file                          */</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a4d32a0b2d17c64fd923685ccbc4a93d4"><div class="ttname"><a href="OCPConst_8hpp.html#a4d32a0b2d17c64fd923685ccbc4a93d4">FIMn</a></div><div class="ttdeci">const USI FIMn</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00076">OCPConst.hpp:76</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a85d0ea9a8068e5dbac07aa9d5f9b9a2a"><div class="ttname"><a href="OCPConst_8hpp.html#a85d0ea9a8068e5dbac07aa9d5f9b9a2a">FIM</a></div><div class="ttdeci">const USI FIM</div><div class="ttdoc">Solution method = FIM.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00074">OCPConst.hpp:74</a></div></div>
@@ -202,9 +214,9 @@ $(function() {
 <div class="ttc" id="aclassOCPControl_html_ac7d3146b8657a177d20ca1b86bb26b45"><div class="ttname"><a href="classOCPControl.html#ac7d3146b8657a177d20ca1b86bb26b45">OCPControl::GetMethod</a></div><div class="ttdeci">USI GetMethod() const</div><div class="ttdoc">Return type of the solution method.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00120">OCPControl.hpp:120</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a29cf24d628f7d5da0789365b4465c169"><div class="ttname"><a href="classOpenCAEPoro.html#a29cf24d628f7d5da0789365b4465c169">OpenCAEPoro::SetupSimulator</a></div><div class="ttdeci">void SetupSimulator(ParamRead &amp;param, const USI &amp;argc, const char *options[])</div><div class="ttdoc">Setup reservoir based on an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00023">OCP.cpp:23</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00063">OCP.cpp:63</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a6193cc91696ea35e8d9bde039682617a"><div class="ttname"><a href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a></div><div class="ttdeci">void OutputResults() const</div><div class="ttdoc">Output necessary information for post-processing.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00088">OCP.cpp:88</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00049">OCP.cpp:49</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00069">OCP.cpp:69</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a6193cc91696ea35e8d9bde039682617a"><div class="ttname"><a href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a></div><div class="ttdeci">void OutputResults() const</div><div class="ttdoc">Output necessary information for post-processing.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00100">OCP.cpp:100</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00052">OCP.cpp:52</a></div></div>
 <div class="ttc" id="aclassParamRead_html"><div class="ttname"><a href="classParamRead.html">ParamRead</a></div><div class="ttdoc">Pre-processing unit for OpenCAEPoro for reading params from input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00032">ParamRead.hpp:33</a></div></div>
 <div class="ttc" id="aclassParamRead_html_a069b8da543ffcf4e2c587ee0c4e0119a"><div class="ttname"><a href="classParamRead.html#a069b8da543ffcf4e2c587ee0c4e0119a">ParamRead::paramOutput</a></div><div class="ttdeci">ParamOutput paramOutput</div><div class="ttdoc">Read the output params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00045">ParamRead.hpp:45</a></div></div>
 <div class="ttc" id="aclassParamRead_html_aa42aae6d0ff23359dbea938728b4d644"><div class="ttname"><a href="classParamRead.html#aa42aae6d0ff23359dbea938728b4d644">ParamRead::paramControl</a></div><div class="ttdeci">ParamControl paramControl</div><div class="ttdoc">Read the control params.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00044">ParamRead.hpp:44</a></div></div>
@@ -216,7 +228,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 31 2022 07:36:02 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 31 2022 08:01:00 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
