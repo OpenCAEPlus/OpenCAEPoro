@@ -146,8 +146,8 @@ void OCPControl::InputParam(const ParamControl& CtrlParam)
         OCP_ABORT("Wrong method specified!");
     }
 
-    linearsolveFile = CtrlParam.linearSolve;
-    criticalTime    = CtrlParam.criticalTime;
+    linearSolverFile = CtrlParam.linearSolve;
+    criticalTime     = CtrlParam.criticalTime;
 
     USI t = CtrlParam.criticalTime.size();
     ctrlTimeSet.resize(t);
@@ -200,12 +200,12 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
         method = ctrlFast.method;
         switch (method) {
             case IMPEC:
-                linearsolveFile = "./csr.fasp";
+                linearSolverFile = "./csr.fasp";
                 break;
             case AIMc:
             case FIM:
             case FIMn:
-                linearsolveFile = "./bsr.fasp";
+                linearSolverFile = "./bsr.fasp";
                 break;
             default:
                 OCP_ABORT("Wrong method in command line!");
@@ -216,7 +216,7 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
             ctrlTimeSet[i].timeInit = ctrlFast.timeInit;
             ctrlTimeSet[i].timeMax  = ctrlFast.timeMax;
             ctrlTimeSet[i].timeMin  = ctrlFast.timeMin;
-        }        
+        }
     }
     printLevel = ctrlFast.printLevel;
 }

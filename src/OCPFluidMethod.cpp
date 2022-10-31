@@ -42,7 +42,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
 #endif // DEBUG
 
     myLS.AssembleMatLinearSolver();
-    
+
 #ifdef _DEBUG
     myLS.OutputLinearSystem("testA_IMPEC.out", "testb_IMPEC.out");
 #endif // _DEBUG
@@ -458,16 +458,22 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 rs.ResetFIM(OCP_TRUE);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+
                 ctrl.ResetIterNRLS();
-                cout << "-----" << endl;
+                if (ctrl.printLevel >= PRINT_MORE) {
+                    OCP_WARNING("Reset Newton iteration!");
+                }
                 return OCP_FALSE;
             case 2:
                 ctrl.current_dt /= 1;
                 rs.ResetFIM(OCP_TRUE);
                 rs.CalResFIM(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+
                 ctrl.ResetIterNRLS();
-                cout << "-----" << endl;
+                if (ctrl.printLevel >= PRINT_MORE) {
+                    OCP_WARNING("Reset Newton iteration!");
+                }
                 return OCP_FALSE;
             default:
                 return OCP_TRUE;

@@ -18,14 +18,14 @@
 
 // OpenCAEPoro header files
 #include "OCPControl.hpp"
+#include "Output4Vtk.hpp"
 #include "ParamOutput.hpp"
 #include "Reservoir.hpp"
 #include "UtilOutput.hpp"
-#include "Output4Vtk.hpp"
 #include "UtilTiming.hpp"
 
 #ifdef USE_METIS
-    #include "metis.h"
+#include "metis.h"
 #endif
 
 using namespace std;
@@ -38,7 +38,7 @@ public:
     OCPIJK(const USI& i, const USI& j, const USI& k)
         : I(i)
         , J(j)
-        , K(k) {};
+        , K(k){};
     OCPIJK(const COOIJK& src)
     {
         I = src.I;
@@ -56,7 +56,8 @@ public:
 };
 
 /// TODO: Add Doxygen
-template <typename T> class OCPType_Sum
+template <typename T>
+class OCPType_Sum
 {
 public:
     OCPType_Sum& operator=(const Type_A_o& src)
@@ -71,7 +72,7 @@ public:
         obj.assign(src.obj.begin(), src.obj.end());
         return *this;
     }
-    OCP_BOOL      activity{OCP_FALSE};
+    OCP_BOOL  activity{OCP_FALSE};
     vector<T> obj;
     vector<USI>
         index; ///< Records the index of bulk or well, whose properties will be printed
@@ -176,27 +177,27 @@ public:
     void SetBasicGridProperty(const BasicGridPropertyParam& param);
 
 private:
-    OCP_BOOL PRE{ OCP_FALSE };  ///< Pressure of grids.
-    OCP_BOOL PGAS{ OCP_FALSE }; ///< Gas pressure of grids.
-    OCP_BOOL PWAT{ OCP_FALSE }; ///< Water pressure of grids.
-    OCP_BOOL SOIL{ OCP_FALSE }; ///< Oil saturation of grids.
-    OCP_BOOL SGAS{ OCP_FALSE }; ///< Gas saturation of grids.
-    OCP_BOOL SWAT{ OCP_FALSE }; ///< Water saturation of grids.
-    OCP_BOOL DENO{ OCP_FALSE }; ///< Oil density of grids.
-    OCP_BOOL DENG{ OCP_FALSE }; ///< Gas density of grids.
-    OCP_BOOL DENW{ OCP_FALSE }; ///< Water density of grids.
-    OCP_BOOL KRO{ OCP_FALSE }; ///< Oil relative permeability of grids.
-    OCP_BOOL KRG{ OCP_FALSE }; ///< Gas relative permeability of grids.
-    OCP_BOOL KRW{ OCP_FALSE }; ///< Water relative permeability of grids.
-    OCP_BOOL BOIL{ OCP_FALSE }; ///< Oil reservoir molar densities of grids.
-    OCP_BOOL BGAS{ OCP_FALSE }; ///< Gas reservoir molar densities of grids.
-    OCP_BOOL BWAT{ OCP_FALSE }; ///< Water reservoir molar densities of grids.
-    OCP_BOOL VOIL{ OCP_FALSE }; ///< Oil viscosity of grids.
-    OCP_BOOL VGAS{ OCP_FALSE }; ///< Gas viscosity of grids.
-    OCP_BOOL VWAT{ OCP_FALSE }; ///< Water viscosity of grids.
-    OCP_BOOL XMF{ OCP_FALSE }; ///< liquid component mole fractions.
-    OCP_BOOL YMF{ OCP_FALSE }; ///< gas component mole fractions.
-    OCP_BOOL PCW{ OCP_FALSE }; ///< capilary pressure: Po - Pw.
+    OCP_BOOL PRE{OCP_FALSE};  ///< Pressure of grids.
+    OCP_BOOL PGAS{OCP_FALSE}; ///< Gas pressure of grids.
+    OCP_BOOL PWAT{OCP_FALSE}; ///< Water pressure of grids.
+    OCP_BOOL SOIL{OCP_FALSE}; ///< Oil saturation of grids.
+    OCP_BOOL SGAS{OCP_FALSE}; ///< Gas saturation of grids.
+    OCP_BOOL SWAT{OCP_FALSE}; ///< Water saturation of grids.
+    OCP_BOOL DENO{OCP_FALSE}; ///< Oil density of grids.
+    OCP_BOOL DENG{OCP_FALSE}; ///< Gas density of grids.
+    OCP_BOOL DENW{OCP_FALSE}; ///< Water density of grids.
+    OCP_BOOL KRO{OCP_FALSE};  ///< Oil relative permeability of grids.
+    OCP_BOOL KRG{OCP_FALSE};  ///< Gas relative permeability of grids.
+    OCP_BOOL KRW{OCP_FALSE};  ///< Water relative permeability of grids.
+    OCP_BOOL BOIL{OCP_FALSE}; ///< Oil reservoir molar densities of grids.
+    OCP_BOOL BGAS{OCP_FALSE}; ///< Gas reservoir molar densities of grids.
+    OCP_BOOL BWAT{OCP_FALSE}; ///< Water reservoir molar densities of grids.
+    OCP_BOOL VOIL{OCP_FALSE}; ///< Oil viscosity of grids.
+    OCP_BOOL VGAS{OCP_FALSE}; ///< Gas viscosity of grids.
+    OCP_BOOL VWAT{OCP_FALSE}; ///< Water viscosity of grids.
+    OCP_BOOL XMF{OCP_FALSE};  ///< liquid component mole fractions.
+    OCP_BOOL YMF{OCP_FALSE};  ///< gas component mole fractions.
+    OCP_BOOL PCW{OCP_FALSE};  ///< capillary pressure: Po - Pw.
 };
 
 /// Collect more detailed information of each time step.
@@ -207,27 +208,41 @@ public:
     void Setup(const string& dir, const Reservoir& reservoir);
     void PrintRPT(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
     template <typename T>
-    void PrintRPT_Scalar(ofstream& ifs, const string& dataName, const OCP_DBL& days, const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const OCP_DBL& alpha = 1.0) const;
+    void PrintRPT_Scalar(ofstream&              ifs,
+                         const string&          dataName,
+                         const OCP_DBL&         days,
+                         const T*               gridVal,
+                         const USI&             gap,
+                         const vector<GB_Pair>& gbPair,
+                         const bool&            useActive,
+                         const OCP_DBL&         alpha = 1.0) const;
     void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
 
 private:
-    OCP_BOOL    useRPT{ OCP_FALSE };
-    OCP_USI     numGrid;
-    OCP_USI     nx;
-    OCP_USI     ny;
-    USI         IJKspace;
+    OCP_BOOL          useRPT{OCP_FALSE};
+    OCP_USI           numGrid;
+    OCP_USI           nx;
+    OCP_USI           ny;
+    USI               IJKspace;
     BasicGridProperty bgp;
 };
 
 template <typename T>
-void Out4RPT::PrintRPT_Scalar(ofstream& myRPT, const string& dataName, const OCP_DBL& days, const T* gridVal, const USI& gap, const vector<GB_Pair>& gbPair, const bool& useActive, const OCP_DBL& alpha) const
+void Out4RPT::PrintRPT_Scalar(ofstream&              myRPT,
+                              const string&          dataName,
+                              const OCP_DBL&         days,
+                              const T*               gridVal,
+                              const USI&             gap,
+                              const vector<GB_Pair>& gbPair,
+                              const bool&            useActive,
+                              const OCP_DBL&         alpha) const
 {
-    USI I, J, K;
+    USI     I, J, K;
     OCP_USI bId;
 
     myRPT << OCP_SEP01(50) << "\n";
-    myRPT << dataName << "                   "
-          << fixed << setprecision(3) << days << "  DAYS";
+    myRPT << dataName << "                   " << fixed << setprecision(3) << days
+          << "  DAYS";
 
     if (useActive) {
         for (OCP_USI n = 0; n < numGrid; n++) {
@@ -238,17 +253,16 @@ void Out4RPT::PrintRPT_Scalar(ofstream& myRPT, const string& dataName, const OCP
                 GetIJKGrid(I, J, K, n);
                 myRPT << GetIJKformat("*", to_string(J), to_string(K), IJKspace);
             }
-           
+
             if (gbPair[n].IsAct()) {
                 bId = gbPair[n].GetId();
-                myRPT << setw(10) << fixed << setprecision(3) << gridVal[bId * gap] * alpha;
-            }
-            else {
+                myRPT << setw(10) << fixed << setprecision(3)
+                      << gridVal[bId * gap] * alpha;
+            } else {
                 myRPT << setw(10) << " --- ";
             }
         }
-    }
-    else {
+    } else {
         for (OCP_USI n = 0; n < numGrid; n++) {
             if (n % nx == 0) myRPT << "\n";
             if (n % (nx * ny) == 0) myRPT << "\n\n";
@@ -264,21 +278,19 @@ void Out4RPT::PrintRPT_Scalar(ofstream& myRPT, const string& dataName, const OCP
     myRPT << "\n\n\n";
 }
 
-
-
 class Out4VTK
 {
 public:
     void InputParam(const OutputVTKParam& VTKParam);
     void Setup(const string& dir, const Reservoir& rs, const USI& ndates);
     void PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const;
-    OCP_BOOL IfOutputVTK()const { return useVTK; }
-private:
+    OCP_BOOL IfOutputVTK() const { return useVTK; }
 
-    OCP_BOOL     useVTK{ OCP_FALSE };
-    mutable USI  index{ 0 };   ///< index of output file
+private:
+    OCP_BOOL          useVTK{OCP_FALSE};
+    mutable USI       index{0}; ///< index of output file
     BasicGridProperty bgp;
-    Output4Vtk  out4vtk;
+    Output4Vtk        out4vtk;
 
     // test for Parallel version
 #ifdef USE_METIS
@@ -286,39 +298,40 @@ private:
     mutable class MyMetisTest
     {
         friend class Out4VTK;
+
     private:
-        OCP_BOOL        useMetis{ OCP_TRUE };
+        OCP_BOOL useMetis{OCP_TRUE};
 
         OCP_USI nb;
         OCP_USI nw;
         OCP_USI ng;
-   
-        mutable idx_t           nvtxs;
-        mutable idx_t           nedges;
-        mutable idx_t           ncon{ 1 };
-        mutable idx_t           nparts{ 8 };
-        mutable vector<idx_t>   xadj;
-        mutable vector<idx_t>   adjncy;
-        mutable vector<idx_t>   adjwgt;
-        mutable vector<idx_t>   vwgt;
-        mutable vector<idx_t>   part;
-        const idx_t MAXWEIGHT = 100000000;
 
-        mutable vector<USI>     partions;
-        mutable OCP_DBL         partTime{ 0 };
+        mutable idx_t         nvtxs;
+        mutable idx_t         nedges;
+        mutable idx_t         ncon{1};
+        mutable idx_t         nparts{8};
+        mutable vector<idx_t> xadj;
+        mutable vector<idx_t> adjncy;
+        mutable vector<idx_t> adjwgt;
+        mutable vector<idx_t> vwgt;
+        mutable vector<idx_t> part;
+        const idx_t           MAXWEIGHT = 100000000;
+
+        mutable vector<USI> partions;
+        mutable OCP_DBL     partTime{0};
 
     public:
         void Setup(const Reservoir& rs)
-        {         
+        {
             if (!useMetis) return;
             nb = rs.GetBulkNum();
             nw = rs.GetWellNum();
             ng = rs.grid.GetGridNum();
 
-            nvtxs = nb + nw;
-            nedges = 0;
+            nvtxs                           = nb + nw;
+            nedges                          = 0;
             vector<vector<OCP_USI>> tmpConn = rs.conn.neighbor;
-            vector<OCP_USI> tmp;
+            vector<OCP_USI>         tmp;
             for (USI w = 0; w < rs.allWells.numWell; w++) {
                 tmp.clear();
                 for (USI p = 0; p < rs.allWells.GetWellPerfNum(w); p++) {
@@ -336,7 +349,7 @@ private:
                 nedges += rs.conn.neighborNum[n];
             }
             nedges -= nb;
-                  
+
             // generate xadj  adjncy  adjwgt
             xadj.resize(nvtxs + 1);
             xadj[0] = 0;
@@ -345,7 +358,7 @@ private:
             // Bulk
             for (OCP_USI n = 0; n < nb; n++) {
                 xadj[n + 1] = xadj[n] + myConn[n].size() - 1;
-                USI i = 0;
+                USI i       = 0;
                 // left
                 for (i = 0; i < rs.conn.selfPtr[n]; i++) {
                     adjncy.push_back(myConn[n][i]);
@@ -373,17 +386,20 @@ private:
             // Setup active/inactive grid flags
             // inactive grids' flags equal nparts
             part.resize(nvtxs, 0);
-            partions.resize(ng + nw, nparts);           
+            partions.resize(ng + nw, nparts);
         }
-        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) const {
+        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) const
+        {
 
             if (!useMetis) return;
             idx_t objval;
-            int ret = METIS_PartGraphFunc(&nvtxs, &ncon, xadj.data(), adjncy.data(),
-                vwgt.data(), NULL, adjwgt.data(), &nparts, NULL,
-                NULL, NULL, &objval, part.data());
+            int   ret = METIS_PartGraphFunc(&nvtxs, &ncon, xadj.data(), adjncy.data(),
+                                            vwgt.data(), NULL, adjwgt.data(), &nparts,
+                                            NULL, NULL, NULL, &objval, part.data());
 
-            if (ret != rstatus_et::METIS_OK) { OCP_ABORT("METIS ERROR"); }
+            if (ret != rstatus_et::METIS_OK) {
+                OCP_ABORT("METIS ERROR");
+            }
             cout << "METIS_OK" << endl;
             cout << "objval: " << objval << endl;
         }
@@ -401,7 +417,7 @@ private:
                 n++;
             }
         }
-    }metisTest;
+    } metisTest;
 #endif // USE_METIS
 };
 
@@ -416,22 +432,23 @@ class OCPOutput
     friend class OpenCAEPoro;
 
 public:
-    void InputParam(const ParamOutput& paramOutput);
-    void Setup(const Reservoir& reservoir, const OCPControl& ctrl);
-    void SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
-    void PrintInfo() const;
-    void PrintInfoSched(const Reservoir& rs, const OCPControl& ctrl,
-                        const OCP_DBL& time) const;
+    void     InputParam(const ParamOutput& paramOutput);
+    void     Setup(const Reservoir& reservoir, const OCPControl& ctrl);
+    void     SetVal(const Reservoir& reservoir, const OCPControl& ctrl);
+    void     PrintInfo() const;
+    void     PrintInfoSched(const Reservoir&  rs,
+                            const OCPControl& ctrl,
+                            const OCP_DBL&    time) const;
     OCP_BOOL IfOutputVTK() const { return out4VTK.IfOutputVTK(); }
 
 private:
     string       workDir;
     Summary      summary;
     CriticalInfo crtInfo;
-    Out4RPT   out4RPT;
+    Out4RPT      out4RPT;
     Out4VTK      out4VTK;
 
-    mutable OCP_DBL outputTime{ 0 }; ///< Total time for main output
+    mutable OCP_DBL outputTime{0}; ///< Total time for main output
 };
 
 #endif /* end if __OCPOUTPUT_HEADER__ */

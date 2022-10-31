@@ -88,21 +88,30 @@ void OpenCAEPoro::RunSimulation()
 void OpenCAEPoro::OutputResults() const
 {
     cout << "=========================================" << endl;
-    cout << "Final time:             " << control.current_time << " Days" << endl;
-    cout << "Total time steps:       " << control.numTstep << endl;
-    cout << "Total Newton steps:     " << control.iterNR_total << " (+"
-         << control.wastedIterNR << " wasted steps)" << endl;
-    cout << "Total linear steps:     " << control.iterLS_total << " (+"
-         << control.wastedIterLS << " wasted steps)" << endl;
-    cout << "Linear solve time:      " << control.totalLStime << "s"
-         << " (" << 100.0 * control.totalLStime / control.totalSimTime << "%)" << endl;
-    cout << "Assemble Mat time:      " << control.totalAssembleMatTime << "s"
-         << " (" << 100.0 * control.totalAssembleMatTime / control.totalSimTime << "%)" << endl;
-    cout << "Update Property time:   " << control.totalUpdatePropertyTime << "s"
-         << " (" << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << "%)" << endl;
-    cout << "Sched output time:      " << output.outputTime << "s"
-         << " (" << 100.0 * output.outputTime / control.totalSimTime << "%)" << endl;
-    cout << "Simulation time:        " << control.totalSimTime << "s" << endl;
+
+    cout << "Final time:             " << fixed << setprecision(3) << setw(12)
+         << control.current_time << " Days" << endl;
+    cout << " - Total time steps......." << setw(6) << control.numTstep << endl;
+    cout << " - Total Newton steps....." << setw(6) << control.iterNR_total << " (+"
+         << control.wastedIterNR << " wasted)" << endl;
+    cout << " - Total linear steps....." << setw(6) << control.iterLS_total << " (+"
+         << control.wastedIterLS << " wasted)" << endl;
+
+    cout << "Simulation time:        " << fixed << setprecision(3) << setw(12)
+         << control.totalSimTime << " Seconds" << endl;
+    cout << " - Assembling............." << fixed << setprecision(3) << setw(10)
+         << 100.0 * control.totalAssembleMatTime / control.totalSimTime << "%"
+         << " (" << control.totalAssembleMatTime << "s)" << endl;
+    cout << " - Linear solver.........." << fixed << setprecision(3) << setw(10)
+         << 100.0 * control.totalLStime / control.totalSimTime << "%"
+         << " (" << control.totalLStime << "s)" << endl;
+    cout << " - Updating properties...." << fixed << setprecision(3) << setw(10)
+         << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << "%"
+         << " (" << control.totalUpdatePropertyTime << "s)" << endl;
+    cout << " - Scheduled output......." << fixed << setprecision(3) << setw(10)
+         << 100.0 * output.outputTime / control.totalSimTime << "%"
+         << " (" << output.outputTime << "s)" << endl;
+
     output.PrintInfo();
 }
 

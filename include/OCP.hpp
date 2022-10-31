@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.2.1" ///< Software version tag used for git
+#define OCPVersion "0.4.0" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -91,7 +91,7 @@ private:
     /// Contains discrete methods and linear system solver.
     Solver solver;
 
-    /// Control class handles algorithm params and time steping.
+    /// Control class handles algorithm params and time stepping.
     OCPControl control;
 
     /// Output class handles output level of the program.

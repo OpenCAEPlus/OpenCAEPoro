@@ -31,12 +31,12 @@ public:
 
 public:
     // Note: Most commonly used params are the first three
-    OCP_DBL timeInit;    ///< Max init step length of next timestep
+    OCP_DBL timeInit;    ///< Max init step length of next time step
     OCP_DBL timeMax;     ///< Max time step during running
     OCP_DBL timeMin;     ///< Min time step during running
-    OCP_DBL maxIncreFac; ///< Max timestep increase factor
-    OCP_DBL minChopFac;  ///< Min choppable timestep
-    OCP_DBL cutFacNR;    ///< Factor by which timestep is cut after convergence failure
+    OCP_DBL maxIncreFac; ///< Max time step increase factor
+    OCP_DBL minChopFac;  ///< Min choppable time step ??? TODO: double check! --zcs
+    OCP_DBL cutFacNR;    ///< Factor by which time step is cut after convergence failure
 };
 
 /// Params for convergence and material balance error checks.
@@ -63,14 +63,13 @@ public:
 
 public:
     // Note: Important for convergence of solution methods
-    USI     maxNRiter; ///< Maximum number of Newton iterations in a timestep
+    USI     maxNRiter; ///< Maximum number of Newton iterations in a time step
     OCP_DBL NRtol;     ///< Maximum non-linear convergence error
     OCP_DBL NRdPmax;   ///< Maximum Pressure change in a Newton iteration
     OCP_DBL NRdSmax;   ///< Maximum Saturation change in a Newton iteration
     OCP_DBL NRdPmin;   ///< Minimum Pressure change in a Newton iteration
     OCP_DBL NRdSmin;   ///< Minimum Saturation change in a Newton iteration
-    OCP_DBL Verrmax;   ///< Maximum Verr(error between fluidand pore) change in a Newton
-                       ///< iteration
+    OCP_DBL Verrmax;   ///< Maximum Verr (vol error b/w fluid and pore) in a Newton step
 };
 
 /// Store shortcut instructions from the command line
@@ -80,15 +79,15 @@ public:
     void ReadParam(const USI& argc, const char* optset[]);
 
 public:
-    OCP_BOOL    activity{OCP_FALSE};
-    USI     method;        ///< IMPEC or FIM
-    OCP_DBL timeInit;      ///< Maximum Init step length of next timestep
-    OCP_DBL timeMax;       ///< Maximum time step during running
-    OCP_DBL timeMin;       ///< Minmum time step during running
-    USI     printLevel{0}; ///< Decide the depth for printfing
+    OCP_BOOL activity{OCP_FALSE};
+    USI      method;        ///< IMPEC or FIM
+    OCP_DBL  timeInit;      ///< Maximum Init step length of next time step
+    OCP_DBL  timeMax;       ///< Maximum time step during running
+    OCP_DBL  timeMin;       ///< Minimum time step during running
+    USI      printLevel{0}; ///< Decide the depth for printing
 };
 
-/// All control parameters except for well controlers.
+/// All control parameters except for well controllers.
 //  Note: Which solution method will be used is determined here!
 class OCPControl
 {
@@ -102,7 +101,7 @@ class OCPControl
     friend class OCP_IMPEC;
     friend class OCP_AIMc;
     // temp
-    friend class Solver; 
+    friend class Solver;
 
 public:
     /// Input parameters for control.
@@ -126,10 +125,10 @@ public:
     /// Return the current time.
     OCP_DBL GetCurTime() const { return current_time; }
 
-    /// Return current dt.
+    /// Return current time step size.
     OCP_DBL& GetCurDt() { return current_dt; }
 
-    /// Return last dt.
+    /// Return last time step size.
     OCP_DBL GetLastDt() const { return last_dt; }
 
     /// Return the number of linear iterations in one time step.
@@ -141,7 +140,7 @@ public:
     /// Return the number of Newton iterations in one time step.
     USI GetNRiter() const { return iterNR; }
 
-    /// Return the total nubmer of Newton iterations.
+    /// Return the total number of Newton iterations.
     USI GetNRiterT() const { return iterNR_total; }
 
     /// Update the number of iterations.
@@ -162,14 +161,16 @@ public:
     /// Record time used for assemble matrix
     void RecordTimeAssembleMat(const OCP_DBL& t) { totalAssembleMatTime += t; }
 
-    /// Record time used for update property 
+    /// Record time used for update property.
     void RecordTimeUpdateProperty(const OCP_DBL& t) { totalUpdatePropertyTime += t; }
-    
+
     /// Record the total time of simulation.
     void RecordTotalTime(const OCP_DBL& t) { totalSimTime += t; }
 
-    /// Calculate the next time step according to max change of some variables.
+    /// Get the next time step for IMPEC according to max change of some variables.
     void CalNextTstepIMPEC(const Reservoir& reservoir);
+
+    /// Get the next time step for FIM according to max change of some variables.
     void CalNextTstepFIM(const Reservoir& reservoir);
 
     /// Determine whether the critical time point has been reached.
@@ -182,15 +183,15 @@ public:
     string GetWorkDir() const { return workDir; }
 
     /// Return linear solver file name.
-    string GetLsFile() const { return linearsolveFile; }
+    string GetLsFile() const { return linearSolverFile; }
 
     // Set wellChange
     void SetWellChange(const OCP_BOOL& flag) { wellChange = flag; }
 
 private:
-    USI    method;  ///< Discrete method
-    string workDir; ///< Current work directory
-    string linearsolveFile;  ///< File name of linear Solver
+    USI    method;           ///< Discrete method
+    string workDir;          ///< Current work directory
+    string linearSolverFile; ///< File name of linear Solver
 
     vector<OCP_DBL> criticalTime; ///< Set of Critical time by user
 
@@ -201,11 +202,11 @@ private:
     OCP_DBL current_time{0}; ///< Current time
     OCP_DBL end_time;        ///< Next Critical time
 
-    OCP_DBL totalSimTime{0}; ///< Total simulation time
+    OCP_DBL totalSimTime{0};            ///< Total simulation time
     OCP_DBL totalUpdatePropertyTime{0}; ///< Total UpdateProperty Time
-    OCP_DBL totalAssembleMatTime{0}; ///< Total AssembleMat time
-    OCP_DBL totalLStime{0};  ///< Total linear solver time
-    
+    OCP_DBL totalAssembleMatTime{0};    ///< Total AssembleMat time
+    OCP_DBL totalLStime{0};             ///< Total linear solver time
+
     // Record iteration information
     USI numTstep{0};     ///< Number of time step
     USI iterLS{0};       ///< Current iterations of linear solver
@@ -216,21 +217,22 @@ private:
     USI wastedIterLS{0}; ///< Number of wasted linear iterations
 
     // Print level
-    USI printLevel{ 0 };
+    USI printLevel{0};
 
-    // Includes time controler, error controler, and iteration controler, all of which
-    // could change at different critical time step.
+    // Time, error, and iteration dynamic controllers, all of which could change at
+    // any critical time steps
     ControlTime            ctrlTime;
     vector<ControlTime>    ctrlTimeSet;
     ControlPreTime         ctrlPreTime;
     vector<ControlPreTime> ctrlPreTimeSet;
     ControlNR              ctrlNR;
     vector<ControlNR>      ctrlNRSet;
-    /// receive instructions directly from command lines, which take precedence than others
-    FastControl            ctrlFast; 
 
-    // Well 
-    OCP_BOOL wellChange;       ///< if wells change, then OCP_FALSE
+    // Receive directly from command lines, which will overwrite others
+    FastControl ctrlFast;
+
+    // Well
+    OCP_BOOL wellChange; ///< if wells change, then OCP_FALSE
 };
 
 #endif /* end if __OCP_Control_HEADER__ */

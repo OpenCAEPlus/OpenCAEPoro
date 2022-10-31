@@ -357,7 +357,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     b.row = nrow;
     b.val = rhs.data();
     x.row = nrow;
-    x.val = u.data();  // x will be set to zero later
+    x.val = u.data(); // x will be set to zero later
 
     // fsc & order
     fsc.row   = nrow;
@@ -511,6 +511,7 @@ OCP_INT VectorFaspSolver::Solve()
                 break;
 #endif
             default:
+                OCP_WARNING("fasp4blkoil was not linked correctly!");
                 OCP_ABORT("Preconditioner type " + to_string(precond_type) +
                           " not supported!");
         }
