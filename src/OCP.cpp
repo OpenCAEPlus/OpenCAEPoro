@@ -87,7 +87,7 @@ void OpenCAEPoro::RunSimulation()
 /// Print summary information on screen and SUMMARY.out file.
 void OpenCAEPoro::OutputResults() const
 {
-    cout << "=========================================" << endl;
+    cout << "==================================================" << endl;
 
     cout << "Final time:             " << fixed << setprecision(3) << setw(12)
          << control.current_time << " Days" << endl;
@@ -111,6 +111,8 @@ void OpenCAEPoro::OutputResults() const
     cout << " - Scheduled output......." << fixed << setprecision(3) << setw(10)
          << 100.0 * output.outputTime / control.totalSimTime << "%"
          << " (" << output.outputTime << "s)" << endl;
+
+    cout << "==================================================" << endl;
 
     output.PrintInfo();
 }
