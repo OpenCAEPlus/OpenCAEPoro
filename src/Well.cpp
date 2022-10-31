@@ -697,7 +697,6 @@ void Well::CalProddG01(const Bulk& myBulk)
                 }
             }
 
-
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=

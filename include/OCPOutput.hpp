@@ -23,7 +23,7 @@
 #include "UtilOutput.hpp"
 #include "Output4Vtk.hpp"
 #include "UtilTiming.hpp"
-
+#include "metis.h"
 
 using namespace std;
 
@@ -277,6 +277,38 @@ private:
     mutable USI  index{ 0 };   ///< index of output file
     BasicGridProperty bgp;
     Output4Vtk  out4vtk;
+
+
+    // test for Parallel version
+    class MyMetisTest
+    {
+        OCP_BOOL        useMetis;
+        idx_t           nVertices;
+        idx_t           nWeights;
+        idx_t           nEdges;
+        idx_t           nParts;
+        vector<idx_t>   xadj;
+        vector<idx_t>   adjncy;
+        vector<idx_t>   adjwgt;
+        vector<idx_t>   vwgt;
+        vector<idx_t>   part;
+
+        OCP_DBL         partTime{ 0 };
+
+        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) {
+            idx_t objval;
+
+            int ret = METIS_PartGraphFunc(&nVertices, &nWeights, xadj.data(), adjncy.data(),
+                vwgt.data(), NULL, adjwgt.data(), &nParts, NULL,
+                NULL, NULL, &objval, part.data());
+
+            if (ret != rstatus_et::METIS_OK) { OCP_ABORT("METIS ERROR"); }
+            cout << "METIS_OK" << endl;
+            cout << "objval: " << objval << endl;
+        }
+        
+    }metisTest;
+
 };
 
 /// The OCPOutput class manages different kinds of ways to output information.
