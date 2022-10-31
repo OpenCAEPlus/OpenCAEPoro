@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['linearsolver_971',['LinearSolver',['../classLinearSolver.html',1,'']]],
-  ['linearsystem_972',['LinearSystem',['../classLinearSystem.html',1,'']]]
+  ['linearsolver_972',['LinearSolver',['../classLinearSolver.html',1,'']]],
+  ['linearsystem_973',['LinearSystem',['../classLinearSystem.html',1,'']]]
 ];

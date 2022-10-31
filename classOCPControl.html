@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>All control parameters except for well controlers.  
+<p>All control parameters except for well controllers.  
  <a href="classOCPControl.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>&gt;</code></p>
@@ -112,11 +112,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:ade95caf1d2d668485ca86684ae7e5a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f7a1a258eda941ce81e61b9e387ce94"><td class="memItemLeft" align="right" valign="top"><a id="a1f7a1a258eda941ce81e61b9e387ce94"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#a1f7a1a258eda941ce81e61b9e387ce94">GetCurDt</a> ()</td></tr>
-<tr class="memdesc:a1f7a1a258eda941ce81e61b9e387ce94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current dt. <br /></td></tr>
+<tr class="memdesc:a1f7a1a258eda941ce81e61b9e387ce94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current time step size. <br /></td></tr>
 <tr class="separator:a1f7a1a258eda941ce81e61b9e387ce94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5eead1027881fab2ceea25423db3dc85"><td class="memItemLeft" align="right" valign="top"><a id="a5eead1027881fab2ceea25423db3dc85"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#a5eead1027881fab2ceea25423db3dc85">GetLastDt</a> () const</td></tr>
-<tr class="memdesc:a5eead1027881fab2ceea25423db3dc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return last dt. <br /></td></tr>
+<tr class="memdesc:a5eead1027881fab2ceea25423db3dc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return last time step size. <br /></td></tr>
 <tr class="separator:a5eead1027881fab2ceea25423db3dc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa1c8afb5b780923d1c7ef606fb572b0"><td class="memItemLeft" align="right" valign="top"><a id="aaa1c8afb5b780923d1c7ef606fb572b0"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#aaa1c8afb5b780923d1c7ef606fb572b0">GetLSiter</a> () const</td></tr>
@@ -132,7 +132,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a57e53a1adc8fc16423e16a4af8ee1149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed0b4b23ead6cd95140a19a747e8b53c"><td class="memItemLeft" align="right" valign="top"><a id="aed0b4b23ead6cd95140a19a747e8b53c"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#aed0b4b23ead6cd95140a19a747e8b53c">GetNRiterT</a> () const</td></tr>
-<tr class="memdesc:aed0b4b23ead6cd95140a19a747e8b53c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the total nubmer of Newton iterations. <br /></td></tr>
+<tr class="memdesc:aed0b4b23ead6cd95140a19a747e8b53c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the total number of Newton iterations. <br /></td></tr>
 <tr class="separator:aed0b4b23ead6cd95140a19a747e8b53c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90d96fc1a7bbb27f435c4c630694088d"><td class="memItemLeft" align="right" valign="top"><a id="a90d96fc1a7bbb27f435c4c630694088d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#a90d96fc1a7bbb27f435c4c630694088d">UpdateIters</a> ()</td></tr>
@@ -168,10 +168,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a2dc02c5f09c7d6642d9935948a248d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e9225825933d72ba9c78327d1ff10b5"><td class="memItemLeft" align="right" valign="top"><a id="a1e9225825933d72ba9c78327d1ff10b5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#a1e9225825933d72ba9c78327d1ff10b5">CalNextTstepIMPEC</a> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;reservoir)</td></tr>
-<tr class="memdesc:a1e9225825933d72ba9c78327d1ff10b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the next time step according to max change of some variables. <br /></td></tr>
+<tr class="memdesc:a1e9225825933d72ba9c78327d1ff10b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next time step for IMPEC according to max change of some variables. <br /></td></tr>
 <tr class="separator:a1e9225825933d72ba9c78327d1ff10b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae06861f8bdb56b1ecdc7e7a18da3422"><td class="memItemLeft" align="right" valign="top"><a id="aae06861f8bdb56b1ecdc7e7a18da3422"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CalNextTstepFIM</b> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;reservoir)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#aae06861f8bdb56b1ecdc7e7a18da3422">CalNextTstepFIM</a> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;reservoir)</td></tr>
+<tr class="memdesc:aae06861f8bdb56b1ecdc7e7a18da3422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next time step for FIM according to max change of some variables. <br /></td></tr>
 <tr class="separator:aae06861f8bdb56b1ecdc7e7a18da3422"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ad3a4c2425bc8b944f7099aa1551c8"><td class="memItemLeft" align="right" valign="top"><a id="a50ad3a4c2425bc8b944f7099aa1551c8"></a>
 <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPControl.html#a50ad3a4c2425bc8b944f7099aa1551c8">IsCriticalTime</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;d)</td></tr>
@@ -220,9 +221,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b></td></tr>
 <tr class="separator:a16432758b314f3cedad3fba81c895417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>All control parameters except for well controlers. </p>
+<div class="textblock"><p>All control parameters except for well controllers. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00093">93</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPControl_8hpp_source.html#l00092">92</a> of file <a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="OCPControl_8hpp_source.html">OCPControl.hpp</a></li>
 <li><a class="el" href="OCPControl_8cpp_source.html">OCPControl.cpp</a></li>
@@ -230,7 +231,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 31 2022 05:19:28 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 31 2022 06:29:55 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
