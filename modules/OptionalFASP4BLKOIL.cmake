@@ -11,7 +11,6 @@ if(USE_FASP4BLKOIL)
 
   find_package(FASP4BLKOIL)
   if(FASP4BLKOIL_FOUND)
-    message(STATUS "INFO: FASP4BLKOIL found")
     add_library(fasp4blkoil STATIC IMPORTED GLOBAL)
     set_property(TARGET fasp4blkoil APPEND PROPERTY IMPORTED_LOCATION 
                                 ${FASP4BLKOIL_LIBRARIES})
@@ -20,10 +19,6 @@ if(USE_FASP4BLKOIL)
     set_property(TARGET fasp4blkoil APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                                 ${FASP4BLKOIL_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC fasp4blkoil)
-
-    # add_definitions("-DWITH_FASP4BLKOIL=1")
-    # include_directories(${FASP4BLKOIL_INCLUDE_DIRS}) set(OPTIONAL_LIBS
-    # ${OPTIONAL_LIBS} ${FASP4BLKOIL_LIBRARIES})
   else(FASP4BLKOIL_FOUND)
     message(
       WARNING

@@ -6,7 +6,6 @@ find_package(FASP)
 
 if(FASP_FOUND)
   # include_directories(${FASP_INCLUDE_DIRS}) add_definitions(-D__SOLVER_FASP__)
-  message(STATUS "INFO: FASP found")
   add_library(fasp STATIC IMPORTED GLOBAL)
   set_property(TARGET fasp PROPERTY IMPORTED_LOCATION ${FASP_LIBRARIES})
   set_property(TARGET fasp PROPERTY INTERFACE_INCLUDE_DIRECTORIES
