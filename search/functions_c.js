@@ -12,7 +12,7 @@ var searchData=
   ['recordtimeupdateproperty_1454',['RecordTimeUpdateProperty',['../classOCPControl.html#aa15747941ad626a5c5cf5d0ea6f901f2',1,'OCPControl']]],
   ['recordtotaltime_1455',['RecordTotalTime',['../classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f',1,'OCPControl']]],
   ['reset_1456',['Reset',['../classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8',1,'BulkConn']]],
-  ['resetfim_1457',['ResetFIM',['../classReservoir.html#a6d75d38e83774710ad4a78810a032844',1,'Reservoir::ResetFIM()'],['../classBulk.html#a6c908149b7505b9c2568461a6c51cc99',1,'Bulk::ResetFIM()']]],
+  ['resetfim_1457',['ResetFIM',['../classReservoir.html#a8b4d17fe3b80770c7def9531012614e3',1,'Reservoir::ResetFIM()'],['../classBulk.html#a6c908149b7505b9c2568461a6c51cc99',1,'Bulk::ResetFIM()']]],
   ['resetflash_1458',['ResetFlash',['../classBulk.html#ab10e3d5483e295cc0a54d2764f1d2c57',1,'Bulk']]],
   ['resetiternrls_1459',['ResetIterNRLS',['../classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d',1,'OCPControl']]],
   ['resetkr_1460',['ResetKr',['../classBulk.html#ac02f64b226436bff33d0038912c8f0c5',1,'Bulk']]],

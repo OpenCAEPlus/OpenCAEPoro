@@ -19,7 +19,7 @@ var searchData=
   ['reservoir_2ehpp_711',['Reservoir.hpp',['../Reservoir_8hpp.html',1,'']]],
   ['reset_712',['Reset',['../classBulkConn.html#acfe6d0c23ea1c4d0edf634e5f50c4ed8',1,'BulkConn']]],
   ['reset_5fconst_713',['RESET_CONST',['../FaspSolver_8hpp.html#a53314b56813237bdc719c415aa4c99fd',1,'FaspSolver.hpp']]],
-  ['resetfim_714',['ResetFIM',['../classBulk.html#a6c908149b7505b9c2568461a6c51cc99',1,'Bulk::ResetFIM()'],['../classReservoir.html#a6d75d38e83774710ad4a78810a032844',1,'Reservoir::ResetFIM()']]],
+  ['resetfim_714',['ResetFIM',['../classBulk.html#a6c908149b7505b9c2568461a6c51cc99',1,'Bulk::ResetFIM()'],['../classReservoir.html#a8b4d17fe3b80770c7def9531012614e3',1,'Reservoir::ResetFIM()']]],
   ['resetflash_715',['ResetFlash',['../classBulk.html#ab10e3d5483e295cc0a54d2764f1d2c57',1,'Bulk']]],
   ['resetiternrls_716',['ResetIterNRLS',['../classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d',1,'OCPControl']]],
   ['resetkr_717',['ResetKr',['../classBulk.html#ac02f64b226436bff33d0038912c8f0c5',1,'Bulk']]],
