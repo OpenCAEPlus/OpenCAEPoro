@@ -610,10 +610,9 @@ void CriticalInfo::PrintFastReview(const string& dir) const
     outF.close();
 }
 
-
 void BasicGridProperty::SetBasicGridProperty(const BasicGridPropertyParam& param)
 {
-    PRE = param.PRE;
+    PRE  = param.PRE;
     PGAS = param.PGAS;
     PWAT = param.PWAT;
     SOIL = param.SOIL;
@@ -622,20 +621,19 @@ void BasicGridProperty::SetBasicGridProperty(const BasicGridPropertyParam& param
     DENO = param.DENO;
     DENG = param.DENG;
     DENW = param.DENW;
-    KRO = param.KRO;
-    KRG = param.KRG;
-    KRW = param.KRW;
+    KRO  = param.KRO;
+    KRG  = param.KRG;
+    KRW  = param.KRW;
     BOIL = param.BOIL;
     BGAS = param.BGAS;
     BWAT = param.BWAT;
     VOIL = param.VOIL;
     VGAS = param.VGAS;
     VWAT = param.VWAT;
-    XMF = param.XMF;
-    YMF = param.YMF;
-    PCW = param.PCW;
+    XMF  = param.XMF;
+    YMF  = param.YMF;
+    PCW  = param.PCW;
 }
-
 
 void Out4RPT::InputParam(const OutputRPTParam& RPTparam)
 {
@@ -644,7 +642,6 @@ void Out4RPT::InputParam(const OutputRPTParam& RPTparam)
 
     bgp.SetBasicGridProperty(RPTparam.bgp);
 }
-
 
 void Out4RPT::Setup(const string& dir, const Reservoir& rs)
 {
@@ -657,15 +654,15 @@ void Out4RPT::Setup(const string& dir, const Reservoir& rs)
     }
     outF.close();
 
-    nx = rs.grid.nx;
-    ny = rs.grid.ny;
-    numGrid = rs.grid.numGrid;
+    nx       = rs.grid.nx;
+    ny       = rs.grid.ny;
+    numGrid  = rs.grid.numGrid;
     IJKspace = rs.grid.numDigutIJK;
 }
 
 void Out4RPT::PrintRPT(const string&    dir,
-                           const Reservoir& rs,
-                           const OCP_DBL&   days) const
+                       const Reservoir& rs,
+                       const OCP_DBL&   days) const
 {
 
     if (!useRPT) return;
@@ -677,45 +674,47 @@ void Out4RPT::PrintRPT(const string&    dir,
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    const USI     np     = rs.bulk.numPhase;
-    const USI     nc     = rs.bulk.numCom;
-    const USI     OIndex = rs.bulk.phase2Index[OIL];
-    const USI     GIndex = rs.bulk.phase2Index[GAS];
-    const USI     WIndex = rs.bulk.phase2Index[WATER];
-    const vector<GB_Pair>& g2bp = rs.grid.activeMap_G2B;
+    const USI              np     = rs.bulk.numPhase;
+    const USI              nc     = rs.bulk.numCom;
+    const USI              OIndex = rs.bulk.phase2Index[OIL];
+    const USI              GIndex = rs.bulk.phase2Index[GAS];
+    const USI              WIndex = rs.bulk.phase2Index[WATER];
+    const vector<GB_Pair>& g2bp   = rs.grid.activeMap_G2B;
 
     outRPT << OCP_SEP02(50) << "\n";
 
     // Well Info
     USI numWell = rs.allWells.GetWellNum();
     outRPT << "Well Information"
-        << "                    ";
-    outRPT << fixed << setprecision(3) << days << "  DAYS" << "\n";
+           << "                    ";
+    outRPT << fixed << setprecision(3) << days << "  DAYS"
+           << "\n";
     // INJ
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == INJ) {
-            outRPT << "-------------------------------------" << "\n";
+            outRPT << "-------------------------------------"
+                   << "\n";
             outRPT << rs.allWells.wells[w].name << "   " << w << "   "
-                << rs.allWells.wells[w].depth << " (feet)     ";
+                   << rs.allWells.wells[w].depth << " (feet)     ";
             outRPT << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
                 outRPT << "OPEN\t" << rs.allWells.wells[w].WGIR << " (MSCF/DAY)\t"
-                    << rs.allWells.wells[w].WWIR << " (STB/DAY)" << "\n";
-            }
-            else {
-                outRPT << "SHUTIN" << "\n";
+                       << rs.allWells.wells[w].WWIR << " (STB/DAY)"
+                       << "\n";
+            } else {
+                outRPT << "SHUTIN"
+                       << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
-                    << rs.allWells.wells[w].perf[p].J << "   "
-                    << rs.allWells.wells[w].perf[p].K << "   "
-                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I
+                       << "   " << rs.allWells.wells[w].perf[p].J << "   "
+                       << rs.allWells.wells[w].perf[p].K << "   "
+                       << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
                     outRPT << "OPEN";
-                }
-                else {
+                } else {
                     outRPT << "SHUTIN";
                 }
                 outRPT << "   " << rs.allWells.wells[w].perf[p].location << "\n";
@@ -725,29 +724,30 @@ void Out4RPT::PrintRPT(const string&    dir,
     // PROD
     for (USI w = 0; w < numWell; w++) {
         if (rs.allWells.wells[w].opt.type == PROD) {
-            outRPT << "-------------------------------------" << "\n";
+            outRPT << "-------------------------------------"
+                   << "\n";
             outRPT << rs.allWells.wells[w].name << "   " << w << "   "
-                << rs.allWells.wells[w].depth << " (feet)     ";
+                   << rs.allWells.wells[w].depth << " (feet)     ";
             outRPT << rs.allWells.wells[w].I << "   " << rs.allWells.wells[w].J << "\n";
 
             if (rs.allWells.wells[w].opt.state == OPEN) {
                 outRPT << "OPEN\t" << rs.allWells.wells[w].WOPR << " (STB/DAY)\t"
-                    << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
-                    << rs.allWells.wells[w].WWPR << " (STB/DAY)" << "\n";
-            }
-            else {
-                outRPT << "SHUTIN" << "\n";
+                       << rs.allWells.wells[w].WGPR << " (MSCF/DAY)\t"
+                       << rs.allWells.wells[w].WWPR << " (STB/DAY)"
+                       << "\n";
+            } else {
+                outRPT << "SHUTIN"
+                       << "\n";
             }
             // perf
             for (USI p = 0; p < rs.allWells.wells[w].numPerf; p++) {
-                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I << "   "
-                    << rs.allWells.wells[w].perf[p].J << "   "
-                    << rs.allWells.wells[w].perf[p].K << "   "
-                    << rs.allWells.wells[w].perf[p].depth << "   ";
+                outRPT << "perf" << p << "   " << rs.allWells.wells[w].perf[p].I
+                       << "   " << rs.allWells.wells[w].perf[p].J << "   "
+                       << rs.allWells.wells[w].perf[p].K << "   "
+                       << rs.allWells.wells[w].perf[p].depth << "   ";
                 if (rs.allWells.wells[w].perf[p].state == OPEN) {
                     outRPT << "OPEN";
-                }
-                else {
+                } else {
                     outRPT << "SHUTIN";
                 }
                 outRPT << "   " << rs.allWells.wells[w].perf[p].location << "\n";
@@ -757,139 +757,164 @@ void Out4RPT::PrintRPT(const string&    dir,
 
     outRPT << "\n\n";
 
-
     static OCP_BOOL flag = OCP_FALSE;
     // Print once
     if (flag) {
         PrintRPT_Scalar(outRPT, "DX : feet", days, &rs.grid.dx[0], 1, g2bp, OCP_FALSE);
         PrintRPT_Scalar(outRPT, "DY : feet", days, &rs.grid.dy[0], 1, g2bp, OCP_FALSE);
         PrintRPT_Scalar(outRPT, "DZ : feet", days, &rs.grid.dz[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, g2bp,
+                        OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, g2bp,
+                        OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, g2bp,
+                        OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, g2bp,
+                        OCP_FALSE);
         flag = OCP_FALSE;
     }
-    
 
     // PRESSURE
     if (bgp.PRE) {
-        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, g2bp,
+                        OCP_TRUE);
     }
 
     // DENSITY of OIL
     if (bgp.DENO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[OIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[OIndex], np, g2bp,
+                        OCP_TRUE);
     }
     outRPT << endl;
 
     // DENSITY of GAS
     if (bgp.DENG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[GIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[GIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // DENSITY of WATER
     if (bgp.DENW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[WIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[WIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // SATURATION of OIL
     if (bgp.SOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[OIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // SATURATION of GAS
     if (bgp.SGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[GIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // SATURATION of WATER
     if (bgp.SWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[WIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Relative Permeability of OIL
     if (bgp.KRO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[OIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[OIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Relative Permeability of GAS
     if (bgp.KRG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[GIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[GIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Relative Permeability of WATER
     if (bgp.KRW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[WIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[WIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Molar Density of OIL
     if (bgp.BOIL && rs.bulk.oil && rs.bulk.comps) {
-        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Molar Density of GAS
     if (bgp.BGAS && rs.bulk.gas && rs.bulk.comps) {
-        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Molar Density of WATER
     if (bgp.BWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[WIndex], np, g2bp, OCP_TRUE, (CONV1 * 19.437216));
+        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[WIndex], np, g2bp,
+                        OCP_TRUE, (CONV1 * 19.437216));
     }
 
     // Viscosity of OIL
     if (bgp.VOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[OIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[OIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Viscosity of GAS
     if (bgp.VGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[GIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[GIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // Viscosity of WATER
     if (bgp.VWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[WIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[WIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     // liquid component mole fractions.
     if (bgp.XMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[OIndex * nc + i], np * nc, g2bp, OCP_TRUE);
+            PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component",
+                            days, &rs.bulk.xij[OIndex * nc + i], np * nc, g2bp,
+                            OCP_TRUE);
         }
     }
 
     // gas component mole fractions.
     if (bgp.YMF && rs.bulk.comps) {
         for (USI i = 0; i < nc - 1; i++) {
-            PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component", days, &rs.bulk.xij[GIndex * nc + i], np * nc, g2bp, OCP_TRUE);
+            PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component",
+                            days, &rs.bulk.xij[GIndex * nc + i], np * nc, g2bp,
+                            OCP_TRUE);
         }
     }
 
     // surface tension
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, g2bp,
+                        OCP_TRUE);
     }
 
     // Fk
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, g2bp,
+                        OCP_TRUE);
     }
 
     // Fp
     if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, g2bp,
+                        OCP_TRUE);
     }
 
     // Po - Pw
     if (bgp.PCW) {
-        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[WIndex], np, g2bp, OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[WIndex], np, g2bp,
+                        OCP_TRUE);
     }
 
     outRPT.close();
 }
-
 
 void Out4RPT::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
 {
@@ -900,7 +925,6 @@ void Out4RPT::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
     i = n - (k - 1) * nx * ny - (j - 1) * nx + 1;
 }
 
-
 void Out4VTK::InputParam(const OutputVTKParam& VTKParam)
 {
     useVTK = VTKParam.useVTK;
@@ -908,7 +932,6 @@ void Out4VTK::InputParam(const OutputVTKParam& VTKParam)
 
     bgp.SetBasicGridProperty(VTKParam.bgp);
 }
-
 
 void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 {
@@ -918,19 +941,23 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     string newfile;
     string title = "test";
 
-    out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID, rs.grid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
-    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell, VTK_FLOAT);
+    out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID,
+                 rs.grid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
+    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell,
+                         VTK_FLOAT);
     out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
     out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
     out4vtk.BeginCellData();
     // output dead grid, live grid, well
     vector<USI> tmpW(rs.allWells.numWell, 2);
-    out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT, &rs.grid.activityFlag[0],
-        1, rs.grid.activeMap_G2B, OCP_FALSE, &tmpW[0]);
+    out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT,
+                                    &rs.grid.activityFlag[0], 1, rs.grid.activeMap_G2B,
+                                    OCP_FALSE, &tmpW[0]);
 
     for (USI i = 1; i < ndates; i++) {
         index++;
-        newfile = dir + "grid" + to_string(index) + ".vtk";;
+        newfile = dir + "grid" + to_string(index) + ".vtk";
+        ;
         ifstream source(file, ios::binary);
         ofstream dest(newfile, ios::binary);
         dest << source.rdbuf();
@@ -944,8 +971,9 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
 #endif // USE_METIS
 }
 
-
-void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& days) const
+void Out4VTK::PrintVTK(const string&    dir,
+                       const Reservoir& rs,
+                       const OCP_DBL&   days) const
 {
     if (!useVTK) return;
 
@@ -953,22 +981,26 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
     // Calulcate Well val for output
     rs.allWells.SetWellVal();
 
-    const USI     np = rs.bulk.numPhase;
-    const USI     OIndex = rs.bulk.phase2Index[OIL];
-    const USI     GIndex = rs.bulk.phase2Index[GAS];
-    const USI     WIndex = rs.bulk.phase2Index[WATER];
-    const vector<GB_Pair>& g2bp = rs.grid.activeMap_G2B;
-    const vector<OCP_DBL>& well = rs.allWells.wellVal;
+    const USI              np     = rs.bulk.numPhase;
+    const USI              OIndex = rs.bulk.phase2Index[OIL];
+    const USI              GIndex = rs.bulk.phase2Index[GAS];
+    const USI              WIndex = rs.bulk.phase2Index[WATER];
+    const vector<GB_Pair>& g2bp   = rs.grid.activeMap_G2B;
+    const vector<OCP_DBL>& well   = rs.allWells.wellVal;
 
     // output
     if (bgp.PRE)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1, g2bp, OCP_TRUE, &well[0]);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1,
+                                        g2bp, OCP_TRUE, &well[0]);
     if (bgp.SOIL)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np, g2bp, OCP_TRUE, &well[0]);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np,
+                                        g2bp, OCP_TRUE, &well[0]);
     if (bgp.SGAS)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np, g2bp, OCP_TRUE, &well[0]);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np,
+                                        g2bp, OCP_TRUE, &well[0]);
     if (bgp.SWAT)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np, g2bp, OCP_TRUE, &well[0]);
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np,
+                                        g2bp, OCP_TRUE, &well[0]);
 
 #ifdef USE_METIS
     if (metisTest.useMetis) {
@@ -978,13 +1010,14 @@ void Out4VTK::PrintVTK(const string& dir, const Reservoir& rs, const OCP_DBL& da
         // metisTest.MyPartionFunc(METIS_PartGraphRecursive);
         metisTest.MyPartionFunc(METIS_PartGraphKway);
         metisTest.SetPartions(rs.grid.activeMap_B2G);
-        out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT, &metisTest.partions[0], 1, g2bp, OCP_FALSE, &metisTest.partions[metisTest.ng]);
-}
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT,
+                                        &metisTest.partions[0], 1, g2bp, OCP_FALSE,
+                                        &metisTest.partions[metisTest.ng]);
+    }
 #endif // USE_METIS
 
     index++;
 }
-
 
 void OCPOutput::InputParam(const ParamOutput& paramOutput)
 {
@@ -1019,16 +1052,20 @@ void OCPOutput::PrintInfoSched(const Reservoir&  rs,
                                const OCP_DBL&    time) const
 {
     OCP_DBL days = ctrl.current_time;
-    cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed << setw(10)
-         << setprecision(3) << right << days << " Days"
-         << "    Wall time: " << time / 1000 << " Sec" << endl;
 
+    // print timing info on the screen
+    if (ctrl.printLevel >= PRINT_MIN) {
+        cout << "Timestep " << setw(6) << left << ctrl.numTstep << ": " << fixed
+             << setw(10) << setprecision(3) << right << days << " Days"
+             << "    Wall time: " << time / 1000 << " Sec" << endl;
+    }
+
+    // print to output file
+    // TODO: Add a control flag to enable or disable --zcs
     GetWallTime timer;
     timer.Start();
-
     out4RPT.PrintRPT(workDir, rs, days);
     out4VTK.PrintVTK(workDir, rs, days);
-
     outputTime += timer.Stop() / 1000;
 }
 

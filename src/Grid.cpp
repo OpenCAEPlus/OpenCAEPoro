@@ -87,7 +87,7 @@ void Grid::SetupOrthogonalGrid()
     SetupNeighborOrthogonalGrid();
     CalDepthVOrthogonalGrid();
     CalActiveGrid(1E-6, 1E-6);
-    
+
     // for output
     SetHexaherdronGridOrthogonal();
 }
@@ -296,8 +296,8 @@ void Grid::CalActiveGrid(const OCP_DBL& e1, const OCP_DBL& e2)
         count++;
     }
     activeGridNum = count;
-    cout << (numGrid - activeGridNum) * 100.0 / numGrid << "% ("
-         << (numGrid - activeGridNum) << ") of grid cell is inactive" << endl;
+    cout << "Number of inactive grid cell is " << (numGrid - activeGridNum) << " ("
+         << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
 }
 
 /// Return id of the active cell and abort if the cell is inactive!
@@ -386,7 +386,6 @@ void Grid::CalSomeInfo() const
          << "  dzMin    = " << dzMin << endl;
 }
 
-
 void Grid::SetHexaherdronGridOrthogonal()
 {
     // x,y-coordinate begins from 0
@@ -397,8 +396,8 @@ void Grid::SetHexaherdronGridOrthogonal()
 
     polyhedronGrid.reserve(numGrid);
     OCPpolyhedron tmpP(8);
-    OCP_DBL tmpX, tmpY;
-    OCP_USI id;
+    OCP_DBL       tmpX, tmpY;
+    OCP_USI       id;
 
     for (USI k = 0; k < nz; k++) {
         tmpY = 0;
@@ -407,13 +406,19 @@ void Grid::SetHexaherdronGridOrthogonal()
             for (USI i = 0; i < nx; i++) {
                 id = k * nx * ny + j * nx + i;
                 tmpP.Points.push_back(Point3D(tmpX, tmpY, depth[id] + dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY, depth[id] + dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] + dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX, tmpY + dy[id], depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX + dx[id], tmpY, depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] + dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX, tmpY + dy[id], depth[id] + dz[id] / 2));
                 tmpP.Points.push_back(Point3D(tmpX, tmpY, depth[id] - dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY, depth[id] - dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] - dz[id] / 2));
-                tmpP.Points.push_back(Point3D(tmpX, tmpY + dy[id], depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX + dx[id], tmpY, depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX + dx[id], tmpY + dy[id], depth[id] - dz[id] / 2));
+                tmpP.Points.push_back(
+                    Point3D(tmpX, tmpY + dy[id], depth[id] - dz[id] / 2));
 
                 polyhedronGrid.push_back(tmpP);
                 tmpP.Points.clear();
@@ -423,7 +428,6 @@ void Grid::SetHexaherdronGridOrthogonal()
         }
     }
 }
-
 
 void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
 {
@@ -452,16 +456,16 @@ void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
     }
 }
 
-
 void Grid::SetActivityFlag()
 {
     activityFlag.resize(numGrid);
     for (OCP_USI n = 0; n < numGrid; n++) {
-        if (activeMap_G2B[n].IsAct())  activityFlag[n] = 1;
-        else                           activityFlag[n] = 0;
+        if (activeMap_G2B[n].IsAct())
+            activityFlag[n] = 1;
+        else
+            activityFlag[n] = 0;
     }
 }
-
 
 void Grid::CalNumDigutIJK()
 {

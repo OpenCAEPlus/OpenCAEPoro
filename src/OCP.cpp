@@ -38,11 +38,14 @@ void OpenCAEPoro::SetupSimulator(ParamRead&  param,
     // Setup static information for solver
     solver.Setup(reservoir, control);
 
-    cout << endl
-         << "Setup simulation done. Wall time : " << fixed << setprecision(3)
-         << timer.Stop() / 1000 << " Sec" << endl
-         << endl;
-    control.RecordTotalTime(timer.Stop() / 1000);
+    double finalTime = timer.Stop() / 1000;
+    if (control.printLevel >= PRINT_MIN) {
+        cout << endl
+             << "Setup simulation done. Wall time : " << fixed << setprecision(3)
+             << finalTime << " Sec" << endl
+             << endl;
+    }
+    control.RecordTotalTime(finalTime);
 }
 
 /// Initialize the reservoir class.
@@ -53,33 +56,42 @@ void OpenCAEPoro::InitReservoir()
 
     solver.InitReservoir(reservoir);
 
-    cout << endl
-         << "Initialization done. Wall time : " << fixed << setprecision(3)
-         << timer.Stop() / 1000 << " Sec" << endl;
-    control.RecordTotalTime(timer.Stop() / 1000);
+    double finalTime = timer.Stop() / 1000;
+    if (control.printLevel >= PRINT_MIN) {
+        cout << endl
+             << "Initialization done. Wall time : " << fixed << setprecision(3)
+             << finalTime << " Sesc" << endl;
+    }
+    control.RecordTotalTime(finalTime);
 }
 
-/// Call IMPEC, FIM, etc for dynamic simulation.
+/// Call IMPEC, FIM, AIM, etc for dynamic simulation.
 void OpenCAEPoro::RunSimulation()
 {
-    cout << "\n=========================================" << endl;
     switch (control.GetMethod()) {
         case IMPEC:
-            cout << "Dynamic simulation with IMPEC";
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation with IMPEC\n" << endl;
+            }
             break;
         case FIM:
-            cout << "Dynamic simulation with FIM";
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation with FIM\n" << endl;
+            }
             break;
         case FIMn:
-            cout << "Dynamic simulation with FIMn";
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation with FIMn\n" << endl;
+            }
             break;
         case AIMc:
-            cout << "Dynamic simulation with AIMc";
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation with AIMc\n" << endl;
+            }
             break;
         default:
             OCP_ABORT("Wrong method type is used!");
     }
-    cout << "\n=========================================" << endl;
 
     solver.RunSimulation(reservoir, control, output);
 }

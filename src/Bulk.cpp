@@ -110,7 +110,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
                 break;
         }
 
-        cout << "Bulk::InputParam --- BLACKOIL" << endl;
+        cout << "BLACKOIL model" << endl;
     } else if (comps) {
 
         // Water exists and is excluded in EoS model NOW!
@@ -139,7 +139,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
         for (USI i = 0; i < NTPVT; i++)
             flashCal.push_back(new MixtureComp(rs_param, i));
 
-        cout << "Bulk::InputParam --- COMPOSITIONAL" << endl;
+        cout << "COMPOSITIONAL model" << endl;
     }
 
     if (SATmode == PHASE_ODGW01 && miscible) {
@@ -719,6 +719,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
 
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
+
     // if capillary between water and oil is considered
     vector<OCP_BOOL> FlagPcow(NTSFUN, OCP_TRUE);
     for (USI i = 0; i < NTSFUN; i++) {
@@ -741,7 +742,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
             Sg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
         }
         if (Sw + Sg > 1) {
-            // should me modified
+            // should be modified
             OCP_DBL Pcgw = Pcow + Pcgo;
             Sw           = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
             Sg           = 1 - Sw;
