@@ -251,8 +251,8 @@ void Reservoir::ResetWellIMPEC()
     // allWells.ResetDg();
     allWells.ResetBHP();
     allWells.CalTrans(bulk);
-    allWells.CalFlux(bulk);
     allWells.CaldG(bulk);
+    allWells.CalFlux(bulk);  
 }
 
 
@@ -465,17 +465,13 @@ void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
     // cout << endl;
 }
 
-void Reservoir::ResetFIM(const OCP_BOOL& flag)
+void Reservoir::ResetFIM()
 {
     bulk.ResetFIM();
     allWells.ResetBHP();
     allWells.CalTrans(bulk);
+    allWells.CaldG(bulk);
     allWells.CalFlux(bulk);
-
-    if (flag) {
-        allWells.CaldG(bulk);
-        allWells.CalFlux(bulk);
-    }
 }
 
 void Reservoir::PrintSolFIM(const string& outfile) const
