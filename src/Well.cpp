@@ -668,6 +668,7 @@ void Well::CalProddG01(const Bulk& myBulk)
     USI             np = myBulk.numPhase;
     USI             nc = myBulk.numCom;
     vector<OCP_DBL> tmpNi(nc, 0);
+    OCP_DBL rhotmp, qtacc, rhoacc;
 
     if (depth <= perf.front().depth) {
         // Well is higher
@@ -699,9 +700,16 @@ void Well::CalProddG01(const Bulk& myBulk)
 
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
-                Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, tmpNi.data()) *
-                    GRAVITY_FACTOR * seg_len;
+                qtacc = rhoacc = 0;
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                for (USI j = 0; j < myBulk.numPhase; j++) {
+                    if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+                        rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+                        qtacc += myBulk.flashCal[pvtnum]->v[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp;
+                    }
+                }
+                Ptmp -= rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
         }
@@ -740,9 +748,16 @@ void Well::CalProddG01(const Bulk& myBulk)
 
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
-                Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, tmpNi.data()) *
-                    GRAVITY_FACTOR * seg_len;
+                qtacc = rhoacc = 0;
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                for (USI j = 0; j < myBulk.numPhase; j++) {
+                    if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+                        rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+                        qtacc += myBulk.flashCal[pvtnum]->v[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp;
+                    }
+                }
+                Ptmp += rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;
         }
