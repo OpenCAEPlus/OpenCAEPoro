@@ -169,9 +169,9 @@ void ParamReservoir::Init()
     gravity.data[2] = 0.7773; // air
 
     density.data.resize(3);
-    density.data[0] = 37.457;    // oil
-    density.data[1] = 62.366416; // pure water
-    density.data[2] = 0.062428;  // air
+    density.data[0] = 37.457;    // The density of oil at surface conditions: lb/ft3
+    density.data[1] = 62.366416; // The density of water at surface conditions: lb/ft3
+    density.data[2] = 0.062428;  // The density of gas at surface conditions: lb/ft3
 
     rsTemp    = 60.0;
     rock.Pref = 14.7;

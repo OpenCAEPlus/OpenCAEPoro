@@ -357,7 +357,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     b.row = nrow;
     b.val = rhs.data();
     x.row = nrow;
-    x.val = u.data();
+    x.val = u.data();  // x will be set to zero later
 
     // fsc & order
     fsc.row   = nrow;

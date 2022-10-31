@@ -53,8 +53,8 @@ const OCP_DBL TARGET_DS         = 0.01;  ///< Target saturation change
 
 // Physical consts
 const OCP_DBL GRAVITY_FACTOR  = 0.00694444; ///< 0.00694444 ft2 psi / lb
-const OCP_DBL RHOW_STD        = 62.3664;    ///< Water density in lb / ft3
-const OCP_DBL RHOAIR_STD      = 0.076362;   ///< Air density in lb / ft3
+const OCP_DBL RHOW_STD        = 62.3664;    ///< The density of water at surface conditions: lb/ft3
+const OCP_DBL RHOAIR_STD      = 0.076362;   ///< The density of air at surface conditions : lb/ft3
 const OCP_DBL PRESSURE_STD    = 14.7;       ///< 14.6959 psia = 1 atm
 const OCP_DBL TEMPERATURE_STD = 519.67;     ///< Standard temperature
 

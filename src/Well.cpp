@@ -584,27 +584,6 @@ void Well::CaldG(const Bulk& myBulk)
         CalInjdG(myBulk);
     else
         CalProddG(myBulk);
-
-    // if (name == "PROD17") {
-    //    for (USI p = 0; p < numPerf; p++) {
-    //        cout << perf[p].state << "   ";
-    //        cout << setprecision(2);
-    //        cout << dG[p] << "   ";
-    //        OCP_USI n = perf[p].location * myBulk.numPhase;
-    //        cout << setprecision(6);
-    //        cout << myBulk.kr[n + 0] << "   ";
-    //        cout << myBulk.kr[n + 1] << "   ";
-    //        cout << myBulk.kr[n + 2] << "   ";
-    //        cout << myBulk.S[n + 0] << "   ";
-    //        cout << myBulk.S[n + 1] << "   ";
-    //        cout << myBulk.S[n + 2] << "   ";
-    //        cout << setprecision(2);
-    //        for (USI i = 0; i < myBulk.numCom; i++) {
-    //            cout << perf[p].qi_lbmol[i] << "   ";
-    //        }
-    //        cout << endl;
-    //    }
-    //}
 }
 
 void Well::CalInjdG(const Bulk& myBulk)
@@ -676,6 +655,105 @@ void Well::CalInjdG(const Bulk& myBulk)
         }
     }
 }
+
+
+void Well::CalProddG01(const Bulk& myBulk)
+{
+    OCP_FUNCNAME;
+
+    const OCP_DBL   maxlen = 10;
+    USI             seg_num = 0;
+    OCP_DBL         seg_len = 0;
+    vector<OCP_DBL> dGperf(numPerf, 0);
+    USI             np = myBulk.numPhase;
+    USI             nc = myBulk.numCom;
+    vector<OCP_DBL> tmpNi(nc, 0);
+
+    if (depth <= perf.front().depth) {
+        // Well is higher
+        for (OCP_INT p = numPerf - 1; p >= 0; p--) {
+            if (p == 0) {
+                seg_num = ceil(fabs((perf[0].depth - depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[0].depth - depth) / seg_num;
+            }
+            else {
+                seg_num = ceil(fabs((perf[p].depth - perf[p - 1].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
+            }
+            OCP_USI n = perf[p].location;
+            perf[p].P = BHP + dG[p];
+            OCP_DBL Pperf = perf[p].P;
+            OCP_DBL Ptmp = Pperf;
+
+            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            for (USI j = 0; j < np; j++) {
+                OCP_USI id = n * np + j;
+                if (!myBulk.phaseExist[id]) continue;
+                for (USI k = 0; k < nc; k++) {
+                    tmpNi[k] +=
+                        perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
+                }
+            }
+
+
+            USI pvtnum = myBulk.PVTNUM[n];
+            for (USI i = 0; i < seg_num; i++) {
+                Ptmp -=
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, tmpNi.data()) *
+                    GRAVITY_FACTOR * seg_len;
+            }
+            dGperf[p] = Pperf - Ptmp;
+        }
+        dG[0] = dGperf[0];
+        for (USI p = 1; p < numPerf; p++) {
+            dG[p] = dG[p - 1] + dGperf[p];
+        }
+    }
+    else if (depth >= perf[numPerf - 1].depth) {
+        // Well is lower
+        for (USI p = 0; p < numPerf; p++) {
+            if (p == numPerf - 1) {
+                seg_num = ceil(fabs((depth - perf[numPerf - 1].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
+            }
+            else {
+                seg_num = ceil(fabs((perf[p + 1].depth - perf[p].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
+            }
+            OCP_USI n = perf[p].location;
+            perf[p].P = BHP + dG[p];
+            OCP_DBL Pperf = perf[p].P;
+            OCP_DBL Ptmp = Pperf;
+
+            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            for (USI j = 0; j < np; j++) {
+                OCP_USI id = n * np + j;
+                if (!myBulk.phaseExist[id]) continue;
+                for (USI k = 0; k < nc; k++) {
+                    tmpNi[k] +=
+                        perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
+                }
+            }
+
+            USI pvtnum = myBulk.PVTNUM[n];
+            for (USI i = 0; i < seg_num; i++) {
+                Ptmp +=
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, tmpNi.data()) *
+                    GRAVITY_FACTOR * seg_len;
+            }
+            dGperf[p] = Ptmp - Pperf;
+        }
+        dG[numPerf - 1] = dGperf[numPerf - 1];
+        for (OCP_INT p = numPerf - 2; p >= 0; p--) {
+            dG[p] = dG[p + 1] + dGperf[p];
+        }
+    }
+}
+
 
 void Well::CalProddG(const Bulk& myBulk)
 {

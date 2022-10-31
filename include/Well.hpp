@@ -145,6 +145,7 @@ public:
     void CalInjdG(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations for Prodcution.
     void CalProddG(const Bulk& myBulk);
+    void CalProddG01(const Bulk& myBulk);
     /// Calculate the Prodweight
     void CalProdWeight(const Bulk& myBulk) const;
     /// Calculate the contribution of production well to reinjection defaulted
