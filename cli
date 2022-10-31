@@ -152,8 +152,8 @@ build)
 
     case "$system" in
     "linux" | "mac")
-        cmake --preset="${system}-${compiler}-${build}" -S "."
-        cmake --build --preset="${system}-${compiler}-${build}" --target ${target}
+        cmake --preset="${system}-${compiler}-${build}" -S "." 
+        cmake --build --clean-first --verbose --preset="${system}-${compiler}-${build}" --target ${target} 
         ;;
     "windows")
         echo "Please use the cli.bat script on windows "

@@ -12,12 +12,18 @@ if(USE_FASP4BLKOIL)
   find_package(FASP4BLKOIL)
   if(FASP4BLKOIL_FOUND)
     add_library(fasp4blkoil STATIC IMPORTED GLOBAL)
-    set_property(TARGET fasp4blkoil APPEND PROPERTY IMPORTED_LOCATION 
-                                ${FASP4BLKOIL_LIBRARIES})
-    set_property(TARGET fasp4blkoil APPEND PROPERTY COMPILE_DEFINITIONS
-                                "-DWITH_FASP4BLKOIL=1")
-    set_property(TARGET fasp4blkoil APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-                                ${FASP4BLKOIL_INCLUDE_DIRS})
+    set_property(
+      TARGET fasp4blkoil
+      APPEND
+      PROPERTY IMPORTED_LOCATION ${FASP4BLKOIL_LIBRARIES})
+    set_property(
+      TARGET fasp4blkoil
+      APPEND
+      PROPERTY INTERFACE_COMPILE_DEFINITIONS "WITH_FASP4BLKOIL=1")
+    set_property(
+      TARGET fasp4blkoil
+      APPEND
+      PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${FASP4BLKOIL_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC fasp4blkoil)
   else(FASP4BLKOIL_FOUND)
     message(
@@ -26,6 +32,6 @@ if(USE_FASP4BLKOIL)
     )
   endif(FASP4BLKOIL_FOUND)
 
-  target_link_libraries(${LIBNAME} PUBLIC ${FASP4BLKOIL_LIBRARIES})
+  # target_link_libraries(${LIBNAME} PUBLIC ${FASP4BLKOIL_LIBRARIES})
 
 endif(USE_FASP4BLKOIL)

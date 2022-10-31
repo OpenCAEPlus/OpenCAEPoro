@@ -10,7 +10,8 @@ if(FASP_FOUND)
   set_property(TARGET fasp PROPERTY IMPORTED_LOCATION ${FASP_LIBRARIES})
   set_property(TARGET fasp PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                                     ${FASP_INCLUDE_DIRS})
-  set_property(TARGET fasp PROPERTY COMPILE_DEFINITIONS -D__SOLVER_FASP__)
+  set_property(TARGET fasp PROPERTY INTERFACE_COMPILE_DEFINITIONS
+                                    __SOLVER_FASP__)
 else(FASP_FOUND)
   message(STATUS "INFO: FASP was requested but not found!")
   message(STATUS "INFO: Going to try download and install from git repo")
