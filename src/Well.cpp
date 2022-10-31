@@ -347,29 +347,6 @@ void Well::CalTrans(const Bulk& myBulk)
             }
         }
     }
-    // check Trans
-    // if (opt.type == PROD) {
-
-    //    USI count = 0;
-    //    for (USI p = 0; p < numPerf; p++) {
-    //        if (perf[p].transj[0] != 0) {
-    //            count++;
-    //            break;
-    //        }
-    //    }
-    //    if (count == 0) {
-    //        cout << name << endl;
-    //        for (USI p = 0; p < numPerf; p++) {
-    //            OCP_USI k = perf[p].location;
-    //            cout << "perf " << p << "  " << perf[p].multiplier << "   " <<
-    //                myBulk.S[k * np] << "   " << myBulk.kr[k * np] << "   " <<
-    //                myBulk.S[k * np + 1] << "   " << myBulk.kr[k * np + 1] << "   " <<
-    //                myBulk.S[k * np + 2] << "   " << myBulk.kr[k * np + 2] << "   " <<
-    //                endl;
-    //        }
-
-    //    }
-    //}
 }
 
 void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
@@ -955,7 +932,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 qt += qi_lbmol[i];
                 if (qi_lbmol[i] < 0) flag = OCP_FALSE;
             }
-            if (flag) {
+            if (qt > TINY && flag) {
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &qi_lbmol[0],
                                           0, 0, 0);
             } else {
