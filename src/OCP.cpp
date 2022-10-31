@@ -99,30 +99,42 @@ void OpenCAEPoro::RunSimulation()
 /// Print summary information on screen and SUMMARY.out file.
 void OpenCAEPoro::OutputResults() const
 {
+    // find an appropriate size for printing times
+    int fixWidth =
+        MAX(log10(control.current_time), log10(MAX(control.totalSimTime, 1.0))) + 6;
+
     cout << "==================================================" << endl;
 
-    cout << "Final time:             " << fixed << setprecision(3) << setw(12)
-         << control.current_time << " Days" << endl;
-    cout << " - Total time steps......." << setw(6) << control.numTstep << endl;
-    cout << " - Total Newton steps....." << setw(6) << control.iterNR_total << " (+"
-         << control.wastedIterNR << " wasted)" << endl;
-    cout << " - Total linear steps....." << setw(6) << control.iterLS_total << " (+"
-         << control.wastedIterLS << " wasted)" << endl;
+    // print numbers of steps
+    cout << "Final time:                  " << right << fixed << setprecision(3)
+         << setw(fixWidth) << control.current_time << " (Days)" << endl;
+    cout << " - Avg time step size ......." << setw(fixWidth)
+         << control.current_time / control.numTstep << " (" << control.numTstep
+         << " steps)" << endl;
+    cout << " - Avg Newton steps ........." << setw(fixWidth)
+         << static_cast<double>(control.iterNR_total) / control.numTstep << " ("
+         << control.iterNR_total << " succeeded + " << control.wastedIterNR
+         << " wasted)" << endl;
+    cout << " - Avg linear steps ........." << setw(fixWidth)
+         << static_cast<double>(control.iterLS_total) / control.iterNR_total << " ("
+         << control.iterLS_total << " succeeded + " << control.wastedIterLS
+         << " wasted)" << endl;
 
-    cout << "Simulation time:        " << fixed << setprecision(3) << setw(12)
-         << control.totalSimTime << " Seconds" << endl;
-    cout << " - Assembling............." << fixed << setprecision(3) << setw(10)
-         << 100.0 * control.totalAssembleMatTime / control.totalSimTime << "%"
-         << " (" << control.totalAssembleMatTime << "s)" << endl;
-    cout << " - Linear solver.........." << fixed << setprecision(3) << setw(10)
-         << 100.0 * control.totalLStime / control.totalSimTime << "%"
-         << " (" << control.totalLStime << "s)" << endl;
-    cout << " - Updating properties...." << fixed << setprecision(3) << setw(10)
-         << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << "%"
-         << " (" << control.totalUpdatePropertyTime << "s)" << endl;
-    cout << " - Scheduled output......." << fixed << setprecision(3) << setw(10)
-         << 100.0 * output.outputTime / control.totalSimTime << "%"
-         << " (" << output.outputTime << "s)" << endl;
+    // print time usages
+    cout << "Simulation time:             " << setw(fixWidth) << control.totalSimTime
+         << " (Seconds)" << endl;
+    cout << " - % Assembling ............." << setw(fixWidth)
+         << 100.0 * control.totalAssembleMatTime / control.totalSimTime << " ("
+         << control.totalAssembleMatTime << "s)" << endl;
+    cout << " - % Linear solver .........." << setw(fixWidth)
+         << 100.0 * control.totalLStime / control.totalSimTime << " ("
+         << control.totalLStime << "s)" << endl;
+    cout << " - % Updating properties ...." << setw(fixWidth)
+         << 100.0 * control.totalUpdatePropertyTime / control.totalSimTime << " ("
+         << control.totalUpdatePropertyTime << "s)" << endl;
+    cout << " - % Scheduled output ......." << setw(fixWidth)
+         << 100.0 * output.outputTime / control.totalSimTime << " ("
+         << output.outputTime << "s)" << endl;
 
     cout << "==================================================" << endl;
 
