@@ -400,7 +400,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
         }
     }
 
-#ifdef _DEBUG
+#ifdef DEBUG
     // check x and b  ----  for test
     for (OCP_USI i = 0; i < nrow; i++) {
         if (!isfinite(b.val[i])) OCP_ABORT("vFasp b is infinite!");

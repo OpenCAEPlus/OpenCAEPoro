@@ -28,16 +28,16 @@ using namespace std;
 class SSMparamSTA
 {
 public:
-	USI maxIt;		///< Max Iteration
-	OCP_DBL tol;	///< Tolerance
-	OCP_DBL Ktol{ 1E-4 };   ///< tolerace^2 for K
-	OCP_DBL dYtol{ 1E-6 };
-	OCP_DBL eYt{ 1E-8 };    ///< if Yt > 1 + eYt, then single phase is unstable
-	OCP_DBL tol2;   ///< tol*tol
-    OCP_DBL realTol; ///< Real tol
-    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
-	// test
-    USI curIt; ///< current Iterations
+    USI      maxIt;      ///< Max Iteration
+    OCP_DBL  tol;        ///< Tolerance
+    OCP_DBL  Ktol{1E-4}; ///< tolerace^2 for K
+    OCP_DBL  dYtol{1E-6};
+    OCP_DBL  eYt{1E-8}; ///< if Yt > 1 + eYt, then single phase is unstable
+    OCP_DBL  tol2;      ///< tol*tol
+    OCP_DBL  realTol;   ///< Real tol
+    OCP_BOOL conflag;   ///< convergence flag, if converges, conflag = OCP_TRUE
+                        // test
+    USI     curIt;      ///< current Iterations
     OCP_DBL curSk;
 };
 
@@ -45,41 +45,39 @@ public:
 class NRparamSTA
 {
 public:
-    USI     maxIt; ///< Max Iteration
-    OCP_DBL tol;   ///< Tolerance
-    OCP_DBL tol2;  ///< tol*tol
-    OCP_DBL realTol; ///< Real tol
-    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
+    USI      maxIt;   ///< Max Iteration
+    OCP_DBL  tol;     ///< Tolerance
+    OCP_DBL  tol2;    ///< tol*tol
+    OCP_DBL  realTol; ///< Real tol
+    OCP_BOOL conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
-    USI curIt;     ///< current Iters
+    USI curIt; ///< current Iters
 };
-
 
 /// Params for SSM in Phase Split
 class SSMparamSP
 {
 public:
-    USI     maxIt;   ///< Max Iteration
-    OCP_DBL tol;     ///< Tolerance
-    OCP_DBL tol2;    ///< tol*tol
-    OCP_DBL realTol; ///< Real tol
-    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
+    USI      maxIt;   ///< Max Iteration
+    OCP_DBL  tol;     ///< Tolerance
+    OCP_DBL  tol2;    ///< tol*tol
+    OCP_DBL  realTol; ///< Real tol
+    OCP_BOOL conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
-    USI curIt;     ///< current Iters
+    USI curIt; ///< current Iters
 };
-
 
 /// Params for NR in Phase Split
 class NRparamSP
 {
 public:
-    USI     maxIt;   ///< Max Iteration
-    OCP_DBL tol;     ///< Tolerance
-    OCP_DBL tol2;    ///< tol*tol
-    OCP_DBL realTol; ///< Real tol
-    OCP_BOOL    conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
+    USI      maxIt;   ///< Max Iteration
+    OCP_DBL  tol;     ///< Tolerance
+    OCP_DBL  tol2;    ///< tol*tol
+    OCP_DBL  realTol; ///< Real tol
+    OCP_BOOL conflag; ///< convergence flag, if converges, conflag = OCP_TRUE
     // test
-    USI curIt;     ///< current Iters
+    USI curIt; ///< current Iters
 };
 
 /// Param for Solving Rachford-Rice Equations
@@ -90,7 +88,7 @@ public:
     OCP_DBL tol;   ///< Tolerance
     OCP_DBL tol2;  ///< tol*tol
     // test
-    USI curIt;     ///< current Iters
+    USI curIt; ///< current Iters
 };
 
 class EoScontrol
@@ -142,116 +140,175 @@ public:
 
 private:
     // total iters
-	OCP_ULL SSMSTAiters{ 0 };
-	OCP_ULL NRSTAiters{ 0 };
-	OCP_ULL SSMSPiters{ 0 };
-	OCP_ULL NRSPiters{ 0 };
-    OCP_ULL RRiters{ 0 };
+    OCP_ULL SSMSTAiters{0};
+    OCP_ULL NRSTAiters{0};
+    OCP_ULL SSMSPiters{0};
+    OCP_ULL NRSPiters{0};
+    OCP_ULL RRiters{0};
     // total counts, one count may contain many iters
-    OCP_ULL SSMSTAcounts{ 0 };
-    OCP_ULL NRSTAcounts{ 0 };
-    OCP_ULL SSMSPcounts{ 0 };
-    OCP_ULL NRSPcounts{ 0 };
-    OCP_ULL RRcounts{ 0 };
+    OCP_ULL SSMSTAcounts{0};
+    OCP_ULL NRSTAcounts{0};
+    OCP_ULL SSMSPcounts{0};
+    OCP_ULL NRSPcounts{0};
+    OCP_ULL RRcounts{0};
     // phase equilibrium calculation error
     // if NP = 1, it's from phase stable analysis, if skiped, it's 0
     // if NP > 1, it's from phase spliting calculation
     OCP_DBL ePEC;
 
 public:
-	MixtureComp() = default;
-	MixtureComp(const ParamReservoir& rs_param, const USI& i) :MixtureComp(rs_param.EoSp, i) {
-		mixtureType = EOS_PVTW;
-		if (rs_param.PVTW_T.data.size() != 0) {
-			PVTW.Setup(rs_param.PVTW_T.data[i]);
-			if (rs_param.gravity.activity)
-				std_RhoW = RHOW_STD * rs_param.gravity.data[1];
-			if (rs_param.density.activity)
-				std_RhoW = RHOW_STD;
-			std_GammaW = GRAVITY_FACTOR * std_RhoW;
-			data.resize(5);
-			cdata.resize(5);
-		}
-	};
-	MixtureComp(const EoSparam& param, const USI& i);
-	void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-		const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-		const OCP_DBL* Ziin) override;
-    void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                      const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+    MixtureComp() = default;
+
+    MixtureComp(const ParamReservoir& rs_param, const USI& i)
+        : MixtureComp(rs_param.EoSp, i)
+    {
+        mixtureType = EOS_PVTW;
+        if (rs_param.PVTW_T.data.size() != 0) {
+            PVTW.Setup(rs_param.PVTW_T.data[i]);
+            if (rs_param.gravity.activity)
+                std_RhoW = RHOW_STD * rs_param.gravity.data[1];
+            if (rs_param.density.activity) std_RhoW = RHOW_STD;
+            std_GammaW = GRAVITY_FACTOR * std_RhoW;
+            data.resize(5);
+            cdata.resize(5);
+        }
+    };
+
+    MixtureComp(const EoSparam& param, const USI& i);
+
+    void InitFlash(const OCP_DBL& Pin,
+                   const OCP_DBL& Pbbin,
+                   const OCP_DBL& Tin,
+                   const OCP_DBL* Sjin,
+                   const OCP_DBL& Vpore,
+                   const OCP_DBL* Ziin) override;
+
+    void InitFlashDer(const OCP_DBL& Pin,
+                      const OCP_DBL& Pbbin,
+                      const OCP_DBL& Tin,
+                      const OCP_DBL* Sjin,
+                      const OCP_DBL& Vpore,
                       const OCP_DBL* Ziin) override;
-    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+
+    void InitFlashDer_n(const OCP_DBL& Pin,
+                        const OCP_DBL& Pbbin,
+                        const OCP_DBL& Tin,
+                        const OCP_DBL* Sjin,
+                        const OCP_DBL& Vpore,
                         const OCP_DBL* Ziin) override;
-	// ftype = 0, flash from single phase
-	// ftype = 1, skip phase stablity analysis and num of phase = 1
-	// ftype = 1, skip phase stablity analysis and num of phase = 2
-	void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
-	void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
-    void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
-    void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
-        const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP, const OCP_DBL* lastKs)override;
-	OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
-	OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
-		const OCP_DBL* Ziin) override;
-	OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used in Compositional mode!"); };
-	OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used in Compositional mode!"); };
-	OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
-	OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
-		const OCP_DBL* Ziin) override ;
-	void setPT(const OCP_DBL& p, const OCP_DBL& t) { P = p; T = t; }
-	void setZi(const OCP_DBL* Ziin) { Dcopy(NC, &zi[0], Ziin); }
-	void setZi() { for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nh; }
-	void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
-	void CallId();
+
+    // ftype = 0, flash from single phase
+    // ftype = 1, skip phase stability analysis and num of phase = 1
+    // ftype = 1, skip phase stability analysis and num of phase = 2
+    void Flash(const OCP_DBL& Pin,
+               const OCP_DBL& Tin,
+               const OCP_DBL* Niin,
+               const USI&     ftype,
+               const USI&     lastNP,
+               const OCP_DBL* lastKs) override;
+
+    void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
+
+    void FlashDeriv(const OCP_DBL& Pin,
+                    const OCP_DBL& Tin,
+                    const OCP_DBL* Niin,
+                    const USI&     ftype,
+                    const USI&     lastNP,
+                    const OCP_DBL* lastKs) override;
+
+    void FlashDeriv_n(const OCP_DBL& Pin,
+                      const OCP_DBL& Tin,
+                      const OCP_DBL* Niin,
+                      const OCP_DBL* Sjin,
+                      const OCP_DBL* xijin,
+                      const OCP_DBL* njin,
+                      const USI&     ftype,
+                      const USI*     phaseExistin,
+                      const USI&     lastNP,
+                      const OCP_DBL* lastKs) override;
+
+    OCP_DBL
+    XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+
+    OCP_DBL
+    RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+
+    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override
+    {
+        OCP_ABORT("Should not be used in Compositional mode!");
+    };
+
+    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override
+    {
+        OCP_ABORT("Should not be used in Compositional mode!");
+    };
+
+    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
+
+    OCP_DBL
+    GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+
+    void setPT(const OCP_DBL& p, const OCP_DBL& t)
+    {
+        P = p;
+        T = t;
+    }
+
+    void setZi(const OCP_DBL* Ziin) { Dcopy(NC, &zi[0], Ziin); }
+
+    void setZi()
+    {
+        for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nh;
+    }
+
+    void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
+
+    void CallId();
+
     USI GetFtype() override { return ftype; }
+
     void CalSurfaceTension();
+
     OCP_DBL GetSurTen() override { return surTen; }
 
 private:
-
-	// Basic Components Informations
-	vector<string> Cname; ///< Name of hydrocarbon components
-	vector<OCP_DBL> Tc; ///< Critical temperature of hydrocarbon components
-	vector<OCP_DBL> Pc; ///< Critical pressure of hydrocarbon components
-	vector<OCP_DBL> Vc; ///< Critical volume of hydrocarbon components
-	vector<OCP_DBL> MWC; ///< Molecular Weight of hydrocarbon components
-	vector<OCP_DBL> Acf; ///< Acentric factor of hydrocarbon components
-	vector<OCP_DBL> OmegaA; ///< OMEGA_A of hydrocarbon components
-	vector<OCP_DBL> OmegaB; ///< OMEGA_B of hydrocarbon components
-	vector<OCP_DBL> Vshift; ///< Volume shift of hydrocarbon components
-	vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
-	vector<OCP_DBL> Zc; ///< Critical Z-factor of hydrocarbon components
-	OCP_BOOL ParachorAct;
-	// for viscosity calculation
-	vector<OCP_DBL> Vcvis; ///< Critical volume used for viscosity calculations only.
-	vector<OCP_DBL> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
-	vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
-    vector<OCP_DBL> BIC; ///< Binary interaction between hydrocarbon components
+    // Basic Components Informations
+    vector<string>  Cname;    ///< Name of hydrocarbon components
+    vector<OCP_DBL> Tc;       ///< Critical temperature of hydrocarbon components
+    vector<OCP_DBL> Pc;       ///< Critical pressure of hydrocarbon components
+    vector<OCP_DBL> Vc;       ///< Critical volume of hydrocarbon components
+    vector<OCP_DBL> MWC;      ///< Molecular Weight of hydrocarbon components
+    vector<OCP_DBL> Acf;      ///< Acentric factor of hydrocarbon components
+    vector<OCP_DBL> OmegaA;   ///< OMEGA_A of hydrocarbon components
+    vector<OCP_DBL> OmegaB;   ///< OMEGA_B of hydrocarbon components
+    vector<OCP_DBL> Vshift;   ///< Volume shift of hydrocarbon components
+    vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
+    vector<OCP_DBL> Zc;       ///< Critical Z-factor of hydrocarbon components
+    OCP_BOOL        ParachorAct;
+    // for viscosity calculation
+    vector<OCP_DBL> Vcvis;   ///< Critical volume used for viscosity calculations only
+    vector<OCP_DBL> Zcvis;   ///< Critical Z-factor used for viscosity calculations only
+    vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
+    vector<OCP_DBL> BIC;     ///< Binary interaction between hydrocarbon components
 
     // Model information
-    OCP_BOOL miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
-    OCP_DBL surTen; ///< Surface tension
+    OCP_BOOL miscible; ///< Miscible treatment of hydrocarbons for compositional Model
+    OCP_DBL  surTen;   ///< Surface tension
 
-	// Initial properties
-	USI	NC; ///< num of hydrocarbon components
-	USI NPmax; ///< num of hydrocarbon phase
-	OCP_DBL P; ///< Current Pressure
-	OCP_DBL T; ///< Current Temperature
-	vector<OCP_DBL>   zi; ///< mole fraction of hydrocarbon components
-	vector<COMP>  comp; ///< properties of hydrocarbon components
-	USI lId; ///< index of lightest components
-	EoScontrol EoSctrl; ///< method params for solving phase equilibrium
-	USI ftype{ 0 };
+    // Initial properties
+    USI             NC;      ///< num of hydrocarbon components
+    USI             NPmax;   ///< num of hydrocarbon phase
+    OCP_DBL         P;       ///< Current Pressure
+    OCP_DBL         T;       ///< Current Temperature
+    vector<OCP_DBL> zi;      ///< mole fraction of hydrocarbon components
+    vector<COMP>    comp;    ///< properties of hydrocarbon components
+    USI             lId;     ///< index of lightest components
+    EoScontrol      EoSctrl; ///< method params for solving phase equilibrium
+    USI             ftype{0};
 
-	vector<OCP_DBL> Plist;
-	vector<OCP_DBL> Tlist;
-	vector<OCP_DBL> Ytlist;
+    vector<OCP_DBL> Plist;
+    vector<OCP_DBL> Tlist;
+    vector<OCP_DBL> Ytlist;
 
 private:
     OCPTable        PVTW;       ///< PVT table for water.
@@ -274,7 +331,9 @@ public:
     void CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const vector<OCP_DBL>& xj) const;
     void CalAjBj(OCP_DBL& AjT, OCP_DBL& BjT, const OCP_DBL* xj) const;
     /// Result is stored in Ztmp.
-    USI CubicRoot(const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c,
+    USI CubicRoot(const OCP_DBL&  a,
+                  const OCP_DBL&  b,
+                  const OCP_DBL&  c,
                   const OCP_BOOL& NTflag = OCP_FALSE) const;
     /// test
     void PrintZtmp()
@@ -302,78 +361,82 @@ public:
     // Phase Function
     // Allocate memoery for phase variables
     void AllocatePhase();
-    void CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT,
-                   const vector<OCP_DBL>& xj);
+    void
+    CalFugPhi(vector<OCP_DBL>& phiT, vector<OCP_DBL>& fugT, const vector<OCP_DBL>& xj);
     void CalFugPhi(OCP_DBL* phiT, OCP_DBL* fugT, const OCP_DBL* xj);
-	void CalFugPhi(OCP_DBL* fugT, const OCP_DBL* xj);
-	void CalFugPhiAll();
-	void CalMW();
-	void CalVfXiRho();
-	void CalSaturation();
-	USI FindMWmax();
-	void x2n();  ///< x[j][i] -> n[j][i]
-	void PrintX();
+    void CalFugPhi(OCP_DBL* fugT, const OCP_DBL* xj);
+    void CalFugPhiAll();
+    void CalMW();
+    void CalVfXiRho();
+    void CalSaturation();
+    USI  FindMWmax();
+    void x2n(); ///< x[j][i] -> n[j][i]
+    void PrintX();
 
 private:
-	// Phase Variables
-	USI lNP{ 0 };  ///< last num of hydrocarbon phase
-	USI NP;   ///< current num of hydrocarbon phase
-    USI inputNP; ///< input NP
-    OCP_DBL Nh; ///< total moles of components exclude water
-	vector<OCP_DBL> vC; ///< vC represents the volume of phase
-	vector<OCP_DBL> nu; ///< nu[j] represents the mole fraction of jth phase in flash calculation
-	vector<vector<OCP_DBL>> x;   ///< x[j][i] represents the mole fraction of ith comp in jth phase
-	vector<vector<OCP_DBL>> phi; ///< phi[j][i] represents the fugacity coefficient of ith comp in jth phase
-	vector<vector<OCP_DBL>> fug; ///< fug[j][i] represents the fugacity of ith comp in jth phase
-	vector<vector<OCP_DBL>> n; ///< n[j][i] represents the moles of ith comp in jth phase
-	vector<vector<OCP_DBL>> ln; ///< last n in NR iterations.
-	vector<OCP_DBL> xiC; ///< Molar density of phase
-	vector<OCP_DBL> rhoC; ///< Mass density of phase;
-	vector<OCP_DBL> MW; ///< Molecular Weight
-	vector<USI> phaseLabel; ///< Label of phase
+    // Phase Variables
+    USI             lNP{0};  ///< last num of hydrocarbon phase
+    USI             NP;      ///< current num of hydrocarbon phase
+    USI             inputNP; ///< input NP
+    OCP_DBL         Nh;      ///< total moles of components exclude water
+    vector<OCP_DBL> vC;      ///< vC represents the volume of phase
+    vector<OCP_DBL>
+        nu; ///< nu[j] represents the mole fraction of j-th phase in flash calculation
+    vector<vector<OCP_DBL>>
+        x; ///< x[j][i] represents the mole fraction of i-th comp in jth phase
+    vector<vector<OCP_DBL>> phi; ///< phi[j][i] represents the fugacity coefficient of
+                                 ///< i-th comp in j-th phase
+    vector<vector<OCP_DBL>>
+        fug; ///< fug[j][i] represents the fugacity of ith comp in j-th phase
+    vector<vector<OCP_DBL>>
+        n; ///< n[j][i] represents the moles of ith comp in jth phase
+    vector<vector<OCP_DBL>> ln;         ///< last n in NR iterations.
+    vector<OCP_DBL>         xiC;        ///< Molar density of phase
+    vector<OCP_DBL>         rhoC;       ///< Mass density of phase;
+    vector<OCP_DBL>         MW;         ///< Molecular Weight
+    vector<USI>             phaseLabel; ///< Label of phase
 
 public:
-	// Method Function
-	// Allocate memoery for Method variables
-	void AllocateMethod();
-	void PhaseEquilibrium();
-	void CalKwilson();
-	OCP_BOOL PhaseStable();
-	OCP_BOOL StableSSM(const USI& Id);    ///< strict SSM
-	OCP_BOOL StableSSM01(const USI& Id);  ///< relaxable SSM
-	OCP_BOOL StableNR(const USI& Id);
-	void CalFugXSTA(); ///< Calculate d ln(Fug) / dx for Y
-	void AssembleJmatSTA();
-	OCP_BOOL CheckSplit();
-	void PhaseSplit();
-	void SplitSSM(const OCP_BOOL& flag);
-	void SplitSSM2(const OCP_BOOL& flag);
-	void SplitSSM3(const OCP_BOOL& flag);
-	void RachfordRice2();  ///< Used when NP = 2
-	void RachfordRice2P();  ///< Used when NP = 2, improved RachfordRice2
-	void RachfordRice3(); ///< Used when NP > 2
-	void UpdateXRR(); ///< Update X according to RR
-    void SplitBFGS(); ///< Use BFGS to calculate phase splitting
-	void SplitNR(); ///< Use NR to calculate phase splitting
-	void CalResSP();
-	void CalFugNAll(const OCP_BOOL& Znflag = OCP_TRUE);
-	void PrintFugN();
-	void AssembleJmatSP();
+    // Method Function
+    // Allocate memoery for Method variables
+    void     AllocateMethod();
+    void     PhaseEquilibrium();
+    void     CalKwilson();
+    OCP_BOOL PhaseStable();
+    OCP_BOOL StableSSM(const USI& Id);   ///< strict SSM
+    OCP_BOOL StableSSM01(const USI& Id); ///< relaxed SSM
+    OCP_BOOL StableNR(const USI& Id);
+    void     CalFugXSTA(); ///< Calculate d ln(Fug) / dx for Y
+    void     AssembleJmatSTA();
+    OCP_BOOL CheckSplit();
+    void     PhaseSplit();
+    void     SplitSSM(const OCP_BOOL& flag);
+    void     SplitSSM2(const OCP_BOOL& flag);
+    void     SplitSSM3(const OCP_BOOL& flag);
+    void     RachfordRice2();  ///< Used when NP = 2
+    void     RachfordRice2P(); ///< Used when NP = 2, improved Rachford-Rice2
+    void     RachfordRice3();  ///< Used when NP > 2
+    void     UpdateXRR();      ///< Update X according to RR
+    void     SplitBFGS();      ///< Use BFGS to calculate phase splitting
+    void     SplitNR();        ///< Use NR to calculate phase splitting
+    void     CalResSP();
+    void     CalFugNAll(const OCP_BOOL& Znflag = OCP_TRUE);
+    void     PrintFugN();
+    void     AssembleJmatSP();
     /// Calculate d ln phi[i][j] / d n[k][j]
     void    CalPhiNSTA();
     void    AssembleSkipMatSTA();
-	OCP_DBL CalStepNRsp();
+    OCP_DBL CalStepNRsp();
 
-    
-    OCP_SIN GetMinEigenSkip() override { return eigenSkip[0]; }
+    OCP_SIN  GetMinEigenSkip() override { return eigenSkip[0]; }
     OCP_BOOL GetFlagSkip() override { return flagSkip; }
 
 private:
     // Method Variables
-    USI testPId;                ///< Index of the testing phase in stability analysis
-    vector<vector<OCP_DBL>> Kw; ///< Equlibrium Constant of Whilson
-    vector<vector<OCP_DBL>> Ks; ///< Approximation of Equilibrium Constant in SSM
-    vector<OCP_DBL> lKs; ///< last Ks
+    USI testPId;                 ///< Index of the testing phase in stability analysis
+    vector<vector<OCP_DBL>> Kw;  ///< Equilibrium Constant of Whilson
+    vector<vector<OCP_DBL>> Ks;  ///< Approximation of Equilibrium Constant in SSM
+    vector<OCP_DBL>         lKs; ///< last Ks
     OCP_DBL                 Asta, Bsta, Zsta;
     vector<OCP_DBL> phiSta; ///< Fugacity coefficient used in phase stability analysis
     vector<OCP_DBL> fugSta; ///< Fugacity used in phase stability analysis
@@ -389,17 +452,18 @@ private:
     vector<OCP_DBL>         Bx;      ///< d Bj / d xkj, j is fixed
     vector<OCP_DBL>         Zx;      ///< d Zj / d xkj, j is fixed
     // Skip Stability Analysis
-    OCP_BOOL flagSkip; ///< if check skipping Stability Analysis
-    vector<OCP_DBL> phiN;    ///< d ln phi[i][j] / d n[k][j]
+    OCP_BOOL        flagSkip;   ///< if check skipping Stability Analysis
+    vector<OCP_DBL> phiN;       ///< d ln phi[i][j] / d n[k][j]
     vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
-    vector<OCP_SIN> eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
-    vector<OCP_SIN> eigenWork; ///< work space for computing eigenvalues with ssyevd_
+    vector<OCP_SIN>
+        eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
+    vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
     OCP_INT         leigenWork; ///< length of eigenwork
 
     // SSM in Phase Split
     vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.
     // NR in Phase Split
-    vector<OCP_DBL> lresSP;  ///< last resSP, used in BFGS
+    vector<OCP_DBL> lresSP; ///< last resSP, used in BFGS
     vector<OCP_DBL> resSP;  ///< d G / d nij, G is Gibbs free energy: ln fij - ln fi,np
     vector<OCP_DBL> JmatSP; ///< Jacobian Matrix of (ln fij - ln fi,np) wrt. nij
     vector<vector<OCP_DBL>>
@@ -407,11 +471,11 @@ private:
     vector<OCP_DBL> An;         ///< d Aj / d nkj, j is fixed
     vector<OCP_DBL> Bn;         ///< d Bj / d nkj, j is fixed
     vector<vector<OCP_DBL>> Zn; ///< d Zj / d nkj
-    // for linearsolve with lapack 
-    vector<OCP_INT> pivot; ///< used in dgesv_ in lapack
-    vector<OCP_DBL> JmatWork; ///< work space for Jmat in STA and SP
+    // for linearsolve with lapack
+    vector<OCP_INT> pivot;     ///< used in dgesv_ in lapack
+    vector<OCP_DBL> JmatWork;  ///< work space for Jmat in STA and SP
     OCP_INT         lJmatWork; ///< length of JmatWork
-    char        uplo{'U'};
+    char            uplo{'U'};
 
 public:
     // After Phase Equilibrium Calculation finishs, properties and some auxiliary
@@ -426,7 +490,6 @@ public:
     void CalFugXAll();
     void CalFugPAll(const OCP_BOOL& Zpflag = OCP_TRUE);
 
-
     void CalVjpVfpVfx_partial();
     void CalXiPNX_partial();
     void CalRhoPX_partial();
@@ -435,11 +498,11 @@ public:
     void CalXiRhoMuPN_pfullx();
     void CaldXsdXpAPI04();
     void CaldXsdXp04();
-    
+
     void CalRhoPNX_full();
 
     void CalXiPNX_full01();
-    void CalRhoPNX_full01();  
+    void CalRhoPNX_full01();
     void CalMuPX_full01();
     void CalMuPXLBC_full01();
     void CalVfiVfp_full01();
@@ -497,4 +560,4 @@ OCP_DBL delta(const USI& i, const USI& j);
 
 void NTcubicroot(OCP_DBL& root, const OCP_DBL& a, const OCP_DBL& b, const OCP_DBL& c);
 
-#endif
+#endif //__MIXTURECOMP_HEADER__

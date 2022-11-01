@@ -37,15 +37,15 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
 
 void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.CheckEquation();
 #endif // DEBUG
 
     myLS.AssembleMatLinearSolver();
 
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.OutputLinearSystem("testA_IMPEC.out", "testb_IMPEC.out");
-#endif // _DEBUG
+#endif // DEBUG
 
     GetWallTime Timer;
     Timer.Start();
@@ -192,7 +192,7 @@ OCP_BOOL OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
         rs.allWells.CalTrans(rs.bulk);
         rs.allWells.CaldG(rs.bulk);
         rs.allWells.CalFlux(rs.bulk);
-        rs.allWells.CalProdWeight(rs.bulk);       
+        rs.allWells.CalProdWeight(rs.bulk);
         return OCP_FALSE;
     }
     return OCP_TRUE;
@@ -246,7 +246,7 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS,
                                 Reservoir&    rs,
                                 OCPControl&   ctrl) const
 {
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.CheckEquation();
 #endif // DEBUG
 
@@ -499,7 +499,7 @@ void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS,
                                  Reservoir&    rs,
                                  OCPControl&   ctrl) const
 {
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.CheckEquation();
 #endif // DEBUG
 
@@ -610,7 +610,7 @@ void OCP_AIMc::AssembleMat(LinearSystem&    myLS,
 
 void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
-#ifdef _DEBUG
+#ifdef DEBUG
     myLS.CheckEquation();
 #endif // DEBUG
 
@@ -672,14 +672,11 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdSmax = rs.GetNRdSmaxP();
 
-    //#ifdef _DEBUG
+#ifdef DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
          << resFIM.maxRelRes0_v << "  " << resFIM.maxRelRes_v << "  "
          << resFIM.maxRelRes_mol << "  " << NRdPmax << "  " << NRdSmax << endl;
-    // for (OCP_USI n = 0; n < resFIM.res.size(); n++) {
-    //     cout << resFIM.res[n] << endl;
-    // }
-    //#endif
+#endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;

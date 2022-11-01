@@ -1249,11 +1249,11 @@ void MixtureComp::PhaseEquilibrium()
     if (NP == 1 && ftype == 0 && flagSkip) {
         CalPhiNSTA();
         AssembleSkipMatSTA();
-#ifdef _DEBUG
+#ifdef DEBUG
         if (!CheckNan(skipMatSTA.size(), &skipMatSTA[0])) {
             OCP_WARNING("Nan in skipMatSTA!");
         }
-#endif // _DEBUG
+#endif // DEBUG
 
         MinEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], leigenWork);
         // PrintDX(NC, &eigenSkip[0]);
