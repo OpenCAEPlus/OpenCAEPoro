@@ -1157,7 +1157,7 @@ void MixtureComp::AllocateMethod()
     }
     An.resize(NC);
     Bn.resize(NC);
-    pivot.resize((NC + 1) * NPmax, 1);
+    pivot.resize(static_cast<size_t>(NC + 1) * NPmax, 1);
     lJmatWork = NC * (NPmax - 1);
     JmatWork.resize(lJmatWork);
 
@@ -1895,7 +1895,6 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     }
 
     EoSctrl.RR.curIt += iter;
-
 
     // cout << iter << "      " << scientific << setprecision(3) << fabs(rj)
     //     << "      " << nu[0] << "      " << numin << "      " << numax << endl;
