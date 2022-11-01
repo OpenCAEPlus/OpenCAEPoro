@@ -31,5 +31,5 @@ var searchData=
   ['assemblematprod_5fimpec_1132',['AssembleMatPROD_IMPEC',['../classWell.html#a06c5e87d9b87c4a9eac02c15f5eaf20c',1,'Well']]],
   ['assemblematreinjection_5ffim_1133',['AssembleMatReinjection_FIM',['../classWell.html#ac3f15a40bf91e5734390ef4e5e2a1bae',1,'Well']]],
   ['assemblematreinjection_5fimpec_1134',['AssembleMatReinjection_IMPEC',['../classWell.html#a0faa91a9127c13773e269b6a52eb40b4',1,'Well']]],
-  ['assemblerhs_1135',['AssembleRhs',['../classLinearSystem.html#aeaab839a7bc0c6617dcf580e879564c4',1,'LinearSystem']]]
+  ['assemblerhsaccumulate_1135',['AssembleRhsAccumulate',['../classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e',1,'LinearSystem']]]
 ];
