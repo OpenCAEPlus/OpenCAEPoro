@@ -2452,7 +2452,7 @@ OCP_DBL Bulk::CalCFL() const
         if (phaseExist[n]) {
             cfl[n] /= vj[n];
 #ifdef DEBUG
-            if (!isfinite(cfl[id])) {
+            if (!isfinite(cfl[n])) {
                 OCP_ABORT("cfl is nan!");
             }
 #endif // DEBUG
