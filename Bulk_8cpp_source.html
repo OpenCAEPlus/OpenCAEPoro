@@ -2498,7 +2498,7 @@ $(function() {
 <div class="line"><a name="l02452"></a><span class="lineno"> 2452</span>&#160;        <span class="keywordflow">if</span> (phaseExist[n]) {</div>
 <div class="line"><a name="l02453"></a><span class="lineno"> 2453</span>&#160;            cfl[n] /= vj[n];</div>
 <div class="line"><a name="l02454"></a><span class="lineno"> 2454</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l02455"></a><span class="lineno"> 2455</span>&#160;            <span class="keywordflow">if</span> (!isfinite(cfl[<span class="keywordtype">id</span>])) {</div>
+<div class="line"><a name="l02455"></a><span class="lineno"> 2455</span>&#160;            <span class="keywordflow">if</span> (!isfinite(cfl[n])) {</div>
 <div class="line"><a name="l02456"></a><span class="lineno"> 2456</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;cfl is nan!&quot;</span>);</div>
 <div class="line"><a name="l02457"></a><span class="lineno"> 2457</span>&#160;            }</div>
 <div class="line"><a name="l02458"></a><span class="lineno"> 2458</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
@@ -3639,7 +3639,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 1 2022 06:08:06 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 1 2022 06:11:18 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
