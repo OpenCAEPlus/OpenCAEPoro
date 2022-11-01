@@ -32,6 +32,4 @@ if(USE_FASP4BLKOIL)
     )
   endif(FASP4BLKOIL_FOUND)
 
-  # target_link_libraries(${LIBNAME} PUBLIC ${FASP4BLKOIL_LIBRARIES})
-
 endif(USE_FASP4BLKOIL)

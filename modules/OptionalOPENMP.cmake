@@ -2,6 +2,7 @@
 # Find compiler support for OpenMP. Since cmake 3.9, we can use
 # find_package(OpenMP). Keep this for older cmake!!!
 # ##############################################################################
+
 option(USE_OPENMP "Use OPENMP" OFF)
 
 if(USE_OPENMP)

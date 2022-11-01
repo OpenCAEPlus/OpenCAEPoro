@@ -26,12 +26,10 @@ if(USE_UMFPACK)
       APPEND
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${UMFPACK_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC umfpack)
-    # add_definitions("-DWITH_UMFPACK=1")
-    # include_directories(${UMFPACK_INCLUDE_DIRS})
   else(UMFPACK_FOUND)
     message(
       WARNING
-        "WARNING: UMFPACK was requested but not supported! Continue without it."
+        "WARNING: UMFPACK was requested but not found! Continue without it."
     )
   endif(UMFPACK_FOUND)
 

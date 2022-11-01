@@ -30,9 +30,9 @@ else()
 endif(${REAL_C} MATCHES "GNU.*" AND  ${THE_C} MATCHES "gcc.*") 
 #
 if( THE_C AND THE_CXX AND THE_FC )
-    set(CMAKE_C_COMPILER ${THE_C} CACHE INTERNAL   "the C   compiler" FORCE) 
-    set(CMAKE_CXX_COMPILER ${THE_CXX} CACHE INTERNAL   "the C++ compiler" FORCE)
-    set(CMAKE_Fortran_COMPILER ${THE_FC} CACHE INTERNAL    "the F compiler" FORCE)
+    set(CMAKE_C_COMPILER       ${THE_C}   CACHE INTERNAL "the C   compiler" FORCE) 
+    set(CMAKE_CXX_COMPILER     ${THE_CXX} CACHE INTERNAL "the C++ compiler" FORCE)
+    set(CMAKE_Fortran_COMPILER ${THE_FC}  CACHE INTERNAL "the F   compiler" FORCE)
 endif( THE_C AND THE_CXX AND THE_FC )
 ###################################################XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 enable_language(CXX) 

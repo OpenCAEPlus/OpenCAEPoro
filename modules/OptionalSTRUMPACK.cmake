@@ -26,13 +26,10 @@ if(USE_STRUMPACK)
       APPEND
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${STRUMPACK_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC strumpack)
-
-    # add_definitions("-DWITH_STRUMPACK=1")
-    # include_directories(${STRUMPACK_INCLUDE_DIRS})
   else(STRUMPACK_FOUND)
     message(
       WARNING
-        "WARNING: STRUMPACK was requested but not supported! Continue without it."
+        "WARNING: STRUMPACK was requested but not found! Continue without it."
     )
   endif(STRUMPACK_FOUND)
 

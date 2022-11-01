@@ -23,13 +23,10 @@ if(USE_SUPERLU)
       APPEND
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${SUPERLU_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC superlu)
-
-    # add_definitions("-DWITH_SuperLU=1")
-    # include_directories(${SUPERLU_INCLUDE_DIRS})
   else(SUPERLU_FOUND)
     message(
       WARNING
-        "WARNING: SuperLU was requested but not supported! Continue without it."
+        "WARNING: SuperLU was requested but not found! Continue without it."
     )
   endif(SUPERLU_FOUND)
 

@@ -17,7 +17,7 @@ if(USE_DOXYGEN)
             set(DOXY_EXEC "${DOXYGEN_EXECUTABLE}")
             if(DOXYWIZARD)
                 find_program(WIZARD doxywizard)
-                if(APPLE AND (NOT WIZARD) )
+                if(APPLE AND (NOT WIZARD))
                     find_program(WIZARD
                             /Applications/Doxygen.app/Contents/MacOS/Doxywizard)
                 endif()
@@ -33,7 +33,9 @@ if(USE_DOXYGEN)
                     "Generating FASP documentation (Doxygen)"
                     VERBATIM)
         else(EXISTS ${FASP_SOURCE_DIR}/doc/fasp.Doxygen.cnf.in)
-            message("-- WARNING: Doxygen configuration file cannot be found! Continue without it.")
+            message(
+                WARNING
+                "-- WARNING: Doxygen configuration file cannot be found! Continue without it.")
         endif(EXISTS ${FASP_SOURCE_DIR}/doc/fasp.Doxygen.cnf.in)
     endif(DOXYGEN_FOUND)
 

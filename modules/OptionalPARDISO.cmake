@@ -27,15 +27,11 @@ if(USE_PARDISO)
       TARGET pardiso
       APPEND
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${MKL_INCLUDE_DIRS})
-
     target_link_libraries(${LIBNAME} PUBLIC pardiso)
-
-    # add_definitions("-DWITH_PARDISO=1")
-    # include_directories(${MKL_INCLUDE_DIRS})
   else(MKL_FOUND)
     message(
       WARNING
-        "WARNING: Intel MKL was requested but not supported! Continue without it."
+        "WARNING: Intel MKL was requested but not found! Continue without it."
     )
   endif(MKL_FOUND)
 

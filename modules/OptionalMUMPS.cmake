@@ -29,13 +29,10 @@ if(USE_MUMPS)
       APPEND
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${MUMPS_INCLUDE_DIRS})
     target_link_libraries(${LIBNAME} PUBLIC mumps)
-
-    # add_definitions("-DWITH_MUMPS=1")
-    # include_directories(${MUMPS_INCLUDE_DIRS})
   else(MUMPS_FOUND)
     message(
       WARNING
-        "WARNING: MUMPS was requested but not supported! Continue without it.")
+        "WARNING: MUMPS was requested but not found! Continue without it.")
   endif(MUMPS_FOUND)
 
 endif(USE_MUMPS)
