@@ -100,15 +100,15 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classOCP__IMPEC.html#a9e817bf3b729ac515460189f6fd3cb27">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCP__IMPEC.html#a9e817bf3b729ac515460189f6fd3cb27">OCP_IMPEC::SolveLinearSystem</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">CheckEquation</a>();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#a12b95ff96f522bdddaa7f74e5a0d8d5e">AssembleMatLinearSolver</a>();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da">OutputLinearSystem</a>(<span class="stringliteral">&quot;testA_IMPEC.out&quot;</span>, <span class="stringliteral">&quot;testb_IMPEC.out&quot;</span>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classGetWallTime.html">GetWallTime</a> Timer;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    Timer.<a class="code" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
@@ -255,7 +255,7 @@ $(function() {
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        rs.allWells.<a class="code" href="classAllWells.html#a146b158a9549b1fe940038a7efb14f63">CalTrans</a>(rs.bulk);</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        rs.allWells.<a class="code" href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">CaldG</a>(rs.bulk);</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        rs.allWells.<a class="code" href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">CalFlux</a>(rs.bulk);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        rs.allWells.<a class="code" href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">CalProdWeight</a>(rs.bulk);       </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        rs.allWells.<a class="code" href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">CalProdWeight</a>(rs.bulk);</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">return</span> OCP_FALSE;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
@@ -307,7 +307,7 @@ $(function() {
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                                <a class="code" href="classReservoir.html">Reservoir</a>&amp;    rs,</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                                <a class="code" href="classOCPControl.html">OCPControl</a>&amp;   ctrl)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">CheckEquation</a>();</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
@@ -556,7 +556,7 @@ $(function() {
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;                                 <a class="code" href="classReservoir.html">Reservoir</a>&amp;    rs,</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;                                 <a class="code" href="classOCPControl.html">OCPControl</a>&amp;   ctrl)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">CheckEquation</a>();</div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
@@ -664,7 +664,7 @@ $(function() {
 <div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
 <div class="line"><a name="l00611"></a><span class="lineno"><a class="line" href="classOCP__AIMc.html#a23a86e75b3bafd1de0348c6dd67db2a2">  611</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classOCP__AIMc.html#a23a86e75b3bafd1de0348c6dd67db2a2">OCP_AIMc::SolveLinearSystem</a>(<a class="code" href="classLinearSystem.html">LinearSystem</a>&amp; myLS, <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs, <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl)</div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;{</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor">#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    myLS.<a class="code" href="classLinearSystem.html#aeb8c076d996a33737689e0ac52e93d5a">CheckEquation</a>();</div>
 <div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
 <div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160; </div>
@@ -726,79 +726,76 @@ $(function() {
 <div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> NRdPmax = rs.<a class="code" href="classReservoir.html#a7b595fd360a031e9d2fcbfdf65989fb6">GetNRdPmax</a>();</div>
 <div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> NRdSmax = rs.<a class="code" href="classReservoir.html#a496b267aec3542c6e2a07f333dec04a5">GetNRdSmaxP</a>();</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160; </div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="comment">//#ifdef _DEBUG</span></div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;### DEBUG: Residuals = &quot;</span> &lt;&lt; setprecision(3) &lt;&lt; scientific</div>
 <div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;         &lt;&lt; <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v &lt;&lt; <span class="stringliteral">&quot;  &quot;</span></div>
 <div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;         &lt;&lt; <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_mol &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; NRdPmax &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; NRdSmax &lt;&lt; endl;</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="comment">// for (OCP_USI n = 0; n &lt; resFIM.res.size(); n++) {</span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    <span class="comment">//     cout &lt;&lt; resFIM.res[n] &lt;&lt; endl;</span></div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="comment">// }</span></div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    <span class="comment">//#endif</span></div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160; </div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    <span class="keywordflow">if</span> (ctrl.iterNR &gt; ctrl.ctrlNR.<a class="code" href="classControlNR.html#a2aa95e35f2400c3d44fd55feba6311e1">maxNRiter</a>) {</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;        ctrl.current_dt *= ctrl.ctrlTime.<a class="code" href="classControlTime.html#a314a73a619d6a61fa5de30957edd3b55">cutFacNR</a>;</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;        rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;        <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;        ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;### WARNING: NR not fully converged! Cut time step size and repeat!\n&quot;</span>;</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    }</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160; </div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;    <span class="keywordflow">if</span> (((<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v &lt;= <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v * ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a> ||</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;          <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a> ||</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;          <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_mol &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a>) &amp;&amp;</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;         <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxWellRelRes_mol &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a>) ||</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        (NRdPmax &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a802a0a1a099659a9b57016306f8aedb6">NRdPmin</a> &amp;&amp; NRdSmax &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a17878785937dc90eb116d7bbe92252ce">NRdSmin</a>)) {</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flagCheck = rs.<a class="code" href="classReservoir.html#af1d169c79d3fa3a824d5be008c1fc672">CheckP</a>(OCP_FALSE, OCP_TRUE);</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="preprocessor">#if DEBUG</span></div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;        <span class="keywordflow">if</span> (flagCheck &gt; 0) {</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Switch well constraint: Case &quot;</span> &lt;&lt; flagCheck &lt;&lt; endl;</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        }</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160; </div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;        <span class="keywordflow">switch</span> (flagCheck) {</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;            <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                ctrl.current_dt *= ctrl.ctrlTime.<a class="code" href="classControlTime.html#a314a73a619d6a61fa5de30957edd3b55">cutFacNR</a>;</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                <span class="comment">// ctrl.current_dt /= 1;</span></div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;                rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;                <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;                ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                <span class="comment">// Update IMPEC Bulk Properties</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                rs.CalFlashAIMc01();</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                rs.CalKrPcAIMc();</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                <span class="keywordflow">return</span> OCP_TRUE;</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        }</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        <span class="comment">// rs.CalCFL(ctrl.current_dt);</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        <span class="comment">// rs.SetupWellBulk();</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="comment">// rs.SetupFIMBulk(OCP_TRUE);</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment"></span>        <span class="comment">// rs.CalFlashDerivAIMc();</span></div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        <span class="comment">// rs.CalKrPcDerivAIMc();</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="comment"></span>        <span class="comment">// rs.bulk.ShowFIMBulk(OCP_FALSE);</span></div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    }</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;}</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160; </div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160; </div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="keywordflow">if</span> (ctrl.iterNR &gt; ctrl.ctrlNR.<a class="code" href="classControlNR.html#a2aa95e35f2400c3d44fd55feba6311e1">maxNRiter</a>) {</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;        ctrl.current_dt *= ctrl.ctrlTime.<a class="code" href="classControlTime.html#a314a73a619d6a61fa5de30957edd3b55">cutFacNR</a>;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;        rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;        rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;        <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;### WARNING: NR not fully converged! Cut time step size and repeat!\n&quot;</span>;</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;        <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    }</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160; </div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="keywordflow">if</span> (((<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v &lt;= <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v * ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a> ||</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;          <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a> ||</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;          <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_mol &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a>) &amp;&amp;</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;         <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxWellRelRes_mol &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">NRtol</a>) ||</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;        (NRdPmax &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a802a0a1a099659a9b57016306f8aedb6">NRdPmin</a> &amp;&amp; NRdSmax &lt;= ctrl.ctrlNR.<a class="code" href="classControlNR.html#a17878785937dc90eb116d7bbe92252ce">NRdSmin</a>)) {</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160; </div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> flagCheck = rs.<a class="code" href="classReservoir.html#af1d169c79d3fa3a824d5be008c1fc672">CheckP</a>(OCP_FALSE, OCP_TRUE);</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="preprocessor">#if DEBUG</span></div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        <span class="keywordflow">if</span> (flagCheck &gt; 0) {</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt; Switch well constraint: Case &quot;</span> &lt;&lt; flagCheck &lt;&lt; endl;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        }</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160; </div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        <span class="keywordflow">switch</span> (flagCheck) {</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;            <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                ctrl.current_dt *= ctrl.ctrlTime.<a class="code" href="classControlTime.html#a314a73a619d6a61fa5de30957edd3b55">cutFacNR</a>;</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                <span class="comment">// ctrl.current_dt /= 1;</span></div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                rs.<a class="code" href="classReservoir.html#a8b4d17fe3b80770c7def9531012614e3">ResetFIM</a>();</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;                rs.<a class="code" href="classReservoir.html#aeb53b4daf4e4d59f0e88c12d137feec4">CalResAIMc</a>(<a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>, ctrl.current_dt);</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes0_v = <a class="code" href="classOCP__FIM.html#a889c0fa57a4fbb345a2f7c78cb894933">resFIM</a>.maxRelRes_v;</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;                ctrl.<a class="code" href="classOCPControl.html#abd447792ee50b20ad738c8ef1fdeab1d">ResetIterNRLS</a>();</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;                <span class="comment">// Update IMPEC Bulk Properties</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;                rs.CalFlashAIMc01();</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;                rs.CalKrPcAIMc();</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                <span class="keywordflow">return</span> OCP_TRUE;</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;        }</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        <span class="comment">// rs.CalCFL(ctrl.current_dt);</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        <span class="comment">// rs.SetupWellBulk();</span></div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        <span class="comment">// rs.SetupFIMBulk(OCP_TRUE);</span></div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment"></span>        <span class="comment">// rs.CalFlashDerivAIMc();</span></div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="comment">// rs.CalKrPcDerivAIMc();</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment"></span>        <span class="comment">// rs.bulk.ShowFIMBulk(OCP_FALSE);</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;    }</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;}</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment">/*  Shizhe Li           Nov/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      Update output                        */</span></div>
 <div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="comment">/*  Shizhe Li           Nov/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      Update output                        */</span></div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a038c1241f7ffc6a37b1b4e99dcab9cd9"><div class="ttname"><a href="OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9">VECTORFASP</a></div><div class="ttdeci">const USI VECTORFASP</div><div class="ttdoc">Use vector linear solver in Fasp.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00080">OCPConst.hpp:80</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
@@ -808,10 +805,10 @@ $(function() {
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aOCPFluidMethod_8hpp_html"><div class="ttname"><a href="OCPFluidMethod_8hpp.html">OCPFluidMethod.hpp</a></div><div class="ttdoc">Declaration of solution methods for fluid part in OpenCAEPoro.</div></div>
 <div class="ttc" id="aUtilError_8hpp_html_a9873f9158c73c6b79a8e3cb9c0dc8e4a"><div class="ttname"><a href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a></div><div class="ttdeci">#define OCP_WARNING(msg)</div><div class="ttdoc">Log warning messages.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00039">UtilError.hpp:39</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a0f5418984c94a2878eb35a8c795fe903"><div class="ttname"><a href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">AllWells::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate volume flow rate and moles flow rate of each perforation.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00203">AllWells.cpp:203</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a146b158a9549b1fe940038a7efb14f63"><div class="ttname"><a href="classAllWells.html#a146b158a9549b1fe940038a7efb14f63">AllWells::CalTrans</a></div><div class="ttdeci">void CalTrans(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Transmissibility of Wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00192">AllWells.cpp:192</a></div></div>
-<div class="ttc" id="aclassAllWells_html_a521b341baaef80dfb93666f93d9e303d"><div class="ttname"><a href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">AllWells::CaldG</a></div><div class="ttdeci">void CaldG(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate dG.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00225">AllWells.cpp:225</a></div></div>
-<div class="ttc" id="aclassAllWells_html_ac62f28ce12cd39895b9764680a74d2d2"><div class="ttname"><a href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">AllWells::CalProdWeight</a></div><div class="ttdeci">void CalProdWeight(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Prodweight.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00214">AllWells.cpp:214</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a0f5418984c94a2878eb35a8c795fe903"><div class="ttname"><a href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">AllWells::CalFlux</a></div><div class="ttdeci">void CalFlux(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate volume flow rate and moles flow rate of each perforation.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00200">AllWells.cpp:200</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a146b158a9549b1fe940038a7efb14f63"><div class="ttname"><a href="classAllWells.html#a146b158a9549b1fe940038a7efb14f63">AllWells::CalTrans</a></div><div class="ttdeci">void CalTrans(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Transmissibility of Wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00189">AllWells.cpp:189</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a521b341baaef80dfb93666f93d9e303d"><div class="ttname"><a href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">AllWells::CaldG</a></div><div class="ttdeci">void CaldG(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate dG.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00222">AllWells.cpp:222</a></div></div>
+<div class="ttc" id="aclassAllWells_html_ac62f28ce12cd39895b9764680a74d2d2"><div class="ttname"><a href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">AllWells::CalProdWeight</a></div><div class="ttdeci">void CalProdWeight(const Bulk &amp;myBulk)</div><div class="ttdoc">Calculate Prodweight.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8cpp_source.html#l00211">AllWells.cpp:211</a></div></div>
 <div class="ttc" id="aclassBulk_html_a51d41760525158a55fb071273f74c195"><div class="ttname"><a href="classBulk.html#a51d41760525158a55fb071273f74c195">Bulk::ResetNi</a></div><div class="ttdeci">void ResetNi()</div><div class="ttdoc">Reset Ni to the ones of the last time step.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8hpp_source.html#l00201">Bulk.hpp:201</a></div></div>
 <div class="ttc" id="aclassControlNR_html_a07c16cc2358680054d2ce29928dbbf9b"><div class="ttname"><a href="classControlNR.html#a07c16cc2358680054d2ce29928dbbf9b">ControlNR::NRtol</a></div><div class="ttdeci">OCP_DBL NRtol</div><div class="ttdoc">Maximum non-linear convergence error.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00067">OCPControl.hpp:67</a></div></div>
 <div class="ttc" id="aclassControlNR_html_a17878785937dc90eb116d7bbe92252ce"><div class="ttname"><a href="classControlNR.html#a17878785937dc90eb116d7bbe92252ce">ControlNR::NRdSmin</a></div><div class="ttdeci">OCP_DBL NRdSmin</div><div class="ttdoc">Minimum Saturation change in a Newton iteration.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00071">OCPControl.hpp:71</a></div></div>
@@ -923,7 +920,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 31 2022 21:14:35 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 31 2022 21:32:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

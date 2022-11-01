@@ -405,29 +405,29 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO3__ODGW_8cpp_source.html#l00793">793</a> of file <a class="el" href="MixtureBO3__ODGW_8cpp_source.html">MixtureBO3_ODGW.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;{</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;    <span class="keywordflow">if</span> (Ziin[1] &gt; 1 - <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;        <span class="comment">// inj fluid is gas</span></div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bg = PVDG.<a class="code" href="classOCPTable.html#a8e4a02821b093ad993b7e7ca52fe6dc8">Eval</a>(0, Pin, 1);</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;        <span class="comment">// OCP_DBL xig = 1 / (CONV1 * bg);</span></div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xig = 1 / <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> / bg;</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;        <span class="keywordflow">return</span> xig;</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Ziin[2] &gt; 1 - <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;        <span class="comment">// inj fluid is water</span></div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160; </div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        PVTW.<a class="code" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Pin, data, cdata);</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0 = data[0];</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0 = data[1];</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw = data[2];</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw  = bw0 * (1 - cbw * (<a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - Pw0));</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;        <span class="comment">// OCP_DBL xiw = 1 / (CONV1 * bw);</span></div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xiw = 1 / <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> / bw;</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;        <span class="keywordflow">return</span> xiw;</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Zi!&quot;</span>);</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    }</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO3__ODGW_8cpp_source.html#l00827">827</a> of file <a class="el" href="MixtureBO3__ODGW_8cpp_source.html">MixtureBO3_ODGW.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;{</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    <span class="keywordflow">if</span> (Ziin[1] &gt; 1 - <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;        <span class="comment">// inj fluid is gas</span></div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bg = PVDG.<a class="code" href="classOCPTable.html#a8e4a02821b093ad993b7e7ca52fe6dc8">Eval</a>(0, Pin, 1);</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        <span class="comment">// OCP_DBL xig = 1 / (CONV1 * bg);</span></div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xig = 1 / <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> / bg;</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;        <span class="keywordflow">return</span> xig;</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Ziin[2] &gt; 1 - <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;        <span class="comment">// inj fluid is water</span></div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160; </div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        PVTW.<a class="code" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, Pin, data, cdata);</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0 = data[0];</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0 = data[1];</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw = data[2];</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw  = bw0 * (1 - cbw * (<a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - Pw0));</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        <span class="comment">// OCP_DBL xiw = 1 / (CONV1 * bw);</span></div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xiw = 1 / <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> / bw;</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;        <span class="keywordflow">return</span> xiw;</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Zi!&quot;</span>);</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;    }</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00037">OCPConst.hpp:37</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = CONV1 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
@@ -447,7 +447,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 31 2022 21:14:35 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Oct 31 2022 21:32:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
