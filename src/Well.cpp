@@ -2065,18 +2065,11 @@ void Well::CalResFIM(ResFIM&             resFIM,
                         OCP_DBL tmp = 0;
                         for (USI i = 0; i < nc; i++) {
                             tmp += allWell[w].qi_lbmol[i];
-                            // tmp += opt.factor * allWell[w].qi_lbmol[i];
-                            // resFIM.res[bId] += opt.factor * allWell[w].qi_lbmol[i];
                         }
                         tmp *= opt.factor;
                         resFIM.res[bId] += tmp;
-                        // cout << "Temp(INJ):    " << tmp / opt.xiINJ / 1000 << endl;
                     }
-                    // cout << "Factor(res)    " << opt.factor << endl;
                 }
-                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
-                // " <<
-                //     fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxWellRelRes_mol =
                     max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
                 break;
@@ -2100,10 +2093,6 @@ void Well::CalResFIM(ResFIM&             resFIM,
                 for (USI i = 0; i < nc; i++) {
                     resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];
                 }
-                // cout << "Temp(Prod):   " << tmp << endl;
-                // cout << name << "   " << resFIM.res[bId] << "   " << opt.maxRate << "
-                // "
-                //    << fabs(resFIM.res[bId] / opt.maxRate) << endl;
                 resFIM.maxWellRelRes_mol =
                     max(resFIM.maxWellRelRes_mol, fabs(resFIM.res[bId] / opt.maxRate));
                 break;

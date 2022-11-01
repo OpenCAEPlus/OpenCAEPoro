@@ -585,16 +585,9 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.CalCFL(dt);
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
-    // rs.bulk.FIMBulk.resize(rs.bulk.numBulk, 0);
-    // for (OCP_USI n = 0; n < rs.bulk.numBulk; n++) {
-    //     rs.bulk.FIMBulk[n] = n;
-    //     rs.bulk.map_Bulk2FIM[n] = n;
-    // }
-    // rs.bulk.numFIMBulk = rs.bulk.numBulk;
     //  Calculate FIM Bulk properties
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
-    // rs.bulk.CheckDiff();
     rs.UpdateLastStepFIM();
 
     rs.bulk.ShowFIMBulk(OCP_FALSE);

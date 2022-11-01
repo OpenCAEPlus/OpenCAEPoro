@@ -567,8 +567,6 @@ void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) 
             wId++;
         }
     }
-
-    // cout << "Well  " << resFIM.maxRelRes_v;
 }
 
 void AllWells::ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const
