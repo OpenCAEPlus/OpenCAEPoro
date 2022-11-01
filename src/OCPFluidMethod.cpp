@@ -239,7 +239,7 @@ void OCP_FIM::AssembleMat(LinearSystem&    myLS,
                           const OCP_DBL&   dt) const
 {
     rs.AssembleMatFIM(myLS, dt);
-    myLS.AssembleRhs(resFIM.res);
+    myLS.AssembleRhsCopy(resFIM.res);
 }
 
 void OCP_FIM::SolveLinearSystem(LinearSystem& myLS,
@@ -306,7 +306,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_USI dSn;
 
     const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
-    OCP_DBL       NRdPmax = rs.GetNRdPmax();
+    const OCP_DBL NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
     if (ctrl.printLevel >= PRINT_MOST) {
@@ -491,7 +491,7 @@ void OCP_FIMn::AssembleMat(LinearSystem&    myLS,
                            const OCP_DBL&   dt) const
 {
     rs.AssembleMatFIM_n(myLS, dt);
-    myLS.AssembleRhs(resFIM.res);
+    myLS.AssembleRhsAccumulate(resFIM.res);
 }
 
 /// Solve the linear system.
@@ -598,7 +598,7 @@ void OCP_AIMc::AssembleMat(LinearSystem&    myLS,
                            const OCP_DBL&   dt) const
 {
     rs.AssembleMatAIMc(myLS, dt);
-    myLS.AssembleRhs(resFIM.res);
+    myLS.AssembleRhsCopy(resFIM.res);
 }
 
 void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
@@ -628,8 +628,6 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     ctrl.UpdateIterNR();
 
     rs.GetSolutionAIMc(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
-    // rs.GetSolution01FIM(myLS.GetSolution());
-    // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
     myLS.ClearData();
 }
 
@@ -649,7 +647,10 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     rs.CalFlashDerivAIMc();
     rs.CalKrPcDerivAIMc();
+
+    // think more and more
     rs.CalFlashAIMc();
+    
     // Important, Pj must be updated with current and last Pc for IMPEC Bulk
     rs.UpdatePj();
 
@@ -662,8 +663,10 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
+    OCP_USI dSn;
+    const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
-    const OCP_DBL NRdSmax = rs.GetNRdSmaxP();
+    const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
 #ifdef DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
@@ -677,7 +680,9 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.CalResAIMc(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
-        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!\n";
+        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
+            "current dt = "
+            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -685,7 +690,8 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
           resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
           resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
          resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
-        (NRdPmax <= ctrl.ctrlNR.NRdPmin && NRdSmax <= ctrl.ctrlNR.NRdSmin)) {
+        (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && 
+         fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
 #if DEBUG
@@ -717,15 +723,6 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
                 break;
         }
     } else {
-        //// Set FIMBulk
-        // rs.CalCFL(ctrl.current_dt);
-        // rs.SetupWellBulk();
-        // rs.SetupFIMBulk(OCP_TRUE);
-        //// Calculate FIM Bulk properties
-        // rs.CalFlashDerivAIMc();
-        // rs.CalKrPcDerivAIMc();
-        //// Show FIM Bulk
-        // rs.bulk.ShowFIMBulk(OCP_FALSE);
         return OCP_FALSE;
     }
 }

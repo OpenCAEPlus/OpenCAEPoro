@@ -54,13 +54,20 @@ void LinearSystem::ClearData()
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }
 
-void LinearSystem::AssembleRhs(const vector<OCP_DBL>& rhs)
+void LinearSystem::AssembleRhsAccumulate(const vector<OCP_DBL>& rhs)
 {
     OCP_USI nrow = dim * blockDim;
     for (OCP_USI i = 0; i < nrow; i++) {
         b[i] += rhs[i];
     }
 }
+
+
+void LinearSystem::AssembleRhsCopy(const vector<OCP_DBL>& rhs)
+{
+    Dcopy(dim * blockDim, &b[0], &rhs[0]);
+}
+
 
 void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) const
 {

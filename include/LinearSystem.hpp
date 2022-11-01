@@ -21,6 +21,7 @@
 // OpenCAEPoro header files
 #include "FaspSolver.hpp"
 #include "OCPConst.hpp"
+#include "DenseMat.hpp"
 
 using namespace std;
 
@@ -42,8 +43,9 @@ public:
     void AllocateColMem(const OCP_USI& colnum);
     /// Enlarge row capacity
     void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
-    /// Assign Rhs --- used for FIM now
-    void AssembleRhs(const vector<OCP_DBL>& rhs);
+    /// Assign Rhs
+    void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
+    void AssembleRhsCopy(const vector<OCP_DBL>& rhs);
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
 
