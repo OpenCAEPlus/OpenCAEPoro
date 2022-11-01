@@ -4,6 +4,7 @@
 #   cmake .                             // build in default configuration
 #   cmake -DCMAKE_BUILD_TYPE=Release .  // build in Release configuration
 #   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
+#   cmake -DCMAKE_CXX_COMPILER=g++ .    // build with GNU C++ compiler
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on
 #   cmake -DUSE_FASP4BLKOIL=ON .        // build with FASP4BLKOIL support
 #   cmake -DUSE_FASP4CUDA=ON .          // build with FASP4CUDA support
