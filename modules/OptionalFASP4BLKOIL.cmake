@@ -28,7 +28,7 @@ if(USE_FASP4BLKOIL)
   else(FASP4BLKOIL_FOUND)
     message(
       WARNING
-        "WARNING: FASP4BLKOIL was requested but not supported! Continue without it."
+        "WARNING: FASP4BLKOIL was requested but not found! Continue without it."
     )
   endif(FASP4BLKOIL_FOUND)
 
