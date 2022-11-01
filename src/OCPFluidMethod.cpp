@@ -309,7 +309,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL       NRdPmax = rs.GetNRdPmax();
     const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
-    if (ctrl.printLevel > 1) {
+    if (ctrl.printLevel >= PRINT_MOST) {
 
         if (OCP_TRUE) {
             vector<OCP_INT> totalPhaseNum(3, 0);
@@ -597,7 +597,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     // rs.bulk.CheckDiff();
     rs.UpdateLastStepFIM();
 
-    rs.bulk.ShowFIMBulk(OCP_TRUE);
+    rs.bulk.ShowFIMBulk(OCP_FALSE);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem&    myLS,

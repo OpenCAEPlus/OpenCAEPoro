@@ -34,12 +34,12 @@ void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
         while (!ctrl.IsCriticalTime(d + 1)) {
             GoOneStep(rs, ctrl);
             output.SetVal(rs, ctrl);
+            if (ctrl.printLevel >= PRINT_ALL) {
+                // Print Summary and critical information at every time step
+                output.PrintInfo();
+            }
         }
-        output.PrintInfoSched(rs, ctrl, timer.Stop());
-        if (ctrl.printLevel > 2) {
-            // Print Summary and critical information at every TSTEP
-            output.PrintInfo();
-        }
+        output.PrintInfoSched(rs, ctrl, timer.Stop());     
         // rs.allWells.ShowWellStatus(rs.bulk);
     }
 
