@@ -9,6 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
+#include <math.h>
+
 #include "FaspSolver.hpp"
 
 void FaspSolver::SetupParam(const string& dir, const string& file)
@@ -402,12 +404,12 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
 
 #ifdef DEBUG
     // check x and b  ----  for test
-    for (OCP_USI i = 0; i < nrow; i++) {
+    for (int i = 0; i < nrow; i++) {
         if (!isfinite(b.val[i])) OCP_ABORT("vFasp b is infinite!");
         if (!isfinite(x.val[i])) OCP_ABORT("vFasp x is infinite!");
     }
     // check A ----  for test
-    for (OCP_USI i = 0; i < A.NNZ; i++) {
+    for (int i = 0; i < A.NNZ; i++) {
         if (!isfinite(A.val[i])) OCP_ABORT("vFasp A is infinite!");
     }
 #endif // DEBUG

@@ -350,7 +350,7 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
             OCP_INT flag = wells[w].CheckP(myBulk);
 
 #ifdef DEBUG
-            wells[w].ShowPerfStatus();
+            // wells[w].ShowPerfStatus();
 #endif // DEBUG
 
             switch (flag) {
