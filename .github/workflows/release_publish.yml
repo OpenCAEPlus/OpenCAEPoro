@@ -16,13 +16,15 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
       - name: update package.json version
         id: info
         uses: jaywcjlove/github-action-package@main
         with:
           path: doc/package.json
           version: ${{ github.event.release.tag_name }}
-
+          
       - run: echo "name - ${{ steps.info.outputs.name }}"
       - run: echo "version - ${{ steps.info.outputs.version }}"
       - run: echo "description - ${{ steps.info.outputs.description }}"
