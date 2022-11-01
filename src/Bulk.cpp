@@ -2447,22 +2447,16 @@ OCP_DBL Bulk::CalCFL() const
     OCP_FUNCNAME;
 
     OCP_DBL tmp = 0;
-    OCP_USI id;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        for (USI j = 0; j < numPhase; j++) {
-            id = n * numPhase + j;
-            if (phaseExist[id]) {
-                if (vj[id] <= 0) continue; // temp
-                cfl[id] /= vj[id];
-
+    const OCP_USI len = numBulk * numPhase;
+    for (OCP_USI n = 0; n < len; n++) {
+        if (phaseExist[n]) {
+            cfl[n] /= vj[n];
 #ifdef DEBUG
-                if (!isfinite(cfl[id])) {
-                    OCP_ABORT("cfl is nan!");
-                }
-#endif // DEBUG
-
-                if (tmp < cfl[id]) tmp = cfl[id];
+            if (!isfinite(cfl[id])) {
+                OCP_ABORT("cfl is nan!");
             }
+#endif // DEBUG
+            if (tmp < cfl[n]) tmp = cfl[n];
         }
     }
     return tmp;
@@ -3271,28 +3265,81 @@ void Bulk::FlashDerivCOMPAIMc()
 
 void Bulk::CalKrPcAIMc()
 {
-    OCP_DBL tmp = 0;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] > -1) {
-            // FIM bulk
-            continue;
+    OCP_FUNCNAME;
+
+    if (!miscible) {
+        OCP_DBL tmp = 0;
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > -1) {
+                // FIM bulk
+                continue;
+            }
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }
-        OCP_USI bId = n * numPhase;
-        flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
-        for (USI j = 0; j < numPhase; j++)
-            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+    }
+    else {
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > -1) {
+                // FIM bulk
+                continue;
+            }
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n],
+                Fp[n]);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }
+    }
+
+    if (ScalePcow) {
+        // correct
+        const USI Wid = phase2Index[WATER];
+        for (USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > -1) {
+                // FIM bulk
+                continue;
+            }
+            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
+            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
+        }
     }
 }
 
 void Bulk::CalKrPcDerivAIMc()
 {
-    OCP_DBL tmp;
-    for (auto& n : FIMBulk) {
-        OCP_USI bId = n * numPhase;
-        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                                      &dKr_dS[bId * numPhase], &dPcj_dS[bId * numPhase],
-                                      0, tmp, tmp);
-        for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
+    OCP_FUNCNAME;
+
+    if (!miscible) {
+        OCP_DBL tmp = 0;
+        for (auto& n : FIMBulk) {
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+                &dKr_dS[bId * numPhase],
+                &dPcj_dS[bId * numPhase], 0, tmp, tmp);
+            for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
+        }
+    }
+    else {
+        for (auto& n : FIMBulk) {
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPcDeriv(
+                &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
+                &dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }
+    }
+
+    if (ScalePcow) {
+        // correct
+        const USI Wid = phase2Index[WATER];
+        for (auto& n : FIMBulk) {
+            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
+            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
+        }
     }
 }
 

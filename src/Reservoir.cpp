@@ -583,7 +583,7 @@ void Reservoir::InitAIMc()
     bulk.CalVpore();
     bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
-    conn.CalFluxIMPEC(bulk);
+    conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }

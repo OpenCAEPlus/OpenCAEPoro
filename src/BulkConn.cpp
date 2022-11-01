@@ -2258,22 +2258,15 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
 
         // NR Step
         if (!flag && NRflag) {
-            // cout << "[" << n << "]" << endl;
             // dP
             if (fabs(myBulk.dPNR[n] / myBulk.P[n]) > 1E-3) {
                 flag = OCP_TRUE;
-                // cout << scientific << "P  " << myBulk.dPNR[n] / myBulk.P[n] << "   ";
-                // cout << myBulk.dPNR[n] << "   " << myBulk.P[n] << "   ";
-                // cout << endl;
             }
             // dNi
             if (!flag) {
                 for (USI i = 0; i < myBulk.numCom; i++) {
                     if (fabs(myBulk.dNNR[bIdc + i] / myBulk.Ni[bIdc + i]) > 1E-3) {
                         flag = OCP_TRUE;
-                        // cout << scientific << "Ni[" << i << "]  " << myBulk.dNNR[bIdc
-                        // + i] / myBulk.Ni[bIdc + i]<< "   "; cout << myBulk.dNNR[bIdc
-                        // + i] << "   " << myBulk.Ni[bIdc + i] << "   "; cout << endl;
                         break;
                     }
                 }
@@ -2296,7 +2289,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
             for (auto& v1 : neighbor[v]) myBulk.map_Bulk2FIM[v1] = 1;
         }
     }
-    USI iter = 0;
+    OCP_USI iter = 0;
     for (OCP_USI n = 0; n < myBulk.numBulk; n++) {
         if (myBulk.map_Bulk2FIM[n] > 0) {
             myBulk.map_Bulk2FIM[n] = iter;
@@ -2306,12 +2299,6 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
     }
     myBulk.numFIMBulk = myBulk.FIMBulk.size();
 
-    // myBulk.numFIMBulk = numBulk;
-    // myBulk.FIMBulk.resize(numBulk);
-    // for (OCP_USI n = 0; n < numBulk; n++) {
-    //     myBulk.map_Bulk2FIM[n] = n;
-    //     myBulk.FIMBulk[n] = n;
-    // }
 }
 
 void BulkConn::AllocateAuxAIMc(const USI& np)
