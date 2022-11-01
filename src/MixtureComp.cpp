@@ -1118,6 +1118,8 @@ void MixtureComp::PrintX()
 
 void MixtureComp::AllocateMethod()
 {
+    const USI NC2 = NC * NC;
+
     Kw.resize(4);
     for (USI i = 0; i < 4; i++) {
         Kw[i].resize(NC);
@@ -1133,26 +1135,26 @@ void MixtureComp::AllocateMethod()
     di.resize(NC);
     resSTA.resize(NC);
 
-    JmatSTA.resize(NC * NC);
+    JmatSTA.resize(NC2);
     Ax.resize(NC);
     Bx.resize(NC);
     Zx.resize(NC);
-    phiN.resize(NC * NC);
-    skipMatSTA.resize(NC * NC);
+    phiN.resize(NC2);
+    skipMatSTA.resize(NC2);
     eigenSkip.resize(NC);
     leigenWork = 2 * NC + 1;
     eigenWork.resize(leigenWork);
     lKs.resize(NC);
 
     resRR.resize(NPmax - 1);
-    resSP.resize(NC * NPmax);
-    JmatSP.resize(NC * NC * NPmax * NPmax);
+    resSP.resize(static_cast<size_t>(NC) * NPmax);
+    JmatSP.resize(static_cast<size_t>(NC2) * NPmax * NPmax);
     fugX.resize(NPmax);
     fugN.resize(NPmax);
     Zn.resize(NPmax);
     for (USI j = 0; j < NPmax; j++) {
-        fugX[j].resize(NC * NC);
-        fugN[j].resize(NC * NC);
+        fugX[j].resize(NC2);
+        fugN[j].resize(NC2);
         Zn[j].resize(NC);
     }
     An.resize(NC);
@@ -1161,7 +1163,7 @@ void MixtureComp::AllocateMethod()
     lJmatWork = NC * (NPmax - 1);
     JmatWork.resize(lJmatWork);
 
-    pivot.resize(NPmax * NC + numPhase, 1);
+    pivot.resize(NPmax * static_cast<size_t>(NC) + numPhase, 1);
 }
 
 void MixtureComp::CalKwilson()
