@@ -35,4 +35,4 @@ jobs:
         needs: gh-page-publish
         steps:
             - name: remove build folder
-              run: find ${HOME} -name "actions_github_pages_*" -delete
+              run: find ${HOME} -path "*/actions_github_pages_*" -delete
