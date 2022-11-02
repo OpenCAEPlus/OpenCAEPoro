@@ -30,3 +30,8 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./doc/doxygen-site
+    clean-working-directory:
+        runs-on: [self-hosted, Linux]
+        steps:
+            - name: remove build folder
+              run: find ${HOME} -name "actions_github_pages_*" -delete
