@@ -30,9 +30,6 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./doc/doxygen-site
-    clean-working-directory:
-        runs-on: [self-hosted, Linux]
-        needs: gh-page-publish
-        steps:
             - name: remove build folder
-              run: rm -r "${HOME}/actions_github_pages_*"
+              run: rm -rf "${HOME}/actions_github_pages_*"
+
