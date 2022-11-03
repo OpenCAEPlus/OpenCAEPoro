@@ -300,7 +300,7 @@ private:
         friend class Out4VTK;
 
     private:
-        OCP_BOOL useMetis{OCP_TRUE};
+        OCP_BOOL useMetis{OCP_FALSE};
 
         OCP_USI nb;
         OCP_USI nw;

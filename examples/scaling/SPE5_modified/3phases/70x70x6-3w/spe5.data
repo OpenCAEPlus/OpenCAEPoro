@@ -1,0 +1,223 @@
+------------------------------------------------------------------------
+-- SPE 16000
+-- "Fifth Comparative Solution Project : Evaluation of Miscible Flood Simulators"
+-- J.E. Killough, C.A. Kossack
+--
+-- The fifth SPE comparison problem , reported by Killough and Kossack
+-- ( 9th SPE Symp on Res. Sim., San Antonio, 1987).
+-- Dimension 7x7x3
+-- 6-component compositional model, run on Ecl300
+-- FIELD units
+-- The run follows the first of the three suggested production schedules
+-- Solvent injection as part of a WAG cycle
+------------------------------------------------------------------------
+
+RUNSPEC   ==============================================================
+
+TITLE
+   SPE Fifth Comparison Test Problem - Scenario One
+   
+FIELD
+
+COMPS
+6
+/
+
+OIL
+WATER
+GAS
+
+
+TABDIMS
+1 1 40 40 /
+
+DIMENS
+70 70 6 / -- orgin: 7x7x3
+
+EQLDIMS
+1 20 /
+
+WELLDIMS
+2 2 /
+
+START
+1 JAN 1990 /      --uppercase letter
+
+GRID    ================================================================
+
+EQUALS -- [I1,I2,J1,J2,Z1,Z2], DX,DY,DZ
+'DX'     100   6*         /
+'DY'     100   6*         /
+'DZ'     10    4*  1  2   /
+'DZ'     15    4*  3  4   /
+'DZ'     25    4*  5  6   /
+'PORO'   0.3   6*         /
+'PERMX'  500   4*  1  2   /
+'PERMX'   50   4*  3  4   /
+'PERMX'  200   4*  5  6   /
+'PERMZ'   50   4*  1  4   /
+'PERMZ'   25   4*  5  6   /
+'TOPS'  8325   4*  1  1   /
+/
+
+
+COPY
+'PERMX' 'PERMY' 6*  /
+/
+
+PROPS     ============================================================
+
+INCLUDE
+EGOIL.in
+/
+
+
+
+ZMFVD
+1000.0  0.5 0.03 0.07 0.2 0.15 0.05
+10000.0 0.5 0.03 0.07 0.2 0.15 0.05 
+/
+
+RTEMP
+160 
+/
+
+STONE
+
+SWOF
+--SW         KRW     KROW    PCOW
+  0.2        0       1       0
+  0.2899     0.0022  0.6769  0
+  0.3778     0.018   0.4153  0
+  0.4667     0.0607  0.2178  0
+  0.5556     0.1438  0.0835  0
+  0.6444     0.2809  0.0123  0
+  0.7        0.4089  0       0
+  0.7333     0.4855  0       0
+  0.8222     0.7709  0       0
+  0.9111     1       0       0
+  1          1       0       0
+/
+
+SGOF
+--SG         KRG     KROg    PCOG
+       0.0       0.0   1.00000       0.0
+ 0.0500000       0.0 0.8800000       0.0
+ 0.0889000 0.0010000 0.7023000       0.0
+ 0.1778000 0.0100000 0.4705000       0.0
+ 0.2667000 0.0300000 0.2963000       0.0
+ 0.3556000 0.0500000 0.1715000       0.0
+ 0.4444000 0.1000000 0.0878000       0.0
+ 0.5333000 0.2000000 0.0370000       0.0
+ 0.6222000 0.3500000 0.0110000       0.0
+ 0.6500000 0.3900000       0.0       0.0
+ 0.7111000 0.5600000       0.0       0.0
+ 0.8000000   1.00000       0.0       0.0
+/
+
+PVTW
+14.7   1.00    3.3E-06      0.7     0.00E-01
+/
+
+PMAX
+10000    11000       0       1*  /
+
+ROCK
+3990.30 5E-06
+/
+
+GRAVITY
+1*       1*           1*   /
+
+SOLUTION   =============================================================
+
+--Request initial state solution output
+
+
+EQUIL
+8400 1000 9000 0 7000 0 1 1 0  /
+
+PBVD
+5000    4014.7    
+9000    4014.7
+/
+
+SUMMARY
+EXCEL
+FPR
+FOPR
+FOPT
+FGPR
+FGPT
+FWPR
+FWPT
+FGIR
+FGIT
+FWIR
+FWIT
+FWCT
+FWPT
+WBHP 
+/
+/
+
+--RPTSCHED
+--PRESSURE
+--DENO  DENG  DENW
+--SOIL  SGAS  SWAT
+--/
+
+
+SCHEDULE    ==========================================================
+
+TUNING
+-- Init     max    min   incre   chop    cut
+   0.1       10     0.1      5    0.3    0.3                    /
+--  dPlim  dSlim   dNlim   dVerrlim
+     300     0.2    0.3      0.001                               /
+-- itNRmax  NRtol  dPmax  dSmax  dPmin   dSmin   dVerrmax
+       15    1E-3   200    0.2       1      0.01    0.01          /
+/
+
+
+METHOD
+FIM 
+/
+
+
+-- Scenario One  ------------------------------------------------
+
+WELSPECS
+--name  group   I   J  depth_ref phase_ref -- I J -(x,y), start 1
+'I1'   'G'   35   35    1*    'GAS'   /
+'P1'   'G'   1    1     1*    'OIL'   /
+'P2'   'G'   1    70    1*    'OIL'   /
+'P3'   'G'   70   1     1*    'OIL'   /
+'P4'   'G'   70   70    1*    'OIL'   /
+/
+
+COMPDAT
+--name   I J    K1  K2          diameter 
+'P*'       2*   5   6         1*   0.5   3*   /
+'I*'       2*   1   2         1*   0.5   3*   /
+/
+
+WCONPROD
+'P*'   OPEN               ORAT     12000     500  /
+/
+
+WCONINJE
+'I*'   Solvent    OPEN    RATE     12000    12000  /
+/
+
+WELLSTRE
+Solvent 0.77 0.20 0.03 0.0 0.0 /
+/
+
+--Start production only ----------------------------------------------
+
+TSTEP
+100
+/
+
+END
