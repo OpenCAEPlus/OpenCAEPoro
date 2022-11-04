@@ -1067,22 +1067,8 @@ void Well::CheckOptMode(const Bulk& myBulk)
             }
         } else {
             opt.optMode = BHP_MODE;
-            if (opt.type == INJ)
-                BHP = opt.maxBHP;
-            else
-                BHP = opt.minBHP;
+            BHP = opt.minBHP;
         }
-        // else {
-        //     OCP_DBL q = CalProdRate(myBulk, OCP_FALSE);
-        //     // cout << q << endl;
-        //     if (q > opt.maxRate) {
-        //         opt.optMode = opt.initOptMode;
-        //     }
-        //     else {
-        //         opt.optMode = BHP_MODE;
-        //         BHP = opt.minBHP;
-        //     }
-        // }
     } else {
         if (opt.type == INJ) {
             OCP_DBL q = CalInjRate(myBulk, OCP_TRUE);

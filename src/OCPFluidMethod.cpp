@@ -666,7 +666,7 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     OCP_USI dSn;
     const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
-    const OCP_DBL NRdNmax = rs.GetNRdNmax();
+    // const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
 #ifdef DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
