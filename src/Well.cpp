@@ -991,14 +991,14 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 tmp = factor[OIndex] + factor[WIndex];
                 break;
             default:
-                OCP_ABORT("WRONG opt mode!");
                 break;
             }
             
-            if (tmp < 1E-12 || !isfinite(tmp)) {
-                OCP_ABORT("Wrong Condition!");
-            }
-
+            if (opt.optMode != BHP_MODE) {
+                if (tmp < 1E-12 || !isfinite(tmp)) {
+                    OCP_ABORT("Wrong Condition!");
+                }
+            }  
             fill(prodWeight.begin(), prodWeight.end(), tmp);
         }
     }
