@@ -1048,14 +1048,14 @@ $(function() {
 <div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;                tmp = factor[OIndex] + factor[WIndex];</div>
 <div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG opt mode!&quot;</span>);</div>
-<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;            }</div>
-<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;            </div>
-<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;            <span class="keywordflow">if</span> (tmp &lt; 1E-12 || !isfinite(tmp)) {</div>
-<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Condition!&quot;</span>);</div>
-<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;            }</div>
-<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160; </div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            }</div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;            </div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;            <span class="keywordflow">if</span> (opt.optMode != <a class="code" href="OCPConst_8hpp.html#ae977bf9562c2c63895c4efc43f080225">BHP_MODE</a>) {</div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;                <span class="keywordflow">if</span> (tmp &lt; 1E-12 || !isfinite(tmp)) {</div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                    <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Condition!&quot;</span>);</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;                }</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;            }  </div>
 <div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;            fill(prodWeight.begin(), prodWeight.end(), tmp);</div>
 <div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        }</div>
 <div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;    }</div>
@@ -3084,7 +3084,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 4 2022 07:23:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Nov 4 2022 09:17:15 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
