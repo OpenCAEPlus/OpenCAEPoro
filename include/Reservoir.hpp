@@ -127,7 +127,7 @@ public:
 
 private:
 
-    OCP_DBL cfl; ///< CFL number.
+    OCP_DBL cfl{ 0 }; ///< CFL number.
 
 public:
     /////////////////////////////////////////////////////////////////////
