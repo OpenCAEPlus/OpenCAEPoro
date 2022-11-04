@@ -105,7 +105,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
     OCP_FUNCNAME;
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
-    factor.resize(3); // oil, gas, liquid
+    factor.resize(myBulk.numPhase); // oil, gas, liquid
     Mtype = myBulk.flashCal[0]->GetType();
     // zi
     if (myBulk.blackOil) {
@@ -526,7 +526,7 @@ void Well::CalProdQjCOMP(const Bulk& myBulk)
     OCP_DBL qt = Dnorm1(nc, &qi_lbmol[0]);
     WOPR       = qt * factor[0];
     WGPR       = qt * factor[1];
-    WWPR       = qi_lbmol[nc - 1];
+    WWPR       = qt * factor[2];
 }
 
 void Well::CalProdQiBO(const Bulk& myBulk)
@@ -907,17 +907,9 @@ void Well::CalProddG(const Bulk& myBulk)
 void Well::CalProdWeight(const Bulk& myBulk) const
 {
     if (opt.type == PROD) {
-        if (Mtype == BLKOIL || opt.optMode == WRATE_MODE) {
+        if (Mtype == BLKOIL) {
             prodWeight = opt.zi;
-        } else if (Mtype == EOS_PVTW) {
-            // use qi_lbmol, so it must be calculated before (Well::CalFlux())
-            // when reset the step, qi_lbmol may be calculated
-            USI pid = 0; // phase Id for oil
-            if (opt.optMode == GRATE_MODE) {
-                pid = 1; // phase Id for gas
-            } else if (opt.optMode == LRATE_MODE) {
-                pid = 2; // phase Id for liquid
-            }
+        } else {
             // in some cases, qi_lbmol may be zero, so use other methods
             OCP_DBL  qt   = 0;
             OCP_BOOL flag = OCP_TRUE;
@@ -948,33 +940,66 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 myBulk.flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &tmpNi[0], 0,
                                           0, 0);
             }
+            const USI OIndex = myBulk.phase2Index[OIL];
+            const USI GIndex = myBulk.phase2Index[GAS];
+            const USI WIndex = myBulk.phase2Index[WATER];
 
-            fill(factor.begin(), factor.end(), 0);
-            if (myBulk.flashCal[0]->phaseExist[0]) { // improve
-                OCP_DBL nuo = myBulk.flashCal[0]->xi[0] * myBulk.flashCal[0]->v[0] /
-                              qt; // mole fraction of oil phase
-                factor[0] = nuo / (myBulk.flashCal[0]->xi[0] *
-                                   CONV1); // lbmol / ft3 -> lbmol / stb for oil
+            if (myBulk.oil) {
+                if (myBulk.flashCal[0]->phaseExist[OIndex]) {
+                    // mole fraction of oil phase
+                    OCP_DBL nuo = myBulk.flashCal[0]->xi[OIndex] * myBulk.flashCal[0]->v[OIndex] /
+                        qt; 
+                    // lbmol / ft3 -> lbmol / stb for oil
+                    factor[OIndex] = nuo / (myBulk.flashCal[0]->xi[OIndex] *
+                        CONV1); 
+                }
             }
-            if (myBulk.flashCal[0]->phaseExist[1]) {
-                OCP_DBL nug = myBulk.flashCal[0]->xi[1] * myBulk.flashCal[0]->v[1] /
-                              qt; // mole fraction of gas phase
-                factor[1] = nug / (myBulk.flashCal[0]->xi[1] *
-                                   1000); // lbmol / ft3 -> lbmol / Mscf  for gas
+            
+            if (myBulk.gas) {
+                if (myBulk.flashCal[0]->phaseExist[GIndex]) {
+                    OCP_DBL nug = myBulk.flashCal[0]->xi[GIndex] * myBulk.flashCal[0]->v[GIndex] /
+                        qt; // mole fraction of gas phase
+                    factor[GIndex] = nug / (myBulk.flashCal[0]->xi[GIndex] *
+                        1000); // lbmol / ft3 -> lbmol / Mscf  for gas
+                }
             }
-            factor[2] = factor[0];
-            if (myBulk.flashCal[0]->phaseExist[2]) {
-                OCP_DBL nuw = myBulk.flashCal[0]->xi[2] * myBulk.flashCal[0]->v[2] /
-                              qt; // mole fraction of water phase
-                factor[2] += nuw;
+            
+            if (myBulk.water) {
+                if (myBulk.flashCal[0]->phaseExist[WIndex]) {
+                    OCP_DBL nuw = myBulk.flashCal[0]->xi[WIndex] * myBulk.flashCal[0]->v[WIndex] /
+                        qt; // mole fraction of water phase
+                    factor[WIndex] = nuw;
+                    if (Mtype == THERMAL) {
+                        factor[WIndex] /= (myBulk.flashCal[0]->xi[WIndex] *
+                            CONV1);
+                    }
+                }
             }
-
-            if (factor[pid] < 1E-12 || !isfinite(factor[pid])) {
+            OCP_DBL tmp = 0;
+            switch (opt.optMode)
+            {
+            case ORATE_MODE:
+                tmp = factor[OIndex];
+                break;
+            case GRATE_MODE:
+                tmp = factor[GIndex];
+                break;
+            case WRATE_MODE:
+                tmp = factor[WIndex];
+                break;
+            case LRATE_MODE:
+                tmp = factor[OIndex] + factor[WIndex];
+                break;
+            default:
+                OCP_ABORT("WRONG opt mode!");
+                break;
+            }
+            
+            if (tmp < 1E-12 || !isfinite(tmp)) {
                 OCP_ABORT("Wrong Condition!");
             }
-            fill(prodWeight.begin(), prodWeight.end(), factor[pid]);
 
-            // cout << "Factor  " << factor[0] << "   " << factor[1] << endl;
+            fill(prodWeight.begin(), prodWeight.end(), tmp);
         }
     }
 }

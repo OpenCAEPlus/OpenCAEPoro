@@ -88,6 +88,7 @@ const USI SOLVENT = 3; ///< Fluid type = solvent
 // Mixture types
 const USI BLKOIL   = 1; ///< Mixture model = black-oil
 const USI EOS_PVTW = 2; ///< Mixture model = equation-of-state
+const USI THERMAL  = 3; ///< Mixture model = thermal
 
 // EoS models
 const USI EOS_PR  = 1; ///< EoS model = PR
