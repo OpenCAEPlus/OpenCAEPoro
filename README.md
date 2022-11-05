@@ -152,6 +152,7 @@ The directory structure of OpenCAEPoro is designed as follows:
 - `examples/` : Input files for test examples
 - `external/` : External dependencies
 - `include/` : Header files
+- `regression/` : Regression tests
 - `src/` : Source files
 - `stash/` : Files that are no longer needed, keep for future references
 - `main/` : Main source code for executables
