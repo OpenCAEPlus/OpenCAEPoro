@@ -38,13 +38,12 @@ class ParamEQUIL
     friend class Bulk;
 
 private:
-    OCP_DBL Dref; ///< The reference depth
-    OCP_DBL Pref; ///< Pressure at the reference depth
-    OCP_DBL DOWC; ///< The depth of oil-water contact surface
-    OCP_DBL DGOC; ///< The depth of gas-oil contact surface
-    OCP_DBL PcOW; ///< Capillary pressure at oil-water contact Pcow = Po - Pw
-    OCP_DBL PcGO; ///< capillary pressure at gas-oil contact Pcgo = Pg - Po
-
+    OCP_DBL  Dref; ///< The reference depth
+    OCP_DBL  Pref; ///< Pressure at the reference depth
+    OCP_DBL  DOWC; ///< The depth of oil-water contact surface
+    OCP_DBL  DGOC; ///< The depth of gas-oil contact surface
+    OCP_DBL  PcOW; ///< Capillary pressure at oil-water contact Pcow = Po - Pw
+    OCP_DBL  PcGO; ///< capillary pressure at gas-oil contact Pcgo = Pg - Po
     OCPTable PBVD; ///< PBVD Table: bubble point pressure vs depth
 };
 
@@ -62,9 +61,9 @@ class Bulk
     friend class Out4VTK;
 
     // temp
+    friend class Reservoir;
     friend class OCP_IMPEC;
     friend class OCP_FIM;
-    friend class Reservoir;
     friend class OCP_AIMc;
 
     /////////////////////////////////////////////////////////////////////
@@ -187,7 +186,7 @@ public:
     void ResetziSkip() { ziSkip = lziSkip; }
     // Reset flagSkip to the ones of the last time step.
     void ResetPSkip() { PSkip = lPSkip; }
-    // Reser Ks to the ones of the last time step.
+    // Reset Ks to the ones of the last time step.
     void ResetKs() { Ks = lKs; }
 
     /// Reset Nt to the ones of the last time step.
@@ -205,7 +204,7 @@ public:
     void ResetVp() { rockVp = lrockVp; }
     void CalSomeInfo(const Grid& myGrid) const;
 
-    /// Allocate memory for WellbulkId
+    /// Allocate memory for wellBulkId
     void    AllocateWellBulkId(const USI& n) { wellBulkId.reserve(n); }
     void    ClearWellBulkId() { wellBulkId.clear(); }
     OCP_DBL CalNT()
@@ -413,7 +412,7 @@ public:
     void GetSolFIM_n(const vector<OCP_DBL>& u,
                      const OCP_DBL&         dPmaxlim,
                      const OCP_DBL&         dSmaxlim);
-    /// Calculate relative resiual for FIM.
+    /// Calculate relative residual for FIM.
     void CalRelResFIM(ResFIM& resFIM) const;
     // Show Res
     void ShowRes(const vector<OCP_DBL>& res) const;

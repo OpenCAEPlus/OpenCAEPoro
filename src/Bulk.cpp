@@ -1363,9 +1363,9 @@ void Bulk::FlashBLKOIL()
 
 void Bulk::FlashCOMP()
 {
-    USI     ftype;
+    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        
+
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
@@ -2099,13 +2099,9 @@ OCP_BOOL Bulk::CheckNi()
                 std::ostringstream NiStringSci;
                 NiStringSci << std::scientific << Ni[n];
                 OCP_WARNING("Negative Ni: Ni[" + std::to_string(cId) + "] in Bulk[" +
-                            std::to_string(bId) + "] = " + NiStringSci.str() + "   " +
-                            "dNi = " + std::to_string(dNNR[n]) + +"     lNi[" +
-                            std::to_string(cId) + "] in Bulk[" + std::to_string(bId) +
-                            "] = " + std::to_string(lNi[n]) +
-                            "    Nt = " + std::to_string(Nt[bId]) + "   " +
-                            std::to_string(phaseNum[bId]) + "   " +
-                            std::to_string(NRstep[bId]));
+                            std::to_string(bId) + "] = " + NiStringSci.str() + ",  " +
+                            "dNi = " + std::to_string(dNNR[n]));
+#ifdef DEBUG
                 for (USI i = 0; i < numCom; i++) {
                     cout << Ni[bId * numCom + i] << "   ";
                 }
@@ -2121,6 +2117,7 @@ OCP_BOOL Bulk::CheckNi()
                         cout << endl;
                     }
                 }
+#endif // DEBUG
                 return OCP_FALSE;
             }
         }
@@ -2446,7 +2443,7 @@ OCP_DBL Bulk::CalCFL() const
 {
     OCP_FUNCNAME;
 
-    OCP_DBL tmp = 0;
+    OCP_DBL       tmp = 0;
     const OCP_USI len = numBulk * numPhase;
     for (OCP_USI n = 0; n < len; n++) {
         if (phaseExist[n]) {
@@ -2836,7 +2833,6 @@ void Bulk::CalRelResFIM(ResFIM& resFIM) const
 {
     OCP_FUNCNAME;
 
-
     OCP_DBL tmp;
 
     const USI len = numCom + 1;
@@ -3153,7 +3149,7 @@ void Bulk::FlashBLKOILAIMc()
 
 void Bulk::FlashCOMPAIMc()
 {
-    USI     ftype;
+    USI ftype;
     // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (map_Bulk2FIM[n] > -1) {
@@ -3193,7 +3189,7 @@ void Bulk::FlashBLKOILAIMc01()
 
 void Bulk::FlashCOMPAIMc01()
 {
-    USI     ftype;
+    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (map_Bulk2FIM[n] > -1) {
             // FIM bulk
@@ -3228,14 +3224,14 @@ void Bulk::FlashDerivBLKOILAIMc()
 
 void Bulk::FlashDerivCOMPAIMc()
 {
-    USI     ftype;
+    USI ftype;
     for (auto& n : FIMBulk) {
-        
+
         ftype = CalFlashType(n, OCP_TRUE);
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
                                         &Ks[n * numCom_1]);
-        PassFlashValueDeriv(n);        
+        PassFlashValueDeriv(n);
     }
 }
 
@@ -3255,8 +3251,7 @@ void Bulk::CalKrPcAIMc()
             for (USI j = 0; j < numPhase; j++)
                 Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }
-    }
-    else {
+    } else {
         for (OCP_USI n = 0; n < numBulk; n++) {
             if (map_Bulk2FIM[n] > -1) {
                 // FIM bulk
@@ -3264,7 +3259,7 @@ void Bulk::CalKrPcAIMc()
             }
             OCP_USI bId = n * numPhase;
             flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n],
-                Fp[n]);
+                                     Fp[n]);
             for (USI j = 0; j < numPhase; j++)
                 Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }
@@ -3293,12 +3288,11 @@ void Bulk::CalKrPcDerivAIMc()
         for (auto& n : FIMBulk) {
             OCP_USI bId = n * numPhase;
             flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                &dKr_dS[bId * numPhase],
-                &dPcj_dS[bId * numPhase], 0, tmp, tmp);
+                                          &dKr_dS[bId * numPhase],
+                                          &dPcj_dS[bId * numPhase], 0, tmp, tmp);
             for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
         }
-    }
-    else {
+    } else {
         for (auto& n : FIMBulk) {
             OCP_USI bId = n * numPhase;
             flow[SATNUM[n]]->CalKrPcDeriv(
@@ -3323,7 +3317,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
                       const OCP_DBL&         dPmaxlim,
                       const OCP_DBL&         dSmaxlim)
 {
-    dSNR = S;
+    dSNR     = S;
     NRdSmaxP = 0;
     NRdPmax  = 0;
     OCP_DBL         dP;
