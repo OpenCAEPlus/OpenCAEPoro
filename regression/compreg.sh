@@ -47,9 +47,9 @@ for ((i=0; i<PNUM; i++)); do
     mv    ../examples/${DIRS[i]}/$OCP_LOG  ./$i/New_IMPEC_$OCP_LOG
     mv    ../examples/${DIRS[i]}/$OCP_SUM  ./$i/New_IMPEC_$OCP_SUM
     mv    ../examples/${DIRS[i]}/$OCP_REV  ./$i/New_IMPEC_$OCP_REV
-    sdiff  ./$i/Old_IMPEC_$OCP_LOG ./$i/New_IMPEC_$OCP_LOG | grep "|" 2>/dev/null
-    sdiff  ./$i/Old_IMPEC_$OCP_SUM ./$i/New_IMPEC_$OCP_SUM | grep "|" 2>/dev/null
-    sdiff  ./$i/Old_IMPEC_$OCP_REV ./$i/New_IMPEC_$OCP_REV | grep "|" 2>/dev/null
+    sdiff -s ./$i/Old_IMPEC_$OCP_LOG ./$i/New_IMPEC_$OCP_LOG 2>/dev/null
+    sdiff -s ./$i/Old_IMPEC_$OCP_SUM ./$i/New_IMPEC_$OCP_SUM 2>/dev/null
+    sdiff -s ./$i/Old_IMPEC_$OCP_REV ./$i/New_IMPEC_$OCP_REV 2>/dev/null
 done
 
 # Overwrite results
