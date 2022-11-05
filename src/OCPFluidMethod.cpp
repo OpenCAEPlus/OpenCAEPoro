@@ -78,7 +78,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
             dt /= 2;
             return OCP_FALSE;
         case 2:
-            // Switch Well opt Mode, or close the crossflow perforation
+            // Switch Well opt Mode, or close the cross-flow perforation
             dt /= 1;
             return OCP_FALSE;
         default:
@@ -98,7 +98,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         return OCP_FALSE;
     }
 
-    rs.MassConseveIMPEC(dt);
+    rs.MassConserveIMPEC(dt);
 
     // third check: Ni check
     if (!rs.CheckNi()) {
@@ -146,7 +146,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
             dt /= 2;
             return OCP_FALSE;
         case 2:
-            // Switch Well opt Mode, or close the crossflow perforation
+            // Switch Well opt Mode, or close the cross-flow perforation
             dt /= 1;
             return OCP_FALSE;
         default:
@@ -165,7 +165,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
         return OCP_FALSE;
     }
 
-    rs.MassConseveIMPEC(dt);
+    rs.MassConserveIMPEC(dt);
 
     // third check: Ni check
     if (!rs.CheckNi()) {
@@ -217,7 +217,7 @@ void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     rs.AllocateAuxFIM();
     // Allocate memory for internal matrix structure
     rs.AllocateMatFIM(myLS);
-    // Allocate memory for resiual of FIM
+    // Allocate memory for residual of FIM
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
     resFIM.res.resize(num);
 
@@ -650,7 +650,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     // think more and more
     rs.CalFlashAIMc();
-    
+
     // Important, Pj must be updated with current and last Pc for IMPEC Bulk
     rs.UpdatePj();
 
@@ -663,7 +663,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
 OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_USI dSn;
+    OCP_USI       dSn;
     const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
     const OCP_DBL NRdPmax = rs.GetNRdPmax();
     // const OCP_DBL NRdNmax = rs.GetNRdNmax();
@@ -681,8 +681,8 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
-            "current dt = "
-            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
+                "current dt = "
+             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -690,7 +690,7 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
           resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
           resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
          resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
-        (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin && 
+        (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
         OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);

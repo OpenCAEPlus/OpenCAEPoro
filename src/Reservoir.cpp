@@ -22,7 +22,6 @@ void Reservoir::InputParam(ParamRead& param)
     grid.InputParam(param.paramRs);
     bulk.InputParam(param.paramRs);
     allWells.InputParam(param.paramWell);
-
 }
 
 void Reservoir::Setup(const OCP_BOOL& useVTK)
@@ -128,7 +127,7 @@ OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
     return bulk.CheckVe(Vlim);
 }
 
-void Reservoir::GetNTQT(const OCP_DBL& dt) 
+void Reservoir::GetNTQT(const OCP_DBL& dt)
 {
     OCP_DBL NT = bulk.CalNT();
     OCP_DBL QT = allWells.CalWellQT() * dt;
@@ -166,7 +165,6 @@ void Reservoir::InitIMPEC()
     allWells.UpdateLastBHP();
 }
 
-
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
@@ -194,7 +192,7 @@ void Reservoir::CalConnFluxIMPEC()
     conn.CalFluxIMPEC(bulk);
 }
 
-void Reservoir::MassConseveIMPEC(const OCP_DBL& dt)
+void Reservoir::MassConserveIMPEC(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
@@ -252,9 +250,8 @@ void Reservoir::ResetWellIMPEC()
     allWells.ResetBHP();
     allWells.CalTrans(bulk);
     allWells.CaldG(bulk);
-    allWells.CalFlux(bulk);  
+    allWells.CalFlux(bulk);
 }
-
 
 void Reservoir::ResetVal01IMPEC()
 {
@@ -266,7 +263,7 @@ void Reservoir::ResetVal01IMPEC()
 void Reservoir::ResetVal02IMPEC()
 {
     OCP_FUNCNAME;
-    
+
     bulk.ResetPj();
     bulk.ResetNi();
     conn.Reset();
@@ -317,8 +314,8 @@ void Reservoir::InitFIM()
     bulk.CalVpore();
 
     bulk.InitFlashDer();
-    //bulk.InitFlash();
-    //bulk.FlashDeriv();
+    // bulk.InitFlash();
+    // bulk.FlashDeriv();
 
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
@@ -326,8 +323,7 @@ void Reservoir::InitFIM()
     UpdateLastStepFIM();
 }
 
-
-void Reservoir::InitFIM_n() 
+void Reservoir::InitFIM_n()
 {
     OCP_FUNCNAME;
 
@@ -343,7 +339,6 @@ void Reservoir::InitFIM_n()
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }
-
 
 void Reservoir::CalFlashDerivFIM()
 {
@@ -393,13 +388,12 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
 
 #ifdef OCP_OLD_FIM
     conn.AssembleMat_FIM(myLS, bulk, dt);
-    allWells.AssemblaMatFIM(myLS, bulk, dt);  
+    allWells.AssemblaMatFIM(myLS, bulk, dt);
 #else
     conn.AssembleMat_FIM_new(myLS, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #endif // OCP_OLD_FIM
 }
-
 
 void Reservoir::AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const
 {
@@ -410,23 +404,23 @@ void Reservoir::AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const
     allWells.AssemblaMatFIM_new_n(myLS, bulk, dt);
 }
 
-void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-                               const OCP_DBL& dSmax)
+void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u,
+                               const OCP_DBL&         dPmax,
+                               const OCP_DBL&         dSmax)
 {
-    bulk.GetSolFIM(u, dPmax, dSmax); 
+    bulk.GetSolFIM(u, dPmax, dSmax);
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
-
-void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-    const OCP_DBL& dSmax)
+void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u,
+                                 const OCP_DBL&         dPmax,
+                                 const OCP_DBL&         dSmax)
 {
     OCP_FUNCNAME;
 
     bulk.GetSolFIM_n(u, dPmax, dSmax);
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
-
 
 void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
 {
@@ -502,7 +496,6 @@ void Reservoir::ShowRes(const vector<OCP_DBL>& res) const
     allWells.ShowRes(res, bulk);
 }
 
-
 void Reservoir::AllocateAuxAIMc()
 {
     OCP_FUNCNAME;
@@ -535,37 +528,21 @@ void Reservoir::CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt)
     Dscalar(resFIM.res.size(), -1, resFIM.res.data());
 }
 
-void Reservoir::CalFlashAIMc()
-{
-    bulk.FlashAIMc();
-}
+void Reservoir::CalFlashAIMc() { bulk.FlashAIMc(); }
 
-void Reservoir::CalFlashAIMc01()
-{
-    bulk.FlashAIMc01();
-}
+void Reservoir::CalFlashAIMc01() { bulk.FlashAIMc01(); }
 
-void Reservoir::CalKrPcAIMc()
-{
-    bulk.CalKrPcAIMc();
-}
-
+void Reservoir::CalKrPcAIMc() { bulk.CalKrPcAIMc(); }
 
 /// Calculate Flash for local FIM, some derivatives are needed
-void Reservoir::CalFlashDerivAIMc()
-{
-    bulk.FlashDerivAIMc();
-}
-
+void Reservoir::CalFlashDerivAIMc() { bulk.FlashDerivAIMc(); }
 
 /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-void Reservoir::CalKrPcDerivAIMc()
-{
-    bulk.CalKrPcDerivAIMc();
-}
+void Reservoir::CalKrPcDerivAIMc() { bulk.CalKrPcDerivAIMc(); }
 
-void Reservoir::GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-    const OCP_DBL& dSmax)
+void Reservoir::GetSolutionAIMc(const vector<OCP_DBL>& u,
+                                const OCP_DBL&         dPmax,
+                                const OCP_DBL&         dSmax)
 {
     bulk.GetSolAIMc(u, dPmax, dSmax);
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
@@ -587,7 +564,6 @@ void Reservoir::InitAIMc()
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

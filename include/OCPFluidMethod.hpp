@@ -16,10 +16,10 @@
 #include "LinearSystem.hpp"
 #include "OCPControl.hpp"
 #include "Reservoir.hpp"
-#include "UtilTiming.hpp"
 #include "UtilOutput.hpp"
+#include "UtilTiming.hpp"
 
-/// OCP_IMPEC is IMPEC (implict pressure explict saturation) method.
+/// OCP_IMPEC is IMPEC (implicit pressure explict saturation) method.
 class OCP_IMPEC
 {
 public:
@@ -44,7 +44,6 @@ public:
     OCP_BOOL FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
-
 };
 
 /// OCP_FIM is FIM (Fully Implicit Method).
@@ -75,17 +74,14 @@ public:
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
 
-
 protected:
-    /// Resiual for FIM
+    /// Residual for FIM
     ResFIM resFIM;
 };
-
 
 class OCP_FIMn : public OCP_FIM
 {
 public:
-
     /// Init
     void InitReservoir(Reservoir& rs) const;
 
@@ -97,7 +93,6 @@ public:
 
     /// Update properties of fluids.
     OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-
 };
 
 class OCP_AIMc : public OCP_FIM

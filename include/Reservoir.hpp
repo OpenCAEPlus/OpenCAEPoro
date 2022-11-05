@@ -13,11 +13,11 @@
 #define __RESERVOIR_HEADER__
 
 // OpenCAEPoro header files
+#include "AllWells.hpp"
 #include "Bulk.hpp"
 #include "BulkConn.hpp"
 #include "Grid.hpp"
 #include "ParamRead.hpp"
-#include "AllWells.hpp"
 
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
@@ -68,7 +68,8 @@ public:
     /// Calculate num of Injection, Production
     void CalIPRT(const OCP_DBL& dt);
     /// Check if abnormal Pressure occurs
-    OCP_INT CheckP(const OCP_BOOL& bulkCheck = OCP_TRUE, const OCP_BOOL& wellCheck = OCP_TRUE);
+    OCP_INT CheckP(const OCP_BOOL& bulkCheck = OCP_TRUE,
+                   const OCP_BOOL& wellCheck = OCP_TRUE);
     /// Check if abnormal Pressure occurs
     OCP_BOOL CheckNi();
     /// Check error between Fluids and Pores
@@ -78,15 +79,15 @@ public:
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
-    USI GetComNum() const { return bulk.GetComNum(); }
+    USI  GetComNum() const { return bulk.GetComNum(); }
     void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
     void GetNTQT(const OCP_DBL& dt);
 
 private:
-    Grid      grid;      ///< Grid class.
-    Bulk      bulk;      ///< Bulk class.
-    AllWells  allWells; ///< AllWells class.
-    BulkConn  conn;      ///< BulkConn class.
+    Grid     grid;     ///< Grid class.
+    Bulk     bulk;     ///< Bulk class.
+    AllWells allWells; ///< AllWells class.
+    BulkConn conn;     ///< BulkConn class.
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
@@ -97,21 +98,21 @@ public:
     void AllocateAuxIMPEC();
     /// Initialize the properties of Reservoir for IMPEC
     void InitIMPEC();
-    /// Calcluate the CFL number, including bulks and wells for IMPEC
+    /// Calculate the CFL number, including bulks and wells for IMPEC
     OCP_DBL CalCFL(const OCP_DBL& dt);
     /// Calculate flux between bulks, bulks and wells
     void CalFLuxIMPEC();
     /// Calculate flux between bulks
     void CalConnFluxIMPEC();
     /// Calculate Ni according to Flux
-    void MassConseveIMPEC(const OCP_DBL& dt);
+    void MassConserveIMPEC(const OCP_DBL& dt);
     /// Calculate Flash For IMPEC
     void CalFlashIMPEC();
     /// Update value of last step for IMPEC
     void UpdateLastStepIMPEC();
-    /// Allocate Maxmimum memory for internal Matirx for IMPEC
+    /// Allocate maximal memory for internal Matrix for IMPEC
     void AllocateMatIMPEC(LinearSystem& myLS) const;
-    /// Assemble Matrix for IMPEC
+    /// Assemble matrix for IMPEC
     void AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure for IMPEC
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
@@ -119,15 +120,14 @@ public:
     void ResetWellIMPEC();
     /// Reset Capillary Pressure, Flux for IMPEC
     void ResetVal01IMPEC();
-    /// Reset Capillary Pressure, Moles of Componnets, Flux for IMPEC
+    /// Reset Capillary Pressure, Moles of Components, Flux for IMPEC
     void ResetVal02IMPEC();
     /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores
     /// for IMPEC
     void ResetVal03IMPEC();
 
 private:
-
-    OCP_DBL cfl{ 0 }; ///< CFL number.
+    OCP_DBL cfl{0}; ///< CFL number.
 
 public:
     /////////////////////////////////////////////////////////////////////
@@ -146,23 +146,25 @@ public:
     void CalKrPcDerivFIM();
     /// Update value of last step for FIM.
     void UpdateLastStepFIM();
-    /// Allocate Maxmimum memory for internal Matirx for FIM
+    /// Allocate maximal memory for internal Matrix for FIM
     void AllocateMatFIM(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
     void AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure and moles of Components for FIM
     /// Exactly, it's a Newton step.
-    void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-                        const OCP_DBL& dSmax);
-    void GetSolutionFIM_n(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-        const OCP_DBL& dSmax);
-    /// Calculate the Resiual for FIM, it's also RHS of Linear System
+    void GetSolutionFIM(const vector<OCP_DBL>& u,
+                        const OCP_DBL&         dPmax,
+                        const OCP_DBL&         dSmax);
+    void GetSolutionFIM_n(const vector<OCP_DBL>& u,
+                          const OCP_DBL&         dPmax,
+                          const OCP_DBL&         dSmax);
+    /// Calculate the Residual for FIM, it's also RHS of Linear System
     void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
     /// Reset FIM
     void ResetFIM();
     /// Return NRdPmax
-    OCP_DBL GetNRdPmax(){ return bulk.GetNRdPmax(); }
+    OCP_DBL GetNRdPmax() { return bulk.GetNRdPmax(); }
     /// Return NRdSmax
     OCP_DBL GetNRdSmax(OCP_USI& index) { return bulk.CalNRdSmax(index); }
     /// Return NRdNmax
@@ -172,20 +174,21 @@ public:
     void    PrintSolFIM(const string& outfile) const;
     void    ShowRes(const vector<OCP_DBL>& res) const;
 
-
     /////////////////////////////////////////////////////////////////////
     // AIMc
     /////////////////////////////////////////////////////////////////////
 
 public:
-
     /// Setup FIMBulk
-    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(bulk, NRflag); }
+    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE)
+    {
+        conn.SetupFIMBulk(bulk, NRflag);
+    }
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxAIMc();
     /// Assemble Matrix for AIMc
     void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
-    /// Calculate the Resiual for FIM, it's also RHS of Linear System
+    /// Calculate the Residual for FIM, it's also RHS of Linear System
     void CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt);
     void CalFlashAIMc();
     void CalFlashAIMc01();
@@ -194,11 +197,11 @@ public:
     void CalFlashDerivAIMc();
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
     void CalKrPcDerivAIMc();
-    void GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax,
-        const OCP_DBL& dSmax);
+    void GetSolutionAIMc(const vector<OCP_DBL>& u,
+                         const OCP_DBL&         dPmax,
+                         const OCP_DBL&         dSmax);
     void InitAIMc();
     void UpdatePj() { bulk.UpdatePj(); }
-    
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */
