@@ -3,6 +3,8 @@ target_sources(
   PRIVATE AllWells.cpp
          DenseMat.cpp
          IsothermalSolver.cpp
+		 ThermalSolver.cpp
+		 ThermalMethod.cpp
          MixtureBO2_OW.cpp
          MixtureComp.cpp
          OCPFluidMethod.cpp

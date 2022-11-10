@@ -3,6 +3,8 @@ target_sources(
   PUBLIC AllWells.hpp
          Doxygen.hpp
          IsothermalSolver.hpp
+		 ThermalSolver.hpp
+		 ThermalMethod.hpp
          LinearSystem.hpp
          Mixture.hpp
          OCPFluidMethod.hpp

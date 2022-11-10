@@ -11,6 +11,7 @@
 
 // OpenCAEPoro header files
 #include "IsothermalSolver.hpp"
+#include "ThermalSolver.hpp"
 #include "OCPOutput.hpp"
 
 #ifndef __SOLVER_HEADER__
@@ -51,6 +52,8 @@ private:
     USI OCPModel{ISOTHERMALMODEL};
     /// Solver for isothermal models with fixed T
     IsothermalSolver IsoTSolver;
+    /// Solver for thermal models with varied T
+    ThermalSolver    TSolver;
     /// Linear solver
     LinearSystem LSolver;
 };

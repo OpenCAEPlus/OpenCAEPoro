@@ -9,8 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __FLUIDSOLVER_HEADER__
-#define __FLUIDSOLVER_HEADER__
+#ifndef __ISOTHERMALSOLVER_HEADER__
+#define __ISOTHERMALSOLVER_HEADER__
 
 // OpenCAEPoro header files
 #include "OCPFluidMethod.hpp"
@@ -46,7 +46,7 @@ private:
     OCP_AIMc      aimc;
 };
 
-#endif /* end if __FLUIDSOLVER_HEADER__ */
+#endif /* end if __ISOTHERMALSOLVER_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
