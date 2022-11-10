@@ -30,6 +30,8 @@ public:
 private:
     /// Run one time step.
     void GoOneStep(Reservoir& rs, OCPControl& ctrl);
+    void GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl);
+    void GoOneStepT(Reservoir& rs, OCPControl& ctrl);
     /// Setup the solution method.
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     /// Before solve: prepare for assembling matrix.
@@ -44,6 +46,8 @@ private:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
+    /// Model
+    USI Model;
     /// Solver for isothermal models with fixed T
     IsothermalSolver IsoTSolver;
     /// Linear solver

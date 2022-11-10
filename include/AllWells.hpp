@@ -216,6 +216,8 @@ private:
     OCP_DBL            dPmax{0};   ///< Maximum BHP change
 
     vector<Mixture*> flashCal; ///< Uesless now.
+    OCP_DBL Pref{ PRESSURE_STD };   ///< well reference pressure
+    OCP_DBL Tref{ TEMPERATURE_STD }; ///< well reference temperature
 
     OCP_DBL FGIR{0}; ///< gas injection rate in field.
     OCP_DBL FGIT{0}; ///< gas total injection in field.

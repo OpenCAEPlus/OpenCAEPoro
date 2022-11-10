@@ -208,6 +208,8 @@ private:
                               ///< well: num of components.
     
     USI  Mtype;               ///< Mixture Type
+    OCP_DBL Pref{PRESSURE_STD};          ///< Well reference Pressure
+    OCP_DBL Tref{TEMPERATURE_STD};       ///< Well referecce Temperature
     mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
     

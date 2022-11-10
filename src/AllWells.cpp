@@ -285,7 +285,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                 }
                 qt = Dnorm1(nc, &wG.zi[0]);
             }
-            flashCal[0]->Flash(PRESSURE_STD, TEMPERATURE_STD, &wG.zi[0], 0, 0, 0);
+            flashCal[0]->Flash(Pref, Tref, &wG.zi[0], 0, 0, 0);
             Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.injPhase * nc]);
             wG.xi     = flashCal[0]->xi[wG.injPhase];
             wG.factor = wG.xi * flashCal[0]->v[wG.injPhase] / qt;
