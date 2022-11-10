@@ -97,6 +97,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adbf07fa40120db47996f0629348dd1d9"><td class="memItemLeft" align="right" valign="top"><a id="adbf07fa40120db47996f0629348dd1d9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>BOMixtureInit</b> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param)</td></tr>
 <tr class="separator:adbf07fa40120db47996f0629348dd1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e6b3a7cfaad8c8da7e8d9b3bfd2808"><td class="memItemLeft" align="right" valign="top"><a id="ae5e6b3a7cfaad8c8da7e8d9b3bfd2808"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin) override</td></tr>
+<tr class="separator:ae5e6b3a7cfaad8c8da7e8d9b3bfd2808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97064133de7f1fca07c953403024a070"><td class="memItemLeft" align="right" valign="top"><a id="a97064133de7f1fca07c953403024a070"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer_n</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin) override</td></tr>
+<tr class="separator:a97064133de7f1fca07c953403024a070"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb04c48e7b3c808f5af0974a1aaec002"><td class="memItemLeft" align="right" valign="top"><a id="aeb04c48e7b3c808f5af0974a1aaec002"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBOMixture.html#aeb04c48e7b3c808f5af0974a1aaec002">GammaPhaseO</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin) override</td></tr>
 <tr class="memdesc:aeb04c48e7b3c808f5af0974a1aaec002"><td class="mdescLeft">&#160;</td><td class="mdescRight">return gamma of oil phase, gamma equals to mass density times gravity factor. <br /></td></tr>
@@ -176,12 +182,6 @@ virtual <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a35f1e56ebe2fa3275c508ac6ebf86cba">InitFlash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
 <tr class="memdesc:a35f1e56ebe2fa3275c508ac6ebf86cba inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">flash calculation with saturation of phases. <br /></td></tr>
 <tr class="separator:a35f1e56ebe2fa3275c508ac6ebf86cba inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9fbef2f3fe1c7756c099fb9913f5734 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="ae9fbef2f3fe1c7756c099fb9913f5734"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="separator:ae9fbef2f3fe1c7756c099fb9913f5734 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e6fa3ab2003defca6d1ac76133ed8ba inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="a9e6fa3ab2003defca6d1ac76133ed8ba"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer_n</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="separator:a9e6fa3ab2003defca6d1ac76133ed8ba inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a371b85cd655c15088e1a82cf89db059d inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="a371b85cd655c15088e1a82cf89db059d"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a371b85cd655c15088e1a82cf89db059d">Flash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
 <tr class="memdesc:a371b85cd655c15088e1a82cf89db059d inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components. <br /></td></tr>
@@ -409,10 +409,10 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#a489c10ddf83a8856fb492476bdc10c37">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00032">32</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>);  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00045">45</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Black Oil mode!&quot;</span>);  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
@@ -443,7 +443,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <p>&lt; others. </p>
 <p>The density of oil at surface conditions : lb/ft3 </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00075">75</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureBO_8hpp_source.html#l00088">88</a> of file <a class="el" href="MixtureBO_8hpp_source.html">MixtureBO.hpp</a>.</p>
 
 </div>
 </div>
@@ -454,7 +454,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 10 2022 06:32:59 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Nov 10 2022 08:13:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
