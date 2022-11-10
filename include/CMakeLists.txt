@@ -5,6 +5,7 @@ target_sources(
          IsothermalSolver.hpp
 		 ThermalSolver.hpp
 		 ThermalMethod.hpp
+		 MixtureThermal.hpp
          LinearSystem.hpp
          Mixture.hpp
          OCPFluidMethod.hpp

@@ -12,7 +12,11 @@
 #ifndef __THERMALMETHOD_HEADER__
 #define __THERMALMETHOD_HEADER__
 
-
+#include "LinearSystem.hpp"
+#include "OCPControl.hpp"
+#include "Reservoir.hpp"
+#include "UtilOutput.hpp"
+#include "UtilTiming.hpp"
 
 
 

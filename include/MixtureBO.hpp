@@ -9,8 +9,8 @@
  *-----------------------------------------------------------------------------------
  */
 
-#ifndef __BOMIXTURE_HEADER__
-#define __BOMIXTURE_HEADER__
+#ifndef __MIXTUREBO_HEADER__
+#define __MIXTUREBO_HEADER__
 
 #include <cmath>
 
@@ -24,6 +24,19 @@ class BOMixture : public Mixture
 public:
     BOMixture() = default;
     void BOMixtureInit(const ParamReservoir& rs_param);
+
+    void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+        const OCP_DBL* Ziin) override
+    {
+        OCP_ABORT("Not Used!");
+    };
+    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+        const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore,
+        const OCP_DBL* Ziin) override
+    {
+        OCP_ABORT("Not Used!");
+    };
 
     // return gamma
     virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used here!"); return 0; };
@@ -96,19 +109,6 @@ public:
         const OCP_DBL* Ziin) override {
         OCP_ABORT("Not Completed!");
     };
-    void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                      const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                      const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Used!");
-    };
-    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
-                                const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                        const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Completed!");
-    };
-
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override {
         OCP_ABORT("Not Completed!");
@@ -145,18 +145,6 @@ public:
     void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
         const OCP_DBL* Ziin) override;
-    void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                      const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                      const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Used!");
-    };
-    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                        const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Completed!");
-    };
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override;
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
@@ -196,18 +184,6 @@ public:
     void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
         const OCP_DBL* Ziin) override;
-    void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                      const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                      const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Used!");
-    }
-    void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
-                        const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                        const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Not Completed!");
-    };
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* lastKs) override;
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
@@ -236,7 +212,7 @@ private:
 };
 
 
-#endif /* end if __BOMIXTURE_HEADER__ */
+#endif /* end if __MIXTUREBO_HEADER__ */
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
