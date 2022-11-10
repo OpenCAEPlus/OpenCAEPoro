@@ -64,6 +64,10 @@ const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in field unit
 const OCP_DBL CONV3 = 0.45359237; ///< 1 lb = CONV3 kg
 const OCP_DBL CONV4 = 0.02831685; ///< 1 ft3 = CONV4 m3
 
+// Model Type
+const USI ISOTHERMALMODEL = 1;
+const USI THERMALMODEL    = 2;
+
 // Grid Type
 const USI ORTHOGONAL_GRID = 1; ///< Grid type = orthogonal
 const USI CORNER_GRID     = 2; ///< Grid type = corner-point

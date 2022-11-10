@@ -28,26 +28,27 @@ public:
     void RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output);
 
 private:
-    /// Run one time step.
+    /// General API
     void GoOneStep(Reservoir& rs, OCPControl& ctrl);
+
+    /// Setup solver for isothermal model
+    void SetupIsoT(Reservoir& rs, const OCPControl& ctrl);
+    /// Initialize the reservoir for isothermal model
+    void InitReservoirIsoT(Reservoir& rs) const;
+    /// Run one time step for isothermal model
     void GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl);
+
+    /// Setup solver for thermal model
+    void SetupT(Reservoir& rs, const OCPControl& ctrl);
+    /// Initialize the reservoir for thermal model
+    void InitReservoirT(Reservoir& rs) const;
+    /// Run one time step for thermal model
     void GoOneStepT(Reservoir& rs, OCPControl& ctrl);
-    /// Setup the solution method.
-    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
-    /// Before solve: prepare for assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
-    /// Assemble and Solve: assemble linear system parts together then solve.
-    void AssembleSolve(Reservoir& rs, OCPControl& ctrl);
-    /// Update reservoir properties after solving for primary variables.
-    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    /// Finish the Newton-Raphson iteration.
-    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
-    /// Finish the current time step.
-    void FinishStep(Reservoir& rs, OCPControl& ctrl);
+    
 
 private:
     /// Model
-    USI Model;
+    USI OCPModel{ISOTHERMALMODEL};
     /// Solver for isothermal models with fixed T
     IsothermalSolver IsoTSolver;
     /// Linear solver

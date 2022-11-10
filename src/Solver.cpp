@@ -12,14 +12,63 @@
 // OpenCAEPoro header files
 #include "Solver.hpp"
 
-void Solver::Setup(Reservoir& rs, const OCPControl& ctrl) { SetupMethod(rs, ctrl); }
+void Solver::Setup(Reservoir& rs, const OCPControl& ctrl) 
+{ 
+    switch (OCPModel)
+    {
+    case ISOTHERMALMODEL:
+        SetupIsoT(rs, ctrl);
+        break;
+    case THERMALMODEL:
+        SetupT(rs, ctrl);
+        break;
+    default:
+        OCP_ABORT("WRONG MODEL!");
+        break;
+    }
+}
+
+
+void Solver::SetupIsoT(Reservoir& rs, const OCPControl& ctrl)
+{
+    IsoTSolver.SetupMethod(rs, ctrl);
+}
+
+
+void Solver::SetupT(Reservoir& rs, const OCPControl& ctrl)
+{
+    OCP_ABORT("Not Completed Now!");
+}
 
 /// Initialize the reservoir setting for different solution methods.
 void Solver::InitReservoir(Reservoir& rs) const
 {
-    // Initialize the fluid part
+    switch (OCPModel)
+    {
+    case ISOTHERMALMODEL:
+        InitReservoirIsoT(rs);
+        break;
+    case THERMALMODEL:
+        InitReservoirT(rs);
+        break;
+    default:
+        OCP_ABORT("WRONG MODEL!");
+        break;
+    }
+}
+
+
+void Solver::InitReservoirIsoT(Reservoir& rs) const
+{
     IsoTSolver.InitReservoir(rs);
 }
+
+
+void Solver::InitReservoirT(Reservoir& rs) const
+{
+    OCP_ABORT("Not Completed Now!");
+}
+
 
 /// Simulation will go through all time steps and call GoOneStep at each step.
 void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
@@ -61,8 +110,7 @@ void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
 /// This is one time step of dynamic simulation in an abstract setting.
 void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL& dt = ctrl.GetCurDt();
-
+    
     if (ctrl.printLevel >= PRINT_SOME) {
         cout << "### DEBUG: " << setprecision(3) << fixed << ctrl.GetCurTime()
              << " Days";
@@ -70,65 +118,52 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
              << ",  Last dt: " << ctrl.last_dt << " Days" << endl;
     }
 
+    switch (OCPModel)
+    {
+    case ISOTHERMALMODEL:
+        GoOneStepIsoT(rs, ctrl);
+        break;
+    case THERMALMODEL:
+        GoOneStepT(rs, ctrl);
+        break;
+    default:
+        OCP_ABORT("WRONG MODEL!");
+        break;
+    }
+}
+
+
+void Solver::GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_DBL& dt = ctrl.GetCurDt();
+
     // Prepare for time marching
-    Prepare(rs, dt);
+    IsoTSolver.Prepare(rs, dt);
 
     // Time marching with adaptive time stepsize
     while (OCP_TRUE) {
         if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
-        AssembleSolve(rs, ctrl);
-        if (!UpdateProperty(rs, ctrl)) {
+        // Assemble linear system
+        IsoTSolver.AssembleMat(rs, ctrl);
+        // Solve linear system
+        IsoTSolver.SolveLinearSystem(rs, ctrl);
+        if (!IsoTSolver.UpdateProperty(rs, ctrl)) {
             ctrl.ResetIterNRLS();
             continue;
         }
-        if (FinishNR(rs, ctrl)) break;
+        if (IsoTSolver.FinishNR(rs, ctrl)) break;
     }
 
     // Finish current time step
-    FinishStep(rs, ctrl);
-}
-
-/// Get ready for assembling the linear system of this time step.
-void Solver::Prepare(Reservoir& rs, OCP_DBL& dt)
-{
-    // Prepare for the fluid part
-    IsoTSolver.Prepare(rs, dt);
-}
-
-void Solver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
-{
-    IsoTSolver.SetupMethod(rs, ctrl);
-}
-
-/// Assemble linear system and then solve it.
-void Solver::AssembleSolve(Reservoir& rs, OCPControl& ctrl)
-{
-    // Assemble linear system
-    IsoTSolver.AssembleMat(rs, ctrl);
-    // Solve linear system
-    IsoTSolver.SolveLinearSystem(rs, ctrl);
-}
-
-/// Update properties after solving.
-OCP_BOOL Solver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
-{
-    // Update for the fluid part
-    return IsoTSolver.UpdateProperty(rs, ctrl);
-}
-
-/// Clean up Newton-Raphson iteration if there is any.
-OCP_BOOL Solver::FinishNR(Reservoir& rs, OCPControl& ctrl)
-{
-    // Clean up the fluid part
-    return IsoTSolver.FinishNR(rs, ctrl);
-}
-
-/// Clean up time step.
-void Solver::FinishStep(Reservoir& rs, OCPControl& ctrl)
-{
-    // Clean up the fluid part
     IsoTSolver.FinishStep(rs, ctrl);
 }
+
+
+void Solver::GoOneStepT(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_ABORT("Not Completed Now!");
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
