@@ -99,6 +99,12 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
             PVTNUM.data.reserve(numGrid);
             myPtr = &PVTNUM.data;
             break;
+
+        case Map_Str2Int("ROCKNUM", 7):
+            ROCKNUM.activity = OCP_TRUE;
+            ROCKNUM.data.reserve(numGrid);
+            myPtr = &ROCKNUM.data;
+            break;
     }
 
     return myPtr;
@@ -627,6 +633,8 @@ void ParamReservoir::InputRegion(ifstream& ifs, const string& keyword)
         lim = NTSFUN;
     } else if (keyword == "ACTNUM") {
         ptr = &ACTNUM;
+    } else if (keyword == "ROCKNUM") {
+        ptr = &ROCKNUM;
     }
 
     ptr->activity = OCP_TRUE;
@@ -736,6 +744,12 @@ void ParamReservoir::CheckRegion() const
     }
     if (PVTNUM.activity && PVTNUM.data.size() != numGrid) {
         OCP_ABORT("Missing data in PVTNUM!");
+    }
+    if (ACTNUM.activity && ACTNUM.data.size() != numGrid) {
+        OCP_ABORT("Missing data in ACTNUM!");
+    }
+    if (ROCKNUM.activity && ROCKNUM.data.size() != numGrid) {
+        OCP_ABORT("Missing data in ROCKNUM!");
     }
 }
 

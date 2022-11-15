@@ -201,6 +201,7 @@ void Bulk::Setup(const Grid& myGrid)
     rockKzInit.resize(numBulk, 0);
     SATNUM.resize(numBulk, 0);
     PVTNUM.resize(numBulk, 0);
+    ROCKNUM.resize(numBulk, 0);
 
     if (myGrid.SwatInit.size() > 0) {
         SwatInitExist = OCP_TRUE;
@@ -228,6 +229,7 @@ void Bulk::Setup(const Grid& myGrid)
 
         SATNUM[bIdb] = myGrid.SATNUM[bIdg];
         PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
+        ROCKNUM[bIdb] = myGrid.ROCKNUM[bIdg];
 
         if (SwatInitExist) {
             SwatInit[bIdb] = myGrid.SwatInit[bIdg];

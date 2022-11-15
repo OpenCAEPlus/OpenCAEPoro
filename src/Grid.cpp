@@ -60,6 +60,12 @@ void Grid::InputParam(const ParamReservoir& rs_param)
             ACTNUM[i] = round(rs_param.ACTNUM.data[i]);
         }
     }
+    ROCKNUM.resize(numGrid, 0);
+    if (rs_param.ROCKNUM.activity) {
+        for (OCP_USI i = 0; i < numGrid; i++) {
+            ROCKNUM[i] = round(rs_param.ROCKNUM.data[i]);
+        }
+    }
 }
 
 void Grid::Setup(const OCP_BOOL& myVTK)

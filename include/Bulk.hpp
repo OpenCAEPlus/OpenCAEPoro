@@ -241,6 +241,7 @@ private:
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
     vector<vector<OCP_DBL>>
         satcm; ///< critical saturation when phase becomes mobile / immobile.
+    vector<USI>       ROCKNUM;  ///< index of Rock table for each bulk
 
     // Skip stability analysis
     vector<USI> phaseNum;   ///< Num of hydrocarbon phase in each bulk

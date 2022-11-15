@@ -166,6 +166,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("SATNUM", 6):
             case Map_Str2Int("PVTNUM", 6):
             case Map_Str2Int("ACTNUM", 6):
+            case Map_Str2Int("ROCKNUM",7):
                 paramRs.InputRegion(ifs, keyword);
                 break;
 

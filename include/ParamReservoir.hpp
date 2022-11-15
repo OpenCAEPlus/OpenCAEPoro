@@ -189,6 +189,7 @@ public:
     Type_A_r<OCP_DBL> SATNUM;    ///< Records the index of SAT region for each grid.
     Type_A_r<OCP_DBL> PVTNUM;    ///< Records the index of PVT region for each grid.
     Type_A_r<OCP_DBL> ACTNUM;    ///< Records the index of Active region for each grid.
+    Type_A_r<OCP_DBL> ROCKNUM;   ///< Records the index of ROCK region for each grid.
 
     // Saturation tables & bubble point pressure
     TableSet        SWFN_T; ///< Table set of SWFN.

@@ -171,6 +171,7 @@ private:
     vector<USI> SATNUM; ///< Identify SAT region: numGrid.
     vector<USI> PVTNUM; ///< Identify PVT region for the blackoil model: numGrid.
     vector<USI> ACTNUM; ///< Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active.
+    vector<USI> ROCKNUM; ///< index of rock table for each grid: numGrid
 
     // Active grid cells
     OCP_USI         activeGridNum; ///< Num of active grid.
