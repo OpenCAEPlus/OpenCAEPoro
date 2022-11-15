@@ -237,7 +237,6 @@ void Bulk::Setup(const Grid& myGrid)
     }
 
     poro = poroInit;
-    // rockVp = rockVntg;
     rockKx = rockKxInit;
     rockKy = rockKyInit;
     rockKz = rockKzInit;
@@ -315,15 +314,16 @@ void Bulk::Setup(const Grid& myGrid)
         phase2Index[GAS]   = 1;
         phase2Index[WATER] = 2;
 
+        // accelerate phase equilibrium calculation
         minEigenSkip.resize(numBulk);
         flagSkip.resize(numBulk);
         ziSkip.resize(numBulk * numCom);
         PSkip.resize(numBulk);
+        Ks.resize(numBulk* (numCom - 1));
         lminEigenSkip.resize(numBulk);
         lflagSkip.resize(numBulk);
         lziSkip.resize(numBulk * numCom);
-        lPSkip.resize(numBulk);
-        Ks.resize(numBulk * (numCom - 1));
+        lPSkip.resize(numBulk);      
         lKs.resize(numBulk * (numCom - 1));
 
         if (miscible) {
@@ -1945,7 +1945,6 @@ void Bulk::CalVpore()
         poro[n] = poroInit[n] * (1 + dP);
         rockVp[n]  = rockVntg[n] * poro[n];
         poroP[n] = poroInit[n] * rockC1;
-        // rockVp[n] = rockVntg[n] * (1 + dP + dP * dP / 2);
     }
 }
 
