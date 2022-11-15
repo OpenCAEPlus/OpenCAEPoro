@@ -343,7 +343,10 @@ private:
     vector<OCP_DBL> dz;         ///< size of bulk along the z direction.
     vector<OCP_DBL> depth;      ///< depth of center of bulk.
     vector<OCP_DBL> ntg;        ///< net to gross of bulk.
-    vector<OCP_DBL> rockVpInit; ///< init pore volume = Vgrid * ntg * poro_init.
+    vector<OCP_DBL> poroInit;   ///< initial rock porosity.
+    vector<OCP_DBL> poro;       ///< rock porosity.
+    vector<OCP_DBL> poroP;      ///< d poro / d P.
+    vector<OCP_DBL> rockVpInit; ///< init pore volume = Vgrid * ntg.
     vector<OCP_DBL> rockVp;     ///< pore volume = Vgrid * ntg * poro.
     OCP_DBL         rockPref;   ///< reference pressure for initial rock volume.
     OCP_DBL         rockC1;     ///< rock compressibility term 1.
@@ -354,6 +357,10 @@ private:
     vector<OCP_DBL> rockKy;     ///< current rock permeability along the y direction.
     vector<OCP_DBL> rockKzInit; ///< initial rock permeability along the z direction.
     vector<OCP_DBL> rockKz;     ///< current rock permeability along the z direction.
+
+    // last step
+    vector<OCP_DBL> lporo;      ///< last poro.
+    vector<OCP_DBL> lporoP;     ///< last poroP.
 
     /////////////////////////////////////////////////////////////////////
     // Auxiliary variables

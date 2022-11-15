@@ -192,6 +192,8 @@ void Bulk::Setup(const Grid& myGrid)
     dz.resize(numBulk, 0);
     depth.resize(numBulk, 0);
     ntg.resize(numBulk, 0);
+    poroInit.resize(numBulk, 0);
+    poro.resize(numBulk, 0);
     rockVpInit.resize(numBulk, 0);
     rockVp.resize(numBulk, 0);
     rockKxInit.resize(numBulk, 0);
@@ -217,6 +219,8 @@ void Bulk::Setup(const Grid& myGrid)
         depth[bIdb] = myGrid.depth[bIdg];
         ntg[bIdb]   = myGrid.ntg[bIdg];
 
+        poroInit[bIdb] = myGrid.poro[bIdg];
+
         rockVpInit[bIdb] = myGrid.v[bIdg] * myGrid.ntg[bIdg] * myGrid.poro[bIdg];
         rockKxInit[bIdb] = myGrid.kx[bIdg];
         rockKyInit[bIdb] = myGrid.ky[bIdg];
@@ -230,6 +234,7 @@ void Bulk::Setup(const Grid& myGrid)
         }
     }
 
+    poro = poroInit;
     rockVp = rockVpInit;
     rockKx = rockKxInit;
     rockKy = rockKyInit;
@@ -1935,7 +1940,8 @@ void Bulk::CalVpore()
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_DBL dP = rockC1 * (P[n] - rockPref);
-        rockVp[n]  = rockVpInit[n] * (1 + dP);
+        poro[n] = poroInit[n] * (1 + dP);
+        rockVp[n]  = rockVpInit[n] * (1 + dP);       
         // rockVp[n] = rockVpInit[n] * (1 + dP + dP * dP / 2);
     }
 }
@@ -2402,6 +2408,7 @@ void Bulk::AllocateAuxIMPEC()
     OCP_FUNCNAME;
 
     // IMPEC var
+    poroP.resize(numBulk, 0);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
     cfl.resize(numBulk * numPhase);
@@ -2424,6 +2431,8 @@ void Bulk::AllocateAuxIMPEC()
     lvfi.resize(numBulk * numCom);
     lvfp.resize(numBulk);
     lrockVp.resize(numBulk);
+    lporo.resize(numBulk);
+    lporoP.resize(numBulk);
 }
 
 void Bulk::GetSolIMPEC(const vector<OCP_DBL>& u)
@@ -2484,6 +2493,8 @@ void Bulk::UpdateLastStepIMPEC()
     lvf         = vf;
     lvfi        = vfi;
     lvfp        = vfp;
+    lporo       = poro;
+    lporoP      = poroP; 
     lrockVp     = rockVp;
     lNt         = Nt;
 
@@ -2501,6 +2512,7 @@ void Bulk::AllocateAuxFIM()
     OCP_FUNCNAME;
 
     // FIM var
+    poroP.resize(numBulk);
     nj.resize(numBulk * numPhase);
     vfi.resize(numBulk * numCom);
     vfp.resize(numBulk);
@@ -2540,6 +2552,8 @@ void Bulk::AllocateAuxFIM()
     lvfi.resize(numBulk * numCom);
     lvfp.resize(numBulk);
     lrockVp.resize(numBulk);
+    lporo.resize(numBulk);
+    lporoP.resize(numBulk);
     lmuP.resize(numBulk * numPhase);
     lxiP.resize(numBulk * numPhase);
     lrhoP.resize(numBulk * numPhase);
@@ -2934,6 +2948,8 @@ void Bulk::ResetFIM()
     Nt           = lNt;
     vfi          = lvfi;
     vfp          = lvfp;
+    poro         = lporo;
+    poroP        = lporoP;
     rockVp       = lrockVp;
     muP          = lmuP;
     xiP          = lxiP;
@@ -2982,6 +2998,8 @@ void Bulk::UpdateLastStepFIM()
     lNt           = Nt;
     lvfi          = vfi;
     lvfp          = vfp;
+    lporo         = poro;
+    lporoP        = poroP; 
     lrockVp       = rockVp;
     lmuP          = muP;
     lxiP          = xiP;

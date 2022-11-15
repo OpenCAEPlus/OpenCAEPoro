@@ -44,8 +44,8 @@ public:
     USI nz; ///< Num of bulks along z-direction.
 };
 
-/// Rock class contains information about the keyword ROCK.
-class Rock
+/// RockParam class contains information about the keyword ROCK.
+class RockParam
 {
 public:
     OCP_DBL Pref; ///< Reference pressure at initial porosity.
@@ -150,14 +150,14 @@ public:
     vector<OCP_DBL> coord; ///< TODO: Add Doxygen.
     vector<OCP_DBL> zcorn; ///< TODO: Add Doxygen.
 
-    // Rock
+    // RockParam
     vector<OCP_DBL> ntg;    ///< Net to gross for each grid.
     vector<OCP_DBL> poro;   ///< Porosity for each grid.
     vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
     vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
     vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
-    Rock rock; ///< Contains the compressibility factor and reference pressure at
+    RockParam rock; ///< Contains the compressibility factor and reference pressure at
                ///< initial porosity.
     Miscstr miscstr; ///< reference Miscibility surface tension
 
