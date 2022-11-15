@@ -39,7 +39,7 @@ var searchData=
   ['rhoair_5fstd_733',['RHOAIR_STD',['../OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415',1,'OCPConst.hpp']]],
   ['rhon_734',['rhoN',['../classMixture.html#ad9e2798ac8ab094b3a17cff16111f70b',1,'Mixture']]],
   ['rhop_735',['rhoP',['../classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f',1,'Mixture']]],
-  ['rhophase_736',['RhoPhase',['../classMixtureComp.html#adbd472704ecf3f04ffe35316fbbf5ccf',1,'MixtureComp::RhoPhase()'],['../classBOMixture__ODGW.html#addcef15b9c4ac46ba14ea5046a198f2a',1,'BOMixture_ODGW::RhoPhase()'],['../classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e',1,'Mixture::RhoPhase()'],['../classBOMixture__W.html#a30bd481e32c95a125fe4007f8b577b0f',1,'BOMixture_W::RhoPhase()'],['../classBOMixture__OW.html#a76934980679c89c35186884994102103',1,'BOMixture_OW::RhoPhase()']]],
+  ['rhophase_736',['RhoPhase',['../classMixtureComp.html#adbd472704ecf3f04ffe35316fbbf5ccf',1,'MixtureComp::RhoPhase()'],['../classMixture.html#adf1be0ad34ced8062a5d4da2deb54d8e',1,'Mixture::RhoPhase()'],['../classBOMixture__W.html#a30bd481e32c95a125fe4007f8b577b0f',1,'BOMixture_W::RhoPhase()'],['../classBOMixture__OW.html#a76934980679c89c35186884994102103',1,'BOMixture_OW::RhoPhase()'],['../classBOMixture__ODGW.html#addcef15b9c4ac46ba14ea5046a198f2a',1,'BOMixture_ODGW::RhoPhase()']]],
   ['rhow_5fstd_737',['RHOW_STD',['../OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee',1,'OCPConst.hpp']]],
   ['rhox_738',['rhox',['../classMixture.html#a62615d0052ef8b34c3894e728951c06e',1,'Mixture']]],
   ['rock_739',['rock',['../classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5',1,'ParamReservoir']]],
@@ -49,8 +49,9 @@ var searchData=
   ['rock_5flinear01_743',['Rock_Linear01',['../classRock__Linear01.html',1,'']]],
   ['rock_5flinear02_744',['Rock_Linear02',['../classRock__Linear02.html',1,'']]],
   ['rockiso_745',['RockIso',['../classRockIso.html',1,'']]],
-  ['rockparam_746',['RockParam',['../classRockParam.html',1,'']]],
-  ['rrparam_747',['RRparam',['../classRRparam.html',1,'RRparam'],['../classEoSparam.html#a32a781a0d699cc144e9f73944b5a1a5b',1,'EoSparam::RRparam()']]],
-  ['rstemp_748',['rsTemp',['../classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37',1,'ParamReservoir']]],
-  ['runsimulation_749',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro::RunSimulation()'],['../classSolver.html#aa28d73a396ce4671abadf95ded8aeb34',1,'Solver::RunSimulation()']]]
+  ['rocknum_746',['ROCKNUM',['../classParamReservoir.html#ad72cbd12fbb83f7e95155da59eeb9f99',1,'ParamReservoir']]],
+  ['rockparam_747',['RockParam',['../classRockParam.html',1,'']]],
+  ['rrparam_748',['RRparam',['../classEoSparam.html#a32a781a0d699cc144e9f73944b5a1a5b',1,'EoSparam::RRparam()'],['../classRRparam.html',1,'RRparam']]],
+  ['rstemp_749',['rsTemp',['../classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37',1,'ParamReservoir']]],
+  ['runsimulation_750',['RunSimulation',['../classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89',1,'OpenCAEPoro::RunSimulation()'],['../classSolver.html#aa28d73a396ce4671abadf95ded8aeb34',1,'Solver::RunSimulation()']]]
 ];
