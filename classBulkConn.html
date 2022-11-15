@@ -155,9 +155,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13">CalFluxFIM</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:aa2f439ee231375b2ccbfc72c2e19ea13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate flux for FIM, considering upwinding. <br /></td></tr>
 <tr class="separator:aa2f439ee231375b2ccbfc72c2e19ea13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8975e1f4fea32ca26fa1e415897b0045"><td class="memItemLeft" align="right" valign="top"><a id="a8975e1f4fea32ca26fa1e415897b0045"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">CalResFIM</a> (vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;res, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
-<tr class="memdesc:a8975e1f4fea32ca26fa1e415897b0045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate resiual for the Newton iteration in FIM. <br /></td></tr>
+<tr class="memitem:a8975e1f4fea32ca26fa1e415897b0045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">CalResFIM</a> (vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;res, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="memdesc:a8975e1f4fea32ca26fa1e415897b0045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate resiual for the Newton iteration in FIM.  <a href="classBulkConn.html#a8975e1f4fea32ca26fa1e415897b0045">More...</a><br /></td></tr>
 <tr class="separator:a8975e1f4fea32ca26fa1e415897b0045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a337528053a3823aef9a1c4a0dabb3ac4"><td class="memItemLeft" align="right" valign="top"><a id="a337528053a3823aef9a1c4a0dabb3ac4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkConn.html#a337528053a3823aef9a1c4a0dabb3ac4">CalFluxFIMS</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
@@ -294,7 +293,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 <div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;        bmat[i * ncol + i] = 1;</div>
 <div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    }</div>
 <div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];</div>
 <div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
 <div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;            bmat[i + 1] = -myBulk.vfi[n * nc + i];</div>
 <div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;        }</div>
@@ -592,6 +591,125 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 
 </div>
 </div>
+<a id="a8975e1f4fea32ca26fa1e415897b0045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8975e1f4fea32ca26fa1e415897b0045">&#9670;&nbsp;</a></span>CalResFIM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BulkConn::CalResFIM </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>res</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classBulk.html">Bulk</a> &amp;&#160;</td>
+          <td class="paramname"><em>myBulk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate resiual for the Newton iteration in FIM. </p>
+<p>rho = (rho1 + rho2)/2 </p>
+
+<p class="definition">Definition at line <a class="el" href="BulkConn_8cpp_source.html#l00742">742</a> of file <a class="el" href="BulkConn_8cpp_source.html">BulkConn.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;{</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160; </div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> np  = myBulk.numPhase;</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> nc  = myBulk.numCom;</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = nc + 1;</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>   bId, eId, uId, bIdb;</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <span class="comment">// Accumalation Term</span></div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160; </div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        bId  = n * len;</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        bIdb = n * nc;</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160; </div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        res[bId] = myBulk.rockVp[n] - myBulk.vf[n];</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;            res[bId + 1 + i] = myBulk.Ni[bIdb + i] - myBulk.lNi[bIdb + i];</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        }</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;    }</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId_np_j, eId_np_j, uId_np_j;</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> rho, dP;</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp, dNi;</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Akd;</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    <span class="comment">// Flux Term</span></div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    <span class="comment">// Calculate the upblock at the same time.</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> c = 0; c &lt; numConn; c++) {</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        bId = iteratorConn[c].BId;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        eId = iteratorConn[c].EId;</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        Akd = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="OCPConst_8hpp.html#afa282da104aab8f046a09e9dffb6f680">CONV2</a> * iteratorConn[c].area;</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160; </div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; np; j++) {</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;            bId_np_j = bId * np + j;</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;            eId_np_j = eId * np + j;</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160; </div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exbegin = myBulk.phaseExist[bId_np_j];</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;            <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> exend   = myBulk.phaseExist[eId_np_j];</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160; </div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;            <span class="keywordflow">if</span> ((exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                rho = (myBulk.rho[bId_np_j] + myBulk.rho[eId_np_j]) / 2;</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (exbegin &amp;&amp; (!exend)) {</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;                rho = myBulk.rho[bId_np_j];</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!exbegin) &amp;&amp; (exend)) {</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;                rho = myBulk.rho[eId_np_j];</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                upblock[c * np + j]     = bId;</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                upblock_Rho[c * np + j] = 0;</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            }</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160; </div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            uId = bId;</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            dP  = (myBulk.Pj[bId_np_j] - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[bId]) -</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;                 (myBulk.Pj[eId_np_j] - <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a> * rho * myBulk.depth[eId]);</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;            <span class="comment">// dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;            <span class="comment">// dP = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] - dGamma * rho;</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;            <span class="comment">// cout &lt;&lt; setprecision(6) &lt;&lt; scientific &lt;&lt; dP &lt;&lt; &quot;   &quot;</span></div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;            <span class="comment">//     &lt;&lt; myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] - dGamma * rho &lt;&lt; &quot;   &quot;</span></div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;            <span class="comment">//     &lt;&lt; dP - (myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] - dGamma * rho)</span></div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;            <span class="comment">//     &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;            <span class="keywordflow">if</span> (dP &lt; 0) {</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;                uId = eId;</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;            }</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;            upblock_Rho[c * np + j] = rho;</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;            upblock[c * np + j]     = uId;</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160; </div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;            uId_np_j = uId * np + j;</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;            <span class="keywordflow">if</span> (!myBulk.phaseExist[uId_np_j]) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;            tmp = dt * Akd * myBulk.xi[uId_np_j] * myBulk.kr[uId_np_j] /</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;                  myBulk.mu[uId_np_j] * dP;</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160; </div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nc; i++) {</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;                dNi = tmp * myBulk.xij[uId_np_j * nc + i];</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;                res[bId * len + 1 + i] += dNi;</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;                res[eId * len + 1 + i] -= dNi;</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;            }</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;        }</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;    }</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="OCPConst_8hpp_source.html#l00062">CONV1</a>, <a class="el" href="OCPConst_8hpp_source.html#l00063">CONV2</a>, <a class="el" href="OCPConst_8hpp_source.html#l00055">GRAVITY_FACTOR</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+
+</div>
+</div>
 <a id="a02929d17cdc2fa1cc2c3b9f7a05dcf86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02929d17cdc2fa1cc2c3b9f7a05dcf86">&#9670;&nbsp;</a></span>Setup()</h2>
 
@@ -694,7 +812,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 10 2022 08:13:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 15 2022 09:28:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

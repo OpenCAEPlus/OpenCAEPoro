@@ -263,8 +263,9 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37">rsTemp</a></td></tr>
 <tr class="memdesc:af0e34a606be25ddb65fe1f0271764b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature for reservoir. <br /></td></tr>
 <tr class="separator:af0e34a606be25ddb65fe1f0271764b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a90a576943de890b0604f375c528dd8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRock.html">Rock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a></td></tr>
-<tr class="separator:a3a90a576943de890b0604f375c528dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac259a6764cf59afc7e9aef11299358b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRockParam.html">RockParam</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a></td></tr>
+<tr class="memdesc:ac259a6764cf59afc7e9aef11299358b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial porosity.  <a href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">More...</a><br /></td></tr>
+<tr class="separator:ac259a6764cf59afc7e9aef11299358b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2fa01362816a5a161c4c9a9aa2c44a2"><td class="memItemLeft" align="right" valign="top"><a id="ae2fa01362816a5a161c4c9a9aa2c44a2"></a>
 <a class="el" href="classMiscstr.html">Miscstr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classParamReservoir.html#ae2fa01362816a5a161c4c9a9aa2c44a2">miscstr</a></td></tr>
 <tr class="memdesc:ae2fa01362816a5a161c4c9a9aa2c44a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference Miscibility surface tension <br /></td></tr>
@@ -1029,16 +1030,16 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="classParamReservoir.html#a5c17baa4bc0875a9b986e5b557c5f06e">density</a>.<a class="code" href="classType__A__r.html#a502de94cb0d66c8e6dd941c5759335f4">data</a>[2] = 0.062428;  <span class="comment">// The density of gas at surface conditions: lb/ft3</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37">rsTemp</a>    = 60.0;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#ab18455479725e43ef7c218862ca4dec3">Pref</a> = 14.7;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556">Cr</a>   = 3.406E-6;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> = 14.7;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a34d23c71ae6612f683ded55dc6698fc2">Cr</a>   = 3.406E-6;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
-<div class="ttc" id="aclassParamReservoir_html_a3a90a576943de890b0604f375c528dd8"><div class="ttname"><a href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">ParamReservoir::rock</a></div><div class="ttdeci">Rock rock</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00160">ParamReservoir.hpp:160</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_a7c75da3d60afc482680853551316563d"><div class="ttname"><a href="classParamReservoir.html#a7c75da3d60afc482680853551316563d">ParamReservoir::InitTable</a></div><div class="ttdeci">void InitTable()</div><div class="ttdoc">Initialize the tables' name and num of colum.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8cpp_source.html#l00182">ParamReservoir.cpp:182</a></div></div>
+<div class="ttc" id="aclassParamReservoir_html_ac259a6764cf59afc7e9aef11299358b5"><div class="ttname"><a href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">ParamReservoir::rock</a></div><div class="ttdeci">RockParam rock</div><div class="ttdoc">initial porosity.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00160">ParamReservoir.hpp:160</a></div></div>
 <div class="ttc" id="aclassParamReservoir_html_af0e34a606be25ddb65fe1f0271764b37"><div class="ttname"><a href="classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37">ParamReservoir::rsTemp</a></div><div class="ttdeci">OCP_DBL rsTemp</div><div class="ttdoc">Temperature for reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00159">ParamReservoir.hpp:159</a></div></div>
-<div class="ttc" id="aclassRock_html_a1a2fa5cb73389f1e9b8e984a5ea02556"><div class="ttname"><a href="classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556">Rock::Cr</a></div><div class="ttdeci">OCP_DBL Cr</div><div class="ttdoc">Compressibility factor of rock in reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00052">ParamReservoir.hpp:52</a></div></div>
-<div class="ttc" id="aclassRock_html_ab18455479725e43ef7c218862ca4dec3"><div class="ttname"><a href="classRock.html#ab18455479725e43ef7c218862ca4dec3">Rock::Pref</a></div><div class="ttdeci">OCP_DBL Pref</div><div class="ttdoc">Reference pressure at initial porosity.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00051">ParamReservoir.hpp:51</a></div></div>
+<div class="ttc" id="aclassRockParam_html_a34d23c71ae6612f683ded55dc6698fc2"><div class="ttname"><a href="classRockParam.html#a34d23c71ae6612f683ded55dc6698fc2">RockParam::Cr</a></div><div class="ttdeci">OCP_DBL Cr</div><div class="ttdoc">Compressibility factor of rock in reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00052">ParamReservoir.hpp:52</a></div></div>
+<div class="ttc" id="aclassRockParam_html_a66e864e1e539e5c26e32237dd7b78ab8"><div class="ttname"><a href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">RockParam::Pref</a></div><div class="ttdeci">OCP_DBL Pref</div><div class="ttdoc">Reference pressure at initial porosity.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00051">ParamReservoir.hpp:51</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00052">Rock::Cr</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00061">Type_A_r&lt; T &gt;::data</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00171">density</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00172">gravity</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00182">InitTable()</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00051">Rock::Pref</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00160">rock</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00159">rsTemp</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00052">RockParam::Cr</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00061">Type_A_r&lt; T &gt;::data</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00171">density</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00172">gravity</a>, <a class="el" href="ParamReservoir_8cpp_source.html#l00182">InitTable()</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00051">RockParam::Pref</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00160">rock</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00159">rsTemp</a>.</p>
 
 </div>
 </div>
@@ -1703,16 +1704,16 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf);</div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#ab18455479725e43ef7c218862ca4dec3">Pref</a> = stod(vbuf[0]);</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556">Cr</a>   = stod(vbuf[1]);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> = stod(vbuf[0]);</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a34d23c71ae6612f683ded55dc6698fc2">Cr</a>   = stod(vbuf[1]);</div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160; </div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;---------------------&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;ROCK&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;---------------------&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    cout &lt;&lt; <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#ab18455479725e43ef7c218862ca4dec3">Pref</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#a3a90a576943de890b0604f375c528dd8">rock</a>.<a class="code" href="classRock.html#a1a2fa5cb73389f1e9b8e984a5ea02556">Cr</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    cout &lt;&lt; <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; <a class="code" href="classParamReservoir.html#ac259a6764cf59afc7e9aef11299358b5">rock</a>.<a class="code" href="classRockParam.html#a34d23c71ae6612f683ded55dc6698fc2">Cr</a> &lt;&lt; endl;</div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00052">Rock::Cr</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00051">Rock::Pref</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00160">rock</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00052">RockParam::Cr</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00051">RockParam::Pref</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00160">rock</a>.</p>
 
 </div>
 </div>
@@ -1970,18 +1971,20 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3a90a576943de890b0604f375c528dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a90a576943de890b0604f375c528dd8">&#9670;&nbsp;</a></span>rock</h2>
+<a id="ac259a6764cf59afc7e9aef11299358b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac259a6764cf59afc7e9aef11299358b5">&#9670;&nbsp;</a></span>rock</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRock.html">Rock</a> ParamReservoir::rock</td>
+          <td class="memname"><a class="el" href="classRockParam.html">RockParam</a> ParamReservoir::rock</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Contains the compressibility factor and reference pressure at initial porosity. </p>
+
+<p>initial porosity. </p>
+<p>Contains the compressibility factor and reference pressure at </p>
 
 <p class="definition">Definition at line <a class="el" href="ParamReservoir_8hpp_source.html#l00160">160</a> of file <a class="el" href="ParamReservoir_8hpp_source.html">ParamReservoir.hpp</a>.</p>
 
@@ -1994,7 +1997,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 10 2022 08:13:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 15 2022 09:28:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

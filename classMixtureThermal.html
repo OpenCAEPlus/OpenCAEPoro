@@ -74,9 +74,6 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classMixtureThermal.html" title="MixtureThermal is inherited class of Mixture, it&#39;s used for thermal model.">MixtureThermal</a> is inherited class of <a class="el" href="classMixture.html">Mixture</a>, it's used for thermal model.  
- <a href="classMixtureThermal.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for MixtureThermal:</div>
@@ -90,6 +87,9 @@ Inheritance diagram for MixtureThermal:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a876bf13981b6f041e20cb168bd4f7a5f"><td class="memItemLeft" align="right" valign="top"><a id="a876bf13981b6f041e20cb168bd4f7a5f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MixtureThermal</b> (const <a class="el" href="classEoSparam.html">EoSparam</a> &amp;param, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i)</td></tr>
+<tr class="separator:a876bf13981b6f041e20cb168bd4f7a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ef9559aa4d405ad773dcbd85b2b5aa3"><td class="memItemLeft" align="right" valign="top"><a id="a1ef9559aa4d405ad773dcbd85b2b5aa3"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixtureThermal.html#a1ef9559aa4d405ad773dcbd85b2b5aa3">GammaPhaseO</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin) override</td></tr>
 <tr class="memdesc:a1ef9559aa4d405ad773dcbd85b2b5aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">return gamma of oil phase, gamma equals to mass density times gravity factor. <br /></td></tr>
@@ -332,9 +332,9 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <tr class="separator:ad49e1236014cca81fa4faedf12806bb0 inherit pro_attribs_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classMixtureThermal.html" title="MixtureThermal is inherited class of Mixture, it&#39;s used for thermal model.">MixtureThermal</a> is inherited class of <a class="el" href="classMixture.html">Mixture</a>, it's used for thermal model. </p>
+<div class="textblock"><p><a class="el" href="classMixtureThermal.html">MixtureThermal</a> is inherited class of <a class="el" href="classMixture.html">Mixture</a>, it's used for thermal model. K-value Model </p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00022">22</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00023">23</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aef85d5bfc0e5d983f373b35b2e668157"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef85d5bfc0e5d983f373b35b2e668157">&#9670;&nbsp;</a></span>GammaPhaseOG()</h2>
@@ -379,23 +379,24 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#a489c10ddf83a8856fb492476bdc10c37">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00031">31</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Thermal mode!&quot;</span>);  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
+<p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00033">33</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Thermal mode!&quot;</span>);  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    };</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a></li>
+<li><a class="el" href="MixtureThermal_8cpp_source.html">MixtureThermal.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 10 2022 08:13:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 15 2022 09:28:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
