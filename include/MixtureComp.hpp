@@ -162,6 +162,7 @@ public:
     MixtureComp(const ParamReservoir& rs_param, const USI& i)
         : MixtureComp(rs_param.EoSp, i)
     {
+        // water property
         mixtureType = EOS_PVTW;
         if (rs_param.PVTW_T.data.size() != 0) {
             PVTW.Setup(rs_param.PVTW_T.data[i]);

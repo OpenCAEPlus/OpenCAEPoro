@@ -67,7 +67,7 @@ public:
         pVnumCom.resize(numPhase);
         res.resize(numPhase + numPhase * numCom + 1); // a precomputed value stored in last position
         // water not in hydrocarbon, hydrocarbon not in water
-        keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
+        // keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
         
     };
     virtual void SetPVTW(){};

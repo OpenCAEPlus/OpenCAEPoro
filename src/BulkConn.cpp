@@ -739,6 +739,7 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
     }
 }
 
+/// rho = (rho1 + rho2)/2
 void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;

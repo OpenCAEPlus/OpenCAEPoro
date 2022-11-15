@@ -25,7 +25,7 @@ COMP::COMP(const vector<string>& comp)
     Vshift = stod(comp[8]);
 }
 
-MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
+MixtureComp::MixtureComp(const EoSparam& param, const USI& tarId)
 {
     // if Water don't exist?
     // for Mixture class
@@ -47,18 +47,18 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
 
     Cname = param.Cname;
     if (param.Tc.activity)
-        Tc = param.Tc.data[tar];
+        Tc = param.Tc.data[tarId];
     else
         OCP_ABORT("TCRIT hasn't been input!");
     if (param.Pc.activity)
-        Pc = param.Pc.data[tar];
+        Pc = param.Pc.data[tarId];
     else
         OCP_ABORT("PCRIT hasn't been input!");
 
     if (param.Vc.activity)
-        Vc = param.Vc.data[tar];
+        Vc = param.Vc.data[tarId];
     else if (param.Zc.activity) {
-        Zc = param.Zc.data[tar];
+        Zc = param.Zc.data[tarId];
         Vc.resize(NC);
         for (USI i = 0; i < NC; i++) {
             Vc[i] = 10.73159 * Zc[i] * Tc[i] / Pc[i];
@@ -67,24 +67,24 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
         OCP_ABORT("VCRIT or ZCRIT hasn't been input!");
 
     if (param.MW.activity)
-        MWC = param.MW.data[tar];
+        MWC = param.MW.data[tarId];
     else
         OCP_ABORT("MW hasn't been input!");
     if (param.Acf.activity)
-        Acf = param.Acf.data[tar];
+        Acf = param.Acf.data[tarId];
     else
         OCP_ABORT("ACF hasn't been input!");
     if (param.OmegaA.activity)
-        OmegaA = param.OmegaA.data[tar];
+        OmegaA = param.OmegaA.data[tarId];
     else
         OmegaA.resize(NC, 0.457235529);
     if (param.OmegaB.activity)
-        OmegaB = param.OmegaB.data[tar];
+        OmegaB = param.OmegaB.data[tarId];
     else
         OmegaB.resize(NC, 0.077796074);
 
     if (param.Vshift.activity) {
-        Vshift = param.Vshift.data[tar];
+        Vshift = param.Vshift.data[tarId];
         for (USI i = 0; i < NC; i++)
             Vshift[i] *= (GAS_CONSTANT * OmegaB[i] * Tc[i] / Pc[i]);
     } else
@@ -92,14 +92,14 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
 
     ParachorAct = OCP_TRUE;
     if (param.Parachor.activity)
-        Parachor = param.Parachor.data[tar];
+        Parachor = param.Parachor.data[tarId];
     else
         ParachorAct = OCP_FALSE;
 
     if (param.Vcvis.activity)
-        Vcvis = param.Vcvis.data[tar];
+        Vcvis = param.Vcvis.data[tarId];
     else if (param.Zcvis.activity) {
-        Zcvis = param.Zcvis.data[tar];
+        Zcvis = param.Zcvis.data[tarId];
         Vcvis.resize(NC);
         for (USI i = 0; i < NC; i++) {
             Vcvis[i] = GAS_CONSTANT * Zcvis[i] * Tc[i] / Pc[i];
@@ -122,17 +122,17 @@ MixtureComp::MixtureComp(const EoSparam& param, const USI& tar)
     USI len = NC * NC;
     BIC.resize(len, 0);
 
-    if (param.BIC[tar].size() != len) {
+    if (param.BIC[tarId].size() != len) {
         USI iter = 0;
         for (USI i = 1; i < NC; i++) {
             for (USI j = 0; j < i; j++) {
-                BIC[i * NC + j] = param.BIC[tar][iter];
+                BIC[i * NC + j] = param.BIC[tarId][iter];
                 BIC[j * NC + i] = BIC[i * NC + j];
                 iter++;
             }
         }
     } else {
-        BIC = param.BIC[tar];
+        BIC = param.BIC[tarId];
     }
 
     for (USI i = 0; i < NC; i++) {
