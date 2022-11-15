@@ -30,6 +30,7 @@ target_sources(
          WellPerf.hpp
          Bulk.hpp
          DenseMat.hpp
+		 Rock.hpp
          FlowUnit.hpp
          LinearSolver.hpp
          MixtureComp.hpp

@@ -283,7 +283,7 @@ void Reservoir::ResetVal03IMPEC()
     bulk.ResetNi();
     bulk.ResetNt();
     bulk.ResetFlash();
-    bulk.ResetVp();
+    bulk.ResetRock();
     conn.Reset();
 
     // Becareful! if recalculate the flash, result may be different because the initial

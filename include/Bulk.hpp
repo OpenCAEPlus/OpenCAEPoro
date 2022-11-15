@@ -201,7 +201,7 @@ public:
     /// Reset Kr to the ones of the last time step.
     void ResetKr() { kr = lkr; }
     /// Reset Vp to the ones of the last time step.
-    void ResetVp() { rockVp = lrockVp; }
+    void ResetRock() { rockVp = lrockVp; poro = lporo; poroP = lporoP; }
     void CalSomeInfo(const Grid& myGrid) const;
 
     /// Allocate memory for wellBulkId
@@ -346,7 +346,7 @@ private:
     vector<OCP_DBL> poroInit;   ///< initial rock porosity.
     vector<OCP_DBL> poro;       ///< rock porosity.
     vector<OCP_DBL> poroP;      ///< d poro / d P.
-    vector<OCP_DBL> rockVpInit; ///< init pore volume = Vgrid * ntg.
+    vector<OCP_DBL> rockVntg; ///< init pore volume = Vgrid * ntg.
     vector<OCP_DBL> rockVp;     ///< pore volume = Vgrid * ntg * poro.
     OCP_DBL         rockPref;   ///< reference pressure for initial rock volume.
     OCP_DBL         rockC1;     ///< rock compressibility term 1.

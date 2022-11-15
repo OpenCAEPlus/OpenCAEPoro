@@ -26,6 +26,7 @@ target_sources(
          UtilOutput.cpp
          Bulk.cpp
          Decoupling.cpp
+		 Rock.cpp
          FlowUnit.cpp
          LinearSystem.cpp
          MixtureBO.cpp

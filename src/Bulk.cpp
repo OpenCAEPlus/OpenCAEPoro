@@ -194,7 +194,7 @@ void Bulk::Setup(const Grid& myGrid)
     ntg.resize(numBulk, 0);
     poroInit.resize(numBulk, 0);
     poro.resize(numBulk, 0);
-    rockVpInit.resize(numBulk, 0);
+    rockVntg.resize(numBulk, 0);
     rockVp.resize(numBulk, 0);
     rockKxInit.resize(numBulk, 0);
     rockKyInit.resize(numBulk, 0);
@@ -221,7 +221,7 @@ void Bulk::Setup(const Grid& myGrid)
 
         poroInit[bIdb] = myGrid.poro[bIdg];
 
-        rockVpInit[bIdb] = myGrid.v[bIdg] * myGrid.ntg[bIdg] * myGrid.poro[bIdg];
+        rockVntg[bIdb] = myGrid.v[bIdg] * myGrid.ntg[bIdg];
         rockKxInit[bIdb] = myGrid.kx[bIdg];
         rockKyInit[bIdb] = myGrid.ky[bIdg];
         rockKzInit[bIdb] = myGrid.kz[bIdg];
@@ -232,10 +232,12 @@ void Bulk::Setup(const Grid& myGrid)
         if (SwatInitExist) {
             SwatInit[bIdb] = myGrid.SwatInit[bIdg];
         }
+
+        rockVp[bIdb] = rockVntg[bIdb] * poroInit[bIdb];
     }
 
     poro = poroInit;
-    rockVp = rockVpInit;
+    // rockVp = rockVntg;
     rockKx = rockKxInit;
     rockKy = rockKyInit;
     rockKz = rockKzInit;
@@ -354,9 +356,9 @@ void Bulk::CheckSetup() const
 void Bulk::CheckInitVpore() const
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (rockVpInit[n] < TINY) {
+        if (rockVntg[n] < TINY) {
             OCP_ABORT("Bulk volume is too small: bulk[" + std::to_string(n) +
-                      "] = " + std::to_string(rockVpInit[n]));
+                      "] = " + std::to_string(rockVntg[n]));
         }
     }
 }
@@ -1941,8 +1943,9 @@ void Bulk::CalVpore()
     for (OCP_USI n = 0; n < numBulk; n++) {
         OCP_DBL dP = rockC1 * (P[n] - rockPref);
         poro[n] = poroInit[n] * (1 + dP);
-        rockVp[n]  = rockVpInit[n] * (1 + dP);       
-        // rockVp[n] = rockVpInit[n] * (1 + dP + dP * dP / 2);
+        rockVp[n]  = rockVntg[n] * poro[n];
+        poroP[n] = poroInit[n] * rockC1;
+        // rockVp[n] = rockVntg[n] * (1 + dP + dP * dP / 2);
     }
 }
 
@@ -2734,7 +2737,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u,
         P[n] += dP; // seems better
         if (fabs(NRdPmax) < fabs(dP)) NRdPmax = dP;
 
-        // rockVp[n] = rockVpInit[n] * (1 + rockC1 * (P[n] - rockPref));
+        // rockVp[n] = rockVntg[n] * (1 + rockC1 * (P[n] - rockPref));
         // cout << scientific << setprecision(6) << dP << "   " << n << endl;
 
         dSmax = 0;

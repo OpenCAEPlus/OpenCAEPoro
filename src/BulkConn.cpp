@@ -243,16 +243,15 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
     OCP_FUNCNAME;
 
     // accumulate term
-    OCP_DBL Vp0, Vp, vf, vfp, P;
-    OCP_DBL cr = myBulk.rockC1;
+    OCP_DBL Vpp, Vp, vf, vfp, P;
     for (OCP_USI n = 0; n < numBulk; n++) {
         vf  = myBulk.vf[n];
         vfp = myBulk.vfp[n];
         P   = myBulk.lP[n];
-        Vp0 = myBulk.rockVpInit[n];
+        Vpp = myBulk.rockVntg[n] * myBulk.poroP[n];
         Vp  = myBulk.rockVp[n];
 
-        OCP_DBL temp    = cr * Vp0 - vfp;
+        OCP_DBL temp    = Vpp - vfp;
         myLS.diagVal[n] = temp;
         myLS.b[n]       = temp * P + dt * (vf - Vp);
         // myLS.b[n] = temp * P + (vf - Vp);
@@ -470,7 +469,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
@@ -970,7 +969,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
@@ -1277,7 +1276,7 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
@@ -1584,7 +1583,7 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
@@ -1912,7 +1911,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
@@ -2330,7 +2329,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
         bmat[i * ncol + i] = 1;
     }
     for (OCP_USI n = 0; n < numBulk; n++) {
-        bmat[0] = myBulk.rockC1 * myBulk.rockVpInit[n] - myBulk.vfp[n];
+        bmat[0] = myBulk.rockVntg[n] * myBulk.poroP[n] - myBulk.vfp[n];
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
