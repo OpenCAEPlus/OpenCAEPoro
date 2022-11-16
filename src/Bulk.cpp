@@ -25,159 +25,195 @@ void Bulk::InputParam(ParamReservoir& rs_param)
 {
     OCP_FUNCNAME;
 
+    // Common input
     rockPref   = rs_param.rock.Pref;
     rockC1     = rs_param.rock.Cr;
-    rockC2     = rockC1;
-    T          = rs_param.rsTemp + 460;
-    ScalePcow  = rs_param.ScalePcow;
+    rockC2     = rockC1; 
+    
     blackOil   = rs_param.blackOil;
-    comps      = rs_param.comps;
-    oil        = rs_param.oil;
-    gas        = rs_param.gas;
-    water      = rs_param.water;
-    disGas     = rs_param.disGas;
-    miscible   = rs_param.EoSp.miscible;
-    EQUIL.Dref = rs_param.EQUIL[0];
-    EQUIL.Pref = rs_param.EQUIL[1];
+    comps      = rs_param.comps;  
+    
     NTPVT      = rs_param.NTPVT;
     NTSFUN     = rs_param.NTSFUN;
+    NTROCC     = rs_param.NTROOC;
+
+    ScalePcow = rs_param.ScalePcow;
 
     if (rs_param.PBVD_T.data.size() > 0) EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
 
     if (blackOil) {
-
-        if (water && !oil && !gas) {
-            // water
-            numPhase = 1;
-            numCom   = 1;
-            SATmode  = PHASE_W;
-            PVTmode  = PHASE_W;
-        } else if (water && oil && !gas) {
-            // water, dead oil
-            numPhase   = 2;
-            numCom     = 2;
-            EQUIL.DOWC = rs_param.EQUIL[2];
-            EQUIL.PcOW = rs_param.EQUIL[3];
-            SATmode    = PHASE_OW;
-            PVTmode    = PHASE_OW;
-        } else if (water && oil && gas && !disGas) {
-            // water, dead oil, dry gas
-            numPhase   = 3;
-            numCom     = 3;
-            EQUIL.DOWC = rs_param.EQUIL[2];
-            EQUIL.PcOW = rs_param.EQUIL[3];
-            EQUIL.DGOC = rs_param.EQUIL[4];
-            EQUIL.PcGO = rs_param.EQUIL[5];
-            SATmode    = PHASE_DOGW;
-            PVTmode    = PHASE_DOGW; // maybe it should be added later
-        } else if (water && oil && gas && disGas) {
-            // water, live oil, dry gas
-            numPhase   = 3;
-            numCom     = 3;
-            EQUIL.DOWC = rs_param.EQUIL[2];
-            EQUIL.PcOW = rs_param.EQUIL[3];
-            EQUIL.DGOC = rs_param.EQUIL[4];
-            EQUIL.PcGO = rs_param.EQUIL[5];
-            PVTmode    = PHASE_ODGW;
-
-            if (rs_param.SOF3_T.data.size() > 0) {
-                SATmode = PHASE_ODGW02;
-            } else {
-                SATmode = PHASE_ODGW01;
-            }
-        }
-        numCom_1          = numCom - 1;
-        rs_param.numPhase = numPhase;
-        rs_param.numCom   = numCom;
-
-        switch (PVTmode) {
-            case PHASE_W:
-                OCP_ABORT("Wrong Type!");
-                break;
-            case PHASE_OW:
-                for (USI i = 0; i < NTPVT; i++)
-                    flashCal.push_back(new BOMixture_OW(rs_param, i));
-                break;
-            case PHASE_DOGW:
-                OCP_ABORT("Wrong Type!");
-                break;
-            case PHASE_ODGW:
-                for (USI i = 0; i < NTPVT; i++)
-                    flashCal.push_back(new BOMixture_ODGW(rs_param, i));
-                break;
-            default:
-                OCP_ABORT("Wrong Type!");
-                break;
-        }
-
-        cout << "BLACKOIL model" << endl;
+        // Isothermal blackoil model
+        InputParamBLKOIL(rs_param);
     } else if (comps) {
+        // Isothermal compositional model
+        InputParamCOMPS(rs_param);
+    }
 
-        // Water exists and is excluded in EoS model NOW!
-        oil   = OCP_TRUE;
-        gas   = OCP_TRUE;
-        water = OCP_TRUE;
+    InputSatFunc(rs_param);
+}
 
-        numPhase   = rs_param.EoSp.numPhase + 1;
-        numCom     = rs_param.EoSp.numCom + 1;
-        numCom_1   = numCom - 1;
+
+void Bulk::InputParamBLKOIL(ParamReservoir& rs_param)
+{
+    oil = rs_param.oil;
+    gas = rs_param.gas;
+    water = rs_param.water;
+    disGas = rs_param.disGas;
+
+    EQUIL.Dref = rs_param.EQUIL[0];
+    EQUIL.Pref = rs_param.EQUIL[1];
+
+    if (water && !oil && !gas) {
+        // water
+        numPhase = 1;
+        numCom = 1;
+        SATmode = PHASE_W;
+        PVTmode = PHASE_W;
+    }
+    else if (water && oil && !gas) {
+        // water, dead oil
+        numPhase = 2;
+        numCom = 2;
+        EQUIL.DOWC = rs_param.EQUIL[2];
+        EQUIL.PcOW = rs_param.EQUIL[3];
+        SATmode = PHASE_OW;
+        PVTmode = PHASE_OW;
+    }
+    else if (water && oil && gas && !disGas) {
+        // water, dead oil, dry gas
+        numPhase = 3;
+        numCom = 3;
         EQUIL.DOWC = rs_param.EQUIL[2];
         EQUIL.PcOW = rs_param.EQUIL[3];
         EQUIL.DGOC = rs_param.EQUIL[4];
         EQUIL.PcGO = rs_param.EQUIL[5];
+        SATmode = PHASE_DOGW;
+        PVTmode = PHASE_DOGW; // maybe it should be added later
+    }
+    else if (water && oil && gas && disGas) {
+        // water, live oil, dry gas
+        numPhase = 3;
+        numCom = 3;
 
-        for (auto& v : rs_param.ZMFVD_T.data) {
-            initZi_T.push_back(OCPTable(v));
-        }
+        EQUIL.DOWC = rs_param.EQUIL[2];
+        EQUIL.PcOW = rs_param.EQUIL[3];
+        EQUIL.DGOC = rs_param.EQUIL[4];
+        EQUIL.PcGO = rs_param.EQUIL[5];
+        PVTmode = PHASE_ODGW;
 
         if (rs_param.SOF3_T.data.size() > 0) {
             SATmode = PHASE_ODGW02;
-        } else {
+        }
+        else {
             SATmode = PHASE_ODGW01;
         }
+    }
+    numCom_1 = numCom - 1;
+    rs_param.numPhase = numPhase;
+    rs_param.numCom = numCom;
 
+    // PVT mode
+    switch (PVTmode) {
+    case PHASE_W:
+        OCP_ABORT("Wrong Type!");
+        break;
+    case PHASE_OW:
         for (USI i = 0; i < NTPVT; i++)
-            flashCal.push_back(new MixtureComp(rs_param, i));
-
-        cout << "COMPOSITIONAL model" << endl;
+            flashCal.push_back(new BOMixture_OW(rs_param, i));
+        break;
+    case PHASE_DOGW:
+        OCP_ABORT("Wrong Type!");
+        break;
+    case PHASE_ODGW:
+        for (USI i = 0; i < NTPVT; i++)
+            flashCal.push_back(new BOMixture_ODGW(rs_param, i));
+        break;
+    default:
+        OCP_ABORT("Wrong Type!");
+        break;
     }
 
-    if (SATmode == PHASE_ODGW01 && miscible) {
-        SATmode = PHASE_ODGW01_MISCIBLE;
+    cout << "BLACKOIL model" << endl;
+}
+
+
+void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
+{
+    T = rs_param.rsTemp + 460;
+    miscible = rs_param.EoSp.miscible;
+
+    // Water exists and is excluded in EoS model NOW!
+    oil = OCP_TRUE;
+    gas = OCP_TRUE;
+    water = OCP_TRUE;
+
+    numPhase = rs_param.EoSp.numPhase + 1;
+    numCom = rs_param.EoSp.numCom + 1;
+    numCom_1 = numCom - 1;
+    EQUIL.Dref = rs_param.EQUIL[0];
+    EQUIL.Pref = rs_param.EQUIL[1];
+    EQUIL.DOWC = rs_param.EQUIL[2];
+    EQUIL.PcOW = rs_param.EQUIL[3];
+    EQUIL.DGOC = rs_param.EQUIL[4];
+    EQUIL.PcGO = rs_param.EQUIL[5];
+
+    // Init Zi
+    for (auto& v : rs_param.ZMFVD_T.data) {
+        initZi_T.push_back(OCPTable(v));
     }
 
+    // Saturation mode
+    if (rs_param.SOF3_T.data.size() > 0) {
+        SATmode = PHASE_ODGW02;
+    }
+    else {
+        SATmode = PHASE_ODGW01;
+        if (miscible){ SATmode = PHASE_ODGW01_MISCIBLE; }
+    }
+
+    // PVT mode
+    for (USI i = 0; i < NTPVT; i++)
+        flashCal.push_back(new MixtureComp(rs_param, i));
+
+    cout << "COMPOSITIONAL model" << endl;
+}
+
+
+void Bulk::InputSatFunc(const ParamReservoir& rs_param)
+{
+    // Setup Saturation function
     satcm.resize(NTSFUN);
-
     switch (SATmode) {
-        case PHASE_W:
-            for (USI i = 0; i < NTSFUN; i++)
-                flow.push_back(new FlowUnit_W(rs_param, i));
-            break;
-        case PHASE_OW:
-            for (USI i = 0; i < NTSFUN; i++)
-                flow.push_back(new FlowUnit_OW(rs_param, i));
-            break;
-        case PHASE_ODGW01:
-            for (USI i = 0; i < NTSFUN; i++) {
-                flow.push_back(new FlowUnit_ODGW01(rs_param, i));
-                satcm[i] = flow[i]->GetScm();
-            }
-            break;
-        case PHASE_ODGW01_MISCIBLE:
-            for (USI i = 0; i < NTSFUN; i++) {
-                flow.push_back(new FlowUnit_ODGW01_Miscible(rs_param, i));
-                satcm[i] = flow[i]->GetScm();
-            }
-            break;
-        case PHASE_ODGW02:
-            for (USI i = 0; i < NTSFUN; i++)
-                flow.push_back(new FlowUnit_ODGW02(rs_param, i));
-            break;
-        default:
-            OCP_ABORT("Wrong Type!");
-            break;
+    case PHASE_W:
+        for (USI i = 0; i < NTSFUN; i++)
+            flow.push_back(new FlowUnit_W(rs_param, i));
+        break;
+    case PHASE_OW:
+        for (USI i = 0; i < NTSFUN; i++)
+            flow.push_back(new FlowUnit_OW(rs_param, i));
+        break;
+    case PHASE_ODGW01:
+        for (USI i = 0; i < NTSFUN; i++) {
+            flow.push_back(new FlowUnit_ODGW01(rs_param, i));
+            satcm[i] = flow[i]->GetScm();
+        }
+        break;
+    case PHASE_ODGW01_MISCIBLE:
+        for (USI i = 0; i < NTSFUN; i++) {
+            flow.push_back(new FlowUnit_ODGW01_Miscible(rs_param, i));
+            satcm[i] = flow[i]->GetScm();
+        }
+        break;
+    case PHASE_ODGW02:
+        for (USI i = 0; i < NTSFUN; i++)
+            flow.push_back(new FlowUnit_ODGW02(rs_param, i));
+        break;
+    default:
+        OCP_ABORT("Wrong Type!");
+        break;
     }
 }
+
 
 /// Setup bulk information.
 void Bulk::Setup(const Grid& myGrid)

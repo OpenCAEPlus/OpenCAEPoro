@@ -19,10 +19,10 @@
 #include "OCPTable.hpp"
 #include "ParamReservoir.hpp"
 
-class Rock0
+class Rock
 {
 public:
-	Rock0() = default;
+	Rock() = default;
 
 	// Calculate porosity and d porosity / d P for isothermal model
 	virtual void CalPoro(const OCP_DBL& poroInit, const OCP_DBL& P, OCP_DBL& poro, OCP_DBL& dPorodP) const = 0;
@@ -31,7 +31,7 @@ public:
 };
 
 
-class RockIso : public Rock0
+class RockIso : public Rock
 {
 public:
 	RockIso() = default;
@@ -42,6 +42,7 @@ public:
 
 class Rock_Linear01 : public RockIso
 {
+	// poro = poroinit * (1 + phi)
 	// poro = poroInit * (1 + Rc1 * (P - Pref))
 public:
 	Rock_Linear01() = default;
@@ -58,6 +59,7 @@ protected:
 
 class Rock_Linear02 : public RockIso
 {
+	// poro = poroinit * (1 + phi)
 	// poro = poroInit * (1 + Rc1 * (P - Pref) + Rc2 / 2 * (P - Pref) * (P - Pref))
 public:
 	Rock_Linear02() = default;

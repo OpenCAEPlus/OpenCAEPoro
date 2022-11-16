@@ -75,6 +75,9 @@ public:
 
     /// Input param from internal data structure ParamReservoir.
     void InputParam(ParamReservoir& rs_param);
+    void InputParamBLKOIL(ParamReservoir& rs_param);
+    void InputParamCOMPS(const ParamReservoir& rs_param);
+    void InputSatFunc(const ParamReservoir& rs_param);
     /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
@@ -241,6 +244,7 @@ private:
     vector<FlowUnit*> flow;     ///< Vector for capillary pressure, relative perm.
     vector<vector<OCP_DBL>>
         satcm; ///< critical saturation when phase becomes mobile / immobile.
+    USI               NTROCC;   ///< num of Rock regions
     vector<USI>       ROCKNUM;  ///< index of Rock table for each bulk
 
     // Skip stability analysis
@@ -270,14 +274,14 @@ private:
     // Basic model information
     /////////////////////////////////////////////////////////////////////
     ParamEQUIL EQUIL;    ///< Initial Equilibration.
-    OCP_BOOL   blackOil; ///< If OCP_TRUE, black-oil model will be used.
-    OCP_BOOL   comps;    ///< If OCP_TRUE, compositional model will be used.
-    OCP_BOOL   oil;      ///< If OCP_TRUE, oil phase could exist.
-    OCP_BOOL   gas;      ///< If OCP_TRUE, gas phase could exist.
-    OCP_BOOL   water;    ///< If OCP_TRUE, water phase could exist.
-    OCP_BOOL   disGas;   ///< If OCP_TRUE, dissolve gas in live oil could exist.
+    OCP_BOOL   blackOil{ OCP_FALSE }; ///< If OCP_TRUE, black-oil model will be used.
+    OCP_BOOL   comps{ OCP_FALSE };    ///< If OCP_TRUE, compositional model will be used.
+    OCP_BOOL   oil{ OCP_FALSE };      ///< If OCP_TRUE, oil phase could exist.
+    OCP_BOOL   gas{ OCP_FALSE };      ///< If OCP_TRUE, gas phase could exist.
+    OCP_BOOL   water{ OCP_FALSE };    ///< If OCP_TRUE, water phase could exist.
+    OCP_BOOL   disGas{ OCP_FALSE };   ///< If OCP_TRUE, dissolve gas in live oil could exist.
     OCP_BOOL
-    miscible; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    miscible{ OCP_FALSE }; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     /////////////////////////////////////////////////////////////////////
     // Basic physical variables

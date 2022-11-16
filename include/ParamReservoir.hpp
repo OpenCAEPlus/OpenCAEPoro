@@ -186,6 +186,7 @@ public:
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
     USI               NTPVT{1};  ///< Num of PVT regions.
+    USI               NTROOC{1}; ///< Num of Rock regions.
     Type_A_r<OCP_DBL> SATNUM;    ///< Records the index of SAT region for each grid.
     Type_A_r<OCP_DBL> PVTNUM;    ///< Records the index of PVT region for each grid.
     Type_A_r<OCP_DBL> ACTNUM;    ///< Records the index of Active region for each grid.
