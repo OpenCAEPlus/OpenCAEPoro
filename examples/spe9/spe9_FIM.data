@@ -2486,7 +2486,8 @@ PVTW
 ROCK
 --Ref   Comp
 --Pres
-  3600  1.0E-6 /
+LINEAR01    3600  1.0E-6 
+/
 
 GRAVITY
 64.6936    1.01032   0.9193 /

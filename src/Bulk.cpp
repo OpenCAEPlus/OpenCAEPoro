@@ -26,8 +26,8 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     OCP_FUNCNAME;
 
     // Common input
-    rockPref   = rs_param.rock.Pref;
-    rockC1     = rs_param.rock.Cr;
+    rockPref   = rs_param.rockSet[0].Pref;
+    rockC1     = rs_param.rockSet[0].Cp1;
     rockC2     = rockC1; 
     
     blackOil   = rs_param.blackOil;
@@ -50,6 +50,7 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     }
 
     InputSatFunc(rs_param);
+    InputRockFunc(rs_param);
 }
 
 
@@ -212,6 +213,12 @@ void Bulk::InputSatFunc(const ParamReservoir& rs_param)
         OCP_ABORT("Wrong Type!");
         break;
     }
+}
+
+
+void Bulk::InputRockFunc(const ParamReservoir& rs_param)
+{
+
 }
 
 

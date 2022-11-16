@@ -19,6 +19,7 @@
 // OpenCAEPoro header files
 #include "DenseMat.hpp"
 #include "FlowUnit.hpp"
+#include "Rock.hpp"
 #include "Grid.hpp"
 #include "LinearSystem.hpp"
 #include "Mixture.hpp"
@@ -78,6 +79,7 @@ public:
     void InputParamBLKOIL(ParamReservoir& rs_param);
     void InputParamCOMPS(const ParamReservoir& rs_param);
     void InputSatFunc(const ParamReservoir& rs_param);
+    void InputRockFunc(const ParamReservoir& rs_param);
     /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
@@ -246,6 +248,7 @@ private:
         satcm; ///< critical saturation when phase becomes mobile / immobile.
     USI               NTROCC;   ///< num of Rock regions
     vector<USI>       ROCKNUM;  ///< index of Rock table for each bulk
+    vector<Rock*>     rock;     ///< rock model
 
     // Skip stability analysis
     vector<USI> phaseNum;   ///< Num of hydrocarbon phase in each bulk

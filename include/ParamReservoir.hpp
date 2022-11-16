@@ -48,8 +48,13 @@ public:
 class RockParam
 {
 public:
-    OCP_DBL Pref; ///< Reference pressure at initial porosity.
-    OCP_DBL Cr;   ///< Compressibility factor of rock in reservoir.
+    string  type{"LINEAR01"}; ///< LINEAR or EXPONENT
+    OCP_DBL Pref{ 14.7 }; ///< Reference pressure at initial porosity.
+    OCP_DBL Cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
+    OCP_DBL Cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
+    OCP_DBL Ct{ 0 };   ///< Expansion factor of rock in reservoir, thermal only
+    OCP_DBL Cpt{ 0 };  ///< cross items, thermal only
+    OCP_BOOL ConstRock{ false }; ///< if true, rock volume remains const, else, bulk volume remains const
 };
 
 /// A internal structure used to store some params for reservoir, it can tell
@@ -157,8 +162,7 @@ public:
     vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
     vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
-    RockParam rock; ///< Contains the compressibility factor and reference pressure at
-               ///< initial porosity.
+    vector<RockParam> rockSet; ///< a set of rock
     Miscstr miscstr; ///< reference Miscibility surface tension
 
     // If P and Ni are given, then calculation of initial equilibration is unneeded.
@@ -316,6 +320,9 @@ public:
 
     /// Check the size of properties of grids.
     void CheckGrid();
+
+    /// Check Rock
+    void CheckRock();
 
     /// Check if keyword EQUIL is given.
     void CheckEQUIL() const;

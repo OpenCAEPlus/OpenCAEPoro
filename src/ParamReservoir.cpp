@@ -180,8 +180,6 @@ void ParamReservoir::Init()
     density.data[2] = 0.062428;  // The density of gas at surface conditions: lb/ft3
 
     rsTemp    = 60.0;
-    rock.Pref = 14.7;
-    rock.Cr   = 3.406E-6;
 }
 
 /// Initialize tables.
@@ -510,16 +508,36 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
 void ParamReservoir::InputROCK(ifstream& ifs)
 {
     vector<string> vbuf;
-    ReadLine(ifs, vbuf);
-    if (vbuf[0] == "/") return;
+    
 
-    rock.Pref = stod(vbuf[0]);
-    rock.Cr   = stod(vbuf[1]);
+    cout << "ROCK" << endl;
+    
+    while (true) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") break;
 
-    cout << "---------------------" << endl
-         << "ROCK" << endl
-         << "---------------------" << endl;
-    cout << rock.Pref << "  " << rock.Cr << endl;
+        RockParam rock;
+        rock.type = vbuf[0];
+        rock.Pref = stod(vbuf[1]);
+        rock.Cp1 = stod(vbuf[2]);
+
+        if (rock.type == "LINEAR02") {
+            if (vbuf.size() > 3 && vbuf[3] != "/") {
+                rock.Cp2 = stod(vbuf[3]);               
+            }
+            else {
+                rock.Cp2 = rock.Cp1;
+            }           
+        }
+
+        rockSet.push_back(rock);
+
+
+        cout << rock.type << "   " << rock.Pref << "   " << rock.Cp1 << "   "
+            << rock.Cp2 << endl;       
+    }
+
+    cout << "/" << endl;
 }
 
 /// Read data from the MISCSTR keyword.
@@ -672,6 +690,7 @@ void ParamReservoir::CheckParam()
     CheckPhase();
     // CheckPhaseTab();
     CheckRegion();
+    CheckRock();
 }
 
 /// Check data dimension for potential problems.
@@ -697,6 +716,15 @@ void ParamReservoir::CheckGrid()
         cout << "Reset Ntg size to 1!" << endl;
     }
 }
+
+
+void ParamReservoir::CheckRock()
+{
+    if (rockSet.size() != NTROOC) {
+        OCP_ABORT("WRONG ROCK or ROCKT!");
+    }
+}
+
 
 /// Check EQUIL keywords.
 void ParamReservoir::CheckEQUIL() const

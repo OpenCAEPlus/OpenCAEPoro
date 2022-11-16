@@ -15,7 +15,7 @@ PVTW
 
      
 ROCK       -- reference Pressure and rock compressibility
-        6000 1E-6  
+LINEAR01          6000 1E-6  
 /
 
 DENSITY   -- oil wat gas @surface(lbm/scf)
