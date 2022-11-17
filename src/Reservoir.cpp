@@ -312,11 +312,7 @@ void Reservoir::InitFIM()
         bulk.InitSjPcComp(50, grid);
 
     bulk.CalRock();
-
     bulk.InitFlashDer();
-    // bulk.InitFlash();
-    // bulk.FlashDeriv();
-
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
     allWells.InitBHP(bulk);

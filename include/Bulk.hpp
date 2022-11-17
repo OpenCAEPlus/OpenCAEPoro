@@ -230,8 +230,7 @@ private:
     USI     numCom_1; ///< numCom - 1
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
-    vector<OCP_DBL>  initZi;
-    vector<OCPTable> initZi_T; ///< InitZi set
+    vector<OCPTable> initZi_Tab; ///< InitZi set
 
     vector<OCP_DBL> SwatInit;                 ///< Initial water saturation.
     OCP_BOOL        SwatInitExist{OCP_FALSE}; ///< If SwatInit has been given.
