@@ -24,7 +24,7 @@ class MixtureThermal : public Mixture
 {
 public:
     MixtureThermal() = default;
-    MixtureThermal(const EoSparam& param, const USI& i);
+    MixtureThermal(const ComponentsParam& param, const USI& i);
 
     // return gamma
     virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used here!"); return 0; };

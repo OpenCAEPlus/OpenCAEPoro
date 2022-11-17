@@ -175,7 +175,7 @@ public:
         }
     };
 
-    MixtureComp(const EoSparam& param, const USI& i);
+    MixtureComp(const ComponentsParam& param, const USI& i);
 
     void InitFlash(const OCP_DBL& Pin,
                    const OCP_DBL& Pbbin,

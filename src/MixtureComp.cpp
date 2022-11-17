@@ -25,7 +25,7 @@ COMP::COMP(const vector<string>& comp)
     Vshift = stod(comp[8]);
 }
 
-MixtureComp::MixtureComp(const EoSparam& param, const USI& tarId)
+MixtureComp::MixtureComp(const ComponentsParam& param, const USI& tarId)
 {
     // if Water don't exist?
     // for Mixture class

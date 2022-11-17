@@ -276,7 +276,7 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     ReadLine(ifs, vbuf);
     numCom      = stoi(vbuf[0]);
     EoSp.numCom = numCom;
-    EoSp.InitEoSparam();
+    EoSp.Init();
 
     cout << "COMPS" << endl << numCom << "\n\n";
 }
@@ -863,7 +863,7 @@ void TableSet::DisplayTable() const
     }
 }
 
-void EoSparam::InitEoSparam()
+void ComponentsParam::Init()
 {
     // Init LBC coefficient
     LBCcoef.resize(5);
@@ -874,42 +874,8 @@ void EoSparam::InitEoSparam()
     LBCcoef[4] = 0.0093324;
 }
 
-/// TODO: Add Doxygen
-void EoSparam::InputCOM(ifstream& ifs)
-{
-    OCP_ASSERT(numCom > 0, "Wrong NC!");
-    COM.resize(numCom);
-    USI len = 9;
 
-    vector<string> vbuf;
-
-    for (USI c = 0; c < numCom; c++) {
-        COM[c].resize(len);
-        ReadLine(ifs, vbuf);
-        for (USI i = 0; i < len; i++) {
-            COM[c][i] = vbuf[i];
-        }
-    }
-    OCP_FUNCNAME;
-    cout << "Name    "
-         << "Pc                "
-         << "Tc           "
-         << "Acentric    "
-         << "MW               "
-         << "Vc            "
-         << "OmegaA          "
-         << "OmegaB       "
-         << "Shift" << endl;
-    for (auto& c : COM) {
-        for (auto& item : c) {
-            cout << item << "\t";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
-Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
+Type_A_r<vector<OCP_DBL>>* ComponentsParam::FindPtr(const string& varName)
 {
     Type_A_r<vector<OCP_DBL>>* myPtr = nullptr;
 
@@ -966,7 +932,7 @@ Type_A_r<vector<OCP_DBL>>* EoSparam::FindPtr(const string& varName)
     return myPtr;
 }
 
-void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
+void ComponentsParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
 
@@ -1004,7 +970,7 @@ void EoSparam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
     }
 }
 
-void EoSparam::InputCNAMES(ifstream& ifs)
+void ComponentsParam::InputCNAMES(ifstream& ifs)
 {
     OCP_ASSERT(numCom > 0, "NCNP hasn't be input!");
 
@@ -1028,7 +994,7 @@ void EoSparam::InputCNAMES(ifstream& ifs)
     cout << endl << endl;
 }
 
-void EoSparam::InputLBCCOEF(ifstream& ifs)
+void ComponentsParam::InputLBCCOEF(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1046,7 +1012,7 @@ void EoSparam::InputLBCCOEF(ifstream& ifs)
 }
 
 /// Input Binary Interaction Coefficients Matrix
-void EoSparam::InputBIC(ifstream& ifs)
+void ComponentsParam::InputBIC(ifstream& ifs)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NCNP hasn't been input!");
 
@@ -1076,7 +1042,7 @@ void EoSparam::InputBIC(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void EoSparam::InputSSMSTA(ifstream& ifs)
+void ComponentsParam::InputSSMSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1092,7 +1058,7 @@ void EoSparam::InputSSMSTA(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void EoSparam::InputNRSTA(ifstream& ifs)
+void ComponentsParam::InputNRSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1107,7 +1073,7 @@ void EoSparam::InputNRSTA(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void EoSparam::InputSSMSP(ifstream& ifs)
+void ComponentsParam::InputSSMSP(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1122,7 +1088,7 @@ void EoSparam::InputSSMSP(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void EoSparam::InputNRSP(ifstream& ifs)
+void ComponentsParam::InputNRSP(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1137,7 +1103,7 @@ void EoSparam::InputNRSP(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void EoSparam::InputRR(ifstream& ifs)
+void ComponentsParam::InputRR(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);

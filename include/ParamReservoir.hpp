@@ -67,16 +67,13 @@ public:
     vector<T> data;            ///< Data of param.
 };
 
-/// EoSParam contains the params for Compositional Model and functions to read them
-class EoSparam
+/// ComponentsParam contains information of components
+class ComponentsParam
 {
 public:
     // Basic params
     /// Init Params
-    void InitEoSparam();
-    /// Input the information of components
-    void InputCOM(ifstream& ifs); // useless now
-
+    void Init();
     /// Input the information of hydrocarbon components
     void InputCOMPONENTS(ifstream& ifs, const string& keyword);
     /// Find corresponding variable according to the name of variable.
@@ -187,7 +184,7 @@ public:
 
 
     // Compositional Model
-    EoSparam EoSp; ///< Initial component composition, used in compositional models.
+    ComponentsParam EoSp; ///< Initial component composition, used in compositional models.
 
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
@@ -302,10 +299,9 @@ public:
     /// Input the keyword: SATNUM and PVTNUM.
     void InputRegion(ifstream& ifs, const string& keyword);
 
-    // Input EoSparam
+    // Input ComponentsParam
     // Basic params
     void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
-    void InputCOM(ifstream& ifs) { EoSp.InputCOM(ifs); };
     void InputCOMPONENTS(ifstream& ifs, const string& keyword) { EoSp.InputCOMPONENTS(ifs, keyword); }
     void InputLBCCOEF(ifstream& ifs) { EoSp.InputLBCCOEF(ifs); }
     void InputBIC(ifstream& ifs) { EoSp.InputBIC(ifs); };

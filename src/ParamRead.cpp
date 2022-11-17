@@ -233,10 +233,6 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputCNAMES(ifs);
                 break;
 
-            case Map_Str2Int("COM", 3):
-                paramRs.InputCOM(ifs);
-                break;
-
             case Map_Str2Int("TCRIT", 5):
             case Map_Str2Int("PCRIT", 5):
             case Map_Str2Int("VCRIT", 5):
