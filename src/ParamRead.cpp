@@ -68,6 +68,10 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputCOMPS(ifs);
                 break;
 
+            case Map_Str2Int("THERMAL", 7):
+                paramRs.thermal = OCP_TRUE; 
+                break;
+
             case Map_Str2Int("OIL", 3):
                 paramRs.oil = OCP_TRUE;
                 break;
@@ -137,6 +141,10 @@ void ParamRead::ReadFile(const string& filename)
 
             case Map_Str2Int("ROCK", 4):
                 paramRs.InputROCK(ifs);
+                break;
+
+            case Map_Str2Int("ROCKT", 5):
+                paramRs.InputROCKT(ifs);
                 break;
 
             case Map_Str2Int("MISCIBLE", 8):

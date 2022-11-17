@@ -63,11 +63,11 @@ void Reservoir::CalWellTrans()
     allWells.CalTrans(bulk);
 }
 
-void Reservoir::CalVpore()
+void Reservoir::CalRock()
 {
     OCP_FUNCNAME;
 
-    bulk.CalVpore();
+    bulk.CalRock();
 }
 
 void Reservoir::CalKrPc()
@@ -155,7 +155,7 @@ void Reservoir::InitIMPEC()
     else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50, grid);
 
-    bulk.CalVpore();
+    bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
     bulk.UpdateLastStepIMPEC();
@@ -311,7 +311,7 @@ void Reservoir::InitFIM()
     else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50, grid);
 
-    bulk.CalVpore();
+    bulk.CalRock();
 
     bulk.InitFlashDer();
     // bulk.InitFlash();
@@ -332,7 +332,7 @@ void Reservoir::InitFIM_n()
     else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50, grid);
 
-    bulk.CalVpore();
+    bulk.CalRock();
     bulk.InitFlashDer_n();
     bulk.CalKrPcDeriv();
     conn.CalFluxFIM(bulk);
@@ -557,7 +557,7 @@ void Reservoir::InitAIMc()
     else if (bulk.GetMixMode() == EOS_PVTW)
         bulk.InitSjPcComp(50, grid);
 
-    bulk.CalVpore();
+    bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
     conn.CalFluxFIM(bulk);

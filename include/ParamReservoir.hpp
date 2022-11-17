@@ -48,13 +48,14 @@ public:
 class RockParam
 {
 public:
-    string  type{"LINEAR01"}; ///< LINEAR or EXPONENT
+    string  type{"LINEAR"}; ///< LINEAR or EXPONENT
     OCP_DBL Pref{ 14.7 }; ///< Reference pressure at initial porosity.
+    OCP_DBL Tref{ 60 };   ///< Reference temperature at initial porosity.
     OCP_DBL Cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
     OCP_DBL Cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
     OCP_DBL Ct{ 0 };   ///< Expansion factor of rock in reservoir, thermal only
     OCP_DBL Cpt{ 0 };  ///< cross items, thermal only
-    OCP_BOOL ConstRock{ false }; ///< if true, rock volume remains const, else, bulk volume remains const
+    OCP_BOOL ConstRock{ OCP_TRUE }; ///< if true, rock volume remains const, else, bulk volume remains const
 };
 
 /// A internal structure used to store some params for reservoir, it can tell
@@ -178,6 +179,7 @@ public:
     // Model and Phase
     OCP_BOOL blackOil{OCP_FALSE}; ///< If ture, blackoil model will be used.
     OCP_BOOL comps{OCP_FALSE};    ///< If OCP_TRUE, compositional model will be used.
+    OCP_BOOL thermal{OCP_FALSE};  ///< If OCP_TRUE, thermal model will be used.
     OCP_BOOL oil{OCP_FALSE};      ///< If OCP_TRUE, oil phase could exist.
     OCP_BOOL gas{OCP_FALSE};      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL water{OCP_FALSE};    ///< If OCP_TRUE, water phase could exist.
@@ -278,6 +280,8 @@ public:
     /// Input the keyword: ROCK. ROCK contains the compressibility factor and reference
     /// pressure at initial porosity.
     void InputROCK(ifstream& ifs);
+    ///  input Rock information for thermal model
+    void InputROCKT(ifstream& ifs);
 
     /// Input the Miscibility information
     void InputMISCSTR(ifstream& ifs);

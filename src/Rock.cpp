@@ -15,29 +15,38 @@
 
 
 ///////////////////////////////////////////////
-// Rock_Linear01
+// Rock_Linear
 ///////////////////////////////////////////////
 
 
-void Rock_Linear01::CalPoro(const OCP_DBL& poroInit, const OCP_DBL& P, OCP_DBL& poro, OCP_DBL& dPorodP) const
+void Rock_Linear::CalPoro(const OCP_DBL& P, const OCP_DBL& poroInit, OCP_DBL& poro, OCP_DBL& dPorodP) const
 {
-	poro = poroInit * (1 + Rc1 * (P - Pref));
-	dPorodP = poroInit * Rc1;
+	OCP_DBL dP = (P - Pref);
+	poro = poroInit * (1 + (cp1  + cp2 / 2 * dP) * dP);
+	dPorodP = poroInit * (cp1 + cp2 * dP);
 }
 
 
-
 ///////////////////////////////////////////////
-// Rock_Linear02
+// RockT_Linear
 ///////////////////////////////////////////////
 
-
-void Rock_Linear02::CalPoro(const OCP_DBL& poroInit, const OCP_DBL& P, OCP_DBL& poro, OCP_DBL& dPorodP) const
+void RockT_Linear :: CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const
 {
-	poro = poroInit * (1 + Rc1 * (P - Pref) + Rc2 / 2 * (P - Pref) * (P - Pref));
-	dPorodP = poroInit * (Rc1 + Rc2 * (P - Pref));
+	poro = poroInit * (1 + (cp * (P - Pref) - ct * (T - Tref) + cpt * (P - Pref) * (T - Tref)));
 }
 
+
+///////////////////////////////////////////////
+// RockT_Exp
+///////////////////////////////////////////////
+
+void RockT_Exp::CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const
+{
+	OCP_DBL dP = P - Pref;
+	OCP_DBL dT = T - Tref;
+	poro = poroInit * exp(cp * dP - ct * dT + cpt * dP * dT);
+}
 
 
 

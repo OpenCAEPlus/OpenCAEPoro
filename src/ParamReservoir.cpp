@@ -507,11 +507,9 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
 /// Read data from the ROCK keyword.
 void ParamReservoir::InputROCK(ifstream& ifs)
 {
-    vector<string> vbuf;
-    
-
     cout << "ROCK" << endl;
-    
+
+    vector<string> vbuf;   
     while (true) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") break;
@@ -539,6 +537,59 @@ void ParamReservoir::InputROCK(ifstream& ifs)
 
     cout << "/" << endl;
 }
+
+
+/// Read data from the ROCK keyword.
+void ParamReservoir::InputROCKT(ifstream& ifs)
+{
+    cout << "ROCKT" << endl;
+
+    RockParam rock;
+    vector<string> vbuf;
+    while (true) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") break;
+
+        USI index = 0;
+        USI len = vbuf.size();
+        while (index < len) {
+            if (vbuf[index] == "*PORFORM") {
+                rock.type = vbuf[index + 1];               
+            }
+            else if (vbuf[index] == "*PRPOR") {
+                rock.Pref = stod(vbuf[index + 1]);                
+            }
+            else if (vbuf[index] == "*TRPOR") {
+                rock.Tref = stod(vbuf[index + 1]);                
+            }
+            else if (vbuf[index] == "*CPOR") {
+                rock.Cp1 = stod(vbuf[index + 1]);                
+            }
+            else if (vbuf[index] == "*CTPOR") {
+                rock.Ct = stod(vbuf[index + 1]);                
+            }
+            else if (vbuf[index] == "*CPTPOR") {
+                rock.Cpt = stod(vbuf[index + 1]);                
+            }
+            else if (vbuf[index] == "*VOLCONST") {
+                if (vbuf[index + 1] == "BULK")      
+                    rock.ConstRock = OCP_FALSE;
+            }
+            index += 2;
+        }
+    }
+    rockSet.push_back(rock);
+
+    cout << "*PORFORM   " << rock.type << endl;
+    cout << "*PRPOR     " << rock.Pref << endl;
+    cout << "*TRPOR     " << rock.Tref << endl;
+    cout << "*CPOR      " << rock.Cp1 << endl;
+    cout << "*CTPOR     " << rock.Ct << endl;
+    cout << "*CPTPOR    " << rock.Cpt << endl;
+    cout << "*VOLCONST  " << (rock.ConstRock ? "ROCK" : "BULK") << endl;
+    cout << "/" << endl;
+}
+
 
 /// Read data from the MISCSTR keyword.
 void ParamReservoir::InputMISCSTR(ifstream& ifs)
@@ -634,9 +685,10 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     ReadLine(ifs, vbuf);
     NTSFUN = stoi(vbuf[0]);
     NTPVT  = stoi(vbuf[1]);
+    // NTROOC = stoi(vbuf[2]);
 
     cout << "TABDIMS" << endl;
-    cout << NTSFUN << "  " << NTPVT << "\n\n";
+    cout << NTSFUN << "   " << NTPVT << "   " << NTROOC << endl;
 }
 
 /// Region information like SATNUM to decide which grid belongs to which saturation

@@ -60,7 +60,7 @@ public:
     /// Calculate Trans of Wells.
     void CalWellTrans();
     /// Calculate pore of Bulks.
-    void CalVpore();
+    void CalRock();
     /// Calculate Relative Permeability and Capillary for each Bulk
     void CalKrPc();
     /// Calculate Maximum Change of some reference variables for IMPEC

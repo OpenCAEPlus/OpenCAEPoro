@@ -108,7 +108,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
         return OCP_FALSE;
     }
 
-    rs.CalVpore();
+    rs.CalRock();
     rs.CalFlashIMPEC();
 
     // fouth check: Volume error check
@@ -175,7 +175,7 @@ OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
         return OCP_FALSE;
     }
 
-    rs.CalVpore();
+    rs.CalRock();
     rs.CalFlashIMPEC();
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
@@ -294,7 +294,7 @@ OCP_BOOL OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Update reservoir properties
     rs.CalFlashDerivFIM();
     rs.CalKrPcDerivFIM();
-    rs.CalVpore();
+    rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
@@ -547,7 +547,7 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Update reservoir properties
     rs.CalFlashDerivFIM_n();
     rs.CalKrPcDerivFIM();
-    rs.CalVpore();
+    rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
@@ -654,7 +654,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Important, Pj must be updated with current and last Pc for IMPEC Bulk
     rs.UpdatePj();
 
-    rs.CalVpore();
+    rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
     rs.CalResAIMc(resFIM, dt);

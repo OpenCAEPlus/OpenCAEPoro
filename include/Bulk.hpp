@@ -78,8 +78,10 @@ public:
     void InputParam(ParamReservoir& rs_param);
     void InputParamBLKOIL(ParamReservoir& rs_param);
     void InputParamCOMPS(const ParamReservoir& rs_param);
+    void InputParamTHERMAL(const ParamReservoir& rs_param);
     void InputSatFunc(const ParamReservoir& rs_param);
     void InputRockFunc(const ParamReservoir& rs_param);
+    void InputRockFuncT(const ParamReservoir& rs_param);
     /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
@@ -122,7 +124,7 @@ public:
     /// Calculate relative permeability and capillary pressure and their derivatives.
     void CalKrPcDeriv();
     /// Calculate volume of pore with pressure.
-    void CalVpore();
+    void CalRock();
     /// Calculate average pressure in reservoir.
     OCP_DBL CalFPR() const;
     /// Calculate max change of some variables.
@@ -279,6 +281,7 @@ private:
     ParamEQUIL EQUIL;    ///< Initial Equilibration.
     OCP_BOOL   blackOil{ OCP_FALSE }; ///< If OCP_TRUE, black-oil model will be used.
     OCP_BOOL   comps{ OCP_FALSE };    ///< If OCP_TRUE, compositional model will be used.
+    OCP_BOOL   thermal{ OCP_FALSE };
     OCP_BOOL   oil{ OCP_FALSE };      ///< If OCP_TRUE, oil phase could exist.
     OCP_BOOL   gas{ OCP_FALSE };      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL   water{ OCP_FALSE };    ///< If OCP_TRUE, water phase could exist.
@@ -356,9 +359,6 @@ private:
     vector<OCP_DBL> poroP;      ///< d poro / d P.
     vector<OCP_DBL> rockVntg; ///< init pore volume = Vgrid * ntg.
     vector<OCP_DBL> rockVp;     ///< pore volume = Vgrid * ntg * poro.
-    OCP_DBL         rockPref;   ///< reference pressure for initial rock volume.
-    OCP_DBL         rockC1;     ///< rock compressibility term 1.
-    OCP_DBL         rockC2;     ///< rock compressibility term 2.
     vector<OCP_DBL> rockKxInit; ///< initial rock permeability along the x direction.
     vector<OCP_DBL> rockKx;     ///< current rock permeability along the x direction.
     vector<OCP_DBL> rockKyInit; ///< initial rock permeability along the y direction.

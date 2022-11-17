@@ -25,13 +25,10 @@ void Bulk::InputParam(ParamReservoir& rs_param)
 {
     OCP_FUNCNAME;
 
-    // Common input
-    rockPref   = rs_param.rockSet[0].Pref;
-    rockC1     = rs_param.rockSet[0].Cp1;
-    rockC2     = rockC1; 
-    
+    // Common input  
     blackOil   = rs_param.blackOil;
-    comps      = rs_param.comps;  
+    comps      = rs_param.comps;
+    thermal    = rs_param.thermal;
     
     NTPVT      = rs_param.NTPVT;
     NTSFUN     = rs_param.NTSFUN;
@@ -47,6 +44,9 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     } else if (comps) {
         // Isothermal compositional model
         InputParamCOMPS(rs_param);
+    } else if (thermal) {
+        // thermal model
+        InputParamTHERMAL(rs_param);
     }
 
     InputSatFunc(rs_param);
@@ -134,6 +134,7 @@ void Bulk::InputParamBLKOIL(ParamReservoir& rs_param)
         break;
     }
 
+    InputRockFunc(rs_param);
     cout << "BLACKOIL model" << endl;
 }
 
@@ -176,9 +177,15 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     for (USI i = 0; i < NTPVT; i++)
         flashCal.push_back(new MixtureComp(rs_param, i));
 
+    InputRockFunc(rs_param);
     cout << "COMPOSITIONAL model" << endl;
 }
 
+
+void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
+{
+    InputRockFuncT(rs_param);
+}
 
 void Bulk::InputSatFunc(const ParamReservoir& rs_param)
 {
@@ -218,7 +225,23 @@ void Bulk::InputSatFunc(const ParamReservoir& rs_param)
 
 void Bulk::InputRockFunc(const ParamReservoir& rs_param)
 {
+    for (USI i = 0; i < NTROCC; i++) {
+        rock.push_back(new Rock_Linear(rs_param.rockSet[i]));
+    }
+}
 
+
+void Bulk::InputRockFuncT(const ParamReservoir& rs_param)
+{
+
+    for (USI i = 0; i < NTROCC; i++) {
+        if (rs_param.rockSet[i].type == "LINEAR") {
+            rock.push_back(new RockT_Linear(rs_param.rockSet[i]));
+        }
+        else {
+            rock.push_back(new RockT_Exp(rs_param.rockSet[i]));
+        }
+    }
 }
 
 
@@ -1981,15 +2004,13 @@ void Bulk::CalKrPcDeriv()
     }
 }
 
-void Bulk::CalVpore()
+void Bulk::CalRock()
 {
     OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        OCP_DBL dP = rockC1 * (P[n] - rockPref);
-        poro[n] = poroInit[n] * (1 + dP);
-        rockVp[n]  = rockVntg[n] * poro[n];
-        poroP[n] = poroInit[n] * rockC1;
+        rock[ROCKNUM[n]]->CalPoro(P[n], poroInit[n], poro[n], poroP[n]);
+        rockVp[n] = rockVntg[n] * poro[n];
     }
 }
 
