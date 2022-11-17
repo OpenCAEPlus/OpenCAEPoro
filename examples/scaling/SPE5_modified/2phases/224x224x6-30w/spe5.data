@@ -29,7 +29,7 @@ GAS
 
 
 TABDIMS
-1 1 40 40 /
+1   1   1
 
 DIMENS
 224 224 6 / -- orgin: 7x7x3

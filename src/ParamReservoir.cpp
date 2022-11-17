@@ -683,9 +683,14 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
+
+    if (vbuf.size() < 3) {
+        OCP_ABORT("Input the number of saturation tables, PVT tables, and rock tables in turn!");
+    }
+
     NTSFUN = stoi(vbuf[0]);
     NTPVT  = stoi(vbuf[1]);
-    // NTROOC = stoi(vbuf[2]);
+    NTROOC = stoi(vbuf[2]);
 
     cout << "TABDIMS" << endl;
     cout << NTSFUN << "   " << NTPVT << "   " << NTROOC << endl;

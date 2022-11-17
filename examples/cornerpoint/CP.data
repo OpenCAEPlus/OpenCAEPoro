@@ -23,7 +23,7 @@ TABDIMS
 --The number of PVT tables entered using PVTG, PVTO etc
 --The maximum number of saturation nodes in any saturation table
 --The maximum number of pressure nodes in any PVT table
-    1    1   50   50  /
+1   1   1
 	
 REGDIMS
 --The maximum number of fluid-in-place regions
