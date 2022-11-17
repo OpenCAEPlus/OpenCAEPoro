@@ -11,7 +11,18 @@
 
 #include "OCP.hpp"
 
-/// Read from input file and set control and output params.
+
+/// Read Param from input file
+void OpenCAEPoro::ReadInputFile(const string& filename)
+{
+    ParamRead rp;
+    rp.ReadInputFile(filename);
+    // Read parameters from input file
+    InputParam(rp);
+}
+
+
+/// Read from internal param (which comes from input files) and set control and output params.
 void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
@@ -20,15 +31,12 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup procedures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(ParamRead&  param,
-                                 const USI&  argc,
+void OpenCAEPoro::SetupSimulator(const USI&  argc,
                                  const char* options[])
 {
     GetWallTime timer;
     timer.Start();
 
-    // Read parameters from input file
-    InputParam(param);
     // Read Fast control
     control.SetupFastControl(argc, options);
     // Setup static information for solver
@@ -44,6 +52,7 @@ void OpenCAEPoro::SetupSimulator(ParamRead&  param,
              << finalTime << " Sec" << endl
              << endl;
     }
+
     control.RecordTotalTime(finalTime);
 }
 
@@ -62,6 +71,7 @@ void OpenCAEPoro::InitReservoir()
              << finalTime << " Sesc" << endl;
     }
     control.RecordTotalTime(finalTime);
+    control.initilizationTime = finalTime;
 }
 
 /// Call IMPEC, FIM, AIM, etc for dynamic simulation.
@@ -122,6 +132,9 @@ void OpenCAEPoro::OutputResults() const
     // print time usages
     cout << "Simulation time:             " << setw(fixWidth) << control.totalSimTime
          << " (Seconds)" << endl;
+    cout << " - % Initialize ............." << setw(fixWidth)
+        << 100.0 * control.initilizationTime / control.totalSimTime << " ("
+        << control.initilizationTime << "s)" << endl;
     cout << " - % Assembling ............." << setw(fixWidth)
          << 100.0 * control.totalAssembleMatTime / control.totalSimTime << " ("
          << control.totalAssembleMatTime << "s)" << endl;

@@ -685,7 +685,7 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     ReadLine(ifs, vbuf);
 
     if (vbuf.size() < 3) {
-        OCP_ABORT("Input the number of saturation tables, PVT tables, and rock tables in turn!");
+        OCP_ABORT("Input the number of Saturation tables, PVT tables, and Rock tables in turn!");
     }
 
     NTSFUN = stoi(vbuf[0]);

@@ -36,18 +36,16 @@ int main(int argc, const char* argv[])
         }
     }
 
-    { // Read and process input parameters
-        ParamRead rp;
 
-        // Step 1. Read params from an input file to internal params data structure.
-        // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.
-        rp.ReadInputFile(argv[1]);
+    // Step 1. Read params from an input file to internal data structure.
+    // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.
+    simulator.ReadInputFile(argv[1]);
 
-        // Step 2. Set params using command-line and params read from input file.
-        // Remark: It sets up static info, such as active grids and their connections.
-        // Remark: Memory allocation for linear systems will also be done at this time.
-        simulator.SetupSimulator(rp, argc, argv);
-    }
+    // Step 2. Set params using command-line
+    // Remark: It sets up static info, such as active grids and their connections.
+    // Remark: Memory allocation for linear systems will also be done at this time.
+    simulator.SetupSimulator(argc, argv);
+
 
     // Step 3. Initialize the reservoir, which finishes the first step in iterations.
     // Examples: Initial pressure, saturations, moles of components, initial guess of

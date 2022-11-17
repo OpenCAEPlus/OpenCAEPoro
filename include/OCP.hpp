@@ -69,11 +69,14 @@ public:
              << endl;
     }
 
+    /// Read Param from input file
+    void ReadInputFile(const string& filename);
+
     /// Read input parameters to an internal structure.
     void InputParam(ParamRead& param);
 
     /// Setup reservoir based on an internal structure.
-    void SetupSimulator(ParamRead& param, const USI& argc, const char* options[]);
+    void SetupSimulator(const USI& argc, const char* options[]);
 
     /// Initialize or get initial status of reservoir.
     void InitReservoir();
