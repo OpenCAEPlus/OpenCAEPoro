@@ -166,7 +166,7 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 
     // Init T
     // Use RTEMP
-    RTemp = rs_param.rsTemp + 460;    // F -> R
+    RTemp = rs_param.rsTemp;    // °„F -> °„R
     vector<vector<OCP_DBL>> temp;
     temp.resize(2);
     // add depth
@@ -198,11 +198,8 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
 {
     // Init T
-    RTemp = rs_param.rsTemp + 460;    // F -> R
-    for (auto v : rs_param.TEMPVD_T.data) {
-        for (auto& v1 : v[1]) {
-            v1 += 460;  // F -> R
-        }
+    RTemp = rs_param.rsTemp;    // F -> R
+    for (auto& v : rs_param.TEMPVD_T.data) {
         initT_Tab.push_back(OCPTable(v));
     }
     if (initT_Tab.size() == 0) {

@@ -124,6 +124,7 @@ public:
 
 class MixtureComp : public Mixture
 {
+    // Here, Pressure is in unit psia, Temperature is in unit °„F
 
 public:
     OCP_DBL GetErrorPEC() override { return ePEC; }

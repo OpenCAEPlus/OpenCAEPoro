@@ -294,7 +294,7 @@ private:
     /////////////////////////////////////////////////////////////////////
     OCP_DBL          RTemp;      ///< Reservoir temperature.
     vector<OCP_DBL>  Pb;         ///< Bubble point pressure: numBulk.
-    vector<OCP_DBL>  T;          ///< Temperature: numBulk
+    vector<OCP_DBL>  T;          ///< Temperature: numBulk. unit£º¡ãF
     vector<OCP_DBL>  P;          ///< Pressure: numBulk.
     vector<OCP_DBL>  Pj;         ///< Pressure of phase: numPhase*numBulk.
     vector<OCP_DBL>  Pc;         ///< Capillary pressure of phase: numPhase*numBulk.

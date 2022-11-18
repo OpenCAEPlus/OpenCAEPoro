@@ -183,7 +183,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin,
 
     Nh    = 1;
     nu[0] = 1;
-    setPT(Pin, Tin);
+    setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
@@ -248,7 +248,7 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
 
     Nh    = 1;
     nu[0] = 1;
-    setPT(Pin, Tin);
+    setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
@@ -342,7 +342,7 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
 
     Nh    = 1;
     nu[0] = 1;
-    setPT(Pin, Tin);
+    setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
@@ -430,7 +430,7 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
         Dcopy(NC, &lKs[0], lastKs);
     }
 
-    CalFlash(Pin, Tin, Niin);
+    CalFlash(Pin, Tin + CONV5, Niin);
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
     // CalVfiVfp_full01();
@@ -473,7 +473,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
         Dcopy(NC, &lKs[0], lastKs);
     }
 
-    CalFlash(Pin, Tin, Niin);
+    CalFlash(Pin, Tin + CONV5, Niin);
 
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -554,12 +554,12 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
         if (lNP == 2) {
             Dcopy(NC, &lKs[0], lastKs);
         }
-        CalFlash(Pin, Tin, Niin);
+        CalFlash(Pin, Tin + CONV5, Niin);
     } else {
         //! Becareful if NP > 2 (temp)
         NP = inputNP;
         P  = Pin;
-        T  = Tin;
+        T  = Tin + CONV5;
         setNi(Niin);
         CalAiBi();
         Nh = Dnorm1(NC, &Ni[0]);
@@ -686,7 +686,7 @@ MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin
         return xitmp;
     } else {
         // hydrocarbon phase
-        setPT(Pin, Tin);
+        setPT(Pin, Tin + CONV5);
         setZi(Ziin);
         NP = 1;
         CalAiBi();
