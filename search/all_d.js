@@ -40,8 +40,7 @@ var searchData=
   ['mixturetype_527',['mixtureType',['../classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370',1,'Mixture']]],
   ['mu_528',['mu',['../classMixture.html#a170e493a88e391f9afe0896181d76786',1,'Mixture']]],
   ['multiplyval_529',['MultiplyVal',['../classParamReservoir.html#a36c3784b2ae617a5fef566ce160c1f81',1,'ParamReservoir']]],
-  ['mun_530',['muN',['../classMixture.html#a7897e0172e682f205e6c58688368c12e',1,'Mixture']]],
-  ['mup_531',['muP',['../classMixture.html#ae1531b7594246b0b03bdb7d974800ca4',1,'Mixture']]],
-  ['mux_532',['mux',['../classMixture.html#ae63dab2d31711b0246096c5c128f2080',1,'Mixture']]],
-  ['mw_533',['MW',['../classComponentsParam.html#a5687e04f5ec4538662291e289cbbe8b1',1,'ComponentsParam::MW()'],['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP::MW()']]]
+  ['mup_530',['muP',['../classMixture.html#ae1531b7594246b0b03bdb7d974800ca4',1,'Mixture']]],
+  ['mux_531',['mux',['../classMixture.html#ae63dab2d31711b0246096c5c128f2080',1,'Mixture']]],
+  ['mw_532',['MW',['../classComponentsParam.html#a5687e04f5ec4538662291e289cbbe8b1',1,'ComponentsParam::MW()'],['../classCOMP.html#a0389ecc53c0ff47705db745c24a91b42',1,'COMP::MW()']]]
 ];
