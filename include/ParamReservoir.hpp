@@ -203,7 +203,8 @@ public:
     TableSet        SOF3_T; ///< Table set of SOF3.
     TableSet        PBVD_T; ///< Table set of PBVD.
     // initial zi vs depth
-    TableSet        ZMFVD_T;///< Table set of ZMFVD
+    TableSet        ZMFVD_T;    ///< Table set of ZMFVD
+    TableSet        TEMPVD_T;   ///< Table set of TEMPVD
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 
     // PVT properties

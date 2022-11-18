@@ -159,6 +159,10 @@ TableSet* ParamReservoir::FindPtr_T(const string& varName)
         case Map_Str2Int("ZMFVD", 5):
             myPtr = &ZMFVD_T;
             break;
+
+        case Map_Str2Int("TEMPVD", 6):
+            myPtr = &TEMPVD_T;
+            break;
     }
 
     return myPtr;
@@ -206,6 +210,8 @@ void ParamReservoir::InitTable()
     PVTW_T.name   = "PVTW";
     PVTW_T.colNum = 5;
     ZMFVD_T.name  = "ZMFVD"; // colnum equals numCom(hydrocarbon) + 1
+    TEMPVD_T.name = "TEMPVD"; // colnum equals 2
+    TEMPVD_T.colNum = 2;
 }
 
 /// TODO: Add Doxygen

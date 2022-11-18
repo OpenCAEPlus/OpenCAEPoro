@@ -141,7 +141,7 @@ void Bulk::InputParamBLKOIL(ParamReservoir& rs_param)
 
 void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 {
-    T = rs_param.rsTemp + 460;
+    
     miscible = rs_param.EoSp.miscible;
 
     // Water exists and is excluded in EoS model NOW!
@@ -164,6 +164,19 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
         initZi_Tab.push_back(OCPTable(v));
     }
 
+    // Init T
+    // Use RTEMP
+    RTemp = rs_param.rsTemp + 460;    // F -> R
+    vector<vector<OCP_DBL>> temp;
+    temp.resize(2);
+    // add depth
+    temp[0].push_back(0);
+    temp[0].push_back(1E8);
+    // add temperature
+    temp[1].push_back(RTemp);
+    temp[1].push_back(RTemp);
+    initT_Tab.push_back(OCPTable(temp));
+
     // Saturation mode
     if (rs_param.SOF3_T.data.size() > 0) {
         SATmode = PHASE_ODGW02;
@@ -184,6 +197,24 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 
 void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
 {
+    // Init T
+    RTemp = rs_param.rsTemp + 460;    // F -> R
+    for (auto v : rs_param.TEMPVD_T.data) {
+        for (auto& v1 : v[1]) {
+            v1 += 460;  // F -> R
+        }
+        initT_Tab.push_back(OCPTable(v));
+    }
+    if (initT_Tab.size() == 0) {
+        // Use RTEMP
+        vector<vector<OCP_DBL>> temp;
+        temp.resize(2);
+        // add depth
+        temp[0].push_back(0);       temp[0].push_back(1E8);
+        // add temperature
+        temp[1].push_back(RTemp);   temp[1].push_back(RTemp);
+        initT_Tab.push_back(OCPTable(temp));
+    }
     InputRockFuncT(rs_param);
 }
 
@@ -310,9 +341,9 @@ void Bulk::Setup(const Grid& myGrid)
     rockKz = rockKzInit;
 
     // physical variables
-
-    P.resize(numBulk);
     Pb.resize(numBulk);
+    T.resize(numBulk);
+    P.resize(numBulk);
     Pj.resize(numBulk * numPhase);
     Pc.resize(numBulk * numPhase);
     phaseExist.resize(numBulk * numPhase);
@@ -922,6 +953,8 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
         Ztmp[i] = Ztmp[i - 1] + tabdz;
     }
 
+    OCP_DBL myTemp;
+
     // find the RefId
     USI beginId = 0;
     if (Dref <= Ztmp[0]) {
@@ -935,8 +968,7 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
         beginId--;
     }
 
-    // begin calculating oil pressure:
-    OCP_DBL mytemp = T;
+    // begin calculating oil pressure:   
     OCP_DBL gammaOtmp, gammaWtmp, gammaGtmp;
     OCP_DBL Ptmp;
     USI     mynum = 10;
@@ -948,20 +980,23 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
         // reference pressure is gas pressure
         Pgref = Pref;
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
-        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, mytemp, &tmpInitZi[0]);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, myTemp, &tmpInitZi[0]);
         Pbegin         = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
         Pgtmp[beginId] = Pbegin;
 
         // find the gas pressure
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
 
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
@@ -973,34 +1008,39 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz += mydz;
-            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp += gammaGtmp * mydz;
         }
         Ptmp -= PcGO;
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz -= mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp -= gammaOtmp * mydz;
         }
         Poref = Ptmp;
 
         // find the oil pressure in tab
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
         gammaOtmp      = flashCal[0]->GammaPhaseOG(Poref, Dref, &tmpInitZi[0]);
         Pbegin         = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
         Potmp[beginId] = Pbegin;
 
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
 
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
@@ -1012,8 +1052,9 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz += mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
         Ptmp -= PcOW;
@@ -1070,27 +1111,31 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz -= mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp -= gammaOtmp * mydz;
         }
         Poref = Ptmp;
 
         // find the oil pressure in tab
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
-        gammaOtmp      = flashCal[0]->GammaPhaseOG(Poref, mytemp, &tmpInitZi[0]);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        gammaOtmp      = flashCal[0]->GammaPhaseOG(Poref, myTemp, &tmpInitZi[0]);
         Pbegin         = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
         Potmp[beginId] = Pbegin;
 
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
 
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
@@ -1102,52 +1147,60 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz += mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
         Ptmp += PcGO;
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz -= mydz;
-            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp -= gammaGtmp * mydz;
         }
         Pgref = Ptmp;
 
         // find the gas pressure in tab
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
-        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, mytemp, &tmpInitZi[0]);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, myTemp, &tmpInitZi[0]);
         Pbegin         = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
         Pgtmp[beginId] = Pbegin;
 
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
     } else {
         // reference pressure is oil pressure
         Poref = Pref;
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
-        gammaOtmp      = flashCal[0]->GammaPhaseOG(Poref, mytemp, &tmpInitZi[0]);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        gammaOtmp      = flashCal[0]->GammaPhaseOG(Poref, myTemp, &tmpInitZi[0]);
         Pbegin         = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
         Potmp[beginId] = Pbegin;
 
         // find the oil pressure
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaOtmp     = flashCal[0]->GammaPhaseOG(Potmp[id], myTemp, &tmpInitZi[0]);
             Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
@@ -1159,34 +1212,39 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz += mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
         Ptmp += PcGO;
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz -= mydz;
-            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaGtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp -= gammaGtmp * mydz;
         }
         Pgref = Ptmp;
 
         // find the gas pressure in tab
         initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
-        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, mytemp, &tmpInitZi[0]);
+        myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        gammaGtmp      = flashCal[0]->GammaPhaseOG(Pgref, myTemp, &tmpInitZi[0]);
         Pbegin         = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
         Pgtmp[beginId] = Pbegin;
 
         for (USI id = beginId; id > 0; id--) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
         }
 
         for (USI id = beginId; id < tabrow - 1; id++) {
             initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
-            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], mytemp, &tmpInitZi[0]);
+            myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            gammaGtmp     = flashCal[0]->GammaPhaseOG(Pgtmp[id], myTemp, &tmpInitZi[0]);
             Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
         }
 
@@ -1198,8 +1256,9 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
 
         for (USI i = 0; i < mynum; i++) {
             initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            myTemp = initT_Tab[0].Eval(0, myz, 1);
             myz += mydz;
-            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, mytemp, &tmpInitZi[0]);
+            gammaOtmp = flashCal[0]->GammaPhaseOG(Ptmp, myTemp, &tmpInitZi[0]);
             Ptmp += gammaOtmp * mydz;
         }
         Ptmp -= PcOW;
@@ -1247,6 +1306,8 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
         for (USI i = 0; i < numCom_1; i++) {
             Ni[n * numCom + i] = tmpInitZi[i];
         }
+        myTemp = initT_Tab[0].Eval(0, depth[n], 1);
+        T[n] = myTemp;
 
         DepthP.Eval_All(0, depth[n], data, cdata);
         OCP_DBL Po   = data[1];
@@ -1357,7 +1418,7 @@ void Bulk::InitFlash(const OCP_BOOL& flag)
     OCP_FUNCNAME;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->InitFlash(P[n], Pb[n], T, &S[n * numPhase], rockVp[n],
+        flashCal[PVTNUM[n]]->InitFlash(P[n], Pb[n], T[n], &S[n * numPhase], rockVp[n],
                                        Ni.data() + n * numCom);
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
@@ -1380,7 +1441,7 @@ void Bulk::InitFlashDer()
 
     if (comps) {
         for (OCP_USI n = 0; n < numBulk; n++) {
-            flashCal[PVTNUM[n]]->InitFlashDer(P[n], Pb[n], T, &S[n * numPhase],
+            flashCal[PVTNUM[n]]->InitFlashDer(P[n], Pb[n], T[n], &S[n * numPhase],
                                               rockVp[n], Ni.data() + n * numCom);
             for (USI i = 0; i < numCom; i++) {
                 Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
@@ -1399,7 +1460,7 @@ void Bulk::InitFlashDer_n()
 
     if (comps) {
         for (OCP_USI n = 0; n < numBulk; n++) {
-            flashCal[PVTNUM[n]]->InitFlashDer_n(P[n], Pb[n], T, &S[n * numPhase],
+            flashCal[PVTNUM[n]]->InitFlashDer_n(P[n], Pb[n], T[n], &S[n * numPhase],
                                                 rockVp[n], Ni.data() + n * numCom);
             for (USI i = 0; i < numCom; i++) {
                 Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
@@ -1430,7 +1491,7 @@ void Bulk::Flash()
 void Bulk::FlashBLKOIL()
 {
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
         PassFlashValue(n);
     }
 }
@@ -1442,7 +1503,7 @@ void Bulk::FlashCOMP()
 
         ftype = CalFlashType(n, OCP_FALSE);
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                                    &Ks[n * numCom_1]);
         PassFlashValue(n);
     }
@@ -1480,7 +1541,7 @@ void Bulk::FlashDerivBLKOIL()
 {
     // dSec_dPri.clear();
     for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
         PassFlashValueDeriv(n);
     }
 }
@@ -1499,7 +1560,7 @@ void Bulk::FlashDerivCOMP()
 
         ftype = CalFlashType(n, OCP_TRUE);
 
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                                         &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
     }
@@ -1520,7 +1581,7 @@ void Bulk::FlashDerivCOMP_n()
         for (USI j = 0; j < numPhase; j++) flagB[j] = phaseExist[n * numPhase + j];
 
         flashCal[PVTNUM[n]]->FlashDeriv_n(
-            P[n], T, &Ni[n * numCom], &S[n * numPhase], &xij[n * numPhase * numCom],
+            P[n], T[n], &Ni[n * numCom], &S[n * numPhase], &xij[n * numPhase * numCom],
             &nj[n * numPhase], ftype, &flagB[0], phaseNum[n], &Ks[n * numCom_1]);
 
         PassFlashValueDeriv_n(n);
@@ -3133,7 +3194,7 @@ void Bulk::OutputInfo(const OCP_USI& n) const
     for (USI i = 0; i < numCom; i++) {
         cout << Ni[bIdC + i] << "   ";
     }
-    cout << endl << P[n] << "   " << T;
+    cout << endl << P[n] << "   " << T[n];
     cout << endl;
 
     cout << fixed << setprecision(8);
@@ -3227,7 +3288,7 @@ void Bulk::FlashBLKOILAIMc()
             continue;
         }
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
         PassFlashValueAIMc(n);
     }
 }
@@ -3244,7 +3305,7 @@ void Bulk::FlashCOMPAIMc()
 
         ftype = CalFlashType(n, OCP_FALSE);
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                                    &Ks[n * numCom_1]);
         PassFlashValueAIMc(n);
     }
@@ -3267,7 +3328,7 @@ void Bulk::FlashBLKOILAIMc01()
             continue;
         }
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
         PassFlashValue(n);
     }
 }
@@ -3283,7 +3344,7 @@ void Bulk::FlashCOMPAIMc01()
 
         ftype = CalFlashType(n, OCP_FALSE);
 
-        flashCal[PVTNUM[n]]->Flash(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                                    &Ks[n * numCom_1]);
         PassFlashValue(n);
     }
@@ -3302,7 +3363,7 @@ void Bulk::FlashDerivBLKOILAIMc()
 {
     // dSec_dPri.clear();
     for (auto& n : FIMBulk) {
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], 0, 0, 0);
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
         PassFlashValueDeriv(n);
     }
 }
@@ -3314,7 +3375,7 @@ void Bulk::FlashDerivCOMPAIMc()
 
         ftype = CalFlashType(n, OCP_TRUE);
 
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T, &Ni[n * numCom], ftype, phaseNum[n],
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                                         &Ks[n * numCom_1]);
         PassFlashValueDeriv(n);
     }

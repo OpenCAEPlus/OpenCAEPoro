@@ -136,6 +136,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("PVTW", 4):
             case Map_Str2Int("PBVD", 4):
             case Map_Str2Int("ZMFVD",5):
+            case Map_Str2Int("TEMPVD", 6):
                 paramRs.InputTABLE(ifs, keyword);
                 break;
 

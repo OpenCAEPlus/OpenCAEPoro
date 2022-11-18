@@ -167,21 +167,24 @@ SCHEDULE  =======================================
 --/
 
 WELSPECS
-'INJE1'   'G'   1    1    1*    'GAS'   /
-'PROD1'   'G'   100  100  1*    'OIL'   /
+'I1'   'G'   50    50    1*    'GAS'   /
+'P1'   'G'   1     1     1*    'OIL'   /
+'P2'   'G'   1     100   1*    'OIL'   /
+'P3'   'G'   100   1     1*    'OIL'   /
+'P4'   'G'   100  100    1*    'OIL'   /
 /
 
 COMPDAT
-'INJE*'   2*   1   1     1*   0.5   3*   /
-'PROD1'   2*   3   3     1*   0.5   3*   /
+'I*'   2*   1   100     1*   0.5   3*   /
+'P*'   2*   1   100     1*   0.5   3*   /
 /
 
 WCONINJE
-'INJE*'   'GAS'   'OPEN'   'RATE'   5000.0      10000    /
+'I*'   'GAS'   'OPEN'   'RATE'   5000.0      10000    /
 /
 
 WCONPROD
-'PROD*'   'OPEN'    'ORAT'   2000.0     1000    /
+'P*'   'OPEN'    'ORAT'   2000.0     1000    /
 /
 
 TUNING

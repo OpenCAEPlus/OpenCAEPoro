@@ -103,6 +103,8 @@ void Well::InputPerfo(const WellParam& well)
 void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
+    Tinj = myBulk.RTemp;
+
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
     factor.resize(myBulk.numPhase); // oil, gas, liquid
@@ -370,7 +372,7 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
             if (flag) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
-                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T, &opt.zi[0]);
+                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.zi[0]);
             }
             for (USI i = 0; i < nc; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.zi[i];
@@ -588,7 +590,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, Tinj, opt.zi.data()) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
@@ -617,7 +619,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, myBulk.T, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, Tinj, opt.zi.data()) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;
@@ -678,7 +680,7 @@ void Well::CalProddG01(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 qtacc = rhoacc = 0;
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -730,7 +732,7 @@ void Well::CalProddG01(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 qtacc = rhoacc = 0;
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -814,7 +816,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
@@ -881,7 +883,7 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T, tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
                 for (USI j = 0; j < np; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];

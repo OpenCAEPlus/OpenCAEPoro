@@ -230,7 +230,8 @@ private:
     USI     numCom_1; ///< numCom - 1
 
     // Initial proportion of each component for EoS : numCom - 1, water is excluded.
-    vector<OCPTable> initZi_Tab; ///< InitZi set
+    vector<OCPTable> initZi_Tab; ///< InitZi tab set
+    vector<OCPTable> initT_Tab;  ///< InitT  tab set
 
     vector<OCP_DBL> SwatInit;                 ///< Initial water saturation.
     OCP_BOOL        SwatInitExist{OCP_FALSE}; ///< If SwatInit has been given.
@@ -291,8 +292,9 @@ private:
     /////////////////////////////////////////////////////////////////////
     // Basic physical variables
     /////////////////////////////////////////////////////////////////////
-    OCP_DBL          T;          ///< Reservoir temperature: numBulk.
+    OCP_DBL          RTemp;      ///< Reservoir temperature.
     vector<OCP_DBL>  Pb;         ///< Bubble point pressure: numBulk.
+    vector<OCP_DBL>  T;          ///< Temperature: numBulk
     vector<OCP_DBL>  P;          ///< Pressure: numBulk.
     vector<OCP_DBL>  Pj;         ///< Pressure of phase: numPhase*numBulk.
     vector<OCP_DBL>  Pc;         ///< Capillary pressure of phase: numPhase*numBulk.
