@@ -197,6 +197,10 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 
 void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
 {
+    oil = rs_param.oil;
+    gas = rs_param.gas;
+    water = rs_param.water;
+
     // Init T
     RTemp = rs_param.rsTemp;    // F -> R
     for (auto& v : rs_param.TEMPVD_T.data) {
@@ -212,6 +216,11 @@ void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
         temp[1].push_back(RTemp);   temp[1].push_back(RTemp);
         initT_Tab.push_back(OCPTable(temp));
     }
+    // thermal conductivity
+    if (oil) { thconp.push_back(rs_param.thcono); }
+    if (gas) { thconp.push_back(rs_param.thcong); }
+    if (water) { thconp.push_back(rs_param.thconw); }
+
     InputRockFuncT(rs_param);
 }
 

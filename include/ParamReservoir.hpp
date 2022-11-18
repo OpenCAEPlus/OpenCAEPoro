@@ -159,6 +159,7 @@ public:
     vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
     vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
     vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
+    vector<OCP_DBL> thconr{ 24 }; ///< Rock thermal conductivity.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
     vector<RockParam> rockSet; ///< a set of rock
     Miscstr miscstr; ///< reference Miscibility surface tension
@@ -172,8 +173,11 @@ public:
     // phase property
     Type_A_r<OCP_DBL> density; ///< Density of oil, water, gas in standard conditions.
     Type_A_r<OCP_DBL> gravity; ///< Gravity of oil, water, gas in standard conditions.
+    OCP_DBL           thcono{ 24 };  ///< oil thermal conductivity
+    OCP_DBL           thcong{ 24 };  ///< gas thermal conductivity
+    OCP_DBL           thconw{ 24 };  ///< water thermal conductivity
 
-    // Model and Phase
+    // Models
     OCP_BOOL blackOil{OCP_FALSE}; ///< If ture, blackoil model will be used.
     OCP_BOOL comps{OCP_FALSE};    ///< If OCP_TRUE, compositional model will be used.
     OCP_BOOL thermal{OCP_FALSE};  ///< If OCP_TRUE, thermal model will be used.
@@ -289,6 +293,9 @@ public:
 
     /// Input the reference density of oil, water, and air in standard condition.
     void InputDENSITY(ifstream& ifs);
+
+    /// Input the phase thermal conductivity
+    void InputTHCON(ifstream& ifs, const string& keyword);
 
     /// EQUIL contains initial information of reservoir; see ParamEQUIL.
     void InputEQUIL(ifstream& ifs);

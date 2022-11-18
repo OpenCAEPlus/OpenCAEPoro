@@ -67,6 +67,11 @@ vector<OCP_DBL>* ParamReservoir::FindPtr(const string& varName)
             myPtr = &permZ;
             break;
 
+        case Map_Str2Int("THCONR", 6):
+            thconr.reserve(numGrid);
+            myPtr = &thconr;
+            break;
+
         case Map_Str2Int("TOPS", 4):
             tops.reserve(dimens.nx * dimens.ny);
             myPtr = &tops;
@@ -663,6 +668,28 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
     cout << density.data[0] << "  " << density.data[1] << "  " << density.data[2]
          << endl;
 }
+
+
+/// Read data from the THCONO, THCONG, THCONW
+void ParamReservoir::InputTHCON(ifstream& ifs, const string& keyword)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+    if (keyword == "THCONO") {
+        thcono = stod(vbuf[0]);
+    }
+    else if (keyword == "THCONG") {
+        thcong = stod(vbuf[0]);
+    }
+    else if (keyword == "THCONW") {
+        thconw = stod(vbuf[0]);
+    }
+
+    cout << "THCONO\n" << thcono << endl << endl;
+    cout << "THCONG\n" << thcong << endl << endl;
+    cout << "THCONW\n" << thconw << endl << endl;
+}
+
 
 /// Read data from the EQUIL keyword.
 void ParamReservoir::InputEQUIL(ifstream& ifs)

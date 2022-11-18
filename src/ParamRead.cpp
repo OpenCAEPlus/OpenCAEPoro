@@ -114,6 +114,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("PRESSURE", 8):
             case Map_Str2Int("Ni", 2):
             case Map_Str2Int("SWATINIT", 8):
+            case Map_Str2Int("THCONR", 6):
                 paramRs.InputGRID(ifs, keyword);
                 break;
 
@@ -162,6 +163,12 @@ void ParamRead::ReadFile(const string& filename)
 
             case Map_Str2Int("DENSITY", 7):
                 paramRs.InputDENSITY(ifs);
+                break;
+
+            case Map_Str2Int("THCONO",6):
+            case Map_Str2Int("THCONG",6):
+            case Map_Str2Int("THCONW",6):
+                paramRs.InputTHCON(ifs, keyword);
                 break;
 
             case Map_Str2Int("EQUIL", 5):

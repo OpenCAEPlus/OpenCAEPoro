@@ -163,6 +163,7 @@ private:
     vector<OCP_DBL> kx;   ///< Absolute permeability in x-direction: numGrid
     vector<OCP_DBL> ky;   ///< Absolute permeability in y-direction: numGrid
     vector<OCP_DBL> kz;   ///< Absolute permeability in z-direction: numGrid
+    vector<OCP_DBL> thconr; ///< Rock thermal conductivity: numGrid
 
     // Initial Properties
     vector<OCP_DBL>   SwatInit; ///< Initial water saturation

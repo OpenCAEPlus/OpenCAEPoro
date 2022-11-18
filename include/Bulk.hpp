@@ -312,6 +312,8 @@ private:
     vector<OCP_DBL>  Nt;         ///< Total moles of components in bulks: numBulk.
     OCP_DBL          NT;         ///< sum of Nt in all bulks
     // Note: Nij is the moles of component i in phase j, Nj is the moles of phase j.
+    // for thermal model
+    vector<OCP_DBL>  thconp;     ///< phase thermal conductivity: numPhase
 
     /////////////////////////////////////////////////////////////////////
     // Derivatives

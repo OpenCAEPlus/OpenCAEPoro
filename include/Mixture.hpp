@@ -46,8 +46,8 @@ public:
         xij.resize(numPhase * numCom);
         rho.resize(numPhase);
         mu.resize(numPhase);
-        vfi.resize(numCom);               
-        // Derivatives for FIM
+        // Derivatives
+        vfi.resize(numCom);
         rhoP.resize(numPhase);
         xiP.resize(numPhase);
         muP.resize(numPhase);
@@ -55,8 +55,12 @@ public:
         xix.resize(numPhase * numCom);
         mux.resize(numPhase * numCom);
         dXsdXp.resize((numCom + 1) * (numPhase + numPhase * numCom));
+        // Auxiliary variable
         pSderExist.resize(numPhase);
         pVnumCom.resize(numPhase);
+        // Thermal model
+        
+        // used in FIM_n
         res.resize(numPhase + numPhase * numCom + 1); // a precomputed value stored in last position
         // water not in hydrocarbon, hydrocarbon not in water
         // keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
@@ -177,9 +181,14 @@ protected:
     vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
     vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
     vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
-
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
     
+    // Thermal model
+    OCP_DBL         vft;  ///< d vf  / dT
+    vector<OCP_DBL> muT;  ///< d mu  / dT: numPhase
+    vector<OCP_DBL> xiT;  ///< d xi  / dT: numPhase
+    vector<OCP_DBL> rhoT; ///< d rho / dT: numPhase
+
     // Auxiliary variable for dSec_dPr
     vector<OCP_BOOL>    pSderExist;   ///< Existence of  derivative of phase saturation 
     vector<USI>     pVnumCom; ///< num of variable components in the phase
