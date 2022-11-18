@@ -550,6 +550,9 @@ private:
     /// rhs or d nij / d Nk, d nij / dP in calVtiVtp
     /// rhs or dXs / dXp in Cal dXsdXp
     vector<OCP_DBL> rhsDer;
+
+    vector<OCP_DBL> vjp; ///< dvj / dp, used in 2 hydrocarbon phase in EOS
+    vector<vector<OCP_DBL>> vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij
     vector<OCP_DBL> xixC; ///< d xi / d xij
     vector<OCP_DBL> xiPC; ///< d xi / d P
     vector<OCP_DBL> xiNC; ///< d xi / d Nk

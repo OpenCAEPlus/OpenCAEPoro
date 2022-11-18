@@ -33,6 +33,11 @@ MixtureComp::MixtureComp(const ComponentsParam& param, const USI& tarId)
     numPhase = param.numPhase + 1;
     numCom   = param.numCom + 1;
     Allocate();
+    vjp.resize(numPhase, 0);
+    vji.resize(numPhase);
+    for (auto& v : vji) {
+        v.resize(numCom, 0);
+    }
     rhoN.resize(numPhase * numCom);
     xiN.resize(numPhase * numCom);
     muN.resize(numPhase * numCom);

@@ -46,12 +46,7 @@ public:
         xij.resize(numPhase * numCom);
         rho.resize(numPhase);
         mu.resize(numPhase);
-        vfi.resize(numCom);
-        vji.resize(numPhase);
-        for (auto& v : vji) {
-            v.resize(numCom, 0);
-        }
-        vjp.resize(numPhase, 0);
+        vfi.resize(numCom);               
         // Derivatives for FIM
         rhoP.resize(numPhase);
         xiP.resize(numPhase);
@@ -170,11 +165,7 @@ protected:
     OCP_DBL vf; ///< volume of total fluids.
     OCP_DBL Nt; ///< Total moles of Components.
 
-    // Derivatives
-
-    vector<vector<OCP_DBL>> vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij
-    vector<OCP_DBL> vjp; ///< dvj / dp, used in 2 hydrocarbon phase in EOS
-
+    // Derivatives      
     OCP_DBL vfp; ///< dVf / dP, the derivative of volume of total fluids with respect to
                  ///< pressure.
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom  the derivative of volume of total
@@ -194,8 +185,7 @@ protected:
     vector<USI>     pVnumCom; ///< num of variable components in the phase
     
     vector<OCP_DBL> res;     ///< residual of a set of equations
-    OCP_DBL         resPc;    ///< a precalculated value
-    
+    OCP_DBL         resPc;    ///< a precalculated value   
     vector<OCP_DBL> keyDer; ///< d (xij*xi/mu) / dP or dNk
 };
 
