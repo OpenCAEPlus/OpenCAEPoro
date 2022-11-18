@@ -553,6 +553,9 @@ private:
     vector<OCP_DBL> xixC; ///< d xi / d xij
     vector<OCP_DBL> xiPC; ///< d xi / d P
     vector<OCP_DBL> xiNC; ///< d xi / d Nk
+    vector<OCP_DBL> muN;  ///< d mu[j] / d N[i]: numphase * numCom
+    vector<OCP_DBL> xiN;  ///< d xi[j] / d N[i]: numphase * numCom
+    vector<OCP_DBL> rhoN; ///< d rho[j] / d N[i]: numphase * numCom
 };
 
 /// Return the sign of double di

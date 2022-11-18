@@ -56,9 +56,6 @@ public:
         rhoP.resize(numPhase);
         xiP.resize(numPhase);
         muP.resize(numPhase);
-        rhoN.resize(numPhase * numCom);
-        xiN.resize(numPhase * numCom);
-        muN.resize(numPhase * numCom);
         rhox.resize(numPhase * numCom);
         xix.resize(numPhase * numCom);
         mux.resize(numPhase * numCom);
@@ -186,9 +183,6 @@ protected:
     vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
     vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
     vector<OCP_DBL> rhoP; ///< d rho / dP: numphase
-    vector<OCP_DBL> muN;  ///< d mu[j] / d N[i]: numphase * numCom
-    vector<OCP_DBL> xiN;  ///< d xi[j] / d N[i]: numphase * numCom
-    vector<OCP_DBL> rhoN; ///< d rho[j] / d N[i]: numphase * numCom
     vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
     vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
     vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
