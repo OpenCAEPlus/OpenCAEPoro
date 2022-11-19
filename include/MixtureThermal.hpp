@@ -129,8 +129,8 @@ public:
 
 protected:
 
-    OCP_DBL Pref;   ///< reference pressure
-    OCP_DBL Tref;   ///< reference temperature
+    OCP_DBL Pref{ PRESSURE_STD };   ///< reference pressure
+    OCP_DBL Tref{ TEMPERATURE_STD };   ///< reference temperature
 
     vector<OCP_DBL>   xi_ref; ///< component molar density at reference temperature and reference pressure, lb/ft3
     vector<OCP_DBL>   cp;     ///< component compressibility, 1/psi

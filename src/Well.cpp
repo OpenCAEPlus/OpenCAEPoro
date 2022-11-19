@@ -103,7 +103,6 @@ void Well::InputPerfo(const WellParam& well)
 void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
-    Tinj = myBulk.RTemp;
 
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
@@ -115,6 +114,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
             if (!opt.state) continue;
 
+            opt.Tinj = myBulk.RTemp;
             opt.zi.resize(myBulk.numCom, 0);
             if (opt.type == INJ) {
                 // INJ
@@ -171,6 +171,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
             if (!opt.state) continue;
 
+            opt.Tinj = myBulk.RTemp;
             if (opt.type == INJ) {
                 // INJ Well
                 if (opt.fluidType == "WAT") {
@@ -590,7 +591,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, Tinj, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, opt.Tinj, opt.zi.data()) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
@@ -619,7 +620,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, Tinj, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, opt.Tinj, opt.zi.data()) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;

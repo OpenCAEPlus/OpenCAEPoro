@@ -90,7 +90,8 @@ private:
     /// interested in.
     vector<OCP_DBL> zi;
     OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
-    // for Reinjection
+    OCP_DBL Tinj;             ///< temperature of inj fluid  ¡ãF
+                              // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if OCP_TRUE, reinjection happens
     USI injPhase; ///< phase of Reinjection fluid
     OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
@@ -209,8 +210,7 @@ private:
     
     USI  Mtype;               ///< Mixture Type
     OCP_DBL Pref{PRESSURE_STD};          ///< Well surface Pressure
-    OCP_DBL Tref{TEMPERATURE_STD};       ///< Well surface Temperature
-    OCP_DBL Tinj;                        ///< temperature of inj fluid  ¡ãF
+    OCP_DBL Tref{TEMPERATURE_STD};       ///< Well surface Temperature                        
     mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
     
