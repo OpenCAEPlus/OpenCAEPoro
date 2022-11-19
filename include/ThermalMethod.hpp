@@ -25,7 +25,7 @@ class OCP_FIM_Thermal
 {
 
 
-}
+};
 
 
 
