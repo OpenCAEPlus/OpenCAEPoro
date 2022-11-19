@@ -49,14 +49,16 @@ public:
 class RockParam
 {
 public:
-    string  type{"LINEAR"}; ///< LINEAR or EXPONENT
+    string  type{"LINEAR"}; ///< LINEAR or EXPONENT for porosity model
     OCP_DBL Pref{ 14.7 }; ///< Reference pressure at initial porosity.
     OCP_DBL Tref{ 60 };   ///< Reference temperature at initial porosity.
-    OCP_DBL Cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
-    OCP_DBL Cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
-    OCP_DBL Ct{ 0 };   ///< Expansion factor of rock in reservoir, thermal only
-    OCP_DBL Cpt{ 0 };  ///< cross items, thermal only
-    OCP_BOOL ConstRock{ OCP_TRUE }; ///< if true, rock volume remains const, else, bulk volume remains const
+    OCP_DBL cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
+    OCP_DBL cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
+    OCP_DBL ct{ 0 };   ///< Expansion factor of rock in reservoir, thermal only
+    OCP_DBL cpt{ 0 };  ///< cross items, thermal only
+    OCP_BOOL ConstRock{ OCP_TRUE }; ///< if true, rock volume remains const, else, bulk volume remains const 
+    OCP_DBL  HCP1{ 35 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
+    OCP_DBL  HCP2{ 0 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
 };
 
 /// A internal structure used to store some params for reservoir, it can tell

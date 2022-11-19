@@ -528,22 +528,22 @@ void ParamReservoir::InputROCK(ifstream& ifs)
         RockParam rock;
         rock.type = vbuf[0];
         rock.Pref = stod(vbuf[1]);
-        rock.Cp1 = stod(vbuf[2]);
+        rock.cp1 = stod(vbuf[2]);
 
         if (rock.type == "LINEAR02") {
             if (vbuf.size() > 3 && vbuf[3] != "/") {
-                rock.Cp2 = stod(vbuf[3]);               
+                rock.cp2 = stod(vbuf[3]);               
             }
             else {
-                rock.Cp2 = rock.Cp1;
+                rock.cp2 = rock.cp1;
             }           
         }
 
         rockSet.push_back(rock);
 
 
-        cout << rock.type << "   " << rock.Pref << "   " << rock.Cp1 << "   "
-            << rock.Cp2 << endl;       
+        cout << rock.type << "   " << rock.Pref << "   " << rock.cp1 << "   "
+            << rock.cp2 << endl;       
     }
 
     cout << "/" << endl;
@@ -574,17 +574,23 @@ void ParamReservoir::InputROCKT(ifstream& ifs)
                 rock.Tref = stod(vbuf[index + 1]);                
             }
             else if (vbuf[index] == "*CPOR") {
-                rock.Cp1 = stod(vbuf[index + 1]);                
+                rock.cp1 = stod(vbuf[index + 1]);                
             }
             else if (vbuf[index] == "*CTPOR") {
-                rock.Ct = stod(vbuf[index + 1]);                
+                rock.ct = stod(vbuf[index + 1]);                
             }
             else if (vbuf[index] == "*CPTPOR") {
-                rock.Cpt = stod(vbuf[index + 1]);                
+                rock.cpt = stod(vbuf[index + 1]);                
             }
             else if (vbuf[index] == "*VOLCONST") {
                 if (vbuf[index + 1] == "BULK")      
                     rock.ConstRock = OCP_FALSE;
+            }
+            else if (vbuf[index] == "*CP1") {
+                rock.HCP1 = stod(vbuf[index + 1]);
+            }
+            else if (vbuf[index] == "*CP2") {
+                rock.HCP2 = stod(vbuf[index + 1]);
             }
             index += 2;
         }
@@ -594,10 +600,12 @@ void ParamReservoir::InputROCKT(ifstream& ifs)
     cout << "*PORFORM   " << rock.type << endl;
     cout << "*PRPOR     " << rock.Pref << endl;
     cout << "*TRPOR     " << rock.Tref << endl;
-    cout << "*CPOR      " << rock.Cp1 << endl;
-    cout << "*CTPOR     " << rock.Ct << endl;
-    cout << "*CPTPOR    " << rock.Cpt << endl;
+    cout << "*CPOR      " << rock.cp1 << endl;
+    cout << "*CTPOR     " << rock.ct << endl;
+    cout << "*CPTPOR    " << rock.cpt << endl;
     cout << "*VOLCONST  " << (rock.ConstRock ? "ROCK" : "BULK") << endl;
+    cout << "*CP1       " << rock.HCP1 << endl;
+    cout << "*CP2       " << rock.HCP2 << endl;
     cout << "/" << endl;
 }
 

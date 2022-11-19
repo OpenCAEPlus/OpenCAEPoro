@@ -28,6 +28,19 @@ void Rock_Linear::CalPoro(const OCP_DBL& P, const OCP_DBL& poroInit, OCP_DBL& po
 
 
 ///////////////////////////////////////////////
+// RockT
+///////////////////////////////////////////////
+
+
+void RockT::CalRockHT(const OCP_DBL& T, OCP_DBL& Hr, OCP_DBL& dHrdT) const
+{
+	Hr = hcp1 * (T - Tref) + 0.5 * hcp2 * (T * T - Tref * Tref);
+	dHrdT = hcp1 + hcp2 * T;
+}
+
+
+
+///////////////////////////////////////////////
 // RockT_Linear
 ///////////////////////////////////////////////
 
