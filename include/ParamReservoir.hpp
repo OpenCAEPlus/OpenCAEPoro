@@ -23,16 +23,17 @@
 using namespace std;
 
 /// TableSet is used to store a series of tables which have the same type. For example,
-/// a series of PVTW Table, each PVTW table is two-dimension.
+/// a series of Function Table, each Function table is two-dimension.
 class TableSet
 {
 public:
     void DisplayTable() const; ///< Print table
 
 public:
-    string                          name;   ///< Name of table.
-    USI                             colNum; ///< Number of columns of table.
-    vector<vector<vector<OCP_DBL>>> data;   ///< All table with the same name.
+    string                          name;    ///< Name of table.
+    USI                             colNum;  ///< Number of columns of table.
+    vector<OCP_DBL>                 refData; ///< refData for each sub data.
+    vector<vector<vector<OCP_DBL>>> data;    ///< All table with the same name.
 };
 
 /// Dimens contains the dimensions of grids.
@@ -67,8 +68,8 @@ public:
     vector<T> data;            ///< Data of param.
 };
 
-/// ComponentsParam contains information of components
-class ComponentsParam
+/// ComponentParam contains information of components
+class ComponentParam
 {
 public:
     // Basic params
@@ -85,6 +86,8 @@ public:
     void InputLBCCOEF(ifstream& ifs);
     /// Input the Binary interaction of components
     void InputBIC(ifstream& ifs);
+    /// Input VISCTAB
+    void InputVISCTAB(ifstream& ifs);
     // Method params
     void InputSSMSTA(ifstream& ifs);
     void InputNRSTA(ifstream& ifs);
@@ -113,6 +116,30 @@ public:
     Type_A_r<vector<OCP_DBL>> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
+    // thermal only
+    Type_A_r<vector<OCP_DBL>>   molden; ///< component molar density at reference temperature and reference pressure, lb/ft3
+    Type_A_r<vector<OCP_DBL>>   cp;     ///< component compressibility, 1/psi
+    Type_A_r<vector<OCP_DBL>>   ct1;    ///< the first thermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>>   ct2;    ///< the second thermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>>   cpt;    ///< the coefficient of density dependence on temperature and pressure, 1/psi-F
+    Type_A_r<vector<OCP_DBL>>   cpl1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
+    Type_A_r<vector<OCP_DBL>>   cpl2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
+    Type_A_r<vector<OCP_DBL>>   cpl3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
+    Type_A_r<vector<OCP_DBL>>   cpl4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
+    Type_A_r<vector<OCP_DBL>>   cpg1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
+    Type_A_r<vector<OCP_DBL>>   cpg2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
+    Type_A_r<vector<OCP_DBL>>   cpg3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
+    Type_A_r<vector<OCP_DBL>>   cpg4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
+    Type_A_r<vector<OCP_DBL>>   hvapr;  ///< coefficients in the component gas enthalpy calculations, Btu/lbmol
+    Type_A_r<vector<OCP_DBL>>   hvr;    ///< coefficients in the vaporization enthalpy calculations
+    Type_A_r<vector<OCP_DBL>>   ev;     ///< coefficients in the vaporization enthalpy calculations
+    Type_A_r<vector<OCP_DBL>>   avisc;  ///< coefficients in water and oil viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>   bvisc;  ///< coefficients in water and oil viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>   avg;    ///< coefficients Ak in gas viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>   bvg;    ///< coefficients Bk in gas viscosity correlation formulae
+    /// viscosity-versus-temperature dependence,  This table can specify the viscosity-versus-temperature-pressure dependence.
+    TableSet                    viscTab; 
+
 
     OCP_BOOL miscible{OCP_FALSE}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
@@ -188,7 +215,7 @@ public:
 
 
     // Compositional Model
-    ComponentsParam EoSp; ///< Initial component composition, used in compositional models.
+    ComponentParam EoSp; ///< Initial component composition, used in compositional models.
 
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
@@ -212,12 +239,13 @@ public:
     vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
 
     // PVT properties
-    USI      numPhase; ///< Number of phases
-    USI      numCom;   ///< Number of components(hydrocarbon components), used in Compositional Model when input
-    TableSet PVCO_T;   ///< Table set of PVCO.
-    TableSet PVDO_T;   ///< Table set of PVDO.
-    TableSet PVDG_T;   ///< Table set of PVDG.
-    TableSet PVTW_T;   ///< Table set of PVTW.
+    USI      numPhase;  ///< Number of phases
+    USI      numCom;    ///< Number of components(hydrocarbon components), used in Compositional Model when input
+    TableSet PVCO_T;    ///< Table set of PVCO.
+    TableSet PVDO_T;    ///< Table set of PVDO.
+    TableSet PVDG_T;    ///< Table set of PVDG.
+    TableSet PVTW_T;    ///< Table set of PVTW.
+
 
     /// Find corresponding variable according to the name of variable.
     /// It is used for the basic properties of reservoir such as DX.
@@ -307,12 +335,13 @@ public:
     /// Input the keyword: SATNUM and PVTNUM.
     void InputRegion(ifstream& ifs, const string& keyword);
 
-    // Input ComponentsParam
+    // Input ComponentParam
     // Basic params
     void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
     void InputCOMPONENTS(ifstream& ifs, const string& keyword) { EoSp.InputCOMPONENTS(ifs, keyword); }
     void InputLBCCOEF(ifstream& ifs) { EoSp.InputLBCCOEF(ifs); }
     void InputBIC(ifstream& ifs) { EoSp.InputBIC(ifs); };
+    void InputVISCTAB(ifstream& ifs) { EoSp.InputVISCTAB(ifs); }
 
 
     // Method params

@@ -252,6 +252,26 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("SSHIFT", 6):
             case Map_Str2Int("PARACHOR", 8):
             case Map_Str2Int("VCRITVIS", 8):
+            case Map_Str2Int("MOLDEN", 6):
+            case Map_Str2Int("CP", 2):
+            case Map_Str2Int("CT1", 3):
+            case Map_Str2Int("CT2", 3):
+            case Map_Str2Int("CPT", 3):
+            case Map_Str2Int("CPL1", 4):
+            case Map_Str2Int("CPL2", 4):
+            case Map_Str2Int("CPL3", 4):
+            case Map_Str2Int("CPL4", 4):
+            case Map_Str2Int("CPG1", 4):
+            case Map_Str2Int("CPG2", 4):
+            case Map_Str2Int("CPG3", 4):
+            case Map_Str2Int("CPG4", 4):
+            case Map_Str2Int("HVAPR",5):
+            case Map_Str2Int("HVR", 3):
+            case Map_Str2Int("EV", 2):
+            case Map_Str2Int("AVSIC",5):
+            case Map_Str2Int("BVSIC", 5):
+            case Map_Str2Int("AVG", 3):
+            case Map_Str2Int("BVG", 3):
                 paramRs.InputCOMPONENTS(ifs, keyword);
                 break;
 
@@ -261,6 +281,10 @@ void ParamRead::ReadFile(const string& filename)
 
             case Map_Str2Int("BIC", 3):
                 paramRs.InputBIC(ifs);
+                break;
+
+            case Map_Str2Int("VISCTAB", 7):
+                paramRs.InputVISCTAB(ifs);
                 break;
 
             case Map_Str2Int("SSMSTA", 6):

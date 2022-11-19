@@ -16,7 +16,7 @@
 #include "OCPTable.hpp"
 
 
-MixtureThermal :: MixtureThermal(const ComponentsParam& param, const USI& i)
+MixtureThermal :: MixtureThermal(const ComponentParam& param, const USI& i)
 {
 
 }

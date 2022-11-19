@@ -896,7 +896,7 @@ void TableSet::DisplayTable() const
     }
 }
 
-void ComponentsParam::Init()
+void ComponentParam::Init()
 {
     // Init LBC coefficient
     LBCcoef.resize(5);
@@ -908,7 +908,7 @@ void ComponentsParam::Init()
 }
 
 
-Type_A_r<vector<OCP_DBL>>* ComponentsParam::FindPtr(const string& varName)
+Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr(const string& varName)
 {
     Type_A_r<vector<OCP_DBL>>* myPtr = nullptr;
 
@@ -960,12 +960,92 @@ Type_A_r<vector<OCP_DBL>>* ComponentsParam::FindPtr(const string& varName)
         case Map_Str2Int("ZCRITVIS", 8):
             myPtr = &Zcvis;
             break;
+
+        case Map_Str2Int("MOLDEN", 6):
+            myPtr = &molden;
+            break;
+
+        case Map_Str2Int("CP", 2):
+            myPtr = &cp;
+            break;
+
+        case Map_Str2Int("CT1", 3):
+            myPtr = &ct1;
+            break;
+
+        case Map_Str2Int("CT2", 3):
+            myPtr = &ct2;
+            break;
+
+        case Map_Str2Int("CPT", 3):
+            myPtr = &cpt;
+            break;
+
+        case Map_Str2Int("CPL1", 4):
+            myPtr = &cpl1;
+            break;
+
+        case Map_Str2Int("CPL2", 4):
+            myPtr = &cpl2;
+            break;
+
+        case Map_Str2Int("CPL3", 4):
+            myPtr = &cpl3;
+            break;
+
+        case Map_Str2Int("CPL4", 4):
+            myPtr = &cpl4;
+            break;
+
+        case Map_Str2Int("CPG1", 4):
+            myPtr = &cpg1;
+            break;
+
+        case Map_Str2Int("CPG2", 4):
+            myPtr = &cpg2;
+            break;
+
+        case Map_Str2Int("CPG3", 4):
+            myPtr = &cpg3;
+            break;
+
+        case Map_Str2Int("CPG4", 4):
+            myPtr = &cpg4;
+            break;
+
+        case Map_Str2Int("HVAPR", 5):
+            myPtr = &hvapr;
+            break;
+
+        case Map_Str2Int("HVR", 3):
+            myPtr = &hvr;
+            break;
+
+        case Map_Str2Int("EV", 2):
+            myPtr = &ev;
+            break;
+
+        case Map_Str2Int("AVSIC", 5):
+            myPtr = &avisc;
+            break;
+
+        case Map_Str2Int("BVSIC", 5):
+            myPtr = &bvisc;
+            break;
+
+        case Map_Str2Int("AVG", 3):
+            myPtr = &avg;
+            break;
+
+        case Map_Str2Int("BVG", 3):
+            myPtr = &bvg;
+            break;
     }
 
     return myPtr;
 }
 
-void ComponentsParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
+void ComponentParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
 
@@ -1001,9 +1081,18 @@ void ComponentsParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
             if (nReg >= NTPVT) break;
         }
     }
+
+    cout << keyword << endl;
+    for (USI i = 0; i < NTPVT; i++) {
+        for (auto& v : objPtr->data[i]) {
+            cout << v << endl;
+        }
+        cout << "/" << endl;
+    }
+    cout << endl;
 }
 
-void ComponentsParam::InputCNAMES(ifstream& ifs)
+void ComponentParam::InputCNAMES(ifstream& ifs)
 {
     OCP_ASSERT(numCom > 0, "NCNP hasn't be input!");
 
@@ -1027,7 +1116,7 @@ void ComponentsParam::InputCNAMES(ifstream& ifs)
     cout << endl << endl;
 }
 
-void ComponentsParam::InputLBCCOEF(ifstream& ifs)
+void ComponentParam::InputLBCCOEF(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1045,7 +1134,7 @@ void ComponentsParam::InputLBCCOEF(ifstream& ifs)
 }
 
 /// Input Binary Interaction Coefficients Matrix
-void ComponentsParam::InputBIC(ifstream& ifs)
+void ComponentParam::InputBIC(ifstream& ifs)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NCNP hasn't been input!");
 
@@ -1074,8 +1163,53 @@ void ComponentsParam::InputBIC(ifstream& ifs)
     }
 }
 
+
+void ComponentParam::InputVISCTAB(ifstream& ifs)
+{
+    cout << "VISCTABLE" << endl;
+
+    vector<string> vbuf;  
+    OCP_DBL Pref{ -1 };
+    vector<vector<OCP_DBL>> tmp;
+    USI ncol = numCom + 1;  // temp + comps
+    tmp.resize(ncol);
+    OCP_BOOL flag = OCP_FALSE;
+
+    while (OCP_TRUE) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/")
+            break;
+        if (vbuf[0] == "ATPRES") {
+
+            if (flag) {
+                viscTab.refData.push_back(Pref);
+                viscTab.data.push_back(tmp);
+            }
+            flag = OCP_TRUE;
+
+            tmp.clear();
+            tmp.resize(ncol);
+            // then it's pressure dependent
+            // read reference pressure
+            Pref = stod(vbuf[1]);
+            ReadLine(ifs, vbuf);
+
+            cout << "ATPRES   " << Pref << endl;
+        }
+        // Read Table
+        for (USI i = 0; i < ncol; i++) {
+            tmp[i].push_back(stod(vbuf[i]));
+
+            cout << stod(vbuf[i]) << "   ";
+        }
+        cout << endl;
+    }
+    cout << "/" << endl;
+}
+
+
 /// TODO: Add Doxygen
-void ComponentsParam::InputSSMSTA(ifstream& ifs)
+void ComponentParam::InputSSMSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1091,7 +1225,7 @@ void ComponentsParam::InputSSMSTA(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void ComponentsParam::InputNRSTA(ifstream& ifs)
+void ComponentParam::InputNRSTA(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1106,7 +1240,7 @@ void ComponentsParam::InputNRSTA(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void ComponentsParam::InputSSMSP(ifstream& ifs)
+void ComponentParam::InputSSMSP(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1121,7 +1255,7 @@ void ComponentsParam::InputSSMSP(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void ComponentsParam::InputNRSP(ifstream& ifs)
+void ComponentParam::InputNRSP(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
@@ -1136,7 +1270,7 @@ void ComponentsParam::InputNRSP(ifstream& ifs)
 }
 
 /// TODO: Add Doxygen
-void ComponentsParam::InputRR(ifstream& ifs)
+void ComponentParam::InputRR(ifstream& ifs)
 {
     vector<string> vbuf;
     ReadLine(ifs, vbuf);

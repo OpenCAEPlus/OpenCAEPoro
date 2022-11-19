@@ -63,7 +63,7 @@ const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = CONV1 ft3
 const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in field unit
 const OCP_DBL CONV3 = 0.45359237; ///< 1 lb = CONV3 kg
 const OCP_DBL CONV4 = 0.02831685; ///< 1 ft3 = CONV4 m3
-const OCP_DBL CONV5 = 459.67;	  ///< 0 ¡ãF = CONV5 ¡ãR	
+const OCP_DBL CONV5 = 459.67;	  ///< 0 F = CONV5 R
 
 // Model Type
 const USI ISOTHERMALMODEL = 1;
