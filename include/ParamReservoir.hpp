@@ -214,8 +214,7 @@ public:
     OCP_BOOL disGas{OCP_FALSE};   ///< If OCP_TRUE, dissolve gas could exist in oil phase.
 
 
-    // Compositional Model
-    ComponentParam EoSp; ///< Initial component composition, used in compositional models.
+    ComponentParam comsParam; ///< information for components
 
     // SAT Region & PVT Region
     USI               NTSFUN{1}; ///< Num of SAT regions.
@@ -337,19 +336,19 @@ public:
 
     // Input ComponentParam
     // Basic params
-    void InputCNAMES(ifstream& ifs) { EoSp.InputCNAMES(ifs); };
-    void InputCOMPONENTS(ifstream& ifs, const string& keyword) { EoSp.InputCOMPONENTS(ifs, keyword); }
-    void InputLBCCOEF(ifstream& ifs) { EoSp.InputLBCCOEF(ifs); }
-    void InputBIC(ifstream& ifs) { EoSp.InputBIC(ifs); };
-    void InputVISCTAB(ifstream& ifs) { EoSp.InputVISCTAB(ifs); }
+    void InputCNAMES(ifstream& ifs) { comsParam.InputCNAMES(ifs); };
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword) { comsParam.InputCOMPONENTS(ifs, keyword); }
+    void InputLBCCOEF(ifstream& ifs) { comsParam.InputLBCCOEF(ifs); }
+    void InputBIC(ifstream& ifs) { comsParam.InputBIC(ifs); };
+    void InputVISCTAB(ifstream& ifs) { comsParam.InputVISCTAB(ifs); }
 
 
     // Method params
-    void InputSSMSTA(ifstream& ifs) { EoSp.InputSSMSTA(ifs); };
-    void InputNRSTA(ifstream& ifs) { EoSp.InputNRSTA(ifs); };
-    void InputSSMSP(ifstream& ifs) { EoSp.InputSSMSP(ifs); };
-    void InputNRSP(ifstream& ifs) { EoSp.InputNRSP(ifs); };
-    void InputRR(ifstream& ifs) { EoSp.InputRR(ifs); };
+    void InputSSMSTA(ifstream& ifs) { comsParam.InputSSMSTA(ifs); };
+    void InputNRSTA(ifstream& ifs) { comsParam.InputNRSTA(ifs); };
+    void InputSSMSP(ifstream& ifs) { comsParam.InputSSMSP(ifs); };
+    void InputNRSP(ifstream& ifs) { comsParam.InputNRSP(ifs); };
+    void InputRR(ifstream& ifs) { comsParam.InputRR(ifs); };
 
     // check
     /// Check the reservoir param from input file.

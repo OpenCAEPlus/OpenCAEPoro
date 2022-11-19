@@ -142,15 +142,15 @@ void Bulk::InputParamBLKOIL(ParamReservoir& rs_param)
 void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 {
     
-    miscible = rs_param.EoSp.miscible;
+    miscible = rs_param.comsParam.miscible;
 
     // Water exists and is excluded in EoS model NOW!
     oil = OCP_TRUE;
     gas = OCP_TRUE;
     water = OCP_TRUE;
 
-    numPhase = rs_param.EoSp.numPhase + 1;
-    numCom = rs_param.EoSp.numCom + 1;
+    numPhase = rs_param.comsParam.numPhase + 1;
+    numCom = rs_param.comsParam.numCom + 1;
     numCom_1 = numCom - 1;
     EQUIL.Dref = rs_param.EQUIL[0];
     EQUIL.Pref = rs_param.EQUIL[1];

@@ -150,7 +150,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("MISCIBLE", 8):
-                paramRs.EoSp.miscible = OCP_TRUE;
+                paramRs.comsParam.miscible = OCP_TRUE;
                 break;
 
             case Map_Str2Int("MISCSTR", 7):

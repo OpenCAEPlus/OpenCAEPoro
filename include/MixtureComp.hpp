@@ -161,7 +161,7 @@ public:
     MixtureComp() = default;
 
     MixtureComp(const ParamReservoir& rs_param, const USI& i)
-        : MixtureComp(rs_param.EoSp, i)
+        : MixtureComp(rs_param.comsParam, i)
     {
         // water property
         mixtureType = EOS_PVTW;

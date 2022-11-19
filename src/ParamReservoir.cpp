@@ -286,8 +286,8 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
     numCom      = stoi(vbuf[0]);
-    EoSp.numCom = numCom;
-    EoSp.Init();
+    comsParam.numCom = numCom;
+    comsParam.Init();
 
     cout << "COMPS" << endl << numCom << "\n\n";
 }
@@ -605,7 +605,7 @@ void ParamReservoir::InputROCKT(ifstream& ifs)
 /// Read data from the MISCSTR keyword.
 void ParamReservoir::InputMISCSTR(ifstream& ifs)
 {
-    if (!EoSp.miscible) {
+    if (!comsParam.miscible) {
         OCP_WARNING("MISCIBLE has not been declared, this keyword will be ignored!");
     } else {
         vector<string> vbuf;
