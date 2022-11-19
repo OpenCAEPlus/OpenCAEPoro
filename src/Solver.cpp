@@ -14,6 +14,7 @@
 
 void Solver::Setup(Reservoir& rs, const OCPControl& ctrl) 
 { 
+    OCPModel = ctrl.GetModel();
     switch (OCPModel)
     {
     case ISOTHERMALMODEL:

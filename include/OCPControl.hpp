@@ -107,6 +107,9 @@ public:
     /// Input parameters for control.
     void InputParam(const ParamControl& CtrlParam);
 
+    /// Get model
+    USI GetModel()const { return model; }
+
     /// Apply control for time step i.
     void ApplyControl(const USI& i, const Reservoir& rs);
 
@@ -189,6 +192,7 @@ public:
     void SetWellChange(const OCP_BOOL& flag) { wellChange = flag; }
 
 private:
+    USI    model;            ///< model: thermal, isothermal
     USI    method;           ///< Discrete method
     string workDir;          ///< Current work directory
     string linearSolverFile; ///< File name of linear Solver

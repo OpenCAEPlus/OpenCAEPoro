@@ -133,6 +133,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
 
 void OCPControl::InputParam(const ParamControl& CtrlParam)
 {
+    model = CtrlParam.model;
     workDir = CtrlParam.dir;
     if (CtrlParam.method == "IMPEC") {
         method = IMPEC;

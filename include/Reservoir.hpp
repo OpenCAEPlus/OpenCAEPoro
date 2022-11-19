@@ -83,7 +83,9 @@ public:
     void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
     void GetNTQT(const OCP_DBL& dt);
 
+
 private:
+
     Grid     grid;     ///< Grid class.
     Bulk     bulk;     ///< Bulk class.
     AllWells allWells; ///< AllWells class.
