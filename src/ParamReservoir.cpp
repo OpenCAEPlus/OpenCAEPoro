@@ -916,7 +916,7 @@ void ComponentParam::Init()
 }
 
 
-Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr(const string& varName)
+Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr01(const string& varName)
 {
     Type_A_r<vector<OCP_DBL>>* myPtr = nullptr;
 
@@ -1053,12 +1053,65 @@ Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr(const string& varName)
     return myPtr;
 }
 
+
+void ComponentParam::InputRefPR(ifstream& ifs, const string& keyword)
+{
+    OCP_ASSERT(NTPVT > 0, "NTPVT in TABDIMS hasn't be input!");
+
+    vector<OCP_DBL>* objPtr = nullptr;
+    objPtr = FindPtr02(keyword);
+    if (objPtr == nullptr) {
+        OCP_ABORT("Unknown keyword!");
+    }
+
+    vector<string>  vbuf;
+    while (OCP_TRUE) {
+        ReadLine(ifs, vbuf);
+
+        if (vbuf[0] == "/")
+            break;
+
+        for (auto& v : vbuf) {
+            if (v != "/")
+                objPtr->push_back(stod(v));             
+            if (objPtr->size() >= NTPVT)
+                break;
+        }
+        if (objPtr->size() >= NTPVT)
+            break;
+    }
+    cout << keyword << endl;
+    for (USI i = 0; i < NTPVT; i++) {
+        cout << objPtr->at(i) << "   ";
+    }
+    cout << "\n/" << endl << endl;
+}
+
+
+vector<OCP_DBL>* ComponentParam::FindPtr02(const string& varName)
+{
+    vector<OCP_DBL>* myPtr = nullptr;
+
+    switch (Map_Str2Int(&varName[0], varName.size())) 
+    {
+    case Map_Str2Int("PRSR", 4):
+        myPtr = &Pref;
+        break;
+
+    case Map_Str2Int("TEMR", 4):
+        myPtr = &Tref;
+        break;
+    }
+
+    return myPtr;
+}
+
 void ComponentParam::InputCOMPONENTS(ifstream& ifs, const string& keyword)
 {
     OCP_ASSERT((numCom > 0) && (NTPVT > 0), "NPNC hasn't be input!");
 
     Type_A_r<vector<OCP_DBL>>* objPtr = nullptr;
-    objPtr                            = FindPtr(keyword);
+    objPtr                            = FindPtr01(keyword);
     if (objPtr == nullptr) {
         OCP_ABORT("Unknown keyword!");
     }

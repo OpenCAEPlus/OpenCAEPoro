@@ -129,27 +129,30 @@ public:
 
 protected:
 
-    vector<OCP_DBL>  xi_ref;
-    vector<OCP_DBL>  cp;
-    vector<OCP_DBL>  ct1;
-    vector<OCP_DBL>  ct2;
-    vector<OCP_DBL>  cpt;
-    vector<OCP_DBL>  cpl1;
-    vector<OCP_DBL>  cpl2;
-    vector<OCP_DBL>  cpl3;
-    vector<OCP_DBL>  cpl4;
-    vector<OCP_DBL>  cpg1;
-    vector<OCP_DBL>  cpg2;
-    vector<OCP_DBL>  cpg3;
-    vector<OCP_DBL>  cpg4;
-    vector<OCP_DBL>  hvapr;
-    vector<OCP_DBL>  hvr;
-    vector<OCP_DBL>  ev;
-    vector<OCP_DBL>  avisc;
-    vector<OCP_DBL>  bvisc;
-    vector<OCP_DBL>  avg;
-    vector<OCP_DBL>  bvg;
-    OCPTable         visc;
+    OCP_DBL Pref;   ///< reference pressure
+    OCP_DBL Tref;   ///< reference temperature
+
+    vector<OCP_DBL>   xi_ref; ///< component molar density at reference temperature and reference pressure, lb/ft3
+    vector<OCP_DBL>   cp;     ///< component compressibility, 1/psi
+    vector<OCP_DBL>   ct1;    ///< the first thermal expansion coefficient, 1/F
+    vector<OCP_DBL>   ct2;    ///< the second thermal expansion coefficient, 1/F
+    vector<OCP_DBL>   cpt;    ///< the coefficient of density dependence on temperature and pressure, 1/psi-F
+    vector<OCP_DBL>   cpl1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
+    vector<OCP_DBL>   cpl2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
+    vector<OCP_DBL>   cpl3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
+    vector<OCP_DBL>   cpl4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
+    vector<OCP_DBL>   cpg1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
+    vector<OCP_DBL>   cpg2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
+    vector<OCP_DBL>   cpg3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
+    vector<OCP_DBL>   cpg4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
+    vector<OCP_DBL>   hvapr;  ///< coefficients in the component gas enthalpy calculations, Btu/lbmol
+    vector<OCP_DBL>   hvr;    ///< coefficients in the vaporization enthalpy calculations
+    vector<OCP_DBL>   ev;     ///< coefficients in the vaporization enthalpy calculations
+    vector<OCP_DBL>   avisc;  ///< coefficients in water and oil viscosity correlation formulae
+    vector<OCP_DBL>   bvisc;  ///< coefficients in water and oil viscosity correlation formulae
+    vector<OCP_DBL>   avg;    ///< coefficients Ak in gas viscosity correlation formulae
+    vector<OCP_DBL>   bvg;    ///< coefficients Bk in gas viscosity correlation formulae
+    OCPTable         visc;    ///< viscosity-versus-temperature dependence
 };
 
 

@@ -276,6 +276,11 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputCOMPONENTS(ifs, keyword);
                 break;
 
+            case Map_Str2Int("PRSR", 4):
+            case Map_Str2Int("TEMR", 4):
+                paramRs.InputRefPR(ifs, keyword);
+                break;
+
             case Map_Str2Int("LBCCOEF", 7):
                 paramRs.InputLBCCOEF(ifs);
                 break;

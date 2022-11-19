@@ -78,10 +78,14 @@ public:
     /// Init Params
     void Init();
     /// Input the information of hydrocarbon components
-    void InputCOMPONENTS(ifstream& ifs, const string& keyword);
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword);   
     /// Find corresponding variable according to the name of variable.
     /// It is used for the basic properties of hydrocarbon components such as TCRIT
-    Type_A_r<vector<OCP_DBL>>* FindPtr(const string& varName);
+    Type_A_r<vector<OCP_DBL>>* FindPtr01(const string& varName);
+    /// input reference pressure, temperature
+    void InputRefPR(ifstream& ifs, const string& keyword);
+    /// Find corresponding variable according to the name of variable
+    vector<OCP_DBL>* FindPtr02(const string& varName);
     /// Input the names of hydrocarbon components
     void InputCNAMES(ifstream& ifs);
     /// Input LBC coefficients for viscosity calculation
@@ -101,7 +105,6 @@ public:
     USI NTPVT{1}; ///< num of EoS region, constant now.
     USI numCom{0};  ///< num of components, water is excluded.
     USI numPhase{2}; ///< num of phase, water is excluded, constant now.
-    vector<vector<string>>  COM; ///< Components information
     vector<string> Cname; ///< Name of hydrocarbon components
     Type_A_r<vector<OCP_DBL>> Tc; ///< Critical temperature of hydrocarbon components
     Type_A_r<vector<OCP_DBL>> Pc; ///< Critical pressure of hydrocarbon components
@@ -142,7 +145,10 @@ public:
     /// viscosity-versus-temperature dependence,  This table can specify the viscosity-versus-temperature-pressure dependence.
     TableSet                    viscTab; 
 
+    vector<OCP_DBL>             Pref;   ///< reference pressure
+    vector<OCP_DBL>             Tref;   ///< reference temperature
 
+    // Miscibility
     OCP_BOOL miscible{OCP_FALSE}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
@@ -343,6 +349,7 @@ public:
     void InputLBCCOEF(ifstream& ifs) { comsParam.InputLBCCOEF(ifs); }
     void InputBIC(ifstream& ifs) { comsParam.InputBIC(ifs); };
     void InputVISCTAB(ifstream& ifs) { comsParam.InputVISCTAB(ifs); }
+    void InputRefPR(ifstream& ifs, const string& keyword) { comsParam.InputRefPR(ifs, keyword); };
 
 
     // Method params
