@@ -25,6 +25,9 @@ void AllWells::InputParam(const ParamWell& paramWell)
         solvents[i] = paramWell.solSet[i];
     }
 
+    Psurf = paramWell.Psurf;
+    Tsurf = paramWell.Tsurf;
+
     numWell = paramWell.well.size();
     wells.resize(numWell);
     USI         t = paramWell.criticalTime.size();
@@ -36,6 +39,8 @@ void AllWells::InputParam(const ParamWell& paramWell)
         wells[w].I     = paramWell.well[w].I - 1;
         wells[w].J     = paramWell.well[w].J - 1;
         wells[w].InputPerfo(paramWell.well[w]);
+        wells[w].Psurf = Psurf;
+        wells[w].Tsurf = Tsurf;
 
         // opt
         wells[w].optSet.resize(t);
@@ -285,7 +290,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                 }
                 qt = Dnorm1(nc, &wG.zi[0]);
             }
-            flashCal[0]->Flash(Pref, Tref, &wG.zi[0], 0, 0, 0);
+            flashCal[0]->Flash(Psurf, Tsurf, &wG.zi[0], 0, 0, 0);
             Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.injPhase * nc]);
             wG.xi     = flashCal[0]->xi[wG.injPhase];
             wG.factor = wG.xi * flashCal[0]->v[wG.injPhase] / qt;

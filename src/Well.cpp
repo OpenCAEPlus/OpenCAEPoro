@@ -185,7 +185,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             // Convert volume units Mscf/stb to molar units lbmoles for
                             // injfluid Use flash in Bulk in surface condition
                             opt.xiINJ = myBulk.flashCal[0]->XiPhase(
-                                Pref, Tref, &opt.zi[0]);
+                                Psurf, Tsurf, &opt.zi[0]);
                             opt.maxRate *=
                                 (opt.xiINJ *
                                  1000); // lbmol / ft3 -> lbmol / Mscf for gas
@@ -921,7 +921,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 if (qi_lbmol[i] < 0) flag = OCP_FALSE;
             }
             if (qt > TINY && flag) {
-                myBulk.flashCal[0]->Flash(Pref, Tref, &qi_lbmol[0], 0, 0, 0);
+                myBulk.flashCal[0]->Flash(Psurf, Tsurf, &qi_lbmol[0], 0, 0, 0);
             } else {
                 USI             np = myBulk.numPhase;
                 USI             nc = myBulk.numCom;
@@ -939,7 +939,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                     }
                 }
                 qt = Dnorm1(nc, &tmpNi[0]);
-                myBulk.flashCal[0]->Flash(Pref, Tref, &tmpNi[0], 0, 0, 0);
+                myBulk.flashCal[0]->Flash(Psurf, Tsurf, &tmpNi[0], 0, 0, 0);
             }
             const USI OIndex = myBulk.phase2Index[OIL];
             const USI GIndex = myBulk.phase2Index[GAS];

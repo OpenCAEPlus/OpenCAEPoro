@@ -103,6 +103,8 @@ public:
     vector<WellParam> well;         ///< Contains all the information of wells.
     vector<OCP_DBL>   criticalTime; ///< Records the critical time given by users.
     vector<Solvent>   solSet;       ///< Sets of Solvent.
+    OCP_DBL           Psurf{ PRESSURE_STD };      ///< Pressure in surface condition.
+    OCP_DBL           Tsurf{ TEMPERATURE_STD };   ///< Temperature in surface condition.
 
     /// Initialize the inputting the params of wells.
     void Init() { InitTime(); };
@@ -132,6 +134,10 @@ public:
     /// Input well keyword: Solvent. It describes the molar fraction of components of
     /// fluid injected to reservoir from INJ.
     void InputWELLSTRE(ifstream& ifs);
+    /// Input surface pressure
+    void InputPSURF(ifstream& ifs);
+    /// Input surface temperature
+    void InputTSURF(ifstream& ifs);
 
     // check
     /// Check if wrong params are input.

@@ -289,6 +289,30 @@ void ParamWell::InputWELLSTRE(ifstream& ifs)
     cout << "WELLSTRE" << endl;
 }
 
+
+void ParamWell::InputPSURF(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+
+    Psurf = stod(vbuf[0]);
+
+    cout << "PSURF\n" << Psurf << endl;
+}
+
+
+void ParamWell::InputTSURF(ifstream& ifs)
+{
+    vector<string> vbuf;
+    ReadLine(ifs, vbuf);
+
+    Tsurf = stod(vbuf[0]);
+
+    cout << "TSURF\n" << Tsurf << endl;
+}
+
+
+
 // check
 void ParamWell::CheckParam(const OCP_BOOL& boModel) const
 {
