@@ -25,6 +25,7 @@
 #include "Mixture.hpp"
 #include "MixtureBO.hpp"
 #include "MixtureComp.hpp"
+#include "MixtureThermal.hpp"
 #include "OCPConst.hpp"
 #include "OCPStructure.hpp"
 #include "ParamReservoir.hpp"
@@ -314,6 +315,17 @@ private:
     // Note: Nij is the moles of component i in phase j, Nj is the moles of phase j.
     // for thermal model
     vector<OCP_DBL>  thconp;     ///< phase thermal conductivity: numPhase
+    vector<OCP_DBL> vfT;  ///< d vf  / dT, numBulk
+    vector<OCP_DBL> muT;  ///< d mu j  / dT, numPhase * numbulk
+    vector<OCP_DBL> xiT;  ///< d xi j / dT, numPhase * numbulk
+    vector<OCP_DBL> rhoT; ///< d rho j / dT, numPhase * numbulk
+    vector<OCP_DBL> Uf;   ///< Internal energy of fluid, numBulk
+    vector<OCP_DBL> Ufi;  ///< dUf / dNi, numCom * numBulk
+    vector<OCP_DBL> Ufp;  ///< dUf / dP, numbulk
+    vector<OCP_DBL> UfT;  ///< dUf / dT, numbulk
+    vector<OCP_DBL> H;    ///< Enthalpy, numPhase * numbulk
+    vector<OCP_DBL> HT;   ///< d Hj / d T, numPhase * numbulk
+    vector<OCP_DBL> Hx;   ///< d Hj / d xij, numPhase * numCom * numbulk
 
     /////////////////////////////////////////////////////////////////////
     // Derivatives

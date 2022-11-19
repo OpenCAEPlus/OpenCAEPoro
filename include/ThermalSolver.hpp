@@ -25,6 +25,7 @@ private:
     USI           method = FIM;
     LinearSystem  LSolver;
     LinearSystem  auxLSolver;
+    OCP_FIM_Thermal  fim;
 };
 
 #endif /* end if __THERMALSOLVER_HEADER__ */

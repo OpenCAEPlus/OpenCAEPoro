@@ -7,6 +7,7 @@ target_sources(
 		 ThermalMethod.cpp
          MixtureBO2_OW.cpp
          MixtureComp.cpp
+		 MixtureThermal_K.cpp
          OCPFluidMethod.cpp
          ParamControl.cpp
          ParamReservoir.cpp

@@ -27,7 +27,8 @@ public:
 	// Calculate porosity and d porosity / d P for isothermal model
 	virtual void CalPoro(const OCP_DBL& P, const OCP_DBL& poroInit, OCP_DBL& poro, OCP_DBL& dPorodP) const = 0;
 	// Calculate porosity and d porosity / d P for thermal model
-	virtual void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const = 0;
+	virtual void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
+						  OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const = 0;
 };
 
 
@@ -35,7 +36,8 @@ class RockIso : public Rock
 {
 public:
 	RockIso() = default;
-	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const override { OCP_ABORT("Not Used!"); };
+	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
+		OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const override { OCP_ABORT("Not Used!"); };
 };
 
 
@@ -89,7 +91,8 @@ class RockT_Linear : public RockT
 public:
 	RockT_Linear() = default;
 	RockT_Linear(const RockParam& param) { Assign(param); };
-	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const override;
+	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
+		OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const override;
 };
 
 
@@ -100,7 +103,8 @@ class RockT_Exp : public RockT
 public:
 	RockT_Exp() = default;
 	RockT_Exp(const RockParam& param) { Assign(param); };
-	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro) const override;
+	void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
+		OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const override;
 };
 
 

@@ -184,10 +184,17 @@ protected:
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
     
     // Thermal model
-    OCP_DBL         vft;  ///< d vf  / dT
-    vector<OCP_DBL> muT;  ///< d mu  / dT: numPhase
-    vector<OCP_DBL> xiT;  ///< d xi  / dT: numPhase
-    vector<OCP_DBL> rhoT; ///< d rho / dT: numPhase
+    OCP_DBL         vfT;  ///< d vf  / dT
+    vector<OCP_DBL> muT;  ///< d mu j  / dT: numPhase
+    vector<OCP_DBL> xiT;  ///< d xi j / dT: numPhase
+    vector<OCP_DBL> rhoT; ///< d rho j / dT: numPhase
+    OCP_DBL         Uf;   ///< Internal energy of fluid
+    vector<OCP_DBL>         Ufi;  ///< dUf / dNi
+    OCP_DBL         Ufp;  ///< dUf / dP
+    OCP_DBL         UfT;  ///< dUf / dT
+    vector<OCP_DBL> H;    ///< Enthalpy
+    vector<OCP_DBL> HT;   ///< d Hj / d T
+    vector<OCP_DBL> Hx;   ///< d Hj / d xij
 
     // Auxiliary variable for dSec_dPr
     vector<OCP_BOOL>    pSderExist;   ///< Existence of  derivative of phase saturation 

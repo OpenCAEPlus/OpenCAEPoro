@@ -1,5 +1,5 @@
-/*! \file    MixtureThermal.cpp
- *  \brief   MixtureThermal class declaration
+/*! \file    MixtureThermal_K.cpp
+ *  \brief   MixtureThermal_K class declaration
  *  \author  Shizhe Li
  *  \date    Nov/10/2022
  *
@@ -16,10 +16,15 @@
 #include "OCPTable.hpp"
 
 
-MixtureThermal :: MixtureThermal(const ComponentParam& param, const USI& i)
+
+MixtureThermal_K01 :: MixtureThermal_K01(const ParamReservoir& param, const USI& tarId)
 {
+	numCom = param.numCom; // water is included
+	Allocate();
 
 }
+
+
 
 
 /*----------------------------------------------------------------------------*/

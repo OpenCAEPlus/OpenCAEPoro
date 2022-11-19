@@ -221,6 +221,12 @@ void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
     if (gas) { thconp.push_back(rs_param.thcong); }
     if (water) { thconp.push_back(rs_param.thconw); }
 
+
+    // PVT mode
+    for (USI i = 0; i < NTPVT; i++)
+        flashCal.push_back(new MixtureThermal_K01(rs_param, i));
+        
+
     InputRockFuncT(rs_param);
 }
 
