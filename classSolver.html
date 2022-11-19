@@ -116,21 +116,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Initialize the reservoir. </p>
 <p>Initialize the reservoir setting for different solution methods. </p>
 
-<p class="definition">Definition at line <a class="el" href="Solver_8cpp_source.html#l00046">46</a> of file <a class="el" href="Solver_8cpp_source.html">Solver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">switch</span> (OCPModel)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">case</span> ISOTHERMALMODEL:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        InitReservoirIsoT(rs);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">case</span> THERMALMODEL:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        InitReservoirT(rs);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG MODEL!&quot;</span>);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Solver_8cpp_source.html#l00047">47</a> of file <a class="el" href="Solver_8cpp_source.html">Solver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">switch</span> (OCPModel)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">case</span> ISOTHERMALMODEL:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        InitReservoirIsoT(rs);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">case</span> THERMALMODEL:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        InitReservoirT(rs);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;WRONG MODEL!&quot;</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -170,54 +170,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Start simulation. </p>
 <p>Simulation will go through all time steps and call GoOneStep at each step. </p>
 
-<p class="definition">Definition at line <a class="el" href="Solver_8cpp_source.html#l00076">76</a> of file <a class="el" href="Solver_8cpp_source.html">Solver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classGetWallTime.html">GetWallTime</a> timer;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    timer.<a class="code" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    output.PrintInfoSched(rs, ctrl, timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> numTSteps = ctrl.<a class="code" href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">GetNumTSteps</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> d = 0; d &lt; numTSteps - 1; d++) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        rs.<a class="code" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">ApplyControl</a>(d);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        ctrl.<a class="code" href="classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50">ApplyControl</a>(d, rs);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">while</span> (!ctrl.<a class="code" href="classOCPControl.html#a50ad3a4c2425bc8b944f7099aa1551c8">IsCriticalTime</a>(d + 1)) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            GoOneStep(rs, ctrl);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            output.SetVal(rs, ctrl);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">if</span> (ctrl.printLevel &gt;= PRINT_ALL) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="comment">// Print Summary and critical information at every time step</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                output.PrintInfo();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        output.PrintInfoSched(rs, ctrl, timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());     </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment">// rs.allWells.ShowWellStatus(rs.bulk);</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (rs.bulk.<a class="code" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">GetMixMode</a>() == <a class="code" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSTAiters() &lt;&lt; setw(15)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;             &lt;&lt; rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() &lt;&lt; endl;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSTAiters() &lt;&lt; setw(15)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;             &lt;&lt; rs.bulk.GetNRSTAiters() * 1.0 / rs.bulk.GetNRSTAcounts() &lt;&lt; endl;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSPiters() &lt;&lt; setw(15)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;             &lt;&lt; rs.bulk.GetSSMSPiters() * 1.0 / rs.bulk.GetSSMSPcounts() &lt;&lt; endl;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSPiters() &lt;&lt; setw(15)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;             &lt;&lt; rs.bulk.GetNRSPiters() * 1.0 / rs.bulk.GetNRSPcounts() &lt;&lt; endl;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRRR:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetRRiters() &lt;&lt; setw(15)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;             &lt;&lt; rs.bulk.GetRRiters() * 1.0 / rs.bulk.GetRRcounts() &lt;&lt; endl;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    ctrl.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Solver_8cpp_source.html#l00077">77</a> of file <a class="el" href="Solver_8cpp_source.html">Solver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="classGetWallTime.html">GetWallTime</a> timer;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    timer.<a class="code" href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">Start</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    output.PrintInfoSched(rs, ctrl, timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> numTSteps = ctrl.<a class="code" href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">GetNumTSteps</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> d = 0; d &lt; numTSteps - 1; d++) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        rs.<a class="code" href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">ApplyControl</a>(d);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        ctrl.<a class="code" href="classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50">ApplyControl</a>(d, rs);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">while</span> (!ctrl.<a class="code" href="classOCPControl.html#a50ad3a4c2425bc8b944f7099aa1551c8">IsCriticalTime</a>(d + 1)) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            GoOneStep(rs, ctrl);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            output.SetVal(rs, ctrl);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> (ctrl.printLevel &gt;= PRINT_ALL) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="comment">// Print Summary and critical information at every time step</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                output.PrintInfo();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        output.PrintInfoSched(rs, ctrl, timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>());     </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">// rs.allWells.ShowWellStatus(rs.bulk);</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (rs.bulk.<a class="code" href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">GetMixMode</a>() == <a class="code" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSTA:     &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSTAiters() &lt;&lt; setw(15)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;             &lt;&lt; rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSTA:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSTAiters() &lt;&lt; setw(15)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;             &lt;&lt; rs.bulk.GetNRSTAiters() * 1.0 / rs.bulk.GetNRSTAcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;SSMSP:      &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetSSMSPiters() &lt;&lt; setw(15)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;             &lt;&lt; rs.bulk.GetSSMSPiters() * 1.0 / rs.bulk.GetSSMSPcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRSP:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetNRSPiters() &lt;&lt; setw(15)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;             &lt;&lt; rs.bulk.GetNRSPiters() * 1.0 / rs.bulk.GetNRSPcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;NRRR:       &quot;</span> &lt;&lt; setw(12) &lt;&lt; rs.bulk.GetRRiters() &lt;&lt; setw(15)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;             &lt;&lt; rs.bulk.GetRRiters() * 1.0 / rs.bulk.GetRRcounts() &lt;&lt; endl;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    ctrl.<a class="code" href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">RecordTotalTime</a>(timer.<a class="code" href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">Stop</a>() / 1000);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a23f681c0d9e8d413e68ed087126a742d"><div class="ttname"><a href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a></div><div class="ttdeci">const USI EOS_PVTW</div><div class="ttdoc">Mixture model = equation-of-state.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00095">OCPConst.hpp:95</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">Return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02385">Bulk.cpp:2385</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html"><div class="ttname"><a href="classGetWallTime.html">GetWallTime</a></div><div class="ttdoc">Get elapsed wall-time in millisecond.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00031">UtilTiming.hpp:32</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a6554ac2f01206c503f15a5efa39c5605"><div class="ttname"><a href="classGetWallTime.html#a6554ac2f01206c503f15a5efa39c5605">GetWallTime::Stop</a></div><div class="ttdeci">__inline__ double Stop() const</div><div class="ttdoc">Stop the timer and return duration from start() in ms.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00054">UtilTiming.hpp:54</a></div></div>
 <div class="ttc" id="aclassGetWallTime_html_a89f0126e2428cd5a45c0ebf790f96bc9"><div class="ttname"><a href="classGetWallTime.html#a89f0126e2428cd5a45c0ebf790f96bc9">GetWallTime::Start</a></div><div class="ttdeci">__inline__ void Start()</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> <a href="UtilTiming_8hpp_source.html#l00051">UtilTiming.hpp:51</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a00990fbac2f3effb6a277146663932bd"><div class="ttname"><a href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">OCPControl::GetNumTSteps</a></div><div class="ttdeci">USI GetNumTSteps() const</div><div class="ttdoc">Return number of TSTEPs.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00123">OCPControl.hpp:123</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a062f4e4c0701e08cc350500bfb350d50"><div class="ttname"><a href="classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50">OCPControl::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i, const Reservoir &amp;rs)</div><div class="ttdoc">Apply control for time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00172">OCPControl.cpp:172</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00168">OCPControl.hpp:168</a></div></div>
-<div class="ttc" id="aclassOCPControl_html_a50ad3a4c2425bc8b944f7099aa1551c8"><div class="ttname"><a href="classOCPControl.html#a50ad3a4c2425bc8b944f7099aa1551c8">OCPControl::IsCriticalTime</a></div><div class="ttdeci">OCP_BOOL IsCriticalTime(const USI &amp;d)</div><div class="ttdoc">Determine whether the critical time point has been reached.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00177">OCPControl.hpp:177</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a00990fbac2f3effb6a277146663932bd"><div class="ttname"><a href="classOCPControl.html#a00990fbac2f3effb6a277146663932bd">OCPControl::GetNumTSteps</a></div><div class="ttdeci">USI GetNumTSteps() const</div><div class="ttdoc">Return number of TSTEPs.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00126">OCPControl.hpp:126</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a062f4e4c0701e08cc350500bfb350d50"><div class="ttname"><a href="classOCPControl.html#a062f4e4c0701e08cc350500bfb350d50">OCPControl::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i, const Reservoir &amp;rs)</div><div class="ttdoc">Apply control for time step i.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8cpp_source.html#l00173">OCPControl.cpp:173</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a2dc02c5f09c7d6642d9935948a248d5f"><div class="ttname"><a href="classOCPControl.html#a2dc02c5f09c7d6642d9935948a248d5f">OCPControl::RecordTotalTime</a></div><div class="ttdeci">void RecordTotalTime(const OCP_DBL &amp;t)</div><div class="ttdoc">Record the total time of simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00171">OCPControl.hpp:171</a></div></div>
+<div class="ttc" id="aclassOCPControl_html_a50ad3a4c2425bc8b944f7099aa1551c8"><div class="ttname"><a href="classOCPControl.html#a50ad3a4c2425bc8b944f7099aa1551c8">OCPControl::IsCriticalTime</a></div><div class="ttdeci">OCP_BOOL IsCriticalTime(const USI &amp;d)</div><div class="ttdoc">Determine whether the critical time point has been reached.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00180">OCPControl.hpp:180</a></div></div>
 <div class="ttc" id="aclassReservoir_html_a9e77991deeaaa5fba43a98f79251e0f1"><div class="ttname"><a href="classReservoir.html#a9e77991deeaaa5fba43a98f79251e0f1">Reservoir::ApplyControl</a></div><div class="ttdeci">void ApplyControl(const USI &amp;i)</div><div class="ttdoc">Apply the control of ith critical time point.</div><div class="ttdef"><b>Definition:</b> <a href="Reservoir_8cpp_source.html#l00037">Reservoir.cpp:37</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00037">Reservoir::ApplyControl()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00172">OCPControl::ApplyControl()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00095">EOS_PVTW</a>, <a class="el" href="Bulk_8cpp_source.html#l02385">Bulk::GetMixMode()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00123">OCPControl::GetNumTSteps()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00177">OCPControl::IsCriticalTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00168">OCPControl::RecordTotalTime()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
+<p class="reference">References <a class="el" href="Reservoir_8cpp_source.html#l00037">Reservoir::ApplyControl()</a>, <a class="el" href="OCPControl_8cpp_source.html#l00173">OCPControl::ApplyControl()</a>, <a class="el" href="OCPConst_8hpp_source.html#l00095">EOS_PVTW</a>, <a class="el" href="Bulk_8cpp_source.html#l02385">Bulk::GetMixMode()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00126">OCPControl::GetNumTSteps()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00180">OCPControl::IsCriticalTime()</a>, <a class="el" href="OCPControl_8hpp_source.html#l00171">OCPControl::RecordTotalTime()</a>, <a class="el" href="UtilTiming_8hpp_source.html#l00051">GetWallTime::Start()</a>, and <a class="el" href="UtilTiming_8hpp_source.html#l00054">GetWallTime::Stop()</a>.</p>
 
 </div>
 </div>
@@ -228,7 +228,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 19 2022 07:11:12 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Nov 19 2022 09:31:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
