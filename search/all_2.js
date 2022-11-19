@@ -17,11 +17,11 @@ var searchData=
   ['bulk_61',['Bulk',['../classBulk.html',1,'']]],
   ['bulk_2ecpp_62',['Bulk.cpp',['../Bulk_8cpp.html',1,'']]],
   ['bulk_2ehpp_63',['Bulk.hpp',['../Bulk_8hpp.html',1,'']]],
-  ['bulkconn_64',['BulkConn',['../classBulkConn.html',1,'BulkConn'],['../classBulkConn.html#a29a2e7b5ac50a8c5cf2210def306fcb1',1,'BulkConn::BulkConn()']]],
+  ['bulkconn_64',['BulkConn',['../classBulkConn.html#a29a2e7b5ac50a8c5cf2210def306fcb1',1,'BulkConn::BulkConn()'],['../classBulkConn.html',1,'BulkConn']]],
   ['bulkconn_2ecpp_65',['BulkConn.cpp',['../BulkConn_8cpp.html',1,'']]],
   ['bulkconn_2ehpp_66',['BulkConn.hpp',['../BulkConn_8hpp.html',1,'']]],
-  ['bulkpair_67',['BulkPair',['../classBulkPair.html',1,'BulkPair'],['../classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5',1,'BulkPair::BulkPair()=default'],['../classBulkPair.html#a0d8ad44455344975cc030674d56b0508',1,'BulkPair::BulkPair(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const OCP_DBL &amp;Area)']]],
-  ['bvg_68',['bvg',['../classComponentParam.html#a4e9952987c4b3fc9796af68197c96e6d',1,'ComponentParam']]],
-  ['bvisc_69',['bvisc',['../classComponentParam.html#a3a955aa4302a92c28fb2d69d9c111443',1,'ComponentParam']]],
+  ['bulkpair_67',['BulkPair',['../classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5',1,'BulkPair::BulkPair()=default'],['../classBulkPair.html#a0d8ad44455344975cc030674d56b0508',1,'BulkPair::BulkPair(const OCP_USI &amp;bId, const OCP_USI &amp;eId, const OCP_DBL &amp;Area)'],['../classBulkPair.html',1,'BulkPair']]],
+  ['bvg_68',['bvg',['../classMixtureThermal__K01.html#a4354f1fad0e1890bfce34609e6de17c3',1,'MixtureThermal_K01::bvg()'],['../classComponentParam.html#a4e9952987c4b3fc9796af68197c96e6d',1,'ComponentParam::bvg()']]],
+  ['bvisc_69',['bvisc',['../classMixtureThermal__K01.html#ae1de7c613d767ca82a3663465a9bab71',1,'MixtureThermal_K01::bvisc()'],['../classComponentParam.html#a3a955aa4302a92c28fb2d69d9c111443',1,'ComponentParam::bvisc()']]],
   ['bwat_70',['BWAT',['../classBasicGridPropertyParam.html#a22a5b226be79ff263168bd037cb0b0d9',1,'BasicGridPropertyParam']]]
 ];

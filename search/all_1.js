@@ -42,6 +42,6 @@ var searchData=
   ['assemblematreinjection_5ffim_42',['AssembleMatReinjection_FIM',['../classWell.html#ac3f15a40bf91e5734390ef4e5e2a1bae',1,'Well']]],
   ['assemblematreinjection_5fimpec_43',['AssembleMatReinjection_IMPEC',['../classWell.html#a0faa91a9127c13773e269b6a52eb40b4',1,'Well']]],
   ['assemblerhsaccumulate_44',['AssembleRhsAccumulate',['../classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e',1,'LinearSystem']]],
-  ['avg_45',['avg',['../classComponentParam.html#a780b59cabfc4689824a4c54890ae60eb',1,'ComponentParam']]],
-  ['avisc_46',['avisc',['../classComponentParam.html#a376abce4a2dbe6490d7748354a1ed7be',1,'ComponentParam']]]
+  ['avg_45',['avg',['../classMixtureThermal__K01.html#a6db1c9fa9d03010257bbc0374fb1d9e9',1,'MixtureThermal_K01::avg()'],['../classComponentParam.html#a780b59cabfc4689824a4c54890ae60eb',1,'ComponentParam::avg()']]],
+  ['avisc_46',['avisc',['../classMixtureThermal__K01.html#a57c23e16138ef34b739b3c281d12b2cf',1,'MixtureThermal_K01::avisc()'],['../classComponentParam.html#a376abce4a2dbe6490d7748354a1ed7be',1,'ComponentParam::avisc()']]]
 ];
