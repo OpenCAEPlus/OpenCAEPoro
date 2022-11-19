@@ -83,12 +83,13 @@ Inheritance diagram for Mixture:</div>
  <div class="center">
   <img src="classMixture.png" usemap="#Mixture_map" alt=""/>
   <map id="Mixture_map" name="Mixture_map">
-<area href="classBOMixture.html" title="BOMixture is inherited class of Mixture, it&#39;s used for black oil model." alt="BOMixture" shape="rect" coords="128,56,246,80"/>
-<area href="classMixtureComp.html" alt="MixtureComp" shape="rect" coords="256,56,374,80"/>
-<area href="classMixtureThermal.html" alt="MixtureThermal" shape="rect" coords="384,56,502,80"/>
-<area href="classBOMixture__ODGW.html" alt="BOMixture_ODGW" shape="rect" coords="0,112,118,136"/>
-<area href="classBOMixture__OW.html" alt="BOMixture_OW" shape="rect" coords="128,112,246,136"/>
-<area href="classBOMixture__W.html" alt="BOMixture_W" shape="rect" coords="256,112,374,136"/>
+<area href="classBOMixture.html" title="BOMixture is inherited class of Mixture, it&#39;s used for black oil model." alt="BOMixture" shape="rect" coords="138,56,266,80"/>
+<area href="classMixtureComp.html" alt="MixtureComp" shape="rect" coords="276,56,404,80"/>
+<area href="classMixtureThermal.html" alt="MixtureThermal" shape="rect" coords="414,56,542,80"/>
+<area href="classBOMixture__ODGW.html" alt="BOMixture_ODGW" shape="rect" coords="0,112,128,136"/>
+<area href="classBOMixture__OW.html" alt="BOMixture_OW" shape="rect" coords="138,112,266,136"/>
+<area href="classBOMixture__W.html" alt="BOMixture_W" shape="rect" coords="276,112,404,136"/>
+<area href="classMixtureThermal__K01.html" alt="MixtureThermal_K01" shape="rect" coords="414,112,542,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -292,22 +293,50 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
 <tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables <br /></td></tr>
 <tr class="separator:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9a5545f917a73cdbea7491d7b657f61"><td class="memItemLeft" align="right" valign="top"><a id="ad9a5545f917a73cdbea7491d7b657f61"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad9a5545f917a73cdbea7491d7b657f61">vft</a></td></tr>
-<tr class="memdesc:ad9a5545f917a73cdbea7491d7b657f61"><td class="mdescLeft">&#160;</td><td class="mdescRight">d vf / dT <br /></td></tr>
-<tr class="separator:ad9a5545f917a73cdbea7491d7b657f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3812867fe22caad5c021406900c90c92"><td class="memItemLeft" align="right" valign="top"><a id="a3812867fe22caad5c021406900c90c92"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3812867fe22caad5c021406900c90c92">vfT</a></td></tr>
+<tr class="memdesc:a3812867fe22caad5c021406900c90c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">d vf / dT <br /></td></tr>
+<tr class="separator:a3812867fe22caad5c021406900c90c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memItemLeft" align="right" valign="top"><a id="a1110f86ed9e7b0e4277cbaacd031efe4"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1110f86ed9e7b0e4277cbaacd031efe4">muT</a></td></tr>
-<tr class="memdesc:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu / dT: numPhase <br /></td></tr>
+<tr class="memdesc:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu j / dT: numPhase <br /></td></tr>
 <tr class="separator:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d979b917145a4042a852b8553241a41"><td class="memItemLeft" align="right" valign="top"><a id="a9d979b917145a4042a852b8553241a41"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d979b917145a4042a852b8553241a41">xiT</a></td></tr>
-<tr class="memdesc:a9d979b917145a4042a852b8553241a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi / dT: numPhase <br /></td></tr>
+<tr class="memdesc:a9d979b917145a4042a852b8553241a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi j / dT: numPhase <br /></td></tr>
 <tr class="separator:a9d979b917145a4042a852b8553241a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1883d13127533f4f026473a4e9b50ca"><td class="memItemLeft" align="right" valign="top"><a id="ac1883d13127533f4f026473a4e9b50ca"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ac1883d13127533f4f026473a4e9b50ca">rhoT</a></td></tr>
-<tr class="memdesc:ac1883d13127533f4f026473a4e9b50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho / dT: numPhase <br /></td></tr>
+<tr class="memdesc:ac1883d13127533f4f026473a4e9b50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho j / dT: numPhase <br /></td></tr>
 <tr class="separator:ac1883d13127533f4f026473a4e9b50ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf786bd732d61fb89331f46b9096d4c"><td class="memItemLeft" align="right" valign="top"><a id="abbf786bd732d61fb89331f46b9096d4c"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#abbf786bd732d61fb89331f46b9096d4c">Uf</a></td></tr>
+<tr class="memdesc:abbf786bd732d61fb89331f46b9096d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal energy of fluid. <br /></td></tr>
+<tr class="separator:abbf786bd732d61fb89331f46b9096d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memItemLeft" align="right" valign="top"><a id="a1804e0cb4409e5e656bdd6808d5eda4d"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1804e0cb4409e5e656bdd6808d5eda4d">Ufi</a></td></tr>
+<tr class="memdesc:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dNi <br /></td></tr>
+<tr class="separator:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="memItemLeft" align="right" valign="top"><a id="a0d6e7d232f7b678c70e86d17f8d4bf0d"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0d6e7d232f7b678c70e86d17f8d4bf0d">Ufp</a></td></tr>
+<tr class="memdesc:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dP <br /></td></tr>
+<tr class="separator:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead77ff6a9686d7e00127228a8ee658b"><td class="memItemLeft" align="right" valign="top"><a id="aead77ff6a9686d7e00127228a8ee658b"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aead77ff6a9686d7e00127228a8ee658b">UfT</a></td></tr>
+<tr class="memdesc:aead77ff6a9686d7e00127228a8ee658b"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dT <br /></td></tr>
+<tr class="separator:aead77ff6a9686d7e00127228a8ee658b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0105103939cee9968526886db09fea"><td class="memItemLeft" align="right" valign="top"><a id="a9b0105103939cee9968526886db09fea"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9b0105103939cee9968526886db09fea">H</a></td></tr>
+<tr class="memdesc:a9b0105103939cee9968526886db09fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enthalpy. <br /></td></tr>
+<tr class="separator:a9b0105103939cee9968526886db09fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab14ba599001d4d65a0b2a97caf467eb4"><td class="memItemLeft" align="right" valign="top"><a id="ab14ba599001d4d65a0b2a97caf467eb4"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ab14ba599001d4d65a0b2a97caf467eb4">HT</a></td></tr>
+<tr class="memdesc:ab14ba599001d4d65a0b2a97caf467eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d Hj / d T <br /></td></tr>
+<tr class="separator:ab14ba599001d4d65a0b2a97caf467eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dfa58286ec728ef91ea540852191487"><td class="memItemLeft" align="right" valign="top"><a id="a6dfa58286ec728ef91ea540852191487"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a6dfa58286ec728ef91ea540852191487">Hx</a></td></tr>
+<tr class="memdesc:a6dfa58286ec728ef91ea540852191487"><td class="mdescLeft">&#160;</td><td class="mdescRight">d Hj / d xij <br /></td></tr>
+<tr class="separator:a6dfa58286ec728ef91ea540852191487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e0f4738e6796e1109153ede0be72de"><td class="memItemLeft" align="right" valign="top"><a id="a31e0f4738e6796e1109153ede0be72de"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a></td></tr>
 <tr class="memdesc:a31e0f4738e6796e1109153ede0be72de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Existence of derivative of phase saturation. <br /></td></tr>
@@ -433,7 +462,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>return gamma of hydrocarbon mixture, gamma equals to mass density times gravity factor. </p>
 
-<p>Implemented in <a class="el" href="classMixtureThermal.html#aef85d5bfc0e5d983f373b35b2e668157">MixtureThermal</a>, <a class="el" href="classMixtureComp.html#ab6569e8518d8579046e2633298181b44">MixtureComp</a>, and <a class="el" href="classBOMixture.html#a7248a81d7db7cf7ffc3bdc2797ddd5a2">BOMixture</a>.</p>
+<p>Implemented in <a class="el" href="classMixtureThermal__K01.html#a103069647d6cb6b950508755a8edf3dc">MixtureThermal_K01</a>, <a class="el" href="classMixtureThermal.html#aef85d5bfc0e5d983f373b35b2e668157">MixtureThermal</a>, <a class="el" href="classMixtureComp.html#ab6569e8518d8579046e2633298181b44">MixtureComp</a>, and <a class="el" href="classBOMixture.html#a7248a81d7db7cf7ffc3bdc2797ddd5a2">BOMixture</a>.</p>
 
 </div>
 </div>
@@ -478,7 +507,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>Return molar density of phase, it's used to calculate the molar density of injection fluids in injection wells. </p>
 
-<p>Implemented in <a class="el" href="classMixtureComp.html#ad5be09d1c319768b761bcf6427bc8535">MixtureComp</a>, <a class="el" href="classBOMixture__ODGW.html#a4a00c0701c6919fa871b14a03d64c9e4">BOMixture_ODGW</a>, <a class="el" href="classBOMixture__OW.html#a4836e8503b6da001754692dc3710736d">BOMixture_OW</a>, and <a class="el" href="classBOMixture__W.html#a12dacac2b287e29ee23b8131b3e1c645">BOMixture_W</a>.</p>
+<p>Implemented in <a class="el" href="classMixtureThermal__K01.html#a826e2161d42fd6dba35f73e1498ebfd1">MixtureThermal_K01</a>, <a class="el" href="classMixtureComp.html#ad5be09d1c319768b761bcf6427bc8535">MixtureComp</a>, <a class="el" href="classBOMixture__ODGW.html#a4a00c0701c6919fa871b14a03d64c9e4">BOMixture_ODGW</a>, <a class="el" href="classBOMixture__OW.html#a4836e8503b6da001754692dc3710736d">BOMixture_OW</a>, and <a class="el" href="classBOMixture__W.html#a12dacac2b287e29ee23b8131b3e1c645">BOMixture_W</a>.</p>
 
 </div>
 </div>
@@ -589,7 +618,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 19 2022 05:58:37 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Nov 19 2022 07:05:16 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
