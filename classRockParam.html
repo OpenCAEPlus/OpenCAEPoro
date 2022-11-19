@@ -83,7 +83,7 @@ $(function() {
 Public Attributes</h2></td></tr>
 <tr class="memitem:ad69d628940de81e46b380cfc023abc80"><td class="memItemLeft" align="right" valign="top"><a id="ad69d628940de81e46b380cfc023abc80"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#ad69d628940de81e46b380cfc023abc80">type</a> {&quot;LINEAR&quot;}</td></tr>
-<tr class="memdesc:ad69d628940de81e46b380cfc023abc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">LINEAR or EXPONENT. <br /></td></tr>
+<tr class="memdesc:ad69d628940de81e46b380cfc023abc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">LINEAR or EXPONENT for porosity model. <br /></td></tr>
 <tr class="separator:ad69d628940de81e46b380cfc023abc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66e864e1e539e5c26e32237dd7b78ab8"><td class="memItemLeft" align="right" valign="top"><a id="a66e864e1e539e5c26e32237dd7b78ab8"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a66e864e1e539e5c26e32237dd7b78ab8">Pref</a> { 14.7 }</td></tr>
@@ -93,26 +93,34 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#ad47cd7f789cd04cdaca11d124deddfa3">Tref</a> { 60 }</td></tr>
 <tr class="memdesc:ad47cd7f789cd04cdaca11d124deddfa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference temperature at initial porosity. <br /></td></tr>
 <tr class="separator:ad47cd7f789cd04cdaca11d124deddfa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f1f0df4dd26b06d5ced97a4518f164f"><td class="memItemLeft" align="right" valign="top"><a id="a4f1f0df4dd26b06d5ced97a4518f164f"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a4f1f0df4dd26b06d5ced97a4518f164f">Cp1</a> { 3.406E-6 }</td></tr>
-<tr class="memdesc:a4f1f0df4dd26b06d5ced97a4518f164f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compressibility factor of rock in reservoir. <br /></td></tr>
-<tr class="separator:a4f1f0df4dd26b06d5ced97a4518f164f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e686c4b107f5fca55b7b506e163d595"><td class="memItemLeft" align="right" valign="top"><a id="a3e686c4b107f5fca55b7b506e163d595"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a3e686c4b107f5fca55b7b506e163d595">Cp2</a> { 0 }</td></tr>
-<tr class="memdesc:a3e686c4b107f5fca55b7b506e163d595"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 order Compressibility factor of rock in reservoir. <br /></td></tr>
-<tr class="separator:a3e686c4b107f5fca55b7b506e163d595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e08190a006e26f240dcdae8b83ce78"><td class="memItemLeft" align="right" valign="top"><a id="ae0e08190a006e26f240dcdae8b83ce78"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#ae0e08190a006e26f240dcdae8b83ce78">Ct</a> { 0 }</td></tr>
-<tr class="memdesc:ae0e08190a006e26f240dcdae8b83ce78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expansion factor of rock in reservoir, thermal only. <br /></td></tr>
-<tr class="separator:ae0e08190a006e26f240dcdae8b83ce78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83c25859bcd253c260c321158b5fa6d9"><td class="memItemLeft" align="right" valign="top"><a id="a83c25859bcd253c260c321158b5fa6d9"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a83c25859bcd253c260c321158b5fa6d9">Cpt</a> { 0 }</td></tr>
-<tr class="memdesc:a83c25859bcd253c260c321158b5fa6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">cross items, thermal only <br /></td></tr>
-<tr class="separator:a83c25859bcd253c260c321158b5fa6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba21e18c056df7c0fbe0ae955a45938"><td class="memItemLeft" align="right" valign="top"><a id="a4ba21e18c056df7c0fbe0ae955a45938"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a4ba21e18c056df7c0fbe0ae955a45938">cp1</a> { 3.406E-6 }</td></tr>
+<tr class="memdesc:a4ba21e18c056df7c0fbe0ae955a45938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compressibility factor of rock in reservoir. <br /></td></tr>
+<tr class="separator:a4ba21e18c056df7c0fbe0ae955a45938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4df55456dcfd6fd0e70ea1eda4e5f4b"><td class="memItemLeft" align="right" valign="top"><a id="ae4df55456dcfd6fd0e70ea1eda4e5f4b"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#ae4df55456dcfd6fd0e70ea1eda4e5f4b">cp2</a> { 0 }</td></tr>
+<tr class="memdesc:ae4df55456dcfd6fd0e70ea1eda4e5f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 order Compressibility factor of rock in reservoir. <br /></td></tr>
+<tr class="separator:ae4df55456dcfd6fd0e70ea1eda4e5f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad13cbceb19aaf6ed919bd1ff39f75c85"><td class="memItemLeft" align="right" valign="top"><a id="ad13cbceb19aaf6ed919bd1ff39f75c85"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#ad13cbceb19aaf6ed919bd1ff39f75c85">ct</a> { 0 }</td></tr>
+<tr class="memdesc:ad13cbceb19aaf6ed919bd1ff39f75c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expansion factor of rock in reservoir, thermal only. <br /></td></tr>
+<tr class="separator:ad13cbceb19aaf6ed919bd1ff39f75c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04357040d4c73d8530103855fb7bdc2f"><td class="memItemLeft" align="right" valign="top"><a id="a04357040d4c73d8530103855fb7bdc2f"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a04357040d4c73d8530103855fb7bdc2f">cpt</a> { 0 }</td></tr>
+<tr class="memdesc:a04357040d4c73d8530103855fb7bdc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">cross items, thermal only <br /></td></tr>
+<tr class="separator:a04357040d4c73d8530103855fb7bdc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af85a8e2c1b0f5a35b8f96c834dd404ac"><td class="memItemLeft" align="right" valign="top"><a id="af85a8e2c1b0f5a35b8f96c834dd404ac"></a>
 <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#af85a8e2c1b0f5a35b8f96c834dd404ac">ConstRock</a> { OCP_TRUE }</td></tr>
 <tr class="memdesc:af85a8e2c1b0f5a35b8f96c834dd404ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">if true, rock volume remains const, else, bulk volume remains const <br /></td></tr>
 <tr class="separator:af85a8e2c1b0f5a35b8f96c834dd404ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd4cc2f1565c593f439d0e0559a2ea7"><td class="memItemLeft" align="right" valign="top"><a id="a5dd4cc2f1565c593f439d0e0559a2ea7"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a5dd4cc2f1565c593f439d0e0559a2ea7">HCP1</a> { 35 }</td></tr>
+<tr class="memdesc:a5dd4cc2f1565c593f439d0e0559a2ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">coefficients of the rock enthalpy formula, Btu/ft^3 - F <br /></td></tr>
+<tr class="separator:a5dd4cc2f1565c593f439d0e0559a2ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca0f15d0d5819c55b0c7e91e4385f82"><td class="memItemLeft" align="right" valign="top"><a id="a6ca0f15d0d5819c55b0c7e91e4385f82"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRockParam.html#a6ca0f15d0d5819c55b0c7e91e4385f82">HCP2</a> { 0 }</td></tr>
+<tr class="memdesc:a6ca0f15d0d5819c55b0c7e91e4385f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">coefficients of the rock enthalpy formula, Btu/ft^3 - F <br /></td></tr>
+<tr class="separator:a6ca0f15d0d5819c55b0c7e91e4385f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classRockParam.html" title="RockParam class contains information about the keyword ROCK.">RockParam</a> class contains information about the keyword ROCK. </p>
@@ -124,7 +132,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 19 2022 09:31:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Nov 19 2022 10:14:17 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
