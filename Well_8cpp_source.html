@@ -251,7 +251,7 @@ $(function() {
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                            <span class="comment">// Convert volume units Mscf/stb to molar units lbmoles for</span></div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                            <span class="comment">// injfluid Use flash in Bulk in surface condition</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                            opt.xiINJ = myBulk.flashCal[0]-&gt;XiPhase(</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                Pref, Tref, &amp;opt.zi[0]);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                Psurf, Tsurf, &amp;opt.zi[0]);</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                            opt.maxRate *=</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                                (opt.xiINJ *</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                                 1000); <span class="comment">// lbmol / ft3 -&gt; lbmol / Mscf for gas</span></div>
@@ -978,7 +978,7 @@ $(function() {
 <div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;                <span class="keywordflow">if</span> (qi_lbmol[i] &lt; 0) flag = OCP_FALSE;</div>
 <div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;            }</div>
 <div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;            <span class="keywordflow">if</span> (qt &gt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a> &amp;&amp; flag) {</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;                myBulk.flashCal[0]-&gt;Flash(Pref, Tref, &amp;qi_lbmol[0], 0, 0, 0);</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;                myBulk.flashCal[0]-&gt;Flash(Psurf, Tsurf, &amp;qi_lbmol[0], 0, 0, 0);</div>
 <div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;            } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             np = myBulk.numPhase;</div>
 <div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             nc = myBulk.numCom;</div>
@@ -996,7 +996,7 @@ $(function() {
 <div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;                    }</div>
 <div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;                }</div>
 <div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;                qt = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(nc, &amp;tmpNi[0]);</div>
-<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;                myBulk.flashCal[0]-&gt;Flash(Pref, Tref, &amp;tmpNi[0], 0, 0, 0);</div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;                myBulk.flashCal[0]-&gt;Flash(Psurf, Tsurf, &amp;tmpNi[0], 0, 0, 0);</div>
 <div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;            }</div>
 <div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;            <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> OIndex = myBulk.phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>];</div>
 <div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;            <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> GIndex = myBulk.phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>];</div>
@@ -3069,7 +3069,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 19 2022 11:18:32 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Nov 19 2022 11:39:43 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
