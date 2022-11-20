@@ -34,6 +34,22 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 void OpenCAEPoro::SetupSimulator(const USI&  argc,
                                  const char* options[])
 {
+    switch (control.GetModel()) {
+    case ISOTHERMALMODEL:
+        if (control.printLevel >= PRINT_MIN) {
+            cout << "\nDynamic simulation with Isothermal Model\n" << endl;
+        }
+        break;
+    case THERMALMODEL:
+        if (control.printLevel >= PRINT_MIN) {
+            cout << "\nDynamic simulation with Thermal Model\n" << endl;
+        }
+        break;
+    default:
+        OCP_ABORT("Wrong method type is used!");
+    }
+
+
     GetWallTime timer;
     timer.Start();
 
