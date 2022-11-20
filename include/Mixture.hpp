@@ -99,8 +99,8 @@ public:
                             const OCP_DBL* Ziin) = 0;
 
     /// return mass density of phase.
-    virtual OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                             const OCP_DBL* Ziin) = 0;
+    virtual OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+                             const OCP_DBL* Ziin, const USI& tarPhase) = 0;
 
     /// return gamma of oil phase, gamma equals to mass density times gravity factor.
     virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) = 0;

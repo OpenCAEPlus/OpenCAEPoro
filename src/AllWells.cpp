@@ -125,7 +125,7 @@ void AllWells::SetupWellGroup(const Bulk& myBulk)
     if (OCP_FALSE) {
         wellGroup[0].reInj     = OCP_TRUE;
         wellGroup[0].saleRate  = 1500;
-        wellGroup[0].injPhase  = GAS;
+        wellGroup[0].reinjPhase  = GAS;
         wellGroup[0].prodGroup = 0;
     }
     wellGroup[0].zi.resize(myBulk.GetComNum());
@@ -291,15 +291,15 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                 qt = Dnorm1(nc, &wG.zi[0]);
             }
             flashCal[0]->Flash(Psurf, Tsurf, &wG.zi[0], 0, 0, 0);
-            Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.injPhase * nc]);
-            wG.xi     = flashCal[0]->xi[wG.injPhase];
-            wG.factor = wG.xi * flashCal[0]->v[wG.injPhase] / qt;
+            Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.reinjPhase * nc]);
+            wG.xi     = flashCal[0]->xi[wG.reinjPhase];
+            wG.factor = wG.xi * flashCal[0]->v[wG.reinjPhase] / qt;
             // assign to every open injection well in wG
             for (auto& w : wG.wIdINJ) {
                 if (wells[w].WellState()) {
                     wells[w].opt.reInj    = OCP_TRUE;
                     wells[w].opt.connWell = wG.wIdPROD;
-                    wells[w].opt.injPhase = wG.injPhase;
+                    wells[w].opt.reinjPhase = wG.reinjPhase;
                     wells[w].opt.zi       = wG.zi;
                     wells[w].opt.xiINJ    = wG.xi;
                     wells[w].opt.factor   = wG.factor;

@@ -122,7 +122,8 @@ public:
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override { OCP_ABORT("Not Completed!"); return 0; };
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override { OCP_ABORT("Not Completed!"); return 0; };
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+        const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
     OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Not Completed!"); return 0; };
 
 private:
@@ -154,7 +155,8 @@ public:
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+        const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
     OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
 
@@ -193,7 +195,8 @@ public:
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
-    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+        const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
     OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override;
     OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;

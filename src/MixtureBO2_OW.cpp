@@ -205,20 +205,23 @@ OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
     }
 }
 
-OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+    const OCP_DBL* Ziin, const USI& tarPhase)
 {
-    if (Ziin[1] > 1 - TINY) {
-        // inj fluid is water
-
+    if (tarPhase == OIL) {
+        OCP_DBL bo = PVDO.Eval(0, Pin, 1);
+        return std_RhoO / bo;
+    }
+    else if (tarPhase == WATER) {
         PVTW.Eval_All(0, Pin, data, cdata);
-        OCP_DBL Pw0  = data[0];
-        OCP_DBL bw0  = data[1];
-        OCP_DBL cbw  = data[2];
-        OCP_DBL bw   = bw0 * (1 - cbw * (P - Pw0));
-        OCP_DBL rhow = std_RhoW / bw;
-        return rhow;
-    } else {
-        OCP_ABORT("Wrong Zi!");
+        OCP_DBL Pw0 = data[0];
+        OCP_DBL bw0 = data[1];
+        OCP_DBL cbw = data[2];
+        OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+        return std_RhoW / bw;
+    }
+    else {
+        OCP_ABORT("Wrong tarPhase!");
     }
 }
 

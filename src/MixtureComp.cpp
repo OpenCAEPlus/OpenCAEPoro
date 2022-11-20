@@ -710,7 +710,8 @@ MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin
 }
 
 OCP_DBL
-MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
+    const OCP_DBL* Ziin, const USI& tarPhase)
 {
     OCP_DBL xitmp = XiPhase(Pin, Tin, Ziin);
     OCP_DBL rhotmp;
@@ -743,7 +744,7 @@ OCP_DBL
 MixtureComp::GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
     // assume that only single phase exists here, no matter it's oil or gas
-    OCP_DBL rhotmp = RhoPhase(Pin, Tin, Ziin);
+    OCP_DBL rhotmp = RhoPhase(Pin, 0, Tin, Ziin, 0);
     return rhotmp * GRAVITY_FACTOR;
 }
 

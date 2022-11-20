@@ -122,13 +122,18 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                     case PHASE_W:
                     case PHASE_OW:
                         opt.zi.back() = 1;
+                        opt.injProdPhase = WATER;
                         break;
                     case PHASE_ODGW:
                     case PHASE_DOGW:
-                        if (opt.fluidType == "GAS")
+                        if (opt.fluidType == "GAS") {
                             opt.zi[1] = 1;
-                        else
+                            opt.injProdPhase = GAS;
+                        }                           
+                        else {
                             opt.zi[2] = 1;
+                            opt.injProdPhase = WATER;
+                        }
                         break;
                     default:
                         OCP_ABORT("Wrong blackoil type!");
@@ -591,7 +596,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, opt.Tinj, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.zi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
@@ -620,7 +625,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, opt.Tinj, opt.zi.data()) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.zi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;
@@ -1055,9 +1060,9 @@ void Well::CheckOptMode(const Bulk& myBulk)
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
-                if (opt.injPhase == GAS)
+                if (opt.reinjPhase == GAS)
                     tarRate = WGIR;
-                else if (opt.injPhase == WATER)
+                else if (opt.reinjPhase == WATER)
                     tarRate = WWIR;
             }
             if (q > tarRate) {
@@ -1076,9 +1081,9 @@ void Well::CheckOptMode(const Bulk& myBulk)
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
-                if (opt.injPhase == GAS)
+                if (opt.reinjPhase == GAS)
                     tarRate = WGIR;
-                else if (opt.injPhase == WATER)
+                else if (opt.reinjPhase == WATER)
                     tarRate = WWIR;
             }
 

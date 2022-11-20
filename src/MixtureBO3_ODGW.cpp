@@ -849,25 +849,32 @@ BOMixture_ODGW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Z
 }
 
 OCP_DBL
-BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    const OCP_DBL* Ziin, const USI& tarPhase)
 {
-    if (Ziin[1] > 1 - TINY) {
-        // inj fluid is gas
-        OCP_DBL bg   = PVDG.Eval(0, Pin, 1);
+
+    if (tarPhase == OIL) {
+        PVCO.Eval_All(0, Pbbin, data, cdata);
+        OCP_DBL rs = data[1];
+        OCP_DBL bosat = data[2];
+        OCP_DBL cbosat = data[4];
+        OCP_DBL bo = bosat * (1 - cbosat * (Pin - Pbbin));
+        OCP_DBL rhoO = (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
+        return rhoO;
+    }
+    else if (tarPhase == GAS) {
+        OCP_DBL bg = PVDG.Eval(0, Pin, 1);
         OCP_DBL rhog = (1000 / CONV1) * std_RhoG / bg;
         return rhog;
-    } else if (Ziin[2] > 1 - TINY) {
-        // inj fluid is water
-
+    }
+    else if (tarPhase == WATER) {
         PVTW.Eval_All(0, Pin, data, cdata);
-        OCP_DBL Pw0  = data[0];
-        OCP_DBL bw0  = data[1];
-        OCP_DBL cbw  = data[2];
-        OCP_DBL bw   = bw0 * (1 - cbw * (P - Pw0));
+        OCP_DBL Pw0 = data[0];
+        OCP_DBL bw0 = data[1];
+        OCP_DBL cbw = data[2];
+        OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
         OCP_DBL rhow = std_RhoW / bw;
         return rhow;
-    } else {
-        OCP_ABORT("Wrong Zi!");
     }
 }
 
@@ -879,7 +886,7 @@ OCP_DBL BOMixture_ODGW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
     OCP_DBL bosat  = data[2];
     OCP_DBL cbosat = data[4];
     OCP_DBL bo     = bosat * (1 - cbosat * (Pin - Pbbin));
-    OCP_DBL gammaO = (GRAVITY_FACTOR * std_RhoO + (1000 / CONV1) * rs * GRAVITY_FACTOR * std_RhoG) / bo;
+    OCP_DBL gammaO = GRAVITY_FACTOR * (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
 
     return gammaO;
 }

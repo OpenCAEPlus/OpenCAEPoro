@@ -89,11 +89,12 @@ private:
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
     vector<OCP_DBL> zi;
+    OCP_DBL injProdPhase;         ///< label the phase of injecting fluid if possible
     OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
     OCP_DBL Tinj;             ///< temperature of inj fluid F
                               // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if OCP_TRUE, reinjection happens
-    USI injPhase; ///< phase of Reinjection fluid
+    USI reinjPhase; ///< phase of Reinjection fluid
     OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
     vector<USI> connWell; ///< Well which connects to current Well
 };

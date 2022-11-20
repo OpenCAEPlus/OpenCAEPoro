@@ -39,7 +39,7 @@ private:
 
     // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if reinjection happens
-    USI      injPhase;         ///< phase of injected fluid, which decides zi
+    USI      reinjPhase;         ///< phase of injected fluid, which decides zi
 
     /// nominated group which supply reinjection sale rate of current group, after times
     /// -xi, it will be passed to maxRate in injWell
