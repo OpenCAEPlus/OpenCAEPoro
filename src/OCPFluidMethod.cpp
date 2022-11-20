@@ -35,6 +35,13 @@ void OCP_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
     if (cfl > 1) dt /= (cfl + 1);
 }
 
+
+void OCP_IMPEC::AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const
+{
+    rs.AssembleMatIMPEC(myLS, dt);
+}
+
+
 void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
 {
 #ifdef DEBUG

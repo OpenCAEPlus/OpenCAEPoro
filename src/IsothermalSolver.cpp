@@ -89,7 +89,7 @@ void IsothermalSolver::AssembleMat(const Reservoir &rs, OCPControl& ctrl)
     switch (method)
     {
     case IMPEC:
-        rs.AssembleMatIMPEC(LSolver, dt);
+        impec.AssembleMat(LSolver, rs, dt);
         break;
     case FIMn:
         fim_n.AssembleMat(LSolver, rs, dt);

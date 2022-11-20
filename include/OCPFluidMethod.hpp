@@ -32,6 +32,9 @@ public:
     /// Prepare for Assembling matrix.
     void Prepare(Reservoir& rs, OCP_DBL& dt);
 
+    /// Assemble Matrix
+    void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
+
     /// Solve the linear system.
     void SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl);
 
