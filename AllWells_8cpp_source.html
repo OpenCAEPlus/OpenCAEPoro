@@ -189,7 +189,7 @@ $(function() {
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">if</span> (OCP_FALSE) {</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        wellGroup[0].reInj     = OCP_TRUE;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        wellGroup[0].saleRate  = 1500;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        wellGroup[0].injPhase  = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        wellGroup[0].reinjPhase  = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        wellGroup[0].prodGroup = 0;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    wellGroup[0].zi.resize(myBulk.<a class="code" href="classBulk.html#ad4381cb94449aee799e66ded4ca7a2b9">GetComNum</a>());</div>
@@ -355,15 +355,15 @@ $(function() {
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                qt = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(nc, &amp;wG.zi[0]);</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            }</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            flashCal[0]-&gt;Flash(Psurf, Tsurf, &amp;wG.zi[0], 0, 0, 0);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(nc, &amp;wG.zi[0], &amp;flashCal[0]-&gt;xij[wG.injPhase * nc]);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            wG.xi     = flashCal[0]-&gt;xi[wG.injPhase];</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            wG.factor = wG.xi * flashCal[0]-&gt;v[wG.injPhase] / qt;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(nc, &amp;wG.zi[0], &amp;flashCal[0]-&gt;xij[wG.reinjPhase * nc]);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            wG.xi     = flashCal[0]-&gt;xi[wG.reinjPhase];</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            wG.factor = wG.xi * flashCal[0]-&gt;v[wG.reinjPhase] / qt;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            <span class="comment">// assign to every open injection well in wG</span></div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : wG.wIdINJ) {</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                <span class="keywordflow">if</span> (wells[w].WellState()) {</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                    wells[w].opt.reInj    = OCP_TRUE;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                    wells[w].opt.connWell = wG.wIdPROD;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                    wells[w].opt.injPhase = wG.injPhase;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                    wells[w].opt.reinjPhase = wG.reinjPhase;</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    wells[w].opt.zi       = wG.zi;</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                    wells[w].opt.xiINJ    = wG.xi;</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                    wells[w].opt.factor   = wG.factor;</div>
@@ -800,7 +800,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 20 2022 05:35:30 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Nov 20 2022 06:29:23 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
