@@ -879,7 +879,7 @@ OCP_DBL BOMixture_ODGW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
     OCP_DBL bosat  = data[2];
     OCP_DBL cbosat = data[4];
     OCP_DBL bo     = bosat * (1 - cbosat * (Pin - Pbbin));
-    OCP_DBL gammaO = (std_GammaO + (1000 / CONV1) * rs * std_GammaG) / bo;
+    OCP_DBL gammaO = (GRAVITY_FACTOR * std_RhoO + (1000 / CONV1) * rs * GRAVITY_FACTOR * std_RhoG) / bo;
 
     return gammaO;
 }
@@ -891,7 +891,7 @@ OCP_DBL BOMixture_ODGW::GammaPhaseG(const OCP_DBL& Pin)
     }
     OCP_DBL bg = (CONV1 / 1000) * PVDG.Eval(0, Pin, 1);
 
-    return std_GammaG / bg;
+    return GRAVITY_FACTOR * std_RhoG / bg;
 }
 
 OCP_DBL BOMixture_ODGW::GammaPhaseW(const OCP_DBL& Pin)
@@ -903,7 +903,7 @@ OCP_DBL BOMixture_ODGW::GammaPhaseW(const OCP_DBL& Pin)
     OCP_DBL cbw = data[2];
     OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
 
-    return std_GammaW / bw;
+    return GRAVITY_FACTOR * std_RhoW / bw;
 }
 
 /*----------------------------------------------------------------------------*/

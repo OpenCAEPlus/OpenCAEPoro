@@ -170,7 +170,6 @@ public:
             if (rs_param.gravity.activity)
                 std_RhoW = RHOW_STD * rs_param.gravity.data[1];
             if (rs_param.density.activity) std_RhoW = RHOW_STD;
-            std_GammaW = GRAVITY_FACTOR * std_RhoW;
             data.resize(5);
             cdata.resize(5);
         }
@@ -315,7 +314,6 @@ private:
 private:
     OCPTable        PVTW;       ///< PVT table for water.
     OCP_DBL         std_RhoW;   ///< mass density of water phase in standard condition.
-    OCP_DBL         std_GammaW; ///< std_RhoW * gravity factor.
     vector<OCP_DBL> data;       ///< container used to store the results of values of
                                 ///< interpolation of PVT tables.
     vector<OCP_DBL> cdata;      ///< container used to store the results of slopes of

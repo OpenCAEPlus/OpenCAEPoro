@@ -29,10 +29,6 @@ void BOMixture::BOMixtureInit(const ParamReservoir& rs_param)
         std_RhoG = RHOAIR_STD * rs_param.gravity.data[2];
     }
 
-    std_GammaO = GRAVITY_FACTOR * std_RhoO;
-    std_GammaG = GRAVITY_FACTOR * std_RhoG;
-    std_GammaW = GRAVITY_FACTOR * std_RhoW;
-
 }
 
 

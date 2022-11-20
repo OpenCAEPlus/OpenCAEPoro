@@ -736,7 +736,7 @@ OCP_DBL MixtureComp::GammaPhaseW(const OCP_DBL& Pin)
     OCP_DBL cbw = data[2];
     OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
 
-    return std_GammaW / bw;
+    return GRAVITY_FACTOR * std_RhoW / bw;
 }
 
 OCP_DBL

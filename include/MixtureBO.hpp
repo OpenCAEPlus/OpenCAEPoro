@@ -86,11 +86,8 @@ protected:
     // std_Gamma* = std_Rho* * GRAVITY_FACTOR.
     // only one of rho and gamma is needed, the other will be calculated from it.
     OCP_DBL std_RhoO;   ///< The density of oil at surface conditions : lb/ft3
-    OCP_DBL std_GammaO; ///< std_RhoO * gravity factor.
     OCP_DBL std_RhoG;   ///< The density of gas at surface conditions : lb/ft3
-    OCP_DBL std_GammaG; ///< std_RhoG * gravity factor.
     OCP_DBL std_RhoW;   ///< The density of water at surface conditions : lb/ft3
-    OCP_DBL std_GammaW; ///< std_RhoW * gravity factor.
 };
 
 ///////////////////////////////////////////////

@@ -225,7 +225,7 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP
 OCP_DBL BOMixture_OW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
 {
     OCP_DBL bo     = PVDO.Eval(0, Pin, 1);
-    OCP_DBL gammaO = std_GammaO / bo;
+    OCP_DBL gammaO = GRAVITY_FACTOR * std_RhoO / bo;
 
     return gammaO;
 }
@@ -239,7 +239,7 @@ OCP_DBL BOMixture_OW::GammaPhaseW(const OCP_DBL& Pin)
     OCP_DBL cbw = data[2];
     OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
 
-    return std_GammaW / bw;
+    return GRAVITY_FACTOR * std_RhoW / bw;
 }
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
