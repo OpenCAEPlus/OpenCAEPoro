@@ -106,7 +106,7 @@ public:
     
     /// for well
     virtual void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-        const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) = 0;
+        const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight) = 0;
     virtual void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) = 0;
 

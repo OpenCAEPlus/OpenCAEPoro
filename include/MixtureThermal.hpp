@@ -107,7 +107,7 @@ public:
         const OCP_DBL* Ziin, const USI& tarPhase) override {};
 
     void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-        const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) override {};
+        const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight) override {};
 
     void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) override {};
