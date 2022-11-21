@@ -153,7 +153,7 @@ void Reservoir::InitIMPEC()
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBo(50);
     else if (bulk.GetMixMode() == EOS_PVTW)
-        bulk.InitSjPcComp(50, grid);
+        bulk.InitSjPcComp(50);
 
     bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);
@@ -306,10 +306,12 @@ void Reservoir::InitFIM()
 {
     OCP_FUNCNAME;
 
-    if (bulk.GetMixMode() == BLKOIL)
-        bulk.InitSjPcBo(50);
-    else if (bulk.GetMixMode() == EOS_PVTW)
-        bulk.InitSjPcComp(50, grid);
+    //if (bulk.GetMixMode() == BLKOIL)
+    //    bulk.InitSjPcBo(50);
+    //else if (bulk.GetMixMode() == EOS_PVTW)
+    //    bulk.InitSjPcComp(50);
+
+    bulk.InitSjPc(50);
 
     bulk.CalRock();
     bulk.InitFlashDer();
@@ -326,7 +328,7 @@ void Reservoir::InitFIM_n()
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBo(50);
     else if (bulk.GetMixMode() == EOS_PVTW)
-        bulk.InitSjPcComp(50, grid);
+        bulk.InitSjPcComp(50);
 
     bulk.CalRock();
     bulk.InitFlashDer_n();
@@ -551,7 +553,7 @@ void Reservoir::InitAIMc()
     if (bulk.GetMixMode() == BLKOIL)
         bulk.InitSjPcBo(50);
     else if (bulk.GetMixMode() == EOS_PVTW)
-        bulk.InitSjPcComp(50, grid);
+        bulk.InitSjPcComp(50);
 
     bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);

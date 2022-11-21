@@ -689,12 +689,12 @@ MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin
         OCP_DBL Pw0   = data[0];
         OCP_DBL bw0   = data[1];
         OCP_DBL cbw   = data[2];
-        OCP_DBL bw    = bw0 * (1 - cbw * (P - Pw0));
+        OCP_DBL bw    = bw0 * (1 - cbw * (Pin - Pw0));
         OCP_DBL xitmp = 1 / (CONV1 * bw);
         return xitmp;
     } else {
         // hydrocarbon phase
-        setPT(Pin, Tin + CONV5);
+        setPT(Pin, Tin + CONV5);   // P, T has been Set !!!
         setZi(Ziin);
         NP = 1;
         CalAiBi();
@@ -713,19 +713,24 @@ OCP_DBL
 MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
     const OCP_DBL* Ziin, const USI& tarPhase)
 {
-    OCP_DBL xitmp = XiPhase(Pin, Tin, Ziin);
-    OCP_DBL rhotmp;
+    
     // assume that only single phase exists here
-    if (Ziin[numCom - 1] > 1 - 1e-6) {
+    if (tarPhase == WATER) {
         // water phase
-        rhotmp = std_RhoW * (CONV1 * xitmp);
-        return rhotmp;
+        PVTW.Eval_All(0, Pin, data, cdata);
+        OCP_DBL Pw0 = data[0];
+        OCP_DBL bw0 = data[1];
+        OCP_DBL cbw = data[2];
+        OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
+
+        return std_RhoW / bw;
     } else {
         // hydrocarbon phase
+        OCP_DBL xitmp = XiPhase(Pin, Tin, Ziin);
+        NP = 1;
         x[0] = zi;
-        CalMW();
-        rhotmp = MW[0] * xitmp;
-        return rhotmp;
+        CalMW();      
+        return MW[0] * xitmp;
     }
 }
 

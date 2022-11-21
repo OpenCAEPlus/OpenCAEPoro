@@ -85,10 +85,11 @@ public:
     void InputRockFuncT(const ParamReservoir& rs_param);
     /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
+    void InitSjPc(const USI& tabrow);
     /// Calculate initial equilibrium for blkoil model according to EQUIL.
     void InitSjPcBo(const USI& tabrow);
     /// Calculate initial equilibrium for compositional model according to EQUIL.
-    void InitSjPcComp(const USI& tabrow, const Grid& myGrid);
+    void InitSjPcComp(const USI& tabrow);
     /// Perform flash calculation with saturations.
     void InitFlash(const OCP_BOOL& flag = OCP_FALSE);
     /// Perform flash calculation with saturations and calculate derivatives.

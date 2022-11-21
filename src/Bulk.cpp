@@ -484,6 +484,717 @@ void Bulk::CheckVpore() const
     }
 }
 
+
+
+
+void Bulk::InitSjPc(const USI& tabrow)
+{
+    OCP_FUNCNAME;
+
+    OCP_DBL Dref = EQUIL.Dref;
+    OCP_DBL Pref = EQUIL.Pref;
+    OCP_DBL DOWC = EQUIL.DOWC;
+    OCP_DBL PcOW = EQUIL.PcOW;
+    OCP_DBL DOGC = EQUIL.DGOC;
+    OCP_DBL PcGO = EQUIL.PcGO;
+    OCP_DBL Zmin = 1E8;
+    OCP_DBL Zmax = 0;
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        OCP_DBL temp1 = depth[n] - dz[n] / 2;
+        OCP_DBL temp2 = depth[n] + dz[n] / 2;
+        Zmin = Zmin < temp1 ? Zmin : temp1;
+        Zmax = Zmax > temp2 ? Zmax : temp2;
+    }
+    OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
+
+    // creater table
+    OCPTable         DepthP(tabrow, 4);
+    vector<OCP_DBL>& Ztmp = DepthP.GetCol(0);
+    vector<OCP_DBL>& Potmp = DepthP.GetCol(1);
+    vector<OCP_DBL>& Pgtmp = DepthP.GetCol(2);
+    vector<OCP_DBL>& Pwtmp = DepthP.GetCol(3);
+
+    vector<OCP_DBL> tmpInitZi(numCom, 0);
+
+    // cal Tab_Ztmp
+    Ztmp[0] = Zmin;
+    for (USI i = 1; i < tabrow; i++) {
+        Ztmp[i] = Ztmp[i - 1] + tabdz;
+    }
+
+    OCP_DBL myTemp = RTemp;
+
+    // find the RefId
+    USI beginId = 0;
+    if (Dref <= Ztmp[0]) {
+        beginId = 0;
+    }
+    else if (Dref >= Ztmp[tabrow - 1]) {
+        beginId = tabrow - 1;
+    }
+    else {
+        beginId =
+            distance(Ztmp.begin(), find_if(Ztmp.begin(), Ztmp.end(),
+                [s = Dref](auto& t) { return t > s; }));
+        beginId--;
+    }
+
+    // begin calculating oil pressure:
+    OCP_DBL Pbb = Pref;
+    OCP_DBL gammaOtmp, gammaWtmp, gammaGtmp;
+    OCP_DBL Ptmp;
+    USI     mynum = 10;
+    OCP_DBL mydz = 0;
+    OCP_DBL Poref, Pgref, Pwref;
+    OCP_DBL Pbegin = 0;
+
+    const OCP_BOOL initZi_flag = initZi_Tab.size() > 0 ? OCP_TRUE : OCP_FALSE;
+    const OCP_BOOL initT_flag = initT_Tab.size() > 0 ? OCP_TRUE : OCP_FALSE;
+    const OCP_BOOL PBVD_flag = EQUIL.PBVD.IsEmpty() ? OCP_FALSE : OCP_TRUE;
+
+    if (Dref < DOGC) {
+        // reference pressure is gas pressure
+        Pgref = Pref;
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        if (PBVD_flag)
+            Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+        gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgref, Pbb, myTemp, &tmpInitZi[0], GAS);
+        Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
+        Pgtmp[beginId] = Pbegin;
+
+        // find the gas pressure
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+            Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+            Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+
+        // find the oil pressure in Dref by Pgref
+        Poref = 0;
+        Ptmp = Pgref;
+        mydz = (DOGC - Dref) / mynum;
+        OCP_DBL myz = Dref;
+
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+            
+            gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], GAS);
+            Ptmp += gammaGtmp * mydz;
+            myz += mydz;
+        }
+        Ptmp -= PcGO;
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+           
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], OIL);
+            Ptmp -= gammaOtmp * mydz;
+            myz -= mydz;
+        }
+        Poref = Ptmp;
+
+        // find the oil pressure in tab
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        if (PBVD_flag)
+            Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+        gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Poref, Pbb, myTemp, &tmpInitZi[0], OIL);
+        Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
+        Potmp[beginId] = Pbegin;
+
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+
+        // find the water pressure in Dref by Poref
+        Pwref = 0;
+        Ptmp = Poref;
+        mydz = (DOWC - Dref) / mynum;
+        myz = Dref;
+
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+            
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Poref, Pbb, myTemp, &tmpInitZi[0], OIL);
+            Ptmp += gammaOtmp * mydz;
+            myz += mydz;
+        }
+        Ptmp -= PcOW;
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], WATER);
+            Ptmp -= gammaWtmp * mydz;
+            myz -= mydz;
+        }
+        Pwref = Ptmp;
+
+        // find the water pressure in tab
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+
+        gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwref, Pbb, myTemp, &tmpInitZi[0], WATER);
+        Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
+        Pwtmp[beginId] = Pbegin;
+
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+    }
+    else if (Dref > DOWC) {
+        OCP_DBL myz;
+        // reference pressure is water pressure
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+
+        Pwref = Pref;
+        gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwref, Pbb, myTemp, &tmpInitZi[0], WATER);
+        Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
+        Pwtmp[beginId] = Pbegin;
+
+        // find the water pressure
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+
+        // find the oil pressure in Dref by Pwref
+        Poref = 0;
+        Ptmp = Pwref;
+        mydz = (DOWC - Dref) / mynum;
+        myz = Dref;
+
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], WATER);
+            Ptmp += gammaWtmp * mydz;
+            myz += mydz;
+        }
+        Ptmp += PcOW;
+
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+            
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], OIL);
+            Ptmp -= gammaOtmp * mydz;
+            myz -= mydz;
+        }
+        Poref = Ptmp;
+
+        // find the oil pressure in tab
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        if (PBVD_flag)
+            Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+        gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Poref, Pbb, myTemp, &tmpInitZi[0], OIL);
+        Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
+        Potmp[beginId] = Pbegin;
+
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+
+        if (gas) {
+            // find the gas pressure in Dref by Poref
+            Pgref = 0;
+            Ptmp = Poref;
+            mydz = (DOGC - Dref) / mynum;
+            myz = Dref;
+
+            for (USI i = 0; i < mynum; i++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, myz, 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+
+                gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], OIL);
+                Ptmp += gammaOtmp * mydz;
+                myz += mydz;
+            }
+            Ptmp += PcGO;
+            for (USI i = 0; i < mynum; i++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, myz, 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], GAS);
+                Ptmp -= gammaGtmp * mydz;
+                myz -= mydz;
+            }
+            Pgref = Ptmp;
+
+            // find the gas pressure in tab
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Dref, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+            gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgref, Pbb, myTemp, &tmpInitZi[0], GAS);
+            Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
+            Pgtmp[beginId] = Pbegin;
+
+            for (USI id = beginId; id > 0; id--) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+                Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
+            }
+            for (USI id = beginId; id < tabrow - 1; id++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+                Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
+            }
+        }
+        
+    }
+    else {
+        OCP_DBL myz;
+        // reference pressure is oil pressure
+        Poref = Pref;
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+        if (PBVD_flag)
+            Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+        gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Poref, Pbb, myTemp, &tmpInitZi[0], OIL);
+        Pbegin = Poref + gammaOtmp * (Ztmp[beginId] - Dref);
+        Potmp[beginId] = Pbegin;
+
+        // find the oil pressure
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id - 1] = Potmp[id] - gammaOtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Potmp[id], Pbb, myTemp, &tmpInitZi[0], OIL);
+            Potmp[id + 1] = Potmp[id] + gammaOtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+
+        if (gas) {
+            // find the gas pressure in Dref by Poref
+            Pgref = 0;
+            Ptmp = Poref;
+            mydz = (DOGC - Dref) / mynum;
+            myz = Dref;
+
+            for (USI i = 0; i < mynum; i++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, myz, 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+
+                gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], OIL);
+                Ptmp += gammaOtmp * mydz;
+                myz += mydz;
+            }
+            Ptmp += PcGO;
+            for (USI i = 0; i < mynum; i++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, myz, 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], GAS);
+                Ptmp -= gammaGtmp * mydz;
+                myz -= mydz;
+            }
+            Pgref = Ptmp;
+
+            // find the gas pressure in tab
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Dref, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, Dref, 1);
+
+            gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgref, Pbb, myTemp, &tmpInitZi[0], GAS);
+            Pbegin = Pgref + gammaGtmp * (Ztmp[beginId] - Dref);
+            Pgtmp[beginId] = Pbegin;
+
+            for (USI id = beginId; id > 0; id--) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+                Pgtmp[id - 1] = Pgtmp[id] - gammaGtmp * (Ztmp[id] - Ztmp[id - 1]);
+            }
+
+            for (USI id = beginId; id < tabrow - 1; id++) {
+                if (initZi_flag)
+                    initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+                if (initT_flag)
+                    myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+                if (PBVD_flag)
+                    Pbb = EQUIL.PBVD.Eval(0, Ztmp[id], 1);
+
+                gammaGtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pgtmp[id], Pbb, myTemp, &tmpInitZi[0], GAS);
+                Pgtmp[id + 1] = Pgtmp[id] + gammaGtmp * (Ztmp[id + 1] - Ztmp[id]);
+            }
+        }
+      
+        // find the water pressure in Dref by Poref
+        Pwref = 0;
+        Ptmp = Poref;
+        mydz = (DOWC - Dref) / mynum;
+        myz = Dref;
+
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+            if (PBVD_flag)
+                Pbb = EQUIL.PBVD.Eval(0, myz, 1);
+
+            gammaOtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], OIL);
+            Ptmp += gammaOtmp * mydz;
+            myz += mydz;
+        }
+        Ptmp -= PcOW;
+        for (USI i = 0; i < mynum; i++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(myz, tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, myz, 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Ptmp, Pbb, myTemp, &tmpInitZi[0], WATER);
+            Ptmp -= gammaWtmp * mydz;
+            myz -= mydz;
+        }
+        Pwref = Ptmp;
+
+        // find the water pressure in tab
+        if (initZi_flag)
+            initZi_Tab[0].Eval_All0(Dref, tmpInitZi);
+        if (initT_flag)
+            myTemp = initT_Tab[0].Eval(0, Dref, 1);
+
+        gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwref, Pbb, myTemp, &tmpInitZi[0], WATER);
+        Pbegin = Pwref + gammaWtmp * (Ztmp[beginId] - Dref);
+        Pwtmp[beginId] = Pbegin;
+
+        for (USI id = beginId; id > 0; id--) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id - 1] = Pwtmp[id] - gammaWtmp * (Ztmp[id] - Ztmp[id - 1]);
+        }
+
+        for (USI id = beginId; id < tabrow - 1; id++) {
+            if (initZi_flag)
+                initZi_Tab[0].Eval_All0(Ztmp[id], tmpInitZi);
+            if (initT_flag)
+                myTemp = initT_Tab[0].Eval(0, Ztmp[id], 1);
+
+            gammaWtmp = GRAVITY_FACTOR * flashCal[0]->RhoPhase(Pwtmp[id], Pbb, myTemp, &tmpInitZi[0], WATER);
+            Pwtmp[id + 1] = Pwtmp[id] + gammaWtmp * (Ztmp[id + 1] - Ztmp[id]);
+        }
+    }
+
+    DepthP.Display();
+
+    // calculate Pc from DepthP to calculate Sj
+    std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
+    // if capillary between water and oil is considered
+    vector<OCP_BOOL> FlagPcow(NTSFUN, OCP_TRUE);
+    for (USI i = 0; i < NTSFUN; i++) {
+        if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY &&
+            fabs(flow[i]->GetPcowBySw(1.0 + TINY) < TINY)) {
+            FlagPcow[i] = OCP_FALSE;
+        }
+    }
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (initZi_flag) {
+            initZi_Tab[0].Eval_All0(depth[n], tmpInitZi);
+            for (USI i = 0; i < numCom_1; i++) {
+                Ni[n * numCom + i] = tmpInitZi[i];
+            }
+        }
+        if (initT_flag) {
+            myTemp = initT_Tab[0].Eval(0, depth[n], 1);
+            T[n] = myTemp;
+        }
+        
+        DepthP.Eval_All(0, depth[n], data, cdata);
+        OCP_DBL Po = data[1];
+        OCP_DBL Pg = data[2];
+        OCP_DBL Pw = data[3];
+        OCP_DBL Pcgo = Pg - Po;
+        OCP_DBL Pcow = Po - Pw;
+        OCP_DBL Sw = flow[SATNUM[n]]->GetSwByPcow(Pcow);
+        OCP_DBL Sg = 0;
+        if (gas) {
+            Sg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
+        }
+        if (Sw + Sg > 1) {
+            // should me modified
+            OCP_DBL Pcgw = Pcow + Pcgo;
+            Sw = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
+            Sg = 1 - Sw;
+        }
+
+        if (1 - Sw < TINY) {
+            // all water
+            Po = Pw + flow[SATNUM[n]]->GetPcowBySw(1.0);
+        }
+        else if (1 - Sg < TINY) {
+            // all gas
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(1.0);
+        }
+        else if (1 - Sw - Sg < TINY) {
+            // water and gas
+            Po = Pg - flow[SATNUM[n]]->GetPcgoBySg(Sg);
+        }
+        P[n] = Po;
+
+        if (depth[n] < DOGC) {
+            Pbb = Po;
+        }
+        else if (PBVD_flag) {
+            Pbb = EQUIL.PBVD.Eval(0, depth[n], 1);
+        }
+        Pb[n] = Pbb;
+
+        // cal Sw
+        OCP_DBL swco = flow[SATNUM[n]]->GetSwco();
+        if (!FlagPcow[SATNUM[n]]) {
+            S[n * numPhase + numPhase - 1] = swco;
+            continue;
+        }
+
+        Sw = 0;
+        Sg = 0;
+        USI     ncut = 10;
+        OCP_DBL avePcow = 0;
+
+        for (USI k = 0; k < ncut; k++) {
+            OCP_DBL tmpSw = 0;
+            OCP_DBL tmpSg = 0;
+            OCP_DBL dep = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            DepthP.Eval_All(0, dep, data, cdata);
+            Po = data[1];
+            Pg = data[2];
+            Pw = data[3];
+            Pcow = Po - Pw;
+            Pcgo = Pg - Po;
+            avePcow += Pcow;
+            tmpSw = flow[SATNUM[n]]->GetSwByPcow(Pcow);
+            if (gas) {
+                tmpSg = flow[SATNUM[n]]->GetSgByPcgo(Pcgo);
+            }
+            if (tmpSw + tmpSg > 1) {
+                // should be modified
+                OCP_DBL Pcgw = Pcow + Pcgo;
+                tmpSw = flow[SATNUM[n]]->GetSwByPcgw(Pcgw);
+                tmpSg = 1 - tmpSw;
+            }
+            Sw += tmpSw;
+            // Sg += tmpSg;
+        }
+        Sw /= ncut;
+        // Sg /= ncut;
+        avePcow /= ncut;
+
+        if (SwatInitExist) {
+            if (ScalePcow) {
+                ScaleValuePcow[n] = 1.0;
+            }
+            if (SwatInit[n] <= swco) {
+                Sw = swco;
+            }
+            else {
+                Sw = SwatInit[n];
+                if (ScalePcow) {
+                    if (avePcow > 0) {
+                         OCP_DBL tmp = flow[SATNUM[n]]->GetPcowBySw(Sw);
+                        if (tmp > 0) {
+                            ScaleValuePcow[n] = avePcow / tmp;
+                        }
+                    }
+                }
+            }
+        }
+        S[n * numPhase + numPhase - 1] = Sw;
+    }
+}
+
+
 /// Here tabrow is maximum number of depth nodes in table of depth vs pressure.
 void Bulk::InitSjPcBo(const USI& tabrow)
 {
@@ -927,7 +1638,7 @@ void Bulk::InitSjPcBo(const USI& tabrow)
 }
 
 /// Here tabrow is maximum number of depth nodes in table of depth vs pressure.
-void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
+void Bulk::InitSjPcComp(const USI& tabrow)
 {
     OCP_FUNCNAME;
 
@@ -1404,21 +2115,12 @@ void Bulk::InitSjPcComp(const USI& tabrow, const Grid& myGrid)
                         tmp = flow[SATNUM[n]]->GetPcowBySw(Sw);
                         if (tmp > 0) {
                             ScaleValuePcow[n] = avePcow / tmp;
-                            /*USI I, J, K;
-                            myGrid.GetIJKGrid(I, J, K, myGrid.activeMap_B2G[n]);
-                            cout << I << "   " << J << "   " << K << "   "
-                                << fixed << setprecision(3) << "   " <<
-                            ScaleValuePcow[n] * flow[0]->GetPcowBySw(0) << endl;*/
                         }
                     }
                 }
             }
         }
         S[n * numPhase + numPhase - 1] = Sw;
-        // if (gas)
-        //{
-        //     S[n * numPhase + numPhase - 2] = Sg;
-        // }
     }
 }
 

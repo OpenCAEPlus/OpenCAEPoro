@@ -197,7 +197,7 @@ OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
         OCP_DBL Pw0 = data[0];
         OCP_DBL bw0 = data[1];
         OCP_DBL cbw = data[2];
-        OCP_DBL bw  = bw0 * (1 - cbw * (P - Pw0));
+        OCP_DBL bw  = bw0 * (1 - cbw * (Pin - Pw0));
         OCP_DBL xiw = 1 / (CONV1 * bw);
         return xiw;
     } else {
@@ -217,7 +217,7 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
         OCP_DBL Pw0 = data[0];
         OCP_DBL bw0 = data[1];
         OCP_DBL cbw = data[2];
-        OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+        OCP_DBL bw = bw0 * (1 - cbw * (Pin - Pw0));
         return std_RhoW / bw;
     }
     else {
