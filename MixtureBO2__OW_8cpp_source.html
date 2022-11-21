@@ -261,7 +261,7 @@ $(function() {
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0 = data[0];</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0 = data[1];</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw = data[2];</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw  = bw0 * (1 - cbw * (<a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - Pw0));</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw  = bw0 * (1 - cbw * (Pin - Pw0));</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xiw = 1 / (<a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw);</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">return</span> xiw;</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    } <span class="keywordflow">else</span> {</div>
@@ -281,7 +281,7 @@ $(function() {
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0 = data[0];</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0 = data[1];</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw = data[2];</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw = bw0 * (1 - cbw * (<a class="code" href="classMixture.html#a2de2ed104e4a8b5569c80d852c6fec9f">P</a> - Pw0));</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw = bw0 * (1 - cbw * (Pin - Pw0));</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classBOMixture.html#a50d0e4b50f22291b9db6048cea7d327a">std_RhoW</a> / bw;</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    }</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">else</span> {</div>
@@ -362,7 +362,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 20 2022 06:29:23 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Nov 21 2022 00:40:48 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

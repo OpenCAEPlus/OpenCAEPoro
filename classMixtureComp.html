@@ -860,7 +860,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = CONV1 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ab7845973eda40fb562b37ba643237bd3"><div class="ttname"><a href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a></div><div class="ttdeci">const OCP_DBL CONV5</div><div class="ttdoc">0 F = CONV5 R</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00066">OCPConst.hpp:66</a></div></div>
-<div class="ttc" id="aclassMixtureComp_html_a04a0d98d3277d79d1403dff71ba21fd5"><div class="ttname"><a href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">MixtureComp::CopyPhase</a></div><div class="ttdeci">void CopyPhase()</div><div class="ttdoc">Copy the basic properties from MixtureComp to Mixture.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8cpp_source.html#l02442">MixtureComp.cpp:2442</a></div></div>
+<div class="ttc" id="aclassMixtureComp_html_a04a0d98d3277d79d1403dff71ba21fd5"><div class="ttname"><a href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">MixtureComp::CopyPhase</a></div><div class="ttdeci">void CopyPhase()</div><div class="ttdoc">Copy the basic properties from MixtureComp to Mixture.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8cpp_source.html#l02447">MixtureComp.cpp:2447</a></div></div>
 <div class="ttc" id="aclassMixture_html_a0a42129a94c1ba7c92c9577f0eb0234f"><div class="ttname"><a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">Mixture::rhoP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhoP</div><div class="ttdoc">d rho / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00180">Mixture.hpp:180</a></div></div>
 <div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00154">Mixture.hpp:154</a></div></div>
 <div class="ttc" id="aclassMixture_html_a16c6595220dc0a04cfa960d44f3016c7"><div class="ttname"><a href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">Mixture::rho</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rho</div><div class="ttdoc">mass density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00161">Mixture.hpp:161</a></div></div>
@@ -930,12 +930,12 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html#a489c10ddf83a8856fb492476bdc10c37">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l00744">744</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;{</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="comment">// assume that only single phase exists here, no matter it&#39;s oil or gas</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> rhotmp = <a class="code" href="classMixtureComp.html#aac5ee3a3924fb4798acded8d38382932">RhoPhase</a>(Pin, 0, Tin, Ziin, 0);</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    <span class="keywordflow">return</span> rhotmp * <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a>;</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l00749">749</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;{</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <span class="comment">// assume that only single phase exists here, no matter it&#39;s oil or gas</span></div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> rhotmp = <a class="code" href="classMixtureComp.html#aac5ee3a3924fb4798acded8d38382932">RhoPhase</a>(Pin, 0, Tin, Ziin, 0);</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    <span class="keywordflow">return</span> rhotmp * <a class="code" href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a>;</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a340b34fe6fb4d1bc8b7544ed32eee7e8"><div class="ttname"><a href="OCPConst_8hpp.html#a340b34fe6fb4d1bc8b7544ed32eee7e8">GRAVITY_FACTOR</a></div><div class="ttdeci">const OCP_DBL GRAVITY_FACTOR</div><div class="ttdoc">0.00694444 ft2 psi / lb</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00055">OCPConst.hpp:55</a></div></div>
 <div class="ttc" id="aclassMixtureComp_html_aac5ee3a3924fb4798acded8d38382932"><div class="ttname"><a href="classMixtureComp.html#aac5ee3a3924fb4798acded8d38382932">MixtureComp::RhoPhase</a></div><div class="ttdeci">OCP_DBL RhoPhase(const OCP_DBL &amp;Pin, const OCP_DBL &amp;Pbb, const OCP_DBL &amp;Tin, const OCP_DBL *Ziin, const USI &amp;tarPhase) override</div><div class="ttdoc">return mass density of phase.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8cpp_source.html#l00713">MixtureComp.cpp:713</a></div></div>
 </div><!-- fragment -->
@@ -995,12 +995,12 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0   = data[0];</div>
 <div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0   = data[1];</div>
 <div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw   = data[2];</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw    = bw0 * (1 - cbw * (P - Pw0));</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw    = bw0 * (1 - cbw * (Pin - Pw0));</div>
 <div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xitmp = 1 / (<a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw);</div>
 <div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        <span class="keywordflow">return</span> xitmp;</div>
 <div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;        <span class="comment">// hydrocarbon phase</span></div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        setPT(Pin, Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>);</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        setPT(Pin, Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>);   <span class="comment">// P, T has been Set !!!</span></div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        setZi(Ziin);</div>
 <div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        NP = 1;</div>
 <div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        CalAiBi();</div>
@@ -1027,7 +1027,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 20 2022 06:29:23 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Nov 21 2022 00:40:48 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
