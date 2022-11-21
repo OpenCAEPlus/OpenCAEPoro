@@ -106,7 +106,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
-    factor.resize(myBulk.numPhase); // oil, gas, liquid
+    factor.resize(myBulk.numPhase); // oil, gas, water
     Mtype = myBulk.flashCal[0]->GetType();
     // zi
     if (myBulk.blackOil) {
@@ -203,9 +203,6 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                     }
                 }
             }
-            // else {
-            //     // PROD Well use EoS
-            // }
         }
     } else {
         OCP_ABORT("Wrong mixture type!");

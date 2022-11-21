@@ -66,11 +66,8 @@ public:
         // keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
         
     };
-    virtual void SetPVTW(){};
     /// return type of mixture.
     USI GetType() const { return mixtureType; }
-    /// Check whether Table PVDG is empty, it will only be used in black oil model.
-    virtual OCP_BOOL IsEmpty_PVDG() const { return OCP_TRUE; };
     /// flash calculation with saturation of phases.
     virtual void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
