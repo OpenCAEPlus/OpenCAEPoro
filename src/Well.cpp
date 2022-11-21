@@ -106,7 +106,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
-    factor.resize(myBulk.numPhase); // oil, gas, water
+    prodRate.resize(myBulk.numPhase); // oil, gas, water
     Mtype = myBulk.flashCal[0]->GetType();
     // zi
     if (myBulk.blackOil) {
@@ -166,6 +166,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                     default:
                         OCP_ABORT("Wrong blackoil type!");
                 }
+                opt.prodPhaseWeight = opt.zi;
             }
         }
     } else if (myBulk.comps) {
@@ -201,6 +202,29 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             OCP_ABORT("Wrong FluidType!");
                         }
                     }
+                }
+            }
+            else {
+                // Prod
+                opt.prodPhaseWeight.resize(myBulk.numPhase, 0);
+                switch (opt.optMode)
+                {
+                case ORATE_MODE:
+                    opt.prodPhaseWeight[0] = 1;
+                    break;
+                case GRATE_MODE:
+                    opt.prodPhaseWeight[1] = 1;
+                    break;
+                case WRATE_MODE:
+                    opt.prodPhaseWeight[2] = 1;
+                    break;
+                case LRATE_MODE:
+                    opt.prodPhaseWeight[0] = 1;
+                    opt.prodPhaseWeight[2] = 1;
+                    break;
+                default:
+                    OCP_ABORT("WRONG optMode");
+                    break;
                 }
             }
         }
@@ -493,42 +517,18 @@ void Well::CalInjQi(const Bulk& myBulk, const OCP_DBL& dt)
 
 void Well::CalProdQj(const Bulk& myBulk, const OCP_DBL& dt)
 {
-    if (Mtype == BLKOIL) {
-        CalProdQiBO(myBulk);
-    } else {
-        // EoS PVTW
-        CalProdQjCOMP(myBulk);
-    }
+
+    myBulk.flashCal[0]->CalProdRate(Psurf, Tsurf, &qi_lbmol[0], prodRate);
+    USI iter = 0;
+    if (myBulk.oil) WOPR = prodRate[iter++];
+    if (myBulk.gas) WGPR = prodRate[iter++];
+    if (myBulk.oil) WWPR = prodRate[iter++];
+
     WOPT += WOPR * dt;
     WGPT += WGPR * dt;
     WWPT += WWPR * dt;
 }
 
-void Well::CalProdQjCOMP(const Bulk& myBulk)
-{
-    USI     nc = myBulk.numCom;
-    OCP_DBL qt = Dnorm1(nc, &qi_lbmol[0]);
-    WOPR       = qt * factor[0];
-    WGPR       = qt * factor[1];
-    WWPR       = qt * factor[2];
-}
-
-void Well::CalProdQiBO(const Bulk& myBulk)
-{
-    OCP_FUNCNAME;
-
-    const USI nc = myBulk.numCom;
-
-    for (USI i = 0; i < nc; i++) {
-        if (myBulk.index2Phase[i] == OIL) {
-            WOPR = qi_lbmol[i];
-        } else if (myBulk.index2Phase[i] == GAS) {
-            WGPR = qi_lbmol[i];
-        } else if (myBulk.index2Phase[i] == WATER) {
-            WWPR = qi_lbmol[i];
-        }
-    }
-}
 
 /// It calculates pressure difference between perforations iteratively.
 /// This function can be used in both black oil model and compositional model.
@@ -888,103 +888,45 @@ void Well::CalProddG(const Bulk& myBulk)
     }
 }
 
+
 void Well::CalProdWeight(const Bulk& myBulk) const
 {
+    // CalProdWeight(myBulk);
+
     if (opt.type == PROD) {
-        if (Mtype == BLKOIL) {
-            prodWeight = opt.zi;
+        // in some cases, qi_lbmol may be zero, so use other methods
+        OCP_DBL  qt   = 0;
+        OCP_BOOL flag = OCP_TRUE;
+        for (USI i = 0; i < myBulk.numCom; i++) {
+            qt += qi_lbmol[i];
+            if (qi_lbmol[i] < 0) flag = OCP_FALSE;
+        }
+        if (qt > TINY && flag) {
+            myBulk.flashCal[0]->CalProdWeight(Psurf, Tsurf, &qi_lbmol[0],
+                                              opt.prodPhaseWeight, prodWeight);
         } else {
-            // in some cases, qi_lbmol may be zero, so use other methods
-            OCP_DBL  qt   = 0;
-            OCP_BOOL flag = OCP_TRUE;
-            for (USI i = 0; i < myBulk.numCom; i++) {
-                qt += qi_lbmol[i];
-                if (qi_lbmol[i] < 0) flag = OCP_FALSE;
-            }
-            if (qt > TINY && flag) {
-                myBulk.flashCal[0]->Flash(Psurf, Tsurf, &qi_lbmol[0], 0, 0, 0);
-            } else {
-                USI             np = myBulk.numPhase;
-                USI             nc = myBulk.numCom;
-                vector<OCP_DBL> tmpNi(nc, 0);
-                for (USI p = 0; p < numPerf; p++) {
-                    OCP_USI n = perf[p].location;
+            USI             np = myBulk.numPhase;
+            USI             nc = myBulk.numCom;
+            vector<OCP_DBL> tmpNi(nc, 0);
+            for (USI p = 0; p < numPerf; p++) {
+                OCP_USI n = perf[p].location;
 
-                    for (USI j = 0; j < np; j++) {
-                        OCP_USI id = n * np + j;
-                        if (!myBulk.phaseExist[id]) continue;
-                        for (USI k = 0; k < nc; k++) {
-                            tmpNi[k] += perf[p].transj[j] * myBulk.xi[id] *
-                                        myBulk.xij[id * nc + k];
-                        }
-                    }
-                }
-                qt = Dnorm1(nc, &tmpNi[0]);
-                myBulk.flashCal[0]->Flash(Psurf, Tsurf, &tmpNi[0], 0, 0, 0);
-            }
-            const USI OIndex = myBulk.phase2Index[OIL];
-            const USI GIndex = myBulk.phase2Index[GAS];
-            const USI WIndex = myBulk.phase2Index[WATER];
-
-            if (myBulk.oil) {
-                if (myBulk.flashCal[0]->phaseExist[OIndex]) {
-                    // mole fraction of oil phase
-                    OCP_DBL nuo = myBulk.flashCal[0]->xi[OIndex] * myBulk.flashCal[0]->v[OIndex] /
-                        qt; 
-                    // lbmol / ft3 -> lbmol / stb for oil
-                    factor[OIndex] = nuo / (myBulk.flashCal[0]->xi[OIndex] *
-                        CONV1); 
-                }
-            }
-            
-            if (myBulk.gas) {
-                if (myBulk.flashCal[0]->phaseExist[GIndex]) {
-                    OCP_DBL nug = myBulk.flashCal[0]->xi[GIndex] * myBulk.flashCal[0]->v[GIndex] /
-                        qt; // mole fraction of gas phase
-                    factor[GIndex] = nug / (myBulk.flashCal[0]->xi[GIndex] *
-                        1000); // lbmol / ft3 -> lbmol / Mscf  for gas
-                }
-            }
-            
-            if (myBulk.water) {
-                if (myBulk.flashCal[0]->phaseExist[WIndex]) {
-                    OCP_DBL nuw = myBulk.flashCal[0]->xi[WIndex] * myBulk.flashCal[0]->v[WIndex] /
-                        qt; // mole fraction of water phase
-                    factor[WIndex] = nuw;
-                    if (Mtype == THERMAL) {
-                        factor[WIndex] /= (myBulk.flashCal[0]->xi[WIndex] *
-                            CONV1);
+                for (USI j = 0; j < np; j++) {
+                    OCP_USI id = n * np + j;
+                    if (!myBulk.phaseExist[id]) continue;
+                    for (USI k = 0; k < nc; k++) {
+                        tmpNi[k] +=
+                            perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * nc + k];
                     }
                 }
             }
-            OCP_DBL tmp = 0;
-            switch (opt.optMode)
-            {
-            case ORATE_MODE:
-                tmp = factor[OIndex];
-                break;
-            case GRATE_MODE:
-                tmp = factor[GIndex];
-                break;
-            case WRATE_MODE:
-                tmp = factor[WIndex];
-                break;
-            case LRATE_MODE:
-                tmp = factor[OIndex] + factor[WIndex];
-                break;
-            default:
-                break;
-            }
-            
-            if (opt.optMode != BHP_MODE) {
-                if (tmp < 1E-12 || !isfinite(tmp)) {
-                    OCP_ABORT("Wrong Condition!");
-                }
-            }  
-            fill(prodWeight.begin(), prodWeight.end(), tmp);
+            qt = Dnorm1(nc, &tmpNi[0]);
+            myBulk.flashCal[0]->CalProdWeight(Psurf, Tsurf, &tmpNi[0],
+                                              opt.prodPhaseWeight, prodWeight);
         }
     }
 }
+
 
 void Well::CalReInjFluid(const Bulk& myBulk, vector<OCP_DBL>& myZi)
 {

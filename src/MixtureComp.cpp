@@ -743,9 +743,9 @@ void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OC
     OCP_DBL qt = Nt;
     vector<OCP_DBL> factor(numPhase, 0);
 
-    factor[0] = xi[0] * v[0] / qt / (xi[0] * CONV1);
-    factor[1] = xi[1] * v[1] / qt / (xi[1] * 1000);
-    factor[2] = xi[2] * v[2] / qt;
+    factor[0] = v[0] / qt / CONV1;  // stb / lbmol
+    factor[1] = v[1] / qt / 1000;   // Mscf / lbmol
+    factor[2] = xi[2] * v[2] / qt;  // stb  / stb
 
     OCP_DBL tmp = 0;
     for (USI i = 0; i < 3; i++) {

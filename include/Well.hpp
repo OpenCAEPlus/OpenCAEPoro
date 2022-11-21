@@ -89,7 +89,8 @@ private:
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
     vector<OCP_DBL> zi;
-    OCP_DBL injProdPhase;         ///< label the phase of injecting fluid if possible
+    USI injProdPhase;     ///< label the phase of injecting fluid if possible
+    vector<OCP_DBL> prodPhaseWeight;
     OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
     OCP_DBL Tinj;             ///< temperature of inj fluid F
                               // for Reinjection
@@ -139,11 +140,6 @@ public:
     void CalInjQi(const Bulk& myBulk, const OCP_DBL& dt);
     /// Calculate flow rate of moles of phase for production well
     void CalProdQj(const Bulk& myBulk, const OCP_DBL& dt);
-    /// Calculate flow rate of moles of phase for production well in Compositional Model
-    void CalProdQjCOMP(const Bulk& myBulk);
-    /// Calculate flow rate of moles of components for Production well in black oil
-    /// model.
-    void CalProdQiBO(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations.
     void CaldG(const Bulk& myBulk);
     /// Calculate pressure difference between well and perforations for Injection.
@@ -212,9 +208,9 @@ private:
     USI  Mtype;               ///< Mixture Type
     OCP_DBL Psurf{PRESSURE_STD};          ///< Well surface Pressure, psia
     OCP_DBL Tsurf{TEMPERATURE_STD};       ///< Well surface Temperature, F                     
-    mutable vector<OCP_DBL> factor;      ///< it equals the volume of jth phase in 1 mole production fluid
+    vector<OCP_DBL> prodRate;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
-    
+
     OCP_DBL WOPR{0};          ///< well oil production rate.
     OCP_DBL WOPT{0};          ///< well total oil production.
     OCP_DBL WGPR{0};          ///< well gas production rate.
