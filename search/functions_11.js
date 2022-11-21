@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['x2n_1621',['x2n',['../classMixtureComp.html#af3de24acaa27101e5dfe6f6b47946fe1',1,'MixtureComp']]],
-  ['xiphase_1622',['XiPhase',['../classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb',1,'Mixture::XiPhase()'],['../classBOMixture__W.html#a12dacac2b287e29ee23b8131b3e1c645',1,'BOMixture_W::XiPhase()'],['../classBOMixture__OW.html#a4836e8503b6da001754692dc3710736d',1,'BOMixture_OW::XiPhase()'],['../classBOMixture__ODGW.html#a4a00c0701c6919fa871b14a03d64c9e4',1,'BOMixture_ODGW::XiPhase()'],['../classMixtureComp.html#ad5be09d1c319768b761bcf6427bc8535',1,'MixtureComp::XiPhase()'],['../classMixtureThermal__K01.html#a826e2161d42fd6dba35f73e1498ebfd1',1,'MixtureThermal_K01::XiPhase()']]]
+  ['x2n_1611',['x2n',['../classMixtureComp.html#af3de24acaa27101e5dfe6f6b47946fe1',1,'MixtureComp']]],
+  ['xiphase_1612',['XiPhase',['../classMixture.html#a0e73af7673e5a51d6f1a1a7853f79338',1,'Mixture::XiPhase()'],['../classBOMixture__W.html#acba68914a2651a3519a309d4f6464c9c',1,'BOMixture_W::XiPhase()'],['../classBOMixture__OW.html#a68b66a87e3818b90e3d34f3cbeb42c86',1,'BOMixture_OW::XiPhase()'],['../classBOMixture__ODGW.html#aae04471b46660c95564420e1e38377ae',1,'BOMixture_ODGW::XiPhase()'],['../classMixtureComp.html#a33cde4c1a7efd7ee10f0a5b90d72c5fe',1,'MixtureComp::XiPhase()'],['../classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8',1,'MixtureThermal_K01::XiPhase()']]]
 ];

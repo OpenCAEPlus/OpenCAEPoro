@@ -88,20 +88,6 @@ Inheritance diagram for MixtureThermal:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ef9559aa4d405ad773dcbd85b2b5aa3"><td class="memItemLeft" align="right" valign="top"><a id="a1ef9559aa4d405ad773dcbd85b2b5aa3"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixtureThermal.html#a1ef9559aa4d405ad773dcbd85b2b5aa3">GammaPhaseO</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin) override</td></tr>
-<tr class="memdesc:a1ef9559aa4d405ad773dcbd85b2b5aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">return gamma of oil phase, gamma equals to mass density times gravity factor. <br /></td></tr>
-<tr class="separator:a1ef9559aa4d405ad773dcbd85b2b5aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1f64c461605ae0fdc4de914d44b149b"><td class="memItemLeft" align="right" valign="top"><a id="aa1f64c461605ae0fdc4de914d44b149b"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixtureThermal.html#aa1f64c461605ae0fdc4de914d44b149b">GammaPhaseG</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin) override</td></tr>
-<tr class="memdesc:aa1f64c461605ae0fdc4de914d44b149b"><td class="mdescLeft">&#160;</td><td class="mdescRight">return gamma of gas phase, gamma equals to mass density times gravity factor. <br /></td></tr>
-<tr class="separator:aa1f64c461605ae0fdc4de914d44b149b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af37551ecf34e7092edfed32666a37dff"><td class="memItemLeft" align="right" valign="top"><a id="af37551ecf34e7092edfed32666a37dff"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixtureThermal.html#af37551ecf34e7092edfed32666a37dff">GammaPhaseW</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin) override</td></tr>
-<tr class="memdesc:af37551ecf34e7092edfed32666a37dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">return gamma of water phase, gamma equals to mass density times gravity factor. <br /></td></tr>
-<tr class="separator:af37551ecf34e7092edfed32666a37dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef85d5bfc0e5d983f373b35b2e668157"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixtureThermal.html#aef85d5bfc0e5d983f373b35b2e668157">GammaPhaseOG</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin) override</td></tr>
-<tr class="separator:aef85d5bfc0e5d983f373b35b2e668157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa031f432157dadd733b75ea8de230a85"><td class="memItemLeft" align="right" valign="top"><a id="aa031f432157dadd733b75ea8de230a85"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetFtype</b> () override</td></tr>
 <tr class="separator:aa031f432157dadd733b75ea8de230a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,11 +170,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a9ad6f03ad8524049546a6d35f8fd7376 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="a9ad6f03ad8524049546a6d35f8fd7376"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>FlashDeriv_n</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *njin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *phaseExistin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *lastKs)=0</td></tr>
 <tr class="separator:a9ad6f03ad8524049546a6d35f8fd7376 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac4ca8c6f7eeddb4b51ef075f49ec6bb inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aac4ca8c6f7eeddb4b51ef075f49ec6bb">XiPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="separator:aac4ca8c6f7eeddb4b51ef075f49ec6bb inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e73af7673e5a51d6f1a1a7853f79338 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="a0e73af7673e5a51d6f1a1a7853f79338"></a>
+virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0e73af7673e5a51d6f1a1a7853f79338">XiPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;tarPhase)=0</td></tr>
+<tr class="memdesc:a0e73af7673e5a51d6f1a1a7853f79338 inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">return mass density of phase <br /></td></tr>
+<tr class="separator:a0e73af7673e5a51d6f1a1a7853f79338 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0eadad2495a7fa5dbc73cc34ceb23d1a inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top"><a id="a0eadad2495a7fa5dbc73cc34ceb23d1a"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0eadad2495a7fa5dbc73cc34ceb23d1a">RhoPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbb, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;tarPhase)=0</td></tr>
-<tr class="memdesc:a0eadad2495a7fa5dbc73cc34ceb23d1a inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">return mass density of phase. <br /></td></tr>
+<tr class="memdesc:a0eadad2495a7fa5dbc73cc34ceb23d1a inherit pub_methods_classMixture"><td class="mdescLeft">&#160;</td><td class="mdescRight">return mass density of phase <br /></td></tr>
 <tr class="separator:a0eadad2495a7fa5dbc73cc34ceb23d1a inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaab2d76696ec295ba643032353883031 inherit pub_methods_classMixture"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aaab2d76696ec295ba643032353883031">CheckNi</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *<a class="el" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>)</td></tr>
 <tr class="separator:aaab2d76696ec295ba643032353883031 inherit pub_methods_classMixture"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -358,69 +346,13 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="textblock"><p><a class="el" href="classMixtureThermal.html">MixtureThermal</a> is inherited class of <a class="el" href="classMixture.html">Mixture</a>, it's used for thermal model. K-value Model </p>
 
 <p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00023">23</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aef85d5bfc0e5d983f373b35b2e668157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef85d5bfc0e5d983f373b35b2e668157">&#9670;&nbsp;</a></span>GammaPhaseOG()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> MixtureThermal::GammaPhaseOG </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
-          <td class="paramname"><em>Pin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
-          <td class="paramname"><em>Tin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *&#160;</td>
-          <td class="paramname"><em>Ziin</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>return gamma of hydrocarbon mixture, gamma equals to mass density times gravity factor. </p>
-
-<p>Implements <a class="el" href="classMixture.html#a489c10ddf83a8856fb492476bdc10c37">Mixture</a>.</p>
-
-<p>Reimplemented in <a class="el" href="classMixtureThermal__K01.html#a103069647d6cb6b950508755a8edf3dc">MixtureThermal_K01</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="MixtureThermal_8hpp_source.html#l00032">32</a> of file <a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Should not be used in Thermal mode!&quot;</span>);  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
-<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="MixtureThermal_8hpp_source.html">MixtureThermal.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 21 2022 00:43:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Nov 21 2022 01:19:33 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
