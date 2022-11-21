@@ -38,16 +38,6 @@ public:
         OCP_ABORT("Not Used!");
     };
 
-    // return gamma
-    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                         const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Should not be used in Black Oil mode!");  return 0;
-    };
-
     // usless in BLKOIL
     USI GetFtype() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 100; }
     OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
@@ -121,10 +111,9 @@ public:
         const USI& lastNP, const OCP_DBL* lastKs) override {
         OCP_ABORT("Not Completed!");
     }
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override { OCP_ABORT("Not Completed!"); return 0; };
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Not Completed!"); return 0; };
 
 private:
     OCPTable PVTW;
@@ -154,11 +143,9 @@ public:
         const USI& lastNP, const OCP_DBL* lastKs) override {
         OCP_ABORT("Not Completed!");
     }
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
-    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
 
 private:
     OCPTable PVDO; ///< PVT table for dead oil
@@ -194,12 +181,9 @@ public:
         const USI& lastNP, const OCP_DBL* lastKs) override {
         OCP_ABORT("Not Completed!");
     }
-    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
-    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override;
-    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override;
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
 
 private:
     OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).

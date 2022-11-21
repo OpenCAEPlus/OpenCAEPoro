@@ -182,6 +182,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                 if (opt.fluidType == "WAT") {
                     opt.zi.resize(myBulk.numCom, 0);
                     opt.zi.back() = 1;
+                    opt.injProdPhase = WATER;
                 } else {
                     for (USI i = 0; i < len; i++) {
                         if (opt.fluidType == sols[i].name) {
@@ -190,7 +191,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             // Convert volume units Mscf/stb to molar units lbmoles for
                             // injfluid Use flash in Bulk in surface condition
                             opt.xiINJ = myBulk.flashCal[0]->XiPhase(
-                                Psurf, Tsurf, &opt.zi[0]);
+                                Psurf, Tsurf, &opt.zi[0], opt.injProdPhase);
                             opt.maxRate *=
                                 (opt.xiINJ *
                                  1000); // lbmol / ft3 -> lbmol / Mscf for gas
@@ -378,7 +379,7 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
             if (flag) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
-                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.zi[0]);
+                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.zi[0], opt.injProdPhase);
             }
             for (USI i = 0; i < nc; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.zi[i];

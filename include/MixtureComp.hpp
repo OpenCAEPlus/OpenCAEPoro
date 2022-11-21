@@ -229,26 +229,11 @@ public:
                       const OCP_DBL* lastKs) override;
 
     OCP_DBL
-    XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
+    XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
 
     OCP_DBL
     RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
-
-    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override
-    {
-        OCP_ABORT("Should not be used in Compositional mode!");
-    };
-
-    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override
-    {
-        OCP_ABORT("Should not be used in Compositional mode!");
-    };
-
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override;
-
-    OCP_DBL
-    GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) override;
 
     void setPT(const OCP_DBL& p, const OCP_DBL& t)
     {

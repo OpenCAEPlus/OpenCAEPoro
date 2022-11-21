@@ -25,16 +25,6 @@ class MixtureThermal : public Mixture
 public:
     MixtureThermal() = default;
 
-    // return gamma
-    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override { OCP_ABORT("Should not be used here!"); return 0; };
-    OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Ziin) override
-    {
-        OCP_ABORT("Should not be used in Thermal mode!");  return 0;
-    };
-
     // usless in Thermal model
     USI GetFtype() override { OCP_ABORT("Should not be used in Thermal mode!"); return 100; }
     OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
@@ -110,22 +100,11 @@ public:
     /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Ziin) override {};
+        const OCP_DBL* Ziin, const USI& tarPhase) override {};
 
     /// return mass density of phase.
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override {};
-
-    /// return gamma of oil phase, gamma equals to mass density times gravity factor.
-    OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) override {};
-    /// return gamma of water phase, gamma equals to mass density times gravity factor.
-    OCP_DBL GammaPhaseW(const OCP_DBL& Pin) override {};
-    /// return gamma of gas phase, gamma equals to mass density times gravity factor.
-    OCP_DBL GammaPhaseG(const OCP_DBL& Pin) override {};
-    /// return gamma of hydrocarbon mixture, gamma equals to mass density times gravity
-    /// factor.
-    OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Ziin) override {};
 
 protected:
 

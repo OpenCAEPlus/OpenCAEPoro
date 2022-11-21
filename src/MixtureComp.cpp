@@ -680,10 +680,10 @@ void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL
 }
 
 OCP_DBL
-MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase)
 {
     // assume that only single phase exists here
-    if (Ziin[numCom - 1] > 1 - 1e-6) {
+    if (tarPhase == WATER) {
         // water phase
         PVTW.Eval_All(0, Pin, data, cdata);
         OCP_DBL Pw0   = data[0];
@@ -726,7 +726,7 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
         return std_RhoW / bw;
     } else {
         // hydrocarbon phase
-        OCP_DBL xitmp = XiPhase(Pin, Tin, Ziin);
+        OCP_DBL xitmp = XiPhase(Pin, Tin, Ziin, tarPhase);
         NP = 1;
         x[0] = zi;
         CalMW();      
@@ -734,24 +734,6 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
     }
 }
 
-OCP_DBL MixtureComp::GammaPhaseW(const OCP_DBL& Pin)
-{
-    PVTW.Eval_All(0, Pin, data, cdata);
-    OCP_DBL Pw0 = data[0];
-    OCP_DBL bw0 = data[1];
-    OCP_DBL cbw = data[2];
-    OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
-
-    return GRAVITY_FACTOR * std_RhoW / bw;
-}
-
-OCP_DBL
-MixtureComp::GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
-{
-    // assume that only single phase exists here, no matter it's oil or gas
-    OCP_DBL rhotmp = RhoPhase(Pin, 0, Tin, Ziin, 0);
-    return rhotmp * GRAVITY_FACTOR;
-}
 
 void MixtureComp::CallId()
 {

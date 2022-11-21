@@ -189,9 +189,9 @@ void BOMixture_OW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     
 }
 
-OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase)
 {
-    if (Ziin[1] > 1 - TINY) {
+    if (tarPhase == WATER) {
         // inj fluid is water
         PVTW.Eval_All(0, Pin, data, cdata);
         OCP_DBL Pw0 = data[0];
@@ -201,7 +201,7 @@ OCP_DBL BOMixture_OW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
         OCP_DBL xiw = 1 / (CONV1 * bw);
         return xiw;
     } else {
-        OCP_ABORT("Wrong Zi!");
+        OCP_ABORT("Wrong tarPhase!");
     }
 }
 
@@ -225,25 +225,6 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
     }
 }
 
-OCP_DBL BOMixture_OW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
-{
-    OCP_DBL bo     = PVDO.Eval(0, Pin, 1);
-    OCP_DBL gammaO = GRAVITY_FACTOR * std_RhoO / bo;
-
-    return gammaO;
-}
-
-OCP_DBL BOMixture_OW::GammaPhaseW(const OCP_DBL& Pin)
-{
-
-    PVTW.Eval_All(0, Pin, data, cdata);
-    OCP_DBL Pw0 = data[0];
-    OCP_DBL bw0 = data[1];
-    OCP_DBL cbw = data[2];
-    OCP_DBL bw = (bw0 * (1 - cbw * (Pin - Pw0)));
-
-    return GRAVITY_FACTOR * std_RhoW / bw;
-}
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/

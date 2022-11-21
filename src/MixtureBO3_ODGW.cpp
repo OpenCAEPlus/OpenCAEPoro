@@ -824,16 +824,14 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin,
 }
 
 OCP_DBL
-BOMixture_ODGW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+BOMixture_ODGW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase)
 {
-    if (Ziin[1] > 1 - TINY) {
-        // inj fluid is gas
+    if (tarPhase == GAS) {
         OCP_DBL bg = PVDG.Eval(0, Pin, 1);
         // OCP_DBL xig = 1 / (CONV1 * bg);
         OCP_DBL xig = 1 / CONV1 / bg;
         return xig;
-    } else if (Ziin[2] > 1 - TINY) {
-        // inj fluid is water
+    } else if (tarPhase == WATER) {
 
         PVTW.Eval_All(0, Pin, data, cdata);
         OCP_DBL Pw0 = data[0];
@@ -843,7 +841,7 @@ BOMixture_ODGW::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Z
         OCP_DBL xiw = 1 / CONV1 / bw;
         return xiw;
     } else {
-        OCP_ABORT("Wrong Zi!");
+        OCP_ABORT("Wrong tarPhase!");
     }
 }
 
@@ -877,40 +875,6 @@ BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
     }
 }
 
-OCP_DBL BOMixture_ODGW::GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin)
-{
-
-    PVCO.Eval_All(0, Pbbin, data, cdata);
-    OCP_DBL rs     = data[1];
-    OCP_DBL bosat  = data[2];
-    OCP_DBL cbosat = data[4];
-    OCP_DBL bo     = bosat * (1 - cbosat * (Pin - Pbbin));
-    OCP_DBL gammaO = GRAVITY_FACTOR * (std_RhoO + (1000 / CONV1) * rs * std_RhoG) / bo;
-
-    return gammaO;
-}
-
-OCP_DBL BOMixture_ODGW::GammaPhaseG(const OCP_DBL& Pin)
-{
-    if (PVDG.IsEmpty()) {
-        OCP_ABORT("PVDG is missing!");
-    }
-    OCP_DBL bg = (CONV1 / 1000) * PVDG.Eval(0, Pin, 1);
-
-    return GRAVITY_FACTOR * std_RhoG / bg;
-}
-
-OCP_DBL BOMixture_ODGW::GammaPhaseW(const OCP_DBL& Pin)
-{
-
-    PVTW.Eval_All(0, Pin, data, cdata);
-    OCP_DBL Pw0 = data[0];
-    OCP_DBL bw0 = data[1];
-    OCP_DBL cbw = data[2];
-    OCP_DBL bw  = (bw0 * (1 - cbw * (Pin - Pw0)));
-
-    return GRAVITY_FACTOR * std_RhoW / bw;
-}
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

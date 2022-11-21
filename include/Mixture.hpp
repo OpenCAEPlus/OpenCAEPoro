@@ -93,25 +93,18 @@ public:
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
         const USI& lastNP, const OCP_DBL* lastKs) = 0;
-    /// Return molar density of phase, it's used to calculate the molar density of
-    /// injection fluids in injection wells.
-    virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                            const OCP_DBL* Ziin) = 0;
 
-    /// return mass density of phase.
+    /// return mass density of phase
+    // for blackoil model: if tarPhase is gas and water, Pin and tar phase is needed
+    // for compositional model: if tarphase is hydroncarbon phase, Pin, Tin, Ziin is needed. if tarphase is water, only Pin is needed.
+    virtual OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,
+                            const OCP_DBL* Ziin, const USI& tarPhase) = 0;
+
+    /// return mass density of phase
+    // for blackoil model: if tarPhase is gas and water, Pin and tar phase is needed, if tarPhase is oil,then Pbb is needed, too
+    // for compositional model: if tarphase is hydroncarbon phase, Pin, Tin, Ziin is needed. if tarphase is water, only Pin is needed.
     virtual OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
                              const OCP_DBL* Ziin, const USI& tarPhase) = 0;
-
-    /// return gamma of oil phase, gamma equals to mass density times gravity factor.
-    virtual OCP_DBL GammaPhaseO(const OCP_DBL& Pin, const OCP_DBL& Pbbin) = 0;
-    /// return gamma of water phase, gamma equals to mass density times gravity factor.
-    virtual OCP_DBL GammaPhaseW(const OCP_DBL& Pin) = 0;
-    /// return gamma of gas phase, gamma equals to mass density times gravity factor.
-    virtual OCP_DBL GammaPhaseG(const OCP_DBL& Pin) = 0;
-    /// return gamma of hydrocarbon mixture, gamma equals to mass density times gravity
-    /// factor.
-    virtual OCP_DBL GammaPhaseOG(const OCP_DBL& Pin, const OCP_DBL& Tin,
-                                 const OCP_DBL* Ziin) = 0;
 
     /// check if Ni input from param is negative, it's used in debug mode to check
     /// Hidden trouble. actually, very small error in very short time may not make
