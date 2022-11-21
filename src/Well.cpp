@@ -399,8 +399,6 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
 
                     perf[p].qj_ft3[j] = perf[p].transj[j] * dP;
                     perf[p].qt_ft3 += perf[p].qj_ft3[j];
-                    // cout << p << " p[" << j << "] = " << myBulk.Pj[id] << endl;
-                    // cout << p << " perf = " << perf[p].p << endl;
 
                     OCP_DBL xi = myBulk.xi[id];
                     OCP_DBL xij;
@@ -410,29 +408,9 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
                     }
                 }
             }
-
-            // check if perf[p].qi_lbmol is zero vector
-            // OCP_BOOL flag = OCP_FALSE;
-            // for (USI i = 0; i < nc; i++) {
-            //    if (perf[p].qi_lbmol[i] != 0) {
-            //        flag = OCP_TRUE;
-            //        break;
-            //    }
-            //}
-            // if (!flag) {
-            //    OCP_ABORT("Qi is all zero!");
-            //}
-
             for (USI i = 0; i < nc; i++) qi_lbmol[i] += perf[p].qi_lbmol[i];
         }
     }
-    // test
-    // cout << name << "----" << endl;
-    // vector<OCP_DBL> tmpNiP(qi_lbmol);
-    // OCP_DBL qt = Dnorm1(nc, &qi_lbmol[0]);
-    // Dscalar(myBulk.numCom, 1 / qt * 100, &tmpNiP[0]);
-    // cout << qt << "   ";
-    // PrintDX(myBulk.numCom, &tmpNiP[0]);
 }
 
 /// Pressure in injection well equals maximum ones in injection well,

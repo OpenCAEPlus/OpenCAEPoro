@@ -235,6 +235,11 @@ public:
     RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
 
+
+    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+        const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) override;
+
+
     void setPT(const OCP_DBL& p, const OCP_DBL& t)
     {
         P = p;

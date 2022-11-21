@@ -184,8 +184,6 @@ void AllWells::PrepareWell(const Bulk& myBulk)
             wells[w].CaldG(myBulk);
             wells[w].CalFlux(myBulk, OCP_TRUE);
             wells[w].CalProdWeight(myBulk);
-            // test
-            // wells[w].SmoothdG();
             wells[w].CheckOptMode(myBulk);
         }
     }

@@ -38,6 +38,15 @@ public:
         OCP_ABORT("Not Used!");
     };
 
+    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+        const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) override
+    {
+        for (USI i = 0; i < prodPhase.size(); i++) {
+            prodWeight[i] = (OCP_DBL)prodPhase[i];
+        }
+    }
+
+
     // usless in BLKOIL
     USI GetFtype() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 100; }
     OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }

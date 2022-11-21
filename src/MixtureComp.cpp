@@ -445,8 +445,8 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
     CalVfiVfp_full02();
 
     // Water Properties
-    USI Wpid                  = numPhase - 1;
-    USI Wcid                  = numCom - 1;
+    const USI Wpid                  = numPhase - 1;
+    const USI Wcid                  = numCom - 1;
     phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     Nt                        = Nh + Ni[Wcid];
@@ -732,6 +732,29 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
         CalMW();      
         return MW[0] * xitmp;
     }
+}
+
+
+void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+    const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight)
+{
+    Flash(Pin, Tin, Ziin, 0, 0, 0);
+
+    OCP_DBL qt = Nt;
+    vector<OCP_DBL> factor(numPhase, 0);
+
+    factor[0] = xi[0] * v[0] / qt / (xi[0] * CONV1);
+    factor[1] = xi[1] * v[1] / qt / (xi[1] * 1000);
+    factor[2] = xi[2] * v[2] / qt;
+
+    OCP_DBL tmp = 0;
+    for (USI i = 0; i < 3; i++) {
+        tmp += factor[i] * prodPhase[i];
+    }
+    if (tmp < 1E-12 || !isfinite(tmp)) {
+        OCP_ABORT("Wrong Condition!");
+    }
+    fill(prodWeight.begin(), prodWeight.end(), tmp);
 }
 
 
