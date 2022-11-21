@@ -106,8 +106,11 @@ public:
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override {};
 
-    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) override {};
+
+    void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
+        vector<OCP_DBL>& prodRate) override {};
 
 protected:
 

@@ -735,10 +735,10 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
 }
 
 
-void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
     const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight)
 {
-    Flash(Pin, Tin, Ziin, 0, 0, 0);
+    Flash(Pin, Tin, Niin, 0, 0, 0);
 
     OCP_DBL qt = Nt;
     vector<OCP_DBL> factor(numPhase, 0);
@@ -751,10 +751,21 @@ void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OC
     for (USI i = 0; i < 3; i++) {
         tmp += factor[i] * prodPhase[i];
     }
-    if (tmp < 1E-12 || !isfinite(tmp)) {
-        OCP_ABORT("Wrong Condition!");
-    }
+    //if (tmp < 1E-12 || !isfinite(tmp)) {
+    //    OCP_ABORT("Wrong Condition!");
+    //}
     fill(prodWeight.begin(), prodWeight.end(), tmp);
+}
+
+
+void MixtureComp::CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
+    vector<OCP_DBL>& prodRate)
+{
+    Flash(Pin, Tin, Niin, 0, 0, 0);
+
+    prodRate[0] = v[0] / CONV1;  // stb
+    prodRate[1] = v[1] / 1000;   // MSCF
+    prodRate[2] = v[2] * xi[2];  // stb
 }
 
 

@@ -105,9 +105,10 @@ public:
 
     
     /// for well
-    virtual void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+    virtual void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) = 0;
-
+    virtual void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
+        vector<OCP_DBL>& prodRate) = 0;
 
     /// check if Ni input from param is negative, it's used in debug mode to check
     /// Hidden trouble. actually, very small error in very short time may not make

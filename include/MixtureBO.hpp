@@ -38,13 +38,21 @@ public:
         OCP_ABORT("Not Used!");
     };
 
-    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin,
+
+    // For Well
+    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         const vector<OCP_BOOL>& prodPhase, vector<OCP_DBL>& prodWeight) override
     {
         for (USI i = 0; i < prodPhase.size(); i++) {
             prodWeight[i] = (OCP_DBL)prodPhase[i];
         }
     }
+
+    void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
+        vector<OCP_DBL>& prodRate) override 
+    {
+        prodRate.assign(Niin, Niin + numCom);
+    };
 
 
     // usless in BLKOIL
