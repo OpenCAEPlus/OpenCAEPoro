@@ -463,6 +463,7 @@ OCP_DBL Well::CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP)
     return qj;
 }
 
+
 /// Pressure in production well equals minial ones in production well,
 /// which is input by users. this function is used to check if operation mode of
 /// well shoubld be swtched.
@@ -475,6 +476,9 @@ OCP_DBL Well::CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP)
     OCP_DBL   qj    = 0;
     OCP_DBL   Pwell = minBHP ? opt.minBHP : BHP;
 
+    vector<OCP_DBL> tmpQi_lbmol(nc, 0);
+    vector<OCP_DBL> tmpQj(np, 0);
+
     for (USI p = 0; p < numPerf; p++) {
 
         OCP_DBL Pperf = Pwell + dG[p];
@@ -483,16 +487,19 @@ OCP_DBL Well::CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP)
         for (USI j = 0; j < np; j++) {
             OCP_USI id = k * np + j;
             if (myBulk.phaseExist[id]) {
-                OCP_DBL temp = 0;
-                for (USI i = 0; i < nc; i++) {
-                    temp += prodWeight[i] * myBulk.xij[id * nc + i];
-                }
-                OCP_DBL xi = myBulk.xi[id];
                 OCP_DBL dP = myBulk.Pj[id] - Pperf;
-                qj += perf[p].transj[j] * xi * dP * temp;
+                OCP_DBL temp = perf[p].transj[j] * myBulk.xi[id] * dP;
+                for (USI i = 0; i < nc; i++) {
+                    tmpQi_lbmol[i] += myBulk.xij[id * nc + i] * temp;
+                }
             }
         }
     }
+    myBulk.flashCal[0]->CalProdRate(Psurf, Tsurf, &tmpQi_lbmol[0], tmpQj);
+    for (USI j = 0; j < np; j++) {
+        qj += tmpQj[j] * opt.prodPhaseWeight[j];
+    }
+
     return qj;
 }
 
@@ -896,7 +903,6 @@ void Well::CalProddG(const Bulk& myBulk)
 
 void Well::CalProdWeight(const Bulk& myBulk) const
 {
-    // CalProdWeight(myBulk);
 
     if (opt.type == PROD) {
         // in some cases, qi_lbmol may be zero, so use other methods
