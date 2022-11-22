@@ -816,9 +816,9 @@ $(function() {
 <div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; 3; i++) {</div>
 <div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        tmp += factor[i] * prodPhase[i];</div>
 <div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    }</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    <span class="comment">//if (tmp &lt; 1E-12 || !isfinite(tmp)) {</span></div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="comment">//    OCP_ABORT(&quot;Wrong Condition!&quot;);</span></div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="comment">//}</span></div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    <span class="keywordflow">if</span> (tmp &lt; 1E-12 || !isfinite(tmp)) {</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Condition!&quot;</span>);</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    }</div>
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;    fill(prodWeight.begin(), prodWeight.end(), tmp);</div>
 <div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;}</div>
 <div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
@@ -829,7 +829,7 @@ $(function() {
 <div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <a class="code" href="classMixtureComp.html#a8db092535e37713c2f2b90002edc5dda">Flash</a>(Pin, Tin, Niin, 0, 0, 0);</div>
 <div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160; </div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    prodRate[0] = <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[0] / <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a>;  <span class="comment">// stb</span></div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    prodRate[1] = <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[1] / 1000;   <span class="comment">// MSCF</span></div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    prodRate[1] = <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[1] / 1000;   <span class="comment">// Mscf</span></div>
 <div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    prodRate[2] = <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[2] * <a class="code" href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">xi</a>[2];  <span class="comment">// stb</span></div>
 <div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;}</div>
 <div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160; </div>
@@ -5413,7 +5413,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 04:50:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 22 2022 05:08:26 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
