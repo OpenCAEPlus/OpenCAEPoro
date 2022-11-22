@@ -337,7 +337,7 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
             if (flag) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
-                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.injZi[0], opt.injProdPhase);
+                    myBulk.flashCal[pvtnum]->XiPhase(perf[p].P, opt.Tinj, &opt.injZi[0], opt.injProdPhase);
             }
             for (USI i = 0; i < nc; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.injZi[i];

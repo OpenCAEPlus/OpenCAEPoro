@@ -226,7 +226,7 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
 }
 
 
-void BOMixture_OW::SetupWellOpt(WellOpt& opt)
+void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols)
 {
 
 }

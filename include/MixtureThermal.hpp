@@ -113,7 +113,7 @@ public:
         vector<OCP_DBL>& prodRate) override {};
 
     // for Well
-    void SetupWellOpt(WellOpt& wellopt) override {};
+    void SetupWellOpt(WellOpt& wellopt, const vector<SolventINJ>& sols) override {};
 
 protected:
 

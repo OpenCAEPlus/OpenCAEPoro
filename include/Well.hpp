@@ -28,21 +28,6 @@
 
 using namespace std;
 
-/// Describe the molar fraction of components of fluid injected to reservoir from INJ.
-class SolventINJ
-{
-public:
-    SolventINJ()        = default;
-    SolventINJ& operator=(const Solvent& other)
-    {
-        name = other.name;
-        data = other.comRatio;
-        return *this;
-    };
-    string          name; ///< name of solvens
-    vector<OCP_DBL> data; ///< molar fraction of components
-};
-
 
 /// Well class defines well, and any operations referred to wells are in it.
 /// Well connects to the bulks by perforations, which serve as source and sink.

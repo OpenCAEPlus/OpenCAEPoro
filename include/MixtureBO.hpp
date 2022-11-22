@@ -131,7 +131,7 @@ public:
         const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
 
     // for Well
-    void SetupWellOpt(WellOpt& opt) override { OCP_ABORT("Not Completed!"); };
+    void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols) override { OCP_ABORT("Not Completed!"); };
 
 private:
     OCPTable PVTW;
@@ -166,7 +166,7 @@ public:
         const OCP_DBL* Ziin, const USI& tarPhase) override;
 
     // for Well
-    void SetupWellOpt(WellOpt& opt) override;
+    void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols) override;
 
 private:
     OCPTable PVDO; ///< PVT table for dead oil
@@ -207,7 +207,7 @@ public:
         const OCP_DBL* Ziin, const USI& tarPhase) override;
 
     // for Well
-    void SetupWellOpt(WellOpt& opt) override;
+    void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols) override;
 
 private:
     OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).

@@ -876,7 +876,7 @@ BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
 }
 
 
-void BOMixture_ODGW::SetupWellOpt(WellOpt& opt)
+void BOMixture_ODGW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols)
 {
 
 }

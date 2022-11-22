@@ -735,7 +735,7 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
 }
 
 
-void MixtureComp::SetupWellOpt(WellOpt& opt)
+void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols)
 {
     if (opt.type == INJ) {
 

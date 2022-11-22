@@ -18,6 +18,8 @@
 // OpenCAEPoro header files
 #include "ParamWell.hpp"
 
+using namespace std;
+
 /// WellOpt describes the operation mode of a well.
 /// usually it changes over time, specifically, each attributes could be changed
 /// including the well type.
@@ -76,6 +78,22 @@ private:
     USI reinjPhase; ///< phase of Reinjection fluid
     OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
     vector<USI> connWell; ///< Well which connects to current Well
+};
+
+
+/// Describe the molar fraction of components of fluid injected to reservoir from INJ.
+class SolventINJ
+{
+public:
+    SolventINJ() = default;
+    SolventINJ& operator=(const Solvent& other)
+    {
+        name = other.name;
+        data = other.comRatio;
+        return *this;
+    };
+    string          name; ///< name of solvens
+    vector<OCP_DBL> data; ///< molar fraction of components
 };
 
 
