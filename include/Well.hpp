@@ -88,7 +88,7 @@ private:
     /// for injection well, it describes the components of injected fluids.
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
-    vector<OCP_DBL> zi;
+    vector<OCP_DBL> injZi;
     USI injProdPhase;     ///< label the phase of injecting fluid if possible
     vector<OCP_DBL> prodPhaseWeight;
     OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting

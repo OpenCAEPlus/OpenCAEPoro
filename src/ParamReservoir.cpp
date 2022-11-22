@@ -321,8 +321,7 @@ void ParamReservoir::InputRTEMP(ifstream& ifs)
     if (vbuf[0] == "/") return;
 
     rsTemp = stod(vbuf[0]);
-    cout << "RTEMP" << endl;
-    cout << rsTemp << endl;
+    cout << "RTEMP\n" << rsTemp << endl << endl;
 }
 
 /// TODO: Add Doxygen

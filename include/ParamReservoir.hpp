@@ -194,7 +194,7 @@ public:
     vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
     vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
     vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
-    vector<OCP_DBL> thconr{ 24 }; ///< Rock thermal conductivity.
+    vector<OCP_DBL> thconr; ///< Rock thermal conductivity.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
     vector<RockParam> rockSet; ///< a set of rock
     Miscstr miscstr; ///< reference Miscibility surface tension

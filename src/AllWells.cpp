@@ -298,7 +298,7 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                     wells[w].opt.reInj    = OCP_TRUE;
                     wells[w].opt.connWell = wG.wIdPROD;
                     wells[w].opt.reinjPhase = wG.reinjPhase;
-                    wells[w].opt.zi       = wG.zi;
+                    wells[w].opt.injZi       = wG.zi;
                     wells[w].opt.xiINJ    = wG.xi;
                     wells[w].opt.factor   = wG.factor;
                     wells[w].opt.maxRate =

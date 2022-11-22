@@ -68,9 +68,14 @@ OCP_BOOL WellOpt::operator!=(const WellOpt& Opt) const
     if (this->maxRate != Opt.maxRate) return OCP_TRUE;
     if (this->maxBHP != Opt.maxBHP) return OCP_TRUE;
     if (this->minBHP != Opt.minBHP) return OCP_TRUE;
-    for (USI i = 0; i < zi.size(); i++) {
-        if (fabs(zi[i] - Opt.zi[i]) > TINY) return OCP_TRUE;
+    for (USI i = 0; i < injZi.size(); i++) {
+        if (fabs(injZi[i] - Opt.injZi[i]) > TINY) return OCP_TRUE;
     }
+    for (USI i = 0; i < this->prodPhaseWeight.size(); i++) {
+        if (fabs(this->prodPhaseWeight[i] - Opt.prodPhaseWeight[i]) > TINY) return OCP_TRUE;
+    }
+    if (this->injProdPhase != Opt.injProdPhase) return OCP_TRUE;
+    if (fabs(this->Tinj - Opt.Tinj) > TINY) return OCP_TRUE;
     return OCP_FALSE;
 }
 
@@ -114,24 +119,24 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
             if (!opt.state) continue;
 
-            opt.Tinj = myBulk.RTemp;
-            opt.zi.resize(myBulk.numCom, 0);
+            opt.Tinj = myBulk.RTemp;           
             if (opt.type == INJ) {
                 // INJ
+                opt.injZi.resize(myBulk.numCom, 0);
                 switch (myBulk.PVTmode) {
                     case PHASE_W:
                     case PHASE_OW:
-                        opt.zi.back() = 1;
+                        opt.injZi.back() = 1;
                         opt.injProdPhase = WATER;
                         break;
                     case PHASE_ODGW:
                     case PHASE_DOGW:
                         if (opt.fluidType == "GAS") {
-                            opt.zi[1] = 1;
+                            opt.injZi[1] = 1;
                             opt.injProdPhase = GAS;
                         }                           
                         else {
-                            opt.zi[2] = 1;
+                            opt.injZi[2] = 1;
                             opt.injProdPhase = WATER;
                         }
                         break;
@@ -140,33 +145,33 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                 }
             } else {
                 // PROD
+                opt.prodPhaseWeight.resize(myBulk.numCom, 0);
                 switch (myBulk.PVTmode) {
                     case PHASE_W:
-                        opt.zi.back() = 1;
+                        opt.prodPhaseWeight[0] = 1;
                         break;
                     case PHASE_OW:
                         if (opt.optMode == ORATE_MODE)
-                            opt.zi[0] = 1;
+                            opt.prodPhaseWeight[0] = 1;
                         else if (opt.optMode == WRATE_MODE)
-                            opt.zi[1] = 1;
+                            opt.prodPhaseWeight[1] = 1;
                         else // LRATE_MODE
-                            opt.zi[0] = opt.zi[1] = 1;
+                            opt.prodPhaseWeight[0] = opt.prodPhaseWeight[1] = 1;
                         break;
                     case PHASE_DOGW:
                     case PHASE_ODGW:
                         if (opt.optMode == ORATE_MODE)
-                            opt.zi[0] = 1;
+                            opt.prodPhaseWeight[0] = 1;
                         else if (opt.optMode == GRATE_MODE)
-                            opt.zi[1] = 1;
+                            opt.prodPhaseWeight[1] = 1;
                         else if (opt.optMode == WRATE_MODE)
-                            opt.zi[2] = 1;
+                            opt.prodPhaseWeight[2] = 1;
                         else if (opt.optMode == LRATE_MODE)
-                            opt.zi[2] = opt.zi[0] = 1;
+                            opt.prodPhaseWeight[0] = opt.prodPhaseWeight[2] = 1;
                         break;
                     default:
                         OCP_ABORT("Wrong blackoil type!");
                 }
-                opt.prodPhaseWeight = opt.zi;
             }
         }
     } else if (myBulk.comps) {
@@ -181,18 +186,18 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
             if (opt.type == INJ) {
                 // INJ Well
                 if (opt.fluidType == "WAT") {
-                    opt.zi.resize(myBulk.numCom, 0);
-                    opt.zi.back() = 1;
+                    opt.injZi.resize(myBulk.numCom, 0);
+                    opt.injZi.back() = 1;
                     opt.injProdPhase = WATER;
                 } else {
                     for (USI i = 0; i < len; i++) {
                         if (opt.fluidType == sols[i].name) {
-                            opt.zi = sols[i].data;
-                            opt.zi.resize(myBulk.numCom);
+                            opt.injZi = sols[i].data;
+                            opt.injZi.resize(myBulk.numCom);
                             // Convert volume units Mscf/stb to molar units lbmoles for
                             // injfluid Use flash in Bulk in surface condition
                             opt.xiINJ = myBulk.flashCal[0]->XiPhase(
-                                Psurf, Tsurf, &opt.zi[0], opt.injProdPhase);
+                                Psurf, Tsurf, &opt.injZi[0], opt.injProdPhase);
                             opt.maxRate *=
                                 (opt.xiINJ *
                                  1000); // lbmol / ft3 -> lbmol / Mscf for gas
@@ -400,10 +405,10 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
             if (flag) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
-                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.zi[0], opt.injProdPhase);
+                    myBulk.flashCal[pvtnum]->XiPhase(myBulk.P[k], myBulk.T[k], &opt.injZi[0], opt.injProdPhase);
             }
             for (USI i = 0; i < nc; i++) {
-                perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.zi[i];
+                perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.injZi[i];
                 qi_lbmol[i] += perf[p].qi_lbmol[i];
             }
         }
@@ -572,7 +577,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.zi.data(), opt.injProdPhase) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.injZi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
@@ -601,7 +606,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.zi.data(), opt.injProdPhase) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.injZi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;
@@ -1243,7 +1248,7 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
 
         OCP_DBL Vfi_zi = 0;
         for (USI i = 0; i < nc; i++) {
-            Vfi_zi += myBulk.vfi[k * nc + i] * opt.zi[i];
+            Vfi_zi += myBulk.vfi[k * nc + i] * opt.injZi[i];
         }
 
         OCP_DBL valw = dt * perf[p].xi * perf[p].transINJ;
@@ -1556,7 +1561,7 @@ void Well::AssembleMatINJ_FIM(const Bulk&    myBulk,
 
             for (USI i = 0; i < nc; i++) {
                 // dQ / dP
-                transIJ = perf[p].transj[j] * perf[p].xi * opt.zi[i];
+                transIJ = perf[p].transj[j] * perf[p].xi * opt.injZi[i];
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu);
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
@@ -1564,7 +1569,7 @@ void Well::AssembleMatINJ_FIM(const Bulk&    myBulk,
                 for (USI k = 0; k < np; k++) {
                     dQdXsB[(i + 1) * ncol2 + k] +=
                         CONV1 * perf[p].WI * perf[p].multiplier * perf[p].xi *
-                        opt.zi[i] * myBulk.dKr_dS[n_np_j * np + k] * dP / mu;
+                        opt.injZi[i] * myBulk.dKr_dS[n_np_j * np + k] * dP / mu;
                 }
                 // dQ / dxij
                 for (USI k = 0; k < nc; k++) {
@@ -2157,7 +2162,7 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
 
             for (USI i = 0; i < nc; i++) {
                 // dQ / dP
-                transIJ = perf[p].transj[j] * perf[p].xi * opt.zi[i];
+                transIJ = perf[p].transj[j] * perf[p].xi * opt.injZi[i];
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu);
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
@@ -2167,7 +2172,7 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
                     if (phasedS_B[j1]) {
                         dQdXsB[(i + 1) * ncolB + j1B] +=
                             CONV1 * perf[p].WI * perf[p].multiplier * perf[p].xi *
-                            opt.zi[i] * myBulk.dKr_dS[n_np_j * np + j1] * dP / mu;
+                            opt.injZi[i] * myBulk.dKr_dS[n_np_j * np + j1] * dP / mu;
                         j1B++;
                     }
                 }
@@ -2506,7 +2511,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk&    myBulk,
 
             for (USI i = 0; i < nc; i++) {
                 // dQ / dP
-                transIJ = perf[p].transj[j] * perf[p].xi * opt.zi[i];
+                transIJ = perf[p].transj[j] * perf[p].xi * opt.injZi[i];
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu);
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
@@ -2516,7 +2521,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk&    myBulk,
                     if (phasedS_B[j1]) {
                         dQdXsB[(i + 1) * ncolB + j1B] +=
                             CONV1 * perf[p].WI * perf[p].multiplier * perf[p].xi *
-                            opt.zi[i] * myBulk.dKr_dS[n_np_j * np + j1] * dP / mu;
+                            opt.injZi[i] * myBulk.dKr_dS[n_np_j * np + j1] * dP / mu;
                         j1B++;
                     }
                 }
