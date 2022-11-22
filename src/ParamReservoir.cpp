@@ -1231,25 +1231,47 @@ void ComponentParam::InputBIC(ifstream& ifs)
 
 void ComponentParam::InputVISCTAB(ifstream& ifs)
 {
+
     vector<string> vbuf;  
     OCP_DBL Pref{ -1 };
     vector<vector<OCP_DBL>> tmp;
     USI ncol = numCom + 1;  // temp + comps
     tmp.resize(ncol);
+    OCP_BOOL flag = OCP_TRUE;
 
     while (OCP_TRUE) {
-        ReadLine(ifs, vbuf);
+        if (flag) {
+            ReadLine(ifs, vbuf);
+            flag = OCP_FALSE;
+        }
+
         if (vbuf[0] == "/")
             break;
-       
-        // Read Table
-        for (USI i = 0; i < ncol; i++) {
-            tmp[i].push_back(stod(vbuf[i]));
+
+        if (vbuf[0] == "ATPRES") {
+            viscTab.refName.push_back("ATPRES");
+            viscTab.refData.push_back(stod(vbuf[1]));
+            ReadLine(ifs, vbuf);
         }
+        // Read Table
+        while (OCP_TRUE)
+        {
+            for (USI i = 0; i < ncol; i++) {
+                tmp[i].push_back(stod(vbuf[i]));
+            }
+            ReadLine(ifs, vbuf);
+            if (vbuf[0] == "ATPRES" || vbuf[0] == "/") {
+                viscTab.data.push_back(tmp);
+                tmp.clear();
+                tmp.resize(ncol);
+                break;
+            }               
+        }
+        if (vbuf[0] == "/")
+            break;
     }
     viscTab.name = "VISCTAB";
-    viscTab.colNum = ncol;
-    viscTab.data.push_back(tmp);
+    viscTab.colNum = ncol;   
     // output
     viscTab.DisplayTable();
 
