@@ -362,10 +362,10 @@ $(function() {
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                    wells[w].opt.connWell = wG.wIdPROD;</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    wells[w].opt.reinjPhase = wG.reinjPhase;</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                    wells[w].opt.injZi       = wG.zi;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                    wells[w].opt.xiINJ    = wG.xi;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                    wells[w].opt.factorINJ    = wG.xi * 1000;  <span class="comment">// Blackoil Model prohibited</span></div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                    wells[w].opt.factor   = wG.factor;</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    wells[w].opt.maxRate =</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                        -wG.saleRate * wG.xi * 1000; <span class="comment">// Mscf -&gt; ft3 -&gt; lbmol</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                        -wG.saleRate * wells[w].opt.factorINJ; <span class="comment">// Mscf -&gt; ft3 -&gt; lbmol</span></div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                }</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            }</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <span class="comment">// for (USI i = 0; i &lt; nc; i++) {</span></div>
@@ -797,7 +797,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 21 2022 23:48:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 22 2022 04:50:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
