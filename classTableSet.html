@@ -93,6 +93,10 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9">colNum</a></td></tr>
 <tr class="memdesc:a9cb4cb87ca5ae7156a454564a72046a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of columns of table. <br /></td></tr>
 <tr class="separator:a9cb4cb87ca5ae7156a454564a72046a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13773e9101da286dd9a9d23534c1cf94"><td class="memItemLeft" align="right" valign="top"><a id="a13773e9101da286dd9a9d23534c1cf94"></a>
+vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTableSet.html#a13773e9101da286dd9a9d23534c1cf94">refName</a></td></tr>
+<tr class="memdesc:a13773e9101da286dd9a9d23534c1cf94"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of refData <br /></td></tr>
+<tr class="separator:a13773e9101da286dd9a9d23534c1cf94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73d557c9460c103188ed867ac77ab221"><td class="memItemLeft" align="right" valign="top"><a id="a73d557c9460c103188ed867ac77ab221"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTableSet.html#a73d557c9460c103188ed867ac77ab221">refData</a></td></tr>
 <tr class="memdesc:a73d557c9460c103188ed867ac77ab221"><td class="mdescLeft">&#160;</td><td class="mdescRight">refData for each sub data. <br /></td></tr>
@@ -128,24 +132,31 @@ vector&lt; vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c35558
 <p class="definition">Definition at line <a class="el" href="ParamReservoir_8cpp_source.html#l00890">890</a> of file <a class="el" href="ParamReservoir_8cpp_source.html">ParamReservoir.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;{</div>
 <div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;---------------------\n&quot;</span>;</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;TABLE: &quot;</span> &lt;&lt; <a class="code" href="classTableSet.html#aebba124bce16f5ec6c212ccaff21a920">name</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    cout &lt;&lt; <a class="code" href="classTableSet.html#aebba124bce16f5ec6c212ccaff21a920">name</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;---------------------\n&quot;</span>;</div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : <a class="code" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>) {</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = v[0].size();</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code" href="classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9">colNum</a>; j++) {</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;                cout &lt;&lt; setw(12) &lt;&lt; v[j][i];</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;            }</div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        }</div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    }</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;}</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; <a class="code" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>.size(); n++) {</div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classTableSet.html#a13773e9101da286dd9a9d23534c1cf94">refName</a>.size() &gt; n) {</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;            cout &lt;&lt; <a class="code" href="classTableSet.html#a13773e9101da286dd9a9d23534c1cf94">refName</a>[n] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;            cout &lt;&lt; <a class="code" href="classTableSet.html#a73d557c9460c103188ed867ac77ab221">refData</a>[n] &lt;&lt; endl;</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        }</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160; </div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = <a class="code" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[n][0].size();</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; len; i++) {</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code" href="classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9">colNum</a>; j++) {</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;                cout &lt;&lt; setw(12) &lt;&lt; <a class="code" href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">data</a>[n][j][i];</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;            }</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        }</div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;    }</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
-<div class="ttc" id="aclassTableSet_html_a5d0077031b988faa104e3f19ce0c9393"><div class="ttname"><a href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">TableSet::data</a></div><div class="ttdeci">vector&lt; vector&lt; vector&lt; OCP_DBL &gt; &gt; &gt; data</div><div class="ttdoc">All table with the same name.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00036">ParamReservoir.hpp:36</a></div></div>
+<div class="ttc" id="aclassTableSet_html_a13773e9101da286dd9a9d23534c1cf94"><div class="ttname"><a href="classTableSet.html#a13773e9101da286dd9a9d23534c1cf94">TableSet::refName</a></div><div class="ttdeci">vector&lt; string &gt; refName</div><div class="ttdoc">name of refData</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00035">ParamReservoir.hpp:35</a></div></div>
+<div class="ttc" id="aclassTableSet_html_a5d0077031b988faa104e3f19ce0c9393"><div class="ttname"><a href="classTableSet.html#a5d0077031b988faa104e3f19ce0c9393">TableSet::data</a></div><div class="ttdeci">vector&lt; vector&lt; vector&lt; OCP_DBL &gt; &gt; &gt; data</div><div class="ttdoc">All table with the same name.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00037">ParamReservoir.hpp:37</a></div></div>
+<div class="ttc" id="aclassTableSet_html_a73d557c9460c103188ed867ac77ab221"><div class="ttname"><a href="classTableSet.html#a73d557c9460c103188ed867ac77ab221">TableSet::refData</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; refData</div><div class="ttdoc">refData for each sub data.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00036">ParamReservoir.hpp:36</a></div></div>
 <div class="ttc" id="aclassTableSet_html_a9cb4cb87ca5ae7156a454564a72046a9"><div class="ttname"><a href="classTableSet.html#a9cb4cb87ca5ae7156a454564a72046a9">TableSet::colNum</a></div><div class="ttdeci">USI colNum</div><div class="ttdoc">Number of columns of table.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00034">ParamReservoir.hpp:34</a></div></div>
 <div class="ttc" id="aclassTableSet_html_aebba124bce16f5ec6c212ccaff21a920"><div class="ttname"><a href="classTableSet.html#aebba124bce16f5ec6c212ccaff21a920">TableSet::name</a></div><div class="ttdeci">string name</div><div class="ttdoc">Name of table.</div><div class="ttdef"><b>Definition:</b> <a href="ParamReservoir_8hpp_source.html#l00033">ParamReservoir.hpp:33</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00034">colNum</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00036">data</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00033">name</a>.</p>
+<p class="reference">References <a class="el" href="ParamReservoir_8hpp_source.html#l00034">colNum</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00037">data</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00033">name</a>, <a class="el" href="ParamReservoir_8hpp_source.html#l00036">refData</a>, and <a class="el" href="ParamReservoir_8hpp_source.html#l00035">refName</a>.</p>
 
 </div>
 </div>
@@ -156,7 +167,7 @@ vector&lt; vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c35558
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 05:32:12 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Nov 22 2022 06:36:42 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
