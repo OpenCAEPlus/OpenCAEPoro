@@ -461,7 +461,7 @@ void Well::CalProdQj(const Bulk& myBulk, const OCP_DBL& dt)
     USI iter = 0;
     if (myBulk.oil) WOPR = prodRate[iter++];
     if (myBulk.gas) WGPR = prodRate[iter++];
-    if (myBulk.oil) WWPR = prodRate[iter++];
+    if (myBulk.water) WWPR = prodRate[iter++];
 
     WOPT += WOPR * dt;
     WGPT += WGPR * dt;

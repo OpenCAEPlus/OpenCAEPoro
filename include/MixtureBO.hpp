@@ -130,6 +130,9 @@ public:
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
 
+    // for Well
+    void SetupWellOpt(WellOpt& opt) override { OCP_ABORT("Not Completed!"); };
+
 private:
     OCPTable PVTW;
 };
@@ -161,6 +164,9 @@ public:
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
+
+    // for Well
+    void SetupWellOpt(WellOpt& opt) override;
 
 private:
     OCPTable PVDO; ///< PVT table for dead oil
@@ -199,6 +205,9 @@ public:
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
     OCP_DBL RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
         const OCP_DBL* Ziin, const USI& tarPhase) override;
+
+    // for Well
+    void SetupWellOpt(WellOpt& opt) override;
 
 private:
     OCPTable PVCO; ///< PVT table for live oil (with dissolved gas).

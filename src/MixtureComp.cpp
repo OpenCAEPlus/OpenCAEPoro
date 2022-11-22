@@ -735,6 +735,14 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
 }
 
 
+void MixtureComp::SetupWellOpt(WellOpt& opt)
+{
+    if (opt.type == INJ) {
+
+    }
+}
+
+
 void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
     const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight)
 {

@@ -27,6 +27,8 @@ class WellOpt
     friend class AllWells;
     friend class Out4RPT;
 
+    friend class MixtureComp;
+
 public:
     /// Default constructor.
     WellOpt() = default;

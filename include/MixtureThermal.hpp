@@ -112,6 +112,9 @@ public:
     void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) override {};
 
+    // for Well
+    void SetupWellOpt(WellOpt& wellopt) override {};
+
 protected:
 
     OCP_DBL Pref{ PRESSURE_STD };   ///< reference pressure

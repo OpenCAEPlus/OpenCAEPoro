@@ -890,13 +890,18 @@ void ParamReservoir::CheckEqlRegion() const
 void TableSet::DisplayTable() const
 {
     cout << "---------------------\n";
-    cout << "TABLE: " << name << "\n";
+    cout << name << "\n";
     cout << "---------------------\n";
-    for (auto v : data) {
-        const USI len = v[0].size();
+    for (USI n = 0; n < data.size(); n++) {
+        if (refName.size() > n) {
+            cout << refName[n] << "   ";
+            cout << refData[n] << endl;
+        }
+
+        const USI len = data[n][0].size();
         for (USI i = 0; i < len; i++) {
             for (USI j = 0; j < colNum; j++) {
-                cout << setw(12) << v[j][i];
+                cout << setw(12) << data[n][j][i];
             }
             cout << "\n";
         }
@@ -1226,44 +1231,28 @@ void ComponentParam::InputBIC(ifstream& ifs)
 
 void ComponentParam::InputVISCTAB(ifstream& ifs)
 {
-    cout << "VISCTABLE" << endl;
-
     vector<string> vbuf;  
     OCP_DBL Pref{ -1 };
     vector<vector<OCP_DBL>> tmp;
     USI ncol = numCom + 1;  // temp + comps
     tmp.resize(ncol);
-    OCP_BOOL flag = OCP_FALSE;
 
     while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/")
             break;
-        if (vbuf[0] == "ATPRES") {
-
-            if (flag) {
-                viscTab.refData.push_back(Pref);
-                viscTab.data.push_back(tmp);
-            }
-            flag = OCP_TRUE;
-
-            tmp.clear();
-            tmp.resize(ncol);
-            // then it's pressure dependent
-            // read reference pressure
-            Pref = stod(vbuf[1]);
-            ReadLine(ifs, vbuf);
-
-            cout << "ATPRES   " << Pref << endl;
-        }
+       
         // Read Table
         for (USI i = 0; i < ncol; i++) {
             tmp[i].push_back(stod(vbuf[i]));
-
-            cout << stod(vbuf[i]) << "   ";
         }
-        cout << endl;
     }
+    viscTab.name = "VISCTAB";
+    viscTab.colNum = ncol;
+    viscTab.data.push_back(tmp);
+    // output
+    viscTab.DisplayTable();
+
     cout << "/" << endl;
 }
 

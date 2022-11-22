@@ -32,6 +32,7 @@ public:
 public:
     string                          name;    ///< Name of table.
     USI                             colNum;  ///< Number of columns of table.
+    vector<string>                  refName; ///< name of refData
     vector<OCP_DBL>                 refData; ///< refData for each sub data.
     vector<vector<vector<OCP_DBL>>> data;    ///< All table with the same name.
 };
