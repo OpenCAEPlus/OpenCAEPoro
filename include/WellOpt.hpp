@@ -12,6 +12,9 @@
 #ifndef __WELLOPT_HEADER__
 #define __WELLOPT_HEADER__
 
+// Standard header files
+#include<cmath>
+
 // OpenCAEPoro header files
 #include "ParamWell.hpp"
 

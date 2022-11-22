@@ -19,6 +19,7 @@
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
+#include "WellOpt.hpp"
 
 using namespace std;
 
