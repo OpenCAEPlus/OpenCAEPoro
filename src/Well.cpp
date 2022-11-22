@@ -112,7 +112,6 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
     qi_lbmol.resize(myBulk.numCom);
     prodWeight.resize(myBulk.numCom);
     prodRate.resize(myBulk.numPhase); // oil, gas, water
-    Mtype = myBulk.flashCal[0]->GetType();
     // zi
     if (myBulk.blackOil) {
         for (auto& opt : optSet) {

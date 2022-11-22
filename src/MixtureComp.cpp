@@ -751,9 +751,9 @@ void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OC
     for (USI i = 0; i < 3; i++) {
         tmp += factor[i] * prodPhase[i];
     }
-    //if (tmp < 1E-12 || !isfinite(tmp)) {
-    //    OCP_ABORT("Wrong Condition!");
-    //}
+    if (tmp < 1E-12 || !isfinite(tmp)) {
+        OCP_ABORT("Wrong Condition!");
+    }
     fill(prodWeight.begin(), prodWeight.end(), tmp);
 }
 
@@ -764,7 +764,7 @@ void MixtureComp::CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
     Flash(Pin, Tin, Niin, 0, 0, 0);
 
     prodRate[0] = v[0] / CONV1;  // stb
-    prodRate[1] = v[1] / 1000;   // MSCF
+    prodRate[1] = v[1] / 1000;   // Mscf
     prodRate[2] = v[2] * xi[2];  // stb
 }
 

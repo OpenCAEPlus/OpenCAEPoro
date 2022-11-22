@@ -205,7 +205,6 @@ private:
     vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing
                               ///< well: num of components.
     
-    USI  Mtype;               ///< Mixture Type
     OCP_DBL Psurf{PRESSURE_STD};          ///< Well surface Pressure, psia
     OCP_DBL Tsurf{TEMPERATURE_STD};       ///< Well surface Temperature, F                     
     vector<OCP_DBL> prodRate;      ///< it equals the volume of jth phase in 1 mole production fluid
