@@ -91,7 +91,7 @@ private:
     vector<OCP_DBL> injZi;
     USI injProdPhase;     ///< label the phase of injecting fluid if possible
     vector<OCP_DBL> prodPhaseWeight;
-    OCP_DBL xiINJ;            ///< molar density of injfluid in Compositional Model, used in units swifting
+    OCP_DBL factorINJ;            ///< unit factor: Mscf -> lbmol for comps, Mscf -> Mscf in blackoil
     OCP_DBL Tinj;             ///< temperature of inj fluid F
                               // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if OCP_TRUE, reinjection happens

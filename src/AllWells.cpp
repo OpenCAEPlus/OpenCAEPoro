@@ -298,10 +298,10 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                     wells[w].opt.connWell = wG.wIdPROD;
                     wells[w].opt.reinjPhase = wG.reinjPhase;
                     wells[w].opt.injZi       = wG.zi;
-                    wells[w].opt.xiINJ    = wG.xi;
+                    wells[w].opt.factorINJ    = wG.xi * 1000;  // Blackoil Model prohibited
                     wells[w].opt.factor   = wG.factor;
                     wells[w].opt.maxRate =
-                        -wG.saleRate * wG.xi * 1000; // Mscf -> ft3 -> lbmol
+                        -wG.saleRate * wells[w].opt.factorINJ; // Mscf -> ft3 -> lbmol
                 }
             }
             // for (USI i = 0; i < nc; i++) {

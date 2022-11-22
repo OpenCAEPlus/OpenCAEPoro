@@ -65,9 +65,9 @@ OCP_BOOL WellOpt::operator!=(const WellOpt& Opt) const
     if (this->state != Opt.state) return OCP_TRUE;
     if (this->optMode != Opt.optMode) return OCP_TRUE;
     if (this->initOptMode != Opt.initOptMode) return OCP_TRUE;
-    if (this->maxRate != Opt.maxRate) return OCP_TRUE;
-    if (this->maxBHP != Opt.maxBHP) return OCP_TRUE;
-    if (this->minBHP != Opt.minBHP) return OCP_TRUE;
+    if (fabs(this->maxRate - Opt.maxRate) > TINY) return OCP_TRUE;
+    if (fabs(this->maxBHP - Opt.maxBHP) > TINY) return OCP_TRUE;
+    if (fabs(this->minBHP - Opt.minBHP) > TINY) return OCP_TRUE;
     for (USI i = 0; i < injZi.size(); i++) {
         if (fabs(injZi[i] - Opt.injZi[i]) > TINY) return OCP_TRUE;
     }
@@ -122,6 +122,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
             opt.Tinj = myBulk.RTemp;           
             if (opt.type == INJ) {
                 // INJ
+                opt.factorINJ = 1.0;
                 opt.injZi.resize(myBulk.numCom, 0);
                 switch (myBulk.PVTmode) {
                     case PHASE_W:
@@ -196,11 +197,9 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
                             opt.injZi.resize(myBulk.numCom);
                             // Convert volume units Mscf/stb to molar units lbmoles for
                             // injfluid Use flash in Bulk in surface condition
-                            opt.xiINJ = myBulk.flashCal[0]->XiPhase(
+                            opt.factorINJ = 1000 * myBulk.flashCal[0]->XiPhase(
                                 Psurf, Tsurf, &opt.injZi[0], opt.injProdPhase);
-                            opt.maxRate *=
-                                (opt.xiINJ *
-                                 1000); // lbmol / ft3 -> lbmol / Mscf for gas
+                            opt.maxRate *= opt.factorINJ; // Mscf/day -> lbmol / day for gas
                             break;
                         }
                         if (i == len - 1) {
@@ -517,12 +516,7 @@ void Well::CalInjQi(const Bulk& myBulk, const OCP_DBL& dt)
         WWIR = -qj;
         WWIT += WWIR * dt;
     } else {
-        if (Mtype == BLKOIL) {
-            WGIR = -qj;
-        } else {
-            // EoS PVTW
-            WGIR = -qj / (opt.xiINJ * 1000); // lbmol -> Mscf
-        }
+        WGIR = -qj / opt.factorINJ; // Mscf or lbmol -> Mscf
         WGIT += WGIR * dt;
     }
 }
