@@ -14,6 +14,7 @@ target_sources(
          ParamWell.hpp
          UtilError.hpp
          Well.hpp
+		 WellOpt.hpp
          BulkConn.hpp
          CornerGrid.hpp
          FaspSolver.hpp

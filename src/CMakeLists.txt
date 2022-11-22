@@ -13,6 +13,7 @@ target_sources(
          ParamReservoir.cpp
          Solver.cpp
          Well.cpp
+		 WellOpt.cpp
          BulkConn.cpp
          CornerGrid.cpp
          FaspSolver.cpp
