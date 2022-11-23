@@ -429,12 +429,10 @@ void Bulk::Setup(const Grid& myGrid)
         flagSkip.resize(numBulk);
         ziSkip.resize(numBulk * numCom);
         PSkip.resize(numBulk);
-        Ks.resize(numBulk* (numCom - 1));
         lminEigenSkip.resize(numBulk);
         lflagSkip.resize(numBulk);
         lziSkip.resize(numBulk * numCom);
         lPSkip.resize(numBulk);      
-        lKs.resize(numBulk * (numCom - 1));
 
         if (miscible) {
             surTen.resize(numBulk);
@@ -1289,7 +1287,7 @@ void Bulk::FlashCOMP()
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                   &Ks[n * numCom_1]);
+                                &xij[n * numPhase * numCom]);
         PassFlashValue(n);
     }
 }
@@ -1346,7 +1344,7 @@ void Bulk::FlashDerivCOMP()
         ftype = CalFlashType(n, OCP_TRUE);
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                        &Ks[n * numCom_1]);
+                                        &xij[n * numPhase * numCom]);
         PassFlashValueDeriv(n);
     }
 }
@@ -1367,7 +1365,7 @@ void Bulk::FlashDerivCOMP_n()
 
         flashCal[PVTNUM[n]]->FlashDeriv_n(
             P[n], T[n], &Ni[n * numCom], &S[n * numPhase], &xij[n * numPhase * numCom],
-            &nj[n * numPhase], ftype, &flagB[0], phaseNum[n], &Ks[n * numCom_1]);
+            &nj[n * numPhase], ftype, &flagB[0], phaseNum[n]);
 
         PassFlashValueDeriv_n(n);
     }
@@ -1455,15 +1453,6 @@ void Bulk::PassFlashValue(const OCP_USI& n)
 
     phaseNum[n] = nptmp - 1; // water is excluded
     if (comps) {
-        if (nptmp == 3) {
-            // num of hydrocarbon phase equals 2
-            // Calculate Ks
-            OCP_USI bIdc1 = n * numCom_1;
-            for (USI i = 0; i < numCom_1; i++) {
-                Ks[bIdc1 + i] =
-                    flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
-            }
-        }
 
         if (flashCal[pvtnum]->GetFtype() == 0) {
             flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
@@ -1513,15 +1502,6 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
     phaseNum[n] = nptmp - 1; // water is excluded
 
     if (comps) {
-        if (nptmp == 3) {
-            // num of hydrocarbon phase equals 2
-            // Calculate Ks
-            OCP_USI bIdc1 = n * numCom_1;
-            for (USI i = 0; i < numCom_1; i++) {
-                Ks[bIdc1 + i] =
-                    flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
-            }
-        }
 
         if (flashCal[pvtnum]->GetFtype() == 0) {
             flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
@@ -1621,20 +1601,6 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     phaseNum[n] = nptmp - 1; // So water must exist!!!
     if (comps) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
-        if (nptmp == 3) {
-            // num of hydrocarbon phase equals 2
-            // Calculate Ks
-            // IMPORTANT!!!
-            // Ks will change as long as nums of hydroncarbon phase equals 2, and it
-            // will has an effect on phase spliting calculation as a intial value. So
-            // you should not expect to obtain the exact same result with identical P,
-            // T, Ni if the final mixture contains 2 hydroncarbon phase.
-            OCP_USI bIdc1 = n * numCom_1;
-            for (USI i = 0; i < numCom_1; i++) {
-                Ks[bIdc1 + i] =
-                    flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
-            }
-        }
 
         if (flashCal[pvtnum]->GetFtype() == 0) {
             flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
@@ -1730,20 +1696,6 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
     phaseNum[n] = nptmp - 1; // So water must exist!!!
     if (comps) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
-        if (nptmp == 3) {
-            // num of hydrocarbon phase equals 2
-            // Calculate Ks
-            // IMPORTANT!!!
-            // Ks will change as long as nums of hydroncarbon phase equals 2, and it
-            // will has an effect on phase spliting calculation as a intial value. So
-            // you should not expect to obtain the exact same result with identical P,
-            // T, Ni if the final mixture contains 2 hydroncarbon phase.
-            OCP_USI bIdc1 = n * numCom_1;
-            for (USI i = 0; i < numCom_1; i++) {
-                Ks[bIdc1 + i] =
-                    flashCal[pvtnum]->xij[i] / flashCal[pvtnum]->xij[numCom + i];
-            }
-        }
 
         if (flashCal[pvtnum]->GetFtype() == 0) {
             flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
@@ -2110,11 +2062,6 @@ void Bulk::CheckDiff()
                         cout << ziSkip[n * numCom + i] << "   "
                              << lziSkip[n * numCom + i] << endl;
                     }
-                    cout << "Ks" << endl;
-                    for (USI i = 0; i < numCom_1; i++) {
-                        cout << Ks[n * numCom_1 + i] << "   " << lKs[n * numCom_1 + i]
-                             << endl;
-                    }
 
                     cout << "Difference in S\t" << tmp << "  " << phaseExist[id]
                          << "\n";
@@ -2389,7 +2336,6 @@ void Bulk::UpdateLastStepIMPEC()
     lflagSkip     = flagSkip;
     lziSkip       = ziSkip;
     lPSkip        = PSkip;
-    lKs           = Ks;
 
     lP          = P;
     lPj         = Pj;
@@ -2575,12 +2521,6 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u,
                         if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
                     }
                 }
-                if (tmpflag | OCP_TRUE) {
-                    bId = n * numPhase * numCom;
-                    for (USI i = 0; i < numCom_1; i++) {
-                        Ks[n * numCom_1 + i] = xij[bId + i] / xij[bId + numCom + i];
-                    }
-                }
             }
         }
 
@@ -2717,12 +2657,6 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u,
                 }
             }
         }
-        if (phaseNum[n] == 2 && OCP_FALSE) {
-            for (USI i = 0; i < numCom_1; i++) {
-                Ks[n * numCom_1 + i] = xij[n * numPhase * numCom + i] /
-                                       xij[n * numPhase * numCom + numCom + i];
-            }
-        }
 
         // Vf correction
         /*        OCP_DBL dVmin = 100 * rockVp[n];
@@ -2842,7 +2776,6 @@ void Bulk::ResetFIM()
     flagSkip     = lflagSkip;
     ziSkip       = lziSkip;
     PSkip        = lPSkip;
-    Ks           = lKs;
 
     P            = lP;
     Pj           = lPj;
@@ -2892,7 +2825,6 @@ void Bulk::UpdateLastStepFIM()
     lflagSkip     = flagSkip;
     lziSkip       = ziSkip;
     lPSkip        = PSkip;
-    lKs           = Ks;
 
     lP            = P;
     lPj           = Pj;
@@ -3091,7 +3023,7 @@ void Bulk::FlashCOMPAIMc()
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                   &Ks[n * numCom_1]);
+                                &xij[n * numPhase * numCom]);
         PassFlashValueAIMc(n);
     }
 }
@@ -3130,7 +3062,7 @@ void Bulk::FlashCOMPAIMc01()
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                   &Ks[n * numCom_1]);
+                                &xij[n * numPhase * numCom]);
         PassFlashValue(n);
     }
 }
@@ -3161,7 +3093,7 @@ void Bulk::FlashDerivCOMPAIMc()
         ftype = CalFlashType(n, OCP_TRUE);
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                        &Ks[n * numCom_1]);
+                                        &xij[n * numPhase * numCom]);
         PassFlashValueDeriv(n);
     }
 }
@@ -3328,12 +3260,6 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
                         xij[bId + i] += chopmin * dtmp[js];
                         js++;
                         if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
-                    }
-                }
-                if (tmpflag | OCP_TRUE) {
-                    bId = n * numPhase * numCom;
-                    for (USI i = 0; i < numCom_1; i++) {
-                        Ks[n * numCom_1 + i] = xij[bId + i] / xij[bId + numCom + i];
                     }
                 }
             }

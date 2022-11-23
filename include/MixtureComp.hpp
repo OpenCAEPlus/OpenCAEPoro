@@ -206,7 +206,7 @@ public:
                const OCP_DBL* Niin,
                const USI&     ftype,
                const USI&     lastNP,
-               const OCP_DBL* lastKs) override;
+               const OCP_DBL* xijin) override;
 
     void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
 
@@ -215,7 +215,7 @@ public:
                     const OCP_DBL* Niin,
                     const USI&     ftype,
                     const USI&     lastNP,
-                    const OCP_DBL* lastKs) override;
+                    const OCP_DBL* xijin) override;
 
     void FlashDeriv_n(const OCP_DBL& Pin,
                       const OCP_DBL& Tin,
@@ -225,8 +225,7 @@ public:
                       const OCP_DBL* njin,
                       const USI&     ftype,
                       const USI*     phaseExistin,
-                      const USI&     lastNP,
-                      const OCP_DBL* lastKs) override;
+                      const USI&     lastNP) override;
 
     OCP_DBL
     XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;

@@ -430,12 +430,14 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
                         const OCP_DBL* Niin,
                         const USI&     Myftype,
                         const USI&     lastNP,
-                        const OCP_DBL* lastKs)
+                        const OCP_DBL* xijin)
 {
     ftype = Myftype;
     lNP   = lastNP;
     if (lNP == 2) {
-        Dcopy(NC, &lKs[0], lastKs);
+        for (USI i = 0; i < NC; i++) {
+            lKs[i] = xijin[i] / xijin[i + numCom];
+        }
     }
 
     CalFlash(Pin, Tin + CONV5, Niin);
@@ -473,12 +475,14 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
                              const OCP_DBL* Niin,
                              const USI&     Myftype,
                              const USI&     lastNP,
-                             const OCP_DBL* lastKs)
+                             const OCP_DBL* xijin)
 {
     ftype = Myftype;
     lNP   = lastNP;
     if (lNP == 2) {
-        Dcopy(NC, &lKs[0], lastKs);
+        for (USI i = 0; i < NC; i++) {
+            lKs[i] = xijin[i] / xijin[i + numCom];
+        }
     }
 
     CalFlash(Pin, Tin + CONV5, Niin);
@@ -547,8 +551,7 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
                                const OCP_DBL* njin,
                                const USI&     myftype,
                                const USI*     phaseExistin,
-                               const USI&     lastNP,
-                               const OCP_DBL* lastKs)
+                               const USI&     lastNP)
 {
     inputNP = 0;
     for (USI j = 0; j < numPhase; j++) {
@@ -560,7 +563,9 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
         ftype = myftype;
         lNP   = lastNP;
         if (lNP == 2) {
-            Dcopy(NC, &lKs[0], lastKs);
+            for (USI i = 0; i < NC; i++) {
+                lKs[i] = xijin[i] / xijin[i + numCom];
+            }
         }
         CalFlash(Pin, Tin + CONV5, Niin);
     } else {

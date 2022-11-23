@@ -192,8 +192,6 @@ public:
     void ResetziSkip() { ziSkip = lziSkip; }
     // Reset flagSkip to the ones of the last time step.
     void ResetPSkip() { PSkip = lPSkip; }
-    // Reset Ks to the ones of the last time step.
-    void ResetKs() { Ks = lKs; }
 
     /// Reset Nt to the ones of the last time step.
     void ResetNt() { Nt = lNt; }
@@ -264,15 +262,6 @@ private:
     vector<OCP_BOOL> lflagSkip;
     vector<OCP_DBL>  lziSkip;
     vector<OCP_DBL>  lPSkip;
-
-    // phase split calculation
-    // IMPORTANT!!!
-    // Ks will change as long as nums of hydrocarbon phase equals 2, and it will has an
-    // important effect on phase spliting calculation as a initial value. So you should
-    // not expect to obtain the exact same result with identical P, T, Ni if the final
-    // mixture contains 2 hydrocarbon phase.
-    vector<OCP_DBL> Ks;  ///< Equilibrium constant in phase split calculation
-    vector<OCP_DBL> lKs; ///< last Ks
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information

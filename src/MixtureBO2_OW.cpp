@@ -75,7 +75,7 @@ void BOMixture_OW::InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP
 }
 
 void BOMixture_OW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-    const OCP_DBL* lastKs)
+    const OCP_DBL* xijin)
 {
     phaseExist[0] = OCP_TRUE;
     phaseExist[1] = OCP_TRUE;
@@ -122,7 +122,7 @@ void BOMixture_OW::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* 
 
 void BOMixture_OW::FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
     const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-    const OCP_DBL* lastKs)
+    const OCP_DBL* xijin)
 {
     phaseExist[0] = OCP_TRUE;
     phaseExist[1] = OCP_TRUE;

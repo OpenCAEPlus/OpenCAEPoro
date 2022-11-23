@@ -274,7 +274,6 @@ void Reservoir::ResetVal03IMPEC()
     bulk.ResetflagSkip();
     bulk.ResetziSkip();
     bulk.ResetPSkip();
-    bulk.ResetKs();
 
     bulk.ResetPj();
     bulk.ResetNi();

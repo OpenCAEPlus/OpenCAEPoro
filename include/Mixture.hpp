@@ -82,15 +82,15 @@ public:
     /// Flash calculation with moles of components.
     virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) = 0;
+        const OCP_DBL* xijin) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
     virtual void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) = 0;
+        const OCP_DBL* xijin) = 0;
     virtual void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP, const OCP_DBL* lastKs) = 0;
+        const USI& lastNP) = 0;
 
     /// return mass density of phase
     // for blackoil model: if tarPhase is gas and water, Pin and tar phase is needed

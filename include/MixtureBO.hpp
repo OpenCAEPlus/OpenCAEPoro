@@ -112,18 +112,18 @@ public:
         OCP_ABORT("Not Completed!");
     };
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override {
+        const OCP_DBL* xijin) override {
         OCP_ABORT("Not Completed!");
     };
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override {
+        const OCP_DBL* xijin) override {
         OCP_ABORT("Not Completed!");
     };
     void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP, const OCP_DBL* lastKs) override {
+        const USI& lastNP) override {
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override { OCP_ABORT("Not Completed!"); return 0; };
@@ -152,14 +152,14 @@ public:
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
         const OCP_DBL* Ziin) override;
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
+        const OCP_DBL* xijin) override;
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
+        const OCP_DBL* xijin) override;
     void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP, const OCP_DBL* lastKs) override {
+        const USI& lastNP) override {
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
@@ -194,14 +194,14 @@ public:
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
         const OCP_DBL* Ziin) override;
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
+        const OCP_DBL* xijin) override;
     void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* lastKs) override;
+        const OCP_DBL* xijin) override;
     void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP, const OCP_DBL* lastKs) override {
+        const USI& lastNP) override {
         OCP_ABORT("Not Completed!");
     }
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;

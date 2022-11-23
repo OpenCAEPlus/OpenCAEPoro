@@ -239,7 +239,7 @@ void BOMixture_ODGW::Flash(const OCP_DBL& Pin,
                            const OCP_DBL* Niin,
                            const USI&     ftype,
                            const USI&     lastNP,
-                           const OCP_DBL* lastKs)
+                           const OCP_DBL* xijin)
 {
     for (USI j = 0; j < 3; j++) phaseExist[j] = OCP_FALSE;
     fill(xij.begin(), xij.end(), 0.0);
@@ -446,7 +446,7 @@ void BOMixture_ODGW::FlashDeriv(const OCP_DBL& Pin,
                                 const OCP_DBL* Niin,
                                 const USI&     ftype,
                                 const USI&     lastNP,
-                                const OCP_DBL* lastKs)
+                                const OCP_DBL* xijin)
 {
     for (USI j = 0; j < 3; j++) {
         phaseExist[j] = OCP_FALSE;
