@@ -132,10 +132,10 @@ virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0eadad2495a7fa5dbc73cc34ceb23d1a">RhoPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbb, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;tarPhase)=0</td></tr>
 <tr class="memdesc:a0eadad2495a7fa5dbc73cc34ceb23d1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return mass density of phase <br /></td></tr>
 <tr class="separator:a0eadad2495a7fa5dbc73cc34ceb23d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d3586b08a24ee94ad1e3d38a4c3da65"><td class="memItemLeft" align="right" valign="top"><a id="a1d3586b08a24ee94ad1e3d38a4c3da65"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1d3586b08a24ee94ad1e3d38a4c3da65">SetupWellOpt</a> (<a class="el" href="classWellOpt.html">WellOpt</a> &amp;opt, const vector&lt; <a class="el" href="classSolventINJ.html">SolventINJ</a> &gt; &amp;sols)=0</td></tr>
-<tr class="memdesc:a1d3586b08a24ee94ad1e3d38a4c3da65"><td class="mdescLeft">&#160;</td><td class="mdescRight">for well <br /></td></tr>
-<tr class="separator:a1d3586b08a24ee94ad1e3d38a4c3da65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a222c158186f99ce5ee61e16da312108e"><td class="memItemLeft" align="right" valign="top"><a id="a222c158186f99ce5ee61e16da312108e"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a222c158186f99ce5ee61e16da312108e">SetupWellOpt</a> (<a class="el" href="classWellOpt.html">WellOpt</a> &amp;opt, const vector&lt; <a class="el" href="classSolventINJ.html">SolventINJ</a> &gt; &amp;sols, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Psurf, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tsurf)=0</td></tr>
+<tr class="memdesc:a222c158186f99ce5ee61e16da312108e"><td class="mdescLeft">&#160;</td><td class="mdescRight">for well <br /></td></tr>
+<tr class="separator:a222c158186f99ce5ee61e16da312108e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77c2b028d2e1b3ae1b153d074fc97666"><td class="memItemLeft" align="right" valign="top"><a id="a77c2b028d2e1b3ae1b153d074fc97666"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>CalProdWeight</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;prodPhase, vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;prodWeight)=0</td></tr>
 <tr class="separator:a77c2b028d2e1b3ae1b153d074fc97666"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -392,23 +392,23 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>check if Ni input from param is negative, it's used in debug mode to check Hidden trouble. actually, very small error in very short time may not make trouble. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00122">122</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                flag = OCP_FALSE;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00123">123</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                flag = OCP_FALSE;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00157">Mixture.hpp:157</a></div></div>
-<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00161">Mixture.hpp:161</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00158">Mixture.hpp:158</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00162">Mixture.hpp:162</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -434,7 +434,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>indicates the type of mixture, black oil or compositional or others. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00153">153</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00154">154</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -459,7 +459,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dNi: numCom the derivative of volume of total fluids with respect to moles of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00178">178</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00179">179</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +484,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dP, the derivative of volume of total fluids with respect to pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00177">177</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -509,7 +509,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>Nij / Nj: numPhase*numCom, Nij is the moles of component i in phase j, Nj is the moles of phase j. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00166">166</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00167">167</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -519,7 +519,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 09:35:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 23 2022 02:42:53 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
