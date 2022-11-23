@@ -433,7 +433,8 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
                         const OCP_DBL* xijin)
 {
     ftype = Myftype;
-    lNP   = lastNP;
+    // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
+    lNP = lastNP > 0 ? lastNP - 1 : 0;
     if (lNP == 2) {
         for (USI i = 0; i < NC; i++) {
             lKs[i] = xijin[i] / xijin[i + numCom];
@@ -478,7 +479,8 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
                              const OCP_DBL* xijin)
 {
     ftype = Myftype;
-    lNP   = lastNP;
+    // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
+    lNP = lastNP > 0 ? lastNP - 1 : 0;
     if (lNP == 2) {
         for (USI i = 0; i < NC; i++) {
             lKs[i] = xijin[i] / xijin[i + numCom];
@@ -561,7 +563,8 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
 
     if (inputNP == 1 || OCP_TRUE) {
         ftype = myftype;
-        lNP   = lastNP;
+        // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
+        lNP = lastNP > 0 ? lastNP - 1 : 0;
         if (lNP == 2) {
             for (USI i = 0; i < NC; i++) {
                 lKs[i] = xijin[i] / xijin[i + numCom];

@@ -1625,9 +1625,9 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem&  myLS,
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
-        const USI npB = myBulk.phaseNum[bId] + 1;
+        const USI npB = myBulk.phaseNum[bId];
         ncolB         = npB;
-        const USI npE = myBulk.phaseNum[eId] + 1;
+        const USI npE = myBulk.phaseNum[eId];
         ncolE         = npE;
 
         for (USI j = 0; j < np; j++) {
@@ -1955,8 +1955,8 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem&  myLS,
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
 
-        const USI npB = myBulk.phaseNum[bId] + 1;
-        const USI npE = myBulk.phaseNum[eId] + 1;
+        const USI npB = myBulk.phaseNum[bId];
+        const USI npE = myBulk.phaseNum[eId];
 
         USI jxB = 0;
         USI jxE = 0;

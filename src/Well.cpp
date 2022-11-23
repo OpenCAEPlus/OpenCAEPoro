@@ -2306,7 +2306,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk&    myBulk,
 
         dP = myBulk.P[n] - BHP - dG[p];
 
-        const USI npB = myBulk.phaseNum[n] + 1;
+        const USI npB = myBulk.phaseNum[n];
         USI       jxB = 0;
         ncolB         = 0;
         for (USI j = 0; j < np; j++) {
@@ -2483,7 +2483,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk&    myBulk,
         fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
         fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
 
-        const USI npB = myBulk.phaseNum[n] + 1;
+        const USI npB = myBulk.phaseNum[n];
         USI       jxB = 0;
         ncolB         = 0;
         for (USI j = 0; j < np; j++) {

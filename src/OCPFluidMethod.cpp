@@ -322,12 +322,12 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             vector<OCP_INT> totalPhaseNum(3, 0);
             vector<OCP_INT> ltotalPhaseNum(3, 0);
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.NRphaseNum[n] == 0) ltotalPhaseNum[0]++;
-                if (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[1]++;
-                if (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[2]++;
-                if (rs.bulk.phaseNum[n] == 0) totalPhaseNum[0]++;
-                if (rs.bulk.phaseNum[n] == 1) totalPhaseNum[1]++;
-                if (rs.bulk.phaseNum[n] == 2) totalPhaseNum[2]++;
+                if (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
+                if (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
+                if (rs.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
+                if (rs.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
+                if (rs.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
+                if (rs.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
             }
             cout << to_string(totalPhaseNum[0]) + " (" +
                         to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 /

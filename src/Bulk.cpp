@@ -1397,7 +1397,7 @@ USI Bulk::CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const
         }
     } else {
         ftype = 2;
-        if (phaseNum[n] == 2 && fimbulk) {
+        if (phaseNum[n] >= 3 && fimbulk) {
             // if num of hydrocarbon phases is 2 at last NR step and predicted
             // saturations indicates that the stae will be kept, then skip phase
             // stability analysis, carry phase splitting directly
@@ -1423,7 +1423,7 @@ void Bulk::PassFlashValue(const OCP_USI& n)
 
     OCP_USI bIdp   = n * numPhase;
     USI     pvtnum = PVTNUM[n];
-    USI     nptmp  = 0;
+    phaseNum[n] = 0;
     for (USI j = 0; j < numPhase; j++) {
         phaseExist[bIdp + j] = flashCal[pvtnum]->phaseExist[j];
         // Important! Saturation must be passed no matter if the phase exists. This is
@@ -1432,7 +1432,7 @@ void Bulk::PassFlashValue(const OCP_USI& n)
         // each step!
         S[bIdp + j] = flashCal[pvtnum]->S[j];
         if (phaseExist[bIdp + j]) { // j -> bId + j   fix bugs.
-            nptmp++;
+            phaseNum[n]++;
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
             xi[bIdp + j]  = flashCal[pvtnum]->xi[j];
             for (USI i = 0; i < numCom; i++) {
@@ -1451,7 +1451,6 @@ void Bulk::PassFlashValue(const OCP_USI& n)
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
 
-    phaseNum[n] = nptmp - 1; // water is excluded
     PassAdditionInfo(n, pvtnum);
 }
 
@@ -1471,14 +1470,12 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
 
-    USI nptmp = 0;
+    phaseNum[n] = 0;
     for (USI j = 0; j < numPhase; j++) {
         if (flashCal[pvtnum]->phaseExist[j]) {
-            nptmp++;
+            phaseNum[n]++;
         }
     }
-
-    phaseNum[n] = nptmp - 1; // water is excluded
 
     PassAdditionInfo(n, pvtnum);
 }
@@ -1488,9 +1485,9 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     OCP_FUNCNAME;
 
     OCP_USI bIdp   = n * numPhase;
-    USI     pvtnum = PVTNUM[n];
-    USI     nptmp  = 0;
+    USI     pvtnum = PVTNUM[n];  
     USI     len    = 0;
+    phaseNum[n] = 0;
 
     for (USI j = 0; j < numPhase; j++) {
         // Important! Saturation must be passed no matter if the phase exists. This is
@@ -1516,7 +1513,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
         if (pSderExist[bIdp + j]) len++;
         len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
-            nptmp++;
+            phaseNum[n]++;
             nj[bIdp + j]  = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
             xi[bIdp + j]  = flashCal[pvtnum]->xi[j];
@@ -1556,9 +1553,7 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
-    phaseNum[n] = nptmp - 1; // So water must exist!!!
     PassAdditionInfo(n, pvtnum);
-
 }
 
 void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
@@ -1566,9 +1561,9 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
     OCP_FUNCNAME;
 
     OCP_USI bIdp   = n * numPhase;
-    USI     pvtnum = PVTNUM[n];
-    USI     nptmp  = 0;
+    USI     pvtnum = PVTNUM[n];  
     USI     len    = 0;
+    phaseNum[n] = 0;
 
     for (USI j = 0; j < numPhase; j++) {
         // Important! Saturation must be passed no matter if the phase exists. This is
@@ -1592,7 +1587,7 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         if (pSderExist[bIdp + j]) len++;
         len += pVnumCom[bIdp + j];
         if (phaseExist[bIdp + j]) { // j -> bId + j fix bugs.
-            nptmp++;
+            phaseNum[n]++;
             nj[bIdp + j]  = flashCal[pvtnum]->nj[j];
             rho[bIdp + j] = flashCal[pvtnum]->rho[j];
             xi[bIdp + j]  = flashCal[pvtnum]->xi[j];
@@ -1631,7 +1626,6 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
 
     resPc[n] = flashCal[pvtnum]->resPc;
 
-    phaseNum[n] = nptmp - 1; // So water must exist!!!
     PassAdditionInfo(n, pvtnum);
 }
 
@@ -2459,7 +2453,8 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u,
 
         // dxij   ---- Compositional model only
         if (comps) {
-            if (phaseNum[n] == 2) {
+            if (phaseNum[n] >= 3) {
+                // num of Hydroncarbon phase >= 2
                 OCP_BOOL tmpflag = OCP_TRUE;
                 OCP_USI  bId     = 0;
                 for (USI j = 0; j < 2; j++) {
@@ -2542,7 +2537,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u,
         dSmax = 0;
         chop  = 1;
 
-        const USI cNp = phaseNum[n] + 1;
+        const USI cNp = phaseNum[n];
         const USI len = resIndex[n + 1] - resIndex[n];
         Dcopy(len, &dtmp[0], &res_n[resIndex[n]]);
         DaAxpby(len, ncol, 1.0, &dSec_dPri[n * maxLendSdP], u.data() + n * ncol, 1.0,
@@ -3200,7 +3195,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
 
         // dxij   ---- Compositional model only
         if (comps) {
-            if (phaseNum[n] == 2) {
+            if (phaseNum[n] >= 3) {
                 OCP_BOOL tmpflag = OCP_TRUE;
                 OCP_USI  bId     = 0;
                 for (USI j = 0; j < 2; j++) {
