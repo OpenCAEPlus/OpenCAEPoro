@@ -229,7 +229,42 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
 void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
+    const USI wellType = opt.GetWellType();
+    if (wellType == INJ) {
+        const string fluidName = opt.GetFluidType();
+        opt.SetInjFactor(1.0);
 
+        if (fluidName == "WAT"){
+            vector<OCP_DBL> tmpZi({ 0,1 });
+            opt.SetInjZi(tmpZi);
+            opt.SetInjProdPhase(WATER);
+        }
+        else {
+            OCP_ABORT("WRONG Injecting Fluid!");
+        }      
+    }
+    else if (wellType == PROD) {
+        vector<OCP_DBL> tmpWght(2, 0);
+        switch (opt.GetOptMode())
+        {
+        case ORATE_MODE:
+            tmpWght[0] = 1;
+            break;
+        case WRATE_MODE:
+            tmpWght[1] = 1;
+            break;
+        case LRATE_MODE:
+            tmpWght[0] = tmpWght[1] = 1;
+            break;
+        default:
+            OCP_ABORT("WRONG Opt Mode!");
+            break;
+        }
+        opt.SetProdPhaseWeight(tmpWght);
+    }
+    else {
+        OCP_ABORT("Wrong Well Type!");
+    }
 }
 
 /*----------------------------------------------------------------------------*/
