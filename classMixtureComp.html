@@ -729,116 +729,117 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 
 <p>Implements <a class="el" href="classMixture.html">Mixture</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l00546">546</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;{</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    inputNP = 0;</div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>; j++) {</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;        <span class="keywordflow">if</span> (phaseExistin[j] == 1) inputNP++;</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    }</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    inputNP--;</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160; </div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="keywordflow">if</span> (inputNP == 1 || OCP_TRUE) {</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;        ftype = myftype;</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        lNP   = lastNP;</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        <span class="keywordflow">if</span> (lNP == 2) {</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; NC; i++) {</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;                lKs[i] = xijin[i] / xijin[i + <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>];</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;            }</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;        }</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;        CalFlash(Pin, Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>, Niin);</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        NP = inputNP;</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        P  = Pin;</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;        T  = Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>;</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        setNi(Niin);</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        CalAiBi();</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        Nh = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(NC, &amp;<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0]);</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; NP; j++) {</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;            <a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[j] = phaseExistin[j];</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;            <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[j]          = Sjin[j];</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;            nu[j]         = njin[j];</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;            <a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[j]         = njin[j];</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(NC, &amp;x[j][0], &amp;xijin[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>]);</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(NC, &amp;<a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>], &amp;xijin[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>]);</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;        }</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;        CalFugPhiAll();</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;        <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1] = Sjin[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1];</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        phaseLabel[0]   = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;        phaseLabel[1]   = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;        CalMW();</div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        CalVfXiRho();</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;        CalViscosity();</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;        <a class="code" href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">CopyPhase</a>();</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;        CalSurfaceTension();</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    }</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160; </div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    CalVjpVfpVfn_partial();</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    <span class="comment">// Water Properties</span></div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wpid                  = <a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1;</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wcid                  = <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> - 1;</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[Wpid]          = OCP_TRUE;</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[Wpid * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + Wcid] = 1.0;</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[Wpid]                  = <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid];</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    <a class="code" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a>                        = Nh + <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid];</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    PVTW.<a class="code" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, P, data, cdata);</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0       = data[0];</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0       = data[1];</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw       = data[2];</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw        = bw0 * (1 - cbw * (P - Pw0));</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bwp       = -cbw * bw0;</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <a class="code" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a>[Wpid]          = data[3];</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    <a class="code" href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">xi</a>[Wpid]          = 1 / (<a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw);</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    <a class="code" href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">rho</a>[Wpid]         = std_RhoW / bw;</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <a class="code" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a>[Wpid]         = cdata[3];</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <a class="code" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>[Wpid]         = -bwp / (bw * bw * <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a>);</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <a class="code" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a>[Wpid]        = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>[Wpid] * std_RhoW;</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[Wpid]           = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid] * bw;</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    <a class="code" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>[Wcid]         = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw;</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> vwp = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid] * bwp;</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <a class="code" href="classMixture.html#ad8a687cfb963101e8fdddb1467fa2c1f">vf</a> += <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[Wpid];</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    <a class="code" href="classMixture.html#adf4f5e549cc50a366951dba65d196198">vfp</a> += vwp;</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    vji[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1][<a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> - 1] = <a class="code" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>[Wcid];</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    vjp[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1]             = vwp;</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    CalSaturation();</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    <span class="comment">// calculate diff</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    <span class="keywordflow">if</span> (inputNP == NP &amp;&amp; NP == 2 &amp;&amp; OCP_FALSE) {</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;        cout &lt;&lt; scientific &lt;&lt; setprecision(3);</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;--------- &quot;</span> &lt;&lt; NP &lt;&lt; <span class="stringliteral">&quot; --------- &quot;</span> &lt;&lt; inputNP &lt;&lt; endl;</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; NP; j++) {</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j1 = phaseLabel[j];</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;            cout &lt;&lt; setw(10) &lt;&lt; <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[j1] - Sjin[j1] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; setw(10)</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;                 &lt;&lt; (<a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[j1] - njin[j1]) / njin[j1] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; NC; i++) {</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;                cout &lt;&lt; setw(10) &lt;&lt; <a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[j1 * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + i] - xijin[j1 * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + i]</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;            }</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;            cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;        }</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;        cout &lt;&lt; <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[2] - Sjin[2] &lt;&lt; endl;</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;    }</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160; </div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;    CaldXsdXpAPI03();</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;    CalXiPn_partial();</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;    CalRhoPn_partial();</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;    CalMuPn_partial();</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    CalVfiVfp_full03();</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160; </div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    <span class="comment">// Calculate pSderExist and pVnumCom</span></div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;    fill(<a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>.begin(), <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>.end(), OCP_FALSE);</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;    fill(<a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>.begin(), <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>.end(), 0.0);</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[0]) {</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[0] = OCP_TRUE;</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>[0]   = NC;</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    }</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[1]) {</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;        <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[1] = OCP_TRUE;</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>[1]   = NC;</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    }</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[2] = OCP_TRUE;</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="MixtureComp_8cpp_source.html#l00548">548</a> of file <a class="el" href="MixtureComp_8cpp_source.html">MixtureComp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;{</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;    inputNP = 0;</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a>; j++) {</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;        <span class="keywordflow">if</span> (phaseExistin[j] == 1) inputNP++;</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    }</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    inputNP--;</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160; </div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    <span class="keywordflow">if</span> (inputNP == 1 || OCP_TRUE) {</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        ftype = myftype;</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;        <span class="comment">// Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used</span></div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        lNP = lastNP &gt; 0 ? lastNP - 1 : 0;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        <span class="keywordflow">if</span> (lNP == 2) {</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; NC; i++) {</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                lKs[i] = xijin[i] / xijin[i + <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>];</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;            }</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;        }</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        CalFlash(Pin, Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>, Niin);</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        NP = inputNP;</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        P  = Pin;</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        T  = Tin + <a class="code" href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a>;</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        setNi(Niin);</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        CalAiBi();</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        Nh = <a class="code" href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a>(NC, &amp;<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[0]);</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; NP; j++) {</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;            <a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[j] = phaseExistin[j];</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;            <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[j]          = Sjin[j];</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;            nu[j]         = njin[j];</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;            <a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[j]         = njin[j];</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(NC, &amp;x[j][0], &amp;xijin[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>]);</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;            <a class="code" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a>(NC, &amp;<a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>], &amp;xijin[j * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>]);</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        }</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;        CalFugPhiAll();</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;        <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1] = Sjin[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1];</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        phaseLabel[0]   = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;        phaseLabel[1]   = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;        CalMW();</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;        CalVfXiRho();</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;        CalViscosity();</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        <a class="code" href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">CopyPhase</a>();</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;        CalSurfaceTension();</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    }</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    CalVjpVfpVfn_partial();</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160; </div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="comment">// Water Properties</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wpid                  = <a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1;</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wcid                  = <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> - 1;</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    <a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[Wpid]          = OCP_TRUE;</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[Wpid * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + Wcid] = 1.0;</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[Wpid]                  = <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid];</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <a class="code" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a>                        = Nh + <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid];</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    PVTW.<a class="code" href="classOCPTable.html#a047b61a09961d8a5015ba8b071320b7b">Eval_All</a>(0, P, data, cdata);</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Pw0       = data[0];</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw0       = data[1];</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> cbw       = data[2];</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bw        = bw0 * (1 - cbw * (P - Pw0));</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> bwp       = -cbw * bw0;</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <a class="code" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a>[Wpid]          = data[3];</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <a class="code" href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">xi</a>[Wpid]          = 1 / (<a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw);</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <a class="code" href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">rho</a>[Wpid]         = std_RhoW / bw;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a>[Wpid]         = cdata[3];</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    <a class="code" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>[Wpid]         = -bwp / (bw * bw * <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a>);</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <a class="code" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a>[Wpid]        = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a>[Wpid] * std_RhoW;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[Wpid]           = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid] * bw;</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    <a class="code" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>[Wcid]         = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * bw;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> vwp = <a class="code" href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a> * <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[Wcid] * bwp;</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    <a class="code" href="classMixture.html#ad8a687cfb963101e8fdddb1467fa2c1f">vf</a> += <a class="code" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a>[Wpid];</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <a class="code" href="classMixture.html#adf4f5e549cc50a366951dba65d196198">vfp</a> += vwp;</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    vji[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1][<a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> - 1] = <a class="code" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a>[Wcid];</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;    vjp[<a class="code" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a> - 1]             = vwp;</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160; </div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    CalSaturation();</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <span class="comment">// calculate diff</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <span class="keywordflow">if</span> (inputNP == NP &amp;&amp; NP == 2 &amp;&amp; OCP_FALSE) {</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;        cout &lt;&lt; scientific &lt;&lt; setprecision(3);</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;--------- &quot;</span> &lt;&lt; NP &lt;&lt; <span class="stringliteral">&quot; --------- &quot;</span> &lt;&lt; inputNP &lt;&lt; endl;</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; NP; j++) {</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j1 = phaseLabel[j];</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;            cout &lt;&lt; setw(10) &lt;&lt; <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[j1] - Sjin[j1] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; setw(10)</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                 &lt;&lt; (<a class="code" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a>[j1] - njin[j1]) / njin[j1] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; NC; i++) {</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;                cout &lt;&lt; setw(10) &lt;&lt; <a class="code" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a>[j1 * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + i] - xijin[j1 * <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a> + i]</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;            }</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;            cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;        }</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        cout &lt;&lt; <a class="code" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a>[2] - Sjin[2] &lt;&lt; endl;</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;    }</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;    CaldXsdXpAPI03();</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    CalXiPn_partial();</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    CalRhoPn_partial();</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    CalMuPn_partial();</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;    CalVfiVfp_full03();</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160; </div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;    <span class="comment">// Calculate pSderExist and pVnumCom</span></div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;    fill(<a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>.begin(), <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>.end(), OCP_FALSE);</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;    fill(<a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>.begin(), <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>.end(), 0.0);</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[0]) {</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;        <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[0] = OCP_TRUE;</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;        <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>[0]   = NC;</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    }</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#abddae0b7cb228db705ce672e22e9c701">phaseExist</a>[1]) {</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[1] = OCP_TRUE;</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;        <a class="code" href="classMixture.html#ad8ad6aedef065d1828e578637f753542">pVnumCom</a>[1]   = NC;</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    }</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;    <a class="code" href="classMixture.html#a31e0f4738e6796e1109153ede0be72de">pSderExist</a>[2] = OCP_TRUE;</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;}</div>
 <div class="ttc" id="aDenseMat_8hpp_html_accb44af625653de07f0a8dba403348d1"><div class="ttname"><a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a></div><div class="ttdeci">double Dnorm1(const int &amp;N, double *x)</div><div class="ttdoc">Computes the L1-norm of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00050">DenseMat.cpp:50</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_ae3d6d69eb9175bc2ed3414c44bde7a8d"><div class="ttname"><a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a></div><div class="ttdeci">void Dcopy(const int &amp;N, double *dst, const double *src)</div><div class="ttdoc">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00037">DenseMat.cpp:37</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
@@ -847,7 +848,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <div class="ttc" id="aOCPConst_8hpp_html_a2d05bd9d04bf54565f5192d547dd415f"><div class="ttname"><a href="OCPConst_8hpp.html#a2d05bd9d04bf54565f5192d547dd415f">CONV1</a></div><div class="ttdeci">const OCP_DBL CONV1</div><div class="ttdoc">1 bbl = CONV1 ft3</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00062">OCPConst.hpp:62</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ab7845973eda40fb562b37ba643237bd3"><div class="ttname"><a href="OCPConst_8hpp.html#ab7845973eda40fb562b37ba643237bd3">CONV5</a></div><div class="ttdeci">const OCP_DBL CONV5</div><div class="ttdoc">0 F = CONV5 R</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00066">OCPConst.hpp:66</a></div></div>
-<div class="ttc" id="aclassMixtureComp_html_a04a0d98d3277d79d1403dff71ba21fd5"><div class="ttname"><a href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">MixtureComp::CopyPhase</a></div><div class="ttdeci">void CopyPhase()</div><div class="ttdoc">Copy the basic properties from MixtureComp to Mixture.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8cpp_source.html#l02533">MixtureComp.cpp:2533</a></div></div>
+<div class="ttc" id="aclassMixtureComp_html_a04a0d98d3277d79d1403dff71ba21fd5"><div class="ttname"><a href="classMixtureComp.html#a04a0d98d3277d79d1403dff71ba21fd5">MixtureComp::CopyPhase</a></div><div class="ttdeci">void CopyPhase()</div><div class="ttdoc">Copy the basic properties from MixtureComp to Mixture.</div><div class="ttdef"><b>Definition:</b> <a href="MixtureComp_8cpp_source.html#l02536">MixtureComp.cpp:2536</a></div></div>
 <div class="ttc" id="aclassMixture_html_a0a42129a94c1ba7c92c9577f0eb0234f"><div class="ttname"><a href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">Mixture::rhoP</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rhoP</div><div class="ttdoc">d rho / dP: numphase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00184">Mixture.hpp:184</a></div></div>
 <div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00158">Mixture.hpp:158</a></div></div>
 <div class="ttc" id="aclassMixture_html_a16c6595220dc0a04cfa960d44f3016c7"><div class="ttname"><a href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">Mixture::rho</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; rho</div><div class="ttdoc">mass density of phase: numPhase</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00165">Mixture.hpp:165</a></div></div>
@@ -881,7 +882,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 07:44:45 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 23 2022 08:09:45 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

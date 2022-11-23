@@ -383,12 +383,12 @@ $(function() {
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            vector&lt;OCP_INT&gt; totalPhaseNum(3, 0);</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            vector&lt;OCP_INT&gt; ltotalPhaseNum(3, 0);</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; rs.<a class="code" href="classReservoir.html#ae2588c621a8d8f4de8c5ce4d4fba3446">GetBulkNum</a>(); n++) {</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 0) ltotalPhaseNum[0]++;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[1]++;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[2]++;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 0) totalPhaseNum[0]++;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 1) totalPhaseNum[1]++;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 2) totalPhaseNum[2]++;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                <span class="keywordflow">if</span> (rs.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            }</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            cout &lt;&lt; to_string(totalPhaseNum[0]) + <span class="stringliteral">&quot; (&quot;</span> +</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                        to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 /</div>
@@ -921,7 +921,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 07:44:44 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 23 2022 08:09:45 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
