@@ -78,30 +78,30 @@ void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) 
     // csr or bsr
     ofstream outA(FileA);
     if (!outA.is_open()) cout << "Can not open " << FileA << endl;
-    outA << dim << endl;
+    outA << dim << "\n";
     if (blockDim != 1) {
-        outA << blockDim << endl;
+        outA << blockDim << "\n";
     }
     // IA
     OCP_USI rowId = 1;
     for (OCP_USI i = 0; i < dim; i++) {
-        outA << rowId << endl;
+        outA << rowId << "\n";
         rowId += colId[i].size();
     }
-    outA << rowId << endl;
+    outA << rowId << "\n";
     // JA
     USI rowSize = 0;
     for (OCP_USI i = 0; i < dim; i++) {
         rowSize = colId[i].size();
         for (USI j = 0; j < rowSize; j++) {
-            outA << colId[i][j] + 1 << endl;
+            outA << colId[i][j] + 1 << "\n";
         }
     }
     // val
     for (OCP_USI i = 0; i < dim; i++) {
         rowSize = val[i].size();
         for (USI j = 0; j < rowSize; j++) {
-            outA << val[i][j] << endl;
+            outA << val[i][j] << "\n";
         }
     }
     outA.close();
@@ -110,9 +110,9 @@ void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) 
     OCP_USI  nRow = dim * blockDim;
     ofstream outb(Fileb);
     if (!outb.is_open()) cout << "Can not open " << Fileb << endl;
-    outb << dim << endl;
+    outb << dim << "\n";
     for (OCP_USI i = 0; i < nRow; i++) {
-        outb << b[i] << endl;
+        outb << b[i] << "\n";
     }
 }
 
@@ -121,9 +121,9 @@ void LinearSystem::OutputSolution(const string& fileU) const
     string   FileU = solveDir + fileU;
     ofstream outu(FileU);
     if (!outu.is_open()) cout << "Can not open " << FileU << endl;
-    outu << dim << endl;
+    outu << dim << "\n";
     OCP_USI nrow = dim * blockDim;
-    for (OCP_USI i = 0; i < nrow; i++) outu << u[i] << endl;
+    for (OCP_USI i = 0; i < nrow; i++) outu << u[i] << "\n";
     outu.close();
 }
 
