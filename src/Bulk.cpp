@@ -374,54 +374,43 @@ void Bulk::Setup(const Grid& myGrid)
     phaseNum.resize(numBulk);
     lphaseNum.resize(numBulk);
     NRphaseNum.resize(numBulk);
-
+    // phase index
     phase2Index.resize(3);
 
-    if (blackOil) {
-        switch (PVTmode) {
-            case PHASE_W:
-                index2Phase.resize(1);
-                index2Phase[0]     = WATER;
-                phase2Index[WATER] = 0;
-                break;
-            case PHASE_OW:
-                index2Phase.resize(2);
-                index2Phase[0]     = OIL;
-                index2Phase[1]     = WATER;
-                phase2Index[OIL]   = 0;
-                phase2Index[WATER] = 1;
-                break;
-            case PHASE_OG:
-                index2Phase.resize(2);
-                index2Phase[0]   = OIL;
-                index2Phase[1]   = GAS;
-                phase2Index[OIL] = 0;
-                phase2Index[GAS] = 1;
-                break;
-            case PHASE_GW:
-                index2Phase.resize(2);
-                index2Phase[0]     = GAS;
-                index2Phase[1]     = WATER;
-                phase2Index[GAS]   = 0;
-                phase2Index[WATER] = 1;
-                break;
-            case PHASE_ODGW:
-            case PHASE_DOGW:
-                index2Phase.resize(3);
-                index2Phase[0]     = OIL;
-                index2Phase[1]     = GAS;
-                index2Phase[2]     = WATER;
-                phase2Index[OIL]   = 0;
-                phase2Index[GAS]   = 1;
-                phase2Index[WATER] = 2;
-                break;
-            default:
-                OCP_ABORT("Unknown PVT model!");
-        }
-    } else if (comps) {
-
-        phase2Index[OIL]   = 0;
-        phase2Index[GAS]   = 1;
+    switch (flashCal[0]->GetMixtureType())
+    {
+    case BLKOIL_W:
+        index2Phase.resize(1);
+        index2Phase[0] = WATER;
+        phase2Index[WATER] = 0;
+        break;
+    case BLKOIL_OW:
+        index2Phase.resize(2);
+        index2Phase[0] = OIL;
+        index2Phase[1] = WATER;
+        phase2Index[OIL] = 0;
+        phase2Index[WATER] = 1;
+        break;
+    case BLKOIL_OG:
+        index2Phase.resize(2);
+        index2Phase[0] = OIL;
+        index2Phase[1] = GAS;
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
+        break;
+    case BLKOIL_DOGW:
+    case BLKOIL_ODGW:
+        index2Phase.resize(3);
+        index2Phase[0] = OIL;
+        index2Phase[1] = GAS;
+        index2Phase[2] = WATER;
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
+        phase2Index[WATER] = 2;
+        break;
+    case EOS_PVTW:
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
         phase2Index[WATER] = 2;
 
         // accelerate phase equilibrium calculation
@@ -432,7 +421,7 @@ void Bulk::Setup(const Grid& myGrid)
         lminEigenSkip.resize(numBulk);
         lflagSkip.resize(numBulk);
         lziSkip.resize(numBulk * numCom);
-        lPSkip.resize(numBulk);      
+        lPSkip.resize(numBulk);
 
         if (miscible) {
             surTen.resize(numBulk);
@@ -440,10 +429,17 @@ void Bulk::Setup(const Grid& myGrid)
             Fp.resize(numBulk);
             lsurTen.resize(numBulk);
         }
+        // error
+        ePEC.resize(numBulk);
+        break;
+    case THERMAL:
+        break;
+    default:
+        OCP_ABORT("Wrong Mixture Type!");
+        break;
     }
 
-    // error
-    ePEC.resize(numBulk);
+    // error  
     eN.resize(numBulk);
     eV.resize(numBulk);
 
@@ -481,8 +477,6 @@ void Bulk::CheckVpore() const
         }
     }
 }
-
-
 
 
 void Bulk::InitSjPc(const USI& tabrow)
@@ -1459,7 +1453,6 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
     // only var about volume needs, some flash var also
     OCP_FUNCNAME;
 
-    OCP_USI bIdp   = n * numPhase;
     USI     pvtnum = PVTNUM[n];
 
     Nt[n]        = flashCal[pvtnum]->Nt;
@@ -2455,14 +2448,12 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u,
         if (comps) {
             if (phaseNum[n] >= 3) {
                 // num of Hydroncarbon phase >= 2
-                OCP_BOOL tmpflag = OCP_TRUE;
                 OCP_USI  bId     = 0;
                 for (USI j = 0; j < 2; j++) {
                     bId = n * numPhase * numCom + j * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
                         xij[bId + i] += chopmin * dtmp[js];
                         js++;
-                        if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
                     }
                 }
             }
@@ -3196,14 +3187,12 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
         // dxij   ---- Compositional model only
         if (comps) {
             if (phaseNum[n] >= 3) {
-                OCP_BOOL tmpflag = OCP_TRUE;
                 OCP_USI  bId     = 0;
                 for (USI j = 0; j < 2; j++) {
                     bId = n * numPhase * numCom + j * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
                         xij[bId + i] += chopmin * dtmp[js];
                         js++;
-                        if (xij[bId + i] < 0) tmpflag = OCP_FALSE;
                     }
                 }
             }
