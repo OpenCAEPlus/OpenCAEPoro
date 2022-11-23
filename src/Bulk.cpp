@@ -1453,10 +1453,10 @@ void Bulk::PassFlashValue(const OCP_USI& n)
 
     phaseNum[n] = nptmp - 1; // water is excluded
     if (comps) {
-
-        if (flashCal[pvtnum]->GetFtype() == 0) {
-            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-            if (flagSkip[n]) {
+        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (flagSkip[n]) {           
+            if (flashCal[pvtnum]->GetFtype() == 0) {
+                // If recalculate the range
                 minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
                 for (USI j = 0; j < numPhase - 1; j++) {
                     if (phaseExist[bIdp + j]) {
@@ -1602,9 +1602,10 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
     if (comps) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
 
-        if (flashCal[pvtnum]->GetFtype() == 0) {
-            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-            if (flagSkip[n]) {
+        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (flagSkip[n]) {
+            if (flashCal[pvtnum]->GetFtype() == 0) {
+                // If recalculate the range then get it
                 minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
                 for (USI j = 0; j < numPhase - 1; j++) {
                     if (phaseExist[bIdp + j]) {

@@ -1342,7 +1342,11 @@ void MixtureComp::PhaseEquilibrium()
     }
 
     if (NP > 1) flagSkip = OCP_FALSE;
-    if (NP == 1 && ftype == 0 && flagSkip) {
+    if (NP == 1 && flagSkip && ftype == 0) {
+        // 1. Np == 1 is base for Skipping
+        // 2. If flagSkip == true, then next stablity analysis is possible to be skipped, it depends on if
+        // conditions are met
+        // 3. If ftype == 0, then the range should be calculated, which also means last skip is unsatisfied
         CalPhiNSTA();
         AssembleSkipMatSTA();
 #ifdef DEBUG
