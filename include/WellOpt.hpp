@@ -29,8 +29,6 @@ class WellOpt
     friend class AllWells;
     friend class Out4RPT;
 
-    friend class MixtureComp;
-
 public:
     /// Default constructor.
     WellOpt() = default;
@@ -40,6 +38,27 @@ public:
 
     /// overload inequality
     OCP_BOOL operator !=(const WellOpt& Opt) const;
+
+    USI GetWellType() const { return type; }
+    USI GetOptMode() const { return optMode; }
+    string GetFluidType()const {
+        if (type == INJ) return fluidType; 
+        else OCP_ABORT("WRONG well type!"); 
+    }
+    void SetInjProdPhase(const USI& inPhase) { injProdPhase = inPhase; }
+    void SetInjZi(const vector<OCP_DBL>& inZi) {
+        if (type == INJ) injZi = inZi;
+        else OCP_ABORT("WRONG well type!");
+    }
+    void SetInjFactor(const OCP_DBL& inFactor) {
+        if (type == INJ)  factorINJ = inFactor;
+        else OCP_ABORT("WRONG well type!");
+        maxRate *= factorINJ;
+    }
+    void SetProdPhaseWeight(const vector<OCP_DBL>& inPj) {
+        if (type == PROD)  prodPhaseWeight = inPj;
+        else OCP_ABORT("WRONG well type!");
+    }
 
 private:
     USI type{ 0 }; ///< type of well, Inj or Prod.
