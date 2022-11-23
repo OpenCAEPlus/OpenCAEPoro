@@ -1452,28 +1452,7 @@ void Bulk::PassFlashValue(const OCP_USI& n)
     }
 
     phaseNum[n] = nptmp - 1; // water is excluded
-    if (comps) {
-        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (flagSkip[n]) {           
-            if (flashCal[pvtnum]->GetFtype() == 0) {
-                // If recalculate the range
-                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-                for (USI j = 0; j < numPhase - 1; j++) {
-                    if (phaseExist[bIdp + j]) {
-                        for (USI i = 0; i < numCom - 1; i++) {
-                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                        }
-                        break;
-                    }
-                }
-                PSkip[n] = P[n];
-            }
-        }
-
-        if (miscible) {
-            surTen[n] = flashCal[pvtnum]->GetSurTen();
-        }
-    }
+    PassAdditionInfo(n, pvtnum);
 }
 
 void Bulk::PassFlashValueAIMc(const OCP_USI& n)
@@ -1501,28 +1480,7 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
 
     phaseNum[n] = nptmp - 1; // water is excluded
 
-    if (comps) {
-
-        if (flashCal[pvtnum]->GetFtype() == 0) {
-            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-            if (flagSkip[n]) {
-                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-                for (USI j = 0; j < numPhase - 1; j++) {
-                    if (phaseExist[bIdp + j]) {
-                        for (USI i = 0; i < numCom_1; i++) {
-                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                        }
-                        break;
-                    }
-                }
-                PSkip[n] = P[n];
-            }
-        }
-
-        if (miscible) {
-            surTen[n] = flashCal[pvtnum]->GetSurTen();
-        }
-    }
+    PassAdditionInfo(n, pvtnum);
 }
 
 void Bulk::PassFlashValueDeriv(const OCP_USI& n)
@@ -1599,29 +1557,8 @@ void Bulk::PassFlashValueDeriv(const OCP_USI& n)
 #endif // OCP_OLD_FIM
 
     phaseNum[n] = nptmp - 1; // So water must exist!!!
-    if (comps) {
-        ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
+    PassAdditionInfo(n, pvtnum);
 
-        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (flagSkip[n]) {
-            if (flashCal[pvtnum]->GetFtype() == 0) {
-                // If recalculate the range then get it
-                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-                for (USI j = 0; j < numPhase - 1; j++) {
-                    if (phaseExist[bIdp + j]) {
-                        for (USI i = 0; i < numCom - 1; i++) {
-                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                        }
-                        break;
-                    }
-                }
-                PSkip[n] = P[n];
-            }
-        }
-        if (miscible) {
-            surTen[n] = flashCal[pvtnum]->GetSurTen();
-        }
-    }
 }
 
 void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
@@ -1695,12 +1632,21 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
     resPc[n] = flashCal[pvtnum]->resPc;
 
     phaseNum[n] = nptmp - 1; // So water must exist!!!
+    PassAdditionInfo(n, pvtnum);
+}
+
+void Bulk::PassAdditionInfo(const OCP_USI& n, const USI& pvtnum)
+{
+    OCP_USI bIdp = n * numPhase;
+    OCP_USI bIdc = n * numCom;
+
     if (comps) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
 
-        if (flashCal[pvtnum]->GetFtype() == 0) {
-            flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-            if (flagSkip[n]) {
+        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (flagSkip[n]) {
+            if (flashCal[pvtnum]->GetFtype() == 0) {
+                // If recalculate the range then get it
                 minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
                 for (USI j = 0; j < numPhase - 1; j++) {
                     if (phaseExist[bIdp + j]) {
@@ -1718,6 +1664,8 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
         }
     }
 }
+
+
 
 void Bulk::ResetFlash()
 {

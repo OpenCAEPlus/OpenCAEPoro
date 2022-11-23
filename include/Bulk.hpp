@@ -115,6 +115,7 @@ public:
     /// Pass derivative values from Flash to Bulk after Flash calculation.
     void PassFlashValueDeriv(const OCP_USI& n);
     void PassFlashValueDeriv_n(const OCP_USI& n);
+    void PassAdditionInfo(const OCP_USI& n, const USI& pvtnum);
     /// Reset variables in flash calculations.
     void ResetFlash();
 
