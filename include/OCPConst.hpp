@@ -91,9 +91,12 @@ const USI WATER   = 2; ///< Fluid type = water
 const USI SOLVENT = 3; ///< Fluid type = solvent
 
 // Mixture types
-const USI BLKOIL   = 1; ///< Mixture model = black-oil
-const USI EOS_PVTW = 2; ///< Mixture model = equation-of-state
-const USI THERMAL  = 3; ///< Mixture model = thermal
+const USI BLKOIL		= 10; ///< Mixture model = black-oil
+const USI BLKOIL_W		= 11; ///< black oil model only with water
+const USI BLKOIL_OW		= 12; ///< black oil model with oil and water
+const USI BLKOIL_ODGW	= 13; ///< black oil model with live oil, dry gas, water
+const USI EOS_PVTW		= 20; ///< Mixture model = equation-of-state
+const USI THERMAL		= 30; ///< Mixture model = thermal
 
 // EoS models
 const USI EOS_PR  = 1; ///< EoS model = PR

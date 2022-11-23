@@ -17,6 +17,7 @@
 
 BOMixture_ODGW::BOMixture_ODGW(const ParamReservoir& rs_param, const USI& i)
 {
+    mixtureType = BLKOIL_ODGW;
     BOMixtureInit(rs_param);
 
     PVTW.Setup(rs_param.PVTW_T.data[i]);

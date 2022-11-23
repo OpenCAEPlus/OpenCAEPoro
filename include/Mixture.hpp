@@ -68,7 +68,7 @@ public:
         
     };
     /// return type of mixture.
-    USI GetType() const { return mixtureType; }
+    USI GetMixtureType() const { return mixtureType; }
     /// flash calculation with saturation of phases.
     virtual void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,

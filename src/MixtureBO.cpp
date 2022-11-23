@@ -13,7 +13,6 @@
 
 void BOMixture::BOMixtureInit(const ParamReservoir& rs_param)
 {
-    mixtureType = BLKOIL;
     numPhase    = rs_param.numPhase;
     numCom      = rs_param.numCom;
 

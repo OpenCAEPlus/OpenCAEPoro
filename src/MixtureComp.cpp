@@ -27,6 +27,7 @@ COMP::COMP(const vector<string>& comp)
 
 MixtureComp::MixtureComp(const ComponentParam& param, const USI& tarId)
 {
+    mixtureType = EOS_PVTW;
     // if Water don't exist?
     // for Mixture class
     // Now, only one case is considered: oil, gas, water could exist
@@ -47,11 +48,6 @@ MixtureComp::MixtureComp(const ComponentParam& param, const USI& tarId)
     NPmax = param.numPhase;
 
     zi.resize(NC);
-
-    // comp.resize(NC);
-    // for (USI i = 0; i < NC; i++) {
-    //	comp[i] = COMP(param.COM[i]);
-    //}
 
     Cname = param.Cname;
     if (param.Tc.activity)

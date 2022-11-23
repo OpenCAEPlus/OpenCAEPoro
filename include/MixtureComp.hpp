@@ -164,7 +164,6 @@ public:
         : MixtureComp(rs_param.comsParam, i)
     {
         // water property
-        mixtureType = EOS_PVTW;
         if (rs_param.PVTW_T.data.size() != 0) {
             PVTW.Setup(rs_param.PVTW_T.data[i]);
             if (rs_param.gravity.activity)
