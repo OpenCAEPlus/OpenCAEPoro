@@ -139,6 +139,8 @@ private:
     vector<OCP_DBL> prodRate;      ///< it equals the volume of jth phase in 1 mole production fluid
     mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
 
+    vector<Mixture*> flashCal; ///< from bulks's flashCal
+
     OCP_DBL WOPR{0};          ///< well oil production rate.
     OCP_DBL WOPT{0};          ///< well total oil production.
     OCP_DBL WGPR{0};          ///< well gas production rate.

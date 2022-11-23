@@ -47,11 +47,13 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
     prodWeight.resize(myBulk.numCom);
     prodRate.resize(myBulk.numPhase); // oil, gas, water
 
+    flashCal = myBulk.flashCal;
+
     for (auto& opt : optSet) {
         if (!opt.state) continue;
 
         opt.Tinj = myBulk.RTemp;
-        myBulk.flashCal[0]->SetupWellOpt(opt, sols, Psurf, Tsurf);
+        flashCal[0]->SetupWellOpt(opt, sols, Psurf, Tsurf);
     }
 
     // Perf
@@ -312,7 +314,7 @@ OCP_DBL Well::CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP)
             }
         }
     }
-    myBulk.flashCal[0]->CalProdRate(Psurf, Tsurf, &tmpQi_lbmol[0], tmpQj);
+    flashCal[0]->CalProdRate(Psurf, Tsurf, &tmpQi_lbmol[0], tmpQj);
     for (USI j = 0; j < np; j++) {
         qj += tmpQj[j] * opt.prodPhaseWeight[j];
     }
@@ -342,7 +344,7 @@ void Well::CalInjQi(const Bulk& myBulk, const OCP_DBL& dt)
 void Well::CalProdQj(const Bulk& myBulk, const OCP_DBL& dt)
 {
 
-    myBulk.flashCal[0]->CalProdRate(Psurf, Tsurf, &qi_lbmol[0], prodRate);
+    flashCal[0]->CalProdRate(Psurf, Tsurf, &qi_lbmol[0], prodRate);
     USI iter = 0;
     if (myBulk.oil) WOPR = prodRate[iter++];
     if (myBulk.gas) WGPR = prodRate[iter++];
@@ -725,7 +727,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
             if (qi_lbmol[i] < 0) flag = OCP_FALSE;
         }
         if (qt > TINY && flag) {
-            myBulk.flashCal[0]->CalProdWeight(Psurf, Tsurf, &qi_lbmol[0],
+            flashCal[0]->CalProdWeight(Psurf, Tsurf, &qi_lbmol[0],
                                               opt.prodPhaseWeight, prodWeight);
         } else {
             USI             np = myBulk.numPhase;
@@ -744,7 +746,7 @@ void Well::CalProdWeight(const Bulk& myBulk) const
                 }
             }
             qt = Dnorm1(nc, &tmpNi[0]);
-            myBulk.flashCal[0]->CalProdWeight(Psurf, Tsurf, &tmpNi[0],
+            flashCal[0]->CalProdWeight(Psurf, Tsurf, &tmpNi[0],
                                               opt.prodPhaseWeight, prodWeight);
         }
     }
