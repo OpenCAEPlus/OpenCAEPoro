@@ -528,37 +528,37 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Calculate relative permeability and capillary pressure with saturation. </p>
 <p>Relative permeability and capillary pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01681">1681</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;{</div>
-<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160; </div>
-<div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
-<div class="line"><a name="l01686"></a><span class="lineno"> 1686</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01674">1674</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01675"></a><span class="lineno"> 1675</span>&#160;{</div>
+<div class="line"><a name="l01676"></a><span class="lineno"> 1676</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01677"></a><span class="lineno"> 1677</span>&#160; </div>
+<div class="line"><a name="l01678"></a><span class="lineno"> 1678</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
+<div class="line"><a name="l01679"></a><span class="lineno"> 1679</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
+<div class="line"><a name="l01680"></a><span class="lineno"> 1680</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01681"></a><span class="lineno"> 1681</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
+<div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], 0, tmp, tmp);</div>
+<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
+<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
+<div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160;        }</div>
+<div class="line"><a name="l01686"></a><span class="lineno"> 1686</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l01687"></a><span class="lineno"> 1687</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
 <div class="line"><a name="l01688"></a><span class="lineno"> 1688</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], 0, tmp, tmp);</div>
-<div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
-<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
-<div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;        }</div>
-<div class="line"><a name="l01693"></a><span class="lineno"> 1693</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01694"></a><span class="lineno"> 1694</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01695"></a><span class="lineno"> 1695</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l01696"></a><span class="lineno"> 1696</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], surTen[n], Fk[n],</div>
-<div class="line"><a name="l01697"></a><span class="lineno"> 1697</span>&#160;                                     Fp[n]);</div>
-<div class="line"><a name="l01698"></a><span class="lineno"> 1698</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
-<div class="line"><a name="l01699"></a><span class="lineno"> 1699</span>&#160;                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
-<div class="line"><a name="l01700"></a><span class="lineno"> 1700</span>&#160;        }</div>
-<div class="line"><a name="l01701"></a><span class="lineno"> 1701</span>&#160;    }</div>
-<div class="line"><a name="l01702"></a><span class="lineno"> 1702</span>&#160; </div>
-<div class="line"><a name="l01703"></a><span class="lineno"> 1703</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
-<div class="line"><a name="l01704"></a><span class="lineno"> 1704</span>&#160;        <span class="comment">// correct</span></div>
-<div class="line"><a name="l01705"></a><span class="lineno"> 1705</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
-<div class="line"><a name="l01706"></a><span class="lineno"> 1706</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01707"></a><span class="lineno"> 1707</span>&#160;            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
-<div class="line"><a name="l01708"></a><span class="lineno"> 1708</span>&#160;            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
-<div class="line"><a name="l01709"></a><span class="lineno"> 1709</span>&#160;        }</div>
-<div class="line"><a name="l01710"></a><span class="lineno"> 1710</span>&#160;    }</div>
-<div class="line"><a name="l01711"></a><span class="lineno"> 1711</span>&#160;}</div>
+<div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], surTen[n], Fk[n],</div>
+<div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;                                     Fp[n]);</div>
+<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
+<div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
+<div class="line"><a name="l01693"></a><span class="lineno"> 1693</span>&#160;        }</div>
+<div class="line"><a name="l01694"></a><span class="lineno"> 1694</span>&#160;    }</div>
+<div class="line"><a name="l01695"></a><span class="lineno"> 1695</span>&#160; </div>
+<div class="line"><a name="l01696"></a><span class="lineno"> 1696</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
+<div class="line"><a name="l01697"></a><span class="lineno"> 1697</span>&#160;        <span class="comment">// correct</span></div>
+<div class="line"><a name="l01698"></a><span class="lineno"> 1698</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
+<div class="line"><a name="l01699"></a><span class="lineno"> 1699</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01700"></a><span class="lineno"> 1700</span>&#160;            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
+<div class="line"><a name="l01701"></a><span class="lineno"> 1701</span>&#160;            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
+<div class="line"><a name="l01702"></a><span class="lineno"> 1702</span>&#160;        }</div>
+<div class="line"><a name="l01703"></a><span class="lineno"> 1703</span>&#160;    }</div>
+<div class="line"><a name="l01704"></a><span class="lineno"> 1704</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a41259a3447e9d6f13bb3579683119c29"><div class="ttname"><a href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a></div><div class="ttdeci">const USI WATER</div><div class="ttdoc">Fluid type = water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00090">OCPConst.hpp:90</a></div></div>
@@ -587,15 +587,15 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Check initial pore volume. </p>
 <p>Check init pore volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l00464">464</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;{</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <span class="keywordflow">if</span> (rockVntg[n] &lt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Bulk volume is too small: bulk[&quot;</span> + std::to_string(n) +</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                      <span class="stringliteral">&quot;] = &quot;</span> + std::to_string(rockVntg[n]));</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        }</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    }</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l00460">460</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;{</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        <span class="keywordflow">if</span> (rockVntg[n] &lt; <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Bulk volume is too small: bulk[&quot;</span> + std::to_string(n) +</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                      <span class="stringliteral">&quot;] = &quot;</span> + std::to_string(rockVntg[n]));</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        }</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    }</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00037">OCPConst.hpp:37</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
@@ -621,47 +621,47 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Check if negative Ni occurs, return OCP_FALSE if so. </p>
 <p>Return OCP_TRUE if no negative Ni and OCP_FALSE otherwise. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01900">1900</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;{</div>
-<div class="line"><a name="l01902"></a><span class="lineno"> 1902</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l01903"></a><span class="lineno"> 1903</span>&#160; </div>
-<div class="line"><a name="l01904"></a><span class="lineno"> 1904</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = numBulk * numCom;</div>
-<div class="line"><a name="l01905"></a><span class="lineno"> 1905</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
-<div class="line"><a name="l01906"></a><span class="lineno"> 1906</span>&#160;        <span class="keywordflow">if</span> (Ni[n] &lt; 0) {</div>
-<div class="line"><a name="l01907"></a><span class="lineno"> 1907</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n / numCom;</div>
-<div class="line"><a name="l01908"></a><span class="lineno"> 1908</span>&#160;            <span class="keywordflow">if</span> (Ni[n] &gt; -1E-3 * Nt[bId] &amp;&amp; OCP_FALSE) {</div>
-<div class="line"><a name="l01909"></a><span class="lineno"> 1909</span>&#160;                Ni[n] = 1E-8 * Nt[bId];</div>
-<div class="line"><a name="l01910"></a><span class="lineno"> 1910</span>&#160;                <span class="comment">// Ni[n] = 0;</span></div>
-<div class="line"><a name="l01911"></a><span class="lineno"> 1911</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01912"></a><span class="lineno"> 1912</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>                cId = n - bId * numCom;</div>
-<div class="line"><a name="l01913"></a><span class="lineno"> 1913</span>&#160;                std::ostringstream NiStringSci;</div>
-<div class="line"><a name="l01914"></a><span class="lineno"> 1914</span>&#160;                NiStringSci &lt;&lt; std::scientific &lt;&lt; Ni[n];</div>
-<div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;                <a class="code" href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a>(<span class="stringliteral">&quot;Negative Ni: Ni[&quot;</span> + std::to_string(cId) + <span class="stringliteral">&quot;] in Bulk[&quot;</span> +</div>
-<div class="line"><a name="l01916"></a><span class="lineno"> 1916</span>&#160;                            std::to_string(bId) + <span class="stringliteral">&quot;] = &quot;</span> + NiStringSci.str() + <span class="stringliteral">&quot;,  &quot;</span> +</div>
-<div class="line"><a name="l01917"></a><span class="lineno"> 1917</span>&#160;                            <span class="stringliteral">&quot;dNi = &quot;</span> + std::to_string(dNNR[n]));</div>
-<div class="line"><a name="l01918"></a><span class="lineno"> 1918</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;                    cout &lt;&lt; Ni[bId * numCom + i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160;                }</div>
-<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160;                cout &lt;&lt; endl;</div>
-<div class="line"><a name="l01923"></a><span class="lineno"> 1923</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase - 1; j++) {</div>
-<div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;                    cout &lt;&lt; setprecision(9);</div>
-<div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;                    <span class="keywordflow">if</span> (phaseExist[bId * numPhase + j]) {</div>
-<div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160;                        cout &lt;&lt; j &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;                        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
-<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;                            cout &lt;&lt; xij[bId * numPhase * numCom + j * numCom + i]</div>
-<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;                                 &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;                        }</div>
-<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;                        cout &lt;&lt; endl;</div>
-<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;                    }</div>
-<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;                }</div>
-<div class="line"><a name="l01934"></a><span class="lineno"> 1934</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a name="l01935"></a><span class="lineno"> 1935</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l01936"></a><span class="lineno"> 1936</span>&#160;            }</div>
-<div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;        }</div>
-<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160;    }</div>
-<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
-<div class="line"><a name="l01940"></a><span class="lineno"> 1940</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01893">1893</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;{</div>
+<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01896"></a><span class="lineno"> 1896</span>&#160; </div>
+<div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> len = numBulk * numCom;</div>
+<div class="line"><a name="l01898"></a><span class="lineno"> 1898</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a name="l01899"></a><span class="lineno"> 1899</span>&#160;        <span class="keywordflow">if</span> (Ni[n] &lt; 0) {</div>
+<div class="line"><a name="l01900"></a><span class="lineno"> 1900</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n / numCom;</div>
+<div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;            <span class="keywordflow">if</span> (Ni[n] &gt; -1E-3 * Nt[bId] &amp;&amp; OCP_FALSE) {</div>
+<div class="line"><a name="l01902"></a><span class="lineno"> 1902</span>&#160;                Ni[n] = 1E-8 * Nt[bId];</div>
+<div class="line"><a name="l01903"></a><span class="lineno"> 1903</span>&#160;                <span class="comment">// Ni[n] = 0;</span></div>
+<div class="line"><a name="l01904"></a><span class="lineno"> 1904</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01905"></a><span class="lineno"> 1905</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>                cId = n - bId * numCom;</div>
+<div class="line"><a name="l01906"></a><span class="lineno"> 1906</span>&#160;                std::ostringstream NiStringSci;</div>
+<div class="line"><a name="l01907"></a><span class="lineno"> 1907</span>&#160;                NiStringSci &lt;&lt; std::scientific &lt;&lt; Ni[n];</div>
+<div class="line"><a name="l01908"></a><span class="lineno"> 1908</span>&#160;                <a class="code" href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a>(<span class="stringliteral">&quot;Negative Ni: Ni[&quot;</span> + std::to_string(cId) + <span class="stringliteral">&quot;] in Bulk[&quot;</span> +</div>
+<div class="line"><a name="l01909"></a><span class="lineno"> 1909</span>&#160;                            std::to_string(bId) + <span class="stringliteral">&quot;] = &quot;</span> + NiStringSci.str() + <span class="stringliteral">&quot;,  &quot;</span> +</div>
+<div class="line"><a name="l01910"></a><span class="lineno"> 1910</span>&#160;                            <span class="stringliteral">&quot;dNi = &quot;</span> + std::to_string(dNNR[n]));</div>
+<div class="line"><a name="l01911"></a><span class="lineno"> 1911</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a name="l01912"></a><span class="lineno"> 1912</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l01913"></a><span class="lineno"> 1913</span>&#160;                    cout &lt;&lt; Ni[bId * numCom + i] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l01914"></a><span class="lineno"> 1914</span>&#160;                }</div>
+<div class="line"><a name="l01915"></a><span class="lineno"> 1915</span>&#160;                cout &lt;&lt; endl;</div>
+<div class="line"><a name="l01916"></a><span class="lineno"> 1916</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase - 1; j++) {</div>
+<div class="line"><a name="l01917"></a><span class="lineno"> 1917</span>&#160;                    cout &lt;&lt; setprecision(9);</div>
+<div class="line"><a name="l01918"></a><span class="lineno"> 1918</span>&#160;                    <span class="keywordflow">if</span> (phaseExist[bId * numPhase + j]) {</div>
+<div class="line"><a name="l01919"></a><span class="lineno"> 1919</span>&#160;                        cout &lt;&lt; j &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l01920"></a><span class="lineno"> 1920</span>&#160;                        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
+<div class="line"><a name="l01921"></a><span class="lineno"> 1921</span>&#160;                            cout &lt;&lt; xij[bId * numPhase * numCom + j * numCom + i]</div>
+<div class="line"><a name="l01922"></a><span class="lineno"> 1922</span>&#160;                                 &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l01923"></a><span class="lineno"> 1923</span>&#160;                        }</div>
+<div class="line"><a name="l01924"></a><span class="lineno"> 1924</span>&#160;                        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l01925"></a><span class="lineno"> 1925</span>&#160;                    }</div>
+<div class="line"><a name="l01926"></a><span class="lineno"> 1926</span>&#160;                }</div>
+<div class="line"><a name="l01927"></a><span class="lineno"> 1927</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a name="l01928"></a><span class="lineno"> 1928</span>&#160;                <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l01929"></a><span class="lineno"> 1929</span>&#160;            }</div>
+<div class="line"><a name="l01930"></a><span class="lineno"> 1930</span>&#160;        }</div>
+<div class="line"><a name="l01931"></a><span class="lineno"> 1931</span>&#160;    }</div>
+<div class="line"><a name="l01932"></a><span class="lineno"> 1932</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
+<div class="line"><a name="l01933"></a><span class="lineno"> 1933</span>&#160;}</div>
 <div class="ttc" id="aUtilError_8hpp_html_a9873f9158c73c6b79a8e3cb9c0dc8e4a"><div class="ttname"><a href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a></div><div class="ttdeci">#define OCP_WARNING(msg)</div><div class="ttdoc">Log warning messages.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00039">UtilError.hpp:39</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
@@ -686,23 +686,23 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Check if negative P occurs, return OCP_FALSE if so. </p>
 <p>Return OCP_TRUE if no negative pressure and OCP_FALSE otherwise. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01881">1881</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;{</div>
-<div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160; </div>
-<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;        <span class="keywordflow">if</span> (P[n] &lt; 0) {</div>
-<div class="line"><a name="l01887"></a><span class="lineno"> 1887</span>&#160;            std::ostringstream PStringSci;</div>
-<div class="line"><a name="l01888"></a><span class="lineno"> 1888</span>&#160;            PStringSci &lt;&lt; std::scientific &lt;&lt; P[n];</div>
-<div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;            <a class="code" href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a>(<span class="stringliteral">&quot;Negative pressure: P[&quot;</span> + std::to_string(n) +</div>
-<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;                        <span class="stringliteral">&quot;] = &quot;</span> + PStringSci.str());</div>
-<div class="line"><a name="l01891"></a><span class="lineno"> 1891</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;P = &quot;</span> &lt;&lt; P[n] &lt;&lt; endl;</div>
-<div class="line"><a name="l01892"></a><span class="lineno"> 1892</span>&#160;            <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l01893"></a><span class="lineno"> 1893</span>&#160;        }</div>
-<div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;    }</div>
-<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160; </div>
-<div class="line"><a name="l01896"></a><span class="lineno"> 1896</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
-<div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01874">1874</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;{</div>
+<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160; </div>
+<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;        <span class="keywordflow">if</span> (P[n] &lt; 0) {</div>
+<div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;            std::ostringstream PStringSci;</div>
+<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;            PStringSci &lt;&lt; std::scientific &lt;&lt; P[n];</div>
+<div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;            <a class="code" href="UtilError_8hpp.html#a9873f9158c73c6b79a8e3cb9c0dc8e4a">OCP_WARNING</a>(<span class="stringliteral">&quot;Negative pressure: P[&quot;</span> + std::to_string(n) +</div>
+<div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;                        <span class="stringliteral">&quot;] = &quot;</span> + PStringSci.str());</div>
+<div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;P = &quot;</span> &lt;&lt; P[n] &lt;&lt; endl;</div>
+<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;            <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;        }</div>
+<div class="line"><a name="l01887"></a><span class="lineno"> 1887</span>&#160;    }</div>
+<div class="line"><a name="l01888"></a><span class="lineno"> 1888</span>&#160; </div>
+<div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
+<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="UtilError_8hpp_source.html#l00039">OCP_WARNING</a>.</p>
 
@@ -727,27 +727,27 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Check if relative volume error is out of range, return OCP_FALSE if so. </p>
 <p>Return OCP_TRUE if all Ve &lt; Vlim and OCP_FALSE otherwise. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01943">1943</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;{</div>
-<div class="line"><a name="l01945"></a><span class="lineno"> 1945</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160; </div>
-<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160;    <span class="comment">// OCP_BOOL tmpflag = OCP_TRUE;</span></div>
-<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160; </div>
-<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dVe = 0.0;</div>
-<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;        dVe = fabs(vf[n] - rockVp[n]) / rockVp[n];</div>
-<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;        <span class="keywordflow">if</span> (dVe &gt; Vlim) {</div>
-<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Volume error at Bulk[&quot;</span> &lt;&lt; n &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; setprecision(6) &lt;&lt; dVe</div>
-<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;                 &lt;&lt; <span class="stringliteral">&quot; is too big!&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;            <span class="comment">// OutputInfo(n);</span></div>
-<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;            <span class="keywordflow">return</span> OCP_FALSE;</div>
-<div class="line"><a name="l01957"></a><span class="lineno"> 1957</span>&#160;            <span class="comment">// tmpflag = OCP_FALSE;</span></div>
-<div class="line"><a name="l01958"></a><span class="lineno"> 1958</span>&#160;        }</div>
-<div class="line"><a name="l01959"></a><span class="lineno"> 1959</span>&#160;    }</div>
-<div class="line"><a name="l01960"></a><span class="lineno"> 1960</span>&#160;    <span class="comment">// OutputInfo(39);</span></div>
-<div class="line"><a name="l01961"></a><span class="lineno"> 1961</span>&#160;    <span class="comment">// if (!tmpflag) return OCP_FALSE;</span></div>
-<div class="line"><a name="l01962"></a><span class="lineno"> 1962</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
-<div class="line"><a name="l01963"></a><span class="lineno"> 1963</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01936">1936</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01937"></a><span class="lineno"> 1937</span>&#160;{</div>
+<div class="line"><a name="l01938"></a><span class="lineno"> 1938</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01939"></a><span class="lineno"> 1939</span>&#160; </div>
+<div class="line"><a name="l01940"></a><span class="lineno"> 1940</span>&#160;    <span class="comment">// OCP_BOOL tmpflag = OCP_TRUE;</span></div>
+<div class="line"><a name="l01941"></a><span class="lineno"> 1941</span>&#160; </div>
+<div class="line"><a name="l01942"></a><span class="lineno"> 1942</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dVe = 0.0;</div>
+<div class="line"><a name="l01943"></a><span class="lineno"> 1943</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01944"></a><span class="lineno"> 1944</span>&#160;        dVe = fabs(vf[n] - rockVp[n]) / rockVp[n];</div>
+<div class="line"><a name="l01945"></a><span class="lineno"> 1945</span>&#160;        <span class="keywordflow">if</span> (dVe &gt; Vlim) {</div>
+<div class="line"><a name="l01946"></a><span class="lineno"> 1946</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Volume error at Bulk[&quot;</span> &lt;&lt; n &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; setprecision(6) &lt;&lt; dVe</div>
+<div class="line"><a name="l01947"></a><span class="lineno"> 1947</span>&#160;                 &lt;&lt; <span class="stringliteral">&quot; is too big!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l01948"></a><span class="lineno"> 1948</span>&#160;            <span class="comment">// OutputInfo(n);</span></div>
+<div class="line"><a name="l01949"></a><span class="lineno"> 1949</span>&#160;            <span class="keywordflow">return</span> OCP_FALSE;</div>
+<div class="line"><a name="l01950"></a><span class="lineno"> 1950</span>&#160;            <span class="comment">// tmpflag = OCP_FALSE;</span></div>
+<div class="line"><a name="l01951"></a><span class="lineno"> 1951</span>&#160;        }</div>
+<div class="line"><a name="l01952"></a><span class="lineno"> 1952</span>&#160;    }</div>
+<div class="line"><a name="l01953"></a><span class="lineno"> 1953</span>&#160;    <span class="comment">// OutputInfo(39);</span></div>
+<div class="line"><a name="l01954"></a><span class="lineno"> 1954</span>&#160;    <span class="comment">// if (!tmpflag) return OCP_FALSE;</span></div>
+<div class="line"><a name="l01955"></a><span class="lineno"> 1955</span>&#160;    <span class="keywordflow">return</span> OCP_TRUE;</div>
+<div class="line"><a name="l01956"></a><span class="lineno"> 1956</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
@@ -771,25 +771,25 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Perform flash calculation with Ni. </p>
 <p>Use moles of component and pressure both in blackoil and compositional model. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01259">1259</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;{</div>
-<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01253">1253</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;{</div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160; </div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;    <span class="keywordflow">if</span> (comps) {</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;        <a class="code" href="classBulk.html#a744a26017061c15ef3344f13a061bdbb">FlashCOMP</a>();</div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;        <a class="code" href="classBulk.html#a0ab422df9b6b3869de1f5af259ba42f3">FlashBLKOIL</a>();</div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;    }</div>
 <div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160; </div>
-<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;    <span class="keywordflow">if</span> (comps) {</div>
-<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;        <a class="code" href="classBulk.html#a744a26017061c15ef3344f13a061bdbb">FlashCOMP</a>();</div>
-<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;        <a class="code" href="classBulk.html#a0ab422df9b6b3869de1f5af259ba42f3">FlashBLKOIL</a>();</div>
-<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;    }</div>
-<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160; </div>
-<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;    <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
-<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;}</div>
-<div class="ttc" id="aclassBulk_html_a0ab422df9b6b3869de1f5af259ba42f3"><div class="ttname"><a href="classBulk.html#a0ab422df9b6b3869de1f5af259ba42f3">Bulk::FlashBLKOIL</a></div><div class="ttdeci">void FlashBLKOIL()</div><div class="ttdoc">Perform flash calculation with Ni in Black Oil Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01274">Bulk.cpp:1274</a></div></div>
-<div class="ttc" id="aclassBulk_html_a732be2d80eb714c15dcc80fdceaa0695"><div class="ttname"><a href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">Bulk::CheckSat</a></div><div class="ttdeci">void CheckSat() const</div><div class="ttdoc">Check if the sum of saturations is one.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02027">Bulk.cpp:2027</a></div></div>
-<div class="ttc" id="aclassBulk_html_a744a26017061c15ef3344f13a061bdbb"><div class="ttname"><a href="classBulk.html#a744a26017061c15ef3344f13a061bdbb">Bulk::FlashCOMP</a></div><div class="ttdeci">void FlashCOMP()</div><div class="ttdoc">Perform flash calculation with Ni in Compositional Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01282">Bulk.cpp:1282</a></div></div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;    <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;}</div>
+<div class="ttc" id="aclassBulk_html_a0ab422df9b6b3869de1f5af259ba42f3"><div class="ttname"><a href="classBulk.html#a0ab422df9b6b3869de1f5af259ba42f3">Bulk::FlashBLKOIL</a></div><div class="ttdeci">void FlashBLKOIL()</div><div class="ttdoc">Perform flash calculation with Ni in Black Oil Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01268">Bulk.cpp:1268</a></div></div>
+<div class="ttc" id="aclassBulk_html_a732be2d80eb714c15dcc80fdceaa0695"><div class="ttname"><a href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">Bulk::CheckSat</a></div><div class="ttdeci">void CheckSat() const</div><div class="ttdoc">Check if the sum of saturations is one.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02020">Bulk.cpp:2020</a></div></div>
+<div class="ttc" id="aclassBulk_html_a744a26017061c15ef3344f13a061bdbb"><div class="ttname"><a href="classBulk.html#a744a26017061c15ef3344f13a061bdbb">Bulk::FlashCOMP</a></div><div class="ttdeci">void FlashCOMP()</div><div class="ttdoc">Perform flash calculation with Ni in Compositional Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01276">Bulk.cpp:1276</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02027">CheckSat()</a>, <a class="el" href="Bulk_8cpp_source.html#l01274">FlashBLKOIL()</a>, <a class="el" href="Bulk_8cpp_source.html#l01282">FlashCOMP()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02020">CheckSat()</a>, <a class="el" href="Bulk_8cpp_source.html#l01268">FlashBLKOIL()</a>, <a class="el" href="Bulk_8cpp_source.html#l01276">FlashCOMP()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -811,24 +811,24 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Perform flash calculation with Ni and calculate derivatives. </p>
 <p>Use moles of component and pressure both in blackoil and compositional model. </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01296">1296</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160;{</div>
-<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01290">1290</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;{</div>
+<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160; </div>
+<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;    <span class="keywordflow">if</span> (comps) {</div>
+<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;        <a class="code" href="classBulk.html#afb50ef4ddc22a002a65b47d5851a55b9">FlashDerivCOMP</a>();</div>
+<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160;        <a class="code" href="classBulk.html#a9d3bc731e2b9fe2674e8726140156d01">FlashDerivBLKOIL</a>();</div>
+<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;    }</div>
 <div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160; </div>
-<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;    <span class="keywordflow">if</span> (comps) {</div>
-<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;        <a class="code" href="classBulk.html#afb50ef4ddc22a002a65b47d5851a55b9">FlashDerivCOMP</a>();</div>
-<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;        <a class="code" href="classBulk.html#a9d3bc731e2b9fe2674e8726140156d01">FlashDerivBLKOIL</a>();</div>
-<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;    }</div>
-<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160; </div>
-<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;    <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
-<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;}</div>
-<div class="ttc" id="aclassBulk_html_a9d3bc731e2b9fe2674e8726140156d01"><div class="ttname"><a href="classBulk.html#a9d3bc731e2b9fe2674e8726140156d01">Bulk::FlashDerivBLKOIL</a></div><div class="ttdeci">void FlashDerivBLKOIL()</div><div class="ttdoc">Perform flash calculation with Ni in Black Oil Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01323">Bulk.cpp:1323</a></div></div>
-<div class="ttc" id="aclassBulk_html_afb50ef4ddc22a002a65b47d5851a55b9"><div class="ttname"><a href="classBulk.html#afb50ef4ddc22a002a65b47d5851a55b9">Bulk::FlashDerivCOMP</a></div><div class="ttdeci">void FlashDerivCOMP()</div><div class="ttdoc">Perform flash calculation with Ni in Compositional Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01335">Bulk.cpp:1335</a></div></div>
+<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;    <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
+<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;}</div>
+<div class="ttc" id="aclassBulk_html_a9d3bc731e2b9fe2674e8726140156d01"><div class="ttname"><a href="classBulk.html#a9d3bc731e2b9fe2674e8726140156d01">Bulk::FlashDerivBLKOIL</a></div><div class="ttdeci">void FlashDerivBLKOIL()</div><div class="ttdoc">Perform flash calculation with Ni in Black Oil Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01317">Bulk.cpp:1317</a></div></div>
+<div class="ttc" id="aclassBulk_html_afb50ef4ddc22a002a65b47d5851a55b9"><div class="ttname"><a href="classBulk.html#afb50ef4ddc22a002a65b47d5851a55b9">Bulk::FlashDerivCOMP</a></div><div class="ttdeci">void FlashDerivCOMP()</div><div class="ttdoc">Perform flash calculation with Ni in Compositional Model.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01329">Bulk.cpp:1329</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02027">CheckSat()</a>, <a class="el" href="Bulk_8cpp_source.html#l01323">FlashDerivBLKOIL()</a>, <a class="el" href="Bulk_8cpp_source.html#l01335">FlashDerivCOMP()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02020">CheckSat()</a>, <a class="el" href="Bulk_8cpp_source.html#l01317">FlashDerivBLKOIL()</a>, <a class="el" href="Bulk_8cpp_source.html#l01329">FlashDerivCOMP()</a>, and <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
 </div>
 </div>
@@ -851,30 +851,30 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <p>Perform flash calculation with saturations. </p>
 <p>Use initial saturation in blackoil model and initial Zi in compositional model. It gives initial properties and some derivatives for IMPEC It just gives Ni for FIM </p>
 
-<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01199">1199</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;{</div>
-<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160; </div>
-<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;        flashCal[PVTNUM[n]]-&gt;InitFlash(P[n], Pb[n], T[n], &amp;S[n * numPhase], rockVp[n],</div>
-<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;                                       Ni.data() + n * numCom);</div>
-<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;            Ni[n * numCom + i] = flashCal[PVTNUM[n]]-&gt;Ni[i];</div>
-<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;        }</div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;        <span class="keywordflow">if</span> (flag) {</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;            <a class="code" href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">PassFlashValue</a>(n);</div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;        }</div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;    }</div>
-<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160; </div>
-<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;    <span class="keywordflow">if</span> (flag) {</div>
-<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;        <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
-<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;    }</div>
-<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
-<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;}</div>
-<div class="ttc" id="aclassBulk_html_a03c20968f7d281592114fd6f7c38d538"><div class="ttname"><a href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">Bulk::PassFlashValue</a></div><div class="ttdeci">void PassFlashValue(const OCP_USI &amp;n)</div><div class="ttdoc">Pass values from Flash to Bulk after Flash calculation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01420">Bulk.cpp:1420</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Bulk_8cpp_source.html#l01193">1193</a> of file <a class="el" href="Bulk_8cpp_source.html">Bulk.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;{</div>
+<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160; </div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;        flashCal[PVTNUM[n]]-&gt;InitFlash(P[n], Pb[n], T[n], &amp;S[n * numPhase], rockVp[n],</div>
+<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;                                       Ni.data() + n * numCom);</div>
+<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;            Ni[n * numCom + i] = flashCal[PVTNUM[n]]-&gt;Ni[i];</div>
+<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;        }</div>
+<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;        <span class="keywordflow">if</span> (flag) {</div>
+<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;            <a class="code" href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">PassFlashValue</a>(n);</div>
+<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;        }</div>
+<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;    }</div>
+<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160; </div>
+<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;    <span class="keywordflow">if</span> (flag) {</div>
+<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;        <a class="code" href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">CheckSat</a>();</div>
+<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;    }</div>
+<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// DEBUG</span></div>
+<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;}</div>
+<div class="ttc" id="aclassBulk_html_a03c20968f7d281592114fd6f7c38d538"><div class="ttname"><a href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">Bulk::PassFlashValue</a></div><div class="ttdeci">void PassFlashValue(const OCP_USI &amp;n)</div><div class="ttdoc">Pass values from Flash to Bulk after Flash calculation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01414">Bulk.cpp:1414</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02027">CheckSat()</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="Bulk_8cpp_source.html#l01420">PassFlashValue()</a>.</p>
+<p class="reference">References <a class="el" href="Bulk_8cpp_source.html#l02020">CheckSat()</a>, <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>, and <a class="el" href="Bulk_8cpp_source.html#l01414">PassFlashValue()</a>.</p>
 
 </div>
 </div>
@@ -1047,94 +1047,91 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    phaseNum.resize(numBulk);</div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    lphaseNum.resize(numBulk);</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    NRphaseNum.resize(numBulk);</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="comment">// phase index</span></div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    phase2Index.resize(3);</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">if</span> (blackOil) {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <span class="keywordflow">switch</span> (PVTmode) {</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a>:</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                index2Phase.resize(1);</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                index2Phase[0]     = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 0;</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a>:</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                index2Phase.resize(2);</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                index2Phase[0]     = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                index2Phase[1]     = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 1;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a>:</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                index2Phase.resize(2);</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                index2Phase[0]   = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                index2Phase[1]   = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>] = 1;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a>:</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                index2Phase.resize(2);</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                index2Phase[0]     = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                index2Phase[1]     = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 0;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 1;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a>:</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a>:</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                index2Phase.resize(3);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                index2Phase[0]     = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                index2Phase[1]     = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                index2Phase[2]     = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 1;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Unknown PVT model!&quot;</span>);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (comps) {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>]   = 0;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>]   = 1;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="comment">// accelerate phase equilibrium calculation</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        minEigenSkip.resize(numBulk);</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        flagSkip.resize(numBulk);</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        ziSkip.resize(numBulk * numCom);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        PSkip.resize(numBulk);</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        lminEigenSkip.resize(numBulk);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        lflagSkip.resize(numBulk);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        lziSkip.resize(numBulk * numCom);</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        lPSkip.resize(numBulk);      </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        <span class="keywordflow">if</span> (miscible) {</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;            surTen.resize(numBulk);</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            Fk.resize(numBulk);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            Fp.resize(numBulk);</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            lsurTen.resize(numBulk);</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        }</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    }</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="comment">// error</span></div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    ePEC.resize(numBulk);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    eN.resize(numBulk);</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    eV.resize(numBulk);</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    CalSomeInfo(myGrid);</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="preprocessor">#if DEBUG</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <a class="code" href="classBulk.html#a698aed4fd8808d6a75c77f36cd36ef1c">CheckSetup</a>();</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;}</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">switch</span> (flashCal[0]-&gt;GetMixtureType())</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#af083723736850ce6ef5ece31b44f0de9">BLKOIL_W</a>:</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        index2Phase.resize(1);</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        index2Phase[0] = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 0;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a6a82c55d77e471700ac7172c04dc083d">BLKOIL_OW</a>:</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        index2Phase.resize(2);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        index2Phase[0] = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        index2Phase[1] = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 1;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a7b18e8f7478e220f7386979f14571de4">BLKOIL_OG</a>:</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        index2Phase.resize(2);</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        index2Phase[0] = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        index2Phase[1] = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>] = 1;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a3c7c0d26d026e4e21b13244d55b5d708">BLKOIL_DOGW</a>:</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a8165f096c4a8c3700015d75d7e703a13">BLKOIL_ODGW</a>:</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        index2Phase.resize(3);</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        index2Phase[0] = <a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        index2Phase[1] = <a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        index2Phase[2] = <a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>] = 1;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a>:</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a>] = 0;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a>] = 1;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>] = 2;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <span class="comment">// accelerate phase equilibrium calculation</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        minEigenSkip.resize(numBulk);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        flagSkip.resize(numBulk);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        ziSkip.resize(numBulk * numCom);</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        PSkip.resize(numBulk);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        lminEigenSkip.resize(numBulk);</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        lflagSkip.resize(numBulk);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        lziSkip.resize(numBulk * numCom);</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        lPSkip.resize(numBulk);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        <span class="keywordflow">if</span> (miscible) {</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            surTen.resize(numBulk);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            Fk.resize(numBulk);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;            Fp.resize(numBulk);</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;            lsurTen.resize(numBulk);</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        }</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        <span class="comment">// error</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        ePEC.resize(numBulk);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="OCPConst_8hpp.html#ae8dfe81793649011a8aeeacef7a76b01">THERMAL</a>:</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Wrong Mixture Type!&quot;</span>);</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="comment">// error  </span></div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    eN.resize(numBulk);</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    eV.resize(numBulk);</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160; </div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    CalSomeInfo(myGrid);</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="preprocessor">#if DEBUG</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <a class="code" href="classBulk.html#a698aed4fd8808d6a75c77f36cd36ef1c">CheckSetup</a>();</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a23f681c0d9e8d413e68ed087126a742d"><div class="ttname"><a href="OCPConst_8hpp.html#a23f681c0d9e8d413e68ed087126a742d">EOS_PVTW</a></div><div class="ttdeci">const USI EOS_PVTW</div><div class="ttdoc">Mixture model = equation-of-state.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00100">OCPConst.hpp:100</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a25937aac20f17898658d207fed2c0215"><div class="ttname"><a href="OCPConst_8hpp.html#a25937aac20f17898658d207fed2c0215">GAS</a></div><div class="ttdeci">const USI GAS</div><div class="ttdoc">Fluid type = gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00089">OCPConst.hpp:89</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a4f8f38e08e35dc9b6c7cf7f5fd782c42"><div class="ttname"><a href="OCPConst_8hpp.html#a4f8f38e08e35dc9b6c7cf7f5fd782c42">PHASE_ODGW</a></div><div class="ttdeci">const USI PHASE_ODGW</div><div class="ttdoc">Phase type = oil-dry gas-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00107">OCPConst.hpp:107</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a3c7c0d26d026e4e21b13244d55b5d708"><div class="ttname"><a href="OCPConst_8hpp.html#a3c7c0d26d026e4e21b13244d55b5d708">BLKOIL_DOGW</a></div><div class="ttdeci">const USI BLKOIL_DOGW</div><div class="ttdoc">black oil model with dead oil, dry gas, water</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00098">OCPConst.hpp:98</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a6a82c55d77e471700ac7172c04dc083d"><div class="ttname"><a href="OCPConst_8hpp.html#a6a82c55d77e471700ac7172c04dc083d">BLKOIL_OW</a></div><div class="ttdeci">const USI BLKOIL_OW</div><div class="ttdoc">black oil model with oil and water</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00096">OCPConst.hpp:96</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a704c56c5968152c30c92dbac7dae7be1"><div class="ttname"><a href="OCPConst_8hpp.html#a704c56c5968152c30c92dbac7dae7be1">OIL</a></div><div class="ttdeci">const USI OIL</div><div class="ttdoc">Fluid type = oil.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00088">OCPConst.hpp:88</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_a91168d041ff704dfc8b21c812c3e43c7"><div class="ttname"><a href="OCPConst_8hpp.html#a91168d041ff704dfc8b21c812c3e43c7">PHASE_W</a></div><div class="ttdeci">const USI PHASE_W</div><div class="ttdoc">Phase type = water only.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00103">OCPConst.hpp:103</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_abc5305b6fb9927c0a702333b0c06311d"><div class="ttname"><a href="OCPConst_8hpp.html#abc5305b6fb9927c0a702333b0c06311d">PHASE_OW</a></div><div class="ttdeci">const USI PHASE_OW</div><div class="ttdoc">Phase type = oil-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00105">OCPConst.hpp:105</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ad601835e623cf07d03517440c1b38a8a"><div class="ttname"><a href="OCPConst_8hpp.html#ad601835e623cf07d03517440c1b38a8a">PHASE_DOGW</a></div><div class="ttdeci">const USI PHASE_DOGW</div><div class="ttdoc">Phase type = dead oil-gas-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00108">OCPConst.hpp:108</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae9114d0b4b1a18f3cf64f446fd758c9b"><div class="ttname"><a href="OCPConst_8hpp.html#ae9114d0b4b1a18f3cf64f446fd758c9b">PHASE_OG</a></div><div class="ttdeci">const USI PHASE_OG</div><div class="ttdoc">Phase type = oil-gas.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00106">OCPConst.hpp:106</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_aff7d8ab6933e8647531d27ca4db141e2"><div class="ttname"><a href="OCPConst_8hpp.html#aff7d8ab6933e8647531d27ca4db141e2">PHASE_GW</a></div><div class="ttdeci">const USI PHASE_GW</div><div class="ttdoc">Phase type = gas-water.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00104">OCPConst.hpp:104</a></div></div>
-<div class="ttc" id="aclassBulk_html_a698aed4fd8808d6a75c77f36cd36ef1c"><div class="ttname"><a href="classBulk.html#a698aed4fd8808d6a75c77f36cd36ef1c">Bulk::CheckSetup</a></div><div class="ttdeci">void CheckSetup() const</div><div class="ttdoc">Check if error occurs in Setup.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00457">Bulk.cpp:457</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a7b18e8f7478e220f7386979f14571de4"><div class="ttname"><a href="OCPConst_8hpp.html#a7b18e8f7478e220f7386979f14571de4">BLKOIL_OG</a></div><div class="ttdeci">const USI BLKOIL_OG</div><div class="ttdoc">black oil model with oil and gas</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00097">OCPConst.hpp:97</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a8165f096c4a8c3700015d75d7e703a13"><div class="ttname"><a href="OCPConst_8hpp.html#a8165f096c4a8c3700015d75d7e703a13">BLKOIL_ODGW</a></div><div class="ttdeci">const USI BLKOIL_ODGW</div><div class="ttdoc">black oil model with live oil, dry gas, water</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00099">OCPConst.hpp:99</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae8dfe81793649011a8aeeacef7a76b01"><div class="ttname"><a href="OCPConst_8hpp.html#ae8dfe81793649011a8aeeacef7a76b01">THERMAL</a></div><div class="ttdeci">const USI THERMAL</div><div class="ttdoc">Mixture model = thermal.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00101">OCPConst.hpp:101</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_af083723736850ce6ef5ece31b44f0de9"><div class="ttname"><a href="OCPConst_8hpp.html#af083723736850ce6ef5ece31b44f0de9">BLKOIL_W</a></div><div class="ttdeci">const USI BLKOIL_W</div><div class="ttdoc">black oil model only with water</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00095">OCPConst.hpp:95</a></div></div>
+<div class="ttc" id="aclassBulk_html_a698aed4fd8808d6a75c77f36cd36ef1c"><div class="ttname"><a href="classBulk.html#a698aed4fd8808d6a75c77f36cd36ef1c">Bulk::CheckSetup</a></div><div class="ttdeci">void CheckSetup() const</div><div class="ttdoc">Check if error occurs in Setup.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00453">Bulk.cpp:453</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00073">OCP_FUNCNAME</a>.</p>
 
@@ -1147,7 +1144,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>OCP_AIMc</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 08:09:45 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 23 2022 09:31:32 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
