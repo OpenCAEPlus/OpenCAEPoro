@@ -226,9 +226,18 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
 }
 
 
-void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols)
+void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
+    const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
+    if (opt.type == INJ) {
 
+    }
+    else if (opt.type == PROD) {
+
+    }
+    else {
+        OCP_ABORT("Wrong Well Type!");
+    }
 }
 
 /*----------------------------------------------------------------------------*/

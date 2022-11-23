@@ -735,10 +735,59 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
 }
 
 
-void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols)
+void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
+    const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
     if (opt.type == INJ) {
-
+        if (opt.fluidType == "WAT") {
+            opt.injZi.resize(numCom, 0);
+            opt.injZi.back() = 1;
+            opt.injProdPhase = WATER;
+        }
+        else {
+            // inj phase is gas
+            opt.injProdPhase = GAS;
+            const USI len = sols.size();
+            for (USI i = 0; i < len; i++) {
+                if (opt.fluidType == sols[i].name) {
+                    opt.injZi = sols[i].data;
+                    opt.injZi.resize(numCom);
+                    // Convert volume units Mscf/stb to molar units lbmoles for
+                    // injfluid Use flash in Bulk in surface condition
+                    opt.factorINJ = 1000 * XiPhase(Psurf, Tsurf, &opt.injZi[0], opt.injProdPhase);
+                    opt.maxRate *= opt.factorINJ; // Mscf/day -> lbmol / day for gas
+                    break;
+                }
+                if (i == len - 1) {
+                    OCP_ABORT("Wrong FluidType!");
+                }
+            }
+        }
+    }
+    else if (opt.type == PROD) {
+        opt.prodPhaseWeight.resize(numPhase, 0);
+        switch (opt.optMode)
+        {
+        case ORATE_MODE:
+            opt.prodPhaseWeight[0] = 1;
+            break;
+        case GRATE_MODE:
+            opt.prodPhaseWeight[1] = 1;
+            break;
+        case WRATE_MODE:
+            opt.prodPhaseWeight[2] = 1;
+            break;
+        case LRATE_MODE:
+            opt.prodPhaseWeight[0] = 1;
+            opt.prodPhaseWeight[2] = 1;
+            break;
+        default:
+            OCP_ABORT("WRONG optMode");
+            break;
+        }
+    }
+    else {
+        OCP_ABORT("Wrong Well Type!");
     }
 }
 

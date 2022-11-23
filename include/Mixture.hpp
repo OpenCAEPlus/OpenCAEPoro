@@ -108,7 +108,8 @@ public:
     /// for well
     // Setup injZi, injProdPhase and factorINJ for INJ well
     // Setup prodPhaseWeight for PROD well
-    virtual void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols) = 0;
+    virtual void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols, 
+        const OCP_DBL& Psurf, const OCP_DBL& Tsurf) = 0;
     // Calculate ProdWeight for PROD well
     virtual void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight) = 0;
