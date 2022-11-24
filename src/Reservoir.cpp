@@ -270,10 +270,7 @@ void Reservoir::ResetVal03IMPEC()
 {
     OCP_FUNCNAME;
     bulk.ResetphaseNum();
-    bulk.ResetminEigenSkip();
-    bulk.ResetflagSkip();
-    bulk.ResetziSkip();
-    bulk.ResetPSkip();
+    bulk.ResetSkipStaAnalyTerm();
 
     bulk.ResetPj();
     bulk.ResetNi();

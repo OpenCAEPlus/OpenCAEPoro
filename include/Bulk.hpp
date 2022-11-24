@@ -49,6 +49,20 @@ private:
     OCPTable PBVD; ///< PBVD Table: bubble point pressure vs depth
 };
 
+class SkipStaAnaly
+{
+    friend class Bulk;
+
+public:
+    SkipStaAnaly(const USI& numCom_1) { ziSkip.resize(numCom_1); }
+
+private:
+    OCP_DBL flagSkip;
+    OCP_DBL minEigenSkip;     
+    OCP_DBL PSkip;
+    vector<OCP_DBL> ziSkip;
+};
+
 /// Physical information of each active reservoir bulk.
 //  Note: Bulk contains main physical infomation of active grids. It describes the
 //  actual geometric domain for simulating. Variables are stored bulk by bulk, and then
@@ -185,14 +199,7 @@ public:
 
     // Reset phaseNum to the ones of the last time step.
     void ResetphaseNum() { phaseNum = lphaseNum; }
-    // Reset minEigenSkip to the ones of the last time step.
-    void ResetminEigenSkip() { minEigenSkip = lminEigenSkip; }
-    // Reset flagSkip to the ones of the last time step.
-    void ResetflagSkip() { flagSkip = lflagSkip; }
-    // Reset flagSkip to the ones of the last time step.
-    void ResetziSkip() { ziSkip = lziSkip; }
-    // Reset flagSkip to the ones of the last time step.
-    void ResetPSkip() { PSkip = lPSkip; }
+    void ResetSkipStaAnalyTerm() { skipStaAnalyTerm = lskipStaAnalyTerm; }
 
     /// Reset Nt to the ones of the last time step.
     void ResetNt() { Nt = lNt; }
@@ -254,16 +261,10 @@ private:
     vector<USI> phaseNum;   ///< Num of hydrocarbon phase in each bulk
     vector<USI> lphaseNum;  ///< last phaseNum
     vector<USI> NRphaseNum; ///< phaseNum in NR step
-    /// minimal eigenvalue used to determine if skip the stability analysis
-    vector<OCP_SIN>  minEigenSkip;
-    vector<OCP_BOOL> flagSkip;
-    vector<OCP_DBL>  ziSkip;
-    vector<OCP_DBL>  PSkip;
-    vector<OCP_SIN>  lminEigenSkip;
-    vector<OCP_BOOL> lflagSkip;
-    vector<OCP_DBL>  lziSkip;
-    vector<OCP_DBL>  lPSkip;
+
     OCP_BOOL useSkipSta{ OCP_FALSE }; // if use skipping stability analysis
+    vector<SkipStaAnaly> skipStaAnalyTerm;
+    vector<SkipStaAnaly> lskipStaAnalyTerm;
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information

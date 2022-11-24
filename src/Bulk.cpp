@@ -409,15 +409,8 @@ void Bulk::Setup(const Grid& myGrid)
 
     if (useSkipSta) {
         // accelerate phase equilibrium calculation
-        minEigenSkip.resize(numBulk);
-        flagSkip.resize(numBulk);
-        ziSkip.resize(numBulk * numCom);
-        PSkip.resize(numBulk);
-        lminEigenSkip.resize(numBulk);
-        lflagSkip.resize(numBulk);
-        lziSkip.resize(numBulk * numCom);
-        lPSkip.resize(numBulk);
-
+        skipStaAnalyTerm.resize(numBulk, SkipStaAnaly(numCom_1));
+        lskipStaAnalyTerm = skipStaAnalyTerm; // Initialization
 
         // error
         ePEC.resize(numBulk);
@@ -1358,49 +1351,54 @@ void Bulk::FlashDerivCOMP_n()
 }
 
 USI Bulk::CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const
-{
-    USI     ftype = 1;
-    OCP_USI bId;
-    OCP_DBL Ntw;
-    OCP_DBL minEig;
+{  
+    if (useSkipSta) {
+        USI     ftype = 1;
+        OCP_USI bId;
+        OCP_DBL Ntw;
+        const SkipStaAnaly& skip = skipStaAnalyTerm[n];
 
-    if (flagSkip[n]) {
-        // If only single hydrocarbon phase existed at last NR step and flagSkip
-        // is available, then test if phase stability could be skipped.
-        minEig = minEigenSkip[n];
-        if (fabs(1 - PSkip[n] / P[n]) >= minEig / 10) {
-            ftype = 0;
-        }
-        if (ftype == 1) {
-            bId = n * numCom;
-            Ntw = Nt[n] - Ni[bId + numCom_1];
-            for (USI i = 0; i < numCom_1; i++) {
-                if (fabs(Ni[bId + i] / Ntw - ziSkip[bId + i]) >= minEig / 10) {
-                    ftype = 0;
-                    break;
+        if (skip.flagSkip) {
+            // If only single hydrocarbon phase existed at last NR step and flagSkip
+            // is available, then test if phase stability could be skipped.
+            
+            if (fabs(1 - skip.PSkip / P[n]) >= skip.minEigenSkip / 10) {
+                ftype = 0;
+            }
+            if (ftype == 1) {
+                bId = n * numCom;
+                Ntw = Nt[n] - Ni[bId + numCom_1];
+                for (USI i = 0; i < numCom_1; i++) {
+                    if (fabs(Ni[bId + i] / Ntw - skip.ziSkip[i]) >= skip.minEigenSkip / 10) {
+                        ftype = 0;
+                        break;
+                    }
                 }
             }
         }
-    } else {
-        ftype = 2;
-        if (phaseNum[n] >= 3 && fimbulk) {
-            // if num of hydrocarbon phases is 2 at last NR step and predicted
-            // saturations indicates that the stae will be kept, then skip phase
-            // stability analysis, carry phase splitting directly
-            bId = n * numPhase;
-            for (USI j = 0; j < numPhase; j++) {
-                if (dSNR[bId + j] + dSNRP[bId + j] < 1E-4) {
-                    // phases change (predicted)
-                    ftype = 0;
-                    break;
+        else {
+            ftype = 2;
+            if (phaseNum[n] >= 3 && fimbulk) {
+                // if num of hydrocarbon phases is 2 at last NR step and predicted
+                // saturations indicates that the stae will be kept, then skip phase
+                // stability analysis, carry phase splitting directly
+                bId = n * numPhase;
+                for (USI j = 0; j < numPhase; j++) {
+                    if (dSNR[bId + j] + dSNRP[bId + j] < 1E-4) {
+                        // phases change (predicted)
+                        ftype = 0;
+                        break;
+                    }
                 }
             }
-        } else {
-            ftype = 0;
+            else {
+                ftype = 0;
+            }
         }
+        return ftype;
     }
 
-    return ftype;
+    return 0;
 }
 
 void Bulk::PassFlashValue(const OCP_USI& n)
@@ -1616,31 +1614,31 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
 
 void Bulk::PassAdditionInfo(const OCP_USI& n, const USI& pvtnum)
 {
-    OCP_USI bIdp = n * numPhase;
-    OCP_USI bIdc = n * numCom;
 
-    if (comps) {
+    if (useSkipSta) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
 
-        flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (flagSkip[n]) {
+        SkipStaAnaly& skip = skipStaAnalyTerm[n];
+        skip.flagSkip = flashCal[pvtnum]->GetFlagSkip();
+        if (skip.flagSkip) {
             if (flashCal[pvtnum]->GetFtype() == 0) {
                 // If recalculate the range then get it
-                minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
+                skip.minEigenSkip = flashCal[pvtnum]->GetMinEigenSkip();
                 for (USI j = 0; j < numPhase - 1; j++) {
-                    if (phaseExist[bIdp + j]) {
-                        for (USI i = 0; i < numCom - 1; i++) {
-                            ziSkip[bIdc + i] = flashCal[pvtnum]->xij[j * numCom + i];
+                    if (flashCal[pvtnum]->phaseExist[j]) {
+                        for (USI i = 0; i < numCom_1; i++) {
+                            // now hydrocarbon phase = 1, so zi = existing xij
+                            skip.ziSkip[i] = flashCal[pvtnum]->xij[j * numCom + i];
                         }
                         break;
                     }
                 }
-                PSkip[n] = P[n];
+                skip.PSkip = P[n];
             }
         }
-        if (miscible) {
-            surTen[n] = flashCal[pvtnum]->GetSurTen();
-        }
+    }
+    if (miscible) {
+        surTen[n] = flashCal[pvtnum]->GetSurTen();
     }
 }
 
@@ -1977,18 +1975,21 @@ void Bulk::CheckDiff()
                         cout << Ni[n * numCom + i] << "   " << lNi[n * numCom + i]
                              << endl;
                     }
+
+                    const SkipStaAnaly& skip = skipStaAnalyTerm[n];
+                    const SkipStaAnaly& lskip = lskipStaAnalyTerm[n];
                     cout << "PhaseNum" << endl;
                     cout << phaseNum[n] << "   " << lphaseNum[n] << endl;
                     cout << "minEigenSkip" << endl;
-                    cout << minEigenSkip[n] << "   " << lminEigenSkip[n] << endl;
+                    cout << skip.minEigenSkip << "   " << lskip.minEigenSkip << endl;
                     cout << "flagSkip" << endl;
-                    cout << flagSkip[n] << "   " << lflagSkip[n] << endl;
+                    cout << skip.flagSkip << "   " << lskip.flagSkip << endl;
                     cout << "PSkip" << endl;
-                    cout << PSkip[n] << "   " << lPSkip[n] << endl;
+                    cout << skip.PSkip << "   " << lskip.PSkip << endl;
                     cout << "ziSkip" << endl;
-                    for (USI i = 0; i < numCom; i++) {
-                        cout << ziSkip[n * numCom + i] << "   "
-                             << lziSkip[n * numCom + i] << endl;
+                    for (USI i = 0; i < numCom_1; i++) {
+                        cout << skip.ziSkip[i] << "   "
+                             << lskip.ziSkip[i] << endl;
                     }
 
                     cout << "Difference in S\t" << tmp << "  " << phaseExist[id]
@@ -2260,10 +2261,7 @@ void Bulk::UpdateLastStepIMPEC()
 {
     OCP_FUNCNAME;
     lphaseNum     = phaseNum;
-    lminEigenSkip = minEigenSkip;
-    lflagSkip     = flagSkip;
-    lziSkip       = ziSkip;
-    lPSkip        = PSkip;
+    lskipStaAnalyTerm = skipStaAnalyTerm;
 
     lP          = P;
     lPj         = Pj;
@@ -2699,10 +2697,7 @@ void Bulk::ResetFIM()
     OCP_FUNCNAME;
 
     phaseNum     = lphaseNum;
-    minEigenSkip = lminEigenSkip;
-    flagSkip     = lflagSkip;
-    ziSkip       = lziSkip;
-    PSkip        = lPSkip;
+    skipStaAnalyTerm = lskipStaAnalyTerm;
 
     P            = lP;
     Pj           = lPj;
@@ -2748,10 +2743,7 @@ void Bulk::UpdateLastStepFIM()
 {
     OCP_FUNCNAME;
     lphaseNum     = phaseNum;
-    lminEigenSkip = minEigenSkip;
-    lflagSkip     = flagSkip;
-    lziSkip       = ziSkip;
-    lPSkip        = PSkip;
+    lskipStaAnalyTerm = skipStaAnalyTerm;
 
     lP            = P;
     lPj           = Pj;

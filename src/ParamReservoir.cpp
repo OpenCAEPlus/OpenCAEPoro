@@ -1233,7 +1233,6 @@ void ComponentParam::InputVISCTAB(ifstream& ifs)
 {
 
     vector<string> vbuf;  
-    OCP_DBL Pref{ -1 };
     vector<vector<OCP_DBL>> tmp;
     USI ncol = numCom + 1;  // temp + comps
     tmp.resize(ncol);
