@@ -1353,49 +1353,27 @@ void Bulk::FlashDerivCOMP_n()
 USI Bulk::CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const
 {  
     if (useSkipSta) {
-        USI     ftype = 1;
-        OCP_USI bId;
-        OCP_DBL Ntw;
         const SkipStaAnaly& skip = skipStaAnalyTerm[n];
 
-        if (skip.flagSkip) {
-            // If only single hydrocarbon phase existed at last NR step and flagSkip
-            // is available, then test if phase stability could be skipped.
-            
-            if (fabs(1 - skip.PSkip / P[n]) >= skip.minEigenSkip / 10) {
-                ftype = 0;
-            }
-            if (ftype == 1) {
-                bId = n * numCom;
-                Ntw = Nt[n] - Ni[bId + numCom_1];
-                for (USI i = 0; i < numCom_1; i++) {
-                    if (fabs(Ni[bId + i] / Ntw - skip.ziSkip[i]) >= skip.minEigenSkip / 10) {
-                        ftype = 0;
-                        break;
-                    }
+        if (skip.IfSkip(P[n], Nt[n], &Ni[n * numCom], numCom_1)) {
+            return 1;
+        } 
+        else if (phaseNum[n] >= 3 && fimbulk) {
+            // if num of hydrocarbon phases is 2 at last NR step and predicted
+            // saturations indicates that the stae will be kept, then skip phase
+            // stability analysis, carry phase splitting directly
+            OCP_USI bId = n * numPhase;
+            for (USI j = 0; j < numPhase; j++) {
+                if (dSNR[bId + j] + dSNRP[bId + j] < 1E-4) {
+                    // phases change (predicted)
+                    return 0;
                 }
             }
-        }
+            return 2;
+        } 
         else {
-            ftype = 2;
-            if (phaseNum[n] >= 3 && fimbulk) {
-                // if num of hydrocarbon phases is 2 at last NR step and predicted
-                // saturations indicates that the stae will be kept, then skip phase
-                // stability analysis, carry phase splitting directly
-                bId = n * numPhase;
-                for (USI j = 0; j < numPhase; j++) {
-                    if (dSNR[bId + j] + dSNRP[bId + j] < 1E-4) {
-                        // phases change (predicted)
-                        ftype = 0;
-                        break;
-                    }
-                }
-            }
-            else {
-                ftype = 0;
-            }
+            return 0;
         }
-        return ftype;
     }
 
     return 0;

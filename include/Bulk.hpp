@@ -55,6 +55,23 @@ class SkipStaAnaly
 
 public:
     SkipStaAnaly(const USI& numCom_1) { ziSkip.resize(numCom_1); }
+    OCP_BOOL IfSkip(const OCP_DBL& Pin, const OCP_DBL& Ntin, const OCP_DBL* Niin, const USI& numCom_1) const {
+        if (flagSkip) {
+            if (fabs(1 - PSkip / Pin) >= minEigenSkip / 10) {
+                return OCP_FALSE;
+            }
+            OCP_DBL Nt_w = Ntin - Niin[numCom_1];
+            for (USI i = 0; i < numCom_1; i++) {
+                if (fabs(Niin[i] / Nt_w - ziSkip[i]) >= minEigenSkip / 10) {
+                    return OCP_FALSE;
+                }
+            }
+            return OCP_TRUE;
+        }
+        else {
+            return OCP_FALSE;
+        }
+    }
 
 private:
     OCP_DBL flagSkip;
