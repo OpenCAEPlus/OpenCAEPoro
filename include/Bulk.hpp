@@ -141,18 +141,12 @@ public:
     void InitFlashDer_n();
     /// Perform flash calculation with Ni.
     void Flash();
-    /// Perform flash calculation with Ni in Black Oil Model
-    void FlashBLKOIL();
-    /// Perform flash calculation with Ni in Compositional Model
-    void FlashCOMP();
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDeriv();
     void FlashDeriv_n();
     /// Perform flash calculation with Ni in Black Oil Model
-    void FlashDerivBLKOIL();
     void FlashDerivBLKOIL_n();
     /// Perform flash calculation with Ni in Compositional Model
-    void FlashDerivCOMP();
     void FlashDerivCOMP_n();
     /// determine which flash type will be used
     USI CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const;
@@ -556,23 +550,12 @@ public:
     void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
     // Allocate auxiliary variable
     void AllocateAuxAIMc();
-    /// Perform flash calculation with Ni.
+    /// Perform flash calculation with Ni for IMPEC bulk -- Update partial properties
     void FlashAIMc();
-    /// Perform flash calculation with Ni in Black Oil Model
-    void FlashBLKOILAIMc();
-    /// Perform flash calculation with Ni in Compositional Model
-    void FlashCOMPAIMc();
-
+    /// Perform flash calculation with Ni for IMPEC bulk -- Update all properties
     void FlashAIMc01();
-    void FlashBLKOILAIMc01();
-    void FlashCOMPAIMc01();
-
     /// Perform flash calculation with Ni and calculate derivatives.
     void FlashDerivAIMc();
-    /// Perform flash calculation with Ni in Black Oil Model
-    void FlashDerivBLKOILAIMc();
-    /// Perform flash calculation with Ni in Compositional Model
-    void FlashDerivCOMPAIMc();
     /// Calculate relative permeability and capillary pressure with saturation.
     void CalKrPcAIMc();
     /// Calculate relative permeability and capillary pressure and their derivatives.

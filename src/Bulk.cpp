@@ -1239,10 +1239,14 @@ void Bulk::Flash()
 {
     OCP_FUNCNAME;
 
-    if (comps) {
-        FlashCOMP();
-    } else {
-        FlashBLKOIL();
+    USI ftype;
+    for (OCP_USI n = 0; n < numBulk; n++) {
+
+        ftype = CalFlashType(n, OCP_FALSE);
+
+        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
+            &xij[n * numPhase * numCom]);
+        PassFlashValue(n);
     }
 
 #ifdef DEBUG
@@ -1250,36 +1254,23 @@ void Bulk::Flash()
 #endif // DEBUG
 }
 
-void Bulk::FlashBLKOIL()
-{
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
-        PassFlashValue(n);
-    }
-}
-
-void Bulk::FlashCOMP()
-{
-    USI ftype;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-
-        ftype = CalFlashType(n, OCP_FALSE);
-
-        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                &xij[n * numPhase * numCom]);
-        PassFlashValue(n);
-    }
-}
-
 /// Use moles of component and pressure both in blackoil and compositional model.
 void Bulk::FlashDeriv()
 {
     OCP_FUNCNAME;
 
-    if (comps) {
-        FlashDerivCOMP();
-    } else {
-        FlashDerivBLKOIL();
+    USI ftype;
+    NRdSSP = 0;
+    maxNRdSSP = 0;
+    index_maxNRdSSP = 0;
+
+    for (OCP_USI n = 0; n < numBulk; n++) {
+
+        ftype = CalFlashType(n, OCP_TRUE);
+
+        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
+            &xij[n * numPhase * numCom]);
+        PassFlashValueDeriv(n);
     }
 
 #ifdef DEBUG
@@ -1298,35 +1289,11 @@ void Bulk::FlashDeriv_n()
     }
 }
 
-/// Perform flash calculation with Ni in Black Oil Model
-void Bulk::FlashDerivBLKOIL()
-{
-    // dSec_dPri.clear();
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
-        PassFlashValueDeriv(n);
-    }
-}
+
 
 void Bulk::FlashDerivBLKOIL_n() {}
 
-/// Perform flash calculation with Ni in Compositional Model
-void Bulk::FlashDerivCOMP()
-{
-    USI ftype;
-    NRdSSP          = 0;
-    maxNRdSSP       = 0;
-    index_maxNRdSSP = 0;
 
-    for (OCP_USI n = 0; n < numBulk; n++) {
-
-        ftype = CalFlashType(n, OCP_TRUE);
-
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                        &xij[n * numPhase * numCom]);
-        PassFlashValueDeriv(n);
-    }
-}
 
 void Bulk::FlashDerivCOMP_n()
 {
@@ -2889,30 +2856,7 @@ void Bulk::AllocateAuxAIMc()
 
 void Bulk::FlashAIMc()
 {
-    if (comps) {
-        FlashCOMPAIMc();
-    } else {
-        FlashBLKOILAIMc();
-    }
-}
-
-void Bulk::FlashBLKOILAIMc()
-{
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] > -1) {
-            // FIM bulk
-            continue;
-        }
-
-        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
-        PassFlashValueAIMc(n);
-    }
-}
-
-void Bulk::FlashCOMPAIMc()
-{
     USI ftype;
-    // cout << endl << "==================================" << endl;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (map_Bulk2FIM[n] > -1) {
             // FIM bulk
@@ -2922,35 +2866,14 @@ void Bulk::FlashCOMPAIMc()
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                &xij[n * numPhase * numCom]);
+            &xij[n * numPhase * numCom]);
         PassFlashValueAIMc(n);
     }
 }
+
 
 void Bulk::FlashAIMc01()
 {
-    if (comps) {
-        FlashCOMPAIMc01();
-    } else {
-        FlashBLKOILAIMc01();
-    }
-}
-
-void Bulk::FlashBLKOILAIMc01()
-{
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] > -1) {
-            // FIM bulk
-            continue;
-        }
-
-        flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
-        PassFlashValue(n);
-    }
-}
-
-void Bulk::FlashCOMPAIMc01()
-{
     USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (map_Bulk2FIM[n] > -1) {
@@ -2961,30 +2884,13 @@ void Bulk::FlashCOMPAIMc01()
         ftype = CalFlashType(n, OCP_FALSE);
 
         flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                &xij[n * numPhase * numCom]);
+            &xij[n * numPhase * numCom]);
         PassFlashValue(n);
     }
 }
 
+
 void Bulk::FlashDerivAIMc()
-{
-    if (comps) {
-        FlashDerivCOMPAIMc();
-    } else {
-        FlashDerivBLKOILAIMc();
-    }
-}
-
-void Bulk::FlashDerivBLKOILAIMc()
-{
-    // dSec_dPri.clear();
-    for (auto& n : FIMBulk) {
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], 0, 0, 0);
-        PassFlashValueDeriv(n);
-    }
-}
-
-void Bulk::FlashDerivCOMPAIMc()
 {
     USI ftype;
     for (auto& n : FIMBulk) {
@@ -2992,10 +2898,11 @@ void Bulk::FlashDerivCOMPAIMc()
         ftype = CalFlashType(n, OCP_TRUE);
 
         flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                                        &xij[n * numPhase * numCom]);
+            &xij[n * numPhase * numCom]);
         PassFlashValueDeriv(n);
     }
 }
+
 
 void Bulk::CalKrPcAIMc()
 {
