@@ -263,6 +263,7 @@ private:
     vector<OCP_BOOL> lflagSkip;
     vector<OCP_DBL>  lziSkip;
     vector<OCP_DBL>  lPSkip;
+    OCP_BOOL useSkipSta{ OCP_FALSE }; // if use skipping stability analysis
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information
@@ -376,8 +377,6 @@ private:
     /////////////////////////////////////////////////////////////////////
     // Auxiliary variables
     /////////////////////////////////////////////////////////////////////
-    vector<USI> index2Phase; ///< Identify phase name according to index: numPhase.
-    // Note: For example, phase 0 is Oil.
     vector<USI> phase2Index; ///< Location of phase according to its name: numPhase.
     // Note: For example, `Oil' is at the i-th location.
 

@@ -134,6 +134,30 @@ void Bulk::InputParamBLKOIL(ParamReservoir& rs_param)
         break;
     }
 
+    phase2Index.resize(3);
+    switch (flashCal[0]->GetMixtureType())
+    {
+    case BLKOIL_W:
+        phase2Index[WATER] = 0;
+        break;
+    case BLKOIL_OW:
+        phase2Index[OIL] = 0;
+        phase2Index[WATER] = 1;
+        break;
+    case BLKOIL_OG:
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
+        break;
+    case BLKOIL_DOGW:
+    case BLKOIL_ODGW:
+        phase2Index[OIL] = 0;
+        phase2Index[GAS] = 1;
+        phase2Index[WATER] = 2;
+        break;
+    default:
+        OCP_ABORT("WRONG Mixture Type!");
+    }
+
     InputRockFunc(rs_param);
     cout << "BLACKOIL model" << endl;
 }
@@ -189,6 +213,14 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     // PVT mode
     for (USI i = 0; i < NTPVT; i++)
         flashCal.push_back(new MixtureComp(rs_param, i));
+
+    // phase index
+    phase2Index.resize(3);
+    phase2Index[OIL]   = 0;
+    phase2Index[GAS]   = 1;
+    phase2Index[WATER] = 2;
+
+    useSkipSta = OCP_TRUE;
 
     InputRockFunc(rs_param);
     cout << "COMPOSITIONAL model" << endl;
@@ -374,45 +406,8 @@ void Bulk::Setup(const Grid& myGrid)
     phaseNum.resize(numBulk);
     lphaseNum.resize(numBulk);
     NRphaseNum.resize(numBulk);
-    // phase index
-    phase2Index.resize(3);
 
-    switch (flashCal[0]->GetMixtureType())
-    {
-    case BLKOIL_W:
-        index2Phase.resize(1);
-        index2Phase[0] = WATER;
-        phase2Index[WATER] = 0;
-        break;
-    case BLKOIL_OW:
-        index2Phase.resize(2);
-        index2Phase[0] = OIL;
-        index2Phase[1] = WATER;
-        phase2Index[OIL] = 0;
-        phase2Index[WATER] = 1;
-        break;
-    case BLKOIL_OG:
-        index2Phase.resize(2);
-        index2Phase[0] = OIL;
-        index2Phase[1] = GAS;
-        phase2Index[OIL] = 0;
-        phase2Index[GAS] = 1;
-        break;
-    case BLKOIL_DOGW:
-    case BLKOIL_ODGW:
-        index2Phase.resize(3);
-        index2Phase[0] = OIL;
-        index2Phase[1] = GAS;
-        index2Phase[2] = WATER;
-        phase2Index[OIL] = 0;
-        phase2Index[GAS] = 1;
-        phase2Index[WATER] = 2;
-        break;
-    case EOS_PVTW:
-        phase2Index[OIL] = 0;
-        phase2Index[GAS] = 1;
-        phase2Index[WATER] = 2;
-
+    if (useSkipSta) {
         // accelerate phase equilibrium calculation
         minEigenSkip.resize(numBulk);
         flagSkip.resize(numBulk);
@@ -423,21 +418,18 @@ void Bulk::Setup(const Grid& myGrid)
         lziSkip.resize(numBulk * numCom);
         lPSkip.resize(numBulk);
 
-        if (miscible) {
-            surTen.resize(numBulk);
-            Fk.resize(numBulk);
-            Fp.resize(numBulk);
-            lsurTen.resize(numBulk);
-        }
+
         // error
         ePEC.resize(numBulk);
-        break;
-    case THERMAL:
-        break;
-    default:
-        OCP_ABORT("Wrong Mixture Type!");
-        break;
     }
+
+    if (miscible) {
+        surTen.resize(numBulk);
+        Fk.resize(numBulk);
+        Fp.resize(numBulk);
+        lsurTen.resize(numBulk);
+    }
+
 
     // error  
     eN.resize(numBulk);
