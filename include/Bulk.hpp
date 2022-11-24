@@ -49,22 +49,35 @@ private:
     OCPTable PBVD; ///< PBVD Table: bubble point pressure vs depth
 };
 
+
 class SkipStaAnaly
 {
     friend class Bulk;
-
 public:
-    SkipStaAnaly(const USI& numCom_1) { ziSkip.resize(numCom_1); }
-    OCP_BOOL IfSkip(const OCP_DBL& Pin, const OCP_DBL& Ntin, const OCP_DBL* Niin, const USI& numCom_1) const {
-        if (flagSkip) {
-            if (fabs(1 - PSkip / Pin) >= minEigenSkip / 10) {
+    SkipStaAnaly() = default;
+    void SetUseSkip(const OCP_BOOL& flag) { useSkip = flag; }
+    OCP_BOOL IfUseSkip() const { return useSkip; }
+    void Setup(const OCP_USI& numBulk, const USI& numCom_1) {
+        flagSkip.resize(numBulk);
+        PSkip.resize(numBulk);
+        TSkip.resize(numBulk);
+        minEigenSkip.resize(numBulk);       
+        ziSkip.resize(numBulk * numCom_1);
+    }
+    OCP_BOOL IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin, 
+        const OCP_DBL* Niin, const OCP_USI& n, const USI& numCom_1) const {
+        if (flagSkip[n]) {
+            if (fabs(1 - PSkip[n] / Pin) >= minEigenSkip[n] / 10) {
                 return OCP_FALSE;
             }
             OCP_DBL Nt_w = Ntin - Niin[numCom_1];
             for (USI i = 0; i < numCom_1; i++) {
-                if (fabs(Niin[i] / Nt_w - ziSkip[i]) >= minEigenSkip / 10) {
+                if (fabs(Niin[i] / Nt_w - ziSkip[n*numCom_1 + i]) >= minEigenSkip[n] / 10) {
                     return OCP_FALSE;
                 }
+            }
+            if (fabs(TSkip[n] - Tin) >= minEigenSkip[n] * 10) {
+                return OCP_FALSE;
             }
             return OCP_TRUE;
         }
@@ -73,12 +86,15 @@ public:
         }
     }
 
-private:
-    OCP_DBL flagSkip;
-    OCP_DBL minEigenSkip;     
-    OCP_DBL PSkip;
+protected:
+    OCP_BOOL        useSkip{ OCP_FALSE };
+    vector<OCP_DBL> flagSkip;
+    vector<OCP_DBL> minEigenSkip;
+    vector<OCP_DBL> PSkip;
+    vector<OCP_DBL> TSkip;
     vector<OCP_DBL> ziSkip;
 };
+
 
 /// Physical information of each active reservoir bulk.
 //  Note: Bulk contains main physical infomation of active grids. It describes the
@@ -279,9 +295,8 @@ private:
     vector<USI> lphaseNum;  ///< last phaseNum
     vector<USI> NRphaseNum; ///< phaseNum in NR step
 
-    OCP_BOOL useSkipSta{ OCP_FALSE }; // if use skipping stability analysis
-    vector<SkipStaAnaly> skipStaAnalyTerm;
-    vector<SkipStaAnaly> lskipStaAnalyTerm;
+    SkipStaAnaly skipStaAnalyTerm;
+    SkipStaAnaly lskipStaAnalyTerm;
 
     /////////////////////////////////////////////////////////////////////
     // Basic model information

@@ -220,7 +220,7 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     phase2Index[GAS]   = 1;
     phase2Index[WATER] = 2;
 
-    useSkipSta = OCP_TRUE;
+    skipStaAnalyTerm.SetUseSkip(OCP_TRUE);
 
     InputRockFunc(rs_param);
     cout << "COMPOSITIONAL model" << endl;
@@ -407,9 +407,9 @@ void Bulk::Setup(const Grid& myGrid)
     lphaseNum.resize(numBulk);
     NRphaseNum.resize(numBulk);
 
-    if (useSkipSta) {
+    if (skipStaAnalyTerm.IfUseSkip()) {
         // accelerate phase equilibrium calculation
-        skipStaAnalyTerm.resize(numBulk, SkipStaAnaly(numCom_1));
+        skipStaAnalyTerm.Setup(numBulk, numCom_1);
         lskipStaAnalyTerm = skipStaAnalyTerm; // Initialization
 
         // error
@@ -1352,10 +1352,9 @@ void Bulk::FlashDerivCOMP_n()
 
 USI Bulk::CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const
 {  
-    if (useSkipSta) {
-        const SkipStaAnaly& skip = skipStaAnalyTerm[n];
+    if (skipStaAnalyTerm.IfUseSkip()) {
 
-        if (skip.IfSkip(P[n], Nt[n], &Ni[n * numCom], numCom_1)) {
+        if (skipStaAnalyTerm.IfSkip(P[n], T[n], Nt[n], &Ni[n * numCom], n, numCom_1)) {
             return 1;
         } 
         else if (phaseNum[n] >= 3 && fimbulk) {
@@ -1593,25 +1592,26 @@ void Bulk::PassFlashValueDeriv_n(const OCP_USI& n)
 void Bulk::PassAdditionInfo(const OCP_USI& n, const USI& pvtnum)
 {
 
-    if (useSkipSta) {
+    if (skipStaAnalyTerm.IfUseSkip()) {
         ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
 
-        SkipStaAnaly& skip = skipStaAnalyTerm[n];
-        skip.flagSkip = flashCal[pvtnum]->GetFlagSkip();
-        if (skip.flagSkip) {
+        SkipStaAnaly& skip = skipStaAnalyTerm;
+        skip.flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
+        if (skip.flagSkip[n]) {
             if (flashCal[pvtnum]->GetFtype() == 0) {
                 // If recalculate the range then get it
-                skip.minEigenSkip = flashCal[pvtnum]->GetMinEigenSkip();
+                skip.minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
                 for (USI j = 0; j < numPhase - 1; j++) {
                     if (flashCal[pvtnum]->phaseExist[j]) {
                         for (USI i = 0; i < numCom_1; i++) {
                             // now hydrocarbon phase = 1, so zi = existing xij
-                            skip.ziSkip[i] = flashCal[pvtnum]->xij[j * numCom + i];
+                            skip.ziSkip[n*numCom_1 + i] = flashCal[pvtnum]->xij[j * numCom + i];
                         }
                         break;
                     }
                 }
-                skip.PSkip = P[n];
+                skip.PSkip[n] = P[n];
+                skip.TSkip[n] = T[n];
             }
         }
     }
@@ -1954,20 +1954,22 @@ void Bulk::CheckDiff()
                              << endl;
                     }
 
-                    const SkipStaAnaly& skip = skipStaAnalyTerm[n];
-                    const SkipStaAnaly& lskip = lskipStaAnalyTerm[n];
+                    const SkipStaAnaly& skip = skipStaAnalyTerm;
+                    const SkipStaAnaly& lskip = lskipStaAnalyTerm;
                     cout << "PhaseNum" << endl;
                     cout << phaseNum[n] << "   " << lphaseNum[n] << endl;
                     cout << "minEigenSkip" << endl;
-                    cout << skip.minEigenSkip << "   " << lskip.minEigenSkip << endl;
+                    cout << skip.minEigenSkip[n] << "   " << lskip.minEigenSkip[n] << endl;
                     cout << "flagSkip" << endl;
-                    cout << skip.flagSkip << "   " << lskip.flagSkip << endl;
+                    cout << skip.flagSkip[n] << "   " << lskip.flagSkip[n] << endl;
                     cout << "PSkip" << endl;
-                    cout << skip.PSkip << "   " << lskip.PSkip << endl;
+                    cout << skip.PSkip[n] << "   " << lskip.PSkip[n] << endl;
+                    cout << "TSkip" << endl;
+                    cout << skip.TSkip[n] << "   " << lskip.TSkip[n] << endl;
                     cout << "ziSkip" << endl;
                     for (USI i = 0; i < numCom_1; i++) {
-                        cout << skip.ziSkip[i] << "   "
-                             << lskip.ziSkip[i] << endl;
+                        cout << skip.ziSkip[n*numCom_1 + i] << "   "
+                             << lskip.ziSkip[n * numCom_1 + i] << endl;
                     }
 
                     cout << "Difference in S\t" << tmp << "  " << phaseExist[id]
