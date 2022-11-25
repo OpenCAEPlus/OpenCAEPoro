@@ -1406,7 +1406,7 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
             // IMPORTANT -- need for next Flash
             // But xij in nonlinear equations has been modified
             for (USI i = 0; i < numCom; i++) {
-                xij[bIdp * numCom + j * numCom + i] =
+                xijNR[bIdp * numCom + j * numCom + i] =
                     flashCal[pvtnum]->xij[j * numCom + i];
             }
         }
@@ -2869,7 +2869,7 @@ void Bulk::FlashAIMc()
             ftype = CalFlashType(n, OCP_FALSE);
 
             flashCal[PVTNUM[n]]->Flash(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                &xij[n * numPhase * numCom]);
+                &xijNR[n * numPhase * numCom]);
             PassFlashValueAIMc(n);
         }       
     }
@@ -3073,7 +3073,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
                 for (USI j = 0; j < 2; j++) {
                     bId = n * numPhase * numCom + j * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
-                        xij[bId + i] += chopmin * dtmp[js];
+                        xijNR[bId + i] += chopmin * dtmp[js];
                         js++;
                     }
                 }

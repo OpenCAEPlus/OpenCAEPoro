@@ -545,10 +545,23 @@ void Reservoir::InitAIMc()
     UpdateLastStepFIM();
 }
 
+
+void Reservoir::UpdateLastStepAIMc()
+{
+    OCP_FUNCNAME;
+
+    bulk.UpdateLastStepFIM();
+    allWells.UpdateLastBHP();
+    bulk.ResetXijNR();
+}
+
+
 void Reservoir::ResetAIMc()
 {
+    OCP_FUNCNAME;
+
     ResetFIM();
-    bulk.ResetNRxij();
+    bulk.ResetXijNR();
 }
 
 /*----------------------------------------------------------------------------*/

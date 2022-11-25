@@ -204,6 +204,7 @@ public:
                          const OCP_DBL&         dSmax);
     void InitAIMc();
     void ResetAIMc();
+    void UpdateLastStepAIMc();
     void UpdatePj() { bulk.UpdatePj(); }
 };
 

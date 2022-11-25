@@ -564,7 +564,7 @@ public:
                     const OCP_DBL&         dPmaxlim,
                     const OCP_DBL&         dSmaxlim);
     void UpdatePj();
-    void ResetNRxij() { xijNR = lxij; }
+    void ResetXijNR() { xijNR = lxij; }
 
 private:
     vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells and their K-neighbor

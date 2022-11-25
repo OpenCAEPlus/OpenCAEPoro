@@ -744,7 +744,7 @@ void OCP_AIMc::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 {
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
-    rs.UpdateLastStepFIM();
+    rs.UpdateLastStepAIMc();
     ctrl.CalNextTstepFIM(rs);
     ctrl.UpdateIters();
 }
