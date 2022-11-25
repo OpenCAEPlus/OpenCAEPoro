@@ -236,7 +236,6 @@ void OCP_FIM::InitReservoir(Reservoir& rs) const { rs.InitFIM(); }
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalWellFlux();
     rs.CalResFIM(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 }
@@ -584,7 +583,6 @@ void OCP_AIMc::InitReservoir(Reservoir& rs) const { rs.InitAIMc(); }
 void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalWellFlux();
     rs.CalResAIMc(resFIM, dt);
     resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
 
@@ -692,6 +690,13 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
              << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
     }
+
+    //cout << scientific << setprecision(16) << resFIM.maxRelRes0_v << "   "
+    //    << resFIM.maxRelRes_v << "   "
+    //    << resFIM.maxRelRes_mol << "   "
+    //    << resFIM.maxWellRelRes_mol << "   "
+    //    << NRdPmax << "   "
+    //    << NRdSmax << endl;
 
     if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
           resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||

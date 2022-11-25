@@ -60,7 +60,7 @@ public:
     /// Calculate transmissibility for each phase in perforations.
     void CalTrans(const Bulk& myBulk);
     /// Calculate the flux for each perforations.
-    void CalFlux(const Bulk& myBulk, const OCP_BOOL flag = OCP_FALSE);
+    void CalFlux(const Bulk& myBulk, const OCP_BOOL ReCalXi = OCP_FALSE);
     /// calculate flow rate of moles of components for injection well with maxBHP
     OCP_DBL CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP);
     /// calculate flow rate of moles of components for production well with minBHP

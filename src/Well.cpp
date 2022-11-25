@@ -201,7 +201,7 @@ void Well::CalTrans(const Bulk& myBulk)
     }
 }
 
-void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
+void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL ReCalXi)
 {
     OCP_FUNCNAME;
 
@@ -221,7 +221,7 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL flag)
 
             perf[p].qt_ft3 = perf[p].transINJ * dP;
 
-            if (flag) {
+            if (ReCalXi) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
                     myBulk.flashCal[pvtnum]->XiPhase(perf[p].P, opt.Tinj, &opt.injZi[0], opt.injProdPhase);
@@ -276,8 +276,12 @@ OCP_DBL Well::CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP)
         OCP_DBL Pperf = Pwell + dG[p];
         OCP_USI k     = perf[p].location;
 
+        USI pvtnum = myBulk.PVTNUM[k];
+        OCP_DBL xi =
+            myBulk.flashCal[pvtnum]->XiPhase(Pperf, opt.Tinj, &opt.injZi[0], opt.injProdPhase);
+
         OCP_DBL dP = Pperf - myBulk.P[k];
-        qj += perf[p].transINJ * perf[p].xi * dP;
+        qj += perf[p].transINJ * xi * dP;
     }
     return qj;
 }
@@ -1505,7 +1509,7 @@ void Well::AssembleMatPROD_FIM(const Bulk&    myBulk,
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
-    // Set Prod Weight
+    // Set Prod Weight   
     if (opt.optMode != BHP_MODE) CalProdWeight(myBulk);
 
     for (USI p = 0; p < numPerf; p++) {
@@ -1849,6 +1853,7 @@ void Well::CalResFIM(ResFIM&             resFIM,
             case GRATE_MODE:
             case WRATE_MODE:
             case LRATE_MODE:
+                CalProdWeight(myBulk);
                 resFIM.res[bId] = -opt.maxRate;
                 for (USI i = 0; i < nc; i++) {
                     resFIM.res[bId] += qi_lbmol[i] * prodWeight[i];

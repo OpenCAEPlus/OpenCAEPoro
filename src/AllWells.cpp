@@ -182,8 +182,8 @@ void AllWells::PrepareWell(const Bulk& myBulk)
 
             wells[w].CalTrans(myBulk);
             wells[w].CaldG(myBulk);
-            wells[w].CalFlux(myBulk, OCP_TRUE);
             wells[w].CheckOptMode(myBulk);
+            wells[w].CalFlux(myBulk, OCP_TRUE);
         }
     }
 }

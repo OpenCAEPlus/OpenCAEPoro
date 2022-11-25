@@ -1397,10 +1397,18 @@ void Bulk::PassFlashValueAIMc(const OCP_USI& n)
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
 
+    OCP_USI bIdp = n * numPhase;
     phaseNum[n] = 0;
     for (USI j = 0; j < numPhase; j++) {
         if (flashCal[pvtnum]->phaseExist[j]) {
             phaseNum[n]++;
+
+            // IMPORTANT -- need for next Flash
+            // But xij in nonlinear equations has been modified
+            for (USI i = 0; i < numCom; i++) {
+                xij[bIdp * numCom + j * numCom + i] =
+                    flashCal[pvtnum]->xij[j * numCom + i];
+            }
         }
     }
 

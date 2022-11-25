@@ -874,6 +874,9 @@ BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
         OCP_DBL rhow = std_RhoW / bw;
         return rhow;
     }
+    else {
+        OCP_ABORT("WRONG tarPhase!");
+    }
 }
 
 
