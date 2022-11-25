@@ -568,11 +568,9 @@ public:
 private:
     vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells ans
                                    ///< their K-neighbor
-    vector<OCP_INT> map_Bulk2FIM;  ///< Stores the index of FIM bulk in equations
+    vector<OCP_INT> map_Bulk2FIM;  ///< Stores the index of FIM bulk in equations, FIM bulk: >=0; IMPEC bulk: <0;
     vector<OCP_USI> FIMBulk;       ///< index of bulks which performs FIM
     OCP_USI         numFIMBulk;    ///< current num of bulks which are performed by FIM
-    OCP_USI         maxNumFIMBulk; ///< max num of bulks which are performed by FIM
-    vector<OCP_DBL> FIMNi;         ///< Ni in FIMBulk
 };
 
 #endif /* end if __BULK_HEADER__ */

@@ -2374,8 +2374,8 @@ void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
         Akd    = CONV1 * CONV2 * iteratorConn[c].area;
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
         bIdFIM = eIdFIM = OCP_FALSE;
-        if (myBulk.map_Bulk2FIM[bId] > -1) bIdFIM = OCP_TRUE;
-        if (myBulk.map_Bulk2FIM[eId] > -1) eIdFIM = OCP_TRUE;
+        if (myBulk.map_Bulk2FIM[bId] >= 0) bIdFIM = OCP_TRUE;
+        if (myBulk.map_Bulk2FIM[eId] >= 0) eIdFIM = OCP_TRUE;
 
         if (!bIdFIM && !eIdFIM) {
             // both are explicit

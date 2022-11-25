@@ -595,7 +595,7 @@ void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
     rs.CalKrPcDerivAIMc();
     rs.UpdateLastStepFIM();
 
-    rs.bulk.ShowFIMBulk(OCP_FALSE);
+    // rs.bulk.ShowFIMBulk(OCP_FALSE);
 }
 
 void OCP_AIMc::AssembleMat(LinearSystem&    myLS,
