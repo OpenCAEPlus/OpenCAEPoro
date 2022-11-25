@@ -2838,7 +2838,8 @@ void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const
     if (flag) {
         USI iter = 0;
         for (USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] > 0) {
+            if (bulkTypeAIM.IfFIMbulk(n)) {
+                // FIM bulk
                 cout << setw(6) << n << "   ";
                 iter++;
             }
@@ -2855,14 +2856,14 @@ void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const
 void Bulk::AllocateAuxAIMc()
 {
     cfl.resize(numBulk * numPhase);
-    map_Bulk2FIM.resize(numBulk, -1);
+    bulkTypeAIM.Init(numBulk);
 }
 
 void Bulk::FlashAIMc()
 {
     USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] < 0) {
+        if (bulkTypeAIM.IfIMPECbulk(n)) {
             // IMPEC bulk
             ftype = CalFlashType(n, OCP_FALSE);
 
@@ -2878,7 +2879,7 @@ void Bulk::FlashAIMc01()
 {
     USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] < 0) {
+        if (bulkTypeAIM.IfIMPECbulk(n)) {
             // IMPEC bulk
             ftype = CalFlashType(n, OCP_FALSE);
 
@@ -2894,7 +2895,7 @@ void Bulk::FlashDerivAIMc()
 {
     USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] > 0) {
+        if (bulkTypeAIM.IfFIMbulk(n)) {
             // FIM bulk
             ftype = CalFlashType(n, OCP_TRUE);
 
@@ -2913,7 +2914,7 @@ void Bulk::CalKrPcAIMc()
     if (!miscible) {
         OCP_DBL tmp = 0;
         for (OCP_USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] < 0) {
+            if (bulkTypeAIM.IfIMPECbulk(n)) {
                 // IMPEC bulk
                 OCP_USI bId = n * numPhase;
                 flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
@@ -2924,7 +2925,7 @@ void Bulk::CalKrPcAIMc()
         }
     } else {
         for (OCP_USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] < 0) {
+            if (bulkTypeAIM.IfIMPECbulk(n)) {
                 // IMPEC bulk
                 OCP_USI bId = n * numPhase;
                 flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n],
@@ -2939,7 +2940,7 @@ void Bulk::CalKrPcAIMc()
         // correct
         const USI Wid = phase2Index[WATER];
         for (USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] < 0) {
+            if (bulkTypeAIM.IfIMPECbulk(n)) {
                 // IMPEC bulk
                 Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
                 Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
@@ -2955,7 +2956,7 @@ void Bulk::CalKrPcDerivAIMc()
     if (!miscible) {
         OCP_DBL tmp = 0;
         for (OCP_USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] > 0) {
+            if (bulkTypeAIM.IfFIMbulk(n)) {
                 // FIM bulk
                 OCP_USI bId = n * numPhase;
                 flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
@@ -2966,7 +2967,7 @@ void Bulk::CalKrPcDerivAIMc()
         }
     } else {
         for (OCP_USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] > 0) {
+            if (bulkTypeAIM.IfFIMbulk(n)) {
                 // FIM bulk
                 OCP_USI bId = n * numPhase;
                 flow[SATNUM[n]]->CalKrPcDeriv(
@@ -2982,7 +2983,7 @@ void Bulk::CalKrPcDerivAIMc()
         // correct
         const USI Wid = phase2Index[WATER];
         for (OCP_USI n = 0; n < numBulk; n++) {
-            if (map_Bulk2FIM[n] > 0) {
+            if (bulkTypeAIM.IfFIMbulk(n)) {
                 // FIM bulk
                 Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
                 Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
@@ -3007,7 +3008,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
     OCP_DBL         choptmp = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        if (map_Bulk2FIM[n] < 0) {
+        if (bulkTypeAIM.IfIMPECbulk(n)) {
             // IMPEC Bulk
             // Pressure
             dP      = u[n * col];

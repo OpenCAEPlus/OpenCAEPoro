@@ -566,9 +566,20 @@ public:
     void UpdatePj();
 
 private:
-    vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells ans
-                                   ///< their K-neighbor
-    vector<OCP_INT> map_Bulk2FIM;  ///< Stores the index of FIM bulk in equations, FIM bulk: >=0; IMPEC bulk: <0;
+    vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells and their K-neighbor
+    class BulkTypeAIM
+    {
+    public:
+        BulkTypeAIM() = default;
+        void Init(const OCP_USI& nb) { indicator.resize(nb, -1); }
+        void Set0() { fill(indicator.begin(), indicator.end(), -1); }
+        void SetBulkType(const OCP_USI& n, const OCP_INT& flag) { indicator[n] = flag; }
+        OCP_BOOL IfFIMbulk(const OCP_USI& n)const { return indicator[n] > 0; }
+        OCP_BOOL IfIMPECbulk(const OCP_USI& n)const { return indicator[n] < 0; }
+    private:
+        vector<OCP_INT> indicator;  ///< Stores the index of FIM bulk in equations, FIM bulk: >=0; IMPEC bulk: <0;
+    } bulkTypeAIM;
+    
 };
 
 #endif /* end if __BULK_HEADER__ */

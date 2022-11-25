@@ -2232,7 +2232,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
 
-    fill(myBulk.map_Bulk2FIM.begin(), myBulk.map_Bulk2FIM.end(), -1);
+    myBulk.bulkTypeAIM.Set0();
 
     OCP_USI  bIdp, bIdc;
     OCP_BOOL flag;
@@ -2277,7 +2277,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
             // myBulk.map_Bulk2FIM[n] = 1;
             for (auto& v : neighbor[n]) {
                 // n is included also
-                myBulk.map_Bulk2FIM[v] = 1;
+                myBulk.bulkTypeAIM.SetBulkType(v, 1);
             }
         }
     }
@@ -2285,7 +2285,7 @@ void BulkConn::SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag) const
     // add WellBulk
     for (auto& p : myBulk.wellBulkId) {
         for (auto& v : neighbor[p]) {
-            for (auto& v1 : neighbor[v]) myBulk.map_Bulk2FIM[v1] = 1;
+            for (auto& v1 : neighbor[v]) myBulk.bulkTypeAIM.SetBulkType(v1, 1);
         }
     }
 }
@@ -2363,8 +2363,8 @@ void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
         Akd    = CONV1 * CONV2 * iteratorConn[c].area;
         dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
         bIdFIM = eIdFIM = OCP_FALSE;
-        if (myBulk.map_Bulk2FIM[bId] > 0) bIdFIM = OCP_TRUE;
-        if (myBulk.map_Bulk2FIM[eId] > 0) eIdFIM = OCP_TRUE;
+        if (myBulk.bulkTypeAIM.IfFIMbulk(bId)) bIdFIM = OCP_TRUE;
+        if (myBulk.bulkTypeAIM.IfFIMbulk(eId)) eIdFIM = OCP_TRUE;
 
         if (!bIdFIM && !eIdFIM) {
             // both are explicit
