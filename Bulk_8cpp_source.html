@@ -2880,279 +2880,286 @@ $(function() {
 <div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;<span class="keywordtype">void</span> Bulk::ShowFIMBulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; flag)<span class="keyword"> const</span></div>
 <div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;    cout &lt;&lt; numFIMBulk &lt;&lt; <span class="stringliteral">&quot;   &quot;</span> &lt;&lt; fixed &lt;&lt; setprecision(3)</div>
-<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;         &lt;&lt; numFIMBulk * 100.0 / numBulk &lt;&lt; <span class="stringliteral">&quot;%&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;    <span class="keywordflow">if</span> (flag) {</div>
-<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numFIMBulk; n++) {</div>
-<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;            cout &lt;&lt; setw(6) &lt;&lt; FIMBulk[n] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;            <span class="keywordflow">if</span> ((n + 1) % 10 == 0) {</div>
-<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;                cout &lt;&lt; endl;</div>
+<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160; </div>
+<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;    <span class="keywordflow">if</span> (flag) {</div>
+<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> iter = 0;</div>
+<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &gt; 0) {</div>
+<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;                cout &lt;&lt; setw(6) &lt;&lt; n &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;                iter++;</div>
 <div class="line"><a name="l02844"></a><span class="lineno"> 2844</span>&#160;            }</div>
-<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;        }</div>
-<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;        cout &lt;&lt; endl;</div>
-<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160;    }</div>
-<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;    <span class="keywordflow">if</span> (OCP_FALSE) {</div>
-<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;            cout &lt;&lt; setw(6) &lt;&lt; map_Bulk2FIM[n] &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160;            <span class="keywordflow">if</span> ((n + 1) % 10 == 0) {</div>
-<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;                cout &lt;&lt; endl;</div>
-<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160;            }</div>
-<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160;        }</div>
-<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;        cout &lt;&lt; endl;</div>
-<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;    }</div>
-<div class="line"><a name="l02857"></a><span class="lineno"> 2857</span>&#160;}</div>
-<div class="line"><a name="l02858"></a><span class="lineno"> 2858</span>&#160; </div>
-<div class="line"><a name="l02859"></a><span class="lineno"> 2859</span>&#160;<span class="keywordtype">void</span> Bulk::AllocateAuxAIMc()</div>
-<div class="line"><a name="l02860"></a><span class="lineno"> 2860</span>&#160;{</div>
-<div class="line"><a name="l02861"></a><span class="lineno"> 2861</span>&#160;    cfl.resize(numBulk * numPhase);</div>
-<div class="line"><a name="l02862"></a><span class="lineno"> 2862</span>&#160;    map_Bulk2FIM.resize(numBulk, -1);</div>
-<div class="line"><a name="l02863"></a><span class="lineno"> 2863</span>&#160;}</div>
-<div class="line"><a name="l02864"></a><span class="lineno"> 2864</span>&#160; </div>
-<div class="line"><a name="l02865"></a><span class="lineno"><a class="line" href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973"> 2865</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973">Bulk::FlashAIMc</a>()</div>
-<div class="line"><a name="l02866"></a><span class="lineno"> 2866</span>&#160;{</div>
-<div class="line"><a name="l02867"></a><span class="lineno"> 2867</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
-<div class="line"><a name="l02868"></a><span class="lineno"> 2868</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02869"></a><span class="lineno"> 2869</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l02870"></a><span class="lineno"> 2870</span>&#160;            <span class="comment">// IMPEC bulk</span></div>
-<div class="line"><a name="l02871"></a><span class="lineno"> 2871</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_FALSE);</div>
-<div class="line"><a name="l02872"></a><span class="lineno"> 2872</span>&#160; </div>
-<div class="line"><a name="l02873"></a><span class="lineno"> 2873</span>&#160;            flashCal[PVTNUM[n]]-&gt;Flash(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
-<div class="line"><a name="l02874"></a><span class="lineno"> 2874</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
-<div class="line"><a name="l02875"></a><span class="lineno"> 2875</span>&#160;            PassFlashValueAIMc(n);</div>
-<div class="line"><a name="l02876"></a><span class="lineno"> 2876</span>&#160;        }       </div>
-<div class="line"><a name="l02877"></a><span class="lineno"> 2877</span>&#160;    }</div>
-<div class="line"><a name="l02878"></a><span class="lineno"> 2878</span>&#160;}</div>
-<div class="line"><a name="l02879"></a><span class="lineno"> 2879</span>&#160; </div>
-<div class="line"><a name="l02880"></a><span class="lineno"> 2880</span>&#160; </div>
-<div class="line"><a name="l02881"></a><span class="lineno"><a class="line" href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8"> 2881</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8">Bulk::FlashAIMc01</a>()</div>
-<div class="line"><a name="l02882"></a><span class="lineno"> 2882</span>&#160;{</div>
-<div class="line"><a name="l02883"></a><span class="lineno"> 2883</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
-<div class="line"><a name="l02884"></a><span class="lineno"> 2884</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02885"></a><span class="lineno"> 2885</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l02886"></a><span class="lineno"> 2886</span>&#160;            <span class="comment">// IMPEC bulk</span></div>
-<div class="line"><a name="l02887"></a><span class="lineno"> 2887</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_FALSE);</div>
-<div class="line"><a name="l02888"></a><span class="lineno"> 2888</span>&#160; </div>
-<div class="line"><a name="l02889"></a><span class="lineno"> 2889</span>&#160;            flashCal[PVTNUM[n]]-&gt;Flash(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
-<div class="line"><a name="l02890"></a><span class="lineno"> 2890</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
-<div class="line"><a name="l02891"></a><span class="lineno"> 2891</span>&#160;            <a class="code" href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">PassFlashValue</a>(n);</div>
-<div class="line"><a name="l02892"></a><span class="lineno"> 2892</span>&#160;        }       </div>
-<div class="line"><a name="l02893"></a><span class="lineno"> 2893</span>&#160;    }</div>
-<div class="line"><a name="l02894"></a><span class="lineno"> 2894</span>&#160;}</div>
-<div class="line"><a name="l02895"></a><span class="lineno"> 2895</span>&#160; </div>
-<div class="line"><a name="l02896"></a><span class="lineno"> 2896</span>&#160; </div>
-<div class="line"><a name="l02897"></a><span class="lineno"><a class="line" href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84"> 2897</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84">Bulk::FlashDerivAIMc</a>()</div>
-<div class="line"><a name="l02898"></a><span class="lineno"> 2898</span>&#160;{</div>
-<div class="line"><a name="l02899"></a><span class="lineno"> 2899</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
-<div class="line"><a name="l02900"></a><span class="lineno"> 2900</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; n : FIMBulk) {</div>
-<div class="line"><a name="l02901"></a><span class="lineno"> 2901</span>&#160; </div>
-<div class="line"><a name="l02902"></a><span class="lineno"> 2902</span>&#160;        ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_TRUE);</div>
-<div class="line"><a name="l02903"></a><span class="lineno"> 2903</span>&#160; </div>
-<div class="line"><a name="l02904"></a><span class="lineno"> 2904</span>&#160;        flashCal[PVTNUM[n]]-&gt;FlashDeriv(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
-<div class="line"><a name="l02905"></a><span class="lineno"> 2905</span>&#160;            &amp;xij[n * numPhase * numCom]);</div>
-<div class="line"><a name="l02906"></a><span class="lineno"> 2906</span>&#160;        <a class="code" href="classBulk.html#a4c39ebeeaa4ece049f0a387301fba7ab">PassFlashValueDeriv</a>(n);</div>
-<div class="line"><a name="l02907"></a><span class="lineno"> 2907</span>&#160;    }</div>
-<div class="line"><a name="l02908"></a><span class="lineno"> 2908</span>&#160;}</div>
-<div class="line"><a name="l02909"></a><span class="lineno"> 2909</span>&#160; </div>
-<div class="line"><a name="l02910"></a><span class="lineno"> 2910</span>&#160; </div>
-<div class="line"><a name="l02911"></a><span class="lineno"><a class="line" href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad"> 2911</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad">Bulk::CalKrPcAIMc</a>()</div>
-<div class="line"><a name="l02912"></a><span class="lineno"> 2912</span>&#160;{</div>
-<div class="line"><a name="l02913"></a><span class="lineno"> 2913</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l02914"></a><span class="lineno"> 2914</span>&#160; </div>
-<div class="line"><a name="l02915"></a><span class="lineno"> 2915</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
-<div class="line"><a name="l02916"></a><span class="lineno"> 2916</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
-<div class="line"><a name="l02917"></a><span class="lineno"> 2917</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02918"></a><span class="lineno"> 2918</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l02919"></a><span class="lineno"> 2919</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
-<div class="line"><a name="l02920"></a><span class="lineno"> 2920</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l02921"></a><span class="lineno"> 2921</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], 0, tmp, tmp);</div>
-<div class="line"><a name="l02922"></a><span class="lineno"> 2922</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
-<div class="line"><a name="l02923"></a><span class="lineno"> 2923</span>&#160;                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];               </div>
-<div class="line"><a name="l02924"></a><span class="lineno"> 2924</span>&#160;            }</div>
-<div class="line"><a name="l02925"></a><span class="lineno"> 2925</span>&#160;            </div>
-<div class="line"><a name="l02926"></a><span class="lineno"> 2926</span>&#160;        }</div>
-<div class="line"><a name="l02927"></a><span class="lineno"> 2927</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l02928"></a><span class="lineno"> 2928</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02929"></a><span class="lineno"> 2929</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l02930"></a><span class="lineno"> 2930</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
-<div class="line"><a name="l02931"></a><span class="lineno"> 2931</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l02932"></a><span class="lineno"> 2932</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], surTen[n], Fk[n],</div>
-<div class="line"><a name="l02933"></a><span class="lineno"> 2933</span>&#160;                    Fp[n]);</div>
-<div class="line"><a name="l02934"></a><span class="lineno"> 2934</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
-<div class="line"><a name="l02935"></a><span class="lineno"> 2935</span>&#160;                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
-<div class="line"><a name="l02936"></a><span class="lineno"> 2936</span>&#160;            }           </div>
-<div class="line"><a name="l02937"></a><span class="lineno"> 2937</span>&#160;        }</div>
-<div class="line"><a name="l02938"></a><span class="lineno"> 2938</span>&#160;    }</div>
-<div class="line"><a name="l02939"></a><span class="lineno"> 2939</span>&#160; </div>
-<div class="line"><a name="l02940"></a><span class="lineno"> 2940</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
-<div class="line"><a name="l02941"></a><span class="lineno"> 2941</span>&#160;        <span class="comment">// correct</span></div>
-<div class="line"><a name="l02942"></a><span class="lineno"> 2942</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
-<div class="line"><a name="l02943"></a><span class="lineno"> 2943</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l02944"></a><span class="lineno"> 2944</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l02945"></a><span class="lineno"> 2945</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
-<div class="line"><a name="l02946"></a><span class="lineno"> 2946</span>&#160;                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
-<div class="line"><a name="l02947"></a><span class="lineno"> 2947</span>&#160;                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
-<div class="line"><a name="l02948"></a><span class="lineno"> 2948</span>&#160;            }           </div>
-<div class="line"><a name="l02949"></a><span class="lineno"> 2949</span>&#160;        }</div>
-<div class="line"><a name="l02950"></a><span class="lineno"> 2950</span>&#160;    }</div>
-<div class="line"><a name="l02951"></a><span class="lineno"> 2951</span>&#160;}</div>
-<div class="line"><a name="l02952"></a><span class="lineno"> 2952</span>&#160; </div>
-<div class="line"><a name="l02953"></a><span class="lineno"><a class="line" href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87"> 2953</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87">Bulk::CalKrPcDerivAIMc</a>()</div>
-<div class="line"><a name="l02954"></a><span class="lineno"> 2954</span>&#160;{</div>
-<div class="line"><a name="l02955"></a><span class="lineno"> 2955</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
-<div class="line"><a name="l02956"></a><span class="lineno"> 2956</span>&#160; </div>
-<div class="line"><a name="l02957"></a><span class="lineno"> 2957</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
-<div class="line"><a name="l02958"></a><span class="lineno"> 2958</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
-<div class="line"><a name="l02959"></a><span class="lineno"> 2959</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; n : FIMBulk) {</div>
-<div class="line"><a name="l02960"></a><span class="lineno"> 2960</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l02961"></a><span class="lineno"> 2961</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPcDeriv(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId],</div>
-<div class="line"><a name="l02962"></a><span class="lineno"> 2962</span>&#160;                                          &amp;dKr_dS[bId * numPhase],</div>
-<div class="line"><a name="l02963"></a><span class="lineno"> 2963</span>&#160;                                          &amp;dPcj_dS[bId * numPhase], 0, tmp, tmp);</div>
-<div class="line"><a name="l02964"></a><span class="lineno"> 2964</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];</div>
-<div class="line"><a name="l02965"></a><span class="lineno"> 2965</span>&#160;        }</div>
-<div class="line"><a name="l02966"></a><span class="lineno"> 2966</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l02967"></a><span class="lineno"> 2967</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; n : FIMBulk) {</div>
-<div class="line"><a name="l02968"></a><span class="lineno"> 2968</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
-<div class="line"><a name="l02969"></a><span class="lineno"> 2969</span>&#160;            flow[SATNUM[n]]-&gt;CalKrPcDeriv(</div>
-<div class="line"><a name="l02970"></a><span class="lineno"> 2970</span>&#160;                &amp;S[bId], &amp;kr[bId], &amp;Pc[bId], &amp;dKr_dS[bId * numPhase],</div>
-<div class="line"><a name="l02971"></a><span class="lineno"> 2971</span>&#160;                &amp;dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);</div>
-<div class="line"><a name="l02972"></a><span class="lineno"> 2972</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
-<div class="line"><a name="l02973"></a><span class="lineno"> 2973</span>&#160;                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
-<div class="line"><a name="l02974"></a><span class="lineno"> 2974</span>&#160;        }</div>
-<div class="line"><a name="l02975"></a><span class="lineno"> 2975</span>&#160;    }</div>
-<div class="line"><a name="l02976"></a><span class="lineno"> 2976</span>&#160; </div>
-<div class="line"><a name="l02977"></a><span class="lineno"> 2977</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
-<div class="line"><a name="l02978"></a><span class="lineno"> 2978</span>&#160;        <span class="comment">// correct</span></div>
-<div class="line"><a name="l02979"></a><span class="lineno"> 2979</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
-<div class="line"><a name="l02980"></a><span class="lineno"> 2980</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; n : FIMBulk) {</div>
-<div class="line"><a name="l02981"></a><span class="lineno"> 2981</span>&#160;            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
-<div class="line"><a name="l02982"></a><span class="lineno"> 2982</span>&#160;            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
-<div class="line"><a name="l02983"></a><span class="lineno"> 2983</span>&#160;        }</div>
-<div class="line"><a name="l02984"></a><span class="lineno"> 2984</span>&#160;    }</div>
-<div class="line"><a name="l02985"></a><span class="lineno"> 2985</span>&#160;}</div>
-<div class="line"><a name="l02986"></a><span class="lineno"> 2986</span>&#160; </div>
-<div class="line"><a name="l02987"></a><span class="lineno"> 2987</span>&#160;<span class="keywordtype">void</span> Bulk::GetSolAIMc(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u,</div>
-<div class="line"><a name="l02988"></a><span class="lineno"> 2988</span>&#160;                      <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dPmaxlim,</div>
-<div class="line"><a name="l02989"></a><span class="lineno"> 2989</span>&#160;                      <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dSmaxlim)</div>
-<div class="line"><a name="l02990"></a><span class="lineno"> 2990</span>&#160;{</div>
-<div class="line"><a name="l02991"></a><span class="lineno"> 2991</span>&#160;    dSNR     = S;</div>
-<div class="line"><a name="l02992"></a><span class="lineno"> 2992</span>&#160;    NRdSmaxP = 0;</div>
-<div class="line"><a name="l02993"></a><span class="lineno"> 2993</span>&#160;    NRdPmax  = 0;</div>
-<div class="line"><a name="l02994"></a><span class="lineno"> 2994</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         dP;</div>
-<div class="line"><a name="l02995"></a><span class="lineno"> 2995</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             row = numPhase * (numCom + 1);</div>
-<div class="line"><a name="l02996"></a><span class="lineno"> 2996</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             col = numCom + 1;</div>
-<div class="line"><a name="l02997"></a><span class="lineno"> 2997</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>         n_np_j;</div>
-<div class="line"><a name="l02998"></a><span class="lineno"> 2998</span>&#160;    vector&lt;OCP_DBL&gt; dtmp(row, 0);</div>
-<div class="line"><a name="l02999"></a><span class="lineno"> 2999</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         chopmin = 1;</div>
-<div class="line"><a name="l03000"></a><span class="lineno"> 3000</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         choptmp = 0;</div>
-<div class="line"><a name="l03001"></a><span class="lineno"> 3001</span>&#160; </div>
-<div class="line"><a name="l03002"></a><span class="lineno"> 3002</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l03003"></a><span class="lineno"> 3003</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
-<div class="line"><a name="l03004"></a><span class="lineno"> 3004</span>&#160;            <span class="comment">// IMPEC Bulk</span></div>
-<div class="line"><a name="l03005"></a><span class="lineno"> 3005</span>&#160;            <span class="comment">// Pressure</span></div>
-<div class="line"><a name="l03006"></a><span class="lineno"> 3006</span>&#160;            dP      = u[n * col];</div>
-<div class="line"><a name="l03007"></a><span class="lineno"> 3007</span>&#160;            NRdPmax = max(NRdPmax, fabs(dP));</div>
-<div class="line"><a name="l03008"></a><span class="lineno"> 3008</span>&#160;            P[n] += dP; <span class="comment">// seems better</span></div>
-<div class="line"><a name="l03009"></a><span class="lineno"> 3009</span>&#160;            dPNR[n]   = dP;</div>
-<div class="line"><a name="l03010"></a><span class="lineno"> 3010</span>&#160;            NRstep[n] = 1;</div>
-<div class="line"><a name="l03011"></a><span class="lineno"> 3011</span>&#160;            <span class="comment">// Ni</span></div>
-<div class="line"><a name="l03012"></a><span class="lineno"> 3012</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l03013"></a><span class="lineno"> 3013</span>&#160;                dNNR[n * numCom + i] = u[n * col + 1 + i];</div>
-<div class="line"><a name="l03014"></a><span class="lineno"> 3014</span>&#160;                Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
-<div class="line"><a name="l03015"></a><span class="lineno"> 3015</span>&#160;            }</div>
-<div class="line"><a name="l03016"></a><span class="lineno"> 3016</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l03017"></a><span class="lineno"> 3017</span>&#160;        }</div>
-<div class="line"><a name="l03018"></a><span class="lineno"> 3018</span>&#160; </div>
-<div class="line"><a name="l03019"></a><span class="lineno"> 3019</span>&#160;        chopmin = 1;</div>
-<div class="line"><a name="l03020"></a><span class="lineno"> 3020</span>&#160;        <span class="comment">// compute the chop</span></div>
-<div class="line"><a name="l03021"></a><span class="lineno"> 3021</span>&#160;        fill(dtmp.begin(), dtmp.end(), 0.0);</div>
-<div class="line"><a name="l03022"></a><span class="lineno"> 3022</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a>(bRowSizedSdP[n], col, 1, &amp;dSec_dPri[n * maxLendSdP], u.data() + n * col,</div>
-<div class="line"><a name="l03023"></a><span class="lineno"> 3023</span>&#160;                1, dtmp.data());</div>
-<div class="line"><a name="l03024"></a><span class="lineno"> 3024</span>&#160; </div>
-<div class="line"><a name="l03025"></a><span class="lineno"> 3025</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> js = 0;</div>
-<div class="line"><a name="l03026"></a><span class="lineno"> 3026</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l03027"></a><span class="lineno"> 3027</span>&#160;            <span class="keywordflow">if</span> (!pSderExist[n * numPhase + j]) {</div>
-<div class="line"><a name="l03028"></a><span class="lineno"> 3028</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l03029"></a><span class="lineno"> 3029</span>&#160;            }</div>
-<div class="line"><a name="l03030"></a><span class="lineno"> 3030</span>&#160;            n_np_j = n * numPhase + j;</div>
+<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;            </div>
+<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;            <span class="keywordflow">if</span> ((iter + 1) % 10 == 0) {</div>
+<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160;                cout &lt;&lt; endl;</div>
+<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;                iter = 0;</div>
+<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;            }</div>
+<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;        }</div>
+<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;    }</div>
+<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160;}</div>
+<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160; </div>
+<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;<span class="keywordtype">void</span> Bulk::AllocateAuxAIMc()</div>
+<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;{</div>
+<div class="line"><a name="l02857"></a><span class="lineno"> 2857</span>&#160;    cfl.resize(numBulk * numPhase);</div>
+<div class="line"><a name="l02858"></a><span class="lineno"> 2858</span>&#160;    map_Bulk2FIM.resize(numBulk, -1);</div>
+<div class="line"><a name="l02859"></a><span class="lineno"> 2859</span>&#160;}</div>
+<div class="line"><a name="l02860"></a><span class="lineno"> 2860</span>&#160; </div>
+<div class="line"><a name="l02861"></a><span class="lineno"><a class="line" href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973"> 2861</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973">Bulk::FlashAIMc</a>()</div>
+<div class="line"><a name="l02862"></a><span class="lineno"> 2862</span>&#160;{</div>
+<div class="line"><a name="l02863"></a><span class="lineno"> 2863</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
+<div class="line"><a name="l02864"></a><span class="lineno"> 2864</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02865"></a><span class="lineno"> 2865</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l02866"></a><span class="lineno"> 2866</span>&#160;            <span class="comment">// IMPEC bulk</span></div>
+<div class="line"><a name="l02867"></a><span class="lineno"> 2867</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_FALSE);</div>
+<div class="line"><a name="l02868"></a><span class="lineno"> 2868</span>&#160; </div>
+<div class="line"><a name="l02869"></a><span class="lineno"> 2869</span>&#160;            flashCal[PVTNUM[n]]-&gt;Flash(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
+<div class="line"><a name="l02870"></a><span class="lineno"> 2870</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
+<div class="line"><a name="l02871"></a><span class="lineno"> 2871</span>&#160;            PassFlashValueAIMc(n);</div>
+<div class="line"><a name="l02872"></a><span class="lineno"> 2872</span>&#160;        }       </div>
+<div class="line"><a name="l02873"></a><span class="lineno"> 2873</span>&#160;    }</div>
+<div class="line"><a name="l02874"></a><span class="lineno"> 2874</span>&#160;}</div>
+<div class="line"><a name="l02875"></a><span class="lineno"> 2875</span>&#160; </div>
+<div class="line"><a name="l02876"></a><span class="lineno"> 2876</span>&#160; </div>
+<div class="line"><a name="l02877"></a><span class="lineno"><a class="line" href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8"> 2877</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8">Bulk::FlashAIMc01</a>()</div>
+<div class="line"><a name="l02878"></a><span class="lineno"> 2878</span>&#160;{</div>
+<div class="line"><a name="l02879"></a><span class="lineno"> 2879</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
+<div class="line"><a name="l02880"></a><span class="lineno"> 2880</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02881"></a><span class="lineno"> 2881</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l02882"></a><span class="lineno"> 2882</span>&#160;            <span class="comment">// IMPEC bulk</span></div>
+<div class="line"><a name="l02883"></a><span class="lineno"> 2883</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_FALSE);</div>
+<div class="line"><a name="l02884"></a><span class="lineno"> 2884</span>&#160; </div>
+<div class="line"><a name="l02885"></a><span class="lineno"> 2885</span>&#160;            flashCal[PVTNUM[n]]-&gt;Flash(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
+<div class="line"><a name="l02886"></a><span class="lineno"> 2886</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
+<div class="line"><a name="l02887"></a><span class="lineno"> 2887</span>&#160;            <a class="code" href="classBulk.html#a03c20968f7d281592114fd6f7c38d538">PassFlashValue</a>(n);</div>
+<div class="line"><a name="l02888"></a><span class="lineno"> 2888</span>&#160;        }       </div>
+<div class="line"><a name="l02889"></a><span class="lineno"> 2889</span>&#160;    }</div>
+<div class="line"><a name="l02890"></a><span class="lineno"> 2890</span>&#160;}</div>
+<div class="line"><a name="l02891"></a><span class="lineno"> 2891</span>&#160; </div>
+<div class="line"><a name="l02892"></a><span class="lineno"> 2892</span>&#160; </div>
+<div class="line"><a name="l02893"></a><span class="lineno"><a class="line" href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84"> 2893</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84">Bulk::FlashDerivAIMc</a>()</div>
+<div class="line"><a name="l02894"></a><span class="lineno"> 2894</span>&#160;{</div>
+<div class="line"><a name="l02895"></a><span class="lineno"> 2895</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ftype;</div>
+<div class="line"><a name="l02896"></a><span class="lineno"> 2896</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02897"></a><span class="lineno"> 2897</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &gt; 0) {</div>
+<div class="line"><a name="l02898"></a><span class="lineno"> 2898</span>&#160;            <span class="comment">// FIM bulk</span></div>
+<div class="line"><a name="l02899"></a><span class="lineno"> 2899</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_TRUE);</div>
+<div class="line"><a name="l02900"></a><span class="lineno"> 2900</span>&#160; </div>
+<div class="line"><a name="l02901"></a><span class="lineno"> 2901</span>&#160;            flashCal[PVTNUM[n]]-&gt;FlashDeriv(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
+<div class="line"><a name="l02902"></a><span class="lineno"> 2902</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
+<div class="line"><a name="l02903"></a><span class="lineno"> 2903</span>&#160;            <a class="code" href="classBulk.html#a4c39ebeeaa4ece049f0a387301fba7ab">PassFlashValueDeriv</a>(n);</div>
+<div class="line"><a name="l02904"></a><span class="lineno"> 2904</span>&#160;        }</div>
+<div class="line"><a name="l02905"></a><span class="lineno"> 2905</span>&#160;    }</div>
+<div class="line"><a name="l02906"></a><span class="lineno"> 2906</span>&#160;}</div>
+<div class="line"><a name="l02907"></a><span class="lineno"> 2907</span>&#160; </div>
+<div class="line"><a name="l02908"></a><span class="lineno"> 2908</span>&#160; </div>
+<div class="line"><a name="l02909"></a><span class="lineno"><a class="line" href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad"> 2909</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad">Bulk::CalKrPcAIMc</a>()</div>
+<div class="line"><a name="l02910"></a><span class="lineno"> 2910</span>&#160;{</div>
+<div class="line"><a name="l02911"></a><span class="lineno"> 2911</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l02912"></a><span class="lineno"> 2912</span>&#160; </div>
+<div class="line"><a name="l02913"></a><span class="lineno"> 2913</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
+<div class="line"><a name="l02914"></a><span class="lineno"> 2914</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
+<div class="line"><a name="l02915"></a><span class="lineno"> 2915</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02916"></a><span class="lineno"> 2916</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l02917"></a><span class="lineno"> 2917</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
+<div class="line"><a name="l02918"></a><span class="lineno"> 2918</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
+<div class="line"><a name="l02919"></a><span class="lineno"> 2919</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], 0, tmp, tmp);</div>
+<div class="line"><a name="l02920"></a><span class="lineno"> 2920</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
+<div class="line"><a name="l02921"></a><span class="lineno"> 2921</span>&#160;                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];               </div>
+<div class="line"><a name="l02922"></a><span class="lineno"> 2922</span>&#160;            }</div>
+<div class="line"><a name="l02923"></a><span class="lineno"> 2923</span>&#160;            </div>
+<div class="line"><a name="l02924"></a><span class="lineno"> 2924</span>&#160;        }</div>
+<div class="line"><a name="l02925"></a><span class="lineno"> 2925</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02926"></a><span class="lineno"> 2926</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02927"></a><span class="lineno"> 2927</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l02928"></a><span class="lineno"> 2928</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
+<div class="line"><a name="l02929"></a><span class="lineno"> 2929</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
+<div class="line"><a name="l02930"></a><span class="lineno"> 2930</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPc(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId], surTen[n], Fk[n],</div>
+<div class="line"><a name="l02931"></a><span class="lineno"> 2931</span>&#160;                    Fp[n]);</div>
+<div class="line"><a name="l02932"></a><span class="lineno"> 2932</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
+<div class="line"><a name="l02933"></a><span class="lineno"> 2933</span>&#160;                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
+<div class="line"><a name="l02934"></a><span class="lineno"> 2934</span>&#160;            }           </div>
+<div class="line"><a name="l02935"></a><span class="lineno"> 2935</span>&#160;        }</div>
+<div class="line"><a name="l02936"></a><span class="lineno"> 2936</span>&#160;    }</div>
+<div class="line"><a name="l02937"></a><span class="lineno"> 2937</span>&#160; </div>
+<div class="line"><a name="l02938"></a><span class="lineno"> 2938</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
+<div class="line"><a name="l02939"></a><span class="lineno"> 2939</span>&#160;        <span class="comment">// correct</span></div>
+<div class="line"><a name="l02940"></a><span class="lineno"> 2940</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
+<div class="line"><a name="l02941"></a><span class="lineno"> 2941</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02942"></a><span class="lineno"> 2942</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l02943"></a><span class="lineno"> 2943</span>&#160;                <span class="comment">// IMPEC bulk</span></div>
+<div class="line"><a name="l02944"></a><span class="lineno"> 2944</span>&#160;                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
+<div class="line"><a name="l02945"></a><span class="lineno"> 2945</span>&#160;                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
+<div class="line"><a name="l02946"></a><span class="lineno"> 2946</span>&#160;            }           </div>
+<div class="line"><a name="l02947"></a><span class="lineno"> 2947</span>&#160;        }</div>
+<div class="line"><a name="l02948"></a><span class="lineno"> 2948</span>&#160;    }</div>
+<div class="line"><a name="l02949"></a><span class="lineno"> 2949</span>&#160;}</div>
+<div class="line"><a name="l02950"></a><span class="lineno"> 2950</span>&#160; </div>
+<div class="line"><a name="l02951"></a><span class="lineno"><a class="line" href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87"> 2951</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87">Bulk::CalKrPcDerivAIMc</a>()</div>
+<div class="line"><a name="l02952"></a><span class="lineno"> 2952</span>&#160;{</div>
+<div class="line"><a name="l02953"></a><span class="lineno"> 2953</span>&#160;    <a class="code" href="UtilError_8hpp.html#a036fa821da91b2d4a661830a7f8310ee">OCP_FUNCNAME</a>;</div>
+<div class="line"><a name="l02954"></a><span class="lineno"> 2954</span>&#160; </div>
+<div class="line"><a name="l02955"></a><span class="lineno"> 2955</span>&#160;    <span class="keywordflow">if</span> (!miscible) {</div>
+<div class="line"><a name="l02956"></a><span class="lineno"> 2956</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> tmp = 0;</div>
+<div class="line"><a name="l02957"></a><span class="lineno"> 2957</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02958"></a><span class="lineno"> 2958</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &gt; 0) {</div>
+<div class="line"><a name="l02959"></a><span class="lineno"> 2959</span>&#160;                <span class="comment">// FIM bulk</span></div>
+<div class="line"><a name="l02960"></a><span class="lineno"> 2960</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
+<div class="line"><a name="l02961"></a><span class="lineno"> 2961</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPcDeriv(&amp;S[bId], &amp;kr[bId], &amp;Pc[bId],</div>
+<div class="line"><a name="l02962"></a><span class="lineno"> 2962</span>&#160;                    &amp;dKr_dS[bId * numPhase],</div>
+<div class="line"><a name="l02963"></a><span class="lineno"> 2963</span>&#160;                    &amp;dPcj_dS[bId * numPhase], 0, tmp, tmp);</div>
+<div class="line"><a name="l02964"></a><span class="lineno"> 2964</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];</div>
+<div class="line"><a name="l02965"></a><span class="lineno"> 2965</span>&#160;            }</div>
+<div class="line"><a name="l02966"></a><span class="lineno"> 2966</span>&#160;        }</div>
+<div class="line"><a name="l02967"></a><span class="lineno"> 2967</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02968"></a><span class="lineno"> 2968</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02969"></a><span class="lineno"> 2969</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &gt; 0) {</div>
+<div class="line"><a name="l02970"></a><span class="lineno"> 2970</span>&#160;                <span class="comment">// FIM bulk</span></div>
+<div class="line"><a name="l02971"></a><span class="lineno"> 2971</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> bId = n * numPhase;</div>
+<div class="line"><a name="l02972"></a><span class="lineno"> 2972</span>&#160;                flow[SATNUM[n]]-&gt;CalKrPcDeriv(</div>
+<div class="line"><a name="l02973"></a><span class="lineno"> 2973</span>&#160;                    &amp;S[bId], &amp;kr[bId], &amp;Pc[bId], &amp;dKr_dS[bId * numPhase],</div>
+<div class="line"><a name="l02974"></a><span class="lineno"> 2974</span>&#160;                    &amp;dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);</div>
+<div class="line"><a name="l02975"></a><span class="lineno"> 2975</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++)</div>
+<div class="line"><a name="l02976"></a><span class="lineno"> 2976</span>&#160;                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
+<div class="line"><a name="l02977"></a><span class="lineno"> 2977</span>&#160;            }</div>
+<div class="line"><a name="l02978"></a><span class="lineno"> 2978</span>&#160;        }</div>
+<div class="line"><a name="l02979"></a><span class="lineno"> 2979</span>&#160;    }</div>
+<div class="line"><a name="l02980"></a><span class="lineno"> 2980</span>&#160; </div>
+<div class="line"><a name="l02981"></a><span class="lineno"> 2981</span>&#160;    <span class="keywordflow">if</span> (ScalePcow) {</div>
+<div class="line"><a name="l02982"></a><span class="lineno"> 2982</span>&#160;        <span class="comment">// correct</span></div>
+<div class="line"><a name="l02983"></a><span class="lineno"> 2983</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> Wid = phase2Index[<a class="code" href="OCPConst_8hpp.html#a41259a3447e9d6f13bb3579683119c29">WATER</a>];</div>
+<div class="line"><a name="l02984"></a><span class="lineno"> 2984</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l02985"></a><span class="lineno"> 2985</span>&#160;            <span class="keywordflow">if</span> (map_Bulk2FIM[n] &gt; 0) {</div>
+<div class="line"><a name="l02986"></a><span class="lineno"> 2986</span>&#160;                <span class="comment">// FIM bulk</span></div>
+<div class="line"><a name="l02987"></a><span class="lineno"> 2987</span>&#160;                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];</div>
+<div class="line"><a name="l02988"></a><span class="lineno"> 2988</span>&#160;                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];</div>
+<div class="line"><a name="l02989"></a><span class="lineno"> 2989</span>&#160;            }</div>
+<div class="line"><a name="l02990"></a><span class="lineno"> 2990</span>&#160;        }</div>
+<div class="line"><a name="l02991"></a><span class="lineno"> 2991</span>&#160;    }</div>
+<div class="line"><a name="l02992"></a><span class="lineno"> 2992</span>&#160;}</div>
+<div class="line"><a name="l02993"></a><span class="lineno"> 2993</span>&#160; </div>
+<div class="line"><a name="l02994"></a><span class="lineno"> 2994</span>&#160;<span class="keywordtype">void</span> Bulk::GetSolAIMc(<span class="keyword">const</span> vector&lt;OCP_DBL&gt;&amp; u,</div>
+<div class="line"><a name="l02995"></a><span class="lineno"> 2995</span>&#160;                      <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dPmaxlim,</div>
+<div class="line"><a name="l02996"></a><span class="lineno"> 2996</span>&#160;                      <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dSmaxlim)</div>
+<div class="line"><a name="l02997"></a><span class="lineno"> 2997</span>&#160;{</div>
+<div class="line"><a name="l02998"></a><span class="lineno"> 2998</span>&#160;    dSNR     = S;</div>
+<div class="line"><a name="l02999"></a><span class="lineno"> 2999</span>&#160;    NRdSmaxP = 0;</div>
+<div class="line"><a name="l03000"></a><span class="lineno"> 3000</span>&#160;    NRdPmax  = 0;</div>
+<div class="line"><a name="l03001"></a><span class="lineno"> 3001</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         dP;</div>
+<div class="line"><a name="l03002"></a><span class="lineno"> 3002</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             row = numPhase * (numCom + 1);</div>
+<div class="line"><a name="l03003"></a><span class="lineno"> 3003</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>             col = numCom + 1;</div>
+<div class="line"><a name="l03004"></a><span class="lineno"> 3004</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>         n_np_j;</div>
+<div class="line"><a name="l03005"></a><span class="lineno"> 3005</span>&#160;    vector&lt;OCP_DBL&gt; dtmp(row, 0);</div>
+<div class="line"><a name="l03006"></a><span class="lineno"> 3006</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         chopmin = 1;</div>
+<div class="line"><a name="l03007"></a><span class="lineno"> 3007</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         choptmp = 0;</div>
+<div class="line"><a name="l03008"></a><span class="lineno"> 3008</span>&#160; </div>
+<div class="line"><a name="l03009"></a><span class="lineno"> 3009</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l03010"></a><span class="lineno"> 3010</span>&#160;        <span class="keywordflow">if</span> (map_Bulk2FIM[n] &lt; 0) {</div>
+<div class="line"><a name="l03011"></a><span class="lineno"> 3011</span>&#160;            <span class="comment">// IMPEC Bulk</span></div>
+<div class="line"><a name="l03012"></a><span class="lineno"> 3012</span>&#160;            <span class="comment">// Pressure</span></div>
+<div class="line"><a name="l03013"></a><span class="lineno"> 3013</span>&#160;            dP      = u[n * col];</div>
+<div class="line"><a name="l03014"></a><span class="lineno"> 3014</span>&#160;            NRdPmax = max(NRdPmax, fabs(dP));</div>
+<div class="line"><a name="l03015"></a><span class="lineno"> 3015</span>&#160;            P[n] += dP; <span class="comment">// seems better</span></div>
+<div class="line"><a name="l03016"></a><span class="lineno"> 3016</span>&#160;            dPNR[n]   = dP;</div>
+<div class="line"><a name="l03017"></a><span class="lineno"> 3017</span>&#160;            NRstep[n] = 1;</div>
+<div class="line"><a name="l03018"></a><span class="lineno"> 3018</span>&#160;            <span class="comment">// Ni</span></div>
+<div class="line"><a name="l03019"></a><span class="lineno"> 3019</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l03020"></a><span class="lineno"> 3020</span>&#160;                dNNR[n * numCom + i] = u[n * col + 1 + i];</div>
+<div class="line"><a name="l03021"></a><span class="lineno"> 3021</span>&#160;                Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
+<div class="line"><a name="l03022"></a><span class="lineno"> 3022</span>&#160;            }</div>
+<div class="line"><a name="l03023"></a><span class="lineno"> 3023</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l03024"></a><span class="lineno"> 3024</span>&#160;        }</div>
+<div class="line"><a name="l03025"></a><span class="lineno"> 3025</span>&#160; </div>
+<div class="line"><a name="l03026"></a><span class="lineno"> 3026</span>&#160;        chopmin = 1;</div>
+<div class="line"><a name="l03027"></a><span class="lineno"> 3027</span>&#160;        <span class="comment">// compute the chop</span></div>
+<div class="line"><a name="l03028"></a><span class="lineno"> 3028</span>&#160;        fill(dtmp.begin(), dtmp.end(), 0.0);</div>
+<div class="line"><a name="l03029"></a><span class="lineno"> 3029</span>&#160;        <a class="code" href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a>(bRowSizedSdP[n], col, 1, &amp;dSec_dPri[n * maxLendSdP], u.data() + n * col,</div>
+<div class="line"><a name="l03030"></a><span class="lineno"> 3030</span>&#160;                1, dtmp.data());</div>
 <div class="line"><a name="l03031"></a><span class="lineno"> 3031</span>&#160; </div>
-<div class="line"><a name="l03032"></a><span class="lineno"> 3032</span>&#160;            choptmp = 1;</div>
-<div class="line"><a name="l03033"></a><span class="lineno"> 3033</span>&#160;            <span class="keywordflow">if</span> (fabs(dtmp[js]) &gt; dSmaxlim) {</div>
-<div class="line"><a name="l03034"></a><span class="lineno"> 3034</span>&#160;                choptmp = dSmaxlim / fabs(dtmp[js]);</div>
-<div class="line"><a name="l03035"></a><span class="lineno"> 3035</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (S[n_np_j] + dtmp[js] &lt; 0.0) {</div>
-<div class="line"><a name="l03036"></a><span class="lineno"> 3036</span>&#160;                choptmp = 0.9 * S[n_np_j] / fabs(dtmp[js]);</div>
-<div class="line"><a name="l03037"></a><span class="lineno"> 3037</span>&#160;            }</div>
+<div class="line"><a name="l03032"></a><span class="lineno"> 3032</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> js = 0;</div>
+<div class="line"><a name="l03033"></a><span class="lineno"> 3033</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l03034"></a><span class="lineno"> 3034</span>&#160;            <span class="keywordflow">if</span> (!pSderExist[n * numPhase + j]) {</div>
+<div class="line"><a name="l03035"></a><span class="lineno"> 3035</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l03036"></a><span class="lineno"> 3036</span>&#160;            }</div>
+<div class="line"><a name="l03037"></a><span class="lineno"> 3037</span>&#160;            n_np_j = n * numPhase + j;</div>
 <div class="line"><a name="l03038"></a><span class="lineno"> 3038</span>&#160; </div>
-<div class="line"><a name="l03039"></a><span class="lineno"> 3039</span>&#160;            <span class="comment">// if (fabs(S[n_np_j] - scm[j]) &gt; TINY &amp;&amp;</span></div>
-<div class="line"><a name="l03040"></a><span class="lineno"> 3040</span>&#160;            <span class="comment">//     (S[n_np_j] - scm[j]) / (choptmp * dtmp[js]) &lt; 0)</span></div>
-<div class="line"><a name="l03041"></a><span class="lineno"> 3041</span>&#160;            <span class="comment">//     choptmp *= min(1.0, -((S[n_np_j] - scm[j]) / (choptmp * dtmp[js])));</span></div>
-<div class="line"><a name="l03042"></a><span class="lineno"> 3042</span>&#160; </div>
-<div class="line"><a name="l03043"></a><span class="lineno"> 3043</span>&#160;            chopmin = min(chopmin, choptmp);</div>
-<div class="line"><a name="l03044"></a><span class="lineno"> 3044</span>&#160;            js++;</div>
-<div class="line"><a name="l03045"></a><span class="lineno"> 3045</span>&#160;        }</div>
-<div class="line"><a name="l03046"></a><span class="lineno"> 3046</span>&#160; </div>
-<div class="line"><a name="l03047"></a><span class="lineno"> 3047</span>&#160;        <span class="comment">// dS</span></div>
-<div class="line"><a name="l03048"></a><span class="lineno"> 3048</span>&#160;        js = 0;</div>
-<div class="line"><a name="l03049"></a><span class="lineno"> 3049</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l03050"></a><span class="lineno"> 3050</span>&#160;            <span class="keywordflow">if</span> (!pSderExist[n * numPhase + j]) {</div>
-<div class="line"><a name="l03051"></a><span class="lineno"> 3051</span>&#160;                dSNRP[n * numPhase + j] = 0;</div>
-<div class="line"><a name="l03052"></a><span class="lineno"> 3052</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l03053"></a><span class="lineno"> 3053</span>&#160;            }</div>
-<div class="line"><a name="l03054"></a><span class="lineno"> 3054</span>&#160;            dSNRP[n * numPhase + j] = chopmin * dtmp[js];</div>
-<div class="line"><a name="l03055"></a><span class="lineno"> 3055</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdSmaxP) &lt; fabs(dSNRP[n * numPhase + j]))</div>
-<div class="line"><a name="l03056"></a><span class="lineno"> 3056</span>&#160;                NRdSmaxP = dSNRP[n * numPhase + j];</div>
-<div class="line"><a name="l03057"></a><span class="lineno"> 3057</span>&#160;            js++;</div>
-<div class="line"><a name="l03058"></a><span class="lineno"> 3058</span>&#160;        }</div>
-<div class="line"><a name="l03059"></a><span class="lineno"> 3059</span>&#160; </div>
-<div class="line"><a name="l03060"></a><span class="lineno"> 3060</span>&#160;        <span class="comment">// dxij   ---- Compositional model only</span></div>
-<div class="line"><a name="l03061"></a><span class="lineno"> 3061</span>&#160;        <span class="keywordflow">if</span> (comps) {</div>
-<div class="line"><a name="l03062"></a><span class="lineno"> 3062</span>&#160;            <span class="keywordflow">if</span> (phaseNum[n] &gt;= 3) {</div>
-<div class="line"><a name="l03063"></a><span class="lineno"> 3063</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>  bId     = 0;</div>
-<div class="line"><a name="l03064"></a><span class="lineno"> 3064</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; 2; j++) {</div>
-<div class="line"><a name="l03065"></a><span class="lineno"> 3065</span>&#160;                    bId = n * numPhase * numCom + j * numCom;</div>
-<div class="line"><a name="l03066"></a><span class="lineno"> 3066</span>&#160;                    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
-<div class="line"><a name="l03067"></a><span class="lineno"> 3067</span>&#160;                        xij[bId + i] += chopmin * dtmp[js];</div>
-<div class="line"><a name="l03068"></a><span class="lineno"> 3068</span>&#160;                        js++;</div>
-<div class="line"><a name="l03069"></a><span class="lineno"> 3069</span>&#160;                    }</div>
-<div class="line"><a name="l03070"></a><span class="lineno"> 3070</span>&#160;                }</div>
-<div class="line"><a name="l03071"></a><span class="lineno"> 3071</span>&#160;            }</div>
-<div class="line"><a name="l03072"></a><span class="lineno"> 3072</span>&#160;        }</div>
-<div class="line"><a name="l03073"></a><span class="lineno"> 3073</span>&#160; </div>
-<div class="line"><a name="l03074"></a><span class="lineno"> 3074</span>&#160;        <span class="comment">// dP</span></div>
-<div class="line"><a name="l03075"></a><span class="lineno"> 3075</span>&#160;        dP = u[n * col];</div>
-<div class="line"><a name="l03076"></a><span class="lineno"> 3076</span>&#160;        <span class="keywordflow">if</span> (fabs(NRdPmax) &lt; fabs(dP)) NRdPmax = dP;</div>
-<div class="line"><a name="l03077"></a><span class="lineno"> 3077</span>&#160;        P[n] += dP; <span class="comment">// seems better</span></div>
-<div class="line"><a name="l03078"></a><span class="lineno"> 3078</span>&#160;        dPNR[n] = dP;</div>
-<div class="line"><a name="l03079"></a><span class="lineno"> 3079</span>&#160; </div>
-<div class="line"><a name="l03080"></a><span class="lineno"> 3080</span>&#160;        <span class="comment">// dNi</span></div>
-<div class="line"><a name="l03081"></a><span class="lineno"> 3081</span>&#160;        NRstep[n] = chopmin;</div>
-<div class="line"><a name="l03082"></a><span class="lineno"> 3082</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l03083"></a><span class="lineno"> 3083</span>&#160;            dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;</div>
-<div class="line"><a name="l03084"></a><span class="lineno"> 3084</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdNmax) &lt; fabs(dNNR[n * numCom + i]) / Nt[n])</div>
-<div class="line"><a name="l03085"></a><span class="lineno"> 3085</span>&#160;                NRdNmax = dNNR[n * numCom + i] / Nt[n];</div>
+<div class="line"><a name="l03039"></a><span class="lineno"> 3039</span>&#160;            choptmp = 1;</div>
+<div class="line"><a name="l03040"></a><span class="lineno"> 3040</span>&#160;            <span class="keywordflow">if</span> (fabs(dtmp[js]) &gt; dSmaxlim) {</div>
+<div class="line"><a name="l03041"></a><span class="lineno"> 3041</span>&#160;                choptmp = dSmaxlim / fabs(dtmp[js]);</div>
+<div class="line"><a name="l03042"></a><span class="lineno"> 3042</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (S[n_np_j] + dtmp[js] &lt; 0.0) {</div>
+<div class="line"><a name="l03043"></a><span class="lineno"> 3043</span>&#160;                choptmp = 0.9 * S[n_np_j] / fabs(dtmp[js]);</div>
+<div class="line"><a name="l03044"></a><span class="lineno"> 3044</span>&#160;            }</div>
+<div class="line"><a name="l03045"></a><span class="lineno"> 3045</span>&#160; </div>
+<div class="line"><a name="l03046"></a><span class="lineno"> 3046</span>&#160;            <span class="comment">// if (fabs(S[n_np_j] - scm[j]) &gt; TINY &amp;&amp;</span></div>
+<div class="line"><a name="l03047"></a><span class="lineno"> 3047</span>&#160;            <span class="comment">//     (S[n_np_j] - scm[j]) / (choptmp * dtmp[js]) &lt; 0)</span></div>
+<div class="line"><a name="l03048"></a><span class="lineno"> 3048</span>&#160;            <span class="comment">//     choptmp *= min(1.0, -((S[n_np_j] - scm[j]) / (choptmp * dtmp[js])));</span></div>
+<div class="line"><a name="l03049"></a><span class="lineno"> 3049</span>&#160; </div>
+<div class="line"><a name="l03050"></a><span class="lineno"> 3050</span>&#160;            chopmin = min(chopmin, choptmp);</div>
+<div class="line"><a name="l03051"></a><span class="lineno"> 3051</span>&#160;            js++;</div>
+<div class="line"><a name="l03052"></a><span class="lineno"> 3052</span>&#160;        }</div>
+<div class="line"><a name="l03053"></a><span class="lineno"> 3053</span>&#160; </div>
+<div class="line"><a name="l03054"></a><span class="lineno"> 3054</span>&#160;        <span class="comment">// dS</span></div>
+<div class="line"><a name="l03055"></a><span class="lineno"> 3055</span>&#160;        js = 0;</div>
+<div class="line"><a name="l03056"></a><span class="lineno"> 3056</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l03057"></a><span class="lineno"> 3057</span>&#160;            <span class="keywordflow">if</span> (!pSderExist[n * numPhase + j]) {</div>
+<div class="line"><a name="l03058"></a><span class="lineno"> 3058</span>&#160;                dSNRP[n * numPhase + j] = 0;</div>
+<div class="line"><a name="l03059"></a><span class="lineno"> 3059</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l03060"></a><span class="lineno"> 3060</span>&#160;            }</div>
+<div class="line"><a name="l03061"></a><span class="lineno"> 3061</span>&#160;            dSNRP[n * numPhase + j] = chopmin * dtmp[js];</div>
+<div class="line"><a name="l03062"></a><span class="lineno"> 3062</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdSmaxP) &lt; fabs(dSNRP[n * numPhase + j]))</div>
+<div class="line"><a name="l03063"></a><span class="lineno"> 3063</span>&#160;                NRdSmaxP = dSNRP[n * numPhase + j];</div>
+<div class="line"><a name="l03064"></a><span class="lineno"> 3064</span>&#160;            js++;</div>
+<div class="line"><a name="l03065"></a><span class="lineno"> 3065</span>&#160;        }</div>
+<div class="line"><a name="l03066"></a><span class="lineno"> 3066</span>&#160; </div>
+<div class="line"><a name="l03067"></a><span class="lineno"> 3067</span>&#160;        <span class="comment">// dxij   ---- Compositional model only</span></div>
+<div class="line"><a name="l03068"></a><span class="lineno"> 3068</span>&#160;        <span class="keywordflow">if</span> (comps) {</div>
+<div class="line"><a name="l03069"></a><span class="lineno"> 3069</span>&#160;            <span class="keywordflow">if</span> (phaseNum[n] &gt;= 3) {</div>
+<div class="line"><a name="l03070"></a><span class="lineno"> 3070</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>  bId     = 0;</div>
+<div class="line"><a name="l03071"></a><span class="lineno"> 3071</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; 2; j++) {</div>
+<div class="line"><a name="l03072"></a><span class="lineno"> 3072</span>&#160;                    bId = n * numPhase * numCom + j * numCom;</div>
+<div class="line"><a name="l03073"></a><span class="lineno"> 3073</span>&#160;                    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
+<div class="line"><a name="l03074"></a><span class="lineno"> 3074</span>&#160;                        xij[bId + i] += chopmin * dtmp[js];</div>
+<div class="line"><a name="l03075"></a><span class="lineno"> 3075</span>&#160;                        js++;</div>
+<div class="line"><a name="l03076"></a><span class="lineno"> 3076</span>&#160;                    }</div>
+<div class="line"><a name="l03077"></a><span class="lineno"> 3077</span>&#160;                }</div>
+<div class="line"><a name="l03078"></a><span class="lineno"> 3078</span>&#160;            }</div>
+<div class="line"><a name="l03079"></a><span class="lineno"> 3079</span>&#160;        }</div>
+<div class="line"><a name="l03080"></a><span class="lineno"> 3080</span>&#160; </div>
+<div class="line"><a name="l03081"></a><span class="lineno"> 3081</span>&#160;        <span class="comment">// dP</span></div>
+<div class="line"><a name="l03082"></a><span class="lineno"> 3082</span>&#160;        dP = u[n * col];</div>
+<div class="line"><a name="l03083"></a><span class="lineno"> 3083</span>&#160;        <span class="keywordflow">if</span> (fabs(NRdPmax) &lt; fabs(dP)) NRdPmax = dP;</div>
+<div class="line"><a name="l03084"></a><span class="lineno"> 3084</span>&#160;        P[n] += dP; <span class="comment">// seems better</span></div>
+<div class="line"><a name="l03085"></a><span class="lineno"> 3085</span>&#160;        dPNR[n] = dP;</div>
 <div class="line"><a name="l03086"></a><span class="lineno"> 3086</span>&#160; </div>
-<div class="line"><a name="l03087"></a><span class="lineno"> 3087</span>&#160;            Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
-<div class="line"><a name="l03088"></a><span class="lineno"> 3088</span>&#160;        }</div>
-<div class="line"><a name="l03089"></a><span class="lineno"> 3089</span>&#160;    }</div>
-<div class="line"><a name="l03090"></a><span class="lineno"> 3090</span>&#160;}</div>
-<div class="line"><a name="l03091"></a><span class="lineno"> 3091</span>&#160; </div>
-<div class="line"><a name="l03092"></a><span class="lineno"> 3092</span>&#160;<span class="keywordtype">void</span> Bulk::UpdatePj()</div>
-<div class="line"><a name="l03093"></a><span class="lineno"> 3093</span>&#160;{</div>
-<div class="line"><a name="l03094"></a><span class="lineno"> 3094</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
-<div class="line"><a name="l03095"></a><span class="lineno"> 3095</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
-<div class="line"><a name="l03096"></a><span class="lineno"> 3096</span>&#160;            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
-<div class="line"><a name="l03097"></a><span class="lineno"> 3097</span>&#160;        }</div>
-<div class="line"><a name="l03098"></a><span class="lineno"> 3098</span>&#160;    }</div>
-<div class="line"><a name="l03099"></a><span class="lineno"> 3099</span>&#160;}</div>
-<div class="line"><a name="l03100"></a><span class="lineno"> 3100</span>&#160; </div>
-<div class="line"><a name="l03101"></a><span class="lineno"> 3101</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l03102"></a><span class="lineno"> 3102</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l03103"></a><span class="lineno"> 3103</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l03104"></a><span class="lineno"> 3104</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l03105"></a><span class="lineno"> 3105</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l03106"></a><span class="lineno"> 3106</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l03107"></a><span class="lineno"> 3107</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l03108"></a><span class="lineno"> 3108</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
-<div class="line"><a name="l03109"></a><span class="lineno"> 3109</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l03087"></a><span class="lineno"> 3087</span>&#160;        <span class="comment">// dNi</span></div>
+<div class="line"><a name="l03088"></a><span class="lineno"> 3088</span>&#160;        NRstep[n] = chopmin;</div>
+<div class="line"><a name="l03089"></a><span class="lineno"> 3089</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
+<div class="line"><a name="l03090"></a><span class="lineno"> 3090</span>&#160;            dNNR[n * numCom + i] = u[n * col + 1 + i] * chopmin;</div>
+<div class="line"><a name="l03091"></a><span class="lineno"> 3091</span>&#160;            <span class="keywordflow">if</span> (fabs(NRdNmax) &lt; fabs(dNNR[n * numCom + i]) / Nt[n])</div>
+<div class="line"><a name="l03092"></a><span class="lineno"> 3092</span>&#160;                NRdNmax = dNNR[n * numCom + i] / Nt[n];</div>
+<div class="line"><a name="l03093"></a><span class="lineno"> 3093</span>&#160; </div>
+<div class="line"><a name="l03094"></a><span class="lineno"> 3094</span>&#160;            Ni[n * numCom + i] += dNNR[n * numCom + i];</div>
+<div class="line"><a name="l03095"></a><span class="lineno"> 3095</span>&#160;        }</div>
+<div class="line"><a name="l03096"></a><span class="lineno"> 3096</span>&#160;    }</div>
+<div class="line"><a name="l03097"></a><span class="lineno"> 3097</span>&#160;}</div>
+<div class="line"><a name="l03098"></a><span class="lineno"> 3098</span>&#160; </div>
+<div class="line"><a name="l03099"></a><span class="lineno"> 3099</span>&#160;<span class="keywordtype">void</span> Bulk::UpdatePj()</div>
+<div class="line"><a name="l03100"></a><span class="lineno"> 3100</span>&#160;{</div>
+<div class="line"><a name="l03101"></a><span class="lineno"> 3101</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numBulk; n++) {</div>
+<div class="line"><a name="l03102"></a><span class="lineno"> 3102</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; numPhase; j++) {</div>
+<div class="line"><a name="l03103"></a><span class="lineno"> 3103</span>&#160;            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];</div>
+<div class="line"><a name="l03104"></a><span class="lineno"> 3104</span>&#160;        }</div>
+<div class="line"><a name="l03105"></a><span class="lineno"> 3105</span>&#160;    }</div>
+<div class="line"><a name="l03106"></a><span class="lineno"> 3106</span>&#160;}</div>
+<div class="line"><a name="l03107"></a><span class="lineno"> 3107</span>&#160; </div>
+<div class="line"><a name="l03108"></a><span class="lineno"> 3108</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l03109"></a><span class="lineno"> 3109</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l03110"></a><span class="lineno"> 3110</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l03111"></a><span class="lineno"> 3111</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l03112"></a><span class="lineno"> 3112</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l03113"></a><span class="lineno"> 3113</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l03114"></a><span class="lineno"> 3114</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l03115"></a><span class="lineno"> 3115</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l03116"></a><span class="lineno"> 3116</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aBulk_8hpp_html"><div class="ttname"><a href="Bulk_8hpp.html">Bulk.hpp</a></div><div class="ttdoc">Bulk class declaration.</div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a509bf5c3f0e217a8459e280b8f48bfa3"><div class="ttname"><a href="DenseMat_8hpp.html#a509bf5c3f0e217a8459e280b8f48bfa3">DaAxpby</a></div><div class="ttdeci">void DaAxpby(const int &amp;m, const int &amp;n, const double &amp;a, const double *A, const double *x, const double &amp;b, double *y)</div><div class="ttdoc">Computes y = a A x + b y.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00173">DenseMat.cpp:173</a></div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_a5da432e006319d9f82b5da4c0a186c1f"><div class="ttname"><a href="DenseMat_8hpp.html#a5da432e006319d9f82b5da4c0a186c1f">Daxpy</a></div><div class="ttdeci">void Daxpy(const int &amp;n, const double &amp;alpha, const double *x, double *y)</div><div class="ttdoc">Constant times a vector plus a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00069">DenseMat.cpp:69</a></div></div>
@@ -3193,7 +3200,7 @@ $(function() {
 <div class="ttc" id="aclassBulk_html_a1ffade6171a20bc230c9d45a7fedfb1e"><div class="ttname"><a href="classBulk.html#a1ffade6171a20bc230c9d45a7fedfb1e">Bulk::GetNRdPmax</a></div><div class="ttdeci">OCP_DBL GetNRdPmax()</div><div class="ttdoc">Return NRdPmax.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02758">Bulk.cpp:2758</a></div></div>
 <div class="ttc" id="aclassBulk_html_a2175d8d9a6a805bbff0cbbd09ef239ff"><div class="ttname"><a href="classBulk.html#a2175d8d9a6a805bbff0cbbd09ef239ff">Bulk::CheckP</a></div><div class="ttdeci">OCP_BOOL CheckP() const</div><div class="ttdoc">Check if negative P occurs, return OCP_FALSE if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01817">Bulk.cpp:1817</a></div></div>
 <div class="ttc" id="aclassBulk_html_a21a116347f73bf148840ddbd99ce28f8"><div class="ttname"><a href="classBulk.html#a21a116347f73bf148840ddbd99ce28f8">Bulk::CheckDiff</a></div><div class="ttdeci">void CheckDiff()</div><div class="ttdoc">Check difference from last time step, for Debug and Test.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01901">Bulk.cpp:1901</a></div></div>
-<div class="ttc" id="aclassBulk_html_a35a10d135d7db8c0f21662ad3c086973"><div class="ttname"><a href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973">Bulk::FlashAIMc</a></div><div class="ttdeci">void FlashAIMc()</div><div class="ttdoc">Perform flash calculation with Ni for IMPEC bulk – Update partial properties.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02865">Bulk.cpp:2865</a></div></div>
+<div class="ttc" id="aclassBulk_html_a35a10d135d7db8c0f21662ad3c086973"><div class="ttname"><a href="classBulk.html#a35a10d135d7db8c0f21662ad3c086973">Bulk::FlashAIMc</a></div><div class="ttdeci">void FlashAIMc()</div><div class="ttdoc">Perform flash calculation with Ni for IMPEC bulk – Update partial properties.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02861">Bulk.cpp:2861</a></div></div>
 <div class="ttc" id="aclassBulk_html_a3bf55a9c8f0e3752cc667c2cc5c966f2"><div class="ttname"><a href="classBulk.html#a3bf55a9c8f0e3752cc667c2cc5c966f2">Bulk::AllocateAuxIMPEC</a></div><div class="ttdeci">void AllocateAuxIMPEC()</div><div class="ttdoc">Allocate memory for auxiliary variables used for IMPEC.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02150">Bulk.cpp:2150</a></div></div>
 <div class="ttc" id="aclassBulk_html_a3d26a907b0e9e276cdd7b3279f7872d8"><div class="ttname"><a href="classBulk.html#a3d26a907b0e9e276cdd7b3279f7872d8">Bulk::CalMaxChange</a></div><div class="ttdeci">void CalMaxChange()</div><div class="ttdoc">Calculate max change of some variables.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01719">Bulk.cpp:1719</a></div></div>
 <div class="ttc" id="aclassBulk_html_a45f8cdaef2051d6121d94e94237f9aa7"><div class="ttname"><a href="classBulk.html#a45f8cdaef2051d6121d94e94237f9aa7">Bulk::GetMixMode</a></div><div class="ttdeci">USI GetMixMode() const</div><div class="ttdoc">Return the mixture mode.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01989">Bulk.cpp:1989</a></div></div>
@@ -3206,7 +3213,7 @@ $(function() {
 <div class="ttc" id="aclassBulk_html_a698aed4fd8808d6a75c77f36cd36ef1c"><div class="ttname"><a href="classBulk.html#a698aed4fd8808d6a75c77f36cd36ef1c">Bulk::CheckSetup</a></div><div class="ttdeci">void CheckSetup() const</div><div class="ttdoc">Check if error occurs in Setup.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00438">Bulk.cpp:438</a></div></div>
 <div class="ttc" id="aclassBulk_html_a6b134e40a8bc872bb3c7b09e54a568cc"><div class="ttname"><a href="classBulk.html#a6b134e40a8bc872bb3c7b09e54a568cc">Bulk::CheckVe</a></div><div class="ttdeci">OCP_BOOL CheckVe(const OCP_DBL &amp;Vlim) const</div><div class="ttdoc">Check if relative volume error is out of range, return OCP_FALSE if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01879">Bulk.cpp:1879</a></div></div>
 <div class="ttc" id="aclassBulk_html_a6c908149b7505b9c2568461a6c51cc99"><div class="ttname"><a href="classBulk.html#a6c908149b7505b9c2568461a6c51cc99">Bulk::ResetFIM</a></div><div class="ttdeci">void ResetFIM()</div><div class="ttdoc">Reset FIM.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02650">Bulk.cpp:2650</a></div></div>
-<div class="ttc" id="aclassBulk_html_a7140a6895319a65b8c7d8f2204d8ed87"><div class="ttname"><a href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87">Bulk::CalKrPcDerivAIMc</a></div><div class="ttdeci">void CalKrPcDerivAIMc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure and their derivatives.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02953">Bulk.cpp:2953</a></div></div>
+<div class="ttc" id="aclassBulk_html_a7140a6895319a65b8c7d8f2204d8ed87"><div class="ttname"><a href="classBulk.html#a7140a6895319a65b8c7d8f2204d8ed87">Bulk::CalKrPcDerivAIMc</a></div><div class="ttdeci">void CalKrPcDerivAIMc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure and their derivatives.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02951">Bulk.cpp:2951</a></div></div>
 <div class="ttc" id="aclassBulk_html_a732be2d80eb714c15dcc80fdceaa0695"><div class="ttname"><a href="classBulk.html#a732be2d80eb714c15dcc80fdceaa0695">Bulk::CheckSat</a></div><div class="ttdeci">void CheckSat() const</div><div class="ttdoc">Check if the sum of saturations is one.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01968">Bulk.cpp:1968</a></div></div>
 <div class="ttc" id="aclassBulk_html_a7a487a1e470154a51839864c70fe1124"><div class="ttname"><a href="classBulk.html#a7a487a1e470154a51839864c70fe1124">Bulk::Flash</a></div><div class="ttdeci">void Flash()</div><div class="ttdoc">Perform flash calculation with Ni.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01238">Bulk.cpp:1238</a></div></div>
 <div class="ttc" id="aclassBulk_html_a8122d1e0a5aad95dd761af0f13ba2af2"><div class="ttname"><a href="classBulk.html#a8122d1e0a5aad95dd761af0f13ba2af2">Bulk::CalKrPcDeriv</a></div><div class="ttdeci">void CalKrPcDeriv()</div><div class="ttdoc">Calculate relative permeability and capillary pressure and their derivatives.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01649">Bulk.cpp:1649</a></div></div>
@@ -3215,11 +3222,11 @@ $(function() {
 <div class="ttc" id="aclassBulk_html_a9539a41a4513bbb4b4e3e8d439992d4f"><div class="ttname"><a href="classBulk.html#a9539a41a4513bbb4b4e3e8d439992d4f">Bulk::CalCFL</a></div><div class="ttdeci">OCP_DBL CalCFL() const</div><div class="ttdoc">Calculate the CFL number.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02195">Bulk.cpp:2195</a></div></div>
 <div class="ttc" id="aclassBulk_html_a9daedcdaa8d74eac1bed2df457278d46"><div class="ttname"><a href="classBulk.html#a9daedcdaa8d74eac1bed2df457278d46">Bulk::CheckNi</a></div><div class="ttdeci">OCP_BOOL CheckNi()</div><div class="ttdoc">Check if negative Ni occurs, return OCP_FALSE if so.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01836">Bulk.cpp:1836</a></div></div>
 <div class="ttc" id="aclassBulk_html_aa1635a832129794590e4801d6316230d"><div class="ttname"><a href="classBulk.html#aa1635a832129794590e4801d6316230d">Bulk::Setup</a></div><div class="ttdeci">void Setup(const Grid &amp;myGrid)</div><div class="ttdoc">Allocate memory for bulk data of grid.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00324">Bulk.cpp:324</a></div></div>
-<div class="ttc" id="aclassBulk_html_aac03f9cfde9cab38f4db892c6c1ee8a8"><div class="ttname"><a href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8">Bulk::FlashAIMc01</a></div><div class="ttdeci">void FlashAIMc01()</div><div class="ttdoc">Perform flash calculation with Ni for IMPEC bulk – Update all properties.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02881">Bulk.cpp:2881</a></div></div>
+<div class="ttc" id="aclassBulk_html_aac03f9cfde9cab38f4db892c6c1ee8a8"><div class="ttname"><a href="classBulk.html#aac03f9cfde9cab38f4db892c6c1ee8a8">Bulk::FlashAIMc01</a></div><div class="ttdeci">void FlashAIMc01()</div><div class="ttdoc">Perform flash calculation with Ni for IMPEC bulk – Update all properties.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02877">Bulk.cpp:2877</a></div></div>
 <div class="ttc" id="aclassBulk_html_ab10e3d5483e295cc0a54d2764f1d2c57"><div class="ttname"><a href="classBulk.html#ab10e3d5483e295cc0a54d2764f1d2c57">Bulk::ResetFlash</a></div><div class="ttdeci">void ResetFlash()</div><div class="ttdoc">Reset variables in flash calculations.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01600">Bulk.cpp:1600</a></div></div>
-<div class="ttc" id="aclassBulk_html_ab2f04a2b92b09d0908e9934440b71c84"><div class="ttname"><a href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84">Bulk::FlashDerivAIMc</a></div><div class="ttdeci">void FlashDerivAIMc()</div><div class="ttdoc">Perform flash calculation with Ni and calculate derivatives.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02897">Bulk.cpp:2897</a></div></div>
+<div class="ttc" id="aclassBulk_html_ab2f04a2b92b09d0908e9934440b71c84"><div class="ttname"><a href="classBulk.html#ab2f04a2b92b09d0908e9934440b71c84">Bulk::FlashDerivAIMc</a></div><div class="ttdeci">void FlashDerivAIMc()</div><div class="ttdoc">Perform flash calculation with Ni and calculate derivatives.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02893">Bulk.cpp:2893</a></div></div>
 <div class="ttc" id="aclassBulk_html_ab660ee553f985ed3ab8a9875d8e9d552"><div class="ttname"><a href="classBulk.html#ab660ee553f985ed3ab8a9875d8e9d552">Bulk::InputParam</a></div><div class="ttdeci">void InputParam(ParamReservoir &amp;rs_param)</div><div class="ttdoc">Input param from internal data structure ParamReservoir.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l00024">Bulk.cpp:24</a></div></div>
-<div class="ttc" id="aclassBulk_html_abb871abb4d63f60dca34d2231c3988ad"><div class="ttname"><a href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad">Bulk::CalKrPcAIMc</a></div><div class="ttdeci">void CalKrPcAIMc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure with saturation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02911">Bulk.cpp:2911</a></div></div>
+<div class="ttc" id="aclassBulk_html_abb871abb4d63f60dca34d2231c3988ad"><div class="ttname"><a href="classBulk.html#abb871abb4d63f60dca34d2231c3988ad">Bulk::CalKrPcAIMc</a></div><div class="ttdeci">void CalKrPcAIMc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure with saturation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l02909">Bulk.cpp:2909</a></div></div>
 <div class="ttc" id="aclassBulk_html_ac34533e9d254ef485eb57ff3537fbe4a"><div class="ttname"><a href="classBulk.html#ac34533e9d254ef485eb57ff3537fbe4a">Bulk::CalKrPc</a></div><div class="ttdeci">void CalKrPc()</div><div class="ttdoc">Calculate relative permeability and capillary pressure with saturation.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01617">Bulk.cpp:1617</a></div></div>
 <div class="ttc" id="aclassBulk_html_ac89ed36d19cdbea2d5d51f39fc6a89c2"><div class="ttname"><a href="classBulk.html#ac89ed36d19cdbea2d5d51f39fc6a89c2">Bulk::CalFPR</a></div><div class="ttdeci">OCP_DBL CalFPR() const</div><div class="ttdoc">Calculate average pressure in reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01693">Bulk.cpp:1693</a></div></div>
 <div class="ttc" id="aclassBulk_html_acc6c5de0acecb06e4b4e951b581eb68c"><div class="ttname"><a href="classBulk.html#acc6c5de0acecb06e4b4e951b581eb68c">Bulk::CalRock</a></div><div class="ttdeci">void CalRock()</div><div class="ttdoc">Calculate volume of pore with pressure.</div><div class="ttdef"><b>Definition:</b> <a href="Bulk_8cpp_source.html#l01683">Bulk.cpp:1683</a></div></div>
@@ -3284,7 +3291,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 25 2022 04:22:50 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Nov 25 2022 04:37:43 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
