@@ -1462,7 +1462,7 @@ $(function() {
 <div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;            <span class="comment">// IMPORTANT -- need for next Flash</span></div>
 <div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160;            <span class="comment">// But xij in nonlinear equations has been modified</span></div>
 <div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom; i++) {</div>
-<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;                xij[bIdp * numCom + j * numCom + i] =</div>
+<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;                xijNR[bIdp * numCom + j * numCom + i] =</div>
 <div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160;                    flashCal[pvtnum]-&gt;xij[j * numCom + i];</div>
 <div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;            }</div>
 <div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;        }</div>
@@ -2915,7 +2915,7 @@ $(function() {
 <div class="line"><a name="l02869"></a><span class="lineno"> 2869</span>&#160;            ftype = <a class="code" href="classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f">CalFlashType</a>(n, OCP_FALSE);</div>
 <div class="line"><a name="l02870"></a><span class="lineno"> 2870</span>&#160; </div>
 <div class="line"><a name="l02871"></a><span class="lineno"> 2871</span>&#160;            flashCal[PVTNUM[n]]-&gt;Flash(P[n], T[n], &amp;Ni[n * numCom], ftype, phaseNum[n],</div>
-<div class="line"><a name="l02872"></a><span class="lineno"> 2872</span>&#160;                &amp;xij[n * numPhase * numCom]);</div>
+<div class="line"><a name="l02872"></a><span class="lineno"> 2872</span>&#160;                &amp;xijNR[n * numPhase * numCom]);</div>
 <div class="line"><a name="l02873"></a><span class="lineno"> 2873</span>&#160;            PassFlashValueAIMc(n);</div>
 <div class="line"><a name="l02874"></a><span class="lineno"> 2874</span>&#160;        }       </div>
 <div class="line"><a name="l02875"></a><span class="lineno"> 2875</span>&#160;    }</div>
@@ -3119,7 +3119,7 @@ $(function() {
 <div class="line"><a name="l03073"></a><span class="lineno"> 3073</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; 2; j++) {</div>
 <div class="line"><a name="l03074"></a><span class="lineno"> 3074</span>&#160;                    bId = n * numPhase * numCom + j * numCom;</div>
 <div class="line"><a name="l03075"></a><span class="lineno"> 3075</span>&#160;                    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; numCom_1; i++) {</div>
-<div class="line"><a name="l03076"></a><span class="lineno"> 3076</span>&#160;                        xij[bId + i] += chopmin * dtmp[js];</div>
+<div class="line"><a name="l03076"></a><span class="lineno"> 3076</span>&#160;                        xijNR[bId + i] += chopmin * dtmp[js];</div>
 <div class="line"><a name="l03077"></a><span class="lineno"> 3077</span>&#160;                        js++;</div>
 <div class="line"><a name="l03078"></a><span class="lineno"> 3078</span>&#160;                    }</div>
 <div class="line"><a name="l03079"></a><span class="lineno"> 3079</span>&#160;                }</div>
@@ -3293,7 +3293,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 25 2022 05:40:19 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Nov 25 2022 06:00:09 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
