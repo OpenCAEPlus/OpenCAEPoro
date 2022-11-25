@@ -643,7 +643,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM();
+        rs.ResetAIMc();
         rs.CalResAIMc(resFIM, dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
@@ -681,7 +681,7 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM();
+        rs.ResetAIMc();
         rs.CalResAIMc(resFIM, ctrl.current_dt);
         resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
         ctrl.ResetIterNRLS();
@@ -715,14 +715,14 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         switch (flagCheck) {
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                rs.ResetFIM();
+                rs.ResetAIMc();
                 rs.CalResAIMc(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             case 2:
                 // ctrl.current_dt /= 1;
-                rs.ResetFIM();
+                rs.ResetAIMc();
                 rs.CalResAIMc(resFIM, ctrl.current_dt);
                 resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
                 ctrl.ResetIterNRLS();

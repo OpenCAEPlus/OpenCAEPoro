@@ -203,6 +203,7 @@ public:
                          const OCP_DBL&         dPmax,
                          const OCP_DBL&         dSmax);
     void InitAIMc();
+    void ResetAIMc();
     void UpdatePj() { bulk.UpdatePj(); }
 };
 

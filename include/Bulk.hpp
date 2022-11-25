@@ -564,6 +564,7 @@ public:
                     const OCP_DBL&         dPmaxlim,
                     const OCP_DBL&         dSmaxlim);
     void UpdatePj();
+    void ResetNRxij() { xijNR = lxij; }
 
 private:
     vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells and their K-neighbor
@@ -579,6 +580,7 @@ private:
     private:
         vector<OCP_INT> indicator;  ///< Stores the index of FIM bulk in equations, FIM bulk: >=0; IMPEC bulk: <0;
     } bulkTypeAIM;
+    vector<OCP_DBL> xijNR; ///< store the current NR step's xij in AIM
     
 };
 

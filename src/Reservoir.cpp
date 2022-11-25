@@ -545,6 +545,12 @@ void Reservoir::InitAIMc()
     UpdateLastStepFIM();
 }
 
+void Reservoir::ResetAIMc()
+{
+    ResetFIM();
+    bulk.ResetNRxij();
+}
+
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
 /*----------------------------------------------------------------------------*/

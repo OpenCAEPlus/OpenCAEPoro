@@ -2855,6 +2855,7 @@ void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const
 
 void Bulk::AllocateAuxAIMc()
 {
+    xijNR.resize(numBulk * numPhase * numCom);
     cfl.resize(numBulk * numPhase);
     bulkTypeAIM.Init(numBulk);
 }
