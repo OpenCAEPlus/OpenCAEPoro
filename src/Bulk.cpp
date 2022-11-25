@@ -2834,22 +2834,18 @@ void Bulk::OutputInfo(const OCP_USI& n) const
 
 void Bulk::ShowFIMBulk(const OCP_BOOL& flag) const
 {
-    cout << numFIMBulk << "   " << fixed << setprecision(3)
-         << numFIMBulk * 100.0 / numBulk << "%" << endl;
+
     if (flag) {
-        for (USI n = 0; n < numFIMBulk; n++) {
-            cout << setw(6) << FIMBulk[n] << "   ";
-            if ((n + 1) % 10 == 0) {
-                cout << endl;
-            }
-        }
-        cout << endl;
-    }
-    if (OCP_FALSE) {
+        USI iter = 0;
         for (USI n = 0; n < numBulk; n++) {
-            cout << setw(6) << map_Bulk2FIM[n] << "   ";
-            if ((n + 1) % 10 == 0) {
+            if (map_Bulk2FIM[n] > 0) {
+                cout << setw(6) << n << "   ";
+                iter++;
+            }
+            
+            if ((iter + 1) % 10 == 0) {
                 cout << endl;
+                iter = 0;
             }
         }
         cout << endl;
@@ -2897,13 +2893,15 @@ void Bulk::FlashAIMc01()
 void Bulk::FlashDerivAIMc()
 {
     USI ftype;
-    for (auto& n : FIMBulk) {
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (map_Bulk2FIM[n] > 0) {
+            // FIM bulk
+            ftype = CalFlashType(n, OCP_TRUE);
 
-        ftype = CalFlashType(n, OCP_TRUE);
-
-        flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-            &xij[n * numPhase * numCom]);
-        PassFlashValueDeriv(n);
+            flashCal[PVTNUM[n]]->FlashDeriv(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
+                &xij[n * numPhase * numCom]);
+            PassFlashValueDeriv(n);
+        }
     }
 }
 
@@ -2956,30 +2954,39 @@ void Bulk::CalKrPcDerivAIMc()
 
     if (!miscible) {
         OCP_DBL tmp = 0;
-        for (auto& n : FIMBulk) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                                          &dKr_dS[bId * numPhase],
-                                          &dPcj_dS[bId * numPhase], 0, tmp, tmp);
-            for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > 0) {
+                // FIM bulk
+                OCP_USI bId = n * numPhase;
+                flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+                    &dKr_dS[bId * numPhase],
+                    &dPcj_dS[bId * numPhase], 0, tmp, tmp);
+                for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
+            }
         }
     } else {
-        for (auto& n : FIMBulk) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPcDeriv(
-                &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
-                &dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);
-            for (USI j = 0; j < numPhase; j++)
-                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > 0) {
+                // FIM bulk
+                OCP_USI bId = n * numPhase;
+                flow[SATNUM[n]]->CalKrPcDeriv(
+                    &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
+                    &dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);
+                for (USI j = 0; j < numPhase; j++)
+                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+            }
         }
     }
 
     if (ScalePcow) {
         // correct
         const USI Wid = phase2Index[WATER];
-        for (auto& n : FIMBulk) {
-            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
-            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (map_Bulk2FIM[n] > 0) {
+                // FIM bulk
+                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
+                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
+            }
         }
     }
 }
