@@ -13,7 +13,7 @@ var searchData=
   ['calflashderivfim_86',['CalFlashDerivFIM',['../classReservoir.html#ae09bfdab3ed8e5969b810d4fff4165fd',1,'Reservoir']]],
   ['calflashimpec_87',['CalFlashIMPEC',['../classReservoir.html#a3151b6c43cd6e24eb483d2ad467ea1a8',1,'Reservoir']]],
   ['calflashtype_88',['CalFlashType',['../classBulk.html#acf9a2c37af7d3d038c2a06a83e6bbf6f',1,'Bulk']]],
-  ['calflux_89',['CalFlux',['../classAllWells.html#a0f5418984c94a2878eb35a8c795fe903',1,'AllWells::CalFlux()'],['../classWell.html#a8c9b35f5ee1ff80ade6a880b8bfcc647',1,'Well::CalFlux()']]],
+  ['calflux_89',['CalFlux',['../classAllWells.html#a0f5418984c94a2878eb35a8c795fe903',1,'AllWells::CalFlux()'],['../classWell.html#a6452ad65b73615802cf2227077a8af8a',1,'Well::CalFlux()']]],
   ['calfluxfim_90',['CalFluxFIM',['../classBulkConn.html#aa2f439ee231375b2ccbfc72c2e19ea13',1,'BulkConn']]],
   ['calfluxfims_91',['CalFluxFIMS',['../classBulkConn.html#a337528053a3823aef9a1c4a0dabb3ac4',1,'BulkConn']]],
   ['calfluximpec_92',['CalFLuxIMPEC',['../classReservoir.html#ae23bc9cad98c877717eb810cd188cc4a',1,'Reservoir']]],
