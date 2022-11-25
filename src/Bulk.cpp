@@ -172,6 +172,7 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     oil = OCP_TRUE;
     gas = OCP_TRUE;
     water = OCP_TRUE;
+    useEoS = OCP_TRUE;
 
     numPhase = rs_param.comsParam.numPhase + 1;
     numCom = rs_param.comsParam.numCom + 1;
@@ -1201,7 +1202,7 @@ void Bulk::InitFlashDer()
 {
     OCP_FUNCNAME;
 
-    if (comps) {
+    if (useEoS) {
         for (OCP_USI n = 0; n < numBulk; n++) {
             flashCal[PVTNUM[n]]->InitFlashDer(P[n], Pb[n], T[n], &S[n * numPhase],
                                               rockVp[n], Ni.data() + n * numCom);
@@ -1990,12 +1991,8 @@ USI Bulk::GetMixMode() const
 {
     OCP_FUNCNAME;
 
-    if (blackOil)
-        return BLKOIL;
-    else if (comps)
-        return EOS_PVTW;
-    else
-        OCP_ABORT("Mixture model is not supported!");
+    return useEoS;
+
 }
 
 void Bulk::CalSomeInfo(const Grid& myGrid) const
@@ -2400,7 +2397,7 @@ void Bulk::GetSolFIM(const vector<OCP_DBL>& u,
         }
 
         // dxij   ---- Compositional model only
-        if (comps) {
+        if (useEoS) {
             if (phaseNum[n] >= 3) {
                 // num of Hydroncarbon phase >= 2
                 OCP_USI  bId     = 0;
@@ -3089,7 +3086,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
         }
 
         // dxij   ---- Compositional model only
-        if (comps) {
+        if (useEoS) {
             if (phaseNum[n] >= 3) {
                 OCP_USI  bId     = 0;
                 for (USI j = 0; j < 2; j++) {

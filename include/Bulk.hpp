@@ -300,6 +300,7 @@ private:
     OCP_BOOL   blackOil{ OCP_FALSE }; ///< If OCP_TRUE, black-oil model will be used.
     OCP_BOOL   comps{ OCP_FALSE };    ///< If OCP_TRUE, compositional model will be used.
     OCP_BOOL   thermal{ OCP_FALSE };
+    OCP_BOOL   useEoS{ OCP_FALSE };   ///< If OCP_TRUE, then EoS model is used.
     OCP_BOOL   oil{ OCP_FALSE };      ///< If OCP_TRUE, oil phase could exist.
     OCP_BOOL   gas{ OCP_FALSE };      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL   water{ OCP_FALSE };    ///< If OCP_TRUE, water phase could exist.

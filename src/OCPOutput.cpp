@@ -836,13 +836,13 @@ void Out4RPT::PrintRPT(const string&    dir,
     }
 
     // Molar Density of OIL
-    if (bgp.BOIL && rs.bulk.oil && rs.bulk.comps) {
+    if (bgp.BOIL && rs.bulk.oil && rs.bulk.useEoS) {
         PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, g2bp,
                         OCP_TRUE);
     }
 
     // Molar Density of GAS
-    if (bgp.BGAS && rs.bulk.gas && rs.bulk.comps) {
+    if (bgp.BGAS && rs.bulk.gas && rs.bulk.useEoS) {
         PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, g2bp,
                         OCP_TRUE);
     }
@@ -872,7 +872,7 @@ void Out4RPT::PrintRPT(const string&    dir,
     }
 
     // liquid component mole fractions.
-    if (bgp.XMF && rs.bulk.comps) {
+    if (bgp.XMF && rs.bulk.useEoS) {
         for (USI i = 0; i < nc - 1; i++) {
             PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component",
                             days, &rs.bulk.xij[OIndex * nc + i], np * nc, g2bp,
@@ -881,7 +881,7 @@ void Out4RPT::PrintRPT(const string&    dir,
     }
 
     // gas component mole fractions.
-    if (bgp.YMF && rs.bulk.comps) {
+    if (bgp.YMF && rs.bulk.useEoS) {
         for (USI i = 0; i < nc - 1; i++) {
             PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component",
                             days, &rs.bulk.xij[GIndex * nc + i], np * nc, g2bp,

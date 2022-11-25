@@ -95,7 +95,7 @@ void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
         // rs.allWells.ShowWellStatus(rs.bulk);
     }
 
-    if (rs.bulk.GetMixMode() == EOS_PVTW) {
+    if (rs.bulk.GetMixMode()) {
         cout << "SSMSTA:     " << setw(12) << rs.bulk.GetSSMSTAiters() << setw(15)
              << rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() << endl;
         cout << "NRSTA:      " << setw(12) << rs.bulk.GetNRSTAiters() << setw(15)
