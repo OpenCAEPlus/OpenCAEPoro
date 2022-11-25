@@ -538,35 +538,37 @@ $(function() {
 <div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;                    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dPmaxlim,</div>
 <div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;                    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;         dSmaxlim);</div>
 <div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="keywordtype">void</span> UpdatePj();</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    vector&lt;OCP_USI&gt; wellBulkId;    </div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    <span class="keyword">class </span>BulkTypeAIM</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    {</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;        BulkTypeAIM() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        <span class="keywordtype">void</span> Init(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; nb) { indicator.resize(nb, -1); }</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;        <span class="keywordtype">void</span> Set0() { fill(indicator.begin(), indicator.end(), -1); }</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        <span class="keywordtype">void</span> SetBulkType(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&amp; flag) { indicator[n] = flag; }</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfFIMbulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n)<span class="keyword">const </span>{ <span class="keywordflow">return</span> indicator[n] &gt; 0; }</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfIMPECbulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n)<span class="keyword">const </span>{ <span class="keywordflow">return</span> indicator[n] &lt; 0; }</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        vector&lt;OCP_INT&gt; indicator;  </div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    } bulkTypeAIM;</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    </div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;};</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __BULK_HEADER__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    <span class="keywordtype">void</span> ResetNRxij() { xijNR = lxij; }</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    vector&lt;OCP_USI&gt; wellBulkId;    </div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    <span class="keyword">class </span>BulkTypeAIM</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    {</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        BulkTypeAIM() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;        <span class="keywordtype">void</span> Init(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; nb) { indicator.resize(nb, -1); }</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        <span class="keywordtype">void</span> Set0() { fill(indicator.begin(), indicator.end(), -1); }</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        <span class="keywordtype">void</span> SetBulkType(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&amp; flag) { indicator[n] = flag; }</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfFIMbulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n)<span class="keyword">const </span>{ <span class="keywordflow">return</span> indicator[n] &gt; 0; }</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfIMPECbulk(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; n)<span class="keyword">const </span>{ <span class="keywordflow">return</span> indicator[n] &lt; 0; }</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        vector&lt;OCP_INT&gt; indicator;  </div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    } bulkTypeAIM;</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    vector&lt;OCP_DBL&gt; xijNR; </div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;};</div>
 <div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __BULK_HEADER__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
 <div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/09/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aDenseMat_8hpp_html"><div class="ttname"><a href="DenseMat_8hpp.html">DenseMat.hpp</a></div><div class="ttdoc">Operations about small dense mat.</div></div>
 <div class="ttc" id="aDenseMat_8hpp_html_accb44af625653de07f0a8dba403348d1"><div class="ttname"><a href="DenseMat_8hpp.html#accb44af625653de07f0a8dba403348d1">Dnorm1</a></div><div class="ttdeci">double Dnorm1(const int &amp;N, double *x)</div><div class="ttdoc">Computes the L1-norm of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="DenseMat_8cpp_source.html#l00050">DenseMat.cpp:50</a></div></div>
 <div class="ttc" id="aFlowUnit_8hpp_html"><div class="ttname"><a href="FlowUnit_8hpp.html">FlowUnit.hpp</a></div><div class="ttdoc">FlowUnit class declaration.</div></div>
@@ -630,7 +632,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 25 2022 04:58:31 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Nov 25 2022 05:16:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
