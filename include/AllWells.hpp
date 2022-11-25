@@ -258,7 +258,7 @@ public:
     /// Get solution from solver class after linear system is solved for FIM
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
     /// Calculate Resiual and relative Resiual for FIM
-    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
+    void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Show Res
     void ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const;
 

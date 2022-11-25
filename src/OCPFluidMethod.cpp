@@ -573,7 +573,7 @@ void OCP_AIMc::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     rs.AllocateMatFIM(myLS);
     // Allocate memory for resiual of FIM
     OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-    resFIM.res.resize(num);
+    resAIMc.res.resize(num);
 
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
@@ -583,8 +583,8 @@ void OCP_AIMc::InitReservoir(Reservoir& rs) const { rs.InitAIMc(); }
 void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResAIMc(resFIM, dt);
-    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+    rs.CalResAIMc(resAIMc, dt);
+    resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
 
     // Set FIM Bulk
     rs.CalCFL(dt);
@@ -603,7 +603,7 @@ void OCP_AIMc::AssembleMat(LinearSystem&    myLS,
                            const OCP_DBL&   dt) const
 {
     rs.AssembleMatAIMc(myLS, dt);
-    myLS.AssembleRhsCopy(resFIM.res);
+    myLS.AssembleRhsCopy(resAIMc.res);
 }
 
 void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& ctrl)
@@ -644,8 +644,8 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetAIMc();
-        rs.CalResAIMc(resFIM, dt);
-        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        rs.CalResAIMc(resAIMc, dt);
+        resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
         return OCP_FALSE;
     }
@@ -662,7 +662,7 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
-    rs.CalResAIMc(resFIM, dt);
+    rs.CalResAIMc(resAIMc, dt);
     return OCP_TRUE;
 }
 
@@ -675,15 +675,15 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
 
 #ifdef DEBUG
     cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
-         << resFIM.maxRelRes0_v << "  " << resFIM.maxRelRes_v << "  "
-         << resFIM.maxRelRes_mol << "  " << NRdPmax << "  " << NRdSmax << endl;
+         << resAIMc.maxRelRes0_v << "  " << resAIMc.maxRelRes_v << "  "
+         << resAIMc.maxRelRes_mol << "  " << NRdPmax << "  " << NRdSmax << endl;
 #endif
 
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetAIMc();
-        rs.CalResAIMc(resFIM, ctrl.current_dt);
-        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        rs.CalResAIMc(resAIMc, ctrl.current_dt);
+        resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
                 "current dt = "
@@ -698,10 +698,10 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     //    << NRdPmax << "   "
     //    << NRdSmax << endl;
 
-    if (((resFIM.maxRelRes_v <= resFIM.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
-          resFIM.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
-          resFIM.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
-         resFIM.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+    if (((resAIMc.maxRelRes_v <= resAIMc.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+          resAIMc.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+          resAIMc.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
+         resAIMc.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
@@ -716,15 +716,15 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetAIMc();
-                rs.CalResAIMc(resFIM, ctrl.current_dt);
-                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+                rs.CalResAIMc(resAIMc, ctrl.current_dt);
+                resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             case 2:
                 // ctrl.current_dt /= 1;
                 rs.ResetAIMc();
-                rs.CalResAIMc(resFIM, ctrl.current_dt);
-                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+                rs.CalResAIMc(resAIMc, ctrl.current_dt);
+                resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             default:
@@ -737,6 +737,16 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     } else {
         return OCP_FALSE;
     }
+}
+
+/// Finish a time step.
+void OCP_AIMc::FinishStep(Reservoir& rs, OCPControl& ctrl) const
+{
+    rs.CalIPRT(ctrl.GetCurDt());
+    rs.CalMaxChange();
+    rs.UpdateLastStepFIM();
+    ctrl.CalNextTstepFIM(rs);
+    ctrl.UpdateIters();
 }
 
 /*----------------------------------------------------------------------------*/

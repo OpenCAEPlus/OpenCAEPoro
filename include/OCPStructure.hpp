@@ -20,8 +20,8 @@
 
 using namespace std;
 
-/// FIM
-class ResFIM
+
+class OCPRes
 {
 public:
     void SetZero()

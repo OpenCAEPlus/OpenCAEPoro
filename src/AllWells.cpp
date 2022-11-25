@@ -558,7 +558,7 @@ void AllWells::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI
     }
 }
 
-void AllWells::CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const
+void AllWells::CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 

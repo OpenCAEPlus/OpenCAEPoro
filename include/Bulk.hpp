@@ -457,7 +457,7 @@ public:
                      const OCP_DBL&         dPmaxlim,
                      const OCP_DBL&         dSmaxlim);
     /// Calculate relative residual for FIM.
-    void CalRelResFIM(ResFIM& resFIM) const;
+    void CalRelResFIM(OCPRes& resFIM) const;
     // Show Res
     void ShowRes(const vector<OCP_DBL>& res) const;
     /// Reset FIM.

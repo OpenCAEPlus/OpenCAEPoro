@@ -1786,7 +1786,7 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
     }
 }
 
-void Well::CalResFIM(ResFIM&             resFIM,
+void Well::CalResFIM(OCPRes&             resFIM,
                      const Bulk&         myBulk,
                      const OCP_DBL&      dt,
                      const OCP_USI&      wId,

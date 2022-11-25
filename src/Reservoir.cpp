@@ -405,7 +405,7 @@ void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u,
     allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
 }
 
-void Reservoir::CalResFIM(ResFIM& resFIM, const OCP_DBL& dt)
+void Reservoir::CalResFIM(OCPRes& resFIM, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
     // Initialize
@@ -497,18 +497,18 @@ void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 }
 
-void Reservoir::CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt)
+void Reservoir::CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
     // Initialize
-    resFIM.SetZero();
+    resAIMc.SetZero();
     // Bulk to Bulk
-    conn.CalResAIMc(resFIM.res, bulk, dt);
+    conn.CalResAIMc(resAIMc.res, bulk, dt);
     // Well to Bulk
-    allWells.CalResFIM(resFIM, bulk, dt);
+    allWells.CalResFIM(resAIMc, bulk, dt);
     // Calculate RelRes
-    bulk.CalRelResFIM(resFIM);
-    Dscalar(resFIM.res.size(), -1, resFIM.res.data());
+    bulk.CalRelResFIM(resAIMc);
+    Dscalar(resAIMc.res.size(), -1, resAIMc.res.data());
 }
 
 void Reservoir::CalFlashAIMc() { bulk.FlashAIMc(); }

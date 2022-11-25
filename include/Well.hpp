@@ -189,7 +189,7 @@ public:
     void AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt, const vector<Well>& allWell, const vector<USI>& injId) const;
     /// Calculate Resiual and relative Resiual for FIM.
-    void CalResFIM(ResFIM& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
+    void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                    const OCP_USI& wId, const vector<Well>& allWell) const;
     void ShowRes(const OCP_USI& wId, const vector<OCP_DBL>& res, const Bulk& myBulk) const;
     

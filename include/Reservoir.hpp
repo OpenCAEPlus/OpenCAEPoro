@@ -162,7 +162,7 @@ public:
                           const OCP_DBL&         dPmax,
                           const OCP_DBL&         dSmax);
     /// Calculate the Residual for FIM, it's also RHS of Linear System
-    void CalResFIM(ResFIM& resFIM, const OCP_DBL& dt);
+    void CalResFIM(OCPRes& resFIM, const OCP_DBL& dt);
     /// Reset FIM
     void ResetFIM();
     /// Return NRdPmax
@@ -191,7 +191,7 @@ public:
     /// Assemble Matrix for AIMc
     void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Calculate the Residual for FIM, it's also RHS of Linear System
-    void CalResAIMc(ResFIM& resFIM, const OCP_DBL& dt);
+    void CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt);
     void CalFlashAIMc();
     void CalFlashAIMc01();
     void CalKrPcAIMc();

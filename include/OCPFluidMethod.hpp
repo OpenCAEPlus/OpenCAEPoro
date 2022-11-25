@@ -79,7 +79,7 @@ public:
 
 protected:
     /// Residual for FIM
-    ResFIM resFIM;
+    OCPRes resFIM;
 };
 
 class OCP_FIMn : public OCP_FIM
@@ -98,7 +98,7 @@ public:
     OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
 };
 
-class OCP_AIMc : public OCP_FIM
+class OCP_AIMc
 {
 public:
     /// Setup AIMc
@@ -121,6 +121,13 @@ public:
 
     /// Finish a Newton-Raphson iteration.
     OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
+
+    /// Finish a time step.
+    void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
+
+protected:
+    /// Residual for AIMc
+    OCPRes resAIMc;
 };
 
 #endif /* end if __OCPFLUIDMETHOD_HEADER__ */

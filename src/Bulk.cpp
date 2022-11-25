@@ -2570,7 +2570,7 @@ void Bulk::GetSolFIM_n(const vector<OCP_DBL>& u,
     }
 }
 
-void Bulk::CalRelResFIM(ResFIM& resFIM) const
+void Bulk::CalRelResFIM(OCPRes& resFIM) const
 {
     OCP_FUNCNAME;
 
