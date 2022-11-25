@@ -113,6 +113,7 @@ class Bulk
     friend class Reservoir;
     friend class OCP_IMPEC;
     friend class OCP_FIM;
+    friend class OCP_FIMn;
     friend class OCP_AIMc;
 
     /////////////////////////////////////////////////////////////////////
@@ -449,6 +450,7 @@ private:
 public:
     /// Allocate memory for auxiliary variables used for FIM.
     void AllocateAuxFIM();
+    void AllocateAuxFIMn();
     /// Get the solution for FIM after a Newton iteration.
     void GetSolFIM(const vector<OCP_DBL>& u,
                    const OCP_DBL&         dPmaxlim,
@@ -462,8 +464,10 @@ public:
     void ShowRes(const vector<OCP_DBL>& res) const;
     /// Reset FIM.
     void ResetFIM();
+    void ResetFIMn();
     /// Update values of last step for FIM.
     void UpdateLastStepFIM();
+    void UpdateLastStepFIMn();
     /// Calculate some auxiliary variable, for example, dSmax
     OCP_DBL CalNRdSmax(OCP_USI& index);
 

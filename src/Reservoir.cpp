@@ -295,6 +295,14 @@ void Reservoir::AllocateAuxFIM()
     conn.AllocateAuxFIM(bulk.GetPhaseNum());
 }
 
+void Reservoir::AllocateAuxFIMn()
+{
+    OCP_FUNCNAME;
+
+    bulk.AllocateAuxFIMn();
+    conn.AllocateAuxFIM(bulk.GetPhaseNum());
+}
+
 void Reservoir::InitFIM()
 {
     OCP_FUNCNAME;
@@ -349,6 +357,14 @@ void Reservoir::UpdateLastStepFIM()
     OCP_FUNCNAME;
 
     bulk.UpdateLastStepFIM();
+    allWells.UpdateLastBHP();
+}
+
+void Reservoir::UpdateLastStepFIMn()
+{
+    OCP_FUNCNAME;
+
+    bulk.UpdateLastStepFIMn();
     allWells.UpdateLastBHP();
 }
 
@@ -445,6 +461,15 @@ void Reservoir::CalResFIM(OCPRes& resFIM, const OCP_DBL& dt)
 void Reservoir::ResetFIM()
 {
     bulk.ResetFIM();
+    allWells.ResetBHP();
+    allWells.CalTrans(bulk);
+    allWells.CaldG(bulk);
+    allWells.CalFlux(bulk);
+}
+
+void Reservoir::ResetFIMn()
+{
+    bulk.ResetFIMn();
     allWells.ResetBHP();
     allWells.CalTrans(bulk);
     allWells.CaldG(bulk);

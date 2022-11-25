@@ -38,6 +38,7 @@ class Reservoir
     // temp
     friend class OCP_IMPEC;
     friend class OCP_FIM;
+    friend class OCP_FIMn;
     friend class OCP_AIMc;
     friend class Solver;
 
@@ -138,6 +139,7 @@ public:
 
     /// Allocate memory for auxiliary variables used for FIM
     void AllocateAuxFIM();
+    void AllocateAuxFIMn();
     /// Initialize the properties of Reservoir for FIM
     void InitFIM();
     void InitFIM_n();
@@ -148,6 +150,7 @@ public:
     void CalKrPcDerivFIM();
     /// Update value of last step for FIM.
     void UpdateLastStepFIM();
+    void UpdateLastStepFIMn();
     /// Allocate maximal memory for internal Matrix for FIM
     void AllocateMatFIM(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
@@ -165,6 +168,7 @@ public:
     void CalResFIM(OCPRes& resFIM, const OCP_DBL& dt);
     /// Reset FIM
     void ResetFIM();
+    void ResetFIMn();
     /// Return NRdPmax
     OCP_DBL GetNRdPmax() { return bulk.GetNRdPmax(); }
     /// Return NRdSmax

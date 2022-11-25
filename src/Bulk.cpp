@@ -2264,10 +2264,7 @@ void Bulk::AllocateAuxFIM()
     rhox.resize(numBulk * numCom * numPhase);
     maxLendSdP = (numCom + 1) * (numCom + 1) * numPhase;
     dSec_dPri.resize(numBulk * maxLendSdP);
-    res_n.resize((numPhase + numPhase * numCom) * numBulk);
-    resPc.resize(numBulk);
-    bRowSizedSdP.resize(numBulk);
-    resIndex.resize(numBulk + 1, 0);
+    bRowSizedSdP.resize(numBulk);   
     pSderExist.resize(numBulk * numPhase);
     pVnumCom.resize(numBulk * numPhase);
     dKr_dS.resize(numBulk * numPhase * numPhase);
@@ -2301,9 +2298,7 @@ void Bulk::AllocateAuxFIM()
     lxix.resize(numBulk * numCom * numPhase);
     lrhox.resize(numBulk * numCom * numPhase);
     ldSec_dPri.resize(numBulk * maxLendSdP);
-    lres_n.resize((numPhase + numPhase * numCom) * numBulk);
-    lbRowSizedSdP.resize(numBulk);
-    lresIndex.resize(numBulk + 1, 0);
+    lbRowSizedSdP.resize(numBulk);   
     lpSderExist.resize(numBulk * numPhase);
     lpVnumCom.resize(numBulk * numPhase);
     ldKr_dS.resize(numBulk * numPhase * numPhase);
@@ -2316,6 +2311,21 @@ void Bulk::AllocateAuxFIM()
 
     NRstep.resize(numBulk);
 }
+
+
+void Bulk::AllocateAuxFIMn()
+{
+    AllocateAuxFIM();
+
+    res_n.resize((numPhase + numPhase * numCom) * numBulk);
+    resPc.resize(numBulk);
+    resIndex.resize(numBulk + 1, 0);
+
+    lres_n.resize((numPhase + numPhase * numCom) * numBulk);
+    lresPc.resize(numBulk);
+    lresIndex.resize(numBulk + 1, 0);
+}
+
 
 void Bulk::GetSolFIM(const vector<OCP_DBL>& u,
                      const OCP_DBL&         dPmaxlim,
@@ -2681,10 +2691,7 @@ void Bulk::ResetFIM()
     xix          = lxix;
     rhox         = lrhox;
     dSec_dPri    = ldSec_dPri;
-    res_n        = lres_n;
-    resPc        = lresPc;
-    bRowSizedSdP = lbRowSizedSdP;
-    resIndex     = lresIndex;
+    bRowSizedSdP = lbRowSizedSdP;  
     pSderExist   = lpSderExist;
     pVnumCom     = lpVnumCom;
     dKr_dS       = ldKr_dS;
@@ -2692,6 +2699,14 @@ void Bulk::ResetFIM()
     if (miscible) {
         surTen = lsurTen;
     }
+}
+
+void Bulk::ResetFIMn()
+{
+    ResetFIM();
+    res_n = lres_n;
+    resPc = lresPc;
+    resIndex = lresIndex;
 }
 
 void Bulk::UpdateLastStepFIM()
@@ -2727,10 +2742,7 @@ void Bulk::UpdateLastStepFIM()
     lxix          = xix;
     lrhox         = rhox;
     ldSec_dPri    = dSec_dPri;
-    lres_n        = res_n;
-    lresPc        = resPc;
     lbRowSizedSdP = bRowSizedSdP;
-    lresIndex     = resIndex;
     lpSderExist   = pSderExist;
     lpVnumCom     = pVnumCom;
     ldKr_dS       = dKr_dS;
@@ -2740,6 +2752,16 @@ void Bulk::UpdateLastStepFIM()
         lsurTen = surTen;
     }
 }
+
+
+void Bulk::UpdateLastStepFIMn()
+{
+    UpdateLastStepFIM();
+    lres_n = res_n;
+    lresPc = resPc;
+    lresIndex = resIndex;
+}
+
 
 OCP_DBL Bulk::CalNRdSmax(OCP_USI& index)
 {

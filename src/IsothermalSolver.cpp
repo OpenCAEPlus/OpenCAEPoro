@@ -188,8 +188,9 @@ void IsothermalSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     case FIMn:
         return fim_n.FinishStep(rs, ctrl);
     case FIM:
-    case AIMc:
         return fim.FinishStep(rs, ctrl);
+    case AIMc:
+        return aimc.FinishStep(rs, ctrl);
     default:
         OCP_ABORT("Wrong method type!");
     }

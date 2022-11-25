@@ -82,11 +82,17 @@ protected:
     OCPRes resFIM;
 };
 
-class OCP_FIMn : public OCP_FIM
+class OCP_FIMn
 {
 public:
+    /// Setup FIM
+    void Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl);
+
     /// Init
     void InitReservoir(Reservoir& rs) const;
+
+    /// Prepare for Assembling matrix.
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
 
     /// Assemble Matrix
     void AssembleMat(LinearSystem& myLS, const Reservoir& rs, const OCP_DBL& dt) const;
@@ -96,6 +102,16 @@ public:
 
     /// Update properties of fluids.
     OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+
+    /// Finish a Newton-Raphson iteration.
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
+
+    /// Finish a time step.
+    void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
+
+protected:
+    /// Residual for FIMn
+    OCPRes resFIMn;
 };
 
 class OCP_AIMc

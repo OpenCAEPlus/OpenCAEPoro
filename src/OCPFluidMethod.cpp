@@ -489,7 +489,33 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 // OCP_FIMn
 ////////////////////////////////////////////
 
+
+/// Setup FIMn
+void OCP_FIMn::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
+{
+    // Allocate Bulk and BulkConn Memory
+    rs.AllocateAuxFIMn();
+    // Allocate memory for internal matrix structure
+    rs.AllocateMatFIM(myLS);
+    // Allocate memory for residual of FIM
+    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
+    resFIMn.res.resize(num);
+
+    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+}
+
+
 void OCP_FIMn::InitReservoir(Reservoir& rs) const { rs.InitFIM_n(); }
+
+
+/// Prepare for Assembling matrix.
+void OCP_FIMn::Prepare(Reservoir& rs, OCP_DBL& dt)
+{
+    rs.PrepareWell();
+    rs.CalResFIM(resFIMn, dt);
+    resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+}
+
 
 /// Assemble Matrix
 void OCP_FIMn::AssembleMat(LinearSystem&    myLS,
@@ -497,7 +523,7 @@ void OCP_FIMn::AssembleMat(LinearSystem&    myLS,
                            const OCP_DBL&   dt) const
 {
     rs.AssembleMatFIM_n(myLS, dt);
-    myLS.AssembleRhsAccumulate(resFIM.res);
+    myLS.AssembleRhsAccumulate(resFIMn.res);
 }
 
 /// Solve the linear system.
@@ -543,9 +569,9 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     // Second check: Ni check and bulk Pressure check
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
-        rs.ResetFIM();
-        rs.CalResFIM(resFIM, dt);
-        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        rs.ResetFIMn();
+        rs.CalResFIM(resFIMn, dt);
+        resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
         cout << "Cut time stepsize and repeat!\n";
         return OCP_FALSE;
     }
@@ -556,10 +582,192 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
-    rs.CalResFIM(resFIM, dt);
+    rs.CalResFIM(resFIMn, dt);
 
     return OCP_TRUE;
 }
+
+
+/// Finish a Newton-Raphson iteration.
+OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
+{
+    OCP_USI dSn;
+
+    const OCP_DBL NRdSmax = rs.GetNRdSmax(dSn);
+    const OCP_DBL NRdPmax = rs.GetNRdPmax();
+    const OCP_DBL NRdNmax = rs.GetNRdNmax();
+
+    if (ctrl.printLevel >= PRINT_MOST) {
+
+        if (OCP_TRUE) {
+            vector<OCP_INT> totalPhaseNum(3, 0);
+            vector<OCP_INT> ltotalPhaseNum(3, 0);
+            for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
+                if (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
+                if (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
+                if (rs.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
+                if (rs.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
+                if (rs.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
+                if (rs.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
+            }
+            cout << to_string(totalPhaseNum[0]) + " (" +
+                        to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 /
+                                  rs.GetBulkNum()) +
+                        "%)      "
+                 << to_string(totalPhaseNum[1]) + " (" +
+                        to_string((totalPhaseNum[1] - ltotalPhaseNum[1]) * 100.0 /
+                                  rs.GetBulkNum()) +
+                        "%)      "
+                 << to_string(totalPhaseNum[2]) + " (" +
+                        to_string((totalPhaseNum[2] - ltotalPhaseNum[2]) * 100.0 /
+                                  rs.GetBulkNum()) +
+                        "%)      ";
+        }
+
+        if (OCP_TRUE) {
+            OCP_USI eVnum = 0;
+            OCP_USI eNnum = 0;
+            for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
+                if (rs.bulk.eV[n] < ctrl.ctrlNR.NRtol) eVnum++;
+                if (rs.bulk.eN[n] < ctrl.ctrlNR.NRtol) eNnum++;
+            }
+            cout << "eVnum : " << setprecision(ceil(log(rs.GetBulkNum()) / log(10)))
+                 << fixed << setw(10) << (1 - eVnum * 1.0 / rs.GetBulkNum()) * 100.0
+                 << "%   eNnum : " << setw(10)
+                 << (1 - eNnum * 1.0 / rs.GetBulkNum()) * 100.0 << "%" << endl;
+        }
+
+        const USI sp = rs.grid.GetNumDigitIJK();
+        USI       tmpI, tmpJ, tmpK;
+        string    tmps;
+
+        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, rs.bulk.index_maxNRdSSP);
+        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
+        cout << "### NR : " + to_string(ctrl.iterNR) + "    Res:    " << setprecision(2)
+             << scientific << resFIMn.maxRelRes0_v << setw(12) << resFIMn.maxRelRes_v
+             << setw(12) << resFIMn.maxRelRes_mol << setw(11) << resFIMn.maxWellRelRes_mol
+             << setw(20) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
+             << setw(40) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12)
+             << rs.bulk.maxNRdSSP << "  " << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP]
+             << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  " << tmps
+             << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl
+             << endl;
+
+        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, dSn);
+        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
+        cout << "S: " << tmps << setw(12) << rs.bulk.eV[dSn] << setw(12)
+             << rs.bulk.eN[dSn] << setw(12) << rs.bulk.ePEC[dSn] << setw(5)
+             << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12)
+             << rs.bulk.dPNR[dSn] << setw(8) << "  |" << setw(12) << rs.bulk.S[dSn * 3]
+             << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
+             << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12)
+             << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1]
+             << endl;
+
+        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_v);
+        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
+        cout << "V: " << tmps << setw(12) << rs.bulk.eV[resFIMn.maxId_v] << setw(12)
+             << rs.bulk.eN[resFIMn.maxId_v] << setw(12) << rs.bulk.ePEC[resFIMn.maxId_v]
+             << setw(5) << rs.bulk.phaseNum[resFIMn.maxId_v] << setw(5)
+             << rs.bulk.NRphaseNum[resFIMn.maxId_v] << setw(12)
+             << rs.bulk.dPNR[resFIMn.maxId_v] << setw(8) << "  |" << setw(12)
+             << rs.bulk.S[resFIMn.maxId_v * 3] << setw(12)
+             << rs.bulk.dSNR[resFIMn.maxId_v * 3] << setw(12)
+             << rs.bulk.dSNRP[resFIMn.maxId_v * 3] << setw(12)
+             << rs.bulk.S[resFIMn.maxId_v * 3 + 1] << setw(12)
+             << rs.bulk.dSNR[resFIMn.maxId_v * 3 + 1] << setw(12)
+             << rs.bulk.dSNRP[resFIMn.maxId_v * 3 + 1] << endl;
+
+        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_mol);
+        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
+        cout << "N: " << tmps << setw(12) << rs.bulk.eV[resFIMn.maxId_mol] << setw(12)
+             << rs.bulk.eN[resFIMn.maxId_mol] << setw(12)
+             << rs.bulk.ePEC[resFIMn.maxId_mol] << setw(5)
+             << rs.bulk.phaseNum[resFIMn.maxId_mol] << setw(5)
+             << rs.bulk.NRphaseNum[resFIMn.maxId_mol] << setw(12)
+             << rs.bulk.dPNR[resFIMn.maxId_mol] << setw(8) << "  |" << setw(12)
+             << rs.bulk.S[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.bulk.dSNR[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.bulk.dSNRP[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.bulk.S[resFIMn.maxId_mol * 3 + 1] << setw(12)
+             << rs.bulk.dSNR[resFIMn.maxId_mol * 3 + 1] << setw(12)
+             << rs.bulk.dSNRP[resFIMn.maxId_mol * 3 + 1] << endl;
+        // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) /
+        // resFIM.res.size() << "   "; cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(),
+        // &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   "; cout << "SdNi " <<
+        // Dnorm1(rs.bulk.dNNR.size(), &rs.bulk.dNNR[0]) / rs.bulk.dNNR.size() << "   ";
+        cout << endl;
+        // rs.ShowRes(resFIM.res);
+    }
+
+    if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
+        ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+        rs.ResetFIMn();
+        rs.CalResFIM(resFIMn, ctrl.current_dt);
+        resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+        ctrl.ResetIterNRLS();
+        cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
+                "current dt = "
+             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
+        return OCP_FALSE;
+    }
+
+    if (((resFIMn.maxRelRes_v <= resFIMn.maxRelRes0_v * ctrl.ctrlNR.NRtol ||
+          resFIMn.maxRelRes_v <= ctrl.ctrlNR.NRtol ||
+          resFIMn.maxRelRes_mol <= ctrl.ctrlNR.NRtol) &&
+         resFIMn.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+        (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
+         fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
+
+        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
+#if DEBUG
+        if (flagCheck > 0) {
+            cout << ">> Switch well constraint: Case " << flagCheck << endl;
+        }
+#endif
+
+        switch (flagCheck) {
+            case 1:
+                ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
+                rs.ResetFIMn();
+                rs.CalResFIM(resFIMn, ctrl.current_dt);
+                resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+
+                ctrl.ResetIterNRLS();
+                if (ctrl.printLevel >= PRINT_MORE) {
+                    OCP_WARNING("Reset Newton iteration!");
+                }
+                return OCP_FALSE;
+            case 2:
+                ctrl.current_dt /= 1;
+                rs.ResetFIMn();
+                rs.CalResFIM(resFIMn, ctrl.current_dt);
+                resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+
+                ctrl.ResetIterNRLS();
+                if (ctrl.printLevel >= PRINT_MORE) {
+                    OCP_WARNING("Reset Newton iteration!");
+                }
+                return OCP_FALSE;
+            default:
+                return OCP_TRUE;
+                break;
+        }
+    } else {
+        return OCP_FALSE;
+    }
+}
+
+/// Finish a time step.
+void OCP_FIMn::FinishStep(Reservoir& rs, OCPControl& ctrl) const
+{
+    rs.CalIPRT(ctrl.GetCurDt());
+    rs.CalMaxChange();
+    rs.UpdateLastStepFIMn();
+    ctrl.CalNextTstepFIM(rs);
+    ctrl.UpdateIters();
+}
+
 
 ////////////////////////////////////////////
 // OCP_AIMc
