@@ -3092,7 +3092,7 @@ void Bulk::GetSolAIMc(const vector<OCP_DBL>& u,
                 for (USI j = 0; j < 2; j++) {
                     bId = n * numPhase * numCom + j * numCom;
                     for (USI i = 0; i < numCom_1; i++) {
-                        xijNR[bId + i] += chopmin * dtmp[js];
+                        xij[bId + i] += chopmin * dtmp[js];
                         js++;
                     }
                 }

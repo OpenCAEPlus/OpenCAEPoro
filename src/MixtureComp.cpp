@@ -746,7 +746,7 @@ void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     if (wellType == INJ) {
         const string fluidName = opt.GetFluidType(); 
         vector<OCP_DBL> tmpZi(numCom, 0);
-        if (opt.GetFluidType() == "WAT") {           
+        if (fluidName == "WAT") {
             tmpZi.back() = 1;
             opt.SetInjProdPhase(WATER);
         }

@@ -100,6 +100,7 @@ OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
 
     if (bulkCheck) {
         if (!bulk.CheckP()) {
+            // negative Pressure
             return 1;
         }
     }
