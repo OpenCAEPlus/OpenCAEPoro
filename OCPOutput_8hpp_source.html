@@ -370,149 +370,148 @@ $(function() {
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keyword">const</span> idx_t           MAXWEIGHT = 100000000;</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keyword">mutable</span> vector&lt;USI&gt; partions;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>     partTime{0};</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordtype">void</span> Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs)</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        {</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;            nb = rs.<a class="code" href="classReservoir.html#ae2588c621a8d8f4de8c5ce4d4fba3446">GetBulkNum</a>();</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            nw = rs.<a class="code" href="classReservoir.html#a6dedc8f43b134108b670febf4f2eed2c">GetWellNum</a>();</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            ng = rs.grid.<a class="code" href="classGrid.html#a72d30983c3f700a840a8965d68c72728">GetGridNum</a>();</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            nvtxs                           = nb + nw;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            nedges                          = 0;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            vector&lt;vector&lt;OCP_USI&gt;&gt; tmpConn = rs.conn.neighbor;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            vector&lt;OCP_USI&gt;         tmp;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; rs.allWells.numWell; w++) {</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                tmp.clear();</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; rs.allWells.<a class="code" href="classAllWells.html#aad7048fbf1c16f05cc7c260354c10336">GetWellPerfNum</a>(w); p++) {</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = rs.allWells.wells[w].GetPerLocation(p);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    tmpConn[n].push_back(nb + w);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                    tmp.push_back(n);</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                tmpConn.push_back(tmp);</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                nedges += rs.allWells.<a class="code" href="classAllWells.html#aad7048fbf1c16f05cc7c260354c10336">GetWellPerfNum</a>(w) * 2;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            }</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            <span class="keyword">const</span> vector&lt;vector&lt;OCP_USI&gt;&gt;&amp; myConn = tmpConn;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; nb; n++) {</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                nedges += rs.conn.neighborNum[n];</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            }</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            nedges -= nb;</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            <span class="comment">// generate xadj  adjncy  adjwgt</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            xadj.resize(nvtxs + 1);</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            xadj[0] = 0;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            adjncy.reserve(nedges);</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            adjwgt.reserve(nedges);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            <span class="comment">// Bulk</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; nb; n++) {</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                xadj[n + 1] = xadj[n] + myConn[n].size() - 1;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i       = 0;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                <span class="comment">// left</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                <span class="keywordflow">for</span> (i = 0; i &lt; rs.conn.selfPtr[n]; i++) {</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                    adjwgt.push_back(1);</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                <span class="comment">// right</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                <span class="keywordflow">for</span> (i = rs.conn.selfPtr[n] + 1; i &lt; rs.conn.neighborNum[n]; i++) {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                    adjwgt.push_back(1);</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                <span class="comment">// well</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                <span class="keywordflow">for</span> (i = rs.conn.neighborNum[n]; i &lt; myConn[n].size(); i++) {</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                    adjwgt.push_back(MAXWEIGHT);</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                }</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            }</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            <span class="comment">// Well</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; nw; w++) {</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                xadj[nb + w + 1] += xadj[nb + w] + myConn[nb + w].size();</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : myConn[nb + w]) {</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                    adjncy.push_back(v);</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                    adjwgt.push_back(MAXWEIGHT);</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                }</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            }</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="comment">// Setup active/inactive grid flags</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            <span class="comment">// inactive grids&#39; flags equal nparts</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            part.resize(nvtxs, 0);</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;            partions.resize(ng + nw, nparts);</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        }</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="keywordtype">void</span> MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            idx_t objval;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            <span class="keywordtype">int</span>   ret = METIS_PartGraphFunc(&amp;nvtxs, &amp;ncon, xadj.data(), adjncy.data(),</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                                            vwgt.data(), NULL, adjwgt.data(), &amp;nparts,</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                                            NULL, NULL, NULL, &amp;objval, part.data());</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;            <span class="keywordflow">if</span> (ret != rstatus_et::METIS_OK) {</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;METIS ERROR&quot;</span>);</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            }</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;METIS_OK&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;objval: &quot;</span> &lt;&lt; objval &lt;&lt; endl;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        }</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        <span class="keywordtype">void</span> SetPartions(<span class="keyword">const</span> vector&lt;USI&gt; b2g)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            <span class="comment">// bulk</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <span class="keywordflow">for</span> (n = 0; n &lt; nb; n++) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                partions[b2g[n]] = part[n];</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            }</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            <span class="comment">// well</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; nw; w++) {</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                partions[ng + w] = part[n];</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                n++;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            }</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        }</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    } metisTest;</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// USE_METIS</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;};</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">//  Note: The most commonly used is the summary file, which usually gives the</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">//  information of bulks and wells in each time step, such as average pressure, oil</span></div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">//  production rate of wells. If other information at critical dates is of interest, you</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">//  can chose the PRT file (TODO). Also, some infomation will be printed on the screen</span></div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">//  at the critical dates to make sure the program is at the right way.</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno"><a class="line" href="classOCPOutput.html">  430</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOCPOutput.html">OCPOutput</a></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;{</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classOpenCAEPoro.html">OpenCAEPoro</a>;</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keywordtype">void</span>     <a class="code" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a>&amp; paramOutput);</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordtype">void</span>     Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keywordtype">void</span>     SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    <span class="keywordtype">void</span>     PrintInfo() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keywordtype">void</span>     PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp;  rs,</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                            <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl,</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                            <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;    time) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfOutputVTK()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> out4VTK.IfOutputVTK(); }</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keywordtype">string</span>       workDir;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <a class="code" href="classSummary.html">Summary</a>      summary;</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <a class="code" href="classCriticalInfo.html">CriticalInfo</a> crtInfo;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <a class="code" href="classOut4RPT.html">Out4RPT</a>      out4RPT;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <a class="code" href="classOut4VTK.html">Out4VTK</a>      out4VTK;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160; </div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> outputTime{0}; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;};</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __OCPOUTPUT_HEADER__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */</span></div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordtype">void</span> Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; rs)</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            nb = rs.<a class="code" href="classReservoir.html#ae2588c621a8d8f4de8c5ce4d4fba3446">GetBulkNum</a>();</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;            nw = rs.<a class="code" href="classReservoir.html#a6dedc8f43b134108b670febf4f2eed2c">GetWellNum</a>();</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            ng = rs.grid.<a class="code" href="classGrid.html#a72d30983c3f700a840a8965d68c72728">GetGridNum</a>();</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            nvtxs                           = nb + nw;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            nedges                          = 0;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            vector&lt;vector&lt;OCP_USI&gt;&gt; tmpConn = rs.conn.neighbor;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            vector&lt;OCP_USI&gt;         tmp;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; rs.allWells.numWell; w++) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                tmp.clear();</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> p = 0; p &lt; rs.allWells.<a class="code" href="classAllWells.html#aad7048fbf1c16f05cc7c260354c10336">GetWellPerfNum</a>(w); p++) {</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = rs.allWells.wells[w].GetPerLocation(p);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    tmpConn[n].push_back(nb + w);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    tmp.push_back(n);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                tmpConn.push_back(tmp);</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                nedges += rs.allWells.<a class="code" href="classAllWells.html#aad7048fbf1c16f05cc7c260354c10336">GetWellPerfNum</a>(w) * 2;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            <span class="keyword">const</span> vector&lt;vector&lt;OCP_USI&gt;&gt;&amp; myConn = tmpConn;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; nb; n++) {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                nedges += rs.conn.neighborNum[n];</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            }</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            nedges -= nb;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            <span class="comment">// generate xadj  adjncy  adjwgt</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            xadj.resize(nvtxs + 1);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            xadj[0] = 0;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            adjncy.reserve(nedges);</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            adjwgt.reserve(nedges);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            <span class="comment">// Bulk</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; nb; n++) {</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                xadj[n + 1] = xadj[n] + myConn[n].size() - 1;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i       = 0;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                <span class="comment">// left</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                <span class="keywordflow">for</span> (i = 0; i &lt; rs.conn.selfPtr[n]; i++) {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                    adjwgt.push_back(1);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <span class="comment">// right</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                <span class="keywordflow">for</span> (i = rs.conn.selfPtr[n] + 1; i &lt; rs.conn.neighborNum[n]; i++) {</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                    adjwgt.push_back(1);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                }</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                <span class="comment">// well</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                <span class="keywordflow">for</span> (i = rs.conn.neighborNum[n]; i &lt; myConn[n].size(); i++) {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                    adjncy.push_back(myConn[n][i]);</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                    adjwgt.push_back(MAXWEIGHT);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                }</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            <span class="comment">// Well</span></div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; nw; w++) {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                xadj[nb + w + 1] += xadj[nb + w] + myConn[nb + w].size();</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : myConn[nb + w]) {</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                    adjncy.push_back(v);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                    adjwgt.push_back(MAXWEIGHT);</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            }</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            <span class="comment">// Setup active/inactive grid flags</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="comment">// inactive grids&#39; flags equal nparts</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            part.resize(nvtxs, 0);</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            partions.resize(ng + nw, nparts);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        }</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="keywordtype">void</span> MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="keyword">        </span>{</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            idx_t objval;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            <span class="keywordtype">int</span>   ret = METIS_PartGraphFunc(&amp;nvtxs, &amp;ncon, xadj.data(), adjncy.data(),</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                                            vwgt.data(), NULL, adjwgt.data(), &amp;nparts,</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                                            NULL, NULL, NULL, &amp;objval, part.data());</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;            <span class="keywordflow">if</span> (ret != rstatus_et::METIS_OK) {</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;METIS ERROR&quot;</span>);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;METIS_OK&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;objval: &quot;</span> &lt;&lt; objval &lt;&lt; endl;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        }</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keywordtype">void</span> SetPartions(<span class="keyword">const</span> vector&lt;USI&gt; b2g)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="keyword">        </span>{</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            <span class="keywordflow">if</span> (!useMetis) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="comment">// bulk</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            <span class="keywordflow">for</span> (n = 0; n &lt; nb; n++) {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                partions[b2g[n]] = part[n];</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;            }</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            <span class="comment">// well</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; nw; w++) {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                partions[ng + w] = part[n];</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                n++;</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            }</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    } metisTest;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// USE_METIS</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;};</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">//  Note: The most commonly used is the summary file, which usually gives the</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">//  information of bulks and wells in each time step, such as average pressure, oil</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">//  production rate of wells. If other information at critical dates is of interest, you</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">//  can chose the PRT file (TODO). Also, some infomation will be printed on the screen</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">//  at the critical dates to make sure the program is at the right way.</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno"><a class="line" href="classOCPOutput.html">  429</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOCPOutput.html">OCPOutput</a></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;{</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classOpenCAEPoro.html">OpenCAEPoro</a>;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keywordtype">void</span>     <a class="code" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(<span class="keyword">const</span> <a class="code" href="classParamOutput.html">ParamOutput</a>&amp; paramOutput);</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keywordtype">void</span>     Setup(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordtype">void</span>     SetVal(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp; reservoir, <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl);</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keywordtype">void</span>     PrintInfo() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    <span class="keywordtype">void</span>     PrintInfoSched(<span class="keyword">const</span> <a class="code" href="classReservoir.html">Reservoir</a>&amp;  rs,</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                            <span class="keyword">const</span> <a class="code" href="classOCPControl.html">OCPControl</a>&amp; ctrl,</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                            <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&amp;    time) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfOutputVTK()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> out4VTK.IfOutputVTK(); }</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordtype">string</span>       workDir;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <a class="code" href="classSummary.html">Summary</a>      summary;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <a class="code" href="classCriticalInfo.html">CriticalInfo</a> crtInfo;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <a class="code" href="classOut4RPT.html">Out4RPT</a>      out4RPT;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <a class="code" href="classOut4VTK.html">Out4VTK</a>      out4VTK;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> outputTime{0}; </div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;};</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __OCPOUTPUT_HEADER__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      Update Doxygen                       */</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
@@ -532,7 +531,7 @@ $(function() {
 <div class="ttc" id="aclassGrid_html_a72d30983c3f700a840a8965d68c72728"><div class="ttname"><a href="classGrid.html#a72d30983c3f700a840a8965d68c72728">Grid::GetGridNum</a></div><div class="ttdeci">OCP_USI GetGridNum() const</div><div class="ttdoc">Return the num of grid cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00126">Grid.hpp:126</a></div></div>
 <div class="ttc" id="aclassOCPControl_html"><div class="ttname"><a href="classOCPControl.html">OCPControl</a></div><div class="ttdoc">All control parameters except for well controllers.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00092">OCPControl.hpp:93</a></div></div>
 <div class="ttc" id="aclassOCPIJK_html"><div class="ttname"><a href="classOCPIJK.html">OCPIJK</a></div><div class="ttdoc">3D coordinate representation in OpenCAEPoro</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00034">OCPOutput.hpp:35</a></div></div>
-<div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdoc">The OCPOutput class manages different kinds of ways to output information.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00430">OCPOutput.hpp:431</a></div></div>
+<div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdoc">The OCPOutput class manages different kinds of ways to output information.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00429">OCPOutput.hpp:430</a></div></div>
 <div class="ttc" id="aclassOCPType__Sum_html"><div class="ttname"><a href="classOCPType__Sum.html">OCPType_Sum</a></div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00060">OCPOutput.hpp:61</a></div></div>
 <div class="ttc" id="aclassOCPType__Sum_html_a2ceb60db73f3da88c2baafdd026606ad"><div class="ttname"><a href="classOCPType__Sum.html#a2ceb60db73f3da88c2baafdd026606ad">OCPType_Sum::index</a></div><div class="ttdeci">vector&lt; USI &gt; index</div><div class="ttdoc">Records the index of bulk or well, whose properties will be printed.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00078">OCPOutput.hpp:78</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html"><div class="ttname"><a href="classOpenCAEPoro.html">OpenCAEPoro</a></div><div class="ttdoc">Top-level data structure for the OpenCAEPoro simulator.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00026">OCP.hpp:27</a></div></div>
@@ -554,7 +553,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 4 2022 02:29:49 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Dec 7 2022 08:02:53 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
