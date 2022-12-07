@@ -318,7 +318,6 @@ private:
         const idx_t           MAXWEIGHT = 100000000;
 
         mutable vector<USI> partions;
-        mutable OCP_DBL     partTime{0};
 
     public:
         void Setup(const Reservoir& rs)

@@ -338,9 +338,9 @@ void Bulk::Setup(const Grid& myGrid)
     poro.resize(numBulk, 0);
     rockVntg.resize(numBulk, 0);
     rockVp.resize(numBulk, 0);
-    rockKxInit.resize(numBulk, 0);
-    rockKyInit.resize(numBulk, 0);
-    rockKzInit.resize(numBulk, 0);
+    rockKx.resize(numBulk, 0);
+    rockKy.resize(numBulk, 0);
+    rockKz.resize(numBulk, 0);
     SATNUM.resize(numBulk, 0);
     PVTNUM.resize(numBulk, 0);
     ROCKNUM.resize(numBulk, 0);
@@ -365,9 +365,9 @@ void Bulk::Setup(const Grid& myGrid)
         poroInit[bIdb] = myGrid.poro[bIdg];
 
         rockVntg[bIdb] = myGrid.v[bIdg] * myGrid.ntg[bIdg];
-        rockKxInit[bIdb] = myGrid.kx[bIdg];
-        rockKyInit[bIdb] = myGrid.ky[bIdg];
-        rockKzInit[bIdb] = myGrid.kz[bIdg];
+        rockKx[bIdb] = myGrid.kx[bIdg];
+        rockKy[bIdb] = myGrid.ky[bIdg];
+        rockKz[bIdb] = myGrid.kz[bIdg];
 
         SATNUM[bIdb] = myGrid.SATNUM[bIdg];
         PVTNUM[bIdb] = myGrid.PVTNUM[bIdg];
@@ -381,9 +381,6 @@ void Bulk::Setup(const Grid& myGrid)
     }
 
     poro = poroInit;
-    rockKx = rockKxInit;
-    rockKy = rockKyInit;
-    rockKz = rockKzInit;
 
     // physical variables
     Pb.resize(numBulk);

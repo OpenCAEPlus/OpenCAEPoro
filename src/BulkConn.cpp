@@ -645,7 +645,6 @@ void BulkConn::AssembleMat_FIM(LinearSystem&  myLS,
         }
 
         // Assemble
-
         bmat = dFdXpB;
         DaABpbC(ncol, ncol, ncol2, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * bsize2], 1,
                 bmat.data());

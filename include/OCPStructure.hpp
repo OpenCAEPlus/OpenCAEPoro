@@ -30,9 +30,11 @@ public:
         maxRelRes_v   = 0;
         maxRelRes_mol = 0;
         maxWellRelRes_mol = 0;
+        maxId_v = 0;
+        maxId_mol = 0;
     }
 
-    vector<double> res;
+    vector<OCP_DBL> res;
     OCP_DBL        maxRelRes0_v;
     OCP_DBL        maxRelRes_v;
     OCP_DBL        maxRelRes_mol;

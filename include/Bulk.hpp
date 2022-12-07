@@ -392,11 +392,8 @@ private:
     vector<OCP_DBL> poroP;      ///< d poro / d P.
     vector<OCP_DBL> rockVntg; ///< init pore volume = Vgrid * ntg.
     vector<OCP_DBL> rockVp;     ///< pore volume = Vgrid * ntg * poro.
-    vector<OCP_DBL> rockKxInit; ///< initial rock permeability along the x direction.
     vector<OCP_DBL> rockKx;     ///< current rock permeability along the x direction.
-    vector<OCP_DBL> rockKyInit; ///< initial rock permeability along the y direction.
     vector<OCP_DBL> rockKy;     ///< current rock permeability along the y direction.
-    vector<OCP_DBL> rockKzInit; ///< initial rock permeability along the z direction.
     vector<OCP_DBL> rockKz;     ///< current rock permeability along the z direction.
 
     // last step
