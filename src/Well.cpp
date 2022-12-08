@@ -51,8 +51,6 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
     prodWeight.resize(numCom);
     prodRate.resize(numPhase); // oil, gas, water
 
-    
-
     for (auto& opt : optSet) {
         if (!opt.state) continue;
 

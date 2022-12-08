@@ -50,7 +50,6 @@ void Bulk::InputParam(ParamReservoir& rs_param)
     }
 
     InputSatFunc(rs_param);
-    InputRockFunc(rs_param);
 }
 
 
