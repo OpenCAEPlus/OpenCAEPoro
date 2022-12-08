@@ -151,7 +151,7 @@ void Reservoir::InitIMPEC()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(50);
+    bulk.InitSjPc(grid, 50);
 
     bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);
@@ -308,7 +308,7 @@ void Reservoir::InitFIM()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(50);
+    bulk.InitSjPc(grid, 50);
 
     bulk.CalRock();
     bulk.InitFlashDer();
@@ -322,7 +322,7 @@ void Reservoir::InitFIM_n()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(50);
+    bulk.InitSjPc(grid, 50);
 
     bulk.CalRock();
     bulk.InitFlashDer_n();
@@ -561,7 +561,7 @@ void Reservoir::InitAIMc()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(50);
+    bulk.InitSjPc(grid, 50);
 
     bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);

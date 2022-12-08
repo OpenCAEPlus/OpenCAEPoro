@@ -329,9 +329,6 @@ void Bulk::Setup(const Grid& myGrid)
     // Rock/Grid properties
 
     numBulk = myGrid.activeGridNum;
-    dx.resize(numBulk, 0);
-    dy.resize(numBulk, 0);
-    dz.resize(numBulk, 0);
     depth.resize(numBulk, 0);
     ntg.resize(numBulk, 0);
     poroInit.resize(numBulk, 0);
@@ -356,9 +353,6 @@ void Bulk::Setup(const Grid& myGrid)
     for (OCP_USI bIdb = 0; bIdb < numBulk; bIdb++) {
         OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
 
-        dx[bIdb]    = myGrid.dx[bIdg];
-        dy[bIdb]    = myGrid.dy[bIdg];
-        dz[bIdb]    = myGrid.dz[bIdg];
         depth[bIdb] = myGrid.depth[bIdg];
         ntg[bIdb]   = myGrid.ntg[bIdg];
 
@@ -462,7 +456,7 @@ void Bulk::CheckVpore() const
 }
 
 
-void Bulk::InitSjPc(const USI& tabrow)
+void Bulk::InitSjPc(const Grid& myGrid, const USI& tabrow)
 {
     OCP_FUNCNAME;
 
@@ -476,8 +470,8 @@ void Bulk::InitSjPc(const USI& tabrow)
     OCP_DBL Zmax = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        OCP_DBL temp1 = depth[n] - dz[n] / 2;
-        OCP_DBL temp2 = depth[n] + dz[n] / 2;
+        OCP_DBL temp1 = depth[n] - myGrid.Dz(n) / 2;
+        OCP_DBL temp2 = depth[n] + myGrid.Dz(n) / 2;
         Zmin = Zmin < temp1 ? Zmin : temp1;
         Zmax = Zmax > temp2 ? Zmax : temp2;
     }
@@ -1121,7 +1115,7 @@ void Bulk::InitSjPc(const USI& tabrow)
         for (USI k = 0; k < ncut; k++) {
             OCP_DBL tmpSw = 0;
             OCP_DBL tmpSg = 0;
-            OCP_DBL dep = depth[n] + dz[n] / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL dep = depth[n] + myGrid.Dz(n) / ncut * (k - (ncut - 1) / 2.0);
             DepthP.Eval_All(0, dep, data, cdata);
             Po = data[1];
             Pg = data[2];
@@ -2037,28 +2031,28 @@ void Bulk::CalSomeInfo(const Grid& myGrid) const
             depthMin = depth[n];
             ndepi    = n;
         }
-        if (dxMax < dx[n]) {
-            dxMax = dx[n];
+        if (dxMax < myGrid.Dx(n)) {
+            dxMax = myGrid.Dx(n);
             nxa   = n;
         }
-        if (dxMin > dx[n]) {
-            dxMin = dx[n];
+        if (dxMin > myGrid.Dx(n)) {
+            dxMin = myGrid.Dx(n);
             nxi   = n;
         }
-        if (dyMax < dy[n]) {
-            dyMax = dy[n];
+        if (dyMax < myGrid.Dy(n)) {
+            dyMax = myGrid.Dy(n);
             nya   = n;
         }
-        if (dyMin > dy[n]) {
-            dyMin = dy[n];
+        if (dyMin > myGrid.Dy(n)) {
+            dyMin = myGrid.Dy(n);
             nyi   = n;
         }
-        if (dzMax < dz[n]) {
-            dzMax = dz[n];
+        if (dzMax < myGrid.Dz(n)) {
+            dzMax = myGrid.Dz(n);
             nza   = n;
         }
-        if (dzMin > dz[n]) {
-            dzMin = dz[n];
+        if (dzMin > myGrid.Dz(n)) {
+            dzMin = myGrid.Dz(n);
             nzi   = n;
         }
         OCP_DBL tmp = myGrid.v[myGrid.activeMap_B2G[n]];

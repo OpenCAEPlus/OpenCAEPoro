@@ -134,7 +134,7 @@ public:
     /// Allocate memory for bulk data of grid.
     void Setup(const Grid& myGrid);
     /// Calculate initial equilibrium
-    void InitSjPc(const USI& tabrow);
+    void InitSjPc(const Grid& myGrid, const USI& tabrow);
     /// Perform flash calculation with saturations.
     void InitFlash(const OCP_BOOL& flag = OCP_FALSE);
     /// Perform flash calculation with saturations and calculate derivatives.
@@ -382,9 +382,6 @@ private:
     /////////////////////////////////////////////////////////////////////
     // Reservoir rock infomation of each bulk (size = numBulk)
     /////////////////////////////////////////////////////////////////////
-    vector<OCP_DBL> dx;         ///< size of bulk along the x direction.
-    vector<OCP_DBL> dy;         ///< size of bulk along the y direction.
-    vector<OCP_DBL> dz;         ///< size of bulk along the z direction.
     vector<OCP_DBL> depth;      ///< depth of center of bulk.
     vector<OCP_DBL> ntg;        ///< net to gross of bulk.
     vector<OCP_DBL> poroInit;   ///< initial rock porosity.

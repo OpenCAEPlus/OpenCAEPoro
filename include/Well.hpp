@@ -56,7 +56,7 @@ public:
     /// Initialize the Well BHP
     void InitBHP(const Bulk& myBulk);
     /// Calculate Well Index with Peaceman model for vertical well.
-    void CalWI_Peaceman_Vertical(const Bulk& myBulk);
+    void CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk);
     /// Calculate transmissibility for each phase in perforations.
     void CalTrans(const Bulk& myBulk);
     /// Calculate the flux for each perforations.

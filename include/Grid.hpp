@@ -135,6 +135,10 @@ public:
     /// Return the 3D coordinate for object grid with bulk(active grids) index
     void GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const;
     void CalSomeInfo()const;
+
+    OCP_DBL Dx(const OCP_USI& n) const { return dx[activeMap_B2G[n]]; }
+    OCP_DBL Dy(const OCP_USI& n) const { return dy[activeMap_B2G[n]]; }
+    OCP_DBL Dz(const OCP_USI& n) const { return dz[activeMap_B2G[n]]; }
 private:
     USI     nx;      ///< Number of cells in x-direction
     USI     ny;      ///< Number of cells in y-direction

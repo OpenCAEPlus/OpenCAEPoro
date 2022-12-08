@@ -84,14 +84,14 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     if (depth < 0) depth = perf[0].depth;
 
-    CalWI_Peaceman_Vertical(myBulk);
+    CalWI_Peaceman_Vertical(myGrid, myBulk);
     // test
     // ShowPerfStatus(myBulk);
 }
 
 void Well::InitBHP(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }
 
-void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
+void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -103,9 +103,9 @@ void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
             break;
         } else {
             OCP_USI Idb = perf[p].location;
-            OCP_DBL dx  = myBulk.dx[Idb];
-            OCP_DBL dy  = myBulk.dy[Idb];
-            OCP_DBL dz  = myBulk.dz[Idb] * myBulk.ntg[Idb];
+            OCP_DBL dx  = myGrid.Dx(Idb);
+            OCP_DBL dy  = myGrid.Dy(Idb);
+            OCP_DBL dz  = myGrid.Dz(Idb);
             OCP_DBL ro  = 0;
             switch (perf[p].direction) {
                 case X_DIRECTION:
