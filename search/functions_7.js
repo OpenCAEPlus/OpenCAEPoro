@@ -10,7 +10,7 @@ var searchData=
   ['initmethod_1445',['InitMethod',['../classParamControl.html#aa8aa097406a259c53a38559a1d9af95d',1,'ParamControl']]],
   ['initparam_1446',['InitParam',['../classLinearSolver.html#aeaf187fa541a97500b93765ef80b2dde',1,'LinearSolver']]],
   ['initreservoir_1447',['InitReservoir',['../classOCP__IMPEC.html#a58f7cfe8df3f2eb319b7c3f05f190cbb',1,'OCP_IMPEC::InitReservoir()'],['../classIsothermalSolver.html#a24c8ff189814cb0b6f50befbe190aaa3',1,'IsothermalSolver::InitReservoir()'],['../classSolver.html#ac39f1047bf3d1c2f03dfe62dd718d6ff',1,'Solver::InitReservoir()'],['../classOCP__AIMc.html#a232af889bd3d5d2e34e34e4a8cee66f8',1,'OCP_AIMc::InitReservoir()'],['../classOCP__FIM.html#abf8b8ae952676e5586bad8b678fb87ad',1,'OCP_FIM::InitReservoir()'],['../classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4',1,'OpenCAEPoro::InitReservoir()'],['../classOCP__FIMn.html#a64d274c7578d68f3ffd290f13379b30a',1,'OCP_FIMn::InitReservoir()']]],
-  ['initsjpc_1448',['InitSjPc',['../classBulk.html#a0edea22f295f425756a7c681e774047f',1,'Bulk']]],
+  ['initsjpc_1448',['InitSjPc',['../classBulk.html#a321b8c544391cca53da035046825a746',1,'Bulk']]],
   ['inittable_1449',['InitTable',['../classParamReservoir.html#a7c75da3d60afc482680853551316563d',1,'ParamReservoir']]],
   ['inittime_1450',['InitTime',['../classParamWell.html#ad3a0c7dcb849ccdcb3670d79aa65163d',1,'ParamWell::InitTime()'],['../classOCPControl.html#ac4bd7d6ccf39e8f6c6d1aee0f0e7d4ba',1,'OCPControl::InitTime()'],['../classParamControl.html#a0335997f9ad714a2d062ed92953a35fb',1,'ParamControl::InitTime()']]],
   ['inittuning_1451',['InitTuning',['../classParamControl.html#a1c15d9a1ddb22558c6555ef697b5b17e',1,'ParamControl']]],
