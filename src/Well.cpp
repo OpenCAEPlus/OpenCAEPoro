@@ -105,7 +105,7 @@ void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
             OCP_USI Idb = perf[p].location;
             OCP_DBL dx  = myGrid.Dx(Idb);
             OCP_DBL dy  = myGrid.Dy(Idb);
-            OCP_DBL dz  = myGrid.Dz(Idb);
+            OCP_DBL dz  = myGrid.Dz(Idb) * myBulk.ntg[Idb];
             OCP_DBL ro  = 0;
             switch (perf[p].direction) {
                 case X_DIRECTION:
