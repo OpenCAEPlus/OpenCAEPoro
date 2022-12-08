@@ -329,7 +329,6 @@ void Bulk::Setup(const Grid& myGrid)
     // Rock/Grid properties
 
     numBulk = myGrid.activeGridNum;
-    depth.resize(numBulk, 0);
     ntg.resize(numBulk, 0);
     poroInit.resize(numBulk, 0);
     poro.resize(numBulk, 0);
@@ -353,11 +352,8 @@ void Bulk::Setup(const Grid& myGrid)
     for (OCP_USI bIdb = 0; bIdb < numBulk; bIdb++) {
         OCP_USI bIdg = myGrid.activeMap_B2G[bIdb];
 
-        depth[bIdb] = myGrid.depth[bIdg];
         ntg[bIdb]   = myGrid.ntg[bIdg];
-
         poroInit[bIdb] = myGrid.poro[bIdg];
-
         rockVntg[bIdb] = myGrid.v[bIdg] * myGrid.ntg[bIdg];
         rockKx[bIdb] = myGrid.kx[bIdg];
         rockKy[bIdb] = myGrid.ky[bIdg];
@@ -470,8 +466,8 @@ void Bulk::InitSjPc(const Grid& myGrid, const USI& tabrow)
     OCP_DBL Zmax = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-        OCP_DBL temp1 = depth[n] - myGrid.Dz(n) / 2;
-        OCP_DBL temp2 = depth[n] + myGrid.Dz(n) / 2;
+        OCP_DBL temp1 = myGrid.Depth(n) - myGrid.Dz(n) / 2;
+        OCP_DBL temp2 = myGrid.Depth(n) + myGrid.Dz(n) / 2;
         Zmin = Zmin < temp1 ? Zmin : temp1;
         Zmax = Zmax > temp2 ? Zmax : temp2;
     }
@@ -1050,17 +1046,17 @@ void Bulk::InitSjPc(const Grid& myGrid, const USI& tabrow)
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (initZi_flag) {
-            initZi_Tab[0].Eval_All0(depth[n], tmpInitZi);
+            initZi_Tab[0].Eval_All0(myGrid.Depth(n), tmpInitZi);
             for (USI i = 0; i < numCom_1; i++) {
                 Ni[n * numCom + i] = tmpInitZi[i];
             }
         }
         if (initT_flag) {
-            myTemp = initT_Tab[0].Eval(0, depth[n], 1);
+            myTemp = initT_Tab[0].Eval(0, myGrid.Depth(n), 1);
             T[n] = myTemp;
         }
         
-        DepthP.Eval_All(0, depth[n], data, cdata);
+        DepthP.Eval_All(0, myGrid.Depth(n), data, cdata);
         OCP_DBL Po = data[1];
         OCP_DBL Pg = data[2];
         OCP_DBL Pw = data[3];
@@ -1092,11 +1088,11 @@ void Bulk::InitSjPc(const Grid& myGrid, const USI& tabrow)
         }
         P[n] = Po;
 
-        if (depth[n] < DOGC) {
+        if (myGrid.Depth(n) < DOGC) {
             Pbb = Po;
         }
         else if (PBVD_flag) {
-            Pbb = EQUIL.PBVD.Eval(0, depth[n], 1);
+            Pbb = EQUIL.PBVD.Eval(0, myGrid.Depth(n), 1);
         }
         Pb[n] = Pbb;
 
@@ -1115,7 +1111,7 @@ void Bulk::InitSjPc(const Grid& myGrid, const USI& tabrow)
         for (USI k = 0; k < ncut; k++) {
             OCP_DBL tmpSw = 0;
             OCP_DBL tmpSg = 0;
-            OCP_DBL dep = depth[n] + myGrid.Dz(n) / ncut * (k - (ncut - 1) / 2.0);
+            OCP_DBL dep = myGrid.Depth(n) + myGrid.Dz(n) / ncut * (k - (ncut - 1) / 2.0);
             DepthP.Eval_All(0, dep, data, cdata);
             Po = data[1];
             Pg = data[2];
@@ -2023,12 +2019,12 @@ void Bulk::CalSomeInfo(const Grid& myGrid) const
         // if (!activeMap_G2B[nn].IsAct())
         //     continue;
         // OCP_USI n = activeMap_G2B[nn].GetId();
-        if (depthMax < depth[n]) {
-            depthMax = depth[n];
+        if (depthMax < myGrid.Depth(n)) {
+            depthMax = myGrid.Depth(n);
             ndepa    = n;
         }
-        if (depthMin > depth[n]) {
-            depthMin = depth[n];
+        if (depthMin > myGrid.Depth(n)) {
+            depthMin = myGrid.Depth(n);
             ndepi    = n;
         }
         if (dxMax < myGrid.Dx(n)) {

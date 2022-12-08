@@ -237,6 +237,7 @@ void BulkConn::AllocateAuxIMPEC(const USI& np)
 }
 
 void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
+                                const Grid& myGrid, 
                                 const Bulk&    myBulk,
                                 const OCP_DBL& dt) const
 {
@@ -287,7 +288,7 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
                 valdowni +=
                     myBulk.vfi[eId * nc + i] * myBulk.xij[uId * np * nc + j * nc + i];
             }
-            OCP_DBL dD   = myBulk.depth[bId] - myBulk.depth[eId];
+            OCP_DBL dD   = myGrid.Depth(bId) - myGrid.Depth(eId);
             OCP_DBL dPc  = myBulk.Pc[bId * np + j] - myBulk.Pc[eId * np + j];
             OCP_DBL temp = myBulk.xi[uId * np + j] * upblock_Trans[c * np + j] * dt;
             valup += temp * valupi;
@@ -347,7 +348,7 @@ void BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
+void BulkConn::CalFluxIMPEC(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -387,8 +388,8 @@ void BulkConn::CalFluxIMPEC(const Bulk& myBulk)
             }
 
             uId           = bId;           
-            OCP_DBL  dP   = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                         (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            OCP_DBL  dP   = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                         (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             if (dP < 0) {
                 uId  = eId;
                 exup = exend;
@@ -450,6 +451,7 @@ void BulkConn::AllocateAuxFIM(const USI& np)
 }
 
 void BulkConn::AssembleMat_FIM(LinearSystem&  myLS,
+                                const Grid& myGrid,
                                const Bulk&    myBulk,
                                const OCP_DBL& dt) const
 {
@@ -503,7 +505,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem&  myLS,
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
 
         for (USI j = 0; j < np; j++) {
             uId      = upblock[c * np + j];
@@ -693,7 +695,7 @@ void BulkConn::AssembleMat_FIM(LinearSystem&  myLS,
     }
 }
 
-void BulkConn::CalFluxFIM(const Bulk& myBulk)
+void BulkConn::CalFluxFIM(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -726,8 +728,8 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
             }
             uId = bId;
 
-            dP = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            dP = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             if (dP < 0) {
                 uId = eId;
             }
@@ -738,7 +740,7 @@ void BulkConn::CalFluxFIM(const Bulk& myBulk)
 }
 
 /// rho = (rho1 + rho2)/2
-void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
+void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
@@ -790,8 +792,8 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
             }
 
             uId = bId;
-            dP  = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            dP  = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             // dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
             // dP = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] - dGamma * rho;
             // cout << setprecision(6) << scientific << dP << "   "
@@ -819,7 +821,7 @@ void BulkConn::CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL
 }
 
 /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
-void BulkConn::CalFluxFIMS(const Bulk& myBulk)
+void BulkConn::CalFluxFIMS(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -855,8 +857,8 @@ void BulkConn::CalFluxFIMS(const Bulk& myBulk)
             Pbegin     = myBulk.Pj[bId_np_j];
             Pend       = myBulk.Pj[eId_np_j];
             uId        = bId;
-            OCP_DBL dP = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                         (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            OCP_DBL dP = (Pbegin - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                         (Pend - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             if (dP < 0) {
                 uId = eId;
             }
@@ -866,7 +868,7 @@ void BulkConn::CalFluxFIMS(const Bulk& myBulk)
     }
 }
 
-void BulkConn::CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
+void BulkConn::CalResFIMS(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
 
@@ -921,8 +923,8 @@ void BulkConn::CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
             Pbegin = myBulk.Pj[bId_np_j];
             Pend   = myBulk.Pj[eId_np_j];
             uId    = bId;
-            dP     = (Pbegin - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                 (Pend - GRAVITY_FACTOR * rho * myBulk.depth[eId]);
+            dP     = (Pbegin - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                 (Pend - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             if (dP < 0) {
                 uId = eId;
             }
@@ -948,6 +950,7 @@ void BulkConn::CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
 /////////////////////////////////////////////////////////////////////
 
 void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
+                                    const Grid& myGrid,
                                    const Bulk&    myBulk,
                                    const OCP_DBL& dt) const
 {
@@ -1009,7 +1012,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
 
         USI jxB = 0;
         USI jxE = 0;
@@ -1253,6 +1256,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
 }
 
 void BulkConn::AssembleMat_FIM_new1(LinearSystem&  myLS,
+                                    const Grid& myGrid,
                                     const Bulk&    myBulk,
                                     const OCP_DBL& dt) const
 {
@@ -1320,7 +1324,7 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem&  myLS,
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
 
         jxB[0] = 0;
         jxE[0] = 0;
@@ -1562,6 +1566,7 @@ void BulkConn::AssembleMat_FIM_new1(LinearSystem&  myLS,
 }
 
 void BulkConn::AssembleMat_FIM_newS(LinearSystem&  myLS,
+                                    const Grid& myGrid,
                                     const Bulk&    myBulk,
                                     const OCP_DBL& dt) const
 {
@@ -1622,7 +1627,7 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem&  myLS,
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
 
         const USI npB = myBulk.phaseNum[bId];
         ncolB         = npB;
@@ -1890,6 +1895,7 @@ void BulkConn::AssembleMat_FIM_newS(LinearSystem&  myLS,
 }
 
 void BulkConn::AssembleMat_FIM_new_n(LinearSystem&  myLS,
+                                    const Grid& myGrid,
                                      const Bulk&    myBulk,
                                      const OCP_DBL& dt) const
 {
@@ -1952,7 +1958,7 @@ void BulkConn::AssembleMat_FIM_new_n(LinearSystem&  myLS,
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
 
         const USI npB = myBulk.phaseNum[bId];
         const USI npE = myBulk.phaseNum[eId];
@@ -2299,6 +2305,7 @@ void BulkConn::AllocateAuxAIMc(const USI& np)
 }
 
 void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
+                                const Grid& myGrid,
                                 const Bulk&    myBulk,
                                 const OCP_DBL& dt) const
 {
@@ -2360,7 +2367,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
         bId    = iteratorConn[c].BId;
         eId    = iteratorConn[c].EId;
         Akd    = CONV1 * CONV2 * iteratorConn[c].area;
-        dGamma = GRAVITY_FACTOR * (myBulk.depth[bId] - myBulk.depth[eId]);
+        dGamma = GRAVITY_FACTOR * (myGrid.Depth(bId) - myGrid.Depth(eId));
         bIdFIM = eIdFIM = OCP_FALSE;
         if (myBulk.bulkTypeAIM.IfFIMbulk(bId)) bIdFIM = OCP_TRUE;
         if (myBulk.bulkTypeAIM.IfFIMbulk(eId)) eIdFIM = OCP_TRUE;
@@ -2787,7 +2794,7 @@ void BulkConn::AssembleMat_AIMc(LinearSystem&  myLS,
     }
 }
 
-void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt)
+void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt)
 {
     // IMPORTANT!!!
     // in AIMc for IMPEC Bulk, P was updated in each Newton Step, but Pj didn't.
@@ -2845,8 +2852,8 @@ void BulkConn::CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DB
             }
 
             uId           = bId;           
-            dP            = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[bId]) -
-                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myBulk.depth[eId]);           
+            dP            = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(bId)) -
+                 (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * myGrid.Depth(eId));
             if (dP < 0) {
                 uId  = eId;
                 exup = exend;

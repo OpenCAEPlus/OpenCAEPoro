@@ -382,7 +382,6 @@ private:
     /////////////////////////////////////////////////////////////////////
     // Reservoir rock infomation of each bulk (size = numBulk)
     /////////////////////////////////////////////////////////////////////
-    vector<OCP_DBL> depth;      ///< depth of center of bulk.
     vector<OCP_DBL> ntg;        ///< net to gross of bulk.
     vector<OCP_DBL> poroInit;   ///< initial rock porosity.
     vector<OCP_DBL> poro;       ///< rock porosity.

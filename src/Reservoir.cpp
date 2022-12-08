@@ -157,7 +157,7 @@ void Reservoir::InitIMPEC()
     bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
     bulk.UpdateLastStepIMPEC();
-    conn.CalFluxIMPEC(bulk);
+    conn.CalFluxIMPEC(grid, bulk);
     conn.UpdateLastStep();
     allWells.InitBHP(bulk);
     allWells.UpdateLastBHP();
@@ -179,7 +179,7 @@ void Reservoir::CalFLuxIMPEC()
 {
     OCP_FUNCNAME;
 
-    conn.CalFluxIMPEC(bulk);
+    conn.CalFluxIMPEC(grid, bulk);
     allWells.CalFlux(bulk);
 }
 
@@ -187,7 +187,7 @@ void Reservoir::CalConnFluxIMPEC()
 {
     OCP_FUNCNAME;
 
-    conn.CalFluxIMPEC(bulk);
+    conn.CalFluxIMPEC(grid, bulk);
 }
 
 void Reservoir::MassConserveIMPEC(const OCP_DBL& dt)
@@ -230,7 +230,7 @@ void Reservoir::AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMatIMPEC(myLS, bulk, dt);
+    conn.AssembleMatIMPEC(myLS, grid, bulk, dt);
     allWells.AssemblaMatIMPEC(myLS, bulk, dt);
 }
 
@@ -313,7 +313,7 @@ void Reservoir::InitFIM()
     bulk.CalRock();
     bulk.InitFlashDer();
     bulk.CalKrPcDeriv();
-    conn.CalFluxFIM(bulk);
+    conn.CalFluxFIM(grid, bulk);
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }
@@ -327,7 +327,7 @@ void Reservoir::InitFIM_n()
     bulk.CalRock();
     bulk.InitFlashDer_n();
     bulk.CalKrPcDeriv();
-    conn.CalFluxFIM(bulk);
+    conn.CalFluxFIM(grid, bulk);
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }
@@ -390,7 +390,7 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);
 #else
-    conn.AssembleMat_FIM_new(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new(myLS, grid, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 #endif // OCP_OLD_FIM
 }
@@ -400,7 +400,7 @@ void Reservoir::AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMat_FIM_new_n(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new_n(myLS, grid, bulk, dt);
     allWells.AssemblaMatFIM_new_n(myLS, bulk, dt);
 }
 
@@ -428,7 +428,7 @@ void Reservoir::CalResFIM(OCPRes& resFIM, const OCP_DBL& dt)
     // Initialize
     resFIM.SetZero();
     // Bulk to Bulk
-    conn.CalResFIM(resFIM.res, bulk, dt);
+    conn.CalResFIM(resFIM.res, grid, bulk, dt);
     // Well to Bulk
     allWells.CalResFIM(resFIM, bulk, dt);
     // Calculate RelRes
@@ -519,7 +519,7 @@ void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMat_AIMc(myLS, bulk, dt);
+    conn.AssembleMat_AIMc(myLS, grid, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);
 }
 
@@ -529,7 +529,7 @@ void Reservoir::CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt)
     // Initialize
     resAIMc.SetZero();
     // Bulk to Bulk
-    conn.CalResAIMc(resAIMc.res, bulk, dt);
+    conn.CalResAIMc(resAIMc.res, grid, bulk, dt);
     // Well to Bulk
     allWells.CalResFIM(resAIMc, bulk, dt);
     // Calculate RelRes
@@ -566,7 +566,7 @@ void Reservoir::InitAIMc()
     bulk.CalRock();
     bulk.InitFlash(OCP_TRUE);
     bulk.CalKrPc();
-    conn.CalFluxFIM(bulk);
+    conn.CalFluxFIM(grid, bulk);
     allWells.InitBHP(bulk);
     UpdateLastStepFIM();
 }

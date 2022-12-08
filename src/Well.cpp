@@ -66,7 +66,7 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
             perf[pp]            = perf[p];
             perf[pp].state      = OPEN;
             perf[pp].location   = myGrid.activeMap_G2B[Idg].GetId();
-            perf[pp].depth      = myBulk.depth[perf[pp].location];
+            perf[pp].depth      = myGrid.Depth(perf[pp].location);
             perf[pp].multiplier = 1;
             perf[pp].qi_lbmol.resize(myBulk.numCom);
             perf[pp].transj.resize(myBulk.numPhase);

@@ -139,6 +139,7 @@ public:
     OCP_DBL Dx(const OCP_USI& n) const { return dx[activeMap_B2G[n]]; }
     OCP_DBL Dy(const OCP_USI& n) const { return dy[activeMap_B2G[n]]; }
     OCP_DBL Dz(const OCP_USI& n) const { return dz[activeMap_B2G[n]]; }
+    OCP_DBL Depth(const OCP_USI& n) const { return depth[activeMap_B2G[n]]; }
 private:
     USI     nx;      ///< Number of cells in x-direction
     USI     ny;      ///< Number of cells in y-direction

@@ -144,14 +144,14 @@ public:
     void AllocateAuxIMPEC(const USI& np);
 
     /// Assmeble coefficient matrix for IMPEC, terms related to bulks only.
-    void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMatIMPEC(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
                           const OCP_DBL& dt) const;
 
     /// Calculate the CFL number for flow between bulks???
     void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 
     /// Calculate flux information about flow between bulks for IMPEC.
-    void CalFluxIMPEC(const Bulk& myBulk);
+    void CalFluxIMPEC(const Grid& myGrid, const Bulk& myBulk);
 
     /// Update mole composition of each bulk according to mass conservation for IMPEC.
     void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
@@ -165,18 +165,18 @@ public:
     void AllocateAuxFIM(const USI& np);
 
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
-    void AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMat_FIM(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
                          const OCP_DBL& dt) const;
 
     /// Calculate flux for FIM, considering upwinding.
-    void CalFluxFIM(const Bulk& myBulk);
+    void CalFluxFIM(const Grid& myGrid, const Bulk& myBulk);
 
     /// Calculate resiual for the Newton iteration in FIM.
-    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
+    void CalResFIM(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt);
 
     /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
-    void CalFluxFIMS(const Bulk& myBulk);
-    void CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
+    void CalFluxFIMS(const Grid& myGrid, const Bulk& myBulk);
+    void CalResFIMS(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt);
 
 
     /////////////////////////////////////////////////////////////////////
@@ -185,15 +185,15 @@ public:
 
     /// Assmeble coefficient matrix for FIM, terms related to bulks only.
     /// OCP_NEW_FIM
-    void AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMat_FIM_new(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
         const OCP_DBL& dt) const;
-    void AssembleMat_FIM_new1(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMat_FIM_new1(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// OCP_NEW_FIM rho = (S1*rho1 + S2*rho2)/(S1+S2)
-    void AssembleMat_FIM_newS(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMat_FIM_newS(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
         const OCP_DBL& dt) const;
     /// OCP_NEW_FIMn
-    void AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
+    void AssembleMat_FIM_new_n(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk,
         const OCP_DBL& dt) const;
 
     /////////////////////////////////////////////////////////////////////
@@ -204,9 +204,9 @@ public:
     void SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag = OCP_FALSE) const;
     /// Allocate memory for auxiliary variables used by the AIMc method.
     void AllocateAuxAIMc(const USI& np);
-    void AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
+    void AssembleMat_AIMc(LinearSystem& myLS, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Calculate resiual for the Newton iteration in FIM.
-    void CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
+    void CalResAIMc(vector<OCP_DBL>& res, const Grid& myGrid, const Bulk& myBulk, const OCP_DBL& dt);
 };
 
 
