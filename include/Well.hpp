@@ -131,6 +131,8 @@ private:
                          ///< last time step: numPerf.
 
     // production rate and injection rate
+    OCP_DBL numPhase; ///< num of phases
+    OCP_DBL numCom;   ///< num of components
     vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing
                               ///< well: num of components.
     
