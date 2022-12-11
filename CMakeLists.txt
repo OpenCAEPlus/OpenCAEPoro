@@ -6,6 +6,7 @@
 #   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
 #   cmake -DCMAKE_CXX_COMPILER=g++ .    // build with GNU C++ compiler
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on
+#   cmake -DUSE_FASPCPR=ON .            // build with FASPCPR support
 #   cmake -DUSE_FASP4BLKOIL=ON .        // build with FASP4BLKOIL support
 #   cmake -DUSE_FASP4CUDA=ON .          // build with FASP4CUDA support
 #   cmake -DUSE_UMFPACK=ON .            // build with UMFPACK support
