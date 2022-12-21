@@ -39,11 +39,11 @@ private:
     /// Run one time step for isothermal model
     void GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl);
 
-    /// Setup solver for thermal model
+    /// Setup solver for ifThermal model
     void SetupT(Reservoir& rs, const OCPControl& ctrl);
-    /// Initialize the reservoir for thermal model
+    /// Initialize the reservoir for ifThermal model
     void InitReservoirT(Reservoir& rs) const;
-    /// Run one time step for thermal model
+    /// Run one time step for ifThermal model
     void GoOneStepT(Reservoir& rs, OCPControl& ctrl);
     
 
@@ -52,7 +52,7 @@ private:
     USI OCPModel{ISOTHERMALMODEL};
     /// Solver for isothermal models with fixed T
     IsothermalSolver IsoTSolver;
-    /// Solver for thermal models with varied T
+    /// Solver for ifThermal models with varied T
     ThermalSolver    TSolver;
     /// Linear solver
     LinearSystem LSolver;

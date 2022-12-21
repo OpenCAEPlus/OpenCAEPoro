@@ -47,7 +47,7 @@ void Summary::InputParam(const OutputSummary& summary_param)
     // cout << "Summary::InputParam" << endl;
 }
 
-void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
+void Summary::Setup(const Reservoir& rs, const OCP_DBL& totalTime)
 {
     Sumdata.push_back(SumPair("TIME", "  ", "DAY"));
     Sumdata.push_back(SumPair("NRiter", "  ", "  "));
@@ -64,17 +64,22 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
     if (FWIR) Sumdata.push_back(SumPair("FWIR", "  ", "STB/DAY"));
     if (FWIT) Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
-    const USI sp = reservoir.grid.GetNumDigitIJK();
 
-    USI    num;
-    USI    wellnum = reservoir.allWells.GetWellNum();
+    const GridInitInfo& initGrid = rs.grid.initInfo;
+    const AllWells& wells = rs.allWells;
+
+    const USI sp = initGrid.GetNumDigitIJK();
+      
+    const USI    wellnum = wells.GetWellNum();
     string wellname;
+    USI    num;
+    
 
     if (WOPR.activity) {
         if (WOPR.obj[0] == "All") {
             WOPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WOPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WOPR", wellname, "STB/DAY"));
                 WOPR.index.push_back(w);
@@ -83,7 +88,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WOPR.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WOPR", WOPR.obj[w], "STB/DAY"));
-                WOPR.index.push_back(reservoir.allWells.GetIndex(WOPR.obj[w]));
+                WOPR.index.push_back(wells.GetIndex(WOPR.obj[w]));
             }
         }
     }
@@ -92,7 +97,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WOPT.obj[0] == "All") {
             WOPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WOPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WOPT", wellname, "STB"));
                 WOPT.index.push_back(w);
@@ -101,7 +106,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WOPT.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WOPT", WOPT.obj[w], "STB"));
-                WOPT.index.push_back(reservoir.allWells.GetIndex(WOPT.obj[w]));
+                WOPT.index.push_back(wells.GetIndex(WOPT.obj[w]));
             }
         }
     }
@@ -110,7 +115,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WGPR.obj[0] == "All") {
             WGPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WGPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGPR", wellname, "MSCF/DAY"));
                 WGPR.index.push_back(w);
@@ -119,7 +124,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WGPR.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGPR", WGPR.obj[w], "MSCF/DAY"));
-                WGPR.index.push_back(reservoir.allWells.GetIndex(WGPR.obj[w]));
+                WGPR.index.push_back(wells.GetIndex(WGPR.obj[w]));
             }
         }
     }
@@ -128,7 +133,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WGPT.obj[0] == "All") {
             WGPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WGPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGPT", wellname, "MSCF"));
                 WGPT.index.push_back(w);
@@ -137,7 +142,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WGPT.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGPT", WGPT.obj[w], "MSCF"));
-                WGPT.index.push_back(reservoir.allWells.GetIndex(WGPT.obj[w]));
+                WGPT.index.push_back(wells.GetIndex(WGPT.obj[w]));
             }
         }
     }
@@ -146,7 +151,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WWPR.obj[0] == "All") {
             WWPR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WWPR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWPR", wellname, "STB/DAY"));
                 WWPR.index.push_back(w);
@@ -155,7 +160,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WWPR.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWPR", WWPR.obj[w], "STB/DAY"));
-                WWPR.index.push_back(reservoir.allWells.GetIndex(WWPR.obj[w]));
+                WWPR.index.push_back(wells.GetIndex(WWPR.obj[w]));
             }
         }
     }
@@ -164,7 +169,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WWPT.obj[0] == "All") {
             WWPT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WWPT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWPT", wellname, "STB"));
                 WWPT.index.push_back(w);
@@ -173,7 +178,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WWPT.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWPT", WWPT.obj[w], "STB"));
-                WWPT.index.push_back(reservoir.allWells.GetIndex(WWPT.obj[w]));
+                WWPT.index.push_back(wells.GetIndex(WWPT.obj[w]));
             }
         }
     }
@@ -182,7 +187,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WGIR.obj[0] == "All") {
             WGIR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WGIR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGIR", wellname, "MSCF/DAY"));
                 WGIR.index.push_back(w);
@@ -191,7 +196,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WGIR.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGIR", WGIR.obj[w], "MSCF/DAY"));
-                WGIR.index.push_back(reservoir.allWells.GetIndex(WGIR.obj[w]));
+                WGIR.index.push_back(wells.GetIndex(WGIR.obj[w]));
             }
         }
     }
@@ -200,7 +205,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WGIT.obj[0] == "All") {
             WGIT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WGIT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WGIT", wellname, "MSCF"));
                 WGIT.index.push_back(w);
@@ -209,7 +214,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WGIT.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WGIT", WGIT.obj[w], "MSCF"));
-                WGIT.index.push_back(reservoir.allWells.GetIndex(WGIT.obj[w]));
+                WGIT.index.push_back(wells.GetIndex(WGIT.obj[w]));
             }
         }
     }
@@ -218,7 +223,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WWIR.obj[0] == "All") {
             WWIR.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WWIR.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWIR", wellname, "STB/DAY"));
                 WWIR.index.push_back(w);
@@ -227,7 +232,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WWIR.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWIR", WWIR.obj[w], "STB/DAY"));
-                WWIR.index.push_back(reservoir.allWells.GetIndex(WWIR.obj[w]));
+                WWIR.index.push_back(wells.GetIndex(WWIR.obj[w]));
             }
         }
     }
@@ -236,7 +241,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WWIT.obj[0] == "All") {
             WWIT.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WWIT.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WWIT", wellname, "STB"));
                 WWIT.index.push_back(w);
@@ -245,7 +250,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WWIT.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WWIT", WWIT.obj[w], "STB"));
-                WWIT.index.push_back(reservoir.allWells.GetIndex(WWIT.obj[w]));
+                WWIT.index.push_back(wells.GetIndex(WWIT.obj[w]));
             }
         }
     }
@@ -254,7 +259,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (WBHP.obj[0] == "All") {
             WBHP.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                wellname = reservoir.allWells.GetWellName(w);
+                wellname = wells.GetWellName(w);
                 WBHP.obj.push_back(wellname);
                 Sumdata.push_back(SumPair("WBHP", wellname, "PSIA"));
                 WBHP.index.push_back(w);
@@ -263,7 +268,7 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             num = WBHP.obj.size();
             for (USI w = 0; w < num; w++) {
                 Sumdata.push_back(SumPair("WBHP", WBHP.obj[w], "PSIA"));
-                WBHP.index.push_back(reservoir.allWells.GetIndex(WBHP.obj[w]));
+                WBHP.index.push_back(wells.GetIndex(WBHP.obj[w]));
             }
         }
     }
@@ -272,9 +277,9 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         if (DG.obj[0] == "All") {
             DG.obj.clear();
             for (USI w = 0; w < wellnum; w++) {
-                string wellname = reservoir.allWells.GetWellName(w);
+                string wellname = wells.GetWellName(w);
                 DG.obj.push_back(wellname);
-                USI perfnum = reservoir.allWells.GetWellPerfNum(w);
+                USI perfnum = wells.GetWellPerfNum(w);
                 for (USI p = 0; p < perfnum; p++) {
                     Sumdata.push_back(
                         SumPair("DG", wellname + " Perf" + to_string(p), "PSIA"));
@@ -284,8 +289,8 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
         } else {
             num = DG.obj.size();
             for (USI w = 0; w < num; w++) {
-                USI wId     = reservoir.allWells.GetIndex(DG.obj[w]);
-                USI perfnum = reservoir.allWells.GetWellPerfNum(wId);
+                USI wId     = wells.GetIndex(DG.obj[w]);
+                USI perfnum = wells.GetWellPerfNum(wId);
                 for (USI p = 0; p < perfnum; p++) {
                     Sumdata.push_back(
                         SumPair("DG", DG.obj[w] + " P" + to_string(p), "PSIA"));
@@ -304,7 +309,10 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             USI I = BPR.obj[i].I - 1;
             USI J = BPR.obj[i].J - 1;
             USI K = BPR.obj[i].K - 1;
-            BPR.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+
+            const OCP_INT tarId = initGrid.GetActIndex(I, J, K);
+            if (tarId < 0) OCP_WARNING("Non Fluid Grid: " + GetIJKformat(I + 1, J + 1, K + 1, sp) + "in BPR in SUMMARY");
+            else           BPR.index.push_back(tarId);
         }
     }
 
@@ -318,7 +326,10 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             USI I = SOIL.obj[i].I - 1;
             USI J = SOIL.obj[i].J - 1;
             USI K = SOIL.obj[i].K - 1;
-            SOIL.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+
+            const OCP_INT tarId = initGrid.GetActIndex(I, J, K);
+            if (tarId < 0) OCP_WARNING("Non Fluid Grid: " + GetIJKformat(I + 1, J + 1, K + 1, sp) + "in SOIL in SUMMARY");
+            else           SOIL.index.push_back(tarId);
         }
     }
 
@@ -332,7 +343,10 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             USI I = SGAS.obj[i].I - 1;
             USI J = SGAS.obj[i].J - 1;
             USI K = SGAS.obj[i].K - 1;
-            SGAS.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+            
+            const OCP_INT tarId = initGrid.GetActIndex(I, J, K);
+            if (tarId < 0) OCP_WARNING("Non Fluid Grid: " + GetIJKformat(I + 1, J + 1, K + 1, sp) + "in SOIL in SUMMARY");
+            else           SGAS.index.push_back(tarId);
         }
     }
 
@@ -346,15 +360,18 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
             USI I = SWAT.obj[i].I - 1;
             USI J = SWAT.obj[i].J - 1;
             USI K = SWAT.obj[i].K - 1;
-            SWAT.index.push_back(reservoir.grid.GetActIndex(I, J, K));
+
+            const OCP_INT tarId = initGrid.GetActIndex(I, J, K);
+            if (tarId < 0) OCP_WARNING("Non Fluid Grid: " + GetIJKformat(I + 1, J + 1, K + 1, sp) + "in SWAT in SUMMARY");
+            else           SWAT.index.push_back(tarId);
         }
     }
 
     // Allocate memory
-    USI rs = totalTime / 0.1;
-    USI cs = Sumdata.size();
+    const USI maxRowNum = totalTime / 0.1;
+    const USI cs = Sumdata.size();
     for (USI i = 0; i < cs; i++) {
-        Sumdata[i].val.reserve(rs);
+        Sumdata[i].val.reserve(maxRowNum);
     }
 
     // cout << "Summary::Setup" << endl;
@@ -362,6 +379,10 @@ void Summary::Setup(const Reservoir& reservoir, const OCP_DBL& totalTime)
 
 void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
+    const Bulk& bulk = rs.grid.bulk;
+    const AllWells& wells = rs.allWells;
+
+
     USI n = 0;
 
     // TIME
@@ -372,102 +393,102 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
     Sumdata[n++].val.push_back(ctrl.GetLSiterT());
 
     // FPR
-    if (FPR) Sumdata[n++].val.push_back(rs.bulk.CalFPR());
-    if (FOPR) Sumdata[n++].val.push_back(rs.allWells.GetFOPR());
-    if (FOPT) Sumdata[n++].val.push_back(rs.allWells.GetFOPT());
-    if (FGPR) Sumdata[n++].val.push_back(rs.allWells.GetFGPR());
-    if (FGPt) Sumdata[n++].val.push_back(rs.allWells.GetFGPT());
-    if (FWPR) Sumdata[n++].val.push_back(rs.allWells.GetFWPR());
-    if (FWPT) Sumdata[n++].val.push_back(rs.allWells.GetFWPT());
-    if (FGIR) Sumdata[n++].val.push_back(rs.allWells.GetFGIR());
-    if (FGIT) Sumdata[n++].val.push_back(rs.allWells.GetFGIT());
-    if (FWIR) Sumdata[n++].val.push_back(rs.allWells.GetFWIR());
-    if (FWIT) Sumdata[n++].val.push_back(rs.allWells.GetFWIT());
+    if (FPR) Sumdata[n++].val.push_back(bulk.CalFPR());
+    if (FOPR) Sumdata[n++].val.push_back(wells.GetFOPR());
+    if (FOPT) Sumdata[n++].val.push_back(wells.GetFOPT());
+    if (FGPR) Sumdata[n++].val.push_back(wells.GetFGPR());
+    if (FGPt) Sumdata[n++].val.push_back(wells.GetFGPT());
+    if (FWPR) Sumdata[n++].val.push_back(wells.GetFWPR());
+    if (FWPT) Sumdata[n++].val.push_back(wells.GetFWPT());
+    if (FGIR) Sumdata[n++].val.push_back(wells.GetFGIR());
+    if (FGIT) Sumdata[n++].val.push_back(wells.GetFGIT());
+    if (FWIR) Sumdata[n++].val.push_back(wells.GetFWIR());
+    if (FWIT) Sumdata[n++].val.push_back(wells.GetFWIT());
 
     USI len = 0;
     // WOPR
     len = WOPR.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWOPR(WOPR.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWOPR(WOPR.index[w]));
 
     // WOPT
     len = WOPT.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWOPT(WOPT.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWOPT(WOPT.index[w]));
 
     // WGPR
     len = WGPR.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWGPR(WGPR.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWGPR(WGPR.index[w]));
 
     // WGPT
     len = WGPT.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWGPT(WGPT.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWGPT(WGPT.index[w]));
 
     // WWPR
     len = WWPR.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWWPR(WWPR.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWWPR(WWPR.index[w]));
 
     // WWPT
     len = WWPT.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWWPT(WWPT.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWWPT(WWPT.index[w]));
 
     // WGIR
     len = WGIR.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWGIR(WGIR.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWGIR(WGIR.index[w]));
 
     // WGIT
     len = WGIT.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWGIT(WGIT.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWGIT(WGIT.index[w]));
 
     // WWIR
     len = WWIR.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWWIR(WWIR.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWWIR(WWIR.index[w]));
 
     // WWIT
     len = WWIT.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWWIT(WWIT.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWWIT(WWIT.index[w]));
 
     // WBHP
     len = WBHP.index.size();
     for (USI w = 0; w < len; w++)
-        Sumdata[n++].val.push_back(rs.allWells.GetWBHP(WBHP.index[w]));
+        Sumdata[n++].val.push_back(wells.GetWBHP(WBHP.index[w]));
 
     // DG
     len = DG.obj.size();
     for (USI w = 0; w < len; w++) {
         USI numperf = rs.allWells.GetWellPerfNum(DG.index[w]);
         for (USI p = 0; p < numperf; p++) {
-            Sumdata[n++].val.push_back(rs.allWells.GetWellDg(DG.index[w], p));
+            Sumdata[n++].val.push_back(wells.GetWellDG(DG.index[w], p));
         }
     }
 
     // BPR
     len = BPR.index.size();
     for (USI i = 0; i < len; i++)
-        Sumdata[n++].val.push_back(rs.bulk.GetP(BPR.index[i]));
+        Sumdata[n++].val.push_back(bulk.GetP(BPR.index[i]));
 
     // SOIL
     len = SOIL.index.size();
     for (USI i = 0; i < len; i++)
-        Sumdata[n++].val.push_back(rs.bulk.GetSOIL(SOIL.index[i]));
+        Sumdata[n++].val.push_back(bulk.GetSOIL(SOIL.index[i]));
 
     // SGAS
     len = SGAS.index.size();
     for (USI i = 0; i < len; i++)
-        Sumdata[n++].val.push_back(rs.bulk.GetSGAS(SGAS.index[i]));
+        Sumdata[n++].val.push_back(bulk.GetSGAS(SGAS.index[i]));
 
     // SWAT
     len = SWAT.index.size();
     for (USI i = 0; i < len; i++)
-        Sumdata[n++].val.push_back(rs.bulk.GetSWAT(SWAT.index[i]));
+        Sumdata[n++].val.push_back(bulk.GetSWAT(SWAT.index[i]));
 }
 
 /// Write output information in the dir/SUMMARY.out file.
@@ -559,15 +580,17 @@ void CriticalInfo::Setup(const OCP_DBL& totalTime)
     cfl.reserve(rc);
 }
 
-void CriticalInfo::SetVal(const Reservoir& reservoir, const OCPControl& ctrl)
+void CriticalInfo::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
+    const Bulk& bulk = rs.grid.bulk;
+
     time.push_back(ctrl.GetCurTime());
     dt.push_back(ctrl.GetLastDt());
-    dPmax.push_back(reservoir.bulk.GetdPmax());
-    dVmax.push_back(reservoir.bulk.GetdVmax());
-    dSmax.push_back(reservoir.bulk.GetdSmax());
-    dNmax.push_back(reservoir.bulk.GetdNmax());
-    cfl.push_back(reservoir.cfl);
+    dPmax.push_back(bulk.GetdPmax());
+    dVmax.push_back(bulk.GetdVmax());
+    dSmax.push_back(bulk.GetdSmax());
+    dNmax.push_back(bulk.GetdNmax());
+    cfl.push_back(bulk.GetMaxCFL());
 }
 
 void CriticalInfo::PrintFastReview(const string& dir) const
@@ -654,10 +677,12 @@ void Out4RPT::Setup(const string& dir, const Reservoir& rs)
     }
     outF.close();
 
-    nx       = rs.grid.nx;
-    ny       = rs.grid.ny;
-    numGrid  = rs.grid.numGrid;
-    IJKspace = rs.grid.numDigutIJK;
+    const GridInitInfo& initGrid = rs.grid.initInfo;
+
+    nx       = initGrid.nx;
+    ny       = initGrid.ny;
+    numGrid  = initGrid.numGrid;
+    IJKspace = initGrid.numDigutIJK;
 }
 
 void Out4RPT::PrintRPT(const string&    dir,
@@ -674,12 +699,15 @@ void Out4RPT::PrintRPT(const string&    dir,
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    const USI              np     = rs.bulk.numPhase;
-    const USI              nc     = rs.bulk.numCom;
-    const USI              OIndex = rs.bulk.phase2Index[OIL];
-    const USI              GIndex = rs.bulk.phase2Index[GAS];
-    const USI              WIndex = rs.bulk.phase2Index[WATER];
-    const vector<GB_Pair>& g2bp   = rs.grid.activeMap_G2B;
+    const GridInitInfo& initGrid = rs.grid.initInfo;
+    const Bulk& bulk = rs.grid.bulk;
+    
+    const USI              np     = bulk.numPhase;
+    const USI              nc     = bulk.numCom;
+    const USI              OIndex = bulk.phase2Index[OIL];
+    const USI              GIndex = bulk.phase2Index[GAS];
+    const USI              WIndex = bulk.phase2Index[WATER];
+    const vector<GB_Pair>& g2bp   = initGrid.map_All2Act;
 
     outRPT << OCP_SEP02(50) << "\n";
 
@@ -760,157 +788,132 @@ void Out4RPT::PrintRPT(const string&    dir,
     static OCP_BOOL flag = OCP_FALSE;
     // Print once
     if (flag) {
-        PrintRPT_Scalar(outRPT, "DX : feet", days, &rs.grid.dx[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "DY : feet", days, &rs.grid.dy[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "DZ : feet", days, &rs.grid.dz[0], 1, g2bp, OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "Depth : feet", days, &rs.grid.depth[0], 1, g2bp,
-                        OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &rs.grid.kx[0], 1, g2bp,
-                        OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &rs.grid.ky[0], 1, g2bp,
-                        OCP_FALSE);
-        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &rs.grid.kz[0], 1, g2bp,
-                        OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DX : feet", days, &initGrid.dx[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DY : feet", days, &initGrid.dy[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "DZ : feet", days, &initGrid.dz[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "Depth : feet", days, &initGrid.depth[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMX : MDarcy", days, &initGrid.kx[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMY : MDarcy", days, &initGrid.ky[0], 1, g2bp, OCP_FALSE);
+        PrintRPT_Scalar(outRPT, "PERMZ : MDarcy", days, &initGrid.kz[0], 1, g2bp, OCP_FALSE);
         flag = OCP_FALSE;
     }
 
     // PRESSURE
     if (bgp.PRE) {
-        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &rs.bulk.P[0], 1, g2bp,
-                        OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PRESSURE : psia", days, &bulk.P[0], 1, g2bp, OCP_TRUE);
     }
 
     // DENSITY of OIL
-    if (bgp.DENO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &rs.bulk.rho[OIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.DENO && bulk.oil) {
+        PrintRPT_Scalar(outRPT, "DENO : lb/ft3", days, &bulk.rho[OIndex], np, g2bp, OCP_TRUE);
     }
     outRPT << endl;
 
     // DENSITY of GAS
-    if (bgp.DENG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &rs.bulk.rho[GIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.DENG && bulk.gas) {
+        PrintRPT_Scalar(outRPT, "DENG : lb/ft3", days, &bulk.rho[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // DENSITY of WATER
-    if (bgp.DENW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &rs.bulk.rho[WIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.DENW && bulk.water) {
+        PrintRPT_Scalar(outRPT, "DENW : lb/ft3", days, &bulk.rho[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of OIL
-    if (bgp.SOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "SOIL         ", days, &rs.bulk.S[OIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.SOIL && bulk.oil) {
+        PrintRPT_Scalar(outRPT, "SOIL         ", days, &bulk.S[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of GAS
-    if (bgp.SGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "SGAS         ", days, &rs.bulk.S[GIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.SGAS && bulk.gas) {
+        PrintRPT_Scalar(outRPT, "SGAS         ", days, &bulk.S[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // SATURATION of WATER
-    if (bgp.SWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "SWAT         ", days, &rs.bulk.S[WIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.SWAT && bulk.water) {
+        PrintRPT_Scalar(outRPT, "SWAT         ", days, &bulk.S[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of OIL
-    if (bgp.KRO && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "KRO          ", days, &rs.bulk.kr[OIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.KRO && bulk.oil) {
+        PrintRPT_Scalar(outRPT, "KRO          ", days, &bulk.kr[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of GAS
-    if (bgp.KRG && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "KRG          ", days, &rs.bulk.kr[GIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.KRG && bulk.gas) {
+        PrintRPT_Scalar(outRPT, "KRG          ", days, &bulk.kr[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Relative Permeability of WATER
-    if (bgp.KRW && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "KRW          ", days, &rs.bulk.kr[WIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.KRW && bulk.water) {
+        PrintRPT_Scalar(outRPT, "KRW          ", days, &bulk.kr[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of OIL
-    if (bgp.BOIL && rs.bulk.oil && rs.bulk.useEoS) {
-        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &rs.bulk.xi[OIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.BOIL && bulk.oil && bulk.IfUseEoS()) {
+        PrintRPT_Scalar(outRPT, "BOIL : lb-M/rb", days, &bulk.xi[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of GAS
-    if (bgp.BGAS && rs.bulk.gas && rs.bulk.useEoS) {
-        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &rs.bulk.xi[GIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.BGAS && bulk.gas && bulk.IfUseEoS()) {
+        PrintRPT_Scalar(outRPT, "BGAS : lb-M/rb", days, &bulk.xi[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Molar Density of WATER
-    if (bgp.BWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &rs.bulk.xi[WIndex], np, g2bp,
+    if (bgp.BWAT && bulk.water) {
+        PrintRPT_Scalar(outRPT, "BWAT : lb-M/rb", days, &bulk.xi[WIndex], np, g2bp,
                         OCP_TRUE, (CONV1 * 19.437216));
     }
 
     // Viscosity of OIL
-    if (bgp.VOIL && rs.bulk.oil) {
-        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &rs.bulk.mu[OIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.VOIL && bulk.oil) {
+        PrintRPT_Scalar(outRPT, "VOIL : lb-M/rb", days, &bulk.mu[OIndex], np, g2bp, OCP_TRUE);
     }
 
     // Viscosity of GAS
-    if (bgp.VGAS && rs.bulk.gas) {
-        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &rs.bulk.mu[GIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.VGAS && bulk.gas) {
+        PrintRPT_Scalar(outRPT, "VGAS : lb-M/rb", days, &bulk.mu[GIndex], np, g2bp, OCP_TRUE);
     }
 
     // Viscosity of WATER
-    if (bgp.VWAT && rs.bulk.water) {
-        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &rs.bulk.mu[WIndex], np, g2bp,
-                        OCP_TRUE);
+    if (bgp.VWAT && bulk.water) {
+        PrintRPT_Scalar(outRPT, "VWAT : lb-M/rb", days, &bulk.mu[WIndex], np, g2bp, OCP_TRUE);
     }
 
     // liquid component mole fractions.
-    if (bgp.XMF && rs.bulk.useEoS) {
+    if (bgp.XMF && bulk.IfUseEoS()) {
         for (USI i = 0; i < nc - 1; i++) {
             PrintRPT_Scalar(outRPT, "XMF : Oil  " + to_string(i + 1) + "th Component",
-                            days, &rs.bulk.xij[OIndex * nc + i], np * nc, g2bp,
-                            OCP_TRUE);
+                            days, &bulk.xij[OIndex * nc + i], np * nc, g2bp, OCP_TRUE);
         }
     }
 
     // gas component mole fractions.
-    if (bgp.YMF && rs.bulk.useEoS) {
+    if (bgp.YMF && bulk.IfUseEoS()) {
         for (USI i = 0; i < nc - 1; i++) {
             PrintRPT_Scalar(outRPT, "YMF : Gas  " + to_string(i + 1) + "th Component",
-                            days, &rs.bulk.xij[GIndex * nc + i], np * nc, g2bp,
-                            OCP_TRUE);
+                            days, &bulk.xij[GIndex * nc + i], np * nc, g2bp, OCP_TRUE);
         }
     }
 
     // surface tension
-    if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "STEN        ", days, &rs.bulk.surTen[0], 1, g2bp,
-                        OCP_TRUE);
+    if (bulk.miscible & OCP_FALSE) {
+        PrintRPT_Scalar(outRPT, "STEN        ", days, &bulk.surTen[0], 1, g2bp, OCP_TRUE);
     }
 
     // Fk
-    if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FMISC       ", days, &rs.bulk.Fk[0], 1, g2bp,
-                        OCP_TRUE);
+    if (bulk.miscible & OCP_FALSE) {
+        PrintRPT_Scalar(outRPT, "FMISC       ", days, &bulk.Fk[0], 1, g2bp, OCP_TRUE);
     }
 
     // Fp
-    if (rs.bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FPC         ", days, &rs.bulk.Fp[0], 1, g2bp,
-                        OCP_TRUE);
+    if (bulk.miscible & OCP_FALSE) {
+        PrintRPT_Scalar(outRPT, "FPC         ", days, &bulk.Fp[0], 1, g2bp, OCP_TRUE);
     }
 
     // Po - Pw
     if (bgp.PCW) {
-        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &rs.bulk.Pc[WIndex], np, g2bp,
-                        OCP_TRUE);
+        PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &bulk.Pc[WIndex], np, g2bp, OCP_TRUE);
     }
 
     outRPT.close();
@@ -941,18 +944,20 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     string newfile;
     string title = "test";
 
+    const GridInitInfo& initGrid = rs.grid.initInfo;
+
     out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID,
-                 rs.grid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
-    out4vtk.OutputPOINTS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell,
+                 initGrid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
+    out4vtk.OutputPOINTS(file, initGrid.polyhedronGrid, rs.allWells.polyhedronWell,
                          VTK_FLOAT);
-    out4vtk.OutputCELLS(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
-    out4vtk.OutputCELL_TYPES(file, rs.grid.polyhedronGrid, rs.allWells.polyhedronWell);
+    out4vtk.OutputCELLS(file, initGrid.polyhedronGrid, rs.allWells.polyhedronWell);
+    out4vtk.OutputCELL_TYPES(file, initGrid.polyhedronGrid, rs.allWells.polyhedronWell);
     out4vtk.BeginCellData();
     // output dead grid, live grid, well
     vector<USI> tmpW(rs.allWells.numWell, 2);
-    out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT,
-                                    &rs.grid.activityFlag[0], 1, rs.grid.activeMap_G2B,
-                                    OCP_FALSE, &tmpW[0]);
+    //out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT,
+    //                                &initGrid.activityFlag[0], 1, initGrid.map_All2Act,
+    //                                OCP_FALSE, &tmpW[0]);
 
     for (USI i = 1; i < ndates; i++) {
         index++;
@@ -981,25 +986,27 @@ void Out4VTK::PrintVTK(const string&    dir,
     // Calulcate Well val for output
     rs.allWells.SetWellVal();
 
-    const USI              np     = rs.bulk.numPhase;
-    const USI              OIndex = rs.bulk.phase2Index[OIL];
-    const USI              GIndex = rs.bulk.phase2Index[GAS];
-    const USI              WIndex = rs.bulk.phase2Index[WATER];
-    const vector<GB_Pair>& g2bp   = rs.grid.activeMap_G2B;
-    const vector<OCP_DBL>& well   = rs.allWells.wellVal;
+    const GridInitInfo&    initGrid = rs.grid.initInfo;
+    const Bulk&            bulk     = rs.grid.bulk;
+    const vector<GB_Pair>& g2bp     = initGrid.map_All2Act;
+    const vector<OCP_DBL>& well     = rs.allWells.wellVal;
+    const USI              np       = bulk.numPhase;
+    const USI              OIndex   = bulk.phase2Index[OIL];
+    const USI              GIndex   = bulk.phase2Index[GAS];
+    const USI              WIndex   = bulk.phase2Index[WATER];
 
     // output
     if (bgp.PRE)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &rs.bulk.P[0], 1,
+        out4vtk.OutputCELL_DATA_SCALARS(file, "PRESSURE", VTK_FLOAT, &bulk.P[0], 1,
                                         g2bp, OCP_TRUE, &well[0]);
     if (bgp.SOIL)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &rs.bulk.S[OIndex], np,
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SOIL", VTK_FLOAT, &bulk.S[OIndex], np,
                                         g2bp, OCP_TRUE, &well[0]);
     if (bgp.SGAS)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &rs.bulk.S[GIndex], np,
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SGAS", VTK_FLOAT, &bulk.S[GIndex], np,
                                         g2bp, OCP_TRUE, &well[0]);
     if (bgp.SWAT)
-        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &rs.bulk.S[WIndex], np,
+        out4vtk.OutputCELL_DATA_SCALARS(file, "SWAT", VTK_FLOAT, &bulk.S[WIndex], np,
                                         g2bp, OCP_TRUE, &well[0]);
 
 #ifdef USE_METIS
@@ -1009,7 +1016,7 @@ void Out4VTK::PrintVTK(const string&    dir,
         metisTest.vwgt.resize(metisTest.nvtxs, 1);
         // metisTest.MyPartionFunc(METIS_PartGraphRecursive);
         metisTest.MyPartionFunc(METIS_PartGraphKway);
-        metisTest.SetPartions(rs.grid.activeMap_B2G);
+        metisTest.SetPartions(initGrid.map_Act2All);
         out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT,
                                         &metisTest.partions[0], 1, g2bp, OCP_FALSE,
                                         &metisTest.partions[metisTest.ng]);

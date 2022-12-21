@@ -20,18 +20,16 @@ void Reservoir::InputParam(ParamRead& param)
     OCP_FUNCNAME;
 
     grid.InputParam(param.paramRs);
-    bulk.InputParam(param.paramRs);
     allWells.InputParam(param.paramWell);
 }
 
-void Reservoir::Setup(const OCP_BOOL& useVTK)
+void Reservoir::SetupIsoT()
 {
     OCP_FUNCNAME;
 
-    grid.Setup(useVTK);
-    bulk.Setup(grid);
-    conn.Setup(grid, bulk);
-    allWells.Setup(grid, bulk);
+    grid.SetupIsoT();
+    conn.Setup(grid.initInfo);
+    allWells.Setup(grid);
 }
 
 void Reservoir::ApplyControl(const USI& i)
@@ -39,49 +37,49 @@ void Reservoir::ApplyControl(const USI& i)
     OCP_FUNCNAME;
 
     allWells.ApplyControl(i);
-    allWells.SetupWellGroup(bulk);
+    allWells.SetupWellGroup(grid.bulk);
 }
 
 void Reservoir::PrepareWell()
 {
     OCP_FUNCNAME;
 
-    allWells.PrepareWell(bulk);
+    allWells.PrepareWell(grid.bulk);
 }
 
 void Reservoir::CalWellFlux()
 {
     OCP_FUNCNAME;
 
-    allWells.CalFlux(bulk);
+    allWells.CalFlux(grid.bulk);
 }
 
 void Reservoir::CalWellTrans()
 {
     OCP_FUNCNAME;
 
-    allWells.CalTrans(bulk);
+    allWells.CalTrans(grid.bulk);
 }
 
 void Reservoir::CalRock()
 {
     OCP_FUNCNAME;
 
-    bulk.CalRock();
+    grid.bulk.CalRock();
 }
 
 void Reservoir::CalKrPc()
 {
     OCP_FUNCNAME;
 
-    bulk.CalKrPc();
+    grid.bulk.CalKrPcIMPEC();
 }
 
 void Reservoir::CalMaxChange()
 {
     OCP_FUNCNAME;
 
-    bulk.CalMaxChange();
+    grid.bulk.CalMaxChange();
     allWells.CalMaxBHPChange();
 }
 
@@ -89,9 +87,9 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
     // Calculate injection / production rate for current step
-    allWells.CalIPRT(bulk, dt);
+    allWells.CalIPRT(grid.bulk, dt);
     // Calculate Reinjection fluid for next step
-    allWells.CalReInjFluid(bulk);
+    allWells.CalReInjFluid(grid.bulk);
 }
 
 OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
@@ -99,7 +97,7 @@ OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
     OCP_FUNCNAME;
 
     if (bulkCheck) {
-        if (!bulk.CheckP()) {
+        if (!grid.bulk.CheckP()) {
             // negative Pressure
             return 1;
         }
@@ -107,7 +105,7 @@ OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
 
     if (wellCheck) {
         OCP_INT flag = 0;
-        flag         = allWells.CheckP(bulk);
+        flag         = allWells.CheckP(grid.bulk);
         return flag;
     }
 
@@ -118,110 +116,67 @@ OCP_BOOL Reservoir::CheckNi()
 {
     OCP_FUNCNAME;
 
-    return bulk.CheckNi();
+    return grid.bulk.CheckNi();
 }
 
 OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
-    return bulk.CheckVe(Vlim);
+    return grid.bulk.CheckVe(Vlim);
 }
 
-void Reservoir::GetNTQT(const OCP_DBL& dt)
+
+OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
 {
-    OCP_DBL NT = bulk.CalNT();
-    OCP_DBL QT = allWells.CalWellQT() * dt;
-    cout << setprecision(8) << NT << "   " << QT << endl;
+    OCP_FUNCNAME;
+
+    conn.CalCFL(grid.bulk, dt);
+    allWells.CalCFL(grid.bulk, dt);
+    grid.bulk.CalCFL();
+
+    return grid.bulk.maxCFL;
 }
+
 
 /////////////////////////////////////////////////////////////////////
 // IMPEC
 /////////////////////////////////////////////////////////////////////
 
-void Reservoir::AllocateAuxIMPEC()
+void Reservoir::AllocateIMPEC_IsoT()
 {
     OCP_FUNCNAME;
 
-    bulk.AllocateAuxIMPEC();
-    conn.AllocateAuxIMPEC(bulk.GetPhaseNum());
+    grid.bulk.AllocateIMPEC_IsoT();
+    conn.AllocateIMPEC_IsoT(grid.bulk.GetPhaseNum());
 }
 
 void Reservoir::InitIMPEC()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(grid, 50);
+    grid.bulk.InitRock();
+    grid.bulk.InitSjPc(50);
+    grid.bulk.CalRock();
+    grid.bulk.InitFlashIMPEC();
+    grid.bulk.CalKrPcIMPEC();
+    grid.bulk.UpdateLastStepIMPEC();
 
-    bulk.CalRock();
-    bulk.InitFlash(OCP_TRUE);
-    bulk.CalKrPc();
-    bulk.UpdateLastStepIMPEC();
-    conn.CalFluxIMPEC(grid, bulk);
-    conn.UpdateLastStep();
-    allWells.InitBHP(bulk);
+    conn.CalAkd(grid.bulk);
+    conn.CalFluxIMPEC(grid.bulk);
+    conn.UpdateLastStepIMPEC();
+
+    allWells.InitBHP(grid.bulk);
     allWells.UpdateLastBHP();
-}
-
-OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
-{
-    OCP_FUNCNAME;
-
-    bulk.SetCFL2Zero();
-    conn.CalCFL(bulk, dt);
-    allWells.CalCFL(bulk, dt);
-    cfl = bulk.CalCFL();
-
-    return cfl;
-}
-
-void Reservoir::CalFLuxIMPEC()
-{
-    OCP_FUNCNAME;
-
-    conn.CalFluxIMPEC(grid, bulk);
-    allWells.CalFlux(bulk);
-}
-
-void Reservoir::CalConnFluxIMPEC()
-{
-    OCP_FUNCNAME;
-
-    conn.CalFluxIMPEC(grid, bulk);
-}
-
-void Reservoir::MassConserveIMPEC(const OCP_DBL& dt)
-{
-    OCP_FUNCNAME;
-
-    conn.MassConserveIMPEC(bulk, dt);
-    allWells.MassConserveIMPEC(bulk, dt);
-}
-
-void Reservoir::CalFlashIMPEC()
-{
-    OCP_FUNCNAME;
-
-    bulk.Flash();
-}
-
-void Reservoir::UpdateLastStepIMPEC()
-{
-    OCP_FUNCNAME;
-    bulk.UpdateLastStepIMPEC();
-    conn.UpdateLastStep();
-    // useless in IMPEC now
-    // allWells.UpdateLastBHP();
-    // allWells.UpdateLastDg();
 }
 
 void Reservoir::AllocateMatIMPEC(LinearSystem& myLS) const
 {
     OCP_FUNCNAME;
 
-    myLS.AllocateRowMem(bulk.GetBulkNum() + allWells.GetWellNum(), 1);
+    myLS.AllocateRowMem(GetBulkNum() + GetWellNum(), 1);
     conn.AllocateMat(myLS);
-    allWells.AllocateMat(myLS, bulk.GetBulkNum());
+    allWells.AllocateMat(myLS, GetBulkNum());
     myLS.AllocateColMem();
 }
 
@@ -230,155 +185,105 @@ void Reservoir::AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMatIMPEC(myLS, grid, bulk, dt);
-    allWells.AssemblaMatIMPEC(myLS, bulk, dt);
+    conn.AssembleMatIMPEC(myLS, grid.bulk, dt);
+    allWells.AssemblaMatIMPEC(myLS, grid.bulk, dt);
 }
 
 void Reservoir::GetSolutionIMPEC(const vector<OCP_DBL>& u)
 {
     OCP_FUNCNAME;
 
-    bulk.GetSolIMPEC(u);
-    allWells.GetSolIMPEC(u, bulk.GetBulkNum());
+    grid.bulk.GetSolIMPEC(u);
+    allWells.GetSolIMPEC(u, grid.bulk.GetBulkNum());
 }
 
-void Reservoir::ResetWellIMPEC()
+
+void Reservoir::CalFLuxIMPEC()
 {
-    // allWells.ResetDg();
-    allWells.ResetBHP();
-    allWells.CalTrans(bulk);
-    allWells.CaldG(bulk);
-    allWells.CalFlux(bulk);
+    OCP_FUNCNAME;
+
+    conn.CalFluxIMPEC(grid.bulk);
+    allWells.CalFlux(grid.bulk);
 }
+
+void Reservoir::MassConserveIMPEC(const OCP_DBL& dt)
+{
+    OCP_FUNCNAME;
+
+    conn.MassConserveIMPEC(grid.bulk, dt);
+    allWells.MassConserveIMPEC(grid.bulk, dt);
+}
+
 
 void Reservoir::ResetVal01IMPEC()
 {
     OCP_FUNCNAME;
-    bulk.ResetPj();
-    conn.Reset();
+    grid.bulk.ResetVal01IMPEC();
+    conn.ResetIMPEC();
 }
 
 void Reservoir::ResetVal02IMPEC()
 {
     OCP_FUNCNAME;
 
-    bulk.ResetPj();
-    bulk.ResetNi();
-    conn.Reset();
+    grid.bulk.ResetVal02IMPEC();
+    conn.ResetIMPEC();
 }
 
 void Reservoir::ResetVal03IMPEC()
 {
     OCP_FUNCNAME;
-    bulk.ResetphaseNum();
-    bulk.ResetSkipStaAnalyTerm();
+    grid.bulk.ResetVal03IMPEC();
+    conn.ResetIMPEC();
+}
 
-    bulk.ResetPj();
-    bulk.ResetNi();
-    bulk.ResetNt();
-    bulk.ResetFlash();
-    bulk.ResetRock();
-    conn.Reset();
 
-    // Becareful! if recalculate the flash, result may be different because the initial
-    // flash was calculated by InitFlash not Flash.
+void Reservoir::UpdateLastStepIMPEC()
+{
+    OCP_FUNCNAME;
+    grid.bulk.UpdateLastStepIMPEC();
+    conn.UpdateLastStepIMPEC();
 }
 
 /////////////////////////////////////////////////////////////////////
 // FIM
 /////////////////////////////////////////////////////////////////////
 
-void Reservoir::AllocateAuxFIM()
+void Reservoir::AllocateFIM_IsoT()
 {
     OCP_FUNCNAME;
 
-    bulk.AllocateAuxFIM();
-    conn.AllocateAuxFIM(bulk.GetPhaseNum());
-}
-
-void Reservoir::AllocateAuxFIMn()
-{
-    OCP_FUNCNAME;
-
-    bulk.AllocateAuxFIMn();
-    conn.AllocateAuxFIM(bulk.GetPhaseNum());
+    grid.bulk.AllocateFIM_IsoT();
+    conn.AllocateFIM_IsoT(grid.bulk.GetPhaseNum());
 }
 
 void Reservoir::InitFIM()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(grid, 50);
+    grid.bulk.InitRock();
+    grid.bulk.InitSjPc(50);
+    grid.bulk.CalRock();
+    grid.bulk.InitFlashFIM();
+    grid.bulk.CalKrPcFIM();
 
-    bulk.CalRock();
-    bulk.InitFlashDer();
-    bulk.CalKrPcDeriv();
-    conn.CalFluxFIM(grid, bulk);
-    allWells.InitBHP(bulk);
+    conn.CalAkd(grid.bulk);
+ 
+    allWells.InitBHP(grid.bulk);
+
     UpdateLastStepFIM();
 }
 
-void Reservoir::InitFIM_n()
+void Reservoir::AllocateMatFIM_IsoT(LinearSystem& myLS) const
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(grid, 50);
-
-    bulk.CalRock();
-    bulk.InitFlashDer_n();
-    bulk.CalKrPcDeriv();
-    conn.CalFluxFIM(grid, bulk);
-    allWells.InitBHP(bulk);
-    UpdateLastStepFIM();
-}
-
-void Reservoir::CalFlashDerivFIM()
-{
-    OCP_FUNCNAME;
-
-    bulk.FlashDeriv();
-}
-
-void Reservoir::CalFlashDerivFIM_n()
-{
-    OCP_FUNCNAME;
-
-    bulk.FlashDeriv_n();
-}
-
-void Reservoir::CalKrPcDerivFIM()
-{
-    OCP_FUNCNAME;
-
-    bulk.CalKrPcDeriv();
-}
-
-void Reservoir::UpdateLastStepFIM()
-{
-    OCP_FUNCNAME;
-
-    bulk.UpdateLastStepFIM();
-    allWells.UpdateLastBHP();
-}
-
-void Reservoir::UpdateLastStepFIMn()
-{
-    OCP_FUNCNAME;
-
-    bulk.UpdateLastStepFIMn();
-    allWells.UpdateLastBHP();
-}
-
-void Reservoir::AllocateMatFIM(LinearSystem& myLS) const
-{
-    OCP_FUNCNAME;
-
-    myLS.AllocateRowMem(bulk.GetBulkNum() + allWells.GetWellNum(),
-                        bulk.GetComNum() + 1);
+    myLS.AllocateRowMem(GetBulkNum() + GetWellNum(), GetComNum() + 1);
     conn.AllocateMat(myLS);
-    allWells.AllocateMat(myLS, bulk.GetBulkNum());
+    allWells.AllocateMat(myLS, GetBulkNum());
     myLS.AllocateColMem();
 }
+
 
 void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
 {
@@ -387,109 +292,142 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
     conn.SetupMatSparsity(myLS);
 
 #ifdef OCP_OLD_FIM
-    conn.AssembleMat_FIM(myLS, bulk, dt);
-    allWells.AssemblaMatFIM(myLS, bulk, dt);
+    conn.AssembleMat_FIM(myLS, grid.bulk, dt);
+    allWells.AssemblaMatFIM(myLS, grid.bulk, dt);
 #else
-    conn.AssembleMat_FIM_new(myLS, grid, bulk, dt);
-    allWells.AssemblaMatFIM_new(myLS, bulk, dt);
+    conn.AssembleMat_FIM_new(myLS, grid.bulk, dt);
+    allWells.AssemblaMatFIM_new(myLS, grid.bulk, dt);
 #endif // OCP_OLD_FIM
 }
 
-void Reservoir::AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    conn.SetupMatSparsity(myLS);
-    conn.AssembleMat_FIM_new_n(myLS, grid, bulk, dt);
-    allWells.AssemblaMatFIM_new_n(myLS, bulk, dt);
-}
 
 void Reservoir::GetSolutionFIM(const vector<OCP_DBL>& u,
-                               const OCP_DBL&         dPmax,
-                               const OCP_DBL&         dSmax)
+    const OCP_DBL& dPmax,
+    const OCP_DBL& dSmax)
 {
-    bulk.GetSolFIM(u, dPmax, dSmax);
-    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+    grid.bulk.GetSolFIM(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, grid.bulk.GetBulkNum(), grid.bulk.GetComNum() + 1);
 }
 
-void Reservoir::GetSolutionFIM_n(const vector<OCP_DBL>& u,
-                                 const OCP_DBL&         dPmax,
-                                 const OCP_DBL&         dSmax)
-{
-    OCP_FUNCNAME;
 
-    bulk.GetSolFIM_n(u, dPmax, dSmax);
-    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
-}
-
-void Reservoir::CalResFIM(OCPRes& resFIM, const OCP_DBL& dt)
+void Reservoir::CalResFIM(OCPRes& resFIM, const OCP_DBL& dt, const OCP_BOOL& resetRes0)
 {
     OCP_FUNCNAME;
     // Initialize
     resFIM.SetZero();
     // Bulk to Bulk
-    conn.CalResFIM(resFIM.res, grid, bulk, dt);
+    conn.CalResFIM(resFIM.res, grid.bulk, dt);
     // Well to Bulk
-    allWells.CalResFIM(resFIM, bulk, dt);
+    allWells.CalResFIM(resFIM, grid.bulk, dt);
     // Calculate RelRes
-    bulk.CalRelResFIM(resFIM);
+    grid.bulk.CalRelResFIM(resFIM);
     Dscalar(resFIM.res.size(), -1.0, resFIM.res.data());
 
-    // Calculate Res2 and ResMax
-    // OCP_DBL resmax = 0;
-    // OCP_USI maxId = 0;
-    // OCP_DBL res2 = 0;
-    // for (OCP_USI i = 0; i < resFIM.res.size(); i++) {
-    //    res2 += pow(resFIM.res[i], 2);
-    //    if (resmax < fabs(resFIM.res[i])) {
-    //        resmax = fabs(resFIM.res[i]);
-    //        maxId = i;
-    //    }
-    //}
-    // cout << "Res2  " << pow(res2 / resFIM.res.size(), 0.5) << "     "
-    //    << resFIM.res.size() << endl;
-    // cout << "ResMax   " << resmax << "   " << maxId << endl;
-    // cout << "BHP   \n";
-    // for (USI w = 0; w < allWells.numWell; w++) {
-    //    cout << allWells.GetWBHP(w) << "   ";
-    //    for (USI p = 0; p < allWells.GetWellPerfNum(w); p++) {
-    //        cout << allWells.wells[w].GetPerfPre(p) << "   ";
-    //    }
-    //}
-    // cout << endl;
+    if (resetRes0) {
+        resFIM.SetInitRes();
+    }
 }
 
 void Reservoir::ResetFIM()
 {
-    bulk.ResetFIM();
+    grid.bulk.ResetFIM();
     allWells.ResetBHP();
-    allWells.CalTrans(bulk);
-    allWells.CaldG(bulk);
-    allWells.CalFlux(bulk);
+    allWells.CalTrans(grid.bulk);
+    allWells.CaldG(grid.bulk);
+    allWells.CalFlux(grid.bulk);
+}
+
+void Reservoir::UpdateLastStepFIM()
+{
+    OCP_FUNCNAME;
+
+    grid.bulk.UpdateLastStepFIM();
+    allWells.UpdateLastBHP();
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// FIMn
+/////////////////////////////////////////////////////////////////////
+
+
+void Reservoir::InitFIMn()
+{
+    OCP_FUNCNAME;
+
+    grid.bulk.InitRock();
+    grid.bulk.InitSjPc(50);
+    grid.bulk.CalRock();
+    grid.bulk.InitFlashFIMn();
+    grid.bulk.CalKrPcFIMn();
+
+    conn.CalAkd(grid.bulk);
+
+    allWells.InitBHP(grid.bulk);
+
+    UpdateLastStepFIM();
+}
+
+
+void Reservoir::UpdateLastStepFIMn()
+{
+    OCP_FUNCNAME;
+
+    grid.bulk.UpdateLastStepFIMn();
+    allWells.UpdateLastBHP();
+}
+
+void Reservoir::AssembleMatFIMn(LinearSystem& myLS, const OCP_DBL& dt) const
+{
+    OCP_FUNCNAME;
+
+    conn.SetupMatSparsity(myLS);
+    conn.AssembleMat_FIM_new_n(myLS, grid.bulk, dt);
+    allWells.AssemblaMatFIM_new_n(myLS, grid.bulk, dt);
+}
+
+
+void Reservoir::GetSolutionFIMn(const vector<OCP_DBL>& u,
+                                 const OCP_DBL&         dPmax,
+                                 const OCP_DBL&         dSmax)
+{
+    OCP_FUNCNAME;
+
+    grid.bulk.GetSolFIMn(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, grid.bulk.GetBulkNum(), grid.bulk.GetComNum() + 1);
+}
+
+
+void Reservoir::AllocateFIMn_IsoT()
+{
+    OCP_FUNCNAME;
+
+    grid.bulk.AllocateFIMn_IsoT();
+    conn.AllocateFIM_IsoT(grid.bulk.GetPhaseNum());
 }
 
 void Reservoir::ResetFIMn()
 {
-    bulk.ResetFIMn();
+    grid.bulk.ResetFIMn();
     allWells.ResetBHP();
-    allWells.CalTrans(bulk);
-    allWells.CaldG(bulk);
-    allWells.CalFlux(bulk);
+    allWells.CalTrans(grid.bulk);
+    allWells.CaldG(grid.bulk);
+    allWells.CalFlux(grid.bulk);
 }
 
 void Reservoir::PrintSolFIM(const string& outfile) const
 {
     ofstream outu(outfile);
     if (!outu.is_open()) cout << "Can not open " << outfile << endl;
-    const OCP_USI nb = bulk.numBulk;
-    const OCP_USI nc = bulk.numCom;
+    const OCP_USI nb = grid.bulk.numBulk;
+    const OCP_USI nc = grid.bulk.numCom;
 
     for (OCP_USI n = 0; n < nb; n++) {
         // Pressure
-        outu << bulk.P[n] << "\n";
+        outu << grid.bulk.P[n] << "\n";
         // Ni
         for (USI i = 0; i < nc; i++) {
-            outu << bulk.Ni[n * nc + i] << "\n";
+            outu << grid.bulk.Ni[n * nc + i] << "\n";
         }
     }
     // Well Pressure
@@ -499,19 +437,14 @@ void Reservoir::PrintSolFIM(const string& outfile) const
     outu.close();
 }
 
-void Reservoir::ShowRes(const vector<OCP_DBL>& res) const
-{
-    bulk.ShowRes(res);
-    allWells.ShowRes(res, bulk);
-}
 
-void Reservoir::AllocateAuxAIMc()
+void Reservoir::AllocateAIMc_IsoT()
 {
     OCP_FUNCNAME;
 
-    bulk.AllocateAuxFIM();
-    bulk.AllocateAuxAIMc();
-    conn.AllocateAuxAIMc(bulk.GetPhaseNum());
+    grid.bulk.AllocateFIM_IsoT();
+    grid.bulk.AllocateAIMc_IsoT();
+    conn.AllocateAIMc_IsoT(grid.bulk.GetPhaseNum());
 }
 
 void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
@@ -519,75 +452,72 @@ void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     conn.SetupMatSparsity(myLS);
-    conn.AssembleMat_AIMc(myLS, grid, bulk, dt);
-    allWells.AssemblaMatFIM_new(myLS, bulk, dt);
+    conn.AssembleMat_AIMc(myLS, grid.bulk, dt);
+    allWells.AssemblaMatFIM_new(myLS, grid.bulk, dt);
 }
 
-void Reservoir::CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt)
+void Reservoir::CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt, const OCP_BOOL& resetRes0)
 {
     OCP_FUNCNAME;
     // Initialize
     resAIMc.SetZero();
     // Bulk to Bulk
-    conn.CalResAIMc(resAIMc.res, grid, bulk, dt);
+    conn.CalResAIMc(resAIMc.res, grid.bulk, dt);
     // Well to Bulk
-    allWells.CalResFIM(resAIMc, bulk, dt);
+    allWells.CalResFIM(resAIMc, grid.bulk, dt);
     // Calculate RelRes
-    bulk.CalRelResFIM(resAIMc);
+    grid.bulk.CalRelResFIM(resAIMc);
     Dscalar(resAIMc.res.size(), -1, resAIMc.res.data());
+
+    if (resetRes0) {
+        resAIMc.SetInitRes();
+    }
 }
 
-void Reservoir::CalFlashAIMc() { bulk.FlashAIMc(); }
-
-void Reservoir::CalFlashAIMc01() { bulk.FlashAIMc01(); }
-
-void Reservoir::CalKrPcAIMc() { bulk.CalKrPcAIMc(); }
-
-/// Calculate Flash for local FIM, some derivatives are needed
-void Reservoir::CalFlashDerivAIMc() { bulk.FlashDerivAIMc(); }
-
-/// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-void Reservoir::CalKrPcDerivAIMc() { bulk.CalKrPcDerivAIMc(); }
 
 void Reservoir::GetSolutionAIMc(const vector<OCP_DBL>& u,
                                 const OCP_DBL&         dPmax,
                                 const OCP_DBL&         dSmax)
 {
-    bulk.GetSolAIMc(u, dPmax, dSmax);
-    allWells.GetSolFIM(u, bulk.GetBulkNum(), bulk.GetComNum() + 1);
+    grid.bulk.GetSolAIMc(u, dPmax, dSmax);
+    allWells.GetSolFIM(u, grid.bulk.GetBulkNum(), grid.bulk.GetComNum() + 1);
 }
 
 void Reservoir::InitAIMc()
 {
     OCP_FUNCNAME;
 
-    bulk.InitSjPc(grid, 50);
+    grid.bulk.InitRock();
+    grid.bulk.InitSjPc(50);
+    grid.bulk.CalRock();
+    grid.bulk.InitFlashIMPEC();
+    grid.bulk.CalKrPcIMPEC();
 
-    bulk.CalRock();
-    bulk.InitFlash(OCP_TRUE);
-    bulk.CalKrPc();
-    conn.CalFluxFIM(grid, bulk);
-    allWells.InitBHP(bulk);
-    UpdateLastStepFIM();
+    conn.CalAkd(grid.bulk);
+
+    allWells.InitBHP(grid.bulk);
+
+    UpdateLastStepAIMc();
 }
-
 
 void Reservoir::UpdateLastStepAIMc()
 {
     OCP_FUNCNAME;
 
-    bulk.UpdateLastStepFIM();
+    grid.bulk.UpdateLastStepAIMc();
     allWells.UpdateLastBHP();
-    bulk.ResetXijNR();
 }
-
 
 void Reservoir::ResetAIMc()
 {
     OCP_FUNCNAME;
 
-    ResetFIM();
-    bulk.ResetXijNR();
+    grid.bulk.ResetAIMc();
+
+    allWells.ResetBHP();
+    allWells.CalTrans(grid.bulk);
+    allWells.CaldG(grid.bulk);
+    allWells.CalFlux(grid.bulk);
 }
 
 /*----------------------------------------------------------------------------*/

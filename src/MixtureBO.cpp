@@ -13,9 +13,6 @@
 
 void BOMixture::BOMixtureInit(const ParamReservoir& rs_param)
 {
-    numPhase    = rs_param.numPhase;
-    numCom      = rs_param.numCom;
-
     Allocate();
 
     if (rs_param.density.activity) {

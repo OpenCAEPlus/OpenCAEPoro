@@ -140,7 +140,6 @@ OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
     switch (method) {
         case IMPEC:
             flag = impec.UpdateProperty(rs, ctrl);
-            // return impec.UpdateProperty01(rs, ctrl);
             break;
         case FIMn:
             flag = fim_n.UpdateProperty(rs, ctrl);
@@ -166,7 +165,6 @@ OCP_BOOL IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
     switch (method) {
         case IMPEC:
             return impec.FinishNR(rs);
-            // return impec.FinishNR01(rs, ctrl);
         case FIMn:
             return fim_n.FinishNR(rs, ctrl);
         case FIM:

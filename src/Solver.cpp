@@ -33,7 +33,7 @@ void Solver::Setup(Reservoir& rs, const OCPControl& ctrl)
 void Solver::SetupIsoT(Reservoir& rs, const OCPControl& ctrl)
 {
     // Setup static infomation for reservoir
-    rs.Setup(false);
+    rs.SetupIsoT();
     IsoTSolver.SetupMethod(rs, ctrl);
 }
 
@@ -94,19 +94,7 @@ void Solver::RunSimulation(Reservoir& rs, OCPControl& ctrl, OCPOutput& output)
         output.PrintInfoSched(rs, ctrl, timer.Stop());     
         // rs.allWells.ShowWellStatus(rs.bulk);
     }
-
-    if (rs.bulk.GetMixMode()) {
-        cout << "SSMSTA:     " << setw(12) << rs.bulk.GetSSMSTAiters() << setw(15)
-             << rs.bulk.GetSSMSTAiters() * 1.0 / rs.bulk.GetSSMSTAcounts() << endl;
-        cout << "NRSTA:      " << setw(12) << rs.bulk.GetNRSTAiters() << setw(15)
-             << rs.bulk.GetNRSTAiters() * 1.0 / rs.bulk.GetNRSTAcounts() << endl;
-        cout << "SSMSP:      " << setw(12) << rs.bulk.GetSSMSPiters() << setw(15)
-             << rs.bulk.GetSSMSPiters() * 1.0 / rs.bulk.GetSSMSPcounts() << endl;
-        cout << "NRSP:       " << setw(12) << rs.bulk.GetNRSPiters() << setw(15)
-             << rs.bulk.GetNRSPiters() * 1.0 / rs.bulk.GetNRSPcounts() << endl;
-        cout << "NRRR:       " << setw(12) << rs.bulk.GetRRiters() << setw(15)
-             << rs.bulk.GetRRiters() * 1.0 / rs.bulk.GetRRcounts() << endl;
-    }
+    rs.OutInfoFinal();
     ctrl.RecordTotalTime(timer.Stop() / 1000);
 }
 

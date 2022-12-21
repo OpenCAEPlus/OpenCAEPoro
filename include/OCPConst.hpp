@@ -98,7 +98,7 @@ const USI BLKOIL_OG		= 13; ///< black oil model with oil and gas
 const USI BLKOIL_DOGW	= 14; ///< black oil model with dead oil, dry gas, water
 const USI BLKOIL_ODGW	= 15; ///< black oil model with live oil, dry gas, water
 const USI EOS_PVTW		= 20; ///< Mixture model = equation-of-state
-const USI THERMAL		= 30; ///< Mixture model = thermal
+const USI THERMAL		= 30; ///< Mixture model = ifThermal
 
 // EoS models
 const USI EOS_PR  = 1; ///< EoS model = PR

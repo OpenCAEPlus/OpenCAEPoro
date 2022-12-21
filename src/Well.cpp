@@ -39,43 +39,46 @@ void Well::InputPerfo(const WellParam& well)
     }
 }
 
-void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
+void Well::Setup(const Grid& myGrid, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
 
-    numCom = myBulk.numCom;
-    numPhase = myBulk.numPhase;
-    flashCal = myBulk.flashCal;
+    const GridInitInfo& initGrid = myGrid.initInfo;
+    const Bulk& bulk = myGrid.bulk;
+
+    numCom = bulk.numCom;
+    numPhase = bulk.numPhase;
+    flashCal = bulk.flashCal;
 
     qi_lbmol.resize(numCom);
     prodWeight.resize(numCom);
-    prodRate.resize(numPhase); // oil, gas, water
+    prodRate.resize(numPhase);
 
     for (auto& opt : optSet) {
         if (!opt.state) continue;
 
-        opt.Tinj = myBulk.RTemp;
+        opt.Tinj = bulk.RTemp;
         flashCal[0]->SetupWellOpt(opt, sols, Psurf, Tsurf);
     }
-
+    
     // Perf
     USI pp = 0;
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI Idg =
-            perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
-        if (myGrid.activeMap_G2B[Idg].IsAct()) {
+        OCP_USI pId =
+            perf[p].K * initGrid.nx * initGrid.ny + perf[p].J * initGrid.nx + perf[p].I;
+        if (initGrid.map_All2Flu[pId].IsAct()) {
 
             perf[pp]            = perf[p];
             perf[pp].state      = OPEN;
-            perf[pp].location   = myGrid.activeMap_G2B[Idg].GetId();
-            perf[pp].depth      = myGrid.Depth(perf[pp].location);
+            perf[pp].location   = initGrid.map_All2Act[pId].GetId();
+            perf[pp].depth      = bulk.depth[perf[pp].location];
             perf[pp].multiplier = 1;
             perf[pp].qi_lbmol.resize(numCom);
             perf[pp].transj.resize(numPhase);
             perf[pp].qj_ft3.resize(numPhase);
             pp++;
         } else {
-            OCP_WARNING("Perforation is in inactive bulk!");
+            OCP_WARNING("Perforation is in non-fluid bulk!");
         }
     }
     numPerf = pp;
@@ -86,14 +89,14 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     if (depth < 0) depth = perf[0].depth;
 
-    CalWI_Peaceman_Vertical(myGrid, myBulk);
+    CalWI_Peaceman_Vertical(bulk);
     // test
     // ShowPerfStatus(myBulk);
 }
 
 void Well::InitBHP(const Bulk& myBulk) { BHP = myBulk.P[perf[0].location]; }
 
-void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
+void Well::CalWI_Peaceman_Vertical(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
@@ -104,16 +107,16 @@ void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
         if (perf[p].WI > 0) {
             break;
         } else {
-            OCP_USI Idb = perf[p].location;
-            OCP_DBL dx  = myGrid.Dx(Idb);
-            OCP_DBL dy  = myGrid.Dy(Idb);
-            OCP_DBL dz  = myGrid.Dz(Idb) * myBulk.ntg[Idb];
+            const OCP_USI Idb = perf[p].location;
+            const OCP_DBL dx  = myBulk.dx[Idb];
+            const OCP_DBL dy  = myBulk.dy[Idb];
+            const OCP_DBL dz  = myBulk.dz[Idb] * myBulk.ntg[Idb];
             OCP_DBL ro  = 0;
             switch (perf[p].direction) {
                 case X_DIRECTION:
                     {
-                        OCP_DBL kykz  = myBulk.rockKy[Idb] * myBulk.rockKz[Idb];
-                        OCP_DBL ky_kz = myBulk.rockKy[Idb] / myBulk.rockKz[Idb];
+                        const OCP_DBL kykz  = myBulk.rockKy[Idb] * myBulk.rockKz[Idb];
+                        const OCP_DBL ky_kz = myBulk.rockKy[Idb] / myBulk.rockKz[Idb];
                         assert(kykz > 0);
                         ro = 0.28 * pow((dy * dy * pow(1 / ky_kz, 0.5) +
                                          dz * dz * pow(ky_kz, 0.5)),
@@ -127,8 +130,8 @@ void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
                     }
                 case Y_DIRECTION:
                     {
-                        OCP_DBL kzkx  = myBulk.rockKz[Idb] * myBulk.rockKx[Idb];
-                        OCP_DBL kz_kx = myBulk.rockKz[Idb] / myBulk.rockKx[Idb];
+                        const OCP_DBL kzkx  = myBulk.rockKz[Idb] * myBulk.rockKx[Idb];
+                        const OCP_DBL kz_kx = myBulk.rockKz[Idb] / myBulk.rockKx[Idb];
                         assert(kzkx > 0);
                         ro = 0.28 * pow((dz * dz * pow(1 / kz_kx, 0.5) +
                                          dx * dx * pow(kz_kx, 0.5)),
@@ -142,8 +145,8 @@ void Well::CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk)
                     }
                 case Z_DIRECTION:
                     {
-                        OCP_DBL kxky  = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];
-                        OCP_DBL kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];
+                        const OCP_DBL kxky  = myBulk.rockKx[Idb] * myBulk.rockKy[Idb];
+                        const OCP_DBL kx_ky = myBulk.rockKx[Idb] / myBulk.rockKy[Idb];
                         assert(kxky > 0);
                         ro = 0.28 * pow((dx * dx * pow(1 / kx_ky, 0.5) +
                                          dy * dy * pow(kx_ky, 0.5)),
@@ -484,12 +487,12 @@ void Well::CalProddG01(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 qtacc = rhoacc = 0;
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
-                        qtacc += myBulk.flashCal[pvtnum]->v[j];
-                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp;
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp;
                     }
                 }
                 Ptmp -= rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
@@ -536,12 +539,12 @@ void Well::CalProddG01(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 qtacc = rhoacc = 0;
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
-                        qtacc += myBulk.flashCal[pvtnum]->v[j];
-                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp;
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp;
                     }
                 }
                 Ptmp += rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
@@ -618,12 +621,12 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
                 for (USI j = 0; j < myBulk.numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
-                        qtacc += myBulk.flashCal[pvtnum]->v[j] / seg_num;
-                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp *
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j] / seg_num;
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp *
                                   GRAVITY_FACTOR / seg_num;
 #ifdef DEBUG
                         if (rhotmp <= 0 || !isfinite(rhotmp)) {
@@ -685,12 +688,12 @@ void Well::CalProddG(const Bulk& myBulk)
             }
 
             for (USI k = 0; k < seg_num; k++) {
-                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data(), 0, 0, 0);
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
                 for (USI j = 0; j < numPhase; j++) {
                     if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
                         rhotmp = myBulk.flashCal[pvtnum]->rho[j];
-                        qtacc += myBulk.flashCal[pvtnum]->v[j] / seg_num;
-                        rhoacc += myBulk.flashCal[pvtnum]->v[j] * rhotmp *
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j] / seg_num;
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp *
                                   GRAVITY_FACTOR / seg_num;
                     }
                 }
@@ -793,9 +796,9 @@ void Well::CheckOptMode(const Bulk& myBulk)
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
-                if (opt.reinjPhase == GAS)
+                if (opt.reInjPhase == GAS)
                     tarRate = WGIR;
-                else if (opt.reinjPhase == WATER)
+                else if (opt.reInjPhase == WATER)
                     tarRate = WWIR;
             }
             if (q > tarRate) {
@@ -814,9 +817,9 @@ void Well::CheckOptMode(const Bulk& myBulk)
             // for INJ well, maxRate has been switch to lbmols
             OCP_DBL tarRate = opt.maxRate;
             if (opt.reInj) {
-                if (opt.reinjPhase == GAS)
+                if (opt.reInjPhase == GAS)
                     tarRate = WGIR;
-                else if (opt.reinjPhase == WATER)
+                else if (opt.reInjPhase == WATER)
                     tarRate = WWIR;
             }
 
@@ -1243,15 +1246,15 @@ void Well::AssembleMatReinjection_IMPEC(const Bulk&         myBulk,
     // find Open injection well under Rate control
     vector<OCP_USI> tarId;
     for (USI w = 0; w < injId.size(); w++) {
-        if (allWell[w].WellState() && allWell[w].opt.optMode != BHP_MODE)
-            tarId.push_back(allWell[w].wEId + myBulk.numBulk);
+        if (allWell[w].IsOpen() && allWell[w].opt.optMode != BHP_MODE)
+            tarId.push_back(allWell[w].wOId + myBulk.numBulk);
     }
 
     USI tlen = tarId.size();
     if (tlen > 0) {
-        const OCP_DBL factor = allWell[injId[0]].opt.factor * dt;
+        const OCP_DBL factor = allWell[injId[0]].opt.reInjFactor * dt;
         // cout << "Factor(assemble):   " << allWell[injId[0]].opt.factor << endl;
-        const OCP_USI prodId = wEId + myBulk.numBulk;
+        const OCP_USI prodId = wOId + myBulk.numBulk;
         OCP_USI       n, bId;
         OCP_DBL       tmp, valb;
         OCP_DBL       valw = 0;
@@ -1627,16 +1630,16 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
     // find Open injection well under Rate control
     vector<OCP_USI> tarId;
     for (USI w = 0; w < injId.size(); w++) {
-        if (allWell[w].WellState() && allWell[w].opt.optMode != BHP_MODE)
-            tarId.push_back(allWell[w].wEId + myBulk.numBulk);
+        if (allWell[w].IsOpen() && allWell[w].opt.optMode != BHP_MODE)
+            tarId.push_back(allWell[w].wOId + myBulk.numBulk);
     }
 
     USI tlen = tarId.size();
     if (tlen > 0) {
         OCP_USI       tar;
         USI           tarsize;
-        const OCP_DBL factor = allWell[injId[0]].opt.factor;
-        const OCP_USI prodId = wEId + myBulk.numBulk;
+        const OCP_DBL factor = allWell[injId[0]].opt.reInjFactor;
+        const OCP_USI prodId = wOId + myBulk.numBulk;
 
         // cout << "Factor(assemble):    " << factor << endl;
 
@@ -1799,7 +1802,7 @@ void Well::CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                         for (USI i = 0; i < numCom; i++) {
                             tmp += allWell[w].qi_lbmol[i];
                         }
-                        tmp *= opt.factor;
+                        tmp *= opt.reInjFactor;
                         resFIM.res[bId] += tmp;
                     }
                 }
@@ -1837,52 +1840,6 @@ void Well::CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
     }
 }
 
-void Well::ShowRes(const OCP_USI&         wId,
-                   const vector<OCP_DBL>& res,
-                   const Bulk&            myBulk) const
-{
-    // Well to Bulk
-    const USI len = numCom + 1;
-
-    OCP_USI bId = (myBulk.numBulk + wId) * len;
-    cout << name << "   " << res[bId] << "   ";
-    // Well Self
-    if (opt.type == INJ) {
-        // Injection
-        switch (opt.optMode) {
-            case BHP_MODE:
-                cout << "BHPMode" << endl;
-                break;
-            case RATE_MODE:
-            case ORATE_MODE:
-            case GRATE_MODE:
-            case WRATE_MODE:
-            case LRATE_MODE:
-                cout << opt.maxRate << "   " << fabs(res[bId] / opt.maxRate) << endl;
-                break;
-            default:
-                OCP_ABORT("Wrong well opt mode!");
-                break;
-        }
-    } else {
-        // Production
-        switch (opt.optMode) {
-            case BHP_MODE:
-                cout << "BHPMode" << endl;
-                break;
-            case RATE_MODE:
-            case ORATE_MODE:
-            case GRATE_MODE:
-            case WRATE_MODE:
-            case LRATE_MODE:
-                cout << opt.maxRate << "   " << fabs(res[bId] / opt.maxRate) << endl;
-                break;
-            default:
-                OCP_ABORT("Wrong well opt mode!");
-                break;
-        }
-    }
-}
 
 /////////////////////////////////////////////////////////////////////
 // FIM(new)
@@ -2596,7 +2553,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk&    myBulk,
                          myLS.diagVal.data() + wId * bsize + bsize);
 }
 
-void Well::SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol)
+void Well::SetPolyhedronWell(const GridInitInfo& initGrid, OCPpolyhedron& mypol)
 {
     // set a virtual point
     mypol.numPoints = numPerf + 1;
@@ -2607,11 +2564,11 @@ void Well::SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol)
 
     for (USI p = 0; p < numPerf; p++) {
         tmpP.Reset();
-        k = myGrid.activeMap_B2G[perf[p].location];
-        for (USI i = 0; i < myGrid.polyhedronGrid[k].numPoints; i++) {
-            tmpP += myGrid.polyhedronGrid[k].Points[i];
+        k = initGrid.map_Act2All[perf[p].location];
+        for (USI i = 0; i < initGrid.polyhedronGrid[k].numPoints; i++) {
+            tmpP += initGrid.polyhedronGrid[k].Points[i];
         }
-        tmpP /= myGrid.polyhedronGrid[k].numPoints;
+        tmpP /= initGrid.polyhedronGrid[k].numPoints;
         mypol.Points[p + 1] = tmpP;
     }
 

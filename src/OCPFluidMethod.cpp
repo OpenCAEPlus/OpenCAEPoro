@@ -18,7 +18,7 @@
 void OCP_IMPEC::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Memory of auxiliary variables for IMPEC
-    rs.AllocateAuxIMPEC();
+    rs.AllocateIMPEC_IsoT();
     // Allocate Memory of Matrix for IMPEC
     rs.AllocateMatIMPEC(myLS);
 
@@ -128,82 +128,16 @@ OCP_BOOL OCP_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     rs.CalKrPc();
     rs.CalConnFluxIMPEC();
-    // rs.allWells.ShowWellStatus(rs.bulk);
 
     return OCP_TRUE;
 }
 
 OCP_BOOL OCP_IMPEC::FinishNR(const Reservoir& rs)
 {
-    // for (USI j = 0; j < rs.bulk.numPhase; j++)
-    //     cout << rs.bulk.totalPhaseNum[j] << "   ";
-    // cout << endl;
-    return OCP_TRUE;
-}
-
-OCP_BOOL OCP_IMPEC::UpdateProperty01(Reservoir& rs, OCPControl& ctrl)
-{
-    OCP_DBL& dt = ctrl.current_dt;
-
-    // first check : Pressure check
-    OCP_INT flagCheck = rs.CheckP();
-    switch (flagCheck) {
-        case 1:
-            // Negative Bulk P, well P, or Perforation P
-            dt /= 2;
-            return OCP_FALSE;
-        case 2:
-            // Switch Well opt Mode, or close the cross-flow perforation
-            dt /= 1;
-            return OCP_FALSE;
-        default:
-            // All right
-            break;
-    }
-
-    rs.CalFLuxIMPEC();
-
-    // second check : CFL check
-    OCP_DBL cfl = rs.CalCFL(dt);
-    if (cfl > 1) {
-        dt /= 2;
-        rs.ResetVal01IMPEC();
-        cout << "CFL is too big" << endl;
-        return OCP_FALSE;
-    }
-
-    rs.MassConserveIMPEC(dt);
-
-    // third check: Ni check
-    if (!rs.CheckNi()) {
-        dt /= 2;
-        rs.ResetVal02IMPEC();
-        cout << "Negative Ni occurs\n";
-        return OCP_FALSE;
-    }
-
-    rs.CalRock();
-    rs.CalFlashIMPEC();
-    rs.CalKrPc();
-    rs.CalConnFluxIMPEC();
 
     return OCP_TRUE;
 }
 
-OCP_BOOL OCP_IMPEC::FinishNR01(Reservoir& rs, OCPControl& ctrl)
-{
-    // fouth check: Volume error check
-    if (!rs.CheckVe(0.01)) {
-        // continue NR
-        rs.bulk.ResetNi();
-        rs.allWells.CalTrans(rs.bulk);
-        rs.allWells.CaldG(rs.bulk);
-        rs.allWells.CalFlux(rs.bulk);
-        rs.allWells.CalProdWeight(rs.bulk);
-        return OCP_FALSE;
-    }
-    return OCP_TRUE;
-}
 
 void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
@@ -221,13 +155,11 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
-    rs.AllocateAuxFIM();
+    rs.AllocateFIM_IsoT();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM(myLS);
+    rs.AllocateMatFIM_IsoT(myLS);
     // Allocate memory for residual of FIM
-    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-    resFIM.res.resize(num);
-
+    resFIM.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
@@ -236,8 +168,7 @@ void OCP_FIM::InitReservoir(Reservoir& rs) const { rs.InitFIM(); }
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResFIM(resFIM, dt);
-    resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+    rs.CalResFIM(resFIM, dt, OCP_TRUE);
 }
 
 void OCP_FIM::AssembleMat(LinearSystem&    myLS,
@@ -290,20 +221,19 @@ OCP_BOOL OCP_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM();
-        rs.CalResFIM(resFIM, dt);
-        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        rs.CalResFIM(resFIM, dt, OCP_TRUE);
         cout << "Cut time step size and repeat! current dt = " << fixed
              << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
     // Update reservoir properties
-    rs.CalFlashDerivFIM();
-    rs.CalKrPcDerivFIM();
+    rs.CalFlashFIM();
+    rs.CalKrPcFIM();
     rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
-    rs.CalResFIM(resFIM, dt);
+    rs.CalResFIM(resFIM, dt, OCP_FALSE);
     return OCP_TRUE;
 }
 
@@ -321,12 +251,12 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             vector<OCP_INT> totalPhaseNum(3, 0);
             vector<OCP_INT> ltotalPhaseNum(3, 0);
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
-                if (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
-                if (rs.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
-                if (rs.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
-                if (rs.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
-                if (rs.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
+                if (rs.grid.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
+                if (rs.grid.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
+                if (rs.grid.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
             }
             cout << to_string(totalPhaseNum[0]) + " (" +
                         to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 /
@@ -346,8 +276,8 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             OCP_USI eVnum = 0;
             OCP_USI eNnum = 0;
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.eV[n] < ctrl.ctrlNR.NRtol) eVnum++;
-                if (rs.bulk.eN[n] < ctrl.ctrlNR.NRtol) eNnum++;
+                if (resFIM.resRelV[n] < ctrl.ctrlNR.NRtol) eVnum++;
+                if (resFIM.resRelN[n] < ctrl.ctrlNR.NRtol) eNnum++;
             }
             cout << "eVnum : " << setprecision(ceil(log(rs.GetBulkNum()) / log(10)))
                  << fixed << setw(10) << (1 - eVnum * 1.0 / rs.GetBulkNum()) * 100.0
@@ -355,61 +285,61 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
                  << (1 - eNnum * 1.0 / rs.GetBulkNum()) * 100.0 << "%" << endl;
         }
 
-        const USI sp = rs.grid.GetNumDigitIJK();
+        const USI sp = rs.grid.initInfo.GetNumDigitIJK();
         USI       tmpI, tmpJ, tmpK;
         string    tmps;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, rs.bulk.index_maxNRdSSP);
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, rs.grid.bulk.index_maxNRdSSP);
         tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
         cout << "### NR : " + to_string(ctrl.iterNR) + "    Res:    " << setprecision(2)
              << scientific << resFIM.maxRelRes0_v << setw(12) << resFIM.maxRelRes_v
              << setw(12) << resFIM.maxRelRes_mol << setw(11) << resFIM.maxWellRelRes_mol
              << setw(20) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
-             << setw(40) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12)
-             << rs.bulk.maxNRdSSP << "  " << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP]
-             << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  " << tmps
-             << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl
+             << setw(40) << sqrt(rs.grid.bulk.NRdSSP) / rs.grid.bulk.numBulk << setw(12)
+             << rs.grid.bulk.maxNRdSSP << "  " << rs.grid.bulk.phaseNum[rs.grid.bulk.index_maxNRdSSP]
+             << "  " << rs.grid.bulk.NRphaseNum[rs.grid.bulk.index_maxNRdSSP] << "  " << tmps
+             << "   " << rs.grid.bulk.ePEC[rs.grid.bulk.index_maxNRdSSP] << endl
              << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, dSn);
-        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "S: " << tmps << setw(12) << rs.bulk.eV[dSn] << setw(12)
-             << rs.bulk.eN[dSn] << setw(12) << rs.bulk.ePEC[dSn] << setw(5)
-             << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12)
-             << rs.bulk.dPNR[dSn] << setw(8) << "  |" << setw(12) << rs.bulk.S[dSn * 3]
-             << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
-             << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1]
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, dSn);
+        tmps = GetIJKformat(tmpI, tmpJ, tmpK, sp);
+        cout << "S: " << tmps << setw(12) << resFIM.resRelV[dSn] << setw(12)
+             << resFIM.resRelN[dSn] << setw(12) << rs.grid.bulk.ePEC[dSn] << setw(5)
+             << rs.grid.bulk.phaseNum[dSn] << setw(5) << rs.grid.bulk.NRphaseNum[dSn] << setw(12)
+             << rs.grid.bulk.dPNR[dSn] << setw(8) << "  |" << setw(12) << rs.grid.bulk.S[dSn * 3]
+             << setw(12) << rs.grid.bulk.dSNR[dSn * 3] << setw(12) << rs.grid.bulk.dSNRP[dSn * 3]
+             << setw(12) << rs.grid.bulk.S[dSn * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.grid.bulk.dSNRP[dSn * 3 + 1]
              << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIM.maxId_v);
-        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "V: " << tmps << setw(12) << rs.bulk.eV[resFIM.maxId_v] << setw(12)
-             << rs.bulk.eN[resFIM.maxId_v] << setw(12) << rs.bulk.ePEC[resFIM.maxId_v]
-             << setw(5) << rs.bulk.phaseNum[resFIM.maxId_v] << setw(5)
-             << rs.bulk.NRphaseNum[resFIM.maxId_v] << setw(12)
-             << rs.bulk.dPNR[resFIM.maxId_v] << setw(8) << "  |" << setw(12)
-             << rs.bulk.S[resFIM.maxId_v * 3] << setw(12)
-             << rs.bulk.dSNR[resFIM.maxId_v * 3] << setw(12)
-             << rs.bulk.dSNRP[resFIM.maxId_v * 3] << setw(12)
-             << rs.bulk.S[resFIM.maxId_v * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[resFIM.maxId_v * 3 + 1] << setw(12)
-             << rs.bulk.dSNRP[resFIM.maxId_v * 3 + 1] << endl;
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, resFIM.maxId_v);
+        tmps = GetIJKformat(tmpI, tmpJ, tmpK, sp);
+        cout << "V: " << tmps << setw(12) << resFIM.resRelV[resFIM.maxId_v] << setw(12)
+             << resFIM.resRelN[resFIM.maxId_v] << setw(12) << rs.grid.bulk.ePEC[resFIM.maxId_v]
+             << setw(5) << rs.grid.bulk.phaseNum[resFIM.maxId_v] << setw(5)
+             << rs.grid.bulk.NRphaseNum[resFIM.maxId_v] << setw(12)
+             << rs.grid.bulk.dPNR[resFIM.maxId_v] << setw(8) << "  |" << setw(12)
+             << rs.grid.bulk.S[resFIM.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.dSNR[resFIM.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIM.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.S[resFIM.maxId_v * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[resFIM.maxId_v * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIM.maxId_v * 3 + 1] << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIM.maxId_mol);
-        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "N: " << tmps << setw(12) << rs.bulk.eV[resFIM.maxId_mol] << setw(12)
-             << rs.bulk.eN[resFIM.maxId_mol] << setw(12)
-             << rs.bulk.ePEC[resFIM.maxId_mol] << setw(5)
-             << rs.bulk.phaseNum[resFIM.maxId_mol] << setw(5)
-             << rs.bulk.NRphaseNum[resFIM.maxId_mol] << setw(12)
-             << rs.bulk.dPNR[resFIM.maxId_mol] << setw(8) << "  |" << setw(12)
-             << rs.bulk.S[resFIM.maxId_mol * 3] << setw(12)
-             << rs.bulk.dSNR[resFIM.maxId_mol * 3] << setw(12)
-             << rs.bulk.dSNRP[resFIM.maxId_mol * 3] << setw(12)
-             << rs.bulk.S[resFIM.maxId_mol * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[resFIM.maxId_mol * 3 + 1] << setw(12)
-             << rs.bulk.dSNRP[resFIM.maxId_mol * 3 + 1] << endl;
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, resFIM.maxId_mol);
+        tmps = GetIJKformat(tmpI, tmpJ, tmpK, sp);
+        cout << "N: " << tmps << setw(12) << resFIM.resRelV[resFIM.maxId_mol] << setw(12)
+             << resFIM.resRelN[resFIM.maxId_mol] << setw(12)
+             << rs.grid.bulk.ePEC[resFIM.maxId_mol] << setw(5)
+             << rs.grid.bulk.phaseNum[resFIM.maxId_mol] << setw(5)
+             << rs.grid.bulk.NRphaseNum[resFIM.maxId_mol] << setw(12)
+             << rs.grid.bulk.dPNR[resFIM.maxId_mol] << setw(8) << "  |" << setw(12)
+             << rs.grid.bulk.S[resFIM.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.dSNR[resFIM.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIM.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.S[resFIM.maxId_mol * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[resFIM.maxId_mol * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIM.maxId_mol * 3 + 1] << endl;
         // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) /
         // resFIM.res.size() << "   "; cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(),
         // &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   "; cout << "SdNi " <<
@@ -421,8 +351,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIM();
-        rs.CalResFIM(resFIM, ctrl.current_dt);
-        resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
+        rs.CalResFIM(resFIM, ctrl.current_dt, OCP_TRUE);
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
                 "current dt = "
@@ -448,9 +377,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetFIM();
-                rs.CalResFIM(resFIM, ctrl.current_dt);
-                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-
+                rs.CalResFIM(resFIM, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 if (ctrl.printLevel >= PRINT_MORE) {
                     OCP_WARNING("Reset Newton iteration!");
@@ -459,9 +386,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 2:
                 ctrl.current_dt /= 1;
                 rs.ResetFIM();
-                rs.CalResFIM(resFIM, ctrl.current_dt);
-                resFIM.maxRelRes0_v = resFIM.maxRelRes_v;
-
+                rs.CalResFIM(resFIM, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 if (ctrl.printLevel >= PRINT_MORE) {
                     OCP_WARNING("Reset Newton iteration!");
@@ -476,7 +401,7 @@ OCP_BOOL OCP_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     }
 }
 
-void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl) const
+void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
@@ -494,26 +419,24 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 void OCP_FIMn::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
-    rs.AllocateAuxFIMn();
+    rs.AllocateFIMn_IsoT();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM(myLS);
+    rs.AllocateMatFIM_IsoT(myLS);
     // Allocate memory for residual of FIM
-    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-    resFIMn.res.resize(num);
+    resFIMn.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
 
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
 
-void OCP_FIMn::InitReservoir(Reservoir& rs) const { rs.InitFIM_n(); }
+void OCP_FIMn::InitReservoir(Reservoir& rs) const { rs.InitFIMn(); }
 
 
 /// Prepare for Assembling matrix.
 void OCP_FIMn::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResFIM(resFIMn, dt);
-    resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+    rs.CalResFIM(resFIMn, dt, OCP_TRUE);
 }
 
 
@@ -522,7 +445,7 @@ void OCP_FIMn::AssembleMat(LinearSystem&    myLS,
                            const Reservoir& rs,
                            const OCP_DBL&   dt) const
 {
-    rs.AssembleMatFIM_n(myLS, dt);
+    rs.AssembleMatFIMn(myLS, dt);
     myLS.AssembleRhsAccumulate(resFIMn.res);
 }
 
@@ -555,7 +478,7 @@ void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS,
     ctrl.UpdateIterLS(status);
     ctrl.UpdateIterNR();
 
-    rs.GetSolutionFIM_n(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
+    rs.GetSolutionFIMn(myLS.GetSolution(), ctrl.ctrlNR.NRdPmax, ctrl.ctrlNR.NRdSmax);
     // rs.GetSolution01FIM(myLS.GetSolution());
     // rs.PrintSolFIM(ctrl.workDir + "testPNi.out");
     myLS.ClearData();
@@ -570,19 +493,18 @@ OCP_BOOL OCP_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIMn();
-        rs.CalResFIM(resFIMn, dt);
-        resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+        rs.CalResFIM(resFIMn, dt, OCP_TRUE);
         cout << "Cut time stepsize and repeat!\n";
         return OCP_FALSE;
     }
 
     // Update reservoir properties
-    rs.CalFlashDerivFIM_n();
-    rs.CalKrPcDerivFIM();
+    rs.CalFlashFIMn();
+    rs.CalKrPcFIM();
     rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
-    rs.CalResFIM(resFIMn, dt);
+    rs.CalResFIM(resFIMn, dt, OCP_FALSE);
 
     return OCP_TRUE;
 }
@@ -603,12 +525,12 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
             vector<OCP_INT> totalPhaseNum(3, 0);
             vector<OCP_INT> ltotalPhaseNum(3, 0);
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
-                if (rs.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
-                if (rs.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
-                if (rs.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
-                if (rs.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
-                if (rs.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 1) ltotalPhaseNum[0]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 2) ltotalPhaseNum[1]++;
+                if (rs.grid.bulk.NRphaseNum[n] == 3) ltotalPhaseNum[2]++;
+                if (rs.grid.bulk.phaseNum[n] == 1) totalPhaseNum[0]++;
+                if (rs.grid.bulk.phaseNum[n] == 2) totalPhaseNum[1]++;
+                if (rs.grid.bulk.phaseNum[n] == 3) totalPhaseNum[2]++;
             }
             cout << to_string(totalPhaseNum[0]) + " (" +
                         to_string((totalPhaseNum[0] - ltotalPhaseNum[0]) * 100.0 /
@@ -628,8 +550,8 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
             OCP_USI eVnum = 0;
             OCP_USI eNnum = 0;
             for (OCP_USI n = 0; n < rs.GetBulkNum(); n++) {
-                if (rs.bulk.eV[n] < ctrl.ctrlNR.NRtol) eVnum++;
-                if (rs.bulk.eN[n] < ctrl.ctrlNR.NRtol) eNnum++;
+                if (resFIMn.resRelV[n] < ctrl.ctrlNR.NRtol) eVnum++;
+                if (resFIMn.resRelN[n] < ctrl.ctrlNR.NRtol) eNnum++;
             }
             cout << "eVnum : " << setprecision(ceil(log(rs.GetBulkNum()) / log(10)))
                  << fixed << setw(10) << (1 - eVnum * 1.0 / rs.GetBulkNum()) * 100.0
@@ -637,61 +559,61 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
                  << (1 - eNnum * 1.0 / rs.GetBulkNum()) * 100.0 << "%" << endl;
         }
 
-        const USI sp = rs.grid.GetNumDigitIJK();
+        const USI sp = rs.grid.initInfo.GetNumDigitIJK();
         USI       tmpI, tmpJ, tmpK;
         string    tmps;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, rs.bulk.index_maxNRdSSP);
-        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, rs.grid.bulk.index_maxNRdSSP);
+        tmps = GetIJKformat(tmpI, tmpJ, tmpK, sp);
         cout << "### NR : " + to_string(ctrl.iterNR) + "    Res:    " << setprecision(2)
              << scientific << resFIMn.maxRelRes0_v << setw(12) << resFIMn.maxRelRes_v
              << setw(12) << resFIMn.maxRelRes_mol << setw(11) << resFIMn.maxWellRelRes_mol
              << setw(20) << NRdPmax << setw(11) << NRdNmax << setw(11) << NRdSmax
-             << setw(40) << sqrt(rs.bulk.NRdSSP) / rs.bulk.numBulk << setw(12)
-             << rs.bulk.maxNRdSSP << "  " << rs.bulk.phaseNum[rs.bulk.index_maxNRdSSP]
-             << "  " << rs.bulk.NRphaseNum[rs.bulk.index_maxNRdSSP] << "  " << tmps
-             << "   " << rs.bulk.ePEC[rs.bulk.index_maxNRdSSP] << endl
+             << setw(40) << sqrt(rs.grid.bulk.NRdSSP) / rs.grid.bulk.numBulk << setw(12)
+             << rs.grid.bulk.maxNRdSSP << "  " << rs.grid.bulk.phaseNum[rs.grid.bulk.index_maxNRdSSP]
+             << "  " << rs.grid.bulk.NRphaseNum[rs.grid.bulk.index_maxNRdSSP] << "  " << tmps
+             << "   " << rs.grid.bulk.ePEC[rs.grid.bulk.index_maxNRdSSP] << endl
              << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, dSn);
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, dSn);
         tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "S: " << tmps << setw(12) << rs.bulk.eV[dSn] << setw(12)
-             << rs.bulk.eN[dSn] << setw(12) << rs.bulk.ePEC[dSn] << setw(5)
-             << rs.bulk.phaseNum[dSn] << setw(5) << rs.bulk.NRphaseNum[dSn] << setw(12)
-             << rs.bulk.dPNR[dSn] << setw(8) << "  |" << setw(12) << rs.bulk.S[dSn * 3]
-             << setw(12) << rs.bulk.dSNR[dSn * 3] << setw(12) << rs.bulk.dSNRP[dSn * 3]
-             << setw(12) << rs.bulk.S[dSn * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.bulk.dSNRP[dSn * 3 + 1]
+        cout << "S: " << tmps << setw(12) << resFIMn.resRelV[dSn] << setw(12)
+             << resFIMn.resRelN[dSn] << setw(12) << rs.grid.bulk.ePEC[dSn] << setw(5)
+             << rs.grid.bulk.phaseNum[dSn] << setw(5) << rs.grid.bulk.NRphaseNum[dSn] << setw(12)
+             << rs.grid.bulk.dPNR[dSn] << setw(8) << "  |" << setw(12) << rs.grid.bulk.S[dSn * 3]
+             << setw(12) << rs.grid.bulk.dSNR[dSn * 3] << setw(12) << rs.grid.bulk.dSNRP[dSn * 3]
+             << setw(12) << rs.grid.bulk.S[dSn * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[dSn * 3 + 1] << setw(12) << rs.grid.bulk.dSNRP[dSn * 3 + 1]
              << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_v);
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_v);
         tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "V: " << tmps << setw(12) << rs.bulk.eV[resFIMn.maxId_v] << setw(12)
-             << rs.bulk.eN[resFIMn.maxId_v] << setw(12) << rs.bulk.ePEC[resFIMn.maxId_v]
-             << setw(5) << rs.bulk.phaseNum[resFIMn.maxId_v] << setw(5)
-             << rs.bulk.NRphaseNum[resFIMn.maxId_v] << setw(12)
-             << rs.bulk.dPNR[resFIMn.maxId_v] << setw(8) << "  |" << setw(12)
-             << rs.bulk.S[resFIMn.maxId_v * 3] << setw(12)
-             << rs.bulk.dSNR[resFIMn.maxId_v * 3] << setw(12)
-             << rs.bulk.dSNRP[resFIMn.maxId_v * 3] << setw(12)
-             << rs.bulk.S[resFIMn.maxId_v * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[resFIMn.maxId_v * 3 + 1] << setw(12)
-             << rs.bulk.dSNRP[resFIMn.maxId_v * 3 + 1] << endl;
+        cout << "V: " << tmps << setw(12) << resFIMn.resRelV[resFIMn.maxId_v] << setw(12)
+             << resFIMn.resRelN[resFIMn.maxId_v] << setw(12) << rs.grid.bulk.ePEC[resFIMn.maxId_v]
+             << setw(5) << rs.grid.bulk.phaseNum[resFIMn.maxId_v] << setw(5)
+             << rs.grid.bulk.NRphaseNum[resFIMn.maxId_v] << setw(12)
+             << rs.grid.bulk.dPNR[resFIMn.maxId_v] << setw(8) << "  |" << setw(12)
+             << rs.grid.bulk.S[resFIMn.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.dSNR[resFIMn.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIMn.maxId_v * 3] << setw(12)
+             << rs.grid.bulk.S[resFIMn.maxId_v * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[resFIMn.maxId_v * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIMn.maxId_v * 3 + 1] << endl;
 
-        rs.grid.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_mol);
-        tmps = GetIJKformat(to_string(tmpI), to_string(tmpJ), to_string(tmpK), sp);
-        cout << "N: " << tmps << setw(12) << rs.bulk.eV[resFIMn.maxId_mol] << setw(12)
-             << rs.bulk.eN[resFIMn.maxId_mol] << setw(12)
-             << rs.bulk.ePEC[resFIMn.maxId_mol] << setw(5)
-             << rs.bulk.phaseNum[resFIMn.maxId_mol] << setw(5)
-             << rs.bulk.NRphaseNum[resFIMn.maxId_mol] << setw(12)
-             << rs.bulk.dPNR[resFIMn.maxId_mol] << setw(8) << "  |" << setw(12)
-             << rs.bulk.S[resFIMn.maxId_mol * 3] << setw(12)
-             << rs.bulk.dSNR[resFIMn.maxId_mol * 3] << setw(12)
-             << rs.bulk.dSNRP[resFIMn.maxId_mol * 3] << setw(12)
-             << rs.bulk.S[resFIMn.maxId_mol * 3 + 1] << setw(12)
-             << rs.bulk.dSNR[resFIMn.maxId_mol * 3 + 1] << setw(12)
-             << rs.bulk.dSNRP[resFIMn.maxId_mol * 3 + 1] << endl;
+        rs.grid.initInfo.GetIJKBulk(tmpI, tmpJ, tmpK, resFIMn.maxId_mol);
+        tmps = GetIJKformat(tmpI, tmpJ, tmpK, sp);
+        cout << "N: " << tmps << setw(12) << resFIMn.resRelV[resFIMn.maxId_mol] << setw(12)
+             << resFIMn.resRelN[resFIMn.maxId_mol] << setw(12)
+             << rs.grid.bulk.ePEC[resFIMn.maxId_mol] << setw(5)
+             << rs.grid.bulk.phaseNum[resFIMn.maxId_mol] << setw(5)
+             << rs.grid.bulk.NRphaseNum[resFIMn.maxId_mol] << setw(12)
+             << rs.grid.bulk.dPNR[resFIMn.maxId_mol] << setw(8) << "  |" << setw(12)
+             << rs.grid.bulk.S[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.dSNR[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIMn.maxId_mol * 3] << setw(12)
+             << rs.grid.bulk.S[resFIMn.maxId_mol * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNR[resFIMn.maxId_mol * 3 + 1] << setw(12)
+             << rs.grid.bulk.dSNRP[resFIMn.maxId_mol * 3 + 1] << endl;
         // cout << "Res2   " << Dnorm2(resFIM.res.size(), &resFIM.res[0]) /
         // resFIM.res.size() << "   "; cout << "SdP " << Dnorm1(rs.bulk.dPNR.size(),
         // &rs.bulk.dPNR[0]) / rs.bulk.dPNR.size() << "   "; cout << "SdNi " <<
@@ -703,8 +625,7 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetFIMn();
-        rs.CalResFIM(resFIMn, ctrl.current_dt);
-        resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
+        rs.CalResFIM(resFIMn, ctrl.current_dt, OCP_TRUE);
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
                 "current dt = "
@@ -730,9 +651,7 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetFIMn();
-                rs.CalResFIM(resFIMn, ctrl.current_dt);
-                resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
-
+                rs.CalResFIM(resFIMn, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 if (ctrl.printLevel >= PRINT_MORE) {
                     OCP_WARNING("Reset Newton iteration!");
@@ -741,9 +660,7 @@ OCP_BOOL OCP_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 2:
                 ctrl.current_dt /= 1;
                 rs.ResetFIMn();
-                rs.CalResFIM(resFIMn, ctrl.current_dt);
-                resFIMn.maxRelRes0_v = resFIMn.maxRelRes_v;
-
+                rs.CalResFIM(resFIMn, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 if (ctrl.printLevel >= PRINT_MORE) {
                     OCP_WARNING("Reset Newton iteration!");
@@ -776,12 +693,11 @@ void OCP_FIMn::FinishStep(Reservoir& rs, OCPControl& ctrl) const
 void OCP_AIMc::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
-    rs.AllocateAuxAIMc();
+    rs.AllocateAIMc_IsoT();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM(myLS);
+    rs.AllocateMatFIM_IsoT(myLS);
     // Allocate memory for resiual of FIM
-    OCP_USI num = (rs.GetBulkNum() + rs.GetWellNum()) * (rs.GetComNum() + 1);
-    resAIMc.res.resize(num);
+    resAIMc.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
 
     myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
@@ -791,16 +707,15 @@ void OCP_AIMc::InitReservoir(Reservoir& rs) const { rs.InitAIMc(); }
 void OCP_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
     rs.PrepareWell();
-    rs.CalResAIMc(resAIMc, dt);
-    resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
+    rs.CalResAIMc(resAIMc, dt, OCP_TRUE);
 
     // Set FIM Bulk
     rs.CalCFL(dt);
     rs.SetupWellBulk();
     rs.SetupFIMBulk();
     //  Calculate FIM Bulk properties
-    rs.CalFlashDerivAIMc();
-    rs.CalKrPcDerivAIMc();
+    rs.CalFlashAIMcI();
+    rs.CalKrPcAIMcI();
     rs.UpdateLastStepFIM();
 
     // rs.bulk.ShowFIMBulk(OCP_FALSE);
@@ -852,25 +767,18 @@ OCP_BOOL OCP_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
         dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetAIMc();
-        rs.CalResAIMc(resAIMc, dt);
-        resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
+        rs.CalResAIMc(resAIMc, dt, OCP_TRUE);
         cout << "Cut time stepsize and repeat!\n";
         return OCP_FALSE;
     }
 
-    rs.CalFlashDerivAIMc();
-    rs.CalKrPcDerivAIMc();
-
-    // think more and more
-    rs.CalFlashAIMc();
-
-    // Important, Pj must be updated with current and last Pc for IMPEC Bulk
-    rs.UpdatePj();
-
+    rs.CalFlashAIMcI();
+    rs.CalFlashAIMcEp();   // think more and more
+    rs.CalKrPcAIMcI();
     rs.CalRock();
     rs.CalWellTrans();
     rs.CalWellFlux();
-    rs.CalResAIMc(resAIMc, dt);
+    rs.CalResAIMc(resAIMc, dt, OCP_FALSE);
     return OCP_TRUE;
 }
 
@@ -890,8 +798,7 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         rs.ResetAIMc();
-        rs.CalResAIMc(resAIMc, ctrl.current_dt);
-        resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
+        rs.CalResAIMc(resAIMc, ctrl.current_dt, OCP_TRUE);
         ctrl.ResetIterNRLS();
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
                 "current dt = "
@@ -924,21 +831,19 @@ OCP_BOOL OCP_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             case 1:
                 ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
                 rs.ResetAIMc();
-                rs.CalResAIMc(resAIMc, ctrl.current_dt);
-                resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
+                rs.CalResAIMc(resAIMc, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             case 2:
                 // ctrl.current_dt /= 1;
                 rs.ResetAIMc();
-                rs.CalResAIMc(resAIMc, ctrl.current_dt);
-                resAIMc.maxRelRes0_v = resAIMc.maxRelRes_v;
+                rs.CalResAIMc(resAIMc, ctrl.current_dt, OCP_TRUE);
                 ctrl.ResetIterNRLS();
                 return OCP_FALSE;
             default:
                 // Update IMPEC Bulk Properties
-                rs.CalFlashAIMc01();
-                rs.CalKrPcAIMc();
+                rs.CalFlashAIMcEa();
+                rs.CalKrPcAIMcE();
                 return OCP_TRUE;
                 break;
         }

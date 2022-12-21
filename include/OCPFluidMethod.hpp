@@ -40,11 +40,9 @@ public:
 
     /// Update properties of fluids.
     OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
-    OCP_BOOL UpdateProperty01(Reservoir& rs, OCPControl& ctrl);
 
     /// Determine if NR iteration finishes.
     OCP_BOOL FinishNR(const Reservoir& rs);
-    OCP_BOOL FinishNR01(Reservoir& rs, OCPControl& ctrl);
 
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 };
@@ -75,7 +73,7 @@ public:
     OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
 
     /// Finish a time step.
-    void FinishStep(Reservoir& rs, OCPControl& ctrl) const;
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 protected:
     /// Residual for FIM

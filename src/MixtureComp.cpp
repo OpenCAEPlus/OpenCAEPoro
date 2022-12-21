@@ -173,7 +173,36 @@ MixtureComp::MixtureComp(const ComponentParam& param, const USI& tarId)
     AllocateOthers();
 }
 
-void MixtureComp::InitFlash(const OCP_DBL& Pin,
+
+void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+{
+    ftype = 0;
+    lNP = 0;
+    CalFlash(Pin, Tin + CONV5, Niin);
+
+    // Water Properties
+    const USI Wpid = numPhase - 1;
+    const USI Wcid = numCom - 1;
+    phaseExist[Wpid] = OCP_TRUE;
+    xij[Wpid * numCom + Wcid] = 1.0;
+    Nt = Nh + Ni[Wcid];
+    PVTW.Eval_All(0, P, data, cdata);
+    OCP_DBL Pw0 = data[0];
+    OCP_DBL bw0 = data[1];
+    OCP_DBL cbw = data[2];
+    OCP_DBL bw = bw0 * (1 - cbw * (P - Pw0));
+    mu[Wpid] = data[3];
+    xi[Wpid] = 1 / (CONV1 * bw);
+    rho[Wpid] = std_RhoW / bw;
+    vj[Wpid] = CONV1 * Ni[Wcid] * bw;
+    vf += vj[Wpid];
+
+    // Calculate Sj
+    CalSaturation();
+}
+
+
+void MixtureComp::InitFlashIMPEC(const OCP_DBL& Pin,
                             const OCP_DBL& Pbbin,
                             const OCP_DBL& Tin,
                             const OCP_DBL* Sjin,
@@ -185,8 +214,6 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin,
     ftype = 0;
     lNP   = 0;
 
-    Nh    = 1;
-    nu[0] = 1;
     setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
@@ -205,7 +232,7 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin,
     // Next, nu represents moles of phase instead of molar fraction of phase
     Dscalar(NP, Nh, &nu[0]);
     // correct vj, vf with new Nt
-    Dscalar(NPmax, Nh, &v[0]);
+    Dscalar(NPmax, Nh, &vj[0]);
     vf *= Nh;
     // CalVfiVfp_full01();
     CalVfiVfp_full02();
@@ -230,16 +257,16 @@ void MixtureComp::InitFlash(const OCP_DBL& Pin,
     rho[Wpid]   = std_RhoW / bw;
     Ni[Wcid]    = Vpore * Sw * xi[Wpid];
     Nt          = Nh + Ni[Wcid];
-    v[Wpid]     = CONV1 * Ni[Wcid] * bw;
-    vf += v[Wpid];
+    vj[Wpid]     = CONV1 * Ni[Wcid] * bw;
+    vf += vj[Wpid];
     vfi[Wcid] = CONV1 * bw;
-    vfp += CONV1 * Ni[Wcid] * bwp;
+    vfP += CONV1 * Ni[Wcid] * bwp;
 
     // Calculate Sj
     CalSaturation();
 }
 
-void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
+void MixtureComp::InitFlashFIM(const OCP_DBL& Pin,
                                const OCP_DBL& Pbbin,
                                const OCP_DBL& Tin,
                                const OCP_DBL* Sjin,
@@ -250,8 +277,6 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
     ftype = 0;
     lNP   = 0;
 
-    Nh    = 1;
-    nu[0] = 1;
     setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
@@ -270,7 +295,7 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
     // Next, nu represents moles of phase instead of molar fraction of phase
     Dscalar(NP, Nh, &nu[0]);
     // correct vj, vf with new Nt
-    Dscalar(NPmax, Nh, &v[0]);
+    Dscalar(NPmax, Nh, &vj[0]);
     vf *= Nh;
     // CalVfiVfp_full01();
     CalVfiVfp_full02();
@@ -299,11 +324,11 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
     Ni[Wcid]          = Vpore * Sw * xi[Wpid];
     nj[Wpid]          = Ni[Wcid];
     Nt                = Nh + Ni[Wcid];
-    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vj[Wpid]           = CONV1 * Ni[Wcid] * bw;
     vfi[Wcid]         = CONV1 * bw;
     const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
-    vf += v[Wpid];
-    vfp += vwp;
+    vf += vj[Wpid];
+    vfP += vwp;
     vji[numPhase - 1][numCom - 1] = vfi[Wcid];
     vjp[numPhase - 1]             = vwp;
 
@@ -332,7 +357,7 @@ void MixtureComp::InitFlashDer(const OCP_DBL& Pin,
     pSderExist[2] = OCP_TRUE;
 }
 
-void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
+void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
                                  const OCP_DBL& Pbbin,
                                  const OCP_DBL& Tin,
                                  const OCP_DBL* Sjin,
@@ -344,8 +369,6 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
     ftype = 0;
     lNP   = 0;
 
-    Nh    = 1;
-    nu[0] = 1;
     setPT(Pin, Tin + CONV5);
     setZi(Ziin);
     PhaseEquilibrium();
@@ -364,7 +387,7 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
     // Next, nu represents moles of phase instead of molar fraction of phase
     Dscalar(NP, Nh, &nu[0]);
     // correct vj, vf with new Nt
-    Dscalar(NPmax, Nh, &v[0]);
+    Dscalar(NPmax, Nh, &vj[0]);
     vf *= Nh;
     // Calculate Ni
     for (USI i = 0; i < NC; i++) {
@@ -392,11 +415,11 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
     Ni[Wcid]          = Vpore * Sw * xi[Wpid];
     nj[Wpid]          = Ni[Wcid];
     Nt                = Nh + Ni[Wcid];
-    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vj[Wpid]           = CONV1 * Ni[Wcid] * bw;
     vfi[Wcid]         = CONV1 * bw;
     const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
-    vf += v[Wpid];
-    vfp += vwp;
+    vf += vj[Wpid];
+    vfP += vwp;
     vji[numPhase - 1][numCom - 1] = vfi[Wcid];
     vjp[numPhase - 1]             = vwp;
 
@@ -421,7 +444,7 @@ void MixtureComp::InitFlashDer_n(const OCP_DBL& Pin,
     pSderExist[2] = OCP_TRUE;
 }
 
-void MixtureComp::Flash(const OCP_DBL& Pin,
+void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
                         const OCP_DBL& Tin,
                         const OCP_DBL* Niin,
                         const USI&     Myftype,
@@ -444,8 +467,8 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
     CalVfiVfp_full02();
 
     // Water Properties
-    const USI Wpid                  = numPhase - 1;
-    const USI Wcid                  = numCom - 1;
+    const USI Wpid            = numPhase - 1;
+    const USI Wcid            = numCom - 1;
     phaseExist[Wpid]          = OCP_TRUE;
     xij[Wpid * numCom + Wcid] = 1.0;
     Nt                        = Nh + Ni[Wcid];
@@ -458,16 +481,16 @@ void MixtureComp::Flash(const OCP_DBL& Pin,
     mu[Wpid]    = data[3];
     xi[Wpid]    = 1 / (CONV1 * bw);
     rho[Wpid]   = std_RhoW / bw;
-    v[Wpid]     = CONV1 * Ni[Wcid] * bw;
-    vf += v[Wpid];
+    vj[Wpid]    = CONV1 * Ni[Wcid] * bw;
+    vf += vj[Wpid];
     vfi[Wcid] = CONV1 * bw;
-    vfp += CONV1 * Ni[Wcid] * bwp;
+    vfP += CONV1 * Ni[Wcid] * bwp;
 
     // Calculate Sj
     CalSaturation();
 }
 
-void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
+void MixtureComp::FlashFIM(const OCP_DBL& Pin,
                              const OCP_DBL& Tin,
                              const OCP_DBL* Niin,
                              const USI&     Myftype,
@@ -508,11 +531,11 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
     muP[Wpid]         = cdata[3];
     xiP[Wpid]         = -bwp / (bw * bw * CONV1);
     rhoP[Wpid]        = CONV1 * xiP[Wpid] * std_RhoW;
-    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vj[Wpid]           = CONV1 * Ni[Wcid] * bw;
     vfi[Wcid]         = CONV1 * bw;
     const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
-    vf += v[Wpid];
-    vfp += vwp;
+    vf += vj[Wpid];
+    vfP += vwp;
     vji[numPhase - 1][numCom - 1] = vfi[Wcid];
     vjp[numPhase - 1]             = vwp;
 
@@ -541,7 +564,7 @@ void MixtureComp::FlashDeriv(const OCP_DBL& Pin,
     pSderExist[2] = OCP_TRUE;
 }
 
-void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
+void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
                                const OCP_DBL& Tin,
                                const OCP_DBL* Niin,
                                const OCP_DBL* Sjin,
@@ -615,11 +638,11 @@ void MixtureComp::FlashDeriv_n(const OCP_DBL& Pin,
     muP[Wpid]         = cdata[3];
     xiP[Wpid]         = -bwp / (bw * bw * CONV1);
     rhoP[Wpid]        = CONV1 * xiP[Wpid] * std_RhoW;
-    v[Wpid]           = CONV1 * Ni[Wcid] * bw;
+    vj[Wpid]           = CONV1 * Ni[Wcid] * bw;
     vfi[Wcid]         = CONV1 * bw;
     const OCP_DBL vwp = CONV1 * Ni[Wcid] * bwp;
-    vf += v[Wpid];
-    vfp += vwp;
+    vf += vj[Wpid];
+    vfP += vwp;
     vji[numPhase - 1][numCom - 1] = vfi[Wcid];
     vjp[numPhase - 1]             = vwp;
 
@@ -775,6 +798,8 @@ void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
         vector<OCP_DBL> tmpWght(numPhase, 0);
         switch (opt.GetOptMode())
         {
+        case BHP_MODE:
+            break;
         case ORATE_MODE:
             tmpWght[0] = 1;
             break;
@@ -803,14 +828,14 @@ void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
 void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
     const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight)
 {
-    Flash(Pin, Tin, Niin, 0, 0, 0);
+    Flash(Pin, Tin, Niin);
 
     OCP_DBL qt = Nt;
     vector<OCP_DBL> factor(numPhase, 0);
 
-    factor[0] = v[0] / qt / CONV1;  // stb / lbmol
-    factor[1] = v[1] / qt / 1000;   // Mscf / lbmol
-    factor[2] = xi[2] * v[2] / qt;  // stb  / stb
+    factor[0] = vj[0] / qt / CONV1;  // stb / lbmol
+    factor[1] = vj[1] / qt / 1000;   // Mscf / lbmol
+    factor[2] = xi[2] * vj[2] / qt;  // stb  / stb
 
     OCP_DBL tmp = 0;
     for (USI i = 0; i < 3; i++) {
@@ -826,11 +851,11 @@ void MixtureComp::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OC
 void MixtureComp::CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
     vector<OCP_DBL>& prodRate)
 {
-    Flash(Pin, Tin, Niin, 0, 0, 0);
+    Flash(Pin, Tin, Niin);
 
-    prodRate[0] = v[0] / CONV1;  // stb
-    prodRate[1] = v[1] / 1000;   // Mscf
-    prodRate[2] = v[2] * xi[2];  // stb
+    prodRate[0] = vj[0] / CONV1;  // stb
+    prodRate[1] = vj[1] / 1000;   // Mscf
+    prodRate[2] = vj[2] * xi[2];  // stb
 }
 
 
@@ -1169,7 +1194,7 @@ void MixtureComp::CalSaturation()
     for (USI j = 0; j < numPhase; j++) {
         S[j] = 0;
         if (phaseExist[j]) {
-            S[j] = v[j] / vf;
+            S[j] = vj[j] / vf;
         }
     }
 }
@@ -1280,6 +1305,7 @@ void MixtureComp::PhaseEquilibrium()
         case 0:
             // flash from single phase
             NP   = 1;
+            nu[0] = 1;
             x[0] = zi;
             CalAiBi();
             CalAjBj(Aj[0], Bj[0], x[0]);
@@ -1311,6 +1337,7 @@ void MixtureComp::PhaseEquilibrium()
         case 1:
             // Skip Phase Stability analysis, only single phase exists
             NP   = 1;
+            nu[0] = 1;
             x[0] = zi;
             CalAiBi();
             CalAjBj(Aj[0], Bj[0], x[0]);
@@ -1390,10 +1417,10 @@ OCP_BOOL MixtureComp::PhaseStable()
             flagSkip = OCP_FALSE;
         }
     }
-    SSMSTAiters += EoSctrl.SSMsta.curIt;
-    NRSTAiters += EoSctrl.NRsta.curIt;
-    SSMSTAcounts++;
-    NRSTAcounts++;
+    itersSSMSTA += EoSctrl.SSMsta.curIt;
+    itersNRSTA += EoSctrl.NRsta.curIt;
+    countsSSMSTA++;
+    countsNRSTA++;
     return flag;
 }
 
@@ -1803,12 +1830,12 @@ void MixtureComp::PhaseSplit()
     }
     CheckSplit();
 
-    SSMSPiters += EoSctrl.SSMsp.curIt;
-    NRSPiters += EoSctrl.NRsp.curIt;
-    RRiters += EoSctrl.RR.curIt;
-    SSMSPcounts++;
-    NRSPcounts++;
-    RRcounts++;
+    itersSSMSP += EoSctrl.SSMsp.curIt;
+    itersNRSP += EoSctrl.NRsp.curIt;
+    itersRR += EoSctrl.RR.curIt;
+    countsSSMSP++;
+    countsNRSP++;
+    countsRR++;
 
     // cout << scientific << setprecision(8);
     // for (USI i = 0; i < NC; i++) {
@@ -2531,10 +2558,10 @@ void MixtureComp::IdentifyPhase()
 
 void MixtureComp::CopyPhase()
 {
-    // copy v, x, mu, xi, rho
+    // copy vj, x, mu, xi, rho
     for (USI j = 0; j < NP; j++) {
         const USI j1 = phaseLabel[j];
-        v[j1]        = vC[j];
+        vj[j1]        = vC[j];
         Dcopy(NC, &xij[j1 * numCom], &x[j][0]);
         mu[j1]  = muC[j];
         xi[j1]  = xiC[j];
@@ -2749,7 +2776,7 @@ void MixtureComp::CalVjpVfpVfn_partial()
     // Vjn(dVj / dnij) in Vji
     OCP_DBL CgTP = GAS_CONSTANT * T / P;
     fill(vfi.begin(), vfi.end(), 0.0);
-    vfp = 0;
+    vfP = 0;
 
     for (USI j = 0; j < NP; j++) {
         const OCP_DBL&         aj  = Aj[j];
@@ -2785,7 +2812,7 @@ void MixtureComp::CalVjpVfpVfn_partial()
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
         vjp[j1] = CgTP * nu[j] * (Zp[j] - zj / P);
-        vfp += vjp[j1];
+        vfP += vjp[j1];
     }
 }
 
@@ -2929,7 +2956,7 @@ void MixtureComp::CalVjpVfpVfx_partial()
     // Vjn(dVj / dxij) in Vji
     OCP_DBL CgTP = GAS_CONSTANT * T / P;
     fill(vfi.begin(), vfi.end(), 0.0);
-    vfp = 0;
+    vfP = 0;
 
     for (USI j = 0; j < NP; j++) {
         const USI              j1  = phaseLabel[j];
@@ -2966,7 +2993,7 @@ void MixtureComp::CalVjpVfpVfx_partial()
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
         vjp[j1] = CgTP * nu[j] * (Zp[j] - zj / P);
-        vfp += vjp[j1];
+        vfP += vjp[j1];
     }
 }
 
@@ -2989,14 +3016,14 @@ void MixtureComp::CaldXsdXpAPI04()
     const USI     ncol = numCom + 1;
     const OCP_DBL vf2  = vf * vf;
     const OCP_DBL vwp  = vjp[numPhase - 1];
-    const OCP_DBL vw   = v[numPhase - 1];
+    const OCP_DBL vw   = vj[numPhase - 1];
 
     if (NP == 1) {
-        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon
+        // when NP = 1, vfi = vhi, vfP = vhp + vwp, h = hydrocarbon
         const USI j1  = phaseLabel[0];
         OCP_DBL*  bId = &dXsdXp[0];
         // dS / dP
-        bId[0] = ((vfp - vwp) * vf - vfp * v[j1]) / vf2;
+        bId[0] = ((vfP - vwp) * vf - vfP * vj[j1]) / vf2;
         bId++;
         // dSh / dNm
         for (USI m = 0; m < NC; m++) {
@@ -3004,7 +3031,7 @@ void MixtureComp::CaldXsdXpAPI04()
         }
         bId += NC;
         // dSh / dNw
-        bId[0] = -vfi[numCom - 1] * v[j1] / vf2;
+        bId[0] = -vfi[numCom - 1] * vj[j1] / vf2;
         bId++;
         // dSw / dP, dNm
         for (USI m = 0; m < ncol; m++) {
@@ -3140,7 +3167,7 @@ void MixtureComp::CaldXsdXp04()
             tmp01 += S[j1] * x[j][i] * xiP[j1];
             tmp02 += S[j1] * x[j][i] * xi[j1];
         }
-        MTmp[0] = -(vf * tmp01 + vfp * tmp02);
+        MTmp[0] = -(vf * tmp01 + vfP * tmp02);
         MTmp += 1;
         // dFn / dNk
         MTmp[i] = 1;
@@ -3151,7 +3178,7 @@ void MixtureComp::CaldXsdXp04()
     }
     // dFnw / dXp
     // dFnw / dP
-    MTmp[0] = -S[numPhase - 1] * (vfp * xi[numPhase - 1] + vf * xiP[numPhase - 1]);
+    MTmp[0] = -S[numPhase - 1] * (vfP * xi[numPhase - 1] + vf * xiP[numPhase - 1]);
     // dFnw / dNw
     MTmp[numCom] = 1 - vfi[numCom - 1] * S[numPhase - 1] * xi[numPhase - 1];
     MTmp += nrhs;
@@ -3974,7 +4001,7 @@ void MixtureComp::CalVfiVfp_full01()
                 P /
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
-        vfp = CgTP * nu[0] * (Zp[0] - zj / P);
+        vfP = CgTP * nu[0] * (Zp[0] - zj / P);
     } else {
         // NP > 1
         CalFugNAll();
@@ -3995,22 +4022,22 @@ void MixtureComp::CalVfiVfp_full01()
             dnkjdNP += NP * NC;
         }
         // Calculate Vfp
-        vfp = 0;
+        vfP = 0;
         for (USI j = 0; j < NP; j++) {
-            vfp += nu[j] / P * (Zp[j] * P - Zj[j]);
+            vfP += nu[j] / P * (Zp[j] * P - Zj[j]);
             for (USI k = 0; k < NC; k++) {
-                vfp += dnkjdNP[j * NC + k] * (Zj[j] + nu[j] * Zn[j][k]);
+                vfP += dnkjdNP[j * NC + k] * (Zj[j] + nu[j] * Zn[j][k]);
             }
         }
-        vfp *= CgTP;
+        vfP *= CgTP;
     }
 
 #ifdef OCP_NANCHECK
     if (!CheckNan(vfi.size(), &vfi[0])) {
         OCP_ABORT("INF or NAN in vfi !");
     }
-    if (!CheckNan(1, &vfp)) {
-        OCP_ABORT("INF or NAN in vfp !");
+    if (!CheckNan(1, &vfP)) {
+        OCP_ABORT("INF or NAN in vfP !");
     }
 #endif // NANCHECK
 }
@@ -4113,7 +4140,7 @@ void MixtureComp::CalVfiVfp_full02()
                 P /
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
-        vfp = CgTP * nu[0] * (Zp[0] - zj / P);
+        vfP = CgTP * nu[0] * (Zp[0] - zj / P);
     } else {
         // NP = 2,  IF NP > 2  ->  WRONG!
         CalFugNAll();
@@ -4134,7 +4161,7 @@ void MixtureComp::CalVfiVfp_full02()
         }
         vjp[j0] *= CgTP;
         vjp[j1] *= CgTP;
-        vfp = vjp[j0] + vjp[j1];
+        vfP = vjp[j0] + vjp[j1];
         dnkjdNP += NC;
 
         // Calculate Vfi
@@ -4195,7 +4222,7 @@ void MixtureComp::CaldXsdXp01()
 
     // NP > 1 in this function
     // only hydrocarbon was considered
-    // if water exists, vf, vfp, and S should be updated
+    // if water exists, vf, vfP, and S should be updated
     // CalVfiVfp_full01() and CalXiPNX_full01() should be called before
 
     fill(JmatTmp.begin(), JmatTmp.end(), 0.0);
@@ -4286,7 +4313,7 @@ void MixtureComp::CaldXsdXp01()
             tmp01 += S[j] * x[j][i] * xiPC[j];
             tmp02 += S[j] * x[j][i] * xiC[j];
         }
-        MTmp[0] = -(vf * tmp01 + vfp * tmp02); // in OCP
+        MTmp[0] = -(vf * tmp01 + vfP * tmp02); // in OCP
         // MTmp[0] = -(vf * tmp01); // in PennSim
         MTmp += 1;
         // dFn / dNk
@@ -4350,17 +4377,17 @@ void MixtureComp::CaldXsdXp01()
 void MixtureComp::CaldXsdXpAPI01()
 {
     // Calculate derivates for hydrocarbon phase and components
-    // if water exists, vf, vfp, and S should be updated
+    // if water exists, vf, vfP, and S should be updated
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
 
-    OCP_DBL vw  = v[numPhase - 1];
+    OCP_DBL vw  = vj[numPhase - 1];
     OCP_DBL vwp = vjp[numPhase - 1];
 
     if (NP == 1) {
         USI     bId = (numCom + 1) * phaseLabel[0];
         OCP_DBL tmp = vf * vf;
         // only dSj / dP, dSj / dNk ---- hydrocarbon phase
-        dXsdXp[bId] = (vfp * vw - vf * vwp) / tmp;
+        dXsdXp[bId] = (vfP * vw - vf * vwp) / tmp;
         for (USI k = 0; k < NC; k++) {
             dXsdXp[bId + k + 1] = (vfi[k] * vw) / tmp;
         }
@@ -4434,7 +4461,7 @@ void MixtureComp::CaldXsdXpAPI01()
     OCP_DBL* Dtmp = &dXsdXp[Wpid * ncol];
     // dSw / dP
     OCP_DBL vf2 = vf * vf;
-    Dtmp[0]     = (vwp * vf - vw * vfp) / vf2;
+    Dtmp[0]     = (vwp * vf - vw * vfP) / vf2;
     Dtmp++;
     // dSw / d Nk
     for (USI k = 0; k < NC; k++) {
@@ -4458,14 +4485,14 @@ void MixtureComp::CaldXsdXpAPI02()
 
     OCP_DBL vf2 = vf * vf;
     OCP_DBL vwp = vjp[numPhase - 1];
-    OCP_DBL vw  = v[numPhase - 1];
+    OCP_DBL vw  = vj[numPhase - 1];
 
     if (NP == 1) {
-        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon
+        // when NP = 1, vfi = vhi, vfP = vhp + vwp, h = hydrocarbon
         USI      j0  = phaseLabel[0];
         OCP_DBL* bId = &dXsdXp[j0 * ncol];
         // dS / dP
-        bId[0] = ((vfp - vwp) * vf - vfp * v[j0]) / vf2;
+        bId[0] = ((vfP - vwp) * vf - vfP * vj[j0]) / vf2;
         bId++;
         // dSh / dNm
         for (USI m = 0; m < NC; m++) {
@@ -4473,7 +4500,7 @@ void MixtureComp::CaldXsdXpAPI02()
         }
         bId += NC;
         // dSh / dNw
-        bId[0] = -vfi[numCom - 1] * v[j0] / vf2;
+        bId[0] = -vfi[numCom - 1] * vj[j0] / vf2;
         // dSw / dP, dNm
         bId = &dXsdXp[(numPhase - 1) * ncol];
         for (USI m = 0; m < ncol; m++) {
@@ -4495,17 +4522,17 @@ void MixtureComp::CaldXsdXpAPI02()
             const USI j1 = phaseLabel[j];
             bId          = &dXsdXp[j1 * ncol];
             // dSj / dP
-            bId[0] = (vjp[j1] * vf - vfp * v[j1]) / vf2;
+            bId[0] = (vjp[j1] * vf - vfP * vj[j1]) / vf2;
             bId++;
             // dSj / dNm
             for (USI m = 0; m < numCom; m++) {
-                bId[m] = (vji[j1][m] * vf - vfi[m] * v[j1]) / vf2;
+                bId[m] = (vji[j1][m] * vf - vfi[m] * vj[j1]) / vf2;
             }
         }
         // dSw / dP, dSw / dNm
         bId = &dXsdXp[(numPhase - 1) * ncol];
         // dSw / dP
-        bId[0] = (vwp * vf - vfp * vw) / vf2;
+        bId[0] = (vwp * vf - vfP * vw) / vf2;
         bId++;
         // dSw / dNm
         for (USI m = 0; m < numCom; m++) {
@@ -4567,14 +4594,14 @@ void MixtureComp::CaldXsdXpAPI02p()
 
     OCP_DBL vf2 = vf * vf;
     OCP_DBL vwp = vjp[numPhase - 1];
-    OCP_DBL vw  = v[numPhase - 1];
+    OCP_DBL vw  = vj[numPhase - 1];
 
     if (NP == 1) {
-        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon
+        // when NP = 1, vfi = vhi, vfP = vhp + vwp, h = hydrocarbon
         const USI j1  = phaseLabel[0];
         OCP_DBL*  bId = &dXsdXp[0];
         // dS / dP
-        bId[0] = ((vfp - vwp) * vf - vfp * v[j1]) / vf2;
+        bId[0] = ((vfP - vwp) * vf - vfP * vj[j1]) / vf2;
         bId++;
         // dSh / dNm
         for (USI m = 0; m < NC; m++) {
@@ -4582,7 +4609,7 @@ void MixtureComp::CaldXsdXpAPI02p()
         }
         bId += NC;
         // dSh / dNw
-        bId[0] = -vfi[numCom - 1] * v[j1] / vf2;
+        bId[0] = -vfi[numCom - 1] * vj[j1] / vf2;
         bId++;
         // dSw / dP, dNm
         for (USI m = 0; m < ncol; m++) {
@@ -4604,17 +4631,17 @@ void MixtureComp::CaldXsdXpAPI02p()
             const USI j1 = phaseLabel[j];
             bId          = &dXsdXp[j1 * ncol];
             // dSj / dP
-            bId[0] = (vjp[j1] * vf - vfp * v[j1]) / vf2;
+            bId[0] = (vjp[j1] * vf - vfP * vj[j1]) / vf2;
             bId++;
             // dSj / dNm
             for (USI m = 0; m < numCom; m++) {
-                bId[m] = (vji[j1][m] * vf - vfi[m] * v[j1]) / vf2;
+                bId[m] = (vji[j1][m] * vf - vfi[m] * vj[j1]) / vf2;
             }
         }
         // dSw / dP, dSw / dNm
         bId = &dXsdXp[(numPhase - 1) * ncol];
         // dSw / dP
-        bId[0] = (vwp * vf - vfp * vw) / vf2;
+        bId[0] = (vwp * vf - vfP * vw) / vf2;
         bId++;
         // dSw / dNm
         for (USI m = 0; m < numCom; m++) {
@@ -4673,15 +4700,15 @@ void MixtureComp::CaldXsdXpAPI03()
     const USI     ncol = numCom + 1;
     const OCP_DBL vf2  = vf * vf;
     const OCP_DBL vwp  = vjp[numPhase - 1];
-    const OCP_DBL vw   = v[numPhase - 1];
+    const OCP_DBL vw   = vj[numPhase - 1];
 
     if (NP == 1) {
-        // when NP = 1, vfi = vhi, vfp = vhp + vwp, h = hydrocarbon
+        // when NP = 1, vfi = vhi, vfP = vhp + vwp, h = hydrocarbon
         // and vfi = vji
         const USI j0  = phaseLabel[0];
         OCP_DBL*  bId = &dXsdXp[0];
         // dS / dP
-        bId[0] = ((vfp - vwp) * vf - vfp * v[j0]) / vf2;
+        bId[0] = ((vfP - vwp) * vf - vfP * vj[j0]) / vf2;
         bId++;
         // dSh / dNm
         for (USI m = 0; m < NC; m++) {
@@ -4689,7 +4716,7 @@ void MixtureComp::CaldXsdXpAPI03()
         }
         bId += NC;
         // dSh / dNw
-        bId[0] = -vfi[numCom - 1] * v[j0] / vf2;
+        bId[0] = -vfi[numCom - 1] * vj[j0] / vf2;
         bId++;
         // dSw / dP, dNm
         for (USI m = 0; m < ncol; m++) {
@@ -4851,11 +4878,11 @@ void MixtureComp::CaldXsdXp03()
             const USI m1 = phaseLabel[m];
             if (m1 == j1) {
                 for (USI k = 0; k < NC; k++) {
-                    MTmp[k] = vji[j1][k] * (vf - v[j1]) / vf2;
+                    MTmp[k] = vji[j1][k] * (vf - vj[j1]) / vf2;
                 }
             } else {
                 for (USI k = 0; k < NC; k++) {
-                    MTmp[k] = -vji[m1][k] * v[j1] / vf2;
+                    MTmp[k] = -vji[m1][k] * vj[j1] / vf2;
                 }
             }
             MTmp += NC;
@@ -4869,7 +4896,7 @@ void MixtureComp::CaldXsdXp03()
     for (USI m = 0; m < NP; m++) {
         const USI m1 = phaseLabel[m];
         for (USI k = 0; k < NC; k++) {
-            MTmp[k] = -vji[m1][k] * v[numPhase - 1] / vf2;
+            MTmp[k] = -vji[m1][k] * vj[numPhase - 1] / vf2;
         }
         MTmp += NC;
     }
@@ -4914,20 +4941,20 @@ void MixtureComp::CaldXsdXp03()
     for (USI j = 0; j < NP; j++) {
         const USI j1 = phaseLabel[j];
         // dFs / dP
-        MTmp[0] = (vfp * v[j1] - vjp[j1] * vf) / vf2;
+        MTmp[0] = (vfP * vj[j1] - vjp[j1] * vf) / vf2;
         // dFs / dNh
         MTmp += numCom;
         // dFs / dNw
-        MTmp[0] = vfi[numCom - 1] * v[j1] / vf2;
+        MTmp[0] = vfi[numCom - 1] * vj[j1] / vf2;
         MTmp++;
     }
     // dFsw / dp
     // dFsw / dP
-    MTmp[0] = (vfp * v[numPhase - 1] - vjp[numPhase - 1] * vf) / vf2;
+    MTmp[0] = (vfP * vj[numPhase - 1] - vjp[numPhase - 1] * vf) / vf2;
     // dFsw / dNh
     MTmp += numCom;
     // dFsw / dNw
-    MTmp[0] = vfi[numCom - 1] * (v[numPhase - 1] - vf) / vf2;
+    MTmp[0] = vfi[numCom - 1] * (vj[numPhase - 1] - vf) / vf2;
     MTmp++;
 
     // cout << "dFdp" << endl;
@@ -4968,9 +4995,9 @@ void MixtureComp::CaldXsdXp03()
     myRes += NC;
     // resS
     for (USI j = 0; j < NP; j++) {
-        myRes[j] = S[phaseLabel[j]] - v[phaseLabel[j]] / vf;
+        myRes[j] = S[phaseLabel[j]] - vj[phaseLabel[j]] / vf;
     }
-    myRes[NP] = S[numPhase - 1] - v[numPhase - 1] / vf;
+    myRes[NP] = S[numPhase - 1] - vj[numPhase - 1] / vf;
 
     // cout << scientific << setprecision(4);
     // cout << "res0" << endl;
@@ -4991,7 +5018,7 @@ void MixtureComp::CalVfiVfp_full03()
     // use dXsdXp: s = Sj,nij; p = P,Ni
     USI j1;
     if (NP == 1) {
-        // vfp = vfp; vfi = vji
+        // vfP = vfP; vfi = vji
         j1 = phaseLabel[0];
         for (USI i = 0; i < NC; i++) {
             vfi[i] = vji[j1][i];
@@ -5005,7 +5032,7 @@ void MixtureComp::CalVfiVfp_full03()
                 continue;
 
             for (USI i = 0; i < NC; i++) {
-                vfp += vji[j][i] * nijPN[0];
+                vfP += vji[j][i] * nijPN[0];
                 nijPN++;
                 for (USI m = 0; m < NC; m++) {
                     vfi[m] += vji[j][i] * nijPN[m];
@@ -5265,6 +5292,23 @@ void NTcubicroot(OCP_DBL& root, const OCP_DBL& a, const OCP_DBL& b, const OCP_DB
         }
     }
     root = optroot;
+}
+
+/////////////////////////////////////////////////////////////////////
+// For Output
+/////////////////////////////////////////////////////////////////////
+
+void MixtureComp::OutMixtureIters() const {
+    cout << "SSMSTA:     " << setw(12) << itersSSMSTA << setw(15)
+        << itersSSMSTA * 1.0 / countsSSMSTA << endl;
+    cout << "NRSTA:      " << setw(12) << itersNRSTA << setw(15)
+        << itersNRSTA * 1.0 / countsNRSTA << endl;
+    cout << "SSMSP:      " << setw(12) << itersSSMSP << setw(15)
+        << itersSSMSP * 1.0 / countsSSMSP << endl;
+    cout << "NRSP:       " << setw(12) << itersNRSP << setw(15)
+        << itersNRSP * 1.0 / countsNRSP << endl;
+    cout << "NRRR:       " << setw(12) << itersRR << setw(15)
+        << itersRR * 1.0 / countsRR << endl;
 }
 
 /*----------------------------------------------------------------------------*/

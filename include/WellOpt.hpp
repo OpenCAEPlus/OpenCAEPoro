@@ -94,8 +94,8 @@ private:
     OCP_DBL Tinj;             ///< temperature of inj fluid F
                               // for Reinjection
     OCP_BOOL reInj{ OCP_FALSE }; ///< if OCP_TRUE, reinjection happens
-    USI reinjPhase; ///< phase of Reinjection fluid
-    OCP_DBL factor; ///< one moles Group production fluid has factor mole reinjection fluid
+    USI reInjPhase; ///< phase of Reinjection fluid
+    OCP_DBL reInjFactor; ///< one moles Group production fluid has factor mole reinjection fluid
     vector<USI> connWell; ///< Well which connects to current Well
 };
 
@@ -105,11 +105,10 @@ class SolventINJ
 {
 public:
     SolventINJ() = default;
-    SolventINJ& operator=(const Solvent& other)
+    SolventINJ(const Solvent& other)
     {
         name = other.name;
         data = other.comRatio;
-        return *this;
     };
     string          name; ///< name of solvens
     vector<OCP_DBL> data; ///< molar fraction of components

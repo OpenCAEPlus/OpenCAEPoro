@@ -30,7 +30,6 @@ using namespace std;
 //  sparsity pattern is almost the same as neighbor in BulkConn.
 class LinearSystem
 {
-    friend class OpenCAEPoro;
     friend class BulkConn;
     friend class Well;
 
@@ -39,12 +38,11 @@ public:
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
     /// Allocate memory for each matrix row with max possible number of columns.
     void AllocateColMem();
-    /// Allocate memory for each matrix row with a constant columns
-    void AllocateColMem(const OCP_USI& colnum);
     /// Enlarge row capacity
     void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
-    /// Assign Rhs
+    /// Assign Rhs by Accumulating
     void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
+    /// Assign Rhs by Copying
     void AssembleRhsCopy(const vector<OCP_DBL>& rhs);
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
@@ -91,7 +89,7 @@ private:
     vector<vector<OCP_USI>> colId;       ///< Column indices of nonzero entry.
     vector<USI>             diagPtr;     ///< Indices of diagonal entries.
     vector<vector<OCP_DBL>> val;         ///< Nonzero values.
-    vector<OCP_DBL>         diagVal;     ///< Diagonal values
+    vector<OCP_DBL>         diagVal;     ///< Diagonal values -- auxiliary value instead of true value
     vector<OCP_DBL>         b;           ///< Right-hand side of linear system.
     vector<OCP_DBL>         u;           ///< Solution of linear system.
 

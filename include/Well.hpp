@@ -52,11 +52,11 @@ public:
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
     /// Setup the well after Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols);
+    void Setup(const Grid& myGrid, const vector<SolventINJ>& sols);
     /// Initialize the Well BHP
     void InitBHP(const Bulk& myBulk);
     /// Calculate Well Index with Peaceman model for vertical well.
-    void CalWI_Peaceman_Vertical(const Grid& myGrid, const Bulk& myBulk);
+    void CalWI_Peaceman_Vertical(const Bulk& myBulk);
     /// Calculate transmissibility for each phase in perforations.
     void CalTrans(const Bulk& myBulk);
     /// Calculate the flux for each perforations.
@@ -100,7 +100,7 @@ public:
     /// Setup bulks which are penetrated by wells
     void SetupWellBulk(Bulk& myBulk) const;
     /// Return the state of the well, Open or Close.
-    OCP_BOOL WellState() const { return opt.state; }
+    OCP_BOOL IsOpen() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
     USI WellType() const { return opt.type; }
     /// Return Pressure of Perf p
@@ -111,37 +111,48 @@ public:
     void ShowPerfStatus(const Bulk& myBulk) const;
     
 
-private:
-    string  name; ///< well name
-    string  group; ///< group well belongs to, it should be moved to opt if necessary!!!
-    USI     wEId;  ///< well index in allWells, closed well is excluded, it's the well index in equations
-    USI     I;    ///< I-index of the well header.
-    USI     J;    ///< J-index of the well header.
-    WellOpt opt;  ///< well control parameters, contains current control parameters.
+protected:
+    /////////////////////////////////////////////////////////////////////
+    // Basic Well information
+    /////////////////////////////////////////////////////////////////////
+
+    string   name;  ///< well name
+    string   group; ///< group well belongs to, it should be moved to opt if necessary!!!
+    USI      I;     ///< I-index of the well header.
+    USI      J;     ///< J-index of the well header.
+    OCP_DBL  depth; ///< reference depth of well.
+    WellOpt  opt;   ///< well control parameters, contains current control parameters.
     vector<WellOpt> optSet;      ///< well control parameters set, contains control
                                  ///< parameters in all critical time.
-    OCP_DBL             lBHP;    ///< Last well pressure in reference depth.
-    mutable OCP_DBL     BHP;     ///< well pressure in reference depth.
-    OCP_DBL             depth;   ///< reference depth of well.
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.
-    vector<OCP_DBL>
-        dG; ///< difference of pressure between well and perforation: numPerf.
-    vector<OCP_DBL> ldG; ///< difference of pressure between well and perforation at
-                         ///< last time step: numPerf.
+    
+    vector<Mixture*> flashCal; ///< from bulks's flashCal
 
-    // production rate and injection rate
     OCP_DBL numPhase; ///< num of phases
     OCP_DBL numCom;   ///< num of components
-    vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing
-                              ///< well: num of components.
-    
-    OCP_DBL Psurf{PRESSURE_STD};          ///< Well surface Pressure, psia
-    OCP_DBL Tsurf{TEMPERATURE_STD};       ///< Well surface Temperature, F                     
-    vector<OCP_DBL> prodRate;      ///< it equals the volume of jth phase in 1 mole production fluid
-    mutable vector<OCP_DBL> prodWeight; ///< for production well, in BlackOil Model or WRATE, it equals opt.zi, in Compositional Model, it equals factor
 
-    vector<Mixture*> flashCal; ///< from bulks's flashCal
+    OCP_DBL Psurf{ PRESSURE_STD };          ///< Well surface Pressure, psia
+    OCP_DBL Tsurf{ TEMPERATURE_STD };       ///< Well surface Temperature, F  
+
+    USI     wOId;  ///< well index in allWells, closed well is excluded, it's the well index in equations
+
+protected:
+    /////////////////////////////////////////////////////////////////////
+    // Well Physical information
+    /////////////////////////////////////////////////////////////////////
+
+    mutable OCP_DBL         BHP; ///< well pressure in reference depth.
+    vector<OCP_DBL> dG;  ///< difference of pressure between well and perforation: numPerf.
+
+    // Last time step
+    OCP_DBL             lBHP;       ///< Last BHP
+    vector<OCP_DBL>     ldG;        ///< Last dG
+
+    // PROD/INJ Rate
+    vector<OCP_DBL> qi_lbmol; ///< flow rate of moles of component inflowing/outflowing               
+    vector<OCP_DBL> prodRate; ///< flow rate of volume of phase outflowing 
+    mutable vector<OCP_DBL> prodWeight; ///< maybe only a num is needed
 
     OCP_DBL WOPR{0};          ///< well oil production rate.
     OCP_DBL WOPT{0};          ///< well total oil production.
@@ -193,7 +204,6 @@ public:
     /// Calculate Resiual and relative Resiual for FIM.
     void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
                    const OCP_USI& wId, const vector<Well>& allWell) const;
-    void ShowRes(const OCP_USI& wId, const vector<OCP_DBL>& res, const Bulk& myBulk) const;
     
     /////////////////////////////////////////////////////////////////////
     // FIM(new)
@@ -211,7 +221,7 @@ public:
         const OCP_DBL& dt) const;
 
     // for output
-    void SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol);
+    void SetPolyhedronWell(const GridInitInfo& initGrid, OCPpolyhedron& mypol);
 };
 
 #endif /* end if __WELL_HEADER__ */

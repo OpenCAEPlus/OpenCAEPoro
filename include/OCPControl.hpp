@@ -192,7 +192,7 @@ public:
     void SetWellChange(const OCP_BOOL& flag) { wellChange = flag; }
 
 private:
-    USI    model;            ///< model: thermal, isothermal
+    USI    model;            ///< model: ifThermal, isothermal
     USI    method;           ///< Discrete method
     string workDir;          ///< Current work directory
     string linearSolverFile; ///< File name of linear Solver

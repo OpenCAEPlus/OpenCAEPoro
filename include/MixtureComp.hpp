@@ -128,30 +128,23 @@ class MixtureComp : public Mixture
 
 public:
     OCP_DBL GetErrorPEC() override { return ePEC; }
-    OCP_ULL GetSSMSTAiters() override { return SSMSTAiters; }
-    OCP_ULL GetNRSTAiters() override { return NRSTAiters; }
-    OCP_ULL GetSSMSPiters() override { return SSMSPiters; }
-    OCP_ULL GetNRSPiters() override { return NRSPiters; }
-    OCP_ULL GetRRiters() override { return RRiters; }
-    OCP_ULL GetSSMSTAcounts() override { return SSMSTAcounts; }
-    OCP_ULL GetNRSTAcounts() override { return NRSTAcounts; }
-    OCP_ULL GetSSMSPcounts() override { return SSMSPcounts; }
-    OCP_ULL GetNRSPcounts() override { return NRSPcounts; }
-    OCP_ULL GetRRcounts() override { return RRcounts; }
+    void OutMixtureIters() const override;
 
 private:
     // total iters
-    OCP_ULL SSMSTAiters{0};
-    OCP_ULL NRSTAiters{0};
-    OCP_ULL SSMSPiters{0};
-    OCP_ULL NRSPiters{0};
-    OCP_ULL RRiters{0};
+    OCP_ULL itersSSMSTA{0};
+    OCP_ULL itersNRSTA{0};
+    OCP_ULL itersSSMSP{0};
+    OCP_ULL itersNRSP{0};
+    OCP_ULL itersRR{0};
     // total counts, one count may contain many iters
-    OCP_ULL SSMSTAcounts{0};
-    OCP_ULL NRSTAcounts{0};
-    OCP_ULL SSMSPcounts{0};
-    OCP_ULL NRSPcounts{0};
-    OCP_ULL RRcounts{0};
+    OCP_ULL countsSSMSTA{0};
+    OCP_ULL countsNRSTA{0};
+    OCP_ULL countsSSMSP{0};
+    OCP_ULL countsNRSP{0};
+    OCP_ULL countsRR{0};
+
+    OCP_ULL countsFailed{0};
     // phase equilibrium calculation error
     // if NP = 1, it's from phase stable analysis, if skiped, it's 0
     // if NP > 1, it's from phase spliting calculation
@@ -176,21 +169,23 @@ public:
 
     MixtureComp(const ComponentParam& param, const USI& i);
 
-    void InitFlash(const OCP_DBL& Pin,
+    void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
+
+    void InitFlashIMPEC(const OCP_DBL& Pin,
                    const OCP_DBL& Pbbin,
                    const OCP_DBL& Tin,
                    const OCP_DBL* Sjin,
                    const OCP_DBL& Vpore,
                    const OCP_DBL* Ziin) override;
 
-    void InitFlashDer(const OCP_DBL& Pin,
+    void InitFlashFIM(const OCP_DBL& Pin,
                       const OCP_DBL& Pbbin,
                       const OCP_DBL& Tin,
                       const OCP_DBL* Sjin,
                       const OCP_DBL& Vpore,
                       const OCP_DBL* Ziin) override;
 
-    void InitFlashDer_n(const OCP_DBL& Pin,
+    void InitFlashFIMn(const OCP_DBL& Pin,
                         const OCP_DBL& Pbbin,
                         const OCP_DBL& Tin,
                         const OCP_DBL* Sjin,
@@ -200,7 +195,7 @@ public:
     // ftype = 0, flash from single phase
     // ftype = 1, skip phase stability analysis and num of phase = 1
     // ftype = 1, skip phase stability analysis and num of phase = 2
-    void Flash(const OCP_DBL& Pin,
+    void FlashIMPEC(const OCP_DBL& Pin,
                const OCP_DBL& Tin,
                const OCP_DBL* Niin,
                const USI&     ftype,
@@ -209,14 +204,14 @@ public:
 
     void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
 
-    void FlashDeriv(const OCP_DBL& Pin,
+    void FlashFIM(const OCP_DBL& Pin,
                     const OCP_DBL& Tin,
                     const OCP_DBL* Niin,
                     const USI&     ftype,
                     const USI&     lastNP,
                     const OCP_DBL* xijin) override;
 
-    void FlashDeriv_n(const OCP_DBL& Pin,
+    void FlashFIMn(const OCP_DBL& Pin,
                       const OCP_DBL& Tin,
                       const OCP_DBL* Niin,
                       const OCP_DBL* Sjin,

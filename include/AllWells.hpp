@@ -39,7 +39,7 @@ private:
 
     // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if reinjection happens
-    USI      reinjPhase;         ///< phase of injected fluid, which decides zi
+    USI      reInjPhase;         ///< phase of injected fluid, which decides zi
 
     /// nominated group which supply reinjection sale rate of current group, after times
     /// -xi, it will be passed to maxRate in injWell
@@ -47,11 +47,11 @@ private:
     OCP_DBL saleRate;
     /// mole density of reinjection fluid in std, it will be passed to INJxi in opt of
     /// injwell
-    OCP_DBL xi;
+    OCP_DBL reInjXi;
     /// mole fraction of components for reinjection, it should be passed to injWell
-    vector<OCP_DBL> zi;
+    vector<OCP_DBL> reInjZi;
     OCP_DBL
-    factor; ///< one moles Group production fluid has factor mole reinjection fluid
+    reInjFactor; ///< one moles Group production fluid has factor mole reinjection fluid
 
     /*
     OCP_DBL GOPR{0}; ///< Group oil production rate
@@ -81,23 +81,32 @@ class AllWells
 public:
     AllWells() = default;
 
+
     /////////////////////////////////////////////////////////////////////
-    // General
+    // Input Param and Setup
     /////////////////////////////////////////////////////////////////////
 
 public:
     /// Input param from ParamWell.
     void InputParam(const ParamWell& paramWell);
-    /// Setup well in allWells.
-    void Setup(const Grid& myGrid, const Bulk& myBulk);
+    /// Setup wells
+    void Setup(const Grid& myGrid);
     /// complete the information of well according to Grid and Bulk.
-    void SetupWell(const Grid& myGrid, const Bulk& myBulk);
+    void SetupWell(const Grid& myGrid);
     /// Setup information of wellGroup
     void SetupWellGroup(const Bulk& myBulk);
     /// get the mixture from bulk ---- usless now
     void SetupMixture(const Bulk& myBulk);
     /// Setup bulks which are penetrated by wells
     void SetupWellBulk(Bulk& myBulk) const;
+
+
+    /////////////////////////////////////////////////////////////////////
+    // General
+    /////////////////////////////////////////////////////////////////////
+
+public:
+
     /// Apply the operation mode at the ith critical time.
     void ApplyControl(const USI& i);
     /// Set the initial well pressure
@@ -108,8 +117,6 @@ public:
     void CalTrans(const Bulk& myBulk);
     /// Calculate volume flow rate and moles flow rate of each perforation.
     void CalFlux(const Bulk& myBulk);
-    /// Calculate Prodweight
-    void CalProdWeight(const Bulk& myBulk);
     /// Calculate dG.
     void CaldG(const Bulk& myBulk);
     /// Calculate Injection rate, total Injection, Production rate, total Production
@@ -124,11 +131,11 @@ public:
     }
     void ResetBHP();
     /// Reset dG to ldG for each well.
-    void UpdateLastDg()
+    void UpdateLastDG()
     {
         for (auto& w : wells) w.ldG = w.dG;
     }
-    void ResetDg()
+    void ResetDG()
     {
         for (auto& w : wells) w.dG = w.ldG;
     }
@@ -148,6 +155,50 @@ public:
     USI     GetMaxWellPerNum() const;
     void    CalMaxBHPChange();
     OCP_DBL GetdBHPmax() const { return dPmax; }
+
+
+    /// Return the BHP of wth well.
+    OCP_DBL GetWBHP(const USI& w) const
+    {
+        if (wells[w].IsOpen())
+            return wells[w].BHP;
+        else
+            return 0;
+    }
+    /// Return the pth dG of wth well.
+    OCP_DBL GetWellDG(const USI& w, const USI& p) const { return wells[w].dG[p]; }
+    void    ShowWellStatus(const Bulk& myBulk)
+    {
+        for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk);
+    }
+    OCP_BOOL GetWellChange() const { return wellChange; }
+    
+protected:
+    USI               numWell;   ///< num of wells.
+    vector<Well>      wells;     ///< well set.
+    USI               numGroup;  ///< num of groups
+    vector<WellGroup> wellGroup; ///< wellGroup set
+
+    OCP_BOOL           wellChange; ///< if wells change, then OCP_TRUE
+    vector<SolventINJ> solvents;   ///< Sets of Solvent
+    OCP_DBL            dPmax{0};   ///< Maximum BHP change
+
+    vector<Mixture*> flashCal; ///< Uesless now.
+    OCP_DBL Psurf{ PRESSURE_STD };   ///< well reference pressure
+    OCP_DBL Tsurf{ TEMPERATURE_STD }; ///< well reference temperature
+
+
+    /////////////////////////////////////////////////////////////////////
+    // Injection/Production Rate
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Return gas water injection in field.
+    OCP_DBL GetFGIT() const { return FGIT; }
+    /// Return water injection rate in field.
+    OCP_DBL GetFWIR() const { return FWIR; }
+    /// Return total water injection in field.
+    OCP_DBL GetFWIT() const { return FWIT; }
     /// Return oil production rate in field.
     OCP_DBL GetFOPR() const { return FOPR; }
     /// Return total oil production in field.
@@ -162,12 +213,15 @@ public:
     OCP_DBL GetFWPT() const { return FWPT; }
     /// Return gas injection rate in field.
     OCP_DBL GetFGIR() const { return FGIR; }
-    /// Return gas water injection in field.
-    OCP_DBL GetFGIT() const { return FGIT; }
-    /// Return water injection rate in field.
-    OCP_DBL GetFWIR() const { return FWIR; }
-    /// Return total water injection in field.
-    OCP_DBL GetFWIT() const { return FWIT; }
+
+    /// Return gas injection rate of the wth well.
+    OCP_DBL GetWGIR(const USI& w) const { return wells[w].WGIR; }
+    /// Return total gas injection of the wth well.
+    OCP_DBL GetWGIT(const USI& w) const { return wells[w].WGIT; }
+    /// Return water injection rate of the wth well.
+    OCP_DBL GetWWIR(const USI& w) const { return wells[w].WWIR; }
+    /// Return total water injection of the wth well.
+    OCP_DBL GetWWIT(const USI& w) const { return wells[w].WWIT; }
     /// Return oil production rate of the wth well.
     OCP_DBL GetWOPR(const USI& w) const { return wells[w].WOPR; }
     /// Return total oil production of the wth well.
@@ -180,44 +234,8 @@ public:
     OCP_DBL GetWWPR(const USI& w) const { return wells[w].WWPR; }
     /// Return total water production of the wth well.
     OCP_DBL GetWWPT(const USI& w) const { return wells[w].WWPT; }
-    /// Return gas injection rate of the wth well.
-    OCP_DBL GetWGIR(const USI& w) const { return wells[w].WGIR; }
-    /// Return total gas injection of the wth well.
-    OCP_DBL GetWGIT(const USI& w) const { return wells[w].WGIT; }
-    /// Return water injection rate of the wth well.
-    OCP_DBL GetWWIR(const USI& w) const { return wells[w].WWIR; }
-    /// Return total water injection of the wth well.
-    OCP_DBL GetWWIT(const USI& w) const { return wells[w].WWIT; }
-    /// Return the BHP of wth well.
-    OCP_DBL GetWBHP(const USI& w) const
-    {
-        if (wells[w].WellState())
-            return wells[w].BHP;
-        else
-            return 0;
-    }
-    /// Return the pth dG of wth well.
-    OCP_DBL GetWellDg(const USI& w, const USI& p) const { return wells[w].dG[p]; }
-    OCP_DBL CalWellQT();
-    void    ShowWellStatus(const Bulk& myBulk)
-    {
-        for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk);
-    }
-    OCP_BOOL GetWellChange() const { return wellChange; }
 
-private:
-    USI               numWell;   ///< num of wells.
-    vector<Well>      wells;     ///< well set.
-    USI               numGroup;  ///< num of groups
-    vector<WellGroup> wellGroup; ///< wellGroup set
-
-    OCP_BOOL           wellChange; ///< if wells change, then OCP_TRUE
-    vector<SolventINJ> solvents;   ///< Sets of Solvent
-    OCP_DBL            dPmax{0};   ///< Maximum BHP change
-
-    vector<Mixture*> flashCal; ///< Uesless now.
-    OCP_DBL Psurf{ PRESSURE_STD };   ///< well reference pressure
-    OCP_DBL Tsurf{ TEMPERATURE_STD }; ///< well reference temperature
+protected:
 
     OCP_DBL FGIR{0}; ///< gas injection rate in field.
     OCP_DBL FGIT{0}; ///< gas total injection in field.
@@ -229,8 +247,6 @@ private:
     OCP_DBL FGPt{0}; ///< gas total production in field.
     OCP_DBL FWPR{0}; ///< water production rate in field.
     OCP_DBL FWPT{0}; ///< water total production in field.
-
-    OCP_DBL QT{0}; ///< PROD qt - INJ qt
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
@@ -259,8 +275,6 @@ public:
     void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
     /// Calculate Resiual and relative Resiual for FIM
     void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Show Res
-    void ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const;
 
     /////////////////////////////////////////////////////////////////////
     // FIM(new)
@@ -282,7 +296,7 @@ private:
     mutable vector<OCP_DBL>   wellVal;   ///< characteristics for well 
 
 public:
-    void SetPolyhedronWell(const Grid& myGrid);
+    void SetPolyhedronWell(const GridInitInfo& initGrid);
     void SetWellVal() const;
 };
 

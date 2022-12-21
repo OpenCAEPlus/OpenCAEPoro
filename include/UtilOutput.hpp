@@ -32,7 +32,7 @@ constexpr auto OCP_SEP02(T n) { return string(n, '='); }
 
 string GetIJKformat(const string& i, const string& j, const string& k, const USI& s);
 
-
+string GetIJKformat(const USI& i, const USI& j, const USI& k, const USI& s);
 
 #endif /* end if __UTILOUTPUT_HEADER__ */
 

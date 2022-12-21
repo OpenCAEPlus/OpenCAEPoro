@@ -19,7 +19,10 @@ string GetIJKformat(const string& i, const string& j, const string& k, const USI
 }
 
 
-
+string GetIJKformat(const USI& i, const USI& j, const USI& k, const USI& s)
+{
+	return GetIJKformat(to_string(i), to_string(j), to_string(k), s);
+}
 
 
  /*----------------------------------------------------------------------------*/

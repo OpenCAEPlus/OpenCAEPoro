@@ -26,7 +26,7 @@ public:
 
 	// Calculate porosity and d porosity / d P for isothermal model
 	virtual void CalPoro(const OCP_DBL& P, const OCP_DBL& poroInit, OCP_DBL& poro, OCP_DBL& dPorodP) const = 0;
-	// Calculate porosity and d porosity / d P for thermal model
+	// Calculate porosity and d porosity / d P for ifThermal model
 	virtual void CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
 						  OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const = 0;
 	virtual void CalRockHT(const OCP_DBL& T, OCP_DBL& Hr, OCP_DBL& dHrdT) const = 0;
@@ -83,8 +83,8 @@ protected:
 	OCP_DBL		Pref;      ///< Reference pressure at initial porosity.
 	OCP_DBL     Tref;      ///< Reference temperature at initial porosity.
 	OCP_DBL		cp;        ///< Compressibility factor of rock in reservoir.
-	OCP_DBL     ct;        ///< Expansion factor of rock in reservoir, thermal only
-	OCP_DBL     cpt;       ///< cross items, thermal only
+	OCP_DBL     ct;        ///< Expansion factor of rock in reservoir, ifThermal only
+	OCP_DBL     cpt;       ///< cross items, ifThermal only
 	OCP_BOOL	ConstRock; ///< if true, rock volume remains const, else, bulk volume remains const
 	OCP_DBL     hcp1;      ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
 	OCP_DBL     hcp2;      ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F

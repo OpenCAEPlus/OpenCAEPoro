@@ -51,7 +51,7 @@ public:
     /// input files.
     void InputParam(ParamRead& param);
     /// Setup static information for reservoir with input params.
-    void Setup(const OCP_BOOL& useVTK);
+    void SetupIsoT();
     /// Apply the control of ith critical time point.
     void ApplyControl(const USI& i);
     /// Calculate Well Properties at the beginning of each time step.
@@ -76,21 +76,33 @@ public:
     /// Check error between Fluids and Pores
     OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
     /// Return the num of Bulk
-    OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
+    OCP_USI GetBulkNum() const { return grid.bulk.GetBulkNum(); }
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
-    USI  GetComNum() const { return bulk.GetComNum(); }
-    void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
-    void GetNTQT(const OCP_DBL& dt);
+    USI  GetComNum() const { return grid.bulk.GetComNum(); }
+    void SetupWellBulk() { allWells.SetupWellBulk(grid.bulk); }
 
 
-private:
+protected:
 
     Grid     grid;     ///< Grid class.
-    Bulk     bulk;     ///< Bulk class.
     AllWells allWells; ///< AllWells class.
     BulkConn conn;     ///< BulkConn class.
+
+public:
+    /// Calculate the CFL number, including bulks and wells for IMPEC
+    OCP_DBL CalCFL(const OCP_DBL& dt);
+    /// Return NRdPmax
+    OCP_DBL GetNRdPmax() { return grid.bulk.GetNRdPmax(); }
+    /// Return NRdSmax
+    OCP_DBL GetNRdSmax(OCP_USI& index) { return grid.bulk.CalNRdSmax(index); }
+    /// Return NRdNmax
+    OCP_DBL GetNRdNmax() { return grid.bulk.GetNRdNmax(); }
+    /// Return NRdSmaxP
+    OCP_DBL GetNRdSmaxP() { return grid.bulk.GetNRdSmaxP(); }
+    void    PrintSolFIM(const string& outfile) const;
+    void OutInfoFinal() const { grid.bulk.OutMixtureIters(); }
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
@@ -98,118 +110,109 @@ private:
 
 public:
     /// Allocate memory for auxiliary variables used for IMPEC
-    void AllocateAuxIMPEC();
+    void AllocateIMPEC_IsoT();
     /// Initialize the properties of Reservoir for IMPEC
     void InitIMPEC();
-    /// Calculate the CFL number, including bulks and wells for IMPEC
-    OCP_DBL CalCFL(const OCP_DBL& dt);
-    /// Calculate flux between bulks, bulks and wells
-    void CalFLuxIMPEC();
-    /// Calculate flux between bulks
-    void CalConnFluxIMPEC();
-    /// Calculate Ni according to Flux
-    void MassConserveIMPEC(const OCP_DBL& dt);
-    /// Calculate Flash For IMPEC
-    void CalFlashIMPEC();
-    /// Update value of last step for IMPEC
-    void UpdateLastStepIMPEC();
     /// Allocate maximal memory for internal Matrix for IMPEC
     void AllocateMatIMPEC(LinearSystem& myLS) const;
     /// Assemble matrix for IMPEC
     void AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Return the Solution to Reservoir Pressure for IMPEC
     void GetSolutionIMPEC(const vector<OCP_DBL>& u);
-    /// Reset Well for IMPEC
-    void ResetWellIMPEC();
-    /// Reset Capillary Pressure, Flux for IMPEC
+    /// Calculate flux between bulks, bulks and wells
+    void CalFLuxIMPEC();
+    /// Calculate flux between bulks
+    void CalConnFluxIMPEC() { conn.CalFluxIMPEC(grid.bulk); }
+    /// Calculate Ni according to Flux
+    void MassConserveIMPEC(const OCP_DBL& dt);
+    /// Calculate Flash For IMPEC
+    void CalFlashIMPEC() { grid.bulk.CalFlashIMPEC(); }
+    /// Reset IMPEC
     void ResetVal01IMPEC();
-    /// Reset Capillary Pressure, Moles of Components, Flux for IMPEC
+    /// Reset IMPEC
     void ResetVal02IMPEC();
-    /// Reset Pressure, Capillary Pressure, Moles of components, Flux, Volume of Pores
-    /// for IMPEC
+    /// Reset IMPEC
     void ResetVal03IMPEC();
+    /// Update value of last step for IMPEC
+    void UpdateLastStepIMPEC();
 
-private:
-    OCP_DBL cfl{0}; ///< CFL number.
+
+    /////////////////////////////////////////////////////////////////////
+    // FIM
+    /////////////////////////////////////////////////////////////////////
 
 public:
-    /////////////////////////////////////////////////////////////////////
-    // FIM(n)
-    /////////////////////////////////////////////////////////////////////
-
-    /// Allocate memory for auxiliary variables used for FIM
-    void AllocateAuxFIM();
-    void AllocateAuxFIMn();
+    /// Allocate memory for variables used for FIM.
+    void AllocateFIM_IsoT();
     /// Initialize the properties of Reservoir for FIM
     void InitFIM();
-    void InitFIM_n();
-    /// Calculate Flash for FIM, some derivatives are needed
-    void CalFlashDerivFIM();
-    void CalFlashDerivFIM_n();
-    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcDerivFIM();
-    /// Update value of last step for FIM.
-    void UpdateLastStepFIM();
-    void UpdateLastStepFIMn();
     /// Allocate maximal memory for internal Matrix for FIM
-    void AllocateMatFIM(LinearSystem& myLS) const;
+    void AllocateMatFIM_IsoT(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
-    void AssembleMatFIM_n(LinearSystem& myLS, const OCP_DBL& dt) const;
-    /// Return the Solution to Reservoir Pressure and moles of Components for FIM
-    /// Exactly, it's a Newton step.
-    void GetSolutionFIM(const vector<OCP_DBL>& u,
-                        const OCP_DBL&         dPmax,
-                        const OCP_DBL&         dSmax);
-    void GetSolutionFIM_n(const vector<OCP_DBL>& u,
-                          const OCP_DBL&         dPmax,
-                          const OCP_DBL&         dSmax);
+    /// Get the Solution -- Reservoir Pressure and moles of Components for FIM
+    void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
+    /// Calculate Flash for FIM, some derivatives are needed
+    void CalFlashFIM() { grid.bulk.CalFlashFIM(); }
+    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
+    void CalKrPcFIM() { grid.bulk.CalKrPcFIM(); }
     /// Calculate the Residual for FIM, it's also RHS of Linear System
-    void CalResFIM(OCPRes& resFIM, const OCP_DBL& dt);
+    void CalResFIM(OCPRes& resFIM, const OCP_DBL& dt, const OCP_BOOL& resetRes0);
     /// Reset FIM
     void ResetFIM();
+    /// Update value of last step for FIM.
+    void UpdateLastStepFIM();
+
+    /////////////////////////////////////////////////////////////////////
+    // FIMn
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    /// Allocate memory for variables used for FIMn
+    void AllocateFIMn_IsoT();
+    /// Initialize the properties of Reservoir for FIMn
+    void InitFIMn();
+    void AssembleMatFIMn(LinearSystem& myLS, const OCP_DBL& dt) const;
+
+    void GetSolutionFIMn(const vector<OCP_DBL>& u,
+        const OCP_DBL& dPmax,
+        const OCP_DBL& dSmax);
+    void CalFlashFIMn() { grid.bulk.CalFlashFIMn(); }
     void ResetFIMn();
-    /// Return NRdPmax
-    OCP_DBL GetNRdPmax() { return bulk.GetNRdPmax(); }
-    /// Return NRdSmax
-    OCP_DBL GetNRdSmax(OCP_USI& index) { return bulk.CalNRdSmax(index); }
-    /// Return NRdNmax
-    OCP_DBL GetNRdNmax() { return bulk.GetNRdNmax(); }
-    /// Return NRdSmaxP
-    OCP_DBL GetNRdSmaxP() { return bulk.GetNRdSmaxP(); }
-    void    PrintSolFIM(const string& outfile) const;
-    void    ShowRes(const vector<OCP_DBL>& res) const;
+    void UpdateLastStepFIMn();
 
     /////////////////////////////////////////////////////////////////////
     // AIMc
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Setup FIMBulk
-    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE)
-    {
-        conn.SetupFIMBulk(bulk, NRflag);
-    }
-    /// Allocate memory for auxiliary variables used for FIM
-    void AllocateAuxAIMc();
+
+    /// Allocate memory for variables used for AIMc
+    void AllocateAIMc_IsoT();
+    /// Initialize the properties of Reservoir for AIMc
+    void InitAIMc();
     /// Assemble Matrix for AIMc
     void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
-    /// Calculate the Residual for FIM, it's also RHS of Linear System
-    void CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt);
-    void CalFlashAIMc();
-    void CalFlashAIMc01();
-    void CalKrPcAIMc();
-    /// Calculate Flash for local FIM, some derivatives are needed
-    void CalFlashDerivAIMc();
-    /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcDerivAIMc();
-    void GetSolutionAIMc(const vector<OCP_DBL>& u,
-                         const OCP_DBL&         dPmax,
-                         const OCP_DBL&         dSmax);
-    void InitAIMc();
+    /// Perform flash calculation with Ni for Explicit bulk -- Update partial properties
+    void CalFlashAIMcEp() { grid.bulk.CalFlashAIMcEp(); }
+    /// Perform flash calculation with Ni for Explicit bulk -- Update all properties
+    void CalFlashAIMcEa() { grid.bulk.CalFlashAIMcEa(); }
+    /// Perform flash calculation with Ni for Implicit bulk
+    void CalFlashAIMcI() { grid.bulk.CalFlashAIMcI(); }
+    /// Calculate relative permeability and capillary pressure for Explicit bulk
+    void CalKrPcAIMcE() { grid.bulk.CalKrPcAIMcE(); }
+    /// Calculate relative permeability and capillary pressure for Implicit bulk
+    void CalKrPcAIMcI() { grid.bulk.CalKrPcAIMcI(); }
+    /// Calculate the Residual for AIMc, it's also RHS of Linear System
+    void CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt, const OCP_BOOL& resetRes0);
+    /// Get the solution for AIMc after a Newton iteration.
+    void GetSolutionAIMc(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
+    /// Reset AIMc
     void ResetAIMc();
+    /// Update values of last step for AIMc
     void UpdateLastStepAIMc();
-    void UpdatePj() { bulk.UpdatePj(); }
+    /// Setup FIMBulk
+    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(grid.bulk, NRflag); }
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

@@ -19,10 +19,8 @@ void AllWells::InputParam(const ParamWell& paramWell)
 {
     OCP_FUNCNAME;
 
-    USI len = paramWell.solSet.size();
-    solvents.resize(len);
-    for (USI i = 0; i < len; i++) {
-        solvents[i] = paramWell.solSet[i];
+    for (auto& s : paramWell.solSet) {
+        solvents.push_back(s);
     }
 
     Psurf = paramWell.Psurf;
@@ -59,20 +57,20 @@ void AllWells::InputParam(const ParamWell& paramWell)
     }
 }
 
-void AllWells::Setup(const Grid& myGrid, const Bulk& myBulk)
+void AllWells::Setup(const Grid& myGrid)
 {
     OCP_FUNCNAME;
-    SetupWell(myGrid, myBulk);
-    SetPolyhedronWell(myGrid);
-    SetupMixture(myBulk);
+    SetupWell(myGrid);
+    SetPolyhedronWell(myGrid.initInfo);
+    SetupMixture(myGrid.bulk);
 }
 
-void AllWells::SetupWell(const Grid& myGrid, const Bulk& myBulk)
+void AllWells::SetupWell(const Grid& myGrid)
 {
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        wells[w].Setup(myGrid, myBulk, solvents);
+        wells[w].Setup(myGrid, solvents);
     }
 }
 
@@ -125,10 +123,10 @@ void AllWells::SetupWellGroup(const Bulk& myBulk)
     if (OCP_FALSE) {
         wellGroup[0].reInj     = OCP_TRUE;
         wellGroup[0].saleRate  = 1500;
-        wellGroup[0].reinjPhase  = GAS;
+        wellGroup[0].reInjPhase = GAS;
         wellGroup[0].prodGroup = 0;
     }
-    wellGroup[0].zi.resize(myBulk.GetComNum());
+    wellGroup[0].reInjZi.resize(myBulk.GetComNum());
     CalReInjFluid(myBulk);
 }
 
@@ -143,7 +141,7 @@ void AllWells::SetupWellBulk(Bulk& myBulk) const
 {
     myBulk.ClearWellBulkId();
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].SetupWellBulk(myBulk);
         }
     }
@@ -156,8 +154,8 @@ void AllWells::ApplyControl(const USI& i)
     USI wId    = 0;
     for (USI w = 0; w < numWell; w++) {
         wells[w].opt = wells[w].optSet[i];
-        if (wells[w].WellState()) {
-            wells[w].wEId = wId;
+        if (wells[w].IsOpen()) {
+            wells[w].wOId = wId;
             wId++;
         }
         if (i > 0 && wells[w].opt != wells[w].optSet[i - 1]) wellChange = OCP_TRUE;
@@ -178,7 +176,7 @@ void AllWells::PrepareWell(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
 
             wells[w].CalTrans(myBulk);
             wells[w].CaldG(myBulk);
@@ -193,7 +191,7 @@ void AllWells::CalTrans(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].CalTrans(myBulk);
         }
     }
@@ -204,19 +202,8 @@ void AllWells::CalFlux(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].CalFlux(myBulk, OCP_FALSE);
-        }
-    }
-}
-
-void AllWells::CalProdWeight(const Bulk& myBulk)
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
-            wells[w].CalProdWeight(myBulk);
         }
     }
 }
@@ -226,7 +213,7 @@ void AllWells::CaldG(const Bulk& myBulk)
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].CaldG(myBulk);
         }
     }
@@ -248,7 +235,7 @@ void AllWells::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
         wells[w].WGPR = 0;
         wells[w].WWPR = 0;
 
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             if (wells[w].WellType() == PROD) {
                 wells[w].CalProdQj(myBulk, dt);
             } else {
@@ -274,32 +261,32 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
         if (wG.reInj) {
             const USI nc = myBulk.GetComNum();
             // const USI np = myBulk.GetPhaseNum();
-            fill(wG.zi.begin(), wG.zi.end(), 0.0);
+            fill(wG.reInjZi.begin(), wG.reInjZi.end(), 0.0);
             for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                Daxpy(nc, 1.0, &wells[prod].qi_lbmol[0], &wG.zi[0]);
+                Daxpy(nc, 1.0, &wells[prod].qi_lbmol[0], &wG.reInjZi[0]);
             }
-            OCP_DBL qt = Dnorm1(nc, &wG.zi[0]);
+            OCP_DBL qt = Dnorm1(nc, &wG.reInjZi[0]);
             if (fabs(qt) < 1E-8) {
                 // Recalculate zi
-                fill(wG.zi.begin(), wG.zi.end(), 0.0);
+                fill(wG.reInjZi.begin(), wG.reInjZi.end(), 0.0);
                 for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                    wells[prod].CalReInjFluid(myBulk, wG.zi);
+                    wells[prod].CalReInjFluid(myBulk, wG.reInjZi);
                 }
-                qt = Dnorm1(nc, &wG.zi[0]);
+                qt = Dnorm1(nc, &wG.reInjZi[0]);
             }
-            flashCal[0]->Flash(Psurf, Tsurf, &wG.zi[0], 0, 0, 0);
-            Dcopy(nc, &wG.zi[0], &flashCal[0]->xij[wG.reinjPhase * nc]);
-            wG.xi     = flashCal[0]->xi[wG.reinjPhase];
-            wG.factor = wG.xi * flashCal[0]->v[wG.reinjPhase] / qt;
+            flashCal[0]->Flash(Psurf, Tsurf, &wG.reInjZi[0]);
+            Dcopy(nc, &wG.reInjZi[0], &flashCal[0]->xij[wG.reInjPhase * nc]);
+            wG.reInjXi = flashCal[0]->xi[wG.reInjPhase];
+            wG.reInjFactor = wG.reInjXi * flashCal[0]->vj[wG.reInjPhase] / qt;
             // assign to every open injection well in wG
             for (auto& w : wG.wIdINJ) {
-                if (wells[w].WellState()) {
+                if (wells[w].IsOpen()) {
                     wells[w].opt.reInj    = OCP_TRUE;
                     wells[w].opt.connWell = wG.wIdPROD;
-                    wells[w].opt.reinjPhase = wG.reinjPhase;
-                    wells[w].opt.injZi       = wG.zi;
-                    wells[w].opt.factorINJ    = wG.xi * 1000;  // Blackoil Model prohibited
-                    wells[w].opt.factor   = wG.factor;
+                    wells[w].opt.reInjPhase = wG.reInjPhase;
+                    wells[w].opt.injZi       = wG.reInjZi;
+                    wells[w].opt.factorINJ    = wG.reInjXi * 1000;  // Blackoil Model prohibited
+                    wells[w].opt.reInjFactor = wG.reInjFactor;
                     wells[w].opt.maxRate =
                         -wG.saleRate * wells[w].opt.factorINJ; // Mscf -> ft3 -> lbmol
                 }
@@ -327,7 +314,7 @@ void AllWells::AllocateMat(LinearSystem& myLS, const USI& bulknum) const
 void AllWells::ResetBHP()
 {
     for (auto& w : wells) {
-        if (w.WellState()) {
+        if (w.IsOpen()) {
             w.BHP = w.lBHP;
             w.SetBHP();
             // w.dG = w.ldG;
@@ -347,7 +334,7 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
     OCP_BOOL flag3 = OCP_FALSE;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
 
             OCP_INT flag = wells[w].CheckP(myBulk);
 
@@ -412,24 +399,12 @@ void AllWells::CalMaxBHPChange()
 {
     dPmax = 0;
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             dPmax = max(dPmax, fabs(wells[w].BHP - wells[w].lBHP));
         }
     }
 }
 
-OCP_DBL AllWells::CalWellQT()
-{
-    QT = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
-            for (auto& q : wells[w].qi_lbmol) {
-                QT += q;
-            }
-        }
-    }
-    return QT;
-}
 
 /////////////////////////////////////////////////////////////////////
 // IMPEC
@@ -440,7 +415,7 @@ void AllWells::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].CalCFL(myBulk, dt);
         }
     }
@@ -451,7 +426,7 @@ void AllWells::MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt)
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].MassConserveIMPEC(myBulk, dt);
         }
     }
@@ -464,7 +439,7 @@ void AllWells::AssemblaMatIMPEC(LinearSystem&  myLS,
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             switch (wells[w].WellType()) {
                 case INJ:
                     wells[w].AssembleMatINJ_IMPEC(myBulk, myLS, dt);
@@ -482,7 +457,7 @@ void AllWells::AssemblaMatIMPEC(LinearSystem&  myLS,
     for (auto& wG : wellGroup) {
         if (wG.reInj) {
             for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                if (wells[prod].WellState()) {
+                if (wells[prod].IsOpen()) {
                     wells[prod].AssembleMatReinjection_IMPEC(myBulk, myLS, dt, wells,
                                                              wG.wIdINJ);
                 }
@@ -497,7 +472,7 @@ void AllWells::GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId)
 
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].BHP = u[bId + wId];
             wells[w].UpdatePerfP();
             wId++;
@@ -516,7 +491,7 @@ void AllWells::AssemblaMatFIM(LinearSystem&  myLS,
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
 
             switch (wells[w].WellType()) {
                 case INJ:
@@ -535,7 +510,7 @@ void AllWells::AssemblaMatFIM(LinearSystem&  myLS,
     for (auto& wG : wellGroup) {
         if (wG.reInj) {
             for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                if (wells[prod].WellState()) {
+                if (wells[prod].IsOpen()) {
                     wells[prod].AssembleMatReinjection_FIM(myBulk, myLS, dt, wells,
                                                            wG.wIdINJ);
                 }
@@ -550,7 +525,7 @@ void AllWells::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI
 
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].BHP += u[(bId + wId) * len];
             wells[w].UpdatePerfP();
             wId++;
@@ -564,25 +539,13 @@ void AllWells::CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) 
 
     USI wId = 0;
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
             wells[w].CalResFIM(resFIM, myBulk, dt, wId, wells);
             wId++;
         }
     }
 }
 
-void AllWells::ShowRes(const vector<OCP_DBL>& res, const Bulk& myBulk) const
-{
-    USI wId = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
-            cout << endl;
-            wells[w].ShowRes(wId, res, myBulk);
-            wId++;
-        }
-    }
-    cout << endl;
-}
 
 /////////////////////////////////////////////////////////////////////
 // AFIM(new)
@@ -595,7 +558,7 @@ void AllWells::AssemblaMatFIM_new(LinearSystem&  myLS,
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
 
             switch (wells[w].WellType()) {
                 case INJ:
@@ -618,7 +581,7 @@ void AllWells::AssemblaMatFIM_new_n(LinearSystem&  myLS,
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        if (wells[w].WellState()) {
+        if (wells[w].IsOpen()) {
 
             switch (wells[w].WellType()) {
                 case INJ:
@@ -634,15 +597,15 @@ void AllWells::AssemblaMatFIM_new_n(LinearSystem&  myLS,
     }
 }
 
-void AllWells::SetPolyhedronWell(const Grid& myGrid)
+void AllWells::SetPolyhedronWell(const GridInitInfo& initGrid)
 {
-    useVTK = myGrid.IfUseVtk();
+    useVTK = initGrid.IfUseVtk();
     if (!useVTK) return;
 
     wellVal.resize(numWell);
     polyhedronWell.resize(numWell);
     for (USI w = 0; w < numWell; w++) {
-        wells[w].SetPolyhedronWell(myGrid, polyhedronWell[w]);
+        wells[w].SetPolyhedronWell(initGrid, polyhedronWell[w]);
     }
 }
 

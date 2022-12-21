@@ -45,7 +45,7 @@ public:
 class ParamControl
 {
 public:
-    USI model{ ISOTHERMALMODEL };       ///< model: thermal or isothermal.
+    USI model{ ISOTHERMALMODEL };       ///< model: ifThermal or isothermal.
     string dir;         ///< Current work directory.
     string method;      ///< Decide which method to use to discrete the fluid equations.
     string linearSolve; ///< Fasp file.

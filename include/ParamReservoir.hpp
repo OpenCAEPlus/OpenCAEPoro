@@ -55,8 +55,8 @@ public:
     OCP_DBL Tref{ 60 };   ///< Reference temperature at initial porosity.
     OCP_DBL cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
     OCP_DBL cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
-    OCP_DBL ct{ 0 };   ///< Expansion factor of rock in reservoir, thermal only
-    OCP_DBL cpt{ 0 };  ///< cross items, thermal only
+    OCP_DBL ct{ 0 };   ///< Expansion factor of rock in reservoir, ifThermal only
+    OCP_DBL cpt{ 0 };  ///< cross items, ifThermal only
     OCP_BOOL ConstRock{ OCP_TRUE }; ///< if true, rock volume remains const, else, bulk volume remains const 
     OCP_DBL  HCP1{ 35 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
     OCP_DBL  HCP2{ 0 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
@@ -122,11 +122,11 @@ public:
     Type_A_r<vector<OCP_DBL>> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
-    // thermal only
+    // ifThermal only
     Type_A_r<vector<OCP_DBL>>   molden; ///< component molar density at reference temperature and reference pressure, lb/ft3
     Type_A_r<vector<OCP_DBL>>   cp;     ///< component compressibility, 1/psi
-    Type_A_r<vector<OCP_DBL>>   ct1;    ///< the first thermal expansion coefficient, 1/F
-    Type_A_r<vector<OCP_DBL>>   ct2;    ///< the second thermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>>   ct1;    ///< the first ifThermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>>   ct2;    ///< the second ifThermal expansion coefficient, 1/F
     Type_A_r<vector<OCP_DBL>>   cpt;    ///< the coefficient of density dependence on temperature and pressure, 1/psi-F
     Type_A_r<vector<OCP_DBL>>   cpl1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
     Type_A_r<vector<OCP_DBL>>   cpl2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
@@ -195,7 +195,7 @@ public:
     vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
     vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
     vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
-    vector<OCP_DBL> thconr; ///< Rock thermal conductivity.
+    vector<OCP_DBL> thconr; ///< Rock ifThermal conductivity.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
     vector<RockParam> rockSet; ///< a set of rock
     Miscstr miscstr; ///< reference Miscibility surface tension
@@ -209,14 +209,14 @@ public:
     // phase property
     Type_A_r<OCP_DBL> density; ///< Density of oil, water, gas in standard conditions.
     Type_A_r<OCP_DBL> gravity; ///< Gravity of oil, water, gas in standard conditions.
-    OCP_DBL           thcono{ 24 };  ///< oil thermal conductivity
-    OCP_DBL           thcong{ 24 };  ///< gas thermal conductivity
-    OCP_DBL           thconw{ 24 };  ///< water thermal conductivity
+    OCP_DBL           thcono{ 24 };  ///< oil ifThermal conductivity
+    OCP_DBL           thcong{ 24 };  ///< gas ifThermal conductivity
+    OCP_DBL           thconw{ 24 };  ///< water ifThermal conductivity
 
     // Models
     OCP_BOOL blackOil{OCP_FALSE}; ///< If ture, blackoil model will be used.
     OCP_BOOL comps{OCP_FALSE};    ///< If OCP_TRUE, compositional model will be used.
-    OCP_BOOL thermal{OCP_FALSE};  ///< If OCP_TRUE, thermal model will be used.
+    OCP_BOOL thermal{OCP_FALSE};  ///< If OCP_TRUE, ifThermal model will be used.
     OCP_BOOL oil{OCP_FALSE};      ///< If OCP_TRUE, oil phase could exist.
     OCP_BOOL gas{OCP_FALSE};      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL water{OCP_FALSE};    ///< If OCP_TRUE, water phase could exist.
@@ -318,7 +318,7 @@ public:
     /// Input the keyword: ROCK. ROCK contains the compressibility factor and reference
     /// pressure at initial porosity.
     void InputROCK(ifstream& ifs);
-    ///  input Rock information for thermal model
+    ///  input Rock information for ifThermal model
     void InputROCKT(ifstream& ifs);
 
     /// Input the Miscibility information
@@ -330,7 +330,7 @@ public:
     /// Input the reference density of oil, water, and air in standard condition.
     void InputDENSITY(ifstream& ifs);
 
-    /// Input the phase thermal conductivity
+    /// Input the phase ifThermal conductivity
     void InputTHCON(ifstream& ifs, const string& keyword);
 
     /// EQUIL contains initial information of reservoir; see ParamEQUIL.

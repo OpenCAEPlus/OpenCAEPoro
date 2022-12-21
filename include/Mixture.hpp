@@ -40,7 +40,7 @@ public:
     {
         Ni.resize(numCom);
         phaseExist.resize(numPhase);
-        v.resize(numPhase);
+        vj.resize(numPhase);
         S.resize(numPhase);      
         xi.resize(numPhase);
         nj.resize(numPhase);
@@ -70,24 +70,25 @@ public:
     /// return type of mixture.
     USI GetMixtureType() const { return mixtureType; }
     /// flash calculation with saturation of phases.
-    virtual void InitFlash(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
+    virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) = 0;
+    virtual void InitFlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
                           const OCP_DBL* Ziin) = 0;
-    virtual void InitFlashDer(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+    virtual void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
-    virtual void InitFlashDer_n(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
+    virtual void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
     /// Flash calculation with moles of components.
-    virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    virtual void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* xijin) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
-    virtual void FlashDeriv(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    virtual void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* xijin) = 0;
-    virtual void FlashDeriv_n(const OCP_DBL& Pin, const OCP_DBL& Tin,
+    virtual void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
         const USI& lastNP) = 0;
@@ -139,16 +140,7 @@ public:
     virtual OCP_DBL GetSurTen() = 0;
 
     virtual OCP_DBL GetErrorPEC() = 0;
-    virtual OCP_ULL GetSSMSTAiters() = 0;
-    virtual OCP_ULL GetNRSTAiters() = 0;
-    virtual OCP_ULL GetSSMSPiters() = 0; 
-    virtual OCP_ULL GetNRSPiters() = 0;
-    virtual OCP_ULL GetRRiters() = 0;
-    virtual OCP_ULL GetSSMSTAcounts() = 0;
-    virtual OCP_ULL GetNRSTAcounts() = 0;
-    virtual OCP_ULL GetSSMSPcounts() = 0;
-    virtual OCP_ULL GetNRSPcounts() = 0;
-    virtual OCP_ULL GetRRcounts() = 0;
+    virtual void OutMixtureIters() const = 0;
 
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
@@ -159,41 +151,41 @@ protected:
     OCP_DBL P;        ///< pressure when flash calculation.
     OCP_DBL T;        ///< temperature when flash calculation.
 
-    vector<OCP_DBL> Ni;         ///< moles of component: numCom
-    vector<OCP_BOOL>    phaseExist; ///< existence of phase: numPhase
-    vector<OCP_DBL> S;          ///< saturation of phase: numPhase
-    vector<OCP_DBL> rho;        ///< mass density of phase: numPhase
-    vector<OCP_DBL> xi;         ///< molar density of phase: numPhase
-    vector<OCP_DBL> xij; ///< Nij / Nj: numPhase*numCom, Nij is the moles of component i
-                         ///< in phase j, Nj is the moles of phase j.
-    vector<OCP_DBL> nj;  ///< mole number of phase j
-    vector<OCP_DBL> mu;  ///< viscosity of phase: numPhase
-    vector<OCP_DBL> v;   ///< volume of phase: numPhase;
-
     OCP_DBL vf; ///< volume of total fluids.
     OCP_DBL Nt; ///< Total moles of Components.
+    vector<OCP_DBL> Ni;         ///< moles of component: numCom
+    vector<OCP_BOOL>    phaseExist; ///< existence of phase: numPhase
+    vector<OCP_DBL> S;      ///< saturation of phase: numPhase
+    vector<OCP_DBL> vj;      ///< volume of phase: numPhase;
+    vector<OCP_DBL> nj;     ///< mole number of phase j
+    vector<OCP_DBL> xij;    ///< Nij / nj: numPhase*numCom
+    vector<OCP_DBL> rho;    ///< mass density of phase: numPhase
+    vector<OCP_DBL> xi;     ///< molar density of phase: numPhase
+    vector<OCP_DBL> mu;     ///< viscosity of phase: numPhase
 
     // Derivatives      
-    OCP_DBL vfp; ///< dVf / dP, the derivative of volume of total fluids with respect to
+    OCP_DBL vfP; ///< dVf / dP, the derivative of volume of total fluids with respect to
                  ///< pressure.
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom  the derivative of volume of total
                          ///< fluids with respect to moles of components.
 
-    vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
-    vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
     vector<OCP_DBL> rhoP; ///< d rho / dP: numphase
-    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
-    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
+    vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
     vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> rhoT; ///< d rho j / dT: numPhase
+    
     vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
     
     // Thermal model
     OCP_DBL         vfT;  ///< d vf  / dT
     vector<OCP_DBL> muT;  ///< d mu j  / dT: numPhase
     vector<OCP_DBL> xiT;  ///< d xi j / dT: numPhase
-    vector<OCP_DBL> rhoT; ///< d rho j / dT: numPhase
+    
     OCP_DBL         Uf;   ///< Internal energy of fluid
-    vector<OCP_DBL>         Ufi;  ///< dUf / dNi
+    vector<OCP_DBL> Ufi;  ///< dUf / dNi
     OCP_DBL         Ufp;  ///< dUf / dP
     OCP_DBL         UfT;  ///< dUf / dT
     vector<OCP_DBL> H;    ///< Enthalpy

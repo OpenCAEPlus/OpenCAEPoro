@@ -24,6 +24,7 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
     u.resize(maxDim * blockDim);
 }
 
+
 void LinearSystem::AllocateColMem()
 {
     for (OCP_USI n = 0; n < maxDim; n++) {
@@ -32,14 +33,6 @@ void LinearSystem::AllocateColMem()
     }
 }
 
-void LinearSystem::AllocateColMem(const OCP_USI& colnum)
-{
-    for (OCP_USI n = 0; n < maxDim; n++) {
-        rowCapacity[n] = colnum;
-        colId[n].reserve(colnum);
-        val[n].reserve(colnum * blockSize);
-    }
-}
 
 void LinearSystem::ClearData()
 {
