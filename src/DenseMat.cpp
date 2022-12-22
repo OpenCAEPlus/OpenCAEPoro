@@ -196,7 +196,7 @@ void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot)
     }
 }
 
-void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot, double* work, const int& lwork)
+int SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot, double* work, const int& lwork)
 {
     int    info;
 
@@ -206,6 +206,8 @@ void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double
     } else if (info > 0) {
         cout << "Singular Matrix !" << endl;
     }
+
+    return info;
 }
 
 

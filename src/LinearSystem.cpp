@@ -25,8 +25,31 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
 }
 
 
-void LinearSystem::AllocateColMem()
+void LinearSystem::AllocateColMem(const vector<USI>& bulk2bulk, const vector<vector<OCP_USI>> well2bulk)
 {
+    // Bulk to Bulk
+    const OCP_USI bulkNum = bulk2bulk.size();
+    for (OCP_USI n = 0; n < bulkNum; n++) {
+        rowCapacity[n] += bulk2bulk[n];
+    }
+
+    // Bulk to Well
+    const OCP_USI wellNum = well2bulk.size();
+    USI maxPerfNum = 0;
+    for (auto& w : well2bulk) {
+        for (auto& p : w)
+            rowCapacity[p]++;
+        if (maxPerfNum < w.size()) {
+            maxPerfNum = w.size();
+        }
+    }
+
+    // If Reinjection is considered, then more memory is needed
+    // Well to Bulk
+    for (OCP_USI w = bulkNum; w < bulkNum + wellNum; w++) {
+        rowCapacity[w] += (maxPerfNum + 1);
+    }
+
     for (OCP_USI n = 0; n < maxDim; n++) {
         colId[n].reserve(rowCapacity[n]);
         val[n].reserve(rowCapacity[n] * blockSize);

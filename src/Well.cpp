@@ -39,16 +39,13 @@ void Well::InputPerfo(const WellParam& well)
     }
 }
 
-void Well::Setup(const Grid& myGrid, const vector<SolventINJ>& sols)
+void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
 
-    const GridInitInfo& initGrid = myGrid.initInfo;
-    const Bulk& bulk = myGrid.bulk;
-
-    numCom = bulk.numCom;
-    numPhase = bulk.numPhase;
-    flashCal = bulk.flashCal;
+    numCom = myBulk.numCom;
+    numPhase = myBulk.numPhase;
+    flashCal = myBulk.flashCal;
 
     qi_lbmol.resize(numCom);
     prodWeight.resize(numCom);
@@ -57,7 +54,7 @@ void Well::Setup(const Grid& myGrid, const vector<SolventINJ>& sols)
     for (auto& opt : optSet) {
         if (!opt.state) continue;
 
-        opt.Tinj = bulk.RTemp;
+        opt.Tinj = myBulk.RTemp;
         flashCal[0]->SetupWellOpt(opt, sols, Psurf, Tsurf);
     }
     
@@ -65,20 +62,20 @@ void Well::Setup(const Grid& myGrid, const vector<SolventINJ>& sols)
     USI pp = 0;
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI pId =
-            perf[p].K * initGrid.nx * initGrid.ny + perf[p].J * initGrid.nx + perf[p].I;
-        if (initGrid.map_All2Flu[pId].IsAct()) {
+            perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
+        if (myGrid.map_All2Flu[pId].IsAct()) {
 
             perf[pp]            = perf[p];
             perf[pp].state      = OPEN;
-            perf[pp].location   = initGrid.map_All2Act[pId].GetId();
-            perf[pp].depth      = bulk.depth[perf[pp].location];
+            perf[pp].location   = myGrid.map_All2Act[pId].GetId();
+            perf[pp].depth      = myBulk.depth[perf[pp].location];
             perf[pp].multiplier = 1;
             perf[pp].qi_lbmol.resize(numCom);
             perf[pp].transj.resize(numPhase);
             perf[pp].qj_ft3.resize(numPhase);
             pp++;
         } else {
-            OCP_WARNING("Perforation is in non-fluid bulk!");
+            OCP_WARNING("Perforation is in non-fluid myBulk!");
         }
     }
     numPerf = pp;
@@ -89,7 +86,7 @@ void Well::Setup(const Grid& myGrid, const vector<SolventINJ>& sols)
 
     if (depth < 0) depth = perf[0].depth;
 
-    CalWI_Peaceman_Vertical(bulk);
+    CalWI_Peaceman_Vertical(myBulk);
     // test
     // ShowPerfStatus(myBulk);
 }
@@ -962,23 +959,6 @@ OCP_INT Well::CheckCrossFlow(const Bulk& myBulk)
     }
 
     return 0;
-}
-
-void Well::AllocateMat(LinearSystem& myLS) const
-{
-    OCP_FUNCNAME;
-
-    for (USI p = 0; p < numPerf; p++) {
-        myLS.rowCapacity[perf[p].location]++;
-    }
-}
-
-void Well::SetupWellBulk(Bulk& myBulk) const
-{
-    // Attention that a bulk can only be penetrated by one well now!
-    for (USI p = 0; p < numPerf; p++) {
-        myBulk.wellBulkId.push_back(perf[p].location);
-    }
 }
 
 void Well::ShowPerfStatus(const Bulk& myBulk) const
@@ -2553,7 +2533,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk&    myBulk,
                          myLS.diagVal.data() + wId * bsize + bsize);
 }
 
-void Well::SetPolyhedronWell(const GridInitInfo& initGrid, OCPpolyhedron& mypol)
+void Well::SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol)
 {
     // set a virtual point
     mypol.numPoints = numPerf + 1;
@@ -2564,11 +2544,11 @@ void Well::SetPolyhedronWell(const GridInitInfo& initGrid, OCPpolyhedron& mypol)
 
     for (USI p = 0; p < numPerf; p++) {
         tmpP.Reset();
-        k = initGrid.map_Act2All[perf[p].location];
-        for (USI i = 0; i < initGrid.polyhedronGrid[k].numPoints; i++) {
-            tmpP += initGrid.polyhedronGrid[k].Points[i];
+        k = myGrid.map_Act2All[perf[p].location];
+        for (USI i = 0; i < myGrid.polyhedronGrid[k].numPoints; i++) {
+            tmpP += myGrid.polyhedronGrid[k].Points[i];
         }
-        tmpP /= initGrid.polyhedronGrid[k].numPoints;
+        tmpP /= myGrid.polyhedronGrid[k].numPoints;
         mypol.Points[p + 1] = tmpP;
     }
 

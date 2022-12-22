@@ -57,21 +57,22 @@ void AllWells::InputParam(const ParamWell& paramWell)
     }
 }
 
-void AllWells::Setup(const Grid& myGrid)
+void AllWells::Setup(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
-    SetupWell(myGrid);
-    SetPolyhedronWell(myGrid.initInfo);
-    SetupMixture(myGrid.bulk);
+    SetupWell(myGrid, myBulk);
+    SetPolyhedronWell(myGrid);
+    SetupMixture(myBulk);
 }
 
-void AllWells::SetupWell(const Grid& myGrid)
+void AllWells::SetupWell(const Grid& myGrid, const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
     for (USI w = 0; w < numWell; w++) {
-        wells[w].Setup(myGrid, solvents);
+        wells[w].Setup(myGrid, myBulk, solvents);
     }
+    SetupConnWell2Bulk(myBulk);
 }
 
 void AllWells::SetupWellGroup(const Bulk& myBulk)
@@ -139,13 +140,26 @@ void AllWells::SetupMixture(const Bulk& myBulk)
 
 void AllWells::SetupWellBulk(Bulk& myBulk) const
 {
-    myBulk.ClearWellBulkId();
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].SetupWellBulk(myBulk);
+    for (auto& w : wells) {
+        if (w.IsOpen()) {
+            for (auto& p : w.perf) {
+                myBulk.AddWellBulkId(p.GetLoaction());
+            }
         }
     }
 }
+
+void AllWells::SetupConnWell2Bulk(const Bulk& myBulk)
+{
+    well2bulk.resize(numWell);
+    USI wId = 0;
+    for (auto& w : wells) {
+        for (auto& p : w.perf)
+            well2bulk[wId].push_back(p.GetLoaction());
+        wId++;
+    }
+}
+
 
 void AllWells::ApplyControl(const USI& i)
 {
@@ -300,16 +314,6 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
     }
 }
 
-void AllWells::AllocateMat(LinearSystem& myLS, const USI& bulknum) const
-{
-    OCP_FUNCNAME;
-
-    USI maxNum = (GetMaxWellPerNum() + 1) * numWell;
-    for (USI w = 0; w < numWell; w++) {
-        wells[w].AllocateMat(myLS);
-        myLS.EnlargeRowCap(bulknum + w, maxNum);
-    }
-}
 
 void AllWells::ResetBHP()
 {
@@ -597,15 +601,15 @@ void AllWells::AssemblaMatFIM_new_n(LinearSystem&  myLS,
     }
 }
 
-void AllWells::SetPolyhedronWell(const GridInitInfo& initGrid)
+void AllWells::SetPolyhedronWell(const Grid& myGrid)
 {
-    useVTK = initGrid.IfUseVtk();
+    useVTK = myGrid.IfUseVtk();
     if (!useVTK) return;
 
     wellVal.resize(numWell);
     polyhedronWell.resize(numWell);
     for (USI w = 0; w < numWell; w++) {
-        wells[w].SetPolyhedronWell(initGrid, polyhedronWell[w]);
+        wells[w].SetPolyhedronWell(myGrid, polyhedronWell[w]);
     }
 }
 

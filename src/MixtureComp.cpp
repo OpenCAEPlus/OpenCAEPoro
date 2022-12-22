@@ -1262,8 +1262,7 @@ void MixtureComp::AllocateMethod()
     phiN.resize(NC2);
     skipMatSTA.resize(NC2);
     eigenSkip.resize(NC);
-    leigenWork = 2 * NC + 1;
-    eigenWork.resize(leigenWork);
+    eigenWork.resize(2 * NC + 1);
     lKs.resize(NC);
 
     resRR.resize(NPmax - 1);
@@ -1381,7 +1380,7 @@ void MixtureComp::PhaseEquilibrium()
         }
 #endif // DEBUG
 
-        MinEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], leigenWork);
+        MinEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], 2 * NC + 1);
         // PrintDX(NC, &eigenSkip[0]);
         // cout << "done!" << endl;
     }
@@ -1505,9 +1504,9 @@ OCP_BOOL MixtureComp::StableSSM01(const USI& Id)
             // flag = StableNR(Id);
         }
 
-        // cout << "Yt = " << setprecision(8) << scientific << Yt << "   " << setw(2)
-        //     << "Sk = " << setprecision(3) << scientific << Sk << "   " << setw(2)
-        //     << iter << "  ";
+         //cout << "Yt = " << setprecision(8) << scientific << Yt << "   " << setw(2)
+         //    << "Sk = " << setprecision(3) << scientific << Sk << "   " << setw(2)
+         //    << iter << "  ";
         EoSctrl.SSMsta.curIt += iter;
 
         if (flag && Yt > 1 - 0.1 && Sk > 1) {
@@ -2175,8 +2174,16 @@ void MixtureComp::SplitNR()
         // LUSolve(1, len, &JmatSP[0], &resSP[0], &pivot[0]);
         // PrintDX(NC, &resSP[0]);
 
-        SYSSolve(1, &uplo, len, &JmatSP[0], &resSP[0], &pivot[0], &JmatWork[0],
+        int info = SYSSolve(1, &uplo, len, &JmatSP[0], &resSP[0], &pivot[0], &JmatWork[0],
                  lJmatWork);
+        if (info > 0 && false) {
+            for (USI i = 0; i < len; i++) {
+                for (USI j = 0; j < len; j++) {
+                    cout << scientific << setprecision(9) << JmatSP[i * len + j] << "   ";
+                }
+                cout << ";\n";
+            }
+        }
         // PrintDX(NC, &resSP[0]);
 
         alpha = CalStepNRsp();

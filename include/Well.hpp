@@ -52,7 +52,7 @@ public:
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
     /// Setup the well after Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const vector<SolventINJ>& sols);
+    void Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols);
     /// Initialize the Well BHP
     void InitBHP(const Bulk& myBulk);
     /// Calculate Well Index with Peaceman model for vertical well.
@@ -95,10 +95,6 @@ public:
     {
         for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p];
     }
-    /// Allocate memory for matrix.
-    void AllocateMat(LinearSystem& myLS) const;
-    /// Setup bulks which are penetrated by wells
-    void SetupWellBulk(Bulk& myBulk) const;
     /// Return the state of the well, Open or Close.
     OCP_BOOL IsOpen() const { return opt.state; }
     /// Return the type of well, Inj or Prod.
@@ -221,7 +217,7 @@ public:
         const OCP_DBL& dt) const;
 
     // for output
-    void SetPolyhedronWell(const GridInitInfo& initGrid, OCPpolyhedron& mypol);
+    void SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol);
 };
 
 #endif /* end if __WELL_HEADER__ */

@@ -36,14 +36,9 @@ class LinearSystem
 public:
     /// Allocate memory for linear system with max possible number of rows.
     void AllocateRowMem(const OCP_USI& dimMax, const USI& nb);
-    /// Allocate memory for each matrix row with max possible number of columns.
-    void AllocateColMem();
-    /// Enlarge row capacity
-    void EnlargeRowCap(const OCP_USI& row, const USI& n) { rowCapacity[row] += n; }
-    /// Assign Rhs by Accumulating
-    void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
-    /// Assign Rhs by Copying
-    void AssembleRhsCopy(const vector<OCP_DBL>& rhs);
+    /// Allocate memory for linear system with max possible number of colums.
+    void AllocateColMem(const vector<USI>& bulk2bulk, const vector<vector<OCP_USI>> well2bulk);
+
     /// Clear the internal matrix data for scalar-value problems.
     void ClearData();
 
@@ -67,6 +62,12 @@ public:
     /// Solve the Linear System
     OCP_INT Solve() { return LS->Solve(); }
 
+    /// add a value at b[n]
+    void AddRhs(const OCP_USI& n, const OCP_DBL& v);
+    /// Assign Rhs by Accumulating
+    void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
+    /// Assign Rhs by Copying
+    void AssembleRhsCopy(const vector<OCP_DBL>& rhs);
     /// Return the Max Iters
     USI GetNumIters() { return LS->GetNumIters(); }
 

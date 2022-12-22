@@ -113,7 +113,7 @@ void DaAxpby(const int& m, const int& n, const double& a, const double* A,
 void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot);
 
 /// Calls dsysy to solve the linear system for symm matrices.
-void SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A,
+int SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A,
     double* b, int* pivot, double* work, const int& lwork);
 
 

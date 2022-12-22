@@ -319,14 +319,14 @@ void Bulk::InputRockFuncT(const ParamReservoir& rs_param)
 
 
 /// Setup bulk information.
-void Bulk::SetupIsoT(const GridInitInfo& init)
+void Bulk::SetupIsoT(const Grid& myGrid)
 {
     OCP_FUNCNAME;
 
-    numBulk = init.activeGridNum;
-    AllocateGridRockIsoT(init);
-    AllocateRegion(init);
-    AllocateSwatInit(init);
+    numBulk = myGrid.activeGridNum;
+    AllocateGridRockIsoT(myGrid);
+    AllocateRegion(myGrid);
+    AllocateSwatInit(myGrid);
     AllocateScalePcow();
     AllocateMiscible();
     AllocateSkipStaAnaly();
@@ -336,12 +336,12 @@ void Bulk::SetupIsoT(const GridInitInfo& init)
 }
 
 /// Allocate memory for fluid grid for ifThermal model
-void Bulk::SetupT(const GridInitInfo& init)
+void Bulk::SetupT(const Grid& myGrid)
 {
-    numBulk = init.fluidGridNum;
-    AllocateGridRockIsoT(init);
-    AllocateRegion(init);
-    AllocateSwatInit(init);
+    numBulk = myGrid.fluidGridNum;
+    AllocateGridRockIsoT(myGrid);
+    AllocateRegion(myGrid);
+    AllocateSwatInit(myGrid);
     AllocateScalePcow();
 }
 
@@ -350,15 +350,15 @@ void Bulk::SetupT(const GridInitInfo& init)
 // Initial Properties
 /////////////////////////////////////////////////////////////////////
 
-void Bulk::AllocateSwatInit(const GridInitInfo& init)
+void Bulk::AllocateSwatInit(const Grid& myGrid)
 {
-    if (init.SwatInit.size() > 0) {
+    if (myGrid.SwatInit.size() > 0) {
         SwatInitExist = OCP_TRUE;
         SwatInit.resize(numBulk);
 
         for (OCP_USI bIda = 0; bIda < numBulk; bIda++) {
-            OCP_USI bId = init.map_Act2All[bIda];
-            SwatInit[bIda] = init.SwatInit[bId];
+            OCP_USI bId = myGrid.map_Act2All[bIda];
+            SwatInit[bIda] = myGrid.SwatInit[bId];
         }
     }
 }
@@ -1185,7 +1185,7 @@ void Bulk::PassMiscible(const OCP_USI& n, const USI& pvtnum)
 // Region
 /////////////////////////////////////////////////////////////////////
 
-void Bulk::AllocateRegion(const GridInitInfo& init)
+void Bulk::AllocateRegion(const Grid& myGrid)
 {
     SATNUM.resize(numBulk, 0);
     PVTNUM.resize(numBulk, 0);
@@ -1193,11 +1193,11 @@ void Bulk::AllocateRegion(const GridInitInfo& init)
 
     // Pass initial grid value
     for (OCP_USI bIda = 0; bIda < numBulk; bIda++) {
-        OCP_USI bId = init.map_Act2All[bIda];
+        OCP_USI bId = myGrid.map_Act2All[bIda];
 
-        SATNUM[bIda] = init.SATNUM[bId];
-        PVTNUM[bIda] = init.PVTNUM[bId];
-        ROCKNUM[bIda] = init.ROCKNUM[bId];
+        SATNUM[bIda] = myGrid.SATNUM[bId];
+        PVTNUM[bIda] = myGrid.PVTNUM[bId];
+        ROCKNUM[bIda] = myGrid.ROCKNUM[bId];
     }
 }
 
@@ -1212,7 +1212,7 @@ void Bulk::AllocateRegion(const GridInitInfo& init)
 // Basic Grid and Basic Rock Information
 /////////////////////////////////////////////////////////////////////
 
-void Bulk::AllocateGridRockIsoT(const GridInitInfo& init)
+void Bulk::AllocateGridRockIsoT(const Grid& myGrid)
 {
     dx.resize(numBulk, 0);
     dy.resize(numBulk, 0);
@@ -1227,19 +1227,19 @@ void Bulk::AllocateGridRockIsoT(const GridInitInfo& init)
     rockKz.resize(numBulk, 0);
 
     for (OCP_USI bIda = 0; bIda < numBulk; bIda++) {
-        OCP_USI bId = init.map_Act2All[bIda];
+        OCP_USI bId = myGrid.map_Act2All[bIda];
 
-        dx[bIda] = init.dx[bId];
-        dy[bIda] = init.dy[bId];
-        dz[bIda] = init.dz[bId];
-        v[bIda] = init.v[bId];
-        depth[bIda] = init.depth[bId];
+        dx[bIda] = myGrid.dx[bId];
+        dy[bIda] = myGrid.dy[bId];
+        dz[bIda] = myGrid.dz[bId];
+        v[bIda] = myGrid.v[bId];
+        depth[bIda] = myGrid.depth[bId];
 
-        ntg[bIda] = init.ntg[bId];
-        poroInit[bIda] = init.poro[bId];
-        rockKx[bIda] = init.kx[bId];
-        rockKy[bIda] = init.ky[bId];
-        rockKz[bIda] = init.kz[bId];
+        ntg[bIda] = myGrid.ntg[bId];
+        poroInit[bIda] = myGrid.poro[bId];
+        rockKx[bIda] = myGrid.kx[bId];
+        rockKy[bIda] = myGrid.ky[bId];
+        rockKz[bIda] = myGrid.kz[bId];
     }
 }
 
@@ -1836,7 +1836,6 @@ void Bulk::AllocateFIM_IsoT()
     dSNRP.resize(numBulk * numPhase);
     dNNR.resize(numBulk * numCom);
     dPNR.resize(numBulk);
-
 }
 
 

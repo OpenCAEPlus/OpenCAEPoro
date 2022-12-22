@@ -86,15 +86,14 @@ public:
 
 public:
     /// Setup active connections
-    void Setup(const GridInitInfo& initGrid);
+    void Setup(const Grid& myGrid);
     /// Setup sparsity pattern of the coefficient matrix.
     void SetupMatSparsity(LinearSystem& myLS) const;
-    /// Allocate memory for the coefficient matrix.
-    void AllocateMat(LinearSystem& myLS) const;
     /// Calculate the effective area used for flow
     void CalAkd(const Bulk& myBulk);
     /// Return number of bulks.
     OCP_USI GetBulkNum() const { return numBulk; }
+    const auto& GetNeighborNum()const { return neighborNum; }
 
 protected:
 

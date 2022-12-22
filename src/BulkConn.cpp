@@ -22,12 +22,12 @@
 /////////////////////////////////////////////////////////////////////
 
 /// It should be called after Grid and Bulk Setup.
-void BulkConn::Setup(const GridInitInfo& initGrid)
+void BulkConn::Setup(const Grid& myGrid)
 {
     OCP_FUNCNAME;
 
     numConn = 0;
-    numBulk = initGrid.activeGridNum;
+    numBulk = myGrid.activeGridNum;
 
     neighbor.resize(numBulk);
     selfPtr.resize(numBulk);
@@ -37,18 +37,18 @@ void BulkConn::Setup(const GridInitInfo& initGrid)
     USI           len;
     OCP_USI       bIdb;
 
-    for (OCP_USI n = 0; n < initGrid.numGrid; n++) {
-        const GB_Pair& GBtmp = initGrid.map_All2Act[n];
+    for (OCP_USI n = 0; n < myGrid.numGrid; n++) {
+        const GB_Pair& GBtmp = myGrid.map_All2Act[n];
 
         if (GBtmp.IsAct()) {
             bIdb = GBtmp.GetId();
 
             // Get rid of inactive neighbor
-            tmp1 = initGrid.gNeighbor[n];
+            tmp1 = myGrid.gNeighbor[n];
             len  = tmp1.size();
             tmp2.clear();
             for (USI i = 0; i < len; i++) {
-                const GB_Pair& GBtmp2 = initGrid.map_All2Act[tmp1[i].id];
+                const GB_Pair& GBtmp2 = myGrid.map_All2Act[tmp1[i].id];
 
                 if (GBtmp2.IsAct()) {
                     tmp1[i].id = GBtmp2.GetId();
@@ -135,15 +135,6 @@ void BulkConn::SetupWellBulk_K(Bulk& myBulk) const
     }
 }
 
-/// This method should be called only once at the beginning.
-void BulkConn::AllocateMat(LinearSystem& MySolver) const
-{
-    OCP_FUNCNAME;
-
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        MySolver.rowCapacity[n] += neighborNum[n];
-    }
-}
 
 void BulkConn::SetupMatSparsity(LinearSystem& myLS) const
 {
@@ -160,10 +151,10 @@ void BulkConn::SetupMatSparsity(LinearSystem& myLS) const
 void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
-        cout << "(" << myGrid.initInfo.map_Act2All[i] << ")" << "\t";
+        cout << "(" << myGrid.map_Act2All[i] << ")" << "\t";
 
         for (auto& v : neighbor[i]) {
-            cout << myGrid.initInfo.map_Act2All[v] << "\t";
+            cout << myGrid.map_Act2All[v] << "\t";
         }
         cout << "[" << selfPtr[i] << "]";
         cout << "\t" << neighborNum[i];
@@ -171,8 +162,8 @@ void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
     }
 
     for (OCP_USI i = 0; i < numConn; i++) {
-        cout << myGrid.initInfo.map_Act2All[iteratorConn[i].bId] << "\t"
-             << myGrid.initInfo.map_Act2All[iteratorConn[i].eId] << "\n";
+        cout << myGrid.map_Act2All[iteratorConn[i].bId] << "\t"
+             << myGrid.map_Act2All[iteratorConn[i].eId] << "\n";
     }
 }
 
@@ -181,20 +172,20 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
     OCP_USI bIdg, eIdg;
     OCP_USI bIdb, eIdb;
     USI     I, J, K;
-    USI     sp = myGrid.initInfo.GetNumDigitIJK();
+    USI     sp = myGrid.GetNumDigitIJK();
     cout << "BulkConn : " << numConn << endl;
     for (OCP_USI c = 0; c < numConn; c++) {
         bIdb = iteratorConn[c].bId;
         eIdb = iteratorConn[c].eId;
-        bIdg = myGrid.initInfo.map_Act2All[bIdb];
-        eIdg = myGrid.initInfo.map_Act2All[eIdb];
-        myGrid.initInfo.GetIJKGrid(I, J, K, bIdg);
+        bIdg = myGrid.map_Act2All[bIdb];
+        eIdg = myGrid.map_Act2All[eIdb];
+        myGrid.GetIJKGrid(I, J, K, bIdg);
         cout << GetIJKformat(I, J, K, sp) << "   ";
         cout << setw(6) << bIdg;
         cout << "    ";
         cout << setw(6) << bIdb;
         cout << "    ";
-        myGrid.initInfo.GetIJKGrid(I, J, K, eIdg);
+        myGrid.GetIJKGrid(I, J, K, eIdg);
         cout << GetIJKformat(I, J, K, sp) << "   ";
         cout << setw(6) << eIdg;
         cout << "    ";

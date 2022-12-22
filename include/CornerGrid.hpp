@@ -148,7 +148,6 @@ public:
 class OCP_COORD
 {
     friend class Grid;
-    friend class GridInitInfo;
 
 public:
     void Allocate(const USI& Nx, const USI& Ny, const USI& Nz);

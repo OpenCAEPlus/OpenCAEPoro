@@ -383,7 +383,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     A.nb  = blockDim;
     A.NNZ = nnz;
 
-    OCP_USI count  = 0;
+    OCP_USI count1  = 0;
     OCP_USI count2 = 0;
     OCP_USI size_row;
     A.IA[0] = 0;
@@ -392,8 +392,8 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
         A.IA[i]     = A.IA[i - 1] + nnb_Row;
 
         for (USI j = 0; j < nnb_Row; j++) {
-            A.JA[count] = colId[i - 1][j];
-            count++;
+            A.JA[count1] = colId[i - 1][j];
+            count1++;
         }
         size_row = nnb_Row * blockDim * blockDim;
         for (USI k = 0; k < size_row; k++) {

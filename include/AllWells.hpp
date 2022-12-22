@@ -90,16 +90,17 @@ public:
     /// Input param from ParamWell.
     void InputParam(const ParamWell& paramWell);
     /// Setup wells
-    void Setup(const Grid& myGrid);
+    void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// complete the information of well according to Grid and Bulk.
-    void SetupWell(const Grid& myGrid);
+    void SetupWell(const Grid& myGrid, const Bulk& myBulk);
     /// Setup information of wellGroup
     void SetupWellGroup(const Bulk& myBulk);
     /// get the mixture from bulk ---- usless now
     void SetupMixture(const Bulk& myBulk);
-    /// Setup bulks which are penetrated by wells
+    /// Setup bulks which are penetrated by wells at current stage
     void SetupWellBulk(Bulk& myBulk) const;
-
+    /// Setup the static connection between well and bulks
+    void SetupConnWell2Bulk(const Bulk& myBulk);
 
     /////////////////////////////////////////////////////////////////////
     // General
@@ -123,8 +124,6 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate Reinjection fluid
     void CalReInjFluid(const Bulk& myBulk);
-    /// Calculate memory for Matrix
-    void AllocateMat(LinearSystem& myLS, const USI& bulknum) const;
     void UpdateLastBHP()
     {
         for (auto& w : wells) w.lBHP = w.BHP;
@@ -172,12 +171,14 @@ public:
         for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk);
     }
     OCP_BOOL GetWellChange() const { return wellChange; }
+    const auto& GetWell2Bulk()const { return well2bulk; }
     
 protected:
     USI               numWell;   ///< num of wells.
     vector<Well>      wells;     ///< well set.
     USI               numGroup;  ///< num of groups
     vector<WellGroup> wellGroup; ///< wellGroup set
+    vector<vector<OCP_USI>> well2bulk; ///< connections between wells and bulks
 
     OCP_BOOL           wellChange; ///< if wells change, then OCP_TRUE
     vector<SolventINJ> solvents;   ///< Sets of Solvent
@@ -296,7 +297,7 @@ private:
     mutable vector<OCP_DBL>   wellVal;   ///< characteristics for well 
 
 public:
-    void SetPolyhedronWell(const GridInitInfo& initGrid);
+    void SetPolyhedronWell(const Grid& myGrid);
     void SetWellVal() const;
 };
 

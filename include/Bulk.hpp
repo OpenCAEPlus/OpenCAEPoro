@@ -18,7 +18,7 @@
 
 // OpenCAEPoro header files
 #include "DenseMat.hpp"
-#include "GridInitInfo.hpp"
+#include "Grid.hpp"
 #include "FlowUnit.hpp"
 #include "Rock.hpp"
 #include "LinearSystem.hpp"
@@ -131,9 +131,9 @@ public:
     void InputRockFuncT(const ParamReservoir& rs_param);
 
     /// Allocate memory for fluid grid for isothermal model
-    void SetupIsoT(const GridInitInfo& init);
+    void SetupIsoT(const Grid& myGrid);
     /// Allocate memory for fluid grid for ifThermal model
-    void SetupT(const GridInitInfo& init);
+    void SetupT(const Grid& myGrid);
 
     /////////////////////////////////////////////////////////////////////
     // General Variables
@@ -160,7 +160,7 @@ protected:
     /////////////////////////////////////////////////////////////////////
 public:
     /// Allocate initial saturation of water
-    void AllocateSwatInit(const GridInitInfo& init);
+    void AllocateSwatInit(const Grid& myGrid);
     /// Calculate initial equilibrium
     void InitSjPc(const USI& tabrow);
 
@@ -229,7 +229,7 @@ protected:
 
 public:
     /// Allocate memory for region num
-    void AllocateRegion(const GridInitInfo& init);
+    void AllocateRegion(const Grid& myGrid);
     /// Return flash.
     const vector<Mixture*>& GetMixture() const { return flashCal; }
     /// Output iterations in Mixture
@@ -238,7 +238,7 @@ public:
 protected:
 
     USI               NTPVT;    ///< num of PVT regions
-    USI               PVTmodeB;  ///< Identify PVT mode in black-oil model.
+    USI               PVTmodeB; ///< Identify PVT mode in black-oil model.
     vector<USI>       PVTNUM;   ///< Identify PVT region in black-oil model: numBulk.
     vector<Mixture*>  flashCal; ///< Flash calculation class.
 
@@ -278,7 +278,7 @@ protected:
 
 public:
     /// Allocate memory for Rock properties
-    void AllocateGridRockIsoT(const GridInitInfo& init);
+    void AllocateGridRockIsoT(const Grid& myGrid);
     /// Initialize the information of rock
     void InitRock();
     /// Calculate volume of pore with pressure.
@@ -665,6 +665,8 @@ public:
     void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
     /// clear wellBulkId
     void ClearWellBulkId() { wellBulkId.clear(); }
+    /// push back an element for wellBulkId
+    void AddWellBulkId(const OCP_USI& n) { wellBulkId.push_back(n); }
 
 protected:
     vector<OCP_USI> wellBulkId;    ///< Index of bulks which are penetrated by wells and their K-neighbor

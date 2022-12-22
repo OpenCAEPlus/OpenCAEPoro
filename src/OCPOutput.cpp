@@ -65,7 +65,7 @@ void Summary::Setup(const Reservoir& rs, const OCP_DBL& totalTime)
     if (FWIT) Sumdata.push_back(SumPair("FWIT", "  ", "STB"));
 
 
-    const GridInitInfo& initGrid = rs.grid.initInfo;
+    const Grid& initGrid  = rs.grid;
     const AllWells& wells = rs.allWells;
 
     const USI sp = initGrid.GetNumDigitIJK();
@@ -379,7 +379,7 @@ void Summary::Setup(const Reservoir& rs, const OCP_DBL& totalTime)
 
 void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
-    const Bulk& bulk = rs.grid.bulk;
+    const Bulk& bulk = rs.bulk;
     const AllWells& wells = rs.allWells;
 
 
@@ -582,7 +582,7 @@ void CriticalInfo::Setup(const OCP_DBL& totalTime)
 
 void CriticalInfo::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 {
-    const Bulk& bulk = rs.grid.bulk;
+    const Bulk& bulk = rs.bulk;
 
     time.push_back(ctrl.GetCurTime());
     dt.push_back(ctrl.GetLastDt());
@@ -677,7 +677,7 @@ void Out4RPT::Setup(const string& dir, const Reservoir& rs)
     }
     outF.close();
 
-    const GridInitInfo& initGrid = rs.grid.initInfo;
+    const Grid& initGrid = rs.grid;
 
     nx       = initGrid.nx;
     ny       = initGrid.ny;
@@ -699,8 +699,8 @@ void Out4RPT::PrintRPT(const string&    dir,
         OCP_ABORT("Can not open " + FileOut);
     }
 
-    const GridInitInfo& initGrid = rs.grid.initInfo;
-    const Bulk& bulk = rs.grid.bulk;
+    const Grid& initGrid = rs.grid;
+    const Bulk& bulk = rs.bulk;
     
     const USI              np     = bulk.numPhase;
     const USI              nc     = bulk.numCom;
@@ -944,7 +944,7 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     string newfile;
     string title = "test";
 
-    const GridInitInfo& initGrid = rs.grid.initInfo;
+    const Grid& initGrid = rs.grid;
 
     out4vtk.Init(file, title, VTK_ASCII, VTK_UNSTRUCTURED_GRID,
                  initGrid.polyhedronGrid.size(), rs.allWells.polyhedronWell.size());
@@ -986,8 +986,8 @@ void Out4VTK::PrintVTK(const string&    dir,
     // Calulcate Well val for output
     rs.allWells.SetWellVal();
 
-    const GridInitInfo&    initGrid = rs.grid.initInfo;
-    const Bulk&            bulk     = rs.grid.bulk;
+    const Grid&            initGrid = rs.grid;
+    const Bulk&            bulk     = rs.bulk;
     const vector<GB_Pair>& g2bp     = initGrid.map_All2Act;
     const vector<OCP_DBL>& well     = rs.allWells.wellVal;
     const USI              np       = bulk.numPhase;

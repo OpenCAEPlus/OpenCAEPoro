@@ -447,7 +447,6 @@ private:
     vector<OCP_SIN>
         eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
     vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
-    OCP_INT         leigenWork; ///< length of eigenwork
 
     // SSM in Phase Split
     vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.

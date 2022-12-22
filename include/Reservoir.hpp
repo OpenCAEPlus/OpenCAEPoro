@@ -76,17 +76,18 @@ public:
     /// Check error between Fluids and Pores
     OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
     /// Return the num of Bulk
-    OCP_USI GetBulkNum() const { return grid.bulk.GetBulkNum(); }
+    OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
-    USI  GetComNum() const { return grid.bulk.GetComNum(); }
-    void SetupWellBulk() { allWells.SetupWellBulk(grid.bulk); }
+    USI  GetComNum() const { return bulk.GetComNum(); }
+    void SetupWellBulk() { allWells.SetupWellBulk(bulk); }
 
 
 protected:
 
-    Grid     grid;     ///< Grid class.
+    Grid     grid;     ///< Init Grid class.
+    Bulk     bulk;     ///< Active grid info
     AllWells allWells; ///< AllWells class.
     BulkConn conn;     ///< BulkConn class.
 
@@ -94,15 +95,15 @@ public:
     /// Calculate the CFL number, including bulks and wells for IMPEC
     OCP_DBL CalCFL(const OCP_DBL& dt);
     /// Return NRdPmax
-    OCP_DBL GetNRdPmax() { return grid.bulk.GetNRdPmax(); }
+    OCP_DBL GetNRdPmax() { return bulk.GetNRdPmax(); }
     /// Return NRdSmax
-    OCP_DBL GetNRdSmax(OCP_USI& index) { return grid.bulk.CalNRdSmax(index); }
+    OCP_DBL GetNRdSmax(OCP_USI& index) { return bulk.CalNRdSmax(index); }
     /// Return NRdNmax
-    OCP_DBL GetNRdNmax() { return grid.bulk.GetNRdNmax(); }
+    OCP_DBL GetNRdNmax() { return bulk.GetNRdNmax(); }
     /// Return NRdSmaxP
-    OCP_DBL GetNRdSmaxP() { return grid.bulk.GetNRdSmaxP(); }
+    OCP_DBL GetNRdSmaxP() { return bulk.GetNRdSmaxP(); }
     void    PrintSolFIM(const string& outfile) const;
-    void OutInfoFinal() const { grid.bulk.OutMixtureIters(); }
+    void OutInfoFinal() const { bulk.OutMixtureIters(); }
 
     /////////////////////////////////////////////////////////////////////
     // IMPEC
@@ -122,11 +123,11 @@ public:
     /// Calculate flux between bulks, bulks and wells
     void CalFLuxIMPEC();
     /// Calculate flux between bulks
-    void CalConnFluxIMPEC() { conn.CalFluxIMPEC(grid.bulk); }
+    void CalConnFluxIMPEC() { conn.CalFluxIMPEC(bulk); }
     /// Calculate Ni according to Flux
     void MassConserveIMPEC(const OCP_DBL& dt);
     /// Calculate Flash For IMPEC
-    void CalFlashIMPEC() { grid.bulk.CalFlashIMPEC(); }
+    void CalFlashIMPEC() { bulk.CalFlashIMPEC(); }
     /// Reset IMPEC
     void ResetVal01IMPEC();
     /// Reset IMPEC
@@ -153,9 +154,9 @@ public:
     /// Get the Solution -- Reservoir Pressure and moles of Components for FIM
     void GetSolutionFIM(const vector<OCP_DBL>& u, const OCP_DBL& dPmax, const OCP_DBL& dSmax);
     /// Calculate Flash for FIM, some derivatives are needed
-    void CalFlashFIM() { grid.bulk.CalFlashFIM(); }
+    void CalFlashFIM() { bulk.CalFlashFIM(); }
     /// Calculate Relative Permeability and Capillary and some derivatives for each Bulk
-    void CalKrPcFIM() { grid.bulk.CalKrPcFIM(); }
+    void CalKrPcFIM() { bulk.CalKrPcFIM(); }
     /// Calculate the Residual for FIM, it's also RHS of Linear System
     void CalResFIM(OCPRes& resFIM, const OCP_DBL& dt, const OCP_BOOL& resetRes0);
     /// Reset FIM
@@ -177,7 +178,7 @@ public:
     void GetSolutionFIMn(const vector<OCP_DBL>& u,
         const OCP_DBL& dPmax,
         const OCP_DBL& dSmax);
-    void CalFlashFIMn() { grid.bulk.CalFlashFIMn(); }
+    void CalFlashFIMn() { bulk.CalFlashFIMn(); }
     void ResetFIMn();
     void UpdateLastStepFIMn();
 
@@ -194,15 +195,15 @@ public:
     /// Assemble Matrix for AIMc
     void AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Perform flash calculation with Ni for Explicit bulk -- Update partial properties
-    void CalFlashAIMcEp() { grid.bulk.CalFlashAIMcEp(); }
+    void CalFlashAIMcEp() { bulk.CalFlashAIMcEp(); }
     /// Perform flash calculation with Ni for Explicit bulk -- Update all properties
-    void CalFlashAIMcEa() { grid.bulk.CalFlashAIMcEa(); }
+    void CalFlashAIMcEa() { bulk.CalFlashAIMcEa(); }
     /// Perform flash calculation with Ni for Implicit bulk
-    void CalFlashAIMcI() { grid.bulk.CalFlashAIMcI(); }
+    void CalFlashAIMcI() { bulk.CalFlashAIMcI(); }
     /// Calculate relative permeability and capillary pressure for Explicit bulk
-    void CalKrPcAIMcE() { grid.bulk.CalKrPcAIMcE(); }
+    void CalKrPcAIMcE() { bulk.CalKrPcAIMcE(); }
     /// Calculate relative permeability and capillary pressure for Implicit bulk
-    void CalKrPcAIMcI() { grid.bulk.CalKrPcAIMcI(); }
+    void CalKrPcAIMcI() { bulk.CalKrPcAIMcI(); }
     /// Calculate the Residual for AIMc, it's also RHS of Linear System
     void CalResAIMc(OCPRes& resAIMc, const OCP_DBL& dt, const OCP_BOOL& resetRes0);
     /// Get the solution for AIMc after a Newton iteration.
@@ -212,7 +213,7 @@ public:
     /// Update values of last step for AIMc
     void UpdateLastStepAIMc();
     /// Setup FIMBulk
-    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(grid.bulk, NRflag); }
+    void SetupFIMBulk(const OCP_BOOL& NRflag = OCP_FALSE) { conn.SetupFIMBulk(bulk, NRflag); }
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

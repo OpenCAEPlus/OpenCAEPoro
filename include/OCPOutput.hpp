@@ -325,7 +325,7 @@ private:
             if (!useMetis) return;
             nb = rs.GetBulkNum();
             nw = rs.GetWellNum();
-            ng = rs.grid.initInfo.GetGridNum();
+            ng = rs.grid.GetGridNum();
 
             nvtxs                           = nb + nw;
             nedges                          = 0;
