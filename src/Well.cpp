@@ -1156,11 +1156,11 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
     myLS.NewDiag(wId, 0.0);
 
     for (USI p = 0; p < numPerf; p++) {
-        OCP_USI k = perf[p].location;
+        OCP_USI n = perf[p].location;
 
         OCP_DBL Vfi_zi = 0;
         for (USI i = 0; i < numCom; i++) {
-            Vfi_zi += myBulk.vfi[k * numCom + i] * opt.injZi[i];
+            Vfi_zi += myBulk.vfi[n * numCom + i] * opt.injZi[i];
         }
 
         OCP_DBL valw = dt * perf[p].xi * perf[p].transINJ;
@@ -1169,10 +1169,10 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
         OCP_DBL bb   = valb * dG[p];
 
         // Bulk to Well
-        myLS.AddDiag(k, valb);
-        myLS.NewOffDiag(k, wId, -valb);
+        myLS.AddDiag(n, valb);
+        myLS.NewOffDiag(n, wId, -valb);
 
-        myLS.AddRhs(k, bb);
+        myLS.AddRhs(n, bb);
 
         // Well to Bulk
         switch (opt.optMode) {
@@ -1182,11 +1182,11 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
             case WRATE_MODE:
             case LRATE_MODE:
                 myLS.AddDiag(wId, valw);
-                myLS.NewOffDiag(wId, k, -valw);
+                myLS.NewOffDiag(wId, n, -valw);
                 myLS.AddRhs(wId, -bw);
                 break;
             case BHP_MODE:
-                myLS.NewOffDiag(wId, k, 0);
+                myLS.NewOffDiag(wId, n, 0);
                 break;
             default:
                 OCP_ABORT("Wrong well option mode!");
@@ -1487,7 +1487,7 @@ void Well::AssembleMatINJ_FIM(const Bulk&    myBulk,
             case BHP_MODE:
                 // Diag
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
                 // Add
@@ -1641,7 +1641,7 @@ void Well::AssembleMatPROD_FIM(const Bulk&    myBulk,
             case BHP_MODE:
                 // Diag
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
                 // Add
@@ -1901,10 +1901,6 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
 {
     OCP_FUNCNAME;
 
-    const OCP_USI wId = myLS.dim;
-    // important !
-    myLS.dim++;
-
     const USI ncol    = numCom + 1;
     const USI ncol2   = numPhase * numCom + numPhase;
     const USI bsize   = ncol * ncol;
@@ -1926,6 +1922,9 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
     vector<OCP_BOOL> phasedS_B(numPhase, OCP_FALSE);
     vector<USI>      pVnumComB(numPhase, 0);
     USI              ncolB;
+
+    const OCP_USI wId = myLS.AddDim(1) - 1;
+    myLS.NewDiag(wId, bmat);
 
     for (USI p = 0; p < numPerf; p++) {
         const OCP_USI n = perf[p].location;
@@ -1983,22 +1982,19 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
             }
             jxB += pVnumComB[j];
         }
-        // Bulk to Well
+
+        
         bmat = dQdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * lendSdP], 1,
                 bmat.data());
-
         Dscalar(bsize, dt, bmat.data());
-        // Add
-        USI ptr = myLS.diagPtr[n];
-        for (USI i = 0; i < bsize; i++) {
-            myLS.val[n][ptr * bsize + i] += bmat[i];
-        }
-        // Insert
+        // Bulk - Bulk -- add
+        myLS.AddDiag(n, bmat);
+
+        // Bulk - Well -- insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());
-        myLS.colId[n].push_back(wId);
+        myLS.NewOffDiag(n, wId, bmat);
 
         // Well
         switch (opt.optMode) {
@@ -2007,45 +2003,36 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
             case GRATE_MODE:
             case WRATE_MODE:
             case LRATE_MODE:
-                // Diag
+                // Well - Well -- add
                 fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < numCom; i++) {
                     bmat[0] += dQdXpW[(i + 1) * ncol];
                     bmat[(i + 1) * ncol + i + 1] = 1;
                 }
-                for (USI i = 0; i < bsize; i++) {
-                    myLS.diagVal[wId * bsize + i] += bmat[i];
-                }
+                myLS.AddDiag(wId, bmat);
 
-                // OffDiag
+                // Well - Bulk -- insert
                 bmat = dQdXpB;
                 DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * lendSdP], 1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < numCom; i++) {
                     Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
-                }
-                myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
-                myLS.colId[wId].push_back(n);
+                }              
+                myLS.NewOffDiag(wId, n, bmat2);
                 break;
 
             case BHP_MODE:
-                // Diag
+                // Well - Well -- add
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
-                // Add
-                for (USI i = 0; i < bsize; i++) {
-                    myLS.diagVal[wId * bsize + i] += bmat[i];
-                }
-                // OffDiag
-                fill(bmat.begin(), bmat.end(), 0.0);
-                // Insert
-                myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
-                myLS.colId[wId].push_back(n);
-                // Solution
-                // myLS.u[wId * ncol] = opt.maxBHP - BHP;
+                myLS.AddDiag(wId, bmat);
+
+                // Well - Bulk -- insert
+                fill(bmat.begin(), bmat.end(), 0.0);               
+                myLS.NewOffDiag(wId, n, bmat);
                 break;
 
             default:
@@ -2053,12 +2040,6 @@ void Well::AssembleMatINJ_FIM_new(const Bulk&    myBulk,
                 break;
         }
     }
-    assert(myLS.val[wId].size() == numPerf * bsize);
-    // Well self
-    myLS.colId[wId].push_back(wId);
-    myLS.diagPtr[wId] = numPerf;
-    myLS.val[wId].insert(myLS.val[wId].end(), myLS.diagVal.data() + wId * bsize,
-                         myLS.diagVal.data() + wId * bsize + bsize);
 }
 
 void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
@@ -2066,11 +2047,7 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
                                    const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
-
-    const OCP_USI wId = myLS.dim;
-    // important !
-    myLS.dim++;
-
+   
     const USI ncol    = numCom + 1;
     const USI ncol2   = numPhase * numCom + numPhase;
     const USI bsize   = ncol * ncol;
@@ -2093,6 +2070,9 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
     vector<OCP_BOOL> phasedS_B(numPhase, OCP_FALSE);
     vector<USI>      pVnumComB(numPhase, 0);
     USI              ncolB;
+
+    const OCP_USI wId = myLS.AddDim(1) - 1;
+    myLS.NewDiag(wId, bmat);
 
     // Set Prod Weight
     if (opt.optMode != BHP_MODE) CalProdWeight(myBulk);
@@ -2162,21 +2142,16 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
             }
             jxB += pVnumComB[j];
         }
-        // Bulk to Well
+        // Bulk - Bulk -- add
         bmat = dQdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * lendSdP], 1,
                 bmat.data());
         Dscalar(bsize, dt, bmat.data());
-        // Add
-        USI ptr = myLS.diagPtr[n];
-        for (USI i = 0; i < bsize; i++) {
-            myLS.val[n][ptr * bsize + i] += bmat[i];
-        }
-        // Insert
+        myLS.AddDiag(n, bmat);
+        // Bulk - Well -- insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
-        myLS.val[n].insert(myLS.val[n].end(), bmat.begin(), bmat.end());
-        myLS.colId[n].push_back(wId);
+        myLS.NewOffDiag(n, wId, bmat);
 
         // Well
         switch (opt.optMode) {
@@ -2185,17 +2160,15 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
             case GRATE_MODE:
             case WRATE_MODE:
             case LRATE_MODE:
-                // Diag
+                // Well - Well -- add
                 fill(bmat.begin(), bmat.end(), 0.0);
                 for (USI i = 0; i < numCom; i++) {
                     bmat[0] += dQdXpW[(i + 1) * ncol] * prodWeight[i];
                     bmat[(i + 1) * ncol + i + 1] = 1;
                 }
-                for (USI i = 0; i < bsize; i++) {
-                    myLS.diagVal[wId * bsize + i] += bmat[i];
-                }
+                myLS.AddDiag(wId, bmat);
 
-                // OffDiag
+                // Well - Bulk -- insert
                 bmat = dQdXpB;
                 DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
                         &myBulk.dSec_dPri[n * lendSdP], 1, bmat.data());
@@ -2203,28 +2176,21 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
                 for (USI i = 0; i < numCom; i++) {
                     Daxpy(ncol, prodWeight[i], bmat.data() + (i + 1) * ncol,
                           bmat2.data());
-                }
-                myLS.val[wId].insert(myLS.val[wId].end(), bmat2.begin(), bmat2.end());
-                myLS.colId[wId].push_back(n);
+                }               
+                myLS.NewOffDiag(wId, n, bmat2);
                 break;
 
             case BHP_MODE:
-                // Diag
+                // Well - Well -- add
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
-                // Add
-                for (USI i = 0; i < bsize; i++) {
-                    myLS.diagVal[wId * bsize + i] += bmat[i];
-                }
-                // OffDiag
+                myLS.AddDiag(wId, bmat);
+
+                // Well - Bulk -- insert
                 fill(bmat.begin(), bmat.end(), 0.0);
-                // Insert
-                myLS.val[wId].insert(myLS.val[wId].end(), bmat.begin(), bmat.end());
-                myLS.colId[wId].push_back(n);
-                // Solution
-                // myLS.u[wId * ncol] = opt.minBHP - BHP;
+                myLS.NewOffDiag(wId, n, bmat);
                 break;
 
             default:
@@ -2232,12 +2198,6 @@ void Well::AssembleMatPROD_FIM_new(const Bulk&    myBulk,
                 break;
         }
     }
-    assert(myLS.val[wId].size() == numPerf * bsize);
-    // Well self
-    myLS.colId[wId].push_back(wId);
-    myLS.diagPtr[wId] = numPerf;
-    myLS.val[wId].insert(myLS.val[wId].end(), myLS.diagVal.data() + wId * bsize,
-                         myLS.diagVal.data() + wId * bsize + bsize);
 }
 
 void Well::AssembleMatINJ_FIM_new_n(const Bulk&    myBulk,
@@ -2384,7 +2344,7 @@ void Well::AssembleMatINJ_FIM_new_n(const Bulk&    myBulk,
             case BHP_MODE:
                 // Diag
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
                 // Add
@@ -2574,7 +2534,7 @@ void Well::AssembleMatPROD_FIM_new_n(const Bulk&    myBulk,
             case BHP_MODE:
                 // Diag
                 fill(bmat.begin(), bmat.end(), 0.0);
-                for (USI i = 0; i < numCom + 1; i++) {
+                for (USI i = 0; i < ncol; i++) {
                     bmat[i * ncol + i] = 1;
                 }
                 // Add

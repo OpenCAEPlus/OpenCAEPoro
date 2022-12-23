@@ -893,6 +893,8 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
 {
     OCP_FUNCNAME;
 
+    myLS.AddDim(numBulk);
+
     const USI np      = myBulk.numPhase;
     const USI nc      = myBulk.numCom;
     const USI ncol    = nc + 1;
@@ -912,9 +914,7 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         for (USI i = 0; i < nc; i++) {
             bmat[i + 1] = -myBulk.vfi[n * nc + i];
         }
-        for (USI i = 0; i < bsize; i++) {
-            myLS.diagVal[n * bsize + i] = bmat[i];
-        }
+        myLS.NewDiag(n, bmat);
     }
 
     // flux term
@@ -939,8 +939,6 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
     OCP_DBL dP, dGamma;
     OCP_DBL tmp;
 
-    // Becareful when first bulk has no neighbors!
-    OCP_USI lastbId = iteratorConn[0].eId;
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].bId;
         eId = iteratorConn[c].eId;
@@ -986,10 +984,6 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
             uId_np_j = uId * np + j;
             dP       = myBulk.Pj[bId_np_j] - myBulk.Pj[eId_np_j] -
                  upblock_Rho[c * np + j] * dGamma;
-            // dP = (myBulk.Pj[bId_np_j] - GRAVITY_FACTOR * upblock_Rho[c * np + j] *
-            // myBulk.depth[bId]) -
-            //     (myBulk.Pj[eId_np_j] - GRAVITY_FACTOR * upblock_Rho[c * np + j] *
-            //     myBulk.depth[eId]);
             xi     = myBulk.xi[uId_np_j];
             kr     = myBulk.kr[uId_np_j];
             mu     = myBulk.mu[uId_np_j];
@@ -1129,33 +1123,16 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
             jxE += pVnumComE[j];
         }
 
-        USI diagptr = myLS.diagPtr[bId];
-
-        if (bId != lastbId) {
-            // new bulk
-            assert(myLS.val[bId].size() == diagptr * bsize);
-            OCP_USI id = bId * bsize;
-            myLS.val[bId].insert(myLS.val[bId].end(), myLS.diagVal.data() + id,
-                                 myLS.diagVal.data() + id + bsize);
-
-            lastbId = bId;
-        }
-
         // Assemble
         bmat = dFdXpB;
         DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &myBulk.dSec_dPri[bId * lendSdP],
                 1, bmat.data());
-
         Dscalar(bsize, dt, bmat.data());
-        // Begin
-        // Add
-        for (USI i = 0; i < bsize; i++) {
-            myLS.val[bId][diagptr * bsize + i] += bmat[i];
-        }
-        // End
-        // Insert
+        // Begin - Begin -- add
+        myLS.AddDiag(bId, bmat);
+        // End - Begin -- insert
         Dscalar(bsize, -1, bmat.data());
-        myLS.val[eId].insert(myLS.val[eId].end(), bmat.begin(), bmat.end());
+        myLS.NewOffDiag(eId, bId, bmat);
 
 #ifdef OCP_NANCHECK
         if (!CheckNan(bmat.size(), &bmat[0])) {
@@ -1163,32 +1140,22 @@ void BulkConn::AssembleMat_FIM_new(LinearSystem&  myLS,
         }
 #endif
 
-        // End
         bmat = dFdXpE;
         DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &myBulk.dSec_dPri[eId * lendSdP],
                 1, bmat.data());
 
         Dscalar(bsize, dt, bmat.data());
-        // Begin
-        // Insert
-        myLS.val[bId].insert(myLS.val[bId].end(), bmat.begin(), bmat.end());
-        // Add
+        // Begin - End -- insert
+        myLS.NewOffDiag(bId, eId, bmat);
+        // End - End -- add
         Dscalar(bsize, -1, bmat.data());
-        for (USI i = 0; i < bsize; i++) {
-            myLS.diagVal[eId * bsize + i] += bmat[i];
-        }
+        myLS.AddDiag(eId, bmat);
 
 #ifdef OCP_NANCHECK
         if (!CheckNan(bmat.size(), &bmat[0])) {
             OCP_ABORT("INF or INF in bmat !");
         }
 #endif
-    }
-    // Add the rest of diag value. Important!
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (myLS.val[n].size() == myLS.diagPtr[n] * bsize)
-            myLS.val[n].insert(myLS.val[n].end(), myLS.diagVal.data() + n * bsize,
-                               myLS.diagVal.data() + n * bsize + bsize);
     }
 }
 

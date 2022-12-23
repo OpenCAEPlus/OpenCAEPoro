@@ -50,7 +50,7 @@ void OCP_IMPEC::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl&
 
     myLS.AssembleMatLinearSolver();
 
-#ifdef _DEBUG
+#ifdef DEBUG
     // myLS.OutputLinearSystem("testA_IMPEC.out", "testb_IMPEC.out");
 #endif // DEBUG
 
@@ -198,8 +198,8 @@ void OCP_FIM::SolveLinearSystem(LinearSystem& myLS,
     // cout << "LS step = " << status << endl;
 
 #ifdef DEBUG
-    myLS.OutputLinearSystem("testA_FIM.out", "testb_FIM.out");
-    myLS.OutputSolution("testx_FIM.out");
+    myLS.OutputLinearSystem("testA_FIM_new.out", "testb_FIM_new.out");
+    myLS.OutputSolution("testx_FIM_new.out");
     myLS.CheckSolution();
 #endif // DEBUG
 

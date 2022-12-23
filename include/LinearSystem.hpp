@@ -75,10 +75,12 @@ public:
     }
     /// Add a value at diagnal value
     void AddDiag(const OCP_USI& n, const OCP_DBL& v) {
+        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
         val[n][0] += v;
     }
     /// Push back a offdiagonal value
     void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& v) {
+        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
         colId[bId].push_back(eId);
         val[bId].push_back(v);
     }
@@ -88,7 +90,22 @@ public:
     void AssignGuess(const OCP_USI& n, const OCP_DBL& v) { u[n] = v; }
 
     /// Vector
-
+    void NewDiag(const OCP_USI& n, const vector<OCP_DBL>& v) {
+        OCP_ASSERT(colId[n].size() == 0, "Wrong Diag");
+        colId[n].push_back(n);
+        val[n].insert(val[n].begin(), v.begin(), v.end());
+    }
+    void AddDiag(const OCP_USI& n, const vector<OCP_DBL>& v) {
+        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
+        for (USI i = 0; i < blockSize; i++) {
+            val[n][i] += v[i];
+        }
+    }
+    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const vector<OCP_DBL>& v) {
+        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
+        colId[bId].push_back(eId);
+        val[bId].insert(val[bId].end(), v.begin(), v.end());
+    }
 
     /// Assign Rhs by Accumulating
     void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);

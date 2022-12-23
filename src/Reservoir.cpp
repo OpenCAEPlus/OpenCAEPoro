@@ -286,8 +286,6 @@ void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 
-    conn.SetupMatSparsity(myLS);
-
 #ifdef OCP_OLD_FIM
     conn.AssembleMat_FIM(myLS, bulk, dt);
     allWells.AssemblaMatFIM(myLS, bulk, dt);
