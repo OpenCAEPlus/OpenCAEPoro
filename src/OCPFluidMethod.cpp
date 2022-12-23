@@ -469,8 +469,8 @@ void OCP_FIMn::SolveLinearSystem(LinearSystem& myLS,
     // cout << "LS step = " << status << endl;
 
 #ifdef DEBUG
-    myLS.OutputLinearSystem("testA.out", "testb.out");
-    myLS.OutputSolution("testx.out");
+    myLS.OutputLinearSystem("testA_FIMn_new.out", "testb_FIMn_new.out");
+    myLS.OutputSolution("testx_FIMn_new.out");
     myLS.CheckSolution();
 #endif // DEBUG
 

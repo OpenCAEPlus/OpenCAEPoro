@@ -106,6 +106,12 @@ public:
         colId[bId].push_back(eId);
         val[bId].insert(val[bId].end(), v.begin(), v.end());
     }
+    /// add a value at b[n]
+    void AddRhs(const OCP_USI& n, const vector<OCP_DBL>& v) {
+        for (USI i = 0; i < blockDim; i++) {
+            b[n * blockDim + i] += v[i];
+        }
+    }
 
     /// Assign Rhs by Accumulating
     void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
