@@ -46,7 +46,6 @@ int main(int argc, const char* argv[])
     // Remark: Memory allocation for linear systems will also be done at this time.
     simulator.SetupSimulator(argc, argv);
 
-
     // Step 3. Initialize the reservoir, which finishes the first step in iterations.
     // Examples: Initial pressure, saturations, moles of components, initial guess of
     // well pressure.

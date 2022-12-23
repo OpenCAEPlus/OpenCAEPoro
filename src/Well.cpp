@@ -555,6 +555,130 @@ void Well::CalProddG01(const Bulk& myBulk)
     }
 }
 
+
+void Well::CalProddG02(const Bulk& myBulk)
+{
+    OCP_FUNCNAME;
+
+    const OCP_DBL   maxlen = 10;
+    USI             seg_num = 0;
+    OCP_DBL         seg_len = 0;
+    vector<OCP_DBL> dGperf(numPerf, 0);
+    vector<OCP_DBL> tmpNi(numCom, 0);
+    OCP_DBL         rhotmp, qtacc, rhoacc;
+
+    if (depth <= perf.front().depth) {
+        // Well is higher
+        for (OCP_INT p = numPerf - 1; p >= 0; p--) {
+            if (p == 0) {
+                seg_num = ceil(fabs((perf[0].depth - depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[0].depth - depth) / seg_num;
+            }
+            else {
+                seg_num = ceil(fabs((perf[p].depth - perf[p - 1].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[p].depth - perf[p - 1].depth) / seg_num;
+            }
+            OCP_USI n = perf[p].location;
+            perf[p].P = BHP + dG[p];
+            OCP_DBL Pperf = perf[p].P;
+            OCP_DBL Ptmp = Pperf;
+
+
+            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            for (USI j = 0; j < numPhase; j++) {
+                OCP_USI id = n * numPhase + j;
+                if (!myBulk.phaseExist[id]) continue;
+                for (USI k = 0; k < numCom; k++) {
+                    tmpNi[k] +=
+                        (perf[p].transj[j] > 0) * myBulk.xi[id] * myBulk.xij[id * numCom + k];
+                }
+            }
+            OCP_DBL tmpSum = Dnorm1(numCom, &tmpNi[0]);
+            if (tmpSum < TINY) {
+                for (USI i = 0; i < numCom; i++) {
+                    tmpNi[i] = myBulk.Ni[n * numCom + i];
+                }
+            }
+
+            USI pvtnum = myBulk.PVTNUM[n];
+            for (USI i = 0; i < seg_num; i++) {
+                qtacc = rhoacc = 0;
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
+                for (USI j = 0; j < myBulk.numPhase; j++) {
+                    if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+                        rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp;
+                    }
+                }
+                Ptmp -= rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
+            }
+            dGperf[p] = Pperf - Ptmp;
+        }
+        dG[0] = dGperf[0];
+        for (USI p = 1; p < numPerf; p++) {
+            dG[p] = dG[p - 1] + dGperf[p];
+        }
+    }
+    else if (depth >= perf[numPerf - 1].depth) {
+        // Well is lower
+        for (USI p = 0; p < numPerf; p++) {
+            if (p == numPerf - 1) {
+                seg_num = ceil(fabs((depth - perf[numPerf - 1].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (depth - perf[numPerf - 1].depth) / seg_num;
+            }
+            else {
+                seg_num = ceil(fabs((perf[p + 1].depth - perf[p].depth) / maxlen));
+                if (seg_num == 0) continue;
+                seg_len = (perf[p + 1].depth - perf[p].depth) / seg_num;
+            }
+            OCP_USI n = perf[p].location;
+            perf[p].P = BHP + dG[p];
+            OCP_DBL Pperf = perf[p].P;
+            OCP_DBL Ptmp = Pperf;
+
+            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            for (USI j = 0; j < numPhase; j++) {
+                OCP_USI id = n * numPhase + j;
+                if (!myBulk.phaseExist[id]) continue;
+                for (USI k = 0; k < numCom; k++) {
+                    tmpNi[k] +=
+                        (perf[p].transj[j] > 0) * myBulk.xi[id] * myBulk.xij[id * numCom + k];
+                }
+            }
+            OCP_DBL tmpSum = Dnorm1(numCom, &tmpNi[0]);
+            if (tmpSum < TINY) {
+                for (USI i = 0; i < numCom; i++) {
+                    tmpNi[i] = myBulk.Ni[n * numCom + i];
+                }
+            }
+
+            USI pvtnum = myBulk.PVTNUM[n];
+            for (USI i = 0; i < seg_num; i++) {
+                qtacc = rhoacc = 0;
+                myBulk.flashCal[pvtnum]->Flash(Ptmp, myBulk.T[n], tmpNi.data());
+                for (USI j = 0; j < myBulk.numPhase; j++) {
+                    if (myBulk.flashCal[pvtnum]->phaseExist[j]) {
+                        rhotmp = myBulk.flashCal[pvtnum]->rho[j];
+                        qtacc += myBulk.flashCal[pvtnum]->vj[j];
+                        rhoacc += myBulk.flashCal[pvtnum]->vj[j] * rhotmp;
+                    }
+                }
+                Ptmp += rhoacc / qtacc * GRAVITY_FACTOR * seg_len;
+            }
+            dGperf[p] = Ptmp - Pperf;
+        }
+        dG[numPerf - 1] = dGperf[numPerf - 1];
+        for (OCP_INT p = numPerf - 2; p >= 0; p--) {
+            dG[p] = dG[p + 1] + dGperf[p];
+        }
+    }
+}
+
+
 void Well::CalProddG(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
@@ -1028,9 +1152,8 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
 {
     OCP_FUNCNAME;
 
-    const OCP_USI wId = myLS.dim;
-    // important !
-    myLS.dim++;
+    const OCP_USI wId = myLS.AddDim(1) - 1;
+    myLS.NewDiag(wId, 0.0);
 
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI k = perf[p].location;
@@ -1046,15 +1169,10 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
         OCP_DBL bb   = valb * dG[p];
 
         // Bulk to Well
+        myLS.AddDiag(k, valb);
+        myLS.NewOffDiag(k, wId, -valb);
 
-        // diag
-        USI ptr = myLS.diagPtr[k];
-        myLS.val[k][ptr] += valb;
-        // off diag
-        myLS.colId[k].push_back(wId);
-        myLS.val[k].push_back(-valb);
-        // b
-        myLS.b[k] += bb;
+        myLS.AddRhs(k, bb);
 
         // Well to Bulk
         switch (opt.optMode) {
@@ -1063,17 +1181,12 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
             case GRATE_MODE:
             case WRATE_MODE:
             case LRATE_MODE:
-                // diag
-                myLS.diagVal[wId] += valw;
-                // off diag
-                myLS.colId[wId].push_back(k);
-                myLS.val[wId].push_back(-valw);
-                // b
-                myLS.b[wId] -= bw;
+                myLS.AddDiag(wId, valw);
+                myLS.NewOffDiag(wId, k, -valw);
+                myLS.AddRhs(wId, -bw);
                 break;
             case BHP_MODE:
-                myLS.colId[wId].push_back(k);
-                myLS.val[wId].push_back(0);
+                myLS.NewOffDiag(wId, k, 0);
                 break;
             default:
                 OCP_ABORT("Wrong well option mode!");
@@ -1081,30 +1194,18 @@ void Well::AssembleMatINJ_IMPEC(const Bulk&    myBulk,
     }
 
     // Well Self
-    assert(myLS.val[wId].size() == numPerf);
-    // the order of perforation is not necessarily in order
     switch (opt.optMode) {
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            // diag
-            myLS.colId[wId].push_back(wId);
-            myLS.diagPtr[wId] = numPerf;
-            myLS.val[wId].push_back(myLS.diagVal[wId]);
-            // b
-            myLS.b[wId] += dt * opt.maxRate;
+            myLS.AddRhs(wId, dt * opt.maxRate);
             break;
         case BHP_MODE:
-            // diag
-            myLS.colId[wId].push_back(wId);
-            myLS.diagPtr[wId] = numPerf;
-            myLS.val[wId].push_back(dt);
-            // b
-            myLS.b[wId] += dt * opt.maxBHP;
-            // u   initial value
-            myLS.u[wId] = opt.maxBHP;
+            myLS.AddDiag(wId, dt);
+            myLS.AddRhs(wId, dt * opt.maxBHP);
+            myLS.AssignGuess(wId, opt.maxBHP);     
             break;
         default:
             OCP_ABORT("Wrong well option mode!");
@@ -1117,9 +1218,8 @@ void Well::AssembleMatPROD_IMPEC(const Bulk&    myBulk,
 {
     OCP_FUNCNAME;
 
-    const OCP_USI wId = myLS.dim;
-    // important !
-    myLS.dim++;
+    const OCP_USI wId = myLS.AddDim(1) - 1;
+    myLS.NewDiag(wId, 0.0);
 
     // Set Prod Weight
     if (opt.optMode != BHP_MODE) CalProdWeight(myBulk);
@@ -1152,14 +1252,9 @@ void Well::AssembleMatPROD_IMPEC(const Bulk&    myBulk,
         }
 
         // Bulk to Well
-        // diag
-        USI ptr = myLS.diagPtr[n];
-        myLS.val[n][ptr] += valb;
-        // off diag
-        myLS.colId[n].push_back(wId);
-        myLS.val[n].push_back(-valb);
-        // b
-        myLS.b[n] += bb;
+        myLS.AddDiag(n, valb);
+        myLS.NewOffDiag(n, wId, -valb);
+        myLS.AddRhs(n, bb);
 
         // Well to Bulk
         switch (opt.optMode) {
@@ -1168,18 +1263,12 @@ void Well::AssembleMatPROD_IMPEC(const Bulk&    myBulk,
             case GRATE_MODE:
             case WRATE_MODE:
             case LRATE_MODE:
-                // diag  !!! attention! sign is -
-                myLS.diagVal[wId] -= valw;
-                // off diag
-                myLS.colId[wId].push_back(n);
-                myLS.val[wId].push_back(valw);
-                // b
-                myLS.b[wId] += bw;
+                myLS.AddDiag(wId, -valw);
+                myLS.NewOffDiag(wId, n, valw);
+                myLS.AddRhs(wId, bw);
                 break;
             case BHP_MODE:
-                // off diag
-                myLS.colId[wId].push_back(n);
-                myLS.val[wId].push_back(0);
+                myLS.NewOffDiag(wId, n, 0.0);
                 break;
             default:
                 OCP_ABORT("Wrong well option mode!");
@@ -1187,30 +1276,18 @@ void Well::AssembleMatPROD_IMPEC(const Bulk&    myBulk,
     }
 
     // Well Self
-    assert(myLS.val[wId].size() == numPerf);
-    // the order of perforation is not necessarily in order
     switch (opt.optMode) {
         case RATE_MODE:
         case ORATE_MODE:
         case GRATE_MODE:
         case WRATE_MODE:
         case LRATE_MODE:
-            // diag
-            myLS.colId[wId].push_back(wId);
-            myLS.diagPtr[wId] = numPerf;
-            myLS.val[wId].push_back(myLS.diagVal[wId]);
-            // b
-            myLS.b[wId] += dt * opt.maxRate;
+            myLS.AddRhs(wId, dt * opt.maxRate);
             break;
         case BHP_MODE:
-            // diag
-            myLS.colId[wId].push_back(wId);
-            myLS.diagPtr[wId] = numPerf;
-            myLS.val[wId].push_back(dt);
-            // b
-            myLS.b[wId] += dt * opt.minBHP;
-            // u   initial value
-            myLS.u[wId] = opt.minBHP;
+            myLS.AddDiag(wId, dt);
+            myLS.AddRhs(wId, dt * opt.minBHP);
+            myLS.AssignGuess(wId, opt.minBHP);
             break;
         default:
             OCP_ABORT("Wrong well option mode!");
@@ -1432,6 +1509,7 @@ void Well::AssembleMatINJ_FIM(const Bulk&    myBulk,
         }
     }
     assert(myLS.val[wId].size() == numPerf * bsize);
+
     // Well self
     myLS.colId[wId].push_back(wId);
     myLS.diagPtr[wId] = numPerf;
@@ -1493,10 +1571,6 @@ void Well::AssembleMatPROD_FIM(const Bulk&    myBulk,
                 dQdXpB[(i + 1) * ncol] +=
                     transIJ * (1 - dP * muP / mu) + dP * perf[p].transj[j] * xij * xiP;
                 dQdXpW[(i + 1) * ncol] += -transIJ;
-
-                // if (dQdXpW[ncol] == 0) {
-                //    cout << name << " perf " << p << "  " << j << endl;
-                //}
 
                 // dQ / dS
                 for (USI k = 0; k < numPhase; k++) {
@@ -1595,10 +1669,6 @@ void Well::AssembleMatPROD_FIM(const Bulk&    myBulk,
     myLS.val[wId].insert(myLS.val[wId].end(), myLS.diagVal.data() + wId * bsize,
                          myLS.diagVal.data() + wId * bsize + bsize);
 
-    // test
-    // for (USI i = 0; i < bsize; i++) {
-    //    cout << myLS.diagVal[wId * bsize + i] << endl;
-    //}
 }
 
 void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,

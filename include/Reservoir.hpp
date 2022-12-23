@@ -14,9 +14,9 @@
 
 // OpenCAEPoro header files
 #include "AllWells.hpp"
+#include "Grid.hpp"
 #include "Bulk.hpp"
 #include "BulkConn.hpp"
-#include "Grid.hpp"
 #include "ParamRead.hpp"
 
 /// Reservoir is the core component in our simulator, it contains the all reservoir

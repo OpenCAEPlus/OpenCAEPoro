@@ -184,7 +184,6 @@ void Reservoir::AssembleMatIMPEC(LinearSystem& myLS, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
 
-    conn.SetupMatSparsity(myLS);
     conn.AssembleMatIMPEC(myLS, bulk, dt);
     allWells.AssemblaMatIMPEC(myLS, bulk, dt);
 }

@@ -18,26 +18,12 @@
 
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
-#include "UtilOutput.hpp"
-
-using namespace std;
-
-
-/// Basic information of computational grid, including the rock properties.
-//  Note: All grid cells are stored here, you can regard it as a database of the
-//  reservoir. Considering there exist inactive cells (whose porosity or cell volume is
-//  too small) and activeness status might change, the Grid class is necessary. The Grid
-//  class is static while simulating, active grids will be stored in bulks, which is
-//  "area" for calculating
-// Standard header files
-#include <vector>
-
-// OpenCAEPoro header files
-#include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
+#include "UtilOutput.hpp"
 #include "CornerGrid.hpp"
 
 using namespace std;
+
 
 /// Active cell indicator and its index among active cells.
 //  Note: GB_Pair contains two variables, which indicates if a grid cell is active or
@@ -98,16 +84,22 @@ class Grid
     friend class Out4RPT;
     friend class Out4VTK;
 
+
+    /////////////////////////////////////////////////////////////////////
+    // Input Param and Setup
+    /////////////////////////////////////////////////////////////////////
+
 public:
 
     /// Input parameters from the internal param structure.
     void InputParam(const ParamReservoir& rs_param);
 
+    /// Setup for Isothermal model
+    void SetupIsoT();
+    /// Setup for thermal model
+    void SetupT();
     /// Setup the grid information and calculate the properties.
     void Setup();
-    void SetupIsoT();
-    void SetupT();
-    
     /// Setup orthogonal grid.
     void SetupOrthogonalGrid();
     /// Calculate the depth and volume for orthogonal grid.
@@ -122,6 +114,13 @@ public:
     /// Setup the neighboring info for a corner-point grid.
     void SetupNeighborCornerGrid(const OCP_COORD& CoTmp);
 
+
+    /////////////////////////////////////////////////////////////////////
+    // Basic Grid and Rock Information
+    /////////////////////////////////////////////////////////////////////
+
+public:
+
     /// Calculate the activity of grid cells.
     void CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2);
     /// Calculate the activity of grid cells for ifThermal model
@@ -129,8 +128,7 @@ public:
 
     OCP_USI GetGridNum()const { return numGrid; }
     OCP_INT GetActIndex(const USI& I, const USI& J, const USI& K) const;
-    void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
-    void GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const;
+
 protected:
 
     // Grid type
@@ -185,8 +183,13 @@ protected:
     vector<OCP_USI> map_Flu2All;    ///< Mapping from fluid grid to all grid: fluidGridNum.
     vector<GB_Pair> map_All2Flu;    ///< Mapping from all grid to fluid grid: numGrid.
 
-    // For output
+    /////////////////////////////////////////////////////////////////////
+    // Output
+    /////////////////////////////////////////////////////////////////////
+
 public:
+    void GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const;
+    void GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const;
     OCP_BOOL IfUseVtk()const { return useVTK; }             ///< return if use vtk format for outputing
     void SetHexaherdronGridOrthogonal();                    ///< setup polyhedronGrid for orthogonal grid
     void SetHexaherdronGridCorner(const OCP_COORD& mycord); ///< setup polyhedronGrid for corner grid

@@ -12,6 +12,10 @@
 #include "Grid.hpp"
 
 
+ /////////////////////////////////////////////////////////////////////
+ // Input Param and Setup
+ /////////////////////////////////////////////////////////////////////
+
 void Grid::InputParam(const ParamReservoir& rs_param)
 {
         // dimensions
@@ -74,6 +78,17 @@ void Grid::InputParam(const ParamReservoir& rs_param)
     SwatInit = rs_param.Swat; 
 }
 
+void Grid::SetupIsoT()
+{
+    Setup();
+    CalActiveGridIsoT(1E-6, 1E-6);
+}
+
+void Grid::SetupT()
+{
+    Setup();
+    CalActiveGridT(1E-6, 1E-6);
+}
 
 void Grid::Setup()
 {
@@ -228,6 +243,10 @@ void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
     }
 }
 
+/////////////////////////////////////////////////////////////////////
+// Basic Grid and Rock Information
+/////////////////////////////////////////////////////////////////////
+
 
 /// If porosity or volume of the grid cell is too small, then the cell is inactive.
 //  Note: Inactive cells do NOT participate simumlation; other rules can be given.
@@ -306,6 +325,11 @@ OCP_INT Grid::GetActIndex(const USI& I, const USI& J, const USI& K) const
         return -1;
     }
 }
+
+
+/////////////////////////////////////////////////////////////////////
+// Output
+/////////////////////////////////////////////////////////////////////
 
 
 void Grid::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
@@ -449,19 +473,6 @@ void Grid::CalNumDigutIJK()
     if (log10(nz) >= numDigutIJK) numDigutIJK = ceil(log10(nz) + 1);
 }
 
-
-void Grid::SetupIsoT()
-{
-    Setup();
-    CalActiveGridIsoT(1E-6, 1E-6);
-}
-
-
-void Grid::SetupT()
-{
-    Setup();
-    CalActiveGridT(1E-6, 1E-6);
-}
 
 
 /*----------------------------------------------------------------------------*/

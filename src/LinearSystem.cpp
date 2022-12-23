@@ -14,6 +14,7 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
 {
     blockSize = nb * nb;
     blockDim  = nb;
+    dim = 0;
     maxDim    = dimMax;
     rowCapacity.resize(maxDim);
     colId.resize(maxDim);
@@ -30,7 +31,7 @@ void LinearSystem::AllocateColMem(const vector<USI>& bulk2bulk, const vector<vec
     // Bulk to Bulk
     const OCP_USI bulkNum = bulk2bulk.size();
     for (OCP_USI n = 0; n < bulkNum; n++) {
-        rowCapacity[n] += bulk2bulk[n];
+        rowCapacity[n] = bulk2bulk[n];
     }
 
     // Bulk to Well
@@ -66,6 +67,7 @@ void LinearSystem::ClearData()
     // diagPtr.assign(maxDim, 0);
     fill(diagVal.begin(), diagVal.end(), 0.0);
     fill(b.begin(), b.end(), 0.0);
+    dim = 0;
     // In fact, for linear system the current solution is a good initial solution for
     // next step, so u will not be set to zero. u.assign(maxDim, 0);
 }

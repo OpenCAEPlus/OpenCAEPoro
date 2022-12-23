@@ -62,8 +62,34 @@ public:
     /// Solve the Linear System
     OCP_INT Solve() { return LS->Solve(); }
 
+
+    /// Setup dimensions
+    OCP_USI AddDim(const OCP_USI& n) { dim += n; return dim; }
+
+    /// Scalar
+    /// Push back a diagonal val, which is always at the first location
+    void NewDiag(const OCP_USI& n, const OCP_DBL& v) { 
+        OCP_ASSERT(colId[n].size() == 0, "Wrong Diag");
+        colId[n].push_back(n);
+        val[n].push_back(v);
+    }
+    /// Add a value at diagnal value
+    void AddDiag(const OCP_USI& n, const OCP_DBL& v) {
+        val[n][0] += v;
+    }
+    /// Push back a offdiagonal value
+    void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& v) {
+        colId[bId].push_back(eId);
+        val[bId].push_back(v);
+    }
     /// add a value at b[n]
-    void AddRhs(const OCP_USI& n, const OCP_DBL& v);
+    void AddRhs(const OCP_USI& n, const OCP_DBL& v) { b[n] += v; }
+    /// Assign an Initial value at u[n]
+    void AssignGuess(const OCP_USI& n, const OCP_DBL& v) { u[n] = v; }
+
+    /// Vector
+
+
     /// Assign Rhs by Accumulating
     void AssembleRhsAccumulate(const vector<OCP_DBL>& rhs);
     /// Assign Rhs by Copying

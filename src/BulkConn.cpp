@@ -238,6 +238,7 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
                                 const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
+    myLS.AddDim(numBulk);
 
     // accumulate term
     OCP_DBL Vpp, Vp, vf, vfP, P;
@@ -248,9 +249,8 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
         Vpp = myBulk.rockVntg[n] * myBulk.poroP[n];
         Vp  = myBulk.rockVp[n];
 
-        myLS.diagVal[n] = Vpp - vfP;
-        myLS.b[n]       = (Vpp - vfP) * P + dt * (vf - Vp);
-        // myLS.b[n]    = tmp * P + (vf - Vp);
+        myLS.NewDiag(n, Vpp - vfP);
+        myLS.AddRhs(n, (Vpp - vfP) * P + dt * (vf - Vp));
     }
 
     // flux term
@@ -259,13 +259,11 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
     OCP_DBL valupi, valdowni;
     OCP_DBL valup, rhsup, valdown, rhsdown;
     OCP_DBL dD, tmp;
-    USI     diagptr;
 
     const USI np = myBulk.numPhase;
     const USI nc = myBulk.numCom;
 
     // Be careful when first bulk has no neighbors!
-    OCP_USI lastbId = iteratorConn[0].eId;
     for (OCP_USI c = 0; c < numConn; c++) {
         bId = iteratorConn[c].bId;
         eId = iteratorConn[c].eId;
@@ -296,27 +294,12 @@ void BulkConn::AssembleMatIMPEC(LinearSystem&  myLS,
             rhsup   += tmp * valupi;
             rhsdown -= tmp * valdowni;
         }
-
-        diagptr = myLS.diagPtr[bId];
-        if (bId != lastbId) {
-            // new bulk
-            assert(myLS.val[bId].size() == diagptr);
-            myLS.val[bId].push_back(myLS.diagVal[bId]);
-            lastbId = bId;
-        }
-
-        myLS.val[bId][diagptr] += valup;
-        myLS.val[bId].push_back(-valup);
-        myLS.val[eId].push_back(-valdown);
-        myLS.diagVal[eId] += valdown;
-        myLS.b[bId] += rhsup;
-        myLS.b[eId] += rhsdown;
-    }
-
-    // Add the rest of diag value. Important!
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        if (myLS.val[n].size() == myLS.diagPtr[n])
-            myLS.val[n].push_back(myLS.diagVal[n]);
+        myLS.AddDiag(bId, valup);
+        myLS.AddDiag(eId, valdown);
+        myLS.NewOffDiag(bId, eId, -valup);
+        myLS.NewOffDiag(eId, bId, -valdown);
+        myLS.AddRhs(bId, rhsup);
+        myLS.AddRhs(eId, rhsdown);
     }
 }
 
