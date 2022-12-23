@@ -746,8 +746,8 @@ void OCP_AIMc::SolveLinearSystem(LinearSystem& myLS, Reservoir& rs, OCPControl& 
     // cout << "LS step = " << status << endl;
 
 #ifdef DEBUG
-    myLS.OutputLinearSystem("testA_AIMc.out", "testb_AIMc.out");
-    myLS.OutputSolution("testx_AIMc.out");
+    myLS.OutputLinearSystem("testA_AIMc_new.out", "testb_AIMc_new.out");
+    myLS.OutputSolution("testx_AIMc_new.out");
     myLS.CheckSolution();
 #endif // DEBUG
 
