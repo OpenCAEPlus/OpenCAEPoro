@@ -87,8 +87,6 @@ public:
 public:
     /// Setup active connections
     void Setup(const Grid& myGrid);
-    /// Setup sparsity pattern of the coefficient matrix.
-    void SetupMatSparsity(LinearSystem& myLS) const;
     /// Calculate the effective area used for flow
     void CalAkd(const Bulk& myBulk);
     /// Return number of bulks.

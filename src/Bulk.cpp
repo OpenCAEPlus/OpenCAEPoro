@@ -2546,6 +2546,8 @@ void Bulk::UpdateLastStepFIMn()
 
 void Bulk::AllocateAIMc_IsoT()
 {
+    AllocateFIM_IsoT();
+
     vj.resize(numBulk * numPhase);
     xijNR.resize(numBulk * numPhase * numCom);
     cfl.resize(numBulk * numPhase);
@@ -2596,7 +2598,7 @@ void Bulk::CalFlashAIMcI()
 
             flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                 &xij[n * numPhase * numCom]);
-            PassFlashValueFIM(n);
+            PassFlashValueAIMcI(n);
         }
     }
 }

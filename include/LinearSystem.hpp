@@ -30,8 +30,6 @@ using namespace std;
 //  sparsity pattern is almost the same as neighbor in BulkConn.
 class LinearSystem
 {
-    friend class BulkConn;
-    friend class Well;
 
 public:
     /// Allocate memory for linear system with max possible number of rows.

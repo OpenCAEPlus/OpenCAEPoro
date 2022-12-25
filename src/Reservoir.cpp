@@ -436,7 +436,6 @@ void Reservoir::AllocateAIMc_IsoT()
 {
     OCP_FUNCNAME;
 
-    bulk.AllocateFIM_IsoT();
     bulk.AllocateAIMc_IsoT();
     conn.AllocateAIMc_IsoT(bulk.GetPhaseNum());
 }
@@ -444,9 +443,6 @@ void Reservoir::AllocateAIMc_IsoT()
 void Reservoir::AssembleMatAIMc(LinearSystem& myLS, const OCP_DBL& dt) const
 {
     OCP_FUNCNAME;
-
-    // conn.SetupMatSparsity(myLS);
-
 
     conn.AssembleMat_AIMc(myLS, bulk, dt);
     allWells.AssemblaMatFIM_new(myLS, bulk, dt);

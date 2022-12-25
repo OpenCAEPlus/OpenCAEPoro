@@ -136,18 +136,6 @@ void BulkConn::SetupWellBulk_K(Bulk& myBulk) const
 }
 
 
-void BulkConn::SetupMatSparsity(LinearSystem& myLS) const
-{
-    OCP_FUNCNAME;
-
-    myLS.dim = numBulk;
-    for (OCP_USI n = 0; n < numBulk; n++) {
-        myLS.colId[n].assign(neighbor[n].begin(), neighbor[n].end());
-        myLS.diagPtr[n] = selfPtr[n];
-    }
-}
-
-
 void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {

@@ -1128,7 +1128,7 @@ void Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 
                 for (USI j = 0; j < numPhase; j++) {
                     myBulk.cfl[k * numPhase + j] += fabs(perf[p].qj_ft3[j]) * dt;
-                }
+                }               
             }
         }
     }
@@ -1302,22 +1302,20 @@ void Well::AssembleMatReinjection_IMPEC(const Bulk&         myBulk,
 {
     // find Open injection well under Rate control
     vector<OCP_USI> tarId;
-    for (USI w = 0; w < injId.size(); w++) {
+    for (auto& w : injId) {
         if (allWell[w].IsOpen() && allWell[w].opt.optMode != BHP_MODE)
             tarId.push_back(allWell[w].wOId + myBulk.numBulk);
     }
 
     USI tlen = tarId.size();
     if (tlen > 0) {
+        // All inj well has the same factor
         const OCP_DBL factor = allWell[injId[0]].opt.reInjFactor * dt;
-        // cout << "Factor(assemble):   " << allWell[injId[0]].opt.factor << endl;
         const OCP_USI prodId = wOId + myBulk.numBulk;
         OCP_USI       n, bId;
         OCP_DBL       tmp, valb;
         OCP_DBL       valw = 0;
         OCP_DBL       rhsw = 0;
-        OCP_USI       tar;
-        USI           tarsize;
         for (USI p = 0; p < numPerf; p++) {
             n    = perf[p].location;
             valb = 0;
@@ -1331,45 +1329,16 @@ void Well::AssembleMatReinjection_IMPEC(const Bulk&         myBulk,
                 }
             }
             valb *= factor;
-            // Insert bulk val into equations in ascending order
             for (USI t = 0; t < tlen; t++) {
-                tar     = tarId[t];
-                tarsize = myLS.colId[tar].size();
-                USI i;
-                for (i = 0; i < tarsize; i++) {
-                    if (n < myLS.colId[tar][i]) {
-                        // insert
-                        // attention that bulk id is less than well id
-                        myLS.colId[tar].insert(myLS.colId[tar].begin() + i, n);
-                        myLS.val[tar].insert(myLS.val[tar].begin() + i, -valb);
-                        myLS.diagPtr[tar]++;
-                        break;
-                    }
-                }
+                myLS.NewOffDiag(tarId[t], n, -valb);
             }
             valw += valb;
         }
         rhsw *= factor;
-        // insert prod well var and rhs into equations in ascending order
+        // rhs and prod well
         for (USI t = 0; t < tlen; t++) {
-            tar     = tarId[t];
-            tarsize = myLS.colId[tar].size();
-            myLS.b[tar] += rhsw; // rhsw
-            USI i;
-            for (i = 0; i < tarsize; i++) {
-                if (prodId < myLS.colId[tar][i]) {
-                    // insert
-                    myLS.colId[tar].insert(myLS.colId[tar].begin() + i, prodId);
-                    myLS.val[tar].insert(myLS.val[tar].begin() + i, valw);
-                    if (i <= myLS.diagPtr[tar]) myLS.diagPtr[tar]++;
-                    break;
-                }
-            }
-            if (i == tarsize) {
-                // pushback
-                myLS.colId[tar].push_back(prodId);
-                myLS.val[tar].push_back(valw);
-            }
+            myLS.AddRhs(tarId[t], rhsw);
+            myLS.NewOffDiag(tarId[t], prodId, valw);
         }
     }
 }
@@ -1626,13 +1595,6 @@ void Well::AssembleMatPROD_FIM(const Bulk&    myBulk,
                 break;
         }
     }
-    assert(myLS.val[wId].size() == numPerf * bsize);
-    // Well self
-    myLS.colId[wId].push_back(wId);
-    myLS.diagPtr[wId] = numPerf;
-    myLS.val[wId].insert(myLS.val[wId].end(), myLS.diagVal.data() + wId * bsize,
-                         myLS.diagVal.data() + wId * bsize + bsize);
-
 }
 
 void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
@@ -1643,19 +1605,16 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
 {
     // find Open injection well under Rate control
     vector<OCP_USI> tarId;
-    for (USI w = 0; w < injId.size(); w++) {
+    for (auto& w : injId) {
         if (allWell[w].IsOpen() && allWell[w].opt.optMode != BHP_MODE)
             tarId.push_back(allWell[w].wOId + myBulk.numBulk);
     }
 
     USI tlen = tarId.size();
     if (tlen > 0) {
-        OCP_USI       tar;
-        USI           tarsize;
+        // All inj well has the same factor
         const OCP_DBL factor = allWell[injId[0]].opt.reInjFactor;
         const OCP_USI prodId = wOId + myBulk.numBulk;
-
-        // cout << "Factor(assemble):    " << factor << endl;
 
         const USI ncol   = numCom + 1;
         const USI ncol2  = numPhase * numCom + numPhase;
@@ -1673,7 +1632,7 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
         vector<OCP_DBL> dQdXsB(bsize2, 0);
 
         for (USI p = 0; p < numPerf; p++) {
-            OCP_USI n = perf[p].location;
+            const OCP_USI n = perf[p].location;
             fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
             fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
             fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
@@ -1699,9 +1658,9 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
                     // dQ / dS
                     for (USI k = 0; k < numPhase; k++) {
                         tmp = CONV1 * perf[p].WI * perf[p].multiplier * dP / mu * xi *
-                              xij * myBulk.dKr_dS[n * numPhase * numPhase + j * numPhase + k];
+                              xij * myBulk.dKr_dS[n_np_j * numPhase + k];
                         // capillary pressure
-                        tmp += transIJ * myBulk.dPcj_dS[n * numPhase * numPhase + j * numPhase + k];
+                        tmp += transIJ * myBulk.dPcj_dS[n_np_j * numPhase + k];
                         dQdXsB[(i + 1) * ncol2 + k] += tmp;
                     }
                     // dQ / dCij
@@ -1717,61 +1676,29 @@ void Well::AssembleMatReinjection_FIM(const Bulk&         myBulk,
                 }
             }
 
-            // for Prod Well, be careful!
+            // for Prod Well
             for (USI i = 0; i < numCom; i++) {
-                // tmpMat[0] -= dQdXpW[(i + 1) * ncol] * factor;
                 tmpMat[0] += dQdXpW[(i + 1) * ncol] * factor;
             }
 
-            // for perf(bulk) of Prod Well
+            // for Perf(bulk) of Prod Well
             bmat = dQdXpB;
             DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &myBulk.dSec_dPri[n * bsize2],
                     1, bmat.data());
             fill(bmat2.begin(), bmat2.end(), 0.0);
             for (USI i = 0; i < numCom; i++) {
                 // becareful '-' before factor
-                // Daxpy(ncol, -factor, bmat.data() + (i + 1) * ncol, bmat2.data());
-                Daxpy(ncol, factor, bmat.data() + (i + 1) * ncol, bmat2.data());
+                Daxpy(ncol, -factor, bmat.data() + (i + 1) * ncol, bmat2.data());
             }
 
             // Insert bulk val into equations in ascending order
             for (USI t = 0; t < tlen; t++) {
-                tar     = tarId[t];
-                tarsize = myLS.colId[tar].size();
-                USI i;
-                for (i = 0; i < tarsize; i++) {
-                    if (n < myLS.colId[tar][i]) {
-                        // insert
-                        // attention that bulk id is less than well id
-                        myLS.colId[tar].insert(myLS.colId[tar].begin() + i, n);
-                        myLS.val[tar].insert(myLS.val[tar].begin() + i * bsize,
-                                             bmat.begin(), bmat.end());
-                        myLS.diagPtr[tar]++;
-                        break;
-                    }
-                }
+                myLS.NewOffDiag(tarId[t], n, bmat2);
             }
         }
-        // insert prod well var into equations in ascending order
+        // prod well
         for (USI t = 0; t < tlen; t++) {
-            tar     = tarId[t];
-            tarsize = myLS.colId[tar].size();
-            USI i;
-            for (i = 0; i < tarsize; i++) {
-                if (prodId < myLS.colId[tar][i]) {
-                    // insert
-                    myLS.colId[tar].insert(myLS.colId[tar].begin() + i, prodId);
-                    myLS.val[tar].insert(myLS.val[tar].begin() + i * bsize,
-                                         tmpMat.begin(), tmpMat.end());
-                    if (i <= myLS.diagPtr[tar]) myLS.diagPtr[tar]++;
-                    break;
-                }
-            }
-            if (i == tarsize) {
-                // insert into end
-                myLS.colId[tar].push_back(prodId);
-                myLS.val[tar].insert(myLS.val[tar].end(), tmpMat.begin(), tmpMat.end());
-            }
+            myLS.NewOffDiag(tarId[t], prodId, tmpMat);
         }
     }
 }
