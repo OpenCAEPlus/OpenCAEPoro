@@ -26,8 +26,7 @@
 using namespace std;
 
 /// Linear solvers for discrete systems.
-//  Note: The matrix is stored in the form of row-segmented CSRx internaly, whose
-//  sparsity pattern is almost the same as neighbor in BulkConn.
+//  Note: The matrix is stored in the form of row-segmented CSR internaly
 class LinearSystem
 {
 
@@ -135,9 +134,7 @@ private:
     // it will only be used when matrix is assembled.
     vector<USI>             rowCapacity; ///< Maximal capacity of each row.
     vector<vector<OCP_USI>> colId;       ///< Column indices of nonzero entry.
-    vector<USI>             diagPtr;     ///< Indices of diagonal entries.
     vector<vector<OCP_DBL>> val;         ///< Nonzero values.
-    vector<OCP_DBL>         diagVal;     ///< Diagonal values -- auxiliary value instead of true value
     vector<OCP_DBL>         b;           ///< Right-hand side of linear system.
     vector<OCP_DBL>         u;           ///< Solution of linear system.
 

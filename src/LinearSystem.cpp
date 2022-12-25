@@ -19,8 +19,6 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
     rowCapacity.resize(maxDim);
     colId.resize(maxDim);
     val.resize(maxDim);
-    diagPtr.resize(maxDim);
-    diagVal.resize(maxDim * blockSize);
     b.resize(maxDim * blockDim);
     u.resize(maxDim * blockDim);
 }
@@ -65,7 +63,6 @@ void LinearSystem::ClearData()
         val[i].clear();
     }
     // diagPtr.assign(maxDim, 0);
-    fill(diagVal.begin(), diagVal.end(), 0.0);
     fill(b.begin(), b.end(), 0.0);
     dim = 0;
     // In fact, for linear system the current solution is a good initial solution for
