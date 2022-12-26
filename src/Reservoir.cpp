@@ -377,6 +377,7 @@ void Reservoir::UpdateLastStepFIMn()
 
     bulk.UpdateLastStepFIMn();
     allWells.UpdateLastBHP();
+    optFeatures.UpdateLastTimeStep();
 }
 
 void Reservoir::AssembleMatFIMn(LinearSystem& myLS, const OCP_DBL& dt) const
@@ -414,6 +415,8 @@ void Reservoir::ResetFIMn()
     allWells.CalTrans(bulk);
     allWells.CaldG(bulk);
     allWells.CalFlux(bulk);
+
+    optFeatures.ResetToLastTimeStep();
 }
 
 void Reservoir::PrintSolFIM(const string& outfile) const
@@ -505,6 +508,7 @@ void Reservoir::UpdateLastStepAIMc()
 
     bulk.UpdateLastStepAIMc();
     allWells.UpdateLastBHP();
+    optFeatures.UpdateLastTimeStep();
 }
 
 void Reservoir::ResetAIMc()
@@ -517,6 +521,8 @@ void Reservoir::ResetAIMc()
     allWells.CalTrans(bulk);
     allWells.CaldG(bulk);
     allWells.CalFlux(bulk);
+
+    optFeatures.ResetToLastTimeStep();
 }
 
 /*----------------------------------------------------------------------------*/

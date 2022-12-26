@@ -82,7 +82,8 @@ public:
                               const OCP_USI& bId) = 0;
     virtual void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
-                              const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
+                              const OCP_DBL& Vpore, const OCP_DBL* Ziin,
+                              const OCP_USI& bId) = 0;
     /// Flash calculation with moles of components.
     virtual void FlashIMPEC(const OCP_DBL& Pin,
                             const OCP_DBL& Tin,
@@ -95,10 +96,15 @@ public:
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
         const OCP_DBL* xijin,
         const OCP_USI& bId) = 0;
-    virtual void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
-        const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
-        const USI& lastNP) = 0;
+    virtual void FlashFIMn(const OCP_DBL& Pin,
+                           const OCP_DBL& Tin,
+                           const OCP_DBL* Niin,
+                           const OCP_DBL* Sjin,
+                           const OCP_DBL* xijin,
+                           const OCP_DBL* njin,
+                           const USI* phaseExistin,
+                           const USI& lastNP,
+                           const OCP_USI& bId) = 0;
 
     /// return mass density of phase
     // for blackoil model: if tarPhase is gas and water, Pin and tar phase is needed

@@ -369,10 +369,11 @@ void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
                                  const OCP_DBL& Tin,
                                  const OCP_DBL* Sjin,
                                  const OCP_DBL& Vpore,
-                                 const OCP_DBL* Ziin)
+                                 const OCP_DBL* Ziin,
+                                 const OCP_USI& bId)
 {
     // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
-
+    SetBulkId(bId);
     ftype = 0;
     lNP   = 0;
 
@@ -448,6 +449,8 @@ void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
         pVnumCom[1]   = NC;
     }
     pSderExist[2] = OCP_TRUE;
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
@@ -467,7 +470,7 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
-    ftype = skipSta->CalFlashTypeIMPEC(P, T, Nh, Ni, bulkId);
+    CalFlashTypeIMPEC();  
     CalFlash();
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -520,7 +523,7 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
-    ftype = skipSta->CalFlashTypeFIM(P, T, Nh, Ni, Sjin, lNP, bulkId);
+    CalFlashTypeFIM(Sjin);
     CalFlash();
 
     // Calculate derivates for hydrocarbon phase and components
@@ -582,15 +585,16 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
 }
 
 void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
-                               const OCP_DBL& Tin,
-                               const OCP_DBL* Niin,
-                               const OCP_DBL* Sjin,
-                               const OCP_DBL* xijin,
-                               const OCP_DBL* njin,
-                               const USI&     myftype,
-                               const USI*     phaseExistin,
-                               const USI&     lastNP)
+                            const OCP_DBL& Tin,
+                            const OCP_DBL* Niin,
+                            const OCP_DBL* Sjin,
+                            const OCP_DBL* xijin,
+                            const OCP_DBL* njin,
+                            const USI*     phaseExistin,
+                            const USI&     lastNP,
+                            const OCP_USI& bId)
 {
+    SetBulkId(bId);
     inputNP = 0;
     for (USI j = 0; j < numPhase; j++) {
         if (phaseExistin[j] == 1) inputNP++;
@@ -598,7 +602,6 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
     inputNP--;
 
     if (inputNP == 1 || OCP_TRUE) {
-        ftype = myftype;
         // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
         lNP = lastNP > 0 ? lastNP - 1 : 0;
         if (lNP == 2) {
@@ -607,6 +610,7 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
             }
         }
         InitPTN(Pin, Tin + CONV5, Niin);
+        CalFlashTypeFIM(Sjin);
         CalFlash();
     } else {
         //! Becareful if NP > 2 (temp)
@@ -698,6 +702,8 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
         pVnumCom[1]   = NC;
     }
     pSderExist[2] = OCP_TRUE;
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::CalFlash()
@@ -1244,7 +1250,6 @@ void MixtureComp::PrintX()
 
 void MixtureComp::AllocateMethod()
 {
-    const USI NC2 = NC * NC;
 
     Kw.resize(4);
     for (USI i = 0; i < 4; i++) {
@@ -1261,25 +1266,21 @@ void MixtureComp::AllocateMethod()
     di.resize(NC);
     resSTA.resize(NC);
 
-    JmatSTA.resize(NC2);
+    JmatSTA.resize(NC * NC);
     Ax.resize(NC);
     Bx.resize(NC);
     Zx.resize(NC);
-    phiN.resize(NC2);
-    skipMatSTA.resize(NC2);
-    eigenSkip.resize(NC);
-    eigenWork.resize(2 * NC + 1);
     lKs.resize(NC);
 
     resRR.resize(NPmax - 1);
     resSP.resize(static_cast<size_t>(NC) * NPmax);
-    JmatSP.resize(static_cast<size_t>(NC2) * NPmax * NPmax);
+    JmatSP.resize(static_cast<size_t>(NC * NC) * NPmax * NPmax);
     fugX.resize(NPmax);
     fugN.resize(NPmax);
     Zn.resize(NPmax);
     for (USI j = 0; j < NPmax; j++) {
-        fugX[j].resize(NC2);
-        fugN[j].resize(NC2);
+        fugX[j].resize(NC * NC);
+        fugN[j].resize(NC * NC);
         Zn[j].resize(NC);
     }
     An.resize(NC);
@@ -5208,6 +5209,7 @@ void MixtureComp::SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP
     skipSta = &optFeatures.skipStaAnaly;
     if (skipSta->IfUseSkip()) {
         skipSta->Allocate(numBulk, numPhase - 1, numCom - 1);
+        AllocateSkip();
     }
 }
 
@@ -5215,7 +5217,17 @@ void MixtureComp::SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP
 // Accelerate PVT
 /////////////////////////////////////////////////////////////////////
 
-void MixtureComp::CalPhiNSTA()
+
+void MixtureComp::AllocateSkip()
+{
+    phiN.resize(NC * NC);
+    skipMatSTA.resize(NC * NC);
+    eigenSkip.resize(NC);
+    eigenWork.resize(2 * NC + 1);
+}
+
+
+void MixtureComp::CalPhiNSkip()
 {
     OCP_DBL C, E, G;
     OCP_DBL Cnk, Dnk, Enk, Gnk;
@@ -5302,7 +5314,7 @@ void MixtureComp::CalSkipForNextStep()
         // 2. If flagSkip == true, then next stablity analysis is possible to be skipped, it depends on if
         // conditions are met
         // 3. If ftype == 0, then the range should be calculated, which also means last skip is unsatisfied
-        CalPhiNSTA();
+        CalPhiNSkip();
         AssembleSkipMatSTA();
 #ifdef DEBUG
         if (!CheckNan(skipMatSTA.size(), &skipMatSTA[0])) {

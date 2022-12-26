@@ -2166,7 +2166,7 @@ void Bulk::InitFlashFIMn()
     if (ifComps) {
         for (OCP_USI n = 0; n < numBulk; n++) {
             flashCal[PVTNUM[n]]->InitFlashFIMn(P[n], Pb[n], T[n], &S[n * numPhase],
-                rockVp[n], Ni.data() + n * numCom);
+                rockVp[n], Ni.data() + n * numCom, n);
             for (USI i = 0; i < numCom; i++) {
                 Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
             }
@@ -2199,7 +2199,6 @@ void Bulk::CalFlashFIMn_BLKOIL() {}
 
 void Bulk::CalFlashFIMn_COMP()
 {
-    USI         ftype;
     vector<USI> flagB(numPhase, 0);
     NRdSSP = 0;
     maxNRdSSP = 0;
@@ -2211,7 +2210,7 @@ void Bulk::CalFlashFIMn_COMP()
 
         flashCal[PVTNUM[n]]->FlashFIMn(
             P[n], T[n], &Ni[n * numCom], &S[n * numPhase], &xij[n * numPhase * numCom],
-            &nj[n * numPhase], ftype, &flagB[0], phaseNum[n]);
+            &nj[n * numPhase], &flagB[0], phaseNum[n], n);
 
         PassFlashValueFIMn(n);
     }

@@ -52,7 +52,8 @@ public:
         const OCP_DBL& Vpore, const OCP_DBL* Ziin, const OCP_USI& bId) override {};
     void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
         const OCP_DBL& Tin, const OCP_DBL* Sjin,
-        const OCP_DBL& Vpore, const OCP_DBL* Ziin) override {};
+        const OCP_DBL& Vpore, const OCP_DBL* Ziin,
+        const OCP_USI& bId) override {};
     /// Flash calculation with moles of components.
     void FlashIMPEC(const OCP_DBL& Pin,
                     const OCP_DBL& Tin,
@@ -65,10 +66,15 @@ public:
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
         const OCP_DBL* xijin,
         const OCP_USI& bId) override {};
-    void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
-        const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin,
-        const USI& lastNP) override {};
+    void FlashFIMn(const OCP_DBL& Pin,
+                   const OCP_DBL& Tin,
+                   const OCP_DBL* Niin,
+                   const OCP_DBL* Sjin,
+                   const OCP_DBL* xijin,
+                   const OCP_DBL* njin,
+                   const USI* phaseExistin,
+                   const USI& lastNP,
+                   const OCP_USI& bId) override {};
     /// Return molar density of phase, it's used to calculate the molar density of
     /// injection fluids in injection wells.
     OCP_DBL XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin,

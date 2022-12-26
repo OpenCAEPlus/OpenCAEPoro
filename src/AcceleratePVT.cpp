@@ -85,7 +85,7 @@ USI SkipStaAnaly::CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, cons
 
 
 USI SkipStaAnaly::CalFlashTypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const vector<OCP_DBL>& Niin, const const OCP_DBL* S, const USI& np, const OCP_USI& n)
+    const vector<OCP_DBL>& Niin, const const OCP_DBL* S, const USI& np, const OCP_USI& n) const
 {
     if (ifUseSkip) {
         if (IfSkip(Pin, Tin, Ntin, Niin, n)) {
