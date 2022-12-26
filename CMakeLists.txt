@@ -34,6 +34,16 @@ if (UNIX OR LINUX)
     set(ADD_STDLIBS m stdc++)
 endif()
 
+# Do not skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+ 
+# When building, don't use the install RPATH already
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ 
+# Add the automatically determined parts of the RPATH
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 # LIBNAME is used in the external dependencies, to make it easier if we 
 # decide to change the name in the future
 set(LIBNAME OpenCAEPoro CACHE INTERNAL "The library name")
