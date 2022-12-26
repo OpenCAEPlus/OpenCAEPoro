@@ -190,7 +190,8 @@ public:
                    const OCP_DBL& Tin,
                    const OCP_DBL* Sjin,
                    const OCP_DBL& Vpore,
-                   const OCP_DBL* Ziin) override;
+                   const OCP_DBL* Ziin,
+                   const OCP_USI& bId) override;
 
     void InitFlashFIM(const OCP_DBL& Pin,
                       const OCP_DBL& Pbbin,
@@ -211,11 +212,11 @@ public:
     // ftype = 1, skip phase stability analysis and num of phase = 1
     // ftype = 1, skip phase stability analysis and num of phase = 2
     void FlashIMPEC(const OCP_DBL& Pin,
-               const OCP_DBL& Tin,
-               const OCP_DBL* Niin,
-               const USI&     ftype,
-               const USI&     lastNP,
-               const OCP_DBL* xijin) override;
+                    const OCP_DBL& Tin,
+                    const OCP_DBL* Niin,
+                    const USI& lastNP,
+                    const OCP_DBL* xijin,
+                    const OCP_USI& bId) override;
 
     void CalFlash();
 
@@ -225,8 +226,7 @@ public:
                     const OCP_DBL* Sjin,
                     const USI&     lastNP,
                     const OCP_DBL* xijin,
-                    const OCP_USI& bId,
-                    const OCP_DBL& Ntin) override;
+                    const OCP_USI& bId) override;
 
     void FlashFIMn(const OCP_DBL& Pin,
                       const OCP_DBL& Tin,
@@ -550,7 +550,7 @@ protected:
     void CalPhiNSTA();
     /// Assemble matrix to Calculated eigen value used for skipping
     void AssembleSkipMatSTA();
-    /// 
+    /// Calculate skip info for next step
     void CalSkipForNextStep();
 
 protected:

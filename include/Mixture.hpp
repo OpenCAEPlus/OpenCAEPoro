@@ -75,7 +75,7 @@ public:
     virtual void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) = 0;
     virtual void InitFlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
                           const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-                          const OCP_DBL* Ziin) = 0;
+                          const OCP_DBL* Ziin, const OCP_USI& bId) = 0;
     virtual void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin,
@@ -84,15 +84,17 @@ public:
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
     /// Flash calculation with moles of components.
-    virtual void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) = 0;
+    virtual void FlashIMPEC(const OCP_DBL& Pin,
+                            const OCP_DBL& Tin,
+                            const OCP_DBL* Niin,
+                            const USI& lastNP,
+                            const OCP_DBL* xijin,
+                            const OCP_USI& bId) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
     virtual void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
         const OCP_DBL* xijin,
-        const OCP_USI& bId,
-        const OCP_DBL& Ntin) = 0;
+        const OCP_USI& bId) = 0;
     virtual void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
@@ -142,6 +144,7 @@ public:
 
     virtual OCP_DBL GetErrorPEC() = 0;
     virtual void OutMixtureIters() const = 0;
+    void SetBulkId(const OCP_USI& n) { bulkId = n; }
 
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or

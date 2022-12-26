@@ -208,10 +208,11 @@ void MixtureComp::InitFlashIMPEC(const OCP_DBL& Pin,
                             const OCP_DBL& Tin,
                             const OCP_DBL* Sjin,
                             const OCP_DBL& Vpore,
-                            const OCP_DBL* Ziin)
+                            const OCP_DBL* Ziin,
+                            const OCP_USI& bId)
 {
     // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
-
+    SetBulkId(bId);
     ftype = 0;
     lNP   = 0;
 
@@ -264,6 +265,8 @@ void MixtureComp::InitFlashIMPEC(const OCP_DBL& Pin,
 
     // Calculate Sj
     CalSaturation();
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::InitFlashFIM(const OCP_DBL& Pin,
@@ -275,7 +278,7 @@ void MixtureComp::InitFlashFIM(const OCP_DBL& Pin,
                                const OCP_USI& bId)
 {
     // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
-    bulkId = bId;
+    SetBulkId(bId);
     ftype = 0;
     lNP   = 0;
 
@@ -450,11 +453,11 @@ void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
 void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
                         const OCP_DBL& Tin,
                         const OCP_DBL* Niin,
-                        const USI&     Myftype,
                         const USI&     lastNP,
-                        const OCP_DBL* xijin)
+                        const OCP_DBL* xijin,
+                        const OCP_USI& bId)
 {
-    ftype = Myftype;
+    SetBulkId(bId);
     // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
     lNP = lastNP > 0 ? lastNP - 1 : 0;
     if (lNP == 2) {
@@ -464,6 +467,7 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
+    ftype = skipSta->CalFlashTypeIMPEC(P, T, Nh, Ni, bulkId);
     CalFlash();
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -492,6 +496,8 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
 
     // Calculate Sj
     CalSaturation();
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::FlashFIM(const OCP_DBL& Pin,
@@ -500,12 +506,10 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
                              const OCP_DBL* Sjin,
                              const USI&     lastNP,
                              const OCP_DBL* xijin,
-                             const OCP_USI& bId,
-                             const OCP_DBL& Ntin)
+                             const OCP_USI& bId)
 {
 
-    bulkId = bId;
-    ftype = skipSta->CalFlashTypeFIM(Pin, Tin + CONV5, Ntin, Niin, Sjin, lastNP, bId);
+    SetBulkId(bId);
 
     // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
     lNP = lastNP > 0 ? lastNP - 1 : 0;
@@ -516,6 +520,7 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
+    ftype = skipSta->CalFlashTypeFIM(P, T, Nh, Ni, Sjin, lNP, bulkId);
     CalFlash();
 
     // Calculate derivates for hydrocarbon phase and components
@@ -1299,9 +1304,6 @@ void MixtureComp::CalKwilson()
 void MixtureComp::PhaseEquilibrium()
 {
     // Attention: sum of components' moles equals 1
-
-    
-
     switch (ftype) {
         case 0:
             // flash from single phase
@@ -1317,6 +1319,9 @@ void MixtureComp::PhaseEquilibrium()
                 NP++;
                 PhaseSplit();
                 if (NP == NPmax || NP == 1) break;
+            }
+            if (NP > 1) {
+                flagSkip = OCP_FALSE;
             }
             // record error
             if (NP == 1) {
@@ -5292,7 +5297,6 @@ void MixtureComp::AssembleSkipMatSTA()
 
 void MixtureComp::CalSkipForNextStep()
 {
-    skipSta->SetFlagSkip(bulkId, flagSkip);
     if (flagSkip && ftype == 0) {
         // 1. Np == 1 is base for Skipping
         // 2. If flagSkip == true, then next stablity analysis is possible to be skipped, it depends on if
@@ -5309,7 +5313,9 @@ void MixtureComp::CalSkipForNextStep()
         CalEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], 2 * NC + 1);
         skipSta->AssignValue(bulkId, eigenSkip[0], P, T, zi);
     }
+    skipSta->SetFlagSkip(bulkId, flagSkip);
 }
+
 
 
 /*----------------------------------------------------------------------------*/

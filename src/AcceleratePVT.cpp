@@ -44,20 +44,20 @@ void SkipStaAnaly::AssignValue(const OCP_USI& n, const OCP_DBL& minEigenSkip,
 
 
 OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const OCP_DBL* Niin, const OCP_USI& n) const
+    const vector<OCP_DBL>& Niin, const OCP_USI& n) const
 {
     if (flag[n]) {
         if (fabs(1 - P[n] / Pin) >= minEigen[n] / 10) {
             return OCP_FALSE;
         }
-        OCP_DBL Nt_w = Ntin - Niin[numCom];
-        for (USI i = 0; i < numCom; i++) {
-            if (fabs(Niin[i] / Nt_w - zi[n * numCom + i]) >= minEigen[n] / 10) {
-                return OCP_FALSE;
-            }
-        }
         if (fabs(T[n] - Tin) >= minEigen[n] * 10) {
             return OCP_FALSE;
+        }
+        // OCP_DBL Nt_w = Ntin - Niin[numCom];
+        for (USI i = 0; i < numCom; i++) {
+            if (fabs(Niin[i] / Ntin - zi[n * numCom + i]) >= minEigen[n] / 10) {
+                return OCP_FALSE;
+            }
         }
         return OCP_TRUE;
     }
@@ -68,7 +68,7 @@ OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
 
 
 USI SkipStaAnaly::CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const OCP_DBL* Niin, const OCP_USI& n)
+    const vector<OCP_DBL>& Niin, const OCP_USI& n)
 {
     if (ifUseSkip) {
         if (IfSkip(Pin, Tin, Ntin, Niin, n)) {
@@ -85,13 +85,13 @@ USI SkipStaAnaly::CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, cons
 
 
 USI SkipStaAnaly::CalFlashTypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const OCP_DBL* Niin, const OCP_DBL* S, const USI& np, const OCP_USI& n)
+    const vector<OCP_DBL>& Niin, const const OCP_DBL* S, const USI& np, const OCP_USI& n)
 {
     if (ifUseSkip) {
         if (IfSkip(Pin, Tin, Ntin, Niin, n)) {
             return 1;
         }
-        else if (np >= 3) {
+        else if (np >= 2) {
             for (USI j = 0; j < numPhase; j++) {
                 if (S[j] < 1E-4) {
                     return 0;   // phases change (predicted)

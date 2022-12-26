@@ -46,7 +46,7 @@ public:
     /// flash calculation with saturation of phases.
     void InitFlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-        const OCP_DBL* Ziin) override {};
+        const OCP_DBL* Ziin, const OCP_USI& bId) override {};
     void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
         const OCP_DBL& Tin, const OCP_DBL* Sjin,
         const OCP_DBL& Vpore, const OCP_DBL* Ziin, const OCP_USI& bId) override {};
@@ -54,15 +54,17 @@ public:
         const OCP_DBL& Tin, const OCP_DBL* Sjin,
         const OCP_DBL& Vpore, const OCP_DBL* Ziin) override {};
     /// Flash calculation with moles of components.
-    void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) override {};
+    void FlashIMPEC(const OCP_DBL& Pin,
+                    const OCP_DBL& Tin,
+                    const OCP_DBL* Niin,
+                    const USI& lastNP,
+                    const OCP_DBL* xijin,
+                    const OCP_USI& bId) override {};
     /// Flash calculation with moles of components and Calculate the derivative
     void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
         const OCP_DBL* xijin,
-        const OCP_USI& bId,
-        const OCP_DBL& Ntin) override {};
+        const OCP_USI& bId) override {};
     void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin,

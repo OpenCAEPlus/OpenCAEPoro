@@ -13,6 +13,7 @@
 #define __ACCELERATEPVT_HEADER__
 
 #include "OCPConst.hpp"
+#include "DenseMat.hpp"
 #include<vector>
 
 
@@ -32,12 +33,12 @@ public:
         const OCP_DBL& PSkip, const OCP_DBL& TSkip, const vector<OCP_DBL>& ziSkip);
 
     OCP_BOOL IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-        const OCP_DBL* Niin, const OCP_USI& n) const;
+        const vector<OCP_DBL>& Niin, const OCP_USI& n) const;
 
     USI CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-        const OCP_DBL* Niin, const OCP_USI& n);
+        const vector<OCP_DBL>& Niin, const OCP_USI& n);
     USI CalFlashTypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-        const OCP_DBL* Niin, const OCP_DBL* S, const USI& np, const OCP_USI& n);
+        const vector<OCP_DBL>& Niin, const OCP_DBL* S, const USI& np, const OCP_USI& n);
 
     void ResetToLastTimeStep();
     void UpdateLastTimeStep();

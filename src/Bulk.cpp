@@ -1321,8 +1321,6 @@ OCP_BOOL Bulk::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
-    // OCP_BOOL tmpflag = OCP_TRUE;
-
     OCP_DBL dVe = 0.0;
     for (OCP_USI n = 0; n < numBulk; n++) {
         dVe = fabs(vf[n] - rockVp[n]) / rockVp[n];
@@ -1330,10 +1328,9 @@ OCP_BOOL Bulk::CheckVe(const OCP_DBL& Vlim) const
             cout << "Volume error at Bulk[" << n << "] = " << setprecision(6) << dVe
                 << " is too big!" << endl;
             return OCP_FALSE;
-            // tmpflag = OCP_FALSE;
+
         }
     }
-    // if (!tmpflag) return OCP_FALSE;
     return OCP_TRUE;
 }
 
@@ -1495,7 +1492,7 @@ void Bulk::InitFlashIMPEC()
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->InitFlashIMPEC(P[n], Pb[n], T[n], &S[n * numPhase], rockVp[n],
-            Ni.data() + n * numCom);
+            Ni.data() + n * numCom, n);
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
         }
@@ -1508,11 +1505,10 @@ void Bulk::CalFlashIMPEC()
 {
     OCP_FUNCNAME;
 
-    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
 
-        flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-            &xij[n * numPhase * numCom]);
+        flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], phaseNum[n],
+            &xij[n * numPhase * numCom], n);
         PassFlashValueIMPEC(n);
     }
 }
@@ -1797,7 +1793,7 @@ void Bulk::CalFlashFIM()
     for (OCP_USI n = 0; n < numBulk; n++) {
 
         flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], &S[n * numPhase], phaseNum[n],
-            &xij[n * numPhase * numCom], n, Nt[n]);
+            &xij[n * numPhase * numCom], n);
         PassFlashValueFIM(n);
     }
 }
@@ -2480,13 +2476,12 @@ void Bulk::AllocateAIMc_IsoT()
 
 void Bulk::CalFlashAIMcEp()
 {
-    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
 
-            flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                &xijNR[n * numPhase * numCom]);
+            flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], phaseNum[n],
+                &xijNR[n * numPhase * numCom], n);
             PassFlashValueAIMcEp(n);
         }
     }
@@ -2495,13 +2490,12 @@ void Bulk::CalFlashAIMcEp()
 
 void Bulk::CalFlashAIMcEa()
 {
-    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
 
-            flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                &xij[n * numPhase * numCom]);
+            flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], phaseNum[n],
+                &xij[n * numPhase * numCom], n);
             PassFlashValueAIMcEa(n);
         }       
     }
@@ -2515,7 +2509,7 @@ void Bulk::CalFlashAIMcI()
             // Implicit bulk
 
             flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], &S[n * numPhase], phaseNum[n],
-                &xij[n * numPhase * numCom], n, Nt[n]);
+                &xij[n * numPhase * numCom], n);
             PassFlashValueAIMcI(n);
         }
     }

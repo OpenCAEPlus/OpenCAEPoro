@@ -237,6 +237,7 @@ void Reservoir::ResetVal03IMPEC()
     OCP_FUNCNAME;
     bulk.ResetVal03IMPEC();
     conn.ResetIMPEC();
+    optFeatures.ResetToLastTimeStep();
 }
 
 
@@ -245,6 +246,7 @@ void Reservoir::UpdateLastStepIMPEC()
     OCP_FUNCNAME;
     bulk.UpdateLastStepIMPEC();
     conn.UpdateLastStepIMPEC();
+    optFeatures.UpdateLastTimeStep();
 }
 
 /////////////////////////////////////////////////////////////////////
