@@ -23,6 +23,7 @@ class BOMixture : public Mixture
 {
 public:
     BOMixture() = default;
+    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
     void BOMixtureInit(const ParamReservoir& rs_param);
     void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
         const OCP_DBL& Tin, const OCP_DBL* Sjin, const OCP_DBL& Vpore,
@@ -46,10 +47,6 @@ public:
     };
 
 
-    // usless in BLKOIL
-    USI GetFtype() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 100; }
-    OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
-    OCP_BOOL GetFlagSkip() override { OCP_ABORT("Should not be used in Black Oil mode!");  return OCP_FALSE; }
     OCP_DBL GetSurTen() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     OCP_DBL GetErrorPEC() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     void OutMixtureIters() const override {};
@@ -84,7 +81,7 @@ public:
     };
     void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-        const OCP_DBL* Ziin) override {
+        const OCP_DBL* Ziin, const OCP_USI& bId) override {
         OCP_ABORT("Not Completed!");
     };
     void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
@@ -92,8 +89,10 @@ public:
         OCP_ABORT("Not Completed!");
     };
     void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) override {
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+        const OCP_DBL* xijin,
+        const OCP_USI& bId,
+        const OCP_DBL& Ntin) override {
         OCP_ABORT("Not Completed!");
     };
     void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
@@ -129,12 +128,14 @@ public:
         const OCP_DBL* Ziin) override;
     void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-        const OCP_DBL* Ziin) override;
+        const OCP_DBL* Ziin, const OCP_USI& bId) override;
     void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* xijin) override;
     void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) override;
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+        const OCP_DBL* xijin,
+        const OCP_USI& bId,
+        const OCP_DBL& Ntin) override;
     void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
@@ -175,12 +176,14 @@ public:
         const OCP_DBL* Ziin) override;
     void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
         const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-        const OCP_DBL* Ziin) override;
+        const OCP_DBL* Ziin, const OCP_USI& bId) override;
     void FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
         const OCP_DBL* xijin) override;
     void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) override;
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+        const OCP_DBL* xijin,
+        const OCP_USI& bId,
+        const OCP_DBL& Ntin) override;
     void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 

@@ -11,7 +11,7 @@
 
 #include "DenseMat.hpp"
 
-void MinEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
+void CalEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
 {
     int info;
     int iwork[1] = { 0 };

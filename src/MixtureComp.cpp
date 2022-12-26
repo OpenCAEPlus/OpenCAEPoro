@@ -178,7 +178,8 @@ void MixtureComp::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* N
 {
     ftype = 0;
     lNP = 0;
-    CalFlash(Pin, Tin + CONV5, Niin);
+    InitPTN(Pin, Tin + CONV5, Niin);
+    CalFlash();
 
     // Water Properties
     const USI Wpid = numPhase - 1;
@@ -214,8 +215,7 @@ void MixtureComp::InitFlashIMPEC(const OCP_DBL& Pin,
     ftype = 0;
     lNP   = 0;
 
-    setPT(Pin, Tin + CONV5);
-    setZi(Ziin);
+    InitPTZ(Pin, Tin + CONV5, Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
     CalMW();
@@ -271,14 +271,15 @@ void MixtureComp::InitFlashFIM(const OCP_DBL& Pin,
                                const OCP_DBL& Tin,
                                const OCP_DBL* Sjin,
                                const OCP_DBL& Vpore,
-                               const OCP_DBL* Ziin)
+                               const OCP_DBL* Ziin, 
+                               const OCP_USI& bId)
 {
     // Attention: zi[numCom - 1] = 0 here, that's Zw = 0;
+    bulkId = bId;
     ftype = 0;
     lNP   = 0;
 
-    setPT(Pin, Tin + CONV5);
-    setZi(Ziin);
+    InitPTZ(Pin, Tin + CONV5, Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
     CalMW();
@@ -355,6 +356,9 @@ void MixtureComp::InitFlashFIM(const OCP_DBL& Pin,
         pVnumCom[1]   = NC;
     }
     pSderExist[2] = OCP_TRUE;
+
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
@@ -369,8 +373,7 @@ void MixtureComp::InitFlashFIMn(const OCP_DBL& Pin,
     ftype = 0;
     lNP   = 0;
 
-    setPT(Pin, Tin + CONV5);
-    setZi(Ziin);
+    InitPTZ(Pin, Tin + CONV5, Ziin);
     PhaseEquilibrium();
     // Attention Nt = 1 now
     CalMW();
@@ -460,7 +463,8 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
         }
     }
 
-    CalFlash(Pin, Tin + CONV5, Niin);
+    InitPTN(Pin, Tin + CONV5, Niin);
+    CalFlash();
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
     // CalVfiVfp_full01();
@@ -493,11 +497,16 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
 void MixtureComp::FlashFIM(const OCP_DBL& Pin,
                              const OCP_DBL& Tin,
                              const OCP_DBL* Niin,
-                             const USI&     Myftype,
+                             const OCP_DBL* Sjin,
                              const USI&     lastNP,
-                             const OCP_DBL* xijin)
+                             const OCP_DBL* xijin,
+                             const OCP_USI& bId,
+                             const OCP_DBL& Ntin)
 {
-    ftype = Myftype;
+
+    bulkId = bId;
+    ftype = skipSta->CalFlashTypeFIM(Pin, Tin + CONV5, Ntin, Niin, Sjin, lastNP, bId);
+
     // Hydroncarbon phase, if lNp = 0, then strict stability analysis will be used
     lNP = lastNP > 0 ? lastNP - 1 : 0;
     if (lNP == 2) {
@@ -506,7 +515,8 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
         }
     }
 
-    CalFlash(Pin, Tin + CONV5, Niin);
+    InitPTN(Pin, Tin + CONV5, Niin);
+    CalFlash();
 
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -562,6 +572,8 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
         pVnumCom[1]   = NC;
     }
     pSderExist[2] = OCP_TRUE;
+
+    CalSkipForNextStep();
 }
 
 void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
@@ -589,15 +601,13 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
                 lKs[i] = xijin[i] / xijin[i + numCom];
             }
         }
-        CalFlash(Pin, Tin + CONV5, Niin);
+        InitPTN(Pin, Tin + CONV5, Niin);
+        CalFlash();
     } else {
         //! Becareful if NP > 2 (temp)
         NP = inputNP;
-        P  = Pin;
-        T  = Tin + CONV5;
-        setNi(Niin);
-        CalAiBi();
-        Nh = Dnorm1(NC, &Ni[0]);
+        InitPTN(Pin, Tin + CONV5, Niin);
+        CalAiBi();      
         for (USI j = 0; j < NP; j++) {
             phaseExist[j] = phaseExistin[j];
             S[j]          = Sjin[j];
@@ -685,16 +695,8 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
     pSderExist[2] = OCP_TRUE;
 }
 
-void MixtureComp::CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+void MixtureComp::CalFlash()
 {
-    setPT(Pin, Tin);
-    setNi(Niin);
-
-    nu[0] = 1;
-    nu[1] = 0;
-    // Water is excluded
-    Nh = Dnorm1(NC, &Ni[0]);
-    setZi();
     PhaseEquilibrium();
     // Next, nu represents moles of phase instead of molar fraction of phase
     Dscalar(NP, Nh, &nu[0]);
@@ -720,9 +722,8 @@ MixtureComp::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin
         OCP_DBL xitmp = 1 / (CONV1 * bw);
         return xitmp;
     } else {
-        // hydrocarbon phase
-        setPT(Pin, Tin + CONV5);   // P, T has been Set !!!
-        setZi(Ziin);
+        // hydrocarbon phase        
+        InitPTZ(Pin, Tin + CONV5, Ziin);   // P, T has been Set !!!
         NP = 1;
         CalAiBi();
         CalAjBj(Aj[0], Bj[0], zi);
@@ -1297,12 +1298,14 @@ void MixtureComp::CalKwilson()
 
 void MixtureComp::PhaseEquilibrium()
 {
+    // Attention: sum of components' moles equals 1
 
-    flagSkip = OCP_TRUE;
+    
 
     switch (ftype) {
         case 0:
             // flash from single phase
+            flagSkip = OCP_TRUE;
             NP   = 1;
             nu[0] = 1;
             x[0] = zi;
@@ -1335,6 +1338,7 @@ void MixtureComp::PhaseEquilibrium()
             break;
         case 1:
             // Skip Phase Stability analysis, only single phase exists
+            flagSkip = OCP_TRUE;
             NP   = 1;
             nu[0] = 1;
             x[0] = zi;
@@ -1347,6 +1351,7 @@ void MixtureComp::PhaseEquilibrium()
 
         case 2:
             // Skip Phase Stability analysis, two phases exist
+            flagSkip = OCP_FALSE;
             NP = 2;
             Yt = 1.01;
             CalAiBi();
@@ -1364,25 +1369,6 @@ void MixtureComp::PhaseEquilibrium()
         default:
             OCP_ABORT("Wrong flash type!");
             break;
-    }
-
-    if (NP > 1) flagSkip = OCP_FALSE;
-    if (NP == 1 && flagSkip && ftype == 0) {
-        // 1. Np == 1 is base for Skipping
-        // 2. If flagSkip == true, then next stablity analysis is possible to be skipped, it depends on if
-        // conditions are met
-        // 3. If ftype == 0, then the range should be calculated, which also means last skip is unsatisfied
-        CalPhiNSTA();
-        AssembleSkipMatSTA();
-#ifdef DEBUG
-        if (!CheckNan(skipMatSTA.size(), &skipMatSTA[0])) {
-            OCP_WARNING("Nan in skipMatSTA!");
-        }
-#endif // DEBUG
-
-        MinEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], 2 * NC + 1);
-        // PrintDX(NC, &eigenSkip[0]);
-        // cout << "done!" << endl;
     }
 }
 
@@ -2383,100 +2369,6 @@ void MixtureComp::AssembleJmatSP()
     // }
 }
 
-void MixtureComp::CalPhiNSTA()
-{
-    OCP_DBL C, E, G;
-    OCP_DBL Cnk, Dnk, Enk, Gnk;
-    OCP_DBL tmp, aik;
-
-    // 0 th phase
-    const OCP_DBL&         aj  = Aj[0];
-    const OCP_DBL&         bj  = Bj[0];
-    const OCP_DBL&         zj  = Zj[0];
-    const vector<OCP_DBL>& xj  = x[0];
-    vector<OCP_DBL>&       Znj = Zn[0];
-
-    for (USI i = 0; i < NC; i++) {
-        tmp = 0;
-        for (USI m = 0; m < NC; m++) {
-            tmp += (1 - BIC[i * NC + m]) * sqrt(Ai[i] * Ai[m]) * xj[m];
-        }
-        An[i]  = 2 / nu[0] * (tmp - aj);
-        Bn[i]  = 1 / nu[0] * (Bi[i] - bj);
-        Znj[i] = ((bj - zj) * An[i] +
-                  ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
-                   ((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj -
-                   (delta1 + delta2 - 1) * zj * zj) *
-                      Bn[i]) /
-                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
-                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
-    }
-
-    G = (zj + delta1 * bj) / (zj + delta2 * bj);
-
-    for (USI i = 0; i < NC; i++) {
-        // i th fugacity
-        C = 1 / (zj - bj);
-        // D = Bi[i] / bj * (zj - 1);
-        tmp = 0;
-        for (USI k = 0; k < NC; k++) {
-            tmp += (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
-        }
-        E = -aj / ((delta1 - delta2) * bj) * (2 * tmp / aj - Bi[i] / bj);
-
-        for (USI k = 0; k <= i; k++) {
-            // k th components
-
-            aik = (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]);
-
-            Cnk = (Bn[k] - Znj[k]) / ((zj - bj) * (zj - bj));
-            Dnk = Bi[i] / bj * (Znj[k] - (Bi[k] - bj) * (zj - 1) / (nu[0] * bj));
-            Gnk = (delta1 - delta2) / ((zj + delta2 * bj) * (zj + delta2 * bj)) *
-                  (Bn[k] * zj - Znj[k] * bj);
-            /*Enk = 1 / ((delta1 - delta2) * bj * bj) * (An[k] * bj - Bn[k] * aj) *
-               (Bi[i] / bj - 2 * tmp / aj)
-                + aj / ((delta1 - delta2) * bj) * (-Bi[i] / (bj * bj) * Bn[k] - 2 /
-               (aj * aj) * (aj * (aik - tmp) / nu[j] - An[k] * tmp));*/
-            Enk = -1 / (delta1 - delta2) / (bj * bj) *
-                  (2 * (bj * aik / nu[0] + Bn[k] * (Bi[i] * aj / bj - tmp)) -
-                   An[k] * Bi[i] - aj * Bi[i] / nu[0]);
-            Enk -= E / nu[0];
-            phiN[i * NC + k] = 1 / C * Cnk + Dnk + Enk * log(G) + E / G * Gnk;
-            phiN[k * NC + i] = phiN[i * NC + k];
-        }
-    }
-
-    // cout << endl << "phiN" << endl;
-    // for (USI i = 0; i < NC; i++) {
-    //     for (USI j = 0; j < NC; j++) {
-    //         cout << phiN[i * NC + j] << "   ";
-    //     }
-    //     cout << endl;
-    // }
-}
-
-void MixtureComp::AssembleSkipMatSTA()
-{
-    // Sysmetric Matrix
-    // stored by colum
-    vector<OCP_DBL>& xj = x[0];
-
-    for (USI i = 0; i < NC; i++) {
-        for (USI j = 0; j <= i; j++) {
-            skipMatSTA[i * NC + j] =
-                delta(i, j) + sqrt(xj[i] * xj[j]) * phiN[i * NC + j];
-            skipMatSTA[j * NC + i] = skipMatSTA[i * NC + j];
-        }
-    }
-
-    /*    cout << endl << "skipMatSTA" << endl;
-        for (USI i = 0; i < NC; i++) {
-            for (USI j = 0; j < NC; j++) {
-                cout << skipMatSTA[i * NC + j] << "   ";
-            }
-            cout << endl;
-        } */
-}
 
 OCP_DBL MixtureComp::CalStepNRsp()
 {
@@ -2586,24 +2478,6 @@ void MixtureComp::CalViscoLBC()
     OCP_DBL xijT;
     OCP_DBL xijP;
     OCP_DBL xijV;
-
-    // test
-    // T = 750;
-    // P = 4867.594;
-    // x[0][0] = 0.657538;
-    // x[0][1] = 0.014955;
-    // x[0][2] = 0.003126;
-    // x[0][3] = 0.008749;
-    // x[0][4] = 0.008200;
-    // x[0][5] = 0.017913;
-    // x[0][6] = 0.035430;
-    // x[0][7] = 0.254089;
-    // CalAiBi();
-    // CalAjBj(Aj[0], Bj[0], x[0]);
-    // SolEoS(Zj[0], Aj[0], Bj[0]);
-    // CalMW();
-    // CalVfXiRho();
-    // test
 
     for (USI j = 0; j < NP; j++) {
         const vector<OCP_DBL>& xj  = x[j];
@@ -5317,6 +5191,126 @@ void MixtureComp::OutMixtureIters() const {
     cout << "NRRR:       " << setw(12) << itersRR << setw(15)
         << itersRR * 1.0 / countsRR << endl;
 }
+
+
+/////////////////////////////////////////////////////////////////////
+// Optional Features
+/////////////////////////////////////////////////////////////////////
+
+
+void MixtureComp::SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk)
+{
+    skipSta = &optFeatures.skipStaAnaly;
+    if (skipSta->IfUseSkip()) {
+        skipSta->Allocate(numBulk, numPhase - 1, numCom - 1);
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+// Accelerate PVT
+/////////////////////////////////////////////////////////////////////
+
+void MixtureComp::CalPhiNSTA()
+{
+    OCP_DBL C, E, G;
+    OCP_DBL Cnk, Dnk, Enk, Gnk;
+    OCP_DBL tmp, aik;
+
+    // 0 th phase
+    const OCP_DBL& aj = Aj[0];
+    const OCP_DBL& bj = Bj[0];
+    const OCP_DBL& zj = Zj[0];
+    const vector<OCP_DBL>& xj = x[0];
+    vector<OCP_DBL>& Znj = Zn[0];
+
+    for (USI i = 0; i < NC; i++) {
+        tmp = 0;
+        for (USI m = 0; m < NC; m++) {
+            tmp += (1 - BIC[i * NC + m]) * sqrt(Ai[i] * Ai[m]) * xj[m];
+        }
+        An[i] = 2 / nu[0] * (tmp - aj);
+        Bn[i] = 1 / nu[0] * (Bi[i] - bj);
+        Znj[i] = ((bj - zj) * An[i] +
+            ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
+                ((delta1 + delta2) * (2 * bj + 1) - 2 * delta1 * delta2 * bj) * zj -
+                (delta1 + delta2 - 1) * zj * zj) *
+            Bn[i]) /
+            (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
+                (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
+    }
+
+    G = (zj + delta1 * bj) / (zj + delta2 * bj);
+
+    for (USI i = 0; i < NC; i++) {
+        // i th fugacity
+        C = 1 / (zj - bj);
+        // D = Bi[i] / bj * (zj - 1);
+        tmp = 0;
+        for (USI k = 0; k < NC; k++) {
+            tmp += (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]) * xj[k];
+        }
+        E = -aj / ((delta1 - delta2) * bj) * (2 * tmp / aj - Bi[i] / bj);
+
+        for (USI k = 0; k <= i; k++) {
+            // k th components
+
+            aik = (1 - BIC[i * NC + k]) * sqrt(Ai[i] * Ai[k]);
+
+            Cnk = (Bn[k] - Znj[k]) / ((zj - bj) * (zj - bj));
+            Dnk = Bi[i] / bj * (Znj[k] - (Bi[k] - bj) * (zj - 1) / (nu[0] * bj));
+            Gnk = (delta1 - delta2) / ((zj + delta2 * bj) * (zj + delta2 * bj)) *
+                (Bn[k] * zj - Znj[k] * bj);
+            /*Enk = 1 / ((delta1 - delta2) * bj * bj) * (An[k] * bj - Bn[k] * aj) *
+               (Bi[i] / bj - 2 * tmp / aj)
+                + aj / ((delta1 - delta2) * bj) * (-Bi[i] / (bj * bj) * Bn[k] - 2 /
+               (aj * aj) * (aj * (aik - tmp) / nu[j] - An[k] * tmp));*/
+            Enk = -1 / (delta1 - delta2) / (bj * bj) *
+                (2 * (bj * aik / nu[0] + Bn[k] * (Bi[i] * aj / bj - tmp)) -
+                    An[k] * Bi[i] - aj * Bi[i] / nu[0]);
+            Enk -= E / nu[0];
+            phiN[i * NC + k] = 1 / C * Cnk + Dnk + Enk * log(G) + E / G * Gnk;
+            phiN[k * NC + i] = phiN[i * NC + k];
+        }
+    }
+}
+
+void MixtureComp::AssembleSkipMatSTA()
+{
+    // Sysmetric Matrix
+    // stored by colum
+    vector<OCP_DBL>& xj = x[0];
+
+    for (USI i = 0; i < NC; i++) {
+        for (USI j = 0; j <= i; j++) {
+            skipMatSTA[i * NC + j] =
+                delta(i, j) + nu[0] * sqrt(xj[i] * xj[j]) * phiN[i * NC + j];
+            skipMatSTA[j * NC + i] = skipMatSTA[i * NC + j];
+        }
+    }
+}
+
+
+void MixtureComp::CalSkipForNextStep()
+{
+    skipSta->SetFlagSkip(bulkId, flagSkip);
+    if (flagSkip && ftype == 0) {
+        // 1. Np == 1 is base for Skipping
+        // 2. If flagSkip == true, then next stablity analysis is possible to be skipped, it depends on if
+        // conditions are met
+        // 3. If ftype == 0, then the range should be calculated, which also means last skip is unsatisfied
+        CalPhiNSTA();
+        AssembleSkipMatSTA();
+#ifdef DEBUG
+        if (!CheckNan(skipMatSTA.size(), &skipMatSTA[0])) {
+            OCP_WARNING("Nan in skipMatSTA!");
+        }
+#endif // DEBUG
+
+        CalEigenSY(NC, &skipMatSTA[0], &eigenSkip[0], &eigenWork[0], 2 * NC + 1);
+        skipSta->AssignValue(bulkId, eigenSkip[0], P, T, zi);
+    }
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

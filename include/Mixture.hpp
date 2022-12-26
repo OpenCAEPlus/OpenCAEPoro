@@ -20,6 +20,7 @@
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
 #include "WellOpt.hpp"
+#include "OptionalFeatures.hpp"
 
 using namespace std;
 
@@ -67,6 +68,7 @@ public:
         // keyDer.resize((numCom + 1) * ((numPhase - 1) * (numCom - 1) + 1));
         
     };
+    virtual void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) = 0;
     /// return type of mixture.
     USI GetMixtureType() const { return mixtureType; }
     /// flash calculation with saturation of phases.
@@ -76,7 +78,8 @@ public:
                           const OCP_DBL* Ziin) = 0;
     virtual void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
-                              const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
+                              const OCP_DBL& Vpore, const OCP_DBL* Ziin,
+                              const OCP_USI& bId) = 0;
     virtual void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
                               const OCP_DBL& Tin, const OCP_DBL* Sjin,
                               const OCP_DBL& Vpore, const OCP_DBL* Ziin) = 0;
@@ -86,8 +89,10 @@ public:
         const OCP_DBL* xijin) = 0;
     /// Flash calculation with moles of components and Calculate the derivative
     virtual void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) = 0;
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+        const OCP_DBL* xijin,
+        const OCP_USI& bId,
+        const OCP_DBL& Ntin) = 0;
     virtual void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin, 
@@ -133,10 +138,6 @@ public:
         }
         if (!flag) OCP_ABORT("Ni is negative!");
     }
-    // used in Compositional Model
-    virtual USI GetFtype() = 0;
-    virtual OCP_SIN GetMinEigenSkip() = 0;
-    virtual OCP_BOOL GetFlagSkip() = 0; 
     virtual OCP_DBL GetSurTen() = 0;
 
     virtual OCP_DBL GetErrorPEC() = 0;
@@ -145,7 +146,7 @@ public:
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
                      ///< others.
-
+    OCP_USI       bulkId; ///< index of current bulk
     USI     numPhase; ///< num of phases.
     USI     numCom;   ///< num of components.
     OCP_DBL P;        ///< pressure when flash calculation.

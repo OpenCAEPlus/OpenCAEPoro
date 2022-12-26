@@ -124,7 +124,7 @@ public:
 
 class MixtureComp : public Mixture
 {
-    // Here, Pressure is in unit psia, Temperature is in unit °„F
+
 
 public:
     OCP_DBL GetErrorPEC() override { return ePEC; }
@@ -169,6 +169,20 @@ public:
 
     MixtureComp(const ComponentParam& param, const USI& i);
 
+    void InitPTZ(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) {
+        P = Pin;
+        T = Tin;
+        Dcopy(NC, &zi[0], Ziin);
+    }
+    void InitPTN(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) {
+        P = Pin;
+        T = Tin;
+        Dcopy(numCom, &Ni[0], Niin);
+        Nh = Dnorm1(NC, &Ni[0]);
+        for (USI i = 0; i < NC; i++)
+            zi[i] = Ni[i] / Nh;
+    }
+
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
 
     void InitFlashIMPEC(const OCP_DBL& Pin,
@@ -183,7 +197,8 @@ public:
                       const OCP_DBL& Tin,
                       const OCP_DBL* Sjin,
                       const OCP_DBL& Vpore,
-                      const OCP_DBL* Ziin) override;
+                      const OCP_DBL* Ziin,
+                      const OCP_USI& bId) override;
 
     void InitFlashFIMn(const OCP_DBL& Pin,
                         const OCP_DBL& Pbbin,
@@ -202,14 +217,16 @@ public:
                const USI&     lastNP,
                const OCP_DBL* xijin) override;
 
-    void CalFlash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin);
+    void CalFlash();
 
     void FlashFIM(const OCP_DBL& Pin,
                     const OCP_DBL& Tin,
                     const OCP_DBL* Niin,
-                    const USI&     ftype,
+                    const OCP_DBL* Sjin,
                     const USI&     lastNP,
-                    const OCP_DBL* xijin) override;
+                    const OCP_DBL* xijin,
+                    const OCP_USI& bId,
+                    const OCP_DBL& Ntin) override;
 
     void FlashFIMn(const OCP_DBL& Pin,
                       const OCP_DBL& Tin,
@@ -237,25 +254,7 @@ public:
     void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) override;
 
-
-    void setPT(const OCP_DBL& p, const OCP_DBL& t)
-    {
-        P = p;
-        T = t;
-    }
-
-    void setZi(const OCP_DBL* Ziin) { Dcopy(NC, &zi[0], Ziin); }
-
-    void setZi()
-    {
-        for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nh;
-    }
-
-    void setNi(const OCP_DBL* Niin) { Dcopy(numCom, &Ni[0], Niin); }
-
     void CallId();
-
-    USI GetFtype() override { return ftype; }
 
     void CalSurfaceTension();
 
@@ -294,7 +293,7 @@ private:
     vector<COMP>    comp;    ///< properties of hydrocarbon components
     USI             lId;     ///< index of lightest components
     EoScontrol      EoSctrl; ///< method params for solving phase equilibrium
-    USI             ftype{0};
+
 
     vector<OCP_DBL> Plist;
     vector<OCP_DBL> Tlist;
@@ -412,13 +411,7 @@ public:
     void     CalFugNAll(const OCP_BOOL& Znflag = OCP_TRUE);
     void     PrintFugN();
     void     AssembleJmatSP();
-    /// Calculate d ln phi[i][j] / d n[k][j]
-    void    CalPhiNSTA();
-    void    AssembleSkipMatSTA();
     OCP_DBL CalStepNRsp();
-
-    OCP_SIN  GetMinEigenSkip() override { return eigenSkip[0]; }
-    OCP_BOOL GetFlagSkip() override { return flagSkip; }
 
 private:
     // Method Variables
@@ -440,13 +433,6 @@ private:
     vector<OCP_DBL>         Ax;      ///< d Aj / d xkj, j is fixed
     vector<OCP_DBL>         Bx;      ///< d Bj / d xkj, j is fixed
     vector<OCP_DBL>         Zx;      ///< d Zj / d xkj, j is fixed
-    // Skip Stability Analysis
-    OCP_BOOL        flagSkip;   ///< if check skipping Stability Analysis
-    vector<OCP_DBL> phiN;       ///< d ln phi[i][j] / d n[k][j]
-    vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
-    vector<OCP_SIN>
-        eigenSkip; ///< eigen values of matrix for skipping Skip Stability Analysis
-    vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
 
     // SSM in Phase Split
     vector<OCP_DBL> resRR; ///< Error in Rachford-Rice equations.
@@ -545,6 +531,41 @@ private:
     vector<OCP_DBL> muN;  ///< d mu[j] / d N[i]: numphase * numCom
     vector<OCP_DBL> xiN;  ///< d xi[j] / d N[i]: numphase * numCom
     vector<OCP_DBL> rhoN; ///< d rho[j] / d N[i]: numphase * numCom
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    // Optional Features
+    /////////////////////////////////////////////////////////////////////
+
+public:
+    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override;
+
+    /////////////////////////////////////////////////////////////////////
+    // Accelerate PVT
+    /////////////////////////////////////////////////////////////////////
+
+protected:
+    /// Calculate d ln phi[i][j] / d n[k][j]
+    void CalPhiNSTA();
+    /// Assemble matrix to Calculated eigen value used for skipping
+    void AssembleSkipMatSTA();
+    /// 
+    void CalSkipForNextStep();
+
+protected:
+    SkipStaAnaly*   skipSta;    ///< Skip analysis Term
+
+    USI             ftype{ 0 }; ///< Decide the start point of flash
+    /// If ture, then skipping could be try, 
+    //  if ftype = 0 also, then new range should be calculated
+    OCP_BOOL        flagSkip;   
+    vector<OCP_DBL> phiN;       ///< d ln phi[i][j] / d n[k][j]
+    vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
+    /// eigen values of matrix for skipping Skip Stability Analysis.
+    //  Only the minimum eigen value will be used
+    vector<OCP_SIN> eigenSkip; 
+    vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
 };
 
 /// Return the sign of double di

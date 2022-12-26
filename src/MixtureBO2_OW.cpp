@@ -87,7 +87,7 @@ void BOMixture_OW::InitFlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Pbbin, cons
 
 void BOMixture_OW::InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
     const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-    const OCP_DBL* Ziin)
+    const OCP_DBL* Ziin, const OCP_USI& bId)
 {
     P = Pin;
     S[1] = Sjin[1];
@@ -107,7 +107,7 @@ void BOMixture_OW::InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const 
     xi[0] = 1 / (CONV1 * bo);
     Ni[0] = Vpore * (1 - S[1]) * xi[0];
 
-    FlashFIM(Pin, Tin, &Ni[0], 0, 0, 0);
+    FlashFIM(Pin, Tin, &Ni[0], 0, 0, 0, 0, 0);
 }
 
 
@@ -152,8 +152,10 @@ void BOMixture_OW::FlashIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
 }
 
 void BOMixture_OW::FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-    const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-    const OCP_DBL* xijin)
+    const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+    const OCP_DBL* xijin,
+    const OCP_USI& bId,
+    const OCP_DBL& Ntin)
 {
     fill(dXsdXp.begin(), dXsdXp.end(), 0.0);
     fill(pSderExist.begin(), pSderExist.end(), OCP_TRUE);

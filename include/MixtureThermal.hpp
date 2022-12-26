@@ -24,11 +24,8 @@ class MixtureThermal : public Mixture
 {
 public:
     MixtureThermal() = default;
-
+    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
     // usless in Thermal model
-    USI GetFtype() override { OCP_ABORT("Should not be used in Thermal mode!"); return 100; }
-    OCP_SIN GetMinEigenSkip() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
-    OCP_BOOL GetFlagSkip() override { OCP_ABORT("Should not be used in Thermal mode!");  return OCP_FALSE; }
     OCP_DBL GetSurTen() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
     OCP_DBL GetErrorPEC() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
     void OutMixtureIters() const override {};
@@ -52,7 +49,7 @@ public:
         const OCP_DBL* Ziin) override {};
     void InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
         const OCP_DBL& Tin, const OCP_DBL* Sjin,
-        const OCP_DBL& Vpore, const OCP_DBL* Ziin) override {};
+        const OCP_DBL& Vpore, const OCP_DBL* Ziin, const OCP_USI& bId) override {};
     void InitFlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Pbbin,
         const OCP_DBL& Tin, const OCP_DBL* Sjin,
         const OCP_DBL& Vpore, const OCP_DBL* Ziin) override {};
@@ -62,8 +59,10 @@ public:
         const OCP_DBL* xijin) override {};
     /// Flash calculation with moles of components and Calculate the derivative
     void FlashFIM(const OCP_DBL& Pin, const OCP_DBL& Tin,
-        const OCP_DBL* Niin, const USI& ftype, const USI& lastNP,
-        const OCP_DBL* xijin) override {};
+        const OCP_DBL* Niin, const OCP_DBL* Sjin, const USI& lastNP,
+        const OCP_DBL* xijin,
+        const OCP_USI& bId,
+        const OCP_DBL& Ntin) override {};
     void FlashFIMn(const OCP_DBL& Pin, const OCP_DBL& Tin,
         const OCP_DBL* Niin, const OCP_DBL* Sjin, const OCP_DBL* xijin,
         const OCP_DBL* njin, const USI& ftype, const USI* phaseExistin,

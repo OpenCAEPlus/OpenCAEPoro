@@ -72,7 +72,7 @@ int ssyevd_(char* jobz, char* uplo, const int* n, float* A, const int* lda, floa
 }
 
 /// Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack
-void MinEigenSY(const int& N, float* A, float* w, float* work, const int& lwork);
+void CalEigenSY(const int& N, float* A, float* w, float* work, const int& lwork);
 
 /// Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack
 // void MinEigenS(const int& N, float* a, float* w);

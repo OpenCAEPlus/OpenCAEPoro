@@ -13,11 +13,13 @@
 #define __RESERVOIR_HEADER__
 
 // OpenCAEPoro header files
+#include "ParamRead.hpp"
 #include "AllWells.hpp"
 #include "Grid.hpp"
 #include "Bulk.hpp"
 #include "BulkConn.hpp"
-#include "ParamRead.hpp"
+#include "OptionalFeatures.hpp"
+
 
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
@@ -86,10 +88,12 @@ public:
 
 protected:
 
-    Grid     grid;     ///< Init Grid class.
-    Bulk     bulk;     ///< Active grid info
-    AllWells allWells; ///< AllWells class.
-    BulkConn conn;     ///< BulkConn class.
+    Grid     grid;     ///< Init Grid info.
+    Bulk     bulk;     ///< Active grid info.
+    AllWells allWells; ///< Wells class info.
+    BulkConn conn;     ///< Bulk's connection info.
+
+    OptionalFeatures optFeatures; ///< optional features.
 
 public:
     /// Calculate the CFL number, including bulks and wells for IMPEC

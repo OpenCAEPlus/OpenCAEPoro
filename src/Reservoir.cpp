@@ -22,6 +22,7 @@ void Reservoir::InputParam(ParamRead& param)
     grid.InputParam(param.paramRs);
     bulk.InputParam(param.paramRs);
     allWells.InputParam(param.paramWell);
+    optFeatures.InputParam();
 }
 
 void Reservoir::SetupIsoT()
@@ -32,6 +33,8 @@ void Reservoir::SetupIsoT()
     bulk.SetupIsoT(grid);
     conn.Setup(grid);
     allWells.Setup(grid, bulk);
+
+    bulk.SetupOptionalFeatures(optFeatures);
 }
 
 void Reservoir::ApplyControl(const USI& i)
@@ -330,6 +333,7 @@ void Reservoir::ResetFIM()
     allWells.CalTrans(bulk);
     allWells.CaldG(bulk);
     allWells.CalFlux(bulk);
+    optFeatures.ResetToLastTimeStep();
 }
 
 void Reservoir::UpdateLastStepFIM()
@@ -338,6 +342,7 @@ void Reservoir::UpdateLastStepFIM()
 
     bulk.UpdateLastStepFIM();
     allWells.UpdateLastBHP();
+    optFeatures.UpdateLastTimeStep();
 }
 
 

@@ -218,8 +218,6 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     phase2Index[GAS]   = 1;
     phase2Index[WATER] = 2;
 
-    skipStaAnalyTerm.SetUseSkip(OCP_TRUE);
-
     InputRockFunc(rs_param);
     cout << "COMPOSITIONAL model" << endl;
 }
@@ -329,7 +327,6 @@ void Bulk::SetupIsoT(const Grid& myGrid)
     AllocateSwatInit(myGrid);
     AllocateScalePcow();
     AllocateMiscible();
-    AllocateSkipStaAnaly();
     AllocateError();
     // CalSomeInfo(myGrid);
 
@@ -343,6 +340,13 @@ void Bulk::SetupT(const Grid& myGrid)
     AllocateRegion(myGrid);
     AllocateSwatInit(myGrid);
     AllocateScalePcow();
+}
+
+void Bulk::SetupOptionalFeatures(OptionalFeatures& optFeatures)
+{
+    for (USI i = 0; i < NTPVT; i++) {
+        flashCal[i]->SetupOptionalFeatures(optFeatures, numBulk);
+    }
 }
 
 
@@ -1093,74 +1097,6 @@ void Bulk::ScalePcow()
 }
 
 
-void Bulk::AllocateSkipStaAnaly()
-{
-    if (skipStaAnalyTerm.IfUseSkip()) {
-        // accelerate phase equilibrium calculation
-        skipStaAnalyTerm.Setup(numBulk, numComH);
-        lskipStaAnalyTerm = skipStaAnalyTerm; // Initialization
-    }
-}
-
-
-void Bulk::PassSkipStaAnaly(const OCP_USI& n, const USI& pvtnum)
-{
-
-    if (skipStaAnalyTerm.IfUseSkip()) {
-        ePEC[n] = flashCal[pvtnum]->GetErrorPEC();
-
-        SkipStaAnaly& skip = skipStaAnalyTerm;
-        skip.flagSkip[n] = flashCal[pvtnum]->GetFlagSkip();
-        if (skip.flagSkip[n]) {
-            if (flashCal[pvtnum]->GetFtype() == 0) {
-                // If recalculate the range then get it
-                skip.minEigenSkip[n] = flashCal[pvtnum]->GetMinEigenSkip();
-                for (USI j = 0; j < numPhase - 1; j++) {
-                    if (flashCal[pvtnum]->phaseExist[j]) {
-                        for (USI i = 0; i < numComH; i++) {
-                            // now hydrocarbon phase = 1, so zi = existing xij
-                            skip.ziSkip[n * numComH + i] = flashCal[pvtnum]->xij[j * numCom + i];
-                        }
-                        break;
-                    }
-                }
-                skip.PSkip[n] = P[n];
-                skip.TSkip[n] = T[n];
-            }
-        }
-    }
-}
-
-
-USI Bulk::CalFlashType(const OCP_USI& n, const OCP_BOOL& fimbulk) const
-{
-    if (skipStaAnalyTerm.IfUseSkip()) {
-
-        if (skipStaAnalyTerm.IfSkip(P[n], T[n], Nt[n], &Ni[n * numCom], n, numComH)) {
-            return 1;
-        }
-        else if (phaseNum[n] >= 3 && fimbulk) {
-            // if num of hydrocarbon phases is 2 at last NR step and predicted
-            // saturations indicates that the stae will be kept, then skip phase
-            // stability analysis, carry phase splitting directly
-            OCP_USI bId = n * numPhase;
-            for (USI j = 0; j < numPhase; j++) {
-                if (S[bId + j] < 1E-4) {
-                    // phases change (predicted)
-                    return 0;
-                }
-            }
-            return 2;
-        }
-        else {
-            return 0;
-        }
-    }
-
-    return 0;
-}
-
-
 void Bulk::AllocateMiscible()
 {
     if (miscible) {
@@ -1575,8 +1511,6 @@ void Bulk::CalFlashIMPEC()
     USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
 
-        ftype = CalFlashType(n, OCP_FALSE);
-
         flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
             &xij[n * numPhase * numCom]);
         PassFlashValueIMPEC(n);
@@ -1618,7 +1552,6 @@ void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
 
-    PassSkipStaAnaly(n, pvtnum);
     PassMiscible(n, pvtnum);
 }
 
@@ -1702,7 +1635,6 @@ void Bulk::ResetVal03IMPEC()
     vfP         = lvfP;
     vfi         = lvfi;
 
-    ResetSkipStaAnalyTerm();
     ResetMicibleTerm();
 }
 
@@ -1737,7 +1669,6 @@ void Bulk::UpdateLastStepIMPEC()
     lvfP        = vfP;
     lvfi        = vfi;
 
-    UpdatelSkipStaAnalyTerm();
     UpdatelMicibleTerm();
 }
 
@@ -1845,7 +1776,7 @@ void Bulk::InitFlashFIM()
 
     for (OCP_USI n = 0; n < numBulk; n++) {
         flashCal[PVTNUM[n]]->InitFlashFIM(P[n], Pb[n], T[n], &S[n * numPhase],
-            rockVp[n], Ni.data() + n * numCom);
+            rockVp[n], Ni.data() + n * numCom, n);
         for (USI i = 0; i < numCom; i++) {
             Ni[n * numCom + i] = flashCal[PVTNUM[n]]->Ni[i];
         }
@@ -1859,17 +1790,14 @@ void Bulk::CalFlashFIM()
 {
     OCP_FUNCNAME;
 
-    USI ftype;
     NRdSSP = 0;
     maxNRdSSP = 0;
     index_maxNRdSSP = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
 
-        ftype = CalFlashType(n, OCP_TRUE);
-
-        flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-            &xij[n * numPhase * numCom]);
+        flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], &S[n * numPhase], phaseNum[n],
+            &xij[n * numPhase * numCom], n, Nt[n]);
         PassFlashValueFIM(n);
     }
 }
@@ -1947,7 +1875,6 @@ void Bulk::PassFlashValueFIM(const OCP_USI& n)
     Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
-    PassSkipStaAnaly(n, pvtnum);
     PassMiscible(n, pvtnum);
 }
 
@@ -2165,7 +2092,6 @@ void Bulk::ResetFIM()
     pSderExist   = lpSderExist;
     pVnumCom     = lpVnumCom;
     
-    ResetSkipStaAnalyTerm();
     ResetMicibleTerm();
 }
 
@@ -2213,7 +2139,6 @@ void Bulk::UpdateLastStepFIM()
     lpSderExist   = pSderExist;
     lpVnumCom     = pVnumCom;
     
-    UpdatelSkipStaAnalyTerm();
     UpdatelMicibleTerm();
 }
 
@@ -2285,8 +2210,6 @@ void Bulk::CalFlashFIMn_COMP()
     index_maxNRdSSP = 0;
 
     for (OCP_USI n = 0; n < numBulk; n++) {
-
-        ftype = CalFlashType(n, OCP_TRUE);
 
         for (USI j = 0; j < numPhase; j++) flagB[j] = phaseExist[n * numPhase + j];
 
@@ -2369,7 +2292,6 @@ void Bulk::PassFlashValueFIMn(const OCP_USI& n)
 
     resPc[n] = flashCal[pvtnum]->resPc;
 
-    PassSkipStaAnaly(n, pvtnum);
     PassMiscible(n, pvtnum);
 }
 
@@ -2562,7 +2484,6 @@ void Bulk::CalFlashAIMcEp()
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
-            ftype = CalFlashType(n, OCP_FALSE);
 
             flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                 &xijNR[n * numPhase * numCom]);
@@ -2578,7 +2499,6 @@ void Bulk::CalFlashAIMcEa()
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
-            ftype = CalFlashType(n, OCP_FALSE);
 
             flashCal[PVTNUM[n]]->FlashIMPEC(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
                 &xij[n * numPhase * numCom]);
@@ -2590,14 +2510,12 @@ void Bulk::CalFlashAIMcEa()
 
 void Bulk::CalFlashAIMcI()
 {
-    USI ftype;
     for (OCP_USI n = 0; n < numBulk; n++) {
         if (bulkTypeAIM.IfFIMbulk(n)) {
             // Implicit bulk
-            ftype = CalFlashType(n, OCP_TRUE);
 
-            flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], ftype, phaseNum[n],
-                &xij[n * numPhase * numCom]);
+            flashCal[PVTNUM[n]]->FlashFIM(P[n], T[n], &Ni[n * numCom], &S[n * numPhase], phaseNum[n],
+                &xij[n * numPhase * numCom], n, Nt[n]);
             PassFlashValueAIMcI(n);
         }
     }
@@ -2634,7 +2552,6 @@ void Bulk::PassFlashValueAIMcEp(const OCP_USI& n)
         }
     }
 
-    PassSkipStaAnaly(n, pvtnum);
     PassMiscible(n, pvtnum);
 }
 
@@ -2712,7 +2629,6 @@ void Bulk::PassFlashValueAIMcI(const OCP_USI& n)
     Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
-    PassSkipStaAnaly(n, pvtnum);
     PassMiscible(n, pvtnum);
 }
 

@@ -247,7 +247,7 @@ void BOMixture_ODGW::InitFlashIMPEC(const OCP_DBL& Pin,
 
 void BOMixture_ODGW::InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL& Tin,
     const OCP_DBL* Sjin, const OCP_DBL& Vpore,
-    const OCP_DBL* Ziin)
+    const OCP_DBL* Ziin, const OCP_USI& bId)
 {
     // Calculate Ni only frist, then call FlashDer()
     for (USI i = 0; i < 3; i++) Ni[i] = 0;
@@ -327,7 +327,7 @@ void BOMixture_ODGW::InitFlashFIM(const OCP_DBL& Pin, const OCP_DBL& Pbbin, cons
         break;
     }
     }
-    FlashFIM(Pin, Tin, &Ni[0], 0, 0, 0);
+    FlashFIM(Pin, Tin, &Ni[0], 0, 0, 0, 0, 0);
 }
 
 
@@ -541,9 +541,11 @@ void BOMixture_ODGW::FlashIMPEC(const OCP_DBL& Pin,
 void BOMixture_ODGW::FlashFIM(const OCP_DBL& Pin,
                                 const OCP_DBL& Tin,
                                 const OCP_DBL* Niin,
-                                const USI&     ftype,
+                                const OCP_DBL* Sjin,
                                 const USI&     lastNP,
-                                const OCP_DBL* xijin)
+                                const OCP_DBL* xijin,
+                                const OCP_USI& bId,
+                                const OCP_DBL& Ntin)
 {
     for (USI j = 0; j < 3; j++) {
         phaseExist[j] = OCP_FALSE;
