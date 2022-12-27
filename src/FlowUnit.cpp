@@ -353,7 +353,7 @@ void FlowUnit_ODGW01_Miscible::SetupScale(const OCP_USI& bId, OCP_DBL& Swin, con
             if (Pcowin > 0) {
                 const OCP_DBL PcowInit = GetPcowBySw(Swin);
                 if (PcowInit > 0) {
-                    scaleTerm->AssignScaleValue(bId, Pcowin / PcowInit);
+                    scaleTerm->AssignScaleValue(bId, (Pcowin / PcowInit * maxPcow - minPcow) / (maxPcow - minPcow));
                 }
             }
         }
@@ -400,7 +400,7 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
     }
 
     if (scaleTerm->IfScale()) {
-        pc_out[2] *= scaleTerm->GetScaleVal(bId);
+        pc_out[2] = -((-pc_out[2] - minPcow) * scaleTerm->GetScaleVal(bId) + minPcow);
     }
 }
 
@@ -476,7 +476,8 @@ void FlowUnit_ODGW01_Miscible::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out
     }
 
     if (scaleTerm->IfScale()) {
-        pc_out[2] *= scaleTerm->GetScaleVal(bId);
+        pc_out[2] = -((-pc_out[2] - minPcow) * scaleTerm->GetScaleVal(bId) + minPcow);
+        dPcjdS[8] *= scaleTerm->GetScaleVal(bId);
     }
 }
 

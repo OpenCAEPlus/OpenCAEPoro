@@ -897,8 +897,12 @@ void Out4RPT::PrintRPT(const string&    dir,
     }
 
     // Po - Pw
-    if (bgp.PCW) {
+    if (bgp.PCW || OCP_TRUE) {
         PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &bulk.Pc[WIndex], np, g2bp, OCP_TRUE);
+
+
+        PrintRPT_Scalar(outRPT, "PPCW : psia ", days, &rs.optFeatures.scalePcow.scaleVal[0],
+                        1, g2bp, OCP_TRUE, 103.053 - 0.116);
     }
 
     outRPT.close();

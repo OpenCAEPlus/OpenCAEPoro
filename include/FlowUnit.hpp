@@ -281,6 +281,8 @@ public:
     {
         // gas is moveable all the time
         Scm[1] = 0;
+        maxPcow = SWOF.GetCol(3).front();
+        minPcow = SWOF.GetCol(3).back();
     }
     void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {
         misTerm = &optFeatures.miscible;
@@ -302,6 +304,9 @@ public:
 protected:
     ScalePcow*  scaleTerm;
     Miscible*   misTerm;
+
+    OCP_DBL     maxPcow;
+    OCP_DBL     minPcow;
 
     OCP_DBL     Fk;        ///< The relative permeability interpolation parameter
     OCP_DBL     Fp;        ///< The capillary pressure interpolation parameter

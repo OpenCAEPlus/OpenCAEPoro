@@ -23,6 +23,9 @@ class OptionalFeatures
     friend class MixtureComp;
     friend class FlowUnit_ODGW01_Miscible;
 
+    // For Output
+    friend class Out4RPT;
+
 public:
     void InputParam(const ParamReservoir& param) {
         miscible.InputParam(param.miscstr);

@@ -78,6 +78,8 @@ protected:
 
 class ScalePcow
 {
+    // For Output
+    friend class Out4RPT;
 
 public:
     /// Setup ScalePcow term
