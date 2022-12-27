@@ -15,6 +15,7 @@
 
 
 #include "AcceleratePVT.hpp"
+#include "PhasePermeability.hpp"
 
 
 class OptionalFeatures 
@@ -39,6 +40,11 @@ protected:
     SkipStaAnaly skipStaAnaly;
 
 
+    /////////////////////////////////////////////////////////////////////
+    // Phase Permeability Curve
+    /////////////////////////////////////////////////////////////////////
+
+protected:
 
 
 };

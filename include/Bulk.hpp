@@ -152,6 +152,7 @@ public:
     void PassMiscible(const OCP_USI& n, const USI& pvtnum);
     /// Reset Miscible term
     void ResetMicibleTerm() { surTen = lsurTen; }
+    /// Update Miscible term for last time step
     void UpdatelMicibleTerm() { lsurTen = surTen; }
     
 protected:

@@ -546,6 +546,7 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 protected:
+    /// Allocate memory for variables used in skipping stability analysis
     void AllocateSkip();
     /// Calculate d ln phi[i][j] / d n[k][j]
     void CalPhiNSkip();
@@ -554,12 +555,12 @@ protected:
     /// Calculate skip info for next step
     void CalSkipForNextStep();
     /// Calculate Flash type for IMPEC
-    void CalFlashTypeIMPEC(){ 
-        ftype = skipSta->CalFlashTypeIMPEC(P, T, Nh, Ni, bulkId); 
+    void CalFtypeIMPEC(){ 
+        ftype = skipSta->CalFtypeIMPEC(P, T, Nh, Ni, bulkId); 
     }
     /// Calculate Flash type for FIM
-    void CalFlashTypeFIM(const OCP_DBL* Sjin) { 
-        ftype = skipSta->CalFlashTypeFIM(P, T, Nh, Ni, Sjin, lNP, bulkId);
+    void CalFtypeFIM(const OCP_DBL* Sjin) { 
+        ftype = skipSta->CalFtypeFIM(P, T, Nh, Ni, Sjin, lNP, bulkId);
     }
 
 protected:

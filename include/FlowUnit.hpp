@@ -18,6 +18,7 @@
 #include "OCPConst.hpp"
 #include "OCPTable.hpp"
 #include "ParamReservoir.hpp"
+#include "OptionalFeatures.hpp"
 
 /// designed to deal with matters related to saturation table.
 /// relative permeability, capillary pressure will be calculated here.

@@ -12,6 +12,12 @@
 #include "AcceleratePVT.hpp"
 
 
+ /////////////////////////////////////////////////////////////////////
+ // Skip Stability Analysis
+ /////////////////////////////////////////////////////////////////////
+
+
+
 void SkipStaAnaly::Allocate(const OCP_USI& numBulk, const USI& np, const USI& nc)
 {
     numPhase = np;
@@ -67,7 +73,7 @@ OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
 }
 
 
-USI SkipStaAnaly::CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
+USI SkipStaAnaly::CalFtypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
     const vector<OCP_DBL>& Niin, const OCP_USI& n)
 {
     if (ifUseSkip) {
@@ -84,7 +90,7 @@ USI SkipStaAnaly::CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, cons
 }
 
 
-USI SkipStaAnaly::CalFlashTypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
+USI SkipStaAnaly::CalFtypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
     const vector<OCP_DBL>& Niin, const const OCP_DBL* S, const USI& np, const OCP_USI& n) const
 {
     if (ifUseSkip) {

@@ -19,28 +19,37 @@
 
 using namespace std;
 
+
+/////////////////////////////////////////////////////////////////////
+// Skip Stability Analysis
+/////////////////////////////////////////////////////////////////////
+
+
 class SkipStaAnaly
 {
 
-    friend class MixtureComp;
 public:
     void SetUseSkip(const OCP_BOOL& flag) { ifUseSkip = flag; }
     OCP_BOOL IfUseSkip() const { return ifUseSkip; }
-
+    /// Allocate memory for SkipStaAnaly term
     void Allocate(const OCP_USI& numBulk, const USI& np, const USI& nc);
+    /// Set flag for skipping
     void SetFlagSkip(const OCP_USI& n, const OCP_BOOL& flagSkip) { flag[n] = flagSkip; }
+    /// Update variables used for determing if skipping will happen
     void AssignValue(const OCP_USI& n, const OCP_DBL& minEigenSkip,
         const OCP_DBL& PSkip, const OCP_DBL& TSkip, const vector<OCP_DBL>& ziSkip);
-
+    /// Determine if skipping will happen
     OCP_BOOL IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
         const vector<OCP_DBL>& Niin, const OCP_USI& n) const;
-
-    USI CalFlashTypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
+    /// Calculate the ftype for IMPEC
+    USI CalFtypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
         const vector<OCP_DBL>& Niin, const OCP_USI& n);
-    USI CalFlashTypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
+    /// Calculate the ftype for FIM
+    USI CalFtypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
         const vector<OCP_DBL>& Niin, const OCP_DBL* S, const USI& np, const OCP_USI& n) const;
-
+    /// Reset SkipStaAnaly term to last time step
     void ResetToLastTimeStep();
+    /// Update SkipStaAnaly term at last time step
     void UpdateLastTimeStep();
 
 protected:
@@ -49,17 +58,17 @@ protected:
     USI              numCom;                 ///< Num of componnets used in phase equilibrium calculation
     mutable OCP_USI  bulkId;                 ///< Index of work bulk
 
-    vector<OCP_BOOL> flag;
-    vector<OCP_DBL> minEigen;
-    vector<OCP_DBL> P;
-    vector<OCP_DBL> T;
-    vector<OCP_DBL> zi;
+    vector<OCP_BOOL> flag;                   ///< If true, skip will be test
+    vector<OCP_DBL> minEigen;                ///< minimum eigenvalue used for testing skipping
+    vector<OCP_DBL> P;                       ///< Pressure at last step
+    vector<OCP_DBL> T;                       ///< Temperature at last step
+    vector<OCP_DBL> zi;                      ///< Mole fraction of components(for test) at last step
 
-    vector<OCP_BOOL> lflag;
-    vector<OCP_DBL> lminEigen;
-    vector<OCP_DBL> lP;
-    vector<OCP_DBL> lT;
-    vector<OCP_DBL> lzi;
+    vector<OCP_BOOL> lflag;                  ///< Last flag
+    vector<OCP_DBL> lminEigen;               ///< Last minEigen
+    vector<OCP_DBL> lP;                      ///< Last P
+    vector<OCP_DBL> lT;                      ///< Last T
+    vector<OCP_DBL> lzi;                     ///< Last zi
 };
 
 

@@ -470,7 +470,7 @@ void MixtureComp::FlashIMPEC(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
-    CalFlashTypeIMPEC();  
+    CalFtypeIMPEC();  
     CalFlash();
     // Calculate derivates for hydrocarbon phase and components
     // d vf / d Ni, d vf / d P
@@ -523,7 +523,7 @@ void MixtureComp::FlashFIM(const OCP_DBL& Pin,
     }
 
     InitPTN(Pin, Tin + CONV5, Niin);
-    CalFlashTypeFIM(Sjin);
+    CalFtypeFIM(Sjin);
     CalFlash();
 
     // Calculate derivates for hydrocarbon phase and components
@@ -610,7 +610,7 @@ void MixtureComp::FlashFIMn(const OCP_DBL& Pin,
             }
         }
         InitPTN(Pin, Tin + CONV5, Niin);
-        CalFlashTypeFIM(Sjin);
+        CalFtypeFIM(Sjin);
         CalFlash();
     } else {
         //! Becareful if NP > 2 (temp)
