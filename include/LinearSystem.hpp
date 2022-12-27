@@ -77,7 +77,7 @@ public:
     }
     /// Push back a offdiagonal value
     void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const OCP_DBL& v) {
-        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
+        OCP_ASSERT(colId[bId].size() > 0, "Wrong Diag");
         colId[bId].push_back(eId);
         val[bId].push_back(v);
     }
@@ -99,7 +99,7 @@ public:
         }
     }
     void NewOffDiag(const OCP_USI& bId, const OCP_USI& eId, const vector<OCP_DBL>& v) {
-        OCP_ASSERT(colId[n].size() > 0, "Wrong Diag");
+        OCP_ASSERT(colId[bId].size() > 0, "Wrong Diag");
         colId[bId].push_back(eId);
         val[bId].insert(val[bId].end(), v.begin(), v.end());
     }
