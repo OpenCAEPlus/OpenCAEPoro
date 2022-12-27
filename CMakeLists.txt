@@ -6,6 +6,7 @@
 #   cmake -DCMAKE_BUILD_TYPE=Debug .    // build in Debug configuration
 #   cmake -DCMAKE_CXX_COMPILER=g++ .    // build with GNU C++ compiler
 #   cmake -DCMAKE_VERBOSE_MAKEFILE=ON . // build with verbose on
+#   cmake -DUSE_FASPCPR=ON .            // build with FASPCPR support
 #   cmake -DUSE_FASP4BLKOIL=ON .        // build with FASP4BLKOIL support
 #   cmake -DUSE_FASP4CUDA=ON .          // build with FASP4CUDA support
 #   cmake -DUSE_UMFPACK=ON .            // build with UMFPACK support
@@ -32,6 +33,16 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules)
 if (UNIX OR LINUX)
     set(ADD_STDLIBS m stdc++)
 endif()
+
+# Do not skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+ 
+# When building, don't use the install RPATH already
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ 
+# Add the automatically determined parts of the RPATH
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # LIBNAME is used in the external dependencies, to make it easier if we 
 # decide to change the name in the future

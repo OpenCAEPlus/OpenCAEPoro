@@ -25,6 +25,14 @@ extern "C" {
 #include "fasp_functs.h"
 }
 
+// faspcpr header files
+#if WITH_FASPCPR
+extern "C" {
+#include "faspcpr.h"
+#include "faspcpr_functs.h"
+}
+#endif
+
 // fasp4blkoil header files
 #if WITH_FASP4BLKOIL
 extern "C" {

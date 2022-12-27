@@ -16,6 +16,7 @@ include(RequiredFASP)
 
 # Find optional dependencies
 include(OptionalOPENMP)
+include(OptionalFASPCPR)
 include(OptionalFASP4BLKOIL)
 include(OptionalFASP4CUDA)
 include(OptionalMUMPS)

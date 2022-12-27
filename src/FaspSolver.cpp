@@ -425,7 +425,7 @@ OCP_INT VectorFaspSolver::Solve()
     const OCP_INT precond_type = inParam.precond_type;
     const OCP_INT output_type  = inParam.output_type;
 
-#if WITH_FASP4BLKOIL // Currently, only fasp4blkoil requires decoupling
+#if WITH_FASP4BLKOIL || WITH_FASPCPR // Currently, only fasp4blkoil requires decoupling
     const OCP_INT decoup_type = inParam.decoup_type;
 #endif
 
@@ -451,6 +451,22 @@ OCP_INT VectorFaspSolver::Solve()
             case PC_BILU:
                 status = fasp_solver_dbsr_krylov_ilu(&A, &b, &x, &itParam, &iluParam);
                 break;
+
+#if WITH_FASPCPR //! FASPCPR solver (i.e., CPR or ASCPR preconditioners) added by
+                 //! zhaoli, 2022.12.11
+            case PC_FASP1:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = FASP_BSRSOL_ASCPR(&Asc, &fsc, &x, &itParam, &iluParam,
+                                           &amgParam, 0);
+                break;
+
+            case PC_FASP1_SHARE:
+                Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
+                status = FASP_BSRSOL_ASCPR(&Asc, &fsc, &x, &itParam, &iluParam,
+                                           &amgParam, RESET_CONST);
+                break;
+#endif
+
 #if WITH_FASP4BLKOIL
             case PC_FASP1:
                 Decoupling(&A, &b, &Asc, &fsc, &order, Dmat.data(), decoup_type);
