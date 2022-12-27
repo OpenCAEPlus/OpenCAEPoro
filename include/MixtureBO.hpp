@@ -46,8 +46,6 @@ public:
         prodRate.assign(Niin, Niin + numCom);
     };
 
-
-    OCP_DBL GetSurTen() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     OCP_DBL GetErrorPEC() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     void OutMixtureIters() const override {};
 

@@ -29,7 +29,9 @@ class SkipStaAnaly
 {
 
 public:
+    /// Set ifUseSkip to true or false
     void SetUseSkip(const OCP_BOOL& flag) { ifUseSkip = flag; }
+    /// Return ifUseSkip
     OCP_BOOL IfUseSkip() const { return ifUseSkip; }
     /// Allocate memory for SkipStaAnaly term
     void Allocate(const OCP_USI& numBulk, const USI& np, const USI& nc);
@@ -56,7 +58,6 @@ protected:
     OCP_BOOL         ifUseSkip{ OCP_TRUE };  ///< If true, then Skip option will be used
     USI              numPhase;               ///< Num of phase used in phase equilibrium calculation
     USI              numCom;                 ///< Num of componnets used in phase equilibrium calculation
-    mutable OCP_USI  bulkId;                 ///< Index of work bulk
 
     vector<OCP_BOOL> flag;                   ///< If true, skip will be test
     vector<OCP_DBL> minEigen;                ///< minimum eigenvalue used for testing skipping

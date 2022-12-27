@@ -33,18 +33,30 @@ class Miscible
 {
 
 public:
-
+    /// Input param from input file
     void InputParam(const Miscstr& misterm);
-    void CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp);
+    /// Allocate memory for Miscible term
+    void Allocate(const OCP_USI& numBulk);
+    /// Return ifUseMiscible
+    OCP_BOOL IfUseMiscible() const { return ifUseMiscible; }
+    /// Assign value to surTen
+    void AssignValue(const OCP_USI& n, const OCP_DBL& st) { surTen[n] = st; }
+    /// Calculate Fk, Fp and return if miscible
+    OCP_BOOL CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp);
+    /// Reset Miscible term to last time step
     void ResetTolastTimeStep() { surTen = lsurTen; }
+    /// Update Miscible term at last time step
     void UpdateLastTimeStep() { lsurTen = surTen; }
+    /// Return surTen
     OCP_DBL GetSurTen(const OCP_USI& n)const { return surTen[n]; }
+    /// Return Fk
     OCP_DBL GetFk(const OCP_USI& n)const { return Fk[n]; }
+    /// Return Fp
     OCP_DBL GetFp(const OCP_USI& n)const { return Fp[n]; }
 
 protected:
     /// Miscible treatment of hydrocarbons, only used in compositional Model.
-    OCP_BOOL    ifMiscible{ OCP_FALSE };  
+    OCP_BOOL    ifUseMiscible{ OCP_FALSE };  
     /// The reference surface tension - flow is immiscible when the surface tension 
     //  is greater than or equal to this value
     OCP_DBL     surTenRef;

@@ -21,14 +21,19 @@
 class OptionalFeatures 
 {
     friend class MixtureComp;
+    friend class FlowUnit_ODGW01_Miscible;
 
 public:
-    void InputParam() {};
+    void InputParam(const ParamReservoir& param) {
+        miscible.InputParam(param.miscstr);
+    };
     void ResetToLastTimeStep() {
         skipStaAnaly.ResetToLastTimeStep();
+        miscible.ResetTolastTimeStep();
     }
     void UpdateLastTimeStep() {
         skipStaAnaly.UpdateLastTimeStep();
+        miscible.UpdateLastTimeStep();
     }
 
 
@@ -46,7 +51,7 @@ protected:
 
 protected:
 
-
+    Miscible  miscible;
 };
 
 

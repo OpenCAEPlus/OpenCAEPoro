@@ -94,12 +94,6 @@ MixtureComp::MixtureComp(const ComponentParam& param, const USI& tarId)
     } else
         Vshift.resize(NC, 0);
 
-    ParachorAct = OCP_TRUE;
-    if (param.Parachor.activity)
-        Parachor = param.Parachor.data[tarId];
-    else
-        ParachorAct = OCP_FALSE;
-
     if (param.Vcvis.activity)
         Vcvis = param.Vcvis.data[tarId];
     else if (param.Zcvis.activity) {
@@ -116,10 +110,7 @@ MixtureComp::MixtureComp(const ComponentParam& param, const USI& tarId)
         lbc *= 10;
     }
 
-    miscible = param.miscible;
-    if (miscible && !ParachorAct) {
-        OCP_ABORT("PARACHOR has not been Input!");
-    }
+    InputMiscibleParam(param, tarId);
 
     CallId();
 
@@ -879,25 +870,6 @@ void MixtureComp::CallId()
     }
 }
 
-void MixtureComp::CalSurfaceTension()
-{
-    // be careful!
-    // phase molar densities should be converted into gm-M/cc here
-    if (miscible) {
-        if (NP == 1)
-            surTen = 100;
-        else {
-            const OCP_DBL unitF = CONV3 / (CONV4 * 1E3); // lbm/ft3 -> gm-M/cc
-            const OCP_DBL b0    = xiC[0] * unitF;
-            const OCP_DBL b1    = xiC[1] * unitF;
-            surTen              = 0;
-            for (USI i = 0; i < NC; i++)
-                surTen += Parachor[i] * (b0 * x[0][i] - b1 * x[1][i]);
-            surTen = pow(surTen, 4.0);
-            // cout << surTen << endl;
-        }
-    }
-}
 
 void MixtureComp::AllocateEoS()
 {
@@ -5211,6 +5183,13 @@ void MixtureComp::SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP
         skipSta->Allocate(numBulk, numPhase - 1, numCom - 1);
         AllocateSkip();
     }
+    misTerm = &optFeatures.miscible;
+    if (misTerm->IfUseMiscible() == ifUseMiscible == OCP_TRUE) {
+        misTerm->Allocate(numBulk);
+    }
+    else if (misTerm->IfUseMiscible() != ifUseMiscible) {
+        OCP_ABORT("Keywords MISCIBLE, PARACHOR, MISCSTR aren't been given simultaneously!");
+    }
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -5326,6 +5305,41 @@ void MixtureComp::CalSkipForNextStep()
         skipSta->AssignValue(bulkId, eigenSkip[0], P, T, zi);
     }
     skipSta->SetFlagSkip(bulkId, flagSkip);
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// Miscible
+/////////////////////////////////////////////////////////////////////
+
+
+void MixtureComp::InputMiscibleParam(const ComponentParam& param, const USI& tarId)
+{
+    ifUseMiscible = param.miscible;
+    if (param.Parachor.activity)
+        parachor = param.Parachor.data[tarId];
+    if (ifUseMiscible && parachor.empty()) {
+        OCP_ABORT("PARACHOR has not been Input!");
+    }
+}
+
+void MixtureComp::CalSurfaceTension()
+{
+    // be careful!
+    // phase molar densities should be converted into gm-M/cc here
+    if (ifUseMiscible) {
+        if (NP == 1)
+            surTen = 100;
+        else {
+            const OCP_DBL b0 = xiC[0] * CONV6;
+            const OCP_DBL b1 = xiC[1] * CONV6;
+            surTen = 0;
+            for (USI i = 0; i < NC; i++)
+                surTen += parachor[i] * (b0 * x[0][i] - b1 * x[1][i]);
+            surTen = pow(surTen, 4.0);
+        }
+        misTerm->AssignValue(bulkId, surTen);
+    } 
 }
 
 

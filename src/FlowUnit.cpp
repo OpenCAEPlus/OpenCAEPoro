@@ -18,14 +18,14 @@
 ///////////////////////////////////////////////
 
 void FlowUnit_W::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                         const OCP_USI& bId)
 {
     kr_out[0] = 1;
     pc_out[0] = 0;
 }
 
 void FlowUnit_W::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
     kr_out[0] = 1;
     pc_out[0] = 0;
@@ -49,7 +49,7 @@ FlowUnit_OW::FlowUnit_OW(const ParamReservoir& rs_param, const USI& i)
 
 
 void FlowUnit_OW::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                          const OCP_USI& bId)
 {
     OCP_DBL Sw = S_in[1];
 
@@ -66,7 +66,7 @@ void FlowUnit_OW::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
 }
 
 void FlowUnit_OW::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
     OCP_DBL Sw = S_in[1];
     SWOF.Eval_All(0, Sw, data, cdata);
@@ -109,7 +109,7 @@ FlowUnit_OG::FlowUnit_OG(const ParamReservoir& rs_param, const USI& i)
 
 
 void FlowUnit_OG::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                        const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                          const OCP_USI& bId)
 {
     OCP_DBL Sg = S_in[1];
 
@@ -126,7 +126,7 @@ void FlowUnit_OG::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
 }
 
 void FlowUnit_OG::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
     OCP_ABORT("Not Completed Now!");
 }
@@ -189,7 +189,7 @@ FlowUnit_ODGW01::FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i)
 }
 
 void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                            const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                              const OCP_USI& bId)
 {
     const OCP_DBL Sg = S_in[1];
     const OCP_DBL Sw = S_in[2];
@@ -217,7 +217,7 @@ void FlowUnit_ODGW01::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_
 }
 
 void FlowUnit_ODGW01::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
     OCP_DBL Sg = S_in[1];
     OCP_DBL Sw = S_in[2];
@@ -341,20 +341,15 @@ void FlowUnit_ODGW01::Generate_SWPCWG()
 ///////////////////////////////////////////////
 
 void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                                const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                                       const OCP_USI& bId)
 {
-    surTen = MySurTen;
-    if (surTen >= surTenRef || surTen < TINY) {
-        MyFk = 1; MyFp = 1;   
-        FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, surTen, surTen, surTen);
+    if (!misTerm->CalFkFp(bId, Fk, Fp)) {  
+        FlowUnit_ODGW01::CalKrPc(S_in, kr_out, pc_out, bId);
     }
     else {
         OCP_DBL So = S_in[0];
         OCP_DBL Sg = S_in[1];
         OCP_DBL Sw = S_in[2];
-
-        Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
-        Fp = min(surTenPc, surTen / surTenRef);
 
         SWOF.Eval_All(0, Sw, data, cdata);
         const OCP_DBL krw = data[1];
@@ -380,31 +375,21 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
         kr_out[2] = krw;
         pc_out[0] = 0;
         pc_out[1] = Pcgo;
-        pc_out[2] = Pcwo;      
-
-        MyFk = Fk;
-        MyFp = Fp;
-
-        // cout << Fk << endl;
+        pc_out[2] = Pcwo; 
     }
 }
 
 
 void FlowUnit_ODGW01_Miscible::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
-    surTen = MySurTen;
-    if (surTen >= surTenRef || surTen < TINY) {
-        MyFk = 1; MyFp = 1;
-        FlowUnit_ODGW01::CalKrPcDeriv(S_in, kr_out, pc_out, dkrdS, dPcjdS, surTen, surTen, surTen);
+    if (!misTerm->CalFkFp(bId, Fk, Fp)) {
+        FlowUnit_ODGW01::CalKrPcDeriv(S_in, kr_out, pc_out, dkrdS, dPcjdS, bId);
     }
     else {
         const OCP_DBL So = S_in[0];
         const OCP_DBL Sg = S_in[1];
         const OCP_DBL Sw = S_in[2];
-
-        Fk = min(1.0, pow(surTen / surTenRef, Fkexp));
-        Fp = min(surTenPc, surTen / surTenRef);
 
         SWOF.Eval_All(0, Sw, data, cdata);
         const OCP_DBL krw = data[1];
@@ -464,9 +449,6 @@ void FlowUnit_ODGW01_Miscible::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out
         dPcjdS[7] = 0;
         dPcjdS[8] = dPcwdSw;
 
-        MyFk = Fk;
-        MyFp = Fp;
-
         // cout << Fk << endl;
     }
 }
@@ -492,7 +474,7 @@ FlowUnit_ODGW02::FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i)
 
 
 void FlowUnit_ODGW02::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-                            const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+                              const OCP_USI& bId)
 {
     OCP_DBL So = S_in[0];
     OCP_DBL Sg = S_in[1];
@@ -523,7 +505,7 @@ void FlowUnit_ODGW02::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_
 }
 
 void FlowUnit_ODGW02::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
-    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_DBL& MySurTen, OCP_DBL& MyFk, OCP_DBL& MyFp)
+    OCP_DBL* dkrdS, OCP_DBL* dPcjdS, const OCP_USI& bId)
 {
     OCP_DBL So = S_in[0];
     OCP_DBL Sg = S_in[1];

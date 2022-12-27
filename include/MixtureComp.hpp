@@ -257,10 +257,6 @@ public:
 
     void CallId();
 
-    void CalSurfaceTension();
-
-    OCP_DBL GetSurTen() override { return surTen; }
-
 private:
     // Basic Components Informations
     vector<string>  Cname;    ///< Name of hydrocarbon components
@@ -272,18 +268,14 @@ private:
     vector<OCP_DBL> OmegaA;   ///< OMEGA_A of hydrocarbon components
     vector<OCP_DBL> OmegaB;   ///< OMEGA_B of hydrocarbon components
     vector<OCP_DBL> Vshift;   ///< Volume shift of hydrocarbon components
-    vector<OCP_DBL> Parachor; ///< PARACHOR of hydrocarbon components
     vector<OCP_DBL> Zc;       ///< Critical Z-factor of hydrocarbon components
-    OCP_BOOL        ParachorAct;
     // for viscosity calculation
     vector<OCP_DBL> Vcvis;   ///< Critical volume used for viscosity calculations only
     vector<OCP_DBL> Zcvis;   ///< Critical Z-factor used for viscosity calculations only
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
     vector<OCP_DBL> BIC;     ///< Binary interaction between hydrocarbon components
 
-    // Model information
-    OCP_BOOL miscible; ///< Miscible treatment of hydrocarbons for compositional Model
-    OCP_DBL  surTen;   ///< Surface tension
+
 
     // Initial properties
     USI             NC;      ///< num of hydrocarbon components
@@ -541,6 +533,7 @@ private:
 
 public:
     void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override;
+    
     /////////////////////////////////////////////////////////////////////
     // Accelerate PVT
     /////////////////////////////////////////////////////////////////////
@@ -564,7 +557,7 @@ protected:
     }
 
 protected:
-    SkipStaAnaly*   skipSta;    ///< Skip analysis Term
+    SkipStaAnaly*   skipSta;    ///< Skip analysis Term pointing to OptionalFeature 
 
     USI             ftype{ 0 }; ///< Decide the start point of flash
     /// If ture, then skipping could be try, 
@@ -576,7 +569,28 @@ protected:
     //  Only the minimum eigen value will be used
     vector<OCP_SIN> eigenSkip; 
     vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
+
+
+    /////////////////////////////////////////////////////////////////////
+    // Miscible
+    /////////////////////////////////////////////////////////////////////
+
+protected:
+    void InputMiscibleParam(const ComponentParam& param, const USI& tarId);
+    void CalSurfaceTension();
+
+protected:
+
+    Miscible*       misTerm;    ///< Miscible term pointing to OptionalFeature 
+
+    OCP_BOOL        ifUseMiscible; ///< Miscible treatment of hydrocarbon phases for compositional Model
+    OCP_DBL         surTen;     ///< Surface tension between hydrocarbons phases
+    vector<OCP_DBL> parachor;   ///< Parachor params of hydrocarbon components
 };
+
+
+
+
 
 /// Return the sign of double di
 OCP_DBL signD(const OCP_DBL& d);

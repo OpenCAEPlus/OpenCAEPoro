@@ -146,7 +146,6 @@ public:
         }
         if (!flag) OCP_ABORT("Ni is negative!");
     }
-    virtual OCP_DBL GetSurTen() = 0;
 
     virtual OCP_DBL GetErrorPEC() = 0;
     virtual void OutMixtureIters() const = 0;

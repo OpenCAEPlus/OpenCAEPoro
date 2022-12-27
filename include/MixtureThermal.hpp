@@ -26,7 +26,6 @@ public:
     MixtureThermal() = default;
     void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
     // usless in Thermal model
-    OCP_DBL GetSurTen() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
     OCP_DBL GetErrorPEC() override { OCP_ABORT("Should not be used in Thermal mode!"); return 0; }
     void OutMixtureIters() const override {};
 

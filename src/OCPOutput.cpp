@@ -896,21 +896,6 @@ void Out4RPT::PrintRPT(const string&    dir,
         }
     }
 
-    // surface tension
-    if (bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "STEN        ", days, &bulk.surTen[0], 1, g2bp, OCP_TRUE);
-    }
-
-    // Fk
-    if (bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FMISC       ", days, &bulk.Fk[0], 1, g2bp, OCP_TRUE);
-    }
-
-    // Fp
-    if (bulk.miscible & OCP_FALSE) {
-        PrintRPT_Scalar(outRPT, "FPC         ", days, &bulk.Fp[0], 1, g2bp, OCP_TRUE);
-    }
-
     // Po - Pw
     if (bgp.PCW) {
         PrintRPT_Scalar(outRPT, "PCW : psia  ", days, &bulk.Pc[WIndex], np, g2bp, OCP_TRUE);

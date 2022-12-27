@@ -145,25 +145,6 @@ protected:
     OCP_BOOL ifScalePcow{ OCP_FALSE }; ///< If scale Pcow.
     vector<OCP_DBL> ScaleValuePcow;  ///< Scale values for Pcow,it will be calculated from SwatInit
 
-public:
-    /// Allocate Miscibility
-    void AllocateMiscible();
-    /// Pass info from flash to Miscible terms
-    void PassMiscible(const OCP_USI& n, const USI& pvtnum);
-    /// Reset Miscible term
-    void ResetMicibleTerm() { surTen = lsurTen; }
-    /// Update Miscible term for last time step
-    void UpdatelMicibleTerm() { lsurTen = surTen; }
-    
-protected:
-    OCP_BOOL miscible{ OCP_FALSE };  ///< Miscible treatment of hydrocarbons, used in compositional Model now.
-    vector<OCP_DBL> surTen;          ///< surface tensions of hydrocarbon phase.
-    vector<OCP_DBL> Fk;              ///< The relative permeability interpolation parameter
-    vector<OCP_DBL> Fp;              ///< The capillary pressure interpolation parameter
-    
-    // Last time step
-    vector<OCP_DBL> lsurTen;         ///< last surTen.
-
 
     /////////////////////////////////////////////////////////////////////
     // Region

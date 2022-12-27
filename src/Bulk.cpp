@@ -162,8 +162,6 @@ void Bulk::InputParamBLKOIL(const ParamReservoir& rs_param)
 
 void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 {
-    
-    miscible = rs_param.comsParam.miscible;
 
     // Water exists and is excluded in EoS model NOW!
     oil = OCP_TRUE;
@@ -205,7 +203,7 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
     }
     else {
         SATmode = PHASE_ODGW01;
-        if (miscible){ SATmode = PHASE_ODGW01_MISCIBLE; }
+        if (rs_param.comsParam.miscible){ SATmode = PHASE_ODGW01_MISCIBLE; }
     }
 
     // PVT mode
@@ -326,7 +324,6 @@ void Bulk::SetupIsoT(const Grid& myGrid)
     AllocateRegion(myGrid);
     AllocateSwatInit(myGrid);
     AllocateScalePcow();
-    AllocateMiscible();
     AllocateError();
     // CalSomeInfo(myGrid);
 
@@ -346,6 +343,9 @@ void Bulk::SetupOptionalFeatures(OptionalFeatures& optFeatures)
 {
     for (USI i = 0; i < NTPVT; i++) {
         flashCal[i]->SetupOptionalFeatures(optFeatures, numBulk);
+    }
+    for (USI i = 0; i < NTSFUN; i++) {
+        flow[i]->SetupOptionalFeatures(optFeatures, numBulk);
     }
 }
 
@@ -1097,26 +1097,6 @@ void Bulk::ScalePcow()
 }
 
 
-void Bulk::AllocateMiscible()
-{
-    if (miscible) {
-        surTen.resize(numBulk);
-        Fk.resize(numBulk);
-        Fp.resize(numBulk);
-        lsurTen.resize(numBulk);
-    }
-}
-
-
-void Bulk::PassMiscible(const OCP_USI& n, const USI& pvtnum)
-{
-    if (miscible) {
-        surTen[n] = flashCal[pvtnum]->GetSurTen();
-    }
-}
-
-
-
 /////////////////////////////////////////////////////////////////////
 // Region
 /////////////////////////////////////////////////////////////////////
@@ -1547,8 +1527,6 @@ void Bulk::PassFlashValueIMPEC(const OCP_USI& n)
     for (USI i = 0; i < numCom; i++) {
         vfi[bIdc + i] = flashCal[pvtnum]->vfi[i];
     }
-
-    PassMiscible(n, pvtnum);
 }
 
 
@@ -1556,23 +1534,11 @@ void Bulk::CalKrPcIMPEC()
 {
     OCP_FUNCNAME;
 
-    if (!miscible) {
-        OCP_DBL tmp = 0;
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
-            for (USI j = 0; j < numPhase; j++)
-                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
-        }
-    }
-    else {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n],
-                Fp[n]);
-            for (USI j = 0; j < numPhase; j++)
-                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
-        }
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], n);
+        for (USI j = 0; j < numPhase; j++)
+            Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
     }
 
     ScalePcow();
@@ -1631,7 +1597,6 @@ void Bulk::ResetVal03IMPEC()
     vfP         = lvfP;
     vfi         = lvfi;
 
-    ResetMicibleTerm();
 }
 
 
@@ -1665,7 +1630,6 @@ void Bulk::UpdateLastStepIMPEC()
     lvfP        = vfP;
     lvfi        = vfi;
 
-    UpdatelMicibleTerm();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -1871,7 +1835,6 @@ void Bulk::PassFlashValueFIM(const OCP_USI& n)
     Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
-    PassMiscible(n, pvtnum);
 }
 
 
@@ -1879,24 +1842,12 @@ void Bulk::CalKrPcFIM()
 {
     OCP_FUNCNAME;
 
-    if (!miscible) {
-        OCP_DBL tmp = 0;
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                &dKr_dS[bId * numPhase],
-                &dPcj_dS[bId * numPhase], 0, tmp, tmp);
-            for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
-        }
-    }
-    else {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            OCP_USI bId = n * numPhase;
-            flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                &dKr_dS[bId * numPhase],
-                &dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);
-            for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
-        }
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        OCP_USI bId = n * numPhase;
+        flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
+            &dKr_dS[bId * numPhase],
+            &dPcj_dS[bId * numPhase], n);
+        for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
     }
 
     ScalePcow();
@@ -2087,8 +2038,7 @@ void Bulk::ResetFIM()
     dSec_dPri    = ldSec_dPri;   
     pSderExist   = lpSderExist;
     pVnumCom     = lpVnumCom;
-    
-    ResetMicibleTerm();
+
 }
 
 
@@ -2135,7 +2085,6 @@ void Bulk::UpdateLastStepFIM()
     lpSderExist   = pSderExist;
     lpVnumCom     = pVnumCom;
     
-    UpdatelMicibleTerm();
 }
 
 
@@ -2287,7 +2236,6 @@ void Bulk::PassFlashValueFIMn(const OCP_USI& n)
 
     resPc[n] = flashCal[pvtnum]->resPc;
 
-    PassMiscible(n, pvtnum);
 }
 
 
@@ -2544,8 +2492,6 @@ void Bulk::PassFlashValueAIMcEp(const OCP_USI& n)
             }
         }
     }
-
-    PassMiscible(n, pvtnum);
 }
 
 
@@ -2622,7 +2568,6 @@ void Bulk::PassFlashValueAIMcI(const OCP_USI& n)
     Dcopy(len, &dSec_dPri[n * maxLendSdP], &flashCal[pvtnum]->dXsdXp[0]);
 #endif // OCP_OLD_FIM
 
-    PassMiscible(n, pvtnum);
 }
 
 
@@ -2630,29 +2575,14 @@ void Bulk::CalKrPcAIMcE()
 {
     OCP_FUNCNAME;
 
-    if (!miscible) {
-        OCP_DBL tmp = 0;
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfIMPECbulk(n)) {
-                // Explicit bulk
-                OCP_USI bId = n * numPhase;
-                flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], 0, tmp, tmp);
-                for (USI j = 0; j < numPhase; j++)
-                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];               
-            }
-            
-        }
-    } else {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfIMPECbulk(n)) {
-                // Explicit bulk
-                OCP_USI bId = n * numPhase;
-                flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], surTen[n], Fk[n],
-                    Fp[n]);
-                for (USI j = 0; j < numPhase; j++)
-                    Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
-            }           
-        }
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (bulkTypeAIM.IfIMPECbulk(n)) {
+            // Explicit bulk
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPc(&S[bId], &kr[bId], &Pc[bId], n);
+            for (USI j = 0; j < numPhase; j++)
+                Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
+        }           
     }
 
     if (ifScalePcow) {
@@ -2673,28 +2603,14 @@ void Bulk::CalKrPcAIMcI()
 {
     OCP_FUNCNAME;
 
-    if (!miscible) {
-        OCP_DBL tmp = 0;
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfFIMbulk(n)) {
-                // Implicit bulk
-                OCP_USI bId = n * numPhase;
-                flow[SATNUM[n]]->CalKrPcDeriv(&S[bId], &kr[bId], &Pc[bId],
-                    &dKr_dS[bId * numPhase],
-                    &dPcj_dS[bId * numPhase], 0, tmp, tmp);
-                for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
-            }
-        }
-    } else {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfFIMbulk(n)) {
-                // Implicit bulk
-                OCP_USI bId = n * numPhase;
-                flow[SATNUM[n]]->CalKrPcDeriv(
-                    &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
-                    &dPcj_dS[bId * numPhase], surTen[n], Fk[n], Fp[n]);
-                for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
-            }
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        if (bulkTypeAIM.IfFIMbulk(n)) {
+            // Implicit bulk
+            OCP_USI bId = n * numPhase;
+            flow[SATNUM[n]]->CalKrPcDeriv(
+                &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
+                &dPcj_dS[bId * numPhase], n);
+            for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
         }
     }
 

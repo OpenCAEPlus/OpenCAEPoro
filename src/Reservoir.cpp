@@ -22,7 +22,7 @@ void Reservoir::InputParam(ParamRead& param)
     grid.InputParam(param.paramRs);
     bulk.InputParam(param.paramRs);
     allWells.InputParam(param.paramWell);
-    optFeatures.InputParam();
+    optFeatures.InputParam(param.paramRs);
 }
 
 void Reservoir::SetupIsoT()
