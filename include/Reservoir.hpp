@@ -147,12 +147,6 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Allocate memory for variables used for FIM.
-    void AllocateFIM_IsoT();
-    /// Initialize the properties of Reservoir for FIM
-    void InitFIM();
-    /// Allocate maximal memory for internal Matrix for FIM
-    void AllocateMatFIM_IsoT(LinearSystem& myLS) const;
     /// Assemble Matrix for FIM
     void AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const;
     /// Get the Solution -- Reservoir Pressure and moles of Components for FIM

@@ -1,6 +1,7 @@
 target_sources(
   OpenCAEPoro
-  PUBLIC AllWells.hpp
+  PUBLIC AcceleratePVT.hpp
+		 AllWells.hpp
          Doxygen.hpp
          IsothermalSolver.hpp
 		 ThermalSolver.hpp
@@ -23,8 +24,10 @@ target_sources(
          OCPConst.hpp
          OCP.hpp
          OCPTable.hpp
+		 OptionalFeatures.hpp
          Output4Vtk.hpp
          ParamRead.hpp
+		 PhasePermeability.hpp
          Reservoir.hpp
          UtilInput.hpp
          UtilOutput.hpp

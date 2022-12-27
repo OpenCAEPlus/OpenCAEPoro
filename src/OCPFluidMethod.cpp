@@ -155,15 +155,32 @@ void OCP_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 void OCP_FIM::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
 {
     // Allocate Bulk and BulkConn Memory
-    rs.AllocateFIM_IsoT();
+    rs.bulk.AllocateFIM_IsoT();
+    rs.conn.AllocateFIM_IsoT(rs.bulk.GetPhaseNum());
+
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM_IsoT(myLS);
+    myLS.AllocateRowMem(rs.GetBulkNum() + rs.GetWellNum(), rs.GetComNum() + 1);
+    myLS.AllocateColMem(rs.conn.GetNeighborNum(), rs.allWells.GetWell2Bulk());
+    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
+
     // Allocate memory for residual of FIM
     resFIM.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
-    myLS.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
-void OCP_FIM::InitReservoir(Reservoir& rs) const { rs.InitFIM(); }
+void OCP_FIM::InitReservoir(Reservoir& rs) const 
+{ 
+    rs.bulk.InitRock();
+    rs.bulk.InitSjPc(50);
+    rs.bulk.CalRock();
+    rs.bulk.InitFlashFIM();
+    rs.bulk.CalKrPcFIM();
+
+    rs.conn.CalAkd(rs.bulk);
+
+    rs.allWells.InitBHP(rs.bulk);
+
+    rs.UpdateLastStepFIM();
+}
 
 void OCP_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
 {
@@ -410,6 +427,7 @@ void OCP_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     ctrl.UpdateIters();
 }
 
+
 ////////////////////////////////////////////
 // OCP_FIMn
 ////////////////////////////////////////////
@@ -421,7 +439,8 @@ void OCP_FIMn::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     // Allocate Bulk and BulkConn Memory
     rs.AllocateFIMn_IsoT();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM_IsoT(myLS);
+    myLS.AllocateRowMem(rs.GetBulkNum() + rs.GetWellNum(), rs.GetComNum() + 1);
+    myLS.AllocateColMem(rs.conn.GetNeighborNum(), rs.allWells.GetWell2Bulk());
     // Allocate memory for residual of FIM
     resFIMn.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
 
@@ -695,7 +714,8 @@ void OCP_AIMc::Setup(Reservoir& rs, LinearSystem& myLS, const OCPControl& ctrl)
     // Allocate Bulk and BulkConn Memory
     rs.AllocateAIMc_IsoT();
     // Allocate memory for internal matrix structure
-    rs.AllocateMatFIM_IsoT(myLS);
+    myLS.AllocateRowMem(rs.GetBulkNum() + rs.GetWellNum(), rs.GetComNum() + 1);
+    myLS.AllocateColMem(rs.conn.GetNeighborNum(), rs.allWells.GetWell2Bulk());
     // Allocate memory for resiual of FIM
     resAIMc.Setup_IsoT(rs.GetBulkNum(), rs.GetWellNum(), rs.GetComNum());
 

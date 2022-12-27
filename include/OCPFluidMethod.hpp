@@ -75,6 +75,7 @@ public:
     /// Finish a time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
+
 protected:
     /// Residual for FIM
     OCPRes resFIM;

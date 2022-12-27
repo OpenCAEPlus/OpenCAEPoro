@@ -253,39 +253,6 @@ void Reservoir::UpdateLastStepIMPEC()
 // FIM
 /////////////////////////////////////////////////////////////////////
 
-void Reservoir::AllocateFIM_IsoT()
-{
-    OCP_FUNCNAME;
-
-    bulk.AllocateFIM_IsoT();
-    conn.AllocateFIM_IsoT(bulk.GetPhaseNum());
-}
-
-void Reservoir::InitFIM()
-{
-    OCP_FUNCNAME;
-
-    bulk.InitRock();
-    bulk.InitSjPc(50);
-    bulk.CalRock();
-    bulk.InitFlashFIM();
-    bulk.CalKrPcFIM();
-
-    conn.CalAkd(bulk);
- 
-    allWells.InitBHP(bulk);
-
-    UpdateLastStepFIM();
-}
-
-void Reservoir::AllocateMatFIM_IsoT(LinearSystem& myLS) const
-{
-    OCP_FUNCNAME;
-
-    myLS.AllocateRowMem(GetBulkNum() + GetWellNum(), GetComNum() + 1);
-    myLS.AllocateColMem(conn.GetNeighborNum(), allWells.GetWell2Bulk());
-}
-
 
 void Reservoir::AssembleMatFIM(LinearSystem& myLS, const OCP_DBL& dt) const
 {

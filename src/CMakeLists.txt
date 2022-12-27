@@ -1,6 +1,7 @@
 target_sources(
   OpenCAEPoro
-  PRIVATE AllWells.cpp
+  PRIVATE AcceleratePVT.cpp 
+		 AllWells.cpp
          DenseMat.cpp
          IsothermalSolver.cpp
 		 ThermalSolver.cpp
@@ -11,6 +12,7 @@ target_sources(
          OCPFluidMethod.cpp
          ParamControl.cpp
          ParamReservoir.cpp
+		 PhasePermeability.cpp
          Solver.cpp
          Well.cpp
 		 WellOpt.cpp
