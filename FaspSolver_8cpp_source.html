@@ -449,7 +449,7 @@ $(function() {
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    A.nb  = blockDim;</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    A.NNZ = nnz;</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count  = 0;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count1  = 0;</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count2 = 0;</div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> size_row;</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    A.IA[0] = 0;</div>
@@ -458,8 +458,8 @@ $(function() {
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        A.IA[i]     = A.IA[i - 1] + nnb_Row;</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; nnb_Row; j++) {</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            A.JA[count] = colId[i - 1][j];</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            count++;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            A.JA[count1] = colId[i - 1][j];</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            count1++;</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        }</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        size_row = nnb_Row * blockDim * blockDim;</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 0; k &lt; size_row; k++) {</div>
@@ -699,7 +699,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:38 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

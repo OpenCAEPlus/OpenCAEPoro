@@ -1,20 +1,13 @@
 var searchData=
 [
-  ['v_1934',['v',['../classMixture.html#a7463b9517217397b77d51012f4367a28',1,'Mixture']]],
-  ['vc_1935',['Vc',['../classCOMP.html#a9867f7efe9bfe22cef0096d3d8d55fa8',1,'COMP::Vc()'],['../classComponentParam.html#aabb59a75502d67e0bbd0a0041e01a2a4',1,'ComponentParam::Vc()']]],
-  ['vcmw_1936',['VcMW',['../classCOMP.html#a9b450d257e518bd289b648cd56cd168a',1,'COMP']]],
-  ['vcvis_1937',['Vcvis',['../classComponentParam.html#a08c139ba2dd82739adde9264aa301e87',1,'ComponentParam']]],
-  ['vectorfasp_1938',['VECTORFASP',['../OCPConst_8hpp.html#a038c1241f7ffc6a37b1b4e99dcab9cd9',1,'OCPConst.hpp']]],
-  ['verrmax_1939',['Verrmax',['../classControlNR.html#a6d0b2c90692c42b10ea26435ac0f0b64',1,'ControlNR']]],
-  ['vertical_1940',['VERTICAL',['../OCPConst_8hpp.html#a2cdadbeb254c596319d79fc42cae3e26',1,'OCPConst.hpp']]],
-  ['vf_1941',['vf',['../classMixture.html#ad8a687cfb963101e8fdddb1467fa2c1f',1,'Mixture']]],
-  ['vfi_1942',['vfi',['../classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504',1,'Mixture']]],
-  ['vfp_1943',['vfp',['../classMixture.html#adf4f5e549cc50a366951dba65d196198',1,'Mixture']]],
-  ['vft_1944',['vfT',['../classMixture.html#a3812867fe22caad5c021406900c90c92',1,'Mixture']]],
-  ['vgas_1945',['VGAS',['../classBasicGridPropertyParam.html#aa412283751f4e8e2a413ad2de126e9b2',1,'BasicGridPropertyParam']]],
-  ['visc_1946',['visc',['../classMixtureThermal__K01.html#a2bd7ed955a1055bebb7086755c57498b',1,'MixtureThermal_K01']]],
-  ['visctab_1947',['viscTab',['../classComponentParam.html#af9e199ea7287c129b12db76131ebc96d',1,'ComponentParam']]],
-  ['voil_1948',['VOIL',['../classBasicGridPropertyParam.html#a63b15d73652c4b3fea5c6c72e26115cc',1,'BasicGridPropertyParam']]],
-  ['vshift_1949',['Vshift',['../classCOMP.html#ac1642a9c7ef8c1cb99e3f263fc81d6f9',1,'COMP::Vshift()'],['../classComponentParam.html#a87a5945474739e3406f48dab2bb45ec9',1,'ComponentParam::Vshift()']]],
-  ['vwat_1950',['VWAT',['../classBasicGridPropertyParam.html#a6c263e77f3e40967ce42ed83fa0657fb',1,'BasicGridPropertyParam']]]
+  ['uf_2452',['Uf',['../classBulk.html#a87dda72f49397d55a96af716b5c08045',1,'Bulk::Uf()'],['../classMixture.html#abbf786bd732d61fb89331f46b9096d4c',1,'Mixture::Uf()']]],
+  ['ufi_2453',['Ufi',['../classBulk.html#a3695c034b5b07b800f4d9caa3099f2b0',1,'Bulk::Ufi()'],['../classMixture.html#a1804e0cb4409e5e656bdd6808d5eda4d',1,'Mixture::Ufi()']]],
+  ['ufp_2454',['Ufp',['../classMixture.html#a0d6e7d232f7b678c70e86d17f8d4bf0d',1,'Mixture']]],
+  ['ufp_2455',['UfP',['../classBulk.html#a0893b20da7440c536268179270c9a544',1,'Bulk']]],
+  ['uft_2456',['UfT',['../classBulk.html#a73bf30f749b1974fa76afc05e55d4542',1,'Bulk::UfT()'],['../classMixture.html#aead77ff6a9686d7e00127228a8ee658b',1,'Mixture::UfT()']]],
+  ['upblock_2457',['upblock',['../classBulkConn.html#a0731e7d4c9159500de7e9034b023eeb2',1,'BulkConn']]],
+  ['upblock_5frho_2458',['upblock_Rho',['../classBulkConn.html#a117665e0f751f8f57221dbe9d674c7eb',1,'BulkConn']]],
+  ['upblock_5ftrans_2459',['upblock_Trans',['../classBulkConn.html#a514c8d7394dc5ad719fcd479878b269c',1,'BulkConn']]],
+  ['upblock_5fvelocity_2460',['upblock_Velocity',['../classBulkConn.html#a797025bc6dbc1839fc1c821e462b6e58',1,'BulkConn']]],
+  ['usevtk_2461',['useVTK',['../classGrid.html#a0689c23828ce60bb2a996e0157caf80c',1,'Grid']]]
 ];

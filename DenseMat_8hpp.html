@@ -132,10 +132,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Dense
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a3918e5d6b337e30380dabf60fc51097e">ssyevd_</a> (char *jobz, char *uplo, const int *n, float *A, const int *lda, float *w, float *work, const int *lwork, int *iwork, const int *liwork, int *info)</td></tr>
 <tr class="memdesc:a3918e5d6b337e30380dabf60fc51097e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the eigenvalues and, optionally, the leftand /or right eigenvectors for SY matrices. <br /></td></tr>
 <tr class="separator:a3918e5d6b337e30380dabf60fc51097e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ee439e768dcede341bc3f03c9d63e00"><td class="memItemLeft" align="right" valign="top"><a id="a6ee439e768dcede341bc3f03c9d63e00"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a6ee439e768dcede341bc3f03c9d63e00">MinEigenSY</a> (const int &amp;N, float *A, float *w, float *work, const int &amp;lwork)</td></tr>
-<tr class="memdesc:a6ee439e768dcede341bc3f03c9d63e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack. <br /></td></tr>
-<tr class="separator:a6ee439e768dcede341bc3f03c9d63e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="memItemLeft" align="right" valign="top"><a id="a4c8b62de6a02a440729f8fd2365f3d7d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a4c8b62de6a02a440729f8fd2365f3d7d">CalEigenSY</a> (const int &amp;N, float *A, float *w, float *work, const int &amp;lwork)</td></tr>
+<tr class="memdesc:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack. <br /></td></tr>
+<tr class="separator:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a> (const int &amp;N, double *dst, const double *src)</td></tr>
 <tr class="memdesc:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack.  <a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">More...</a><br /></td></tr>
 <tr class="separator:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,10 +183,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Dens
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a53e50e45a55d95a5c3251a476b7e1173">LUSolve</a> (const int &amp;nrhs, const int &amp;N, double *A, double *b, int *pivot)</td></tr>
 <tr class="memdesc:a53e50e45a55d95a5c3251a476b7e1173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls dgesv to solve the linear system for general matrices. <br /></td></tr>
 <tr class="separator:a53e50e45a55d95a5c3251a476b7e1173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a002a44a13631003380d535feab8c5f5e"><td class="memItemLeft" align="right" valign="top"><a id="a002a44a13631003380d535feab8c5f5e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a002a44a13631003380d535feab8c5f5e">SYSSolve</a> (const int &amp;nrhs, const char *uplo, const int &amp;N, double *A, double *b, int *pivot, double *work, const int &amp;lwork)</td></tr>
-<tr class="memdesc:a002a44a13631003380d535feab8c5f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls dsysy to solve the linear system for symm matrices. <br /></td></tr>
-<tr class="separator:a002a44a13631003380d535feab8c5f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff0f696f691ad57cfe33dc8374cc13d"><td class="memItemLeft" align="right" valign="top"><a id="acff0f696f691ad57cfe33dc8374cc13d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#acff0f696f691ad57cfe33dc8374cc13d">SYSSolve</a> (const int &amp;nrhs, const char *uplo, const int &amp;N, double *A, double *b, int *pivot, double *work, const int &amp;lwork)</td></tr>
+<tr class="memdesc:acff0f696f691ad57cfe33dc8374cc13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls dsysy to solve the linear system for symm matrices. <br /></td></tr>
+<tr class="separator:acff0f696f691ad57cfe33dc8374cc13d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acedbc13077af74f057b5d243d36a64da"><td class="memTemplParams" colspan="2"><a id="acedbc13077af74f057b5d243d36a64da"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:acedbc13077af74f057b5d243d36a64da"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#acedbc13077af74f057b5d243d36a64da">PrintDX</a> (const int &amp;N, const T *x)</td></tr>
@@ -204,7 +204,7 @@ template&lt;typename T &gt; </td></tr>
 <dl class="section date"><dt>Date</dt><dd>Oct/24/2021</dd></dl>
 <hr  />
 <p> Copyright (C) 2021&ndash;present by the <a class="el" href="classOpenCAEPoro.html" title="Top-level data structure for the OpenCAEPoro simulator.">OpenCAEPoro</a> team. All rights reserved. </p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Released under the terms of the GNU Lesser General Public License 3.0 or later.</h2>
 
 <p class="definition">Definition in file <a class="el" href="DenseMat_8hpp_source.html">DenseMat.hpp</a>.</p>
@@ -258,7 +258,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

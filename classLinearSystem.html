@@ -68,7 +68,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classLinearSystem-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">LinearSystem Class Reference</div>  </div>
@@ -86,25 +85,10 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a97b1b8a843d49ac3968278c68fce975d">AllocateRowMem</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;dimMax, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;nb)</td></tr>
 <tr class="memdesc:a97b1b8a843d49ac3968278c68fce975d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for linear system with max possible number of rows. <br /></td></tr>
 <tr class="separator:a97b1b8a843d49ac3968278c68fce975d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31de3dd74ddeefc1b9c3f896c5844116"><td class="memItemLeft" align="right" valign="top"><a id="a31de3dd74ddeefc1b9c3f896c5844116"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a31de3dd74ddeefc1b9c3f896c5844116">AllocateColMem</a> ()</td></tr>
-<tr class="memdesc:a31de3dd74ddeefc1b9c3f896c5844116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for each matrix row with max possible number of columns. <br /></td></tr>
-<tr class="separator:a31de3dd74ddeefc1b9c3f896c5844116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2376d7d08f026bec593820f25c81b8d4"><td class="memItemLeft" align="right" valign="top"><a id="a2376d7d08f026bec593820f25c81b8d4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a2376d7d08f026bec593820f25c81b8d4">AllocateColMem</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;colnum)</td></tr>
-<tr class="memdesc:a2376d7d08f026bec593820f25c81b8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for each matrix row with a constant columns. <br /></td></tr>
-<tr class="separator:a2376d7d08f026bec593820f25c81b8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb23040d89c1270fe47284479af0325f"><td class="memItemLeft" align="right" valign="top"><a id="aeb23040d89c1270fe47284479af0325f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aeb23040d89c1270fe47284479af0325f">EnlargeRowCap</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;row, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;n)</td></tr>
-<tr class="memdesc:aeb23040d89c1270fe47284479af0325f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enlarge row capacity. <br /></td></tr>
-<tr class="separator:aeb23040d89c1270fe47284479af0325f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fff58c2482b914b929c51db5b02f71e"><td class="memItemLeft" align="right" valign="top"><a id="a8fff58c2482b914b929c51db5b02f71e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">AssembleRhsAccumulate</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:a8fff58c2482b914b929c51db5b02f71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign Rhs. <br /></td></tr>
-<tr class="separator:a8fff58c2482b914b929c51db5b02f71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d558700856702ff63e74814a8b49478"><td class="memItemLeft" align="right" valign="top"><a id="a4d558700856702ff63e74814a8b49478"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleRhsCopy</b> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;rhs)</td></tr>
-<tr class="separator:a4d558700856702ff63e74814a8b49478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c054271a9283a340aae6e63c86517d"><td class="memItemLeft" align="right" valign="top"><a id="a38c054271a9283a340aae6e63c86517d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a38c054271a9283a340aae6e63c86517d">AllocateColMem</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt; &amp;bulk2bulk, const vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &gt;&gt; well2bulk)</td></tr>
+<tr class="memdesc:a38c054271a9283a340aae6e63c86517d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for linear system with max possible number of colums. <br /></td></tr>
+<tr class="separator:a38c054271a9283a340aae6e63c86517d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2d8f5dff588a1eb4511fe519a817116"><td class="memItemLeft" align="right" valign="top"><a id="ac2d8f5dff588a1eb4511fe519a817116"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#ac2d8f5dff588a1eb4511fe519a817116">ClearData</a> ()</td></tr>
 <tr class="memdesc:ac2d8f5dff588a1eb4511fe519a817116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the internal matrix data for scalar-value problems. <br /></td></tr>
@@ -141,35 +125,115 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#ae7ae1ca4b24c31d3cf37d29a60c2f349">Solve</a> ()</td></tr>
 <tr class="memdesc:ae7ae1ca4b24c31d3cf37d29a60c2f349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the Linear System. <br /></td></tr>
 <tr class="separator:ae7ae1ca4b24c31d3cf37d29a60c2f349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8b6b9f553e844fb4b90a3f7f6a3f1be"><td class="memItemLeft" align="right" valign="top"><a id="ae8b6b9f553e844fb4b90a3f7f6a3f1be"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#ae8b6b9f553e844fb4b90a3f7f6a3f1be">AddDim</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n)</td></tr>
+<tr class="memdesc:ae8b6b9f553e844fb4b90a3f7f6a3f1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup dimensions. <br /></td></tr>
+<tr class="separator:ae8b6b9f553e844fb4b90a3f7f6a3f1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa92f0562fcde2b73618d323f3efc2bd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aa92f0562fcde2b73618d323f3efc2bd6">NewDiag</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;v)</td></tr>
+<tr class="separator:aa92f0562fcde2b73618d323f3efc2bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46def04d6ba7eb0f5f702c2ce736d0c9"><td class="memItemLeft" align="right" valign="top"><a id="a46def04d6ba7eb0f5f702c2ce736d0c9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a46def04d6ba7eb0f5f702c2ce736d0c9">AddDiag</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;v)</td></tr>
+<tr class="memdesc:a46def04d6ba7eb0f5f702c2ce736d0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a value at diagnal value. <br /></td></tr>
+<tr class="separator:a46def04d6ba7eb0f5f702c2ce736d0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb23bb1081970dbe660abaeb2a7e7f1b"><td class="memItemLeft" align="right" valign="top"><a id="acb23bb1081970dbe660abaeb2a7e7f1b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#acb23bb1081970dbe660abaeb2a7e7f1b">NewOffDiag</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;eId, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;v)</td></tr>
+<tr class="memdesc:acb23bb1081970dbe660abaeb2a7e7f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push back a offdiagonal value. <br /></td></tr>
+<tr class="separator:acb23bb1081970dbe660abaeb2a7e7f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9dc9757001d5250c836f301eb501a3b"><td class="memItemLeft" align="right" valign="top"><a id="ab9dc9757001d5250c836f301eb501a3b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#ab9dc9757001d5250c836f301eb501a3b">AddRhs</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;v)</td></tr>
+<tr class="memdesc:ab9dc9757001d5250c836f301eb501a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a value at b[n] <br /></td></tr>
+<tr class="separator:ab9dc9757001d5250c836f301eb501a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8c2f20d4b311b8e25e30b1780ebdfe"><td class="memItemLeft" align="right" valign="top"><a id="aad8c2f20d4b311b8e25e30b1780ebdfe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#aad8c2f20d4b311b8e25e30b1780ebdfe">AssignGuess</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;v)</td></tr>
+<tr class="memdesc:aad8c2f20d4b311b8e25e30b1780ebdfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign an Initial value at u[n]. <br /></td></tr>
+<tr class="separator:aad8c2f20d4b311b8e25e30b1780ebdfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3de3d8921fa966566ce47f0fb5541613"><td class="memItemLeft" align="right" valign="top"><a id="a3de3d8921fa966566ce47f0fb5541613"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a3de3d8921fa966566ce47f0fb5541613">NewDiag</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;v)</td></tr>
+<tr class="memdesc:a3de3d8921fa966566ce47f0fb5541613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector. <br /></td></tr>
+<tr class="separator:a3de3d8921fa966566ce47f0fb5541613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64c7217e56ed7c637d8a16a735a2868b"><td class="memItemLeft" align="right" valign="top"><a id="a64c7217e56ed7c637d8a16a735a2868b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddDiag</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;v)</td></tr>
+<tr class="separator:a64c7217e56ed7c637d8a16a735a2868b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb64cfd7caf55b40110348ceccc82791"><td class="memItemLeft" align="right" valign="top"><a id="abb64cfd7caf55b40110348ceccc82791"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>NewOffDiag</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;eId, const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;v)</td></tr>
+<tr class="separator:abb64cfd7caf55b40110348ceccc82791"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1213e09e4f0a8ef0760a8d5db238855a"><td class="memItemLeft" align="right" valign="top"><a id="a1213e09e4f0a8ef0760a8d5db238855a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a1213e09e4f0a8ef0760a8d5db238855a">AddRhs</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n, const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;v)</td></tr>
+<tr class="memdesc:a1213e09e4f0a8ef0760a8d5db238855a"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a value at b[n] <br /></td></tr>
+<tr class="separator:a1213e09e4f0a8ef0760a8d5db238855a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fff58c2482b914b929c51db5b02f71e"><td class="memItemLeft" align="right" valign="top"><a id="a8fff58c2482b914b929c51db5b02f71e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a8fff58c2482b914b929c51db5b02f71e">AssembleRhsAccumulate</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;rhs)</td></tr>
+<tr class="memdesc:a8fff58c2482b914b929c51db5b02f71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign Rhs by Accumulating. <br /></td></tr>
+<tr class="separator:a8fff58c2482b914b929c51db5b02f71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d558700856702ff63e74814a8b49478"><td class="memItemLeft" align="right" valign="top"><a id="a4d558700856702ff63e74814a8b49478"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a4d558700856702ff63e74814a8b49478">AssembleRhsCopy</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;rhs)</td></tr>
+<tr class="memdesc:a4d558700856702ff63e74814a8b49478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign Rhs by Copying. <br /></td></tr>
+<tr class="separator:a4d558700856702ff63e74814a8b49478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04470bc0392d570b74459d23b6888b3c"><td class="memItemLeft" align="right" valign="top"><a id="a04470bc0392d570b74459d23b6888b3c"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLinearSystem.html#a04470bc0392d570b74459d23b6888b3c">GetNumIters</a> ()</td></tr>
 <tr class="memdesc:a04470bc0392d570b74459d23b6888b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the Max Iters. <br /></td></tr>
 <tr class="separator:a04470bc0392d570b74459d23b6888b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ab1679e1c0e4df5390dbb4171b7720848"><td class="memItemLeft" align="right" valign="top"><a id="ab1679e1c0e4df5390dbb4171b7720848"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>OpenCAEPoro</b></td></tr>
-<tr class="separator:ab1679e1c0e4df5390dbb4171b7720848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ec82805837e02b1565cd3abe70662da"><td class="memItemLeft" align="right" valign="top"><a id="a0ec82805837e02b1565cd3abe70662da"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>BulkConn</b></td></tr>
-<tr class="separator:a0ec82805837e02b1565cd3abe70662da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memItemLeft" align="right" valign="top"><a id="a4e3e7daa4cf4821cb69714edb365d2bc"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
-<tr class="separator:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Linear solvers for discrete systems. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00031">31</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00030">30</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa92f0562fcde2b73618d323f3efc2bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92f0562fcde2b73618d323f3efc2bd6">&#9670;&nbsp;</a></span>NewDiag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LinearSystem::NewDiag </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Scalar Push back a diagonal val, which is always at the first location </p>
+
+<p class="definition">Definition at line <a class="el" href="LinearSystem_8hpp_source.html#l00068">68</a> of file <a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                                     { </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a>(colId[n].size() == 0, <span class="stringliteral">&quot;Wrong Diag&quot;</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        colId[n].push_back(n);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        val[n].push_back(v);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="ttc" id="aUtilError_8hpp_html_aa790607636d2d185f38ccdc93c56eb09"><div class="ttname"><a href="UtilError_8hpp.html#aa790607636d2d185f38ccdc93c56eb09">OCP_ASSERT</a></div><div class="ttdeci">#define OCP_ASSERT(cond, msg)</div><div class="ttdoc">Assert condition and log user messages in DEBUG mode.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00058">UtilError.hpp:58</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00058">OCP_ASSERT</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="LinearSystem_8hpp_source.html">LinearSystem.hpp</a></li>
 <li><a class="el" href="LinearSystem_8cpp_source.html">LinearSystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

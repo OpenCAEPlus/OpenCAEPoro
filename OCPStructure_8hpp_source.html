@@ -90,36 +90,61 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classOCPRes.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOCPRes.html">OCPRes</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> SetZero()</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        fill(res.begin(), res.end(), 0);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        maxRelRes_v   = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        maxRelRes_mol = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        maxWellRelRes_mol = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        maxId_v = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        maxId_mol = 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    vector&lt;OCP_DBL&gt; res;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        maxRelRes0_v;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        maxRelRes_v;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        maxRelRes_mol;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        maxWellRelRes_mol;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// use negative number to represent well number (ToDo)</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>        maxId_v;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>        maxId_mol;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> Setup_IsoT(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; nb, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; nw, <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&amp; nc) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> reslen = (nb + nw) * (nc + 1);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        res.resize(reslen);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        resRelV.resize(nb);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        resRelN.resize(nb);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> SetZero()</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        fill(res.begin(), res.end(), 0);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        fill(resRelV.begin(), resRelV.end(), 0);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        fill(resRelN.begin(), resRelN.end(), 0);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        maxRelRes_v   = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        maxRelRes_mol = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        maxWellRelRes_mol = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        maxId_v = 0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        maxId_mol = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> SetInitRes() {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        maxRelRes0_v = maxRelRes_v;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classOCPRes.html#a06575404094bc82c96c895008a0c54ab">   48</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classOCPRes.html#a06575404094bc82c96c895008a0c54ab">res</a>;        </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classOCPRes.html#a9f2655395243641b4278922dd2c793ca">   49</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classOCPRes.html#a9f2655395243641b4278922dd2c793ca">resRelV</a>;    </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classOCPRes.html#a9b3db6ca35532fc1d92533f24775bf4b">   50</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classOCPRes.html#a9b3db6ca35532fc1d92533f24775bf4b">resRelN</a>;    </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classOCPRes.html#a7ba5b95f5bb445df09689e028d28a13d">   51</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classOCPRes.html#a7ba5b95f5bb445df09689e028d28a13d">resRelT</a>;    </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classOCPRes.html#a279e8ed990d3324adf59fe289b406423">   52</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        <a class="code" href="classOCPRes.html#a279e8ed990d3324adf59fe289b406423">maxRelRes0_v</a>;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classOCPRes.html#a22df27bff4ed1093aa322bb700849cee">   53</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        <a class="code" href="classOCPRes.html#a22df27bff4ed1093aa322bb700849cee">maxRelRes_v</a>;     </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classOCPRes.html#a0de8db69210ff2f3d3e55d83fa1057a4">   54</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        <a class="code" href="classOCPRes.html#a0de8db69210ff2f3d3e55d83fa1057a4">maxRelRes_mol</a>;   </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classOCPRes.html#a3b44c5479ad4b8c2f4bc825c3ba4f09b">   55</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>        <a class="code" href="classOCPRes.html#a3b44c5479ad4b8c2f4bc825c3ba4f09b">maxWellRelRes_mol</a>;   </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// use negative number to represent well number (ToDo)</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classOCPRes.html#a8a2765c6d6d7ba44cd2c952f62390eb9">   58</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>        <a class="code" href="classOCPRes.html#a8a2765c6d6d7ba44cd2c952f62390eb9">maxId_v</a>;     </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classOCPRes.html#a7e0f43db813450b5076391a1fc243052">   59</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>        <a class="code" href="classOCPRes.html#a7e0f43db813450b5076391a1fc243052">maxId_mol</a>;   </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html"><div class="ttname"><a href="OCPConst_8hpp.html">OCPConst.hpp</a></div><div class="ttdoc">Definition of build-in datatypes and consts.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_ae1557888748310c9f05f88c69bb30cc3"><div class="ttname"><a href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a></div><div class="ttdeci">int OCP_INT</div><div class="ttdoc">Long integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aclassOCPRes_html"><div class="ttname"><a href="classOCPRes.html">OCPRes</a></div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00024">OCPStructure.hpp:25</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a06575404094bc82c96c895008a0c54ab"><div class="ttname"><a href="classOCPRes.html#a06575404094bc82c96c895008a0c54ab">OCPRes::res</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; res</div><div class="ttdoc">residual for all equations for each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00048">OCPStructure.hpp:48</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a0de8db69210ff2f3d3e55d83fa1057a4"><div class="ttname"><a href="classOCPRes.html#a0de8db69210ff2f3d3e55d83fa1057a4">OCPRes::maxRelRes_mol</a></div><div class="ttdeci">OCP_DBL maxRelRes_mol</div><div class="ttdoc">maximum relative residual wrt. total moles for each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00054">OCPStructure.hpp:54</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a22df27bff4ed1093aa322bb700849cee"><div class="ttname"><a href="classOCPRes.html#a22df27bff4ed1093aa322bb700849cee">OCPRes::maxRelRes_v</a></div><div class="ttdeci">OCP_DBL maxRelRes_v</div><div class="ttdoc">(iterations) maximum relative residual wrt. pore volume for each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00053">OCPStructure.hpp:53</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a279e8ed990d3324adf59fe289b406423"><div class="ttname"><a href="classOCPRes.html#a279e8ed990d3324adf59fe289b406423">OCPRes::maxRelRes0_v</a></div><div class="ttdeci">OCP_DBL maxRelRes0_v</div><div class="ttdoc">(initial) maximum relative residual wrt. pore volume for each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00052">OCPStructure.hpp:52</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a3b44c5479ad4b8c2f4bc825c3ba4f09b"><div class="ttname"><a href="classOCPRes.html#a3b44c5479ad4b8c2f4bc825c3ba4f09b">OCPRes::maxWellRelRes_mol</a></div><div class="ttdeci">OCP_DBL maxWellRelRes_mol</div><div class="ttdoc">maximum relative residual wrt. total moles for each well</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00055">OCPStructure.hpp:55</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a7ba5b95f5bb445df09689e028d28a13d"><div class="ttname"><a href="classOCPRes.html#a7ba5b95f5bb445df09689e028d28a13d">OCPRes::resRelT</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; resRelT</div><div class="ttdoc">2-norm of relative residual wrt. total energy for energy conserve equations of each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00051">OCPStructure.hpp:51</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a7e0f43db813450b5076391a1fc243052"><div class="ttname"><a href="classOCPRes.html#a7e0f43db813450b5076391a1fc243052">OCPRes::maxId_mol</a></div><div class="ttdeci">OCP_INT maxId_mol</div><div class="ttdoc">index of bulk who has maxRelRes_mol</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00059">OCPStructure.hpp:59</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a8a2765c6d6d7ba44cd2c952f62390eb9"><div class="ttname"><a href="classOCPRes.html#a8a2765c6d6d7ba44cd2c952f62390eb9">OCPRes::maxId_v</a></div><div class="ttdeci">OCP_INT maxId_v</div><div class="ttdoc">index of bulk who has maxRelRes_v</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00058">OCPStructure.hpp:58</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a9b3db6ca35532fc1d92533f24775bf4b"><div class="ttname"><a href="classOCPRes.html#a9b3db6ca35532fc1d92533f24775bf4b">OCPRes::resRelN</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; resRelN</div><div class="ttdoc">2-norm of relative residual wrt. total moles for mass conserve equations of each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00050">OCPStructure.hpp:50</a></div></div>
+<div class="ttc" id="aclassOCPRes_html_a9f2655395243641b4278922dd2c793ca"><div class="ttname"><a href="classOCPRes.html#a9f2655395243641b4278922dd2c793ca">OCPRes::resRelV</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; resRelV</div><div class="ttdoc">2-norm of relative residual wrt. pore volume for all equations of each bulk</div><div class="ttdef"><b>Definition:</b> <a href="OCPStructure_8hpp_source.html#l00049">OCPStructure.hpp:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:38 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

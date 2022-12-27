@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['wellopt_1608',['WellOpt',['../classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2',1,'WellOpt::WellOpt()=default'],['../classWellOpt.html#a93515bcbbec17851a81911122eb82505',1,'WellOpt::WellOpt(const WellOptParam &amp;Optparam)']]],
-  ['wellstate_1609',['WellState',['../classWell.html#a3079a96aee12e74ae05716c3d6ca80e2',1,'Well']]],
-  ['welltype_1610',['WellType',['../classWell.html#adf196051a266a036aeafb34035cc80b9',1,'Well']]]
+  ['vectorface_1914',['VectorFace',['../CornerGrid_8hpp.html#a39ac819290861eefb249497f67d6f9d3',1,'VectorFace(const HexahedronFace &amp;f):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#a39ac819290861eefb249497f67d6f9d3',1,'VectorFace(const HexahedronFace &amp;f):&#160;CornerGrid.cpp']]],
+  ['volumhexahedron_1915',['VolumHexahedron',['../CornerGrid_8hpp.html#ad83b79b5ed7dfdaa267e097e293a4785',1,'VolumHexahedron(const Hexahedron &amp;h):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#ad83b79b5ed7dfdaa267e097e293a4785',1,'VolumHexahedron(const Hexahedron &amp;h):&#160;CornerGrid.cpp']]]
 ];

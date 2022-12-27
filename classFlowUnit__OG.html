@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classFlowUnit__OG-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">FlowUnit_OG Class Reference</div>  </div>
@@ -88,14 +89,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a3c8b13ca8d63ac1d28705fbb43c096"><td class="memItemLeft" align="right" valign="top"><a id="a8a3c8b13ca8d63ac1d28705fbb43c096"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FlowUnit_OG</b> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i)</td></tr>
 <tr class="separator:a8a3c8b13ca8d63ac1d28705fbb43c096"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00c18e94a537302824353cacb19efa6f"><td class="memItemLeft" align="right" valign="top"><a id="a00c18e94a537302824353cacb19efa6f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#a00c18e94a537302824353cacb19efa6f">CalKrPc</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *S_in, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *kr_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *pc_out, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MySurTen, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MyFk, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MyFp) override</td></tr>
-<tr class="memdesc:a00c18e94a537302824353cacb19efa6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate relative permeability and capillary pressure. <br /></td></tr>
-<tr class="separator:a00c18e94a537302824353cacb19efa6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad074d204fdfcebb2a0975dd20807081a"><td class="memItemLeft" align="right" valign="top"><a id="ad074d204fdfcebb2a0975dd20807081a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#ad074d204fdfcebb2a0975dd20807081a">CalKrPcDeriv</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *S_in, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *kr_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *pc_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *dkrdS, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *dPcjdS, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MySurTen, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MyFk, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;MyFp) override</td></tr>
-<tr class="memdesc:ad074d204fdfcebb2a0975dd20807081a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate derivatives of relative permeability and capillary pressure. <br /></td></tr>
-<tr class="separator:ad074d204fdfcebb2a0975dd20807081a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae5b79790856f1f367444981371f5a6"><td class="memItemLeft" align="right" valign="top"><a id="aeae5b79790856f1f367444981371f5a6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetupOptionalFeatures</b> (const <a class="el" href="classGrid.html">Grid</a> &amp;myGrid, <a class="el" href="classOptionalFeatures.html">OptionalFeatures</a> &amp;optFeatures) override</td></tr>
+<tr class="separator:aeae5b79790856f1f367444981371f5a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae99fc533c41e460c5ad3b2578828ba00"><td class="memItemLeft" align="right" valign="top"><a id="ae99fc533c41e460c5ad3b2578828ba00"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetupScale</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Swin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pcowin) override</td></tr>
+<tr class="separator:ae99fc533c41e460c5ad3b2578828ba00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1be95ab4bc88ba40558b0ca8e05e43f"><td class="memItemLeft" align="right" valign="top"><a id="ab1be95ab4bc88ba40558b0ca8e05e43f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#ab1be95ab4bc88ba40558b0ca8e05e43f">CalKrPc</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *S_in, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *kr_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *pc_out, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId) override</td></tr>
+<tr class="memdesc:ab1be95ab4bc88ba40558b0ca8e05e43f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate relative permeability and capillary pressure. <br /></td></tr>
+<tr class="separator:ab1be95ab4bc88ba40558b0ca8e05e43f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3de26cb579f862d3d70568b4d4cb7ee8"><td class="memItemLeft" align="right" valign="top"><a id="a3de26cb579f862d3d70568b4d4cb7ee8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#a3de26cb579f862d3d70568b4d4cb7ee8">CalKrPcDeriv</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *S_in, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *kr_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *pc_out, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *dkrdS, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *dPcjdS, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId) override</td></tr>
+<tr class="memdesc:a3de26cb579f862d3d70568b4d4cb7ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate derivatives of relative permeability and capillary pressure. <br /></td></tr>
+<tr class="separator:a3de26cb579f862d3d70568b4d4cb7ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60746781c471482b8e10e4d6ffc54eb5"><td class="memItemLeft" align="right" valign="top"><a id="a60746781c471482b8e10e4d6ffc54eb5"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#a60746781c471482b8e10e4d6ffc54eb5">GetPcgoBySg</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;sg) override</td></tr>
 <tr class="memdesc:a60746781c471482b8e10e4d6ffc54eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pcgo = Pg - Po. <br /></td></tr>
@@ -114,10 +121,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#a4a861fe5688fa0134cf40a4e3f26f626">GetSwByPcgw</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;pcgw) override</td></tr>
 <tr class="memdesc:a4a861fe5688fa0134cf40a4e3f26f626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pcgw = Pg - Pw. <br /></td></tr>
 <tr class="separator:a4a861fe5688fa0134cf40a4e3f26f626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae50d4d28ebc0892b71584d902c285f5b"><td class="memItemLeft" align="right" valign="top"><a id="ae50d4d28ebc0892b71584d902c285f5b"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#ae50d4d28ebc0892b71584d902c285f5b">GetSwco</a> () const override</td></tr>
-<tr class="memdesc:ae50d4d28ebc0892b71584d902c285f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of Swco. <br /></td></tr>
-<tr class="separator:ae50d4d28ebc0892b71584d902c285f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab49825598449cacaeb4808b6423d898d"><td class="memItemLeft" align="right" valign="top"><a id="ab49825598449cacaeb4808b6423d898d"></a>
 const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#ab49825598449cacaeb4808b6423d898d">GetScm</a> () const override</td></tr>
 <tr class="memdesc:ab49825598449cacaeb4808b6423d898d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of Scm. <br /></td></tr>
@@ -127,10 +130,35 @@ const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit.html#a35da23199a15e9a48c4052150d8175f1">FlowUnit</a> ()=default</td></tr>
 <tr class="memdesc:a35da23199a15e9a48c4052150d8175f1 inherit pub_methods_classFlowUnit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:a35da23199a15e9a48c4052150d8175f1 inherit pub_methods_classFlowUnit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998b5ec983d24d85fb3e3990cf567a7f inherit pub_methods_classFlowUnit"><td class="memItemLeft" align="right" valign="top"><a id="a998b5ec983d24d85fb3e3990cf567a7f"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSwco</b> () const</td></tr>
+<tr class="separator:a998b5ec983d24d85fb3e3990cf567a7f inherit pub_methods_classFlowUnit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a322ed5f13b227372440e8ef388e736c1"><td class="memItemLeft" align="right" valign="top"><a id="a322ed5f13b227372440e8ef388e736c1"></a>
+<a class="el" href="classOCPTable.html">OCPTable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit__OG.html#a322ed5f13b227372440e8ef388e736c1">SGOF</a></td></tr>
+<tr class="memdesc:a322ed5f13b227372440e8ef388e736c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">saturation table about gas and oil. <br /></td></tr>
+<tr class="separator:a322ed5f13b227372440e8ef388e736c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a459fca3c53b44d932114f4d579976"><td class="memItemLeft" align="right" valign="top"><a id="a27a459fca3c53b44d932114f4d579976"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kroMax</b></td></tr>
+<tr class="separator:a27a459fca3c53b44d932114f4d579976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classFlowUnit"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classFlowUnit')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classFlowUnit.html">FlowUnit</a></td></tr>
+<tr class="memitem:a76465a3e1308217a345d7624014295a7 inherit pro_attribs_classFlowUnit"><td class="memItemLeft" align="right" valign="top"><a id="a76465a3e1308217a345d7624014295a7"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Swco</b></td></tr>
+<tr class="separator:a76465a3e1308217a345d7624014295a7 inherit pro_attribs_classFlowUnit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15e719b3e759c38d869818c1851d19e6 inherit pro_attribs_classFlowUnit"><td class="memItemLeft" align="right" valign="top"><a id="a15e719b3e759c38d869818c1851d19e6"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit.html#a15e719b3e759c38d869818c1851d19e6">data</a></td></tr>
+<tr class="memdesc:a15e719b3e759c38d869818c1851d19e6 inherit pro_attribs_classFlowUnit"><td class="mdescLeft">&#160;</td><td class="mdescRight">container to store the values of interpolation. <br /></td></tr>
+<tr class="separator:a15e719b3e759c38d869818c1851d19e6 inherit pro_attribs_classFlowUnit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d6aceb1044b0d6190f9198eda76f28f inherit pro_attribs_classFlowUnit"><td class="memItemLeft" align="right" valign="top"><a id="a5d6aceb1044b0d6190f9198eda76f28f"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlowUnit.html#a5d6aceb1044b0d6190f9198eda76f28f">cdata</a></td></tr>
+<tr class="memdesc:a5d6aceb1044b0d6190f9198eda76f28f inherit pro_attribs_classFlowUnit"><td class="mdescLeft">&#160;</td><td class="mdescRight">container to store the slopes of interpolation. <br /></td></tr>
+<tr class="separator:a5d6aceb1044b0d6190f9198eda76f28f inherit pro_attribs_classFlowUnit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="FlowUnit_8hpp_source.html#l00158">158</a> of file <a class="el" href="FlowUnit_8hpp_source.html">FlowUnit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FlowUnit_8hpp_source.html#l00147">147</a> of file <a class="el" href="FlowUnit_8hpp_source.html">FlowUnit.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="FlowUnit_8hpp_source.html">FlowUnit.hpp</a></li>
 <li><a class="el" href="FlowUnit_8cpp_source.html">FlowUnit.cpp</a></li>
@@ -138,7 +166,7 @@ const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -99,31 +99,37 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#af9cd3ebf3d96509594d15bc1891ad801">Allocate</a> ()</td></tr>
 <tr class="memdesc:af9cd3ebf3d96509594d15bc1891ad801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for common variables for basic class. <br /></td></tr>
 <tr class="separator:af9cd3ebf3d96509594d15bc1891ad801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc9762d928df6f2971d38261c4b02c6f"><td class="memItemLeft" align="right" valign="top"><a id="abc9762d928df6f2971d38261c4b02c6f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetupOptionalFeatures</b> (<a class="el" href="classOptionalFeatures.html">OptionalFeatures</a> &amp;optFeatures, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;numBulk)=0</td></tr>
+<tr class="separator:abc9762d928df6f2971d38261c4b02c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06c9593ac193a3c498b840971c1a181d"><td class="memItemLeft" align="right" valign="top"><a id="a06c9593ac193a3c498b840971c1a181d"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a06c9593ac193a3c498b840971c1a181d">GetMixtureType</a> () const</td></tr>
 <tr class="memdesc:a06c9593ac193a3c498b840971c1a181d"><td class="mdescLeft">&#160;</td><td class="mdescRight">return type of mixture. <br /></td></tr>
 <tr class="separator:a06c9593ac193a3c498b840971c1a181d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35f1e56ebe2fa3275c508ac6ebf86cba"><td class="memItemLeft" align="right" valign="top"><a id="a35f1e56ebe2fa3275c508ac6ebf86cba"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a35f1e56ebe2fa3275c508ac6ebf86cba">InitFlash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="memdesc:a35f1e56ebe2fa3275c508ac6ebf86cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">flash calculation with saturation of phases. <br /></td></tr>
-<tr class="separator:a35f1e56ebe2fa3275c508ac6ebf86cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9fbef2f3fe1c7756c099fb9913f5734"><td class="memItemLeft" align="right" valign="top"><a id="ae9fbef2f3fe1c7756c099fb9913f5734"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="separator:ae9fbef2f3fe1c7756c099fb9913f5734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e6fa3ab2003defca6d1ac76133ed8ba"><td class="memItemLeft" align="right" valign="top"><a id="a9e6fa3ab2003defca6d1ac76133ed8ba"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashDer_n</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
-<tr class="separator:a9e6fa3ab2003defca6d1ac76133ed8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ed6a93d177f9e4faed7c5219be1146"><td class="memItemLeft" align="right" valign="top"><a id="a13ed6a93d177f9e4faed7c5219be1146"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a13ed6a93d177f9e4faed7c5219be1146">Flash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin)=0</td></tr>
-<tr class="memdesc:a13ed6a93d177f9e4faed7c5219be1146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components. <br /></td></tr>
-<tr class="separator:a13ed6a93d177f9e4faed7c5219be1146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace25c7c5353f9f218887bf6018778a8c"><td class="memItemLeft" align="right" valign="top"><a id="ace25c7c5353f9f218887bf6018778a8c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ace25c7c5353f9f218887bf6018778a8c">FlashDeriv</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin)=0</td></tr>
-<tr class="memdesc:ace25c7c5353f9f218887bf6018778a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components and Calculate the derivative. <br /></td></tr>
-<tr class="separator:ace25c7c5353f9f218887bf6018778a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac73a16de202cd63b44ecc7c5de06d20f"><td class="memItemLeft" align="right" valign="top"><a id="ac73a16de202cd63b44ecc7c5de06d20f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>FlashDeriv_n</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *njin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;ftype, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *phaseExistin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP)=0</td></tr>
-<tr class="separator:ac73a16de202cd63b44ecc7c5de06d20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36567f3234247ce719bd839d32f77b0"><td class="memItemLeft" align="right" valign="top"><a id="ae36567f3234247ce719bd839d32f77b0"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae36567f3234247ce719bd839d32f77b0">Flash</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin)=0</td></tr>
+<tr class="memdesc:ae36567f3234247ce719bd839d32f77b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">flash calculation with saturation of phases. <br /></td></tr>
+<tr class="separator:ae36567f3234247ce719bd839d32f77b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c184ffea2ffd393c944f4131048a8f7"><td class="memItemLeft" align="right" valign="top"><a id="a0c184ffea2ffd393c944f4131048a8f7"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashIMPEC</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="separator:a0c184ffea2ffd393c944f4131048a8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df437db56339aa7a7ef40a85e10f809"><td class="memItemLeft" align="right" valign="top"><a id="a7df437db56339aa7a7ef40a85e10f809"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashFIM</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="separator:a7df437db56339aa7a7ef40a85e10f809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6be5cafe389ba8c0c4f5766d57380711"><td class="memItemLeft" align="right" valign="top"><a id="a6be5cafe389ba8c0c4f5766d57380711"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>InitFlashFIMn</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pbbin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Vpore, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="separator:a6be5cafe389ba8c0c4f5766d57380711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceeb77d9a80d75275caf93b03d763fdc"><td class="memItemLeft" align="right" valign="top"><a id="aceeb77d9a80d75275caf93b03d763fdc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aceeb77d9a80d75275caf93b03d763fdc">FlashIMPEC</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="memdesc:aceeb77d9a80d75275caf93b03d763fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components. <br /></td></tr>
+<tr class="separator:aceeb77d9a80d75275caf93b03d763fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0826bb614b73394118ca6c99a69e1078"><td class="memItemLeft" align="right" valign="top"><a id="a0826bb614b73394118ca6c99a69e1078"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0826bb614b73394118ca6c99a69e1078">FlashFIM</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="memdesc:a0826bb614b73394118ca6c99a69e1078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash calculation with moles of components and Calculate the derivative. <br /></td></tr>
+<tr class="separator:a0826bb614b73394118ca6c99a69e1078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf204b170a634f5977dcee2c69a4cf64"><td class="memItemLeft" align="right" valign="top"><a id="abf204b170a634f5977dcee2c69a4cf64"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>FlashFIMn</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Sjin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *xijin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *njin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> *phaseExistin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;lastNP, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)=0</td></tr>
+<tr class="separator:abf204b170a634f5977dcee2c69a4cf64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e73af7673e5a51d6f1a1a7853f79338"><td class="memItemLeft" align="right" valign="top"><a id="a0e73af7673e5a51d6f1a1a7853f79338"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0e73af7673e5a51d6f1a1a7853f79338">XiPhase</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;tarPhase)=0</td></tr>
 <tr class="memdesc:a0e73af7673e5a51d6f1a1a7853f79338"><td class="mdescLeft">&#160;</td><td class="mdescRight">return mass density of phase <br /></td></tr>
@@ -144,56 +150,24 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>CalProdRate</
 <tr class="separator:a0013c030007c6e23c70474a5725d8479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaab2d76696ec295ba643032353883031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aaab2d76696ec295ba643032353883031">CheckNi</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *<a class="el" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>)</td></tr>
 <tr class="separator:aaab2d76696ec295ba643032353883031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65fe500c5800c533331e296464c1af2c"><td class="memItemLeft" align="right" valign="top"><a id="a65fe500c5800c533331e296464c1af2c"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetFtype</b> ()=0</td></tr>
-<tr class="separator:a65fe500c5800c533331e296464c1af2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a524db8feb4749f3583fd8664a57b59a4"><td class="memItemLeft" align="right" valign="top"><a id="a524db8feb4749f3583fd8664a57b59a4"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a4cf987f6993b48c88ec4970ad351b100">OCP_SIN</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetMinEigenSkip</b> ()=0</td></tr>
-<tr class="separator:a524db8feb4749f3583fd8664a57b59a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9320bed2a00e89ff062294fbfa2bc1"><td class="memItemLeft" align="right" valign="top"><a id="a5f9320bed2a00e89ff062294fbfa2bc1"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetFlagSkip</b> ()=0</td></tr>
-<tr class="separator:a5f9320bed2a00e89ff062294fbfa2bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24c3ccfb5f2afeee4241c836dda34297"><td class="memItemLeft" align="right" valign="top"><a id="a24c3ccfb5f2afeee4241c836dda34297"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSurTen</b> ()=0</td></tr>
-<tr class="separator:a24c3ccfb5f2afeee4241c836dda34297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f9d946334b948b26a9a09ca3c0b6c9"><td class="memItemLeft" align="right" valign="top"><a id="ab8f9d946334b948b26a9a09ca3c0b6c9"></a>
 virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetErrorPEC</b> ()=0</td></tr>
 <tr class="separator:ab8f9d946334b948b26a9a09ca3c0b6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03b87933ec276ea4491a6c826fc30417"><td class="memItemLeft" align="right" valign="top"><a id="a03b87933ec276ea4491a6c826fc30417"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSSMSTAiters</b> ()=0</td></tr>
-<tr class="separator:a03b87933ec276ea4491a6c826fc30417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a582af03e87e82e0506da797e64da605d"><td class="memItemLeft" align="right" valign="top"><a id="a582af03e87e82e0506da797e64da605d"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNRSTAiters</b> ()=0</td></tr>
-<tr class="separator:a582af03e87e82e0506da797e64da605d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f61a3dbad865042e5423a5de72c41ce"><td class="memItemLeft" align="right" valign="top"><a id="a7f61a3dbad865042e5423a5de72c41ce"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSSMSPiters</b> ()=0</td></tr>
-<tr class="separator:a7f61a3dbad865042e5423a5de72c41ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7c4cc31e15cef9015786d773fcfee8a"><td class="memItemLeft" align="right" valign="top"><a id="aa7c4cc31e15cef9015786d773fcfee8a"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNRSPiters</b> ()=0</td></tr>
-<tr class="separator:aa7c4cc31e15cef9015786d773fcfee8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e3fffe9f232b28bc1ac30bc295effc6"><td class="memItemLeft" align="right" valign="top"><a id="a5e3fffe9f232b28bc1ac30bc295effc6"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetRRiters</b> ()=0</td></tr>
-<tr class="separator:a5e3fffe9f232b28bc1ac30bc295effc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2721844c732ce099e76e40d50b242fec"><td class="memItemLeft" align="right" valign="top"><a id="a2721844c732ce099e76e40d50b242fec"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSSMSTAcounts</b> ()=0</td></tr>
-<tr class="separator:a2721844c732ce099e76e40d50b242fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a474aac885200e5db68aefbde1b034e15"><td class="memItemLeft" align="right" valign="top"><a id="a474aac885200e5db68aefbde1b034e15"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNRSTAcounts</b> ()=0</td></tr>
-<tr class="separator:a474aac885200e5db68aefbde1b034e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0772856fd7736d7580e153a5e5ae40c"><td class="memItemLeft" align="right" valign="top"><a id="ae0772856fd7736d7580e153a5e5ae40c"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetSSMSPcounts</b> ()=0</td></tr>
-<tr class="separator:ae0772856fd7736d7580e153a5e5ae40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6ce20eb62e660a2661b37e968e30914"><td class="memItemLeft" align="right" valign="top"><a id="aa6ce20eb62e660a2661b37e968e30914"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNRSPcounts</b> ()=0</td></tr>
-<tr class="separator:aa6ce20eb62e660a2661b37e968e30914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ada6568a4afd271356615279ee5bf74"><td class="memItemLeft" align="right" valign="top"><a id="a8ada6568a4afd271356615279ee5bf74"></a>
-virtual <a class="el" href="OCPConst_8hpp.html#af7bad630928e2d245f39e3dc63ab3d93">OCP_ULL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetRRcounts</b> ()=0</td></tr>
-<tr class="separator:a8ada6568a4afd271356615279ee5bf74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09cbc3bde3e0b97b3f24ecf30b8ffc27"><td class="memItemLeft" align="right" valign="top"><a id="a09cbc3bde3e0b97b3f24ecf30b8ffc27"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OutMixtureIters</b> () const =0</td></tr>
+<tr class="separator:a09cbc3bde3e0b97b3f24ecf30b8ffc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef34b4816fa165716500ef4a0e1fd6e"><td class="memItemLeft" align="right" valign="top"><a id="acef34b4816fa165716500ef4a0e1fd6e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetBulkId</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n)</td></tr>
+<tr class="separator:acef34b4816fa165716500ef4a0e1fd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:aed7f515dd957ccf0a6fec5ed94c83370"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aed7f515dd957ccf0a6fec5ed94c83370">mixtureType</a></td></tr>
 <tr class="separator:aed7f515dd957ccf0a6fec5ed94c83370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c6abe928351ffeb9b20b9c03b6395a0"><td class="memItemLeft" align="right" valign="top"><a id="a4c6abe928351ffeb9b20b9c03b6395a0"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a4c6abe928351ffeb9b20b9c03b6395a0">bulkId</a></td></tr>
+<tr class="memdesc:a4c6abe928351ffeb9b20b9c03b6395a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of current bulk <br /></td></tr>
+<tr class="separator:a4c6abe928351ffeb9b20b9c03b6395a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33b6d34ba499a57d9923d5316b652efc"><td class="memItemLeft" align="right" valign="top"><a id="a33b6d34ba499a57d9923d5316b652efc"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a33b6d34ba499a57d9923d5316b652efc">numPhase</a></td></tr>
 <tr class="memdesc:a33b6d34ba499a57d9923d5316b652efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">num of phases. <br /></td></tr>
@@ -210,6 +184,14 @@ Protected Attributes</h2></td></tr>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a6a50911ba85e0261ad76fac190e1c1b2">T</a></td></tr>
 <tr class="memdesc:a6a50911ba85e0261ad76fac190e1c1b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">temperature when flash calculation. <br /></td></tr>
 <tr class="separator:a6a50911ba85e0261ad76fac190e1c1b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="memItemLeft" align="right" valign="top"><a id="ad8a687cfb963101e8fdddb1467fa2c1f"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad8a687cfb963101e8fdddb1467fa2c1f">vf</a></td></tr>
+<tr class="memdesc:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">volume of total fluids. <br /></td></tr>
+<tr class="separator:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d5376ba600228135d16bbd76d4b38de"><td class="memItemLeft" align="right" valign="top"><a id="a9d5376ba600228135d16bbd76d4b38de"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a></td></tr>
+<tr class="memdesc:a9d5376ba600228135d16bbd76d4b38de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total moles of Components. <br /></td></tr>
+<tr class="separator:a9d5376ba600228135d16bbd76d4b38de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa73863601ffb8962b26415352b41bffa"><td class="memItemLeft" align="right" valign="top"><a id="aa73863601ffb8962b26415352b41bffa"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a></td></tr>
 <tr class="memdesc:aa73863601ffb8962b26415352b41bffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">moles of component: numCom <br /></td></tr>
@@ -222,6 +204,18 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd1864
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a763d1e12b91ae451b2df175cbc45ef84">S</a></td></tr>
 <tr class="memdesc:a763d1e12b91ae451b2df175cbc45ef84"><td class="mdescLeft">&#160;</td><td class="mdescRight">saturation of phase: numPhase <br /></td></tr>
 <tr class="separator:a763d1e12b91ae451b2df175cbc45ef84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a423d812487129e73bb742e986064d2b5"><td class="memItemLeft" align="right" valign="top"><a id="a423d812487129e73bb742e986064d2b5"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a423d812487129e73bb742e986064d2b5">vj</a></td></tr>
+<tr class="memdesc:a423d812487129e73bb742e986064d2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">volume of phase: numPhase; <br /></td></tr>
+<tr class="separator:a423d812487129e73bb742e986064d2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d6fa9514fce1774cc277826d304061"><td class="memItemLeft" align="right" valign="top"><a id="aa0d6fa9514fce1774cc277826d304061"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a></td></tr>
+<tr class="memdesc:aa0d6fa9514fce1774cc277826d304061"><td class="mdescLeft">&#160;</td><td class="mdescRight">mole number of phase j <br /></td></tr>
+<tr class="separator:aa0d6fa9514fce1774cc277826d304061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9958b097000a344df9bfbdc845db850c"><td class="memItemLeft" align="right" valign="top"><a id="a9958b097000a344df9bfbdc845db850c"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a></td></tr>
+<tr class="memdesc:a9958b097000a344df9bfbdc845db850c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nij / nj: numPhase*numCom. <br /></td></tr>
+<tr class="separator:a9958b097000a344df9bfbdc845db850c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16c6595220dc0a04cfa960d44f3016c7"><td class="memItemLeft" align="right" valign="top"><a id="a16c6595220dc0a04cfa960d44f3016c7"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a16c6595220dc0a04cfa960d44f3016c7">rho</a></td></tr>
 <tr class="memdesc:a16c6595220dc0a04cfa960d44f3016c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">mass density of phase: numPhase <br /></td></tr>
@@ -230,56 +224,42 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#afad5616464982e92b25adba0c84f4eb5">xi</a></td></tr>
 <tr class="memdesc:afad5616464982e92b25adba0c84f4eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">molar density of phase: numPhase <br /></td></tr>
 <tr class="separator:afad5616464982e92b25adba0c84f4eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9958b097000a344df9bfbdc845db850c"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9958b097000a344df9bfbdc845db850c">xij</a></td></tr>
-<tr class="separator:a9958b097000a344df9bfbdc845db850c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0d6fa9514fce1774cc277826d304061"><td class="memItemLeft" align="right" valign="top"><a id="aa0d6fa9514fce1774cc277826d304061"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aa0d6fa9514fce1774cc277826d304061">nj</a></td></tr>
-<tr class="memdesc:aa0d6fa9514fce1774cc277826d304061"><td class="mdescLeft">&#160;</td><td class="mdescRight">mole number of phase j <br /></td></tr>
-<tr class="separator:aa0d6fa9514fce1774cc277826d304061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a170e493a88e391f9afe0896181d76786"><td class="memItemLeft" align="right" valign="top"><a id="a170e493a88e391f9afe0896181d76786"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a170e493a88e391f9afe0896181d76786">mu</a></td></tr>
 <tr class="memdesc:a170e493a88e391f9afe0896181d76786"><td class="mdescLeft">&#160;</td><td class="mdescRight">viscosity of phase: numPhase <br /></td></tr>
 <tr class="separator:a170e493a88e391f9afe0896181d76786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7463b9517217397b77d51012f4367a28"><td class="memItemLeft" align="right" valign="top"><a id="a7463b9517217397b77d51012f4367a28"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a7463b9517217397b77d51012f4367a28">v</a></td></tr>
-<tr class="memdesc:a7463b9517217397b77d51012f4367a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">volume of phase: numPhase; <br /></td></tr>
-<tr class="separator:a7463b9517217397b77d51012f4367a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="memItemLeft" align="right" valign="top"><a id="ad8a687cfb963101e8fdddb1467fa2c1f"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad8a687cfb963101e8fdddb1467fa2c1f">vf</a></td></tr>
-<tr class="memdesc:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">volume of total fluids. <br /></td></tr>
-<tr class="separator:ad8a687cfb963101e8fdddb1467fa2c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d5376ba600228135d16bbd76d4b38de"><td class="memItemLeft" align="right" valign="top"><a id="a9d5376ba600228135d16bbd76d4b38de"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d5376ba600228135d16bbd76d4b38de">Nt</a></td></tr>
-<tr class="memdesc:a9d5376ba600228135d16bbd76d4b38de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total moles of Components. <br /></td></tr>
-<tr class="separator:a9d5376ba600228135d16bbd76d4b38de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf4f5e549cc50a366951dba65d196198"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#adf4f5e549cc50a366951dba65d196198">vfp</a></td></tr>
-<tr class="separator:adf4f5e549cc50a366951dba65d196198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53fd306485dc29452e2f644a3270b970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a53fd306485dc29452e2f644a3270b970">vfP</a></td></tr>
+<tr class="separator:a53fd306485dc29452e2f644a3270b970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4dd3e54d542aca8eccdcbd208a38504"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a></td></tr>
 <tr class="separator:ab4dd3e54d542aca8eccdcbd208a38504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1531b7594246b0b03bdb7d974800ca4"><td class="memItemLeft" align="right" valign="top"><a id="ae1531b7594246b0b03bdb7d974800ca4"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a></td></tr>
-<tr class="memdesc:ae1531b7594246b0b03bdb7d974800ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu / dP: numPhase <br /></td></tr>
-<tr class="separator:ae1531b7594246b0b03bdb7d974800ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memItemLeft" align="right" valign="top"><a id="ad86bd94527d09c2afcf767ce6e3a8a71"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a></td></tr>
-<tr class="memdesc:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi / dP: numphase <br /></td></tr>
-<tr class="separator:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memItemLeft" align="right" valign="top"><a id="a0a42129a94c1ba7c92c9577f0eb0234f"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a></td></tr>
 <tr class="memdesc:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho / dP: numphase <br /></td></tr>
 <tr class="separator:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae63dab2d31711b0246096c5c128f2080"><td class="memItemLeft" align="right" valign="top"><a id="ae63dab2d31711b0246096c5c128f2080"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
-<tr class="memdesc:ae63dab2d31711b0246096c5c128f2080"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom <br /></td></tr>
-<tr class="separator:ae63dab2d31711b0246096c5c128f2080"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memItemLeft" align="right" valign="top"><a id="a3f517560e2ec30f08afca9f6dc3ff71c"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a></td></tr>
-<tr class="memdesc:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d x[i][j]: numphase * numCom <br /></td></tr>
-<tr class="separator:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memItemLeft" align="right" valign="top"><a id="ad86bd94527d09c2afcf767ce6e3a8a71"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a></td></tr>
+<tr class="memdesc:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi / dP: numphase <br /></td></tr>
+<tr class="separator:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1531b7594246b0b03bdb7d974800ca4"><td class="memItemLeft" align="right" valign="top"><a id="ae1531b7594246b0b03bdb7d974800ca4"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a></td></tr>
+<tr class="memdesc:ae1531b7594246b0b03bdb7d974800ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu / dP: numPhase <br /></td></tr>
+<tr class="separator:ae1531b7594246b0b03bdb7d974800ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62615d0052ef8b34c3894e728951c06e"><td class="memItemLeft" align="right" valign="top"><a id="a62615d0052ef8b34c3894e728951c06e"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">rhox</a></td></tr>
 <tr class="memdesc:a62615d0052ef8b34c3894e728951c06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho[j] / d x[i][j]: numphase * numCom <br /></td></tr>
 <tr class="separator:a62615d0052ef8b34c3894e728951c06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memItemLeft" align="right" valign="top"><a id="a3f517560e2ec30f08afca9f6dc3ff71c"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a></td></tr>
+<tr class="memdesc:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d x[i][j]: numphase * numCom <br /></td></tr>
+<tr class="separator:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63dab2d31711b0246096c5c128f2080"><td class="memItemLeft" align="right" valign="top"><a id="ae63dab2d31711b0246096c5c128f2080"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
+<tr class="memdesc:ae63dab2d31711b0246096c5c128f2080"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom <br /></td></tr>
+<tr class="separator:ae63dab2d31711b0246096c5c128f2080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1883d13127533f4f026473a4e9b50ca"><td class="memItemLeft" align="right" valign="top"><a id="ac1883d13127533f4f026473a4e9b50ca"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ac1883d13127533f4f026473a4e9b50ca">rhoT</a></td></tr>
+<tr class="memdesc:ac1883d13127533f4f026473a4e9b50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho j / dT: numPhase <br /></td></tr>
+<tr class="separator:ac1883d13127533f4f026473a4e9b50ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memItemLeft" align="right" valign="top"><a id="a15908a1b8da8390dd9e8d7c2bd822bf4"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
 <tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables <br /></td></tr>
@@ -296,10 +276,6 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d979b917145a4042a852b8553241a41">xiT</a></td></tr>
 <tr class="memdesc:a9d979b917145a4042a852b8553241a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi j / dT: numPhase <br /></td></tr>
 <tr class="separator:a9d979b917145a4042a852b8553241a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1883d13127533f4f026473a4e9b50ca"><td class="memItemLeft" align="right" valign="top"><a id="ac1883d13127533f4f026473a4e9b50ca"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ac1883d13127533f4f026473a4e9b50ca">rhoT</a></td></tr>
-<tr class="memdesc:ac1883d13127533f4f026473a4e9b50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho j / dT: numPhase <br /></td></tr>
-<tr class="separator:ac1883d13127533f4f026473a4e9b50ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbf786bd732d61fb89331f46b9096d4c"><td class="memItemLeft" align="right" valign="top"><a id="abbf786bd732d61fb89331f46b9096d4c"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#abbf786bd732d61fb89331f46b9096d4c">Uf</a></td></tr>
 <tr class="memdesc:abbf786bd732d61fb89331f46b9096d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal energy of fluid. <br /></td></tr>
@@ -365,7 +341,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classMixture.html">Mixture</a> is an abstract class, who contains all information used for flash calculation including variables, functions. any properties of phases such as mass density can calculated by it. it has the same data structure as the ones in bulks. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00029">29</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00030">30</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aaab2d76696ec295ba643032353883031"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaab2d76696ec295ba643032353883031">&#9670;&nbsp;</a></span>CheckNi()</h2>
@@ -392,23 +368,23 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>check if Ni input from param is negative, it's used in debug mode to check Hidden trouble. actually, very small error in very short time may not make trouble. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00123">123</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                flag = OCP_FALSE;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00137">137</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                flag = OCP_FALSE;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00158">Mixture.hpp:158</a></div></div>
-<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00162">Mixture.hpp:162</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00159">Mixture.hpp:159</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00165">Mixture.hpp:165</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -434,7 +410,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>indicates the type of mixture, black oil or compositional or others. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00154">154</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00155">155</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -459,12 +435,12 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dNi: numCom the derivative of volume of total fluids with respect to moles of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00179">179</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00178">178</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adf4f5e549cc50a366951dba65d196198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf4f5e549cc50a366951dba65d196198">&#9670;&nbsp;</a></span>vfp</h2>
+<a id="a53fd306485dc29452e2f644a3270b970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53fd306485dc29452e2f644a3270b970">&#9670;&nbsp;</a></span>vfP</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,7 +449,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Mixture::vfp</td>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Mixture::vfP</td>
         </tr>
       </table>
   </td>
@@ -484,32 +460,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dP, the derivative of volume of total fluids with respect to pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00177">177</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9958b097000a344df9bfbdc845db850c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9958b097000a344df9bfbdc845db850c">&#9670;&nbsp;</a></span>xij</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&gt; Mixture::xij</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Nij / Nj: numPhase*numCom, Nij is the moles of component i in phase j, Nj is the moles of phase j. </p>
-
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00167">167</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -519,7 +470,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

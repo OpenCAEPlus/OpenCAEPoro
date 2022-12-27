@@ -68,136 +68,238 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classGrid-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Grid Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Basic information of computational grid, including the rock properties.  
- <a href="classGrid.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a775ad2cbbd0fa863c84748eccdb707ad"><td class="memItemLeft" align="right" valign="top"><a id="a775ad2cbbd0fa863c84748eccdb707ad"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a775ad2cbbd0fa863c84748eccdb707ad">Grid</a> ()=default</td></tr>
-<tr class="memdesc:a775ad2cbbd0fa863c84748eccdb707ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
-<tr class="separator:a775ad2cbbd0fa863c84748eccdb707ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa384b0141247ad8d79380850984d1394"><td class="memItemLeft" align="right" valign="top"><a id="aa384b0141247ad8d79380850984d1394"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aa384b0141247ad8d79380850984d1394">InputParam</a> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param)</td></tr>
 <tr class="memdesc:aa384b0141247ad8d79380850984d1394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters from the internal param structure. <br /></td></tr>
 <tr class="separator:aa384b0141247ad8d79380850984d1394"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a47862bf3f3208855a59a3f90a447ce"><td class="memItemLeft" align="right" valign="top"><a id="a6a47862bf3f3208855a59a3f90a447ce"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a6a47862bf3f3208855a59a3f90a447ce">Setup</a> (const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;myVTK)</td></tr>
-<tr class="memdesc:a6a47862bf3f3208855a59a3f90a447ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the grid information and calculate the properties. <br /></td></tr>
-<tr class="separator:a6a47862bf3f3208855a59a3f90a447ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9189a6163493edf34053d56e0a77242"><td class="memItemLeft" align="right" valign="top"><a id="af9189a6163493edf34053d56e0a77242"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af9189a6163493edf34053d56e0a77242">SetupIsoT</a> ()</td></tr>
+<tr class="memdesc:af9189a6163493edf34053d56e0a77242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup for Isothermal model. <br /></td></tr>
+<tr class="separator:af9189a6163493edf34053d56e0a77242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accf2b03042397ceb14ce43118413d22c"><td class="memItemLeft" align="right" valign="top"><a id="accf2b03042397ceb14ce43118413d22c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#accf2b03042397ceb14ce43118413d22c">SetupT</a> ()</td></tr>
+<tr class="memdesc:accf2b03042397ceb14ce43118413d22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup for thermal model. <br /></td></tr>
+<tr class="separator:accf2b03042397ceb14ce43118413d22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab42e1172203f3dbeb09b9943361f0a57"><td class="memItemLeft" align="right" valign="top"><a id="ab42e1172203f3dbeb09b9943361f0a57"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ab42e1172203f3dbeb09b9943361f0a57">Setup</a> ()</td></tr>
+<tr class="memdesc:ab42e1172203f3dbeb09b9943361f0a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the grid information and calculate the properties. <br /></td></tr>
+<tr class="separator:ab42e1172203f3dbeb09b9943361f0a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac103f53259f2ac72e167aa67e455d3b9"><td class="memItemLeft" align="right" valign="top"><a id="ac103f53259f2ac72e167aa67e455d3b9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ac103f53259f2ac72e167aa67e455d3b9">SetupOrthogonalGrid</a> ()</td></tr>
-<tr class="memdesc:ac103f53259f2ac72e167aa67e455d3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup an orthogonal grid. <br /></td></tr>
+<tr class="memdesc:ac103f53259f2ac72e167aa67e455d3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup orthogonal grid. <br /></td></tr>
 <tr class="separator:ac103f53259f2ac72e167aa67e455d3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d2528e58283f52259581095c4c1187"><td class="memItemLeft" align="right" valign="top"><a id="af6d2528e58283f52259581095c4c1187"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af6d2528e58283f52259581095c4c1187">CalDepthVOrthogonalGrid</a> ()</td></tr>
+<tr class="memdesc:af6d2528e58283f52259581095c4c1187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the depth and volume for orthogonal grid. <br /></td></tr>
+<tr class="separator:af6d2528e58283f52259581095c4c1187"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd05b4da9c3dcb480544a2fd04c53de6"><td class="memItemLeft" align="right" valign="top"><a id="afd05b4da9c3dcb480544a2fd04c53de6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#afd05b4da9c3dcb480544a2fd04c53de6">SetupNeighborOrthogonalGrid</a> ()</td></tr>
 <tr class="memdesc:afd05b4da9c3dcb480544a2fd04c53de6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the neighboring info for an orthogonal grid. <br /></td></tr>
 <tr class="separator:afd05b4da9c3dcb480544a2fd04c53de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a717d4e13a55317dda16aa32bcc14caf0"><td class="memItemLeft" align="right" valign="top"><a id="a717d4e13a55317dda16aa32bcc14caf0"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a717d4e13a55317dda16aa32bcc14caf0">CalAkdOrthogonalGrid</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;eId, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;direction)</td></tr>
-<tr class="memdesc:a717d4e13a55317dda16aa32bcc14caf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Akd for an orthogonal grid. <br /></td></tr>
-<tr class="separator:a717d4e13a55317dda16aa32bcc14caf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6d2528e58283f52259581095c4c1187"><td class="memItemLeft" align="right" valign="top"><a id="af6d2528e58283f52259581095c4c1187"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af6d2528e58283f52259581095c4c1187">CalDepthVOrthogonalGrid</a> ()</td></tr>
-<tr class="memdesc:af6d2528e58283f52259581095c4c1187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the depth and volume for an orthogonal grid. <br /></td></tr>
-<tr class="separator:af6d2528e58283f52259581095c4c1187"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3efc64118855093f20959dcd00648770"><td class="memItemLeft" align="right" valign="top"><a id="a3efc64118855093f20959dcd00648770"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a3efc64118855093f20959dcd00648770">SetupCornerGrid</a> ()</td></tr>
-<tr class="memdesc:a3efc64118855093f20959dcd00648770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup a corner-point grid. <br /></td></tr>
+<tr class="memdesc:a3efc64118855093f20959dcd00648770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup corner-point grid. <br /></td></tr>
 <tr class="separator:a3efc64118855093f20959dcd00648770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03f0eb7be2e056e76acb080efc813884"><td class="memItemLeft" align="right" valign="top"><a id="a03f0eb7be2e056e76acb080efc813884"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a03f0eb7be2e056e76acb080efc813884">SetupBasicCornerGrid</a> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;CoTmp)</td></tr>
+<tr class="memdesc:a03f0eb7be2e056e76acb080efc813884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup dx,dy,dz,depth, v for a corner-point grid. <br /></td></tr>
+<tr class="separator:a03f0eb7be2e056e76acb080efc813884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88f0337c8bd1cb56ab795fca665c7476"><td class="memItemLeft" align="right" valign="top"><a id="a88f0337c8bd1cb56ab795fca665c7476"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a88f0337c8bd1cb56ab795fca665c7476">SetupNeighborCornerGrid</a> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;CoTmp)</td></tr>
 <tr class="memdesc:a88f0337c8bd1cb56ab795fca665c7476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the neighboring info for a corner-point grid. <br /></td></tr>
 <tr class="separator:a88f0337c8bd1cb56ab795fca665c7476"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e185347e3ef3deda469ad98e8415af2"><td class="memItemLeft" align="right" valign="top"><a id="a9e185347e3ef3deda469ad98e8415af2"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a9e185347e3ef3deda469ad98e8415af2">CalAkdCornerGrid</a> (const <a class="el" href="classGeneralConnect.html">GeneralConnect</a> &amp;conn)</td></tr>
-<tr class="memdesc:a9e185347e3ef3deda469ad98e8415af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Akd for a corner-point grid. <br /></td></tr>
-<tr class="separator:a9e185347e3ef3deda469ad98e8415af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeffe4bbc827dcb265b5d6e334b3c4291"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">CalActiveGrid</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e1, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e2)</td></tr>
-<tr class="memdesc:aeffe4bbc827dcb265b5d6e334b3c4291"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the activeness of grid cells.  <a href="classGrid.html#aeffe4bbc827dcb265b5d6e334b3c4291">More...</a><br /></td></tr>
-<tr class="separator:aeffe4bbc827dcb265b5d6e334b3c4291"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31ff51d2c4442c2b8719c5c02a369015"><td class="memItemLeft" align="right" valign="top"><a id="a31ff51d2c4442c2b8719c5c02a369015"></a>
-const <a class="el" href="classGB__Pair.html">GB_Pair</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a31ff51d2c4442c2b8719c5c02a369015">MapG2B</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;i) const</td></tr>
-<tr class="memdesc:a31ff51d2c4442c2b8719c5c02a369015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping from grid cells to bulks (active cells). <br /></td></tr>
-<tr class="separator:a31ff51d2c4442c2b8719c5c02a369015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e180edbbee508958e2def127f89975"><td class="memItemLeft" align="right" valign="top"><a id="a86e180edbbee508958e2def127f89975"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a86e180edbbee508958e2def127f89975">GetGridNx</a> () const</td></tr>
-<tr class="memdesc:a86e180edbbee508958e2def127f89975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return nx of grid cell. <br /></td></tr>
-<tr class="separator:a86e180edbbee508958e2def127f89975"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21401914b6e2f87c5ededfa6e69ae11f"><td class="memItemLeft" align="right" valign="top"><a id="a21401914b6e2f87c5ededfa6e69ae11f"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a21401914b6e2f87c5ededfa6e69ae11f">GetGridNy</a> () const</td></tr>
-<tr class="memdesc:a21401914b6e2f87c5ededfa6e69ae11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return ny of grid cell. <br /></td></tr>
-<tr class="separator:a21401914b6e2f87c5ededfa6e69ae11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d829e4fb025247392ee95aaa2caf6a3"><td class="memItemLeft" align="right" valign="top"><a id="a2d829e4fb025247392ee95aaa2caf6a3"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a2d829e4fb025247392ee95aaa2caf6a3">GetGridNz</a> () const</td></tr>
-<tr class="memdesc:a2d829e4fb025247392ee95aaa2caf6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return nz of grid cell. <br /></td></tr>
-<tr class="separator:a2d829e4fb025247392ee95aaa2caf6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa76e85132de36c8f254eb27cffedb95d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aa76e85132de36c8f254eb27cffedb95d">CalActiveGridIsoT</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e1, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e2)</td></tr>
+<tr class="memdesc:aa76e85132de36c8f254eb27cffedb95d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the activity of grid cells.  <a href="classGrid.html#aa76e85132de36c8f254eb27cffedb95d">More...</a><br /></td></tr>
+<tr class="separator:aa76e85132de36c8f254eb27cffedb95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa452e1926e8c41390412785258fbdf"><td class="memItemLeft" align="right" valign="top"><a id="a2fa452e1926e8c41390412785258fbdf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a2fa452e1926e8c41390412785258fbdf">CalActiveGridT</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e1, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;e2)</td></tr>
+<tr class="memdesc:a2fa452e1926e8c41390412785258fbdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the activity of grid cells for ifThermal model. <br /></td></tr>
+<tr class="separator:a2fa452e1926e8c41390412785258fbdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72d30983c3f700a840a8965d68c72728"><td class="memItemLeft" align="right" valign="top"><a id="a72d30983c3f700a840a8965d68c72728"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a72d30983c3f700a840a8965d68c72728">GetGridNum</a> () const</td></tr>
-<tr class="memdesc:a72d30983c3f700a840a8965d68c72728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the num of grid cells. <br /></td></tr>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetGridNum</b> () const</td></tr>
 <tr class="separator:a72d30983c3f700a840a8965d68c72728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba900758457117026a84d05aeeccfdfd"><td class="memItemLeft" align="right" valign="top"><a id="aba900758457117026a84d05aeeccfdfd"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aba900758457117026a84d05aeeccfdfd">GetConnNum</a> () const</td></tr>
-<tr class="memdesc:aba900758457117026a84d05aeeccfdfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the num of connections. <br /></td></tr>
-<tr class="separator:aba900758457117026a84d05aeeccfdfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6390f17ae8e34eaa855fd991ad50d42e"><td class="memItemLeft" align="right" valign="top"><a id="a6390f17ae8e34eaa855fd991ad50d42e"></a>
-<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a6390f17ae8e34eaa855fd991ad50d42e">GetActiveGridNum</a> () const</td></tr>
-<tr class="memdesc:a6390f17ae8e34eaa855fd991ad50d42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the num of bulks (active cells). <br /></td></tr>
-<tr class="separator:a6390f17ae8e34eaa855fd991ad50d42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae">GetActIndex</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k) const</td></tr>
-<tr class="memdesc:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index of active cell (i, j, k).  <a href="classGrid.html#a3969c6dd9e09898d5ab5e4f27ddf15ae">More...</a><br /></td></tr>
-<tr class="separator:a3969c6dd9e09898d5ab5e4f27ddf15ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af186716dce1b4798411bc81720051372"><td class="memItemLeft" align="right" valign="top"><a id="af186716dce1b4798411bc81720051372"></a>
+<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetActIndex</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;I, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;J, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;K) const</td></tr>
+<tr class="separator:af186716dce1b4798411bc81720051372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bb96f42fc087736a7fb63edde229b20"><td class="memItemLeft" align="right" valign="top"><a id="a7bb96f42fc087736a7fb63edde229b20"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a7bb96f42fc087736a7fb63edde229b20">GetIJKGrid</a> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="memdesc:a7bb96f42fc087736a7fb63edde229b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 3D coordinate for object grid with <a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> index. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>GetIJKGrid</b> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
 <tr class="separator:a7bb96f42fc087736a7fb63edde229b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9dd4b8b0bfb24399c29921203548dd7"><td class="memItemLeft" align="right" valign="top"><a id="af9dd4b8b0bfb24399c29921203548dd7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af9dd4b8b0bfb24399c29921203548dd7">GetIJKBulk</a> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="memdesc:af9dd4b8b0bfb24399c29921203548dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 3D coordinate for object grid with bulk(active grids) index. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>GetIJKBulk</b> (<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;k, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
 <tr class="separator:af9dd4b8b0bfb24399c29921203548dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a129ba8c587c4349c773dc4594d9d6f65"><td class="memItemLeft" align="right" valign="top"><a id="a129ba8c587c4349c773dc4594d9d6f65"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CalSomeInfo</b> () const</td></tr>
-<tr class="separator:a129ba8c587c4349c773dc4594d9d6f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a984ba51ad028480bb300496fb0d4cb"><td class="memItemLeft" align="right" valign="top"><a id="a8a984ba51ad028480bb300496fb0d4cb"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Dx</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="separator:a8a984ba51ad028480bb300496fb0d4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3854515f49d370074c5bf2f1c24d17c"><td class="memItemLeft" align="right" valign="top"><a id="af3854515f49d370074c5bf2f1c24d17c"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Dy</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="separator:af3854515f49d370074c5bf2f1c24d17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2e9313e4583589ee27196127f378782"><td class="memItemLeft" align="right" valign="top"><a id="aa2e9313e4583589ee27196127f378782"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Dz</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="separator:aa2e9313e4583589ee27196127f378782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd99fb41b8802ac3ab0019f4794e916"><td class="memItemLeft" align="right" valign="top"><a id="a8bd99fb41b8802ac3ab0019f4794e916"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Depth</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n) const</td></tr>
-<tr class="separator:a8bd99fb41b8802ac3ab0019f4794e916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ea4dca816e575c9a3b824c9cb104645"><td class="memItemLeft" align="right" valign="top"><a id="a0ea4dca816e575c9a3b824c9cb104645"></a>
-<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>IfUseVtk</b> () const</td></tr>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a0ea4dca816e575c9a3b824c9cb104645">IfUseVtk</a> () const</td></tr>
+<tr class="memdesc:a0ea4dca816e575c9a3b824c9cb104645"><td class="mdescLeft">&#160;</td><td class="mdescRight">return if use vtk format for outputing <br /></td></tr>
 <tr class="separator:a0ea4dca816e575c9a3b824c9cb104645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a686ffd1048a33e005f4d49defe9b61fc"><td class="memItemLeft" align="right" valign="top"><a id="a686ffd1048a33e005f4d49defe9b61fc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHexaherdronGridOrthogonal</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a686ffd1048a33e005f4d49defe9b61fc">SetHexaherdronGridOrthogonal</a> ()</td></tr>
+<tr class="memdesc:a686ffd1048a33e005f4d49defe9b61fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup polyhedronGrid for orthogonal grid <br /></td></tr>
 <tr class="separator:a686ffd1048a33e005f4d49defe9b61fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a379cfe6f6e43c1eb879727b03944e615"><td class="memItemLeft" align="right" valign="top"><a id="a379cfe6f6e43c1eb879727b03944e615"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHexaherdronGridCorner</b> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;mycord)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a379cfe6f6e43c1eb879727b03944e615">SetHexaherdronGridCorner</a> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;mycord)</td></tr>
+<tr class="memdesc:a379cfe6f6e43c1eb879727b03944e615"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup polyhedronGrid for corner grid <br /></td></tr>
 <tr class="separator:a379cfe6f6e43c1eb879727b03944e615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3074c5ded5d72fcb8649f0e9481865f2"><td class="memItemLeft" align="right" valign="top"><a id="a3074c5ded5d72fcb8649f0e9481865f2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetActivityFlag</b> ()</td></tr>
-<tr class="separator:a3074c5ded5d72fcb8649f0e9481865f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab672344a3a68fac98e30ab62016f6ab1"><td class="memItemLeft" align="right" valign="top"><a id="ab672344a3a68fac98e30ab62016f6ab1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ab672344a3a68fac98e30ab62016f6ab1">OutputBaiscInfo</a> () const</td></tr>
+<tr class="memdesc:ab672344a3a68fac98e30ab62016f6ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and return basic informations for grid. <br /></td></tr>
+<tr class="separator:ab672344a3a68fac98e30ab62016f6ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1da4a18c6ba563968809b85a2cbb226c"><td class="memItemLeft" align="right" valign="top"><a id="a1da4a18c6ba563968809b85a2cbb226c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a1da4a18c6ba563968809b85a2cbb226c">CalNumDigutIJK</a> ()</td></tr>
-<tr class="memdesc:a1da4a18c6ba563968809b85a2cbb226c"><td class="mdescLeft">&#160;</td><td class="mdescRight">only used in Structural grid <br /></td></tr>
+<tr class="memdesc:a1da4a18c6ba563968809b85a2cbb226c"><td class="mdescLeft">&#160;</td><td class="mdescRight">only used in structured grid <br /></td></tr>
 <tr class="separator:a1da4a18c6ba563968809b85a2cbb226c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e0f6e0957d0a9a3bdea48e12b613b0c"><td class="memItemLeft" align="right" valign="top"><a id="a5e0f6e0957d0a9a3bdea48e12b613b0c"></a>
-<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNumDigitIJK</b> () const</td></tr>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a5e0f6e0957d0a9a3bdea48e12b613b0c">GetNumDigitIJK</a> () const</td></tr>
+<tr class="memdesc:a5e0f6e0957d0a9a3bdea48e12b613b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return numDigutIJK. <br /></td></tr>
 <tr class="separator:a5e0f6e0957d0a9a3bdea48e12b613b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a5551a9867e7d67b8df1d936127cdb78d"><td class="memItemLeft" align="right" valign="top"><a id="a5551a9867e7d67b8df1d936127cdb78d"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a5551a9867e7d67b8df1d936127cdb78d">gridType</a></td></tr>
+<tr class="memdesc:a5551a9867e7d67b8df1d936127cdb78d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orthogonal or Corner grid. <br /></td></tr>
+<tr class="separator:a5551a9867e7d67b8df1d936127cdb78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec601a644bda59415ad3d562062ceda7"><td class="memItemLeft" align="right" valign="top"><a id="aec601a644bda59415ad3d562062ceda7"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a></td></tr>
+<tr class="memdesc:aec601a644bda59415ad3d562062ceda7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of all cells. <br /></td></tr>
+<tr class="separator:aec601a644bda59415ad3d562062ceda7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2b9789e8df3231298967757c698a31"><td class="memItemLeft" align="right" valign="top"><a id="a2f2b9789e8df3231298967757c698a31"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a2f2b9789e8df3231298967757c698a31">nx</a></td></tr>
+<tr class="memdesc:a2f2b9789e8df3231298967757c698a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of cells in x-direction. <br /></td></tr>
+<tr class="separator:a2f2b9789e8df3231298967757c698a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaf756804fb4be33263a01f217a0f221"><td class="memItemLeft" align="right" valign="top"><a id="acaf756804fb4be33263a01f217a0f221"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#acaf756804fb4be33263a01f217a0f221">ny</a></td></tr>
+<tr class="memdesc:acaf756804fb4be33263a01f217a0f221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of cells in y-direction. <br /></td></tr>
+<tr class="separator:acaf756804fb4be33263a01f217a0f221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68931450a3f345183b6535e880e441d1"><td class="memItemLeft" align="right" valign="top"><a id="a68931450a3f345183b6535e880e441d1"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a68931450a3f345183b6535e880e441d1">nz</a></td></tr>
+<tr class="memdesc:a68931450a3f345183b6535e880e441d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of cells in z-direction. <br /></td></tr>
+<tr class="separator:a68931450a3f345183b6535e880e441d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5d1567d188d55210970128ff0f357d9"><td class="memItemLeft" align="right" valign="top"><a id="aa5d1567d188d55210970128ff0f357d9"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aa5d1567d188d55210970128ff0f357d9">coord</a></td></tr>
+<tr class="memdesc:aa5d1567d188d55210970128ff0f357d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lines of a corner-point grid. <br /></td></tr>
+<tr class="separator:aa5d1567d188d55210970128ff0f357d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93526093312545455002c2cc970b42bc"><td class="memItemLeft" align="right" valign="top"><a id="a93526093312545455002c2cc970b42bc"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a93526093312545455002c2cc970b42bc">zcorn</a></td></tr>
+<tr class="memdesc:a93526093312545455002c2cc970b42bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZValues of a corner-point grid. <br /></td></tr>
+<tr class="separator:a93526093312545455002c2cc970b42bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9214d20f798d66fa9cbc2352a132ff6"><td class="memItemLeft" align="right" valign="top"><a id="ad9214d20f798d66fa9cbc2352a132ff6"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ad9214d20f798d66fa9cbc2352a132ff6">tops</a></td></tr>
+<tr class="memdesc:ad9214d20f798d66fa9cbc2352a132ff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depth of center of grid cells: numGrid. <br /></td></tr>
+<tr class="separator:ad9214d20f798d66fa9cbc2352a132ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec0ed7df960a0585a9a639701ea01462"><td class="memItemLeft" align="right" valign="top"><a id="aec0ed7df960a0585a9a639701ea01462"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aec0ed7df960a0585a9a639701ea01462">dx</a></td></tr>
+<tr class="memdesc:aec0ed7df960a0585a9a639701ea01462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of cell in x-direction: numGrid. <br /></td></tr>
+<tr class="separator:aec0ed7df960a0585a9a639701ea01462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbcef90de075764baa875b7e3fba35b1"><td class="memItemLeft" align="right" valign="top"><a id="acbcef90de075764baa875b7e3fba35b1"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#acbcef90de075764baa875b7e3fba35b1">dy</a></td></tr>
+<tr class="memdesc:acbcef90de075764baa875b7e3fba35b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of cell in y-direction: numGrid. <br /></td></tr>
+<tr class="separator:acbcef90de075764baa875b7e3fba35b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a613bdfc8f334bdffa78858ac719453af"><td class="memItemLeft" align="right" valign="top"><a id="a613bdfc8f334bdffa78858ac719453af"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a613bdfc8f334bdffa78858ac719453af">dz</a></td></tr>
+<tr class="memdesc:a613bdfc8f334bdffa78858ac719453af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of cell in z-direction: numGrid. <br /></td></tr>
+<tr class="separator:a613bdfc8f334bdffa78858ac719453af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1658fef63683c896be925d643e218e31"><td class="memItemLeft" align="right" valign="top"><a id="a1658fef63683c896be925d643e218e31"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a1658fef63683c896be925d643e218e31">v</a></td></tr>
+<tr class="memdesc:a1658fef63683c896be925d643e218e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volume of cells: numGrid. <br /></td></tr>
+<tr class="separator:a1658fef63683c896be925d643e218e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4923ce6db150537695debca5ce90f86d"><td class="memItemLeft" align="right" valign="top"><a id="a4923ce6db150537695debca5ce90f86d"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a4923ce6db150537695debca5ce90f86d">depth</a></td></tr>
+<tr class="memdesc:a4923ce6db150537695debca5ce90f86d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depth of center of grid cells: numGrid. <br /></td></tr>
+<tr class="separator:a4923ce6db150537695debca5ce90f86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5cac0650043090204c067c679a5e739"><td class="memItemLeft" align="right" valign="top"><a id="af5cac0650043090204c067c679a5e739"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af5cac0650043090204c067c679a5e739">ntg</a></td></tr>
+<tr class="memdesc:af5cac0650043090204c067c679a5e739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Net to gross ratio of cells: numGrid. <br /></td></tr>
+<tr class="separator:af5cac0650043090204c067c679a5e739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9b5717340391505a48ea8c5a317e726"><td class="memItemLeft" align="right" valign="top"><a id="ac9b5717340391505a48ea8c5a317e726"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">poro</a></td></tr>
+<tr class="memdesc:ac9b5717340391505a48ea8c5a317e726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial porosity of rock cells: numGrid. <br /></td></tr>
+<tr class="separator:ac9b5717340391505a48ea8c5a317e726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdf058eba1e31154e19cdabf539e2a26"><td class="memItemLeft" align="right" valign="top"><a id="afdf058eba1e31154e19cdabf539e2a26"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#afdf058eba1e31154e19cdabf539e2a26">kx</a></td></tr>
+<tr class="memdesc:afdf058eba1e31154e19cdabf539e2a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute permeability in x-direction: numGrid. <br /></td></tr>
+<tr class="separator:afdf058eba1e31154e19cdabf539e2a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f30bbf9a1cd7d70c1273c665f442e44"><td class="memItemLeft" align="right" valign="top"><a id="a0f30bbf9a1cd7d70c1273c665f442e44"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a0f30bbf9a1cd7d70c1273c665f442e44">ky</a></td></tr>
+<tr class="memdesc:a0f30bbf9a1cd7d70c1273c665f442e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute permeability in y-direction: numGrid. <br /></td></tr>
+<tr class="separator:a0f30bbf9a1cd7d70c1273c665f442e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e98ea06c9f156aec318a810b67eff1c"><td class="memItemLeft" align="right" valign="top"><a id="a4e98ea06c9f156aec318a810b67eff1c"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a4e98ea06c9f156aec318a810b67eff1c">kz</a></td></tr>
+<tr class="memdesc:a4e98ea06c9f156aec318a810b67eff1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute permeability in z-direction: numGrid. <br /></td></tr>
+<tr class="separator:a4e98ea06c9f156aec318a810b67eff1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ec4a81f8e41b42bc9e2b30e39f39eb"><td class="memItemLeft" align="right" valign="top"><a id="ab6ec4a81f8e41b42bc9e2b30e39f39eb"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ab6ec4a81f8e41b42bc9e2b30e39f39eb">thconr</a></td></tr>
+<tr class="memdesc:ab6ec4a81f8e41b42bc9e2b30e39f39eb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRock.html">Rock</a> ifThermal conductivity: numGrid. <br /></td></tr>
+<tr class="separator:ab6ec4a81f8e41b42bc9e2b30e39f39eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dc20998662c0675ab1679959da19598"><td class="memItemLeft" align="right" valign="top"><a id="a4dc20998662c0675ab1679959da19598"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a4dc20998662c0675ab1679959da19598">SATNUM</a></td></tr>
+<tr class="memdesc:a4dc20998662c0675ab1679959da19598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identify SAT region: numGrid. <br /></td></tr>
+<tr class="separator:a4dc20998662c0675ab1679959da19598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f8789dc1a68c92db7e16d65c5c6ffd9"><td class="memItemLeft" align="right" valign="top"><a id="a3f8789dc1a68c92db7e16d65c5c6ffd9"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a3f8789dc1a68c92db7e16d65c5c6ffd9">PVTNUM</a></td></tr>
+<tr class="memdesc:a3f8789dc1a68c92db7e16d65c5c6ffd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identify PVT region for the blackoil model: numGrid. <br /></td></tr>
+<tr class="separator:a3f8789dc1a68c92db7e16d65c5c6ffd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f03b35abec9c0dc354bae0ce302bad"><td class="memItemLeft" align="right" valign="top"><a id="a05f03b35abec9c0dc354bae0ce302bad"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a></td></tr>
+<tr class="memdesc:a05f03b35abec9c0dc354bae0ce302bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active. <br /></td></tr>
+<tr class="separator:a05f03b35abec9c0dc354bae0ce302bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22bdc57e6a140a24237d431f57bce627"><td class="memItemLeft" align="right" valign="top"><a id="a22bdc57e6a140a24237d431f57bce627"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a22bdc57e6a140a24237d431f57bce627">ROCKNUM</a></td></tr>
+<tr class="memdesc:a22bdc57e6a140a24237d431f57bce627"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of rock table for each grid: numGrid <br /></td></tr>
+<tr class="separator:a22bdc57e6a140a24237d431f57bce627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39fc10cb5485e6f806fc22176de2d85e"><td class="memItemLeft" align="right" valign="top"><a id="a39fc10cb5485e6f806fc22176de2d85e"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a39fc10cb5485e6f806fc22176de2d85e">SwatInit</a></td></tr>
+<tr class="memdesc:a39fc10cb5485e6f806fc22176de2d85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial water saturation. <br /></td></tr>
+<tr class="separator:a39fc10cb5485e6f806fc22176de2d85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa91ba544fd3ea4329e14f9ff5001d4c"><td class="memItemLeft" align="right" valign="top"><a id="afa91ba544fd3ea4329e14f9ff5001d4c"></a>
+vector&lt; vector&lt; <a class="el" href="classGPair.html">GPair</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#afa91ba544fd3ea4329e14f9ff5001d4c">gNeighbor</a></td></tr>
+<tr class="memdesc:afa91ba544fd3ea4329e14f9ff5001d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neighboring information of grid. <br /></td></tr>
+<tr class="separator:afa91ba544fd3ea4329e14f9ff5001d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35e4a71cf216958595a7ce8262258b36"><td class="memItemLeft" align="right" valign="top"><a id="a35e4a71cf216958595a7ce8262258b36"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a></td></tr>
+<tr class="memdesc:a35e4a71cf216958595a7ce8262258b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Num of active grid. <br /></td></tr>
+<tr class="separator:a35e4a71cf216958595a7ce8262258b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a229ee680f0c08e1d8133833b5c11e584"><td class="memItemLeft" align="right" valign="top"><a id="a229ee680f0c08e1d8133833b5c11e584"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a></td></tr>
+<tr class="memdesc:a229ee680f0c08e1d8133833b5c11e584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping from active grid to all grid: activeGridNum. <br /></td></tr>
+<tr class="separator:a229ee680f0c08e1d8133833b5c11e584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad790d82067923146c83e6e1750445376"><td class="memItemLeft" align="right" valign="top"><a id="ad790d82067923146c83e6e1750445376"></a>
+vector&lt; <a class="el" href="classGB__Pair.html">GB_Pair</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a></td></tr>
+<tr class="memdesc:ad790d82067923146c83e6e1750445376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping from grid to active all grid: numGrid. <br /></td></tr>
+<tr class="separator:ad790d82067923146c83e6e1750445376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574d34342ac3858ec4e1a5096abdce25"><td class="memItemLeft" align="right" valign="top"><a id="a574d34342ac3858ec4e1a5096abdce25"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">fluidGridNum</a></td></tr>
+<tr class="memdesc:a574d34342ac3858ec4e1a5096abdce25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Num of fluid grids. <br /></td></tr>
+<tr class="separator:a574d34342ac3858ec4e1a5096abdce25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e5624d44a2520454d9858e43ccf11b3"><td class="memItemLeft" align="right" valign="top"><a id="a5e5624d44a2520454d9858e43ccf11b3"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a5e5624d44a2520454d9858e43ccf11b3">map_Flu2All</a></td></tr>
+<tr class="memdesc:a5e5624d44a2520454d9858e43ccf11b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping from fluid grid to all grid: fluidGridNum. <br /></td></tr>
+<tr class="separator:a5e5624d44a2520454d9858e43ccf11b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a954b39ec432de9dcc780ad5f7243b9a3"><td class="memItemLeft" align="right" valign="top"><a id="a954b39ec432de9dcc780ad5f7243b9a3"></a>
+vector&lt; <a class="el" href="classGB__Pair.html">GB_Pair</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">map_All2Flu</a></td></tr>
+<tr class="memdesc:a954b39ec432de9dcc780ad5f7243b9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping from all grid to fluid grid: numGrid. <br /></td></tr>
+<tr class="separator:a954b39ec432de9dcc780ad5f7243b9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0689c23828ce60bb2a996e0157caf80c"><td class="memItemLeft" align="right" valign="top"><a id="a0689c23828ce60bb2a996e0157caf80c"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a0689c23828ce60bb2a996e0157caf80c">useVTK</a> { OCP_FALSE }</td></tr>
+<tr class="memdesc:a0689c23828ce60bb2a996e0157caf80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">if output in vtk format <br /></td></tr>
+<tr class="separator:a0689c23828ce60bb2a996e0157caf80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="memItemLeft" align="right" valign="top"><a id="a6a88f5c6242ccd6c3a46cb02a8cb2305"></a>
+vector&lt; <a class="el" href="classOCPpolyhedron.html">OCPpolyhedron</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a6a88f5c6242ccd6c3a46cb02a8cb2305">polyhedronGrid</a></td></tr>
+<tr class="memdesc:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="mdescLeft">&#160;</td><td class="mdescRight">store the coordinates of grid points <br /></td></tr>
+<tr class="separator:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33293de5ddfef9d418fa31a785dfa3f7"><td class="memItemLeft" align="right" valign="top"><a id="a33293de5ddfef9d418fa31a785dfa3f7"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a33293de5ddfef9d418fa31a785dfa3f7">numDigutIJK</a></td></tr>
+<tr class="memdesc:a33293de5ddfef9d418fa31a785dfa3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of digits of maximum nx,ny,nz <br /></td></tr>
+<tr class="separator:a33293de5ddfef9d418fa31a785dfa3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -210,6 +312,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>BulkConn</b></td></t
 <tr class="memitem:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memItemLeft" align="right" valign="top"><a id="a4e3e7daa4cf4821cb69714edb365d2bc"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Well</b></td></tr>
 <tr class="separator:a4e3e7daa4cf4821cb69714edb365d2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3059e108038bad23bae6e932256909b3"><td class="memItemLeft" align="right" valign="top"><a id="a3059e108038bad23bae6e932256909b3"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>ScalePcow</b></td></tr>
+<tr class="separator:a3059e108038bad23bae6e932256909b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77d0d9fafc66aee9ebb93487ebecdedd"><td class="memItemLeft" align="right" valign="top"><a id="a77d0d9fafc66aee9ebb93487ebecdedd"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr>
 <tr class="separator:a77d0d9fafc66aee9ebb93487ebecdedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,18 +323,17 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 <tr class="separator:a0e45d66fb05cbff644da51588afb223f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic information of computational grid, including the rock properties. </p>
-
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00082">82</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00079">79</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aeffe4bbc827dcb265b5d6e334b3c4291"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeffe4bbc827dcb265b5d6e334b3c4291">&#9670;&nbsp;</a></span>CalActiveGrid()</h2>
+<a id="aa76e85132de36c8f254eb27cffedb95d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa76e85132de36c8f254eb27cffedb95d">&#9670;&nbsp;</a></span>CalActiveGridIsoT()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Grid::CalActiveGrid </td>
+          <td class="memname">void Grid::CalActiveGridIsoT </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td>
           <td class="paramname"><em>e1</em>, </td>
@@ -248,85 +352,48 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the activeness of grid cells. </p>
+<p>Calculate the activity of grid cells. </p>
 <p>If porosity or volume of the grid cell is too small, then the cell is inactive. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00291">291</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;{</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    activeMap_B2G.reserve(numGrid);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    activeMap_G2B.resize(numGrid);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; numGrid; n++) {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keywordflow">if</span> (ACTNUM[n] == 0 || poro[n] * ntg[n] &lt; e1 || v[n] &lt; e2) {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        activeMap_B2G.push_back(n);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        activeMap_G2B[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        count++;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    activeGridNum = count;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of inactive grid cell is &quot;</span> &lt;&lt; (numGrid - activeGridNum) &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;         &lt;&lt; (numGrid - activeGridNum) * 100.0 / numGrid &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00253">253</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;{</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.reserve(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>.resize(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>; n++) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] == 0 || <a class="code" href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">poro</a>[n] * <a class="code" href="classGrid.html#af5cac0650043090204c067c679a5e739">ntg</a>[n] &lt; e1 || <a class="code" href="classGrid.html#a1658fef63683c896be925d643e218e31">v</a>[n] &lt; e2) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] = 0;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.push_back(n);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        count++;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a> = count;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of inactive grid cell is &quot;</span> &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) * 100.0 / <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="comment">// fluid grid = active grid</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">fluidGridNum</a> = <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="classGrid.html#a5e5624d44a2520454d9858e43ccf11b3">map_Flu2All</a> = <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <a class="code" href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">map_All2Flu</a> = <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00024">OCPConst.hpp:24</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00054">Grid.hpp:55</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00031">Grid.hpp:32</a></div></div>
+<div class="ttc" id="aclassGrid_html_a05f03b35abec9c0dc354bae0ce302bad"><div class="ttname"><a href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">Grid::ACTNUM</a></div><div class="ttdeci">vector&lt; USI &gt; ACTNUM</div><div class="ttdoc">Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00169">Grid.hpp:169</a></div></div>
+<div class="ttc" id="aclassGrid_html_a1658fef63683c896be925d643e218e31"><div class="ttname"><a href="classGrid.html#a1658fef63683c896be925d643e218e31">Grid::v</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; v</div><div class="ttdoc">Volume of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00155">Grid.hpp:155</a></div></div>
+<div class="ttc" id="aclassGrid_html_a229ee680f0c08e1d8133833b5c11e584"><div class="ttname"><a href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">Grid::map_Act2All</a></div><div class="ttdeci">vector&lt; OCP_USI &gt; map_Act2All</div><div class="ttdoc">Mapping from active grid to all grid: activeGridNum.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00180">Grid.hpp:180</a></div></div>
+<div class="ttc" id="aclassGrid_html_a35e4a71cf216958595a7ce8262258b36"><div class="ttname"><a href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">Grid::activeGridNum</a></div><div class="ttdeci">OCP_USI activeGridNum</div><div class="ttdoc">Num of active grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00179">Grid.hpp:179</a></div></div>
+<div class="ttc" id="aclassGrid_html_a574d34342ac3858ec4e1a5096abdce25"><div class="ttname"><a href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">Grid::fluidGridNum</a></div><div class="ttdeci">OCP_USI fluidGridNum</div><div class="ttdoc">Num of fluid grids.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00183">Grid.hpp:183</a></div></div>
+<div class="ttc" id="aclassGrid_html_a5e5624d44a2520454d9858e43ccf11b3"><div class="ttname"><a href="classGrid.html#a5e5624d44a2520454d9858e43ccf11b3">Grid::map_Flu2All</a></div><div class="ttdeci">vector&lt; OCP_USI &gt; map_Flu2All</div><div class="ttdoc">Mapping from fluid grid to all grid: fluidGridNum.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00184">Grid.hpp:184</a></div></div>
+<div class="ttc" id="aclassGrid_html_a954b39ec432de9dcc780ad5f7243b9a3"><div class="ttname"><a href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">Grid::map_All2Flu</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Flu</div><div class="ttdoc">Mapping from all grid to fluid grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00185">Grid.hpp:185</a></div></div>
+<div class="ttc" id="aclassGrid_html_ac9b5717340391505a48ea8c5a317e726"><div class="ttname"><a href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">Grid::poro</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; poro</div><div class="ttdoc">Initial porosity of rock cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00160">Grid.hpp:160</a></div></div>
+<div class="ttc" id="aclassGrid_html_ad790d82067923146c83e6e1750445376"><div class="ttname"><a href="classGrid.html#ad790d82067923146c83e6e1750445376">Grid::map_All2Act</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Act</div><div class="ttdoc">Mapping from grid to active all grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00181">Grid.hpp:181</a></div></div>
+<div class="ttc" id="aclassGrid_html_aec601a644bda59415ad3d562062ceda7"><div class="ttname"><a href="classGrid.html#aec601a644bda59415ad3d562062ceda7">Grid::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Number of all cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00137">Grid.hpp:137</a></div></div>
+<div class="ttc" id="aclassGrid_html_af5cac0650043090204c067c679a5e739"><div class="ttname"><a href="classGrid.html#af5cac0650043090204c067c679a5e739">Grid::ntg</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ntg</div><div class="ttdoc">Net to gross ratio of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00159">Grid.hpp:159</a></div></div>
 </div><!-- fragment -->
-</div>
-</div>
-<a id="a3969c6dd9e09898d5ab5e4f27ddf15ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3969c6dd9e09898d5ab5e4f27ddf15ae">&#9670;&nbsp;</a></span>GetActIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> Grid::GetActIndex </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
-          <td class="paramname"><em>j</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
-          <td class="paramname"><em>k</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Return the index of active cell (i, j, k). </p>
-<p>Return id of the active cell and abort if the cell is inactive! </p>
-
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00311">311</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;{</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <span class="keywordtype">id</span> = k * nx * ny + j * nx + i;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &gt; numGrid) {</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Id is out of Range!&quot;</span>);</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    }</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> activity = activeMap_G2B[id].IsAct();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keywordflow">if</span> (!activity) {</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;(&quot;</span> + to_string(i) + <span class="stringliteral">&quot;,&quot;</span> + to_string(j) + <span class="stringliteral">&quot;,&quot;</span> + to_string(k) +</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                  <span class="stringliteral">&quot;) is inactive&quot;</span>);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    }</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordtype">id</span> = activeMap_G2B[id].GetId();</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;}</div>
-<div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
-<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8hpp_source.html#l00169">ACTNUM</a>, <a class="el" href="Grid_8hpp_source.html#l00180">map_Act2All</a>, <a class="el" href="Grid_8hpp_source.html#l00181">map_All2Act</a>, <a class="el" href="Grid_8hpp_source.html#l00159">ntg</a>, <a class="el" href="Grid_8hpp_source.html#l00137">numGrid</a>, <a class="el" href="Grid_8hpp_source.html#l00160">poro</a>, and <a class="el" href="Grid_8hpp_source.html#l00155">v</a>.</p>
 
 </div>
 </div>
@@ -337,7 +404,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

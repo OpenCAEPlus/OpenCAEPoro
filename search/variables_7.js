@@ -1,13 +1,15 @@
 var searchData=
 [
-  ['h_1721',['H',['../classMixture.html#a9b0105103939cee9968526886db09fea',1,'Mixture']]],
-  ['hcp1_1722',['HCP1',['../classRockParam.html#a5dd4cc2f1565c593f439d0e0559a2ea7',1,'RockParam']]],
-  ['hcp1_1723',['hcp1',['../classRockT.html#a27bc9745e96720a4241d39ee557c80da',1,'RockT']]],
-  ['hcp2_1724',['HCP2',['../classRockParam.html#a6ca0f15d0d5819c55b0c7e91e4385f82',1,'RockParam']]],
-  ['hcp2_1725',['hcp2',['../classRockT.html#a28c248c91aa703aa91f9a24082894ea8',1,'RockT']]],
-  ['horizontal_1726',['HORIZONTAL',['../OCPConst_8hpp.html#a5d435623341440e2d60f52d25af383f2',1,'OCPConst.hpp']]],
-  ['ht_1727',['HT',['../classMixture.html#ab14ba599001d4d65a0b2a97caf467eb4',1,'Mixture']]],
-  ['hvapr_1728',['hvapr',['../classMixtureThermal__K01.html#aeae39dd6d648803106c05a3afb7942c6',1,'MixtureThermal_K01::hvapr()'],['../classComponentParam.html#a6e65ef044a7e65ffd02f5efdb3f5a18f',1,'ComponentParam::hvapr()']]],
-  ['hvr_1729',['hvr',['../classMixtureThermal__K01.html#a9d3637c04bb449f975d63ea50de11389',1,'MixtureThermal_K01::hvr()'],['../classComponentParam.html#a8c1681cbe29d0d3838ae63f9708e3362',1,'ComponentParam::hvr()']]],
-  ['hx_1730',['Hx',['../classMixture.html#a6dfa58286ec728ef91ea540852191487',1,'Mixture']]]
+  ['h_2071',['H',['../classMixture.html#a9b0105103939cee9968526886db09fea',1,'Mixture::H()'],['../classBulk.html#adb10917f25b0abe0e834fc0441d6e554',1,'Bulk::H()']]],
+  ['hcp1_2072',['hcp1',['../classRockT.html#a27bc9745e96720a4241d39ee557c80da',1,'RockT']]],
+  ['hcp1_2073',['HCP1',['../classRockParam.html#a5dd4cc2f1565c593f439d0e0559a2ea7',1,'RockParam']]],
+  ['hcp2_2074',['hcp2',['../classRockT.html#a28c248c91aa703aa91f9a24082894ea8',1,'RockT']]],
+  ['hcp2_2075',['HCP2',['../classRockParam.html#a6ca0f15d0d5819c55b0c7e91e4385f82',1,'RockParam']]],
+  ['horizontal_2076',['HORIZONTAL',['../OCPConst_8hpp.html#a5d435623341440e2d60f52d25af383f2',1,'OCPConst.hpp']]],
+  ['hr_2077',['Hr',['../classBulk.html#abc66ae1e7ef562ffc1989f60b5c4dce8',1,'Bulk']]],
+  ['hrt_2078',['HrT',['../classBulk.html#ae3b9da5299a8d5cf46a23ad837da5f31',1,'Bulk']]],
+  ['ht_2079',['HT',['../classBulk.html#ac65709c691a03f0813a07427ee55e502',1,'Bulk::HT()'],['../classMixture.html#ab14ba599001d4d65a0b2a97caf467eb4',1,'Mixture::HT()']]],
+  ['hvapr_2080',['hvapr',['../classMixtureThermal__K01.html#aeae39dd6d648803106c05a3afb7942c6',1,'MixtureThermal_K01::hvapr()'],['../classComponentParam.html#a6e65ef044a7e65ffd02f5efdb3f5a18f',1,'ComponentParam::hvapr()']]],
+  ['hvr_2081',['hvr',['../classMixtureThermal__K01.html#a9d3637c04bb449f975d63ea50de11389',1,'MixtureThermal_K01::hvr()'],['../classComponentParam.html#a8c1681cbe29d0d3838ae63f9708e3362',1,'ComponentParam::hvr()']]],
+  ['hx_2082',['Hx',['../classBulk.html#a6763f9c5d0ec72b6a49cb32fd2eb74f4',1,'Bulk::Hx()'],['../classMixture.html#a6dfa58286ec728ef91ea540852191487',1,'Mixture::Hx()']]]
 ];

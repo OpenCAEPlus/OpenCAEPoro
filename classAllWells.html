@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classAllWells-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -85,11 +86,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:ae68a3bb44392690c42f75425995f5801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc431b1d158b5e16a154700064625b1e"><td class="memItemLeft" align="right" valign="top"><a id="acc431b1d158b5e16a154700064625b1e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#acc431b1d158b5e16a154700064625b1e">Setup</a> (const <a class="el" href="classGrid.html">Grid</a> &amp;myGrid, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
-<tr class="memdesc:acc431b1d158b5e16a154700064625b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup well in allWells. <br /></td></tr>
+<tr class="memdesc:acc431b1d158b5e16a154700064625b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup wells. <br /></td></tr>
 <tr class="separator:acc431b1d158b5e16a154700064625b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bed879a6d17d50be411e446cc754860"><td class="memItemLeft" align="right" valign="top"><a id="a2bed879a6d17d50be411e446cc754860"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a2bed879a6d17d50be411e446cc754860">SetupWell</a> (const <a class="el" href="classGrid.html">Grid</a> &amp;myGrid, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
-<tr class="memdesc:a2bed879a6d17d50be411e446cc754860"><td class="mdescLeft">&#160;</td><td class="mdescRight">complete the information of well according to <a class="el" href="classGrid.html" title="Basic information of computational grid, including the rock properties.">Grid</a> and <a class="el" href="classBulk.html" title="Physical information of each active reservoir bulk.">Bulk</a>. <br /></td></tr>
+<tr class="memdesc:a2bed879a6d17d50be411e446cc754860"><td class="mdescLeft">&#160;</td><td class="mdescRight">complete the information of well according to <a class="el" href="classGrid.html">Grid</a> and <a class="el" href="classBulk.html" title="Physical information of each active reservoir bulk.">Bulk</a>. <br /></td></tr>
 <tr class="separator:a2bed879a6d17d50be411e446cc754860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3f4d44695059cd46f1a671659b853d6"><td class="memItemLeft" align="right" valign="top"><a id="ab3f4d44695059cd46f1a671659b853d6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ab3f4d44695059cd46f1a671659b853d6">SetupWellGroup</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
@@ -101,8 +102,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a7baf7e66473d0323c5f0121731b18a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f950a86030f86d80a700ea02bec9452"><td class="memItemLeft" align="right" valign="top"><a id="a9f950a86030f86d80a700ea02bec9452"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a9f950a86030f86d80a700ea02bec9452">SetupWellBulk</a> (<a class="el" href="classBulk.html">Bulk</a> &amp;myBulk) const</td></tr>
-<tr class="memdesc:a9f950a86030f86d80a700ea02bec9452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup bulks which are penetrated by wells. <br /></td></tr>
+<tr class="memdesc:a9f950a86030f86d80a700ea02bec9452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup bulks which are penetrated by wells at current stage. <br /></td></tr>
 <tr class="separator:a9f950a86030f86d80a700ea02bec9452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39cebc7054b664f5014f8dc593d8c3c8"><td class="memItemLeft" align="right" valign="top"><a id="a39cebc7054b664f5014f8dc593d8c3c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a39cebc7054b664f5014f8dc593d8c3c8">SetupConnWell2Bulk</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
+<tr class="memdesc:a39cebc7054b664f5014f8dc593d8c3c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the static connection between well and bulks. <br /></td></tr>
+<tr class="separator:a39cebc7054b664f5014f8dc593d8c3c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6687a89061fd6a296715c85279580b0b"><td class="memItemLeft" align="right" valign="top"><a id="a6687a89061fd6a296715c85279580b0b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a6687a89061fd6a296715c85279580b0b">ApplyControl</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i)</td></tr>
 <tr class="memdesc:a6687a89061fd6a296715c85279580b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the operation mode at the ith critical time. <br /></td></tr>
@@ -123,10 +128,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a0f5418984c94a2878eb35a8c795fe903">CalFlux</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:a0f5418984c94a2878eb35a8c795fe903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate volume flow rate and moles flow rate of each perforation. <br /></td></tr>
 <tr class="separator:a0f5418984c94a2878eb35a8c795fe903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac62f28ce12cd39895b9764680a74d2d2"><td class="memItemLeft" align="right" valign="top"><a id="ac62f28ce12cd39895b9764680a74d2d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ac62f28ce12cd39895b9764680a74d2d2">CalProdWeight</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
-<tr class="memdesc:ac62f28ce12cd39895b9764680a74d2d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Prodweight. <br /></td></tr>
-<tr class="separator:ac62f28ce12cd39895b9764680a74d2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a521b341baaef80dfb93666f93d9e303d"><td class="memItemLeft" align="right" valign="top"><a id="a521b341baaef80dfb93666f93d9e303d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a521b341baaef80dfb93666f93d9e303d">CaldG</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:a521b341baaef80dfb93666f93d9e303d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate dG. <br /></td></tr>
@@ -139,23 +140,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ae38fd52cc7a694f6afd876271d469416">CalReInjFluid</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:ae38fd52cc7a694f6afd876271d469416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Reinjection fluid. <br /></td></tr>
 <tr class="separator:ae38fd52cc7a694f6afd876271d469416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a187f1afb3db7a0fd1b70363696b1a987"><td class="memItemLeft" align="right" valign="top"><a id="a187f1afb3db7a0fd1b70363696b1a987"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a187f1afb3db7a0fd1b70363696b1a987">AllocateMat</a> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;bulknum) const</td></tr>
-<tr class="memdesc:a187f1afb3db7a0fd1b70363696b1a987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate memory for Matrix. <br /></td></tr>
-<tr class="separator:a187f1afb3db7a0fd1b70363696b1a987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19d62ea14a3d8d7376fb210b30b0cb8b"><td class="memItemLeft" align="right" valign="top"><a id="a19d62ea14a3d8d7376fb210b30b0cb8b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateLastBHP</b> ()</td></tr>
 <tr class="separator:a19d62ea14a3d8d7376fb210b30b0cb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f79d0d3b97c8d8161726a34f74fb620"><td class="memItemLeft" align="right" valign="top"><a id="a1f79d0d3b97c8d8161726a34f74fb620"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetBHP</b> ()</td></tr>
 <tr class="separator:a1f79d0d3b97c8d8161726a34f74fb620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25906b75a247e7fa0e626d07d2b10fe1"><td class="memItemLeft" align="right" valign="top"><a id="a25906b75a247e7fa0e626d07d2b10fe1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a25906b75a247e7fa0e626d07d2b10fe1">UpdateLastDg</a> ()</td></tr>
-<tr class="memdesc:a25906b75a247e7fa0e626d07d2b10fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset dG to ldG for each well. <br /></td></tr>
-<tr class="separator:a25906b75a247e7fa0e626d07d2b10fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a06f5f79e6d9448edd7e82c3d4b75b1"><td class="memItemLeft" align="right" valign="top"><a id="a5a06f5f79e6d9448edd7e82c3d4b75b1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetDg</b> ()</td></tr>
-<tr class="separator:a5a06f5f79e6d9448edd7e82c3d4b75b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa09bdd2230bb3c0776b0833ce3e03682"><td class="memItemLeft" align="right" valign="top"><a id="aa09bdd2230bb3c0776b0833ce3e03682"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#aa09bdd2230bb3c0776b0833ce3e03682">UpdateLastDG</a> ()</td></tr>
+<tr class="memdesc:aa09bdd2230bb3c0776b0833ce3e03682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset dG to ldG for each well. <br /></td></tr>
+<tr class="separator:aa09bdd2230bb3c0776b0833ce3e03682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f326f67babf335aa837828185f6e68"><td class="memItemLeft" align="right" valign="top"><a id="ac9f326f67babf335aa837828185f6e68"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetDG</b> ()</td></tr>
+<tr class="separator:ac9f326f67babf335aa837828185f6e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a370e61c20debfbae428ab3f6cda6f70b"><td class="memItemLeft" align="right" valign="top"><a id="a370e61c20debfbae428ab3f6cda6f70b"></a>
 <a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a370e61c20debfbae428ab3f6cda6f70b">CheckP</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:a370e61c20debfbae428ab3f6cda6f70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if unreasonable well pressure or perforation pressure occurs. <br /></td></tr>
@@ -190,6 +187,35 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalMaxBHPChange</b> (
 <tr class="memitem:aa4a2096bcc6c94441e8290607cddc6b3"><td class="memItemLeft" align="right" valign="top"><a id="aa4a2096bcc6c94441e8290607cddc6b3"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetdBHPmax</b> () const</td></tr>
 <tr class="separator:aa4a2096bcc6c94441e8290607cddc6b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a651a3e998fb32be08cf263f8d5706079"><td class="memItemLeft" align="right" valign="top"><a id="a651a3e998fb32be08cf263f8d5706079"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a651a3e998fb32be08cf263f8d5706079">GetWBHP</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
+<tr class="memdesc:a651a3e998fb32be08cf263f8d5706079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the BHP of wth well. <br /></td></tr>
+<tr class="separator:a651a3e998fb32be08cf263f8d5706079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25241c8972763dc6622141110c457300"><td class="memItemLeft" align="right" valign="top"><a id="a25241c8972763dc6622141110c457300"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a25241c8972763dc6622141110c457300">GetWellDG</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;p) const</td></tr>
+<tr class="memdesc:a25241c8972763dc6622141110c457300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the pth dG of wth well. <br /></td></tr>
+<tr class="separator:a25241c8972763dc6622141110c457300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada3fbbf46bff1e992800c1713d32d5b3"><td class="memItemLeft" align="right" valign="top"><a id="ada3fbbf46bff1e992800c1713d32d5b3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ShowWellStatus</b> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
+<tr class="separator:ada3fbbf46bff1e992800c1713d32d5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b72f512c63ea9c254f3e7cc031a07c4"><td class="memItemLeft" align="right" valign="top"><a id="a3b72f512c63ea9c254f3e7cc031a07c4"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetWellChange</b> () const</td></tr>
+<tr class="separator:a3b72f512c63ea9c254f3e7cc031a07c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b47709ddc93515b7a756aeee00ee36"><td class="memItemLeft" align="right" valign="top"><a id="ad0b47709ddc93515b7a756aeee00ee36"></a>
+const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetWell2Bulk</b> () const</td></tr>
+<tr class="separator:ad0b47709ddc93515b7a756aeee00ee36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="memItemLeft" align="right" valign="top"><a id="a6b8a494659f427fa3b1af7eae8d0ca9e"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a6b8a494659f427fa3b1af7eae8d0ca9e">GetFGIT</a> () const</td></tr>
+<tr class="memdesc:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return gas water injection in field. <br /></td></tr>
+<tr class="separator:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="memItemLeft" align="right" valign="top"><a id="a2d9b2ffc0582fa79475345a36bdbc27b"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a2d9b2ffc0582fa79475345a36bdbc27b">GetFWIR</a> () const</td></tr>
+<tr class="memdesc:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return water injection rate in field. <br /></td></tr>
+<tr class="separator:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a678c0505c57f76cb305f219bb073bf24"><td class="memItemLeft" align="right" valign="top"><a id="a678c0505c57f76cb305f219bb073bf24"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a678c0505c57f76cb305f219bb073bf24">GetFWIT</a> () const</td></tr>
+<tr class="memdesc:a678c0505c57f76cb305f219bb073bf24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total water injection in field. <br /></td></tr>
+<tr class="separator:a678c0505c57f76cb305f219bb073bf24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af92ebc9ff798b6818896b09d63538aa7"><td class="memItemLeft" align="right" valign="top"><a id="af92ebc9ff798b6818896b09d63538aa7"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#af92ebc9ff798b6818896b09d63538aa7">GetFOPR</a> () const</td></tr>
 <tr class="memdesc:af92ebc9ff798b6818896b09d63538aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return oil production rate in field. <br /></td></tr>
@@ -218,18 +244,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalMaxBHPChange</b> (
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#af01c3fa942e9211558bb9030845e5d4e">GetFGIR</a> () const</td></tr>
 <tr class="memdesc:af01c3fa942e9211558bb9030845e5d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return gas injection rate in field. <br /></td></tr>
 <tr class="separator:af01c3fa942e9211558bb9030845e5d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="memItemLeft" align="right" valign="top"><a id="a6b8a494659f427fa3b1af7eae8d0ca9e"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a6b8a494659f427fa3b1af7eae8d0ca9e">GetFGIT</a> () const</td></tr>
-<tr class="memdesc:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return gas water injection in field. <br /></td></tr>
-<tr class="separator:a6b8a494659f427fa3b1af7eae8d0ca9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="memItemLeft" align="right" valign="top"><a id="a2d9b2ffc0582fa79475345a36bdbc27b"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a2d9b2ffc0582fa79475345a36bdbc27b">GetFWIR</a> () const</td></tr>
-<tr class="memdesc:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return water injection rate in field. <br /></td></tr>
-<tr class="separator:a2d9b2ffc0582fa79475345a36bdbc27b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a678c0505c57f76cb305f219bb073bf24"><td class="memItemLeft" align="right" valign="top"><a id="a678c0505c57f76cb305f219bb073bf24"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a678c0505c57f76cb305f219bb073bf24">GetFWIT</a> () const</td></tr>
-<tr class="memdesc:a678c0505c57f76cb305f219bb073bf24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total water injection in field. <br /></td></tr>
-<tr class="separator:a678c0505c57f76cb305f219bb073bf24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="memItemLeft" align="right" valign="top"><a id="a10a4bbc44b894899c5afd0c986a0c2e3"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a10a4bbc44b894899c5afd0c986a0c2e3">GetWGIR</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
+<tr class="memdesc:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return gas injection rate of the wth well. <br /></td></tr>
+<tr class="separator:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f20e34b628c37f981bdd6ffabb51e40"><td class="memItemLeft" align="right" valign="top"><a id="a1f20e34b628c37f981bdd6ffabb51e40"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a1f20e34b628c37f981bdd6ffabb51e40">GetWGIT</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
+<tr class="memdesc:a1f20e34b628c37f981bdd6ffabb51e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total gas injection of the wth well. <br /></td></tr>
+<tr class="separator:a1f20e34b628c37f981bdd6ffabb51e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a381c9668dc967d33e0a220d6d7d1d368"><td class="memItemLeft" align="right" valign="top"><a id="a381c9668dc967d33e0a220d6d7d1d368"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a381c9668dc967d33e0a220d6d7d1d368">GetWWIR</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
+<tr class="memdesc:a381c9668dc967d33e0a220d6d7d1d368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return water injection rate of the wth well. <br /></td></tr>
+<tr class="separator:a381c9668dc967d33e0a220d6d7d1d368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="memItemLeft" align="right" valign="top"><a id="a4c2557c26f4a1bd0fd666952b264e2bc"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a4c2557c26f4a1bd0fd666952b264e2bc">GetWWIT</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
+<tr class="memdesc:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total water injection of the wth well. <br /></td></tr>
+<tr class="separator:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab604510604e0cf181dfcb6b1242f11db"><td class="memItemLeft" align="right" valign="top"><a id="ab604510604e0cf181dfcb6b1242f11db"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ab604510604e0cf181dfcb6b1242f11db">GetWOPR</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
 <tr class="memdesc:ab604510604e0cf181dfcb6b1242f11db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return oil production rate of the wth well. <br /></td></tr>
@@ -254,39 +284,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalMaxBHPChange</b> (
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a9620962b4bc3762d60aa907265eb7a02">GetWWPT</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
 <tr class="memdesc:a9620962b4bc3762d60aa907265eb7a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total water production of the wth well. <br /></td></tr>
 <tr class="separator:a9620962b4bc3762d60aa907265eb7a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="memItemLeft" align="right" valign="top"><a id="a10a4bbc44b894899c5afd0c986a0c2e3"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a10a4bbc44b894899c5afd0c986a0c2e3">GetWGIR</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
-<tr class="memdesc:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return gas injection rate of the wth well. <br /></td></tr>
-<tr class="separator:a10a4bbc44b894899c5afd0c986a0c2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f20e34b628c37f981bdd6ffabb51e40"><td class="memItemLeft" align="right" valign="top"><a id="a1f20e34b628c37f981bdd6ffabb51e40"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a1f20e34b628c37f981bdd6ffabb51e40">GetWGIT</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
-<tr class="memdesc:a1f20e34b628c37f981bdd6ffabb51e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total gas injection of the wth well. <br /></td></tr>
-<tr class="separator:a1f20e34b628c37f981bdd6ffabb51e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381c9668dc967d33e0a220d6d7d1d368"><td class="memItemLeft" align="right" valign="top"><a id="a381c9668dc967d33e0a220d6d7d1d368"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a381c9668dc967d33e0a220d6d7d1d368">GetWWIR</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
-<tr class="memdesc:a381c9668dc967d33e0a220d6d7d1d368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return water injection rate of the wth well. <br /></td></tr>
-<tr class="separator:a381c9668dc967d33e0a220d6d7d1d368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="memItemLeft" align="right" valign="top"><a id="a4c2557c26f4a1bd0fd666952b264e2bc"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a4c2557c26f4a1bd0fd666952b264e2bc">GetWWIT</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
-<tr class="memdesc:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return total water injection of the wth well. <br /></td></tr>
-<tr class="separator:a4c2557c26f4a1bd0fd666952b264e2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a651a3e998fb32be08cf263f8d5706079"><td class="memItemLeft" align="right" valign="top"><a id="a651a3e998fb32be08cf263f8d5706079"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a651a3e998fb32be08cf263f8d5706079">GetWBHP</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w) const</td></tr>
-<tr class="memdesc:a651a3e998fb32be08cf263f8d5706079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the BHP of wth well. <br /></td></tr>
-<tr class="separator:a651a3e998fb32be08cf263f8d5706079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2c604fba572d4457d4c20b63d324290"><td class="memItemLeft" align="right" valign="top"><a id="ab2c604fba572d4457d4c20b63d324290"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ab2c604fba572d4457d4c20b63d324290">GetWellDg</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;w, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;p) const</td></tr>
-<tr class="memdesc:ab2c604fba572d4457d4c20b63d324290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the pth dG of wth well. <br /></td></tr>
-<tr class="separator:ab2c604fba572d4457d4c20b63d324290"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add6bdfbeb2ae4b2cd74aca7e9e04c66b"><td class="memItemLeft" align="right" valign="top"><a id="add6bdfbeb2ae4b2cd74aca7e9e04c66b"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>CalWellQT</b> ()</td></tr>
-<tr class="separator:add6bdfbeb2ae4b2cd74aca7e9e04c66b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada3fbbf46bff1e992800c1713d32d5b3"><td class="memItemLeft" align="right" valign="top"><a id="ada3fbbf46bff1e992800c1713d32d5b3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ShowWellStatus</b> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
-<tr class="separator:ada3fbbf46bff1e992800c1713d32d5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b72f512c63ea9c254f3e7cc031a07c4"><td class="memItemLeft" align="right" valign="top"><a id="a3b72f512c63ea9c254f3e7cc031a07c4"></a>
-<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetWellChange</b> () const</td></tr>
-<tr class="separator:a3b72f512c63ea9c254f3e7cc031a07c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e387f1cdfce6881976f01fe752c60b"><td class="memItemLeft" align="right" valign="top"><a id="ae8e387f1cdfce6881976f01fe752c60b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ae8e387f1cdfce6881976f01fe752c60b">CalCFL</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="memdesc:ae8e387f1cdfce6881976f01fe752c60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the CFL number for each perforation and return the maximum one. <br /></td></tr>
@@ -315,10 +312,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a5b754ec41eb075a4aa230c7c825ef892">CalResFIM</a> (<a class="el" href="classOCPRes.html">OCPRes</a> &amp;resFIM, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="memdesc:a5b754ec41eb075a4aa230c7c825ef892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Resiual and relative Resiual for FIM. <br /></td></tr>
 <tr class="separator:a5b754ec41eb075a4aa230c7c825ef892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eb734bbd0471b876ba18ad32521a6bb"><td class="memItemLeft" align="right" valign="top"><a id="a0eb734bbd0471b876ba18ad32521a6bb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a0eb734bbd0471b876ba18ad32521a6bb">ShowRes</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;res, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk) const</td></tr>
-<tr class="memdesc:a0eb734bbd0471b876ba18ad32521a6bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show Res. <br /></td></tr>
-<tr class="separator:a0eb734bbd0471b876ba18ad32521a6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a829931542020b8717646c55734816cc5"><td class="memItemLeft" align="right" valign="top"><a id="a829931542020b8717646c55734816cc5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a829931542020b8717646c55734816cc5">AssemblaMatFIM_new</a> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="memdesc:a829931542020b8717646c55734816cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble matrix, parts related to well are included for FIM. <br /></td></tr>
@@ -332,6 +325,93 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPolyhedronWell</b>
 <tr class="memitem:a1d09f74c84efbac775efc7f34bb02a16"><td class="memItemLeft" align="right" valign="top"><a id="a1d09f74c84efbac775efc7f34bb02a16"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetWellVal</b> () const</td></tr>
 <tr class="separator:a1d09f74c84efbac775efc7f34bb02a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ae0539c08700343a3d332318114c9d7ca"><td class="memItemLeft" align="right" valign="top"><a id="ae0539c08700343a3d332318114c9d7ca"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ae0539c08700343a3d332318114c9d7ca">numWell</a></td></tr>
+<tr class="memdesc:ae0539c08700343a3d332318114c9d7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">num of wells. <br /></td></tr>
+<tr class="separator:ae0539c08700343a3d332318114c9d7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14601cc04986c3b7ee8660f1dc22b628"><td class="memItemLeft" align="right" valign="top"><a id="a14601cc04986c3b7ee8660f1dc22b628"></a>
+vector&lt; <a class="el" href="classWell.html">Well</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a14601cc04986c3b7ee8660f1dc22b628">wells</a></td></tr>
+<tr class="memdesc:a14601cc04986c3b7ee8660f1dc22b628"><td class="mdescLeft">&#160;</td><td class="mdescRight">well set. <br /></td></tr>
+<tr class="separator:a14601cc04986c3b7ee8660f1dc22b628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab66ceb025ec5b08a60deb93178f8c4a8"><td class="memItemLeft" align="right" valign="top"><a id="ab66ceb025ec5b08a60deb93178f8c4a8"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ab66ceb025ec5b08a60deb93178f8c4a8">numGroup</a></td></tr>
+<tr class="memdesc:ab66ceb025ec5b08a60deb93178f8c4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">num of groups <br /></td></tr>
+<tr class="separator:ab66ceb025ec5b08a60deb93178f8c4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bd322e42f66c0e25d9f93cd47e81ca9"><td class="memItemLeft" align="right" valign="top"><a id="a5bd322e42f66c0e25d9f93cd47e81ca9"></a>
+vector&lt; <a class="el" href="classWellGroup.html">WellGroup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a5bd322e42f66c0e25d9f93cd47e81ca9">wellGroup</a></td></tr>
+<tr class="memdesc:a5bd322e42f66c0e25d9f93cd47e81ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">wellGroup set <br /></td></tr>
+<tr class="separator:a5bd322e42f66c0e25d9f93cd47e81ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12f5e2d1eee5e845ee89ef845db5b384"><td class="memItemLeft" align="right" valign="top"><a id="a12f5e2d1eee5e845ee89ef845db5b384"></a>
+vector&lt; vector&lt; <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a12f5e2d1eee5e845ee89ef845db5b384">well2bulk</a></td></tr>
+<tr class="memdesc:a12f5e2d1eee5e845ee89ef845db5b384"><td class="mdescLeft">&#160;</td><td class="mdescRight">connections between wells and bulks <br /></td></tr>
+<tr class="separator:a12f5e2d1eee5e845ee89ef845db5b384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a667d08fbb802e00bc31272ea8a98fac6"><td class="memItemLeft" align="right" valign="top"><a id="a667d08fbb802e00bc31272ea8a98fac6"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a667d08fbb802e00bc31272ea8a98fac6">wellChange</a></td></tr>
+<tr class="memdesc:a667d08fbb802e00bc31272ea8a98fac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">if wells change, then OCP_TRUE <br /></td></tr>
+<tr class="separator:a667d08fbb802e00bc31272ea8a98fac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ce3ac078d0c24c3d637eb538c29e92"><td class="memItemLeft" align="right" valign="top"><a id="a15ce3ac078d0c24c3d637eb538c29e92"></a>
+vector&lt; <a class="el" href="classSolventINJ.html">SolventINJ</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a15ce3ac078d0c24c3d637eb538c29e92">solvents</a></td></tr>
+<tr class="memdesc:a15ce3ac078d0c24c3d637eb538c29e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets of <a class="el" href="classSolvent.html" title="Describe the molar fraction of components of fluid injected to reservoir from INJ.">Solvent</a>. <br /></td></tr>
+<tr class="separator:a15ce3ac078d0c24c3d637eb538c29e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bae6a4de3729ae9fd053172b13b56de"><td class="memItemLeft" align="right" valign="top"><a id="a2bae6a4de3729ae9fd053172b13b56de"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a2bae6a4de3729ae9fd053172b13b56de">dPmax</a> {0}</td></tr>
+<tr class="memdesc:a2bae6a4de3729ae9fd053172b13b56de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum BHP change. <br /></td></tr>
+<tr class="separator:a2bae6a4de3729ae9fd053172b13b56de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa6b35e543f35a7e1e5eb26459105e7"><td class="memItemLeft" align="right" valign="top"><a id="adaa6b35e543f35a7e1e5eb26459105e7"></a>
+vector&lt; <a class="el" href="classMixture.html">Mixture</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#adaa6b35e543f35a7e1e5eb26459105e7">flashCal</a></td></tr>
+<tr class="memdesc:adaa6b35e543f35a7e1e5eb26459105e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uesless now. <br /></td></tr>
+<tr class="separator:adaa6b35e543f35a7e1e5eb26459105e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a134f88fa8414c74b6876e43616d4c60d"><td class="memItemLeft" align="right" valign="top"><a id="a134f88fa8414c74b6876e43616d4c60d"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a134f88fa8414c74b6876e43616d4c60d">Psurf</a> { <a class="el" href="OCPConst_8hpp.html#af4fc00d6f7ddbba6c546c1e9d94464a6">PRESSURE_STD</a> }</td></tr>
+<tr class="memdesc:a134f88fa8414c74b6876e43616d4c60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">well reference pressure <br /></td></tr>
+<tr class="separator:a134f88fa8414c74b6876e43616d4c60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803e5f17f2339b3ca5c4cc9fdb796be4"><td class="memItemLeft" align="right" valign="top"><a id="a803e5f17f2339b3ca5c4cc9fdb796be4"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a803e5f17f2339b3ca5c4cc9fdb796be4">Tsurf</a> { <a class="el" href="OCPConst_8hpp.html#acceeb5bbcfec087d0873141428dca9aa">TEMPERATURE_STD</a> }</td></tr>
+<tr class="memdesc:a803e5f17f2339b3ca5c4cc9fdb796be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">well reference temperature <br /></td></tr>
+<tr class="separator:a803e5f17f2339b3ca5c4cc9fdb796be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78886ec6726d84dade1b7b08a015677c"><td class="memItemLeft" align="right" valign="top"><a id="a78886ec6726d84dade1b7b08a015677c"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a78886ec6726d84dade1b7b08a015677c">FGIR</a> {0}</td></tr>
+<tr class="memdesc:a78886ec6726d84dade1b7b08a015677c"><td class="mdescLeft">&#160;</td><td class="mdescRight">gas injection rate in field. <br /></td></tr>
+<tr class="separator:a78886ec6726d84dade1b7b08a015677c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4be20a8cb34a0a5a614088ddf5d8c777"><td class="memItemLeft" align="right" valign="top"><a id="a4be20a8cb34a0a5a614088ddf5d8c777"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a4be20a8cb34a0a5a614088ddf5d8c777">FGIT</a> {0}</td></tr>
+<tr class="memdesc:a4be20a8cb34a0a5a614088ddf5d8c777"><td class="mdescLeft">&#160;</td><td class="mdescRight">gas total injection in field. <br /></td></tr>
+<tr class="separator:a4be20a8cb34a0a5a614088ddf5d8c777"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38613dc2527caac9ad81ea6ae7258e3b"><td class="memItemLeft" align="right" valign="top"><a id="a38613dc2527caac9ad81ea6ae7258e3b"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a38613dc2527caac9ad81ea6ae7258e3b">FWIR</a> {0}</td></tr>
+<tr class="memdesc:a38613dc2527caac9ad81ea6ae7258e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">water injection rate in field. <br /></td></tr>
+<tr class="separator:a38613dc2527caac9ad81ea6ae7258e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa23e01426a137c74d57f989a74818ccd"><td class="memItemLeft" align="right" valign="top"><a id="aa23e01426a137c74d57f989a74818ccd"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#aa23e01426a137c74d57f989a74818ccd">FWIT</a> {0}</td></tr>
+<tr class="memdesc:aa23e01426a137c74d57f989a74818ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">water total injection in field. <br /></td></tr>
+<tr class="separator:aa23e01426a137c74d57f989a74818ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f057936cf77a5ba705aa2a6f9634b66"><td class="memItemLeft" align="right" valign="top"><a id="a4f057936cf77a5ba705aa2a6f9634b66"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a4f057936cf77a5ba705aa2a6f9634b66">FOPR</a> {0}</td></tr>
+<tr class="memdesc:a4f057936cf77a5ba705aa2a6f9634b66"><td class="mdescLeft">&#160;</td><td class="mdescRight">oil production rate in field. <br /></td></tr>
+<tr class="separator:a4f057936cf77a5ba705aa2a6f9634b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab296c7544141008d0c296f982a226c10"><td class="memItemLeft" align="right" valign="top"><a id="ab296c7544141008d0c296f982a226c10"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ab296c7544141008d0c296f982a226c10">FOPT</a> {0}</td></tr>
+<tr class="memdesc:ab296c7544141008d0c296f982a226c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">oil total production in field. <br /></td></tr>
+<tr class="separator:ab296c7544141008d0c296f982a226c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a894df546a1c6b927db0aa6a31ae00695"><td class="memItemLeft" align="right" valign="top"><a id="a894df546a1c6b927db0aa6a31ae00695"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a894df546a1c6b927db0aa6a31ae00695">FGPR</a> {0}</td></tr>
+<tr class="memdesc:a894df546a1c6b927db0aa6a31ae00695"><td class="mdescLeft">&#160;</td><td class="mdescRight">gas production rate in field. <br /></td></tr>
+<tr class="separator:a894df546a1c6b927db0aa6a31ae00695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5152bd85697542e47d13b1e11c20c72f"><td class="memItemLeft" align="right" valign="top"><a id="a5152bd85697542e47d13b1e11c20c72f"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a5152bd85697542e47d13b1e11c20c72f">FGPt</a> {0}</td></tr>
+<tr class="memdesc:a5152bd85697542e47d13b1e11c20c72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">gas total production in field. <br /></td></tr>
+<tr class="separator:a5152bd85697542e47d13b1e11c20c72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5415962e78b67c93cbc24a4902c9b36d"><td class="memItemLeft" align="right" valign="top"><a id="a5415962e78b67c93cbc24a4902c9b36d"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a5415962e78b67c93cbc24a4902c9b36d">FWPR</a> {0}</td></tr>
+<tr class="memdesc:a5415962e78b67c93cbc24a4902c9b36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">water production rate in field. <br /></td></tr>
+<tr class="separator:a5415962e78b67c93cbc24a4902c9b36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78ee57f0f02826454643414d9cbec7a"><td class="memItemLeft" align="right" valign="top"><a id="ad78ee57f0f02826454643414d9cbec7a"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ad78ee57f0f02826454643414d9cbec7a">FWPT</a> {0}</td></tr>
+<tr class="memdesc:ad78ee57f0f02826454643414d9cbec7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">water total production in field. <br /></td></tr>
+<tr class="separator:ad78ee57f0f02826454643414d9cbec7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -356,7 +436,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

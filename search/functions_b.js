@@ -1,16 +1,14 @@
 var searchData=
 [
-  ['passflashvalue_1516',['PassFlashValue',['../classBulk.html#a03c20968f7d281592114fd6f7c38d538',1,'Bulk']]],
-  ['passflashvaluederiv_1517',['PassFlashValueDeriv',['../classBulk.html#a4c39ebeeaa4ece049f0a387301fba7ab',1,'Bulk']]],
-  ['perforation_1518',['Perforation',['../classPerforation.html#a5e47f2a9fcb77b2913e8c6e41093ece2',1,'Perforation']]],
-  ['prepare_1519',['Prepare',['../classIsothermalSolver.html#aa831d876e6921f531f78a6496182e7ef',1,'IsothermalSolver::Prepare()'],['../classOCP__IMPEC.html#aae0637215f124a63787ea19d2528fef1',1,'OCP_IMPEC::Prepare()'],['../classOCP__FIM.html#a22855a69a9358ccb6d459d04b78ed299',1,'OCP_FIM::Prepare()'],['../classOCP__FIMn.html#a5870d3cc48118f94d36ae2ffe9a4e396',1,'OCP_FIMn::Prepare()'],['../classOCP__AIMc.html#a251ff52f7b35b398bd276c582797aedf',1,'OCP_AIMc::Prepare()']]],
-  ['preparewell_1520',['PrepareWell',['../classReservoir.html#a53f2197e2db153378de2b64656aeb8ad',1,'Reservoir::PrepareWell()'],['../classAllWells.html#ace7824de322ddcc0921e0431f41fdcd2',1,'AllWells::PrepareWell()']]],
-  ['printconnectioninfo_1521',['PrintConnectionInfo',['../classBulkConn.html#a96eae71eaa16dca2276b55f7290fa2fe',1,'BulkConn']]],
-  ['printdx_1522',['PrintDX',['../DenseMat_8hpp.html#acedbc13077af74f057b5d243d36a64da',1,'DenseMat.hpp']]],
-  ['printfastreview_1523',['PrintFastReview',['../classCriticalInfo.html#a4392a14d1629fa1b04f9485726001ea5',1,'CriticalInfo']]],
-  ['printinfo_1524',['PrintInfo',['../classSummary.html#a53edcd18d2eb5a3c4d66138e5befb0a6',1,'Summary']]],
-  ['printusage_1525',['PrintUsage',['../classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd',1,'OpenCAEPoro']]],
-  ['printversion_1526',['PrintVersion',['../classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427',1,'OpenCAEPoro']]],
-  ['printztmp_1527',['PrintZtmp',['../classMixtureComp.html#ab870f35221c9f0fcef6b4fb0cb4cb681',1,'MixtureComp']]],
-  ['pushcol_1528',['PushCol',['../classOCPTable.html#aadfb5ee66bc61060ca935e7f16587eff',1,'OCPTable']]]
+  ['ocptable_1805',['OCPTable',['../classOCPTable.html#abb58ea17af5f684841011286a34bac5b',1,'OCPTable::OCPTable(const USI &amp;row, const USI &amp;col)'],['../classOCPTable.html#abd6d8eb41ba52b501c39e99367718afb',1,'OCPTable::OCPTable(const vector&lt; vector&lt; OCP_DBL &gt;&gt; &amp;src)'],['../classOCPTable.html#a8a9900dce5b19b5213407a78d09d62c7',1,'OCPTable::OCPTable()=default']]],
+  ['operator_21_3d_1806',['operator!=',['../classWellOpt.html#af8053e2f6eb7746f31d046bcd8ecba5f',1,'WellOpt']]],
+  ['operator_2a_1807',['operator*',['../CornerGrid_8cpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp'],['../CornerGrid_8cpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../CornerGrid_8hpp.html#a25b2d620ac4fef3e92b74313fc509896',1,'operator*(const OCP_DBL &amp;a, const Point3D &amp;p):&#160;CornerGrid.cpp'],['../CornerGrid_8hpp.html#ac7cf2d38f6573945a0ce7836db5f88f0',1,'operator*(const Point3D &amp;p, const OCP_DBL &amp;a):&#160;CornerGrid.cpp'],['../classPoint3D.html#a8f85863ae7b0a3696db12282cd672158',1,'Point3D::operator*(const Point3D &amp;other) const']]],
+  ['operator_2b_1808',['operator+',['../classPoint3D.html#a2706f669ee04221a3f15446b0dab0856',1,'Point3D']]],
+  ['operator_2d_1809',['operator-',['../classPoint3D.html#a0b10d649556d95c40bd0087d2110f24f',1,'Point3D']]],
+  ['operator_3d_1810',['operator=',['../classPoint3D.html#a4a22932923a76af8c32bee188c1f12a3',1,'Point3D']]],
+  ['outmixtureiters_1811',['OutMixtureIters',['../classBulk.html#ae92cd2b09823c87ba7710941e9cfb7a1',1,'Bulk']]],
+  ['outputbaiscinfo_1812',['OutputBaiscInfo',['../classGrid.html#ab672344a3a68fac98e30ab62016f6ab1',1,'Grid']]],
+  ['outputlinearsystem_1813',['OutputLinearSystem',['../classLinearSystem.html#a0215e4fecc28ca309b843edfc105f9da',1,'LinearSystem']]],
+  ['outputresults_1814',['OutputResults',['../classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a',1,'OpenCAEPoro']]],
+  ['outputsolution_1815',['OutputSolution',['../classLinearSystem.html#afe9a6847a72a604fb072a2cadefd3b4f',1,'LinearSystem']]]
 ];

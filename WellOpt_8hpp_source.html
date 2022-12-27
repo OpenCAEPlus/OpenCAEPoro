@@ -136,8 +136,8 @@ $(function() {
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> Tinj;             </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                              <span class="comment">// for Reinjection</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> reInj{ OCP_FALSE }; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> reinjPhase; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> factor; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> reInjPhase; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> reInjFactor; </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    vector&lt;USI&gt; connWell; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
@@ -146,38 +146,37 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classSolventINJ.html">SolventINJ</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="classSolventINJ.html">SolventINJ</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="classSolvent.html">Solvent</a>&amp; other)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="classSolventINJ.html">SolventINJ</a>(<span class="keyword">const</span> <a class="code" href="classSolvent.html">Solvent</a>&amp; other)</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        name = other.name;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        data = other.comRatio;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    };</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">  114</a></span>&#160;    <span class="keywordtype">string</span>          <a class="code" href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">name</a>; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">  115</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">data</a>; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    };</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">  113</a></span>&#160;    <span class="keywordtype">string</span>          <a class="code" href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">name</a>; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">  114</a></span>&#160;    vector&lt;OCP_DBL&gt; <a class="code" href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">data</a>; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">/*  Shizhe Li           NOV/22/2022      Create file                          */</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">/*  Shizhe Li           NOV/22/2022      Create file                          */</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00022">OCPConst.hpp:22</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00026">OCPConst.hpp:26</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00120">OCPConst.hpp:120</a></div></div>
-<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00119">OCPConst.hpp:119</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ac24799a9ff3e96c31cbcd6e5a04dd3e0"><div class="ttname"><a href="OCPConst_8hpp.html#ac24799a9ff3e96c31cbcd6e5a04dd3e0">PROD</a></div><div class="ttdeci">const USI PROD</div><div class="ttdoc">Well type = producer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00121">OCPConst.hpp:121</a></div></div>
+<div class="ttc" id="aOCPConst_8hpp_html_ae37f81091d617a936c92b2cc1ba0c522"><div class="ttname"><a href="OCPConst_8hpp.html#ae37f81091d617a936c92b2cc1ba0c522">INJ</a></div><div class="ttdeci">const USI INJ</div><div class="ttdoc">Well type = injector.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00120">OCPConst.hpp:120</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00028">OCPConst.hpp:28</a></div></div>
 <div class="ttc" id="aParamWell_8hpp_html"><div class="ttname"><a href="ParamWell_8hpp.html">ParamWell.hpp</a></div><div class="ttdoc">ParamWell class declaration.</div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassAllWells_html"><div class="ttname"><a href="classAllWells.html">AllWells</a></div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00073">AllWells.hpp:74</a></div></div>
 <div class="ttc" id="aclassOut4RPT_html"><div class="ttname"><a href="classOut4RPT.html">Out4RPT</a></div><div class="ttdoc">Collect more detailed information of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00204">OCPOutput.hpp:205</a></div></div>
 <div class="ttc" id="aclassSolventINJ_html"><div class="ttname"><a href="classSolventINJ.html">SolventINJ</a></div><div class="ttdoc">Describe the molar fraction of components of fluid injected to reservoir from INJ.</div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00104">WellOpt.hpp:105</a></div></div>
-<div class="ttc" id="aclassSolventINJ_html_aa3fbf8c6c422516df0882d4bb535a1ea"><div class="ttname"><a href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">SolventINJ::name</a></div><div class="ttdeci">string name</div><div class="ttdoc">name of solvens</div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00114">WellOpt.hpp:113</a></div></div>
-<div class="ttc" id="aclassSolventINJ_html_abc79450f218f3e9eb16e4b44af8f9fe0"><div class="ttname"><a href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">SolventINJ::data</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; data</div><div class="ttdoc">molar fraction of components</div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00115">WellOpt.hpp:115</a></div></div>
+<div class="ttc" id="aclassSolventINJ_html_aa3fbf8c6c422516df0882d4bb535a1ea"><div class="ttname"><a href="classSolventINJ.html#aa3fbf8c6c422516df0882d4bb535a1ea">SolventINJ::name</a></div><div class="ttdeci">string name</div><div class="ttdoc">name of solvens</div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00113">WellOpt.hpp:112</a></div></div>
+<div class="ttc" id="aclassSolventINJ_html_abc79450f218f3e9eb16e4b44af8f9fe0"><div class="ttname"><a href="classSolventINJ.html#abc79450f218f3e9eb16e4b44af8f9fe0">SolventINJ::data</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; data</div><div class="ttdoc">molar fraction of components</div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00114">WellOpt.hpp:114</a></div></div>
 <div class="ttc" id="aclassSolvent_html"><div class="ttname"><a href="classSolvent.html">Solvent</a></div><div class="ttdoc">Describe the molar fraction of components of fluid injected to reservoir from INJ.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00087">ParamWell.hpp:88</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html"><div class="ttname"><a href="classWellOptParam.html">WellOptParam</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00028">ParamWell.hpp:29</a></div></div>
 <div class="ttc" id="aclassWellOpt_html"><div class="ttname"><a href="classWellOpt.html">WellOpt</a></div><div class="ttdef"><b>Definition:</b> <a href="WellOpt_8hpp_source.html#l00026">WellOpt.hpp:27</a></div></div>
@@ -186,7 +185,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:40 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

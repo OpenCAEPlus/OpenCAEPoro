@@ -83,9 +83,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a010270dd718ce6569156643dc1552b21"><td class="memItemLeft" align="right" valign="top"><a id="a010270dd718ce6569156643dc1552b21"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GPair</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;Id, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Area)</td></tr>
-<tr class="separator:a010270dd718ce6569156643dc1552b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bfab47457c91337d3cff580262b8f48"><td class="memItemLeft" align="right" valign="top"><a id="a3bfab47457c91337d3cff580262b8f48"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GPair</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;Id, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;Direct, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;AreaB, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;AreaE)</td></tr>
+<tr class="separator:a3bfab47457c91337d3cff580262b8f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -99,22 +99,30 @@ Public Attributes</h2></td></tr>
 <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a2d28e9c84fea28928a4ade5284591490">id</a></td></tr>
 <tr class="memdesc:a2d28e9c84fea28928a4ade5284591490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of a neighboring cell. <br /></td></tr>
 <tr class="separator:a2d28e9c84fea28928a4ade5284591490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b5874523bda006f4227518e222f0282"><td class="memItemLeft" align="right" valign="top"><a id="a2b5874523bda006f4227518e222f0282"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a2b5874523bda006f4227518e222f0282">area</a></td></tr>
-<tr class="memdesc:a2b5874523bda006f4227518e222f0282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective area between this cell and the neighbor indicated by id. <br /></td></tr>
-<tr class="separator:a2b5874523bda006f4227518e222f0282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63567e067c96b20f56621dd23308d943"><td class="memItemLeft" align="right" valign="top"><a id="a63567e067c96b20f56621dd23308d943"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a63567e067c96b20f56621dd23308d943">direction</a></td></tr>
+<tr class="memdesc:a63567e067c96b20f56621dd23308d943"><td class="mdescLeft">&#160;</td><td class="mdescRight">direction: 1-x, 2-y, 3-z <br /></td></tr>
+<tr class="separator:a63567e067c96b20f56621dd23308d943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8da008462017f34b9c65caf91834b4"><td class="memItemLeft" align="right" valign="top"><a id="a0e8da008462017f34b9c65caf91834b4"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#a0e8da008462017f34b9c65caf91834b4">areaB</a></td></tr>
+<tr class="memdesc:a0e8da008462017f34b9c65caf91834b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective intersection area between this cell and the neighbor, self. <br /></td></tr>
+<tr class="separator:a0e8da008462017f34b9c65caf91834b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3925935063633d6e34ae718a885a001"><td class="memItemLeft" align="right" valign="top"><a id="ae3925935063633d6e34ae718a885a001"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPair.html#ae3925935063633d6e34ae718a885a001">areaE</a></td></tr>
+<tr class="memdesc:ae3925935063633d6e34ae718a885a001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective intersection area between this cell and the neighbor, neighbor. <br /></td></tr>
+<tr class="separator:ae3925935063633d6e34ae718a885a001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Effective area of intersection surfaces with neighboring cells. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00038">38</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00053">53</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Grid_8hpp_source.html">Grid.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

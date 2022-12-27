@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['x2n_1611',['x2n',['../classMixtureComp.html#af3de24acaa27101e5dfe6f6b47946fe1',1,'MixtureComp']]],
-  ['xiphase_1612',['XiPhase',['../classMixture.html#a0e73af7673e5a51d6f1a1a7853f79338',1,'Mixture::XiPhase()'],['../classBOMixture__W.html#acba68914a2651a3519a309d4f6464c9c',1,'BOMixture_W::XiPhase()'],['../classBOMixture__OW.html#a68b66a87e3818b90e3d34f3cbeb42c86',1,'BOMixture_OW::XiPhase()'],['../classBOMixture__ODGW.html#aae04471b46660c95564420e1e38377ae',1,'BOMixture_ODGW::XiPhase()'],['../classMixtureComp.html#a33cde4c1a7efd7ee10f0a5b90d72c5fe',1,'MixtureComp::XiPhase()'],['../classMixtureThermal__K01.html#aaefe648b18a6b13d0732fa54e75da1c8',1,'MixtureThermal_K01::XiPhase()']]]
+  ['wellopt_1916',['WellOpt',['../classWellOpt.html#a64ff78f7c017859428ca03027b8cfea2',1,'WellOpt::WellOpt()=default'],['../classWellOpt.html#a93515bcbbec17851a81911122eb82505',1,'WellOpt::WellOpt(const WellOptParam &amp;Optparam)']]],
+  ['welltype_1917',['WellType',['../classWell.html#adf196051a266a036aeafb34035cc80b9',1,'Well']]]
 ];

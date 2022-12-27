@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classBulkPair-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -75,7 +76,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Connection between two bulks (BId, EId); usually, indices BId &gt; EId.  
+<p>Connection between two bulks (bId, eId); usually, indices bId &gt; eId.  
  <a href="classBulkPair.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>&gt;</code></p>
@@ -86,10 +87,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a9b72bb053d53bae84f48086bc55fd7a5">BulkPair</a> ()=default</td></tr>
 <tr class="memdesc:a9b72bb053d53bae84f48086bc55fd7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:a9b72bb053d53bae84f48086bc55fd7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d8ad44455344975cc030674d56b0508"><td class="memItemLeft" align="right" valign="top"><a id="a0d8ad44455344975cc030674d56b0508"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a0d8ad44455344975cc030674d56b0508">BulkPair</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;eId, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Area)</td></tr>
-<tr class="memdesc:a0d8ad44455344975cc030674d56b0508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup <a class="el" href="classBulkPair.html" title="Connection between two bulks (BId, EId); usually, indices BId &gt; EId.">BulkPair</a> with bId and eId. <br /></td></tr>
-<tr class="separator:a0d8ad44455344975cc030674d56b0508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f475c9dc9b2e4b5fe487a92a3cbcd2e"><td class="memItemLeft" align="right" valign="top"><a id="a8f475c9dc9b2e4b5fe487a92a3cbcd2e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a8f475c9dc9b2e4b5fe487a92a3cbcd2e">BulkPair</a> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;BId, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;EId, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;direct, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;AreaB, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;AreaE)</td></tr>
+<tr class="memdesc:a8f475c9dc9b2e4b5fe487a92a3cbcd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup <a class="el" href="classBulkPair.html" title="Connection between two bulks (bId, eId); usually, indices bId &gt; eId.">BulkPair</a> with bId and eId. <br /></td></tr>
+<tr class="separator:a8f475c9dc9b2e4b5fe487a92a3cbcd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58f80a17e17e647803e53c6713c79b66"><td class="memItemLeft" align="right" valign="top"><a id="a58f80a17e17e647803e53c6713c79b66"></a>
 <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a58f80a17e17e647803e53c6713c79b66">GetBId</a> () const</td></tr>
 <tr class="memdesc:a58f80a17e17e647803e53c6713c79b66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return beginning index. <br /></td></tr>
@@ -99,6 +100,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2de39b80955a1bafa2b587f5f55e5531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return ending index. <br /></td></tr>
 <tr class="separator:a2de39b80955a1bafa2b587f5f55e5531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aee26095882a2f956d86c0ec2b01831c2"><td class="memItemLeft" align="right" valign="top"><a id="aee26095882a2f956d86c0ec2b01831c2"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#aee26095882a2f956d86c0ec2b01831c2">bId</a></td></tr>
+<tr class="memdesc:aee26095882a2f956d86c0ec2b01831c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Beginning index of a pair. <br /></td></tr>
+<tr class="separator:aee26095882a2f956d86c0ec2b01831c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebfa17e9844799cc498b09feb7d5f572"><td class="memItemLeft" align="right" valign="top"><a id="aebfa17e9844799cc498b09feb7d5f572"></a>
+<a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#aebfa17e9844799cc498b09feb7d5f572">eId</a></td></tr>
+<tr class="memdesc:aebfa17e9844799cc498b09feb7d5f572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending index of a pair. <br /></td></tr>
+<tr class="separator:aebfa17e9844799cc498b09feb7d5f572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6caf251951665e8eb5985b89c732fd"><td class="memItemLeft" align="right" valign="top"><a id="a4a6caf251951665e8eb5985b89c732fd"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a4a6caf251951665e8eb5985b89c732fd">area</a></td></tr>
+<tr class="memdesc:a4a6caf251951665e8eb5985b89c732fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective area. <br /></td></tr>
+<tr class="separator:a4a6caf251951665e8eb5985b89c732fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac90b483d667d5412865cbf284f026dd9"><td class="memItemLeft" align="right" valign="top"><a id="ac90b483d667d5412865cbf284f026dd9"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#ac90b483d667d5412865cbf284f026dd9">direction</a></td></tr>
+<tr class="memdesc:ac90b483d667d5412865cbf284f026dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-x, 2-y, 3-z <br /></td></tr>
+<tr class="separator:ac90b483d667d5412865cbf284f026dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a3918a6463434aa0c85847bc6d6561"><td class="memItemLeft" align="right" valign="top"><a id="ab0a3918a6463434aa0c85847bc6d6561"></a>
+<a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>conntype</b></td></tr>
+<tr class="separator:ab0a3918a6463434aa0c85847bc6d6561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1797180a41e0bc6fd318f7dcc13361f9"><td class="memItemLeft" align="right" valign="top"><a id="a1797180a41e0bc6fd318f7dcc13361f9"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a1797180a41e0bc6fd318f7dcc13361f9">areaB</a></td></tr>
+<tr class="memdesc:a1797180a41e0bc6fd318f7dcc13361f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area of intersecting faces from Begin grid. <br /></td></tr>
+<tr class="separator:a1797180a41e0bc6fd318f7dcc13361f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9332f9d1dbd828b593f72de74faf05f3"><td class="memItemLeft" align="right" valign="top"><a id="a9332f9d1dbd828b593f72de74faf05f3"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBulkPair.html#a9332f9d1dbd828b593f72de74faf05f3">areaE</a></td></tr>
+<tr class="memdesc:a9332f9d1dbd828b593f72de74faf05f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area of intersecting faces from End grid. <br /></td></tr>
+<tr class="separator:a9332f9d1dbd828b593f72de74faf05f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a0ec82805837e02b1565cd3abe70662da"><td class="memItemLeft" align="right" valign="top"><a id="a0ec82805837e02b1565cd3abe70662da"></a>
@@ -106,7 +137,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>BulkConn</b></td></t
 <tr class="separator:a0ec82805837e02b1565cd3abe70662da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Connection between two bulks (BId, EId); usually, indices BId &gt; EId. </p>
+<div class="textblock"><p>Connection between two bulks (bId, eId); usually, indices bId &gt; eId. </p>
 
 <p class="definition">Definition at line <a class="el" href="BulkConn_8hpp_source.html#l00029">29</a> of file <a class="el" href="BulkConn_8hpp_source.html">BulkConn.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
@@ -115,7 +146,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>BulkConn</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 26 2022 05:43:41 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Dec 27 2022 09:06:39 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

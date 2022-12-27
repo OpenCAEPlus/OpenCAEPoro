@@ -1,22 +1,4 @@
 var searchData=
 [
-  ['rate_5fmode_1851',['RATE_MODE',['../OCPConst_8hpp.html#a97181f08046f57424cf2458c5263a4a7',1,'OCPConst.hpp']]],
-  ['realtol_1852',['realTol',['../classNRparamSTA.html#a61fadf74bf5639d9fce2d7c256d25ad7',1,'NRparamSTA::realTol()'],['../classSSMparamSP.html#a9a13a509d652ba8fe7877074e13a8672',1,'SSMparamSP::realTol()'],['../classNRparamSP.html#aed7856955acd84622f1df9454a47b8c0',1,'NRparamSP::realTol()'],['../classSSMparamSTA.html#a17207f8db073cbeeb39cf6900c5127c9',1,'SSMparamSTA::realTol()']]],
-  ['refdata_1853',['refData',['../classTableSet.html#a73d557c9460c103188ed867ac77ab221',1,'TableSet']]],
-  ['refname_1854',['refName',['../classTableSet.html#a13773e9101da286dd9a9d23534c1cf94',1,'TableSet']]],
-  ['res_1855',['res',['../classMixture.html#ae6c518e1735459e4da660fe989fbcf1d',1,'Mixture']]],
-  ['resaimc_1856',['resAIMc',['../classOCP__AIMc.html#af391fcb7210646a75122ffb006d6986f',1,'OCP_AIMc']]],
-  ['resfim_1857',['resFIM',['../classOCP__FIM.html#a0acb87b906cac4db917409347552781e',1,'OCP_FIM']]],
-  ['resfimn_1858',['resFIMn',['../classOCP__FIMn.html#a35aa7000e0f598ef1602e6b4ac906c23',1,'OCP_FIMn']]],
-  ['respc_1859',['resPc',['../classMixture.html#a06e0f35248973da46366c82943f6a085',1,'Mixture']]],
-  ['rho_1860',['rho',['../classMixture.html#a16c6595220dc0a04cfa960d44f3016c7',1,'Mixture']]],
-  ['rhoair_5fstd_1861',['RHOAIR_STD',['../OCPConst_8hpp.html#aedff4c911b34955eaffe685938585415',1,'OCPConst.hpp']]],
-  ['rhop_1862',['rhoP',['../classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f',1,'Mixture']]],
-  ['rhot_1863',['rhoT',['../classMixture.html#ac1883d13127533f4f026473a4e9b50ca',1,'Mixture']]],
-  ['rhow_5fstd_1864',['RHOW_STD',['../OCPConst_8hpp.html#a538f927b5893c9896717163bb2a798ee',1,'OCPConst.hpp']]],
-  ['rhox_1865',['rhox',['../classMixture.html#a62615d0052ef8b34c3894e728951c06e',1,'Mixture']]],
-  ['rocknum_1866',['ROCKNUM',['../classParamReservoir.html#ad72cbd12fbb83f7e95155da59eeb9f99',1,'ParamReservoir']]],
-  ['rockset_1867',['rockSet',['../classParamReservoir.html#a0097776601a60c7b96e74415b69a9b1e',1,'ParamReservoir']]],
-  ['rrparam_1868',['RRparam',['../classComponentParam.html#aa50400f14aafbd1cd260b10b3ee4229f',1,'ComponentParam']]],
-  ['rstemp_1869',['rsTemp',['../classParamReservoir.html#af0e34a606be25ddb65fe1f0271764b37',1,'ParamReservoir']]]
+  ['qi_5flbmol_2343',['qi_lbmol',['../classWell.html#ae805b729181cffeb154fea88635da8a7',1,'Well']]]
 ];
