@@ -14,6 +14,7 @@
 
 // Standard header files
 #include <iostream>
+#include <math.h>
 
 // OpenCAEPoro header files
 #include "UtilError.hpp"
