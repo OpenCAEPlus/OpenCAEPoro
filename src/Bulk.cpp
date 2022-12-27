@@ -34,8 +34,6 @@ void Bulk::InputParam(const ParamReservoir& rs_param)
     NTSFUN     = rs_param.NTSFUN;
     NTROCC     = rs_param.NTROOC;
 
-    ifScalePcow = rs_param.ScalePcow;
-
     if (rs_param.PBVD_T.data.size() > 0) EQUIL.PBVD.Setup(rs_param.PBVD_T.data[0]);
 
     if (ifBlackOil) {
@@ -322,8 +320,6 @@ void Bulk::SetupIsoT(const Grid& myGrid)
     numBulk = myGrid.activeGridNum;
     AllocateGridRockIsoT(myGrid);
     AllocateRegion(myGrid);
-    AllocateSwatInit(myGrid);
-    AllocateScalePcow();
     AllocateError();
     // CalSomeInfo(myGrid);
 
@@ -335,17 +331,15 @@ void Bulk::SetupT(const Grid& myGrid)
     numBulk = myGrid.fluidGridNum;
     AllocateGridRockIsoT(myGrid);
     AllocateRegion(myGrid);
-    AllocateSwatInit(myGrid);
-    AllocateScalePcow();
 }
 
-void Bulk::SetupOptionalFeatures(OptionalFeatures& optFeatures)
+void Bulk::SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures)
 {
     for (USI i = 0; i < NTPVT; i++) {
         flashCal[i]->SetupOptionalFeatures(optFeatures, numBulk);
     }
     for (USI i = 0; i < NTSFUN; i++) {
-        flow[i]->SetupOptionalFeatures(optFeatures, numBulk);
+        flow[i]->SetupOptionalFeatures(myGrid, optFeatures);
     }
 }
 
@@ -353,19 +347,6 @@ void Bulk::SetupOptionalFeatures(OptionalFeatures& optFeatures)
 /////////////////////////////////////////////////////////////////////
 // Initial Properties
 /////////////////////////////////////////////////////////////////////
-
-void Bulk::AllocateSwatInit(const Grid& myGrid)
-{
-    if (myGrid.SwatInit.size() > 0) {
-        SwatInitExist = OCP_TRUE;
-        SwatInit.resize(numBulk);
-
-        for (OCP_USI bIda = 0; bIda < numBulk; bIda++) {
-            OCP_USI bId = myGrid.map_Act2All[bIda];
-            SwatInit[bIda] = myGrid.SwatInit[bId];
-        }
-    }
-}
 
 
 void Bulk::InitSjPc(const USI& tabrow)
@@ -951,7 +932,7 @@ void Bulk::InitSjPc(const USI& tabrow)
 
     // calculate Pc from DepthP to calculate Sj
     std::vector<OCP_DBL> data(4, 0), cdata(4, 0);
-    // if capillary between water and oil is considered
+    // whether capillary between water and oil is considered
     vector<OCP_BOOL> FlagPcow(NTSFUN, OCP_TRUE);
     for (USI i = 0; i < NTSFUN; i++) {
         if (fabs(flow[i]->GetPcowBySw(0.0 - TINY)) < TINY &&
@@ -1052,22 +1033,7 @@ void Bulk::InitSjPc(const USI& tabrow)
         // Sg /= ncut;
         avePcow /= ncut;
 
-        if (SwatInitExist) {
-            if (SwatInit[n] <= swco) {
-                Sw = swco;
-            }
-            else {
-                Sw = SwatInit[n];
-                if (ifScalePcow) {
-                    if (avePcow > 0) {
-                        OCP_DBL tmp = flow[SATNUM[n]]->GetPcowBySw(Sw);
-                        if (tmp > 0) {
-                            ScaleValuePcow[n] = avePcow / tmp;
-                        }
-                    }
-                }
-            }
-        }
+        flow[SATNUM[n]]->SetupScale(n, Sw, avePcow);
         S[n * numPhase + numPhase - 1] = Sw;
     }
 }
@@ -1076,25 +1042,6 @@ void Bulk::InitSjPc(const USI& tabrow)
 /////////////////////////////////////////////////////////////////////
 // Optional Features
 /////////////////////////////////////////////////////////////////////
-
-void Bulk::AllocateScalePcow()
-{
-    if (ifScalePcow) {
-        ScaleValuePcow.resize(numBulk, 1.0);
-    }
-}
-
-void Bulk::ScalePcow()
-{
-    if (ifScalePcow) {
-        // correct
-        const USI Wid = phase2Index[WATER];
-        for (USI n = 0; n < numBulk; n++) {
-            Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
-            Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
-        }
-    }
-}
 
 
 /////////////////////////////////////////////////////////////////////
@@ -2584,18 +2531,6 @@ void Bulk::CalKrPcAIMcE()
                 Pj[n * numPhase + j] = P[n] + Pc[n * numPhase + j];
         }           
     }
-
-    if (ifScalePcow) {
-        // correct
-        const USI Wid = phase2Index[WATER];
-        for (USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfIMPECbulk(n)) {
-                // Explicit bulk
-                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
-                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
-            }           
-        }
-    }
 }
 
 
@@ -2611,18 +2546,6 @@ void Bulk::CalKrPcAIMcI()
                 &S[bId], &kr[bId], &Pc[bId], &dKr_dS[bId * numPhase],
                 &dPcj_dS[bId * numPhase], n);
             for (USI j = 0; j < numPhase; j++) Pj[bId + j] = P[n] + Pc[bId + j];
-        }
-    }
-
-    if (ifScalePcow) {
-        // correct
-        const USI Wid = phase2Index[WATER];
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            if (bulkTypeAIM.IfFIMbulk(n)) {
-                // Implicit bulk
-                Pc[n * numPhase + Wid] *= ScaleValuePcow[n];
-                Pj[n * numPhase + Wid] = P[n] + Pc[n * numPhase + Wid];
-            }
         }
     }
 }

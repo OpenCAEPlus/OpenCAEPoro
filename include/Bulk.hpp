@@ -89,7 +89,7 @@ public:
     /// Allocate memory for fluid grid for ifThermal model
     void SetupT(const Grid& myGrid);
     /// Setup Optional Feature
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures);
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures);
 
     /////////////////////////////////////////////////////////////////////
     // General Variables
@@ -115,8 +115,6 @@ protected:
     // Initial Properties
     /////////////////////////////////////////////////////////////////////
 public:
-    /// Allocate initial saturation of water
-    void AllocateSwatInit(const Grid& myGrid);
     /// Calculate initial equilibrium
     void InitSjPc(const USI& tabrow);
 
@@ -124,26 +122,9 @@ protected:
 
     vector<OCPTable> initZi_Tab; ///< initial mole ratio of components vs. depth, table set
     vector<OCPTable> initT_Tab;  ///< initial temperature vs. depth, table set
-    OCP_BOOL         SwatInitExist{ OCP_FALSE }; ///< If SwatInit has been given.
-    vector<OCP_DBL>  SwatInit;   ///< initial water saturation
     ParamEQUIL       EQUIL;      ///< Initial Equilibration.
     OCP_DBL          RTemp;      ///< Reservoir temperature.
     vector<OCP_DBL>  thconp;     ///< phase ifThermal conductivity: numPhase
-
-
-    /////////////////////////////////////////////////////////////////////
-    // Optional Features
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate ScalePcow
-    void AllocateScalePcow();
-    /// Scale the Pcow
-    void ScalePcow();
-
-protected:
-    OCP_BOOL ifScalePcow{ OCP_FALSE }; ///< If scale Pcow.
-    vector<OCP_DBL> ScaleValuePcow;  ///< Scale values for Pcow,it will be calculated from SwatInit
 
 
     /////////////////////////////////////////////////////////////////////

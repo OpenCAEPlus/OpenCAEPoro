@@ -5180,12 +5180,12 @@ void MixtureComp::SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP
 {
     skipSta = &optFeatures.skipStaAnaly;
     if (skipSta->IfUseSkip()) {
-        skipSta->Allocate(numBulk, numPhase - 1, numCom - 1);
+        skipSta->Setup(numBulk, numPhase - 1, numCom - 1);
         AllocateSkip();
     }
     misTerm = &optFeatures.miscible;
     if (misTerm->IfUseMiscible() == ifUseMiscible == OCP_TRUE) {
-        misTerm->Allocate(numBulk);
+        misTerm->Setup(numBulk);
     }
     else if (misTerm->IfUseMiscible() != ifUseMiscible) {
         OCP_ABORT("Keywords MISCIBLE, PARACHOR, MISCSTR aren't been given simultaneously!");

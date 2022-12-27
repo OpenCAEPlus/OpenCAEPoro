@@ -27,7 +27,8 @@ class FlowUnit
 public:
     /// Default constructor.
     FlowUnit() = default;
-    virtual void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) = 0;
+    virtual void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) = 0;
+    virtual void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) = 0;
     /// Pcow = Po - Pw
     virtual OCP_DBL GetPcowBySw(const OCP_DBL& sw)   = 0;
     virtual OCP_DBL GetSwByPcow(const OCP_DBL& pcow) = 0;
@@ -36,8 +37,6 @@ public:
     virtual OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) = 0;
     /// Pcgw = Pg - Pw
     virtual OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) = 0;
-    /// Return the value of Swco
-    virtual OCP_DBL GetSwco() const = 0;
     /// Return the value of Scm
     virtual const vector<OCP_DBL>& GetScm() const = 0;
 
@@ -54,6 +53,13 @@ public:
                               OCP_DBL*       dkrdS,
                               OCP_DBL*       dPcjdS, 
                               const OCP_USI& bId) = 0;
+
+    OCP_DBL GetSwco() const { return Swco; };
+
+protected:
+    OCP_DBL         Swco;
+    vector<OCP_DBL> data;  ///< container to store the values of interpolation.
+    vector<OCP_DBL> cdata; ///< container to store the slopes of interpolation.
 };
 
 ///////////////////////////////////////////////
@@ -65,7 +71,8 @@ class FlowUnit_W : public FlowUnit
 public:
     FlowUnit_W() = default;
     FlowUnit_W(const ParamReservoir& rs_param, const USI& i){};
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
     void CalKrPc(const OCP_DBL* S_in,
                  OCP_DBL*       kr_out,
                  OCP_DBL*       pc_out,
@@ -77,8 +84,6 @@ public:
                       OCP_DBL*       dPcjdS, 
                       const OCP_USI& bId) override;
 
-    OCP_DBL GetSwco() const override { return Swco; };
-
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return 0; }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override { return 0; }
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg) override { return 0; }
@@ -89,9 +94,6 @@ public:
     {
         OCP_ABORT("Not Completed in this Condition!");
     }
-
-protected:
-    OCP_DBL Swco;
 };
 
 ///////////////////////////////////////////////
@@ -103,7 +105,8 @@ class FlowUnit_OW : public FlowUnit
 public:
     FlowUnit_OW() = default;
     FlowUnit_OW(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
     void CalKrPc(const OCP_DBL* S_in,
                  OCP_DBL*       kr_out,
                  OCP_DBL*       pc_out,
@@ -120,7 +123,6 @@ public:
     {
         return SWOF.Eval_Inv(3, pcow, 0);
     }
-    OCP_DBL GetSwco() const override { return Swco; };
 
     // useless
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg) override { return 0; }
@@ -132,11 +134,9 @@ public:
         OCP_ABORT("Not Completed in this Condition!");
     }
 
-private:
+protected:
+
     OCPTable        SWOF;  ///< saturation table about water and oil.
-    vector<OCP_DBL> data;  ///< container to store the values of interpolation.
-    vector<OCP_DBL> cdata; ///< container to store the slopes of interpolation.
-    OCP_DBL         Swco;  ///< Saturation of connate water.
     // OCP_DBL         kroMax;
 };
 
@@ -149,7 +149,8 @@ class FlowUnit_OG : public FlowUnit
 public:
     FlowUnit_OG() = default;
     FlowUnit_OG(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
     void    CalKrPc(const OCP_DBL* S_in,
                     OCP_DBL*       kr_out,
                     OCP_DBL*       pc_out,
@@ -167,17 +168,14 @@ public:
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return 0; }
     OCP_DBL GetSwByPcow(const OCP_DBL& pcow) override { return 0; }
     OCP_DBL GetSwByPcgw(const OCP_DBL& pcgw) override { return 0; }
-    OCP_DBL GetSwco() const override { return 0; };
 
     const vector<OCP_DBL>& GetScm() const override
     {
         OCP_ABORT("Not Completed in this Condition!");
     }
 
-private:
+protected:
     OCPTable        SGOF;  ///< saturation table about gas and oil.
-    vector<OCP_DBL> data;  ///< container to store the values of interpolation.
-    vector<OCP_DBL> cdata; ///< container to store the slopes of interpolation.
     OCP_DBL         kroMax;
 };
 
@@ -198,13 +196,12 @@ public:
                            const OCP_DBL& krog,
                            const OCP_DBL& krow) const;
 
-    OCP_DBL                GetSwco() const override { return Swco; };
     const vector<OCP_DBL>& GetScm() const override { return Scm; }
 
 protected:
+
     /// oil relative permeability in the presence of connate water only, used in stone2
     OCP_DBL         kroMax;
-    OCP_DBL         Swco; ///< Saturation of connate water.
     vector<OCP_DBL> Scm;  ///< critical saturation when phase becomes mobile / immobile
 };
 
@@ -217,7 +214,8 @@ class FlowUnit_ODGW01 : public FlowUnit_ODGW
 public:
     FlowUnit_ODGW01() = default;
     FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
     virtual void CalKrPc(const OCP_DBL* S_in,
                          OCP_DBL*       kr_out,
                          OCP_DBL*       pc_out,
@@ -264,10 +262,9 @@ public:
     void Generate_SWPCWG();
 
 protected:
+
     OCPTable        SGOF;   ///< saturation table about gas and oil.
     OCPTable        SWOF;   ///< saturation table about water and oil.
-    vector<OCP_DBL> data;   ///< container to store the values of interpolation.
-    vector<OCP_DBL> cdata;  ///< container to store the slopes of interpolation.
     OCPTable        SWPCGW; ///< auxiliary table: saturation of water vs. capillary
                             ///< pressure between water and gas.
 };
@@ -285,9 +282,12 @@ public:
         // gas is moveable all the time
         Scm[1] = 0;
     }
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {
         misTerm = &optFeatures.miscible;
+        scaleTerm = &optFeatures.scalePcow;
+        scaleTerm->Setup(myGrid);
     };
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override;
     void CalKrPc(const OCP_DBL* S_in,
                  OCP_DBL*       kr_out,
                  OCP_DBL*       pc_out,
@@ -300,6 +300,7 @@ public:
                       const OCP_USI& bId) override;
 
 protected:
+    ScalePcow*  scaleTerm;
     Miscible*   misTerm;
 
     OCP_DBL     Fk;        ///< The relative permeability interpolation parameter
@@ -324,7 +325,8 @@ class FlowUnit_ODGW02 : public FlowUnit_ODGW
 public:
     FlowUnit_ODGW02() = default;
     FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override {};
+    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
+    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
     void    CalKrPc(const OCP_DBL* S_in,
                     OCP_DBL*       kr_out,
                     OCP_DBL*       pc_out,
@@ -365,12 +367,10 @@ public:
     }
     void Generate_SWPCWG();
 
-private:
+protected:
     OCPTable        SWFN;   ///< saturation table about water.
     OCPTable        SGFN;   ///< saturation table about gas.
     OCPTable        SOF3;   ///< saturation table about oil.
-    vector<OCP_DBL> data;   ///< container to store the values of interpolation.
-    vector<OCP_DBL> cdata;  ///< container to store the slopes of interpolation.
     OCPTable        SWPCGW; ///< auxiliary table: saturation of water vs. capillary
                             ///< pressure between water and gas.
 };

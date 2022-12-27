@@ -34,7 +34,7 @@ public:
     /// Return ifUseSkip
     OCP_BOOL IfUseSkip() const { return ifUseSkip; }
     /// Allocate memory for SkipStaAnaly term
-    void Allocate(const OCP_USI& numBulk, const USI& np, const USI& nc);
+    void Setup(const OCP_USI& numBulk, const USI& np, const USI& nc);
     /// Set flag for skipping
     void SetFlagSkip(const OCP_USI& n, const OCP_BOOL& flagSkip) { flag[n] = flagSkip; }
     /// Update variables used for determing if skipping will happen
@@ -55,6 +55,8 @@ public:
     void UpdateLastTimeStep();
 
 protected:
+    OCP_BOOL         ifSetup{ OCP_FALSE };   ///< Only one setup is needed.
+
     OCP_BOOL         ifUseSkip{ OCP_TRUE };  ///< If true, then Skip option will be used
     USI              numPhase;               ///< Num of phase used in phase equilibrium calculation
     USI              numCom;                 ///< Num of componnets used in phase equilibrium calculation

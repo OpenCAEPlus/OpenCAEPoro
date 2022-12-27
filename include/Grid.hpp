@@ -81,6 +81,7 @@ class Grid
     friend class Bulk;
     friend class BulkConn;
     friend class Well;
+    friend class ScalePcow;
     friend class Out4RPT;
     friend class Out4VTK;
 

@@ -29,20 +29,23 @@ void Miscible::InputParam(const Miscstr& misterm) {
         }
         Fkexp = 0.25;
     }
-    else {
-        OCP_ABORT("No data in MISCSTR!");
-    }
 }
 
 
-void Miscible::Allocate(const OCP_USI& numBulk)
+void Miscible::Setup(const OCP_USI& numBulk)
 {
-    surTen.resize(numBulk);
-    Fk.resize(numBulk);
-    Fp.resize(numBulk);
+    if (!ifSetup) {
+        ifSetup = OCP_TRUE;
 
-    // Last time step
-    lsurTen.resize(numBulk);
+        surTen.resize(numBulk);
+        Fk.resize(numBulk);
+        Fp.resize(numBulk);
+
+        // Last time step
+        lsurTen.resize(numBulk);
+    }
+
+
 }
 
 
@@ -57,6 +60,29 @@ OCP_BOOL Miscible::CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp)
         Fk[n] = fk = min(1.0, pow(surTen[n] / surTenRef, Fkexp));
         Fp[n] = fp = min(surTenPc, surTen[n] / surTenRef);
         return OCP_TRUE;  // Miscible
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// Scale The Water-Oil Capillary Pressure Curves (From SWATINIT)
+/////////////////////////////////////////////////////////////////////
+
+void ScalePcow::Setup(const Grid& myGrid)
+{
+    if (!ifSetup) {
+        ifSetup = OCP_TRUE;
+
+        if (myGrid.SwatInit.size() > 0) {
+            ifScale = OCP_TRUE;
+            scaleVal.resize(myGrid.activeGridNum, 1.0);
+            swatInit.resize(myGrid.activeGridNum);
+
+            for (OCP_USI bIda = 0; bIda < myGrid.activeGridNum; bIda++) {
+                OCP_USI bId = myGrid.map_Act2All[bIda];
+                swatInit[bIda] = myGrid.SwatInit[bId];
+            }
+        }
     }
 }
 

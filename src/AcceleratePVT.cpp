@@ -18,22 +18,26 @@
 
 
 
-void SkipStaAnaly::Allocate(const OCP_USI& numBulk, const USI& np, const USI& nc)
+void SkipStaAnaly::Setup(const OCP_USI& numBulk, const USI& np, const USI& nc)
 {
-    numPhase = np;
-    numCom = nc;
+    if (!ifSetup) {
+        ifSetup = OCP_TRUE;
 
-    flag.resize(numBulk);
-    P.resize(numBulk);
-    T.resize(numBulk);
-    minEigen.resize(numBulk);
-    zi.resize(numBulk * numCom);
+        numPhase = np;
+        numCom = nc;
 
-    lflag.resize(numBulk);
-    lP.resize(numBulk);
-    lT.resize(numBulk);
-    lminEigen.resize(numBulk);
-    lzi.resize(numBulk * numCom);
+        flag.resize(numBulk);
+        P.resize(numBulk);
+        T.resize(numBulk);
+        minEigen.resize(numBulk);
+        zi.resize(numBulk * numCom);
+
+        lflag.resize(numBulk);
+        lP.resize(numBulk);
+        lT.resize(numBulk);
+        lminEigen.resize(numBulk);
+        lzi.resize(numBulk * numCom);
+    }
 }
 
 

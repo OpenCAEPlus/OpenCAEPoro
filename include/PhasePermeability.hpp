@@ -16,7 +16,7 @@
 
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
-
+#include "Grid.hpp"
 
 #include<vector>
 
@@ -36,11 +36,11 @@ public:
     /// Input param from input file
     void InputParam(const Miscstr& misterm);
     /// Allocate memory for Miscible term
-    void Allocate(const OCP_USI& numBulk);
+    void Setup(const OCP_USI& numBulk);
     /// Return ifUseMiscible
     OCP_BOOL IfUseMiscible() const { return ifUseMiscible; }
     /// Assign value to surTen
-    void AssignValue(const OCP_USI& n, const OCP_DBL& st) { surTen[n] = st; }
+    void AssignValue(const OCP_USI& n, const OCP_DBL& v) { surTen[n] = v; }
     /// Calculate Fk, Fp and return if miscible
     OCP_BOOL CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp);
     /// Reset Miscible term to last time step
@@ -55,6 +55,7 @@ public:
     OCP_DBL GetFp(const OCP_USI& n)const { return Fp[n]; }
 
 protected:
+    OCP_BOOL         ifSetup{ OCP_FALSE };   ///< Only one setup is needed.
     /// Miscible treatment of hydrocarbons, only used in compositional Model.
     OCP_BOOL    ifUseMiscible{ OCP_FALSE };  
     /// The reference surface tension - flow is immiscible when the surface tension 
@@ -67,11 +68,34 @@ protected:
     vector<OCP_DBL> Fp;         ///< The capillary pressure interpolation parameter.
 
     // Last time step
-    vector<OCP_DBL> lsurTen;           ///< last surTen.
+    vector<OCP_DBL> lsurTen;    ///< last surTen.
 };
 
 
+/////////////////////////////////////////////////////////////////////
+// Scale The Water-Oil Capillary Pressure Curves (From SWATINIT)
+/////////////////////////////////////////////////////////////////////
 
+class ScalePcow
+{
+
+public:
+    /// Setup ScalePcow term
+    void Setup(const Grid& myGrid);
+    /// Return ifScale
+    OCP_BOOL IfScale() const { return ifScale; }
+    /// Assign value to scaleVal
+    void AssignScaleValue(const OCP_USI& n, const OCP_DBL& v) { scaleVal[n] = v; }
+    OCP_DBL GetSwInit(const OCP_USI& n) const { return swatInit[n]; }
+    /// Return scaleVal
+    OCP_DBL GetScaleVal(const OCP_USI& n) const { return  scaleVal[n]; }
+
+protected:
+    OCP_BOOL        ifSetup{ OCP_FALSE };   ///< Only one setup is needed.
+    OCP_BOOL        ifScale{ OCP_FALSE };   ///< If true, then Scale will be used
+    vector<OCP_DBL> scaleVal;  ///< Scale values for Pcow, it will be calculated from swatInit
+    vector<OCP_DBL> swatInit;  ///< Initial water distribution
+};
 
 
 #endif /* end if __PHASEPERMEABILITY_HEADER__ */

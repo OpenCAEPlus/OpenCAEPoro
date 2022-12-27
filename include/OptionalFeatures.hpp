@@ -42,7 +42,7 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 protected:
-    SkipStaAnaly skipStaAnaly;
+    SkipStaAnaly skipStaAnaly;  ///< Skip Stablity Analysis term
 
 
     /////////////////////////////////////////////////////////////////////
@@ -51,7 +51,8 @@ protected:
 
 protected:
 
-    Miscible  miscible;
+    Miscible  miscible;         ///< Miscible term for Compositional Model
+    ScalePcow scalePcow;        ///< Scale water-oil capiliary pressure term
 };
 
 

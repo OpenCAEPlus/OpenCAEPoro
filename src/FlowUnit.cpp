@@ -340,6 +340,27 @@ void FlowUnit_ODGW01::Generate_SWPCWG()
 // FlowUnit_ODGW01_Miscible
 ///////////////////////////////////////////////
 
+
+void FlowUnit_ODGW01_Miscible::SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin)
+{
+    if (scaleTerm->IfScale()) {
+        const OCP_DBL SwInit = scaleTerm->GetSwInit(bId);
+        if (SwInit <= Swco) {
+            Swin = Swco;
+        }
+        else {
+            Swin = SwInit;
+            if (Pcowin > 0) {
+                const OCP_DBL PcowInit = GetPcowBySw(Swin);
+                if (PcowInit > 0) {
+                    scaleTerm->AssignScaleValue(bId, Pcowin / PcowInit);
+                }
+            }
+        }
+    }
+};
+
+
 void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP_DBL* pc_out,
                                        const OCP_USI& bId)
 {
@@ -375,7 +396,11 @@ void FlowUnit_ODGW01_Miscible::CalKrPc(const OCP_DBL* S_in, OCP_DBL* kr_out, OCP
         kr_out[2] = krw;
         pc_out[0] = 0;
         pc_out[1] = Pcgo;
-        pc_out[2] = Pcwo; 
+        pc_out[2] = Pcwo;
+    }
+
+    if (scaleTerm->IfScale()) {
+        pc_out[2] *= scaleTerm->GetScaleVal(bId);
     }
 }
 
@@ -448,8 +473,10 @@ void FlowUnit_ODGW01_Miscible::CalKrPcDeriv(const OCP_DBL* S_in, OCP_DBL* kr_out
         dPcjdS[6] = 0;
         dPcjdS[7] = 0;
         dPcjdS[8] = dPcwdSw;
+    }
 
-        // cout << Fk << endl;
+    if (scaleTerm->IfScale()) {
+        pc_out[2] *= scaleTerm->GetScaleVal(bId);
     }
 }
 

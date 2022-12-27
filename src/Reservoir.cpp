@@ -34,7 +34,7 @@ void Reservoir::SetupIsoT()
     conn.Setup(grid);
     allWells.Setup(grid, bulk);
 
-    bulk.SetupOptionalFeatures(optFeatures);
+    bulk.SetupOptionalFeatures(grid, optFeatures);
 }
 
 void Reservoir::ApplyControl(const USI& i)
