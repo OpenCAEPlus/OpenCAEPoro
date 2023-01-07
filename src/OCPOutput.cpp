@@ -53,6 +53,7 @@ void Summary::Setup(const Reservoir& rs, const OCP_DBL& totalTime)
     Sumdata.push_back(SumPair("NRiter", "  ", "  "));
     Sumdata.push_back(SumPair("LSiter", "  ", "  "));
     if (FPR) Sumdata.push_back(SumPair("FPR", "  ", "PSIA"));
+    if (OCP_TRUE) Sumdata.push_back(SumPair("FTR", "  ", "F"));
     if (FOPR) Sumdata.push_back(SumPair("FOPR", "  ", "STB/DAY"));
     if (FOPT) Sumdata.push_back(SumPair("FOPT", "  ", "STB"));
     if (FGPR) Sumdata.push_back(SumPair("FGPR", "  ", "MSCF/DAY"));
@@ -394,6 +395,7 @@ void Summary::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 
     // FPR
     if (FPR) Sumdata[n++].val.push_back(bulk.CalFPR());
+    if (OCP_TRUE) Sumdata[n++].val.push_back(bulk.CalFTR());
     if (FOPR) Sumdata[n++].val.push_back(wells.GetFOPR());
     if (FOPT) Sumdata[n++].val.push_back(wells.GetFOPT());
     if (FGPR) Sumdata[n++].val.push_back(wells.GetFGPR());

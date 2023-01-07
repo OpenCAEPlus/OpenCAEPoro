@@ -10,7 +10,6 @@
  */
 
 #include "FlowUnit.hpp"
-#include "UtilError.hpp"
 
 
 ///////////////////////////////////////////////

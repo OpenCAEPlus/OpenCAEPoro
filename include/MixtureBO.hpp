@@ -45,6 +45,9 @@ public:
     {
         prodRate.assign(Niin, Niin + numCom);
     };
+    OCP_DBL CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin) override {
+        OCP_ABORT("Can not be used in Black Oil Model!");
+    }
 
     OCP_DBL GetErrorPEC() override { OCP_ABORT("Should not be used in Black Oil mode!"); return 0; }
     void OutMixtureIters() const override {};

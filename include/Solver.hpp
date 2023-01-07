@@ -34,15 +34,11 @@ private:
 
     /// Setup solver for isothermal model
     void SetupIsoT(Reservoir& rs, const OCPControl& ctrl);
-    /// Initialize the reservoir for isothermal model
-    void InitReservoirIsoT(Reservoir& rs) const;
     /// Run one time step for isothermal model
     void GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl);
 
     /// Setup solver for ifThermal model
     void SetupT(Reservoir& rs, const OCPControl& ctrl);
-    /// Initialize the reservoir for ifThermal model
-    void InitReservoirT(Reservoir& rs) const;
     /// Run one time step for ifThermal model
     void GoOneStepT(Reservoir& rs, OCPControl& ctrl);
     

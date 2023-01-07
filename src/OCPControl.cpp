@@ -222,7 +222,7 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
     printLevel = ctrlFast.printLevel;
 }
 
-void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
+void OCPControl::CalNextTstepIMPEC(const Reservoir& rs)
 {
     last_dt = current_dt;
     current_time += current_dt;
@@ -230,10 +230,10 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     OCP_DBL c1, c2, c3, c4, c;
     c1 = c2 = c3 = c4 = 10;
 
-    const OCP_DBL dPmax = reservoir.bulk.GetdPmax();
-    const OCP_DBL dNmax = reservoir.bulk.GetdNmax();
-    const OCP_DBL dSmax = reservoir.bulk.GetdSmax();
-    const OCP_DBL dVmax = reservoir.bulk.GetdVmax();
+    const OCP_DBL dPmax = rs.bulk.GetdPmax();
+    const OCP_DBL dNmax = rs.bulk.GetdNmax();
+    const OCP_DBL dSmax = rs.bulk.GetdSmax();
+    const OCP_DBL dVmax = rs.bulk.GetdVmax();
 
     // cout << dPmax << "   " << dSmax << endl;
 
@@ -259,7 +259,7 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& reservoir)
     // cout << "FactorT: " << c << "   Next dt: " << dt << endl;
 }
 
-void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
+void OCPControl::CalNextTstepFIM(const Reservoir& rs)
 {
     last_dt = current_dt;
     current_time += current_dt;
@@ -267,10 +267,10 @@ void OCPControl::CalNextTstepFIM(const Reservoir& reservoir)
     OCP_DBL c1, c2, c;
     c1 = c2 = 10;
 
-    const OCP_DBL dPmaxB = reservoir.bulk.GetdPmax();
-    const OCP_DBL dPmaxW = reservoir.allWells.GetdBHPmax();
+    const OCP_DBL dPmaxB = rs.bulk.GetdPmax();
+    const OCP_DBL dPmaxW = rs.allWells.GetdBHPmax();
     const OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
-    const OCP_DBL dSmax  = reservoir.bulk.GetdSmax();
+    const OCP_DBL dSmax  = rs.bulk.GetdSmax();
 
     if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
     if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;

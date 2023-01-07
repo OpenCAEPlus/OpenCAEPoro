@@ -130,6 +130,7 @@ public:
     // Calculate Production rate for PROD well
     virtual void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) = 0;
+    virtual OCP_DBL CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin) = 0;
 
     /// check if Ni input from param is negative, it's used in debug mode to check
     /// Hidden trouble. actually, very small error in very short time may not make
@@ -149,12 +150,52 @@ public:
 
     virtual OCP_DBL GetErrorPEC() = 0;
     virtual void OutMixtureIters() const = 0;
+    
+
+public:  
+    const OCP_DBL& GetNt()const { return Nt; }
+    const OCP_DBL& GetNi(const USI& i)const { return Ni[i]; }
+    const OCP_DBL& GetVf()const { return vf; }
+    const OCP_BOOL& GetPhaseExist(const USI& j)const { return phaseExist[j]; }
+    const OCP_DBL& GetS(const USI& j)const { return S[j]; }
+    const OCP_DBL& GetVj(const USI& j)const { return vj[j]; }
+    const OCP_DBL& GetNj(const USI& j)const { return nj[j]; }
+    const OCP_DBL& GetXij(const USI& j, const USI& i)const { return xij[j * numCom + i]; }
+    const OCP_DBL& GetRho(const USI& j)const { return rho[j]; }
+    const OCP_DBL& GetXi(const USI& j)const { return xi[j]; }
+    const OCP_DBL& GetMu(const USI& j)const { return mu[j]; }
+    const OCP_DBL& GetVfP()const { return vfP; }
+    const OCP_DBL& GetVfT()const { return vfT; }
+    const OCP_DBL& GetVfi(const USI& i) const { return vfi[i]; }
+    const OCP_DBL& GetRhoP(const USI& j) const { return rhoP[j]; }
+    const OCP_DBL& GetRhoT(const USI& j) const { return rhoT[j]; }
+    const OCP_DBL& GetXiP(const USI& j) const { return xiP[j]; }
+    const OCP_DBL& GetXiT(const USI& j) const { return xiT[j]; }
+    const OCP_DBL& GetMuP(const USI& j) const { return muP[j]; }
+    const OCP_DBL& GetMuT(const USI& j) const { return muT[j]; }
+    const OCP_DBL& GetRhoX(const USI& j, const USI& i) const { return rhox[j * numCom + i]; }
+    const OCP_DBL& GetXiX(const USI& j, const USI& i) const { return xix[j * numCom + i]; }
+    const OCP_DBL& GetMuX(const USI& j, const USI& i) const { return mux[j * numCom + i]; }
+    const OCP_BOOL& GetPSderExist(const USI& j)const { return pSderExist[j]; }
+    const USI& GetPVnumCom(const USI& j)const { return pVnumCom[j]; }
+    const vector<OCP_DBL>& GetDXsDXp()const { return dXsdXp; }
+    const vector<OCP_DBL>& GetRes()const { return res; }
+    const OCP_DBL GetResPc()const { return resPc; }
+    const OCP_DBL GetUf()const { return Uf; }
+    const OCP_DBL GetUfP()const { return UfP; }
+    const OCP_DBL GetUfT()const { return UfT; }
+    const OCP_DBL GetUfi(const USI& i) const { return Ufi[i]; }
+    const OCP_DBL GetH(const USI& j) const { return H[j]; }
+    const OCP_DBL GetHT(const USI& j) const {return HT[j]; }
+    const OCP_DBL& GetHx(const USI& j, const USI& i) const { return Hx[j * numCom + i]; }
+
+protected:
     void SetBulkId(const OCP_USI& n) { bulkId = n; }
 
 protected:
     USI mixtureType; ///< indicates the type of mixture, black oil or compositional or
                      ///< others.
-    OCP_USI       bulkId; ///< index of current bulk
+    OCP_USI bulkId; ///< index of current bulk
     USI     numPhase; ///< num of phases.
     USI     numCom;   ///< num of components.
     OCP_DBL P;        ///< pressure when flash calculation.
@@ -173,30 +214,28 @@ protected:
     vector<OCP_DBL> mu;     ///< viscosity of phase: numPhase
 
     // Derivatives      
-    OCP_DBL vfP; ///< dVf / dP, the derivative of volume of total fluids with respect to
-                 ///< pressure.
+    OCP_DBL         vfP; ///< dVf / dP, the derivative of volume of total fluids with respect to
+                         ///< pressure.
+    OCP_DBL         vfT;  ///< d vf  / dT
     vector<OCP_DBL> vfi; ///< dVf / dNi: numCom  the derivative of volume of total
                          ///< fluids with respect to moles of components.
 
     vector<OCP_DBL> rhoP; ///< d rho / dP: numphase
-    vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
-    vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
-    vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
-    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
-    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
     vector<OCP_DBL> rhoT; ///< d rho j / dT: numPhase
-    
-    vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
-    
-    // Thermal model
-    OCP_DBL         vfT;  ///< d vf  / dT
-    vector<OCP_DBL> muT;  ///< d mu j  / dT: numPhase
+    vector<OCP_DBL> rhox; ///< d rho[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> xiP;  ///< d xi / dP: numphase
     vector<OCP_DBL> xiT;  ///< d xi j / dT: numPhase
-    
-    OCP_DBL         Uf;   ///< Internal energy of fluid
-    vector<OCP_DBL> Ufi;  ///< dUf / dNi
-    OCP_DBL         Ufp;  ///< dUf / dP
+    vector<OCP_DBL> xix;  ///< d xi[j] / d x[i][j]: numphase * numCom
+    vector<OCP_DBL> muP;  ///< d mu / dP: numPhase
+    vector<OCP_DBL> muT;  ///< d mu j  / dT: numPhase   
+    vector<OCP_DBL> mux;  ///< d mu[j] / d x[i][j]: numphase * numCom
+      
+    vector<OCP_DBL> dXsdXp; ///< the derivates of second variables wrt. primary variables
+           
+    OCP_DBL         Uf;   ///< Internal energy of fluid   
+    OCP_DBL         UfP;  ///< dUf / dP
     OCP_DBL         UfT;  ///< dUf / dT
+    vector<OCP_DBL> Ufi;  ///< dUf / dNi
     vector<OCP_DBL> H;    ///< Enthalpy
     vector<OCP_DBL> HT;   ///< d Hj / d T
     vector<OCP_DBL> Hx;   ///< d Hj / d xij

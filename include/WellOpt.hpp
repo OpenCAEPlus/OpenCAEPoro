@@ -39,9 +39,9 @@ public:
     /// overload inequality
     OCP_BOOL operator !=(const WellOpt& Opt) const;
 
-    USI GetWellType() const { return type; }
-    USI GetOptMode() const { return optMode; }
-    string GetFluidType()const {
+    USI WellType() const { return type; }
+    USI OptMode() const { return optMode; }
+    string InjFluidType()const {
         if (type == INJ) return fluidType; 
         else OCP_ABORT("WRONG well type!"); 
     }

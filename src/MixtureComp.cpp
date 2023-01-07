@@ -768,9 +768,9 @@ MixtureComp::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin
 void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
-    const USI wellType = opt.GetWellType();
+    const USI wellType = opt.WellType();
     if (wellType == INJ) {
-        const string fluidName = opt.GetFluidType(); 
+        const string fluidName = opt.InjFluidType();
         vector<OCP_DBL> tmpZi(numCom, 0);
         if (fluidName == "WAT") {
             tmpZi.back() = 1;
@@ -799,7 +799,7 @@ void MixtureComp::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     }
     else if (wellType == PROD) {
         vector<OCP_DBL> tmpWght(numPhase, 0);
-        switch (opt.GetOptMode())
+        switch (opt.OptMode())
         {
         case BHP_MODE:
             break;
@@ -1588,17 +1588,9 @@ OCP_BOOL MixtureComp::StableSSM(const USI& Id)
 OCP_BOOL MixtureComp::StableNR(const USI& Id)
 {
 
-#ifdef DEBUG
-    cout << endl << "Stable NR Begins !" << endl << endl;
-#endif // DEBUG
-
     for (USI i = 0; i < NC; i++) {
         resSTA[i] = log(fug[Id][i] / (fugSta[i] * Yt));
     }
-
-#ifdef DEBUG
-    // PrintDX(NC, &resSTA[0]);
-#endif // DEBUG
 
     USI     maxIt = EoSctrl.NRsta.maxIt;
     OCP_DBL Stol  = EoSctrl.NRsta.tol;
@@ -1629,41 +1621,13 @@ OCP_BOOL MixtureComp::StableNR(const USI& Id)
         Se = Dnorm2(NC, &resSTA[0]);
         iter++;
         if (iter > maxIt) {
-            // cout << "---------------" << endl;
-            // cout << setprecision(6) << scientific << Se0 << endl;
-            // cout << setprecision(6) << scientific << Se << endl;
-            // cout << setprecision(6) << scientific << Yt << endl;
-            // PrintDX(NC, &x[Id][0]);
-            // PrintDX(NC, &Y[0]);
-            // cout << "---------------" << endl;
             EoSctrl.NRsta.curIt += iter;
             EoSctrl.NRsta.conflag = OCP_FALSE;
             EoSctrl.NRsta.realTol = Se;
             return OCP_FALSE;
         }
 
-#ifdef DEBUG
-        // PrintDX(NC, &resSTA[0]);
-#endif // DEBUG
     }
-    // if (iter > 0 && !isfinite(Se)) {
-    //	cout << "---------------" << endl;
-    //	cout << setprecision(6) << scientific << Se0 << endl;
-    //	cout << setprecision(6) << scientific << Se << endl;
-    //	cout << setprecision(6) << scientific << Yt << endl;
-    //	PrintDX(NC, &x[Id][0]);
-    //	PrintDX(NC, &Y[0]);
-    //	cout << "done!" << endl;
-    //	cout << "---------------" << endl;
-    //}
-    // if (Yt > 1 + 1E-8 && iter > 0) {
-    //	cout << setprecision(6) << scientific << Se0 << endl;
-    //	cout << setprecision(6) << scientific << Se << endl;
-    //	PrintDX(NC, &x[Id][0]);
-    //	PrintDX(NC, &Y[0]);
-    //	cout << endl;
-    //}
-
     EoSctrl.NRsta.curIt += iter;
     EoSctrl.NRsta.conflag = OCP_TRUE;
     EoSctrl.NRsta.realTol = Se;
@@ -1859,10 +1823,6 @@ OCP_BOOL MixtureComp::CheckSplit()
 
 void MixtureComp::SplitSSM(const OCP_BOOL& flag)
 {
-#ifdef DEBUG
-    cout << "SSMSP Begins!" << endl;
-#endif
-
     if (NP == 2) {
         SplitSSM2(flag);
     } else {
@@ -1904,10 +1864,6 @@ void MixtureComp::SplitSSM2(const OCP_BOOL& flag)
         maxIt *= 2;
     }
 
-#ifdef DEBUG
-    PrintX();
-#endif // DEBUG
-
     USI iter = 0;
     while (Se > Stol) {
 
@@ -1919,9 +1875,6 @@ void MixtureComp::SplitSSM2(const OCP_BOOL& flag)
             Se += pow(fug[1][i] / fug[0][i] - 1, 2);
             Ks[0][i] = phi[1][i] / phi[0][i];
         }
-#ifdef DEBUG
-        PrintX();
-#endif // DEBUG
 
         iter++;
         if (iter > maxIt) {
@@ -1986,19 +1939,8 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     }
 
     EoSctrl.RR.curIt += iter;
-
-    // cout << iter << "      " << scientific << setprecision(3) << fabs(rj)
-    //     << "      " << nu[0] << "      " << numin << "      " << numax << endl;
-
-    // if (iter > EoSctrl.RR.maxIt) {
-    //	OCP_WARNING("RR2 not converged!");
-    //}
-
     nu[1] = 1 - nu[0];
 
-#ifdef DEBUG
-    cout << nu[0] << endl;
-#endif // DEBUG
 }
 
 void MixtureComp::RachfordRice2P()
@@ -2063,15 +2005,8 @@ void MixtureComp::RachfordRice2P()
     cout << iter << "      " << scientific << setprecision(3) << fabs(rj) << "      "
          << nu[0] << "      " << numin << "      " << numax << endl;
 
-    // if (iter > EoSctrl.RR.maxIt) {
-    //	OCP_WARNING("RR2 not converged!");
-    //}
-
     nu[1] = 1 - nu[0];
 
-#ifdef DEBUG
-    cout << nu[0] << endl;
-#endif // DEBUG
 }
 
 void MixtureComp::RachfordRice3() ///< Used when NP > 2
@@ -2120,10 +2055,6 @@ void MixtureComp::SplitNR()
     OCP_DBL NRtol = EoSctrl.NRsp.tol;
     OCP_DBL alpha;
 
-#ifdef DEBUG
-    cout << "NRSP Begins!\n";
-#endif
-
     OCP_DBL en;
     USI     iter = 0;
     eNR0         = eNR;
@@ -2161,9 +2092,6 @@ void MixtureComp::SplitNR()
             for (USI i = 0; i < NC; i++) {
                 x[j][i] = n[j][i] / nu[j];
             }
-#ifdef DEBUG
-            PrintDX(NC, &x[j][0]);
-#endif
         }
         for (USI i = 0; i < NC; i++) {
             n[NP - 1][i] = fabs(n[NP - 1][i]);
@@ -2173,10 +2101,6 @@ void MixtureComp::SplitNR()
             x[NP - 1][i] = n[NP - 1][i] / nu[NP - 1];
         }
 
-#ifdef DEBUG
-        PrintDX(NC, &x[NP - 1][0]);
-        cout << "---------------------" << endl;
-#endif
         CalFugPhiAll();
         CalResSP();
         eNR = Dnorm2(len, &resSP[0]);
@@ -5331,8 +5255,8 @@ void MixtureComp::CalSurfaceTension()
         if (NP == 1)
             surTen = 100;
         else {
-            const OCP_DBL b0 = xiC[0] * CONV6;
-            const OCP_DBL b1 = xiC[1] * CONV6;
+            const OCP_DBL b0 = xiC[0] * CONV7;
+            const OCP_DBL b1 = xiC[1] * CONV7;
             surTen = 0;
             for (USI i = 0; i < NC; i++)
                 surTen += parachor[i] * (b0 * x[0][i] - b1 * x[1][i]);

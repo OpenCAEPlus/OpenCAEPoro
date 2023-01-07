@@ -40,7 +40,8 @@ void Solver::SetupIsoT(Reservoir& rs, const OCPControl& ctrl)
 
 void Solver::SetupT(Reservoir& rs, const OCPControl& ctrl)
 {
-    OCP_ABORT("Not Completed Now!");
+    rs.SetupT();
+    TSolver.SetupMethod(rs, ctrl);
 }
 
 /// Initialize the reservoir setting for different solution methods.
@@ -49,10 +50,10 @@ void Solver::InitReservoir(Reservoir& rs) const
     switch (OCPModel)
     {
     case ISOTHERMALMODEL:
-        InitReservoirIsoT(rs);
+        IsoTSolver.InitReservoir(rs);
         break;
     case THERMALMODEL:
-        InitReservoirT(rs);
+        TSolver.InitReservoir(rs);
         break;
     default:
         OCP_ABORT("WRONG MODEL!");
@@ -60,17 +61,6 @@ void Solver::InitReservoir(Reservoir& rs) const
     }
 }
 
-
-void Solver::InitReservoirIsoT(Reservoir& rs) const
-{
-    IsoTSolver.InitReservoir(rs);
-}
-
-
-void Solver::InitReservoirT(Reservoir& rs) const
-{
-    OCP_ABORT("Not Completed Now!");
-}
 
 
 /// Simulation will go through all time steps and call GoOneStep at each step.
@@ -152,7 +142,27 @@ void Solver::GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl)
 
 void Solver::GoOneStepT(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_ABORT("Not Completed Now!");
+    OCP_DBL& dt = ctrl.GetCurDt();
+
+    // Prepare for time marching
+    TSolver.Prepare(rs, dt);
+
+    // Time marching with adaptive time stepsize
+    while (OCP_TRUE) {
+        if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
+        // Assemble linear system
+        TSolver.AssembleMat(rs, ctrl);
+        // Solve linear system
+        TSolver.SolveLinearSystem(rs, ctrl);
+        if (!TSolver.UpdateProperty(rs, ctrl)) {
+            ctrl.ResetIterNRLS();
+            continue;
+        }
+        if (TSolver.FinishNR(rs, ctrl)) break;
+    }
+
+    // Finish current time step
+    TSolver.FinishStep(rs, ctrl);
 }
 
 

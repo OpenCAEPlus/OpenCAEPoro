@@ -43,15 +43,18 @@ public:
         , areaB(AreaB)
         , areaE(AreaE){};
 
-    OCP_USI GetBId() const { return bId; } ///< Return beginning index.
-    OCP_USI GetEId() const { return eId; } ///< Return ending index.
+    OCP_USI BId() const { return bId; } ///< Return beginning index.
+    OCP_USI EId() const { return eId; } ///< Return ending index.
+    OCP_DBL Area() const { return area; } ///< Return effective area
+    OCP_DBL AreaB() const { return areaB; }
+    OCP_DBL AreaE() const { return areaE; }
+    USI Direction() const { return direction; }
 
 protected:
     OCP_USI bId;        ///< Beginning index of a pair.
     OCP_USI eId;        ///< Ending index of a pair.
     OCP_DBL area;       ///< Effective area
     USI     direction;  ///< 1-x, 2-y, 3-z
-    USI     conntype;
     OCP_DBL areaB;      ///< Area of intersecting faces from Begin grid
     OCP_DBL areaE;      ///< Area of intersecting faces from End grid
 };
@@ -66,6 +69,11 @@ class BulkConn
     // temp
     friend class MyMetisTest;
     friend class Out4VTK;
+    friend class IsoT_FIM;
+    friend class IsoT_IMPEC;
+    friend class IsoT_AIMc;
+    friend class IsoT_FIMn;
+    friend class T_FIM;
 
 public:
 
@@ -86,6 +94,7 @@ public:
 
 public:
     /// Setup active connections
+    void SetupIsoT(const Grid& myGrid, const Bulk& myBulk);
     void Setup(const Grid& myGrid);
     /// Calculate the effective area used for flow
     void CalAkd(const Bulk& myBulk);
@@ -148,72 +157,12 @@ protected:
     vector<OCP_DBL> lAdktT;            ///< last AdktT
     vector<OCP_DBL> lAdktS;            ///< last AdktS
 
-    /////////////////////////////////////////////////////////////////////
-    // IMPEC
-    /////////////////////////////////////////////////////////////////////
-
 public:
-    /// Allocate memory for variables used by the IMPEC method.
-    void AllocateIMPEC_IsoT(const USI& np);
-    /// Assmeble coefficient matrix for IMPEC, terms related to bulks only.
-    void AssembleMatIMPEC(LinearSystem& myLS, const Bulk& myBulk,
-                          const OCP_DBL& dt) const;
-    /// Calculate flux information about flow between bulks for IMPEC.
-    void CalFluxIMPEC(const Bulk& myBulk);
-    /// Update mole composition of each bulk according to mass conservation for IMPEC.
-    void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Reset variables needed for IMPEC
-    void ResetIMPEC();
-    /// Update value of last step for IMPEC.
-    void UpdateLastStepIMPEC();
 
-    /////////////////////////////////////////////////////////////////////
-    // FIM
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for auxiliary variables used by the FIM method.
-    void AllocateFIM_IsoT(const USI& np);
-
-    /// Assmeble coefficient matrix for FIM, terms related to bulks only.
-    void AssembleMat_FIM(LinearSystem& myLS, const Bulk& myBulk,
-                         const OCP_DBL& dt) const;
-
-    /// Calculate resiual for the Newton iteration in FIM.
-    void CalResFIM(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
     /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
     void CalFluxFIMS(const Grid& myGrid, const Bulk& myBulk);
     void CalResFIMS(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
 
-    /////////////////////////////////////////////////////////////////////
-    // FIM(new) assemble
-    /////////////////////////////////////////////////////////////////////
-
-    /// Assmeble coefficient matrix for FIM, terms related to bulks only.
-    /// OCP_NEW_FIM
-    void AssembleMat_FIM_new(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-    /// OCP_NEW_FIM rho = (S1*rho1 + S2*rho2)/(S1+S2)
-    void AssembleMat_FIM_newS(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-    /// OCP_NEW_FIMn
-    void AssembleMat_FIM_new_n(LinearSystem& myLS, const Bulk& myBulk,
-        const OCP_DBL& dt) const;
-
-    /////////////////////////////////////////////////////////////////////
-    // AIMc
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for auxiliary variables used by the AIMc method.
-    void AllocateAIMc_IsoT(const USI& np);
-    void AssembleMat_AIMc(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Calculate resiual for the Newton iteration in FIM.
-    void CalResAIMc(vector<OCP_DBL>& res, const Bulk& myBulk, const OCP_DBL& dt);
-    /// Determine which bulk are treated Implicit
-    void SetupFIMBulk(Bulk& myBulk, const OCP_BOOL& NRflag = OCP_FALSE) const;
-    /// Setup k-neighbor for well bulks
-    void SetupWellBulk_K(Bulk& myBulk) const;
 };
 
 

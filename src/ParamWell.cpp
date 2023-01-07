@@ -10,7 +10,6 @@
  */
 
 #include "ParamWell.hpp"
-#include "UtilError.hpp"
 
 WellOptParam::WellOptParam(string intype, vector<string>& vbuf)
 {

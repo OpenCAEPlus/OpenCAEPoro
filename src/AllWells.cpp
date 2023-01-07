@@ -143,7 +143,7 @@ void AllWells::SetupWellBulk(Bulk& myBulk) const
     for (auto& w : wells) {
         if (w.IsOpen()) {
             for (auto& p : w.perf) {
-                myBulk.AddWellBulkId(p.GetLoaction());
+                myBulk.AddWellBulkId(p.Location());
             }
         }
     }
@@ -155,7 +155,7 @@ void AllWells::SetupConnWell2Bulk(const Bulk& myBulk)
     USI wId = 0;
     for (auto& w : wells) {
         for (auto& p : w.perf)
-            well2bulk[wId].push_back(p.GetLoaction());
+            well2bulk[wId].push_back(p.Location());
         wId++;
     }
 }
@@ -253,7 +253,7 @@ void AllWells::CalIPRT(const Bulk& myBulk, OCP_DBL dt)
             if (wells[w].WellType() == PROD) {
                 wells[w].CalProdQj(myBulk, dt);
             } else {
-                wells[w].CalInjQi(myBulk, dt);
+                wells[w].CalInjQj(myBulk, dt);
             }
         }
         FGIR += wells[w].WGIR;
@@ -305,11 +305,6 @@ void AllWells::CalReInjFluid(const Bulk& myBulk)
                         -wG.saleRate * wells[w].opt.factorINJ; // Mscf -> ft3 -> lbmol
                 }
             }
-            // for (USI i = 0; i < nc; i++) {
-            //     cout << scientific << wG.zi[i] << "   ";
-            // }
-            // cout << "xi:  " << wG.xi << "    Factor:   " << wG.factor;
-            // cout << endl;
         }
     }
 }
@@ -319,9 +314,8 @@ void AllWells::ResetBHP()
 {
     for (auto& w : wells) {
         if (w.IsOpen()) {
-            w.BHP = w.lBHP;
-            w.SetBHP();
-            // w.dG = w.ldG;
+            w.bhp = w.lbhp;
+            w.CorrectBHP();
         }
     }
 }
@@ -340,21 +334,21 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].IsOpen()) {
 
-            OCP_INT flag = wells[w].CheckP(myBulk);
+            OCP_INT flag1 = wells[w].CheckP(myBulk);
 
-#ifdef DEBUG
-            // wells[w].ShowPerfStatus();
-#endif // DEBUG
-
-            switch (flag) {
-                case 1:
+            switch (flag1) {
+                case WELL_NEGATIVE_PRESSURE:
                     return 1;
-                case 2:
+
+                case WELL_SWITCH_TO_BHPMODE:
                     flag2 = OCP_TRUE;
                     break;
-                case 3:
+
+                case WELL_CROSSFLOW:
                     flag3 = OCP_TRUE;
                     break;
+
+                case WELL_SUCCESS:
                 default:
                     break;
             }
@@ -404,15 +398,11 @@ void AllWells::CalMaxBHPChange()
     dPmax = 0;
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].IsOpen()) {
-            dPmax = max(dPmax, fabs(wells[w].BHP - wells[w].lBHP));
+            dPmax = max(dPmax, fabs(wells[w].bhp - wells[w].lbhp));
         }
     }
 }
 
-
-/////////////////////////////////////////////////////////////////////
-// IMPEC
-/////////////////////////////////////////////////////////////////////
 
 void AllWells::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
 {
@@ -425,181 +415,7 @@ void AllWells::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
     }
 }
 
-void AllWells::MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt)
-{
-    OCP_FUNCNAME;
 
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].MassConserveIMPEC(myBulk, dt);
-        }
-    }
-}
-
-void AllWells::AssemblaMatIMPEC(LinearSystem&  myLS,
-                                const Bulk&    myBulk,
-                                const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            switch (wells[w].WellType()) {
-                case INJ:
-                    wells[w].AssembleMatINJ_IMPEC(myBulk, myLS, dt);
-                    break;
-                case PROD:
-                    wells[w].AssembleMatPROD_IMPEC(myBulk, myLS, dt);
-                    break;
-                default:
-                    OCP_ABORT("Wrong well type");
-            }
-        }
-    }
-
-    // for Reinjection
-    for (auto& wG : wellGroup) {
-        if (wG.reInj) {
-            for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                if (wells[prod].IsOpen()) {
-                    wells[prod].AssembleMatReinjection_IMPEC(myBulk, myLS, dt, wells,
-                                                             wG.wIdINJ);
-                }
-            }
-        }
-    }
-}
-
-void AllWells::GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId)
-{
-    OCP_FUNCNAME;
-
-    USI wId = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].BHP = u[bId + wId];
-            wells[w].UpdatePerfP();
-            wId++;
-        }
-    }
-}
-
-/////////////////////////////////////////////////////////////////////
-// FIM
-/////////////////////////////////////////////////////////////////////
-
-void AllWells::AssemblaMatFIM(LinearSystem&  myLS,
-                              const Bulk&    myBulk,
-                              const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-
-            switch (wells[w].WellType()) {
-                case INJ:
-                    wells[w].AssembleMatINJ_FIM(myBulk, myLS, dt);
-                    break;
-                case PROD:
-                    wells[w].AssembleMatPROD_FIM(myBulk, myLS, dt);
-                    break;
-                default:
-                    OCP_ABORT("Wrong well type");
-            }
-        }
-    }
-
-    // for Reinjection
-    for (auto& wG : wellGroup) {
-        if (wG.reInj) {
-            for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
-                if (wells[prod].IsOpen()) {
-                    wells[prod].AssembleMatReinjection_FIM(myBulk, myLS, dt, wells,
-                                                           wG.wIdINJ);
-                }
-            }
-        }
-    }
-}
-
-void AllWells::GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len)
-{
-    OCP_FUNCNAME;
-
-    USI wId = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].BHP += u[(bId + wId) * len];
-            wells[w].UpdatePerfP();
-            wId++;
-        }
-    }
-}
-
-void AllWells::CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    USI wId = 0;
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].CalResFIM(resFIM, myBulk, dt, wId, wells);
-            wId++;
-        }
-    }
-}
-
-
-/////////////////////////////////////////////////////////////////////
-// AFIM(new)
-/////////////////////////////////////////////////////////////////////
-
-void AllWells::AssemblaMatFIM_new(LinearSystem&  myLS,
-                                  const Bulk&    myBulk,
-                                  const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-
-            switch (wells[w].WellType()) {
-                case INJ:
-                    wells[w].AssembleMatINJ_FIM_new(myBulk, myLS, dt);
-                    break;
-                case PROD:
-                    wells[w].AssembleMatPROD_FIM_new(myBulk, myLS, dt);
-                    break;
-                default:
-                    OCP_ABORT("Wrong well type");
-            }
-        }
-    }
-}
-
-void AllWells::AssemblaMatFIM_new_n(LinearSystem&  myLS,
-                                    const Bulk&    myBulk,
-                                    const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-
-            switch (wells[w].WellType()) {
-                case INJ:
-                    wells[w].AssembleMatINJ_FIM_new_n(myBulk, myLS, dt);
-                    break;
-                case PROD:
-                    wells[w].AssembleMatPROD_FIM_new_n(myBulk, myLS, dt);
-                    break;
-                default:
-                    OCP_ABORT("Wrong well type");
-            }
-        }
-    }
-}
 
 void AllWells::SetPolyhedronWell(const Grid& myGrid)
 {

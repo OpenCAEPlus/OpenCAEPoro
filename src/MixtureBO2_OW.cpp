@@ -257,9 +257,9 @@ OCP_DBL BOMixture_OW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP
 void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
-    const USI wellType = opt.GetWellType();
+    const USI wellType = opt.WellType();
     if (wellType == INJ) {
-        const string fluidName = opt.GetFluidType();
+        const string fluidName = opt.InjFluidType();
         opt.SetInjFactor(1.0);
 
         if (fluidName == "WAT"){
@@ -273,7 +273,7 @@ void BOMixture_OW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     }
     else if (wellType == PROD) {
         vector<OCP_DBL> tmpWght(2, 0);
-        switch (opt.GetOptMode())
+        switch (opt.OptMode())
         {
         case BHP_MODE:
             break;

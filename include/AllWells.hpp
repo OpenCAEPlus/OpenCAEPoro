@@ -31,6 +31,8 @@ public:
     WellGroup(const string& gname)
         : name(gname){};
 
+    OCP_BOOL IfReInj() const { return reInj; }
+
 private:
     string      name;    ///< name of wellGroup
     vector<USI> wId;     ///< Well index in wellGroup
@@ -78,6 +80,12 @@ class AllWells
     friend class Out4RPT;
     friend class Out4VTK;
 
+    friend class IsoT_FIM;
+    friend class IsoT_IMPEC;
+    friend class IsoT_AIMc;
+    friend class IsoT_FIMn;
+    friend class T_FIM;
+
 public:
     AllWells() = default;
 
@@ -124,20 +132,8 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate Reinjection fluid
     void CalReInjFluid(const Bulk& myBulk);
-    void UpdateLastBHP()
-    {
-        for (auto& w : wells) w.lBHP = w.BHP;
-    }
+    void UpdateLastTimeStepBHP() { for (auto& w : wells) w.lbhp = w.bhp; }
     void ResetBHP();
-    /// Reset dG to ldG for each well.
-    void UpdateLastDG()
-    {
-        for (auto& w : wells) w.ldG = w.dG;
-    }
-    void ResetDG()
-    {
-        for (auto& w : wells) w.dG = w.ldG;
-    }
     /// Check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
     /// Return the num of wells.
@@ -160,7 +156,7 @@ public:
     OCP_DBL GetWBHP(const USI& w) const
     {
         if (wells[w].IsOpen())
-            return wells[w].BHP;
+            return wells[w].bhp;
         else
             return 0;
     }
@@ -256,37 +252,7 @@ protected:
 public:
     /// Calculate the CFL number for each perforation and return the maximum one.
     void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Update moles of components in Bulks which connects to well
-    void MassConserveIMPEC(Bulk& myBulk, OCP_DBL dt);
-    /// Assemble matrix, parts related to well are included for IMPEC
-    void
-    AssemblaMatIMPEC(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Update Well P and Perforation P after linear system is solved for IMPEC
-    void GetSolIMPEC(const vector<OCP_DBL>& u, const OCP_USI& bId);
 
-    /////////////////////////////////////////////////////////////////////
-    // FIM
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Assemble matrix, parts related to well are included for FIM
-    void
-    AssemblaMatFIM(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Get solution from solver class after linear system is solved for FIM
-    void GetSolFIM(const vector<OCP_DBL>& u, const OCP_USI& bId, const USI& len);
-    /// Calculate Resiual and relative Resiual for FIM
-    void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt) const;
-
-    /////////////////////////////////////////////////////////////////////
-    // FIM(new)
-    /////////////////////////////////////////////////////////////////////
-
-    /// Assemble matrix, parts related to well are included for FIM
-    void
-    AssemblaMatFIM_new(LinearSystem& myLS, const Bulk& myBulk, const OCP_DBL& dt) const;
-    void AssemblaMatFIM_new_n(LinearSystem&  myLS,
-                              const Bulk&    myBulk,
-                              const OCP_DBL& dt) const;
 
     // for output
 private:

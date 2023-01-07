@@ -271,7 +271,6 @@ void Grid::CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2)
 
     // fluid grid = active grid
     fluidGridNum = activeGridNum;
-    map_Flu2All = map_Act2All;
     map_All2Flu = map_All2Act;
 }
 
@@ -280,7 +279,6 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
 {
     map_Act2All.reserve(numGrid);
     map_All2Act.resize(numGrid);
-    map_Flu2All.reserve(numGrid);
     map_All2Flu.resize(numGrid);
     OCP_USI activeCount = 0;
     OCP_USI fluidCount = 0;
@@ -295,7 +293,6 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
                 map_All2Flu[n] = GB_Pair(OCP_FALSE, 0);
             }
             else {
-                map_Flu2All.push_back(n);
                 map_All2Flu[n] = GB_Pair(OCP_TRUE, fluidCount);
                 fluidCount++;
             }

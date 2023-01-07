@@ -40,10 +40,10 @@ private:
     USI           method = FIM;
     LinearSystem  LSolver;
     LinearSystem  auxLSolver;
-    OCP_IMPEC     impec;
-    OCP_FIM       fim;
-    OCP_FIMn      fim_n;
-    OCP_AIMc      aimc;
+    IsoT_IMPEC     impec;
+    IsoT_FIM       fim;
+    IsoT_FIMn      fim_n;
+    IsoT_AIMc      aimc;
 };
 
 #endif /* end if __ISOTHERMALSOLVER_HEADER__ */

@@ -132,7 +132,7 @@ template <typename T>
 bool CheckNan(const int& N, const T* x)
 {
     for (int i = 0; i < N; i++) {
-        if (!isfinite(x[i]) || isnan(x[i])) {
+        if (!isfinite(x[i])) {
             return false;
         }
     }

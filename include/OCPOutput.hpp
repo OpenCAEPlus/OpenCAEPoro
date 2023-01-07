@@ -334,7 +334,7 @@ private:
             for (USI w = 0; w < rs.allWells.numWell; w++) {
                 tmp.clear();
                 for (USI p = 0; p < rs.allWells.GetWellPerfNum(w); p++) {
-                    OCP_USI n = rs.allWells.wells[w].GetPerLocation(p);
+                    OCP_USI n = rs.allWells.wells[w].PerfLocation(p);
                     tmpConn[n].push_back(nb + w);
                     tmp.push_back(n);
                 }

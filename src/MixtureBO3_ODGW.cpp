@@ -797,7 +797,7 @@ void BOMixture_ODGW::FlashFIM(const OCP_DBL& Pin,
                 dXsdXp[3 * 4 + 1] = -dXsdXp[2 * 4 + 1];               // d Xgo / d No
                 dXsdXp[3 * 4 + 2] = -dXsdXp[2 * 4 + 2];               // d Xgo / d Ng
 
-#endif // DEBUG
+#endif // OCP_OLD_FIM
 
                 pSderExist[0] = OCP_TRUE;
                 pSderExist[2] = OCP_TRUE;
@@ -981,9 +981,9 @@ BOMixture_ODGW::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbbin, const OCP_DBL
 void BOMixture_ODGW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     const OCP_DBL& Psurf, const OCP_DBL& Tsurf)
 {
-    const USI wellType = opt.GetWellType();
+    const USI wellType = opt.WellType();
     if (wellType == INJ) {
-        const string fluidName = opt.GetFluidType();
+        const string fluidName = opt.InjFluidType();
         opt.SetInjFactor(1.0);
 
         if (fluidName == "WAT") {
@@ -1003,7 +1003,7 @@ void BOMixture_ODGW::SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
     }
     else if (wellType == PROD) {
         vector<OCP_DBL> tmpWght(3, 0);
-        switch (opt.GetOptMode())
+        switch (opt.OptMode())
         {
         case BHP_MODE:
             break;

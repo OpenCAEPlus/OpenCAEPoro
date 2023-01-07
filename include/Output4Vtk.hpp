@@ -16,7 +16,6 @@
 #include <string>
 #include <fstream>
 #include "Grid.hpp"
-#include "UtilError.hpp"
 
 using namespace std;
 

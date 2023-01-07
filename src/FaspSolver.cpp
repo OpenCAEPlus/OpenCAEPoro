@@ -154,6 +154,18 @@ void ScalarFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
             count++;
         }
     }
+
+#ifdef DEBUG
+    // check x and b  ----  for test
+    for (int i = 0; i < dim; i++) {
+        if (!isfinite(b.val[i])) OCP_ABORT("sFasp b is infinite!");
+        if (!isfinite(x.val[i])) OCP_ABORT("sFasp x is infinite!");
+    }
+    // check A ----  for test
+    for (int i = 0; i < nnz; i++) {
+        if (!isfinite(A.val[i])) OCP_ABORT("sFasp A is infinite!");
+    }
+#endif // DEBUG
 }
 
 OCP_INT ScalarFaspSolver::Solve()
@@ -354,7 +366,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
                                    vector<OCP_DBL>&               rhs,
                                    vector<OCP_DBL>&               u)
 {
-    OCP_USI nrow = dim * blockDim;
+    const OCP_USI nrow = dim * blockDim;
     // b & x
     b.row = nrow;
     b.val = rhs.data();
@@ -409,7 +421,8 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
         if (!isfinite(x.val[i])) OCP_ABORT("vFasp x is infinite!");
     }
     // check A ----  for test
-    for (int i = 0; i < A.NNZ; i++) {
+    const OCP_USI len = A.NNZ * blockDim * blockDim;
+    for (int i = 0; i < len; i++) {
         if (!isfinite(A.val[i])) OCP_ABORT("vFasp A is infinite!");
     }
 #endif // DEBUG

@@ -32,6 +32,18 @@
 
 using namespace std;
 
+
+/////////////////////////////////////////////////////////////////////
+// General Error Yype
+/////////////////////////////////////////////////////////////////////
+
+const int BULK_SUCCESS                      =  0;
+const int BULK_NEGATIVE_PRESSURE            = -1;
+const int BULK_NEGATIVE_COMPONENTS_MOLES    = -2;
+const int BULK_OUTRANGED_VOLUME_ERROR       = -3;
+
+
+
 /// Initial reservoir infomation for calculating initial equilibration.
 //  Note: This class includes reference depth and pressure at it, depth of contacts
 //  between phases, and capillary pressure at phase contact surfaces.
@@ -65,10 +77,12 @@ class Bulk
 
     // temp
     friend class Reservoir;
-    friend class OCP_IMPEC;
-    friend class OCP_FIM;
-    friend class OCP_FIMn;
-    friend class OCP_AIMc;
+    friend class IsothermalMethod;
+    friend class IsoT_IMPEC;
+    friend class IsoT_FIM;
+    friend class IsoT_FIMn;
+    friend class IsoT_AIMc;
+    friend class T_FIM;
 
     /////////////////////////////////////////////////////////////////////
     // Input Param and Setup
@@ -115,8 +129,8 @@ protected:
     // Initial Properties
     /////////////////////////////////////////////////////////////////////
 public:
-    /// Calculate initial equilibrium
-    void InitSjPc(const USI& tabrow);
+    /// Calculate initial equilibrium -- hydrostatic equilibration
+    void InitPTSw(const USI& tabrow);
 
 protected:
 
@@ -134,6 +148,8 @@ protected:
 public:
     /// Allocate memory for region num
     void AllocateRegion(const Grid& myGrid);
+    /// Setup Bulk type
+    void SetupBulkType(const Grid& myGrid);
     /// Return flash.
     const vector<Mixture*>& GetMixture() const { return flashCal; }
     /// Output iterations in Mixture
@@ -155,6 +171,8 @@ protected:
     USI               NTROCC;   ///< num of Rock regions
     vector<USI>       ROCKNUM;  ///< index of Rock table for each bulk
     vector<Rock*>     rock;     ///< rock model
+
+    vector<USI>       bType;    ///< Indicate what's in current bulk, 0: rock, 1: rock and fluid
  
 
     /////////////////////////////////////////////////////////////////////
@@ -183,10 +201,7 @@ protected:
 public:
     /// Allocate memory for Rock properties
     void AllocateGridRockIsoT(const Grid& myGrid);
-    /// Initialize the information of rock
-    void InitRock();
-    /// Calculate volume of pore with pressure.
-    void CalRock();
+    void AllocateGridRockT(const Grid& myGrid);
 
 protected:
 
@@ -197,9 +212,8 @@ protected:
     vector<OCP_DBL> depth;  ///< Depth of center of grid cells: activeGridNum.
 
     vector<OCP_DBL> ntg;        ///< net to gross of bulk.
-    vector<OCP_DBL> poroInit;   ///< initial rock porosity.
-    vector<OCP_DBL> rockVntg;   ///< init effective volume = Vgrid * ntg.
-    vector<OCP_DBL> poro;       ///< rock porosity.
+    vector<OCP_DBL> poroInit;   ///< initial rock porosity * ntg.
+    vector<OCP_DBL> poro;       ///< rock porosity * ntg.
     vector<OCP_DBL> rockVp;     ///< pore volume = Vgrid * ntg * poro.
     vector<OCP_DBL> rockKx;     ///< current rock permeability along the x direction.
     vector<OCP_DBL> rockKy;     ///< current rock permeability along the y direction.
@@ -236,6 +250,8 @@ protected:
 public:
     /// Calculate average pressure in reservoir.
     OCP_DBL CalFPR() const;
+    /// Calculate average Temperature in reservoir.
+    OCP_DBL CalFTR() const;
     /// Return pressure of the n-th bulk.
     OCP_DBL GetP(const OCP_USI& n) const { return P[n]; }
     /// Return oil saturation of the n-th bulk.
@@ -312,7 +328,7 @@ protected:
     vector<OCP_DBL>  Ufi;         ///< d Uf   / d Ni: numCom * numBulk  
     vector<OCP_DBL>  HT;          ///< d Hj   / d T: numPhase * numbulk
     vector<OCP_DBL>  Hx;          ///< d Hj   / d xij: numPhase * numCom * numbulk
-    vector<OCP_DBL>  ktp;         ///< d kt   / d P: numbulk
+    vector<OCP_DBL>  ktP;         ///< d kt   / d P: numbulk
     vector<OCP_DBL>  ktT;         ///< d kt   / d T: activeGridNum.
     vector<OCP_DBL>  ktS;         ///< d kt   / d S: numPhase * numbulk 
 
@@ -350,8 +366,6 @@ public:
     OCP_DBL CalNRdSmax(OCP_USI& index);
     /// Return NRdPmax.
     OCP_DBL GetNRdPmax() const { return NRdPmax; };
-    /// Return NRdSmaxP.
-    OCP_DBL GetNRdSmaxP() const { return NRdSmaxP; };
     /// Return NRdNmax.
     OCP_DBL GetNRdNmax() const { return NRdNmax; };
             
@@ -361,14 +375,14 @@ protected:
     vector<OCP_DBL> dSNRP; ///< predicted saturation change between NR steps
     vector<OCP_DBL> dNNR;  ///< Ni change between NR steps
     vector<OCP_DBL> dPNR;  ///< P  change between NR steps
+    vector<OCP_DBL> dTNR;  ///< T  change between NR steps
 
-    OCP_DBL NRdSSP;        ///< difference between dSNR and dSNRP, 2-norm
     OCP_DBL maxNRdSSP;     ///< max difference between dSNR and dSNRP
     OCP_USI index_maxNRdSSP; ///< index of grid which has maxNRdSSP
     OCP_DBL NRdPmax;      ///< Max pressure difference in an NR step
+    OCP_DBL NRdTmax;      ///< Max temperature difference in an NR step
     OCP_DBL NRdNmax;      ///< Max Ni difference in an NR step
     OCP_DBL NRdSmax;      ///< Max saturation difference in an NR step(Real)
-    OCP_DBL NRdSmaxP;     ///< Max saturation difference in an NR step(Predict)
 
     vector<OCP_DBL> NRstep; ///< NRstep for FIM
     vector<USI> NRphaseNum;     ///< phaseNum in NR step
@@ -381,6 +395,8 @@ protected:
 public:
     /// Check if negative P occurs, return OCP_FALSE if so.
     OCP_BOOL CheckP() const;
+    /// Check if negative T occurs, return OCP_FALSE if so.
+    OCP_BOOL CheckT() const;
     /// Check if negative Ni occurs, return OCP_FALSE if so.
     OCP_BOOL CheckNi();
     /// Check if relative volume error is out of range, return OCP_FALSE if so.
@@ -423,7 +439,7 @@ public:
 
 protected:
     vector<OCP_DBL>         ePEC; ///< error for fugacity balance equations, EoS only now
-
+    mutable OCPRes          res;  ///< Residual for all equations
 
 protected:
     /////////////////////////////////////////////////////////////////////
@@ -437,7 +453,6 @@ protected:
     vector<USI>      pVnumCom;      ///< num of variable components in the phase
     vector<OCP_DBL>  res_n;         ///< residual for FIM_n
     vector<OCP_DBL>  resPc;         ///< a precalculated value
-    vector<OCP_USI>  resIndex;      ///< store the starting position of res_n of each bulk.
     
     // Last time step
     vector<USI>      lbRowSizedSdP; ///< last bRowSizedSdP
@@ -446,129 +461,11 @@ protected:
     vector<USI>      lpVnumCom;     ///< last pVnumCom
     vector<OCP_DBL>  lres_n;        ///< last res_n
     vector<OCP_DBL>  lresPc;        ///< last lresPc;
-    vector<OCP_USI>  lresIndex;     ///< last res_n
-    
-public:
-
-    /////////////////////////////////////////////////////////////////////
-    // For IMPEC
-    /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Allocate memory for variables used for IMPEC.
-    void AllocateIMPEC_IsoT();
-    /// Perform Flash with Sj and calculate values needed for IMPEC
-    void InitFlashIMPEC();
-    /// Perform Flash with Ni and calculate values needed for IMPEC
-    void CalFlashIMPEC();
-    /// Pass value needed for IMPEC from flash to bulk
-    void PassFlashValueIMPEC(const OCP_USI& n);
-    /// Calculate relative permeability and capillary pressure with saturation.
-    void CalKrPcIMPEC();
-    /// Update P and Pj after linear system is solved.
-    void GetSolIMPEC(const vector<OCP_DBL>& u);
-    /// Reset variables needed for IMPEC to last time step
-    void ResetVal01IMPEC();
-    /// Reset variables needed for IMPEC to last time step
-    void ResetVal02IMPEC();
-    /// Reset variables needed for IMPEC to last time step
-    void ResetVal03IMPEC();
-    /// Update value of last step for IMPEC.
-    void UpdateLastStepIMPEC();
 
-
-    /////////////////////////////////////////////////////////////////////
-    // For FIM
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for variables used for FIM.
-    void AllocateFIM_IsoT();
-    /// Perform Flash with Sj and calculate values needed for FIM
-    void InitFlashFIM();
-    /// Perform Flash with Ni and calculate values needed for FIM
-    void CalFlashFIM();
-    /// Pass value needed for FIM from flash to bulk
-    void PassFlashValueFIM(const OCP_USI& n);
-    /// Calculate relative permeability and capillary pressure needed for FIM
-    void CalKrPcFIM();
-    /// Get the solution for FIM after a Newton iteration.
-    void GetSolFIM(const vector<OCP_DBL>& u,
-                   const OCP_DBL&         dPmaxlim,
-                   const OCP_DBL&         dSmaxlim);
-    /// Calculate relative residual for FIM.
-    void CalRelResFIM(OCPRes& resFIM) const;
-    /// Reset FIM.
-    void ResetFIM();
-    /// Update values of last step for FIM.
-    void UpdateLastStepFIM();
-
-    /////////////////////////////////////////////////////////////////////
-    // For FIMn
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for variables used for FIMn
-    void AllocateFIMn_IsoT();
-    /// Perform Flash with Sj and calculate values needed for FIMn
-    void InitFlashFIMn();
-    /// Perform Flash with Ni and calculate values needed for FIMn
-    void CalFlashFIMn();
-    /// Perform Flash with Ni and calculate values needed for FIMn in Black Oil Model
-    void CalFlashFIMn_BLKOIL();
-    /// Perform Flash with Ni and calculate values needed for FIMn in Compositional Model
-    void CalFlashFIMn_COMP();
-    /// Pass value needed for FIMn from flash to bulk
-    void PassFlashValueFIMn(const OCP_USI& n);
-    /// Calculate relative permeability and capillary pressure needed for FIMn
-    void CalKrPcFIMn() { CalKrPcFIM(); }
-    /// Get the solution for FIMn after a Newton iteration.
-    void GetSolFIMn(const vector<OCP_DBL>& u,
-        const OCP_DBL& dPmaxlim,
-        const OCP_DBL& dSmaxlim);
-    /// Calculate relative residual for FIM.
-    void CalRelResFIMn(OCPRes& resFIM) const { CalRelResFIM(resFIM); }
-    /// Reset FIMn
-    void ResetFIMn();
-    /// Update values of last step for FIMn
-    void UpdateLastStepFIMn();
-
-
-    /////////////////////////////////////////////////////////////////////
-    // For AIMc
-    /////////////////////////////////////////////////////////////////////
-
-public:
-    /// Allocate memory for variables used for AIMc
-    void AllocateAIMc_IsoT();
-    /// Perform flash calculation with Ni for Explicit bulk -- Update partial properties
-    void CalFlashAIMcEp();
-    /// Perform flash calculation with Ni for Explicit bulk -- Update all properties
-    void CalFlashAIMcEa();
-    /// Perform flash calculation with Ni for Implicit bulk
-    void CalFlashAIMcI();
-    /// Pass flash value needed for Explicit bulk -- Update partial properties 
-    void PassFlashValueAIMcEp(const OCP_USI& n);
-    /// Pass flash value needed for Explicit bulk -- Update all properties 
-    void PassFlashValueAIMcEa(const OCP_USI& n) { PassFlashValueIMPEC(n); }
-    /// Pass value needed for Implicit bulk
-    void PassFlashValueAIMcI(const OCP_USI& n);
-    /// Calculate relative permeability and capillary pressure for Explicit bulk
-    void CalKrPcAIMcE();
-    /// Calculate relative permeability and capillary pressure for Implicit bulk
-    void CalKrPcAIMcI();
-    /// Get the solution for AIMc after a Newton iteration.
-    void GetSolAIMc(const vector<OCP_DBL>& u,
-                    const OCP_DBL&         dPmaxlim,
-                    const OCP_DBL&         dSmaxlim);
-    /// Reset AIMc
-    void ResetAIMc();
-    /// Update values of last step for AIMc
-    void UpdateLastStepAIMc();
     /// Print Bulk which are implicit
     void ShowFIMBulk(const OCP_BOOL& flag = OCP_FALSE) const;
-    /// clear wellBulkId
-    void ClearWellBulkId() { wellBulkId.clear(); }
     /// push back an element for wellBulkId
     void AddWellBulkId(const OCP_USI& n) { wellBulkId.push_back(n); }
 

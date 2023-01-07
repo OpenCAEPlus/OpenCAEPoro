@@ -34,8 +34,10 @@ void Rock_Linear::CalPoro(const OCP_DBL& P, const OCP_DBL& poroInit, OCP_DBL& po
 
 void RockT::CalRockHT(const OCP_DBL& T, OCP_DBL& Hr, OCP_DBL& dHrdT) const
 {
-	Hr = hcp1 * (T - Tref) + 0.5 * hcp2 * (T * T - Tref * Tref);
-	dHrdT = hcp1 + hcp2 * T;
+	const OCP_DBL Ta  = T + CONV5;
+	const OCP_DBL Tra = Tref + CONV5;
+	Hr = hcp1 * (Ta - Tra) + 0.5 * hcp2 * (Ta * Ta - Tra * Tra);
+	dHrdT = hcp1 + hcp2 * Ta;
 }
 
 
@@ -45,9 +47,24 @@ void RockT::CalRockHT(const OCP_DBL& T, OCP_DBL& Hr, OCP_DBL& dHrdT) const
 ///////////////////////////////////////////////
 
 void RockT_Linear :: CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
-							OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const
+							OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& RockV, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const
 {
-	poro = poroInit * (1 + (cp * (P - Pref) - ct * (T - Tref) + cpt * (P - Pref) * (T - Tref)));
+	const OCP_DBL dP = P - Pref;
+	const OCP_DBL dT = T - Tref;
+	poro	= poroInit * (1 + (cp * dP - ct * dT + cpt * dP * dT));
+	dPorodP = poroInit * (cp + cpt * dT);
+	dPorodT = poroInit * (-ct + cpt * dP);
+
+	if (ConstRock) {
+		RockV    = 1 - poroInit;
+		dRockVdP = 0.0;
+		dRockVdT = 0.0;
+	}
+	else {
+		RockV    = 1 - poro;
+		dRockVdP = -dPorodP;
+		dRockVdT = -dPorodT;
+	}
 }
 
 
@@ -56,11 +73,24 @@ void RockT_Linear :: CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL&
 ///////////////////////////////////////////////
 
 void RockT_Exp::CalPoroT(const OCP_DBL& P, const OCP_DBL& T, const OCP_DBL& poroInit, OCP_DBL& poro,
-						OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const
+						OCP_DBL& dPorodP, OCP_DBL& dPorodT, OCP_DBL& RockV, OCP_DBL& dRockVdP, OCP_DBL& dRockVdT) const
 {
-	OCP_DBL dP = P - Pref;
-	OCP_DBL dT = T - Tref;
+	const OCP_DBL dP = P - Pref;
+	const OCP_DBL dT = T - Tref;
 	poro = poroInit * exp(cp * dP - ct * dT + cpt * dP * dT);
+
+	dPorodP = poro * (cp + cpt * dT);
+	dPorodT = poro * (-ct + cpt * dP);
+	if (ConstRock) {
+		RockV    = 1 - poroInit;
+		dRockVdP = 0.0;
+		dRockVdT = 0.0;
+	}
+	else {
+		RockV    = 1 - poro;
+		dRockVdP = -dPorodP;
+		dRockVdT = -dPorodT;
+	}
 }
 
 

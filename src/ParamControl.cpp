@@ -110,10 +110,8 @@ void ParamControl::InputMETHOD(ifstream& ifs)
 
     if (vbuf.size() > 1) linearSolve = vbuf[1];
 
-#ifdef DEBUG
     cout << "METHOD" << endl;
     cout << method << "  " << linearSolve << endl;
-#endif // DEBUG
 }
 
 /// Read TUNING parameters.

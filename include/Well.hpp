@@ -29,6 +29,17 @@
 using namespace std;
 
 
+/////////////////////////////////////////////////////////////////////
+// General Error Yype
+/////////////////////////////////////////////////////////////////////
+
+const int WELL_SUCCESS              =  0;
+const int WELL_NEGATIVE_PRESSURE    = -1;
+const int WELL_SWITCH_TO_BHPMODE    = -2;
+const int WELL_CROSSFLOW            = -3;
+
+
+
 /// Well class defines well, and any operations referred to wells are in it.
 /// Well connects to the bulks by perforations, which serve as source and sink.
 /// Due to practical difficulties in production, a good treatment for well is important,
@@ -45,7 +56,7 @@ public:
     Well() = default;
 
     /////////////////////////////////////////////////////////////////////
-    // General
+    // Input Param and Setup
     /////////////////////////////////////////////////////////////////////
 
 public:
@@ -53,65 +64,13 @@ public:
     void InputPerfo(const WellParam& well);
     /// Setup the well after Grid and Bulk finish setupping.
     void Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols);
-    /// Initialize the Well BHP
-    void InitBHP(const Bulk& myBulk);
-    /// Calculate Well Index with Peaceman model for vertical well.
-    void CalWI_Peaceman_Vertical(const Bulk& myBulk);
-    /// Calculate transmissibility for each phase in perforations.
-    void CalTrans(const Bulk& myBulk);
-    /// Calculate the flux for each perforations.
-    void CalFlux(const Bulk& myBulk, const OCP_BOOL ReCalXi = OCP_FALSE);
-    /// calculate flow rate of moles of components for injection well with maxBHP
-    OCP_DBL CalInjRate(const Bulk& myBulk, const OCP_BOOL& maxBHP);
-    /// calculate flow rate of moles of components for production well with minBHP
-    OCP_DBL CalProdRate(const Bulk& myBulk, const OCP_BOOL& minBHP);
-    /// Calculate flow rate of moles of components for injection well
-    void CalInjQi(const Bulk& myBulk, const OCP_DBL& dt);
-    /// Calculate flow rate of moles of phase for production well
-    void CalProdQj(const Bulk& myBulk, const OCP_DBL& dt);
-    /// Calculate pressure difference between well and perforations.
-    void CaldG(const Bulk& myBulk);
-    /// Calculate pressure difference between well and perforations for Injection.
-    void CalInjdG(const Bulk& myBulk);
-    /// Calculate pressure difference between well and perforations for Prodcution.
-    void CalProddG(const Bulk& myBulk);
-    void CalProddG01(const Bulk& myBulk);
-    void CalProddG02(const Bulk& myBulk);
-    /// Calculate the Prodweight
-    void CalProdWeight(const Bulk& myBulk) const;
-    /// Calculate the contribution of production well to reinjection defaulted
-    void CalReInjFluid(const Bulk& myBulk, vector<OCP_DBL>& myZi);
-    /// Set BHP if opt mode is BHPMode
-    void SetBHP();
-    /// Try to smooth the dG by average it with dG at last time step.
-    void SmoothdG();
-    /// Check if well operation mode would be changed.
-    void CheckOptMode(const Bulk& myBulk);
-    /// Check if abnormal Pressure occurs.
-    OCP_INT CheckP(const Bulk& myBulk);
-    /// Check if crossflow happens.
-    OCP_INT CheckCrossFlow(const Bulk& myBulk);
-    /// Update pressure in Perforation after well pressure updates.
-    void UpdatePerfP()
-    {
-        for (USI p = 0; p < numPerf; p++) perf[p].P = BHP + dG[p];
-    }
-    /// Return the state of the well, Open or Close.
-    OCP_BOOL IsOpen() const { return opt.state; }
-    /// Return the type of well, Inj or Prod.
-    USI WellType() const { return opt.type; }
-    /// Return Pressure of Perf p
-    OCP_DBL GetPerfPre(const USI& p) const { return perf[p].P; }
-    /// Return location of Perf p
-    OCP_USI GetPerLocation(const USI& p)const { return perf[p].location; }
-    /// Display operation mode of well and state of perforations.
-    void ShowPerfStatus(const Bulk& myBulk) const;
-    
 
-protected:
+
     /////////////////////////////////////////////////////////////////////
     // Basic Well information
     /////////////////////////////////////////////////////////////////////
+
+protected:
 
     string   name;  ///< well name
     string   group; ///< group well belongs to, it should be moved to opt if necessary!!!
@@ -123,7 +82,7 @@ protected:
                                  ///< parameters in all critical time.
     USI                 numPerf; ///< num of perforations belonging to this well.
     vector<Perforation> perf;    ///< information of perforation belonging to this well.
-    
+
     vector<Mixture*> flashCal; ///< from bulks's flashCal
 
     OCP_DBL numPhase; ///< num of phases
@@ -134,16 +93,94 @@ protected:
 
     USI     wOId;  ///< well index in allWells, closed well is excluded, it's the well index in equations
 
+public:
+    /// Initialize the Well BHP
+    void InitBHP(const Bulk& myBulk) { bhp = myBulk.P[perf[0].location]; }
+    /// Calculate Well Index with Peaceman model.
+    void CalWI_Peaceman(const Bulk& myBulk);   
+    /// Calculate transmissibility for each phase in perforations.
+    void CalTrans(const Bulk& myBulk);
+    /// Calculate the flux for each perforations.
+    void CalFlux(const Bulk& myBulk, const OCP_BOOL ReCalXi = OCP_FALSE);
+    /// calculate flow rate of moles of phases for injection well with maxBHP.
+    OCP_DBL CalInjRateMaxBHP(const Bulk& myBulk);
+    /// calculate flow rate of moles of phases for production well with minBHP.
+    OCP_DBL CalProdRateMinBHP(const Bulk& myBulk);
+    /// Calculate flow rate of moles of phases for injection well with calculated qi_lbmol.
+    void CalInjQj(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate flow rate of moles of phases for production well with calculated qi_lbmol.
+    void CalProdQj(const Bulk& myBulk, const OCP_DBL& dt);
+    /// Calculate pressure difference between well and perforations.
+    void CaldG(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Injection.
+    void CalInjdG(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Prodcution. 
+    void CalProddG(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Prodcution.
+    void CalProddG01(const Bulk& myBulk);
+    /// Calculate pressure difference between well and perforations for Prodcution.
+    void CalProddG02(const Bulk& myBulk);
+    /// Calculate the Prodweight
+    void CalProdWeight(const Bulk& myBulk) const;
+    /// Calculate the contribution of production well to reinjection defaulted
+    void CalReInjFluid(const Bulk& myBulk, vector<OCP_DBL>& myZi);
+    /// Correct BHP if opt mode is BHPMode
+    void CorrectBHP();
+    /// Check if well operation mode would be changed.
+    void CheckOptMode(const Bulk& myBulk);
+    /// Check if abnormal Pressure occurs.
+    OCP_INT CheckP(const Bulk& myBulk);
+    /// Check if crossflow happens.
+    OCP_INT CheckCrossFlow(const Bulk& myBulk);
+    /// Update pressure in Perforation after well pressure updates.
+    void CalPerfP() { for (USI p = 0; p < numPerf; p++) perf[p].P = bhp + dG[p]; }
+    /// Display operation mode of well and state of perforations.
+    void ShowPerfStatus(const Bulk& myBulk) const;
+    
+    USI PerfNum() const { return numPerf; }
+    void SetBHP(const OCP_DBL& p) { bhp = p; }
+    OCP_DBL BHP()const { return bhp; }
+    OCP_DBL DG(const USI& p) const { return dG[p]; }
+    OCP_DBL ProdWeight(const USI& i) const { return prodWeight[i]; }
+
+    USI OptMode() const { return opt.optMode; }
+    /// Return the state of the well, Open or Close.
+    OCP_BOOL IsOpen() const { return opt.state; }
+    /// Return the type of well, Inj or Prod.
+    USI WellType() const { return opt.type; }
+    vector<OCP_DBL> InjZi()const { OCP_ASSERT(opt.type == INJ, "Wrong Call");  return opt.injZi; }
+    OCP_DBL InjZi(const USI& i) const { OCP_ASSERT(opt.type == INJ, "Wrong Call");  return opt.injZi[i]; }
+    OCP_DBL MaxRate() const { return opt.maxRate; }
+    OCP_DBL MaxBHP() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.maxBHP; }
+    OCP_DBL MinBHP() const { OCP_ASSERT(opt.type == PROD, "Wrong Call"); return opt.minBHP; }
+    OCP_DBL InjTemp() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.Tinj; }
+
+    USI PerfLocation(const USI& p)const { return perf[p].location; }
+    OCP_DBL PerfWI(const USI& p)const { return perf[p].WI; }
+    OCP_DBL PerfMultiplier(const USI& p)const { return perf[p].multiplier; }
+    OCP_DBL PerfTransInj(const USI& p)const { return perf[p].transINJ; }
+    OCP_DBL PerfXi(const USI& p)const { return perf[p].xi; }
+    OCP_DBL PerfTransj(const USI& p, const USI& j) const { return perf[p].transj[j]; }
+    OCP_DBL PerfQi_lbmol(const USI& p, const USI& i) const { return perf[p].qi_lbmol[i]; }
+    OCP_DBL PerfProdQj_ft3(const USI& p, const USI& j)const { 
+        OCP_ASSERT(opt.type == PROD, "Wrong Call"); return perf[p].qj_ft3[j]; 
+    }
+    OCP_DBL PerfInjQt_ft3(const USI& p)const {
+        OCP_ASSERT(opt.type == INJ, "Wrong Call"); return perf[p].qt_ft3;
+    }
+    OCP_DBL Qi_lbmol(const USI& i) const { return qi_lbmol[i]; }
+    OCP_BOOL IfUseUnWeightedTrans()const { return useUnWeightedTrans; }
+
 protected:
     /////////////////////////////////////////////////////////////////////
     // Well Physical information
     /////////////////////////////////////////////////////////////////////
 
-    mutable OCP_DBL         BHP; ///< well pressure in reference depth.
+    mutable OCP_DBL         bhp; ///< Well pressure in reference depth.
     vector<OCP_DBL> dG;  ///< difference of pressure between well and perforation: numPerf.
 
     // Last time step
-    OCP_DBL             lBHP;       ///< Last BHP
+    OCP_DBL             lbhp;       ///< Last BHP
     vector<OCP_DBL>     ldG;        ///< Last dG
 
     // PROD/INJ Rate
@@ -162,6 +199,7 @@ protected:
     OCP_DBL WWIR{0};          ///< well water injection rate.
     OCP_DBL WWIT{0};          ///< well total water injection.
 
+    OCP_BOOL useUnWeightedTrans{OCP_FALSE};
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
@@ -169,14 +207,6 @@ protected:
 public:
     /// Calculate the CFL number, only parts related to wells are considered.
     void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Update moles of components in those bulks who connects to the well.
-    void MassConserveIMPEC(Bulk& myBulk, const OCP_DBL& dt) const;
-    /// Assemble matrix for IMPEC, parts related to injection well are included.
-    void AssembleMatINJ_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-                              const OCP_DBL& dt) const;
-    /// Assemble matrix for IMPEC, parts related to production well are included.
-    void AssembleMatPROD_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
     /// Assemble matrix for Reinjection Well, used in production well when injection
     /// well is under RATE control
     void AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,
@@ -188,34 +218,10 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Assemble matrix for FIM, parts related to Injection well are included.
-    void AssembleMatINJ_FIM(const Bulk& myBulk, LinearSystem& myLS,
-                            const OCP_DBL& dt) const;
-    /// Assemble matrix for FIM, parts related to Production well are included.
-    void AssembleMatPROD_FIM(const Bulk& myBulk, LinearSystem& myLS,
-                                const OCP_DBL& dt) const;
     /// Assemble matrix for Reinjection Well, used in production well when injection
     /// well is under RATE control
     void AssembleMatReinjection_FIM(const Bulk& myBulk, LinearSystem& myLS,
         const OCP_DBL& dt, const vector<Well>& allWell, const vector<USI>& injId) const;
-    /// Calculate Resiual and relative Resiual for FIM.
-    void CalResFIM(OCPRes& resFIM, const Bulk& myBulk, const OCP_DBL& dt,
-                   const OCP_USI& wId, const vector<Well>& allWell) const;
-    
-    /////////////////////////////////////////////////////////////////////
-    // FIM(new)
-    /////////////////////////////////////////////////////////////////////
-
-    /// Assemble matrix for FIM, parts related to Injection well are included.
-    void AssembleMatINJ_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    /// Assemble matrix for FIM, parts related to Production well are included.
-    void AssembleMatPROD_FIM_new(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    void AssembleMatINJ_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
-    void AssembleMatPROD_FIM_new_n(const Bulk& myBulk, LinearSystem& myLS,
-        const OCP_DBL& dt) const;
 
     // for output
     void SetPolyhedronWell(const Grid& myGrid, OCPpolyhedron& mypol);

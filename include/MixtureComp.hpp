@@ -255,6 +255,10 @@ public:
     void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
         vector<OCP_DBL>& prodRate) override;
 
+    OCP_DBL CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin) override {
+        OCP_ABORT("Can not be used in Compositional Model!");
+    }
+
     void CallId();
 
 private:

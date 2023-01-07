@@ -20,12 +20,24 @@ class ThermalSolver
 {
 public:
 
+    void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
+    void InitReservoir(Reservoir& rs) const;
+    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void AssembleMat(const Reservoir& rs, OCPControl& ctrl);
+    /// Solve the linear system in single problem.
+    void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);
+    /// Update properties of fluid.
+    OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
+    /// Finish the Newton-Raphson iteration.
+    OCP_BOOL FinishNR(Reservoir& rs, OCPControl& ctrl);
+    /// Finish the current time step.
+    void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
     USI           method = FIM;
     LinearSystem  LSolver;
     LinearSystem  auxLSolver;
-    OCP_FIM_Thermal  fim;
+    T_FIM         fim;
 };
 
 #endif /* end if __THERMALSOLVER_HEADER__ */

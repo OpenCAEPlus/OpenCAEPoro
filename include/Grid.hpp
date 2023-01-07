@@ -161,7 +161,7 @@ protected:
     vector<OCP_DBL> kx;     ///< Absolute permeability in x-direction: numGrid
     vector<OCP_DBL> ky;     ///< Absolute permeability in y-direction: numGrid
     vector<OCP_DBL> kz;     ///< Absolute permeability in z-direction: numGrid
-    vector<OCP_DBL> thconr; ///< Rock ifThermal conductivity: numGrid
+    vector<OCP_DBL> thconr; ///< Rock if Thermal conductivity: numGrid
 
     // Region
     vector<USI> SATNUM;     ///< Identify SAT region: numGrid.
@@ -181,7 +181,6 @@ protected:
     vector<GB_Pair> map_All2Act;    ///< Mapping from grid to active all grid: numGrid.
     // Fluid grid cells
     OCP_USI         fluidGridNum;   ///< Num of fluid grids.
-    vector<OCP_USI> map_Flu2All;    ///< Mapping from fluid grid to all grid: fluidGridNum.
     vector<GB_Pair> map_All2Flu;    ///< Mapping from all grid to fluid grid: numGrid.
 
     /////////////////////////////////////////////////////////////////////

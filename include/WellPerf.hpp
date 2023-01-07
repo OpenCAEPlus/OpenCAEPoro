@@ -31,9 +31,9 @@ public:
     Perforation() = default;
 
     /// Set state of perf
-    void setState(const OCP_BOOL& flag) { state = flag; };
+    void SetState(const OCP_BOOL& flag) { state = flag; };
     /// Return the location of perf: index of bulk
-    OCP_USI GetLoaction() const { return location; }
+    OCP_USI Location() const { return location; }
 
 private:
     USI     I;        ///< I-index of Perforation in grid.
@@ -42,7 +42,6 @@ private:
     OCP_BOOL    state;    ///< True: perforation is open. False: perforation is close.
     OCP_USI location; ///< Index of bulks which connects to current perforation.
     OCP_DBL depth;    ///< Depth of bulks which connects to current perforation.
-    OCP_DBL trans;    ///< Transmissibility factor of current perforation, not used now.
     OCP_DBL P;        ///< Pressure in current perforation.
 
     OCP_DBL WI;     ///< Connection transmissibility factor, it can be provided directly

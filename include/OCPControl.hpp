@@ -94,12 +94,12 @@ class OCPControl
     friend class OpenCAEPoro;
     friend class OCPOutput;
     friend class Out4RPT;
-    friend class Reservoir;
 
-    friend class OCP_FIM;
-    friend class OCP_FIMn;
-    friend class OCP_IMPEC;
-    friend class OCP_AIMc;
+    friend class IsoT_FIM;
+    friend class IsoT_FIMn;
+    friend class IsoT_IMPEC;
+    friend class IsoT_AIMc;
+    friend class T_FIM;
     // temp
     friend class Solver;
 
@@ -207,7 +207,7 @@ private:
     OCP_DBL end_time;        ///< Next Critical time
 
     OCP_DBL totalSimTime{0};            ///< Total simulation time
-    OCP_DBL initilizationTime{ 0 };              ///< Initialize time
+    OCP_DBL initilizationTime{ 0 };     ///< Initialize time
     OCP_DBL totalUpdatePropertyTime{0}; ///< Total UpdateProperty Time
     OCP_DBL totalAssembleMatTime{0};    ///< Total AssembleMat time
     OCP_DBL totalLStime{0};             ///< Total linear solver time
