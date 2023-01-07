@@ -332,7 +332,7 @@ void Well::CalInjQj(const Bulk& myBulk, const OCP_DBL& dt)
         qj += qi_lbmol[i];
     }
     if (opt.fluidType == "WAT") {
-        WWIR = -qj;
+        WWIR = -qj / opt.factorINJ;
         WWIT += WWIR * dt;
     } else {
         WGIR = -qj / opt.factorINJ; // Mscf or lbmol -> Mscf

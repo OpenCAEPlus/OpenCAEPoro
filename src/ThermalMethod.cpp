@@ -1015,7 +1015,7 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
 
     // flux term
     OCP_DBL         Akd;
-    OCP_DBL         transJ, transIJ;
+    OCP_DBL         transJ, transIJ, transH;
     vector<OCP_DBL> dFdXpB(bsize, 0);    // for begin block   dF / dXp
     vector<OCP_DBL> dFdXpE(bsize, 0);    // for end   block   dF / dXp
     vector<OCP_DBL> dFdXsB(bsize2, 0);   // for begin block   dF / dXs
@@ -1025,11 +1025,12 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
     OCP_DBL*        dFdXsU;              // for up    block   dF / dXs                       
     OCP_DBL*        dFdXsD;              // for down  block   dF / dXs
 
-    OCP_USI  bId, eId, uId;
-    OCP_USI  bId_np_j, eId_np_j, uId_np_j;
+    OCP_USI  bId, eId, uId, dId;
+    OCP_USI  bId_np_j, eId_np_j, uId_np_j, dId_np_j;
     OCP_BOOL phaseExistBj, phaseExistEj, phaseExistDj;
     OCP_DBL  xi, xij, kr, mu, rhoP, rhoT, rhox, xiP, xiT, xix, muP, muT, mux, H, HT, Hx;
     OCP_DBL  dP, dT, dGamma;
+    OCP_DBL  rhoWghtU, rhoWghtD;
     OCP_DBL  tmp;
 
 
@@ -1052,11 +1053,36 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
                 uId      = conn.upblock[c * np + j];
                 uId_np_j = uId * np + j;
                 if (!bk.phaseExist[uId_np_j]) continue;
-
                 bId_np_j = bId * np + j;
-                eId_np_j = eId * np + j;               
+                eId_np_j = eId * np + j;
                 phaseExistBj = bk.phaseExist[bId_np_j];
                 phaseExistEj = bk.phaseExist[eId_np_j];
+
+                if (bId == uId) {
+                    dFdXpU = &dFdXpB[0];
+                    dFdXpD = &dFdXpE[0];
+                    dFdXsU = &dFdXsB[0];
+                    dFdXsD = &dFdXsE[0];
+                    phaseExistDj = phaseExistEj;
+                    dId_np_j = eId_np_j;
+                }
+                else {
+                    dFdXpU = &dFdXpE[0];
+                    dFdXpD = &dFdXpB[0];
+                    dFdXsU = &dFdXsE[0];
+                    dFdXsD = &dFdXsB[0];
+                    phaseExistDj = phaseExistBj;
+                    dId_np_j = bId_np_j;
+                }
+                if (phaseExistDj) {
+                    rhoWghtU = 0.5;
+                    rhoWghtD = 0.5;
+                }
+                else {
+                    rhoWghtU = 1; 
+                    rhoWghtD = 0;
+                }
+               
                 dP = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] 
                    - conn.upblock_Rho[c * np + j] * dGamma;
                 dT = bk.T[bId] - bk.T[eId];
@@ -1076,277 +1102,88 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
                 // Mass Conservation
                 for (USI i = 0; i < nc; i++) {
                     xij = bk.xij[uId_np_j * nc + i];
-                    transIJ = xij * xi * transJ;
+                    transIJ = transJ * xi * xij;
 
                     // dP
                     dFdXpB[(i + 1) * ncol] += transIJ;
                     dFdXpE[(i + 1) * ncol] -= transIJ;
 
-                    tmp  = xij * transJ * xiP * dP;
+                    tmp = transJ * xiP * xij * dP;
                     tmp += -transIJ * muP / mu * dP;
-                    if (!phaseExistEj) {
-                        tmp += transIJ * (-rhoP * dGamma);
-                        dFdXpB[(i + 1) * ncol] += tmp;
-                    }
-                    else if (!phaseExistBj) {
-                        tmp += transIJ * (-rhoP * dGamma);
-                        dFdXpE[(i + 1) * ncol] += tmp;
-                    }
-                    else {
-                        dFdXpB[(i + 1) * ncol] +=
-                            transIJ * (-bk.rhoP[bId_np_j] * dGamma) / 2;
-                        dFdXpE[(i + 1) * ncol] +=
-                            transIJ * (-bk.rhoP[eId_np_j] * dGamma) / 2;
-                        if (bId == uId) {
-                            dFdXpB[(i + 1) * ncol] += tmp;
-                        }
-                        else {
-                            dFdXpE[(i + 1) * ncol] += tmp;
-                        }
-                    }
+                    dFdXpU[(i + 1) * ncol] += (tmp - transIJ * rhoWghtU * bk.rhoP[uId_np_j] * dGamma);
+                    dFdXpD[(i + 1) * ncol] += -transIJ * rhoWghtD * bk.rhoP[dId_np_j] * dGamma;
+
                     // dT
-                    tmp  = xij * transJ * xiT * dP;
+                    tmp = transJ * xiT * xij * dP;
                     tmp += -transIJ * muT / mu * dP;
-                    if (!phaseExistEj) {
-                        tmp += transIJ * (-rhoT * dGamma);
-                        dFdXpB[(i + 2) * ncol - 1] += tmp;
-                    }
-                    else if (!phaseExistBj) {
-                        tmp += transIJ * (-rhoT * dGamma);
-                        dFdXpE[(i + 2) * ncol - 1] += tmp;
-                    }
-                    else {
-                        dFdXpB[(i + 2) * ncol - 1] += transIJ * (-bk.rhoT[bId_np_j] * dGamma) / 2;
-                        dFdXpE[(i + 2) * ncol - 1] += transIJ * (-bk.rhoT[eId_np_j] * dGamma) / 2;
-                        if (bId == uId) {
-                            dFdXpB[(i + 2) * ncol - 1] += tmp;
-                        }
-                        else {
-                            dFdXpE[(i + 2) * ncol - 1] += tmp;
-                        }
-                    }
+                    dFdXpU[(i + 2) * ncol - 1] += (tmp - transIJ * rhoWghtU * bk.rhoT[uId_np_j] * dGamma);
+                    dFdXpD[(i + 2) * ncol - 1] += -transIJ * rhoWghtD * bk.rhoT[dId_np_j] * dGamma;
 
-                    if (bId == uId) {
-                        // dS
-                        for (USI k = 0; k < np; k++) {
-                            dFdXsB[(i + 1) * ncol2 + k] +=
-                                transIJ * bk.dPcj_dS[bId_np_j * np + k];
-                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP;
-                            dFdXsB[(i + 1) * ncol2 + k] += tmp;
-                            dFdXsE[(i + 1) * ncol2 + k] -=
-                                transIJ * bk.dPcj_dS[eId_np_j * np + k];
-                        }
-                        // dxij
-                        if (!phaseExistEj) {
-                            for (USI k = 0; k < nc; k++) {
-                                rhox = bk.rhox[uId_np_j * nc + k];
-                                xix = bk.xix[uId_np_j * nc + k];
-                                mux = bk.mux[uId_np_j * nc + k];
-                                tmp = -transIJ * rhox * dGamma;
-                                tmp += xij * transJ * xix * dP;
-                                tmp += -transIJ * mux / mu * dP;
-                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                            }
-                            dFdXsB[(i + 1) * ncol2 + np + j * nc + i] +=
-                                xi * transJ * dP;
-                        }
-                        else {
-                            for (USI k = 0; k < nc; k++) {
-                                rhox = bk.rhox[bId_np_j * nc + k] / 2;
-                                xix = bk.xix[uId_np_j * nc + k];
-                                mux = bk.mux[uId_np_j * nc + k];
-                                tmp = -transIJ * rhox * dGamma;
-                                tmp += xij * transJ * xix * dP;
-                                tmp += -transIJ * mux / mu * dP;
-                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] +=
-                                    -transIJ * bk.rhox[eId_np_j * nc + k] / 2 * dGamma;
-                            }
-                            dFdXsB[(i + 1) * ncol2 + np + j * nc + i] +=
-                                xi * transJ * dP;
-                        }
+                    // dS
+                    for (USI k = 0; k < np; k++) {
+                        dFdXsB[(i + 1) * ncol2 + k] +=
+                            transIJ * bk.dPcj_dS[bId_np_j * np + k];
+                        dFdXsE[(i + 1) * ncol2 + k] -=
+                            transIJ * bk.dPcj_dS[eId_np_j * np + k];
+                        dFdXsU[(i + 1) * ncol2 + k] += Akd * bk.dKr_dS[uId_np_j * np + k] / mu * xi * xij * dP;
                     }
-                    else {
-                        // dS
-                        for (USI k = 0; k < np; k++) {
-                            dFdXsB[(i + 1) * ncol2 + k] +=
-                                transIJ * bk.dPcj_dS[bId_np_j * np + k];
-                            dFdXsE[(i + 1) * ncol2 + k] -=
-                                transIJ * bk.dPcj_dS[eId_np_j * np + k];
-                            tmp =
-                                Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP;
-                            dFdXsE[(i + 1) * ncol2 + k] += tmp;
-                        }
-                        // dxij
-                        if (!phaseExistBj) {
-                            for (USI k = 0; k < nc; k++) {
-                                rhox = bk.rhox[uId_np_j * nc + k];
-                                xix  = bk.xix[uId_np_j * nc + k];
-                                mux  = bk.mux[uId_np_j * nc + k];
-                                tmp  = -transIJ * rhox * dGamma;
-                                tmp += xij * transJ * xix * dP;
-                                tmp += -transIJ * mux / mu * dP;
-                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                            }
-                            dFdXsE[(i + 1) * ncol2 + np + j * nc + i] +=
-                                xi * transJ * dP;
-                        } 
-                        else {
-                            for (USI k = 0; k < nc; k++) {
-                                rhox = bk.rhox[eId_np_j * nc + k] / 2;
-                                xix  = bk.xix[uId_np_j * nc + k];
-                                mux  = bk.mux[uId_np_j * nc + k];
-                                tmp  = -transIJ * rhox * dGamma;
-                                tmp += xij * transJ * xix * dP;
-                                tmp += -transIJ * mux / mu * dP;
-                                dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                                dFdXsB[(i + 1) * ncol2 + np + j * nc + k] +=
-                                    -transIJ * bk.rhox[bId_np_j * nc + k] / 2 * dGamma;
-                            }
-                            dFdXsE[(i + 1) * ncol2 + np + j * nc + i] +=
-                                xi * transJ * dP;
-                        }
+                    // dxij
+                    for (USI k = 0; k < nc; k++) {
+                        rhox = bk.rhox[uId_np_j * nc + k];
+                        xix = bk.xix[uId_np_j * nc + k];
+                        mux = bk.mux[uId_np_j * nc + k];
+                        tmp = -transIJ * rhoWghtU * rhox * dGamma;
+                        tmp += transJ * xix * xij * dP;
+                        tmp += -transIJ * mux / mu * dP;
+                        dFdXsU[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                        dFdXsD[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * rhoWghtD * bk.rhox[dId_np_j * nc + k] * dGamma;
                     }
+                    dFdXsU[(i + 1) * ncol2 + np + j * nc + i] += transJ * xi * dP;
                 }
 
-                // Energy Conservation
-                // Primary var
+                // Energy Conservation               
+                transH = transJ * xi * H;
                 // dP
-                dFdXpB[(ncol - 1) * ncol] += transJ * xi * H;
-                dFdXpE[(ncol - 1) * ncol] -= transJ * xi * H;
+                dFdXpB[(ncol - 1) * ncol] += transH;
+                dFdXpE[(ncol - 1) * ncol] -= transH;
 
-                tmp  = transJ * xiP * dP * H;
+                tmp = transJ * xiP * H * dP;
                 tmp += -transJ * xi * muP / mu * dP * H;
-                if (!phaseExistEj) {
-                    tmp += transJ * xi * H * (-rhoP * dGamma);
-                    dFdXpB[(ncol - 1) * ncol] += tmp;
-                }
-                else if (!phaseExistBj) {
-                    tmp += transJ * xi * H * (-rhoP * dGamma);
-                    dFdXpE[(ncol - 1) * ncol] += tmp;
-                }
-                else {
-                    dFdXpB[(ncol - 1) * ncol] +=
-                        transJ * xi * (-bk.rhoP[bId_np_j] * dGamma) / 2 * H;
-                    dFdXpE[(ncol - 1) * ncol] +=
-                        transJ * xi * (-bk.rhoP[eId_np_j] * dGamma) / 2 * H;
-                    if (bId == uId) {
-                        dFdXpB[(ncol - 1) * ncol] += tmp;
-                    }
-                    else {
-                        dFdXpE[(ncol - 1) * ncol] += tmp;
-                    }
-                }
-                // dT
-                tmp = transJ * xiT * dP * H;
-                tmp += -transJ * xi * muT / mu * dP * H;
-                tmp += transJ * xi * dP * HT;
-                if (!phaseExistEj) {
-                    tmp += transJ * xi * H * (-rhoT * dGamma);
-                    dFdXpB[ncol * ncol - 1] += tmp;
-                }
-                else if (!phaseExistBj) {
-                    tmp += transJ * xi * H * (-rhoT * dGamma);
-                    dFdXpE[ncol * ncol - 1] += tmp;
-                }
-                else {
-                    dFdXpB[ncol * ncol - 1] += transJ * xi * (-bk.rhoT[bId_np_j] * dGamma) / 2 * H;
-                    dFdXpE[ncol * ncol - 1] += transJ * xi * (-bk.rhoT[eId_np_j] * dGamma) / 2 * H;
-                    if (bId == uId) {
-                        dFdXpB[ncol * ncol - 1] += tmp;
-                    }
-                    else {
-                        dFdXpE[ncol * ncol - 1] += tmp;
-                    }
-                }
+                dFdXpU[(ncol - 1) * ncol] += (tmp - transH * rhoWghtU * bk.rhoP[uId_np_j] * dGamma);
+                dFdXpD[(ncol - 1) * ncol] += -transH * rhoWghtD * bk.rhoP[dId_np_j] * dGamma;
 
-                // Second var 
-                if (bId == uId) {
-                    // dS
-                    for (USI k = 0; k < np; k++) {
-                        dFdXsB[(nc + 1) * ncol2 + k] +=
-                            transJ * xi * bk.dPcj_dS[bId_np_j * np + k] * H;
-                        tmp = Akd * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP * H;
-                        dFdXsB[(nc + 1) * ncol2 + k] += tmp;
-                        dFdXsE[(nc + 1) * ncol2 + k] +=
-                            -transJ * xi * bk.dPcj_dS[eId_np_j * np + k] * H;
-                    }
-                    // dxij
-                    if (!phaseExistEj) {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[uId_np_j * nc + k];
-                            xix = bk.xix[uId_np_j * nc + k];
-                            mux = bk.mux[uId_np_j * nc + k];
-                            Hx = bk.Hx[uId_np_j * nc + k];
-                            tmp = -transJ * xi * rhox * dGamma * H;
-                            tmp += transJ * xix * dP * H;
-                            tmp += -transJ * xi * mux / mu * dP * H;
-                            tmp += transJ * xi * dP * Hx;
-                            dFdXsB[(nc + 1) * ncol2 + np + j * nc + k] += tmp;
-                        }
-                    }
-                    else {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[bId_np_j * nc + k] / 2;
-                            xix = bk.xix[uId_np_j * nc + k];
-                            mux = bk.mux[uId_np_j * nc + k];
-                            Hx  = bk.Hx[uId_np_j * nc + k];
-                            tmp = -transJ * xi * rhox * dGamma * H;
-                            tmp += transJ * xix * dP * H;
-                            tmp += -transJ * xi * mux / mu * dP * H;
-                            tmp += transJ * xi * dP * Hx;
-                            dFdXsB[(nc + 1) * ncol2 + np + j * nc + k] += tmp;
-                            dFdXsE[(nc + 1) * ncol2 + np + j * nc + k] +=
-                                -transJ * xi * bk.rhox[eId_np_j * nc + k] / 2 *
-                                dGamma * H;
-                        }
-                    }
+                // dT
+                tmp = transJ * xiT * H * dP;
+                tmp += transJ * xi * HT * dP;
+                tmp += -transH * muT / mu * dP;                   
+                dFdXpU[ncol * ncol - 1] += (tmp - transH * rhoWghtU * bk.rhoT[uId_np_j] * dGamma);
+                dFdXpD[ncol * ncol - 1] += -transH * rhoWghtD * bk.rhoT[dId_np_j] * dGamma;
+
+                // dS
+                for (USI k = 0; k < np; k++) {
+                    dFdXsB[(nc + 1) * ncol2 + k] +=
+                        transH * bk.dPcj_dS[bId_np_j * np + k];
+                    dFdXsE[(nc + 1) * ncol2 + k] -=
+                        transH * bk.dPcj_dS[eId_np_j * np + k];
+                    dFdXsU[(nc + 1) * ncol2 + k] += Akd * bk.dKr_dS[uId_np_j * np + k] / mu * xi * H * dP;
                 }
-                else {
-                    // dS
-                    for (USI k = 0; k < np; k++) {
-                        dFdXsB[(nc + 1) * ncol2 + k] +=
-                            transJ * xi * bk.dPcj_dS[bId_np_j * np + k] * H;
-                        dFdXsE[(nc + 1) * ncol2 + k] -=
-                            transJ * xi * bk.dPcj_dS[eId_np_j * np + k] * H;
-                        tmp = Akd * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP * H;
-                        dFdXsE[(nc + 1) * ncol2 + k] += tmp;
-                    }
-                    // dxij
-                    if (!phaseExistBj) {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[uId_np_j * nc + k];
-                            xix = bk.xix[uId_np_j * nc + k];
-                            mux = bk.mux[uId_np_j * nc + k];
-                            Hx  = bk.Hx[uId_np_j * nc + k];
-                            tmp = -transJ * xi * rhox * dGamma * H;
-                            tmp += transJ * xix * dP * H;
-                            tmp += -transJ * xi * mux / mu * dP * H;
-                            tmp += transJ * xi * dP * Hx;
-                            dFdXsE[(nc + 1) * ncol2 + np + j * nc + k] += tmp;
-                        }
-                    }
-                    else {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[eId_np_j * nc + k] / 2;
-                            xix = bk.xix[uId_np_j * nc + k];
-                            mux = bk.mux[uId_np_j * nc + k];
-                            Hx  = bk.Hx[uId_np_j * nc + k];
-                            tmp = -transJ * xi * rhox * dGamma * H;
-                            tmp += transJ * xix * dP * H;
-                            tmp += -transJ * xi * mux / mu * dP * H;
-                            tmp += transJ * xi * dP * Hx;
-                            dFdXsE[(nc + 1) * ncol2 + np + j * nc + k] += tmp;
-                            dFdXsB[(nc + 1) * ncol2 + np + j * nc + k] +=
-                                -transJ * xi * bk.rhox[bId_np_j * nc + k] / 2 *
-                                dGamma * H;
-                        }
-                    }
+                // dxij
+                for (USI k = 0; k < nc; k++) {
+                    rhox = bk.rhox[uId_np_j * nc + k];
+                    xix = bk.xix[uId_np_j * nc + k];
+                    mux = bk.mux[uId_np_j * nc + k];
+                    Hx  = bk.Hx[uId_np_j * nc + k];
+                    tmp = -transH * rhoWghtU * rhox * dGamma;
+                    tmp += transJ * xix * H * dP;
+                    tmp += transJ * xi * Hx * dP;
+                    tmp += -transH * mux / mu * dP;                       
+                    dFdXsU[(nc + 1) * ncol2 + np + j * nc + k] += tmp;
+                    dFdXsD[(nc + 1) * ncol2 + np + j * nc + k] += -transH * rhoWghtD * bk.rhox[dId_np_j * nc + k] * dGamma;
                 }
             }
         }
 
-        // Thermal Conduction always exist          
+        // Thermal Conduction always exist
         // dP
         dFdXpB[(ncol - 1) * ncol] += conn.AdktP[c * 2 + 0] * dT;
         dFdXpE[(ncol - 1) * ncol] += conn.AdktP[c * 2 + 1] * dT;

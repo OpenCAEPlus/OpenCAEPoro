@@ -268,8 +268,7 @@ void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
     // phase index
     phase2Index.resize(3);
     phase2Index[OIL] = 0;
-    phase2Index[GAS] = 1;
-    phase2Index[WATER] = 2;
+    phase2Index[WATER] = 1;
         
     InputRockFuncT(rs_param);
 }
@@ -1215,25 +1214,12 @@ OCP_DBL Bulk::CalFTR() const
 
     OCP_DBL Ttmp = 0;
     OCP_DBL vtmp = 0;
-    OCP_DBL tmp  = 0;
 
-    if (numPhase == 3) {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            tmp = rockVp[n] * (1 - S[n * numPhase + 2]);
-            Ttmp += T[n] * tmp;
-            vtmp += tmp;
-        }
+    for (OCP_USI n = 0; n < numBulk; n++) {
+        Ttmp += T[n] * v[n];
+        vtmp += v[n];
     }
-    else if (numPhase < 3) {
-        for (OCP_USI n = 0; n < numBulk; n++) {
-            tmp = rockVp[n] * S[n * numPhase];
-            Ttmp += T[n] * tmp;
-            vtmp += tmp;
-        }
-    }
-    else {
-        OCP_ABORT("Number of phases is out of range!");
-    }
+
     return Ttmp / vtmp;
 }
 
