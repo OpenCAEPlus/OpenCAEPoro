@@ -1016,19 +1016,19 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
     // flux term
     OCP_DBL         Akd;
     OCP_DBL         transJ, transIJ, transH;
-    vector<OCP_DBL> dFdXpB(bsize, 0);    // for begin block   dF / dXp
-    vector<OCP_DBL> dFdXpE(bsize, 0);    // for end   block   dF / dXp
-    vector<OCP_DBL> dFdXsB(bsize2, 0);   // for begin block   dF / dXs
-    vector<OCP_DBL> dFdXsE(bsize2, 0);   // for end   block   dF / dXs
-    OCP_DBL*        dFdXpU;              // for up    block   dF / dXp                       
-    OCP_DBL*        dFdXpD;              // for down  block   dF / dXp
-    OCP_DBL*        dFdXsU;              // for up    block   dF / dXs                       
-    OCP_DBL*        dFdXsD;              // for down  block   dF / dXs
+    vector<OCP_DBL> dFdXpB(bsize, 0);    // begin bulk: dF / dXp
+    vector<OCP_DBL> dFdXpE(bsize, 0);    // end   bulk: dF / dXp
+    vector<OCP_DBL> dFdXsB(bsize2, 0);   // begin bulk: dF / dXs
+    vector<OCP_DBL> dFdXsE(bsize2, 0);   // end   bulk: dF / dXs
+    OCP_DBL*        dFdXpU;              // up    bulk: dF / dXp                       
+    OCP_DBL*        dFdXpD;              // down  bulk: dF / dXp
+    OCP_DBL*        dFdXsU;              // up    bulk: dF / dXs                       
+    OCP_DBL*        dFdXsD;              // down  bulk: dF / dXs
 
-    OCP_USI  bId, eId, uId, dId;
+    OCP_USI  bId, eId, uId;
     OCP_USI  bId_np_j, eId_np_j, uId_np_j, dId_np_j;
     OCP_BOOL phaseExistBj, phaseExistEj, phaseExistDj;
-    OCP_DBL  xi, xij, kr, mu, rhoP, rhoT, rhox, xiP, xiT, xix, muP, muT, mux, H, HT, Hx;
+    OCP_DBL  xi, xij, kr, mu, rhox, xiP, xiT, xix, muP, muT, mux, H, HT, Hx;
     OCP_DBL  dP, dT, dGamma;
     OCP_DBL  rhoWghtU, rhoWghtD;
     OCP_DBL  tmp;
@@ -1089,8 +1089,6 @@ void T_FIM::AssembleMatBulks(LinearSystem&    ls,
                 xi = bk.xi[uId_np_j];
                 kr = bk.kr[uId_np_j];
                 mu = bk.mu[uId_np_j];
-                rhoP = bk.rhoP[uId_np_j];
-                rhoT = bk.rhoT[uId_np_j];
                 xiP  = bk.xiP[uId_np_j];
                 xiT  = bk.xiT[uId_np_j];
                 muP  = bk.muP[uId_np_j];

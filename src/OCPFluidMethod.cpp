@@ -1481,38 +1481,68 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
     // flux term
     OCP_DBL         Akd;
     OCP_DBL         transJ, transIJ;
-    vector<OCP_DBL> dFdXpB(bsize, 0);
-    vector<OCP_DBL> dFdXpE(bsize, 0);
-    vector<OCP_DBL> dFdXsB(bsize2, 0);
-    vector<OCP_DBL> dFdXsE(bsize2, 0);
+    vector<OCP_DBL> dFdXpB(bsize, 0);     // begin bulk: dF / dXp
+    vector<OCP_DBL> dFdXpE(bsize, 0);     // end   bulk: dF / dXp
+    vector<OCP_DBL> dFdXsB(bsize2, 0);    // begin bulk: dF / dXs
+    vector<OCP_DBL> dFdXsE(bsize2, 0);    // end   bulk: dF / dXs
+    OCP_DBL*        dFdXpU;               // up    bulk: dF / dXp                       
+    OCP_DBL*        dFdXpD;               // down  bulk: dF / dXp
+    OCP_DBL*        dFdXsU;               // up    bulk: dF / dXs                       
+    OCP_DBL*        dFdXsD;               // down  bulk: dF / dXs
 
     OCP_USI  bId, eId, uId;
-    OCP_USI  bId_np_j, eId_np_j, uId_np_j;
-    OCP_BOOL phaseExistBj, phaseExistEj;
+    OCP_USI  bId_np_j, eId_np_j, uId_np_j, dId_np_j;
+    OCP_BOOL phaseExistBj, phaseExistEj, phaseExistDj;
     OCP_DBL  kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
     OCP_DBL  dP, dGamma;
+    OCP_DBL  rhoWghtU, rhoWghtD;
     OCP_DBL  tmp;
 
     for (OCP_USI c = 0; c < conn.numConn; c++) {
-        bId = conn.iteratorConn[c].BId();
-        eId = conn.iteratorConn[c].EId();
-        Akd = CONV1 * CONV2 * conn.iteratorConn[c].Area();
+
         fill(dFdXpB.begin(), dFdXpB.end(), 0.0);
         fill(dFdXpE.begin(), dFdXpE.end(), 0.0);
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
+
+        bId = conn.iteratorConn[c].BId();
+        eId = conn.iteratorConn[c].EId();
+        Akd = CONV1 * CONV2 * conn.iteratorConn[c].Area();
         dGamma = GRAVITY_FACTOR * (bk.depth[bId] - bk.depth[eId]);
 
         for (USI j = 0; j < np; j++) {
             uId      = conn.upblock[c * np + j];
+            uId_np_j = uId * np + j;
+            if (!bk.phaseExist[uId_np_j]) continue;
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
-            uId_np_j = uId * np + j;
-
-            if (!bk.phaseExist[uId_np_j]) continue;
-
             phaseExistBj = bk.phaseExist[bId_np_j];
             phaseExistEj = bk.phaseExist[eId_np_j];
+
+            if (bId == uId) {
+                dFdXpU = &dFdXpB[0];
+                dFdXpD = &dFdXpE[0];
+                dFdXsU = &dFdXsB[0];
+                dFdXsD = &dFdXsE[0];
+                phaseExistDj = phaseExistEj;
+                dId_np_j = eId_np_j;
+            }
+            else {
+                dFdXpU = &dFdXpE[0];
+                dFdXpD = &dFdXpB[0];
+                dFdXsU = &dFdXsE[0];
+                dFdXsD = &dFdXsB[0];
+                phaseExistDj = phaseExistBj;
+                dId_np_j = bId_np_j;
+            }
+            if (phaseExistDj) {
+                rhoWghtU = 0.5;
+                rhoWghtD = 0.5;
+            }
+            else {
+                rhoWghtU = 1;
+                rhoWghtD = 0;
+            }
 
             dP = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
                 conn.upblock_Rho[c * np + j] * dGamma;
@@ -1528,105 +1558,35 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
                 xij     = bk.xij[uId_np_j * nc + i];
                 transIJ = xij * xi * transJ;
 
-                // Pressure -- Primary var
+                // dP
                 dFdXpB[(i + 1) * ncol] += transIJ;
                 dFdXpE[(i + 1) * ncol] -= transIJ;
 
-                tmp = xij * transJ * xiP * dP;
+                tmp = transJ * xiP * xij * dP;
                 tmp += -transIJ * muP / mu * dP;
-                if (!phaseExistEj) {
-                    tmp += transIJ * (-rhoP * dGamma);
-                    dFdXpB[(i + 1) * ncol] += tmp;
-                } else if (!phaseExistBj) {
-                    tmp += transIJ * (-rhoP * dGamma);
-                    dFdXpE[(i + 1) * ncol] += tmp;
-                } else {
-                    dFdXpB[(i + 1) * ncol] +=
-                        transIJ * (-bk.rhoP[bId_np_j] * dGamma) / 2;
-                    dFdXpE[(i + 1) * ncol] +=
-                        transIJ * (-bk.rhoP[eId_np_j] * dGamma) / 2;
-                    if (bId == uId) {
-                        dFdXpB[(i + 1) * ncol] += tmp;
-                    } else {
-                        dFdXpE[(i + 1) * ncol] += tmp;
-                    }
+                dFdXpU[(i + 1) * ncol] += (tmp - transIJ * rhoWghtU * bk.rhoP[uId_np_j] * dGamma);
+                dFdXpD[(i + 1) * ncol] += -transIJ * rhoWghtD * bk.rhoP[dId_np_j] * dGamma;
+
+                // dS
+                for (USI k = 0; k < np; k++) {
+                    dFdXsB[(i + 1) * ncol2 + k] +=
+                        transIJ * bk.dPcj_dS[bId_np_j * np + k];
+                    dFdXsE[(i + 1) * ncol2 + k] -=
+                        transIJ * bk.dPcj_dS[eId_np_j * np + k];
+                    dFdXsU[(i + 1) * ncol2 + k] += Akd * bk.dKr_dS[uId_np_j * np + k] / mu * xi * xij * dP;
                 }
-                // Second var
-                if (bId == uId) {
-                    // Saturation
-                    for (USI k = 0; k < np; k++) {
-                        dFdXsB[(i + 1) * ncol2 + k] +=
-                            transIJ * bk.dPcj_dS[bId_np_j * np + k];
-                        tmp =
-                            Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP;
-                        dFdXsB[(i + 1) * ncol2 + k] += tmp;
-                        dFdXsE[(i + 1) * ncol2 + k] -=
-                            transIJ * bk.dPcj_dS[eId_np_j * np + k];
-                    }
-                    // Cij
-                    if (!phaseExistEj) {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[uId_np_j * nc + k];
-                            xix  = bk.xix[uId_np_j * nc + k];
-                            mux  = bk.mux[uId_np_j * nc + k];
-                            tmp  = -transIJ * rhox * dGamma;
-                            tmp += xij * transJ * xix * dP;
-                            tmp += -transIJ * mux / mu * dP;
-                            dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                        }
-                        dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
-                    } else {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[bId_np_j * nc + k] / 2;
-                            xix  = bk.xix[uId_np_j * nc + k];
-                            mux  = bk.mux[uId_np_j * nc + k];
-                            tmp  = -transIJ * rhox * dGamma;
-                            tmp += xij * transJ * xix * dP;
-                            tmp += -transIJ * mux / mu * dP;
-                            dFdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                            dFdXsE[(i + 1) * ncol2 + np + j * nc + k] +=
-                                -transIJ * bk.rhox[eId_np_j * nc + k] / 2 * dGamma;
-                        }
-                        dFdXsB[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
-                    }
-                } else {
-                    // Saturation
-                    for (USI k = 0; k < np; k++) {
-                        dFdXsB[(i + 1) * ncol2 + k] +=
-                            transIJ * bk.dPcj_dS[bId_np_j * np + k];
-                        dFdXsE[(i + 1) * ncol2 + k] -=
-                            transIJ * bk.dPcj_dS[eId_np_j * np + k];
-                        tmp =
-                            Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + k] * dP;
-                        dFdXsE[(i + 1) * ncol2 + k] += tmp;
-                    }
-                    // Cij
-                    if (!phaseExistBj) {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[uId_np_j * nc + k];
-                            xix  = bk.xix[uId_np_j * nc + k];
-                            mux  = bk.mux[uId_np_j * nc + k];
-                            tmp  = -transIJ * rhox * dGamma;
-                            tmp += xij * transJ * xix * dP;
-                            tmp += -transIJ * mux / mu * dP;
-                            dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                        }
-                        dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
-                    } else {
-                        for (USI k = 0; k < nc; k++) {
-                            rhox = bk.rhox[eId_np_j * nc + k] / 2;
-                            xix  = bk.xix[uId_np_j * nc + k];
-                            mux  = bk.mux[uId_np_j * nc + k];
-                            tmp  = -transIJ * rhox * dGamma;
-                            tmp += xij * transJ * xix * dP;
-                            tmp += -transIJ * mux / mu * dP;
-                            dFdXsE[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                            dFdXsB[(i + 1) * ncol2 + np + j * nc + k] +=
-                                -transIJ * bk.rhox[bId_np_j * nc + k] / 2 * dGamma;
-                        }
-                        dFdXsE[(i + 1) * ncol2 + np + j * nc + i] += xi * transJ * dP;
-                    }
+                // dxij
+                for (USI k = 0; k < nc; k++) {
+                    rhox = bk.rhox[uId_np_j * nc + k];
+                    xix = bk.xix[uId_np_j * nc + k];
+                    mux = bk.mux[uId_np_j * nc + k];
+                    tmp = -transIJ * rhoWghtU * rhox * dGamma;
+                    tmp += transJ * xix * xij * dP;
+                    tmp += -transIJ * mux / mu * dP;
+                    dFdXsU[(i + 1) * ncol2 + np + j * nc + k] += tmp;
+                    dFdXsD[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * rhoWghtD * bk.rhox[dId_np_j * nc + k] * dGamma;
                 }
+                dFdXsU[(i + 1) * ncol2 + np + j * nc + i] += transJ * xi * dP;
             }
         }
 
@@ -2921,6 +2881,9 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
                         bk.xij[bId + i] += chopmin * dtmp[js];
                         js++;
                     }
+#ifdef OCP_OLD_FIM
+                    js++;
+#endif // OCP_OLD_FIM
                 }
             }
         }

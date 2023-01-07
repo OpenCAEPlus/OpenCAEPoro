@@ -199,7 +199,7 @@ protected:
     OCP_DBL WWIR{0};          ///< well water injection rate.
     OCP_DBL WWIT{0};          ///< well total water injection.
 
-    OCP_BOOL useUnWeightedTrans{OCP_TRUE};
+    OCP_BOOL useUnWeightedTrans{OCP_FALSE};
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////
