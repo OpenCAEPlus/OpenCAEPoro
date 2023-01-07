@@ -80,6 +80,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa952170caccd32e2f36bc1b0240573ca"><td class="memItemLeft" align="right" valign="top"><a id="aa952170caccd32e2f36bc1b0240573ca"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Setup_IsoT</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nb, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nw, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nc)</td></tr>
 <tr class="separator:aa952170caccd32e2f36bc1b0240573ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7731b8d0eef920b3cee10bbf56781388"><td class="memItemLeft" align="right" valign="top"><a id="a7731b8d0eef920b3cee10bbf56781388"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetupT</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nb, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nw, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;nc)</td></tr>
+<tr class="separator:a7731b8d0eef920b3cee10bbf56781388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac9aea1b311e192f2c139752da5453ef"><td class="memItemLeft" align="right" valign="top"><a id="aac9aea1b311e192f2c139752da5453ef"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetZero</b> ()</td></tr>
 <tr class="separator:aac9aea1b311e192f2c139752da5453ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -89,10 +92,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetInitRes</b> ()</td
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a06575404094bc82c96c895008a0c54ab"><td class="memItemLeft" align="right" valign="top"><a id="a06575404094bc82c96c895008a0c54ab"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a06575404094bc82c96c895008a0c54ab">res</a></td></tr>
-<tr class="memdesc:a06575404094bc82c96c895008a0c54ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">residual for all equations for each bulk <br /></td></tr>
-<tr class="separator:a06575404094bc82c96c895008a0c54ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add7af6cae2172e0677658ab844c79aa5"><td class="memItemLeft" align="right" valign="top"><a id="add7af6cae2172e0677658ab844c79aa5"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#add7af6cae2172e0677658ab844c79aa5">resAbs</a></td></tr>
+<tr class="memdesc:add7af6cae2172e0677658ab844c79aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">residual for all equations for each bulk <br /></td></tr>
+<tr class="separator:add7af6cae2172e0677658ab844c79aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f2655395243641b4278922dd2c793ca"><td class="memItemLeft" align="right" valign="top"><a id="a9f2655395243641b4278922dd2c793ca"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a9f2655395243641b4278922dd2c793ca">resRelV</a></td></tr>
 <tr class="memdesc:a9f2655395243641b4278922dd2c793ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-norm of relative residual wrt. pore volume for all equations of each bulk <br /></td></tr>
@@ -101,34 +104,42 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a9b3db6ca35532fc1d92533f24775bf4b">resRelN</a></td></tr>
 <tr class="memdesc:a9b3db6ca35532fc1d92533f24775bf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-norm of relative residual wrt. total moles for mass conserve equations of each bulk <br /></td></tr>
 <tr class="separator:a9b3db6ca35532fc1d92533f24775bf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ba5b95f5bb445df09689e028d28a13d"><td class="memItemLeft" align="right" valign="top"><a id="a7ba5b95f5bb445df09689e028d28a13d"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a7ba5b95f5bb445df09689e028d28a13d">resRelT</a></td></tr>
-<tr class="memdesc:a7ba5b95f5bb445df09689e028d28a13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-norm of relative residual wrt. total energy for energy conserve equations of each bulk <br /></td></tr>
-<tr class="separator:a7ba5b95f5bb445df09689e028d28a13d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a279e8ed990d3324adf59fe289b406423"><td class="memItemLeft" align="right" valign="top"><a id="a279e8ed990d3324adf59fe289b406423"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a279e8ed990d3324adf59fe289b406423">maxRelRes0_v</a></td></tr>
-<tr class="memdesc:a279e8ed990d3324adf59fe289b406423"><td class="mdescLeft">&#160;</td><td class="mdescRight">(initial) maximum relative residual wrt. pore volume for each bulk <br /></td></tr>
-<tr class="separator:a279e8ed990d3324adf59fe289b406423"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22df27bff4ed1093aa322bb700849cee"><td class="memItemLeft" align="right" valign="top"><a id="a22df27bff4ed1093aa322bb700849cee"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a22df27bff4ed1093aa322bb700849cee">maxRelRes_v</a></td></tr>
-<tr class="memdesc:a22df27bff4ed1093aa322bb700849cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">(iterations) maximum relative residual wrt. pore volume for each bulk <br /></td></tr>
-<tr class="separator:a22df27bff4ed1093aa322bb700849cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0de8db69210ff2f3d3e55d83fa1057a4"><td class="memItemLeft" align="right" valign="top"><a id="a0de8db69210ff2f3d3e55d83fa1057a4"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a0de8db69210ff2f3d3e55d83fa1057a4">maxRelRes_mol</a></td></tr>
-<tr class="memdesc:a0de8db69210ff2f3d3e55d83fa1057a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum relative residual wrt. total moles for each bulk <br /></td></tr>
-<tr class="separator:a0de8db69210ff2f3d3e55d83fa1057a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a018acce5186cab724ed94d5144996ae0"><td class="memItemLeft" align="right" valign="top"><a id="a018acce5186cab724ed94d5144996ae0"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a018acce5186cab724ed94d5144996ae0">resRelE</a></td></tr>
+<tr class="memdesc:a018acce5186cab724ed94d5144996ae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-norm of relative residual wrt. total energy for energy conserve equations of each bulk <br /></td></tr>
+<tr class="separator:a018acce5186cab724ed94d5144996ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cedbedb4809ea2667afb5d0db4c425d"><td class="memItemLeft" align="right" valign="top"><a id="a9cedbedb4809ea2667afb5d0db4c425d"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a9cedbedb4809ea2667afb5d0db4c425d">maxRelRes0_V</a></td></tr>
+<tr class="memdesc:a9cedbedb4809ea2667afb5d0db4c425d"><td class="mdescLeft">&#160;</td><td class="mdescRight">(initial) maximum relative residual wrt. pore volume for each bulk <br /></td></tr>
+<tr class="separator:a9cedbedb4809ea2667afb5d0db4c425d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95f38623b2ed901b4c9de18a4379c5d1"><td class="memItemLeft" align="right" valign="top"><a id="a95f38623b2ed901b4c9de18a4379c5d1"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a95f38623b2ed901b4c9de18a4379c5d1">maxRelRes_V</a></td></tr>
+<tr class="memdesc:a95f38623b2ed901b4c9de18a4379c5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">(iterations) maximum relative residual wrt. pore volume for each bulk <br /></td></tr>
+<tr class="separator:a95f38623b2ed901b4c9de18a4379c5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af444a9f547478457e9b0d15057a144c2"><td class="memItemLeft" align="right" valign="top"><a id="af444a9f547478457e9b0d15057a144c2"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#af444a9f547478457e9b0d15057a144c2">maxRelRes_N</a></td></tr>
+<tr class="memdesc:af444a9f547478457e9b0d15057a144c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum relative residual wrt. total moles for each bulk <br /></td></tr>
+<tr class="separator:af444a9f547478457e9b0d15057a144c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37356e82c0c057b78951ba442e5180f5"><td class="memItemLeft" align="right" valign="top"><a id="a37356e82c0c057b78951ba442e5180f5"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a37356e82c0c057b78951ba442e5180f5">maxRelRes_E</a></td></tr>
+<tr class="memdesc:a37356e82c0c057b78951ba442e5180f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum relative residual wrt. total energy for each bulk <br /></td></tr>
+<tr class="separator:a37356e82c0c057b78951ba442e5180f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b44c5479ad4b8c2f4bc825c3ba4f09b"><td class="memItemLeft" align="right" valign="top"><a id="a3b44c5479ad4b8c2f4bc825c3ba4f09b"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a3b44c5479ad4b8c2f4bc825c3ba4f09b">maxWellRelRes_mol</a></td></tr>
 <tr class="memdesc:a3b44c5479ad4b8c2f4bc825c3ba4f09b"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum relative residual wrt. total moles for each well <br /></td></tr>
 <tr class="separator:a3b44c5479ad4b8c2f4bc825c3ba4f09b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a2765c6d6d7ba44cd2c952f62390eb9"><td class="memItemLeft" align="right" valign="top"><a id="a8a2765c6d6d7ba44cd2c952f62390eb9"></a>
-<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a8a2765c6d6d7ba44cd2c952f62390eb9">maxId_v</a></td></tr>
-<tr class="memdesc:a8a2765c6d6d7ba44cd2c952f62390eb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of bulk who has maxRelRes_v <br /></td></tr>
-<tr class="separator:a8a2765c6d6d7ba44cd2c952f62390eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e0f43db813450b5076391a1fc243052"><td class="memItemLeft" align="right" valign="top"><a id="a7e0f43db813450b5076391a1fc243052"></a>
-<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a7e0f43db813450b5076391a1fc243052">maxId_mol</a></td></tr>
-<tr class="memdesc:a7e0f43db813450b5076391a1fc243052"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of bulk who has maxRelRes_mol <br /></td></tr>
-<tr class="separator:a7e0f43db813450b5076391a1fc243052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a981bb32e4ac7cd7b46cfa3cdd3f6ca9d"><td class="memItemLeft" align="right" valign="top"><a id="a981bb32e4ac7cd7b46cfa3cdd3f6ca9d"></a>
+<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a981bb32e4ac7cd7b46cfa3cdd3f6ca9d">maxId_V</a></td></tr>
+<tr class="memdesc:a981bb32e4ac7cd7b46cfa3cdd3f6ca9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of bulk who has maxRelRes_V <br /></td></tr>
+<tr class="separator:a981bb32e4ac7cd7b46cfa3cdd3f6ca9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e51834e0b6777205f9ca310c5f21a3d"><td class="memItemLeft" align="right" valign="top"><a id="a4e51834e0b6777205f9ca310c5f21a3d"></a>
+<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a4e51834e0b6777205f9ca310c5f21a3d">maxId_N</a></td></tr>
+<tr class="memdesc:a4e51834e0b6777205f9ca310c5f21a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of bulk who has maxRelRes_N <br /></td></tr>
+<tr class="separator:a4e51834e0b6777205f9ca310c5f21a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e25cf2a41b7a8d280075095d9b1a32"><td class="memItemLeft" align="right" valign="top"><a id="a21e25cf2a41b7a8d280075095d9b1a32"></a>
+<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPRes.html#a21e25cf2a41b7a8d280075095d9b1a32">maxId_E</a></td></tr>
+<tr class="memdesc:a21e25cf2a41b7a8d280075095d9b1a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of bulk who has maxRelRes_E <br /></td></tr>
+<tr class="separator:a21e25cf2a41b7a8d280075095d9b1a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -139,7 +150,7 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2022 09:16:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Jan 7 2023 09:16:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

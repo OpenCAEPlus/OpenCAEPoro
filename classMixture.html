@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classMixture-members.html">List of all members</a>  </div>
@@ -148,6 +149,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>CalProdWeight
 <tr class="memitem:a0013c030007c6e23c70474a5725d8479"><td class="memItemLeft" align="right" valign="top"><a id="a0013c030007c6e23c70474a5725d8479"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>CalProdRate</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Pin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Niin, vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;prodRate)=0</td></tr>
 <tr class="separator:a0013c030007c6e23c70474a5725d8479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e662bde61c2216dc189de6f6b3bff6d"><td class="memItemLeft" align="right" valign="top"><a id="a8e662bde61c2216dc189de6f6b3bff6d"></a>
+virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>CalInjWellEnthalpy</b> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;Tin, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *Ziin)=0</td></tr>
+<tr class="separator:a8e662bde61c2216dc189de6f6b3bff6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaab2d76696ec295ba643032353883031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aaab2d76696ec295ba643032353883031">CheckNi</a> (const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> *<a class="el" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>)</td></tr>
 <tr class="separator:aaab2d76696ec295ba643032353883031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f9d946334b948b26a9a09ca3c0b6c9"><td class="memItemLeft" align="right" valign="top"><a id="ab8f9d946334b948b26a9a09ca3c0b6c9"></a>
@@ -156,6 +160,114 @@ virtual <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f
 <tr class="memitem:a09cbc3bde3e0b97b3f24ecf30b8ffc27"><td class="memItemLeft" align="right" valign="top"><a id="a09cbc3bde3e0b97b3f24ecf30b8ffc27"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OutMixtureIters</b> () const =0</td></tr>
 <tr class="separator:a09cbc3bde3e0b97b3f24ecf30b8ffc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e0d96818df3af3db4da97afc7b7b77"><td class="memItemLeft" align="right" valign="top"><a id="af5e0d96818df3af3db4da97afc7b7b77"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNt</b> () const</td></tr>
+<tr class="separator:af5e0d96818df3af3db4da97afc7b7b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e1a029d4c8b3ea58264410e2a49701"><td class="memItemLeft" align="right" valign="top"><a id="a64e1a029d4c8b3ea58264410e2a49701"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNi</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a64e1a029d4c8b3ea58264410e2a49701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639f85a6032a18e9e7576960bfe5fe74"><td class="memItemLeft" align="right" valign="top"><a id="a639f85a6032a18e9e7576960bfe5fe74"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVf</b> () const</td></tr>
+<tr class="separator:a639f85a6032a18e9e7576960bfe5fe74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12f9aa5aa59433acdc74717d73fa3640"><td class="memItemLeft" align="right" valign="top"><a id="a12f9aa5aa59433acdc74717d73fa3640"></a>
+const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPhaseExist</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a12f9aa5aa59433acdc74717d73fa3640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75bdcd19b1b84583642505c907d8dea3"><td class="memItemLeft" align="right" valign="top"><a id="a75bdcd19b1b84583642505c907d8dea3"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetS</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a75bdcd19b1b84583642505c907d8dea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be52719518b4fc545a0f232a3b550b5"><td class="memItemLeft" align="right" valign="top"><a id="a2be52719518b4fc545a0f232a3b550b5"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVj</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a2be52719518b4fc545a0f232a3b550b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09180306132b7c73873b5d72398a40c4"><td class="memItemLeft" align="right" valign="top"><a id="a09180306132b7c73873b5d72398a40c4"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNj</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a09180306132b7c73873b5d72398a40c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a861ed37b22fe3a9010b72b83fa690aa0"><td class="memItemLeft" align="right" valign="top"><a id="a861ed37b22fe3a9010b72b83fa690aa0"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetXij</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a861ed37b22fe3a9010b72b83fa690aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7239b1400387aa8e88377fd50f16b51a"><td class="memItemLeft" align="right" valign="top"><a id="a7239b1400387aa8e88377fd50f16b51a"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRho</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a7239b1400387aa8e88377fd50f16b51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf513605c5aca2005accd5c62fd8ae39"><td class="memItemLeft" align="right" valign="top"><a id="abf513605c5aca2005accd5c62fd8ae39"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetXi</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:abf513605c5aca2005accd5c62fd8ae39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98158565b4a1730399e3eba818aca91f"><td class="memItemLeft" align="right" valign="top"><a id="a98158565b4a1730399e3eba818aca91f"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMu</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a98158565b4a1730399e3eba818aca91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b100018a64549ab42b541ec67e0ac07"><td class="memItemLeft" align="right" valign="top"><a id="a0b100018a64549ab42b541ec67e0ac07"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVfP</b> () const</td></tr>
+<tr class="separator:a0b100018a64549ab42b541ec67e0ac07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d3e8bc1aa47c278222a6005d542e1ce"><td class="memItemLeft" align="right" valign="top"><a id="a7d3e8bc1aa47c278222a6005d542e1ce"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVfT</b> () const</td></tr>
+<tr class="separator:a7d3e8bc1aa47c278222a6005d542e1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c890b505fd5473cf97928f7ae4436ff"><td class="memItemLeft" align="right" valign="top"><a id="a1c890b505fd5473cf97928f7ae4436ff"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVfi</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a1c890b505fd5473cf97928f7ae4436ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a3c991e77058f89fd6bc0a28b05279e"><td class="memItemLeft" align="right" valign="top"><a id="a0a3c991e77058f89fd6bc0a28b05279e"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRhoP</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a0a3c991e77058f89fd6bc0a28b05279e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf7ce551ca51fafdd2e4bba1359845e5"><td class="memItemLeft" align="right" valign="top"><a id="adf7ce551ca51fafdd2e4bba1359845e5"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRhoT</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:adf7ce551ca51fafdd2e4bba1359845e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a06e50eeac2eeda1a83619d39c2c550"><td class="memItemLeft" align="right" valign="top"><a id="a0a06e50eeac2eeda1a83619d39c2c550"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetXiP</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a0a06e50eeac2eeda1a83619d39c2c550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf02811721a8fa3c9f696d4825b30ad"><td class="memItemLeft" align="right" valign="top"><a id="adbf02811721a8fa3c9f696d4825b30ad"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetXiT</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:adbf02811721a8fa3c9f696d4825b30ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1bb6305caf264e45c5f6e125c587d09"><td class="memItemLeft" align="right" valign="top"><a id="aa1bb6305caf264e45c5f6e125c587d09"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMuP</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:aa1bb6305caf264e45c5f6e125c587d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870f6518ed6aa8bbd8f7d0f236910f5a"><td class="memItemLeft" align="right" valign="top"><a id="a870f6518ed6aa8bbd8f7d0f236910f5a"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMuT</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a870f6518ed6aa8bbd8f7d0f236910f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705ea496ef366264a072725a36fe43af"><td class="memItemLeft" align="right" valign="top"><a id="a705ea496ef366264a072725a36fe43af"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRhoX</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a705ea496ef366264a072725a36fe43af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2972c62ae6496500ca85588988d7099c"><td class="memItemLeft" align="right" valign="top"><a id="a2972c62ae6496500ca85588988d7099c"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetXiX</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a2972c62ae6496500ca85588988d7099c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7f1797ed1d8411ada0b9f18db28221"><td class="memItemLeft" align="right" valign="top"><a id="a9d7f1797ed1d8411ada0b9f18db28221"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMuX</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a9d7f1797ed1d8411ada0b9f18db28221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f87f0f67482ea226b953f58b071ae8"><td class="memItemLeft" align="right" valign="top"><a id="aa5f87f0f67482ea226b953f58b071ae8"></a>
+const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPSderExist</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:aa5f87f0f67482ea226b953f58b071ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68ef83ab8b0da930867bc6a05f02fe6a"><td class="memItemLeft" align="right" valign="top"><a id="a68ef83ab8b0da930867bc6a05f02fe6a"></a>
+const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPVnumCom</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:a68ef83ab8b0da930867bc6a05f02fe6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bf6b72724a950fb1dfd699813994d68"><td class="memItemLeft" align="right" valign="top"><a id="a6bf6b72724a950fb1dfd699813994d68"></a>
+const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDXsDXp</b> () const</td></tr>
+<tr class="separator:a6bf6b72724a950fb1dfd699813994d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8733139bebbccddd67c82cf5e1b02099"><td class="memItemLeft" align="right" valign="top"><a id="a8733139bebbccddd67c82cf5e1b02099"></a>
+const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetRes</b> () const</td></tr>
+<tr class="separator:a8733139bebbccddd67c82cf5e1b02099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f00dab36bda9fef6dc6b18a59d18569"><td class="memItemLeft" align="right" valign="top"><a id="a9f00dab36bda9fef6dc6b18a59d18569"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetResPc</b> () const</td></tr>
+<tr class="separator:a9f00dab36bda9fef6dc6b18a59d18569"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae460dc330b8a9bd32cd399ef83c9812d"><td class="memItemLeft" align="right" valign="top"><a id="ae460dc330b8a9bd32cd399ef83c9812d"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetUf</b> () const</td></tr>
+<tr class="separator:ae460dc330b8a9bd32cd399ef83c9812d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e6283938334ebd0b52692de94a3613"><td class="memItemLeft" align="right" valign="top"><a id="a20e6283938334ebd0b52692de94a3613"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetUfP</b> () const</td></tr>
+<tr class="separator:a20e6283938334ebd0b52692de94a3613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73501649ef6051ce111d35e3e81f0369"><td class="memItemLeft" align="right" valign="top"><a id="a73501649ef6051ce111d35e3e81f0369"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetUfT</b> () const</td></tr>
+<tr class="separator:a73501649ef6051ce111d35e3e81f0369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ba143df1f14836b185379234e22094"><td class="memItemLeft" align="right" valign="top"><a id="af4ba143df1f14836b185379234e22094"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetUfi</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:af4ba143df1f14836b185379234e22094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee4c3b687db496d42a72cdc838ecd9cc"><td class="memItemLeft" align="right" valign="top"><a id="aee4c3b687db496d42a72cdc838ecd9cc"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetH</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:aee4c3b687db496d42a72cdc838ecd9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abece2e4fd00125c4b3e4f66024f7538b"><td class="memItemLeft" align="right" valign="top"><a id="abece2e4fd00125c4b3e4f66024f7538b"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetHT</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j) const</td></tr>
+<tr class="separator:abece2e4fd00125c4b3e4f66024f7538b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a2ae0d32825bc008623da466f9434a"><td class="memItemLeft" align="right" valign="top"><a id="a06a2ae0d32825bc008623da466f9434a"></a>
+const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetHx</b> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;j, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;i) const</td></tr>
+<tr class="separator:a06a2ae0d32825bc008623da466f9434a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
 <tr class="memitem:acef34b4816fa165716500ef4a0e1fd6e"><td class="memItemLeft" align="right" valign="top"><a id="acef34b4816fa165716500ef4a0e1fd6e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetBulkId</b> (const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;n)</td></tr>
 <tr class="separator:acef34b4816fa165716500ef4a0e1fd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,68 +342,70 @@ vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7c
 <tr class="separator:a170e493a88e391f9afe0896181d76786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53fd306485dc29452e2f644a3270b970"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a53fd306485dc29452e2f644a3270b970">vfP</a></td></tr>
 <tr class="separator:a53fd306485dc29452e2f644a3270b970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3812867fe22caad5c021406900c90c92"><td class="memItemLeft" align="right" valign="top"><a id="a3812867fe22caad5c021406900c90c92"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3812867fe22caad5c021406900c90c92">vfT</a></td></tr>
+<tr class="memdesc:a3812867fe22caad5c021406900c90c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">d vf / dT <br /></td></tr>
+<tr class="separator:a3812867fe22caad5c021406900c90c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4dd3e54d542aca8eccdcbd208a38504"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ab4dd3e54d542aca8eccdcbd208a38504">vfi</a></td></tr>
 <tr class="separator:ab4dd3e54d542aca8eccdcbd208a38504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memItemLeft" align="right" valign="top"><a id="a0a42129a94c1ba7c92c9577f0eb0234f"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0a42129a94c1ba7c92c9577f0eb0234f">rhoP</a></td></tr>
 <tr class="memdesc:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho / dP: numphase <br /></td></tr>
 <tr class="separator:a0a42129a94c1ba7c92c9577f0eb0234f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memItemLeft" align="right" valign="top"><a id="ad86bd94527d09c2afcf767ce6e3a8a71"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a></td></tr>
-<tr class="memdesc:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi / dP: numphase <br /></td></tr>
-<tr class="separator:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1531b7594246b0b03bdb7d974800ca4"><td class="memItemLeft" align="right" valign="top"><a id="ae1531b7594246b0b03bdb7d974800ca4"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a></td></tr>
-<tr class="memdesc:ae1531b7594246b0b03bdb7d974800ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu / dP: numPhase <br /></td></tr>
-<tr class="separator:ae1531b7594246b0b03bdb7d974800ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62615d0052ef8b34c3894e728951c06e"><td class="memItemLeft" align="right" valign="top"><a id="a62615d0052ef8b34c3894e728951c06e"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">rhox</a></td></tr>
-<tr class="memdesc:a62615d0052ef8b34c3894e728951c06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho[j] / d x[i][j]: numphase * numCom <br /></td></tr>
-<tr class="separator:a62615d0052ef8b34c3894e728951c06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memItemLeft" align="right" valign="top"><a id="a3f517560e2ec30f08afca9f6dc3ff71c"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a></td></tr>
-<tr class="memdesc:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d x[i][j]: numphase * numCom <br /></td></tr>
-<tr class="separator:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae63dab2d31711b0246096c5c128f2080"><td class="memItemLeft" align="right" valign="top"><a id="ae63dab2d31711b0246096c5c128f2080"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
-<tr class="memdesc:ae63dab2d31711b0246096c5c128f2080"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom <br /></td></tr>
-<tr class="separator:ae63dab2d31711b0246096c5c128f2080"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1883d13127533f4f026473a4e9b50ca"><td class="memItemLeft" align="right" valign="top"><a id="ac1883d13127533f4f026473a4e9b50ca"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ac1883d13127533f4f026473a4e9b50ca">rhoT</a></td></tr>
 <tr class="memdesc:ac1883d13127533f4f026473a4e9b50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho j / dT: numPhase <br /></td></tr>
 <tr class="separator:ac1883d13127533f4f026473a4e9b50ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memItemLeft" align="right" valign="top"><a id="a15908a1b8da8390dd9e8d7c2bd822bf4"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
-<tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables <br /></td></tr>
-<tr class="separator:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3812867fe22caad5c021406900c90c92"><td class="memItemLeft" align="right" valign="top"><a id="a3812867fe22caad5c021406900c90c92"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3812867fe22caad5c021406900c90c92">vfT</a></td></tr>
-<tr class="memdesc:a3812867fe22caad5c021406900c90c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">d vf / dT <br /></td></tr>
-<tr class="separator:a3812867fe22caad5c021406900c90c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memItemLeft" align="right" valign="top"><a id="a1110f86ed9e7b0e4277cbaacd031efe4"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1110f86ed9e7b0e4277cbaacd031efe4">muT</a></td></tr>
-<tr class="memdesc:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu j / dT: numPhase <br /></td></tr>
-<tr class="separator:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62615d0052ef8b34c3894e728951c06e"><td class="memItemLeft" align="right" valign="top"><a id="a62615d0052ef8b34c3894e728951c06e"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a62615d0052ef8b34c3894e728951c06e">rhox</a></td></tr>
+<tr class="memdesc:a62615d0052ef8b34c3894e728951c06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">d rho[j] / d x[i][j]: numphase * numCom <br /></td></tr>
+<tr class="separator:a62615d0052ef8b34c3894e728951c06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memItemLeft" align="right" valign="top"><a id="ad86bd94527d09c2afcf767ce6e3a8a71"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ad86bd94527d09c2afcf767ce6e3a8a71">xiP</a></td></tr>
+<tr class="memdesc:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi / dP: numphase <br /></td></tr>
+<tr class="separator:ad86bd94527d09c2afcf767ce6e3a8a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d979b917145a4042a852b8553241a41"><td class="memItemLeft" align="right" valign="top"><a id="a9d979b917145a4042a852b8553241a41"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9d979b917145a4042a852b8553241a41">xiT</a></td></tr>
 <tr class="memdesc:a9d979b917145a4042a852b8553241a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi j / dT: numPhase <br /></td></tr>
 <tr class="separator:a9d979b917145a4042a852b8553241a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memItemLeft" align="right" valign="top"><a id="a3f517560e2ec30f08afca9f6dc3ff71c"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a3f517560e2ec30f08afca9f6dc3ff71c">xix</a></td></tr>
+<tr class="memdesc:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">d xi[j] / d x[i][j]: numphase * numCom <br /></td></tr>
+<tr class="separator:a3f517560e2ec30f08afca9f6dc3ff71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1531b7594246b0b03bdb7d974800ca4"><td class="memItemLeft" align="right" valign="top"><a id="ae1531b7594246b0b03bdb7d974800ca4"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae1531b7594246b0b03bdb7d974800ca4">muP</a></td></tr>
+<tr class="memdesc:ae1531b7594246b0b03bdb7d974800ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu / dP: numPhase <br /></td></tr>
+<tr class="separator:ae1531b7594246b0b03bdb7d974800ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memItemLeft" align="right" valign="top"><a id="a1110f86ed9e7b0e4277cbaacd031efe4"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1110f86ed9e7b0e4277cbaacd031efe4">muT</a></td></tr>
+<tr class="memdesc:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu j / dT: numPhase <br  />
+ <br /></td></tr>
+<tr class="separator:a1110f86ed9e7b0e4277cbaacd031efe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63dab2d31711b0246096c5c128f2080"><td class="memItemLeft" align="right" valign="top"><a id="ae63dab2d31711b0246096c5c128f2080"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae63dab2d31711b0246096c5c128f2080">mux</a></td></tr>
+<tr class="memdesc:ae63dab2d31711b0246096c5c128f2080"><td class="mdescLeft">&#160;</td><td class="mdescRight">d mu[j] / d x[i][j]: numphase * numCom <br /></td></tr>
+<tr class="separator:ae63dab2d31711b0246096c5c128f2080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memItemLeft" align="right" valign="top"><a id="a15908a1b8da8390dd9e8d7c2bd822bf4"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a15908a1b8da8390dd9e8d7c2bd822bf4">dXsdXp</a></td></tr>
+<tr class="memdesc:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the derivates of second variables wrt. primary variables <br /></td></tr>
+<tr class="separator:a15908a1b8da8390dd9e8d7c2bd822bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbf786bd732d61fb89331f46b9096d4c"><td class="memItemLeft" align="right" valign="top"><a id="abbf786bd732d61fb89331f46b9096d4c"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#abbf786bd732d61fb89331f46b9096d4c">Uf</a></td></tr>
-<tr class="memdesc:abbf786bd732d61fb89331f46b9096d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal energy of fluid. <br /></td></tr>
+<tr class="memdesc:abbf786bd732d61fb89331f46b9096d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal energy of fluid <br  />
+ <br /></td></tr>
 <tr class="separator:abbf786bd732d61fb89331f46b9096d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memItemLeft" align="right" valign="top"><a id="a1804e0cb4409e5e656bdd6808d5eda4d"></a>
-vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1804e0cb4409e5e656bdd6808d5eda4d">Ufi</a></td></tr>
-<tr class="memdesc:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dNi <br /></td></tr>
-<tr class="separator:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="memItemLeft" align="right" valign="top"><a id="a0d6e7d232f7b678c70e86d17f8d4bf0d"></a>
-<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a0d6e7d232f7b678c70e86d17f8d4bf0d">Ufp</a></td></tr>
-<tr class="memdesc:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dP <br /></td></tr>
-<tr class="separator:a0d6e7d232f7b678c70e86d17f8d4bf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97811b85e1287f36c889437320fd5e0"><td class="memItemLeft" align="right" valign="top"><a id="ae97811b85e1287f36c889437320fd5e0"></a>
+<a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#ae97811b85e1287f36c889437320fd5e0">UfP</a></td></tr>
+<tr class="memdesc:ae97811b85e1287f36c889437320fd5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dP <br /></td></tr>
+<tr class="separator:ae97811b85e1287f36c889437320fd5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aead77ff6a9686d7e00127228a8ee658b"><td class="memItemLeft" align="right" valign="top"><a id="aead77ff6a9686d7e00127228a8ee658b"></a>
 <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#aead77ff6a9686d7e00127228a8ee658b">UfT</a></td></tr>
 <tr class="memdesc:aead77ff6a9686d7e00127228a8ee658b"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dT <br /></td></tr>
 <tr class="separator:aead77ff6a9686d7e00127228a8ee658b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memItemLeft" align="right" valign="top"><a id="a1804e0cb4409e5e656bdd6808d5eda4d"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a1804e0cb4409e5e656bdd6808d5eda4d">Ufi</a></td></tr>
+<tr class="memdesc:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dUf / dNi <br /></td></tr>
+<tr class="separator:a1804e0cb4409e5e656bdd6808d5eda4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b0105103939cee9968526886db09fea"><td class="memItemLeft" align="right" valign="top"><a id="a9b0105103939cee9968526886db09fea"></a>
 vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMixture.html#a9b0105103939cee9968526886db09fea">H</a></td></tr>
 <tr class="memdesc:a9b0105103939cee9968526886db09fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enthalpy. <br /></td></tr>
@@ -368,23 +482,23 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>check if Ni input from param is negative, it's used in debug mode to check Hidden trouble. actually, very small error in very short time may not make trouble. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00137">137</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                flag = OCP_FALSE;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        }</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00138">138</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> flag = OCP_TRUE;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">numCom</a>; i++) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt; 0) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Ni[&quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; <a class="code" href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Ni</a>[i] &lt;&lt; endl;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                flag = OCP_FALSE;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <span class="keywordflow">break</span>; <span class="comment">// skip the rest checks</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">if</span> (!flag) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Ni is negative!&quot;</span>);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
-<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00159">Mixture.hpp:159</a></div></div>
-<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00165">Mixture.hpp:165</a></div></div>
+<div class="ttc" id="aclassMixture_html_a13babfd95b6ec1687fb5e479e5a01707"><div class="ttname"><a href="classMixture.html#a13babfd95b6ec1687fb5e479e5a01707">Mixture::numCom</a></div><div class="ttdeci">USI numCom</div><div class="ttdoc">num of components.</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00200">Mixture.hpp:200</a></div></div>
+<div class="ttc" id="aclassMixture_html_aa73863601ffb8962b26415352b41bffa"><div class="ttname"><a href="classMixture.html#aa73863601ffb8962b26415352b41bffa">Mixture::Ni</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; Ni</div><div class="ttdoc">moles of component: numCom</div><div class="ttdef"><b>Definition:</b> <a href="Mixture_8hpp_source.html#l00206">Mixture.hpp:206</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -410,7 +524,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>indicates the type of mixture, black oil or compositional or others. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00155">155</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00196">196</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -435,7 +549,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dNi: numCom the derivative of volume of total fluids with respect to moles of components. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00178">178</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00220">220</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +574,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><div class="memdoc">
 <p>dVf / dP, the derivative of volume of total fluids with respect to pressure. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mixture_8hpp_source.html#l00217">217</a> of file <a class="el" href="Mixture_8hpp_source.html">Mixture.hpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +584,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>AllWells</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2022 09:16:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Jan 7 2023 09:16:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

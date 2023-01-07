@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classThermalSolver-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ThermalSolver Class Reference</div>  </div>
@@ -77,17 +78,50 @@ $(function() {
  <a href="classThermalSolver.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ThermalSolver_8hpp_source.html">ThermalSolver.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1b7d5cff10fa76e687df19a0057f73ff"><td class="memItemLeft" align="right" valign="top"><a id="a1b7d5cff10fa76e687df19a0057f73ff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetupMethod</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="separator:a1b7d5cff10fa76e687df19a0057f73ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a525fe6ec442e890ee92d72f26853c1ef"><td class="memItemLeft" align="right" valign="top"><a id="a525fe6ec442e890ee92d72f26853c1ef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InitReservoir</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
+<tr class="separator:a525fe6ec442e890ee92d72f26853c1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa3b1c2fb9721915e1d48c3389b2ee73"><td class="memItemLeft" align="right" valign="top"><a id="afa3b1c2fb9721915e1d48c3389b2ee73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Prepare</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
+<tr class="separator:afa3b1c2fb9721915e1d48c3389b2ee73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b808b44e840533678ef4bfa4469445"><td class="memItemLeft" align="right" valign="top"><a id="a41b808b44e840533678ef4bfa4469445"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMat</b> (const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="separator:a41b808b44e840533678ef4bfa4469445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d3d7ae93a19c020677a0b8bab55742e"><td class="memItemLeft" align="right" valign="top"><a id="a1d3d7ae93a19c020677a0b8bab55742e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThermalSolver.html#a1d3d7ae93a19c020677a0b8bab55742e">SolveLinearSystem</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="memdesc:a1d3d7ae93a19c020677a0b8bab55742e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the linear system in single problem. <br /></td></tr>
+<tr class="separator:a1d3d7ae93a19c020677a0b8bab55742e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2db8bd6d9d32128ffdb1560325a3467"><td class="memItemLeft" align="right" valign="top"><a id="ab2db8bd6d9d32128ffdb1560325a3467"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThermalSolver.html#ab2db8bd6d9d32128ffdb1560325a3467">UpdateProperty</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="memdesc:ab2db8bd6d9d32128ffdb1560325a3467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update properties of fluid. <br /></td></tr>
+<tr class="separator:ab2db8bd6d9d32128ffdb1560325a3467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cae8c7db54e62028c0c70203e8b4cd5"><td class="memItemLeft" align="right" valign="top"><a id="a2cae8c7db54e62028c0c70203e8b4cd5"></a>
+<a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThermalSolver.html#a2cae8c7db54e62028c0c70203e8b4cd5">FinishNR</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="memdesc:a2cae8c7db54e62028c0c70203e8b4cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish the Newton-Raphson iteration. <br /></td></tr>
+<tr class="separator:a2cae8c7db54e62028c0c70203e8b4cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f34684609206193db050b8daa8507ca"><td class="memItemLeft" align="right" valign="top"><a id="a2f34684609206193db050b8daa8507ca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThermalSolver.html#a2f34684609206193db050b8daa8507ca">FinishStep</a> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="memdesc:a2f34684609206193db050b8daa8507ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish the current time step. <br /></td></tr>
+<tr class="separator:a2f34684609206193db050b8daa8507ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classThermalSolver.html" title="ThermalSolver class for fluid solution method.">ThermalSolver</a> class for fluid solution method. </p>
 
 <p class="definition">Definition at line <a class="el" href="ThermalSolver_8hpp_source.html#l00019">19</a> of file <a class="el" href="ThermalSolver_8hpp_source.html">ThermalSolver.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="ThermalSolver_8hpp_source.html">ThermalSolver.hpp</a></li>
+<li><a class="el" href="ThermalSolver_8cpp_source.html">ThermalSolver.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2022 09:16:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Jan 7 2023 09:16:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

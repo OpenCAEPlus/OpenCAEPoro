@@ -94,8 +94,8 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classPerforation.html#a5e47f2a9fcb77b2913e8c6e41093ece2">   31</a></span>&#160;    <a class="code" href="classPerforation.html#a5e47f2a9fcb77b2913e8c6e41093ece2">Perforation</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classPerforation.html#a24d0c67d933d8bdc66855df8ead6375e">   34</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPerforation.html#a24d0c67d933d8bdc66855df8ead6375e">setState</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; flag) { state = flag; };</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classPerforation.html#a64c30f746eb6c89b582d994958e86521">   36</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <a class="code" href="classPerforation.html#a64c30f746eb6c89b582d994958e86521">GetLoaction</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> location; }</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classPerforation.html#ab9282aad52a83b295ec984321f7ad2e7">   34</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classPerforation.html#ab9282aad52a83b295ec984321f7ad2e7">SetState</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&amp; flag) { state = flag; };</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classPerforation.html#a03e02c524b843eb0a5ba373f585860d4">   36</a></span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> <a class="code" href="classPerforation.html#a03e02c524b843eb0a5ba373f585860d4">Location</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> location; }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     I;        </div>
@@ -104,49 +104,48 @@ $(function() {
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>    state;    </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> location; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> depth;    </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> trans;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> P;        </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> WI;     </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> radius; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kh;     </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> skinFactor; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     direction;  </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> multiplier;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    vector&lt;OCP_DBL&gt; qi_lbmol; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    vector&lt;OCP_DBL&gt; transj;   </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         transINJ;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    vector&lt;OCP_DBL&gt; qj_ft3; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qt_ft3;         </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __PERFORATION_HEADER__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> P;        </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> WI;     </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> radius; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> kh;     </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> skinFactor; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>     direction;  </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> multiplier;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> xi;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    vector&lt;OCP_DBL&gt; qi_lbmol; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    vector&lt;OCP_DBL&gt; transj;   </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a>         transINJ;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    vector&lt;OCP_DBL&gt; qj_ft3; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> qt_ft3;         </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __PERFORATION_HEADER__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html"><div class="ttname"><a href="OCPConst_8hpp.html">OCPConst.hpp</a></div><div class="ttdoc">Definition of build-in datatypes and consts.</div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a2c355586809161c6f4c3a35ebfa7cb1f"><div class="ttname"><a href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a></div><div class="ttdeci">double OCP_DBL</div><div class="ttdoc">Double precision.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00027">OCPConst.hpp:27</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
-<div class="ttc" id="aclassOut4RPT_html"><div class="ttname"><a href="classOut4RPT.html">Out4RPT</a></div><div class="ttdoc">Collect more detailed information of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00204">OCPOutput.hpp:205</a></div></div>
+<div class="ttc" id="aclassOut4RPT_html"><div class="ttname"><a href="classOut4RPT.html">Out4RPT</a></div><div class="ttdoc">Collect more detailed information of each time step.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00205">OCPOutput.hpp:206</a></div></div>
 <div class="ttc" id="aclassPerforation_html"><div class="ttname"><a href="classPerforation.html">Perforation</a></div><div class="ttdoc">Perforation describe the connections between wells and bulks.</div><div class="ttdef"><b>Definition:</b> <a href="WellPerf_8hpp_source.html#l00024">WellPerf.hpp:25</a></div></div>
-<div class="ttc" id="aclassPerforation_html_a24d0c67d933d8bdc66855df8ead6375e"><div class="ttname"><a href="classPerforation.html#a24d0c67d933d8bdc66855df8ead6375e">Perforation::setState</a></div><div class="ttdeci">void setState(const OCP_BOOL &amp;flag)</div><div class="ttdoc">Set state of perf.</div><div class="ttdef"><b>Definition:</b> <a href="WellPerf_8hpp_source.html#l00034">WellPerf.hpp:34</a></div></div>
+<div class="ttc" id="aclassPerforation_html_a03e02c524b843eb0a5ba373f585860d4"><div class="ttname"><a href="classPerforation.html#a03e02c524b843eb0a5ba373f585860d4">Perforation::Location</a></div><div class="ttdeci">OCP_USI Location() const</div><div class="ttdoc">Return the location of perf: index of bulk.</div><div class="ttdef"><b>Definition:</b> <a href="WellPerf_8hpp_source.html#l00036">WellPerf.hpp:36</a></div></div>
 <div class="ttc" id="aclassPerforation_html_a5e47f2a9fcb77b2913e8c6e41093ece2"><div class="ttname"><a href="classPerforation.html#a5e47f2a9fcb77b2913e8c6e41093ece2">Perforation::Perforation</a></div><div class="ttdeci">Perforation()=default</div><div class="ttdoc">Default constuctor.</div></div>
-<div class="ttc" id="aclassPerforation_html_a64c30f746eb6c89b582d994958e86521"><div class="ttname"><a href="classPerforation.html#a64c30f746eb6c89b582d994958e86521">Perforation::GetLoaction</a></div><div class="ttdeci">OCP_USI GetLoaction() const</div><div class="ttdoc">Return the location of perf: index of bulk.</div><div class="ttdef"><b>Definition:</b> <a href="WellPerf_8hpp_source.html#l00036">WellPerf.hpp:36</a></div></div>
-<div class="ttc" id="aclassWell_html"><div class="ttname"><a href="classWell.html">Well</a></div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00036">Well.hpp:37</a></div></div>
+<div class="ttc" id="aclassPerforation_html_ab9282aad52a83b295ec984321f7ad2e7"><div class="ttname"><a href="classPerforation.html#ab9282aad52a83b295ec984321f7ad2e7">Perforation::SetState</a></div><div class="ttdeci">void SetState(const OCP_BOOL &amp;flag)</div><div class="ttdoc">Set state of perf.</div><div class="ttdef"><b>Definition:</b> <a href="WellPerf_8hpp_source.html#l00034">WellPerf.hpp:34</a></div></div>
+<div class="ttc" id="aclassWell_html"><div class="ttname"><a href="classWell.html">Well</a></div><div class="ttdef"><b>Definition:</b> <a href="Well_8hpp_source.html#l00047">Well.hpp:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2022 09:16:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Jan 7 2023 09:16:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

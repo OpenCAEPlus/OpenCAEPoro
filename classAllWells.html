@@ -140,19 +140,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ae38fd52cc7a694f6afd876271d469416">CalReInjFluid</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:ae38fd52cc7a694f6afd876271d469416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Reinjection fluid. <br /></td></tr>
 <tr class="separator:ae38fd52cc7a694f6afd876271d469416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19d62ea14a3d8d7376fb210b30b0cb8b"><td class="memItemLeft" align="right" valign="top"><a id="a19d62ea14a3d8d7376fb210b30b0cb8b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateLastBHP</b> ()</td></tr>
-<tr class="separator:a19d62ea14a3d8d7376fb210b30b0cb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaee9c5638c7ac19ec19b69d767b361b"><td class="memItemLeft" align="right" valign="top"><a id="afaee9c5638c7ac19ec19b69d767b361b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateLastTimeStepBHP</b> ()</td></tr>
+<tr class="separator:afaee9c5638c7ac19ec19b69d767b361b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f79d0d3b97c8d8161726a34f74fb620"><td class="memItemLeft" align="right" valign="top"><a id="a1f79d0d3b97c8d8161726a34f74fb620"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetBHP</b> ()</td></tr>
 <tr class="separator:a1f79d0d3b97c8d8161726a34f74fb620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa09bdd2230bb3c0776b0833ce3e03682"><td class="memItemLeft" align="right" valign="top"><a id="aa09bdd2230bb3c0776b0833ce3e03682"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#aa09bdd2230bb3c0776b0833ce3e03682">UpdateLastDG</a> ()</td></tr>
-<tr class="memdesc:aa09bdd2230bb3c0776b0833ce3e03682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset dG to ldG for each well. <br /></td></tr>
-<tr class="separator:aa09bdd2230bb3c0776b0833ce3e03682"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9f326f67babf335aa837828185f6e68"><td class="memItemLeft" align="right" valign="top"><a id="ac9f326f67babf335aa837828185f6e68"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetDG</b> ()</td></tr>
-<tr class="separator:ac9f326f67babf335aa837828185f6e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a370e61c20debfbae428ab3f6cda6f70b"><td class="memItemLeft" align="right" valign="top"><a id="a370e61c20debfbae428ab3f6cda6f70b"></a>
 <a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a370e61c20debfbae428ab3f6cda6f70b">CheckP</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk)</td></tr>
 <tr class="memdesc:a370e61c20debfbae428ab3f6cda6f70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if unreasonable well pressure or perforation pressure occurs. <br /></td></tr>
@@ -288,37 +281,6 @@ const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetWell2B
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#ae8e387f1cdfce6881976f01fe752c60b">CalCFL</a> (const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="memdesc:ae8e387f1cdfce6881976f01fe752c60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the CFL number for each perforation and return the maximum one. <br /></td></tr>
 <tr class="separator:ae8e387f1cdfce6881976f01fe752c60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36d1a6c65cf8e8a95abefdc1432db2fb"><td class="memItemLeft" align="right" valign="top"><a id="a36d1a6c65cf8e8a95abefdc1432db2fb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a36d1a6c65cf8e8a95abefdc1432db2fb">MassConserveIMPEC</a> (<a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> dt)</td></tr>
-<tr class="memdesc:a36d1a6c65cf8e8a95abefdc1432db2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update moles of components in Bulks which connects to well. <br /></td></tr>
-<tr class="separator:a36d1a6c65cf8e8a95abefdc1432db2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3614ec1b5d163e1cd551fd91dc5656e7"><td class="memItemLeft" align="right" valign="top"><a id="a3614ec1b5d163e1cd551fd91dc5656e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a3614ec1b5d163e1cd551fd91dc5656e7">AssemblaMatIMPEC</a> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="memdesc:a3614ec1b5d163e1cd551fd91dc5656e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble matrix, parts related to well are included for IMPEC. <br /></td></tr>
-<tr class="separator:a3614ec1b5d163e1cd551fd91dc5656e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b6edc8baaa8ded03d3a53f9f9d15b8"><td class="memItemLeft" align="right" valign="top"><a id="aa4b6edc8baaa8ded03d3a53f9f9d15b8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#aa4b6edc8baaa8ded03d3a53f9f9d15b8">GetSolIMPEC</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId)</td></tr>
-<tr class="memdesc:aa4b6edc8baaa8ded03d3a53f9f9d15b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update <a class="el" href="classWell.html">Well</a> P and <a class="el" href="classPerforation.html" title="Perforation describe the connections between wells and bulks.">Perforation</a> P after linear system is solved for IMPEC. <br /></td></tr>
-<tr class="separator:aa4b6edc8baaa8ded03d3a53f9f9d15b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d11a622e6c8580a7d502c4c03376424"><td class="memItemLeft" align="right" valign="top"><a id="a1d11a622e6c8580a7d502c4c03376424"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a1d11a622e6c8580a7d502c4c03376424">AssemblaMatFIM</a> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="memdesc:a1d11a622e6c8580a7d502c4c03376424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble matrix, parts related to well are included for FIM. <br /></td></tr>
-<tr class="separator:a1d11a622e6c8580a7d502c4c03376424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa227cf746f8c53783da25aea63776906"><td class="memItemLeft" align="right" valign="top"><a id="aa227cf746f8c53783da25aea63776906"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#aa227cf746f8c53783da25aea63776906">GetSolFIM</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;u, const <a class="el" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> &amp;bId, const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;len)</td></tr>
-<tr class="memdesc:aa227cf746f8c53783da25aea63776906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get solution from solver class after linear system is solved for FIM. <br /></td></tr>
-<tr class="separator:aa227cf746f8c53783da25aea63776906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b754ec41eb075a4aa230c7c825ef892"><td class="memItemLeft" align="right" valign="top"><a id="a5b754ec41eb075a4aa230c7c825ef892"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a5b754ec41eb075a4aa230c7c825ef892">CalResFIM</a> (<a class="el" href="classOCPRes.html">OCPRes</a> &amp;resFIM, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="memdesc:a5b754ec41eb075a4aa230c7c825ef892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Resiual and relative Resiual for FIM. <br /></td></tr>
-<tr class="separator:a5b754ec41eb075a4aa230c7c825ef892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a829931542020b8717646c55734816cc5"><td class="memItemLeft" align="right" valign="top"><a id="a829931542020b8717646c55734816cc5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAllWells.html#a829931542020b8717646c55734816cc5">AssemblaMatFIM_new</a> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="memdesc:a829931542020b8717646c55734816cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble matrix, parts related to well are included for FIM. <br /></td></tr>
-<tr class="separator:a829931542020b8717646c55734816cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac72d59166ef11182ab2b46880047fa86"><td class="memItemLeft" align="right" valign="top"><a id="ac72d59166ef11182ab2b46880047fa86"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AssemblaMatFIM_new_n</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;myLS, const <a class="el" href="classBulk.html">Bulk</a> &amp;myBulk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="separator:ac72d59166ef11182ab2b46880047fa86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ee626bca8633142280b2239b6984545"><td class="memItemLeft" align="right" valign="top"><a id="a0ee626bca8633142280b2239b6984545"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPolyhedronWell</b> (const <a class="el" href="classGrid.html">Grid</a> &amp;myGrid)</td></tr>
 <tr class="separator:a0ee626bca8633142280b2239b6984545"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -424,11 +386,26 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4RPT</b></td></tr
 <tr class="memitem:a0e45d66fb05cbff644da51588afb223f"><td class="memItemLeft" align="right" valign="top"><a id="a0e45d66fb05cbff644da51588afb223f"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr>
 <tr class="separator:a0e45d66fb05cbff644da51588afb223f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae06e8c344c30a285b022fe42c7ff959d"><td class="memItemLeft" align="right" valign="top"><a id="ae06e8c344c30a285b022fe42c7ff959d"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>IsoT_FIM</b></td></tr>
+<tr class="separator:ae06e8c344c30a285b022fe42c7ff959d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c686241933e893d5aea7b7d8d3524c"><td class="memItemLeft" align="right" valign="top"><a id="a92c686241933e893d5aea7b7d8d3524c"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>IsoT_IMPEC</b></td></tr>
+<tr class="separator:a92c686241933e893d5aea7b7d8d3524c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7bd4feaec496e248927600448b67995"><td class="memItemLeft" align="right" valign="top"><a id="ae7bd4feaec496e248927600448b67995"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>IsoT_AIMc</b></td></tr>
+<tr class="separator:ae7bd4feaec496e248927600448b67995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4fa78c6a4268760c4a5a63c1d180e3"><td class="memItemLeft" align="right" valign="top"><a id="a0b4fa78c6a4268760c4a5a63c1d180e3"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>IsoT_FIMn</b></td></tr>
+<tr class="separator:a0b4fa78c6a4268760c4a5a63c1d180e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d87f3fa491d33bb9feab9efdc274aa8"><td class="memItemLeft" align="right" valign="top"><a id="a6d87f3fa491d33bb9feab9efdc274aa8"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>T_FIM</b></td></tr>
+<tr class="separator:a6d87f3fa491d33bb9feab9efdc274aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classAllWells.html">AllWells</a> contains all wells now, it's used to manages all wells uniformly in reservoirs. actually, you can regard it as an interface between wells and other modules. </p>
 
-<p class="definition">Definition at line <a class="el" href="AllWells_8hpp_source.html#l00073">73</a> of file <a class="el" href="AllWells_8hpp_source.html">AllWells.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AllWells_8hpp_source.html#l00075">75</a> of file <a class="el" href="AllWells_8hpp_source.html">AllWells.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="AllWells_8hpp_source.html">AllWells.hpp</a></li>
 <li><a class="el" href="AllWells_8cpp_source.html">AllWells.cpp</a></li>
@@ -436,7 +413,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2022 09:16:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Jan 7 2023 09:16:57 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
