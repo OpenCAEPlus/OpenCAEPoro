@@ -137,7 +137,7 @@ protected:
     vector<OCPTable> initZi_Tab; ///< initial mole ratio of components vs. depth, table set
     vector<OCPTable> initT_Tab;  ///< initial temperature vs. depth, table set
     ParamEQUIL       EQUIL;      ///< Initial Equilibration.
-    OCP_DBL          RTemp;      ///< Reservoir temperature.
+    OCP_DBL          rsTemp;     ///< Reservoir temperature.
     vector<OCP_DBL>  thconp;     ///< phase ifThermal conductivity: numPhase
 
 

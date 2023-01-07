@@ -189,15 +189,15 @@ void Bulk::InputParamCOMPS(const ParamReservoir& rs_param)
 
     // Init T
     // Use RTEMP
-    RTemp = rs_param.rsTemp;
+    rsTemp = rs_param.rsTemp;
     vector<vector<OCP_DBL>> temp;
     temp.resize(2);
     // add depth
     temp[0].push_back(0);
     temp[0].push_back(1E8);
     // add temperature
-    temp[1].push_back(RTemp);
-    temp[1].push_back(RTemp);
+    temp[1].push_back(rsTemp);
+    temp[1].push_back(rsTemp);
     initT_Tab.push_back(OCPTable(temp));
 
     // Saturation mode
@@ -231,7 +231,7 @@ void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
     water = rs_param.water;
 
     // Init T
-    RTemp = rs_param.rsTemp;
+    rsTemp = rs_param.rsTemp;
     for (auto& v : rs_param.TEMPVD_T.data) {
         initT_Tab.push_back(OCPTable(v));
     }
@@ -242,7 +242,7 @@ void Bulk::InputParamTHERMAL(const ParamReservoir& rs_param)
         // add depth
         temp[0].push_back(0);       temp[0].push_back(1E8);
         // add temperature
-        temp[1].push_back(RTemp);   temp[1].push_back(RTemp);
+        temp[1].push_back(rsTemp);   temp[1].push_back(rsTemp);
         initT_Tab.push_back(OCPTable(temp));
     }
     // ifThermal conductivity
@@ -403,7 +403,7 @@ void Bulk::InitPTSw(const USI& tabrow)
         Ztmp[i] = Ztmp[i - 1] + tabdz;
     }
 
-    OCP_DBL myTemp = RTemp;
+    OCP_DBL myTemp = rsTemp;
 
     // find the RefId
     USI beginId = 0;

@@ -13,12 +13,12 @@
 #include "WellOpt.hpp"
 
 
-WellOpt::WellOpt(const WellOptParam& Optparam)
+WellOpt::WellOpt(const WellOptParam& optParam)
 {
-    if (Optparam.type == "INJ") {
+    if (optParam.type == "INJ") {
         type = INJ;
     }
-    else if (Optparam.type == "PROD") {
+    else if (optParam.type == "PROD") {
         type = PROD;
     }
     else {
@@ -26,38 +26,38 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     }
 
     if (type == INJ) {
-        fluidType = Optparam.fluidType;
+        fluidType = optParam.fluidType;
         if (fluidType == "WAT" || fluidType == "WATER") {
             fluidType = "WAT";
         }
     }
 
-    if (Optparam.state == "OPEN") {
+    if (optParam.state == "OPEN") {
         state = OPEN;
     }
-    else if (Optparam.state == "CLOSE") {
+    else if (optParam.state == "CLOSE") {
         state = CLOSE;
     }
     else {
         OCP_ABORT("Wrong state type!");
     }
 
-    if (Optparam.optMode == "RATE") {
+    if (optParam.optMode == "RATE") {
         optMode = RATE_MODE;
     }
-    else if (Optparam.optMode == "ORAT") {
+    else if (optParam.optMode == "ORAT") {
         optMode = ORATE_MODE;
     }
-    else if (Optparam.optMode == "GRAT") {
+    else if (optParam.optMode == "GRAT") {
         optMode = GRATE_MODE;
     }
-    else if (Optparam.optMode == "WRAT") {
+    else if (optParam.optMode == "WRAT") {
         optMode = WRATE_MODE;
     }
-    else if (Optparam.optMode == "LRAT") {
+    else if (optParam.optMode == "LRAT") {
         optMode = LRATE_MODE;
     }
-    else if (Optparam.optMode == "BHP") {
+    else if (optParam.optMode == "BHP") {
         optMode = BHP_MODE;
     }
     else {
@@ -65,28 +65,29 @@ WellOpt::WellOpt(const WellOptParam& Optparam)
     }
 
     initOptMode = optMode;
-    maxRate = Optparam.maxRate;
-    maxBHP = Optparam.maxBHP;
-    minBHP = Optparam.minBHP;
+    maxRate = optParam.maxRate;
+    maxBHP = optParam.maxBHP;
+    minBHP = optParam.minBHP;
+    injTemp = optParam.injTemp;
 }
 
-OCP_BOOL WellOpt::operator!=(const WellOpt& Opt) const
+OCP_BOOL WellOpt::operator!=(const WellOpt& opt) const
 {
-    if (this->type != Opt.type) return OCP_TRUE;
-    if (this->state != Opt.state) return OCP_TRUE;
-    if (this->optMode != Opt.optMode) return OCP_TRUE;
-    if (this->initOptMode != Opt.initOptMode) return OCP_TRUE;
-    if (fabs(this->maxRate - Opt.maxRate) > TINY) return OCP_TRUE;
-    if (fabs(this->maxBHP - Opt.maxBHP) > TINY) return OCP_TRUE;
-    if (fabs(this->minBHP - Opt.minBHP) > TINY) return OCP_TRUE;
+    if (this->type != opt.type) return OCP_TRUE;
+    if (this->state != opt.state) return OCP_TRUE;
+    if (this->optMode != opt.optMode) return OCP_TRUE;
+    if (this->initOptMode != opt.initOptMode) return OCP_TRUE;
+    if (fabs(this->maxRate - opt.maxRate) > TINY) return OCP_TRUE;
+    if (fabs(this->maxBHP - opt.maxBHP) > TINY) return OCP_TRUE;
+    if (fabs(this->minBHP - opt.minBHP) > TINY) return OCP_TRUE;
     for (USI i = 0; i < injZi.size(); i++) {
-        if (fabs(injZi[i] - Opt.injZi[i]) > TINY) return OCP_TRUE;
+        if (fabs(injZi[i] - opt.injZi[i]) > TINY) return OCP_TRUE;
     }
     for (USI i = 0; i < this->prodPhaseWeight.size(); i++) {
-        if (fabs(this->prodPhaseWeight[i] - Opt.prodPhaseWeight[i]) > TINY) return OCP_TRUE;
+        if (fabs(this->prodPhaseWeight[i] - opt.prodPhaseWeight[i]) > TINY) return OCP_TRUE;
     }
-    if (this->injProdPhase != Opt.injProdPhase) return OCP_TRUE;
-    if (fabs(this->Tinj - Opt.Tinj) > TINY) return OCP_TRUE;
+    if (this->injProdPhase != opt.injProdPhase) return OCP_TRUE;
+    if (fabs(this->injTemp - opt.injTemp) > TINY) return OCP_TRUE;
     return OCP_FALSE;
 }
 

@@ -132,7 +132,7 @@ OCP_BOOL T_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
         rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
         rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol &&
-        rs.bulk.res.maxRelRes_E <= ctrl.ctrlNR.NRtol) &&
+        rs.bulk.res.maxRelRes_E <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
@@ -1295,7 +1295,7 @@ void T_FIM::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl
             for (USI i = 0; i < nc; i++) {
 
                 // Mass Conservation 
-                if (!wl.IfUseUnWeightedTrans()) {
+                if (!wl.IfUseUnweight()) {
                     transIJ = wl.PerfTransj(p, j) * wl.PerfXi(p) * wl.InjZi(i);
                     // dQ / dP
                     dQdXpB[(i + 1) * ncol] +=  transIJ * (1 - dP * muP / mu);
@@ -1313,7 +1313,7 @@ void T_FIM::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl
                 }
 
                 
-                if (!wl.IfUseUnWeightedTrans()) {
+                if (!wl.IfUseUnweight()) {
                     // dQ / dS
                     for (USI k = 0; k < np; k++) {
                         dQdXsB[(i + 1) * ncol2 + k] +=
@@ -1330,7 +1330,7 @@ void T_FIM::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl
             }
 
             // Energy Conservation
-            if (!wl.IfUseUnWeightedTrans()) {
+            if (!wl.IfUseUnweight()) {
                 transJ = wl.PerfTransj(p, j) * wl.PerfXi(p);
                 // dQ / dP   
                 dQdXpB[(nc + 1) * ncol] +=  transJ * Hw * (1 - dP * muP / mu);
@@ -1359,9 +1359,8 @@ void T_FIM::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl
                 dQdXpW[(nc + 1) * ncol] += -transJ * Hw;
             }
 
-            if (wl.IfUseUnWeightedTrans())
+            if (wl.IfUseUnweight())
                 break;
-
         }
 
         // Bulk to Well

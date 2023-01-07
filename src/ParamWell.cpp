@@ -149,23 +149,23 @@ void ParamWell::InputWCONINJE(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    USI            d   = criticalTime.size() - 1;
-    USI            num = well.size();
+    const USI      d   = criticalTime.size() - 1;
+    const USI      num = well.size();
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string            src   = vbuf[0];
-        string::size_type pos   = src.find("*");
-        OCP_BOOL          match = (pos != string::npos);
-        if (match) {
+        string            src        = vbuf[0];
+        string::size_type pos        = src.find("*");
+        const OCP_BOOL    fuzzyMatch = (pos != string::npos);
+        if (fuzzyMatch) {
             src.erase(pos);
         }
 
-        if (match) {
+        if (fuzzyMatch) {
             for (USI w = 0; w < num; w++) {
-                if (well[w].name.substr(0, pos) == src) {
+                if (well[w].name.find(src) != string::npos) {
                     well[w].optParam.push_back(WellOptPair(d, "INJ", vbuf));
                 }
             }
@@ -184,8 +184,8 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    USI            d   = criticalTime.size() - 1;
-    USI            num = well.size();
+    const USI      d   = criticalTime.size() - 1;
+    const USI      num = well.size();
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
@@ -193,14 +193,14 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
         DealDefault(vbuf);
         string            src   = vbuf[0];
         string::size_type pos   = src.find("*");
-        OCP_BOOL          match = (pos != string::npos);
-        if (match) {
+        const OCP_BOOL    fuzzyMatch = (pos != string::npos);
+        if (fuzzyMatch) {
             src.erase(pos);
         }
 
-        if (match) {
+        if (fuzzyMatch) {
             for (USI w = 0; w < num; w++)
-                if (well[w].name.substr(0, pos) == src)
+                if (well[w].name.find(src) != string::npos)
                     well[w].optParam.push_back(WellOptPair(d, "PROD", vbuf));
         } else {
             for (USI w = 0; w < num; w++)
@@ -236,29 +236,37 @@ void ParamWell::InputWELTARG(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    USI            d   = criticalTime.size() - 1;
-    USI            num = well.size();
+    cout << "WELTARG" << endl;
+
+    const USI      d   = criticalTime.size() - 1;
+    const USI      num = well.size();
     vector<string> vbuf;
     while (ReadLine(ifs, vbuf)) {
         if (vbuf[0] == "/") break;
 
-        DealDefault(vbuf);
-        string            src   = vbuf[0];
-        string::size_type pos   = src.find("*");
-        OCP_BOOL          match = (pos != string::npos);
-        if (match) {
+        for (const auto& s : vbuf) {
+            cout << s << "   ";
+        }
+        cout << endl;
+
+        string            src        = vbuf[0];
+        string::size_type pos        = src.find("*");
+        const OCP_BOOL    fuzzyMatch = (pos != string::npos);
+        if (fuzzyMatch) {
             src.erase(pos);
         }
-        OCP_BOOL tmp = OCP_FALSE;
+        OCP_BOOL succMatch = OCP_FALSE;
 
         for (USI w = 0; w < num; w++) {
-            if (match)
-                tmp = (well[w].name.substr(0, pos) == src);
+            if (fuzzyMatch)
+                succMatch = (well[w].name.find(src) != string::npos);
             else
-                tmp = (well[w].name == src);
+                succMatch = (well[w].name == src);
 
-            if (tmp) {
-
+            if (succMatch) {
+                if (well[w].optParam.size() == 0) {
+                    OCP_ABORT("No Well Control Defined in Advance!");
+                }
                 WellOptPair tar = well[w].optParam.back();
                 tar.d           = d;
                 tar.opt.optMode = vbuf[1];
@@ -275,8 +283,94 @@ void ParamWell::InputWELTARG(ifstream& ifs)
             }
         }
     }
-    cout << "WELTARG" << endl;
+    cout << "/" << endl;
 }
+
+
+void ParamWell::InputWTEMP(ifstream& ifs)
+{
+    assert(criticalTime.size() > 0);
+
+    cout << "WTEMP" << endl;
+
+    const USI      d       = criticalTime.size() - 1;
+    const USI      numWell = well.size();
+    vector<string> vbuf;
+    while (ReadLine(ifs, vbuf)) {
+        if (vbuf[0] == "/") break;
+
+        for (const auto& s : vbuf) {
+            cout << s << "   ";
+        }
+        cout << endl;
+
+        string            src = vbuf[0];
+        string::size_type pos = src.find("*");
+        const OCP_BOOL    fuzzyMatch = (pos != string::npos);
+        if (fuzzyMatch) {
+            src.erase(pos);
+        }
+        OCP_BOOL succMatch = OCP_FALSE;
+
+        for (USI w = 0; w < numWell; w++) {
+            if (fuzzyMatch)
+                succMatch = (well[w].name.find(src) != string::npos);
+            else
+                succMatch = (well[w].name == src);
+
+            if (succMatch) {
+                if (well[w].optParam.size() == 0) {
+                    OCP_ABORT("No Well Control Defined in Advance!");
+                }
+                WellOptPair tar = well[w].optParam.back();
+                tar.d = d;
+                tar.opt.injTemp = stod(vbuf[1]);
+                well[w].optParam.push_back(tar);
+            }
+        }
+    }
+    cout << "/" << endl;
+}
+
+
+void ParamWell::InputUNWEIGHT(ifstream& ifs)
+{
+    assert(criticalTime.size() > 0);
+
+    cout << "UNWEIGHT" << endl;
+
+    const USI      num = well.size();
+    vector<string> vbuf;
+    while (ReadLine(ifs, vbuf)) {
+        if (vbuf[0] == "/") break;
+
+        for (const auto& s : vbuf) {
+            cout << s << "   ";
+        }
+        cout << endl;
+
+        DealDefault(vbuf);
+        string            src = vbuf[0];
+        string::size_type pos = src.find("*");
+        const OCP_BOOL    fuzzyMatch = (pos != string::npos);
+        if (fuzzyMatch) {
+            src.erase(pos);
+        }
+
+        if (fuzzyMatch) {
+            for (USI w = 0; w < num; w++)
+                if (well[w].name.find(src) != string::npos)
+                    well[w].ifUseUnweight = OCP_TRUE;
+        }
+        else {
+            for (USI w = 0; w < num; w++)
+                if (well[w].name == src)
+                    well[w].ifUseUnweight = OCP_TRUE;
+        }
+    }
+    cout << "/" << endl;
+}
+
 
 void ParamWell::InputWELLSTRE(ifstream& ifs)
 {
@@ -287,6 +381,9 @@ void ParamWell::InputWELLSTRE(ifstream& ifs)
     }
     cout << "WELLSTRE" << endl;
 }
+
+
+
 
 
 void ParamWell::InputPSURF(ifstream& ifs)

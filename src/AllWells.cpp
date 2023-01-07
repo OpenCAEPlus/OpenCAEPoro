@@ -29,7 +29,7 @@ void AllWells::InputParam(const ParamWell& paramWell)
     numWell = paramWell.well.size();
     wells.resize(numWell);
     USI         t = paramWell.criticalTime.size();
-    vector<USI> wellCriticalTime;
+    vector<USI> wellOptTime;
     for (USI w = 0; w < numWell; w++) {
         wells[w].name  = paramWell.well[w].name;
         wells[w].group = paramWell.well[w].group;
@@ -39,19 +39,30 @@ void AllWells::InputParam(const ParamWell& paramWell)
         wells[w].InputPerfo(paramWell.well[w]);
         wells[w].Psurf = Psurf;
         wells[w].Tsurf = Tsurf;
-
+        wells[w].ifUseUnweight = paramWell.well[w].ifUseUnweight;
         // opt
         wells[w].optSet.resize(t);
-        USI n = paramWell.well[w].optParam.size();
-        wellCriticalTime.clear();
-        wellCriticalTime.resize(n + 1);
-        for (USI i = 0; i < n; i++) {
-            wellCriticalTime[i] = paramWell.well[w].optParam[i].d;
+
+        // If identical optParam.d occurs, use the last one
+        vector<WellOptPair> tmpOptParam;
+        const USI n0 = paramWell.well[w].optParam.size();
+        for (USI i = 0; i < n0 - 1; i++) {
+            if (paramWell.well[w].optParam[i].d != paramWell.well[w].optParam[i + 1].d) {
+                tmpOptParam.push_back(paramWell.well[w].optParam[i]);
+            }
         }
-        wellCriticalTime.back() = t;
+        tmpOptParam.push_back(paramWell.well[w].optParam.back());
+
+        const USI n = tmpOptParam.size();
+        wellOptTime.clear();
+        wellOptTime.resize(n + 1);
         for (USI i = 0; i < n; i++) {
-            for (USI d = wellCriticalTime[i]; d < wellCriticalTime[i + 1]; d++) {
-                wells[w].optSet[d] = WellOpt(paramWell.well[w].optParam[i].opt);
+            wellOptTime[i] = tmpOptParam[i].d;
+        }
+        wellOptTime.back() = t;
+        for (USI i = 0; i < n; i++) {
+            for (USI d = wellOptTime[i]; d < wellOptTime[i + 1]; d++) {
+                wells[w].optSet[d] = WellOpt(tmpOptParam[i].opt);
             }
         }
     }

@@ -23,6 +23,10 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
                 summary.FPR = OCP_TRUE;
                 break;
 
+            case Map_Str2Int("FTR", 3):
+                summary.FTR = OCP_TRUE;
+                break;
+
             // Field
             case Map_Str2Int("FOPR", 4):
                 summary.FOPR = OCP_TRUE;

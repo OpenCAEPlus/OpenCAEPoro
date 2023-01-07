@@ -56,6 +56,7 @@ class OutputSummary
 
 public:
     OCP_BOOL FPR{OCP_FALSE};  ///< Field average Pressure.
+    OCP_BOOL FTR{OCP_FALSE};  ///< Field average Temperature.
     OCP_BOOL FOPR{OCP_FALSE}; ///< Field oil production rate.
     OCP_BOOL FOPT{OCP_FALSE}; ///< Field total oil production.
     OCP_BOOL FGPR{OCP_FALSE}; ///< Field gas production rate.

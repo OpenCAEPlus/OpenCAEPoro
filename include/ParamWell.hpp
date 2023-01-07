@@ -38,9 +38,7 @@ public:
     OCP_DBL maxRate; ///< Maximum allowable flow rate into/out the well.
     OCP_DBL maxBHP;  ///< Maximum allowable pressure in the injection well.
     OCP_DBL minBHP;  ///< Minimum allowable pressure in the production well.
-
-    vector<OCP_DBL>
-        zi; ///< Proportion of components of injection fluid. (COMPS model only).
+    OCP_DBL injTemp; ///< Temperature of injected fluid.
 };
 
 /// WellOptPair contains two parts, one is the operation mode of well, the other is the
@@ -78,6 +76,7 @@ public:
     vector<OCP_DBL> kh;
     vector<OCP_DBL> skinFactor; ///< Skin factor.
     vector<string>  direction;  ///< Direction of perforations.
+    OCP_BOOL        ifUseUnweight{OCP_FALSE}; ///< If use unweighted injector.
 
     // dynamic infomation
     vector<WellOptPair> optParam;
@@ -131,6 +130,10 @@ public:
     /// well anytime. For example, the oil production rate is changed from 1000 stb/day
     /// to 1500 stb/day at the 100th day.
     void InputWELTARG(ifstream& ifs);
+    /// Input the temperature of injected fluid
+    void InputWTEMP(ifstream& ifs);
+    /// Input injector type -- MOBWEIGHT(defaulted) or UNWEIGHT
+    void InputUNWEIGHT(ifstream& ifs);
     /// Input well keyword: Solvent. It describes the molar fraction of components of
     /// fluid injected to reservoir from INJ.
     void InputWELLSTRE(ifstream& ifs);

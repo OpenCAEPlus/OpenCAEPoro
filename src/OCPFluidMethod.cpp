@@ -1493,7 +1493,7 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
     OCP_USI  bId, eId, uId;
     OCP_USI  bId_np_j, eId_np_j, uId_np_j, dId_np_j;
     OCP_BOOL phaseExistBj, phaseExistEj, phaseExistDj;
-    OCP_DBL  kr, mu, xi, xij, rhoP, xiP, muP, rhox, xix, mux;
+    OCP_DBL  kr, mu, xi, xij, xiP, muP, rhox, xix, mux;
     OCP_DBL  dP, dGamma;
     OCP_DBL  rhoWghtU, rhoWghtD;
     OCP_DBL  tmp;
@@ -1551,7 +1551,6 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
             mu     = bk.mu[uId_np_j];
             muP    = bk.muP[uId_np_j];
             xiP    = bk.xiP[uId_np_j];
-            rhoP   = bk.rhoP[uId_np_j];
             transJ = Akd * kr / mu;
 
             for (USI i = 0; i < nc; i++) {
@@ -1720,7 +1719,8 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
             uId_np_j = uId * np + j;
-            dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] - conn.upblock_Rho[c * np + j] * dGamma;
+            dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] 
+                     - conn.upblock_Rho[c * np + j] * dGamma;
             xi       = bk.xi[uId_np_j];
             kr       = bk.kr[uId_np_j];
             mu       = bk.mu[uId_np_j];

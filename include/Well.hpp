@@ -63,7 +63,7 @@ public:
     /// Input the param of perforations.
     void InputPerfo(const WellParam& well);
     /// Setup the well after Grid and Bulk finish setupping.
-    void Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols);
+    void Setup(const Grid& gd, const Bulk& bk, const vector<SolventINJ>& sols);
 
 
     /////////////////////////////////////////////////////////////////////
@@ -153,7 +153,7 @@ public:
     OCP_DBL MaxRate() const { return opt.maxRate; }
     OCP_DBL MaxBHP() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.maxBHP; }
     OCP_DBL MinBHP() const { OCP_ASSERT(opt.type == PROD, "Wrong Call"); return opt.minBHP; }
-    OCP_DBL InjTemp() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.Tinj; }
+    OCP_DBL InjTemp() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.injTemp; }
 
     USI PerfLocation(const USI& p)const { return perf[p].location; }
     OCP_DBL PerfWI(const USI& p)const { return perf[p].WI; }
@@ -169,7 +169,7 @@ public:
         OCP_ASSERT(opt.type == INJ, "Wrong Call"); return perf[p].qt_ft3;
     }
     OCP_DBL Qi_lbmol(const USI& i) const { return qi_lbmol[i]; }
-    OCP_BOOL IfUseUnWeightedTrans()const { return useUnWeightedTrans; }
+    OCP_BOOL IfUseUnweight()const { return ifUseUnweight; }
 
 protected:
     /////////////////////////////////////////////////////////////////////
@@ -199,7 +199,7 @@ protected:
     OCP_DBL WWIR{0};          ///< well water injection rate.
     OCP_DBL WWIT{0};          ///< well total water injection.
 
-    OCP_BOOL useUnWeightedTrans{OCP_FALSE};
+    OCP_BOOL ifUseUnweight{OCP_FALSE};
     /////////////////////////////////////////////////////////////////////
     // IMPEC
     /////////////////////////////////////////////////////////////////////

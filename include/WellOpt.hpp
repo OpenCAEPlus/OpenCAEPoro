@@ -91,7 +91,7 @@ private:
     USI injProdPhase;     ///< label the phase of injecting fluid if possible
     vector<OCP_DBL> prodPhaseWeight;
     OCP_DBL factorINJ;            ///< unit factor: Mscf -> lbmol for comps, Mscf -> Mscf in blackoil
-    OCP_DBL Tinj;             ///< temperature of inj fluid F
+    OCP_DBL injTemp;             ///< temperature of inj fluid F
                               // for Reinjection
     OCP_BOOL reInj{ OCP_FALSE }; ///< if OCP_TRUE, reinjection happens
     USI reInjPhase; ///< phase of Reinjection fluid

@@ -39,13 +39,13 @@ void Well::InputPerfo(const WellParam& well)
     }
 }
 
-void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ>& sols)
+void Well::Setup(const Grid& gd, const Bulk& bk, const vector<SolventINJ>& sols)
 {
     OCP_FUNCNAME;
 
-    numCom = myBulk.numCom;
-    numPhase = myBulk.numPhase;
-    flashCal = myBulk.flashCal;
+    numCom   = bk.numCom;
+    numPhase = bk.numPhase;
+    flashCal = bk.flashCal;
 
     qi_lbmol.resize(numCom);
     prodWeight.resize(numCom);
@@ -53,8 +53,9 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     for (auto& opt : optSet) {
         if (!opt.state) continue;
-
-        opt.Tinj = myBulk.RTemp;
+        if (!bk.ifThermal) {
+            opt.injTemp = bk.rsTemp;
+        }
         flashCal[0]->SetupWellOpt(opt, sols, Psurf, Tsurf);
     }
     
@@ -62,20 +63,20 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
     USI pp = 0;
     for (USI p = 0; p < numPerf; p++) {
         OCP_USI pId =
-            perf[p].K * myGrid.nx * myGrid.ny + perf[p].J * myGrid.nx + perf[p].I;
-        if (myGrid.map_All2Flu[pId].IsAct()) {
+            perf[p].K * gd.nx * gd.ny + perf[p].J * gd.nx + perf[p].I;
+        if (gd.map_All2Flu[pId].IsAct()) {
 
             perf[pp]            = perf[p];
             perf[pp].state      = OPEN;
-            perf[pp].location   = myGrid.map_All2Act[pId].GetId();
-            perf[pp].depth      = myBulk.depth[perf[pp].location];
+            perf[pp].location   = gd.map_All2Act[pId].GetId();
+            perf[pp].depth      = bk.depth[perf[pp].location];
             perf[pp].multiplier = 1;
             perf[pp].qi_lbmol.resize(numCom);
             perf[pp].transj.resize(numPhase);
             perf[pp].qj_ft3.resize(numPhase);
             pp++;
         } else {
-            OCP_WARNING("Perforation is in non-fluid myBulk!");
+            OCP_WARNING("Perforation is in non-fluid Bulk!");
         }
     }
     numPerf = pp;
@@ -86,9 +87,9 @@ void Well::Setup(const Grid& myGrid, const Bulk& myBulk, const vector<SolventINJ
 
     if (depth < 0) depth = perf[0].depth;
 
-    CalWI_Peaceman(myBulk);
+    CalWI_Peaceman(bk);
     // test
-    // ShowPerfStatus(myBulk);
+    // ShowPerfStatus(bk);
 }
 
 
@@ -182,7 +183,7 @@ void Well::CalTrans(const Bulk& myBulk)
                     perf[p].transINJ += perf[p].transj[j];
                 }
             }
-            if (useUnWeightedTrans) {
+            if (ifUseUnweight) {
                 perf[p].transINJ = perf[p].WI;
             }
         }
@@ -222,7 +223,7 @@ void Well::CalFlux(const Bulk& myBulk, const OCP_BOOL ReCalXi)
             if (ReCalXi) {
                 USI pvtnum = myBulk.PVTNUM[k];
                 perf[p].xi =
-                    myBulk.flashCal[pvtnum]->XiPhase(perf[p].P, opt.Tinj, &opt.injZi[0], opt.injProdPhase);
+                    myBulk.flashCal[pvtnum]->XiPhase(perf[p].P, opt.injTemp, &opt.injZi[0], opt.injProdPhase);
             }
             for (USI i = 0; i < numCom; i++) {
                 perf[p].qi_lbmol[i] = perf[p].qt_ft3 * perf[p].xi * opt.injZi[i];
@@ -276,7 +277,7 @@ OCP_DBL Well::CalInjRateMaxBHP(const Bulk& myBulk)
 
         USI pvtnum = myBulk.PVTNUM[k];
         OCP_DBL xi =
-            myBulk.flashCal[pvtnum]->XiPhase(Pperf, opt.Tinj, &opt.injZi[0], opt.injProdPhase);
+            myBulk.flashCal[pvtnum]->XiPhase(Pperf, opt.injTemp, &opt.injZi[0], opt.injProdPhase);
 
         OCP_DBL dP = Pperf - myBulk.P[k];
         qj += perf[p].transINJ * xi * dP;
@@ -397,7 +398,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp -=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.injZi.data(), opt.injProdPhase) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.injTemp, opt.injZi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Pperf - Ptmp;
@@ -426,7 +427,7 @@ void Well::CalInjdG(const Bulk& myBulk)
             USI pvtnum = myBulk.PVTNUM[n];
             for (USI i = 0; i < seg_num; i++) {
                 Ptmp +=
-                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.Tinj, opt.injZi.data(), opt.injProdPhase) *
+                    myBulk.flashCal[pvtnum]->RhoPhase(Ptmp, 0, opt.injTemp, opt.injZi.data(), opt.injProdPhase) *
                     GRAVITY_FACTOR * seg_len;
             }
             dGperf[p] = Ptmp - Pperf;
@@ -468,13 +469,13 @@ void Well::CalProddG01(const Bulk& myBulk)
             OCP_DBL Pperf = perf[p].P;
             OCP_DBL Ptmp  = Pperf;
 
-            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            // fill(tmpNi.begin(), tmpNi.end(), 0.0);
             for (USI j = 0; j < numPhase; j++) {
-                OCP_USI id = n * numPhase + j;
-                if (!myBulk.phaseExist[id]) continue;
+                const OCP_USI n_np_j = n * numPhase + j;
+                if (!myBulk.phaseExist[n_np_j]) continue;
                 for (USI k = 0; k < numCom; k++) {
-                    tmpNi[k] +=
-                        perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * numCom + k];
+                    tmpNi[k] += (myBulk.P[n] - perf[p].P) *
+                        perf[p].transj[j] * myBulk.xi[n_np_j] * myBulk.xij[n_np_j * numCom + k];
                 }
             }
             OCP_DBL tmpSum = Dnorm1(numCom, &tmpNi[0]);
@@ -520,13 +521,13 @@ void Well::CalProddG01(const Bulk& myBulk)
             OCP_DBL Pperf = perf[p].P;
             OCP_DBL Ptmp  = Pperf;
 
-            fill(tmpNi.begin(), tmpNi.end(), 0.0);
+            // fill(tmpNi.begin(), tmpNi.end(), 0.0);
             for (USI j = 0; j < numPhase; j++) {
-                OCP_USI id = n * numPhase + j;
-                if (!myBulk.phaseExist[id]) continue;
+                const OCP_USI n_np_j = n * numPhase + j;
+                if (!myBulk.phaseExist[n_np_j]) continue;
                 for (USI k = 0; k < numCom; k++) {
-                    tmpNi[k] +=
-                        perf[p].transj[j] * myBulk.xi[id] * myBulk.xij[id * numCom + k];
+                    tmpNi[k] += (myBulk.P[n] - perf[p].P) *
+                        perf[p].transj[j] * myBulk.xi[n_np_j] * myBulk.xij[n_np_j * numCom + k];
                 }
             }
             OCP_DBL tmpSum = Dnorm1(numCom, &tmpNi[0]);

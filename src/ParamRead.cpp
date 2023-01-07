@@ -215,6 +215,10 @@ void ParamRead::ReadFile(const string& filename)
                 paramWell.InputWCONPROD(ifs);
                 break;
 
+            case Map_Str2Int("UNWEIGHT", 8):
+                paramWell.InputUNWEIGHT(ifs);
+                break;
+
             case Map_Str2Int("TSTEP", 5):
                 paramWell.InputTSTEP(ifs);
                 paramControl.criticalTime = paramWell.criticalTime;
@@ -225,8 +229,20 @@ void ParamRead::ReadFile(const string& filename)
                 paramWell.InputWELTARG(ifs);
                 break;
 
+            case Map_Str2Int("WTEMP", 5):
+                paramWell.InputWTEMP(ifs);
+                break;
+
             case Map_Str2Int("WELLSTRE", 8):
                 paramWell.InputWELLSTRE(ifs);
+                break;
+
+            case Map_Str2Int("PSURF", 5):
+                paramWell.InputPSURF(ifs);
+                break;
+
+            case Map_Str2Int("TSURF", 5):
+                paramWell.InputTSURF(ifs);
                 break;
 
             case Map_Str2Int("SUMMARY", 7):
