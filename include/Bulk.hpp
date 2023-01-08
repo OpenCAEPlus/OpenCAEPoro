@@ -174,8 +174,8 @@ protected:
     vector<USI>       ROCKNUM;  ///< index of Rock table for each bulk
     vector<Rock*>     rock;     ///< rock model
 
-    vector<USI>       bType;    ///< Indicate what's in current bulk, 0: rock, 1: rock and fluid
- 
+    vector<USI>       bType;     ///< Indicate what's in current bulk, 0: rock, 1: rock and fluid
+    vector<USI>       bLocation; ///< Location of bulk: top, bottom, side
 
     /////////////////////////////////////////////////////////////////////
     // Basic PVT Model Information

@@ -1156,6 +1156,8 @@ void Bulk::AllocateGridRockT(const Grid& myGrid)
     rockKz.resize(numBulk, 0);
     thconr.resize(numBulk, 0);
 
+    bLocation.resize(numBulk, 0);
+
     for (OCP_USI bIda = 0; bIda < numBulk; bIda++) {
         OCP_USI bId = myGrid.map_Act2All[bIda];
 
@@ -1171,6 +1173,8 @@ void Bulk::AllocateGridRockT(const Grid& myGrid)
         rockKy[bIda] = myGrid.ky[bId];
         rockKz[bIda] = myGrid.kz[bId];
         thconr[bIda] = myGrid.thconr[bId];
+
+        bLocation[bIda] = myGrid.gLocation[bId];
     }
 }
 

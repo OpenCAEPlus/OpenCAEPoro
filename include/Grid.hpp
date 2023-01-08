@@ -101,6 +101,8 @@ public:
     void SetupT();
     /// Setup the grid information and calculate the properties.
     void Setup();
+
+protected:
     /// Setup orthogonal grid.
     void SetupOrthogonalGrid();
     /// Calculate the depth and volume for orthogonal grid.
@@ -115,18 +117,15 @@ public:
     /// Setup the neighboring info for a corner-point grid.
     void SetupNeighborCornerGrid(const OCP_COORD& CoTmp);
 
-
-    /////////////////////////////////////////////////////////////////////
-    // Basic Grid and Rock Information
-    /////////////////////////////////////////////////////////////////////
-
-public:
-
     /// Calculate the activity of grid cells.
     void CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2);
     /// Calculate the activity of grid cells for ifThermal model
     void CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2);
 
+    /// Setup Grid location for Structured grid
+    void SetupGridLocation();
+
+public:
     OCP_USI GetGridNum()const { return numGrid; }
     OCP_INT GetActIndex(const USI& I, const USI& J, const USI& K) const;
 
@@ -144,6 +143,11 @@ protected:
     // Corner-point grid
     vector<OCP_DBL> coord;  ///< Lines of a corner-point grid.
     vector<OCP_DBL> zcorn;  ///< ZValues of a corner-point grid.
+
+    // Grid location
+    // Isothermal model: useless now.
+    // Thermal model: only top face and bottom face will be recorded.
+    vector<USI>     gLocation; ///< Top face, bottom face, side face, numGrid.
 
     // Orthogonal grid
     vector<OCP_DBL> tops;   ///< Depth of center of grid cells: numGrid.

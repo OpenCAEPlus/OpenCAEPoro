@@ -81,13 +81,14 @@ void Grid::InputParam(const ParamReservoir& rs_param)
 void Grid::SetupIsoT()
 {
     Setup();
-    CalActiveGridIsoT(1E-6, 1E-6);
+    CalActiveGridIsoT(1E-6, 1E-6);   
 }
 
 void Grid::SetupT()
 {
     Setup();
     CalActiveGridT(1E-6, 1E-6);
+    SetupGridLocation();
 }
 
 void Grid::Setup()
@@ -308,7 +309,22 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
     fluidGridNum = fluidCount;
     // temp
     // output num of fluid grid
+}
 
+
+void Grid::SetupGridLocation()
+{
+    gLocation.resize(numGrid);
+    // Be careful if there's only one floor, then top face is also bottom face.
+    // then one index is not enough
+    // top face
+    for (OCP_USI n = 0; n < nx * ny; n++) {
+        gLocation[n] = 1;
+    }
+    // bottom face
+    for (OCP_USI n = nx * ny * (nz - 1); n < nx * ny * nz; n++) {
+        gLocation[n] = 2;
+    }
 }
 
 
