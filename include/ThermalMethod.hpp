@@ -48,7 +48,7 @@ protected:
 	void AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
 	void AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
 	void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
-	void ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt);
+	void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
 };
 
 

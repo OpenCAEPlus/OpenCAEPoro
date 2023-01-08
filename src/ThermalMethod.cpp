@@ -90,10 +90,8 @@ OCP_BOOL T_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0 || !rs.bulk.CheckT()) {
-        dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, dt);
+    if (!ctrl.Check(rs, { "BulkNi", "BulkP", "BulkT"})) {
+        ResetToLastTimeStep(rs, ctrl);
         cout << "Cut time step size and repeat! current dt = " << fixed
             << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
@@ -136,34 +134,18 @@ OCP_BOOL T_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
-
-        switch (flagCheck) {
-        case 1:
-            ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-            ResetToLastTimeStep(rs, ctrl.current_dt);
-            ctrl.ResetIterNRLS();
-            if (ctrl.printLevel >= PRINT_MORE) {
-                OCP_WARNING("Reset Newton iteration!");
-            }
+        if (!ctrl.Check(rs, { "WellP" })) {
+            ResetToLastTimeStep(rs, ctrl);
             return OCP_FALSE;
-        case 2:
-            ctrl.current_dt /= 1;
-            ResetToLastTimeStep(rs, ctrl.current_dt);
-            ctrl.ResetIterNRLS();
-            if (ctrl.printLevel >= PRINT_MORE) {
-                OCP_WARNING("Reset Newton iteration!");
-            }
-            return OCP_FALSE;
-        default:
-            return OCP_TRUE;
-            break;
         }
+        else {
+            return OCP_TRUE;
+        }
+
     }
     else if (ctrl.iterNR >= ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, ctrl.current_dt);
-        ctrl.ResetIterNRLS();
+        ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
             "current dt = "
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
@@ -559,7 +541,7 @@ void T_FIM::CalThermalConduct(BulkConn& conn, Bulk& bk) const
     }
 }
 
-void T_FIM::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
+void T_FIM::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
         // Bulk
     Bulk& bk   = rs.bulk;
@@ -635,7 +617,10 @@ void T_FIM::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
 
     rs.optFeatures.ResetToLastTimeStep();
 
-    CalRes(rs, dt, OCP_TRUE);
+    // Iters
+    ctrl.ResetIterNRLS();
+
+    CalRes(rs, ctrl.GetCurDt(), OCP_TRUE);
 }
 
 

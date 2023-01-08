@@ -36,6 +36,10 @@ int main(int argc, const char* argv[])
         }
     }
 
+
+
+
+
     // Step 1. Read params from an input file to internal data structure.
     // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md    simulator.ReadInputFile(argv[1]);
     simulator.ReadInputFile(argv[1]);

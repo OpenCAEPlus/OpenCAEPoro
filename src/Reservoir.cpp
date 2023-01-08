@@ -25,6 +25,7 @@ void Reservoir::InputParam(ParamRead& param)
     optFeatures.InputParam(param.paramRs);
 }
 
+
 void Reservoir::SetupIsoT()
 {
     OCP_FUNCNAME;
@@ -46,6 +47,7 @@ void Reservoir::SetupT()
     allWells.Setup(grid, bulk);
 }
 
+
 void Reservoir::ApplyControl(const USI& i)
 {
     OCP_FUNCNAME;
@@ -63,6 +65,7 @@ void Reservoir::CalMaxChange()
     allWells.CalMaxBHPChange();
 }
 
+
 void Reservoir::CalIPRT(const OCP_DBL& dt)
 {
     OCP_FUNCNAME;
@@ -71,6 +74,19 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)
     // Calculate Reinjection fluid for next step
     allWells.CalReInjFluid(bulk);
 }
+
+
+OCP_INT Reservoir::CheckBulkP() const
+{
+    return bulk.CheckP();
+}
+
+
+OCP_INT Reservoir::CheckWellP()
+{
+    return allWells.CheckP(bulk);
+}
+
 
 OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
 {
@@ -92,6 +108,7 @@ OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
     return 0;
 }
 
+
 OCP_BOOL Reservoir::CheckNi()
 {
     OCP_FUNCNAME;
@@ -99,11 +116,19 @@ OCP_BOOL Reservoir::CheckNi()
     return bulk.CheckNi();
 }
 
+
 OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
 {
     OCP_FUNCNAME;
 
     return bulk.CheckVe(Vlim);
+}
+
+
+OCP_INT Reservoir::CheckCFL() const
+{
+    if (bulk.maxCFL > 1.0)  return BULK_OUTRANGED_CFL;
+    else                    return BULK_SUCCESS;
 }
 
 

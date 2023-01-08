@@ -968,7 +968,7 @@ OCP_INT Well::CheckP(const Bulk& myBulk)
     // 3 : crossflow happens
 
     if (bhp < 0) {
-        cout << "### WARNING: Negative BHP " << bhp << endl;
+        cout << "### WARNING: Well " << name << " BHP = " << bhp << endl;
         return WELL_NEGATIVE_PRESSURE;
     }
     for (USI p = 0; p < numPerf; p++) {
@@ -977,7 +977,6 @@ OCP_INT Well::CheckP(const Bulk& myBulk)
             cout << "### WARNING: Well " << name << " Perf[" << p
                  << "].P = " << perf[p].P << endl;
 #endif // DEBUG
-            cout << "### WARNING: Negative perforation P " << perf[p].P << endl;
             return WELL_NEGATIVE_PRESSURE;
         }
     }

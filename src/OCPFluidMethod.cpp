@@ -64,11 +64,11 @@ void IsoT_IMPEC::InitReservoir(Reservoir& rs) const
     UpdateLastTimeStep(rs);
 }
 
-void IsoT_IMPEC::Prepare(Reservoir& rs, OCP_DBL& dt)
+void IsoT_IMPEC::Prepare(Reservoir& rs, OCPControl& ctrl)
 {
     rs.allWells.PrepareWell(rs.bulk);
-    OCP_DBL cfl = rs.CalCFL(dt);
-    if (cfl > 1) dt /= (cfl + 1);
+    rs.CalCFL(ctrl.GetCurDt()); 
+    ctrl.Check(rs, { "CFL" });
 }
 
 
@@ -115,52 +115,36 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // first check : Pressure check
-    OCP_INT flagCheck = rs.CheckP(OCP_TRUE, OCP_TRUE);
-    switch (flagCheck) {
-        case 1:
-            // Negative Bulk P, well P, or Perforation P
-            dt /= 2;
-            return OCP_FALSE;
-        case 2:
-            // Switch Well opt Mode, or close the cross-flow perforation
-            dt /= 1;
-            return OCP_FALSE;
-        default:
-            // All right
-            break;
+    // First check : Pressure check
+    if (!ctrl.Check(rs, { "BulkP", "WellP" })) {
+        return OCP_FALSE;
     }
 
     // Calculate Flux between bulks and between bulks and wells
     CalFlux(rs);
 
-    // second check : CFL check
-    OCP_DBL cfl = rs.CalCFL(dt);
-    if (cfl > 1) {
-        dt /= 2;
-        ResetToLastTimeStep01(rs);
+    // Second check : CFL check
+    rs.CalCFL(dt);
+    if (!ctrl.Check(rs, { "CFL" })) {
+        ResetToLastTimeStep01(rs, ctrl);
         cout << "CFL is too big" << endl;
         return OCP_FALSE;
     }
 
     MassConserve(rs, dt);
 
-    // third check: Ni check
-    if (!rs.CheckNi()) {
-        dt /= 2;
-        ResetToLastTimeStep02(rs);
-        cout << "Negative Ni occurs\n";
+    // Third check: Ni check
+    if (!ctrl.Check(rs, { "BulkNi" })) {
+        ResetToLastTimeStep02(rs, ctrl);
         return OCP_FALSE;
     }
 
     CalRock(rs.bulk);
     CalFlash(rs.bulk);
 
-    // fouth check: Volume error check
-    if (!rs.CheckVe(0.01)) {
-        // cout << ctrl.GetCurTime() << "Days" << "=======" << endl;
-        dt /= 2;
-        ResetToLastTimeStep03(rs);
+    // Fouth check: Volume error check
+    if (!ctrl.Check(rs, { "BulkVe" })) {
+        ResetToLastTimeStep03(rs, ctrl);
         return OCP_FALSE;
     }
 
@@ -183,7 +167,6 @@ void IsoT_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
     ctrl.CalNextTstepIMPEC(rs);
-    ctrl.UpdateIters();
 }
 
 
@@ -745,7 +728,7 @@ void IsoT_IMPEC::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u)
 }
 
 
-void IsoT_IMPEC::ResetToLastTimeStep01(Reservoir& rs)
+void IsoT_IMPEC::ResetToLastTimeStep01(Reservoir& rs, OCPControl& ctrl)
 {
     // Bulk
     rs.bulk.Pj = rs.bulk.lPj;
@@ -754,10 +737,13 @@ void IsoT_IMPEC::ResetToLastTimeStep01(Reservoir& rs)
     rs.conn.upblock_Rho         = rs.conn.lupblock_Rho;
     rs.conn.upblock_Trans       = rs.conn.lupblock_Trans;
     rs.conn.upblock_Velocity    = rs.conn.lupblock_Velocity;
+
+    // Iters
+    ctrl.ResetIterNRLS();
 }
 
 
-void IsoT_IMPEC::ResetToLastTimeStep02(Reservoir& rs)
+void IsoT_IMPEC::ResetToLastTimeStep02(Reservoir& rs, OCPControl& ctrl)
 {
     // Bulk
     rs.bulk.Ni = rs.bulk.lNi;
@@ -767,10 +753,13 @@ void IsoT_IMPEC::ResetToLastTimeStep02(Reservoir& rs)
     rs.conn.upblock_Rho         = rs.conn.lupblock_Rho;
     rs.conn.upblock_Trans       = rs.conn.lupblock_Trans;
     rs.conn.upblock_Velocity    = rs.conn.lupblock_Velocity;
+
+    // Iters
+    ctrl.ResetIterNRLS();
 }
 
 
-void IsoT_IMPEC::ResetToLastTimeStep03(Reservoir& rs)
+void IsoT_IMPEC::ResetToLastTimeStep03(Reservoir& rs, OCPControl& ctrl)
 {
     Bulk& bk = rs.bulk;
     // Rock
@@ -804,6 +793,9 @@ void IsoT_IMPEC::ResetToLastTimeStep03(Reservoir& rs)
 
     // Optional Features
     rs.optFeatures.ResetToLastTimeStep();
+
+    // Iters
+    ctrl.ResetIterNRLS();
 }
 
 
@@ -944,12 +936,11 @@ OCP_BOOL IsoT_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
-        dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, dt);
+
+    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
+        ResetToLastTimeStep(rs, ctrl);       
         cout << "Cut time step size and repeat! current dt = " << fixed
-             << setprecision(3) << dt << " days\n";
+            << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -982,34 +973,17 @@ OCP_BOOL IsoT_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
-
-        switch (flagCheck) {
-            case 1:
-                ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                if (ctrl.printLevel >= PRINT_MORE) {
-                    OCP_WARNING("Reset Newton iteration!");
-                }
-                return OCP_FALSE;
-            case 2:
-                ctrl.current_dt /= 1;
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                if (ctrl.printLevel >= PRINT_MORE) {
-                    OCP_WARNING("Reset Newton iteration!");
-                }
-                return OCP_FALSE;
-            default:
-                return OCP_TRUE;
-                break;
+        if (!ctrl.Check(rs, { "WellP" })) {
+            ResetToLastTimeStep(rs, ctrl);
+            return OCP_FALSE;
+        }
+        else {
+            return OCP_TRUE;
         }
     }
     else if (ctrl.iterNR >= ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, ctrl.current_dt);
-        ctrl.ResetIterNRLS();
+        ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
             "current dt = "
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
@@ -1026,7 +1000,6 @@ void IsoT_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
     ctrl.CalNextTstepFIM(rs);
-    ctrl.UpdateIters();
 }
 
 
@@ -2918,7 +2891,7 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
 }
 
 
-void IsoT_FIM::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
+void IsoT_FIM::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
     Bulk& bk = rs.bulk;
 
@@ -2967,9 +2940,11 @@ void IsoT_FIM::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
     // Optional Features
     rs.optFeatures.ResetToLastTimeStep();
 
+    // Iters
+    ctrl.ResetIterNRLS();
+
     // Residual
-    // rs.CalResFIM(resFIM, dt, OCP_TRUE);
-    CalRes(rs, dt, OCP_TRUE);
+    CalRes(rs, ctrl.GetCurDt(), OCP_TRUE);
 }
 
 
@@ -3110,11 +3085,11 @@ OCP_BOOL IsoT_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
-        dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, ctrl.current_dt);
-        cout << "Cut time stepsize and repeat!\n";
+    // First check: Ni check and bulk Pressure check
+    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
+        ResetToLastTimeStep(rs, ctrl);
+        cout << "Cut time step size and repeat! current dt = " << fixed
+            << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -3148,33 +3123,17 @@ OCP_BOOL IsoT_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
-
-        switch (flagCheck) {
-            case 1:
-                ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                if (ctrl.printLevel >= PRINT_MORE) {
-                    OCP_WARNING("Reset Newton iteration!");
-                }
-                return OCP_FALSE;
-            case 2:
-                ctrl.current_dt /= 1;
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                if (ctrl.printLevel >= PRINT_MORE) {
-                    OCP_WARNING("Reset Newton iteration!");
-                }
-                return OCP_FALSE;
-            default:
-                return OCP_TRUE;
-                break;
+        if (!ctrl.Check(rs, { "WellP" })) {
+            ResetToLastTimeStep(rs, ctrl);
+            return OCP_FALSE;
         }
+        else {
+            return OCP_TRUE;
+        }
+
     } else if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, ctrl.current_dt);
-        ctrl.ResetIterNRLS();
+        ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
             "current dt = "
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
@@ -3192,7 +3151,6 @@ void IsoT_FIMn::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
     ctrl.CalNextTstepFIM(rs);
-    ctrl.UpdateIters();
 }
 
 
@@ -4092,13 +4050,13 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
 }
 
 
-void IsoT_FIMn::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
+void IsoT_FIMn::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.bulk.nj      = rs.bulk.lnj;
     rs.bulk.res_n   = rs.bulk.lres_n;
     rs.bulk.resPc   = rs.bulk.lresPc;
 
-    IsoT_FIM::ResetToLastTimeStep(rs, dt);
+    IsoT_FIM::ResetToLastTimeStep(rs, ctrl);
 }
 
 
@@ -4197,11 +4155,11 @@ OCP_BOOL IsoT_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-    // Second check: Ni check and bulk Pressure check
-    if (!rs.CheckNi() || rs.CheckP(OCP_TRUE, OCP_FALSE) != 0) {
-        dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, dt);
-        cout << "Cut time stepsize and repeat!\n";
+    // First check: Ni check and bulk Pressure check
+    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
+        ResetToLastTimeStep(rs, ctrl);
+        cout << "Cut time step size and repeat! current dt = " << fixed
+            << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -4239,29 +4197,17 @@ OCP_BOOL IsoT_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        OCP_INT flagCheck = rs.CheckP(OCP_FALSE, OCP_TRUE);
-
-        switch (flagCheck) {
-            case 1:
-                ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                return OCP_FALSE;
-            case 2:
-                ResetToLastTimeStep(rs, ctrl.current_dt);
-                ctrl.ResetIterNRLS();
-                return OCP_FALSE;
-            default:
-                // Update IMPEC Bulk Properties
-                CalFlashEa(rs.bulk);
-                CalKrPcE(rs.bulk);
-                return OCP_TRUE;
-                break;
+        if (!ctrl.Check(rs, { "WellP" })) {
+            ResetToLastTimeStep(rs, ctrl);
+            return OCP_FALSE;
         }
+        else {
+            return OCP_TRUE;
+        }
+
     } else if (ctrl.iterNR > ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
-        ResetToLastTimeStep(rs, ctrl.current_dt);
-        ctrl.ResetIterNRLS();
+        ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
             "current dt = "
             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
@@ -4279,7 +4225,6 @@ void IsoT_AIMc::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
     ctrl.CalNextTstepFIM(rs);
-    ctrl.UpdateIters();
 }
 
 /// Allocate memory for reservoir
@@ -5092,11 +5037,11 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
 }
 
 
-void IsoT_AIMc::ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt)
+void IsoT_AIMc::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
     rs.bulk.vj      = rs.bulk.lvj;
     rs.bulk.xijNR   = rs.bulk.lxij;
-    IsoT_FIM::ResetToLastTimeStep(rs, dt);
+    IsoT_FIM::ResetToLastTimeStep(rs, ctrl);
 }
 
 

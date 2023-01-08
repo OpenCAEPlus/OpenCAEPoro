@@ -116,20 +116,17 @@ void Solver::GoOneStep(Reservoir& rs, OCPControl& ctrl)
 
 void Solver::GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL& dt = ctrl.GetCurDt();
-
     // Prepare for time marching
-    IsoTSolver.Prepare(rs, dt);
+    IsoTSolver.Prepare(rs, ctrl);
 
     // Time marching with adaptive time stepsize
     while (OCP_TRUE) {
-        if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
+        if (ctrl.GetCurDt() < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
         // Assemble linear system
         IsoTSolver.AssembleMat(rs, ctrl);
         // Solve linear system
         IsoTSolver.SolveLinearSystem(rs, ctrl);
-        if (!IsoTSolver.UpdateProperty(rs, ctrl)) {
-            ctrl.ResetIterNRLS();
+        if (!IsoTSolver.UpdateProperty(rs, ctrl)) {           
             continue;
         }
         if (IsoTSolver.FinishNR(rs, ctrl)) break;
@@ -149,7 +146,7 @@ void Solver::GoOneStepT(Reservoir& rs, OCPControl& ctrl)
 
     // Time marching with adaptive time stepsize
     while (OCP_TRUE) {
-        if (dt < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
+        if (ctrl.GetCurDt() < MIN_TIME_CURSTEP) OCP_ABORT("Time stepsize is too small!");
         // Assemble linear system
         TSolver.AssembleMat(rs, ctrl);
         // Solve linear system

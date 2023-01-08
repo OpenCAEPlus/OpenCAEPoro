@@ -222,6 +222,25 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
     printLevel = ctrlFast.printLevel;
 }
 
+
+void OCPControl::UpdateIters()
+{
+    numTstep += 1;
+    iterNR_total += iterNR;
+    iterLS_total += iterLS;
+    iterNR = 0;
+    iterLS = 0;
+}
+
+void OCPControl::ResetIterNRLS()
+{
+    wastedIterNR += iterNR;
+    iterNR = 0;
+    wastedIterLS += iterLS;
+    iterLS = 0;
+}
+
+
 void OCPControl::CalNextTstepIMPEC(const Reservoir& rs)
 {
     last_dt = current_dt;
@@ -258,6 +277,7 @@ void OCPControl::CalNextTstepIMPEC(const Reservoir& rs)
 
     // cout << "FactorT: " << c << "   Next dt: " << dt << endl;
 }
+
 
 void OCPControl::CalNextTstepFIM(const Reservoir& rs)
 {
@@ -297,22 +317,52 @@ void OCPControl::CalNextTstepFIM(const Reservoir& rs)
     if (current_dt > dt) current_dt = dt;
 }
 
-void OCPControl::UpdateIters()
+OCP_BOOL OCPControl::Check(Reservoir& rs, initializer_list<string> il)
 {
-    numTstep += 1;
-    iterNR_total += iterNR;
-    iterLS_total += iterLS;
-    iterNR = 0;
-    iterLS = 0;
+    OCP_INT flag;
+    for (auto& s : il) {
+     
+        if (s == "BulkP")        flag = rs.bulk.CheckP();
+        else if (s == "BulkT")   flag = rs.bulk.CheckT();
+        else if (s == "BulkNi")  flag = rs.bulk.CheckNi();
+        else if (s == "BulkVe")  flag = rs.bulk.CheckVe(0.01);
+        else if (s == "CFL")     flag = rs.bulk.CheckCFL(1.0);
+        else if (s == "WellP")    flag = rs.allWells.CheckP(rs.bulk);
+        else                     OCP_ABORT("WRONG Check Iterm!");
+
+        switch (flag)
+        {
+        // Bulk
+        case BULK_SUCCESS:
+            break;         
+        case BULK_NEGATIVE_PRESSURE:
+        case BULK_NEGATIVE_TEMPERATURE:
+        case BULK_NEGATIVE_COMPONENTS_MOLES:
+        case BULK_OUTRANGED_VOLUME_ERROR:
+            current_dt *= ctrlTime.cutFacNR;
+            return OCP_FALSE;
+        case BULK_OUTRANGED_CFL:
+            current_dt /= (rs.bulk.GetMaxCFL() + 1);
+            return OCP_FALSE;
+        // Well
+        case WELL_SUCCESS:
+            break;
+        case WELL_NEGATIVE_PRESSURE:
+            current_dt *= ctrlTime.cutFacNR;
+            return OCP_FALSE;
+            break;
+        case WELL_SWITCH_TO_BHPMODE:
+        case WELL_CROSSFLOW:
+            return OCP_FALSE;
+            break;
+        default:
+            break;
+        }
+    }
+    
+    return OCP_TRUE;
 }
 
-void OCPControl::ResetIterNRLS()
-{
-    wastedIterNR += iterNR;
-    iterNR = 0;
-    wastedIterLS += iterLS;
-    iterLS = 0;
-}
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

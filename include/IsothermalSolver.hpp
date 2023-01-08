@@ -24,7 +24,7 @@ public:
     /// Initialize the Reservoir and prepare variables for some method.
     void InitReservoir(Reservoir& rs) const;
     /// Prepare for assembling Mat.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, OCPControl& ctrl);
     /// Assemble Mat.
     void AssembleMat(const Reservoir& rs, OCPControl& ctrl);
     /// Solve the linear system in single problem.

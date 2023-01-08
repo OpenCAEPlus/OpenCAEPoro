@@ -33,8 +33,7 @@ public:
     /// Finish the current time step.
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
-private:
-    USI           method = FIM;
+protected:
     LinearSystem  LSolver;
     LinearSystem  auxLSolver;
     T_FIM         fim;

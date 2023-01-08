@@ -170,12 +170,6 @@ public:
     /// Record the total time of simulation.
     void RecordTotalTime(const OCP_DBL& t) { totalSimTime += t; }
 
-    /// Get the next time step for IMPEC according to max change of some variables.
-    void CalNextTstepIMPEC(const Reservoir& reservoir);
-
-    /// Get the next time step for FIM according to max change of some variables.
-    void CalNextTstepFIM(const Reservoir& reservoir);
-
     /// Determine whether the critical time point has been reached.
     OCP_BOOL IsCriticalTime(const USI& d)
     {
@@ -188,8 +182,14 @@ public:
     /// Return linear solver file name.
     string GetLsFile() const { return linearSolverFile; }
 
-    // Set wellChange
-    void SetWellChange(const OCP_BOOL& flag) { wellChange = flag; }
+    /// Get the next time step for IMPEC according to max change of some variables.
+    void CalNextTstepIMPEC(const Reservoir& reservoir);
+
+    /// Get the next time step for FIM according to max change of some variables.
+    void CalNextTstepFIM(const Reservoir& reservoir);
+
+    // Check order is important
+    OCP_BOOL Check(Reservoir& rs, initializer_list<string> il);
 
 private:
     USI    model;            ///< model: ifThermal, isothermal

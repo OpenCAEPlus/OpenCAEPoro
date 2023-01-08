@@ -37,7 +37,7 @@ public:
     /// Init
     void InitReservoir(Reservoir& rs) const;
     /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, OCPControl& ctrl);
     /// Assemble Matrix
     void AssembleMat(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Solve the linear system.
@@ -80,9 +80,9 @@ private:
     /// Update P, Pj, BHP after linear system is solved
     void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u);
     /// Reset variables to last time step
-    void ResetToLastTimeStep01(Reservoir& rs);
-    void ResetToLastTimeStep02(Reservoir& rs);
-    void ResetToLastTimeStep03(Reservoir& rs);
+    void ResetToLastTimeStep01(Reservoir& rs, OCPControl& ctrl);
+    void ResetToLastTimeStep02(Reservoir& rs, OCPControl& ctrl);
+    void ResetToLastTimeStep03(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for FIM.
     void UpdateLastTimeStep(Reservoir& rs) const;
 };
@@ -123,7 +123,7 @@ protected:
     void AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     void AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Reset variables to last time step
-    void ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt);
+    void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for FIM.
     void UpdateLastTimeStep(Reservoir& rs) const;
 
@@ -190,7 +190,7 @@ protected:
     /// Update P, Ni, BHP after linear system is solved
     void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
     /// Reset variables to last time step
-    void ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt);
+    void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for FIMn
     void UpdateLastTimeStep(Reservoir& rs) const;
 
@@ -238,7 +238,7 @@ protected:
     /// Update P, Ni, BHP after linear system is solved
     void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
     /// Reset variables to last time step
-    void ResetToLastTimeStep(Reservoir& rs, const OCP_DBL& dt);
+    void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for AIMc.
     void UpdateLastTimeStep(Reservoir& rs) const;
 

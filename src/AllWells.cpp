@@ -335,28 +335,24 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
 {
     OCP_FUNCNAME;
 
-    // 0 : All correct
-    // 1   : negative P, cut the timestep and resolve
-    // 2.1 : change well mode to BHP, resolve
-    // 2.2 : crossflow happens, then close corresponding perf, resolve
-    OCP_BOOL flag2 = OCP_FALSE;
-    OCP_BOOL flag3 = OCP_FALSE;
+    OCP_BOOL flagSwitch = OCP_FALSE;
+    OCP_BOOL flagCrossf = OCP_FALSE;
 
     for (USI w = 0; w < numWell; w++) {
         if (wells[w].IsOpen()) {
 
-            OCP_INT flag1 = wells[w].CheckP(myBulk);
+            OCP_INT flag = wells[w].CheckP(myBulk);
 
-            switch (flag1) {
+            switch (flag) {
                 case WELL_NEGATIVE_PRESSURE:
-                    return 1;
+                    return WELL_NEGATIVE_PRESSURE;
 
                 case WELL_SWITCH_TO_BHPMODE:
-                    flag2 = OCP_TRUE;
+                    flagSwitch = OCP_TRUE;
                     break;
 
                 case WELL_CROSSFLOW:
-                    flag3 = OCP_TRUE;
+                    flagCrossf = OCP_TRUE;
                     break;
 
                 case WELL_SUCCESS:
@@ -366,9 +362,9 @@ OCP_INT AllWells::CheckP(const Bulk& myBulk)
         }
     }
 
-    if (flag2 || flag3) return 2;
+    if (flagSwitch || flagCrossf) return WELL_SWITCH_TO_BHPMODE;
 
-    return 0;
+    return WELL_SUCCESS;
 }
 
 // return the index of Specified well name

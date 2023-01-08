@@ -59,17 +59,21 @@ public:
     void SetupT();
     /// Apply the control of ith critical time point.
     void ApplyControl(const USI& i);
-    /// Calculate Maximum Change of some reference variables for IMPEC
-    void CalMaxChange();
     /// Calculate num of Injection, Production
     void CalIPRT(const OCP_DBL& dt);
+    /// Calculate Maximum Change of some reference variables for IMPEC
+    void CalMaxChange();
     /// Check if abnormal Pressure occurs
+    OCP_INT CheckBulkP() const;
+    OCP_INT CheckWellP();
     OCP_INT CheckP(const OCP_BOOL& bulkCheck = OCP_TRUE,
                    const OCP_BOOL& wellCheck = OCP_TRUE);
     /// Check if abnormal Pressure occurs
     OCP_BOOL CheckNi();
     /// Check error between Fluids and Pores
     OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
+    /// Check CFL
+    OCP_INT CheckCFL()const;
     /// Return the num of Bulk
     OCP_USI GetBulkNum() const { return bulk.GetBulkNum(); }
     /// Return the num of Well

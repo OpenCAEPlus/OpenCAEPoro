@@ -39,8 +39,10 @@ using namespace std;
 
 const int BULK_SUCCESS                      =  0;
 const int BULK_NEGATIVE_PRESSURE            = -1;
-const int BULK_NEGATIVE_COMPONENTS_MOLES    = -2;
-const int BULK_OUTRANGED_VOLUME_ERROR       = -3;
+const int BULK_NEGATIVE_TEMPERATURE         = -2;
+const int BULK_NEGATIVE_COMPONENTS_MOLES    = -3;
+const int BULK_OUTRANGED_VOLUME_ERROR       = -4;
+const int BULK_OUTRANGED_CFL                = -5;
 
 
 
@@ -394,13 +396,15 @@ protected:
 
 public:
     /// Check if negative P occurs, return OCP_FALSE if so.
-    OCP_BOOL CheckP() const;
+    OCP_INT CheckP() const;
     /// Check if negative T occurs, return OCP_FALSE if so.
-    OCP_BOOL CheckT() const;
+    OCP_INT CheckT() const;
     /// Check if negative Ni occurs, return OCP_FALSE if so.
-    OCP_BOOL CheckNi();
+    OCP_INT CheckNi();
     /// Check if relative volume error is out of range, return OCP_FALSE if so.
-    OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
+    OCP_INT CheckVe(const OCP_DBL& Vlim) const;
+    OCP_INT CheckCFL(const OCP_DBL& cflLim) const;
+
 
     /// Return maxCFL
     OCP_DBL GetMaxCFL() const { return maxCFL; }

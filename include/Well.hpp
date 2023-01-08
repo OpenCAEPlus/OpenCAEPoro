@@ -33,10 +33,10 @@ using namespace std;
 // General Error Yype
 /////////////////////////////////////////////////////////////////////
 
-const int WELL_SUCCESS              =  0;
-const int WELL_NEGATIVE_PRESSURE    = -1;
-const int WELL_SWITCH_TO_BHPMODE    = -2;
-const int WELL_CROSSFLOW            = -3;
+const int WELL_SUCCESS              =  10;
+const int WELL_NEGATIVE_PRESSURE    = -11;
+const int WELL_SWITCH_TO_BHPMODE    = -12;
+const int WELL_CROSSFLOW            = -13;
 
 
 

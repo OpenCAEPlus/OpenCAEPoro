@@ -57,21 +57,21 @@ void IsothermalSolver::InitReservoir(Reservoir &rs) const
 }
 
 /// Prepare solution methods, including IMPEC and FIM.
-void IsothermalSolver::Prepare(Reservoir &rs, OCP_DBL &dt)
+void IsothermalSolver::Prepare(Reservoir &rs, OCPControl& ctrl)
 {
     switch (method)
     {
     case IMPEC:
-        impec.Prepare(rs, dt);
+        impec.Prepare(rs, ctrl);
         break;
     case FIMn:
-        fim_n.Prepare(rs, dt);
+        fim_n.Prepare(rs, ctrl.GetCurDt());
         break;
     case FIM:
-        fim.Prepare(rs, dt);
+        fim.Prepare(rs, ctrl.GetCurDt());
         break;
     case AIMc:
-        aimc.Prepare(rs, dt);
+        aimc.Prepare(rs, ctrl.GetCurDt());
         break;
     default:
         OCP_ABORT("Wrong method type!");
@@ -153,7 +153,7 @@ OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
         default:
             OCP_ABORT("Wrong method type!");
     }
-
+    
     ctrl.RecordTimeUpdateProperty(timer.Stop() / 1000);
 
     return flag;
@@ -182,16 +182,21 @@ void IsothermalSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
     switch (method)
     {
     case IMPEC:
-        return impec.FinishStep(rs, ctrl);
+        impec.FinishStep(rs, ctrl);
+        break;
     case FIMn:
-        return fim_n.FinishStep(rs, ctrl);
+        fim_n.FinishStep(rs, ctrl);
+        break;
     case FIM:
-        return fim.FinishStep(rs, ctrl);
+        fim.FinishStep(rs, ctrl);
+        break;
     case AIMc:
-        return aimc.FinishStep(rs, ctrl);
+        aimc.FinishStep(rs, ctrl);
+        break;
     default:
         OCP_ABORT("Wrong method type!");
     }
+    ctrl.UpdateIters();
 }
 
 /*----------------------------------------------------------------------------*/
