@@ -1374,28 +1374,6 @@ void Bulk::CalMaxChange()
 }
 
 
-OCP_DBL Bulk::CalCFL() const
-{
-    OCP_FUNCNAME;
-
-    maxCFL = 0;
-    const OCP_USI len = numBulk * numPhase;
-    for (OCP_USI n = 0; n < len; n++) {
-        if (phaseExist[n]) {
-            cfl[n] /= vj[n];
-#ifdef DEBUG
-            if (!isfinite(cfl[n])) {
-                OCP_ABORT("cfl is nan!");
-            }
-#endif // DEBUG
-            if (maxCFL < cfl[n]) maxCFL = cfl[n];
-        }
-    }
-
-    return maxCFL;
-}
-
-
 /////////////////////////////////////////////////////////////////////
 // Error
 /////////////////////////////////////////////////////////////////////

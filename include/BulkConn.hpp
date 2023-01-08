@@ -66,6 +66,7 @@ protected:
 // bulks and matrix assembling with contributions from bulks only are included.
 class BulkConn
 {
+    friend class Reservoir;
     // temp
     friend class MyMetisTest;
     friend class Out4VTK;
@@ -128,9 +129,6 @@ protected:
     // Physical Variables
     /////////////////////////////////////////////////////////////////////
 
-public:
-    /// Calculate the CFL number for flow between bulks???
-    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
 protected:
 
     //  Note: Upblock is identified by difference of pressure between phases.

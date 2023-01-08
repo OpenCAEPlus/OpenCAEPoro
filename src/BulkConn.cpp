@@ -169,24 +169,6 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
     }
 }
 
-void BulkConn::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-    fill(myBulk.cfl.begin(), myBulk.cfl.end(), 0);
-
-    USI np = myBulk.numPhase;
-    for (OCP_USI c = 0; c < numConn; c++) {
-
-        for (USI j = 0; j < np; j++) {
-            OCP_USI uId = upblock[c * np + j];
-
-            if (myBulk.phaseExist[uId * np + j]) {
-                myBulk.cfl[uId * np + j] += fabs(upblock_Velocity[c * np + j]) * dt;
-            }
-        }
-    }
-}
-
 
 /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
 void BulkConn::CalFluxFIMS(const Grid& myGrid, const Bulk& myBulk)

@@ -107,13 +107,48 @@ OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
 }
 
 
-OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt)
+OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
 {
-    OCP_FUNCNAME;
+    fill(bulk.cfl.begin(), bulk.cfl.end(), 0.0);
+    const USI np = bulk.numPhase;
 
-    conn.CalCFL(bulk, dt);
-    allWells.CalCFL(bulk, dt);
-    bulk.CalCFL();
+    for (OCP_USI c = 0; c < conn.numConn; c++) {
+        for (USI j = 0; j < np; j++) {
+            const OCP_USI uId = conn.upblock[c * np + j];
+
+            if (bulk.phaseExist[uId * np + j]) {
+                bulk.cfl[uId * np + j] += fabs(conn.upblock_Velocity[c * np + j]) * dt;
+            }
+        }
+    }
+
+    for (const auto& wl : allWells.wells) {
+        if (wl.IsOpen() && wl.WellType() == PROD) {
+            for (USI p = 0; p < wl.PerfNum(); p++) {
+                if (wl.PerfState(p) == OPEN) {
+                    const OCP_USI k = wl.PerfLocation(p);
+
+                    for (USI j = 0; j < np; j++) {
+                        bulk.cfl[k * np + j] += fabs(wl.PerfProdQj_ft3(p,j)) * dt;
+                    }
+                }
+            }
+        }
+    }
+
+    bulk.maxCFL = 0;
+    const OCP_USI len = bulk.numBulk * np;
+    for (OCP_USI n = 0; n < len; n++) {
+        if (bulk.phaseExist[n]) {
+            bulk.cfl[n] /= bulk.vj[n];
+#ifdef DEBUG
+            if (!isfinite(bulk.cfl[n])) {
+                OCP_ABORT("cfl is nan!");
+            }
+#endif // DEBUG
+            if (bulk.maxCFL < bulk.cfl[n]) bulk.maxCFL = bulk.cfl[n];
+        }
+    }
 
     return bulk.maxCFL;
 }

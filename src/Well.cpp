@@ -1109,24 +1109,6 @@ void Well::ShowPerfStatus(const Bulk& myBulk) const
 }
 
 
-void Well::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    if (opt.type == PROD) {
-        for (USI p = 0; p < numPerf; p++) {
-            if (perf[p].state == OPEN) {
-                OCP_USI k = perf[p].location;
-
-                for (USI j = 0; j < numPhase; j++) {
-                    myBulk.cfl[k * numPhase + j] += fabs(perf[p].qj_ft3[j]) * dt;
-                }               
-            }
-        }
-    }
-}
-
-
 void Well::AssembleMatReinjection_IMPEC(const Bulk&         myBulk,
                                         LinearSystem&       myLS,
                                         const OCP_DBL&      dt,

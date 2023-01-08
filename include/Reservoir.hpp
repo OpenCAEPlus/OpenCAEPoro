@@ -88,7 +88,7 @@ protected:
 
 public:
     /// Calculate the CFL number, including bulks and wells for IMPEC
-    OCP_DBL CalCFL(const OCP_DBL& dt);
+    OCP_DBL CalCFL(const OCP_DBL& dt) const;
     /// Return NRdPmax
     OCP_DBL GetNRdPmax() { return bulk.GetNRdPmax(); }
     /// Return NRdSmax

@@ -155,6 +155,7 @@ public:
     OCP_DBL MinBHP() const { OCP_ASSERT(opt.type == PROD, "Wrong Call"); return opt.minBHP; }
     OCP_DBL InjTemp() const { OCP_ASSERT(opt.type == INJ, "Wrong Call"); return opt.injTemp; }
 
+    OCP_BOOL PerfState(const USI& p)const { return perf[p].state; }
     USI PerfLocation(const USI& p)const { return perf[p].location; }
     OCP_DBL PerfWI(const USI& p)const { return perf[p].WI; }
     OCP_DBL PerfMultiplier(const USI& p)const { return perf[p].multiplier; }
@@ -205,8 +206,6 @@ protected:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Calculate the CFL number, only parts related to wells are considered.
-    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
     /// Assemble matrix for Reinjection Well, used in production well when injection
     /// well is under RATE control
     void AssembleMatReinjection_IMPEC(const Bulk& myBulk, LinearSystem& myLS,

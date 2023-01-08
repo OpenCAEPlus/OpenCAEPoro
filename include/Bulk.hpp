@@ -402,8 +402,6 @@ public:
     /// Check if relative volume error is out of range, return OCP_FALSE if so.
     OCP_BOOL CheckVe(const OCP_DBL& Vlim) const;
 
-    /// Calculate the CFL number.
-    OCP_DBL CalCFL() const;
     /// Return maxCFL
     OCP_DBL GetMaxCFL() const { return maxCFL; }
 
