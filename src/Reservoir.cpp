@@ -76,62 +76,6 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)
 }
 
 
-OCP_INT Reservoir::CheckBulkP() const
-{
-    return bulk.CheckP();
-}
-
-
-OCP_INT Reservoir::CheckWellP()
-{
-    return allWells.CheckP(bulk);
-}
-
-
-OCP_INT Reservoir::CheckP(const OCP_BOOL& bulkCheck, const OCP_BOOL& wellCheck)
-{
-    OCP_FUNCNAME;
-
-    if (bulkCheck) {
-        if (!bulk.CheckP()) {
-            // negative Pressure
-            return 1;
-        }
-    }
-
-    if (wellCheck) {
-        OCP_INT flag = 0;
-        flag         = allWells.CheckP(bulk);
-        return flag;
-    }
-
-    return 0;
-}
-
-
-OCP_BOOL Reservoir::CheckNi()
-{
-    OCP_FUNCNAME;
-
-    return bulk.CheckNi();
-}
-
-
-OCP_BOOL Reservoir::CheckVe(const OCP_DBL& Vlim) const
-{
-    OCP_FUNCNAME;
-
-    return bulk.CheckVe(Vlim);
-}
-
-
-OCP_INT Reservoir::CheckCFL() const
-{
-    if (bulk.maxCFL > 1.0)  return BULK_OUTRANGED_CFL;
-    else                    return BULK_SUCCESS;
-}
-
-
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
 {
     fill(bulk.cfl.begin(), bulk.cfl.end(), 0.0);

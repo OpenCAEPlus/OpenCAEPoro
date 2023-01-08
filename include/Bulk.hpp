@@ -395,22 +395,20 @@ protected:
     /////////////////////////////////////////////////////////////////////
 
 public:
-    /// Check if negative P occurs, return OCP_FALSE if so.
+    /// Check if negative P occurs
     OCP_INT CheckP() const;
-    /// Check if negative T occurs, return OCP_FALSE if so.
+    /// Check if negative T occurs
     OCP_INT CheckT() const;
-    /// Check if negative Ni occurs, return OCP_FALSE if so.
+    /// Check if negative Ni occurs
     OCP_INT CheckNi();
-    /// Check if relative volume error is out of range, return OCP_FALSE if so.
+    /// Check if relative volume error is outranged.
     OCP_INT CheckVe(const OCP_DBL& Vlim) const;
+    /// Check if Cfl is outranged.
     OCP_INT CheckCFL(const OCP_DBL& cflLim) const;
-
-
-    /// Return maxCFL
-    OCP_DBL GetMaxCFL() const { return maxCFL; }
 
     /// Calculate max change of indicator variables.
     void CalMaxChange();
+
     /// Return dPmax.
     OCP_DBL GetdPmax() const { return dPmax; }
     /// Return dNmax.
@@ -419,6 +417,8 @@ public:
     OCP_DBL GetdSmax() const { return dSmax; }
     /// Return dVmax.
     OCP_DBL GetdVmax() const { return dVmax; }
+    /// Return maxCFL
+    OCP_DBL GetMaxCFL() const { return maxCFL; }
 
 protected:
 
