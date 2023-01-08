@@ -249,10 +249,6 @@ protected:
     // IMPEC
     /////////////////////////////////////////////////////////////////////
 
-public:
-    /// Calculate the CFL number for each perforation and return the maximum one.
-    void CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const;
-
 
     // for output
 private:

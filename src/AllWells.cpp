@@ -415,19 +415,6 @@ void AllWells::CalMaxBHPChange()
 }
 
 
-void AllWells::CalCFL(const Bulk& myBulk, const OCP_DBL& dt) const
-{
-    OCP_FUNCNAME;
-
-    for (USI w = 0; w < numWell; w++) {
-        if (wells[w].IsOpen()) {
-            wells[w].CalCFL(myBulk, dt);
-        }
-    }
-}
-
-
-
 void AllWells::SetPolyhedronWell(const Grid& myGrid)
 {
     useVTK = myGrid.IfUseVtk();
