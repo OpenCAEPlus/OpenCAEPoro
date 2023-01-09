@@ -129,7 +129,7 @@ public:
     OCP_DBL GetCurTime() const { return current_time; }
 
     /// Return current time step size.
-    OCP_DBL& GetCurDt() { return current_dt; }
+    OCP_DBL GetCurDt() const { return current_dt; }
 
     /// Return last time step size.
     OCP_DBL GetLastDt() const { return last_dt; }

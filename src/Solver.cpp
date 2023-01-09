@@ -139,10 +139,8 @@ void Solver::GoOneStepIsoT(Reservoir& rs, OCPControl& ctrl)
 
 void Solver::GoOneStepT(Reservoir& rs, OCPControl& ctrl)
 {
-    OCP_DBL& dt = ctrl.GetCurDt();
-
     // Prepare for time marching
-    TSolver.Prepare(rs, dt);
+    TSolver.Prepare(rs, ctrl);
 
     // Time marching with adaptive time stepsize
     while (OCP_TRUE) {

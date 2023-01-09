@@ -96,7 +96,7 @@ public:
     /// Init
     void InitReservoir(Reservoir& rs) const;
     /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, const OCP_DBL& dt);
     /// Assemble Matrix
     void AssembleMat(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Solve the linear system.
@@ -158,7 +158,7 @@ public:
     /// Init
     void InitReservoir(Reservoir& rs) const;
     /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, const OCP_DBL& dt);
     /// Assemble Matrix
     void AssembleMat(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Solve the linear system.
@@ -204,7 +204,7 @@ public:
     /// Init
     void InitReservoir(Reservoir& rs) const;
     /// Prepare for Assembling matrix.
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, const OCP_DBL& dt);
     /// Assemble Matrix
     void AssembleMat(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Solve the linear system.

@@ -16,6 +16,79 @@
 // OpenCAEPoro header files
 #include "Bulk.hpp"
 
+
+/////////////////////////////////////////////////////////////////////
+// HeatLoss
+/////////////////////////////////////////////////////////////////////
+
+
+void HeatLoss::InputParam(const HLoss& loss)
+{
+    ifHLoss = loss.ifHLoss;
+    if (ifHLoss) {
+        obC = loss.obC;
+        obK = loss.obK;
+        ubC = loss.ubC;
+        ubK = loss.ubK;
+    }
+}
+
+
+void HeatLoss::Setup(const OCP_USI& nb)
+{
+    if (ifHLoss) {
+        obD = obK / obC;
+        ubD = ubK / ubC;
+        numBulk = nb;
+        I.resize(numBulk);
+        p.resize(numBulk);
+        pT.resize(numBulk);
+        lI.resize(numBulk);
+        lp.resize(numBulk);
+        lpT.resize(numBulk);
+    }
+}
+
+
+void HeatLoss::CalHeatLoss(const vector<USI>& location, const vector<OCP_DBL>& T, const vector<OCP_DBL>& lT,
+    const vector<OCP_DBL>& initT, const OCP_DBL& t, const OCP_DBL& dt)
+{
+    if (ifHLoss) {
+        OCP_DBL  lambda, d, dT, theta;
+        OCP_DBL  tmp, q;
+        for (OCP_USI n = 0; n < numBulk; n++) {
+            if (location[n] > 0) {
+                // overburden or underburden
+                lambda = location[n] == 1 ? obD : ubD;
+
+                dT = T[n] - lT[n];
+                theta = T[n] - initT[n];
+                d = sqrt(lambda * t) / 2;
+                tmp = 3 * pow(d, 2) + lambda * dt;
+                p[n] = (theta * (lambda * dt / d) + lI[n] - dT * (pow(d, 3) / (lambda * dt))) / tmp;
+                pT[n] = (lambda * dt / d - pow(d, 3) / (lambda * dt)) / tmp;
+                q = (2 * p[n] * d - theta + pow(d, 2) * dT / (lambda * dt)) / (2 * pow(d, 2));
+                I[n] = theta * d + p[n] * pow(d, 2) + 2 * q * pow(d, 3);
+            }
+        }
+    }
+}
+
+
+void HeatLoss::ResetToLastTimeStep()
+{
+    I   = lI;
+    p   = lp;
+    pT  = lpT;
+}
+
+void HeatLoss::UpdateLastTimeStep()
+{
+    lI  = I;
+    lp  = p;
+    lpT = pT;
+}
+
 /////////////////////////////////////////////////////////////////////
 // Input Param and Setup
 /////////////////////////////////////////////////////////////////////
@@ -328,6 +401,9 @@ void Bulk::InputRockFuncT(const ParamReservoir& rs_param)
             rock.push_back(new RockT_Exp(rs_param.rockSet[i]));
         }
     }
+
+    // Heat Loss
+    hLoss.InputParam(rs_param.hLoss);
 }
 
 
@@ -349,6 +425,8 @@ void Bulk::SetupT(const Grid& myGrid)
     AllocateGridRockT(myGrid);
     AllocateRegion(myGrid);
     SetupBulkType(myGrid);
+    // Setup Heat Loss
+    hLoss.Setup(numBulk);
 }
 
 void Bulk::SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures)
@@ -370,6 +448,8 @@ void Bulk::SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatur
 void Bulk::InitPTSw(const USI& tabrow)
 {
     OCP_FUNCNAME;
+
+    initT.resize(numBulk);
 
     OCP_DBL Dref = EQUIL.Dref;
     OCP_DBL Pref = EQUIL.Pref;
@@ -967,8 +1047,9 @@ void Bulk::InitPTSw(const USI& tabrow)
             }
         }
         if (initT_flag) {
-            myTemp = initT_Tab[0].Eval(0, depth[n], 1);
-            T[n] = myTemp;
+            myTemp   = initT_Tab[0].Eval(0, depth[n], 1);
+            initT[n] = myTemp;
+            T[n]     = myTemp;           
         }
 
         DepthP.Eval_All(0, depth[n], data, cdata);

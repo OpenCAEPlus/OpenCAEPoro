@@ -46,6 +46,16 @@ public:
     USI nz; ///< Num of bulks along z-direction.
 };
 
+class HLoss
+{
+public:
+    OCP_BOOL  ifHLoss{ OCP_FALSE }; ///< If use Heat loss
+    OCP_DBL   obC;                  ///< Volumetric heat capacity of overburden rock
+    OCP_DBL   obK;                  ///< Thermal conductivity of overburden rock
+    OCP_DBL   ubC;                  ///< Volumetric heat capacity of underburden rock
+    OCP_DBL   ubK;                  ///< Thermal conductivity of underburden rock
+};
+
 /// RockParam class contains information about the keyword ROCK.
 class RockParam
 {
@@ -198,6 +208,7 @@ public:
     vector<OCP_DBL> thconr; ///< Rock ifThermal conductivity.
     OCP_DBL         rsTemp; ///< Temperature for reservoir.
     vector<RockParam> rockSet; ///< a set of rock
+    HLoss             hLoss;   ///< Heat loss property
     Miscstr miscstr; ///< reference Miscibility surface tension
 
     // If P and Ni are given, then calculation of initial equilibration is unneeded.
@@ -221,7 +232,6 @@ public:
     OCP_BOOL gas{OCP_FALSE};      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL water{OCP_FALSE};    ///< If OCP_TRUE, water phase could exist.
     OCP_BOOL disGas{OCP_FALSE};   ///< If OCP_TRUE, dissolve gas could exist in oil phase.
-
 
     ComponentParam comsParam; ///< information for components
 
@@ -318,8 +328,10 @@ public:
     /// Input the keyword: ROCK. ROCK contains the compressibility factor and reference
     /// pressure at initial porosity.
     void InputROCK(ifstream& ifs);
-    ///  input Rock information for ifThermal model
+    /// Input Rock information for ifThermal model
     void InputROCKT(ifstream& ifs);
+    /// Input heat loss property for overburden rock and underburden rock
+    void InputHLOSS(ifstream& ifs);
 
     /// Input the Miscibility information
     void InputMISCSTR(ifstream& ifs);

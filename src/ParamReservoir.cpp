@@ -537,9 +537,7 @@ void ParamReservoir::InputROCK(ifstream& ifs)
                 rock.cp2 = rock.cp1;
             }           
         }
-
         rockSet.push_back(rock);
-
 
         cout << rock.type << "   " << rock.Pref << "   " << rock.cp1 << "   "
             << rock.cp2 << endl;       
@@ -605,6 +603,37 @@ void ParamReservoir::InputROCKT(ifstream& ifs)
     cout << "*VOLCONST  " << (rock.ConstRock ? "ROCK" : "BULK") << endl;
     cout << "*CP1       " << rock.HCP1 << endl;
     cout << "*CP2       " << rock.HCP2 << endl;
+    cout << "/" << endl;
+}
+
+
+void ParamReservoir::InputHLOSS(ifstream& ifs)
+{
+    cout << "HLOSSPROR" << endl;
+    
+    hLoss.ifHLoss = OCP_TRUE;
+
+    vector<string> vbuf;
+    while (true) {
+        ReadLine(ifs, vbuf);
+        if (vbuf[0] == "/") break;
+
+        USI index = 0;
+        USI len = vbuf.size();
+        while (index < len) {
+            if (vbuf[index] == "*OVERBUR") {
+                hLoss.obC = stod(vbuf[index + 1]);
+                hLoss.obK = stod(vbuf[index + 2]);
+            }
+            else if (vbuf[index] == "*UNDERBUR") {
+                hLoss.ubC = stod(vbuf[index + 1]);
+                hLoss.ubK = stod(vbuf[index + 2]);
+            }
+            index += 3;
+        }     
+    }
+    cout << "*OVERBUR   " << hLoss.obC << "   " << hLoss.obK << endl;
+    cout << "*UNDERBUR  " << hLoss.ubC << "   " << hLoss.ubK << endl;
     cout << "/" << endl;
 }
 

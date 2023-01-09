@@ -23,9 +23,9 @@ void ThermalSolver::InitReservoir(Reservoir& rs) const
 	fim.InitReservoir(rs);
 }
 
-void ThermalSolver::Prepare(Reservoir& rs, OCP_DBL& dt)
+void ThermalSolver::Prepare(Reservoir& rs, const OCPControl& ctrl)
 {
-	fim.Prepare(rs, dt);
+	fim.Prepare(rs, ctrl);
 }
 
 void ThermalSolver::AssembleMat(const Reservoir& rs, OCPControl& ctrl)
@@ -35,7 +35,7 @@ void ThermalSolver::AssembleMat(const Reservoir& rs, OCPControl& ctrl)
     GetWallTime timer;
     timer.Start();
 
-	fim.AssembleMat(LSolver, rs, dt);
+	fim.AssembleMat(LSolver, rs, ctrl.GetCurTime() + dt, dt);
 
     ctrl.RecordTimeAssembleMat(timer.Stop() / 1000);
 }

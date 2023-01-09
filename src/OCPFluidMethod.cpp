@@ -870,7 +870,7 @@ void IsoT_FIM::InitReservoir(Reservoir& rs) const
     UpdateLastTimeStep(rs);
 }
 
-void IsoT_FIM::Prepare(Reservoir& rs, OCP_DBL& dt)
+void IsoT_FIM::Prepare(Reservoir& rs, const OCP_DBL& dt)
 {
     // Calculate well property at the beginning of next time step
     rs.allWells.PrepareWell(rs.bulk);
@@ -3029,7 +3029,7 @@ void IsoT_FIMn::InitReservoir(Reservoir& rs) const
 
 
 /// Prepare for Assembling matrix.
-void IsoT_FIMn::Prepare(Reservoir& rs, OCP_DBL& dt)
+void IsoT_FIMn::Prepare(Reservoir& rs, const OCP_DBL& dt)
 {
     rs.allWells.PrepareWell(rs.bulk);
     IsoT_FIM::CalRes(rs, dt, OCP_TRUE);
@@ -4096,7 +4096,7 @@ void IsoT_AIMc::InitReservoir(Reservoir& rs) const
     UpdateLastTimeStep(rs);
 }
 
-void IsoT_AIMc::Prepare(Reservoir& rs, OCP_DBL& dt)
+void IsoT_AIMc::Prepare(Reservoir& rs, const OCP_DBL& dt)
 {
     rs.allWells.PrepareWell(rs.bulk);
     CalRes(rs, dt, OCP_TRUE);

@@ -64,6 +64,38 @@ private:
 };
 
 
+class HeatLoss
+{
+public:
+    void InputParam(const HLoss& loss);
+    void Setup(const OCP_USI& nb);
+    OCP_BOOL IfHeatLoss()const { return ifHLoss; }
+    void CalHeatLoss(const vector<USI>& location, const vector<OCP_DBL>& T, const vector<OCP_DBL>& lT,
+                     const vector<OCP_DBL>& initT, const OCP_DBL& t, const OCP_DBL& dt);
+    void ResetToLastTimeStep();
+    void UpdateLastTimeStep();
+
+public:
+    OCP_BOOL  ifHLoss{ OCP_FALSE }; ///< If use Heat loss
+    OCP_DBL   obC;                  ///< Volumetric heat capacity of overburden rock
+    OCP_DBL   obK;                  ///< Thermal conductivity of overburden rock
+    OCP_DBL   ubC;                  ///< Volumetric heat capacity of underburden rock
+    OCP_DBL   ubK;                  ///< Thermal conductivity of underburden rock
+
+    OCP_USI   numBulk;              ///< Num of Bulk
+    OCP_DBL   obD;                  ///< Thermal diffusivity of overburden rock
+    OCP_DBL   ubD;                  ///< Thermal diffusivity of underburden rock
+    vector<OCP_DBL> I;              ///< Auxiliary variable
+    vector<OCP_DBL> p;              ///< Auxiliary variable
+    vector<OCP_DBL> pT;             ///< dP / dT
+
+    vector<OCP_DBL> lI;             ///< Auxiliary variable
+    vector<OCP_DBL> lp;             ///< Auxiliary variable
+    vector<OCP_DBL> lpT;            ///< last pT
+
+};
+
+
 /// Physical information of each active reservoir bulk.
 //  Note: Bulk contains main physical infomation of active grids. It describes the
 //  actual geometric domain for simulating. Variables are stored bulk by bulk, and then
@@ -136,11 +168,12 @@ public:
 
 protected:
 
-    vector<OCPTable> initZi_Tab; ///< initial mole ratio of components vs. depth, table set
-    vector<OCPTable> initT_Tab;  ///< initial temperature vs. depth, table set
+    vector<OCPTable> initZi_Tab; ///< Initial mole ratio of components vs. depth, table set
+    vector<OCPTable> initT_Tab;  ///< Initial temperature vs. depth, table set
+    vector<OCP_DBL>  initT;      ///< Initial temperature of each bulk: numBulk
     ParamEQUIL       EQUIL;      ///< Initial Equilibration.
     OCP_DBL          rsTemp;     ///< Reservoir temperature.
-    vector<OCP_DBL>  thconp;     ///< phase ifThermal conductivity: numPhase
+    vector<OCP_DBL>  thconp;     ///< Phase thermal conductivity: numPhase
 
 
     /////////////////////////////////////////////////////////////////////
@@ -176,6 +209,7 @@ protected:
 
     vector<USI>       bType;     ///< Indicate what's in current bulk, 0: rock, 1: rock and fluid
     vector<USI>       bLocation; ///< Location of bulk: top, bottom, side
+    HeatLoss          hLoss;     ///< Heat loss iterm
 
     /////////////////////////////////////////////////////////////////////
     // Basic PVT Model Information

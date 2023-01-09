@@ -150,6 +150,10 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputROCKT(ifs);
                 break;
 
+            case Map_Str2Int("HLOSS", 5):
+                paramRs.InputHLOSS(ifs);
+                break;
+
             case Map_Str2Int("MISCIBLE", 8):
                 paramRs.comsParam.miscible = OCP_TRUE;
                 break;

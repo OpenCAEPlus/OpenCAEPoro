@@ -22,7 +22,7 @@ public:
 
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     void InitReservoir(Reservoir& rs) const;
-    void Prepare(Reservoir& rs, OCP_DBL& dt);
+    void Prepare(Reservoir& rs, const OCPControl& ctrl);
     void AssembleMat(const Reservoir& rs, OCPControl& ctrl);
     /// Solve the linear system in single problem.
     void SolveLinearSystem(Reservoir& rs, OCPControl& ctrl);

@@ -327,7 +327,7 @@ OCP_BOOL OCPControl::Check(Reservoir& rs, initializer_list<string> il)
         else if (s == "BulkNi")  flag = rs.bulk.CheckNi();
         else if (s == "BulkVe")  flag = rs.bulk.CheckVe(0.01);
         else if (s == "CFL")     flag = rs.bulk.CheckCFL(1.0);
-        else if (s == "WellP")    flag = rs.allWells.CheckP(rs.bulk);
+        else if (s == "WellP")   flag = rs.allWells.CheckP(rs.bulk);
         else                     OCP_ABORT("WRONG Check Iterm!");
 
         switch (flag)
