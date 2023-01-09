@@ -83,12 +83,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Setup</b> (<a class="
 <tr class="memitem:a058c3c58f14e7b44fe0c4c86b0c6b9fc"><td class="memItemLeft" align="right" valign="top"><a id="a058c3c58f14e7b44fe0c4c86b0c6b9fc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>InitReservoir</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
 <tr class="separator:a058c3c58f14e7b44fe0c4c86b0c6b9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade5ccac10fc5e81762d046549cab4c6e"><td class="memItemLeft" align="right" valign="top"><a id="ade5ccac10fc5e81762d046549cab4c6e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Prepare</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt)</td></tr>
-<tr class="separator:ade5ccac10fc5e81762d046549cab4c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b8413990b92e05418423f92aacfa5bf"><td class="memItemLeft" align="right" valign="top"><a id="a2b8413990b92e05418423f92aacfa5bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMat</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="separator:a2b8413990b92e05418423f92aacfa5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd50dde47f942711680c65591f013ee6"><td class="memItemLeft" align="right" valign="top"><a id="acd50dde47f942711680c65591f013ee6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Prepare</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl)</td></tr>
+<tr class="separator:acd50dde47f942711680c65591f013ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20701095dc3155474107d12243cdc8a5"><td class="memItemLeft" align="right" valign="top"><a id="a20701095dc3155474107d12243cdc8a5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMat</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;t, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:a20701095dc3155474107d12243cdc8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb89dc86423646f61a0e7c0a4cef940"><td class="memItemLeft" align="right" valign="top"><a id="a7eb89dc86423646f61a0e7c0a4cef940"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SolveLinearSystem</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, <a class="el" href="classOCPControl.html">OCPControl</a> &amp;ctrl) const</td></tr>
 <tr class="separator:a7eb89dc86423646f61a0e7c0a4cef940"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,15 +131,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalKrPc</b> (<a class
 <tr class="memitem:a1b08574a0b929f8ef04113009121e398"><td class="memItemLeft" align="right" valign="top"><a id="a1b08574a0b929f8ef04113009121e398"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CalThermalConduct</b> (<a class="el" href="classBulkConn.html">BulkConn</a> &amp;conn, <a class="el" href="classBulk.html">Bulk</a> &amp;bk) const</td></tr>
 <tr class="separator:a1b08574a0b929f8ef04113009121e398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4bcd86d6b0737997e227e9cdf5d55c3"><td class="memItemLeft" align="right" valign="top"><a id="ad4bcd86d6b0737997e227e9cdf5d55c3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CalHeatLoss</b> (<a class="el" href="classBulk.html">Bulk</a> &amp;bk, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;t, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:ad4bcd86d6b0737997e227e9cdf5d55c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54ce7305c9afb6ffd285ed7a0bc4dd90"><td class="memItemLeft" align="right" valign="top"><a id="a54ce7305c9afb6ffd285ed7a0bc4dd90"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateLastTimeStep</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs) const</td></tr>
 <tr class="separator:a54ce7305c9afb6ffd285ed7a0bc4dd90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30808535fbc2b2d9ad53c30dec1da53a"><td class="memItemLeft" align="right" valign="top"><a id="a30808535fbc2b2d9ad53c30dec1da53a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CalRes</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt, const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;resetRes0)</td></tr>
-<tr class="separator:a30808535fbc2b2d9ad53c30dec1da53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69365fef835908dabd2b087608d5d8f4"><td class="memItemLeft" align="right" valign="top"><a id="a69365fef835908dabd2b087608d5d8f4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMatBulks</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
-<tr class="separator:a69365fef835908dabd2b087608d5d8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65806be937c3e74fd60a1ef82721a8d1"><td class="memItemLeft" align="right" valign="top"><a id="a65806be937c3e74fd60a1ef82721a8d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CalRes</b> (<a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;t, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt, const <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> &amp;resetRes0)</td></tr>
+<tr class="separator:a65806be937c3e74fd60a1ef82721a8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c87a32427e83230854e1568ccfc1d7c"><td class="memItemLeft" align="right" valign="top"><a id="a1c87a32427e83230854e1568ccfc1d7c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMatBulks</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;t, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
+<tr class="separator:a1c87a32427e83230854e1568ccfc1d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3d8e727fd3088c29877ef7f791d5f9e"><td class="memItemLeft" align="right" valign="top"><a id="ac3d8e727fd3088c29877ef7f791d5f9e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AssembleMatWells</b> (<a class="el" href="classLinearSystem.html">LinearSystem</a> &amp;ls, const <a class="el" href="classReservoir.html">Reservoir</a> &amp;rs, const <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &amp;dt) const</td></tr>
 <tr class="separator:ac3d8e727fd3088c29877ef7f791d5f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,7 +169,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetToLastTimeStep</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 8 2023 06:57:51 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Jan 9 2023 02:24:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
