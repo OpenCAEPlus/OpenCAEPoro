@@ -26,7 +26,7 @@ ControlPreTime::ControlPreTime(const vector<OCP_DBL>& src)
     dPlim = src[0];
     dSlim = src[1];
     dNlim = src[2];
-    dVlim = src[3];
+    eVlim = src[3];
 }
 
 ControlNR::ControlNR(const vector<OCP_DBL>& src)
@@ -241,82 +241,6 @@ void OCPControl::ResetIterNRLS()
 }
 
 
-void OCPControl::CalNextTstepIMPEC(const Reservoir& rs)
-{
-    last_dt = current_dt;
-    current_time += current_dt;
-
-    OCP_DBL c1, c2, c3, c4, c;
-    c1 = c2 = c3 = c4 = 10;
-
-    const OCP_DBL dPmax = rs.bulk.GetdPmax();
-    const OCP_DBL dNmax = rs.bulk.GetdNmax();
-    const OCP_DBL dSmax = rs.bulk.GetdSmax();
-    const OCP_DBL dVmax = rs.bulk.GetdVmax();
-
-    // cout << dPmax << "   " << dSmax << endl;
-
-    if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
-    if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
-    if (dNmax > TINY) c3 = ctrlPreTime.dNlim / dNmax;
-    if (dVmax > TINY) c4 = ctrlPreTime.dVlim / dVmax;
-
-    c = min(min(c1, c2), min(c3, c4));
-    c = max(ctrlTime.minChopFac, c);
-    c = min(ctrlTime.maxIncreFac, c);
-
-    current_dt *= c;
-
-    if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
-    if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
-
-    init_dt = current_dt;
-
-    OCP_DBL dt = end_time - current_time;
-    if (current_dt > dt) current_dt = dt;
-
-    // cout << "FactorT: " << c << "   Next dt: " << dt << endl;
-}
-
-
-void OCPControl::CalNextTstepFIM(const Reservoir& rs)
-{
-    last_dt = current_dt;
-    current_time += current_dt;
-
-    OCP_DBL c1, c2, c;
-    c1 = c2 = 10;
-
-    const OCP_DBL dPmaxB = rs.bulk.GetdPmax();
-    const OCP_DBL dPmaxW = rs.allWells.GetdBHPmax();
-    const OCP_DBL dPmax  = max(dPmaxB, dPmaxW);
-    const OCP_DBL dSmax  = rs.bulk.GetdSmax();
-
-    if (dPmax > TINY) c1 = ctrlPreTime.dPlim / dPmax;
-    if (dSmax > TINY) c2 = ctrlPreTime.dSlim / dSmax;
-
-    OCP_DBL c3 = 1.5;
-
-    if (iterNR < 30) { // temp
-        c3 = 2;
-    } else if (iterNR > 8) {
-        c3 = 0.5;
-    }
-
-    c = min(min(c1, c2), c3);
-    c = max(ctrlTime.minChopFac, c);
-    c = min(ctrlTime.maxIncreFac, c);
-
-    current_dt *= c;
-    if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
-    if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
-
-    init_dt = current_dt;
-
-    const OCP_DBL dt = end_time - current_time;
-    if (current_dt > dt) current_dt = dt;
-}
-
 OCP_BOOL OCPControl::Check(Reservoir& rs, initializer_list<string> il)
 {
     OCP_INT flag;
@@ -361,6 +285,56 @@ OCP_BOOL OCPControl::Check(Reservoir& rs, initializer_list<string> il)
     }
     
     return OCP_TRUE;
+}
+
+
+void OCPControl::CalNextTimeStep(Reservoir& rs, initializer_list<string> il)
+{
+    last_dt      = current_dt;
+    current_time += current_dt;
+
+    OCP_DBL factor = ctrlTime.maxIncreFac;
+
+    const OCP_DBL dPmax = max(rs.bulk.GetdPmax(), rs.allWells.GetdBHPmax());
+    const OCP_DBL dTmax = rs.bulk.GetdTmax();
+    const OCP_DBL dNmax = rs.bulk.GetdNmax();
+    const OCP_DBL dSmax = rs.bulk.GetdSmax();
+    const OCP_DBL eVmax = rs.bulk.GeteVmax();
+
+    for (auto& s : il) {
+        if (s == "dP") {
+            if (dPmax > TINY) factor = min(factor, ctrlPreTime.dPlim / dPmax);
+        }
+        else if (s == "dT") {
+            // no input now -- no value
+            if (dTmax > TINY) factor = min(factor, ctrlPreTime.dTlim / dTmax);
+        }
+        else if (s == "dN") {
+            if (dNmax > TINY) factor = min(factor, ctrlPreTime.dNlim / dNmax);
+        }
+        else if (s == "dS") {
+            if (dSmax > TINY) factor = min(factor, ctrlPreTime.dSlim / dSmax);
+        }
+        else if (s == "eV") {
+            if (eVmax > TINY) factor = min(factor, ctrlPreTime.eVlim / eVmax);
+        }
+        else if (s == "iter") {
+            if (iterNR < 5)         factor = min(factor, 2.0);
+            else if (iterNR > 10)   factor = min(factor, 0.5);
+            else                    factor = min(factor, 1.5);
+        }
+    }
+
+    factor = max(ctrlTime.minChopFac, factor);
+
+    current_dt *= factor;
+    if (current_dt > ctrlTime.timeMax) current_dt = ctrlTime.timeMax;
+    if (current_dt < ctrlTime.timeMin) current_dt = ctrlTime.timeMin;
+
+    init_dt = current_dt;
+
+    const OCP_DBL dt = end_time - current_time;
+    if (current_dt > dt) current_dt = dt;
 }
 
 

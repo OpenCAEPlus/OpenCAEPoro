@@ -49,9 +49,10 @@ public:
 public:
     // Limits for changes at next time step
     OCP_DBL dPlim; ///< Ideal max Pressure change
+    OCP_DBL dTlim; ///< Ideal max Temperature change
     OCP_DBL dSlim; ///< Ideal max Saturation change
     OCP_DBL dNlim; ///< Ideal max relative Ni (moles of components) change
-    OCP_DBL dVlim; ///< Ideal max relative Verr (pore - fluid) change
+    OCP_DBL eVlim; ///< Ideal max relative Verr (pore - fluid) change
 };
 
 /// Params for Newton iterations and linear iterations.
@@ -182,14 +183,11 @@ public:
     /// Return linear solver file name.
     string GetLsFile() const { return linearSolverFile; }
 
-    /// Get the next time step for IMPEC according to max change of some variables.
-    void CalNextTstepIMPEC(const Reservoir& reservoir);
-
-    /// Get the next time step for FIM according to max change of some variables.
-    void CalNextTstepFIM(const Reservoir& reservoir);
-
     // Check order is important
     OCP_BOOL Check(Reservoir& rs, initializer_list<string> il);
+
+    // Calculate next time step
+    void CalNextTimeStep(Reservoir& rs, initializer_list<string> il);
 
 private:
     USI    model;            ///< model: ifThermal, isothermal

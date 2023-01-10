@@ -1422,9 +1422,10 @@ void Bulk::CalMaxChange()
     OCP_FUNCNAME;
 
     dPmax = 0;
+    dTmax = 0;
     dNmax = 0;
     dSmax = 0;
-    dVmax = 0;
+    eVmax = 0;
     OCP_DBL tmp = 0;
     OCP_USI id;
 
@@ -1434,6 +1435,12 @@ void Bulk::CalMaxChange()
         tmp = fabs(P[n] - lP[n]);
         if (dPmax < tmp) {
             dPmax = tmp;
+        }
+
+        // dT
+        tmp = fabs(T[n] - lT[n]);
+        if (dTmax < tmp) {
+            dTmax = tmp;
         }
 
         // dS
@@ -1457,9 +1464,10 @@ void Bulk::CalMaxChange()
             }
         }
 
+        // Ve
         tmp = fabs(vf[n] - rockVp[n]) / rockVp[n];
-        if (dVmax < tmp) {
-            dVmax = tmp;
+        if (eVmax < tmp) {
+            eVmax = tmp;
         }
     }
 }

@@ -166,7 +166,8 @@ void IsoT_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTstepIMPEC(rs);
+    // ctrl.CalNextTstepIMPEC(rs);
+    ctrl.CalNextTimeStep(rs, { "dP", "dN", "dS", "eV" });
 }
 
 
@@ -212,6 +213,7 @@ void IsoT_IMPEC::AllocateReservoir(Reservoir& rs)
     bk.lNt.resize(nb);
     bk.lNi.resize(nb * nc);
     bk.lvf.resize(nb);
+    bk.lT.resize(nb);
     bk.lP.resize(nb);
     bk.lPj.resize(nb * np);
     bk.lPc.resize(nb * np);
@@ -999,7 +1001,7 @@ void IsoT_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTstepFIM(rs);
+    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter"});
 }
 
 
@@ -1043,6 +1045,7 @@ void IsoT_FIM::AllocateReservoir(Reservoir& rs)
     bk.lNt.resize(nb);
     bk.lNi.resize(nb * nc);
     bk.lvf.resize(nb);
+    bk.lT.resize(nb);
     bk.lP.resize(nb);
     bk.lPj.resize(nb * np);
     bk.lPc.resize(nb * np);
@@ -3150,7 +3153,7 @@ void IsoT_FIMn::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTstepFIM(rs);
+    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter" });
 }
 
 
@@ -4224,7 +4227,7 @@ void IsoT_AIMc::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTstepFIM(rs);
+    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter" });
 }
 
 /// Allocate memory for reservoir

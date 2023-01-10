@@ -162,7 +162,7 @@ void T_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTstepFIM(rs);
+    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter" });
     ctrl.UpdateIters();
 }
 
@@ -223,6 +223,7 @@ void T_FIM::AllocateReservoir(Reservoir& rs)
     bk.lNt.resize(nb);
     bk.lNi.resize(nb * nc);
     bk.lvf.resize(nb);
+    bk.lT.resize(nb);
     bk.lP.resize(nb);
     bk.lPj.resize(nb * np);
     bk.lPc.resize(nb * np);
@@ -750,7 +751,7 @@ void T_FIM::CalRes(Reservoir& rs, const OCP_DBL& t, const OCP_DBL& dt, const OCP
             const OCP_DBL lambda = bk.bLocation[n] == 1 ? bk.hLoss.obD : bk.hLoss.ubD;
             const OCP_DBL kappa = bk.bLocation[n] == 1 ? bk.hLoss.obK : bk.hLoss.ubK;
             // dT            
-            Res.resAbs[n * len + nc + 1] += dt * kappa * (2*(bk.T[n] - bk.initT[n]) / sqrt(lambda * t) - bk.hLoss.p[n]) 
+            Res.resAbs[n * len + nc + 1] += dt * kappa * (2 * (bk.T[n] - bk.initT[n]) / sqrt(lambda * t) - bk.hLoss.p[n]) 
                                          * bk.dx[n] * bk.dy[n];
         }
     }

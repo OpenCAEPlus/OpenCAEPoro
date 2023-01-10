@@ -445,21 +445,24 @@ public:
 
     /// Return dPmax.
     OCP_DBL GetdPmax() const { return dPmax; }
+    /// Return dTmax
+    OCP_DBL GetdTmax() const { return dTmax; }
     /// Return dNmax.
     OCP_DBL GetdNmax() const { return dNmax; }
     /// Return dSmax.
     OCP_DBL GetdSmax() const { return dSmax; }
-    /// Return dVmax.
-    OCP_DBL GetdVmax() const { return dVmax; }
+    /// Return eVmax.
+    OCP_DBL GeteVmax() const { return eVmax; }
     /// Return maxCFL
     OCP_DBL GetMaxCFL() const { return maxCFL; }
 
 protected:
 
     OCP_DBL dPmax; ///< Max change in pressure during the current time step.
+    OCP_DBL dTmax; ///< Max change in temperature during the current time step.
     OCP_DBL dSmax; ///< Max change in saturation during the current time step.
     OCP_DBL dNmax; ///< Max change in moles of component during the current time step.
-    OCP_DBL dVmax; ///< Max relative diff between fluid and pore volume during the current time step.
+    OCP_DBL eVmax; ///< Max relative diff between fluid and pore volume during the current time step.
 
 
     mutable vector<OCP_DBL> cfl; ///< CFL number for each bulk
