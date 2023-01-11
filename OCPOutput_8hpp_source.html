@@ -340,10 +340,10 @@ $(function() {
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> IfOutputVTK()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> useVTK; }</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>          useVTK{OCP_FALSE};</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>       index{0}; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="classBasicGridProperty.html">BasicGridProperty</a> bgp;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <a class="code" href="classOutput4Vtk.html">Output4Vtk</a>        out4vtk;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>          useVTK{OCP_FALSE};   </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">mutable</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>       index{0};            </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="classBasicGridProperty.html">BasicGridProperty</a> bgp;                 </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <a class="code" href="classOutput4Vtk.html">Output4Vtk</a>        out4vtk;             </div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="comment">// test for Parallel version</span></div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="preprocessor">#ifdef USE_METIS</span></div>
@@ -524,9 +524,9 @@ $(function() {
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aUtilOutput_8hpp_html"><div class="ttname"><a href="UtilOutput_8hpp.html">UtilOutput.hpp</a></div><div class="ttdoc">Supply basic tools used to output files.</div></div>
 <div class="ttc" id="aUtilTiming_8hpp_html"><div class="ttname"><a href="UtilTiming_8hpp.html">UtilTiming.hpp</a></div><div class="ttdoc">Elapsed wall-time and CPU-cycles declaration.</div></div>
-<div class="ttc" id="aclassAllWells_html_a14601cc04986c3b7ee8660f1dc22b628"><div class="ttname"><a href="classAllWells.html#a14601cc04986c3b7ee8660f1dc22b628">AllWells::wells</a></div><div class="ttdeci">vector&lt; Well &gt; wells</div><div class="ttdoc">well set.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00174">AllWells.hpp:174</a></div></div>
+<div class="ttc" id="aclassAllWells_html_a14601cc04986c3b7ee8660f1dc22b628"><div class="ttname"><a href="classAllWells.html#a14601cc04986c3b7ee8660f1dc22b628">AllWells::wells</a></div><div class="ttdeci">vector&lt; Well &gt; wells</div><div class="ttdoc">well set.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00173">AllWells.hpp:173</a></div></div>
 <div class="ttc" id="aclassAllWells_html_aad7048fbf1c16f05cc7c260354c10336"><div class="ttname"><a href="classAllWells.html#aad7048fbf1c16f05cc7c260354c10336">AllWells::GetWellPerfNum</a></div><div class="ttdeci">USI GetWellPerfNum(const USI &amp;i) const</div><div class="ttdoc">Return the num of perforations of well i.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00146">AllWells.hpp:146</a></div></div>
-<div class="ttc" id="aclassAllWells_html_ae0539c08700343a3d332318114c9d7ca"><div class="ttname"><a href="classAllWells.html#ae0539c08700343a3d332318114c9d7ca">AllWells::numWell</a></div><div class="ttdeci">USI numWell</div><div class="ttdoc">num of wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00173">AllWells.hpp:173</a></div></div>
+<div class="ttc" id="aclassAllWells_html_ae0539c08700343a3d332318114c9d7ca"><div class="ttname"><a href="classAllWells.html#ae0539c08700343a3d332318114c9d7ca">AllWells::numWell</a></div><div class="ttdeci">USI numWell</div><div class="ttdoc">num of wells.</div><div class="ttdef"><b>Definition:</b> <a href="AllWells_8hpp_source.html#l00172">AllWells.hpp:172</a></div></div>
 <div class="ttc" id="aclassBasicGridPropertyParam_html"><div class="ttname"><a href="classBasicGridPropertyParam.html">BasicGridPropertyParam</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamOutput_8hpp_source.html#l00091">ParamOutput.hpp:92</a></div></div>
 <div class="ttc" id="aclassBasicGridProperty_html"><div class="ttname"><a href="classBasicGridProperty.html">BasicGridProperty</a></div><div class="ttdoc">Basic grid properties for output.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00172">OCPOutput.hpp:173</a></div></div>
 <div class="ttc" id="aclassBulkConn_html_a9fa771e98553c383ca6f289e69a76e05"><div class="ttname"><a href="classBulkConn.html#a9fa771e98553c383ca6f289e69a76e05">BulkConn::selfPtr</a></div><div class="ttdeci">vector&lt; USI &gt; selfPtr</div><div class="ttdoc">Self-pointer, the indiecs of the i-th bulk in neighbor[i]: numBulk.</div><div class="ttdef"><b>Definition:</b> <a href="BulkConn_8hpp_source.html#l00117">BulkConn.hpp:117</a></div></div>
@@ -561,7 +561,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 10 2023 10:47:18 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Jan 11 2023 05:34:31 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

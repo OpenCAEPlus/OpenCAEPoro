@@ -79,10 +79,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa384b0141247ad8d79380850984d1394"><td class="memItemLeft" align="right" valign="top"><a id="aa384b0141247ad8d79380850984d1394"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#aa384b0141247ad8d79380850984d1394">InputParam</a> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param)</td></tr>
-<tr class="memdesc:aa384b0141247ad8d79380850984d1394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters from the internal param structure. <br /></td></tr>
-<tr class="separator:aa384b0141247ad8d79380850984d1394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfe5d787df2dc89f2efbc6a161df284e"><td class="memItemLeft" align="right" valign="top"><a id="abfe5d787df2dc89f2efbc6a161df284e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#abfe5d787df2dc89f2efbc6a161df284e">InputParam</a> (const <a class="el" href="classParamReservoir.html">ParamReservoir</a> &amp;rs_param, const <a class="el" href="classParamOutput.html">ParamOutput</a> &amp;output_param)</td></tr>
+<tr class="memdesc:abfe5d787df2dc89f2efbc6a161df284e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters from the internal param structure. <br /></td></tr>
+<tr class="separator:abfe5d787df2dc89f2efbc6a161df284e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9189a6163493edf34053d56e0a77242"><td class="memItemLeft" align="right" valign="top"><a id="af9189a6163493edf34053d56e0a77242"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#af9189a6163493edf34053d56e0a77242">SetupIsoT</a> ()</td></tr>
 <tr class="memdesc:af9189a6163493edf34053d56e0a77242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup for Isothermal model. <br /></td></tr>
@@ -115,10 +115,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>GetIJKBulk</b> (<a cl
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a686ffd1048a33e005f4d49defe9b61fc">SetHexaherdronGridOrthogonal</a> ()</td></tr>
 <tr class="memdesc:a686ffd1048a33e005f4d49defe9b61fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup polyhedronGrid for orthogonal grid <br /></td></tr>
 <tr class="separator:a686ffd1048a33e005f4d49defe9b61fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a379cfe6f6e43c1eb879727b03944e615"><td class="memItemLeft" align="right" valign="top"><a id="a379cfe6f6e43c1eb879727b03944e615"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a379cfe6f6e43c1eb879727b03944e615">SetHexaherdronGridCorner</a> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;mycord)</td></tr>
-<tr class="memdesc:a379cfe6f6e43c1eb879727b03944e615"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup polyhedronGrid for corner grid <br /></td></tr>
+<tr class="memitem:a379cfe6f6e43c1eb879727b03944e615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a379cfe6f6e43c1eb879727b03944e615">SetHexaherdronGridCorner</a> (const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;mycord)</td></tr>
 <tr class="separator:a379cfe6f6e43c1eb879727b03944e615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588d9284dbff4133e463ea04c30b2a71"><td class="memItemLeft" align="right" valign="top"><a id="a588d9284dbff4133e463ea04c30b2a71"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a588d9284dbff4133e463ea04c30b2a71">SetupGridTag</a> ()</td></tr>
+<tr class="memdesc:a588d9284dbff4133e463ea04c30b2a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup grid tag. <br /></td></tr>
+<tr class="separator:a588d9284dbff4133e463ea04c30b2a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab672344a3a68fac98e30ab62016f6ab1"><td class="memItemLeft" align="right" valign="top"><a id="ab672344a3a68fac98e30ab62016f6ab1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#ab672344a3a68fac98e30ab62016f6ab1">OutputBaiscInfo</a> () const</td></tr>
 <tr class="memdesc:ab672344a3a68fac98e30ab62016f6ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and return basic informations for grid. <br /></td></tr>
@@ -298,12 +300,16 @@ vector&lt; <a class="el" href="classGB__Pair.html">GB_Pair</a> &gt;&#160;</td><t
 <tr class="separator:a954b39ec432de9dcc780ad5f7243b9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0689c23828ce60bb2a996e0157caf80c"><td class="memItemLeft" align="right" valign="top"><a id="a0689c23828ce60bb2a996e0157caf80c"></a>
 <a class="el" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a0689c23828ce60bb2a996e0157caf80c">useVTK</a> { OCP_FALSE }</td></tr>
-<tr class="memdesc:a0689c23828ce60bb2a996e0157caf80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">if output in vtk format <br /></td></tr>
+<tr class="memdesc:a0689c23828ce60bb2a996e0157caf80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If output in vtk format. <br /></td></tr>
 <tr class="separator:a0689c23828ce60bb2a996e0157caf80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="memItemLeft" align="right" valign="top"><a id="a6a88f5c6242ccd6c3a46cb02a8cb2305"></a>
 vector&lt; <a class="el" href="classOCPpolyhedron.html">OCPpolyhedron</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a6a88f5c6242ccd6c3a46cb02a8cb2305">polyhedronGrid</a></td></tr>
-<tr class="memdesc:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="mdescLeft">&#160;</td><td class="mdescRight">store the coordinates of grid points <br /></td></tr>
+<tr class="memdesc:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates of grid points. <br /></td></tr>
 <tr class="separator:a6a88f5c6242ccd6c3a46cb02a8cb2305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8172c4815c73de979925d7639834929b"><td class="memItemLeft" align="right" valign="top"><a id="a8172c4815c73de979925d7639834929b"></a>
+vector&lt; <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a8172c4815c73de979925d7639834929b">gridTag</a></td></tr>
+<tr class="memdesc:a8172c4815c73de979925d7639834929b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag of grid: dead, live(fluid), live(rock) <br /></td></tr>
+<tr class="separator:a8172c4815c73de979925d7639834929b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33293de5ddfef9d418fa31a785dfa3f7"><td class="memItemLeft" align="right" valign="top"><a id="a33293de5ddfef9d418fa31a785dfa3f7"></a>
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrid.html#a33293de5ddfef9d418fa31a785dfa3f7">numDigutIJK</a></td></tr>
 <tr class="memdesc:a33293de5ddfef9d418fa31a785dfa3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of digits of maximum nx,ny,nz <br /></td></tr>
@@ -332,7 +338,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00079">79</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00080">80</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa76e85132de36c8f254eb27cffedb95d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa76e85132de36c8f254eb27cffedb95d">&#9670;&nbsp;</a></span>CalActiveGridIsoT()</h2>
@@ -371,43 +377,96 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 <p>Calculate the activity of grid cells. </p>
 <p>If porosity or volume of the grid cell is too small, then the cell is inactive. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00254">254</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;{</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.reserve(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>.resize(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>; n++) {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] == 0 || <a class="code" href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">poro</a>[n] * <a class="code" href="classGrid.html#af5cac0650043090204c067c679a5e739">ntg</a>[n] &lt; e1 || <a class="code" href="classGrid.html#a1658fef63683c896be925d643e218e31">v</a>[n] &lt; e2) {</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] = 0;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        }</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.push_back(n);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        count++;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    }</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a> = count;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of inactive grid cell is &quot;</span> &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) * 100.0 / <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="comment">// fluid grid = active grid</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">fluidGridNum</a> = <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <a class="code" href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">map_All2Flu</a> = <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00259">259</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;{</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.reserve(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>.resize(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> count = 0;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a> n = 0; n &lt; <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>; n++) {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] == 0 || <a class="code" href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">poro</a>[n] * <a class="code" href="classGrid.html#af5cac0650043090204c067c679a5e739">ntg</a>[n] &lt; e1 || <a class="code" href="classGrid.html#a1658fef63683c896be925d643e218e31">v</a>[n] &lt; e2) {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_FALSE, 0);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <a class="code" href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">ACTNUM</a>[n] = 0;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>.push_back(n);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>[n] = <a class="code" href="classGB__Pair.html">GB_Pair</a>(OCP_TRUE, count);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        count++;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    }</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a> = count;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Number of inactive grid cell is &quot;</span> &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        &lt;&lt; (<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> - <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>) * 100.0 / <a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a> &lt;&lt; <span class="stringliteral">&quot;%)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="comment">// fluid grid = active grid</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <a class="code" href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">fluidGridNum</a> = <a class="code" href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">activeGridNum</a>;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">map_All2Flu</a> = <a class="code" href="classGrid.html#ad790d82067923146c83e6e1750445376">map_All2Act</a>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a9951229752a2a6a4f40b81a78fad737b"><div class="ttname"><a href="OCPConst_8hpp.html#a9951229752a2a6a4f40b81a78fad737b">OCP_USI</a></div><div class="ttdeci">unsigned int OCP_USI</div><div class="ttdoc">Long unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00025">OCPConst.hpp:25</a></div></div>
-<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00031">Grid.hpp:32</a></div></div>
-<div class="ttc" id="aclassGrid_html_a05f03b35abec9c0dc354bae0ce302bad"><div class="ttname"><a href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">Grid::ACTNUM</a></div><div class="ttdeci">vector&lt; USI &gt; ACTNUM</div><div class="ttdoc">Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00173">Grid.hpp:173</a></div></div>
-<div class="ttc" id="aclassGrid_html_a1658fef63683c896be925d643e218e31"><div class="ttname"><a href="classGrid.html#a1658fef63683c896be925d643e218e31">Grid::v</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; v</div><div class="ttdoc">Volume of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00159">Grid.hpp:159</a></div></div>
-<div class="ttc" id="aclassGrid_html_a229ee680f0c08e1d8133833b5c11e584"><div class="ttname"><a href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">Grid::map_Act2All</a></div><div class="ttdeci">vector&lt; OCP_USI &gt; map_Act2All</div><div class="ttdoc">Mapping from active grid to all grid: activeGridNum.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00184">Grid.hpp:184</a></div></div>
-<div class="ttc" id="aclassGrid_html_a35e4a71cf216958595a7ce8262258b36"><div class="ttname"><a href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">Grid::activeGridNum</a></div><div class="ttdeci">OCP_USI activeGridNum</div><div class="ttdoc">Num of active grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00183">Grid.hpp:183</a></div></div>
-<div class="ttc" id="aclassGrid_html_a574d34342ac3858ec4e1a5096abdce25"><div class="ttname"><a href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">Grid::fluidGridNum</a></div><div class="ttdeci">OCP_USI fluidGridNum</div><div class="ttdoc">Num of fluid grids.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00187">Grid.hpp:187</a></div></div>
-<div class="ttc" id="aclassGrid_html_a954b39ec432de9dcc780ad5f7243b9a3"><div class="ttname"><a href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">Grid::map_All2Flu</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Flu</div><div class="ttdoc">Mapping from all grid to fluid grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00188">Grid.hpp:188</a></div></div>
-<div class="ttc" id="aclassGrid_html_ac9b5717340391505a48ea8c5a317e726"><div class="ttname"><a href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">Grid::poro</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; poro</div><div class="ttdoc">Initial porosity of rock cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00164">Grid.hpp:164</a></div></div>
-<div class="ttc" id="aclassGrid_html_ad790d82067923146c83e6e1750445376"><div class="ttname"><a href="classGrid.html#ad790d82067923146c83e6e1750445376">Grid::map_All2Act</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Act</div><div class="ttdoc">Mapping from grid to active all grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00185">Grid.hpp:185</a></div></div>
-<div class="ttc" id="aclassGrid_html_aec601a644bda59415ad3d562062ceda7"><div class="ttname"><a href="classGrid.html#aec601a644bda59415ad3d562062ceda7">Grid::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Number of all cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00136">Grid.hpp:136</a></div></div>
-<div class="ttc" id="aclassGrid_html_af5cac0650043090204c067c679a5e739"><div class="ttname"><a href="classGrid.html#af5cac0650043090204c067c679a5e739">Grid::ntg</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ntg</div><div class="ttdoc">Net to gross ratio of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00163">Grid.hpp:163</a></div></div>
+<div class="ttc" id="aclassGB__Pair_html"><div class="ttname"><a href="classGB__Pair.html">GB_Pair</a></div><div class="ttdoc">Active cell indicator and its index among active cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00032">Grid.hpp:33</a></div></div>
+<div class="ttc" id="aclassGrid_html_a05f03b35abec9c0dc354bae0ce302bad"><div class="ttname"><a href="classGrid.html#a05f03b35abec9c0dc354bae0ce302bad">Grid::ACTNUM</a></div><div class="ttdeci">vector&lt; USI &gt; ACTNUM</div><div class="ttdoc">Indicate activity of grid from input file: numGrid. 0 = inactive, 1 = active.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00174">Grid.hpp:174</a></div></div>
+<div class="ttc" id="aclassGrid_html_a1658fef63683c896be925d643e218e31"><div class="ttname"><a href="classGrid.html#a1658fef63683c896be925d643e218e31">Grid::v</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; v</div><div class="ttdoc">Volume of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00160">Grid.hpp:160</a></div></div>
+<div class="ttc" id="aclassGrid_html_a229ee680f0c08e1d8133833b5c11e584"><div class="ttname"><a href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">Grid::map_Act2All</a></div><div class="ttdeci">vector&lt; OCP_USI &gt; map_Act2All</div><div class="ttdoc">Mapping from active grid to all grid: activeGridNum.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00185">Grid.hpp:185</a></div></div>
+<div class="ttc" id="aclassGrid_html_a35e4a71cf216958595a7ce8262258b36"><div class="ttname"><a href="classGrid.html#a35e4a71cf216958595a7ce8262258b36">Grid::activeGridNum</a></div><div class="ttdeci">OCP_USI activeGridNum</div><div class="ttdoc">Num of active grid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00184">Grid.hpp:184</a></div></div>
+<div class="ttc" id="aclassGrid_html_a574d34342ac3858ec4e1a5096abdce25"><div class="ttname"><a href="classGrid.html#a574d34342ac3858ec4e1a5096abdce25">Grid::fluidGridNum</a></div><div class="ttdeci">OCP_USI fluidGridNum</div><div class="ttdoc">Num of fluid grids.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00188">Grid.hpp:188</a></div></div>
+<div class="ttc" id="aclassGrid_html_a954b39ec432de9dcc780ad5f7243b9a3"><div class="ttname"><a href="classGrid.html#a954b39ec432de9dcc780ad5f7243b9a3">Grid::map_All2Flu</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Flu</div><div class="ttdoc">Mapping from all grid to fluid grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00189">Grid.hpp:189</a></div></div>
+<div class="ttc" id="aclassGrid_html_ac9b5717340391505a48ea8c5a317e726"><div class="ttname"><a href="classGrid.html#ac9b5717340391505a48ea8c5a317e726">Grid::poro</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; poro</div><div class="ttdoc">Initial porosity of rock cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00165">Grid.hpp:165</a></div></div>
+<div class="ttc" id="aclassGrid_html_ad790d82067923146c83e6e1750445376"><div class="ttname"><a href="classGrid.html#ad790d82067923146c83e6e1750445376">Grid::map_All2Act</a></div><div class="ttdeci">vector&lt; GB_Pair &gt; map_All2Act</div><div class="ttdoc">Mapping from grid to active all grid: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00186">Grid.hpp:186</a></div></div>
+<div class="ttc" id="aclassGrid_html_aec601a644bda59415ad3d562062ceda7"><div class="ttname"><a href="classGrid.html#aec601a644bda59415ad3d562062ceda7">Grid::numGrid</a></div><div class="ttdeci">OCP_USI numGrid</div><div class="ttdoc">Number of all cells.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00137">Grid.hpp:137</a></div></div>
+<div class="ttc" id="aclassGrid_html_af5cac0650043090204c067c679a5e739"><div class="ttname"><a href="classGrid.html#af5cac0650043090204c067c679a5e739">Grid::ntg</a></div><div class="ttdeci">vector&lt; OCP_DBL &gt; ntg</div><div class="ttdoc">Net to gross ratio of cells: numGrid.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00164">Grid.hpp:164</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Grid_8hpp_source.html#l00173">ACTNUM</a>, <a class="el" href="Grid_8hpp_source.html#l00184">map_Act2All</a>, <a class="el" href="Grid_8hpp_source.html#l00185">map_All2Act</a>, <a class="el" href="Grid_8hpp_source.html#l00163">ntg</a>, <a class="el" href="Grid_8hpp_source.html#l00136">numGrid</a>, <a class="el" href="Grid_8hpp_source.html#l00164">poro</a>, and <a class="el" href="Grid_8hpp_source.html#l00159">v</a>.</p>
+<p class="reference">References <a class="el" href="Grid_8hpp_source.html#l00174">ACTNUM</a>, <a class="el" href="Grid_8hpp_source.html#l00185">map_Act2All</a>, <a class="el" href="Grid_8hpp_source.html#l00186">map_All2Act</a>, <a class="el" href="Grid_8hpp_source.html#l00164">ntg</a>, <a class="el" href="Grid_8hpp_source.html#l00137">numGrid</a>, <a class="el" href="Grid_8hpp_source.html#l00165">poro</a>, and <a class="el" href="Grid_8hpp_source.html#l00160">v</a>.</p>
+
+</div>
+</div>
+<a id="a379cfe6f6e43c1eb879727b03944e615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a379cfe6f6e43c1eb879727b03944e615">&#9670;&nbsp;</a></span>SetHexaherdronGridCorner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Grid::SetHexaherdronGridCorner </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classOCP__COORD.html">OCP_COORD</a> &amp;&#160;</td>
+          <td class="paramname"><em>mycord</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>setup polyhedronGrid for corner grid </p>
+
+<p class="definition">Definition at line <a class="el" href="Grid_8cpp_source.html#l00407">407</a> of file <a class="el" href="Grid_8cpp_source.html">Grid.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;{</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classGrid.html#a0689c23828ce60bb2a996e0157caf80c">useVTK</a>) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <a class="code" href="classGrid.html#a6a88f5c6242ccd6c3a46cb02a8cb2305">polyhedronGrid</a>.reserve(<a class="code" href="classGrid.html#aec601a644bda59415ad3d562062ceda7">numGrid</a>);</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <a class="code" href="classOCPpolyhedron.html">OCPpolyhedron</a> tmpP(8);</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> k = 0; k &lt; <a class="code" href="classGrid.html#a68931450a3f345183b6535e880e441d1">nz</a>; k++) {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> j = 0; j &lt; <a class="code" href="classGrid.html#acaf756804fb4be33263a01f217a0f221">ny</a>; j++) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; <a class="code" href="classGrid.html#a2f2b9789e8df3231298967757c698a31">nx</a>; i++) {</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p4);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p5);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p6);</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p7);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p0);</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p1);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p2);</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;                tmpP.Points.push_back(mycord.cornerPoints[i][j][k].p3);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                <a class="code" href="classGrid.html#a6a88f5c6242ccd6c3a46cb02a8cb2305">polyhedronGrid</a>.push_back(tmpP);</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;                tmpP.Points.clear();</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            }</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
+<div class="ttc" id="aclassGrid_html_a0689c23828ce60bb2a996e0157caf80c"><div class="ttname"><a href="classGrid.html#a0689c23828ce60bb2a996e0157caf80c">Grid::useVTK</a></div><div class="ttdeci">OCP_BOOL useVTK</div><div class="ttdoc">If output in vtk format.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00207">Grid.hpp:207</a></div></div>
+<div class="ttc" id="aclassGrid_html_a2f2b9789e8df3231298967757c698a31"><div class="ttname"><a href="classGrid.html#a2f2b9789e8df3231298967757c698a31">Grid::nx</a></div><div class="ttdeci">USI nx</div><div class="ttdoc">Number of cells in x-direction.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00140">Grid.hpp:140</a></div></div>
+<div class="ttc" id="aclassGrid_html_a68931450a3f345183b6535e880e441d1"><div class="ttname"><a href="classGrid.html#a68931450a3f345183b6535e880e441d1">Grid::nz</a></div><div class="ttdeci">USI nz</div><div class="ttdoc">Number of cells in z-direction.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00142">Grid.hpp:142</a></div></div>
+<div class="ttc" id="aclassGrid_html_a6a88f5c6242ccd6c3a46cb02a8cb2305"><div class="ttname"><a href="classGrid.html#a6a88f5c6242ccd6c3a46cb02a8cb2305">Grid::polyhedronGrid</a></div><div class="ttdeci">vector&lt; OCPpolyhedron &gt; polyhedronGrid</div><div class="ttdoc">Coordinates of grid points.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00208">Grid.hpp:208</a></div></div>
+<div class="ttc" id="aclassGrid_html_acaf756804fb4be33263a01f217a0f221"><div class="ttname"><a href="classGrid.html#acaf756804fb4be33263a01f217a0f221">Grid::ny</a></div><div class="ttdeci">USI ny</div><div class="ttdoc">Number of cells in y-direction.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00141">Grid.hpp:141</a></div></div>
+<div class="ttc" id="aclassOCPpolyhedron_html"><div class="ttname"><a href="classOCPpolyhedron.html">OCPpolyhedron</a></div><div class="ttdoc">Record the initial grid information, all of grids are contained.</div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00069">Grid.hpp:70</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Grid_8hpp_source.html#l00137">numGrid</a>, <a class="el" href="Grid_8hpp_source.html#l00140">nx</a>, <a class="el" href="Grid_8hpp_source.html#l00141">ny</a>, <a class="el" href="Grid_8hpp_source.html#l00142">nz</a>, <a class="el" href="Grid_8hpp_source.html#l00208">polyhedronGrid</a>, and <a class="el" href="Grid_8hpp_source.html#l00207">useVTK</a>.</p>
 
 </div>
 </div>
@@ -418,7 +477,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Out4VTK</b></td></tr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 10 2023 10:47:18 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Jan 11 2023 05:34:31 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
