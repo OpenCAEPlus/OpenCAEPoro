@@ -1161,11 +1161,12 @@ void MixtureComp::CalVfXiRho()
     OCP_DBL tmp;
     for (USI j = 0; j < NP; j++) {
 
-        vector<OCP_DBL>& xj = x[j];
-        tmp                 = Zj[j] * GAS_CONSTANT * T / P;
+        vector<OCP_DBL>& xj = x[j];     
+        tmp = Zj[j] * GAS_CONSTANT * T / P;
         for (USI i = 0; i < NC; i++) {
             tmp -= xj[i] * Vshift[i];
         }
+        
         vC[j] = tmp * nu[j];
         vf += vC[j];
         xiC[j]  = 1 / tmp;
@@ -2584,7 +2585,7 @@ void MixtureComp::CalVjpVfpVfn_partial()
                      Bn[i]) /
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
-            vji[j1][i] = CgTP * (zj + nu[j] * Znj[i]);
+            vji[j1][i] = CgTP * (zj + nu[j] * Znj[i]) - Vshift[i];
         }
         Zp[j] = ((bj - zj) * aj +
                  ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
@@ -3043,11 +3044,11 @@ void MixtureComp::CalXiPNX_partial()
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
         }
 
-        tmp = -xiC[j] * xiC[j] * CgTP;
+        tmp = -xiC[j] * xiC[j];
         for (USI i = 0; i < NC; i++) {
-            xixC[j * NC + i] = tmp * Zx[i];
+            xixC[j * NC + i] = tmp * (CgTP * Zx[i] - Vshift[i]);
         }
-        xiPC[j] = tmp * (Zp[j] - Zj[j] / P);
+        xiPC[j] = tmp * CgTP * (Zp[j] - Zj[j] / P);
     }
 
     // xiNC
@@ -3913,7 +3914,7 @@ void MixtureComp::CalVfiVfp_full02()
                      Bn[i]) /
                 (3 * zj * zj + 2 * ((delta1 + delta2 - 1) * bj - 1) * zj +
                  (aj + delta1 * delta2 * bj * bj - (delta1 + delta2) * bj * (bj + 1)));
-            vfi[i] = CgTP * (zj + nu[0] * Znij[i]);
+            vfi[i] = CgTP * (zj + nu[0] * Znij[i]) - Vshift[i];
         }
         Zp[0] = ((bj - zj) * aj +
                  ((aj + delta1 * delta2 * (3 * bj * bj + 2 * bj)) +
@@ -3936,14 +3937,12 @@ void MixtureComp::CalVfiVfp_full02()
         // Calculate Vfp
         const USI j0 = phaseLabel[0];
         const USI j1 = phaseLabel[1];
-        vjp[j0]      = nu[0] * (Zp[0] - Zj[0] / P);
-        vjp[j1]      = nu[1] * (Zp[1] - Zj[1] / P);
+        vjp[j0]      = CgTP * nu[0] * (Zp[0] - Zj[0] / P);
+        vjp[j1]      = CgTP * nu[1] * (Zp[1] - Zj[1] / P);
         for (USI k = 0; k < NC; k++) {
-            vjp[j0] += (Zj[0] + nu[0] * Zn[0][k]) * dnkjdNP[k];
-            vjp[j1] -= (Zj[1] + nu[1] * Zn[1][k]) * dnkjdNP[k];
+            vjp[j0] += (CgTP * (Zj[0] + nu[0] * Zn[0][k]) - Vshift[k]) * dnkjdNP[k];
+            vjp[j1] -= (CgTP * (Zj[1] + nu[1] * Zn[1][k]) - Vshift[k]) * dnkjdNP[k];
         }
-        vjp[j0] *= CgTP;
-        vjp[j1] *= CgTP;
         vfP = vjp[j0] + vjp[j1];
         dnkjdNP += NC;
 
@@ -3953,11 +3952,9 @@ void MixtureComp::CalVfiVfp_full02()
             vji[j0][i] = 0;
             vji[j1][i] = 0;
             for (USI k = 0; k < NC; k++) {
-                vji[j0][i] += (Zj[0] + nu[0] * Zn[0][k]) * dnkjdNP[k];
-                vji[j1][i] += (Zj[1] + nu[1] * Zn[1][k]) * (delta(i, k) - dnkjdNP[k]);
+                vji[j0][i] += (CgTP * (Zj[0] + nu[0] * Zn[0][k]) - Vshift[k]) * dnkjdNP[k];
+                vji[j1][i] += (CgTP * (Zj[1] + nu[1] * Zn[1][k]) - Vshift[k]) * (delta(i, k) - dnkjdNP[k]);
             }
-            vji[j0][i] *= CgTP;
-            vji[j1][i] *= CgTP;
             vfi[i] = vji[j0][i] + vji[j1][i];
             dnkjdNP += NC;
         }
