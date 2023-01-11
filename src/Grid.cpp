@@ -16,7 +16,7 @@
  // Input Param and Setup
  /////////////////////////////////////////////////////////////////////
 
-void Grid::InputParam(const ParamReservoir& rs_param)
+void Grid::InputParam(const ParamReservoir& rs_param, const ParamOutput& output_param)
 {
         // dimensions
     nx = rs_param.dimens.nx;
@@ -76,12 +76,16 @@ void Grid::InputParam(const ParamReservoir& rs_param)
 
     // Initial Properties
     SwatInit = rs_param.Swat; 
+
+    // Output
+    useVTK = output_param.outVTKParam.useVTK;
 }
 
 void Grid::SetupIsoT()
 {
     Setup();
-    CalActiveGridIsoT(1E-6, 1E-6);   
+    CalActiveGridIsoT(1E-6, 1E-6);
+    SetupGridTag();
 }
 
 void Grid::SetupT()
@@ -89,6 +93,7 @@ void Grid::SetupT()
     Setup();
     CalActiveGridT(1E-6, 1E-6);
     SetupGridLocation();
+    SetupGridTag();
 }
 
 void Grid::Setup()
@@ -420,6 +425,27 @@ void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
                 polyhedronGrid.push_back(tmpP);
                 tmpP.Points.clear();
             }
+        }
+    }
+}
+
+
+void Grid::SetupGridTag()
+{
+    if (!useVTK) return;
+
+    gridTag.resize(numGrid);
+    for (OCP_USI n = 0; n < numGrid; n++) {
+        if (map_All2Act[n].IsAct()) {
+            if (map_All2Flu[n].IsAct()) {
+                gridTag[n] = 2;
+            }
+            else {
+                gridTag[n] = 1;
+            }
+        }
+        else {
+            gridTag[n] = 0;
         }
     }
 }

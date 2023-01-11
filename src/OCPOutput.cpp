@@ -946,10 +946,10 @@ void Out4VTK::Setup(const string& dir, const Reservoir& rs, const USI& ndates)
     out4vtk.OutputCELL_TYPES(file, initGrid.polyhedronGrid, rs.allWells.polyhedronWell);
     out4vtk.BeginCellData();
     // output dead grid, live grid, well
-    vector<USI> tmpW(rs.allWells.numWell, 2);
-    //out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT,
-    //                                &initGrid.activityFlag[0], 1, initGrid.map_All2Act,
-    //                                OCP_FALSE, &tmpW[0]);
+    vector<USI> tmpW(rs.allWells.numWell, 10);
+    out4vtk.OutputCELL_DATA_SCALARS(file, "CellType", VTK_UNSIGNED_INT,
+                                    &initGrid.gridTag[0], 1, initGrid.map_All2Act,
+                                    OCP_FALSE, &tmpW[0]);
 
     for (USI i = 1; i < ndates; i++) {
         index++;

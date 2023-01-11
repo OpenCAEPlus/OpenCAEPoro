@@ -690,7 +690,7 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
     if (vbuf[0] == "/") return;
 
     DealDefault(vbuf);
-    OCP_ASSERT(vbuf.size() == 4, "Wrong Keyword DENSITY!");
+    OCP_ASSERT(vbuf.size() == 3, "Wrong Keyword DENSITY!");
     for (USI i = 0; i < 3; i++) {
         if (vbuf[i] != "DEFAULT") {
             density.activity = OCP_TRUE;

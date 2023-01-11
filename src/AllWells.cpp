@@ -15,7 +15,7 @@
 // General
 /////////////////////////////////////////////////////////////////////
 
-void AllWells::InputParam(const ParamWell& paramWell)
+void AllWells::InputParam(const ParamWell& paramWell, const ParamOutput& output_param)
 {
     OCP_FUNCNAME;
 
@@ -66,6 +66,9 @@ void AllWells::InputParam(const ParamWell& paramWell)
             }
         }
     }
+
+    // for output
+    useVTK = output_param.outVTKParam.useVTK;
 }
 
 void AllWells::Setup(const Grid& myGrid, const Bulk& myBulk)
@@ -413,7 +416,6 @@ void AllWells::CalMaxBHPChange()
 
 void AllWells::SetPolyhedronWell(const Grid& myGrid)
 {
-    useVTK = myGrid.IfUseVtk();
     if (!useVTK) return;
 
     wellVal.resize(numWell);

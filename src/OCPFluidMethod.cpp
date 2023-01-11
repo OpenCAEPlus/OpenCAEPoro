@@ -2880,6 +2880,10 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
                 bk.NRdNmax = bk.dNNR[n * nc + i] / bk.Nt[n];
 
             bk.Ni[n * nc + i] += bk.dNNR[n * nc + i];
+
+            //if (bk.Ni[n * nc + i] < 0) {
+            //    bk.Ni[n * nc + i] = 1E-20;
+            //}
         }
     }
 

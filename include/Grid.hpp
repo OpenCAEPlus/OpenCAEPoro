@@ -19,6 +19,7 @@
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
+#include "ParamOutput.hpp"
 #include "UtilOutput.hpp"
 #include "CornerGrid.hpp"
 
@@ -93,7 +94,7 @@ class Grid
 public:
 
     /// Input parameters from the internal param structure.
-    void InputParam(const ParamReservoir& rs_param);
+    void InputParam(const ParamReservoir& rs_param, const ParamOutput& output_param);
 
     /// Setup for Isothermal model
     void SetupIsoT();
@@ -197,13 +198,15 @@ public:
     OCP_BOOL IfUseVtk()const { return useVTK; }             ///< return if use vtk format for outputing
     void SetHexaherdronGridOrthogonal();                    ///< setup polyhedronGrid for orthogonal grid
     void SetHexaherdronGridCorner(const OCP_COORD& mycord); ///< setup polyhedronGrid for corner grid
+    /// Setup grid tag
+    void SetupGridTag();                
     void OutputBaiscInfo() const;             ///< Calculate and return basic informations for grid
-
     void CalNumDigutIJK();                                  ///< only used in structured grid
     USI GetNumDigitIJK() const { return numDigutIJK; }      ///< Return numDigutIJK
 protected:
-    OCP_BOOL        useVTK{ OCP_FALSE };    ///< if output in vtk format
-    vector<OCPpolyhedron>  polyhedronGrid;  ///< store the coordinates of grid points
+    OCP_BOOL        useVTK{ OCP_FALSE };    ///< If output in vtk format
+    vector<OCPpolyhedron>  polyhedronGrid;  ///< Coordinates of grid points
+    vector<USI>     gridTag;                ///< Tag of grid: dead, live(fluid), live(rock)
     USI             numDigutIJK;            ///< number of digits of maximum nx,ny,nz
 };
 

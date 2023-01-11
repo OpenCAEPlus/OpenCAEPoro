@@ -1694,9 +1694,9 @@ void OCP_COORD::SetupCornerPoints()
                 dz[cindex] = sqrt(dzpoint.x * dzpoint.x + dzpoint.y * dzpoint.y +
                                   dzpoint.z * dzpoint.z);
 
-                OCP_ASSERT(!isfinite(dx[cindex]), "Wrong dx!");
-                OCP_ASSERT(!isfinite(dy[cindex]), "Wrong dy!");
-                OCP_ASSERT(!isfinite(dz[cindex]), "Wrong dz!");
+                OCP_ASSERT(isfinite(dx[cindex]), "Wrong dx!");
+                OCP_ASSERT(isfinite(dy[cindex]), "Wrong dy!");
+                OCP_ASSERT(isfinite(dz[cindex]), "Wrong dz!");
             }
         }
     }

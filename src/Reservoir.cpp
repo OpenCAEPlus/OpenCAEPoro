@@ -19,9 +19,9 @@ void Reservoir::InputParam(ParamRead& param)
 {
     OCP_FUNCNAME;
 
-    grid.InputParam(param.paramRs);
+    grid.InputParam(param.paramRs, param.paramOutput);
     bulk.InputParam(param.paramRs);
-    allWells.InputParam(param.paramWell);
+    allWells.InputParam(param.paramWell, param.paramOutput);
     optFeatures.InputParam(param.paramRs);
 }
 

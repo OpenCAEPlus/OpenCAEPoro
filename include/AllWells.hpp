@@ -96,7 +96,7 @@ public:
 
 public:
     /// Input param from ParamWell.
-    void InputParam(const ParamWell& paramWell);
+    void InputParam(const ParamWell& paramWell, const ParamOutput& output_param);
     /// Setup wells
     void Setup(const Grid& myGrid, const Bulk& myBulk);
     /// complete the information of well according to Grid and Bulk.
@@ -150,7 +150,6 @@ public:
     USI     GetMaxWellPerNum() const;
     void    CalMaxBHPChange();
     OCP_DBL GetdBHPmax() const { return dPmax; }
-
 
     /// Return the BHP of wth well.
     OCP_DBL GetWBHP(const USI& w) const
@@ -244,11 +243,6 @@ protected:
     OCP_DBL FGPt{0}; ///< gas total production in field.
     OCP_DBL FWPR{0}; ///< water production rate in field.
     OCP_DBL FWPT{0}; ///< water total production in field.
-
-    /////////////////////////////////////////////////////////////////////
-    // IMPEC
-    /////////////////////////////////////////////////////////////////////
-
 
     // for output
 private:

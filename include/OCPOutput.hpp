@@ -288,10 +288,10 @@ public:
     OCP_BOOL IfOutputVTK() const { return useVTK; }
 
 private:
-    OCP_BOOL          useVTK{OCP_FALSE};
-    mutable USI       index{0}; ///< index of output file
-    BasicGridProperty bgp;
-    Output4Vtk        out4vtk;
+    OCP_BOOL          useVTK{OCP_FALSE};   ///< If use vtk
+    mutable USI       index{0};            ///< Index of output file
+    BasicGridProperty bgp;                 ///< Basic grid information
+    Output4Vtk        out4vtk;             ///< Output for vtk
 
     // test for Parallel version
 #ifdef USE_METIS
