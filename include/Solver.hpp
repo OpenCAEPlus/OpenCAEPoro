@@ -50,8 +50,6 @@ private:
     IsothermalSolver IsoTSolver;
     /// Solver for ifThermal models with varied T
     ThermalSolver    TSolver;
-    /// Linear solver
-    LinearSystem LSolver;
 };
 
 #endif /* end if __SOLVER_HEADER__ */

@@ -4209,6 +4209,8 @@ OCP_BOOL IsoT_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
             return OCP_FALSE;
         }
         else {
+            CalFlashEa(rs.bulk);
+            CalKrPcE(rs.bulk);
             return OCP_TRUE;
         }
 
