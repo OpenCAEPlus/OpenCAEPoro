@@ -100,7 +100,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classSummary.html" title="The Summary class manages the output in the summary file.">Summary</a> class manages the output in the summary file. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8hpp_source.html#l00098">98</a> of file <a class="el" href="OCPOutput_8hpp_source.html">OCPOutput.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8hpp_source.html#l00103">103</a> of file <a class="el" href="OCPOutput_8hpp_source.html">OCPOutput.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a53edcd18d2eb5a3c4d66138e5befb0a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53edcd18d2eb5a3c4d66138e5befb0a6">&#9670;&nbsp;</a></span>PrintInfo()</h2>
@@ -121,80 +121,85 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Write output information to a file. </p>
 <p>Write output information in the dir/SUMMARY.out file. </p>
 
-<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00498">498</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;{</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keywordtype">string</span>   FileOut = dir + <span class="stringliteral">&quot;SUMMARY.out&quot;</span>;</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    ofstream outF(FileOut);</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    <span class="keywordflow">if</span> (!outF.is_open()) {</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Can not open &quot;</span> + FileOut);</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    }</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ns  = 12;</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> col = 10;</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> row = 0;</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> num = Sumdata.size();</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = Sumdata[0].val.size();</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> <span class="keywordtype">id</span>  = 0;</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ID  = 1;</div>
+<p class="definition">Definition at line <a class="el" href="OCPOutput_8cpp_source.html#l00506">506</a> of file <a class="el" href="OCPOutput_8cpp_source.html">OCPOutput.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;{</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <span class="keywordtype">string</span>   FileOut = dir + <span class="stringliteral">&quot;SUMMARY.out&quot;</span>;</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    ofstream outF(FileOut);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordflow">if</span> (!outF.is_open()) {</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;        <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;Can not open &quot;</span> + FileOut);</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    }</div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160; </div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keywordflow">while</span> (<span class="keywordtype">id</span> != num) {</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;Row &quot;</span> &lt;&lt; ++row &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160; </div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="comment">// Item</span></div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="comment">// Time</span></div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Item;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160; </div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Item;</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        }</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="comment">// Unit</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="comment">// Time</span></div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Unit;</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160; </div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Unit;</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        }</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ns  = 12;</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> col = 10;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> num = Sumdata.size();</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> len = Sumdata[0].val.size();</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160; </div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> row = 0;</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> <span class="keywordtype">id</span>  = 0;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> ID  = 1;</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160; </div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keywordflow">while</span> (<span class="keywordtype">id</span> != num) {</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160; </div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;Row &quot;</span> &lt;&lt; ++row &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="comment">// Item</span></div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Item;</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Item;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        }</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160; </div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        <span class="comment">// Unit</span></div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Unit;</div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160; </div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        <span class="comment">// Obj</span></div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="comment">// Time</span></div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Obj;</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160; </div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Obj;</div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        }</div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;        <span class="comment">// Data</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> l = 0; l &lt; len; l++) {</div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160; </div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;            <span class="comment">// Time</span></div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].val[l];</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Unit;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        }</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;        <span class="comment">// Obj Name</span></div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[0].Obj;</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160; </div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;        <span class="keywordtype">id</span> = ID;</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].Obj;</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;        }</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;            <span class="keywordtype">id</span> = ID;</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].val[l];</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;                <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;            }</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;        }</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160; </div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        ID += (col - 1);</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;    }</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160; </div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    outF.close();</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;}</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        <span class="comment">// Data</span></div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> l = 0; l &lt; len; l++) {</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160; </div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;            <span class="comment">// Time</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; Sumdata[0].val[l];</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;            <span class="keywordtype">id</span> = ID;</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 1; i &lt; col; i++) {</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;                <span class="keywordflow">if</span> (Sumdata[<span class="keywordtype">id</span>].Type == <span class="stringliteral">&quot;int&quot;</span>) {</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;                    outF &lt;&lt; fixed &lt;&lt; setprecision(0);</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Sumdata[<span class="keywordtype">id</span>].Type == <span class="stringliteral">&quot;fixed&quot;</span>) {</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;                    outF &lt;&lt; fixed &lt;&lt; setprecision(3);</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Sumdata[<span class="keywordtype">id</span>].Type == <span class="stringliteral">&quot;float&quot;</span>) {</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                    outF &lt;&lt; scientific &lt;&lt; setprecision(5);</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;                }</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;                outF &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; setw(ns) &lt;&lt; Sumdata[<span class="keywordtype">id</span>++].val[l];</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;                <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == num) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;            }</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;            outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        }</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160; </div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        ID += (col - 1);</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        outF &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    }</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160; </div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    outF.close();</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 </div><!-- fragment -->
@@ -209,7 +214,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 12 2023 04:11:01 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 13 2023 08:13:19 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
