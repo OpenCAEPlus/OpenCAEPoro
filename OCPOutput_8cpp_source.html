@@ -1100,15 +1100,15 @@ $(function() {
 <div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160; </div>
 <div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;<span class="preprocessor">#ifdef USE_METIS</span></div>
 <div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;    <span class="keywordflow">if</span> (metisTest.useMetis) {</div>
-<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;        <span class="comment">// partion and print</span></div>
+<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;        <span class="comment">// partition and print</span></div>
 <div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;        <span class="comment">// vertex weights set to 1 now</span></div>
 <div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;        metisTest.vwgt.resize(metisTest.nvtxs, 1);</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;        <span class="comment">// metisTest.MyPartionFunc(METIS_PartGraphRecursive);</span></div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;        metisTest.MyPartionFunc(METIS_PartGraphKway);</div>
-<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        metisTest.SetPartions(initGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>);</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;        <span class="comment">// metisTest.MyPartitionFunc(METIS_PartGraphRecursive);</span></div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;        metisTest.MyPartitionFunc(METIS_PartGraphKway);</div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        metisTest.SetPartitions(initGrid.<a class="code" href="classGrid.html#a229ee680f0c08e1d8133833b5c11e584">map_Act2All</a>);</div>
 <div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;        out4vtk.OutputCELL_DATA_SCALARS(file, <span class="stringliteral">&quot;PARTIONS&quot;</span>, VTK_UNSIGNED_INT,</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;                                        &amp;metisTest.partions[0], 1, g2bp, OCP_FALSE,</div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;                                        &amp;metisTest.partions[metisTest.ng]);</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;                                        &amp;metisTest.partitions[0], 1, g2bp, OCP_FALSE,</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;                                        &amp;metisTest.partitions[metisTest.ng]);</div>
 <div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;    }</div>
 <div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// USE_METIS</span></div>
 <div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160; </div>
@@ -1344,7 +1344,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 13 2023 08:13:19 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 13 2023 08:29:32 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
