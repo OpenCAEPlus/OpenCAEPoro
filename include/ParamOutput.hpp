@@ -37,7 +37,7 @@ public:
 class Type_B_o
 {
 public:
-    OCP_BOOL           activity{OCP_FALSE};
+    OCP_BOOL       activity{OCP_FALSE};
     vector<COOIJK> obj;
 };
 
@@ -45,7 +45,7 @@ public:
 class Type_A_o
 {
 public:
-    OCP_BOOL           activity{OCP_FALSE};
+    OCP_BOOL       activity{OCP_FALSE};
     vector<string> obj;
 };
 
@@ -87,31 +87,30 @@ public:
     Type_B_o SWAT; ///< Water saturation of bulk.
 };
 
-
 class BasicGridPropertyParam
 {
 public:
-    OCP_BOOL PRE{ OCP_FALSE };  ///< Pressure of grids.
-    OCP_BOOL PGAS{ OCP_FALSE }; ///< Gas pressure of grids.
-    OCP_BOOL PWAT{ OCP_FALSE }; ///< Water pressure of grids.
-    OCP_BOOL SOIL{ OCP_FALSE }; ///< Oil saturation of grids.
-    OCP_BOOL SGAS{ OCP_FALSE }; ///< Gas saturation of grids.
-    OCP_BOOL SWAT{ OCP_FALSE }; ///< Water saturation of grids.
-    OCP_BOOL DENO{ OCP_FALSE }; ///< Oil density of grids.
-    OCP_BOOL DENG{ OCP_FALSE }; ///< Gas density of grids.
-    OCP_BOOL DENW{ OCP_FALSE }; ///< Water density of grids.
-    OCP_BOOL KRO{ OCP_FALSE }; ///< Oil relative permeability of grids.
-    OCP_BOOL KRG{ OCP_FALSE }; ///< Gas relative permeability of grids.
-    OCP_BOOL KRW{ OCP_FALSE }; ///< Water relative permeability of grids.
-    OCP_BOOL BOIL{ OCP_FALSE }; ///< Oil reservoir molar densities of grids.
-    OCP_BOOL BGAS{ OCP_FALSE }; ///< Gas reservoir molar densities of grids.
-    OCP_BOOL BWAT{ OCP_FALSE }; ///< Water reservoir molar densities of grids.
-    OCP_BOOL VOIL{ OCP_FALSE }; ///< Oil viscosity of grids.
-    OCP_BOOL VGAS{ OCP_FALSE }; ///< Gas viscosity of grids.
-    OCP_BOOL VWAT{ OCP_FALSE }; ///< Water viscosity of grids.
-    OCP_BOOL XMF{ OCP_FALSE }; ///< liquid component mole fractions.
-    OCP_BOOL YMF{ OCP_FALSE }; ///< gas component mole fractions.
-    OCP_BOOL PCW{ OCP_FALSE }; ///< capilary pressure: Po - Pw.
+    OCP_BOOL PRE{OCP_FALSE};  ///< Pressure of grids.
+    OCP_BOOL PGAS{OCP_FALSE}; ///< Gas pressure of grids.
+    OCP_BOOL PWAT{OCP_FALSE}; ///< Water pressure of grids.
+    OCP_BOOL SOIL{OCP_FALSE}; ///< Oil saturation of grids.
+    OCP_BOOL SGAS{OCP_FALSE}; ///< Gas saturation of grids.
+    OCP_BOOL SWAT{OCP_FALSE}; ///< Water saturation of grids.
+    OCP_BOOL DENO{OCP_FALSE}; ///< Oil density of grids.
+    OCP_BOOL DENG{OCP_FALSE}; ///< Gas density of grids.
+    OCP_BOOL DENW{OCP_FALSE}; ///< Water density of grids.
+    OCP_BOOL KRO{OCP_FALSE};  ///< Oil relative permeability of grids.
+    OCP_BOOL KRG{OCP_FALSE};  ///< Gas relative permeability of grids.
+    OCP_BOOL KRW{OCP_FALSE};  ///< Water relative permeability of grids.
+    OCP_BOOL BOIL{OCP_FALSE}; ///< Oil reservoir molar densities of grids.
+    OCP_BOOL BGAS{OCP_FALSE}; ///< Gas reservoir molar densities of grids.
+    OCP_BOOL BWAT{OCP_FALSE}; ///< Water reservoir molar densities of grids.
+    OCP_BOOL VOIL{OCP_FALSE}; ///< Oil viscosity of grids.
+    OCP_BOOL VGAS{OCP_FALSE}; ///< Gas viscosity of grids.
+    OCP_BOOL VWAT{OCP_FALSE}; ///< Water viscosity of grids.
+    OCP_BOOL XMF{OCP_FALSE};  ///< liquid component mole fractions.
+    OCP_BOOL YMF{OCP_FALSE};  ///< gas component mole fractions.
+    OCP_BOOL PCW{OCP_FALSE};  ///< capillary pressure: Po - Pw.
 };
 
 /// OutputRPTParam is a part of ParamOutput, it's used to control the output of detailed
@@ -120,37 +119,37 @@ public:
 class OutputRPTParam
 {
 public:
-    OCP_BOOL    useRPT{ OCP_FALSE };
-    BasicGridPropertyParam  bgp;
+    OCP_BOOL               useRPT{OCP_FALSE};
+    BasicGridPropertyParam bgp;
 };
 
 class OutputVTKParam
 {
 public:
-    OCP_BOOL    useVTK{ OCP_FALSE };
-    BasicGridPropertyParam  bgp;
+    OCP_BOOL               useVTK{OCP_FALSE};
+    BasicGridPropertyParam bgp;
 };
 
 /// ParamOutput is an internal structure used to stores the information of outputting
 /// from input files. It is an intermediate interface and independent of the main
-/// simulator. After all file inputting finishs, the params in it will pass to
+/// simulator. After all file inputting finishes, the params in it will pass to
 /// corresponding modules.
 class ParamOutput
 {
 public:
-    OutputSummary summary;    ///< See OutputSummary.
-    OutputRPTParam  outRPTParam; ///< See OutputRPTParam.
-    OutputVTKParam  outVTKParam; ///< See OutputVTKParam
+    OutputSummary  summary;     ///< See OutputSummary.
+    OutputRPTParam outRPTParam; ///< See OutputRPTParam.
+    OutputVTKParam outVTKParam; ///< See OutputVTKParam
 
-    /// Input the keyword SUMMARY, which contains many subkeyword, indicating which
+    /// Input the keyword SUMMARY, which contains many sub-keyword, indicating which
     /// results are interested by user. After the simulation, these results will be
     /// output into a summary file.
     void InputSUMMARY(ifstream& ifs);
-    /// Input the subkeyword in SUMMARY, the contents in these keyword is in the form of
-    /// string.
+    /// Input the sub-keyword in SUMMARY, the contents in these keyword is in the form
+    /// of string.
     void InputType_A(ifstream& ifs, Type_A_o& obj);
-    /// Input the subkeyword in SUMMARY, the contents in these keyword is in the form of
-    /// coordinates.
+    /// Input the sub-keyword in SUMMARY, the contents in these keyword is in the form
+    /// of coordinates.
     void InputType_B(ifstream& ifs, Type_B_o& obj);
 
     /// Input the keyword RPTSCHED, which tells which detailed information will be

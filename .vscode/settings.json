@@ -103,6 +103,17 @@
         "memory_resource": "cpp",
         "utility": "cpp",
         "stop_token": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "csetjmp": "cpp",
+        "csignal": "cpp",
+        "forward_list": "cpp",
+        "future": "cpp",
+        "list": "cpp",
+        "regex": "cpp",
+        "strstream": "cpp",
+        "typeindex": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp",
+        "*.in": "cpp"
     }
 }

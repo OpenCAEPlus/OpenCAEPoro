@@ -78,17 +78,22 @@ public:
         index; ///< Records the index of bulk or well, whose properties will be printed
 };
 
-/// The SumPair class is an auxiliary structure storing summary data to output.
-class SumPair
+/// The SumItem class is an auxiliary structure storing summary data to output.
+class SumItem
 {
 public:
-    SumPair(const string& item, const string& obj, const string& unit)
+    SumItem(const string& item,
+            const string& obj,
+            const string& unit,
+            const string& type)
         : Item(item)
         , Obj(obj)
-        , Unit(unit){};
+        , Unit(unit)
+        , Type(type){};
     string          Item;
     string          Obj;
     string          Unit;
+    string          Type;
     vector<OCP_DBL> val;
 };
 
@@ -111,7 +116,7 @@ public:
     void PrintInfo(const string& dir) const;
 
 private:
-    vector<SumPair> Sumdata; ///< Contains all information to be printed.
+    vector<SumItem> Sumdata; ///< Contains all information to be printed.
 
     OCP_BOOL FPR{OCP_FALSE};  ///< Field average Pressure.
     OCP_BOOL FTR{OCP_FALSE};  ///< Field average Temperature.
@@ -288,10 +293,10 @@ public:
     OCP_BOOL IfOutputVTK() const { return useVTK; }
 
 private:
-    OCP_BOOL          useVTK{OCP_FALSE};   ///< If use vtk
-    mutable USI       index{0};            ///< Index of output file
-    BasicGridProperty bgp;                 ///< Basic grid information
-    Output4Vtk        out4vtk;             ///< Output for vtk
+    OCP_BOOL          useVTK{OCP_FALSE}; ///< If use vtk
+    mutable USI       index{0};          ///< Index of output file
+    BasicGridProperty bgp;               ///< Basic grid information
+    Output4Vtk        out4vtk;           ///< Output for vtk
 
     // test for Parallel version
 #ifdef USE_METIS
