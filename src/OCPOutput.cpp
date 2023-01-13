@@ -1035,15 +1035,15 @@ void Out4VTK::PrintVTK(const string&    dir,
 
 #ifdef USE_METIS
     if (metisTest.useMetis) {
-        // partion and print
+        // partition and print
         // vertex weights set to 1 now
         metisTest.vwgt.resize(metisTest.nvtxs, 1);
-        // metisTest.MyPartionFunc(METIS_PartGraphRecursive);
-        metisTest.MyPartionFunc(METIS_PartGraphKway);
-        metisTest.SetPartions(initGrid.map_Act2All);
+        // metisTest.MyPartitionFunc(METIS_PartGraphRecursive);
+        metisTest.MyPartitionFunc(METIS_PartGraphKway);
+        metisTest.SetPartitions(initGrid.map_Act2All);
         out4vtk.OutputCELL_DATA_SCALARS(file, "PARTIONS", VTK_UNSIGNED_INT,
-                                        &metisTest.partions[0], 1, g2bp, OCP_FALSE,
-                                        &metisTest.partions[metisTest.ng]);
+                                        &metisTest.partitions[0], 1, g2bp, OCP_FALSE,
+                                        &metisTest.partitions[metisTest.ng]);
     }
 #endif // USE_METIS
 

@@ -300,7 +300,6 @@ private:
 
     // test for Parallel version
 #ifdef USE_METIS
-
     mutable class MyMetisTest
     {
         friend class Out4VTK;
@@ -321,9 +320,8 @@ private:
         mutable vector<idx_t> adjwgt;
         mutable vector<idx_t> vwgt;
         mutable vector<idx_t> part;
+        mutable vector<USI>   partitions;
         const idx_t           MAXWEIGHT = 100000000;
-
-        mutable vector<USI> partions;
 
     public:
         void Setup(const Reservoir& rs)
@@ -391,9 +389,10 @@ private:
             // Setup active/inactive grid flags
             // inactive grids' flags equal nparts
             part.resize(nvtxs, 0);
-            partions.resize(ng + nw, nparts);
+            partitions.resize(ng + nw, nparts);
         }
-        void MyPartionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) const
+
+        void MyPartitionFunc(decltype(METIS_PartGraphKway)* METIS_PartGraphFunc) const
         {
 
             if (!useMetis) return;
@@ -408,17 +407,18 @@ private:
             cout << "METIS_OK" << endl;
             cout << "objval: " << objval << endl;
         }
-        void SetPartions(const vector<USI> b2g) const
+
+        void SetPartitions(const vector<USI> b2g) const
         {
             if (!useMetis) return;
             // bulk
             OCP_USI n = 0;
             for (n = 0; n < nb; n++) {
-                partions[b2g[n]] = part[n];
+                partitions[b2g[n]] = part[n];
             }
             // well
             for (USI w = 0; w < nw; w++) {
-                partions[ng + w] = part[n];
+                partitions[ng + w] = part[n];
                 n++;
             }
         }
