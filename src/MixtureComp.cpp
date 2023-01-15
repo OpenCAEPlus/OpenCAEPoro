@@ -1407,8 +1407,8 @@ OCP_BOOL MixtureComp::StableSSM01(const USI& Id)
     const vector<OCP_DBL>& xj = x[Id];
     CalFugPhi(phi[Id], fug[Id], xj);
     const vector<OCP_DBL>& fugId = fug[Id];
-    vector<OCP_DBL>&       ks    = Ks[0];
 
+    vector<OCP_DBL>&       ks    = Ks[0];
     for (k = 0; k < 2; k++) {
 
         ks   = Kw[k];
@@ -1748,6 +1748,7 @@ void MixtureComp::PhaseSplit()
     EoSctrl.NRsp.curIt    = 0;
     EoSctrl.RR.curIt      = 0;
 
+    // cout << "begin" << endl;
     SplitSSM(OCP_FALSE);
     SplitNR();
     while (!EoSctrl.NRsp.conflag) {
@@ -1784,37 +1785,49 @@ OCP_BOOL MixtureComp::CheckSplit()
 {
     if (NP == 2) {
 
-        OCP_DBL tmp   = 0;
+        OCP_DBL eX   = 0;
         OCP_DBL nuMax = max(nu[0], nu[1]);
 
         for (USI i = 0; i < NC; i++) {
-            tmp += (x[0][i] - x[1][i]) * (x[0][i] - x[1][i]);
+            eX += (x[0][i] - x[1][i]) * (x[0][i] - x[1][i]);
         }
 
-        if (nuMax < 1 && EoSctrl.NRsp.conflag && isfinite(tmp)) {
+        if (OCP_TRUE) {
+            // Calculate Gibbs Energy
+
+            CalFugPhi(phiSta, fugSta, zi);
+            GibbsEnergyB = 0;
+            GibbsEnergyE = 0;
+            for (USI i = 0; i < NC; i++) {
+                GibbsEnergyB += zi[i] * log(fugSta[i]);
+                GibbsEnergyE += (n[0][i] * log(fug[0][i]) + n[1][i] * log(fug[1][i]));
+            }
+
+            cout << scientific << setprecision(6);
+            // cout << GibbsEnergyB << "   " << GibbsEnergyE << endl;
+            if (GibbsEnergyE > GibbsEnergyB) {
+                cout << ftype << "   ";
+                cout << GibbsEnergyB << "   ";
+                cout << GibbsEnergyE << "   ";
+                cout << nuMax << "   ";
+                cout << eX << "   ";
+                cout << EoSctrl.NRsp.conflag << "   ";
+                cout << bulkId << endl;
+            }
+        }
+
+        if (nuMax < 1 && EoSctrl.NRsp.conflag && isfinite(eX)) {
             // accept this result
         } else {
-            if (!isfinite(tmp) || (1 - nuMax) < 1E-3) {
-                // single phase
-                // cout << "-------------------------------------------" << endl;
-                // cout << fixed << scientific << setprecision(12);
-                // cout << Yt << "   " << nu[0] << "   " << nu[1] << "   ";
-                // cout << sqrt(EoSctrl.SSMsp.realTol) << "   " << EoSctrl.SSMsp.conflag
-                // << "   "; cout << sqrt(EoSctrl.NRsp.realTol) << "   " <<
-                // EoSctrl.NRsp.conflag << endl; for (USI i = 0; i < NC; i++) 	cout <<
-                // zi[i] << "   "; cout << endl; for (USI j = 0; j < NP; j++) { 	for
-                // (USI i = 0; i < NC; i++) { 		cout << x[j][i] << "   ";
-                //	}
-                //	cout << endl;
-                //}
-                NP    = 1;
-                x[0]  = zi;
+            if (!isfinite(eX) || 1 - nuMax < 1E-3) {
+                NP = 1;
+                x[0] = zi;
                 nu[0] = 1;
                 CalAjBj(Aj[0], Bj[0], x[0]);
                 SolEoS(Zj[0], Aj[0], Bj[0]);
 
                 EoSctrl.SSMsta.conflag = OCP_FALSE;
-                EoSctrl.NRsta.conflag  = OCP_FALSE;
+                EoSctrl.NRsta.conflag = OCP_FALSE;
                 return OCP_FALSE;
             }
         }
@@ -1942,6 +1955,8 @@ void MixtureComp::RachfordRice2() ///< Used when NP = 2
     EoSctrl.RR.curIt += iter;
     nu[1] = 1 - nu[0];
 
+    //cout << scientific << setprecision(6) << nu[0] << "   " << nu[1] << endl;
+
 }
 
 void MixtureComp::RachfordRice2P()
@@ -2044,9 +2059,9 @@ void MixtureComp::SplitBFGS()
 void MixtureComp::SplitNR()
 {
     EoSctrl.NRsp.conflag = OCP_FALSE;
-    for (USI j = 0; j < NP; j++) {
-        nu[j] = fabs(nu[j]);
-    }
+    //for (USI j = 0; j < NP; j++) {
+    //    nu[j] = fabs(nu[j]);
+    //}
 
     USI len = NC * (NP - 1);
     x2n();
@@ -2062,7 +2077,6 @@ void MixtureComp::SplitNR()
     while (eNR > NRtol) {
 
         // eNR0 = eNR;
-
         ln = n;
         CalFugNAll();
         AssembleJmatSP();
@@ -2089,18 +2103,33 @@ void MixtureComp::SplitNR()
             Daxpy(NC, alpha, &resSP[j * NC], &n[j][0]);
             Daxpy(NC, -1, &n[j][0], &n[NP - 1][0]);
 
-            nu[j] = Dnorm1(NC, &n[j][0]);
+            // nu[j] = Dnorm1(NC, &n[j][0]);
+            nu[j] = 0;
             for (USI i = 0; i < NC; i++) {
-                x[j][i] = n[j][i] / nu[j];
+                nu[j] += n[j][i];
+            }
+
+            for (USI i = 0; i < NC; i++) {
+                // x[j][i] = n[j][i] / nu[j];
+                x[j][i] = fabs(n[j][i] / nu[j]);
             }
         }
+
+        //for (USI i = 0; i < NC; i++) {
+        //    n[NP - 1][i] = fabs(n[NP - 1][i]);
+        //}
+        //nu[NP - 1] = Dnorm1(NC, &n[NP - 1][0]);
+        //for (USI i = 0; i < NC; i++) {
+        //    x[NP - 1][i] = n[NP - 1][i] / nu[NP - 1];
+        //}
+        nu[NP - 1] = 0;
         for (USI i = 0; i < NC; i++) {
-            n[NP - 1][i] = fabs(n[NP - 1][i]);
+            nu[NP - 1] += n[NP - 1][i];
         }
-        nu[NP - 1] = Dnorm1(NC, &n[NP - 1][0]);
         for (USI i = 0; i < NC; i++) {
-            x[NP - 1][i] = n[NP - 1][i] / nu[NP - 1];
+            x[NP - 1][i] = fabs(n[NP - 1][i] / nu[NP - 1]);
         }
+
 
         CalFugPhiAll();
         CalResSP();
@@ -2133,7 +2162,6 @@ void MixtureComp::CalResSP()
     // So it equals -res
     for (USI j = 0; j < NP - 1; j++) {
         for (USI i = 0; i < NC; i++) {
-            // if zi is too small, resSP[j][i] = 0?
             resSP[j * NC + i] = log(fug[NP - 1][i] / fug[j][i]);
         }
     }

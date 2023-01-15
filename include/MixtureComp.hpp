@@ -376,6 +376,8 @@ private:
     vector<vector<OCP_DBL>>
         n; ///< n[j][i] represents the moles of ith comp in jth phase
     vector<vector<OCP_DBL>> ln;         ///< last n in NR iterations.
+    OCP_DBL  GibbsEnergyB;              ///< Gibbs energy, before flash (not true value)
+    OCP_DBL  GibbsEnergyE;              ///< Gibbs energy, after flash (not true value)
     vector<OCP_DBL>         xiC;        ///< Molar density of phase
     vector<OCP_DBL>         rhoC;       ///< Mass density of phase;
     vector<OCP_DBL>         MW;         ///< Molecular Weight
