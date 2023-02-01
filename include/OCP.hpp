@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.4.0" ///< Software version tag used for git
+#define OCPVersion "0.4.9" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -42,27 +42,28 @@ public:
              << endl;
 
         cout << "A simple example is to solve SPE1 Case A in default setting" << endl
-             << "  " << cmdname << " examples/spe1a/spe1a.data" << endl
+             << "  " << cmdname << " examples/spe1a/spe1a.data" << endl;
+
+        cout << endl
+             << "Another example is to solve the same problem using FIM" << endl
+             << "  " << cmdname
+             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1"
+             << endl
              << endl;
 
-        cout << "You can also pass cmd options after the input file:" << endl
-             << "  method:  solution method to use " << endl
-             << "  dtInit:  initial time stepsize  " << endl
-             << "  dtMax:   maximum time stepsize  " << endl
-             << "  dtMin:   minimum time stepsize  " << endl
-             << "  verbose: print level on screen  " << endl
+        cout << "You can pass optional cmd arguments after the input file:" << endl
+             << "     method = solution method to use " << endl
+             << "     dtInit = initial time stepsize  " << endl
+             << "      dtMax = maximum time stepsize  " << endl
+             << "      dtMin = minimum time stepsize  " << endl
+             << "    verbose = print level on screen  " << endl
              << endl;
 
         cout << "Attention: " << endl
-             << "  - These cmd options will override those in the input file;" << endl
              << "  - Only if `method' is set, other options will take effect;" << endl
+             << "  - These cmd options will override those in the input file;" << endl
              << "  - If (dtInit,dtMax,dtMin) are not set, default values will be used."
-             << endl;
-
-        cout << endl
-             << "For example: solve SPE1a using FIM" << endl
-             << "  " << cmdname
-             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 "
+             << endl
              << endl;
     }
 

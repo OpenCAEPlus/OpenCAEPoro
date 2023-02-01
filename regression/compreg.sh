@@ -61,9 +61,9 @@ read OVERWRITE_OLD
 
 if [ "$OVERWRITE_OLD" = "yes" ]; then
     for ((i=0; i<PNUM; i++)); do
-        mv $i/New_$OCP_LOG   $i/Old_$OCP_LOG   2>/dev/null
-        mv $i/New_$OCP_SUM   $i/Old_$OCP_SUM   2>/dev/null
-        mv $i/New_$OCP_REV   $i/Old_$OCP_REV   2>/dev/null
+        mv $i/New_$OCP_LOG $i/Old_$OCP_LOG 2>/dev/null
+        mv $i/New_$OCP_SUM $i/Old_$OCP_SUM 2>/dev/null
+        mv $i/New_$OCP_REV $i/Old_$OCP_REV 2>/dev/null
     done
     echo "Overwrite the old results."
 else
