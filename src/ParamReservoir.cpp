@@ -188,34 +188,34 @@ void ParamReservoir::Init()
     density.data[1] = 62.366416; // The density of water at surface conditions: lb/ft3
     density.data[2] = 0.062428;  // The density of gas at surface conditions: lb/ft3
 
-    rsTemp    = 60.0;
+    rsTemp = 60.0;
 }
 
 /// Initialize tables.
 void ParamReservoir::InitTable()
 {
-    SWFN_T.name   = "SWFN";
-    SWFN_T.colNum = 3;
-    SWOF_T.name   = "SWOF";
-    SWOF_T.colNum = 4;
-    SGFN_T.name   = "SGFN";
-    SGFN_T.colNum = 3;
-    SGOF_T.name   = "SGOF";
-    SGOF_T.colNum = 4;
-    SOF3_T.name   = "SOF3";
-    SOF3_T.colNum = 3;
-    PBVD_T.name   = "PBVD";
-    PBVD_T.colNum = 2;
-    PVCO_T.name   = "PVCO";
-    PVCO_T.colNum = 6;
-    PVDO_T.name   = "PVDO";
-    PVDO_T.colNum = 3;
-    PVDG_T.name   = "PVDG";
-    PVDG_T.colNum = 3;
-    PVTW_T.name   = "PVTW";
-    PVTW_T.colNum = 5;
-    ZMFVD_T.name  = "ZMFVD"; // colnum equals numCom(hydrocarbon) + 1
-    TEMPVD_T.name = "TEMPVD"; // colnum equals 2
+    SWFN_T.name     = "SWFN";
+    SWFN_T.colNum   = 3;
+    SWOF_T.name     = "SWOF";
+    SWOF_T.colNum   = 4;
+    SGFN_T.name     = "SGFN";
+    SGFN_T.colNum   = 3;
+    SGOF_T.name     = "SGOF";
+    SGOF_T.colNum   = 4;
+    SOF3_T.name     = "SOF3";
+    SOF3_T.colNum   = 3;
+    PBVD_T.name     = "PBVD";
+    PBVD_T.colNum   = 2;
+    PVCO_T.name     = "PVCO";
+    PVCO_T.colNum   = 6;
+    PVDO_T.name     = "PVDO";
+    PVDO_T.colNum   = 3;
+    PVDG_T.name     = "PVDG";
+    PVDG_T.colNum   = 3;
+    PVTW_T.name     = "PVTW";
+    PVTW_T.colNum   = 5;
+    ZMFVD_T.name    = "ZMFVD";  // colnum equals numCom(hydrocarbon) + 1
+    TEMPVD_T.name   = "TEMPVD"; // colnum equals 2
     TEMPVD_T.colNum = 2;
 }
 
@@ -285,11 +285,12 @@ void ParamReservoir::InputCOMPS(ifstream& ifs)
     comps = OCP_TRUE;
     vector<string> vbuf;
     ReadLine(ifs, vbuf);
-    numCom      = stoi(vbuf[0]);
+    numCom           = stoi(vbuf[0]);
     comsParam.numCom = numCom;
     comsParam.Init();
 
-    cout << "COMPS" << endl << numCom << "\n\n";
+    cout << endl << "COMPS" << endl;
+    cout << numCom << endl;
 }
 
 /// TODO: Add Doxygen
@@ -308,9 +309,10 @@ void ParamReservoir::InputDIMENS(ifstream& ifs)
 /// TODO: Add Doxygen
 void ParamReservoir::DisplayDIMENS()
 {
-    cout << "DIMENS" << endl;
-    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << "\n\n";
-    ;
+    cout << "\n---------------------" << endl
+         << "DIMENS"
+         << "\n---------------------" << endl;
+    cout << dimens.nx << "  " << dimens.ny << "  " << dimens.nz << endl;
 }
 
 /// TODO: Add Doxygen
@@ -327,7 +329,9 @@ void ParamReservoir::InputRTEMP(ifstream& ifs)
 /// TODO: Add Doxygen
 void ParamReservoir::InputEQUALS(ifstream& ifs)
 {
-    cout << "EQUALS" << endl;
+    cout << "\n---------------------" << endl
+         << "EQUALS"
+         << "\n---------------------" << endl;
 
     vector<USI>    index(6, 0);
     vector<string> vbuf;
@@ -339,7 +343,6 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
             if (v != "/") cout << setw(10) << v;
         }
         cout << "\n";
-        ;
 
         index[0] = 0, index[1] = dimens.nx - 1;
         index[2] = 0, index[3] = dimens.ny - 1;
@@ -372,8 +375,6 @@ void ParamReservoir::InputEQUALS(ifstream& ifs)
             OCP_ABORT("Wrong object name: " + objName);
         }
     }
-
-    cout << "/\n\n";
 }
 
 /// TODO: Add Doxygen
@@ -408,7 +409,9 @@ void ParamReservoir::InputGRID(ifstream& ifs, string& keyword)
 /// TODO: Add Doxygen
 void ParamReservoir::InputCOPY(ifstream& ifs)
 {
-    cout << "COPY" << endl;
+    cout << "\n---------------------" << endl
+         << "COPY"
+         << "\n---------------------" << endl;
 
     vector<string> vbuf;
     vector<USI>    index(6, 0);
@@ -441,7 +444,6 @@ void ParamReservoir::InputCOPY(ifstream& ifs)
             OCP_ABORT("Wrong object names: " + srcName + ", " + objName);
         }
     }
-    cout << "/\n\n";
 }
 
 /// TODO: Add Doxygen
@@ -517,9 +519,11 @@ void ParamReservoir::InputTABLE(ifstream& ifs, const string& tabName)
 /// Read data from the ROCK keyword.
 void ParamReservoir::InputROCK(ifstream& ifs)
 {
-    cout << "ROCK" << endl;
+    cout << "\n---------------------" << endl
+         << "ROCK"
+         << "\n---------------------" << endl;
 
-    vector<string> vbuf;   
+    vector<string> vbuf;
     while (true) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") break;
@@ -527,66 +531,55 @@ void ParamReservoir::InputROCK(ifstream& ifs)
         RockParam rock;
         rock.type = vbuf[0];
         rock.Pref = stod(vbuf[1]);
-        rock.cp1 = stod(vbuf[2]);
+        rock.cp1  = stod(vbuf[2]);
 
         if (rock.type == "LINEAR02") {
             if (vbuf.size() > 3 && vbuf[3] != "/") {
-                rock.cp2 = stod(vbuf[3]);               
-            }
-            else {
+                rock.cp2 = stod(vbuf[3]);
+            } else {
                 rock.cp2 = rock.cp1;
-            }           
+            }
         }
         rockSet.push_back(rock);
 
         cout << rock.type << "   " << rock.Pref << "   " << rock.cp1 << "   "
-            << rock.cp2 << endl;       
+             << rock.cp2 << endl;
     }
-
-    cout << "/" << endl;
 }
-
 
 /// Read data from the ROCK keyword.
 void ParamReservoir::InputROCKT(ifstream& ifs)
 {
-    cout << "ROCKT" << endl;
+    cout << "\n---------------------" << endl
+         << "ROCKT"
+         << "\n---------------------" << endl;
 
-    RockParam rock;
+    RockParam      rock;
     vector<string> vbuf;
     while (true) {
         ReadLine(ifs, vbuf);
         if (vbuf[0] == "/") break;
 
         USI index = 0;
-        USI len = vbuf.size();
+        USI len   = vbuf.size();
         while (index < len) {
             if (vbuf[index] == "*PORFORM") {
-                rock.type = vbuf[index + 1];               
-            }
-            else if (vbuf[index] == "*PRPOR") {
-                rock.Pref = stod(vbuf[index + 1]);                
-            }
-            else if (vbuf[index] == "*TRPOR") {
-                rock.Tref = stod(vbuf[index + 1]);                
-            }
-            else if (vbuf[index] == "*CPOR") {
-                rock.cp1 = stod(vbuf[index + 1]);                
-            }
-            else if (vbuf[index] == "*CTPOR") {
-                rock.ct = stod(vbuf[index + 1]);                
-            }
-            else if (vbuf[index] == "*CPTPOR") {
-                rock.cpt = stod(vbuf[index + 1]);                
-            }
-            else if (vbuf[index] == "*VOLCONST") {
-                if (vbuf[index + 1] == "BULK")      
-                    rock.ConstRock = OCP_FALSE;
-            }
-            else if (vbuf[index] == "*CP1") {
+                rock.type = vbuf[index + 1];
+            } else if (vbuf[index] == "*PRPOR") {
+                rock.Pref = stod(vbuf[index + 1]);
+            } else if (vbuf[index] == "*TRPOR") {
+                rock.Tref = stod(vbuf[index + 1]);
+            } else if (vbuf[index] == "*CPOR") {
+                rock.cp1 = stod(vbuf[index + 1]);
+            } else if (vbuf[index] == "*CTPOR") {
+                rock.ct = stod(vbuf[index + 1]);
+            } else if (vbuf[index] == "*CPTPOR") {
+                rock.cpt = stod(vbuf[index + 1]);
+            } else if (vbuf[index] == "*VOLCONST") {
+                if (vbuf[index + 1] == "BULK") rock.ConstRock = OCP_FALSE;
+            } else if (vbuf[index] == "*CP1") {
                 rock.HCP1 = stod(vbuf[index + 1]);
-            }
-            else if (vbuf[index] == "*CP2") {
+            } else if (vbuf[index] == "*CP2") {
                 rock.HCP2 = stod(vbuf[index + 1]);
             }
             index += 2;
@@ -603,14 +596,14 @@ void ParamReservoir::InputROCKT(ifstream& ifs)
     cout << "*VOLCONST  " << (rock.ConstRock ? "ROCK" : "BULK") << endl;
     cout << "*CP1       " << rock.HCP1 << endl;
     cout << "*CP2       " << rock.HCP2 << endl;
-    cout << "/" << endl;
 }
-
 
 void ParamReservoir::InputHLOSS(ifstream& ifs)
 {
-    cout << "HLOSSPROR" << endl;
-    
+    cout << "\n---------------------" << endl
+         << "HLOSSPROR"
+         << "\n---------------------" << endl;
+
     hLoss.ifHLoss = OCP_TRUE;
 
     vector<string> vbuf;
@@ -619,30 +612,27 @@ void ParamReservoir::InputHLOSS(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         USI index = 0;
-        USI len = vbuf.size();
+        USI len   = vbuf.size();
         while (index < len) {
             if (vbuf[index] == "*OVERBUR") {
                 hLoss.obC = stod(vbuf[index + 1]);
                 hLoss.obK = stod(vbuf[index + 2]);
-            }
-            else if (vbuf[index] == "*UNDERBUR") {
+            } else if (vbuf[index] == "*UNDERBUR") {
                 hLoss.ubC = stod(vbuf[index + 1]);
                 hLoss.ubK = stod(vbuf[index + 2]);
             }
             index += 3;
-        }     
+        }
     }
     cout << "*OVERBUR   " << hLoss.obC << "   " << hLoss.obK << endl;
     cout << "*UNDERBUR  " << hLoss.ubC << "   " << hLoss.ubK << endl;
-    cout << "/" << endl;
 }
-
 
 /// Read data from the MISCSTR keyword.
 void ParamReservoir::InputMISCSTR(ifstream& ifs)
 {
     if (!comsParam.miscible) {
-        OCP_WARNING("MISCIBLE has not been declared, this keyword will be ignored!");
+        OCP_WARNING("MISCIBLE has not been declared. Keyword ignored!");
     } else {
         vector<string> vbuf;
         ReadLine(ifs, vbuf);
@@ -654,10 +644,11 @@ void ParamReservoir::InputMISCSTR(ifstream& ifs)
             miscstr.surTenRef.push_back(stod(vbuf[i]));
         }
     }
-
-    cout << "MISCSTR" << endl;
+    cout << "\n---------------------" << endl
+         << "MISCSTR"
+         << "\n---------------------" << endl;
     for (auto& v : miscstr.surTenRef) cout << v << "   ";
-    cout << endl << endl;
+    cout << endl;
 }
 
 /// Read data from the GRAVITY keyword.
@@ -675,9 +666,9 @@ void ParamReservoir::InputGRAVITY(ifstream& ifs)
         }
     }
 
-    cout << "---------------------" << endl
-         << "GRAVITY" << endl
-         << "---------------------" << endl;
+    cout << "\n---------------------" << endl
+         << "GRAVITY"
+         << "\n---------------------" << endl;
     cout << gravity.data[0] << "  " << gravity.data[1] << "  " << gravity.data[2]
          << endl;
 }
@@ -698,13 +689,12 @@ void ParamReservoir::InputDENSITY(ifstream& ifs)
         }
     }
 
-    cout << "---------------------" << endl
-         << "DENSITY" << endl
-         << "---------------------" << endl;
+    cout << "\n---------------------" << endl
+         << "DENSITY"
+         << "\n---------------------" << endl;
     cout << density.data[0] << "  " << density.data[1] << "  " << density.data[2]
          << endl;
 }
-
 
 /// Read data from the THCONO, THCONG, THCONW
 void ParamReservoir::InputTHCON(ifstream& ifs, const string& keyword)
@@ -713,11 +703,9 @@ void ParamReservoir::InputTHCON(ifstream& ifs, const string& keyword)
     ReadLine(ifs, vbuf);
     if (keyword == "THCONO") {
         thcono = stod(vbuf[0]);
-    }
-    else if (keyword == "THCONG") {
+    } else if (keyword == "THCONG") {
         thcong = stod(vbuf[0]);
-    }
-    else if (keyword == "THCONW") {
+    } else if (keyword == "THCONW") {
         thconw = stod(vbuf[0]);
     }
 
@@ -725,7 +713,6 @@ void ParamReservoir::InputTHCON(ifstream& ifs, const string& keyword)
     cout << "THCONG\n" << thcong << endl << endl;
     cout << "THCONW\n" << thconw << endl << endl;
 }
-
 
 /// Read data from the EQUIL keyword.
 void ParamReservoir::InputEQUIL(ifstream& ifs)
@@ -740,9 +727,9 @@ void ParamReservoir::InputEQUIL(ifstream& ifs)
         if (vbuf[i] != "DEFAULT") EQUIL[i] = stod(vbuf[i]);
     }
 
-    cout << "---------------------" << endl
-         << "EQUIL" << endl
-         << "---------------------" << endl;
+    cout << "\n---------------------" << endl
+         << "EQUIL"
+         << "\n---------------------" << endl;
     for (USI i = 0; i < 6; i++) cout << EQUIL[i] << "  ";
     cout << endl;
 }
@@ -754,14 +741,17 @@ void ParamReservoir::InputTABDIMS(ifstream& ifs)
     ReadLine(ifs, vbuf);
 
     if (vbuf.size() < 3) {
-        OCP_ABORT("Input the number of Saturation tables, PVT tables, and Rock tables in turn!");
+        OCP_ABORT("Input the number of Saturation tables, PVT tables, and Rock tables "
+                  "in turn!");
     }
 
     NTSFUN = stoi(vbuf[0]);
     NTPVT  = stoi(vbuf[1]);
     NTROOC = stoi(vbuf[2]);
 
-    cout << "TABDIMS" << endl;
+    cout << "\n---------------------" << endl
+         << "TABDIMS"
+         << "\n---------------------" << endl;
     cout << NTSFUN << "   " << NTPVT << "   " << NTROOC << endl;
 }
 
@@ -837,22 +827,22 @@ void ParamReservoir::CheckGrid()
     if (permX.size() != numGrid) OCP_ABORT("Wrong PERMX size!");
     if (permY.size() != numGrid) OCP_ABORT("Wrong PERMY size!");
     if (permZ.size() != numGrid) OCP_ABORT("Wrong PERMZ size!");
+
     if (ntg.size() != numGrid) {
         ntg.resize(numGrid, 1);
-        cout << "Reset Ntg size to 1!" << endl;
+        cout << "Reset Ntg size from " << ntg.size() << " to 1!" << endl;
     }
 }
 
-
+/// Check rock keyword.
 void ParamReservoir::CheckRock()
 {
     if (rockSet.size() != NTROOC) {
-        OCP_ABORT("WRONG ROCK or ROCKT!");
+        OCP_ABORT("Wrong ROCK or ROCKT!");
     }
 }
 
-
-/// Check EQUIL keywords.
+/// Check EQUIL keyword.
 void ParamReservoir::CheckEQUIL() const
 {
     if (EQUIL.empty()) OCP_ABORT("EQUIL is missing!");
@@ -918,9 +908,8 @@ void ParamReservoir::CheckEqlRegion() const
 /// TODO: Add Doxygen
 void TableSet::DisplayTable() const
 {
-    cout << "---------------------\n";
-    cout << name << "\n";
-    cout << "---------------------\n";
+    cout << "\n---------------------" << endl
+         << name << "\n---------------------" << endl;
     for (USI n = 0; n < data.size(); n++) {
         if (refName.size() > n) {
             cout << refName[n] << "   ";
@@ -947,7 +936,6 @@ void ComponentParam::Init()
     LBCcoef[3] = -0.040758;
     LBCcoef[4] = 0.0093324;
 }
-
 
 Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr01(const string& varName)
 {
@@ -1086,32 +1074,27 @@ Type_A_r<vector<OCP_DBL>>* ComponentParam::FindPtr01(const string& varName)
     return myPtr;
 }
 
-
 void ComponentParam::InputRefPR(ifstream& ifs, const string& keyword)
 {
     OCP_ASSERT(NTPVT > 0, "NTPVT in TABDIMS hasn't be input!");
 
     vector<OCP_DBL>* objPtr = nullptr;
-    objPtr = FindPtr02(keyword);
+    objPtr                  = FindPtr02(keyword);
     if (objPtr == nullptr) {
         OCP_ABORT("Unknown keyword!");
     }
 
-    vector<string>  vbuf;
+    vector<string> vbuf;
     while (OCP_TRUE) {
         ReadLine(ifs, vbuf);
 
-        if (vbuf[0] == "/")
-            break;
+        if (vbuf[0] == "/") break;
 
         for (auto& v : vbuf) {
-            if (v != "/")
-                objPtr->push_back(stod(v));             
-            if (objPtr->size() >= NTPVT)
-                break;
+            if (v != "/") objPtr->push_back(stod(v));
+            if (objPtr->size() >= NTPVT) break;
         }
-        if (objPtr->size() >= NTPVT)
-            break;
+        if (objPtr->size() >= NTPVT) break;
     }
     cout << keyword << endl;
     for (USI i = 0; i < NTPVT; i++) {
@@ -1120,20 +1103,18 @@ void ComponentParam::InputRefPR(ifstream& ifs, const string& keyword)
     cout << "\n/" << endl << endl;
 }
 
-
 vector<OCP_DBL>* ComponentParam::FindPtr02(const string& varName)
 {
     vector<OCP_DBL>* myPtr = nullptr;
 
-    switch (Map_Str2Int(&varName[0], varName.size())) 
-    {
-    case Map_Str2Int("PRSR", 4):
-        myPtr = &Pref;
-        break;
+    switch (Map_Str2Int(&varName[0], varName.size())) {
+        case Map_Str2Int("PRSR", 4):
+            myPtr = &Pref;
+            break;
 
-    case Map_Str2Int("TEMR", 4):
-        myPtr = &Tref;
-        break;
+        case Map_Str2Int("TEMR", 4):
+            myPtr = &Tref;
+            break;
     }
 
     return myPtr;
@@ -1257,13 +1238,12 @@ void ComponentParam::InputBIC(ifstream& ifs)
     }
 }
 
-
 void ComponentParam::InputVISCTAB(ifstream& ifs)
 {
 
-    vector<string> vbuf;  
+    vector<string>          vbuf;
     vector<vector<OCP_DBL>> tmp;
-    USI ncol = numCom + 1;  // temp + comps
+    USI                     ncol = numCom + 1; // temp + comps
     tmp.resize(ncol);
     OCP_BOOL flag = OCP_TRUE;
 
@@ -1273,8 +1253,7 @@ void ComponentParam::InputVISCTAB(ifstream& ifs)
             flag = OCP_FALSE;
         }
 
-        if (vbuf[0] == "/")
-            break;
+        if (vbuf[0] == "/") break;
 
         if (vbuf[0] == "ATPRES") {
             viscTab.refName.push_back("ATPRES");
@@ -1282,8 +1261,7 @@ void ComponentParam::InputVISCTAB(ifstream& ifs)
             ReadLine(ifs, vbuf);
         }
         // Read Table
-        while (OCP_TRUE)
-        {
+        while (OCP_TRUE) {
             for (USI i = 0; i < ncol; i++) {
                 tmp[i].push_back(stod(vbuf[i]));
             }
@@ -1293,19 +1271,17 @@ void ComponentParam::InputVISCTAB(ifstream& ifs)
                 tmp.clear();
                 tmp.resize(ncol);
                 break;
-            }               
+            }
         }
-        if (vbuf[0] == "/")
-            break;
+        if (vbuf[0] == "/") break;
     }
-    viscTab.name = "VISCTAB";
-    viscTab.colNum = ncol;   
+    viscTab.name   = "VISCTAB";
+    viscTab.colNum = ncol;
     // output
     viscTab.DisplayTable();
 
     cout << "/" << endl;
 }
-
 
 /// TODO: Add Doxygen
 void ComponentParam::InputSSMSTA(ifstream& ifs)

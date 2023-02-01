@@ -20,8 +20,7 @@ void OpenCAEPoro::ReadInputFile(const string& filename)
     InputParam(rp);
 }
 
-/// Read from internal param (which comes from input files) and set control and output
-/// params.
+/// Read from internal param (from input files) and set control and output params.
 void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
@@ -40,12 +39,12 @@ void OpenCAEPoro::SetupSimulator(const USI& argc, const char* options[])
     switch (control.GetModel()) {
         case ISOTHERMALMODEL:
             if (control.printLevel >= PRINT_MIN) {
-                cout << "\nDynamic simulation for isothermal models\n" << endl;
+                cout << endl << "Dynamic simulation for isothermal models" << endl;
             }
             break;
         case THERMALMODEL:
             if (control.printLevel >= PRINT_MIN) {
-                cout << "\nDynamic simulation for thermal models\n" << endl;
+                cout << endl << "Dynamic simulation for thermal models" << endl;
             }
             break;
         default:
@@ -60,8 +59,7 @@ void OpenCAEPoro::SetupSimulator(const USI& argc, const char* options[])
     if (control.printLevel >= PRINT_MIN) {
         cout << endl
              << "Setup simulation done. Wall time : " << fixed << setprecision(3)
-             << finalTime << " Sec" << endl
-             << endl;
+             << finalTime << " Sec" << endl;
     }
 
     control.RecordTotalTime(finalTime);

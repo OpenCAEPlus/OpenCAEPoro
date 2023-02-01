@@ -69,7 +69,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("THERMAL", 7):
-                paramRs.thermal = OCP_TRUE; 
+                paramRs.thermal    = OCP_TRUE;
                 paramControl.model = THERMALMODEL;
                 break;
 
@@ -90,7 +90,7 @@ void ParamRead::ReadFile(const string& filename)
                 break;
 
             case Map_Str2Int("DIMENS", 6):
-                paramRs.InputDIMENS(ifs);               
+                paramRs.InputDIMENS(ifs);
                 break;
 
             case Map_Str2Int("RTEMP", 5):
@@ -137,7 +137,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("PVDG", 4):
             case Map_Str2Int("PVTW", 4):
             case Map_Str2Int("PBVD", 4):
-            case Map_Str2Int("ZMFVD",5):
+            case Map_Str2Int("ZMFVD", 5):
             case Map_Str2Int("TEMPVD", 6):
                 paramRs.InputTABLE(ifs, keyword);
                 break;
@@ -170,9 +170,9 @@ void ParamRead::ReadFile(const string& filename)
                 paramRs.InputDENSITY(ifs);
                 break;
 
-            case Map_Str2Int("THCONO",6):
-            case Map_Str2Int("THCONG",6):
-            case Map_Str2Int("THCONW",6):
+            case Map_Str2Int("THCONO", 6):
+            case Map_Str2Int("THCONG", 6):
+            case Map_Str2Int("THCONW", 6):
                 paramRs.InputTHCON(ifs, keyword);
                 break;
 
@@ -187,7 +187,7 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("SATNUM", 6):
             case Map_Str2Int("PVTNUM", 6):
             case Map_Str2Int("ACTNUM", 6):
-            case Map_Str2Int("ROCKNUM",7):
+            case Map_Str2Int("ROCKNUM", 7):
                 paramRs.InputRegion(ifs, keyword);
                 break;
 
@@ -286,10 +286,10 @@ void ParamRead::ReadFile(const string& filename)
             case Map_Str2Int("CPG2", 4):
             case Map_Str2Int("CPG3", 4):
             case Map_Str2Int("CPG4", 4):
-            case Map_Str2Int("HVAPR",5):
+            case Map_Str2Int("HVAPR", 5):
             case Map_Str2Int("HVR", 3):
             case Map_Str2Int("EV", 2):
-            case Map_Str2Int("AVSIC",5):
+            case Map_Str2Int("AVSIC", 5):
             case Map_Str2Int("BVSIC", 5):
             case Map_Str2Int("AVG", 3):
             case Map_Str2Int("BVG", 3):
@@ -353,7 +353,8 @@ void ParamRead::ReadINCLUDE(ifstream& ifs)
 /// Check parameters in paramRs and paramWell.
 void ParamRead::CheckParam()
 {
-    cout << "=========================================" << endl
+    cout << endl
+         << "=========================================" << endl
          << "Check reading parameters from input data!" << endl
          << "=========================================" << endl;
     paramRs.CheckParam();

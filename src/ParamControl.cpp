@@ -110,7 +110,9 @@ void ParamControl::InputMETHOD(ifstream& ifs)
 
     if (vbuf.size() > 1) linearSolve = vbuf[1];
 
-    cout << "METHOD" << endl;
+    cout << "\n---------------------" << endl
+         << "METHOD"
+         << "\n---------------------" << endl;
     cout << method << "  " << linearSolve << endl;
 }
 
@@ -146,9 +148,9 @@ void ParamControl::InputTUNING(ifstream& ifs)
 /// Print TUNING parameters.
 void ParamControl::DisplayTuning() const
 {
-    cout << "---------------------\n";
-    cout << "TUNING" << endl;
-    cout << "---------------------\n";
+    cout << "\n---------------------" << endl
+         << "TUNING"
+         << "\n---------------------" << endl;
     for (auto v : tuning_T) {
         cout << v.d << endl;
         for (auto v1 : v.Tuning) {

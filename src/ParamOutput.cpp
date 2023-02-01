@@ -136,7 +136,7 @@ void ParamOutput::InputSUMMARY(ifstream& ifs)
                 break;
         }
     }
-    cout << "SUMMARY" << endl;
+    // cout << "SUMMARY" << endl;
 }
 
 void ParamOutput::InputType_A(ifstream& ifs, Type_A_o& obj)
@@ -163,7 +163,7 @@ void ParamOutput::InputType_A(ifstream& ifs, Type_A_o& obj)
             if (vbuf.back() != "/") obj.obj.push_back(vbuf.back());
         }
     }
-    cout << "Type_A" << endl;
+    // cout << "Type_A" << endl;
 }
 
 void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
@@ -181,7 +181,7 @@ void ParamOutput::InputType_B(ifstream& ifs, Type_B_o& obj)
 
         obj.obj.push_back(COOIJK(i, j, k));
     }
-    cout << "Type_B" << endl;
+    // cout << "Type_B" << endl;
 }
 
 void ParamOutput::InputRPTSCHED(ifstream& ifs, const string& keyword)

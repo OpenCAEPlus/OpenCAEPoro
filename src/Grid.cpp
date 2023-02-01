@@ -11,41 +11,39 @@
 
 #include "Grid.hpp"
 
-
- /////////////////////////////////////////////////////////////////////
- // Input Param and Setup
- /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// Input Param and Setup
+/////////////////////////////////////////////////////////////////////
 
 void Grid::InputParam(const ParamReservoir& rs_param, const ParamOutput& output_param)
 {
-        // dimensions
-    nx = rs_param.dimens.nx;
-    ny = rs_param.dimens.ny;
-    nz = rs_param.dimens.nz;
+    // dimensions
+    nx      = rs_param.dimens.nx;
+    ny      = rs_param.dimens.ny;
+    nz      = rs_param.dimens.nz;
     numGrid = rs_param.numGrid;
 
     // CornerPoint Grid or Orthogonal Grid
     if (!rs_param.coord.empty()) {
         // CornerPoint Grid
         gridType = CORNER_GRID;
-        coord = rs_param.coord;
-        zcorn = rs_param.zcorn;
-    }
-    else {
+        coord    = rs_param.coord;
+        zcorn    = rs_param.zcorn;
+    } else {
         // Orthogonal Grid
         gridType = ORTHOGONAL_GRID;
-        tops = rs_param.tops;
-        dx = rs_param.dx;
-        dy = rs_param.dy;
-        dz = rs_param.dz;
+        tops     = rs_param.tops;
+        dx       = rs_param.dx;
+        dy       = rs_param.dy;
+        dz       = rs_param.dz;
     }
 
     // General Information
-    ntg = rs_param.ntg;
-    poro = rs_param.poro;
-    kx = rs_param.permX;
-    ky = rs_param.permY;
-    kz = rs_param.permZ;  
+    ntg    = rs_param.ntg;
+    poro   = rs_param.poro;
+    kx     = rs_param.permX;
+    ky     = rs_param.permY;
+    kz     = rs_param.permZ;
     thconr = rs_param.thconr;
 
     // Regions
@@ -75,7 +73,7 @@ void Grid::InputParam(const ParamReservoir& rs_param, const ParamOutput& output_
     }
 
     // Initial Properties
-    SwatInit = rs_param.Swat; 
+    SwatInit = rs_param.Swat;
 
     // Output
     useVTK = output_param.outVTKParam.useVTK;
@@ -99,30 +97,28 @@ void Grid::SetupT()
 void Grid::Setup()
 {
     switch (gridType) {
-    case ORTHOGONAL_GRID:
-        SetupOrthogonalGrid();
-        break;
-    case CORNER_GRID:
-        SetupCornerGrid();
-        break;
-    default:
-        OCP_ABORT("WRONG Grid Type!");
+        case ORTHOGONAL_GRID:
+            SetupOrthogonalGrid();
+            break;
+        case CORNER_GRID:
+            SetupCornerGrid();
+            break;
+        default:
+            OCP_ABORT("WRONG Grid Type!");
     }
 
     CalNumDigutIJK();
     OutputBaiscInfo();
 }
 
-
 void Grid::SetupOrthogonalGrid()
 {
-    // x -> y -> z     
+    // x -> y -> z
     CalDepthVOrthogonalGrid();
     SetupNeighborOrthogonalGrid();
     // for output
     SetHexaherdronGridOrthogonal();
 }
-
 
 void Grid::CalDepthVOrthogonalGrid()
 {
@@ -132,7 +128,7 @@ void Grid::CalDepthVOrthogonalGrid()
     for (USI j = 0; j < ny; j++) {
         for (USI i = 0; i < nx; i++) {
             OCP_USI id = j * nx + i;
-            depth[id] = tops[id] + dz[id] / 2;
+            depth[id]  = tops[id] + dz[id] / 2;
         }
     }
     // 1th - (nz-1)th layer
@@ -141,7 +137,7 @@ void Grid::CalDepthVOrthogonalGrid()
         for (USI j = 0; j < ny; j++) {
             for (USI i = 0; i < nx; i++) {
                 OCP_USI id = knxny + j * nx + i;
-                depth[id] = depth[id - nxny] + dz[id - nxny] / 2 + dz[id] / 2;
+                depth[id]  = depth[id - nxny] + dz[id - nxny] / 2 + dz[id] / 2;
             }
         }
     }
@@ -149,7 +145,6 @@ void Grid::CalDepthVOrthogonalGrid()
     v.resize(numGrid);
     for (OCP_USI i = 0; i < numGrid; i++) v[i] = dx[i] * dy[i] * dz[i];
 }
-
 
 void Grid::SetupNeighborOrthogonalGrid()
 {
@@ -160,9 +155,9 @@ void Grid::SetupNeighborOrthogonalGrid()
     }
 
     // Begin Id and End Id in Grid, bIdg < eIdg
-    OCP_USI bIdg, eIdg;
-    OCP_DBL areaB, areaE;
-    USI direction;
+    OCP_USI       bIdg, eIdg;
+    OCP_DBL       areaB, areaE;
+    USI           direction;
     const OCP_USI nxny = nx * ny;
 
     for (USI k = 0; k < nz; k++) {
@@ -173,27 +168,27 @@ void Grid::SetupNeighborOrthogonalGrid()
                 // right  --  x-direction
                 if (i < nx - 1) {
                     direction = 1;
-                    eIdg = bIdg + 1;
-                    areaB = 2 * dy[bIdg] * dz[bIdg] / dx[bIdg];
-                    areaE = 2 * dy[eIdg] * dz[eIdg] / dx[eIdg];
+                    eIdg      = bIdg + 1;
+                    areaB     = 2 * dy[bIdg] * dz[bIdg] / dx[bIdg];
+                    areaE     = 2 * dy[eIdg] * dz[eIdg] / dx[eIdg];
                     gNeighbor[bIdg].push_back(GPair(eIdg, direction, areaB, areaE));
                     gNeighbor[eIdg].push_back(GPair(bIdg, direction, areaE, areaB));
                 }
                 // front  --  y-direction
                 if (j < ny - 1) {
                     direction = 2;
-                    eIdg = bIdg + nx;
-                    areaB = 2 * dz[bIdg] * dx[bIdg] / dy[bIdg];
-                    areaE = 2 * dz[eIdg] * dx[eIdg] / dy[eIdg];
+                    eIdg      = bIdg + nx;
+                    areaB     = 2 * dz[bIdg] * dx[bIdg] / dy[bIdg];
+                    areaE     = 2 * dz[eIdg] * dx[eIdg] / dy[eIdg];
                     gNeighbor[bIdg].push_back(GPair(eIdg, direction, areaB, areaE));
                     gNeighbor[eIdg].push_back(GPair(bIdg, direction, areaE, areaB));
                 }
                 // down --   z-direction
                 if (k < nz - 1) {
                     direction = 3;
-                    eIdg = bIdg + nxny;
-                    areaB = 2 * dx[bIdg] * dy[bIdg] / dz[bIdg];
-                    areaE = 2 * dx[eIdg] * dy[eIdg] / dz[eIdg];
+                    eIdg      = bIdg + nxny;
+                    areaB     = 2 * dx[bIdg] * dy[bIdg] / dz[bIdg];
+                    areaE     = 2 * dx[eIdg] * dy[eIdg] / dz[eIdg];
                     gNeighbor[bIdg].push_back(GPair(eIdg, direction, areaB, areaE));
                     gNeighbor[eIdg].push_back(GPair(bIdg, direction, areaE, areaB));
                 }
@@ -201,7 +196,6 @@ void Grid::SetupNeighborOrthogonalGrid()
         }
     }
 }
-
 
 void Grid::SetupCornerGrid()
 {
@@ -215,16 +209,14 @@ void Grid::SetupCornerGrid()
     SetHexaherdronGridCorner(coordTmp);
 }
 
-
 void Grid::SetupBasicCornerGrid(const OCP_COORD& CoTmp)
 {
-    dx = CoTmp.dx;
-    dy = CoTmp.dy;
-    dz = CoTmp.dz;
-    v = CoTmp.v;
+    dx    = CoTmp.dx;
+    dy    = CoTmp.dy;
+    dz    = CoTmp.dz;
+    v     = CoTmp.v;
     depth = CoTmp.depth;
 }
-
 
 void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
 {
@@ -239,11 +231,11 @@ void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
     USI     direction;
     for (OCP_USI n = 0; n < CoTmp.numConn; n++) {
         const GeneralConnect& ConnTmp = CoTmp.connect[n];
-        direction = ConnTmp.directionType;
-        bIdg = ConnTmp.begin;
-        eIdg = ConnTmp.end;
-        areaB = ConnTmp.Ad_dd_begin;
-        areaE = ConnTmp.Ad_dd_end;
+        direction                     = ConnTmp.directionType;
+        bIdg                          = ConnTmp.begin;
+        eIdg                          = ConnTmp.end;
+        areaB                         = ConnTmp.Ad_dd_begin;
+        areaE                         = ConnTmp.Ad_dd_end;
         gNeighbor[bIdg].push_back(GPair(eIdg, direction, areaB, areaE));
         gNeighbor[eIdg].push_back(GPair(bIdg, direction, areaE, areaB));
     }
@@ -252,7 +244,6 @@ void Grid::SetupNeighborCornerGrid(const OCP_COORD& CoTmp)
 /////////////////////////////////////////////////////////////////////
 // Basic Grid and Rock Information
 /////////////////////////////////////////////////////////////////////
-
 
 /// If porosity or volume of the grid cell is too small, then the cell is inactive.
 //  Note: Inactive cells do NOT participate simumlation; other rules can be given.
@@ -264,7 +255,7 @@ void Grid::CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2)
     for (OCP_USI n = 0; n < numGrid; n++) {
         if (ACTNUM[n] == 0 || poro[n] * ntg[n] < e1 || v[n] < e2) {
             map_All2Act[n] = GB_Pair(OCP_FALSE, 0);
-            ACTNUM[n] = 0;
+            ACTNUM[n]      = 0;
             continue;
         }
         map_Act2All.push_back(n);
@@ -273,13 +264,12 @@ void Grid::CalActiveGridIsoT(const OCP_DBL& e1, const OCP_DBL& e2)
     }
     activeGridNum = count;
     cout << "Number of inactive grid cell is " << (numGrid - activeGridNum) << " ("
-        << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+         << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
 
     // fluid grid = active grid
     fluidGridNum = activeGridNum;
-    map_All2Flu = map_All2Act;
+    map_All2Flu  = map_All2Act;
 }
-
 
 void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
 {
@@ -287,18 +277,16 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
     map_All2Act.resize(numGrid);
     map_All2Flu.resize(numGrid);
     OCP_USI activeCount = 0;
-    OCP_USI fluidCount = 0;
+    OCP_USI fluidCount  = 0;
     for (OCP_USI n = 0; n < numGrid; n++) {
         if (ACTNUM[n] == 0 || v[n] < e1) {
             map_All2Act[n] = GB_Pair(OCP_FALSE, 0);
             map_All2Flu[n] = GB_Pair(OCP_FALSE, 0);
-            ACTNUM[n] = 0;
-        }
-        else {
+            ACTNUM[n]      = 0;
+        } else {
             if (poro[n] * ntg[n] < e2) {
                 map_All2Flu[n] = GB_Pair(OCP_FALSE, 0);
-            }
-            else {
+            } else {
                 map_All2Flu[n] = GB_Pair(OCP_TRUE, fluidCount);
                 fluidCount++;
             }
@@ -309,13 +297,12 @@ void Grid::CalActiveGridT(const OCP_DBL& e1, const OCP_DBL& e2)
     }
     activeGridNum = activeCount;
     cout << "Number of inactive grid cell is " << (numGrid - activeGridNum) << " ("
-        << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
+         << (numGrid - activeGridNum) * 100.0 / numGrid << "%)" << endl;
 
     fluidGridNum = fluidCount;
     // temp
     // output num of fluid grid
 }
-
 
 void Grid::SetupGridLocation()
 {
@@ -332,23 +319,19 @@ void Grid::SetupGridLocation()
     }
 }
 
-
 OCP_INT Grid::GetActIndex(const USI& I, const USI& J, const USI& K) const
 {
     const OCP_USI& n = K * nx * ny + J * nx + I;
     if (map_All2Flu[n].IsAct()) {
         return map_All2Act[n].GetId();
-    }
-    else {
+    } else {
         return -1;
     }
 }
 
-
 /////////////////////////////////////////////////////////////////////
 // Output
 /////////////////////////////////////////////////////////////////////
-
 
 void Grid::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
 {
@@ -357,12 +340,10 @@ void Grid::GetIJKGrid(USI& i, USI& j, USI& k, const OCP_USI& n) const
     i = n - (k - 1) * nx * ny - (j - 1) * nx + 1;
 }
 
-
 void Grid::GetIJKBulk(USI& i, USI& j, USI& k, const OCP_USI& n) const
 {
     GetIJKGrid(i, j, k, map_Act2All[n]);
 }
-
 
 void Grid::SetHexaherdronGridOrthogonal()
 {
@@ -429,7 +410,6 @@ void Grid::SetHexaherdronGridCorner(const OCP_COORD& mycord)
     }
 }
 
-
 void Grid::SetupGridTag()
 {
     if (!useVTK) return;
@@ -439,28 +419,25 @@ void Grid::SetupGridTag()
         if (map_All2Act[n].IsAct()) {
             if (map_All2Flu[n].IsAct()) {
                 gridTag[n] = 2;
-            }
-            else {
+            } else {
                 gridTag[n] = 1;
             }
-        }
-        else {
+        } else {
             gridTag[n] = 0;
         }
     }
 }
 
-
 void Grid::OutputBaiscInfo() const
 {
     OCP_DBL depthMax = 0;
     OCP_DBL depthMin = 1E8;
-    OCP_DBL dxMax = 0;
-    OCP_DBL dxMin = 1E8;
-    OCP_DBL dyMax = 0;
-    OCP_DBL dyMin = 1E8;
-    OCP_DBL dzMax = 0;
-    OCP_DBL dzMin = 1E8;
+    OCP_DBL dxMax    = 0;
+    OCP_DBL dxMin    = 1E8;
+    OCP_DBL dyMax    = 0;
+    OCP_DBL dyMin    = 1E8;
+    OCP_DBL dzMax    = 0;
+    OCP_DBL dzMin    = 1E8;
 
     for (OCP_USI n = 0; n < numGrid; n++) {
         if (depthMax < depth[n]) {
@@ -489,19 +466,18 @@ void Grid::OutputBaiscInfo() const
         }
     }
 
-    cout << "---------------------" << endl
-        << "GRID" << endl
-        << "---------------------" << endl;
+    cout << "\n---------------------" << endl
+         << "GRID"
+         << "\n---------------------" << endl;
     cout << "  depthMax = " << depthMax << endl
-        << "  depthMin = " << depthMin << endl
-        << "  dxMax    = " << dxMax << endl
-        << "  dxMin    = " << dxMin << endl
-        << "  dyMax    = " << dyMax << endl
-        << "  dyMin    = " << dyMin << endl
-        << "  dzMax    = " << dzMax << endl
-        << "  dzMin    = " << dzMin << endl;
+         << "  depthMin = " << depthMin << endl
+         << "  dxMax    = " << dxMax << endl
+         << "  dxMin    = " << dxMin << endl
+         << "  dyMax    = " << dyMax << endl
+         << "  dyMin    = " << dyMin << endl
+         << "  dzMax    = " << dzMax << endl
+         << "  dzMin    = " << dzMin << endl;
 }
-
 
 void Grid::CalNumDigutIJK()
 {
@@ -511,8 +487,6 @@ void Grid::CalNumDigutIJK()
     if (log10(ny) >= numDigutIJK) numDigutIJK = ceil(log10(ny) + 1);
     if (log10(nz) >= numDigutIJK) numDigutIJK = ceil(log10(nz) + 1);
 }
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

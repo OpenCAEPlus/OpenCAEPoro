@@ -31,8 +31,7 @@ public:
     {
         cout << "=========================================" << endl
              << "OpenCAEPoro Version-" << OCPVersion << endl
-             << "=========================================" << endl
-             << endl;
+             << "=========================================" << endl;
     };
 
     /// Provide at least InputFileName for the input data

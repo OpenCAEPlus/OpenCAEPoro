@@ -33,7 +33,7 @@ public:
     USI K;
 };
 
-/// Used to stores the contents of keyword whose contents are in form of coordinates.
+/// Used to store the contents of keyword whose contents are in form of coordinates.
 class Type_B_o
 {
 public:
@@ -41,7 +41,7 @@ public:
     vector<COOIJK> obj;
 };
 
-/// Used to stores the contents of keyword whose contents are in form of string.
+/// Used to store the contents of keyword whose contents are in form of string.
 class Type_A_o
 {
 public:

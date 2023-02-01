@@ -74,7 +74,7 @@ void ParamWell::InputWELSPECS(ifstream& ifs)
         DealDefault(vbuf);
         well.push_back(WellParam(vbuf));
     }
-    cout << "WELSPECS" << endl;
+    // cout << "WELSPECS" << endl;
 }
 
 void ParamWell::InputCOMPDAT(ifstream& ifs)
@@ -142,7 +142,7 @@ void ParamWell::InputCOMPDAT(ifstream& ifs)
             }
         }
     }
-    cout << "COMPDAT" << endl;
+    // cout << "COMPDAT" << endl;
 }
 
 void ParamWell::InputWCONINJE(ifstream& ifs)
@@ -177,7 +177,7 @@ void ParamWell::InputWCONINJE(ifstream& ifs)
             }
         }
     }
-    cout << "WCONINJE" << endl;
+    // cout << "WCONINJE" << endl;
 }
 
 void ParamWell::InputWCONPROD(ifstream& ifs)
@@ -191,8 +191,8 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
         if (vbuf[0] == "/") break;
 
         DealDefault(vbuf);
-        string            src   = vbuf[0];
-        string::size_type pos   = src.find("*");
+        string            src        = vbuf[0];
+        string::size_type pos        = src.find("*");
         const OCP_BOOL    fuzzyMatch = (pos != string::npos);
         if (fuzzyMatch) {
             src.erase(pos);
@@ -208,7 +208,7 @@ void ParamWell::InputWCONPROD(ifstream& ifs)
                     well[w].optParam.push_back(WellOptPair(d, "PROD", vbuf));
         }
     }
-    cout << "WCONPROD" << endl;
+    // cout << "WCONPROD" << endl;
 }
 
 void ParamWell::InputTSTEP(ifstream& ifs)
@@ -236,7 +236,9 @@ void ParamWell::InputWELTARG(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    cout << "WELTARG" << endl;
+    cout << "\n---------------------" << endl
+         << "WELTARG"
+         << "\n---------------------" << endl;
 
     const USI      d   = criticalTime.size() - 1;
     const USI      num = well.size();
@@ -283,15 +285,15 @@ void ParamWell::InputWELTARG(ifstream& ifs)
             }
         }
     }
-    cout << "/" << endl;
 }
-
 
 void ParamWell::InputWTEMP(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    cout << "WTEMP" << endl;
+    cout << "\n---------------------" << endl
+         << "WTEMP"
+         << "\n---------------------" << endl;
 
     const USI      d       = criticalTime.size() - 1;
     const USI      numWell = well.size();
@@ -304,8 +306,8 @@ void ParamWell::InputWTEMP(ifstream& ifs)
         }
         cout << endl;
 
-        string            src = vbuf[0];
-        string::size_type pos = src.find("*");
+        string            src        = vbuf[0];
+        string::size_type pos        = src.find("*");
         const OCP_BOOL    fuzzyMatch = (pos != string::npos);
         if (fuzzyMatch) {
             src.erase(pos);
@@ -323,21 +325,21 @@ void ParamWell::InputWTEMP(ifstream& ifs)
                     OCP_ABORT("No Well Control Defined in Advance!");
                 }
                 WellOptPair tar = well[w].optParam.back();
-                tar.d = d;
+                tar.d           = d;
                 tar.opt.injTemp = stod(vbuf[1]);
                 well[w].optParam.push_back(tar);
             }
         }
     }
-    cout << "/" << endl;
 }
-
 
 void ParamWell::InputUNWEIGHT(ifstream& ifs)
 {
     assert(criticalTime.size() > 0);
 
-    cout << "UNWEIGHT" << endl;
+    cout << "\n---------------------" << endl
+         << "UNWEIGHT"
+         << "\n---------------------" << endl;
 
     const USI      num = well.size();
     vector<string> vbuf;
@@ -350,8 +352,8 @@ void ParamWell::InputUNWEIGHT(ifstream& ifs)
         cout << endl;
 
         DealDefault(vbuf);
-        string            src = vbuf[0];
-        string::size_type pos = src.find("*");
+        string            src        = vbuf[0];
+        string::size_type pos        = src.find("*");
         const OCP_BOOL    fuzzyMatch = (pos != string::npos);
         if (fuzzyMatch) {
             src.erase(pos);
@@ -361,16 +363,12 @@ void ParamWell::InputUNWEIGHT(ifstream& ifs)
             for (USI w = 0; w < num; w++)
                 if (well[w].name.find(src) != string::npos)
                     well[w].ifUseUnweight = OCP_TRUE;
-        }
-        else {
+        } else {
             for (USI w = 0; w < num; w++)
-                if (well[w].name == src)
-                    well[w].ifUseUnweight = OCP_TRUE;
+                if (well[w].name == src) well[w].ifUseUnweight = OCP_TRUE;
         }
     }
-    cout << "/" << endl;
 }
-
 
 void ParamWell::InputWELLSTRE(ifstream& ifs)
 {
@@ -379,12 +377,8 @@ void ParamWell::InputWELLSTRE(ifstream& ifs)
         if (vbuf[0] == "/") break;
         solSet.push_back(Solvent(vbuf));
     }
-    cout << "WELLSTRE" << endl;
+    // cout << "WELLSTRE" << endl;
 }
-
-
-
-
 
 void ParamWell::InputPSURF(ifstream& ifs)
 {
@@ -393,9 +387,11 @@ void ParamWell::InputPSURF(ifstream& ifs)
 
     Psurf = stod(vbuf[0]);
 
-    cout << "PSURF\n" << Psurf << endl;
+    cout << "\n---------------------" << endl
+         << "PSURF"
+         << "\n---------------------" << endl;
+    cout << Psurf << endl;
 }
-
 
 void ParamWell::InputTSURF(ifstream& ifs)
 {
@@ -404,10 +400,11 @@ void ParamWell::InputTSURF(ifstream& ifs)
 
     Tsurf = stod(vbuf[0]);
 
-    cout << "TSURF\n" << Tsurf << endl;
+    cout << "\n---------------------" << endl
+         << "TSURF"
+         << "\n---------------------" << endl;
+    cout << Tsurf << endl;
 }
-
-
 
 // check
 void ParamWell::CheckParam(const OCP_BOOL& boModel) const
