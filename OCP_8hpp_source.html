@@ -95,75 +95,74 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;OpenCAEPoro Version-&quot;</span> &lt;&lt; <a class="code" href="OCP_8hpp.html#ab07473bc09450555830e8819d19908a9">OCPVersion</a> &lt;&lt; endl</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">   39</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a>(<span class="keywordtype">string</span> cmdname)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname &lt;&lt; <span class="stringliteral">&quot; &lt;InputFileName&gt; [&lt;options&gt;]&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;A simple example is to solve SPE1 Case A in default setting&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;You can also pass cmd options after the input file:&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  method:  solution method to use &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtInit:  initial time stepsize  &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtMax:   maximum time stepsize  &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtMin:   minimum time stepsize  &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  verbose: print level on screen  &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Attention: &quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - These cmd options will override those in the input file;&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - Only if `method&#39; is set, other options will take effect;&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - If (dtInit,dtMax,dtMin) are not set, default values will be used.&quot;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        cout &lt;&lt; endl</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;For example: solve SPE1a using FIM&quot;</span> &lt;&lt; endl</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;             &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 &quot;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;             &lt;&lt; endl;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">ReadInputFile</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(<a class="code" href="classParamRead.html">ParamRead</a>&amp; param);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">SetupSimulator</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* options[]);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">InitReservoir</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">RunSimulation</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OutputResults</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classReservoir.html">Reservoir</a> reservoir;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="classSolver.html">Solver</a> solver;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="classOCPControl.html">OCPControl</a> control;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="classOCPOutput.html">OCPOutput</a> output;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __OCP_HEADER__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      New tag info                         */</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">/*  Chensong Zhang      Sep/21/2022      Add PrintUsage                       */</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;=========================================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">   38</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a>(<span class="keywordtype">string</span> cmdname)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname &lt;&lt; <span class="stringliteral">&quot; &lt;InputFileName&gt; [&lt;options&gt;]&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;A simple example is to solve SPE1 Case A in default setting&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;You can also pass cmd options after the input file:&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  method:  solution method to use &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtInit:  initial time stepsize  &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtMax:   maximum time stepsize  &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  dtMin:   minimum time stepsize  &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  verbose: print level on screen  &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Attention: &quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - These cmd options will override those in the input file;&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - Only if `method&#39; is set, other options will take effect;&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  - If (dtInit,dtMax,dtMin) are not set, default values will be used.&quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        cout &lt;&lt; endl</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;For example: solve SPE1a using FIM&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;  &quot;</span> &lt;&lt; cmdname</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;             &lt;&lt; <span class="stringliteral">&quot; examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 &quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;             &lt;&lt; endl;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">ReadInputFile</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(<a class="code" href="classParamRead.html">ParamRead</a>&amp; param);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">SetupSimulator</a>(<span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&amp; argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* options[]);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">InitReservoir</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">RunSimulation</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OutputResults</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classReservoir.html">Reservoir</a> reservoir;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="classSolver.html">Solver</a> solver;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="classOCPControl.html">OCPControl</a> control;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classOCPOutput.html">OCPOutput</a> output;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* end if __OCP_HEADER__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/*  Brief Change History of This File                                         */</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">/*  Author              Date             Actions                              */</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">/*  Shizhe Li           Oct/01/2021      Create file                          */</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/*  Chensong Zhang      Oct/15/2021      Format file                          */</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">/*  Chensong Zhang      Jan/08/2022      New tag info                         */</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">/*  Chensong Zhang      Sep/21/2022      Add PrintUsage                       */</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">/*----------------------------------------------------------------------------*/</span></div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPControl_8hpp_html"><div class="ttname"><a href="OCPControl_8hpp.html">OCPControl.hpp</a></div><div class="ttdoc">OCPControl class declaration.</div></div>
 <div class="ttc" id="aOCPOutput_8hpp_html"><div class="ttname"><a href="OCPOutput_8hpp.html">OCPOutput.hpp</a></div><div class="ttdoc">OCPOutput class declaration.</div></div>
@@ -175,12 +174,12 @@ $(function() {
 <div class="ttc" id="aclassOCPControl_html"><div class="ttname"><a href="classOCPControl.html">OCPControl</a></div><div class="ttdoc">All control parameters except for well controllers.</div><div class="ttdef"><b>Definition:</b> <a href="OCPControl_8hpp_source.html#l00093">OCPControl.hpp:94</a></div></div>
 <div class="ttc" id="aclassOCPOutput_html"><div class="ttname"><a href="classOCPOutput.html">OCPOutput</a></div><div class="ttdoc">The OCPOutput class manages different kinds of ways to output information.</div><div class="ttdef"><b>Definition:</b> <a href="OCPOutput_8hpp_source.html#l00435">OCPOutput.hpp:436</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html"><div class="ttname"><a href="classOpenCAEPoro.html">OpenCAEPoro</a></div><div class="ttdoc">Top-level data structure for the OpenCAEPoro simulator.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00026">OCP.hpp:27</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00025">OCP.cpp:25</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a4ed58e04f34903750d41b38191f97efd"><div class="ttname"><a href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">OpenCAEPoro::PrintUsage</a></div><div class="ttdeci">void PrintUsage(string cmdname) const</div><div class="ttdoc">Provide at least InputFileName for the input data.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00039">OCP.hpp:39</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00089">OCP.cpp:89</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a6193cc91696ea35e8d9bde039682617a"><div class="ttname"><a href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a></div><div class="ttdeci">void OutputResults() const</div><div class="ttdoc">Output necessary information for post-processing.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00120">OCP.cpp:120</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00071">OCP.cpp:71</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_a94920441685ea95110db24bc1bac2c78"><div class="ttname"><a href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">OpenCAEPoro::SetupSimulator</a></div><div class="ttdeci">void SetupSimulator(const USI &amp;argc, const char *options[])</div><div class="ttdoc">Setup reservoir based on an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00033">OCP.cpp:33</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00024">OCP.cpp:24</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a4ed58e04f34903750d41b38191f97efd"><div class="ttname"><a href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">OpenCAEPoro::PrintUsage</a></div><div class="ttdeci">void PrintUsage(string cmdname) const</div><div class="ttdoc">Provide at least InputFileName for the input data.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00038">OCP.hpp:38</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a609461859cc5891d05c5f30f323fdb89"><div class="ttname"><a href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">OpenCAEPoro::RunSimulation</a></div><div class="ttdeci">void RunSimulation()</div><div class="ttdoc">Run dynamic simulation.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00087">OCP.cpp:87</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a6193cc91696ea35e8d9bde039682617a"><div class="ttname"><a href="classOpenCAEPoro.html#a6193cc91696ea35e8d9bde039682617a">OpenCAEPoro::OutputResults</a></div><div class="ttdeci">void OutputResults() const</div><div class="ttdoc">Output necessary information for post-processing.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00118">OCP.cpp:118</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00069">OCP.cpp:69</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a94920441685ea95110db24bc1bac2c78"><div class="ttname"><a href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">OpenCAEPoro::SetupSimulator</a></div><div class="ttdeci">void SetupSimulator(const USI &amp;argc, const char *options[])</div><div class="ttdoc">Setup reservoir based on an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00032">OCP.cpp:32</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_aa207d83bfc12e673b288d8c0ae5b0427"><div class="ttname"><a href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">OpenCAEPoro::PrintVersion</a></div><div class="ttdeci">void PrintVersion() const</div><div class="ttdoc">Output OpenCAEPoro version information.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00030">OCP.hpp:30</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_ae43b2efb09747f190b20a4ee6dc30170"><div class="ttname"><a href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">OpenCAEPoro::ReadInputFile</a></div><div class="ttdeci">void ReadInputFile(const string &amp;filename)</div><div class="ttdoc">Read Param from input file.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
 <div class="ttc" id="aclassParamRead_html"><div class="ttname"><a href="classParamRead.html">ParamRead</a></div><div class="ttdoc">Pre-processing unit for OpenCAEPoro for reading params from input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00032">ParamRead.hpp:33</a></div></div>
@@ -189,7 +188,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2023 22:37:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Feb 1 2023 00:15:59 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

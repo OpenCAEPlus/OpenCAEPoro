@@ -239,7 +239,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            }</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        }</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;COMPDAT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;COMPDAT&quot; &lt;&lt; endl;</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 <div class="ttc" id="aOCPConst_8hpp_html_a24bc11890ea853a38fd9d6b843633b1b"><div class="ttname"><a href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a></div><div class="ttdeci">unsigned int USI</div><div class="ttdoc">Generic unsigned integer.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00023">OCPConst.hpp:23</a></div></div>
 <div class="ttc" id="aOCPConst_8hpp_html_aeb4eef613c5a54af045c912cd18649f9"><div class="ttname"><a href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a></div><div class="ttdeci">unsigned int OCP_BOOL</div><div class="ttdoc">OCP_BOOL in OCP.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00029">OCPConst.hpp:29</a></div></div>
@@ -345,7 +345,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            }</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        }</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;WCONINJE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;WCONINJE&quot; &lt;&lt; endl;</span></div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
 <div class="ttc" id="aclassWellOptPair_html"><div class="ttname"><a href="classWellOptPair.html">WellOptPair</a></div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00047">ParamWell.hpp:48</a></div></div>
 </div><!-- fragment -->
@@ -381,8 +381,8 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordtype">string</span>            src   = vbuf[0];</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        string::size_type pos   = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordtype">string</span>            src        = vbuf[0];</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        string::size_type pos        = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>    fuzzyMatch = (pos != string::npos);</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordflow">if</span> (fuzzyMatch) {</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            src.erase(pos);</div>
@@ -398,7 +398,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                    <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.push_back(<a class="code" href="classWellOptPair.html">WellOptPair</a>(d, <span class="stringliteral">&quot;PROD&quot;</span>, vbuf));</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        }</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;WCONPROD&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;WCONPROD&quot; &lt;&lt; endl;</span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ParamWell_8hpp_source.html#l00103">criticalTime</a>, <a class="el" href="UtilInput_8cpp_source.html#l00050">DealDefault()</a>, <a class="el" href="UtilInput_8cpp_source.html#l00014">ReadLine()</a>, and <a class="el" href="ParamWell_8hpp_source.html#l00102">well</a>.</p>
@@ -422,15 +422,15 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 </div><div class="memdoc">
 <p>Input well keyword: <a class="el" href="classSolvent.html" title="Describe the molar fraction of components of fluid injected to reservoir from INJ.">Solvent</a>. It describes the molar fraction of components of fluid injected to reservoir from INJ. </p>
 
-<p class="definition">Definition at line <a class="el" href="ParamWell_8cpp_source.html#l00375">375</a> of file <a class="el" href="ParamWell_8cpp_source.html">ParamWell.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;{</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <a class="code" href="classParamWell.html#a430e1abcb2077de46b0e652fb04a6056">solSet</a>.push_back(<a class="code" href="classSolvent.html">Solvent</a>(vbuf));</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;WELLSTRE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="ParamWell_8cpp_source.html#l00373">373</a> of file <a class="el" href="ParamWell_8cpp_source.html">ParamWell.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;{</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <a class="code" href="classParamWell.html#a430e1abcb2077de46b0e652fb04a6056">solSet</a>.push_back(<a class="code" href="classSolvent.html">Solvent</a>(vbuf));</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    }</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;WELLSTRE&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;}</div>
 <div class="ttc" id="aclassParamWell_html_a430e1abcb2077de46b0e652fb04a6056"><div class="ttname"><a href="classParamWell.html#a430e1abcb2077de46b0e652fb04a6056">ParamWell::solSet</a></div><div class="ttdeci">vector&lt; Solvent &gt; solSet</div><div class="ttdoc">Sets of Solvent.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00104">ParamWell.hpp:104</a></div></div>
 <div class="ttc" id="aclassSolvent_html"><div class="ttname"><a href="classSolvent.html">Solvent</a></div><div class="ttdoc">Describe the molar fraction of components of fluid injected to reservoir from INJ.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00086">ParamWell.hpp:87</a></div></div>
 </div><!-- fragment -->
@@ -464,7 +464,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="UtilInput_8hpp.html#a11ed6290b3b860d88bd46530e56f6fb9">DealDefault</a>(vbuf);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>.push_back(<a class="code" href="classWellParam.html">WellParam</a>(vbuf));</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;WELSPECS&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;WELSPECS&quot; &lt;&lt; endl;</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="ttc" id="aclassWellParam_html"><div class="ttname"><a href="classWellParam.html">WellParam</a></div><div class="ttdoc">TODO: Add Doxygen.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00058">ParamWell.hpp:59</a></div></div>
 </div><!-- fragment -->
@@ -493,55 +493,56 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 <div class="fragment"><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;{</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    assert(<a class="code" href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">criticalTime</a>.size() &gt; 0);</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;WELTARG&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>      d   = <a class="code" href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">criticalTime</a>.size() - 1;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>      num = <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>.size();</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    vector&lt;string&gt; vbuf;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : vbuf) {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            cout &lt;&lt; s &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordtype">string</span>            src        = vbuf[0];</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        string::size_type pos        = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>    fuzzyMatch = (pos != string::npos);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">if</span> (fuzzyMatch) {</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            src.erase(pos);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        }</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> succMatch = OCP_FALSE;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; num; w++) {</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="keywordflow">if</span> (fuzzyMatch)</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                succMatch = (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].name.find(src) != string::npos);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                succMatch = (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].name == src);</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keywordflow">if</span> (succMatch) {</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.size() == 0) {</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                    <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;No Well Control Defined in Advance!&quot;</span>);</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                <a class="code" href="classWellOptPair.html">WellOptPair</a> tar = <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.back();</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                tar.d           = d;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                tar.opt.<a class="code" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> = vbuf[1];</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> val     = stod(vbuf[2]);</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                <span class="keywordflow">if</span> (vbuf[1] == <span class="stringliteral">&quot;BHP&quot;</span>) {</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                    <span class="keywordflow">if</span> (tar.opt.<a class="code" href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">type</a> == <span class="stringliteral">&quot;INJ&quot;</span>)</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                        tar.opt.<a class="code" href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">maxBHP</a> = val;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                        tar.opt.<a class="code" href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">minBHP</a> = val;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                    tar.opt.<a class="code" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = val;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                }</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.push_back(tar);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            }</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;/&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;}</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;WELTARG&quot;</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;\n---------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>      d   = <a class="code" href="classParamWell.html#a679ceef70a150007d5646fcf3cef52c2">criticalTime</a>.size() - 1;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>      num = <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>.size();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    vector&lt;string&gt; vbuf;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="UtilInput_8hpp.html#a6ff8907e3f0c8e22861efd0f733314e1">ReadLine</a>(ifs, vbuf)) {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">if</span> (vbuf[0] == <span class="stringliteral">&quot;/&quot;</span>) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : vbuf) {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            cout &lt;&lt; s &lt;&lt; <span class="stringliteral">&quot;   &quot;</span>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordtype">string</span>            src        = vbuf[0];</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        string::size_type pos        = src.find(<span class="stringliteral">&quot;*&quot;</span>);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keyword">const</span> <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a>    fuzzyMatch = (pos != string::npos);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">if</span> (fuzzyMatch) {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            src.erase(pos);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        }</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <a class="code" href="OCPConst_8hpp.html#aeb4eef613c5a54af045c912cd18649f9">OCP_BOOL</a> succMatch = OCP_FALSE;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> w = 0; w &lt; num; w++) {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">if</span> (fuzzyMatch)</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                succMatch = (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].name.find(src) != string::npos);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                succMatch = (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].name == src);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">if</span> (succMatch) {</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.size() == 0) {</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                    <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;No Well Control Defined in Advance!&quot;</span>);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                }</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                <a class="code" href="classWellOptPair.html">WellOptPair</a> tar = <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.back();</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                tar.d           = d;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                tar.opt.<a class="code" href="classWellOptParam.html#ac3827b1c01ceb126e7b7fbb738765539">optMode</a> = vbuf[1];</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                <a class="code" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> val     = stod(vbuf[2]);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                <span class="keywordflow">if</span> (vbuf[1] == <span class="stringliteral">&quot;BHP&quot;</span>) {</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                    <span class="keywordflow">if</span> (tar.opt.<a class="code" href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">type</a> == <span class="stringliteral">&quot;INJ&quot;</span>)</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                        tar.opt.<a class="code" href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">maxBHP</a> = val;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                        tar.opt.<a class="code" href="classWellOptParam.html#af0ad9a5c5f25d0284d05813d6d0eba21">minBHP</a> = val;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                    tar.opt.<a class="code" href="classWellOptParam.html#a565d315e3af5b4be3a2d6474f244f378">maxRate</a> = val;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                <a class="code" href="classParamWell.html#af52a7884b9642e12a58c7695403977d2">well</a>[w].optParam.push_back(tar);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;}</div>
 <div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a144f37940d5f85961f915fddeb560b40"><div class="ttname"><a href="classWellOptParam.html#a144f37940d5f85961f915fddeb560b40">WellOptParam::maxBHP</a></div><div class="ttdeci">OCP_DBL maxBHP</div><div class="ttdoc">Maximum allowable pressure in the injection well.</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00039">ParamWell.hpp:39</a></div></div>
 <div class="ttc" id="aclassWellOptParam_html_a199ec03af9d7fa4897d8b95fac8a2723"><div class="ttname"><a href="classWellOptParam.html#a199ec03af9d7fa4897d8b95fac8a2723">WellOptParam::type</a></div><div class="ttdeci">string type</div><div class="ttdoc">Type of well, injection or production?</div><div class="ttdef"><b>Definition:</b> <a href="ParamWell_8hpp_source.html#l00033">ParamWell.hpp:33</a></div></div>
@@ -560,7 +561,7 @@ vector&lt; <a class="el" href="classSolvent.html">Solvent</a> &gt;&#160;</td><td
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2023 22:37:47 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Feb 1 2023 00:16:00 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
