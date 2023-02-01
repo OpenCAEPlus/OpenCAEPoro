@@ -97,8 +97,8 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
                 timeMax = stod(value);
                 break;
 
-            case Map_Str2Int("pl", 2):
-                printLevel = stoi(value);
+            case Map_Str2Int("verbose", 7):
+                printLevel = MIN(MAX(stoi(value), PRINT_NONE), PRINT_ALL);
                 break;
 
             default:
@@ -133,7 +133,7 @@ void FastControl::ReadParam(const USI& argc, const char* optset[])
 
 void OCPControl::InputParam(const ParamControl& CtrlParam)
 {
-    model = CtrlParam.model;
+    model   = CtrlParam.model;
     workDir = CtrlParam.dir;
     if (CtrlParam.method == "IMPEC") {
         method = IMPEC;
@@ -209,7 +209,7 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
                 linearSolverFile = "./bsr.fasp";
                 break;
             default:
-                OCP_ABORT("Wrong method in command line!");
+                OCP_ABORT("Wrong method specified from command line!");
                 break;
         }
         USI n = ctrlTimeSet.size();
@@ -221,7 +221,6 @@ void OCPControl::SetupFastControl(const USI& argc, const char* optset[])
     }
     printLevel = ctrlFast.printLevel;
 }
-
 
 void OCPControl::UpdateIters()
 {
@@ -240,57 +239,59 @@ void OCPControl::ResetIterNRLS()
     iterLS = 0;
 }
 
-
 OCP_BOOL OCPControl::Check(Reservoir& rs, initializer_list<string> il)
 {
     OCP_INT flag;
     for (auto& s : il) {
-     
-        if (s == "BulkP")        flag = rs.bulk.CheckP();
-        else if (s == "BulkT")   flag = rs.bulk.CheckT();
-        else if (s == "BulkNi")  flag = rs.bulk.CheckNi();
-        else if (s == "BulkVe")  flag = rs.bulk.CheckVe(0.01);
-        else if (s == "CFL")     flag = rs.bulk.CheckCFL(1.0);
-        else if (s == "WellP")   flag = rs.allWells.CheckP(rs.bulk);
-        else                     OCP_ABORT("WRONG Check Iterm!");
 
-        switch (flag)
-        {
-        // Bulk
-        case BULK_SUCCESS:
-            break;         
-        case BULK_NEGATIVE_PRESSURE:
-        case BULK_NEGATIVE_TEMPERATURE:
-        case BULK_NEGATIVE_COMPONENTS_MOLES:
-        case BULK_OUTRANGED_VOLUME_ERROR:
-            current_dt *= ctrlTime.cutFacNR;
-            return OCP_FALSE;
-        case BULK_OUTRANGED_CFL:
-            current_dt /= (rs.bulk.GetMaxCFL() + 1);
-            return OCP_FALSE;
-        // Well
-        case WELL_SUCCESS:
-            break;
-        case WELL_NEGATIVE_PRESSURE:
-            current_dt *= ctrlTime.cutFacNR;
-            return OCP_FALSE;
-            break;
-        case WELL_SWITCH_TO_BHPMODE:
-        case WELL_CROSSFLOW:
-            return OCP_FALSE;
-            break;
-        default:
-            break;
+        if (s == "BulkP")
+            flag = rs.bulk.CheckP();
+        else if (s == "BulkT")
+            flag = rs.bulk.CheckT();
+        else if (s == "BulkNi")
+            flag = rs.bulk.CheckNi();
+        else if (s == "BulkVe")
+            flag = rs.bulk.CheckVe(0.01);
+        else if (s == "CFL")
+            flag = rs.bulk.CheckCFL(1.0);
+        else if (s == "WellP")
+            flag = rs.allWells.CheckP(rs.bulk);
+        else
+            OCP_ABORT("Check iterm not recognized!");
+
+        switch (flag) {
+            // Bulk
+            case BULK_SUCCESS:
+                break;
+            case BULK_NEGATIVE_PRESSURE:
+            case BULK_NEGATIVE_TEMPERATURE:
+            case BULK_NEGATIVE_COMPONENTS_MOLES:
+            case BULK_OUTRANGED_VOLUME_ERROR:
+                current_dt *= ctrlTime.cutFacNR;
+                return OCP_FALSE;
+            case BULK_OUTRANGED_CFL:
+                current_dt /= (rs.bulk.GetMaxCFL() + 1);
+                return OCP_FALSE;
+            // Well
+            case WELL_SUCCESS:
+                break;
+            case WELL_NEGATIVE_PRESSURE:
+                current_dt *= ctrlTime.cutFacNR;
+                return OCP_FALSE;
+            case WELL_SWITCH_TO_BHPMODE:
+            case WELL_CROSSFLOW:
+                return OCP_FALSE;
+            default:
+                break;
         }
     }
-    
+
     return OCP_TRUE;
 }
 
-
 void OCPControl::CalNextTimeStep(Reservoir& rs, initializer_list<string> il)
 {
-    last_dt      = current_dt;
+    last_dt = current_dt;
     current_time += current_dt;
 
     OCP_DBL factor = ctrlTime.maxIncreFac;
@@ -304,24 +305,22 @@ void OCPControl::CalNextTimeStep(Reservoir& rs, initializer_list<string> il)
     for (auto& s : il) {
         if (s == "dP") {
             if (dPmax > TINY) factor = min(factor, ctrlPreTime.dPlim / dPmax);
-        }
-        else if (s == "dT") {
+        } else if (s == "dT") {
             // no input now -- no value
             if (dTmax > TINY) factor = min(factor, ctrlPreTime.dTlim / dTmax);
-        }
-        else if (s == "dN") {
+        } else if (s == "dN") {
             if (dNmax > TINY) factor = min(factor, ctrlPreTime.dNlim / dNmax);
-        }
-        else if (s == "dS") {
+        } else if (s == "dS") {
             if (dSmax > TINY) factor = min(factor, ctrlPreTime.dSlim / dSmax);
-        }
-        else if (s == "eV") {
+        } else if (s == "eV") {
             if (eVmax > TINY) factor = min(factor, ctrlPreTime.eVlim / eVmax);
-        }
-        else if (s == "iter") {
-            if (iterNR < 5)         factor = min(factor, 2.0);
-            else if (iterNR > 10)   factor = min(factor, 0.5);
-            else                    factor = min(factor, 1.5);
+        } else if (s == "iter") {
+            if (iterNR < 5)
+                factor = min(factor, 2.0);
+            else if (iterNR > 10)
+                factor = min(factor, 0.5);
+            else
+                factor = min(factor, 1.5);
         }
     }
 
@@ -336,7 +335,6 @@ void OCPControl::CalNextTimeStep(Reservoir& rs, initializer_list<string> il)
     const OCP_DBL dt = end_time - current_time;
     if (current_dt > dt) current_dt = dt;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

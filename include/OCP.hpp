@@ -42,18 +42,16 @@ public:
              << "  " << cmdname << " <InputFileName> [<options>]" << endl
              << endl;
 
-        cout << "The simplest usage is as follows, where parameters are read from file:"
-             << endl
-             << "  " << cmdname
-             << " examples/spe1a/spe1a.data  %% Solve SPE1a in default setting" << endl
+        cout << "A simple example is to solve SPE1 Case A in default setting" << endl
+             << "  " << cmdname << " examples/spe1a/spe1a.data" << endl
              << endl;
 
         cout << "You can also pass cmd options after the input file:" << endl
-             << "  method: solution method to use " << endl
-             << "  dtInit: initial time stepsize  " << endl
-             << "  dtMax:  maximum time stepsize  " << endl
-             << "  dtMin:  minimum time stepsize  " << endl
-             << "  pl:     print level on screen  " << endl
+             << "  method:  solution method to use " << endl
+             << "  dtInit:  initial time stepsize  " << endl
+             << "  dtMax:   maximum time stepsize  " << endl
+             << "  dtMin:   minimum time stepsize  " << endl
+             << "  verbose: print level on screen  " << endl
              << endl;
 
         cout << "Attention: " << endl
@@ -65,7 +63,7 @@ public:
         cout << endl
              << "For example: solve SPE1a using FIM" << endl
              << "  " << cmdname
-             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 pl=1"
+             << " examples/spe1a/spe1a.data method=FIM dtInit=1 dtMax=10 dtMin=0.1 "
              << endl;
     }
 

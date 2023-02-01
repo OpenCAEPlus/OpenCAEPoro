@@ -11,7 +11,6 @@
 
 #include "OCP.hpp"
 
-
 /// Read Param from input file
 void OpenCAEPoro::ReadInputFile(const string& filename)
 {
@@ -21,8 +20,8 @@ void OpenCAEPoro::ReadInputFile(const string& filename)
     InputParam(rp);
 }
 
-
-/// Read from internal param (which comes from input files) and set control and output params.
+/// Read from internal param (which comes from input files) and set control and output
+/// params.
 void OpenCAEPoro::InputParam(ParamRead& param)
 {
     reservoir.InputParam(param);
@@ -31,35 +30,31 @@ void OpenCAEPoro::InputParam(ParamRead& param)
 }
 
 /// Call setup procedures for reservoir, output, and linear solver.
-void OpenCAEPoro::SetupSimulator(const USI&  argc,
-                                 const char* options[])
+void OpenCAEPoro::SetupSimulator(const USI& argc, const char* options[])
 {
-    switch (control.GetModel()) {
-    case ISOTHERMALMODEL:
-        if (control.printLevel >= PRINT_MIN) {
-            cout << "\nDynamic simulation with Isothermal Model\n" << endl;
-        }
-        break;
-    case THERMALMODEL:
-        if (control.printLevel >= PRINT_MIN) {
-            cout << "\nDynamic simulation with Thermal Model\n" << endl;
-        }
-        break;
-    default:
-        OCP_ABORT("Wrong method type is used!");
-    }
-
-
     GetWallTime timer;
     timer.Start();
 
-    // Read Fast control
-    control.SetupFastControl(argc, options);
-    // Setup static information for solver
-    solver.Setup(reservoir, control);
-    // Setup output for dynamic simulation
-    output.Setup(reservoir, control);
+    control.SetupFastControl(argc, options); // Read Fast control
 
+    switch (control.GetModel()) {
+        case ISOTHERMALMODEL:
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation for isothermal models\n" << endl;
+            }
+            break;
+        case THERMALMODEL:
+            if (control.printLevel >= PRINT_MIN) {
+                cout << "\nDynamic simulation for thermal models\n" << endl;
+            }
+            break;
+        default:
+            OCP_ABORT("Wrong model type is used!");
+    }
+
+    solver.Setup(reservoir, control); // Setup static info for solver
+
+    output.Setup(reservoir, control); // Setup output for dynamic simulation
 
     double finalTime = timer.Stop() / 1000;
     if (control.printLevel >= PRINT_MIN) {
@@ -149,8 +144,8 @@ void OpenCAEPoro::OutputResults() const
     cout << "Simulation time:             " << setw(fixWidth) << control.totalSimTime
          << " (Seconds)" << endl;
     cout << " - % Initialize ............." << setw(fixWidth)
-        << 100.0 * control.initilizationTime / control.totalSimTime << " ("
-        << control.initilizationTime << "s)" << endl;
+         << 100.0 * control.initilizationTime / control.totalSimTime << " ("
+         << control.initilizationTime << "s)" << endl;
     cout << " - % Assembling ............." << setw(fixWidth)
          << 100.0 * control.totalAssembleMatTime / control.totalSimTime << " ("
          << control.totalAssembleMatTime << "s)" << endl;
