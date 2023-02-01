@@ -46,12 +46,12 @@ for ((i=0; i<PNUM; i++)); do
 
     printf "Problem $i: ${GREEN}${DIRS[i]}/${FILES[i]}${NC}\n"
     ../testOpenCAEPoro ../examples/${DIRS[i]}/${FILES[i]} > ../examples/${DIRS[i]}/log.out
-    mv ../examples/${DIRS[i]}/$OCP_LOG ./$i/New_IMPEC_$OCP_LOG 2>/dev/null
-    mv ../examples/${DIRS[i]}/$OCP_SUM ./$i/New_IMPEC_$OCP_SUM 2>/dev/null
-    mv ../examples/${DIRS[i]}/$OCP_REV ./$i/New_IMPEC_$OCP_REV 2>/dev/null
-    sdiff -s ./$i/Old_IMPEC_$OCP_LOG ./$i/New_IMPEC_$OCP_LOG 2>/dev/null
-    sdiff -s ./$i/Old_IMPEC_$OCP_SUM ./$i/New_IMPEC_$OCP_SUM 2>/dev/null
-    sdiff -s ./$i/Old_IMPEC_$OCP_REV ./$i/New_IMPEC_$OCP_REV 2>/dev/null
+    mv ../examples/${DIRS[i]}/$OCP_LOG ./$i/New_$OCP_LOG 2>/dev/null
+    mv ../examples/${DIRS[i]}/$OCP_SUM ./$i/New_$OCP_SUM 2>/dev/null
+    mv ../examples/${DIRS[i]}/$OCP_REV ./$i/New_$OCP_REV 2>/dev/null
+    sdiff -s ./$i/Old_$OCP_LOG ./$i/New_$OCP_LOG 2>/dev/null
+    sdiff -s ./$i/Old_$OCP_SUM ./$i/New_$OCP_SUM 2>/dev/null
+    sdiff -s ./$i/Old_$OCP_REV ./$i/New_$OCP_REV 2>/dev/null
 done
 
 # Overwrite results
@@ -61,12 +61,9 @@ read OVERWRITE_OLD
 
 if [ "$OVERWRITE_OLD" = "yes" ]; then
     for ((i=0; i<PNUM; i++)); do
-        mv $i/New_FIM_$OCP_LOG   $i/Old_FIM_$OCP_LOG   2>/dev/null
-        mv $i/New_FIM_$OCP_SUM   $i/Old_FIM_$OCP_SUM   2>/dev/null
-        mv $i/New_FIM_$OCP_REV   $i/Old_FIM_$OCP_REV   2>/dev/null
-        mv $i/New_IMPEC_$OCP_LOG $i/Old_IMPEC_$OCP_LOG 2>/dev/null
-        mv $i/New_IMPEC_$OCP_SUM $i/Old_IMPEC_$OCP_SUM 2>/dev/null
-        mv $i/New_IMPEC_$OCP_REV $i/Old_IMPEC_$OCP_REV 2>/dev/null
+        mv $i/New_$OCP_LOG   $i/Old_$OCP_LOG   2>/dev/null
+        mv $i/New_$OCP_SUM   $i/Old_$OCP_SUM   2>/dev/null
+        mv $i/New_$OCP_REV   $i/Old_$OCP_REV   2>/dev/null
     done
     echo "Overwrite the old results."
 else

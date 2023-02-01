@@ -611,38 +611,40 @@ void CriticalInfo::SetVal(const Reservoir& rs, const OCPControl& ctrl)
 
 void CriticalInfo::PrintFastReview(const string& dir) const
 {
-    string   FileOut = dir + "FastReview.out";
+    string    FileOut = dir + "FastReview.out";
+    const USI ns      = 12;
+
     ofstream outF(FileOut);
     if (!outF.is_open()) {
         OCP_ABORT("Can not open " + FileOut);
     }
 
     // Item
-    outF << "\t" << setw(10) << "Time";
-    outF << "\t" << setw(10) << "dt";
-    outF << "\t" << setw(10) << "dPmax";
-    outF << "\t" << setw(10) << "dVmax";
-    outF << "\t" << setw(10) << "dSmax";
-    outF << "\t" << setw(10) << "dNmax";
-    outF << "\t" << setw(10) << "CFL\n";
+    outF << setw(ns) << "Time";
+    outF << setw(ns) << "dt";
+    outF << setw(ns) << "dPmax";
+    outF << setw(ns) << "dVmax";
+    outF << setw(ns) << "dSmax";
+    outF << setw(ns) << "dNmax";
+    outF << setw(ns) << "CFL" << endl;
     // Unit
-    outF << "\t" << setw(10) << "Days";
-    outF << "\t" << setw(10) << "Days";
-    outF << "\t" << setw(10) << "Psia";
-    outF << "\t" << setw(10) << "    ";
-    outF << "\t" << setw(10) << "    ";
-    outF << "\t" << setw(10) << "    ";
-    outF << "\t" << setw(10) << "    \n\n";
+    outF << setw(ns) << "Days";
+    outF << setw(ns) << "Days";
+    outF << setw(ns) << "Psia";
+    outF << setw(ns) << "    ";
+    outF << setw(ns) << "    ";
+    outF << setw(ns) << "    ";
+    outF << setw(ns) << "    " << endl;
 
     USI n = time.size();
     for (USI i = 0; i < n; i++) {
-        outF << "\t" << setw(10) << time[i];
-        outF << "\t" << setw(10) << dt[i];
-        outF << "\t" << setw(10) << dPmax[i];
-        outF << "\t" << setw(10) << dVmax[i];
-        outF << "\t" << setw(10) << dSmax[i];
-        outF << "\t" << setw(10) << dNmax[i];
-        outF << "\t" << setw(10) << cfl[i];
+        outF << setw(ns) << fixed << setprecision(3) << time[i];
+        outF << setw(ns) << fixed << setprecision(3) << dt[i];
+        outF << setw(ns) << scientific << setprecision(3) << dPmax[i];
+        outF << setw(ns) << scientific << setprecision(3) << dVmax[i];
+        outF << setw(ns) << scientific << setprecision(3) << dSmax[i];
+        outF << setw(ns) << scientific << setprecision(3) << dNmax[i];
+        outF << setw(ns) << scientific << setprecision(3) << cfl[i];
         outF << "\n";
     }
 
