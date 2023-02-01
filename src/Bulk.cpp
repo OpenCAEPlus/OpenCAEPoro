@@ -392,7 +392,6 @@ void Bulk::InputRockFunc(const ParamReservoir& rs_param)
 
 void Bulk::InputRockFuncT(const ParamReservoir& rs_param)
 {
-
     for (USI i = 0; i < NTROCC; i++) {
         if (rs_param.rockSet[i].type == "LINEAR") {
             rock.push_back(new RockT_Linear(rs_param.rockSet[i]));
@@ -464,7 +463,7 @@ void Bulk::InitPTSw(const USI& tabrow)
     }
     OCP_DBL tabdz = (Zmax - Zmin) / (tabrow - 1);
 
-    // creater table
+    // create table
     OCPTable         DepthP(tabrow, 4);
     vector<OCP_DBL>& Ztmp  = DepthP.GetCol(0);
     vector<OCP_DBL>& Potmp = DepthP.GetCol(1);
