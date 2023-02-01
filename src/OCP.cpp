@@ -49,7 +49,7 @@ void OpenCAEPoro::SetupSimulator(const USI& argc, const char* options[])
             }
             break;
         default:
-            OCP_ABORT("Wrong model type is used!");
+            OCP_ABORT("Wrong model type specified!");
     }
 
     solver.Setup(reservoir, control); // Setup static info for solver
@@ -79,10 +79,10 @@ void OpenCAEPoro::InitReservoir()
     if (control.printLevel >= PRINT_MIN) {
         cout << endl
              << "Initialization done. Wall time : " << fixed << setprecision(3)
-             << finalTime << " Sesc" << endl;
+             << finalTime << " Sec" << endl;
     }
     control.RecordTotalTime(finalTime);
-    control.initilizationTime = finalTime;
+    control.initTime = finalTime;
 }
 
 /// Call IMPEC, FIM, AIM, etc for dynamic simulation.
@@ -143,9 +143,9 @@ void OpenCAEPoro::OutputResults() const
     // print time usages
     cout << "Simulation time:             " << setw(fixWidth) << control.totalSimTime
          << " (Seconds)" << endl;
-    cout << " - % Initialize ............." << setw(fixWidth)
-         << 100.0 * control.initilizationTime / control.totalSimTime << " ("
-         << control.initilizationTime << "s)" << endl;
+    cout << " - % Initialization ........." << setw(fixWidth)
+         << 100.0 * control.initTime / control.totalSimTime << " (" << control.initTime
+         << "s)" << endl;
     cout << " - % Assembling ............." << setw(fixWidth)
          << 100.0 * control.totalAssembleMatTime / control.totalSimTime << " ("
          << control.totalAssembleMatTime << "s)" << endl;

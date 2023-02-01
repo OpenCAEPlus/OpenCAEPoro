@@ -109,7 +109,7 @@ public:
     void InputParam(const ParamControl& CtrlParam);
 
     /// Get model
-    USI GetModel()const { return model; }
+    USI GetModel() const { return model; }
 
     /// Apply control for time step i.
     void ApplyControl(const USI& i, const Reservoir& rs);
@@ -205,7 +205,7 @@ private:
     OCP_DBL end_time;        ///< Next Critical time
 
     OCP_DBL totalSimTime{0};            ///< Total simulation time
-    OCP_DBL initilizationTime{ 0 };     ///< Initialize time
+    OCP_DBL initTime{0};                ///< Initialize time
     OCP_DBL totalUpdatePropertyTime{0}; ///< Total UpdateProperty Time
     OCP_DBL totalAssembleMatTime{0};    ///< Total AssembleMat time
     OCP_DBL totalLStime{0};             ///< Total linear solver time
