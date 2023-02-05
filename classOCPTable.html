@@ -102,9 +102,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPTable.html#abc591f4765dbf95bc7add26817685e01">GetColNum</a> () const</td></tr>
 <tr class="memdesc:abc591f4765dbf95bc7add26817685e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the column num of table. <br /></td></tr>
 <tr class="separator:abc591f4765dbf95bc7add26817685e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67211c556ab6e554c592fc5d6b48cc35"><td class="memItemLeft" align="right" valign="top"><a id="a67211c556ab6e554c592fc5d6b48cc35"></a>
-<a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPTable.html#a67211c556ab6e554c592fc5d6b48cc35">GetRowZero</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;mycol) const</td></tr>
-<tr class="memdesc:a67211c556ab6e554c592fc5d6b48cc35"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the row index of the last zero of some colnum, which is sorted in increasing order. <br /></td></tr>
+<tr class="memitem:a67211c556ab6e554c592fc5d6b48cc35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPTable.html#a67211c556ab6e554c592fc5d6b48cc35">GetRowZero</a> (const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;mycol) const</td></tr>
 <tr class="separator:a67211c556ab6e554c592fc5d6b48cc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadfb5ee66bc61060ca935e7f16587eff"><td class="memItemLeft" align="right" valign="top"><a id="aadfb5ee66bc61060ca935e7f16587eff"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOCPTable.html#aadfb5ee66bc61060ca935e7f16587eff">PushCol</a> (const vector&lt; <a class="el" href="OCPConst_8hpp.html#a2c355586809161c6f4c3a35ebfa7cb1f">OCP_DBL</a> &gt; &amp;v)</td></tr>
@@ -376,7 +374,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         </tr>
       </table>
 </div><div class="memdoc">
-<p>interpolate the specified monotonically increasing column in table to evaluate all columns, j = 0 here and index of returnning date begins from 1 </p>
+<p>interpolate the specified monotonically increasing column in table to evaluate all columns, j = 0 here and index of returning date begins from 1 </p>
 
 <p class="definition">Definition at line <a class="el" href="OCPTable_8cpp_source.html#l00088">88</a> of file <a class="el" href="OCPTable_8cpp_source.html">OCPTable.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
@@ -480,6 +478,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a67211c556ab6e554c592fc5d6b48cc35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67211c556ab6e554c592fc5d6b48cc35">&#9670;&nbsp;</a></span>GetRowZero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="OCPConst_8hpp.html#ae1557888748310c9f05f88c69bb30cc3">OCP_INT</a> OCPTable::GetRowZero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> &amp;&#160;</td>
+          <td class="paramname"><em>mycol</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>return the row index of the last zero of some colnum, which is sorted in increasing order. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCPTable_8cpp_source.html#l00035">35</a> of file <a class="el" href="OCPTable_8cpp_source.html">OCPTable.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (mycol &gt; nCol) <a class="code" href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a>(<span class="stringliteral">&quot;wrong specified column!&quot;</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="OCPConst_8hpp.html#a24bc11890ea853a38fd9d6b843633b1b">USI</a> i = 0; i &lt; nRow; i++) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (data[mycol][i] &gt;= <a class="code" href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a>) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> i - 1;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> nRow - 1;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="ttc" id="aOCPConst_8hpp_html_a178942ed1da1376c04ff7b9dbad22850"><div class="ttname"><a href="OCPConst_8hpp.html#a178942ed1da1376c04ff7b9dbad22850">TINY</a></div><div class="ttdeci">const OCP_DBL TINY</div><div class="ttdoc">Small constant.</div><div class="ttdef"><b>Definition:</b> <a href="OCPConst_8hpp_source.html#l00038">OCPConst.hpp:38</a></div></div>
+<div class="ttc" id="aUtilError_8hpp_html_aecfc13af45c4bb869301d5ce54cba0af"><div class="ttname"><a href="UtilError_8hpp.html#aecfc13af45c4bb869301d5ce54cba0af">OCP_ABORT</a></div><div class="ttdeci">#define OCP_ABORT(msg)</div><div class="ttdoc">Abort if critical error happens.</div><div class="ttdef"><b>Definition:</b> <a href="UtilError_8hpp_source.html#l00047">UtilError.hpp:47</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="UtilError_8hpp_source.html#l00047">OCP_ABORT</a>, and <a class="el" href="OCPConst_8hpp_source.html#l00038">TINY</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="OCPTable_8hpp_source.html">OCPTable.hpp</a></li>
 <li><a class="el" href="OCPTable_8cpp_source.html">OCPTable.cpp</a></li>
@@ -487,7 +519,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:01:34 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 08:28:21 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

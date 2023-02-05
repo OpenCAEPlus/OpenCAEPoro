@@ -128,16 +128,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Dense
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a0c5680d25e16ef0e176543fa6b7663dd">dsysv_</a> (const char *uplo, const int *n, const int *nrhs, double *A, const int *lda, int *ipiv, double *b, const int *ldb, double *work, const int *lwork, int *info)</td></tr>
 <tr class="memdesc:a0c5680d25e16ef0e176543fa6b7663dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the solution to system of linear equations A * X = B for symm matrices. <br /></td></tr>
 <tr class="separator:a0c5680d25e16ef0e176543fa6b7663dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3918e5d6b337e30380dabf60fc51097e"><td class="memItemLeft" align="right" valign="top"><a id="a3918e5d6b337e30380dabf60fc51097e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a3918e5d6b337e30380dabf60fc51097e">ssyevd_</a> (char *jobz, char *uplo, const int *n, float *A, const int *lda, float *w, float *work, const int *lwork, int *iwork, const int *liwork, int *info)</td></tr>
-<tr class="memdesc:a3918e5d6b337e30380dabf60fc51097e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the eigenvalues and, optionally, the leftand /or right eigenvectors for SY matrices. <br /></td></tr>
+<tr class="memitem:a3918e5d6b337e30380dabf60fc51097e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a3918e5d6b337e30380dabf60fc51097e">ssyevd_</a> (char *jobz, char *uplo, const int *n, float *A, const int *lda, float *w, float *work, const int *lwork, int *iwork, const int *liwork, int *info)</td></tr>
 <tr class="separator:a3918e5d6b337e30380dabf60fc51097e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="memItemLeft" align="right" valign="top"><a id="a4c8b62de6a02a440729f8fd2365f3d7d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a4c8b62de6a02a440729f8fd2365f3d7d">CalEigenSY</a> (const int &amp;N, float *A, float *w, float *work, const int &amp;lwork)</td></tr>
-<tr class="memdesc:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack. <br /></td></tr>
+<tr class="memdesc:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for symmetric matrix with mkl lapack. <br /></td></tr>
 <tr class="separator:a4c8b62de6a02a440729f8fd2365f3d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">Dcopy</a> (const int &amp;N, double *dst, const double *src)</td></tr>
-<tr class="memdesc:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack.  <a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">More...</a><br /></td></tr>
+<tr class="memdesc:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the minimal eigenvalue for symmetric matrix with mkl lapack.  <a href="DenseMat_8hpp.html#ae3d6d69eb9175bc2ed3414c44bde7a8d">More...</a><br /></td></tr>
 <tr class="separator:ae3d6d69eb9175bc2ed3414c44bde7a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dbf62f0a16411cf156e7bb8c865900"><td class="memItemLeft" align="right" valign="top"><a id="a19dbf62f0a16411cf156e7bb8c865900"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DenseMat_8hpp.html#a19dbf62f0a16411cf156e7bb8c865900">Ddot</a> (int n, double *a, double *b)</td></tr>
@@ -241,7 +239,7 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the minimal eigenvalue for sysmetric matrix with mkl lapack. </p>
+<p>Calculate the minimal eigenvalue for symmetric matrix with mkl lapack. </p>
 <p>Copy a double vector from src to dst. </p>
 
 <p class="definition">Definition at line <a class="el" href="DenseMat_8cpp_source.html#l00037">37</a> of file <a class="el" href="DenseMat_8cpp_source.html">DenseMat.cpp</a>.</p>
@@ -255,10 +253,93 @@ Released under the terms of the GNU Lesser General Public License 3.0 or later.<
 
 </div>
 </div>
+<a id="a3918e5d6b337e30380dabf60fc51097e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3918e5d6b337e30380dabf60fc51097e">&#9670;&nbsp;</a></span>ssyevd_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ssyevd_ </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>jobz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>uplo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>lda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>work</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>lwork</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>iwork</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>liwork</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Computes the eigenvalues and, optionally, the leftand /or right eigenvectors for SY matrices </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 08:01:34 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 08:28:21 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

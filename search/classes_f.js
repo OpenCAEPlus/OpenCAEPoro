@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['scalarfaspsolver_1342',['ScalarFaspSolver',['../classScalarFaspSolver.html',1,'']]],
-  ['scalepcow_1343',['ScalePcow',['../classScalePcow.html',1,'']]],
-  ['skipstaanaly_1344',['SkipStaAnaly',['../classSkipStaAnaly.html',1,'']]],
-  ['solvent_1345',['Solvent',['../classSolvent.html',1,'']]],
-  ['solventinj_1346',['SolventINJ',['../classSolventINJ.html',1,'']]],
-  ['solver_1347',['Solver',['../classSolver.html',1,'']]],
-  ['ssmparamsp_1348',['SSMparamSP',['../classSSMparamSP.html',1,'']]],
-  ['ssmparamsta_1349',['SSMparamSTA',['../classSSMparamSTA.html',1,'']]],
-  ['sumitem_1350',['SumItem',['../classSumItem.html',1,'']]],
-  ['summary_1351',['Summary',['../classSummary.html',1,'']]]
+  ['scalarfaspsolver_1343',['ScalarFaspSolver',['../classScalarFaspSolver.html',1,'']]],
+  ['scalepcow_1344',['ScalePcow',['../classScalePcow.html',1,'']]],
+  ['skipstaanaly_1345',['SkipStaAnaly',['../classSkipStaAnaly.html',1,'']]],
+  ['solvent_1346',['Solvent',['../classSolvent.html',1,'']]],
+  ['solventinj_1347',['SolventINJ',['../classSolventINJ.html',1,'']]],
+  ['solver_1348',['Solver',['../classSolver.html',1,'']]],
+  ['ssmparamsp_1349',['SSMparamSP',['../classSSMparamSP.html',1,'']]],
+  ['ssmparamsta_1350',['SSMparamSTA',['../classSSMparamSTA.html',1,'']]],
+  ['sumitem_1351',['SumItem',['../classSumItem.html',1,'']]],
+  ['summary_1352',['Summary',['../classSummary.html',1,'']]]
 ];
