@@ -13,7 +13,7 @@
 #define __WELLOPT_HEADER__
 
 // Standard header files
-#include<cmath>
+#include <cmath>
 
 // OpenCAEPoro header files
 #include "ParamWell.hpp"
@@ -37,35 +37,47 @@ public:
     WellOpt(const WellOptParam& Optparam);
 
     /// overload inequality
-    OCP_BOOL operator !=(const WellOpt& Opt) const;
+    OCP_BOOL operator!=(const WellOpt& Opt) const;
 
-    USI WellType() const { return type; }
-    USI OptMode() const { return optMode; }
-    string InjFluidType()const {
-        if (type == INJ) return fluidType; 
-        else OCP_ABORT("WRONG well type!"); 
+    USI    WellType() const { return type; }
+    USI    OptMode() const { return optMode; }
+    string InjFluidType() const
+    {
+        if (type == INJ)
+            return fluidType;
+        else
+            OCP_ABORT("WRONG well type!");
     }
     void SetInjProdPhase(const USI& inPhase) { injProdPhase = inPhase; }
-    void SetInjZi(const vector<OCP_DBL>& inZi) {
-        if (type == INJ) injZi = inZi;
-        else OCP_ABORT("WRONG well type!");
+    void SetInjZi(const vector<OCP_DBL>& inZi)
+    {
+        if (type == INJ)
+            injZi = inZi;
+        else
+            OCP_ABORT("WRONG well type!");
     }
-    void SetInjFactor(const OCP_DBL& inFactor) {
-        if (type == INJ)  factorINJ = inFactor;
-        else OCP_ABORT("WRONG well type!");
+    void SetInjFactor(const OCP_DBL& inFactor)
+    {
+        if (type == INJ)
+            factorINJ = inFactor;
+        else
+            OCP_ABORT("WRONG well type!");
         maxRate *= factorINJ;
     }
-    void SetProdPhaseWeight(const vector<OCP_DBL>& inPj) {
-        if (type == PROD)  prodPhaseWeight = inPj;
-        else OCP_ABORT("WRONG well type!");
+    void SetProdPhaseWeight(const vector<OCP_DBL>& inPj)
+    {
+        if (type == PROD)
+            prodPhaseWeight = inPj;
+        else
+            OCP_ABORT("WRONG well type!");
     }
 
 private:
-    USI type{ 0 }; ///< type of well, Inj or Prod.
+    USI type{0}; ///< type of well, Inj or Prod.
     /// indicate which type of fluids will be injected, water, gas, or other solvent.
     /// it's decided by users and only useful for injection well.
-    string fluidType;
-    OCP_BOOL   state{ OCP_FALSE }; ///< state of well, close or open.
+    string   fluidType;
+    OCP_BOOL state{OCP_FALSE}; ///< state of well, close or open.
     USI optMode; ///< control mode of well: constant pressure, or constant flow rate of
                  ///< specified fluids.
     USI initOptMode; ///< Init opt mode during current step
@@ -88,17 +100,18 @@ private:
     /// for production well, it gives the the components of fluids which we are
     /// interested in.
     vector<OCP_DBL> injZi;
-    USI injProdPhase;     ///< label the phase of injecting fluid if possible
+    USI             injProdPhase; ///< label the phase of injecting fluid if possible
     vector<OCP_DBL> prodPhaseWeight;
-    OCP_DBL factorINJ;            ///< unit factor: Mscf -> lbmol for comps, Mscf -> Mscf in blackoil
-    OCP_DBL injTemp;             ///< temperature of inj fluid F
-                              // for Reinjection
-    OCP_BOOL reInj{ OCP_FALSE }; ///< if OCP_TRUE, reinjection happens
-    USI reInjPhase; ///< phase of Reinjection fluid
-    OCP_DBL reInjFactor; ///< one moles Group production fluid has factor mole reinjection fluid
-    vector<USI> connWell; ///< Well which connects to current Well
+    OCP_DBL
+    factorINJ;       ///< unit factor: Mscf -> lbmol for comps, Mscf -> Mscf in blackoil
+    OCP_DBL injTemp; ///< temperature of inj fluid F
+                     // for Reinjection
+    OCP_BOOL reInj{OCP_FALSE}; ///< if OCP_TRUE, reinjection happens
+    USI      reInjPhase;       ///< phase of Reinjection fluid
+    OCP_DBL  reInjFactor;      ///< one moles Group production fluid has factor mole
+                               ///< reinjection fluid
+    vector<USI> connWell;      ///< Well which connects to current Well
 };
-
 
 /// Describe the molar fraction of components of fluid injected to reservoir from INJ.
 class SolventINJ
@@ -110,10 +123,9 @@ public:
         name = other.name;
         data = other.comRatio;
     };
-    string          name; ///< name of solvens
+    string          name; ///< name of solvent
     vector<OCP_DBL> data; ///< molar fraction of components
 };
-
 
 #endif
 

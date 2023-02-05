@@ -43,7 +43,7 @@ public:
 
 /// WellOptPair contains two parts, one is the operation mode of well, the other is the
 /// beginning time at which the operation is applied. The beginning time is represented
-/// by an index in criticaltime.
+/// by an index in critical time.
 class WellOptPair
 {
 public:
@@ -71,11 +71,11 @@ public:
     vector<USI>     I_perf;   ///< I-index of perforation in grid.
     vector<USI>     J_perf;   ///< J-index of perforation in grid.
     vector<USI>     K_perf;   ///< K-index of perforation in grid.
-    vector<OCP_DBL> WI;       ///< Transmissiblity connection factor.
+    vector<OCP_DBL> WI;       ///< Transmissibility connection factor.
     vector<OCP_DBL> diameter; ///< Diameter of perforations.
     vector<OCP_DBL> kh;
-    vector<OCP_DBL> skinFactor; ///< Skin factor.
-    vector<string>  direction;  ///< Direction of perforations.
+    vector<OCP_DBL> skinFactor;               ///< Skin factor.
+    vector<string>  direction;                ///< Direction of perforations.
     OCP_BOOL        ifUseUnweight{OCP_FALSE}; ///< If use unweighted injector.
 
     // dynamic infomation
@@ -94,7 +94,7 @@ public:
 
 /// ParamWell is an internal structure used to stores the information of wells from
 /// input files. It is an intermediate interface and independent of the main simulator.
-/// After all file inputting finishs, the params in it will pass to corresponding
+/// After all file inputting finishes, the params in it will pass to corresponding
 /// modules.
 class ParamWell
 {
@@ -102,8 +102,8 @@ public:
     vector<WellParam> well;         ///< Contains all the information of wells.
     vector<OCP_DBL>   criticalTime; ///< Records the critical time given by users.
     vector<Solvent>   solSet;       ///< Sets of Solvent.
-    OCP_DBL           Psurf{ PRESSURE_STD };      ///< Pressure in surface condition.
-    OCP_DBL           Tsurf{ TEMPERATURE_STD };   ///< Temperature in surface condition.
+    OCP_DBL           Psurf{PRESSURE_STD};    ///< Pressure in surface condition.
+    OCP_DBL           Tsurf{TEMPERATURE_STD}; ///< Temperature in surface condition.
 
     /// Initialize the inputting the params of wells.
     void Init() { InitTime(); };
@@ -126,7 +126,7 @@ public:
     /// well will change. So the params of solving equations could be adjusted
     /// correspondingly.
     void InputTSTEP(ifstream& ifs);
-    /// Input the well keyword: WELTARG. WELTARG is used to change the opeartion mode of
+    /// Input the well keyword: WELTARG. WELTARG is used to change the operation mode of
     /// well anytime. For example, the oil production rate is changed from 1000 stb/day
     /// to 1500 stb/day at the 100th day.
     void InputWELTARG(ifstream& ifs);

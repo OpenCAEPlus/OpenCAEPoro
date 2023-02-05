@@ -44,8 +44,9 @@ public:
     /// return the column num of table.
     USI GetColNum() const { return nCol; }
 
-    /// return the row index of the last zero of some colnum, which is sorted in increasing order.
-    OCP_INT GetRowZero(const USI& mycol)const;
+    /// return the row index of the last zero of some colnum, which is sorted in
+    /// increasing order.
+    OCP_INT GetRowZero(const USI& mycol) const;
 
     /// push v into the last column of table.
     void PushCol(const vector<OCP_DBL>& v) { data.push_back(v); }
@@ -63,11 +64,13 @@ public:
 
     /// interpolate the specified monotonically increasing column in table to evaluate
     /// all columns and return slope
-    USI Eval_All(const USI& j, const OCP_DBL& val, vector<OCP_DBL>& outdata,
+    USI Eval_All(const USI&       j,
+                 const OCP_DBL&   val,
+                 vector<OCP_DBL>& outdata,
                  vector<OCP_DBL>& slope);
 
     /// interpolate the specified monotonically increasing column in table to evaluate
-    /// all columns, j = 0 here and index of returnning date begins from 1
+    /// all columns, j = 0 here and index of returning date begins from 1
     USI Eval_All0(const OCP_DBL& val, vector<OCP_DBL>& outdata);
 
     /// interpolate the specified monotonically increasing column in table to evaluate

@@ -37,13 +37,13 @@ public:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 private:
-    USI           method = FIM;
-    LinearSystem  LSolver;
-    LinearSystem  auxLSolver;
-    IsoT_IMPEC     impec;
-    IsoT_FIM       fim;
-    IsoT_FIMn      fim_n;
-    IsoT_AIMc      aimc;
+    USI          method = FIM;
+    LinearSystem LSolver;
+    LinearSystem auxLSolver;
+    IsoT_IMPEC   impec;
+    IsoT_FIM     fim;
+    IsoT_FIMn    fim_n;
+    IsoT_AIMc    aimc;
 };
 
 #endif /* end if __ISOTHERMALSOLVER_HEADER__ */

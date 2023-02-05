@@ -19,14 +19,12 @@
 #include "UtilOutput.hpp"
 #include "UtilTiming.hpp"
 
-
 class IsothermalMethod
 {
 public:
     void InitRock(Bulk& bk) const;
     void CalRock(Bulk& bk) const;
 };
-
 
 /// IsoT_IMPEC is IMPEC (implicit pressure explict saturation) method.
 class IsoT_IMPEC : virtual public IsothermalMethod
@@ -46,7 +44,7 @@ public:
     OCP_BOOL UpdateProperty(Reservoir& rs, OCPControl& ctrl);
     /// Determine if NR iteration finishes.
     OCP_BOOL FinishNR(const Reservoir& rs);
-    void FinishStep(Reservoir& rs, OCPControl& ctrl);
+    void     FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 protected:
     /// Perform Flash with Sj and calculate values needed for FIM
@@ -60,7 +58,8 @@ private:
     /// Allocate memory for reservoir
     void AllocateReservoir(Reservoir& rs);
     /// Allocate memory for linear system
-    void AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl);
+    void
+    AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl);
     /// Perform Flash with Ni and calculate values needed for FIM
     void CalFlash(Bulk& bk);
     /// Calculate flux between bulks and wells
@@ -69,14 +68,22 @@ private:
     void CalBulkFlux(Reservoir& rs) const;
     /// Update mole composition of each bulk according to mass conservation for IMPEC
     void MassConserve(Reservoir& rs, const OCP_DBL& dt) const;
-    /// Assemble linear system for bulks 
-    void AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    /// Assemble linear system for bulks
+    void
+    AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Assemble linear system for wells
-    void AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Assemble linear system for injection wells
-    void AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatInjWells(LinearSystem&  ls,
+                             const Bulk&    bk,
+                             const Well&    wl,
+                             const OCP_DBL& dt) const;
     /// Assemble linear system for production wells
-    void AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatProdWells(LinearSystem&  ls,
+                              const Bulk&    bk,
+                              const Well&    wl,
+                              const OCP_DBL& dt) const;
     /// Update P, Pj, BHP after linear system is solved
     void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u);
     /// Reset variables to last time step
@@ -112,7 +119,8 @@ protected:
     /// Allocate memory for reservoir
     void AllocateReservoir(Reservoir& rs);
     /// Allocate memory for linear system
-    void AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl);
+    void
+    AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl);
     /// Pass value needed for FIM from flash to bulk
     void PassFlashValue(Bulk& bk, const OCP_USI& n) const;
     /// Calculate relative permeability and capillary pressure needed for FIM
@@ -120,34 +128,52 @@ protected:
     /// Calculate residual
     void CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes0) const;
     /// Assemble linear system for wells
-    void AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
-    void AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Reset variables to last time step
     void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for FIM.
     void UpdateLastTimeStep(Reservoir& rs) const;
 
-private: 
+private:
     /// Perform Flash with Sj and calculate values needed for FIM
     void InitFlash(Bulk& bk) const;
     /// Perform Flash with Ni and calculate values needed for FIM
     void CalFlash(Bulk& bk);
     /// Assemble linear system for bulks
-    void AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Assemble linear system for injection wells
-    void AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatInjWells(LinearSystem&  ls,
+                             const Bulk&    bk,
+                             const Well&    wl,
+                             const OCP_DBL& dt) const;
     /// Assemble linear system for production wells
-    void AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatProdWells(LinearSystem&  ls,
+                              const Bulk&    bk,
+                              const Well&    wl,
+                              const OCP_DBL& dt) const;
     /// Assemble linear system for bulks
-    void AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
-    void AssembleMatBulksNewS(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void AssembleMatBulksNewS(LinearSystem&    ls,
+                              const Reservoir& rs,
+                              const OCP_DBL&   dt) const;
     /// Assemble linear system for injection wells
-    void AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatInjWellsNew(LinearSystem&  ls,
+                                const Bulk&    bk,
+                                const Well&    wl,
+                                const OCP_DBL& dt) const;
     /// Assemble linear system for production wells
-    void AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatProdWellsNew(LinearSystem&  ls,
+                                 const Bulk&    bk,
+                                 const Well&    wl,
+                                 const OCP_DBL& dt) const;
     /// Update P, Ni, BHP after linear system is solved
-    void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
-    
+    void
+    GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
 };
 
 class IsoT_FIMn : protected IsoT_FIM
@@ -180,20 +206,28 @@ protected:
     /// Pass value needed for FIMn from flash to bulk
     void PassFlashValue(Bulk& bk, const OCP_USI& n) const;
     /// Assemble linear system for bulks
-    void AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Assemble linear system for wells
-    void AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    void
+    AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Assemble linear system for injection wells
-    void AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatInjWellsNew(LinearSystem&  ls,
+                                const Bulk&    bk,
+                                const Well&    wl,
+                                const OCP_DBL& dt) const;
     /// Assemble linear system for production wells
-    void AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const;
+    void AssembleMatProdWellsNew(LinearSystem&  ls,
+                                 const Bulk&    bk,
+                                 const Well&    wl,
+                                 const OCP_DBL& dt) const;
     /// Update P, Ni, BHP after linear system is solved
-    void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
+    void
+    GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
     /// Reset variables to last time step
     void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for FIMn
     void UpdateLastTimeStep(Reservoir& rs) const;
-
 };
 
 class IsoT_AIMc : protected IsoT_IMPEC, protected IsoT_FIM
@@ -227,21 +261,22 @@ protected:
     void CalFlashEa(Bulk& bk);
     /// Perform flash calculation with Ni for Implicit bulk
     void CalFlashI(Bulk& bk);
-    /// Pass flash value needed for Explicit bulk -- Update partial properties 
+    /// Pass flash value needed for Explicit bulk -- Update partial properties
     void PassFlashValueEp(Bulk& bk, const OCP_USI& n);
     /// Calculate relative permeability and capillary pressure for Explicit bulk
     void CalKrPcE(Bulk& bk);
     /// Calculate relative permeability and capillary pressure for Implicit bulk
     void CalKrPcI(Bulk& bk);
-    /// Assemble linear system for bulks 
-    void AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
+    /// Assemble linear system for bulks
+    void
+    AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const;
     /// Update P, Ni, BHP after linear system is solved
-    void GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
+    void
+    GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const;
     /// Reset variables to last time step
     void ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl);
     /// Update values of last step for AIMc.
     void UpdateLastTimeStep(Reservoir& rs) const;
-
 };
 
 #endif /* end if __OCPFLUIDMETHOD_HEADER__ */

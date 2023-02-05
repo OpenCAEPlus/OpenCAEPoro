@@ -20,12 +20,12 @@
 #include "UtilError.hpp"
 
 // Build-in data type
-typedef unsigned int       USI;     ///< Generic unsigned integer
-typedef unsigned long long OCP_ULL; ///< Long long unsigned integer
-typedef unsigned int       OCP_USI; ///< Long unsigned integer
-typedef int                OCP_INT; ///< Long integer
-typedef double             OCP_DBL; ///< Double precision
-typedef float              OCP_SIN; ///< Single precision
+typedef unsigned int       USI;      ///< Generic unsigned integer
+typedef unsigned long long OCP_ULL;  ///< Long long unsigned integer
+typedef unsigned int       OCP_USI;  ///< Long unsigned integer
+typedef int                OCP_INT;  ///< Long integer
+typedef double             OCP_DBL;  ///< Double precision
+typedef float              OCP_SIN;  ///< Single precision
 typedef unsigned int       OCP_BOOL; ///< OCP_BOOL in OCP
 
 // General error type
@@ -34,11 +34,11 @@ const int OCP_ERROR_NUM_INPUT = -1;   ///< Wrong number of input param
 const int OCP_ERROR           = -100; ///< Unidentified error
 
 // General consts
-const OCP_DBL GAS_CONSTANT = 10.73159;    ///< Gas Constant
-const OCP_DBL TINY         = 1E-8;        ///< Small constant
-const OCP_DBL PI           = 3.141592653; ///< Pi
-const OCP_BOOL OCP_TRUE =  1;
-const OCP_BOOL OCP_FALSE = 0;
+const OCP_DBL  GAS_CONSTANT = 10.73159;    ///< Gas Constant
+const OCP_DBL  TINY         = 1E-8;        ///< Small constant
+const OCP_DBL  PI           = 3.141592653; ///< Pi
+const OCP_BOOL OCP_TRUE     = 1;
+const OCP_BOOL OCP_FALSE    = 0;
 
 // Control consts
 const OCP_DBL MAX_TIME_STEP     = 365.0; ///< Maximal time stepsize
@@ -54,18 +54,18 @@ const OCP_DBL TARGET_DS         = 0.01;  ///< Target saturation change
 
 // Physical consts
 const OCP_DBL GRAVITY_FACTOR  = 0.00694444; ///< 0.00694444 ft2 psi / lb
-const OCP_DBL RHOW_STD        = 62.3664;    ///< The density of water at surface conditions: lb/ft3
-const OCP_DBL RHOAIR_STD      = 0.076362;   ///< The density of air at surface conditions : lb/ft3
+const OCP_DBL RHOW_STD        = 62.3664;    ///< Water density at surface cond: lb/ft3
+const OCP_DBL RHOAIR_STD      = 0.076362;   ///< Air density at surface cond : lb/ft3
 const OCP_DBL PRESSURE_STD    = 14.7;       ///< 14.6959 psia = 1 atm
-const OCP_DBL TEMPERATURE_STD = 60;			///< Standard temperature: ¡ãF
+const OCP_DBL TEMPERATURE_STD = 60;         ///< Standard temperature: F
 
 // Unit conversion consts
-const OCP_DBL CONV1 = 5.61458;    ///< 1 bbl = CONV1 ft3
-const OCP_DBL CONV2 = 1.12712E-3; ///< Darcy constant in field unit
-const OCP_DBL CONV3 = 0.45359237; ///< 1 lb = CONV3 kg
-const OCP_DBL CONV4 = 0.02831685; ///< 1 ft3 = CONV4 m3
-const OCP_DBL CONV5 = 459.67;	  ///< 0 F = CONV5 R
-const OCP_DBL CONV6 = 778.172448; ///<
+const OCP_DBL CONV1 = 5.61458;               ///< 1 bbl = CONV1 ft3
+const OCP_DBL CONV2 = 1.12712E-3;            ///< Darcy constant in field unit
+const OCP_DBL CONV3 = 0.45359237;            ///< 1 lb = CONV3 kg
+const OCP_DBL CONV4 = 0.02831685;            ///< 1 ft3 = CONV4 m3
+const OCP_DBL CONV5 = 459.67;                ///< 0 F = CONV5 R
+const OCP_DBL CONV6 = 778.172448;            ///<
 const OCP_DBL CONV7 = CONV3 / (CONV4 * 1E3); ///< lbm/ft3 -> gm-M/cc
 
 // Model Type
@@ -94,14 +94,14 @@ const USI WATER   = 2; ///< Fluid type = water
 const USI SOLVENT = 3; ///< Fluid type = solvent
 
 // Mixture types
-const USI BLKOIL		= 10; ///< Mixture model = black-oil
-const USI BLKOIL_W		= 11; ///< black oil model only with water
-const USI BLKOIL_OW		= 12; ///< black oil model with oil and water
-const USI BLKOIL_OG		= 13; ///< black oil model with oil and gas
-const USI BLKOIL_DOGW	= 14; ///< black oil model with dead oil, dry gas, water
-const USI BLKOIL_ODGW	= 15; ///< black oil model with live oil, dry gas, water
-const USI EOS_PVTW		= 20; ///< Mixture model = equation-of-state
-const USI THERMAL		= 30; ///< Mixture model = ifThermal
+const USI BLKOIL      = 10; ///< Mixture model = black-oil
+const USI BLKOIL_W    = 11; ///< black oil model only with water
+const USI BLKOIL_OW   = 12; ///< black oil model with oil and water
+const USI BLKOIL_OG   = 13; ///< black oil model with oil and gas
+const USI BLKOIL_DOGW = 14; ///< black oil model with dead oil, dry gas, water
+const USI BLKOIL_ODGW = 15; ///< black oil model with live oil, dry gas, water
+const USI EOS_PVTW    = 20; ///< Mixture model = equation-of-state
+const USI THERMAL     = 30; ///< Mixture model = ifThermal
 
 // EoS models
 const USI EOS_PR  = 1; ///< EoS model = PR
@@ -119,10 +119,10 @@ const USI PHASE_ODGW02          = 52;  ///< Phase type = oil-dry gas-water
 const USI PHASE_ODGW01_MISCIBLE = 511; ///< Phase type = oil-dry gas-water
 
 // Well params
-const USI  INJ        = 1;     ///< Well type = injector
-const USI  PROD       = 2;     ///< Well type = producer
-const USI  HORIZONTAL = 1;     ///< Well type = horizontal
-const USI  VERTICAL   = 2;     ///< Well type = vectical
+const USI      INJ        = 1;         ///< Well type = injector
+const USI      PROD       = 2;         ///< Well type = producer
+const USI      HORIZONTAL = 1;         ///< Well type = horizontal
+const USI      VERTICAL   = 2;         ///< Well type = vertical
 const OCP_BOOL OPEN       = OCP_TRUE;  ///< Well type = open
 const OCP_BOOL CLOSE      = OCP_FALSE; ///< Well type = closed
 
@@ -138,8 +138,6 @@ const USI BHP_MODE   = 6; ///< Well option = fixed bottom-hole-pressure
 const USI X_DIRECTION = 1; ///< x-direction
 const USI Y_DIRECTION = 2; ///< y-direction
 const USI Z_DIRECTION = 3; ///< z-direction
-
-
 
 #endif // __OPENCAEPORO_CONSTS_HEADER__
 

@@ -13,13 +13,12 @@
 #define __RESERVOIR_HEADER__
 
 // OpenCAEPoro header files
-#include "ParamRead.hpp"
 #include "AllWells.hpp"
-#include "Grid.hpp"
 #include "Bulk.hpp"
 #include "BulkConn.hpp"
+#include "Grid.hpp"
 #include "OptionalFeatures.hpp"
-
+#include "ParamRead.hpp"
 
 /// Reservoir is the core component in our simulator, it contains the all reservoir
 /// information, and all operations on it.
@@ -68,15 +67,13 @@ public:
     /// Return the num of Well
     USI GetWellNum() const { return allWells.GetWellNum(); }
     /// Return the num of Components
-    USI  GetComNum() const { return bulk.GetComNum(); }
-
+    USI GetComNum() const { return bulk.GetComNum(); }
 
 protected:
-
-    Grid     grid;     ///< Init Grid info.
-    Bulk     bulk;     ///< Active grid info.
-    AllWells allWells; ///< Wells class info.
-    BulkConn conn;     ///< Bulk's connection info.
+    Grid             grid;        ///< Init Grid info.
+    Bulk             bulk;        ///< Active grid info.
+    AllWells         allWells;    ///< Wells class info.
+    BulkConn         conn;        ///< Bulk's connection info.
     OptionalFeatures optFeatures; ///< optional features.
 
 public:
@@ -89,8 +86,7 @@ public:
     /// Return NRdNmax
     OCP_DBL GetNRdNmax() { return bulk.GetNRdNmax(); }
     void    PrintSolFIM(const string& outfile) const;
-    void OutInfoFinal() const { bulk.OutMixtureIters(); }
-
+    void    OutInfoFinal() const { bulk.OutMixtureIters(); }
 };
 
 #endif /* end if __RESERVOIR_HEADER__ */

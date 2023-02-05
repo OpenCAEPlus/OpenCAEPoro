@@ -22,7 +22,7 @@
 #include "UtilInput.hpp"
 
 /// Tuning is a set of param of control, which contains three main parts
-/// 1. Timestepping controls.
+/// 1. Time stepping controls.
 /// 2. Time truncation and convergence controls.
 /// 3. Newton and linear iterations controls.
 /// But most of these have not been applied to current program.
@@ -41,7 +41,7 @@ public:
 
 /// ParamControl contains the param referred to control of simulation, for example,
 /// which discrete method will be used, which linear solve file will be used, how will
-/// the timestep change.
+/// the time step change.
 class ParamControl
 {
 public:

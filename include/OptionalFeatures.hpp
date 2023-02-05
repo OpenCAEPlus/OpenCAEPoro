@@ -12,13 +12,10 @@
 #ifndef __OPTIONALFEATURES_HEADER__
 #define __OPTIONALFEATURES_HEADER__
 
-
-
 #include "AcceleratePVT.hpp"
 #include "PhasePermeability.hpp"
 
-
-class OptionalFeatures 
+class OptionalFeatures
 {
     friend class MixtureComp;
     friend class FlowUnit_ODGW01_Miscible;
@@ -27,43 +24,38 @@ class OptionalFeatures
     friend class Out4RPT;
 
 public:
-    void InputParam(const ParamReservoir& param) {
+    void InputParam(const ParamReservoir& param)
+    {
         miscible.InputParam(param.miscstr);
     };
-    void ResetToLastTimeStep() {
+    void ResetToLastTimeStep()
+    {
         skipStaAnaly.ResetToLastTimeStep();
         miscible.ResetTolastTimeStep();
     }
-    void UpdateLastTimeStep() {
+    void UpdateLastTimeStep()
+    {
         skipStaAnaly.UpdateLastTimeStep();
         miscible.UpdateLastTimeStep();
     }
-
 
     /////////////////////////////////////////////////////////////////////
     // Accelerate PVT
     /////////////////////////////////////////////////////////////////////
 
 protected:
-    SkipStaAnaly skipStaAnaly;  ///< Skip Stablity Analysis term
-
+    SkipStaAnaly skipStaAnaly; ///< Skip Stability Analysis term
 
     /////////////////////////////////////////////////////////////////////
     // Phase Permeability Curve
     /////////////////////////////////////////////////////////////////////
 
 protected:
-
-    Miscible  miscible;         ///< Miscible term for Compositional Model
-    ScalePcow scalePcow;        ///< Scale water-oil capiliary pressure term
+    Miscible  miscible;  ///< Miscible term for Compositional Model
+    ScalePcow scalePcow; ///< Scale water-oil capillary pressure term
 };
 
-
-
-
-
 #endif /* end if __OptionalFeatures_HEADER__ */
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

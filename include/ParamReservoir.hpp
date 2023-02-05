@@ -49,36 +49,38 @@ public:
 class HLoss
 {
 public:
-    OCP_BOOL  ifHLoss{ OCP_FALSE }; ///< If use Heat loss
-    OCP_DBL   obC;                  ///< Volumetric heat capacity of overburden rock
-    OCP_DBL   obK;                  ///< Thermal conductivity of overburden rock
-    OCP_DBL   ubC;                  ///< Volumetric heat capacity of underburden rock
-    OCP_DBL   ubK;                  ///< Thermal conductivity of underburden rock
+    OCP_BOOL ifHLoss{OCP_FALSE}; ///< If use Heat loss
+    OCP_DBL  obC;                ///< Volumetric heat capacity of overburden rock
+    OCP_DBL  obK;                ///< Thermal conductivity of overburden rock
+    OCP_DBL  ubC;                ///< Volumetric heat capacity of underburden rock
+    OCP_DBL  ubK;                ///< Thermal conductivity of underburden rock
 };
 
 /// RockParam class contains information about the keyword ROCK.
 class RockParam
 {
 public:
-    string  type{"LINEAR"}; ///< LINEAR or EXPONENT for porosity model
-    OCP_DBL Pref{ 14.7 }; ///< Reference pressure at initial porosity.
-    OCP_DBL Tref{ 60 };   ///< Reference temperature at initial porosity.
-    OCP_DBL cp1{ 3.406E-6 };   ///< Compressibility factor of rock in reservoir.
-    OCP_DBL cp2{ 0 };               ///< 2 order Compressibility factor of rock in reservoir.
-    OCP_DBL ct{ 0 };   ///< Expansion factor of rock in reservoir, ifThermal only
-    OCP_DBL cpt{ 0 };  ///< cross items, ifThermal only
-    OCP_BOOL ConstRock{ OCP_TRUE }; ///< if true, rock volume remains const, else, bulk volume remains const 
-    OCP_DBL  HCP1{ 35 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
-    OCP_DBL  HCP2{ 0 };     ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
+    string   type{"LINEAR"}; ///< LINEAR or EXPONENT for porosity model
+    OCP_DBL  Pref{14.7};     ///< Reference pressure at initial porosity.
+    OCP_DBL  Tref{60};       ///< Reference temperature at initial porosity.
+    OCP_DBL  cp1{3.406E-6};  ///< Compressibility factor of rock in reservoir.
+    OCP_DBL  cp2{0};         ///< 2 order Compressibility factor of rock in reservoir.
+    OCP_DBL  ct{0};          ///< Expansion factor of rock in reservoir, ifThermal only
+    OCP_DBL  cpt{0};         ///< cross items, ifThermal only
+    OCP_BOOL ConstRock{OCP_TRUE}; ///< if true, rock volume remains const, else, bulk
+                                  ///< volume remains const
+    OCP_DBL HCP1{35}; ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
+    OCP_DBL HCP2{0};  ///< coefficients of the rock enthalpy formula, Btu/ft^3 - F
 };
 
 /// A internal structure used to store some params for reservoir, it can tell
 /// if these params are given by users.
-template <typename T> class Type_A_r
+template <typename T>
+class Type_A_r
 {
 public:
-    OCP_BOOL      activity{OCP_FALSE}; ///< If OCP_FALSE, this param is not given.
-    vector<T> data;            ///< Data of param.
+    OCP_BOOL  activity{OCP_FALSE}; ///< If OCP_FALSE, this param is not given.
+    vector<T> data;                ///< Data of param.
 };
 
 /// ComponentParam contains information of components
@@ -89,7 +91,7 @@ public:
     /// Init Params
     void Init();
     /// Input the information of hydrocarbon components
-    void InputCOMPONENTS(ifstream& ifs, const string& keyword);   
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword);
     /// Find corresponding variable according to the name of variable.
     /// It is used for the basic properties of hydrocarbon components such as TCRIT
     Type_A_r<vector<OCP_DBL>>* FindPtr01(const string& varName);
@@ -113,54 +115,75 @@ public:
     void InputRR(ifstream& ifs);
 
 public:
-    USI NTPVT{1}; ///< num of EoS region, constant now.
-    USI numCom{0};  ///< num of components, water is excluded.
-    USI numPhase{2}; ///< num of phase, water is excluded, constant now.
-    vector<string> Cname; ///< Name of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> Tc; ///< Critical temperature of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> Pc; ///< Critical pressure of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> Vc; ///< Critical volume of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> Zc; ///< Critical Z-factor of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> MW; ///< Molecular Weight of hydrocarbon components
+    USI            NTPVT{1};       ///< num of EoS region, constant now.
+    USI            numCom{0};      ///< num of components, water is excluded.
+    USI            numPhase{2};    ///< num of phase, water is excluded, constant now.
+    vector<string> Cname;          ///< Name of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Tc;  ///< Critical temperature of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Pc;  ///< Critical pressure of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Vc;  ///< Critical volume of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Zc;  ///< Critical Z-factor of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> MW;  ///< Molecular Weight of hydrocarbon components
     Type_A_r<vector<OCP_DBL>> Acf; ///< Acentric factor of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> OmegaA; ///< OMEGA_A of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> OmegaB; ///< OMEGA_B of hydrocarbon components
-    Type_A_r<vector<OCP_DBL>> Vshift; ///< Volume shift of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> OmegaA;   ///< OMEGA_A of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> OmegaB;   ///< OMEGA_B of hydrocarbon components
+    Type_A_r<vector<OCP_DBL>> Vshift;   ///< Volume shift of hydrocarbon components
     Type_A_r<vector<OCP_DBL>> Parachor; ///< PARACHOR of hydrocarbon components
     // for viscosity calculation
-    Type_A_r<vector<OCP_DBL>> Vcvis; ///< Critical volume used for viscosity calculations only.
-    Type_A_r<vector<OCP_DBL>> Zcvis; ///< Critical Z-factor used for viscosity calculations only.
-    vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
+    Type_A_r<vector<OCP_DBL>>
+        Vcvis; ///< Critical volume used for viscosity calculations only.
+    Type_A_r<vector<OCP_DBL>>
+                    Zcvis; ///< Critical Z-factor used for viscosity calculations only.
+    vector<OCP_DBL> LBCcoef;     ///< LBC coefficients for viscosity calculation
     vector<vector<OCP_DBL>> BIC; ///< Binary interaction
     // ifThermal only
-    Type_A_r<vector<OCP_DBL>>   molden; ///< component molar density at reference temperature and reference pressure, lb/ft3
-    Type_A_r<vector<OCP_DBL>>   cp;     ///< component compressibility, 1/psi
-    Type_A_r<vector<OCP_DBL>>   ct1;    ///< the first ifThermal expansion coefficient, 1/F
-    Type_A_r<vector<OCP_DBL>>   ct2;    ///< the second ifThermal expansion coefficient, 1/F
-    Type_A_r<vector<OCP_DBL>>   cpt;    ///< the coefficient of density dependence on temperature and pressure, 1/psi-F
-    Type_A_r<vector<OCP_DBL>>   cpl1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
-    Type_A_r<vector<OCP_DBL>>   cpl2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
-    Type_A_r<vector<OCP_DBL>>   cpl3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
-    Type_A_r<vector<OCP_DBL>>   cpl4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
-    Type_A_r<vector<OCP_DBL>>   cpg1;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F
-    Type_A_r<vector<OCP_DBL>>   cpg2;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^2
-    Type_A_r<vector<OCP_DBL>>   cpg3;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^3
-    Type_A_r<vector<OCP_DBL>>   cpg4;   ///< coefficients in the component liquid enthalpy calculations, Btu/lbmol/F^4
-    Type_A_r<vector<OCP_DBL>>   hvapr;  ///< coefficients in the component gas enthalpy calculations, Btu/lbmol
-    Type_A_r<vector<OCP_DBL>>   hvr;    ///< coefficients in the vaporization enthalpy calculations
-    Type_A_r<vector<OCP_DBL>>   ev;     ///< coefficients in the vaporization enthalpy calculations
-    Type_A_r<vector<OCP_DBL>>   avisc;  ///< coefficients in water and oil viscosity correlation formulae
-    Type_A_r<vector<OCP_DBL>>   bvisc;  ///< coefficients in water and oil viscosity correlation formulae
-    Type_A_r<vector<OCP_DBL>>   avg;    ///< coefficients Ak in gas viscosity correlation formulae
-    Type_A_r<vector<OCP_DBL>>   bvg;    ///< coefficients Bk in gas viscosity correlation formulae
-    /// viscosity-versus-temperature dependence,  This table can specify the viscosity-versus-temperature-pressure dependence.
-    TableSet                    viscTab; 
+    Type_A_r<vector<OCP_DBL>> molden; ///< component molar density at reference
+                                      ///< temperature and reference pressure, lb/ft3
+    Type_A_r<vector<OCP_DBL>> cp;     ///< component compressibility, 1/psi
+    Type_A_r<vector<OCP_DBL>> ct1;  ///< the first ifThermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>> ct2;  ///< the second ifThermal expansion coefficient, 1/F
+    Type_A_r<vector<OCP_DBL>> cpt;  ///< the coefficient of density dependence on
+                                    ///< temperature and pressure, 1/psi-F
+    Type_A_r<vector<OCP_DBL>> cpl1; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F
+    Type_A_r<vector<OCP_DBL>> cpl2; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^2
+    Type_A_r<vector<OCP_DBL>> cpl3; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^3
+    Type_A_r<vector<OCP_DBL>> cpl4; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^4
+    Type_A_r<vector<OCP_DBL>> cpg1; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F
+    Type_A_r<vector<OCP_DBL>> cpg2; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^2
+    Type_A_r<vector<OCP_DBL>> cpg3; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^3
+    Type_A_r<vector<OCP_DBL>> cpg4; ///< coefficients in the component liquid enthalpy
+                                    ///< calculations, Btu/lbmol/F^4
+    Type_A_r<vector<OCP_DBL>>
+        hvapr; ///< coefficients in the component gas enthalpy calculations, Btu/lbmol
+    Type_A_r<vector<OCP_DBL>>
+        hvr; ///< coefficients in the vaporization enthalpy calculations
+    Type_A_r<vector<OCP_DBL>>
+        ev; ///< coefficients in the vaporization enthalpy calculations
+    Type_A_r<vector<OCP_DBL>>
+        avisc; ///< coefficients in water and oil viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>
+        bvisc; ///< coefficients in water and oil viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>
+        avg; ///< coefficients Ak in gas viscosity correlation formulae
+    Type_A_r<vector<OCP_DBL>>
+        bvg; ///< coefficients Bk in gas viscosity correlation formulae
+    /// viscosity-versus-temperature dependence,  This table can specify the
+    /// viscosity-versus-temperature-pressure dependence.
+    TableSet viscTab;
 
-    vector<OCP_DBL>             Pref;   ///< reference pressure
-    vector<OCP_DBL>             Tref;   ///< reference temperature
+    vector<OCP_DBL> Pref; ///< reference pressure
+    vector<OCP_DBL> Tref; ///< reference temperature
 
     // Miscibility
-    OCP_BOOL miscible{OCP_FALSE}; ///< Miscible treatment of hydrocarbons, used in compositional Model.
+    OCP_BOOL miscible{OCP_FALSE}; ///< Miscible treatment of hydrocarbons, used in
+                                  ///< compositional Model.
 
     vector<string> SSMparamSTA; ///< Params for Solving Phase Spliting with SSM
     vector<string> NRparamSTA;  ///< Params for Solving Phase Spliting with NR
@@ -173,9 +196,10 @@ class Miscstr
 {
 public:
     vector<OCP_DBL> surTenRef;
-    // 0th entry: reference surface tension - flow is immiscible when the surface tension is greater than or equal to this value.
-    // 1th entry: maximum surface tension expected, it should be greater than surTenRef.
-    // 2th entry: maximum surface tension used to scale the input capillary pressure curves.
+    // 0th entry: reference surface tension - flow is immiscible when the surface
+    // tension is greater than or equal to this value. 1th entry: maximum surface
+    // tension expected, it should be greater than surTenRef. 2th entry: maximum surface
+    // tension used to scale the input capillary pressure curves.
 };
 
 /// ParamReservoir is an internal structure used to stores the information of
@@ -200,29 +224,29 @@ public:
     vector<OCP_DBL> zcorn; ///< TODO: Add Doxygen.
 
     // RockParam
-    vector<OCP_DBL> ntg;    ///< Net to gross for each grid.
-    vector<OCP_DBL> poro;   ///< Porosity for each grid.
-    vector<OCP_DBL> permX;  ///< Permeability along the x - direction for each grid.
-    vector<OCP_DBL> permY;  ///< Permeability along the y-direction for each grid.
-    vector<OCP_DBL> permZ;  ///< Permeability along the z-direction for each grid.
-    vector<OCP_DBL> thconr; ///< Rock ifThermal conductivity.
-    OCP_DBL         rsTemp; ///< Temperature for reservoir.
+    vector<OCP_DBL>   ntg;     ///< Net to gross for each grid.
+    vector<OCP_DBL>   poro;    ///< Porosity for each grid.
+    vector<OCP_DBL>   permX;   ///< Permeability along the x - direction for each grid.
+    vector<OCP_DBL>   permY;   ///< Permeability along the y-direction for each grid.
+    vector<OCP_DBL>   permZ;   ///< Permeability along the z-direction for each grid.
+    vector<OCP_DBL>   thconr;  ///< Rock ifThermal conductivity.
+    OCP_DBL           rsTemp;  ///< Temperature for reservoir.
     vector<RockParam> rockSet; ///< a set of rock
     HLoss             hLoss;   ///< Heat loss property
-    Miscstr miscstr; ///< reference Miscibility surface tension
+    Miscstr           miscstr; ///< reference Miscibility surface tension
 
     // If P and Ni are given, then calculation of initial equilibration is unneeded.
-    vector<OCP_DBL> P;  ///< Initial pressure of components in each grid.
-    vector<OCP_DBL> Ni; ///< Initial moles of components in each grid.
+    vector<OCP_DBL> P;    ///< Initial pressure of components in each grid.
+    vector<OCP_DBL> Ni;   ///< Initial moles of components in each grid.
     vector<OCP_DBL> Swat; ///< Initial water saturation in each grid.
-    OCP_BOOL ScalePcow{OCP_FALSE}; ///< whether Pcow should be scaled.
+    OCP_BOOL        ScalePcow{OCP_FALSE}; ///< whether Pcow should be scaled.
 
     // phase property
     Type_A_r<OCP_DBL> density; ///< Density of oil, water, gas in standard conditions.
     Type_A_r<OCP_DBL> gravity; ///< Gravity of oil, water, gas in standard conditions.
-    OCP_DBL           thcono{ 24 };  ///< oil ifThermal conductivity
-    OCP_DBL           thcong{ 24 };  ///< gas ifThermal conductivity
-    OCP_DBL           thconw{ 24 };  ///< water ifThermal conductivity
+    OCP_DBL           thcono{24}; ///< oil ifThermal conductivity
+    OCP_DBL           thcong{24}; ///< gas ifThermal conductivity
+    OCP_DBL           thconw{24}; ///< water ifThermal conductivity
 
     // Models
     OCP_BOOL blackOil{OCP_FALSE}; ///< If ture, blackoil model will be used.
@@ -231,7 +255,7 @@ public:
     OCP_BOOL oil{OCP_FALSE};      ///< If OCP_TRUE, oil phase could exist.
     OCP_BOOL gas{OCP_FALSE};      ///< If OCP_TRUE, gas phase could exist.
     OCP_BOOL water{OCP_FALSE};    ///< If OCP_TRUE, water phase could exist.
-    OCP_BOOL disGas{OCP_FALSE};   ///< If OCP_TRUE, dissolve gas could exist in oil phase.
+    OCP_BOOL disGas{OCP_FALSE}; ///< If OCP_TRUE, dissolve gas could exist in oil phase.
 
     ComponentParam comsParam; ///< information for components
 
@@ -245,25 +269,25 @@ public:
     Type_A_r<OCP_DBL> ROCKNUM;   ///< Records the index of ROCK region for each grid.
 
     // Saturation tables & bubble point pressure
-    TableSet        SWFN_T; ///< Table set of SWFN.
-    TableSet        SWOF_T; ///< Table set of SWOF.
-    TableSet        SGFN_T; ///< Table set of SGFN.
-    TableSet        SGOF_T; ///< Table set of SGOF.
-    TableSet        SOF3_T; ///< Table set of SOF3.
-    TableSet        PBVD_T; ///< Table set of PBVD.
+    TableSet SWFN_T; ///< Table set of SWFN.
+    TableSet SWOF_T; ///< Table set of SWOF.
+    TableSet SGFN_T; ///< Table set of SGFN.
+    TableSet SGOF_T; ///< Table set of SGOF.
+    TableSet SOF3_T; ///< Table set of SOF3.
+    TableSet PBVD_T; ///< Table set of PBVD.
     // initial zi vs depth
-    TableSet        ZMFVD_T;    ///< Table set of ZMFVD
-    TableSet        TEMPVD_T;   ///< Table set of TEMPVD
-    vector<OCP_DBL> EQUIL;  ///< See ParamEQUIL.
+    TableSet        ZMFVD_T;  ///< Table set of ZMFVD
+    TableSet        TEMPVD_T; ///< Table set of TEMPVD
+    vector<OCP_DBL> EQUIL;    ///< See ParamEQUIL.
 
     // PVT properties
-    USI      numPhase;  ///< Number of phases
-    USI      numCom;    ///< Number of components(hydrocarbon components), used in Compositional Model when input
-    TableSet PVCO_T;    ///< Table set of PVCO.
-    TableSet PVDO_T;    ///< Table set of PVDO.
-    TableSet PVDG_T;    ///< Table set of PVDG.
-    TableSet PVTW_T;    ///< Table set of PVTW.
-
+    USI numPhase; ///< Number of phases
+    USI numCom; ///< Number of components(hydrocarbon components), used in Compositional
+                ///< Model when input
+    TableSet PVCO_T; ///< Table set of PVCO.
+    TableSet PVDO_T; ///< Table set of PVDO.
+    TableSet PVDG_T; ///< Table set of PVDG.
+    TableSet PVTW_T; ///< Table set of PVTW.
 
     /// Find corresponding variable according to the name of variable.
     /// It is used for the basic properties of reservoir such as DX.
@@ -289,8 +313,8 @@ public:
 
     /// It's used in InputMULTIPLY, multipling the value of a certain range of a
     /// variable by a coefficient.
-    void MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val,
-                     const vector<USI>& index);
+    void
+    MultiplyVal(vector<OCP_DBL>& obj, const OCP_DBL& val, const vector<USI>& index);
 
     /// Input the keyword: COMPS. COMPS is used in compositional model, which gives the
     /// num of components.
@@ -358,12 +382,17 @@ public:
     // Input ComponentParam
     // Basic params
     void InputCNAMES(ifstream& ifs) { comsParam.InputCNAMES(ifs); };
-    void InputCOMPONENTS(ifstream& ifs, const string& keyword) { comsParam.InputCOMPONENTS(ifs, keyword); }
+    void InputCOMPONENTS(ifstream& ifs, const string& keyword)
+    {
+        comsParam.InputCOMPONENTS(ifs, keyword);
+    }
     void InputLBCCOEF(ifstream& ifs) { comsParam.InputLBCCOEF(ifs); }
     void InputBIC(ifstream& ifs) { comsParam.InputBIC(ifs); };
     void InputVISCTAB(ifstream& ifs) { comsParam.InputVISCTAB(ifs); }
-    void InputRefPR(ifstream& ifs, const string& keyword) { comsParam.InputRefPR(ifs, keyword); };
-
+    void InputRefPR(ifstream& ifs, const string& keyword)
+    {
+        comsParam.InputRefPR(ifs, keyword);
+    };
 
     // Method params
     void InputSSMSTA(ifstream& ifs) { comsParam.InputSSMSTA(ifs); };

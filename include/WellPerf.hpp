@@ -27,7 +27,7 @@ class Perforation
     friend class Out4RPT;
 
 public:
-    /// Default constuctor.
+    /// Default constructor.
     Perforation() = default;
 
     /// Set state of perf
@@ -36,13 +36,13 @@ public:
     OCP_USI Location() const { return location; }
 
 private:
-    USI     I;        ///< I-index of Perforation in grid.
-    USI     J;        ///< J-index of Perforation in grid.
-    USI     K;        ///< K-index of Perforation in grid.
-    OCP_BOOL    state;    ///< True: perforation is open. False: perforation is close.
-    OCP_USI location; ///< Index of bulks which connects to current perforation.
-    OCP_DBL depth;    ///< Depth of bulks which connects to current perforation.
-    OCP_DBL P;        ///< Pressure in current perforation.
+    USI      I;        ///< I-index of Perforation in grid.
+    USI      J;        ///< J-index of Perforation in grid.
+    USI      K;        ///< K-index of Perforation in grid.
+    OCP_BOOL state;    ///< True: perforation is open. False: perforation is close.
+    OCP_USI  location; ///< Index of bulks which connects to current perforation.
+    OCP_DBL  depth;    ///< Depth of bulks which connects to current perforation.
+    OCP_DBL  P;        ///< Pressure in current perforation.
 
     OCP_DBL WI;     ///< Connection transmissibility factor, it can be provided directly
                     ///< from the users.

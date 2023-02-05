@@ -34,8 +34,8 @@ public:
     OCP_DBL timeInit;    ///< Max init step length of next time step
     OCP_DBL timeMax;     ///< Max time step during running
     OCP_DBL timeMin;     ///< Min time step during running
-    OCP_DBL maxIncreFac; ///< Max time step increase factor
-    OCP_DBL minChopFac;  ///< Min choppable time step ??? TODO: double check! --zcs
+    OCP_DBL maxIncreFac; ///< Max increase factor
+    OCP_DBL minChopFac;  ///< Min choppable factor
     OCP_DBL cutFacNR;    ///< Factor by which time step is cut after convergence failure
 };
 

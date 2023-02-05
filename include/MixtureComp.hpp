@@ -125,10 +125,9 @@ public:
 class MixtureComp : public Mixture
 {
 
-
 public:
     OCP_DBL GetErrorPEC() override { return ePEC; }
-    void OutMixtureIters() const override;
+    void    OutMixtureIters() const override;
 
 private:
     // total iters
@@ -169,29 +168,30 @@ public:
 
     MixtureComp(const ComponentParam& param, const USI& i);
 
-    void InitPTZ(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin) {
+    void InitPTZ(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin)
+    {
         P = Pin;
         T = Tin;
         Dcopy(NC, &zi[0], Ziin);
     }
-    void InitPTN(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) {
+    void InitPTN(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+    {
         P = Pin;
         T = Tin;
         Dcopy(numCom, &Ni[0], Niin);
         Nh = Dnorm1(NC, &Ni[0]);
-        for (USI i = 0; i < NC; i++)
-            zi[i] = Ni[i] / Nh;
+        for (USI i = 0; i < NC; i++) zi[i] = Ni[i] / Nh;
     }
 
     void Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin) override;
 
     void InitFlashIMPEC(const OCP_DBL& Pin,
-                   const OCP_DBL& Pbbin,
-                   const OCP_DBL& Tin,
-                   const OCP_DBL* Sjin,
-                   const OCP_DBL& Vpore,
-                   const OCP_DBL* Ziin,
-                   const OCP_USI& bId) override;
+                        const OCP_DBL& Pbbin,
+                        const OCP_DBL& Tin,
+                        const OCP_DBL* Sjin,
+                        const OCP_DBL& Vpore,
+                        const OCP_DBL* Ziin,
+                        const OCP_USI& bId) override;
 
     void InitFlashFIM(const OCP_DBL& Pin,
                       const OCP_DBL& Pbbin,
@@ -202,12 +202,12 @@ public:
                       const OCP_USI& bId) override;
 
     void InitFlashFIMn(const OCP_DBL& Pin,
-                        const OCP_DBL& Pbbin,
-                        const OCP_DBL& Tin,
-                        const OCP_DBL* Sjin,
-                        const OCP_DBL& Vpore,
-                        const OCP_DBL* Ziin,
-                        const OCP_USI& bId) override;
+                       const OCP_DBL& Pbbin,
+                       const OCP_DBL& Tin,
+                       const OCP_DBL* Sjin,
+                       const OCP_DBL& Vpore,
+                       const OCP_DBL* Ziin,
+                       const OCP_USI& bId) override;
 
     // ftype = 0, flash from single phase
     // ftype = 1, skip phase stability analysis and num of phase = 1
@@ -215,19 +215,19 @@ public:
     void FlashIMPEC(const OCP_DBL& Pin,
                     const OCP_DBL& Tin,
                     const OCP_DBL* Niin,
-                    const USI& lastNP,
+                    const USI&     lastNP,
                     const OCP_DBL* xijin,
                     const OCP_USI& bId) override;
 
     void CalFlash();
 
     void FlashFIM(const OCP_DBL& Pin,
-                    const OCP_DBL& Tin,
-                    const OCP_DBL* Niin,
-                    const OCP_DBL* Sjin,
-                    const USI&     lastNP,
-                    const OCP_DBL* xijin,
-                    const OCP_USI& bId) override;
+                  const OCP_DBL& Tin,
+                  const OCP_DBL* Niin,
+                  const OCP_DBL* Sjin,
+                  const USI&     lastNP,
+                  const OCP_DBL* xijin,
+                  const OCP_USI& bId) override;
 
     void FlashFIMn(const OCP_DBL& Pin,
                    const OCP_DBL& Tin,
@@ -235,27 +235,41 @@ public:
                    const OCP_DBL* Sjin,
                    const OCP_DBL* xijin,
                    const OCP_DBL* njin,
-                   const USI* phaseExistin,
-                   const USI& lastNP,
+                   const USI*     phaseExistin,
+                   const USI&     lastNP,
                    const OCP_USI& bId) override;
 
     OCP_DBL
-    XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase) override;
+    XiPhase(const OCP_DBL& Pin,
+            const OCP_DBL& Tin,
+            const OCP_DBL* Ziin,
+            const USI&     tarPhase) override;
 
     OCP_DBL
-    RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin,
-        const OCP_DBL* Ziin, const USI& tarPhase) override;
+    RhoPhase(const OCP_DBL& Pin,
+             const OCP_DBL& Pbb,
+             const OCP_DBL& Tin,
+             const OCP_DBL* Ziin,
+             const USI&     tarPhase) override;
 
     // For Well
-    void SetupWellOpt(WellOpt& opt, const vector<SolventINJ>& sols,
-        const OCP_DBL& Psurf, const OCP_DBL& Tsurf) override;
-    void CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-        const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight) override;
+    void SetupWellOpt(WellOpt&                  opt,
+                      const vector<SolventINJ>& sols,
+                      const OCP_DBL&            Psurf,
+                      const OCP_DBL&            Tsurf) override;
+    void CalProdWeight(const OCP_DBL&         Pin,
+                       const OCP_DBL&         Tin,
+                       const OCP_DBL*         Niin,
+                       const vector<OCP_DBL>& prodPhase,
+                       vector<OCP_DBL>&       prodWeight) override;
 
-    void CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-        vector<OCP_DBL>& prodRate) override;
+    void CalProdRate(const OCP_DBL&   Pin,
+                     const OCP_DBL&   Tin,
+                     const OCP_DBL*   Niin,
+                     vector<OCP_DBL>& prodRate) override;
 
-    OCP_DBL CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin) override {
+    OCP_DBL CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin) override
+    {
         OCP_ABORT("Can not be used in Compositional Model!");
     }
 
@@ -263,23 +277,21 @@ public:
 
 private:
     // Basic Components Informations
-    vector<string>  Cname;    ///< Name of hydrocarbon components
-    vector<OCP_DBL> Tc;       ///< Critical temperature of hydrocarbon components
-    vector<OCP_DBL> Pc;       ///< Critical pressure of hydrocarbon components
-    vector<OCP_DBL> Vc;       ///< Critical volume of hydrocarbon components
-    vector<OCP_DBL> MWC;      ///< Molecular Weight of hydrocarbon components
-    vector<OCP_DBL> Acf;      ///< Acentric factor of hydrocarbon components
-    vector<OCP_DBL> OmegaA;   ///< OMEGA_A of hydrocarbon components
-    vector<OCP_DBL> OmegaB;   ///< OMEGA_B of hydrocarbon components
-    vector<OCP_DBL> Vshift;   ///< Volume shift of hydrocarbon components
-    vector<OCP_DBL> Zc;       ///< Critical Z-factor of hydrocarbon components
+    vector<string>  Cname;  ///< Name of hydrocarbon components
+    vector<OCP_DBL> Tc;     ///< Critical temperature of hydrocarbon components
+    vector<OCP_DBL> Pc;     ///< Critical pressure of hydrocarbon components
+    vector<OCP_DBL> Vc;     ///< Critical volume of hydrocarbon components
+    vector<OCP_DBL> MWC;    ///< Molecular Weight of hydrocarbon components
+    vector<OCP_DBL> Acf;    ///< Acentric factor of hydrocarbon components
+    vector<OCP_DBL> OmegaA; ///< OMEGA_A of hydrocarbon components
+    vector<OCP_DBL> OmegaB; ///< OMEGA_B of hydrocarbon components
+    vector<OCP_DBL> Vshift; ///< Volume shift of hydrocarbon components
+    vector<OCP_DBL> Zc;     ///< Critical Z-factor of hydrocarbon components
     // for viscosity calculation
     vector<OCP_DBL> Vcvis;   ///< Critical volume used for viscosity calculations only
     vector<OCP_DBL> Zcvis;   ///< Critical Z-factor used for viscosity calculations only
     vector<OCP_DBL> LBCcoef; ///< LBC coefficients for viscosity calculation
     vector<OCP_DBL> BIC;     ///< Binary interaction between hydrocarbon components
-
-
 
     // Initial properties
     USI             NC;      ///< num of hydrocarbon components
@@ -291,18 +303,17 @@ private:
     USI             lId;     ///< index of lightest components
     EoScontrol      EoSctrl; ///< method params for solving phase equilibrium
 
-
     vector<OCP_DBL> Plist;
     vector<OCP_DBL> Tlist;
     vector<OCP_DBL> Ytlist;
 
 private:
-    OCPTable        PVTW;       ///< PVT table for water.
-    OCP_DBL         std_RhoW;   ///< mass density of water phase in standard condition.
-    vector<OCP_DBL> data;       ///< container used to store the results of values of
-                                ///< interpolation of PVT tables.
-    vector<OCP_DBL> cdata;      ///< container used to store the results of slopes of
-                                ///< interpolation of PVT tables.
+    OCPTable        PVTW;     ///< PVT table for water.
+    OCP_DBL         std_RhoW; ///< mass density of water phase in standard condition.
+    vector<OCP_DBL> data;     ///< container used to store the results of values of
+                              ///< interpolation of PVT tables.
+    vector<OCP_DBL> cdata;    ///< container used to store the results of slopes of
+                              ///< interpolation of PVT tables.
 
 public:
     // EoS Function
@@ -375,13 +386,13 @@ private:
         fug; ///< fug[j][i] represents the fugacity of ith comp in j-th phase
     vector<vector<OCP_DBL>>
         n; ///< n[j][i] represents the moles of ith comp in jth phase
-    vector<vector<OCP_DBL>> ln;         ///< last n in NR iterations.
-    OCP_DBL  GibbsEnergyB;              ///< Gibbs energy, before flash (not true value)
-    OCP_DBL  GibbsEnergyE;              ///< Gibbs energy, after flash (not true value)
-    vector<OCP_DBL>         xiC;        ///< Molar density of phase
-    vector<OCP_DBL>         rhoC;       ///< Mass density of phase;
-    vector<OCP_DBL>         MW;         ///< Molecular Weight
-    vector<USI>             phaseLabel; ///< Label of phase
+    vector<vector<OCP_DBL>> ln;   ///< last n in NR iterations.
+    OCP_DBL         GibbsEnergyB; ///< Gibbs energy, before flash (not true value)
+    OCP_DBL         GibbsEnergyE; ///< Gibbs energy, after flash (not true value)
+    vector<OCP_DBL> xiC;          ///< Molar density of phase
+    vector<OCP_DBL> rhoC;         ///< Mass density of phase;
+    vector<OCP_DBL> MW;           ///< Molecular Weight
+    vector<USI>     phaseLabel;   ///< Label of phase
 
 public:
     // Method Function
@@ -410,7 +421,7 @@ public:
     void     CalFugNAll(const OCP_BOOL& Znflag = OCP_TRUE);
     void     PrintFugN();
     void     AssembleJmatSP();
-    OCP_DBL CalStepNRsp();
+    OCP_DBL  CalStepNRsp();
 
 private:
     // Method Variables
@@ -523,7 +534,8 @@ private:
     vector<OCP_DBL> rhsDer;
 
     vector<OCP_DBL> vjp; ///< dvj / dp, used in 2 hydrocarbon phase in EOS
-    vector<vector<OCP_DBL>> vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij
+    vector<vector<OCP_DBL>>
+        vji; ///< dvj / dNi, used in 2 hydrocarbon phase in EOS; or dvj / dnij
     vector<OCP_DBL> xixC; ///< d xi / d xij
     vector<OCP_DBL> xiPC; ///< d xi / d P
     vector<OCP_DBL> xiNC; ///< d xi / d Nk
@@ -531,15 +543,14 @@ private:
     vector<OCP_DBL> xiN;  ///< d xi[j] / d N[i]: numphase * numCom
     vector<OCP_DBL> rhoN; ///< d rho[j] / d N[i]: numphase * numCom
 
-
-
     /////////////////////////////////////////////////////////////////////
     // Optional Features
     /////////////////////////////////////////////////////////////////////
 
 public:
-    void SetupOptionalFeatures(OptionalFeatures& optFeatures, const OCP_USI& numBulk) override;
-    
+    void SetupOptionalFeatures(OptionalFeatures& optFeatures,
+                               const OCP_USI&    numBulk) override;
+
     /////////////////////////////////////////////////////////////////////
     // Accelerate PVT
     /////////////////////////////////////////////////////////////////////
@@ -554,28 +565,26 @@ protected:
     /// Calculate skip info for next step
     void CalSkipForNextStep();
     /// Calculate Flash type for IMPEC
-    void CalFtypeIMPEC(){ 
-        ftype = skipSta->CalFtypeIMPEC(P, T, Nh, Ni, bulkId); 
-    }
+    void CalFtypeIMPEC() { ftype = skipSta->CalFtypeIMPEC(P, T, Nh, Ni, bulkId); }
     /// Calculate Flash type for FIM
-    void CalFtypeFIM(const OCP_DBL* Sjin) { 
+    void CalFtypeFIM(const OCP_DBL* Sjin)
+    {
         ftype = skipSta->CalFtypeFIM(P, T, Nh, Ni, Sjin, lNP, bulkId);
     }
 
 protected:
-    SkipStaAnaly*   skipSta;    ///< Skip analysis Term pointing to OptionalFeature 
+    SkipStaAnaly* skipSta; ///< Skip analysis Term pointing to OptionalFeature
 
-    USI             ftype{ 0 }; ///< Decide the start point of flash
-    /// If ture, then skipping could be try, 
+    USI ftype{0}; ///< Decide the start point of flash
+    /// If ture, then skipping could be try,
     //  if ftype = 0 also, then new range should be calculated
-    OCP_BOOL        flagSkip;   
+    OCP_BOOL        flagSkip;
     vector<OCP_DBL> phiN;       ///< d ln phi[i][j] / d n[k][j]
     vector<OCP_SIN> skipMatSTA; ///< matrix for skipping Stability Analysis
     /// eigen values of matrix for skipping Skip Stability Analysis.
     //  Only the minimum eigen value will be used
-    vector<OCP_SIN> eigenSkip; 
-    vector<OCP_SIN> eigenWork;  ///< work space for computing eigenvalues with ssyevd_
-
+    vector<OCP_SIN> eigenSkip;
+    vector<OCP_SIN> eigenWork; ///< work space for computing eigenvalues with ssyevd_
 
     /////////////////////////////////////////////////////////////////////
     // Miscible
@@ -586,17 +595,15 @@ protected:
     void CalSurfaceTension();
 
 protected:
+    Miscible* misTerm; ///< Miscible term pointing to OptionalFeature
 
-    Miscible*       misTerm;    ///< Miscible term pointing to OptionalFeature 
+    OCP_BOOL ifUseMiscible; ///< Miscible treatment of hydrocarbon phases for
+                            ///< compositional Model
 
-    OCP_BOOL        ifUseMiscible; ///< Miscible treatment of hydrocarbon phases for compositional Model
-    OCP_DBL         surTen;     ///< Surface tension between hydrocarbons phases
-    vector<OCP_DBL> parachor;   ///< Parachor params of hydrocarbon components
+    OCP_DBL surTen; ///< Surface tension between hydrocarbons phases
+
+    vector<OCP_DBL> parachor; ///< Parachor params of hydrocarbon components
 };
-
-
-
-
 
 /// Return the sign of double di
 OCP_DBL signD(const OCP_DBL& d);

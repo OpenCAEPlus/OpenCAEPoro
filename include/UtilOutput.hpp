@@ -12,7 +12,7 @@
 #ifndef __UTILOUTPUT_HEADER__
 #define __UTILOUTPUT_HEADER__
 
- // Standard header files
+// Standard header files
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -24,11 +24,17 @@
 
 using namespace std;
 
-template<typename T>
-constexpr auto OCP_SEP01(T n) { return string(n, '-'); }
+template <typename T>
+constexpr auto OCP_SEP01(T n)
+{
+    return string(n, '-');
+}
 
-template<typename T>
-constexpr auto OCP_SEP02(T n) { return string(n, '='); }
+template <typename T>
+constexpr auto OCP_SEP02(T n)
+{
+    return string(n, '=');
+}
 
 string GetIJKformat(const string& i, const string& j, const string& k, const USI& s);
 
@@ -41,5 +47,5 @@ string GetIJKformat(const USI& i, const USI& j, const USI& k, const USI& s);
 /*----------------------------------------------------------------------------*/
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
-/*  Shizhe Li           Oct/11/2022      Create file                          */                        
+/*  Shizhe Li           Oct/11/2022      Create file                          */
 /*----------------------------------------------------------------------------*/

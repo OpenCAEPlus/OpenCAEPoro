@@ -12,22 +12,17 @@
 #ifndef __PHASEPERMEABILITY_HEADER__
 #define __PHASEPERMEABILITY_HEADER__
 
-
-
+#include "Grid.hpp"
 #include "OCPConst.hpp"
 #include "ParamReservoir.hpp"
-#include "Grid.hpp"
 
-#include<vector>
-
+#include <vector>
 
 using namespace std;
-
 
 /////////////////////////////////////////////////////////////////////
 // Miscible For Compositional Model
 /////////////////////////////////////////////////////////////////////
-
 
 class Miscible
 {
@@ -48,29 +43,28 @@ public:
     /// Update Miscible term at last time step
     void UpdateLastTimeStep() { lsurTen = surTen; }
     /// Return surTen
-    OCP_DBL GetSurTen(const OCP_USI& n)const { return surTen[n]; }
+    OCP_DBL GetSurTen(const OCP_USI& n) const { return surTen[n]; }
     /// Return Fk
-    OCP_DBL GetFk(const OCP_USI& n)const { return Fk[n]; }
+    OCP_DBL GetFk(const OCP_USI& n) const { return Fk[n]; }
     /// Return Fp
-    OCP_DBL GetFp(const OCP_USI& n)const { return Fp[n]; }
+    OCP_DBL GetFp(const OCP_USI& n) const { return Fp[n]; }
 
 protected:
-    OCP_BOOL         ifSetup{ OCP_FALSE };   ///< Only one setup is needed.
+    OCP_BOOL ifSetup{OCP_FALSE}; ///< Only one setup is needed.
     /// Miscible treatment of hydrocarbons, only used in compositional Model.
-    OCP_BOOL    ifUseMiscible{ OCP_FALSE };  
-    /// The reference surface tension - flow is immiscible when the surface tension 
+    OCP_BOOL ifUseMiscible{OCP_FALSE};
+    /// The reference surface tension - flow is immiscible when the surface tension
     //  is greater than or equal to this value
-    OCP_DBL     surTenRef;
-    OCP_DBL     surTenPc;       ///< Maximum surface tension for capillary pressure / surTenRef
-    OCP_DBL     Fkexp;          ///< Exponent set used to calculate Fk
-    vector<OCP_DBL> surTen;     ///< Surface tensions between hydrocarbon phases.
-    vector<OCP_DBL> Fk;         ///< The relative permeability interpolation parameter
-    vector<OCP_DBL> Fp;         ///< The capillary pressure interpolation parameter.
+    OCP_DBL surTenRef;
+    OCP_DBL surTenPc; ///< Maximum surface tension for capillary pressure / surTenRef
+    OCP_DBL Fkexp;    ///< Exponent set used to calculate Fk
+    vector<OCP_DBL> surTen; ///< Surface tensions between hydrocarbon phases.
+    vector<OCP_DBL> Fk;     ///< The relative permeability interpolation parameter
+    vector<OCP_DBL> Fp;     ///< The capillary pressure interpolation parameter.
 
     // Last time step
-    vector<OCP_DBL> lsurTen;    ///< last surTen.
+    vector<OCP_DBL> lsurTen; ///< last surTen.
 };
-
 
 /////////////////////////////////////////////////////////////////////
 // Scale The Water-Oil Capillary Pressure Curves (From SWATINIT)
@@ -87,21 +81,20 @@ public:
     /// Return ifScale
     OCP_BOOL IfScale() const { return ifScale; }
     /// Assign value to scaleVal
-    void AssignScaleValue(const OCP_USI& n, const OCP_DBL& v) { scaleVal[n] = v; }
+    void    AssignScaleValue(const OCP_USI& n, const OCP_DBL& v) { scaleVal[n] = v; }
     OCP_DBL GetSwInit(const OCP_USI& n) const { return swatInit[n]; }
     /// Return scaleVal
-    OCP_DBL GetScaleVal(const OCP_USI& n) const { return  scaleVal[n]; }
+    OCP_DBL GetScaleVal(const OCP_USI& n) const { return scaleVal[n]; }
 
 protected:
-    OCP_BOOL        ifSetup{ OCP_FALSE };   ///< Only one setup is needed.
-    OCP_BOOL        ifScale{ OCP_FALSE };   ///< If true, then Scale will be used
-    vector<OCP_DBL> scaleVal;  ///< Scale values for Pcow, it will be calculated from swatInit
-    vector<OCP_DBL> swatInit;  ///< Initial water distribution
+    OCP_BOOL ifSetup{OCP_FALSE}; ///< Only one setup is needed.
+    OCP_BOOL ifScale{OCP_FALSE}; ///< If true, then Scale will be used
+    vector<OCP_DBL>
+        scaleVal; ///< Scale values for Pcow, it will be calculated from swatInit
+    vector<OCP_DBL> swatInit; ///< Initial water distribution
 };
 
-
 #endif /* end if __PHASEPERMEABILITY_HEADER__ */
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

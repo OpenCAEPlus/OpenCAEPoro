@@ -12,14 +12,13 @@
 #ifndef __THERMALSOLVER_HEADER__
 #define __THERMALSOLVER_HEADER__
 
- // OpenCAEPoro header files
+// OpenCAEPoro header files
 #include "ThermalMethod.hpp"
 
 /// ThermalSolver class for fluid solution method.
 class ThermalSolver
 {
 public:
-
     void SetupMethod(Reservoir& rs, const OCPControl& ctrl);
     void InitReservoir(Reservoir& rs) const;
     void Prepare(Reservoir& rs, const OCPControl& ctrl);
@@ -34,9 +33,9 @@ public:
     void FinishStep(Reservoir& rs, OCPControl& ctrl);
 
 protected:
-    LinearSystem  LSolver;
-    LinearSystem  auxLSolver;
-    T_FIM         fim;
+    LinearSystem LSolver;
+    LinearSystem auxLSolver;
+    T_FIM        fim;
 };
 
 #endif /* end if __THERMALSOLVER_HEADER__ */

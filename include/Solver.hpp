@@ -11,8 +11,8 @@
 
 // OpenCAEPoro header files
 #include "IsothermalSolver.hpp"
-#include "ThermalSolver.hpp"
 #include "OCPOutput.hpp"
+#include "ThermalSolver.hpp"
 
 #ifndef __SOLVER_HEADER__
 #define __SOLVER_HEADER__
@@ -41,7 +41,6 @@ private:
     void SetupT(Reservoir& rs, const OCPControl& ctrl);
     /// Run one time step for ifThermal model
     void GoOneStepT(Reservoir& rs, OCPControl& ctrl);
-    
 
 private:
     /// Model
@@ -49,7 +48,7 @@ private:
     /// Solver for isothermal models with fixed T
     IsothermalSolver IsoTSolver;
     /// Solver for ifThermal models with varied T
-    ThermalSolver    TSolver;
+    ThermalSolver TSolver;
 };
 
 #endif /* end if __SOLVER_HEADER__ */

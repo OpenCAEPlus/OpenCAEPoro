@@ -41,14 +41,14 @@ private:
 
     // for Reinjection
     OCP_BOOL reInj{OCP_FALSE}; ///< if reinjection happens
-    USI      reInjPhase;         ///< phase of injected fluid, which decides zi
+    USI      reInjPhase;       ///< phase of injected fluid, which decides zi
 
     /// nominated group which supply reinjection sale rate of current group, after times
     /// -xi, it will be passed to maxRate in injWell
     USI     prodGroup{0};
     OCP_DBL saleRate;
     /// mole density of reinjection fluid in std, it will be passed to INJxi in opt of
-    /// injwell
+    /// injection well
     OCP_DBL reInjXi;
     /// mole fraction of components for reinjection, it should be passed to injWell
     vector<OCP_DBL> reInjZi;
@@ -89,7 +89,6 @@ class AllWells
 public:
     AllWells() = default;
 
-
     /////////////////////////////////////////////////////////////////////
     // Input Param and Setup
     /////////////////////////////////////////////////////////////////////
@@ -103,7 +102,7 @@ public:
     void SetupWell(const Grid& myGrid, const Bulk& myBulk);
     /// Setup information of wellGroup
     void SetupWellGroup(const Bulk& myBulk);
-    /// get the mixture from bulk ---- usless now
+    /// get the mixture from bulk ---- useless now
     void SetupMixture(const Bulk& myBulk);
     /// Setup bulks which are penetrated by wells at current stage
     void SetupWellBulk(Bulk& myBulk) const;
@@ -115,7 +114,6 @@ public:
     /////////////////////////////////////////////////////////////////////
 
 public:
-
     /// Apply the operation mode at the ith critical time.
     void ApplyControl(const USI& i);
     /// Set the initial well pressure
@@ -132,7 +130,10 @@ public:
     void CalIPRT(const Bulk& myBulk, OCP_DBL dt);
     /// Calculate Reinjection fluid
     void CalReInjFluid(const Bulk& myBulk);
-    void UpdateLastTimeStepBHP() { for (auto& w : wells) w.lbhp = w.bhp; }
+    void UpdateLastTimeStepBHP()
+    {
+        for (auto& w : wells) w.lbhp = w.bhp;
+    }
     void ResetBHP();
     /// Check if unreasonable well pressure or perforation pressure occurs.
     OCP_INT CheckP(const Bulk& myBulk);
@@ -146,7 +147,7 @@ public:
     USI GetWellPerfNum(const USI& i) const { return wells[i].numPerf; }
     /// Return the num of perforations of all wells
     USI GetWellPerfNum() const;
-    /// Calculate mamimum num of perforations of all Wells.
+    /// Calculate maximum num of perforations of all Wells.
     USI     GetMaxWellPerNum() const;
     void    CalMaxBHPChange();
     OCP_DBL GetdBHPmax() const { return dPmax; }
@@ -165,24 +166,23 @@ public:
     {
         for (USI w = 0; w < numWell; w++) wells[w].ShowPerfStatus(myBulk);
     }
-    OCP_BOOL GetWellChange() const { return wellChange; }
-    const auto& GetWell2Bulk()const { return well2bulk; }
-    
+    OCP_BOOL    GetWellChange() const { return wellChange; }
+    const auto& GetWell2Bulk() const { return well2bulk; }
+
 protected:
-    USI               numWell;   ///< num of wells.
-    vector<Well>      wells;     ///< well set.
-    USI               numGroup;  ///< num of groups
-    vector<WellGroup> wellGroup; ///< wellGroup set
+    USI                     numWell;   ///< num of wells.
+    vector<Well>            wells;     ///< well set.
+    USI                     numGroup;  ///< num of groups
+    vector<WellGroup>       wellGroup; ///< wellGroup set
     vector<vector<OCP_USI>> well2bulk; ///< connections between wells and bulks
 
     OCP_BOOL           wellChange; ///< if wells change, then OCP_TRUE
     vector<SolventINJ> solvents;   ///< Sets of Solvent
     OCP_DBL            dPmax{0};   ///< Maximum BHP change
 
-    vector<Mixture*> flashCal; ///< Uesless now.
-    OCP_DBL Psurf{ PRESSURE_STD };   ///< well reference pressure
-    OCP_DBL Tsurf{ TEMPERATURE_STD }; ///< well reference temperature
-
+    vector<Mixture*> flashCal;               ///< Useless now.
+    OCP_DBL          Psurf{PRESSURE_STD};    ///< well reference pressure
+    OCP_DBL          Tsurf{TEMPERATURE_STD}; ///< well reference temperature
 
     /////////////////////////////////////////////////////////////////////
     // Injection/Production Rate
@@ -232,7 +232,6 @@ public:
     OCP_DBL GetWWPT(const USI& w) const { return wells[w].WWPT; }
 
 protected:
-
     OCP_DBL FGIR{0}; ///< gas injection rate in field.
     OCP_DBL FGIT{0}; ///< gas total injection in field.
     OCP_DBL FWIR{0}; ///< water injection rate in field.
@@ -246,11 +245,11 @@ protected:
 
     // for output
 private:
-    OCP_BOOL        useVTK{ OCP_FALSE };
-    vector<OCPpolyhedron>  polyhedronWell;
+    OCP_BOOL              useVTK{OCP_FALSE};
+    vector<OCPpolyhedron> polyhedronWell;
     // When the well is under the BHP control, then give it's BHP
     // When the well is under the RATE control, then give it's RATE
-    mutable vector<OCP_DBL>   wellVal;   ///< characteristics for well 
+    mutable vector<OCP_DBL> wellVal; ///< characteristics for well
 
 public:
     void SetPolyhedronWell(const Grid& myGrid);

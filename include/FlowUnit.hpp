@@ -17,8 +17,8 @@
 // OpenCAEPoro header files
 #include "OCPConst.hpp"
 #include "OCPTable.hpp"
-#include "ParamReservoir.hpp"
 #include "OptionalFeatures.hpp"
+#include "ParamReservoir.hpp"
 
 /// designed to deal with matters related to saturation table.
 /// relative permeability, capillary pressure will be calculated here.
@@ -26,9 +26,11 @@ class FlowUnit
 {
 public:
     /// Default constructor.
-    FlowUnit() = default;
-    virtual void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) = 0;
-    virtual void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) = 0;
+    FlowUnit()                                                        = default;
+    virtual void SetupOptionalFeatures(const Grid&       myGrid,
+                                       OptionalFeatures& optFeatures) = 0;
+    virtual void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) = 0;
     /// Pcow = Po - Pw
     virtual OCP_DBL GetPcowBySw(const OCP_DBL& sw)   = 0;
     virtual OCP_DBL GetSwByPcow(const OCP_DBL& pcow) = 0;
@@ -51,7 +53,7 @@ public:
                               OCP_DBL*       kr_out,
                               OCP_DBL*       pc_out,
                               OCP_DBL*       dkrdS,
-                              OCP_DBL*       dPcjdS, 
+                              OCP_DBL*       dPcjdS,
                               const OCP_USI& bId) = 0;
 
     OCP_DBL GetSwco() const { return Swco; };
@@ -71,8 +73,10 @@ class FlowUnit_W : public FlowUnit
 public:
     FlowUnit_W() = default;
     FlowUnit_W(const ParamReservoir& rs_param, const USI& i){};
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
-    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override{};
+    void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override{};
     void CalKrPc(const OCP_DBL* S_in,
                  OCP_DBL*       kr_out,
                  OCP_DBL*       pc_out,
@@ -81,7 +85,7 @@ public:
                       OCP_DBL*       kr_out,
                       OCP_DBL*       pc_out,
                       OCP_DBL*       dkrdS,
-                      OCP_DBL*       dPcjdS, 
+                      OCP_DBL*       dPcjdS,
                       const OCP_USI& bId) override;
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return 0; }
@@ -105,8 +109,10 @@ class FlowUnit_OW : public FlowUnit
 public:
     FlowUnit_OW() = default;
     FlowUnit_OW(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
-    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override{};
+    void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override{};
     void CalKrPc(const OCP_DBL* S_in,
                  OCP_DBL*       kr_out,
                  OCP_DBL*       pc_out,
@@ -115,7 +121,7 @@ public:
                       OCP_DBL*       kr_out,
                       OCP_DBL*       pc_out,
                       OCP_DBL*       dkrdS,
-                      OCP_DBL*       dPcjdS, 
+                      OCP_DBL*       dPcjdS,
                       const OCP_USI& bId) override;
 
     OCP_DBL GetPcowBySw(const OCP_DBL& sw) override { return SWOF.Eval(0, sw, 3); }
@@ -135,9 +141,7 @@ public:
     }
 
 protected:
-
-    OCPTable        SWOF;  ///< saturation table about water and oil.
-    // OCP_DBL         kroMax;
+    OCPTable SWOF; ///< saturation table about water and oil.
 };
 
 ///////////////////////////////////////////////
@@ -149,8 +153,10 @@ class FlowUnit_OG : public FlowUnit
 public:
     FlowUnit_OG() = default;
     FlowUnit_OG(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
-    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override{};
+    void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override{};
     void    CalKrPc(const OCP_DBL* S_in,
                     OCP_DBL*       kr_out,
                     OCP_DBL*       pc_out,
@@ -159,7 +165,7 @@ public:
                          OCP_DBL*       kr_out,
                          OCP_DBL*       pc_out,
                          OCP_DBL*       dkrdS,
-                         OCP_DBL*       dPcjdS, 
+                         OCP_DBL*       dPcjdS,
                          const OCP_USI& bId) override;
     OCP_DBL GetPcgoBySg(const OCP_DBL& sg) override { return SGOF.Eval(0, sg, 3); }
     OCP_DBL GetSgByPcgo(const OCP_DBL& pcgo) override { return SGOF.Eval(3, pcgo, 0); }
@@ -175,8 +181,8 @@ public:
     }
 
 protected:
-    OCPTable        SGOF;  ///< saturation table about gas and oil.
-    OCP_DBL         kroMax;
+    OCPTable SGOF; ///< saturation table about gas and oil.
+    OCP_DBL  kroMax;
 };
 
 ///////////////////////////////////////////////
@@ -199,10 +205,9 @@ public:
     const vector<OCP_DBL>& GetScm() const override { return Scm; }
 
 protected:
-
     /// oil relative permeability in the presence of connate water only, used in stone2
     OCP_DBL         kroMax;
-    vector<OCP_DBL> Scm;  ///< critical saturation when phase becomes mobile / immobile
+    vector<OCP_DBL> Scm; ///< critical saturation when phase becomes mobile / immobile
 };
 
 ///////////////////////////////////////////////
@@ -214,8 +219,10 @@ class FlowUnit_ODGW01 : public FlowUnit_ODGW
 public:
     FlowUnit_ODGW01() = default;
     FlowUnit_ODGW01(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
-    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override{};
+    void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override{};
     virtual void CalKrPc(const OCP_DBL* S_in,
                          OCP_DBL*       kr_out,
                          OCP_DBL*       pc_out,
@@ -224,7 +231,7 @@ public:
                               OCP_DBL*       kr_out,
                               OCP_DBL*       pc_out,
                               OCP_DBL*       dkrdS,
-                              OCP_DBL*       dPcjdS, 
+                              OCP_DBL*       dPcjdS,
                               const OCP_USI& bId) override;
 
     OCP_DBL CalKro_Stone2Der(OCP_DBL  krow,
@@ -262,11 +269,10 @@ public:
     void Generate_SWPCWG();
 
 protected:
-
-    OCPTable        SGOF;   ///< saturation table about gas and oil.
-    OCPTable        SWOF;   ///< saturation table about water and oil.
-    OCPTable        SWPCGW; ///< auxiliary table: saturation of water vs. capillary
-                            ///< pressure between water and gas.
+    OCPTable SGOF;   ///< saturation table about gas and oil.
+    OCPTable SWOF;   ///< saturation table about water and oil.
+    OCPTable SWPCGW; ///< auxiliary table: saturation of water vs. capillary
+                     ///< pressure between water and gas.
 };
 
 ///////////////////////////////////////////////
@@ -280,12 +286,14 @@ public:
         : FlowUnit_ODGW01(rs_param, i)
     {
         // gas is moveable all the time
-        Scm[1] = 0;
+        Scm[1]  = 0;
         maxPcow = SWOF.GetCol(3).front();
         minPcow = SWOF.GetCol(3).back();
     }
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {
-        misTerm = &optFeatures.miscible;
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override
+    {
+        misTerm   = &optFeatures.miscible;
         scaleTerm = &optFeatures.scalePcow;
         scaleTerm->Setup(myGrid);
     };
@@ -298,19 +306,19 @@ public:
                       OCP_DBL*       kr_out,
                       OCP_DBL*       pc_out,
                       OCP_DBL*       dkrdS,
-                      OCP_DBL*       dPcjdS, 
+                      OCP_DBL*       dPcjdS,
                       const OCP_USI& bId) override;
 
 protected:
-    ScalePcow*  scaleTerm;
-    Miscible*   misTerm;
+    ScalePcow* scaleTerm;
+    Miscible*  misTerm;
 
-    OCP_DBL     maxPcow;
-    OCP_DBL     minPcow;
+    OCP_DBL maxPcow;
+    OCP_DBL minPcow;
 
-    OCP_DBL     Fk;        ///< The relative permeability interpolation parameter
-    OCP_DBL     Fp;        ///< The capillary pressure interpolation parameter
-    OCP_DBL     surTen;    ///< Surface tension
+    OCP_DBL Fk;     ///< The relative permeability interpolation parameter
+    OCP_DBL Fp;     ///< The capillary pressure interpolation parameter
+    OCP_DBL surTen; ///< Surface tension
 
     /*
     OCP_DBL kroMis{0};  ///< miscible oil relative permeability
@@ -330,8 +338,10 @@ class FlowUnit_ODGW02 : public FlowUnit_ODGW
 public:
     FlowUnit_ODGW02() = default;
     FlowUnit_ODGW02(const ParamReservoir& rs_param, const USI& i);
-    void SetupOptionalFeatures(const Grid& myGrid, OptionalFeatures& optFeatures) override {};
-    void SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override {};
+    void SetupOptionalFeatures(const Grid&       myGrid,
+                               OptionalFeatures& optFeatures) override{};
+    void
+    SetupScale(const OCP_USI& bId, OCP_DBL& Swin, const OCP_DBL& Pcowin) override{};
     void    CalKrPc(const OCP_DBL* S_in,
                     OCP_DBL*       kr_out,
                     OCP_DBL*       pc_out,
@@ -340,7 +350,7 @@ public:
                          OCP_DBL*       kr_out,
                          OCP_DBL*       pc_out,
                          OCP_DBL*       dkrdS,
-                         OCP_DBL*       dPcjdS, 
+                         OCP_DBL*       dPcjdS,
                          const OCP_USI& bId) override;
     OCP_DBL CalKro_Stone2Der(OCP_DBL  krow,
                              OCP_DBL  krog,
@@ -373,11 +383,11 @@ public:
     void Generate_SWPCWG();
 
 protected:
-    OCPTable        SWFN;   ///< saturation table about water.
-    OCPTable        SGFN;   ///< saturation table about gas.
-    OCPTable        SOF3;   ///< saturation table about oil.
-    OCPTable        SWPCGW; ///< auxiliary table: saturation of water vs. capillary
-                            ///< pressure between water and gas.
+    OCPTable SWFN;   ///< saturation table about water.
+    OCPTable SGFN;   ///< saturation table about gas.
+    OCPTable SOF3;   ///< saturation table about oil.
+    OCPTable SWPCGW; ///< auxiliary table: saturation of water vs. capillary
+                     ///< pressure between water and gas.
 };
 
 #endif /* end if __FLOWUNIT_HEADER__ */
