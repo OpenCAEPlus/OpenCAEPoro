@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classOpenCAEPoro.html">OpenCAEPoro</a> simulator;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (argc &lt; 2) {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        simulator.<a class="code" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a>(argv[0]);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">OCP_ERROR_NUM_INPUT</a>; <span class="comment">// Need at least one parameter: input data</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="OCPConst_8hpp.html#a9b742ff9111ce75cca2d9fd94f17a7bc">OCP_ERROR_NUM_INPUT</a>; <span class="comment">// Need at least one parameter</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        simulator.<a class="code" href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">PrintVersion</a>();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (!strcmp(argv[1], <span class="stringliteral">&quot;-h&quot;</span>) || !strcmp(argv[1], <span class="stringliteral">&quot;--help&quot;</span>)) {</div>
@@ -102,12 +102,12 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Step 1. Read params from an input file to internal data structure.</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md    simulator.ReadInputFile(argv[1]);</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">ReadInputFile</a>(argv[1]);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// Step 2. Set params using command-line</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Remark: It sets up static info, such as active grids and their connections.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// Remark: Memory allocation for linear systems will also be done at this time.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// Remark: Memory allocation for linear systems will also be done at this step.</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">SetupSimulator</a>(argc, argv);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// Step 3. Initialize the reservoir, which finishes the first step in iterations.</span></div>
@@ -115,7 +115,7 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// well pressure.</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">InitReservoir</a>();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Step 4. Run dynamic simulation using methods like IMPEC and FIM.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Step 4. Run dynamic simulation using methods like IMPEC, AIM, and FIM.</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    simulator.<a class="code" href="classOpenCAEPoro.html#a609461859cc5891d05c5f30f323fdb89">RunSimulation</a>();</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Step 5. Output the results according to control params.</span></div>
@@ -145,11 +145,11 @@ $(function() {
 <div class="ttc" id="aclassOpenCAEPoro_html_a7b3a00bf4d031e0c427aa146428512e4"><div class="ttname"><a href="classOpenCAEPoro.html#a7b3a00bf4d031e0c427aa146428512e4">OpenCAEPoro::InitReservoir</a></div><div class="ttdeci">void InitReservoir()</div><div class="ttdoc">Initialize or get initial status of reservoir.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00069">OCP.cpp:69</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_a94920441685ea95110db24bc1bac2c78"><div class="ttname"><a href="classOpenCAEPoro.html#a94920441685ea95110db24bc1bac2c78">OpenCAEPoro::SetupSimulator</a></div><div class="ttdeci">void SetupSimulator(const USI &amp;argc, const char *options[])</div><div class="ttdoc">Setup reservoir based on an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00032">OCP.cpp:32</a></div></div>
 <div class="ttc" id="aclassOpenCAEPoro_html_aa207d83bfc12e673b288d8c0ae5b0427"><div class="ttname"><a href="classOpenCAEPoro.html#aa207d83bfc12e673b288d8c0ae5b0427">OpenCAEPoro::PrintVersion</a></div><div class="ttdeci">void PrintVersion() const</div><div class="ttdoc">Output OpenCAEPoro version information.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8hpp_source.html#l00030">OCP.hpp:30</a></div></div>
-<div class="ttc" id="aclassOpenCAEPoro_html_ae43b2efb09747f190b20a4ee6dc30170"><div class="ttname"><a href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">OpenCAEPoro::ReadInputFile</a></div><div class="ttdeci">void ReadInputFile(const string &amp;filename)</div><div class="ttdoc">Read Param from input file.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
+<div class="ttc" id="aclassOpenCAEPoro_html_ae43b2efb09747f190b20a4ee6dc30170"><div class="ttname"><a href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">OpenCAEPoro::ReadInputFile</a></div><div class="ttdeci">void ReadInputFile(const string &amp;filename)</div><div class="ttdoc">Read Param from an input file.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00015">OCP.cpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 07:23:23 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 07:24:06 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

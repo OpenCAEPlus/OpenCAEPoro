@@ -89,9 +89,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#a4ed58e04f34903750d41b38191f97efd">PrintUsage</a> (string cmdname) const</td></tr>
 <tr class="memdesc:a4ed58e04f34903750d41b38191f97efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide at least InputFileName for the input data. <br /></td></tr>
 <tr class="separator:a4ed58e04f34903750d41b38191f97efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae43b2efb09747f190b20a4ee6dc30170"><td class="memItemLeft" align="right" valign="top"><a id="ae43b2efb09747f190b20a4ee6dc30170"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">ReadInputFile</a> (const string &amp;filename)</td></tr>
-<tr class="memdesc:ae43b2efb09747f190b20a4ee6dc30170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Param from input file. <br /></td></tr>
+<tr class="memitem:ae43b2efb09747f190b20a4ee6dc30170"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">ReadInputFile</a> (const string &amp;filename)</td></tr>
+<tr class="memdesc:ae43b2efb09747f190b20a4ee6dc30170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Param from an input file.  <a href="classOpenCAEPoro.html#ae43b2efb09747f190b20a4ee6dc30170">More...</a><br /></td></tr>
 <tr class="separator:ae43b2efb09747f190b20a4ee6dc30170"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0becddcbf7c4a51417a20f8e42b10ba5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a> (<a class="el" href="classParamRead.html">ParamRead</a> &amp;param)</td></tr>
 <tr class="memdesc:a0becddcbf7c4a51417a20f8e42b10ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read input parameters to an internal structure.  <a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">More...</a><br /></td></tr>
@@ -259,6 +258,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- fragment -->
 </div>
 </div>
+<a id="ae43b2efb09747f190b20a4ee6dc30170"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae43b2efb09747f190b20a4ee6dc30170">&#9670;&nbsp;</a></span>ReadInputFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenCAEPoro::ReadInputFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read Param from an input file. </p>
+<p>Read Param from input file. </p>
+
+<p class="definition">Definition at line <a class="el" href="OCP_8cpp_source.html#l00015">15</a> of file <a class="el" href="OCP_8cpp_source.html">OCP.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="classParamRead.html">ParamRead</a> rp;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    rp.<a class="code" href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">ReadInputFile</a>(filename);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// Read parameters from input file</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">InputParam</a>(rp);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="ttc" id="aclassOpenCAEPoro_html_a0becddcbf7c4a51417a20f8e42b10ba5"><div class="ttname"><a href="classOpenCAEPoro.html#a0becddcbf7c4a51417a20f8e42b10ba5">OpenCAEPoro::InputParam</a></div><div class="ttdeci">void InputParam(ParamRead &amp;param)</div><div class="ttdoc">Read input parameters to an internal structure.</div><div class="ttdef"><b>Definition:</b> <a href="OCP_8cpp_source.html#l00024">OCP.cpp:24</a></div></div>
+<div class="ttc" id="aclassParamRead_html"><div class="ttname"><a href="classParamRead.html">ParamRead</a></div><div class="ttdoc">Pre-processing unit for OpenCAEPoro for reading params from input files.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8hpp_source.html#l00032">ParamRead.hpp:33</a></div></div>
+<div class="ttc" id="aclassParamRead_html_a62e9a14e95058cfebcef6062359d4537"><div class="ttname"><a href="classParamRead.html#a62e9a14e95058cfebcef6062359d4537">ParamRead::ReadInputFile</a></div><div class="ttdeci">void ReadInputFile(const string &amp;file)</div><div class="ttdoc">General interface for reading input data.</div><div class="ttdef"><b>Definition:</b> <a href="ParamRead_8cpp_source.html#l00039">ParamRead.cpp:39</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="OCP_8cpp_source.html#l00024">InputParam()</a>, and <a class="el" href="ParamRead_8cpp_source.html#l00039">ParamRead::ReadInputFile()</a>.</p>
+
+</div>
+</div>
 <a id="a609461859cc5891d05c5f30f323fdb89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a609461859cc5891d05c5f30f323fdb89">&#9670;&nbsp;</a></span>RunSimulation()</h2>
 
@@ -397,7 +430,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 5 2023 07:23:24 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Feb 5 2023 07:24:07 for OpenCAEPoro by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
