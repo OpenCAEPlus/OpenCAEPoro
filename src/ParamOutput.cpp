@@ -277,7 +277,7 @@ void ParamOutput::InputRPTSCHED(ifstream& ifs, const string& keyword)
             }
         }
     }
-    cout << keyword << endl;
+    // cout << keyword << endl;
 }
 
 /*----------------------------------------------------------------------------*/
