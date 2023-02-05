@@ -13,11 +13,11 @@
 
 void CalEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
 {
-    int info;
-    int iwork[1] = { 0 };
-    int liwork = 1;
-    char uplo{ 'U' };
-    char Nonly{ 'N' };
+    int  info;
+    int  iwork[1] = {0};
+    int  liwork   = 1;
+    char uplo{'U'};
+    char Nonly{'N'};
 
     ssyevd_(&Nonly, &uplo, &N, A, &N, w, work, &lwork, iwork, &liwork, &info);
     if (info > 0) {
@@ -25,14 +25,13 @@ void CalEigenSY(const int& N, float* A, float* w, float* work, const int& lwork)
     }
 }
 
-
-//void MinEigenS(const int& N, float* a, float* w)
+// void MinEigenS(const int& N, float* a, float* w)
 //{
-//    MKL_INT info = LAPACKE_ssyevd(LAPACK_COL_MAJOR, 'N', 'U', N, a, N, w);
-//    if (info > 0) {
-//        cout << "failed to compute eigenvalues!" << endl;
-//    }
-//}
+//     MKL_INT info = LAPACKE_ssyevd(LAPACK_COL_MAJOR, 'N', 'U', N, a, N, w);
+//     if (info > 0) {
+//         cout << "failed to compute eigenvalues!" << endl;
+//     }
+// }
 
 void Dcopy(const int& N, double* dst, const double* src)
 {
@@ -73,8 +72,14 @@ void Daxpy(const int& n, const double& alpha, const double* x, double* y)
     daxpy_(&n, &alpha, x, &incx, y, &incy);
 }
 
-void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
-             const double* A, const double* B, const double& beta, double* C)
+void DaABpbC(const int&    m,
+             const int&    n,
+             const int&    k,
+             const double& alpha,
+             const double* A,
+             const double* B,
+             const double& beta,
+             double*       C)
 {
     /*  C' = alpha B'A' + beta C'
      *  A: m x k
@@ -88,8 +93,12 @@ void DaABpbC(const int& m, const int& n, const int& k, const double& alpha,
     dgemm_(&transa, &transb, &n, &m, &k, &alpha, B, &n, A, &k, &beta, C, &n);
 }
 
-
-void myDABpC(const int& m, const int& n, const int& k, const double* A, const double* B, double* C)
+void myDABpC(const int&    m,
+             const int&    n,
+             const int&    k,
+             const double* A,
+             const double* B,
+             double*       C)
 {
     // C = AB + C
     // A: m*n  B:n*k  C:m*k
@@ -104,18 +113,25 @@ void myDABpC(const int& m, const int& n, const int& k, const double* A, const do
     }
 }
 
-void myDABpCp(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+void myDABpCp(const int&    m,
+              const int&    n,
+              const int&    k,
+              const double* A,
+              const double* B,
+              double*       C,
+              const int*    flag,
+              const int     N)
 {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < k; j++) {
             for (int p = 0; p < 3; p++) {
-                if (flag[p] != 0)
-                    C[i * k + j] += A[i * n + p] * B[p * k + j];
+                if (flag[p] != 0) C[i * k + j] += A[i * n + p] * B[p * k + j];
             }
             for (int p = 0; p < 2; p++) {
                 if (flag[p] != 0) {
                     for (int m = 0; m < N; m++) {
-                        C[i * k + j] += A[i * n + 3 + p * (N + 1) + m] * B[(3 + p * (N + 1) + m) * k + j];
+                        C[i * k + j] += A[i * n + 3 + p * (N + 1) + m] *
+                                        B[(3 + p * (N + 1) + m) * k + j];
                     }
                 }
             }
@@ -123,7 +139,14 @@ void myDABpCp(const int& m, const int& n, const int& k, const double* A, const d
     }
 }
 
-void myDABpCp1(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+void myDABpCp1(const int&    m,
+               const int&    n,
+               const int&    k,
+               const double* A,
+               const double* B,
+               double*       C,
+               const int*    flag,
+               const int     N)
 {
 
     for (int i = 0; i < m; i++) {
@@ -133,7 +156,7 @@ void myDABpCp1(const int& m, const int& n, const int& k, const double* A, const 
                 if (flag[p] != 0) {
                     C[i * k + j] += A[i * n + p] * B[s * k + j];
                     s++;
-                }                   
+                }
             }
             for (int p = 0; p < 2; p++) {
                 if (flag[p] != 0) {
@@ -147,7 +170,14 @@ void myDABpCp1(const int& m, const int& n, const int& k, const double* A, const 
     }
 }
 
-void myDABpCp2(const int& m, const int& n, const int& k, const double* A, const double* B, double* C, const int* flag, const int N)
+void myDABpCp2(const int&    m,
+               const int&    n,
+               const int&    k,
+               const double* A,
+               const double* B,
+               double*       C,
+               const int*    flag,
+               const int     N)
 {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < k; j++) {
@@ -156,7 +186,7 @@ void myDABpCp2(const int& m, const int& n, const int& k, const double* A, const 
                 if (flag[p] != 0) {
                     C[i * k + j] += A[i * n + s] * B[p * k + j];
                     s++;
-                }                   
+                }
             }
             for (int p = 0; p < 2; p++) {
                 if (flag[p] != 0) {
@@ -170,8 +200,13 @@ void myDABpCp2(const int& m, const int& n, const int& k, const double* A, const 
     }
 }
 
-void DaAxpby(const int& m, const int& n, const double& a, const double* A,
-             const double* x, const double& b, double* y)
+void DaAxpby(const int&    m,
+             const int&    n,
+             const double& a,
+             const double* A,
+             const double* x,
+             const double& b,
+             double*       y)
 {
     /*  y= aAx+by
      */
@@ -196,9 +231,16 @@ void LUSolve(const int& nrhs, const int& N, double* A, double* b, int* pivot)
     }
 }
 
-int SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double* b, int* pivot, double* work, const int& lwork)
+int SYSSolve(const int&  nrhs,
+             const char* uplo,
+             const int&  N,
+             double*     A,
+             double*     b,
+             int*        pivot,
+             double*     work,
+             const int&  lwork)
 {
-    int    info;
+    int info;
 
     dsysv_(uplo, &N, &nrhs, A, &N, pivot, b, &N, work, &lwork, &info);
     if (info < 0) {
@@ -209,7 +251,6 @@ int SYSSolve(const int& nrhs, const char* uplo, const int& N, double* A, double*
 
     return info;
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -11,12 +11,9 @@
 
 #include "AcceleratePVT.hpp"
 
-
- /////////////////////////////////////////////////////////////////////
- // Skip Stability Analysis
- /////////////////////////////////////////////////////////////////////
-
-
+/////////////////////////////////////////////////////////////////////
+// Skip Stability Analysis
+/////////////////////////////////////////////////////////////////////
 
 void SkipStaAnaly::Setup(const OCP_USI& numBulk, const USI& np, const USI& nc)
 {
@@ -24,7 +21,7 @@ void SkipStaAnaly::Setup(const OCP_USI& numBulk, const USI& np, const USI& nc)
         ifSetup = OCP_TRUE;
 
         numPhase = np;
-        numCom = nc;
+        numCom   = nc;
 
         flag.resize(numBulk);
         P.resize(numBulk);
@@ -40,9 +37,11 @@ void SkipStaAnaly::Setup(const OCP_USI& numBulk, const USI& np, const USI& nc)
     }
 }
 
-
-void SkipStaAnaly::AssignValue(const OCP_USI& n, const OCP_DBL& minEigenSkip,
-    const OCP_DBL& PSkip, const OCP_DBL& TSkip, const vector<OCP_DBL>& ziSkip)
+void SkipStaAnaly::AssignValue(const OCP_USI&         n,
+                               const OCP_DBL&         minEigenSkip,
+                               const OCP_DBL&         PSkip,
+                               const OCP_DBL&         TSkip,
+                               const vector<OCP_DBL>& ziSkip)
 {
     minEigen[n] = minEigenSkip;
     P[n]        = PSkip;
@@ -52,9 +51,11 @@ void SkipStaAnaly::AssignValue(const OCP_USI& n, const OCP_DBL& minEigenSkip,
     }
 }
 
-
-OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const vector<OCP_DBL>& Niin, const OCP_USI& n) const
+OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL&         Pin,
+                              const OCP_DBL&         Tin,
+                              const OCP_DBL&         Ntin,
+                              const vector<OCP_DBL>& Niin,
+                              const OCP_USI&         n) const
 {
     if (flag[n]) {
         if (fabs(1 - P[n] / Pin) >= minEigen[n] / 10) {
@@ -70,85 +71,76 @@ OCP_BOOL SkipStaAnaly::IfSkip(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_
             }
         }
         return OCP_TRUE;
-    }
-    else {
+    } else {
         return OCP_FALSE;
     }
 }
 
-
-USI SkipStaAnaly::CalFtypeIMPEC(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const vector<OCP_DBL>& Niin, const OCP_USI& n)
+USI SkipStaAnaly::CalFtypeIMPEC(const OCP_DBL&         Pin,
+                                const OCP_DBL&         Tin,
+                                const OCP_DBL&         Ntin,
+                                const vector<OCP_DBL>& Niin,
+                                const OCP_USI&         n)
 {
     if (ifUseSkip) {
         if (IfSkip(Pin, Tin, Ntin, Niin, n)) {
             return 1;
-        }
-        else {
+        } else {
             return 0;
         }
-    }
-    else {
+    } else {
         return 0;
     }
 }
 
-
-USI SkipStaAnaly::CalFtypeFIM(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL& Ntin,
-    const vector<OCP_DBL>& Niin, const OCP_DBL* S, const USI& np, const OCP_USI& n) const
+USI SkipStaAnaly::CalFtypeFIM(const OCP_DBL&         Pin,
+                              const OCP_DBL&         Tin,
+                              const OCP_DBL&         Ntin,
+                              const vector<OCP_DBL>& Niin,
+                              const OCP_DBL*         S,
+                              const USI&             np,
+                              const OCP_USI&         n) const
 {
     if (ifUseSkip) {
         if (IfSkip(Pin, Tin, Ntin, Niin, n)) {
             return 1;
-        }
-        else if (np >= 2) {
+        } else if (np >= 2) {
             for (USI j = 0; j < numPhase; j++) {
                 if (S[j] < 1E-4) {
-                    return 0;   // phases change (predicted)
+                    return 0; // phases change (predicted)
                 }
             }
             return 2;
-        }
-        else {
+        } else {
             return 0;
         }
-    }
-    else {
+    } else {
         return 0;
     }
 }
 
-
 void SkipStaAnaly::ResetToLastTimeStep()
 {
-    flag        = lflag;
-    minEigen    = lminEigen;
-    P           = lP;
-    T           = lT;
-    zi          = lzi;
+    flag     = lflag;
+    minEigen = lminEigen;
+    P        = lP;
+    T        = lT;
+    zi       = lzi;
 }
-
 
 void SkipStaAnaly::UpdateLastTimeStep()
 {
-    lflag        = flag;
-    lminEigen    = minEigen;
-    lP           = P;
-    lT           = T;
-    lzi          = zi;
+    lflag     = flag;
+    lminEigen = minEigen;
+    lP        = P;
+    lT        = T;
+    lzi       = zi;
 }
 
-
-
-
-
-
-
-
- /*----------------------------------------------------------------------------*/
- /*  Brief Change History of This File                                         */
- /*----------------------------------------------------------------------------*/
- /*  Author              Date             Actions                              */
- /*----------------------------------------------------------------------------*/
- /*  Shizhe Li           Dec/25/2022      Create file                          */
- /*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/*  Brief Change History of This File                                         */
+/*----------------------------------------------------------------------------*/
+/*  Author              Date             Actions                              */
+/*----------------------------------------------------------------------------*/
+/*  Shizhe Li           Dec/25/2022      Create file                          */
+/*----------------------------------------------------------------------------*/

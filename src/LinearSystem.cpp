@@ -14,7 +14,7 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
 {
     blockSize = nb * nb;
     blockDim  = nb;
-    dim = 0;
+    dim       = 0;
     maxDim    = dimMax;
     rowCapacity.resize(maxDim);
     colId.resize(maxDim);
@@ -23,8 +23,8 @@ void LinearSystem::AllocateRowMem(const OCP_USI& dimMax, const USI& nb)
     u.resize(maxDim * blockDim);
 }
 
-
-void LinearSystem::AllocateColMem(const vector<USI>& bulk2bulk, const vector<vector<OCP_USI>> well2bulk)
+void LinearSystem::AllocateColMem(const vector<USI>&            bulk2bulk,
+                                  const vector<vector<OCP_USI>> well2bulk)
 {
     // Bulk to Bulk
     const OCP_USI bulkNum = bulk2bulk.size();
@@ -33,11 +33,10 @@ void LinearSystem::AllocateColMem(const vector<USI>& bulk2bulk, const vector<vec
     }
 
     // Bulk to Well
-    const OCP_USI wellNum = well2bulk.size();
-    USI maxPerfNum = 0;
+    const OCP_USI wellNum    = well2bulk.size();
+    USI           maxPerfNum = 0;
     for (auto& w : well2bulk) {
-        for (auto& p : w)
-            rowCapacity[p]++;
+        for (auto& p : w) rowCapacity[p]++;
         if (maxPerfNum < w.size()) {
             maxPerfNum = w.size();
         }
@@ -54,7 +53,6 @@ void LinearSystem::AllocateColMem(const vector<USI>& bulk2bulk, const vector<vec
         val[n].reserve(rowCapacity[n] * blockSize);
     }
 }
-
 
 void LinearSystem::ClearData()
 {
@@ -77,12 +75,10 @@ void LinearSystem::AssembleRhsAccumulate(const vector<OCP_DBL>& rhs)
     }
 }
 
-
 void LinearSystem::AssembleRhsCopy(const vector<OCP_DBL>& rhs)
 {
     Dcopy(dim * blockDim, &b[0], &rhs[0]);
 }
-
 
 void LinearSystem::OutputLinearSystem(const string& fileA, const string& fileb) const
 {
@@ -172,7 +168,8 @@ void LinearSystem::CheckSolution() const
 }
 
 /// Setup LinearSolver
-void LinearSystem::SetupLinearSolver(const USI& i, const string& dir,
+void LinearSystem::SetupLinearSolver(const USI&    i,
+                                     const string& dir,
                                      const string& file)
 {
     solveDir = dir;

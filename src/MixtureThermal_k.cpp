@@ -9,19 +9,15 @@
  *-----------------------------------------------------------------------------------
  */
 
-
-
- // OpenCAEPoro header files
+// OpenCAEPoro header files
 #include "MixtureThermal.hpp"
 #include "OCPTable.hpp"
-
-
 
 MixtureThermal_K01::MixtureThermal_K01(const ParamReservoir& param, const USI& tarId)
 {
     mixtureType = THERMAL;
-    numPhase = 2;
-    numCom = param.numCom; // water is included
+    numPhase    = 2;
+    numCom      = param.numCom; // water is included
     Allocate();
 
     if (param.comsParam.molden.activity)
@@ -38,11 +34,11 @@ MixtureThermal_K01::MixtureThermal_K01(const ParamReservoir& param, const USI& t
         else
             bvisc.resize(numCom, 0);
         useViscTab = OCP_FALSE;
-    }
-    else {
+    } else {
         if (param.comsParam.viscTab.data.size() <= tarId) {
-            OCP_ABORT("VISCTAB hasn't been input for " + to_string(tarId+1) + " th Region!");
-        }               
+            OCP_ABORT("VISCTAB hasn't been input for " + to_string(tarId + 1) +
+                      " th Region!");
+        }
         useViscTab = OCP_TRUE;
         visc.Setup(param.comsParam.viscTab.data[tarId]);
         // unit convert: F -> R
@@ -70,7 +66,6 @@ MixtureThermal_K01::MixtureThermal_K01(const ParamReservoir& param, const USI& t
         cpt = param.comsParam.cpt.data[tarId];
     else
         cpt.resize(numCom, 0);
-
 
     if (param.comsParam.cpl1.activity)
         cpl1 = param.comsParam.cpl1.data[tarId];
@@ -137,7 +132,6 @@ MixtureThermal_K01::MixtureThermal_K01(const ParamReservoir& param, const USI& t
     else
         OCP_ABORT("MW hasn't been input!");
 
-
     Tref = param.comsParam.Tref[tarId] + CONV5;
     Pref = param.comsParam.Pref[tarId];
 
@@ -166,44 +160,46 @@ MixtureThermal_K01::MixtureThermal_K01(const ParamReservoir& param, const USI& t
     fill(mux.begin(), mux.end(), 0.0);
 }
 
-void MixtureThermal_K01::Flash(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin)
+void MixtureThermal_K01::Flash(const OCP_DBL& Pin,
+                               const OCP_DBL& Tin,
+                               const OCP_DBL* Niin)
 {
     FlashIMPEC(Pin, Tin, Niin, 0, 0, 0);
 }
 
-
-void MixtureThermal_K01::InitFlashIMPEC(const OCP_DBL& Pin, 
-                                        const OCP_DBL& Pbbin, 
+void MixtureThermal_K01::InitFlashIMPEC(const OCP_DBL& Pin,
+                                        const OCP_DBL& Pbbin,
                                         const OCP_DBL& Tin,
-                                        const OCP_DBL* Sjin, 
+                                        const OCP_DBL* Sjin,
                                         const OCP_DBL& Vpore,
-                                        const OCP_DBL* Ziin, 
+                                        const OCP_DBL* Ziin,
                                         const OCP_USI& bId)
 {
     // assign value
-    P = Pin; T = Tin + CONV5;
+    P                = Pin;
+    T                = Tin + CONV5;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
-    S[1] = Sjin[1];
-    S[0] = 1 - S[1];
+    S[1]             = Sjin[1];
+    S[0]             = 1 - S[1];
 
     // phase molar density
-    xi[0] = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-        ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
-    xi[1] = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-        ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
+    xi[0] = xi_ref[0] *
+            exp(cp[0] * dP - ct1[0] * dT - ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
+    xi[1] = xi_ref[1] *
+            exp(cp[1] * dP - ct1[1] * dT - ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
 
     // components moles
     Ni[0] = Vpore * S[0] * xi[0];
     Ni[1] = Vpore * S[1] * xi[1];
 }
 
-void MixtureThermal_K01::InitFlashFIM(const OCP_DBL& Pin, 
+void MixtureThermal_K01::InitFlashFIM(const OCP_DBL& Pin,
                                       const OCP_DBL& Pbbin,
-                                      const OCP_DBL& Tin, 
+                                      const OCP_DBL& Tin,
                                       const OCP_DBL* Sjin,
-                                      const OCP_DBL& Vpore, 
-                                      const OCP_DBL* Ziin, 
+                                      const OCP_DBL& Vpore,
+                                      const OCP_DBL* Ziin,
                                       const OCP_USI& bId)
 {
     InitFlashIMPEC(Pin, Pbbin, Tin, Sjin, Vpore, Ziin, bId);
@@ -214,33 +210,33 @@ void MixtureThermal_K01::InitFlashFIM(const OCP_DBL& Pin,
 void MixtureThermal_K01::FlashIMPEC(const OCP_DBL& Pin,
                                     const OCP_DBL& Tin,
                                     const OCP_DBL* Niin,
-                                    const USI& lastNP,
+                                    const USI&     lastNP,
                                     const OCP_DBL* xijin,
                                     const OCP_USI& bId)
 {
-    // assign Value    
-    P = Pin; T = Tin + CONV5;
+    // assign Value
+    P                = Pin;
+    T                = Tin + CONV5;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
-    Ni[0] = Niin[0];
-    Ni[1] = Niin[1];
+    Ni[0]            = Niin[0];
+    Ni[1]            = Niin[1];
 
-    // phase viscosity 
+    // phase viscosity
     if (useViscTab) {
         visc.Eval_All(0, T, data, cdata);
         mu[0] = data[1];
         mu[1] = data[2];
-    }
-    else {
+    } else {
         mu[0] = avisc[0] * exp(bvisc[0] / T);
         mu[1] = avisc[1] * exp(bvisc[1] / T);
     }
 
     // phase molar density
-    xi[0] = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-        ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
-    xi[1] = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-        ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
+    xi[0] = xi_ref[0] *
+            exp(cp[0] * dP - ct1[0] * dT - ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
+    xi[1] = xi_ref[1] *
+            exp(cp[1] * dP - ct1[1] * dT - ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
 
     // phase mass density
     rho[0] = MWp[0] * xi[0];
@@ -263,29 +259,30 @@ void MixtureThermal_K01::FlashIMPEC(const OCP_DBL& Pin,
     // d Vf / dP
     const OCP_DBL xiop = xi[0] * (cp[0] + cpt[0] * dT);
     const OCP_DBL xiwp = xi[1] * (cp[1] + cpt[1] * dT);
-    vfP = -(vj[0] * xiop / xi[0] + vj[1] * xiwp / xi[1]);
+    vfP                = -(vj[0] * xiop / xi[0] + vj[1] * xiwp / xi[1]);
 
     // d Vf / dT
     const OCP_DBL xioT = xi[0] * (-ct1[0] - ct2[0] * dT + cpt[0] * dP);
     const OCP_DBL xiwT = xi[1] * (-ct1[1] - ct2[1] * dT + cpt[1] * dP);
-    vfT = -(vj[0] * xioT / xi[0] + vj[1] * xiwT / xi[1]);
+    vfT                = -(vj[0] * xioT / xi[0] + vj[1] * xiwT / xi[1]);
 }
 
-void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin, 
+void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin,
                                   const OCP_DBL& Tin,
-                                  const OCP_DBL* Niin, 
-                                  const OCP_DBL* Sjin, 
-                                  const USI& lastNP,
+                                  const OCP_DBL* Niin,
+                                  const OCP_DBL* Sjin,
+                                  const USI&     lastNP,
                                   const OCP_DBL* xijin,
                                   const OCP_USI& bId)
 {
     // Assign value
-    P = Pin; T = Tin + CONV5;
+    P                = Pin;
+    T                = Tin + CONV5;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
-    Ni[0] = Niin[0];
-    Ni[1] = Niin[1];
-    Nt = Ni[0] + Ni[1];
+    Ni[0]            = Niin[0];
+    Ni[1]            = Niin[1];
+    Nt               = Ni[0] + Ni[1];
 
     // phase viscosity
     if (useViscTab) {
@@ -296,8 +293,7 @@ void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin,
         muT[0] = cdata[1];
         muT[1] = cdata[2];
 
-    }
-    else {
+    } else {
         mu[0] = avisc[0] * exp(bvisc[0] / T);
         mu[1] = avisc[1] * exp(bvisc[1] / T);
         // d mu / dT
@@ -305,12 +301,11 @@ void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin,
         muT[1] = mu[1] * (-bvisc[1] / (T * T));
     }
 
-
     // phase molar density
-    xi[0] = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-        ct2[0] * pow(dT, 2) / 2 + cpt[0] * dP * dT);
-    xi[1] = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-        ct2[1] * pow(dT, 2) / 2 + cpt[1] * dP * dT);
+    xi[0] = xi_ref[0] *
+            exp(cp[0] * dP - ct1[0] * dT - ct2[0] * pow(dT, 2) / 2 + cpt[0] * dP * dT);
+    xi[1] = xi_ref[1] *
+            exp(cp[1] * dP - ct1[1] * dT - ct2[1] * pow(dT, 2) / 2 + cpt[1] * dP * dT);
     // d xi / dP
     xiP[0] = xi[0] * (cp[0] + cpt[0] * dT);
     xiP[1] = xi[1] * (cp[1] + cpt[1] * dT);
@@ -318,7 +313,7 @@ void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin,
     xiT[0] = xi[0] * (-ct1[0] - ct2[0] * dT + cpt[0] * dP);
     xiT[1] = xi[1] * (-ct1[1] - ct2[1] * dT + cpt[1] * dP);
 
-    // phase mass density  
+    // phase mass density
     rho[0] = MWp[0] * xi[0];
     rho[1] = MWp[1] * xi[1];
     // d rho / d P
@@ -352,10 +347,10 @@ void MixtureThermal_K01::FlashFIM(const OCP_DBL& Pin,
     dXsdXp[2] = -S[0] * vfi[1] / vf;                         // dSo / dNw
     dXsdXp[3] = (-vj[0] * xiT[0] / xi[0] - S[0] * vfT) / vf; // dSo / dT
 
-    dXsdXp[4] = -dXsdXp[0];    // dSw / dP
-    dXsdXp[5] = -dXsdXp[1];    // dSw / dNo
-    dXsdXp[6] = -dXsdXp[2];    // dSw / dNw
-    dXsdXp[7] = -dXsdXp[3];    // dSw / dT
+    dXsdXp[4] = -dXsdXp[0]; // dSw / dP
+    dXsdXp[5] = -dXsdXp[1]; // dSw / dNo
+    dXsdXp[6] = -dXsdXp[2]; // dSw / dNw
+    dXsdXp[7] = -dXsdXp[3]; // dSw / dT
 
     CalEnthalpy();
 }
@@ -371,47 +366,49 @@ void MixtureThermal_K01::CalEnthalpy()
         for (USI j = 0; j < numPhase; j++) {
             for (USI i = 0; i < numCom; i++) {
 
-                Hx[j * numCom + i] = (cpl1[i] * dT + 1.0 / 2 * cpl2[i] * pow(dT, 2) + 1.0 / 3 * cpl3[i] * pow(dT, 3) + 1.0 / 4 * cpl4[i] * pow(dT, 4));
+                Hx[j * numCom + i] =
+                    (cpl1[i] * dT + 1.0 / 2 * cpl2[i] * pow(dT, 2) +
+                     1.0 / 3 * cpl3[i] * pow(dT, 3) + 1.0 / 4 * cpl4[i] * pow(dT, 4));
 
                 H[j] += xij[j * numCom + i] * Hx[j * numCom + i];
 
-                HT[j] += xij[j * numCom + i] * (cpl1[i] + cpl2[i] * dT + cpl3[i] * pow(dT, 2) + cpl4[i] * pow(dT, 3));
+                HT[j] +=
+                    xij[j * numCom + i] * (cpl1[i] + cpl2[i] * dT +
+                                           cpl3[i] * pow(dT, 2) + cpl4[i] * pow(dT, 3));
             }
         }
-    }
-    else if (gas_based) {
+    } else if (gas_based) {
         for (USI j = 0; j < numPhase; j++) {
             for (USI i = 0; i < numCom; i++) {
-                Hx[j * numCom + i] = cpg1[i] * dT
-                    + 1.0 / 2 * cpg2[i] * pow(dT, 2)
-                    + 1.0 / 3 * cpg3[i] * pow(dT, 3)
-                    + 1.0 / 4 * cpg4[i] * pow(dT, 4);
+                Hx[j * numCom + i] = cpg1[i] * dT + 1.0 / 2 * cpg2[i] * pow(dT, 2) +
+                                     1.0 / 3 * cpg3[i] * pow(dT, 3) +
+                                     1.0 / 4 * cpg4[i] * pow(dT, 4);
                 H[j] += xij[j * numCom + i] * Hx[j * numCom + i];
-                HT[j] += xij[j * numCom + i] * (cpg1[i] + cpg2[i] * dT +
-                    cpg3[i] * pow(dT, 2) + cpg4[i] * pow(dT, 3));
+                HT[j] +=
+                    xij[j * numCom + i] * (cpg1[i] + cpg2[i] * dT +
+                                           cpg3[i] * pow(dT, 2) + cpg4[i] * pow(dT, 3));
 
                 if (T < Tcrit[i]) {
                     Hx[j * numCom + i] -= hvr[i] * pow((Tcrit[i] - T), ev[i]);
 
                     H[j] -= xij[j * numCom + i] * hvr[i] * pow((Tcrit[i] - T), ev[i]);
 
-                    HT[j] += xij[j * numCom + i] * hvr[i] * ev[i] * pow((Tcrit[i] - T), ev[i] - 1);
+                    HT[j] += xij[j * numCom + i] * hvr[i] * ev[i] *
+                             pow((Tcrit[i] - T), ev[i] - 1);
                 }
             }
         }
-    }
-    else {
+    } else {
         OCP_ABORT("WRONG Type !");
     }
-
 
     // Internal energy per unit volume of fluid
 
     // Uf, d Uf / d T, d Uf / d P
-    Uf    = -P / (GRAVITY_FACTOR * CONV6);
-    UfP   = -1 / (GRAVITY_FACTOR * CONV6);
-    UfT   = 0;
-  
+    Uf  = -P / (GRAVITY_FACTOR * CONV6);
+    UfP = -1 / (GRAVITY_FACTOR * CONV6);
+    UfT = 0;
+
     for (USI j = 0; j < numPhase; j++) {
         // Uf
         Uf += S[j] * xi[j] * H[j];
@@ -430,23 +427,22 @@ void MixtureThermal_K01::CalEnthalpy()
 
 OCP_DBL MixtureThermal_K01::CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL* Ziin)
 {
-    T = Tin + CONV5;
-    const OCP_DBL dT = T - Tref;
-    vector<OCP_DBL> zi{ 0, 1 };
+    T                  = Tin + CONV5;
+    const OCP_DBL   dT = T - Tref;
+    vector<OCP_DBL> zi{0, 1};
 
     OCP_DBL Hw = 0;
     if (liquid_based) {
         for (USI i = 0; i < numCom; i++) {
-            Hw += zi[i] * (cpl1[i] * dT + 1.0 / 2 * cpl2[i] * pow(dT, 2)
-                + 1.0 / 3 * cpl3[i] * pow(dT, 3)
-                + 1.0 / 4 * cpl4[i] * pow(dT, 4));
+            Hw += zi[i] *
+                  (cpl1[i] * dT + 1.0 / 2 * cpl2[i] * pow(dT, 2) +
+                   1.0 / 3 * cpl3[i] * pow(dT, 3) + 1.0 / 4 * cpl4[i] * pow(dT, 4));
         }
-    }
-    else if (gas_based) {
+    } else if (gas_based) {
         for (USI i = 0; i < numCom; i++) {
-            Hw += zi[i] * (cpg1[i] * dT + 1.0 / 2 * cpg2[i] * pow(dT, 2)
-                + 1.0 / 3 * cpg3[i] * pow(dT, 3)
-                + 1.0 / 4 * cpg4[i] * pow(dT, 4));
+            Hw += zi[i] *
+                  (cpg1[i] * dT + 1.0 / 2 * cpg2[i] * pow(dT, 2) +
+                   1.0 / 3 * cpg3[i] * pow(dT, 3) + 1.0 / 4 * cpg4[i] * pow(dT, 4));
             if (T < Tcrit[i]) {
                 Hw -= zi[i] * hvr[i] * pow((Tcrit[i] - T), ev[i]);
             }
@@ -455,66 +451,71 @@ OCP_DBL MixtureThermal_K01::CalInjWellEnthalpy(const OCP_DBL& Tin, const OCP_DBL
     return Hw;
 }
 
-
-OCP_DBL MixtureThermal_K01::XiPhase(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase)
+OCP_DBL MixtureThermal_K01::XiPhase(const OCP_DBL& Pin,
+                                    const OCP_DBL& Tin,
+                                    const OCP_DBL* Ziin,
+                                    const USI&     tarPhase)
 {
-    P = Pin; T = Tin + CONV5;
+    P                = Pin;
+    T                = Tin + CONV5;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
 
     if (tarPhase == WATER) {
         // inj fluid is water
         OCP_DBL xiw = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-            ct2[1] * pow(dT, 2) / 2 +
-            cpt[1] * dP * dT);
+                                      ct2[1] * pow(dT, 2) / 2 + cpt[1] * dP * dT);
         return xiw;
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong tarPhase!");
     }
 }
 
 OCP_DBL
-MixtureThermal_K01::RhoPhase(const OCP_DBL& Pin, const OCP_DBL& Pbb, const OCP_DBL& Tin, const OCP_DBL* Ziin, const USI& tarPhase)
+MixtureThermal_K01::RhoPhase(const OCP_DBL& Pin,
+                             const OCP_DBL& Pbb,
+                             const OCP_DBL& Tin,
+                             const OCP_DBL* Ziin,
+                             const USI&     tarPhase)
 {
-    P = Pin; T = Tin + CONV5;
+    P                = Pin;
+    T                = Tin + CONV5;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
 
     if (tarPhase == OIL) {
         const OCP_DBL xio = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-            ct2[0] * pow(dT, 2) / 2 +
-            cpt[0] * dP * dT);
+                                            ct2[0] * pow(dT, 2) / 2 + cpt[0] * dP * dT);
         return MWp[0] * xio;
-    }
-    else if (tarPhase == WATER) {
+    } else if (tarPhase == WATER) {
         // inj fluid is water
         const OCP_DBL xiw = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-            ct2[1] * pow(dT, 2) / 2 +
-            cpt[1] * dP * dT);
+                                            ct2[1] * pow(dT, 2) / 2 + cpt[1] * dP * dT);
         return MWp[1] * xiw;
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong tarPhase!");
     }
 }
 
-
-void MixtureThermal_K01::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-    const vector<OCP_DBL>& prodPhase, vector<OCP_DBL>& prodWeight)
+void MixtureThermal_K01::CalProdWeight(const OCP_DBL&         Pin,
+                                       const OCP_DBL&         Tin,
+                                       const OCP_DBL*         Niin,
+                                       const vector<OCP_DBL>& prodPhase,
+                                       vector<OCP_DBL>&       prodWeight)
 {
-    P = Pin; T = Tin + 460;
+    P                = Pin;
+    T                = Tin + 460;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
-    Ni[0] = Niin[0];
-    Ni[1] = Niin[1];
-    Nt = Ni[0] + Ni[1];
+    Ni[0]            = Niin[0];
+    Ni[1]            = Niin[1];
+    Nt               = Ni[0] + Ni[1];
 
     // phase molar density
-    xi[0] = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-        ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
-    xi[1] = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-        ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
+    xi[0] = xi_ref[0] *
+            exp(cp[0] * dP - ct1[0] * dT - ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
+    xi[1] = xi_ref[1] *
+            exp(cp[1] * dP - ct1[1] * dT - ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
 
     // phase volume
     vj[0] = Ni[0] / xi[0];
@@ -535,22 +536,24 @@ void MixtureThermal_K01::CalProdWeight(const OCP_DBL& Pin, const OCP_DBL& Tin, c
     fill(prodWeight.begin(), prodWeight.end(), tmp);
 }
 
-
-void MixtureThermal_K01::CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, const OCP_DBL* Niin,
-    vector<OCP_DBL>& prodRate)
+void MixtureThermal_K01::CalProdRate(const OCP_DBL&   Pin,
+                                     const OCP_DBL&   Tin,
+                                     const OCP_DBL*   Niin,
+                                     vector<OCP_DBL>& prodRate)
 {
-    // assign Value    
-    P = Pin; T = Tin + 460;
+    // assign Value
+    P                = Pin;
+    T                = Tin + 460;
     const OCP_DBL dP = P - Pref;
     const OCP_DBL dT = T - Tref;
-    Ni[0] = Niin[0];
-    Ni[1] = Niin[1];
+    Ni[0]            = Niin[0];
+    Ni[1]            = Niin[1];
 
     // phase molar density
-    xi[0] = xi_ref[0] * exp(cp[0] * dP - ct1[0] * dT -
-        ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
-    xi[1] = xi_ref[1] * exp(cp[1] * dP - ct1[1] * dT -
-        ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
+    xi[0] = xi_ref[0] *
+            exp(cp[0] * dP - ct1[0] * dT - ct2[0] / 2 * pow(dT, 2) + cpt[0] * dP * dT);
+    xi[1] = xi_ref[1] *
+            exp(cp[1] * dP - ct1[1] * dT - ct2[1] / 2 * pow(dT, 2) + cpt[1] * dP * dT);
 
     // phase volume
     vj[0] = Ni[0] / xi[0];
@@ -560,11 +563,10 @@ void MixtureThermal_K01::CalProdRate(const OCP_DBL& Pin, const OCP_DBL& Tin, con
     prodRate[1] = vj[1] / CONV1; // stb
 }
 
-
-void MixtureThermal_K01::SetupWellOpt(WellOpt& opt,
-    const vector<SolventINJ>& sols,
-    const OCP_DBL& Psurf,
-    const OCP_DBL& Tsurf)
+void MixtureThermal_K01::SetupWellOpt(WellOpt&                  opt,
+                                      const vector<SolventINJ>& sols,
+                                      const OCP_DBL&            Psurf,
+                                      const OCP_DBL&            Tsurf)
 {
     const USI wellType = opt.WellType();
     if (wellType == INJ) {
@@ -577,32 +579,29 @@ void MixtureThermal_K01::SetupWellOpt(WellOpt& opt,
             // injfluid Use flash in Bulk in surface condition
             OCP_DBL tmp = CONV1 * XiPhase(Psurf, Tsurf, &tmpZi[0], WATER);
             opt.SetInjFactor(tmp);
-        }
-        else {
+        } else {
             OCP_ABORT("WRONG Fluid Type!");
         }
         opt.SetInjZi(tmpZi);
-    }
-    else if (wellType == PROD) {
+    } else if (wellType == PROD) {
         vector<OCP_DBL> tmpWght(numPhase, 0);
         switch (opt.OptMode()) {
-        case ORATE_MODE:
-            tmpWght[0] = 1;
-            break;
-        case WRATE_MODE:
-            tmpWght[1] = 1;
-            break;
-        case LRATE_MODE:
-            tmpWght[0] = 1;
-            tmpWght[1] = 1;
-            break;
-        default:
-            OCP_ABORT("WRONG optMode");
-            break;
+            case ORATE_MODE:
+                tmpWght[0] = 1;
+                break;
+            case WRATE_MODE:
+                tmpWght[1] = 1;
+                break;
+            case LRATE_MODE:
+                tmpWght[0] = 1;
+                tmpWght[1] = 1;
+                break;
+            default:
+                OCP_ABORT("WRONG optMode");
+                break;
         }
         opt.SetProdPhaseWeight(tmpWght);
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong Well Type!");
     }
 }

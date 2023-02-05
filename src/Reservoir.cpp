@@ -25,7 +25,6 @@ void Reservoir::InputParam(ParamRead& param)
     optFeatures.InputParam(param.paramRs);
 }
 
-
 void Reservoir::SetupIsoT()
 {
     OCP_FUNCNAME;
@@ -38,7 +37,6 @@ void Reservoir::SetupIsoT()
     bulk.SetupOptionalFeatures(grid, optFeatures);
 }
 
-
 void Reservoir::SetupT()
 {
     grid.SetupT();
@@ -46,7 +44,6 @@ void Reservoir::SetupT()
     conn.SetupIsoT(grid, bulk);
     allWells.Setup(grid, bulk);
 }
-
 
 void Reservoir::ApplyControl(const USI& i)
 {
@@ -56,7 +53,6 @@ void Reservoir::ApplyControl(const USI& i)
     allWells.SetupWellGroup(bulk);
 }
 
-
 void Reservoir::CalMaxChange()
 {
     OCP_FUNCNAME;
@@ -64,7 +60,6 @@ void Reservoir::CalMaxChange()
     bulk.CalMaxChange();
     allWells.CalMaxBHPChange();
 }
-
 
 void Reservoir::CalIPRT(const OCP_DBL& dt)
 {
@@ -74,7 +69,6 @@ void Reservoir::CalIPRT(const OCP_DBL& dt)
     // Calculate Reinjection fluid for next step
     allWells.CalReInjFluid(bulk);
 }
-
 
 OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
 {
@@ -98,14 +92,14 @@ OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
                     const OCP_USI k = wl.PerfLocation(p);
 
                     for (USI j = 0; j < np; j++) {
-                        bulk.cfl[k * np + j] += fabs(wl.PerfProdQj_ft3(p,j)) * dt;
+                        bulk.cfl[k * np + j] += fabs(wl.PerfProdQj_ft3(p, j)) * dt;
                     }
                 }
             }
         }
     }
 
-    bulk.maxCFL = 0;
+    bulk.maxCFL       = 0;
     const OCP_USI len = bulk.numBulk * np;
     for (OCP_USI n = 0; n < len; n++) {
         if (bulk.phaseExist[n]) {
@@ -121,7 +115,6 @@ OCP_DBL Reservoir::CalCFL(const OCP_DBL& dt) const
 
     return bulk.maxCFL;
 }
-
 
 void Reservoir::PrintSolFIM(const string& outfile) const
 {

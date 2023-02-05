@@ -12,16 +12,13 @@
 // OpenCAEPoro header files
 #include "WellOpt.hpp"
 
-
 WellOpt::WellOpt(const WellOptParam& optParam)
 {
     if (optParam.type == "INJ") {
         type = INJ;
-    }
-    else if (optParam.type == "PROD") {
+    } else if (optParam.type == "PROD") {
         type = PROD;
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong well type!");
     }
 
@@ -34,41 +31,33 @@ WellOpt::WellOpt(const WellOptParam& optParam)
 
     if (optParam.state == "OPEN") {
         state = OPEN;
-    }
-    else if (optParam.state == "CLOSE") {
+    } else if (optParam.state == "CLOSE") {
         state = CLOSE;
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong state type!");
     }
 
     if (optParam.optMode == "RATE") {
         optMode = RATE_MODE;
-    }
-    else if (optParam.optMode == "ORAT") {
+    } else if (optParam.optMode == "ORAT") {
         optMode = ORATE_MODE;
-    }
-    else if (optParam.optMode == "GRAT") {
+    } else if (optParam.optMode == "GRAT") {
         optMode = GRATE_MODE;
-    }
-    else if (optParam.optMode == "WRAT") {
+    } else if (optParam.optMode == "WRAT") {
         optMode = WRATE_MODE;
-    }
-    else if (optParam.optMode == "LRAT") {
+    } else if (optParam.optMode == "LRAT") {
         optMode = LRATE_MODE;
-    }
-    else if (optParam.optMode == "BHP") {
+    } else if (optParam.optMode == "BHP") {
         optMode = BHP_MODE;
-    }
-    else {
+    } else {
         OCP_ABORT("Wrong well option mode!");
     }
 
     initOptMode = optMode;
-    maxRate = optParam.maxRate;
-    maxBHP = optParam.maxBHP;
-    minBHP = optParam.minBHP;
-    injTemp = optParam.injTemp;
+    maxRate     = optParam.maxRate;
+    maxBHP      = optParam.maxBHP;
+    minBHP      = optParam.minBHP;
+    injTemp     = optParam.injTemp;
 }
 
 OCP_BOOL WellOpt::operator!=(const WellOpt& opt) const
@@ -84,14 +73,13 @@ OCP_BOOL WellOpt::operator!=(const WellOpt& opt) const
         if (fabs(injZi[i] - opt.injZi[i]) > TINY) return OCP_TRUE;
     }
     for (USI i = 0; i < this->prodPhaseWeight.size(); i++) {
-        if (fabs(this->prodPhaseWeight[i] - opt.prodPhaseWeight[i]) > TINY) return OCP_TRUE;
+        if (fabs(this->prodPhaseWeight[i] - opt.prodPhaseWeight[i]) > TINY)
+            return OCP_TRUE;
     }
     if (this->injProdPhase != opt.injProdPhase) return OCP_TRUE;
     if (fabs(this->injTemp - opt.injTemp) > TINY) return OCP_TRUE;
     return OCP_FALSE;
 }
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

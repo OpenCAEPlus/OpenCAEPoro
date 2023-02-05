@@ -34,7 +34,6 @@ OCP_DBL Point3D::operator*(const Point3D& other) const
     return x * other.x + y * other.y + z * other.z;
 }
 
-
 Point3D& Point3D::operator+=(const Point3D& other)
 {
     x += other.x;
@@ -42,7 +41,6 @@ Point3D& Point3D::operator+=(const Point3D& other)
     z += other.z;
     return *this;
 }
-
 
 Point3D& Point3D::operator*=(const OCP_DBL& a)
 {
@@ -52,7 +50,6 @@ Point3D& Point3D::operator*=(const OCP_DBL& a)
     return *this;
 }
 
-
 Point3D& Point3D::operator/=(const OCP_DBL& a)
 {
     x /= a;
@@ -60,7 +57,6 @@ Point3D& Point3D::operator/=(const OCP_DBL& a)
     z /= a;
     return *this;
 }
-
 
 Point3D operator*(const Point3D& p, const OCP_DBL& a)
 {

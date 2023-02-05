@@ -21,13 +21,11 @@
 // General
 /////////////////////////////////////////////////////////////////////
 
-
 void BulkConn::SetupIsoT(const Grid& myGrid, const Bulk& myBulk)
 {
     Setup(myGrid);
     CalAkd(myBulk);
 }
-
 
 /// It should be called after Grid and Bulk Setup.
 void BulkConn::Setup(const Grid& myGrid)
@@ -88,43 +86,41 @@ void BulkConn::Setup(const Grid& myGrid)
     // PrintConnectionInfoCoor(myGrid);
 }
 
-
 void BulkConn::CalAkd(const Bulk& myBulk)
 {
     OCP_USI bId, eId;
     OCP_DBL areaB, areaE;
     OCP_DBL T1, T2;
     for (OCP_USI c = 0; c < numConn; c++) {
-        bId = iteratorConn[c].bId;
-        eId = iteratorConn[c].eId;
+        bId   = iteratorConn[c].bId;
+        eId   = iteratorConn[c].eId;
         areaB = iteratorConn[c].areaB;
         areaE = iteratorConn[c].areaE;
-        switch (iteratorConn[c].direction)
-        {
-        case 1:
-            T1 = myBulk.ntg[bId] * myBulk.rockKx[bId] *  areaB;
-            T2 = myBulk.ntg[eId] * myBulk.rockKx[eId] *  areaE;
-            break;
-        case 2:
-            T1 = myBulk.ntg[bId] * myBulk.rockKy[bId] *  areaB;
-            T2 = myBulk.ntg[eId] * myBulk.rockKy[eId] *  areaE;
-            break;
-        case 3:
-            T1 = myBulk.rockKz[bId] * areaB;
-            T2 = myBulk.rockKz[eId] * areaE;
-            break;
-        default:
-            OCP_ABORT("Wrong Direction!");
+        switch (iteratorConn[c].direction) {
+            case 1:
+                T1 = myBulk.ntg[bId] * myBulk.rockKx[bId] * areaB;
+                T2 = myBulk.ntg[eId] * myBulk.rockKx[eId] * areaE;
+                break;
+            case 2:
+                T1 = myBulk.ntg[bId] * myBulk.rockKy[bId] * areaB;
+                T2 = myBulk.ntg[eId] * myBulk.rockKy[eId] * areaE;
+                break;
+            case 3:
+                T1 = myBulk.rockKz[bId] * areaB;
+                T2 = myBulk.rockKz[eId] * areaE;
+                break;
+            default:
+                OCP_ABORT("Wrong Direction!");
         }
         iteratorConn[c].area = 1 / (1 / T1 + 1 / T2);
     }
 }
 
-
 void BulkConn::PrintConnectionInfo(const Grid& myGrid) const
 {
     for (OCP_USI i = 0; i < numBulk; i++) {
-        cout << "(" << myGrid.map_Act2All[i] << ")" << "\t";
+        cout << "(" << myGrid.map_Act2All[i] << ")"
+             << "\t";
 
         for (auto& v : neighbor[i]) {
             cout << myGrid.map_Act2All[v] << "\t";
@@ -168,7 +164,6 @@ void BulkConn::PrintConnectionInfoCoor(const Grid& myGrid) const
         cout << endl;
     }
 }
-
 
 /// rho = (S1*rho1 + S2*rho2)/(S1+S2)
 void BulkConn::CalFluxFIMS(const Grid& myGrid, const Bulk& myBulk)

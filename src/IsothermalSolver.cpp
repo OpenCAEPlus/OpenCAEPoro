@@ -12,125 +12,120 @@
 #include "IsothermalSolver.hpp"
 
 /// Setup solution methods, including IMPEC and FIM.
-void IsothermalSolver::SetupMethod(Reservoir &rs, const OCPControl &ctrl)
+void IsothermalSolver::SetupMethod(Reservoir& rs, const OCPControl& ctrl)
 {
     method = ctrl.GetMethod();
 
-    switch (method)
-    {
-    case IMPEC:
-        impec.Setup(rs, LSolver, ctrl);        
-        break;
-    case AIMc:
-        aimc.Setup(rs, LSolver, ctrl);
-        break;
-    case FIMn:
-        fim_n.Setup(rs, LSolver, ctrl);
-        break;
-    case FIM:
-    default:
-        fim.Setup(rs, LSolver, ctrl);                
-        break;
-    }   
+    switch (method) {
+        case IMPEC:
+            impec.Setup(rs, LSolver, ctrl);
+            break;
+        case AIMc:
+            aimc.Setup(rs, LSolver, ctrl);
+            break;
+        case FIMn:
+            fim_n.Setup(rs, LSolver, ctrl);
+            break;
+        case FIM:
+        default:
+            fim.Setup(rs, LSolver, ctrl);
+            break;
+    }
 }
 
 /// Setup solution methods, including IMPEC and FIM.
-void IsothermalSolver::InitReservoir(Reservoir &rs) const
+void IsothermalSolver::InitReservoir(Reservoir& rs) const
 {
-    switch (method)
-    {
-    case IMPEC:
-        impec.InitReservoir(rs);
-        break;
-    case FIM:   
-        fim.InitReservoir(rs);
-        break;
-    case FIMn:
-        fim_n.InitReservoir(rs);
-        break;
-    case AIMc:
-        aimc.InitReservoir(rs);
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (method) {
+        case IMPEC:
+            impec.InitReservoir(rs);
+            break;
+        case FIM:
+            fim.InitReservoir(rs);
+            break;
+        case FIMn:
+            fim_n.InitReservoir(rs);
+            break;
+        case AIMc:
+            aimc.InitReservoir(rs);
+            break;
+        default:
+            OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Prepare solution methods, including IMPEC and FIM.
-void IsothermalSolver::Prepare(Reservoir &rs, OCPControl& ctrl)
+void IsothermalSolver::Prepare(Reservoir& rs, OCPControl& ctrl)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impec.Prepare(rs, ctrl);
-        break;
-    case FIMn:
-        fim_n.Prepare(rs, ctrl.GetCurDt());
-        break;
-    case FIM:
-        fim.Prepare(rs, ctrl.GetCurDt());
-        break;
-    case AIMc:
-        aimc.Prepare(rs, ctrl.GetCurDt());
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (method) {
+        case IMPEC:
+            impec.Prepare(rs, ctrl);
+            break;
+        case FIMn:
+            fim_n.Prepare(rs, ctrl.GetCurDt());
+            break;
+        case FIM:
+            fim.Prepare(rs, ctrl.GetCurDt());
+            break;
+        case AIMc:
+            aimc.Prepare(rs, ctrl.GetCurDt());
+            break;
+        default:
+            OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Assemble linear systems for IMPEC and FIM.
-void IsothermalSolver::AssembleMat(const Reservoir &rs, OCPControl& ctrl)
+void IsothermalSolver::AssembleMat(const Reservoir& rs, OCPControl& ctrl)
 {
     const OCP_DBL dt = ctrl.GetCurDt();
 
     GetWallTime timer;
     timer.Start();
 
-    switch (method)
-    {
-    case IMPEC:
-        impec.AssembleMat(LSolver, rs, dt);
-        break;
-    case FIMn:
-        fim_n.AssembleMat(LSolver, rs, dt);
-        break;
-    case FIM:
-        fim.AssembleMat(LSolver, rs, dt);
-        break;
-    case AIMc:
-        aimc.AssembleMat(LSolver, rs, dt);
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (method) {
+        case IMPEC:
+            impec.AssembleMat(LSolver, rs, dt);
+            break;
+        case FIMn:
+            fim_n.AssembleMat(LSolver, rs, dt);
+            break;
+        case FIM:
+            fim.AssembleMat(LSolver, rs, dt);
+            break;
+        case AIMc:
+            aimc.AssembleMat(LSolver, rs, dt);
+            break;
+        default:
+            OCP_ABORT("Wrong method type!");
     }
 
     ctrl.RecordTimeAssembleMat(timer.Stop() / 1000);
 }
 
 /// Solve linear systems for IMPEC and FIM.
-void IsothermalSolver::SolveLinearSystem(Reservoir &rs, OCPControl &ctrl)
+void IsothermalSolver::SolveLinearSystem(Reservoir& rs, OCPControl& ctrl)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impec.SolveLinearSystem(LSolver, rs, ctrl);
-        break;
-    case FIMn:
-        fim_n.SolveLinearSystem(LSolver, rs, ctrl);
-        break;
-    case FIM:
-        fim.SolveLinearSystem(LSolver, rs, ctrl);
-        break;
-    case AIMc:
-        aimc.SolveLinearSystem(LSolver, rs, ctrl);
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (method) {
+        case IMPEC:
+            impec.SolveLinearSystem(LSolver, rs, ctrl);
+            break;
+        case FIMn:
+            fim_n.SolveLinearSystem(LSolver, rs, ctrl);
+            break;
+        case FIM:
+            fim.SolveLinearSystem(LSolver, rs, ctrl);
+            break;
+        case AIMc:
+            aimc.SolveLinearSystem(LSolver, rs, ctrl);
+            break;
+        default:
+            OCP_ABORT("Wrong method type!");
     }
 }
 
 /// Update physical properties for IMPEC and FIM.
-OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_BOOL flag;
 
@@ -153,14 +148,14 @@ OCP_BOOL IsothermalSolver::UpdateProperty(Reservoir &rs, OCPControl &ctrl)
         default:
             OCP_ABORT("Wrong method type!");
     }
-    
+
     ctrl.RecordTimeUpdateProperty(timer.Stop() / 1000);
 
     return flag;
 }
 
 /// Finish up Newton-Raphson iteration for IMPEC and FIM.
-OCP_BOOL IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
+OCP_BOOL IsothermalSolver::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
     switch (method) {
         case IMPEC:
@@ -177,24 +172,23 @@ OCP_BOOL IsothermalSolver::FinishNR(Reservoir &rs, OCPControl &ctrl)
 }
 
 /// Finish up time step for IMPEC and FIM.
-void IsothermalSolver::FinishStep(Reservoir &rs, OCPControl &ctrl)
+void IsothermalSolver::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
-    switch (method)
-    {
-    case IMPEC:
-        impec.FinishStep(rs, ctrl);
-        break;
-    case FIMn:
-        fim_n.FinishStep(rs, ctrl);
-        break;
-    case FIM:
-        fim.FinishStep(rs, ctrl);
-        break;
-    case AIMc:
-        aimc.FinishStep(rs, ctrl);
-        break;
-    default:
-        OCP_ABORT("Wrong method type!");
+    switch (method) {
+        case IMPEC:
+            impec.FinishStep(rs, ctrl);
+            break;
+        case FIMn:
+            fim_n.FinishStep(rs, ctrl);
+            break;
+        case FIM:
+            fim.FinishStep(rs, ctrl);
+            break;
+        case AIMc:
+            aimc.FinishStep(rs, ctrl);
+            break;
+        default:
+            OCP_ABORT("Wrong method type!");
     }
     ctrl.UpdateIters();
 }

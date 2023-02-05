@@ -15,7 +15,6 @@
 // IsothermalMethod
 ////////////////////////////////////////////
 
-
 void IsothermalMethod::InitRock(Bulk& bk) const
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
@@ -23,16 +22,14 @@ void IsothermalMethod::InitRock(Bulk& bk) const
     }
 }
 
-
 void IsothermalMethod::CalRock(Bulk& bk) const
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
-        bk.rock[bk.ROCKNUM[n]]->CalPoro(bk.P[n], bk.poroInit[n], bk.poro[n], bk.poroP[n]);
+        bk.rock[bk.ROCKNUM[n]]->CalPoro(bk.P[n], bk.poroInit[n], bk.poro[n],
+                                        bk.poroP[n]);
         bk.rockVp[n] = bk.v[n] * bk.poro[n];
     }
 }
-
-
 
 ////////////////////////////////////////////
 // IsoT_IMPEC
@@ -47,7 +44,7 @@ void IsoT_IMPEC::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
 }
 
 /// Initialize reservoir
-void IsoT_IMPEC::InitReservoir(Reservoir& rs) const 
+void IsoT_IMPEC::InitReservoir(Reservoir& rs) const
 {
     rs.bulk.InitPTSw(50);
 
@@ -67,17 +64,17 @@ void IsoT_IMPEC::InitReservoir(Reservoir& rs) const
 void IsoT_IMPEC::Prepare(Reservoir& rs, OCPControl& ctrl)
 {
     rs.allWells.PrepareWell(rs.bulk);
-    rs.CalCFL(ctrl.GetCurDt()); 
-    ctrl.Check(rs, { "CFL" });
+    rs.CalCFL(ctrl.GetCurDt());
+    ctrl.Check(rs, {"CFL"});
 }
 
-
-void IsoT_IMPEC::AssembleMat(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_IMPEC::AssembleMat(LinearSystem&    ls,
+                             const Reservoir& rs,
+                             const OCP_DBL&   dt) const
 {
     AssembleMatBulks(ls, rs, dt);
     AssembleMatWells(ls, rs, dt);
 }
-
 
 void IsoT_IMPEC::SolveLinearSystem(LinearSystem& ls, Reservoir& rs, OCPControl& ctrl)
 {
@@ -116,7 +113,7 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL& dt = ctrl.current_dt;
 
     // First check : Pressure check
-    if (!ctrl.Check(rs, { "BulkP", "WellP" })) {
+    if (!ctrl.Check(rs, {"BulkP", "WellP"})) {
         return OCP_FALSE;
     }
 
@@ -125,7 +122,7 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 
     // Second check : CFL check
     rs.CalCFL(dt);
-    if (!ctrl.Check(rs, { "CFL" })) {
+    if (!ctrl.Check(rs, {"CFL"})) {
         ResetToLastTimeStep01(rs, ctrl);
         cout << "CFL is too big" << endl;
         return OCP_FALSE;
@@ -134,7 +131,7 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     MassConserve(rs, dt);
 
     // Third check: Ni check
-    if (!ctrl.Check(rs, { "BulkNi" })) {
+    if (!ctrl.Check(rs, {"BulkNi"})) {
         ResetToLastTimeStep02(rs, ctrl);
         return OCP_FALSE;
     }
@@ -143,7 +140,7 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     CalFlash(rs.bulk);
 
     // Fouth check: Volume error check
-    if (!ctrl.Check(rs, { "BulkVe" })) {
+    if (!ctrl.Check(rs, {"BulkVe"})) {
         ResetToLastTimeStep03(rs, ctrl);
         return OCP_FALSE;
     }
@@ -154,12 +151,7 @@ OCP_BOOL IsoT_IMPEC::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     return OCP_TRUE;
 }
 
-OCP_BOOL IsoT_IMPEC::FinishNR(const Reservoir& rs)
-{
-
-    return OCP_TRUE;
-}
-
+OCP_BOOL IsoT_IMPEC::FinishNR(const Reservoir& rs) { return OCP_TRUE; }
 
 void IsoT_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
 {
@@ -167,9 +159,8 @@ void IsoT_IMPEC::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
     // ctrl.CalNextTstepIMPEC(rs);
-    ctrl.CalNextTimeStep(rs, { "dP", "dN", "dS", "eV" });
+    ctrl.CalNextTimeStep(rs, {"dP", "dN", "dS", "eV"});
 }
-
 
 void IsoT_IMPEC::AllocateReservoir(Reservoir& rs)
 {
@@ -188,7 +179,6 @@ void IsoT_IMPEC::AllocateReservoir(Reservoir& rs)
     // derivatives
     bk.poroP.resize(nb);
     bk.lporoP.resize(nb);
-
 
     // Fluid
     bk.phaseNum.resize(nb);
@@ -226,7 +216,7 @@ void IsoT_IMPEC::AllocateReservoir(Reservoir& rs)
     bk.lmu.resize(nb * np);
     bk.lkr.resize(nb * np);
 
-    // derivatives  
+    // derivatives
     bk.vfP.resize(nb);
     bk.vfi.resize(nb * nc);
 
@@ -247,23 +237,23 @@ void IsoT_IMPEC::AllocateReservoir(Reservoir& rs)
     conn.lupblock_Rho.resize(conn.numConn * np);
     conn.lupblock_Trans.resize(conn.numConn * np);
     conn.lupblock_Velocity.resize(conn.numConn * np);
-
 }
 
-
-void IsoT_IMPEC::AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl)
+void IsoT_IMPEC::AllocateLinearSystem(LinearSystem&     ls,
+                                      const Reservoir&  rs,
+                                      const OCPControl& ctrl)
 {
     ls.AllocateRowMem(rs.GetBulkNum() + rs.GetWellNum(), 1);
     ls.AllocateColMem(rs.conn.GetNeighborNum(), rs.allWells.GetWell2Bulk());
     ls.SetupLinearSolver(SCALARFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
-
 void IsoT_IMPEC::InitFlash(Bulk& bk) const
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
-        bk.flashCal[bk.PVTNUM[n]]->InitFlashIMPEC(bk.P[n], bk.Pb[n], bk.T[n], &bk.S[n * bk.numPhase], bk.rockVp[n],
-            bk.Ni.data() + n * bk.numCom, n);
+        bk.flashCal[bk.PVTNUM[n]]->InitFlashIMPEC(bk.P[n], bk.Pb[n], bk.T[n],
+                                                  &bk.S[n * bk.numPhase], bk.rockVp[n],
+                                                  bk.Ni.data() + n * bk.numCom, n);
         for (USI i = 0; i < bk.numCom; i++) {
             bk.Ni[n * bk.numCom + i] = bk.flashCal[bk.PVTNUM[n]]->GetNi(i);
         }
@@ -275,36 +265,35 @@ void IsoT_IMPEC::CalFlash(Bulk& bk)
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
 
-        bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * bk.numCom], bk.phaseNum[n],
-            &bk.xij[n * bk.numPhase * bk.numCom], n);
+        bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * bk.numCom],
+                                              bk.phaseNum[n],
+                                              &bk.xij[n * bk.numPhase * bk.numCom], n);
         PassFlashValue(bk, n);
     }
 }
 
-
 void IsoT_IMPEC::PassFlashValue(Bulk& bk, const OCP_USI& n) const
 {
-    const USI     np        = bk.numPhase;
-    const USI     nc        = bk.numCom;
-    const OCP_USI bIdp      = n * np;
-    const USI     pvtnum    = bk.PVTNUM[n];
+    const USI     np     = bk.numPhase;
+    const USI     nc     = bk.numCom;
+    const OCP_USI bIdp   = n * np;
+    const USI     pvtnum = bk.PVTNUM[n];
 
-    bk.phaseNum[n]  = 0;
-    bk.Nt[n]        = bk.flashCal[pvtnum]->GetNt();
-    bk.vf[n]        = bk.flashCal[pvtnum]->GetVf();
+    bk.phaseNum[n] = 0;
+    bk.Nt[n]       = bk.flashCal[pvtnum]->GetNt();
+    bk.vf[n]       = bk.flashCal[pvtnum]->GetVf();
 
-    for (USI j = 0; j < np; j++) {      
+    for (USI j = 0; j < np; j++) {
         // Important! Saturation must be passed no matter if the phase exists. This is
         // because it will be used to calculate relative permeability and capillary
         // pressure at each time step. Make sure that all saturations are updated at
         // each step!
         bk.phaseExist[bIdp + j] = bk.flashCal[pvtnum]->GetPhaseExist(j);
-        bk.S[bIdp + j] = bk.flashCal[pvtnum]->GetS(j);
+        bk.S[bIdp + j]          = bk.flashCal[pvtnum]->GetS(j);
         if (bk.phaseExist[bIdp + j]) {
             bk.phaseNum[n]++;
             for (USI i = 0; i < nc; i++) {
-                bk.xij[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetXij(j, i);
+                bk.xij[bIdp * nc + j * nc + i] = bk.flashCal[pvtnum]->GetXij(j, i);
             }
             bk.vj[bIdp + j]  = bk.flashCal[pvtnum]->GetVj(j);
             bk.rho[bIdp + j] = bk.flashCal[pvtnum]->GetRho(j);
@@ -319,7 +308,6 @@ void IsoT_IMPEC::PassFlashValue(Bulk& bk, const OCP_USI& n) const
     }
 }
 
-
 void IsoT_IMPEC::CalKrPc(Bulk& bk) const
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
@@ -330,19 +318,17 @@ void IsoT_IMPEC::CalKrPc(Bulk& bk) const
     }
 }
 
-
 void IsoT_IMPEC::CalFlux(Reservoir& rs) const
 {
     CalBulkFlux(rs);
     rs.allWells.CalFlux(rs.bulk);
 }
 
-
 void IsoT_IMPEC::CalBulkFlux(Reservoir& rs) const
 {
-    const Bulk&     bk    = rs.bulk;
-    BulkConn&       conn  = rs.conn;
-    const USI       np    = bk.numPhase;
+    const Bulk& bk   = rs.bulk;
+    BulkConn&   conn = rs.conn;
+    const USI   np   = bk.numPhase;
 
     // calculate a step flux using iteratorConn
     OCP_USI  bId, eId, uId;
@@ -350,7 +336,6 @@ void IsoT_IMPEC::CalBulkFlux(Reservoir& rs) const
     OCP_BOOL exbegin, exend, exup;
     OCP_DBL  rho, dP, Akd;
 
-    
     for (OCP_USI c = 0; c < conn.numConn; c++) {
         bId = conn.iteratorConn[c].BId();
         eId = conn.iteratorConn[c].EId();
@@ -360,56 +345,51 @@ void IsoT_IMPEC::CalBulkFlux(Reservoir& rs) const
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
 
-            exbegin  = bk.phaseExist[bId_np_j];
-            exend    = bk.phaseExist[eId_np_j];
+            exbegin = bk.phaseExist[bId_np_j];
+            exend   = bk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 rho = (bk.rho[bId_np_j] + bk.rho[eId_np_j]) / 2;
-            }
-            else if (exbegin && (!exend)) {
+            } else if (exbegin && (!exend)) {
                 rho = bk.rho[bId_np_j];
-            }
-            else if ((!exbegin) && (exend)) {
+            } else if ((!exbegin) && (exend)) {
                 rho = bk.rho[eId_np_j];
-            }
-            else {
-                conn.upblock[c * np + j]            = bId;
+            } else {
+                conn.upblock[c * np + j] = bId;
                 continue;
             }
 
-            dP = (bk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * bk.depth[bId])
-               - (bk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * bk.depth[eId]);
+            dP = (bk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * bk.depth[bId]) -
+                 (bk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * bk.depth[eId]);
             if (dP < 0) {
-                uId = eId;
+                uId  = eId;
                 exup = exend;
-            }
-            else {
-                uId = bId;
+            } else {
+                uId  = bId;
                 exup = exbegin;
             }
 
-            conn.upblock_Rho[c * np + j]    = rho;
-            conn.upblock[c * np + j]        = uId;
+            conn.upblock_Rho[c * np + j] = rho;
+            conn.upblock[c * np + j]     = uId;
 
             if (exup) {
-                conn.upblock_Trans[c * np + j]      = Akd * bk.kr[uId * np + j] / bk.mu[uId * np + j];
-                conn.upblock_Velocity[c * np + j]   = conn.upblock_Trans[c * np + j] * dP;
-            }
-            else {
-                conn.upblock_Trans[c * np + j] = 0;
+                conn.upblock_Trans[c * np + j] =
+                    Akd * bk.kr[uId * np + j] / bk.mu[uId * np + j];
+                conn.upblock_Velocity[c * np + j] = conn.upblock_Trans[c * np + j] * dP;
+            } else {
+                conn.upblock_Trans[c * np + j]    = 0;
                 conn.upblock_Velocity[c * np + j] = 0;
             }
         }
     }
 }
 
-
 void IsoT_IMPEC::MassConserve(Reservoir& rs, const OCP_DBL& dt) const
 {
 
     // Bulk to Bulk
-    Bulk&           bk    = rs.bulk;
-    const BulkConn& conn  = rs.conn;
+    Bulk&           bk   = rs.bulk;
+    const BulkConn& conn = rs.conn;
 
     const USI np = bk.numPhase;
     const USI nc = bk.numCom;
@@ -423,15 +403,14 @@ void IsoT_IMPEC::MassConserve(Reservoir& rs, const OCP_DBL& dt) const
         eId = conn.iteratorConn[c].EId();
 
         for (USI j = 0; j < np; j++) {
-            uId = conn.upblock[c * np + j];
+            uId      = conn.upblock[c * np + j];
             uId_np_j = uId * np + j;
 
             if (!bk.phaseExist[uId_np_j]) continue;
 
             phaseVelocity = conn.upblock_Velocity[c * np + j];
             for (USI i = 0; i < nc; i++) {
-                dNi = dt * phaseVelocity * bk.xi[uId_np_j] *
-                    bk.xij[uId_np_j * nc + i];
+                dNi = dt * phaseVelocity * bk.xi[uId_np_j] * bk.xij[uId_np_j * nc + i];
                 bk.Ni[eId * nc + i] += dNi;
                 bk.Ni[bId * nc + i] -= dNi;
             }
@@ -449,18 +428,18 @@ void IsoT_IMPEC::MassConserve(Reservoir& rs, const OCP_DBL& dt) const
             }
         }
     }
-
 }
 
-
-void IsoT_IMPEC::AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_IMPEC::AssembleMatBulks(LinearSystem&    ls,
+                                  const Reservoir& rs,
+                                  const OCP_DBL&   dt) const
 {
 
-    const Bulk&     bk      = rs.bulk;
-    const BulkConn& conn    = rs.conn;
-    const OCP_USI   nb      = bk.numBulk;
-    const USI       np      = bk.numPhase;
-    const USI       nc      = bk.numCom;
+    const Bulk&     bk   = rs.bulk;
+    const BulkConn& conn = rs.conn;
+    const OCP_USI   nb   = bk.numBulk;
+    const USI       np   = bk.numPhase;
+    const USI       nc   = bk.numCom;
 
     ls.AddDim(nb);
 
@@ -522,26 +501,27 @@ void IsoT_IMPEC::AssembleMatBulks(LinearSystem& ls, const Reservoir& rs, const O
     }
 }
 
-
-void IsoT_IMPEC::AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_IMPEC::AssembleMatWells(LinearSystem&    ls,
+                                  const Reservoir& rs,
+                                  const OCP_DBL&   dt) const
 {
     for (auto& wl : rs.allWells.wells) {
         if (wl.IsOpen()) {
             switch (wl.WellType()) {
-            case INJ:
-                AssembleMatInjWells(ls, rs.bulk, wl, dt);
-                break;
-            case PROD:
-                AssembleMatProdWells(ls, rs.bulk, wl, dt);
-                break;
-            default:
-                OCP_ABORT("Wrong well type");
+                case INJ:
+                    AssembleMatInjWells(ls, rs.bulk, wl, dt);
+                    break;
+                case PROD:
+                    AssembleMatProdWells(ls, rs.bulk, wl, dt);
+                    break;
+                default:
+                    OCP_ABORT("Wrong well type");
             }
         }
     }
 
     // for Reinjection
-    //for (auto& wG : wellGroup) {
+    // for (auto& wG : wellGroup) {
     //    if (wG.reInj) {
     //        for (auto& prod : wellGroup[wG.prodGroup].wIdPROD) {
     //            if (wells[prod].IsOpen()) {
@@ -553,8 +533,10 @@ void IsoT_IMPEC::AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const O
     //}
 }
 
-
-void IsoT_IMPEC::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const
+void IsoT_IMPEC::AssembleMatInjWells(LinearSystem&  ls,
+                                     const Bulk&    bk,
+                                     const Well&    wl,
+                                     const OCP_DBL& dt) const
 {
     const OCP_USI wId = ls.AddDim(1) - 1;
     ls.NewDiag(wId, 0.0);
@@ -619,7 +601,10 @@ void IsoT_IMPEC::AssembleMatInjWells(LinearSystem& ls, const Bulk& bk, const Wel
     }
 }
 
-void IsoT_IMPEC::AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const
+void IsoT_IMPEC::AssembleMatProdWells(LinearSystem&  ls,
+                                      const Bulk&    bk,
+                                      const Well&    wl,
+                                      const OCP_DBL& dt) const
 {
 
     const OCP_USI wId = ls.AddDim(1) - 1;
@@ -646,12 +631,10 @@ void IsoT_IMPEC::AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const We
             OCP_DBL tempw = 0;
 
             for (USI i = 0; i < nc; i++) {
-                tempb += bk.vfi[n * nc + i] *
-                         bk.xij[n * np * nc + j * nc + i];
-                tempw +=
-                    wl.ProdWeight(i) * bk.xij[n * np * nc + j * nc + i];
+                tempb += bk.vfi[n * nc + i] * bk.xij[n * np * nc + j * nc + i];
+                tempw += wl.ProdWeight(i) * bk.xij[n * np * nc + j * nc + i];
             }
-            OCP_DBL trans = dt * wl.PerfTransj(p,j) * bk.xi[n * np + j];
+            OCP_DBL trans = dt * wl.PerfTransj(p, j) * bk.xi[n * np + j];
             valb += tempb * trans;
             valw += tempw * trans;
 
@@ -703,12 +686,11 @@ void IsoT_IMPEC::AssembleMatProdWells(LinearSystem& ls, const Bulk& bk, const We
     }
 }
 
-
 void IsoT_IMPEC::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u)
 {
-    Bulk&         bk    = rs.bulk;
-    const OCP_USI nb    = bk.numBulk;
-    const USI     np    = bk.numPhase;
+    Bulk&         bk = rs.bulk;
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
 
     // Bulk
     for (OCP_USI n = 0; n < nb; n++) {
@@ -729,21 +711,19 @@ void IsoT_IMPEC::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u)
     }
 }
 
-
 void IsoT_IMPEC::ResetToLastTimeStep01(Reservoir& rs, OCPControl& ctrl)
 {
     // Bulk
     rs.bulk.Pj = rs.bulk.lPj;
     // Bulk Conn
-    rs.conn.upblock             = rs.conn.lupblock;
-    rs.conn.upblock_Rho         = rs.conn.lupblock_Rho;
-    rs.conn.upblock_Trans       = rs.conn.lupblock_Trans;
-    rs.conn.upblock_Velocity    = rs.conn.lupblock_Velocity;
+    rs.conn.upblock          = rs.conn.lupblock;
+    rs.conn.upblock_Rho      = rs.conn.lupblock_Rho;
+    rs.conn.upblock_Trans    = rs.conn.lupblock_Trans;
+    rs.conn.upblock_Velocity = rs.conn.lupblock_Velocity;
 
     // Iters
     ctrl.ResetIterNRLS();
 }
-
 
 void IsoT_IMPEC::ResetToLastTimeStep02(Reservoir& rs, OCPControl& ctrl)
 {
@@ -751,47 +731,46 @@ void IsoT_IMPEC::ResetToLastTimeStep02(Reservoir& rs, OCPControl& ctrl)
     rs.bulk.Ni = rs.bulk.lNi;
     rs.bulk.Pj = rs.bulk.lPj;
     // Bulk Conn
-    rs.conn.upblock             = rs.conn.lupblock;
-    rs.conn.upblock_Rho         = rs.conn.lupblock_Rho;
-    rs.conn.upblock_Trans       = rs.conn.lupblock_Trans;
-    rs.conn.upblock_Velocity    = rs.conn.lupblock_Velocity;
+    rs.conn.upblock          = rs.conn.lupblock;
+    rs.conn.upblock_Rho      = rs.conn.lupblock_Rho;
+    rs.conn.upblock_Trans    = rs.conn.lupblock_Trans;
+    rs.conn.upblock_Velocity = rs.conn.lupblock_Velocity;
 
     // Iters
     ctrl.ResetIterNRLS();
 }
 
-
 void IsoT_IMPEC::ResetToLastTimeStep03(Reservoir& rs, OCPControl& ctrl)
 {
     Bulk& bk = rs.bulk;
     // Rock
-    bk.rockVp   = bk.lrockVp;
-    bk.poro     = bk.lporo;
-    bk.poroP    = bk.lporoP;
+    bk.rockVp = bk.lrockVp;
+    bk.poro   = bk.lporo;
+    bk.poroP  = bk.lporoP;
 
     // Fluid
-    bk.phaseNum     = bk.lphaseNum;
-    bk.Nt           = bk.lNt;
-    bk.Ni           = bk.lNi;
-    bk.vf           = bk.lvf;
-    bk.Pj           = bk.lPj;
-    bk.phaseExist   = bk.lphaseExist;
-    bk.S            = bk.lS;
-    bk.vj           = bk.lvj;
-    bk.xij          = bk.lxij;
-    bk.rho          = bk.lrho;
-    bk.xi           = bk.lxi;
-    bk.mu           = bk.lmu;
+    bk.phaseNum   = bk.lphaseNum;
+    bk.Nt         = bk.lNt;
+    bk.Ni         = bk.lNi;
+    bk.vf         = bk.lvf;
+    bk.Pj         = bk.lPj;
+    bk.phaseExist = bk.lphaseExist;
+    bk.S          = bk.lS;
+    bk.vj         = bk.lvj;
+    bk.xij        = bk.lxij;
+    bk.rho        = bk.lrho;
+    bk.xi         = bk.lxi;
+    bk.mu         = bk.lmu;
 
     // derivatives
-    bk.vfP          = bk.lvfP;
-    bk.vfi          = bk.lvfi;
+    bk.vfP = bk.lvfP;
+    bk.vfi = bk.lvfi;
 
     // Bulk Conn
-    rs.conn.upblock             = rs.conn.lupblock;
-    rs.conn.upblock_Rho         = rs.conn.lupblock_Rho;
-    rs.conn.upblock_Trans       = rs.conn.lupblock_Trans;
-    rs.conn.upblock_Velocity    = rs.conn.lupblock_Velocity;
+    rs.conn.upblock          = rs.conn.lupblock;
+    rs.conn.upblock_Rho      = rs.conn.lupblock_Rho;
+    rs.conn.upblock_Trans    = rs.conn.lupblock_Trans;
+    rs.conn.upblock_Velocity = rs.conn.lupblock_Velocity;
 
     // Optional Features
     rs.optFeatures.ResetToLastTimeStep();
@@ -800,49 +779,47 @@ void IsoT_IMPEC::ResetToLastTimeStep03(Reservoir& rs, OCPControl& ctrl)
     ctrl.ResetIterNRLS();
 }
 
-
 void IsoT_IMPEC::UpdateLastTimeStep(Reservoir& rs) const
 {
 
     Bulk& bk = rs.bulk;
 
     // Rock
-    bk.lporo    = bk.poro;
-    bk.lporoP   = bk.poroP;
-    bk.lrockVp  = bk.rockVp;
+    bk.lporo   = bk.poro;
+    bk.lporoP  = bk.poroP;
+    bk.lrockVp = bk.rockVp;
 
     // Fluid
-    bk.lphaseNum    = bk.phaseNum;
-    bk.lNt          = bk.Nt;
-    bk.lNi          = bk.Ni;
-    bk.lvf          = bk.vf;
-    bk.lP           = bk.P;
-    bk.lPj          = bk.Pj;
-    bk.lPc          = bk.Pc;
-    bk.lphaseExist  = bk.phaseExist;
-    bk.lS           = bk.S;
-    bk.lvj          = bk.vj;
-    bk.lxij         = bk.xij;
-    bk.lrho         = bk.rho;
-    bk.lxi          = bk.xi;
-    bk.lmu          = bk.mu;
-    bk.lkr          = bk.kr;
+    bk.lphaseNum   = bk.phaseNum;
+    bk.lNt         = bk.Nt;
+    bk.lNi         = bk.Ni;
+    bk.lvf         = bk.vf;
+    bk.lP          = bk.P;
+    bk.lPj         = bk.Pj;
+    bk.lPc         = bk.Pc;
+    bk.lphaseExist = bk.phaseExist;
+    bk.lS          = bk.S;
+    bk.lvj         = bk.vj;
+    bk.lxij        = bk.xij;
+    bk.lrho        = bk.rho;
+    bk.lxi         = bk.xi;
+    bk.lmu         = bk.mu;
+    bk.lkr         = bk.kr;
 
     // derivatives
-    bk.lvfP         = bk.vfP;
-    bk.lvfi         = bk.vfi;
+    bk.lvfP = bk.vfP;
+    bk.lvfi = bk.vfi;
 
     BulkConn& conn = rs.conn;
 
-    conn.lupblock           = conn.upblock;
-    conn.lupblock_Rho       = conn.upblock_Rho;
-    conn.lupblock_Trans     = conn.upblock_Trans;
-    conn.lupblock_Velocity  = conn.upblock_Velocity;
+    conn.lupblock          = conn.upblock;
+    conn.lupblock_Rho      = conn.upblock_Rho;
+    conn.lupblock_Trans    = conn.upblock_Trans;
+    conn.lupblock_Velocity = conn.upblock_Velocity;
 
     rs.allWells.UpdateLastTimeStepBHP();
     rs.optFeatures.UpdateLastTimeStep();
 }
-
 
 ////////////////////////////////////////////
 // IsoT_FIM
@@ -856,11 +833,11 @@ void IsoT_FIM::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
     AllocateLinearSystem(ls, rs, ctrl);
 }
 
-void IsoT_FIM::InitReservoir(Reservoir& rs) const 
-{   
+void IsoT_FIM::InitReservoir(Reservoir& rs) const
+{
     // Calculate initial bulk pressure and temperature and water saturation
     rs.bulk.InitPTSw(50);
-    // Initialize rock property 
+    // Initialize rock property
     InitRock(rs.bulk);
     CalRock(rs.bulk);
     // Initialize fluid properties
@@ -881,8 +858,8 @@ void IsoT_FIM::Prepare(Reservoir& rs, const OCP_DBL& dt)
 }
 
 void IsoT_FIM::AssembleMat(LinearSystem&    ls,
-                          const Reservoir& rs,
-                          const OCP_DBL&   dt) const
+                           const Reservoir& rs,
+                           const OCP_DBL&   dt) const
 {
     // Assemble matrix
 #ifdef OCP_OLD_FIM
@@ -898,8 +875,8 @@ void IsoT_FIM::AssembleMat(LinearSystem&    ls,
 }
 
 void IsoT_FIM::SolveLinearSystem(LinearSystem& ls,
-                                Reservoir&    rs,
-                                OCPControl&   ctrl) const
+                                 Reservoir&    rs,
+                                 OCPControl&   ctrl) const
 {
 #ifdef DEBUG
     // Check if inf or nan occurs in A and b
@@ -922,8 +899,8 @@ void IsoT_FIM::SolveLinearSystem(LinearSystem& ls,
 
 #ifdef DEBUG
     // Output A, b, x
-    //ls.OutputLinearSystem("testA_FIM.out", "testb_FIM.out");
-    //ls.OutputSolution("testx_FIM.out");
+    // ls.OutputLinearSystem("testA_FIM.out", "testb_FIM.out");
+    // ls.OutputSolution("testx_FIM.out");
     // Check if inf or nan occurs in solution
     ls.CheckSolution();
 #endif // DEBUG
@@ -938,11 +915,10 @@ OCP_BOOL IsoT_FIM::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
 {
     OCP_DBL& dt = ctrl.current_dt;
 
-
-    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
-        ResetToLastTimeStep(rs, ctrl);       
+    if (!ctrl.Check(rs, {"BulkNi", "BulkP"})) {
+        ResetToLastTimeStep(rs, ctrl);
         cout << "Cut time step size and repeat! current dt = " << fixed
-            << setprecision(3) << dt << " days\n";
+             << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -969,29 +945,26 @@ OCP_BOOL IsoT_FIM::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
     if (((rs.bulk.res.maxRelRes_V <= rs.bulk.res.maxRelRes0_V * ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
-        rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+          rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
+          rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
+         rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        if (!ctrl.Check(rs, { "WellP" })) {
+        if (!ctrl.Check(rs, {"WellP"})) {
             ResetToLastTimeStep(rs, ctrl);
             return OCP_FALSE;
-        }
-        else {
+        } else {
             return OCP_TRUE;
         }
-    }
-    else if (ctrl.iterNR >= ctrl.ctrlNR.maxNRiter) {
+    } else if (ctrl.iterNR >= ctrl.ctrlNR.maxNRiter) {
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
-            "current dt = "
-            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
+                "current dt = "
+             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
-    }
-    else {
+    } else {
         return OCP_FALSE;
     }
 }
@@ -1001,16 +974,15 @@ void IsoT_FIM::FinishStep(Reservoir& rs, OCPControl& ctrl)
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter"});
+    ctrl.CalNextTimeStep(rs, {"dP", "dS", "iter"});
 }
-
 
 void IsoT_FIM::AllocateReservoir(Reservoir& rs)
 {
-    Bulk&           bk = rs.bulk;
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
-    const USI       nc = bk.numCom;
+    Bulk&         bk = rs.bulk;
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
+    const USI     nc = bk.numCom;
 
     // Rock
     bk.poro.resize(nb);
@@ -1057,7 +1029,7 @@ void IsoT_FIM::AllocateReservoir(Reservoir& rs)
     bk.lmu.resize(nb * np);
     bk.lkr.resize(nb * np);
 
-    // derivatives  
+    // derivatives
     bk.vfP.resize(nb);
     bk.vfi.resize(nb * nc);
     bk.rhoP.resize(nb * np);
@@ -1105,26 +1077,27 @@ void IsoT_FIM::AllocateReservoir(Reservoir& rs)
 
     // BulkConn
     BulkConn& conn = rs.conn;
-    
+
     conn.upblock.resize(conn.numConn * np);
     conn.upblock_Rho.resize(conn.numConn * np);
     conn.upblock_Velocity.resize(conn.numConn * np);
 }
 
-
-void IsoT_FIM::AllocateLinearSystem(LinearSystem& ls, const Reservoir& rs, const OCPControl& ctrl)
+void IsoT_FIM::AllocateLinearSystem(LinearSystem&     ls,
+                                    const Reservoir&  rs,
+                                    const OCPControl& ctrl)
 {
     ls.AllocateRowMem(rs.GetBulkNum() + rs.GetWellNum(), rs.GetComNum() + 1);
     ls.AllocateColMem(rs.conn.GetNeighborNum(), rs.allWells.GetWell2Bulk());
     ls.SetupLinearSolver(VECTORFASP, ctrl.GetWorkDir(), ctrl.GetLsFile());
 }
 
-
 void IsoT_FIM::InitFlash(Bulk& bk) const
 {
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
-        bk.flashCal[bk.PVTNUM[n]]->InitFlashFIM(bk.P[n], bk.Pb[n], bk.T[n], &bk.S[n * bk.numPhase],
-            bk.rockVp[n], bk.Ni.data() + n * bk.numCom, n);
+        bk.flashCal[bk.PVTNUM[n]]->InitFlashFIM(bk.P[n], bk.Pb[n], bk.T[n],
+                                                &bk.S[n * bk.numPhase], bk.rockVp[n],
+                                                bk.Ni.data() + n * bk.numCom, n);
         for (USI i = 0; i < bk.numCom; i++) {
             bk.Ni[n * bk.numCom + i] = bk.flashCal[bk.PVTNUM[n]]->GetNi(i);
         }
@@ -1134,29 +1107,29 @@ void IsoT_FIM::InitFlash(Bulk& bk) const
 
 void IsoT_FIM::CalFlash(Bulk& bk)
 {
-    bk.maxNRdSSP = 0;
+    bk.maxNRdSSP       = 0;
     bk.index_maxNRdSSP = 0;
 
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
 
-        bk.flashCal[bk.PVTNUM[n]]->FlashFIM(bk.P[n], bk.T[n], &bk.Ni[n * bk.numCom], &bk.S[n * bk.numPhase], bk.phaseNum[n],
-            &bk.xij[n * bk.numPhase * bk.numCom], n);
+        bk.flashCal[bk.PVTNUM[n]]->FlashFIM(bk.P[n], bk.T[n], &bk.Ni[n * bk.numCom],
+                                            &bk.S[n * bk.numPhase], bk.phaseNum[n],
+                                            &bk.xij[n * bk.numPhase * bk.numCom], n);
         PassFlashValue(bk, n);
     }
 }
 
-
 void IsoT_FIM::PassFlashValue(Bulk& bk, const OCP_USI& n) const
 {
-    const USI     np      = bk.numPhase;
-    const USI     nc      = bk.numCom;
-    const OCP_USI bIdp    = n * np;
-    const USI     pvtnum  = bk.PVTNUM[n];
-    USI           len     = 0;
+    const USI     np     = bk.numPhase;
+    const USI     nc     = bk.numCom;
+    const OCP_USI bIdp   = n * np;
+    const USI     pvtnum = bk.PVTNUM[n];
+    USI           len    = 0;
 
-    bk.phaseNum[n]  = 0;
-    bk.Nt[n]        = bk.flashCal[pvtnum]->GetNt();
-    bk.vf[n]        = bk.flashCal[pvtnum]->GetVf();
+    bk.phaseNum[n] = 0;
+    bk.Nt[n]       = bk.flashCal[pvtnum]->GetNt();
+    bk.vf[n]       = bk.flashCal[pvtnum]->GetVf();
 
     for (USI j = 0; j < np; j++) {
         // Important! Saturation must be passed no matter if the phase exists. This is
@@ -1167,7 +1140,7 @@ void IsoT_FIM::PassFlashValue(Bulk& bk, const OCP_USI& n) const
         bk.dSNR[bIdp + j] = bk.S[bIdp + j] - bk.dSNR[bIdp + j];
         if (bk.phaseExist[bIdp + j]) {
             if (fabs(bk.maxNRdSSP) < fabs(bk.dSNR[bIdp + j] - bk.dSNRP[bIdp + j])) {
-                bk.maxNRdSSP = bk.dSNR[bIdp + j] - bk.dSNRP[bIdp + j];
+                bk.maxNRdSSP       = bk.dSNR[bIdp + j] - bk.dSNRP[bIdp + j];
                 bk.index_maxNRdSSP = n;
             }
         }
@@ -1185,14 +1158,10 @@ void IsoT_FIM::PassFlashValue(Bulk& bk, const OCP_USI& n) const
             bk.muP[bIdp + j]  = bk.flashCal[pvtnum]->GetMuP(j);
 
             for (USI i = 0; i < nc; i++) {
-                bk.xij[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetXij(j, i);
-                bk.rhox[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetRhoX(j, i);
-                bk.xix[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetXiX(j, i);
-                bk.mux[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetMuX(j, i);
+                bk.xij[bIdp * nc + j * nc + i]  = bk.flashCal[pvtnum]->GetXij(j, i);
+                bk.rhox[bIdp * nc + j * nc + i] = bk.flashCal[pvtnum]->GetRhoX(j, i);
+                bk.xix[bIdp * nc + j * nc + i]  = bk.flashCal[pvtnum]->GetXiX(j, i);
+                bk.mux[bIdp * nc + j * nc + i]  = bk.flashCal[pvtnum]->GetMuX(j, i);
             }
         }
 
@@ -1201,14 +1170,15 @@ void IsoT_FIM::PassFlashValue(Bulk& bk, const OCP_USI& n) const
         if (bk.pSderExist[bIdp + j]) len++;
         len += bk.pVnumCom[bIdp + j];
     }
-      
+
     bk.vfP[n] = bk.flashCal[pvtnum]->GetVfP();
     for (USI i = 0; i < nc; i++) {
         bk.vfi[n * nc + i] = bk.flashCal[pvtnum]->GetVfi(i);
     }
 
 #ifdef OCP_OLD_FIM
-    Dcopy(bk.maxLendSdP, &bk.dSec_dPri[n * bk.maxLendSdP], &bk.flashCal[pvtnum]->GetDXsDXp()[0]);
+    Dcopy(bk.maxLendSdP, &bk.dSec_dPri[n * bk.maxLendSdP],
+          &bk.flashCal[pvtnum]->GetDXsDXp()[0]);
 #else
     bk.bRowSizedSdP[n] = len;
     len *= (nc + 1);
@@ -1216,39 +1186,37 @@ void IsoT_FIM::PassFlashValue(Bulk& bk, const OCP_USI& n) const
 #endif // OCP_OLD_FIM
 }
 
-
 void IsoT_FIM::CalKrPc(Bulk& bk) const
 {
     const USI& np = bk.numPhase;
     for (OCP_USI n = 0; n < bk.numBulk; n++) {
         const OCP_USI bId = n * np;
         bk.flow[bk.SATNUM[n]]->CalKrPcDeriv(&bk.S[bId], &bk.kr[bId], &bk.Pc[bId],
-            &bk.dKr_dS[bId * np],
-            &bk.dPcj_dS[bId * np], n);
+                                            &bk.dKr_dS[bId * np], &bk.dPcj_dS[bId * np],
+                                            n);
         for (USI j = 0; j < np; j++) bk.Pj[bId + j] = bk.P[n] + bk.Pc[bId + j];
     }
 }
 
-
 void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes0) const
 {
-    const Bulk&      bk     = rs.bulk;    
-    const USI        nb     = bk.numBulk;
-    const USI        np     = bk.numPhase;
-    const USI        nc     = bk.numCom;
-    const USI        len    = nc + 1;
-    OCPRes&          Res    = bk.res;
-    BulkConn&        conn   = rs.conn;
+    const Bulk& bk   = rs.bulk;
+    const USI   nb   = bk.numBulk;
+    const USI   np   = bk.numPhase;
+    const USI   nc   = bk.numCom;
+    const USI   len  = nc + 1;
+    OCPRes&     Res  = bk.res;
+    BulkConn&   conn = rs.conn;
 
     Res.SetZero();
 
     // Bulk to Bulk
- 
-    OCP_USI   bId, eId, uId, bIdb;
+
+    OCP_USI bId, eId, uId, bIdb;
     // Accumalation Term
     for (OCP_USI n = 0; n < nb; n++) {
-        bId  = n * len;
-        bIdb = n * nc;
+        bId             = n * len;
+        bIdb            = n * nc;
         Res.resAbs[bId] = bk.rockVp[n] - bk.vf[n];
         for (USI i = 0; i < nc; i++) {
             Res.resAbs[bId + 1 + i] = bk.Ni[bIdb + i] - bk.lNi[bIdb + i];
@@ -1270,44 +1238,40 @@ void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes
             eId_np_j = eId * np + j;
 
             OCP_BOOL exbegin = bk.phaseExist[bId_np_j];
-            OCP_BOOL exend = bk.phaseExist[eId_np_j];
+            OCP_BOOL exend   = bk.phaseExist[eId_np_j];
 
             if ((exbegin) && (exend)) {
                 rho = (bk.rho[bId_np_j] + bk.rho[eId_np_j]) / 2;
-            }
-            else if (exbegin && (!exend)) {
+            } else if (exbegin && (!exend)) {
                 rho = bk.rho[bId_np_j];
-            }
-            else if ((!exbegin) && (exend)) {
+            } else if ((!exbegin) && (exend)) {
                 rho = bk.rho[eId_np_j];
-            }
-            else {
+            } else {
                 conn.upblock[c * np + j]     = bId;
                 conn.upblock_Rho[c * np + j] = 0;
                 continue;
             }
 
             uId = bId;
-            dP = (bk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * bk.depth[bId]) -
-                (bk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * bk.depth[eId]);
+            dP  = (bk.Pj[bId_np_j] - GRAVITY_FACTOR * rho * bk.depth[bId]) -
+                 (bk.Pj[eId_np_j] - GRAVITY_FACTOR * rho * bk.depth[eId]);
             if (dP < 0) {
                 uId = eId;
             }
             conn.upblock_Rho[c * np + j] = rho;
-            conn.upblock[c * np + j] = uId;
-            uId_np_j = uId * np + j;
+            conn.upblock[c * np + j]     = uId;
+            uId_np_j                     = uId * np + j;
 
             if (bk.phaseExist[uId_np_j]) {
                 conn.upblock_Velocity[c * np + j] =
                     Akd * bk.kr[uId_np_j] / bk.mu[uId_np_j] * dP;
-            }
-            else {
+            } else {
                 conn.upblock_Velocity[c * np + j] = 0;
                 continue;
             }
 
-            OCP_DBL tmp = dt * Akd * bk.xi[uId_np_j] * bk.kr[uId_np_j] /
-                bk.mu[uId_np_j] * dP;
+            OCP_DBL tmp =
+                dt * Akd * bk.xi[uId_np_j] * bk.kr[uId_np_j] / bk.mu[uId_np_j] * dP;
 
             for (USI i = 0; i < nc; i++) {
                 dNi = tmp * bk.xij[uId_np_j * nc + i];
@@ -1332,68 +1296,68 @@ void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes
             if (wl.WellType() == INJ) {
                 // Injection
                 switch (wl.OptMode()) {
-                case BHP_MODE:
-                    // bhp = opt.maxBHP;
-                    // Res.resAbs[bId] = bhp - opt.maxBHP;
-                    Res.resAbs[wId] = wl.BHP() - wl.MaxBHP();
-                    break;
-                case RATE_MODE:
-                case ORATE_MODE:
-                case GRATE_MODE:
-                case WRATE_MODE:
-                case LRATE_MODE:
-                    Res.resAbs[wId] = wl.MaxRate();
-                    for (USI i = 0; i < nc; i++) {
-                        Res.resAbs[wId] += wl.Qi_lbmol(i);
-                    }
-                    //if (opt.reInj) {
-                    //    for (auto& w : opt.connWell) {
-                    //        OCP_DBL tmp = 0;
-                    //        for (USI i = 0; i < numCom; i++) {
-                    //            tmp += allWell[w].qi_lbmol[i];
-                    //        }
-                    //        tmp *= opt.reInjFactor;
-                    //        Res.resAbs[bId] += tmp;
-                    //    }
-                    //}
-                    Res.maxWellRelRes_mol =
-                        max(Res.maxWellRelRes_mol, fabs(Res.resAbs[wId] / wl.MaxRate()));
-                    break;
-                default:
-                    OCP_ABORT("Wrong well opt mode!");
-                    break;
+                    case BHP_MODE:
+                        // bhp = opt.maxBHP;
+                        // Res.resAbs[bId] = bhp - opt.maxBHP;
+                        Res.resAbs[wId] = wl.BHP() - wl.MaxBHP();
+                        break;
+                    case RATE_MODE:
+                    case ORATE_MODE:
+                    case GRATE_MODE:
+                    case WRATE_MODE:
+                    case LRATE_MODE:
+                        Res.resAbs[wId] = wl.MaxRate();
+                        for (USI i = 0; i < nc; i++) {
+                            Res.resAbs[wId] += wl.Qi_lbmol(i);
+                        }
+                        // if (opt.reInj) {
+                        //     for (auto& w : opt.connWell) {
+                        //         OCP_DBL tmp = 0;
+                        //         for (USI i = 0; i < numCom; i++) {
+                        //             tmp += allWell[w].qi_lbmol[i];
+                        //         }
+                        //         tmp *= opt.reInjFactor;
+                        //         Res.resAbs[bId] += tmp;
+                        //     }
+                        // }
+                        Res.maxWellRelRes_mol =
+                            max(Res.maxWellRelRes_mol,
+                                fabs(Res.resAbs[wId] / wl.MaxRate()));
+                        break;
+                    default:
+                        OCP_ABORT("Wrong well opt mode!");
+                        break;
                 }
-            }
-            else {
+            } else {
                 // Production
                 switch (wl.OptMode()) {
-                case BHP_MODE:
-                    //bhp = opt.minBHP;
-                    //Res.resAbs[bId] = bhp - opt.minBHP;
-                    Res.resAbs[wId] = wl.BHP() - wl.MinBHP();
-                    break;
-                case RATE_MODE:
-                case ORATE_MODE:
-                case GRATE_MODE:
-                case WRATE_MODE:
-                case LRATE_MODE:
-                    wl.CalProdWeight(bk);
-                    Res.resAbs[wId] = -wl.MaxRate();
-                    for (USI i = 0; i < nc; i++) {
-                        Res.resAbs[wId] += wl.Qi_lbmol(i) * wl.ProdWeight(i);
-                    }
-                    Res.maxWellRelRes_mol =
-                        max(Res.maxWellRelRes_mol, fabs(Res.resAbs[wId] / wl.MaxRate()));
-                    break;
-                default:
-                    OCP_ABORT("Wrong well opt mode!");
-                    break;
+                    case BHP_MODE:
+                        // bhp = opt.minBHP;
+                        // Res.resAbs[bId] = bhp - opt.minBHP;
+                        Res.resAbs[wId] = wl.BHP() - wl.MinBHP();
+                        break;
+                    case RATE_MODE:
+                    case ORATE_MODE:
+                    case GRATE_MODE:
+                    case WRATE_MODE:
+                    case LRATE_MODE:
+                        wl.CalProdWeight(bk);
+                        Res.resAbs[wId] = -wl.MaxRate();
+                        for (USI i = 0; i < nc; i++) {
+                            Res.resAbs[wId] += wl.Qi_lbmol(i) * wl.ProdWeight(i);
+                        }
+                        Res.maxWellRelRes_mol =
+                            max(Res.maxWellRelRes_mol,
+                                fabs(Res.resAbs[wId] / wl.MaxRate()));
+                        break;
+                    default:
+                        OCP_ABORT("Wrong well opt mode!");
+                        break;
                 }
             }
             wId += len;
         }
     }
-
 
     // Calculate RelRes
     OCP_DBL tmp;
@@ -1403,7 +1367,7 @@ void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes
             tmp = fabs(Res.resAbs[n * len + i] / bk.rockVp[n]);
             if (Res.maxRelRes_V < tmp) {
                 Res.maxRelRes_V = tmp;
-                Res.maxId_V = n;
+                Res.maxId_V     = n;
             }
             Res.resRelV[n] += tmp * tmp;
         }
@@ -1413,7 +1377,7 @@ void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes
             tmp = fabs(Res.resAbs[n * len + i] / bk.Nt[n]);
             if (Res.maxRelRes_N < tmp) {
                 Res.maxRelRes_N = tmp;
-                Res.maxId_N = n;
+                Res.maxId_N     = n;
             }
             Res.resRelN[n] += tmp * tmp;
         }
@@ -1421,23 +1385,22 @@ void IsoT_FIM::CalRes(Reservoir& rs, const OCP_DBL& dt, const OCP_BOOL& resetRes
     }
 
     Dscalar(Res.resAbs.size(), -1.0, Res.resAbs.data());
-    if (resetRes0)  Res.SetInitRes();
+    if (resetRes0) Res.SetInitRes();
 }
-
 
 void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
                                 const Reservoir& rs,
                                 const OCP_DBL&   dt) const
 {
-    const Bulk&     bk      = rs.bulk;
-    const BulkConn& conn    = rs.conn;
-    const OCP_USI   nb      = bk.numBulk;
-    const USI       np      = bk.numPhase;
-    const USI       nc      = bk.numCom;
-    const USI       ncol    = nc + 1;
-    const USI       ncol2   = np * nc + np;
-    const USI       bsize   = ncol * ncol;
-    const USI       bsize2  = ncol * ncol2;
+    const Bulk&     bk     = rs.bulk;
+    const BulkConn& conn   = rs.conn;
+    const OCP_USI   nb     = bk.numBulk;
+    const USI       np     = bk.numPhase;
+    const USI       nc     = bk.numCom;
+    const USI       ncol   = nc + 1;
+    const USI       ncol2  = np * nc + np;
+    const USI       bsize  = ncol * ncol;
+    const USI       bsize2 = ncol * ncol2;
 
     ls.AddDim(nb);
 
@@ -1457,14 +1420,14 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
     // flux term
     OCP_DBL         Akd;
     OCP_DBL         transJ, transIJ;
-    vector<OCP_DBL> dFdXpB(bsize, 0);     // begin bulk: dF / dXp
-    vector<OCP_DBL> dFdXpE(bsize, 0);     // end   bulk: dF / dXp
-    vector<OCP_DBL> dFdXsB(bsize2, 0);    // begin bulk: dF / dXs
-    vector<OCP_DBL> dFdXsE(bsize2, 0);    // end   bulk: dF / dXs
-    OCP_DBL*        dFdXpU;               // up    bulk: dF / dXp                       
-    OCP_DBL*        dFdXpD;               // down  bulk: dF / dXp
-    OCP_DBL*        dFdXsU;               // up    bulk: dF / dXs                       
-    OCP_DBL*        dFdXsD;               // down  bulk: dF / dXs
+    vector<OCP_DBL> dFdXpB(bsize, 0);  // begin bulk: dF / dXp
+    vector<OCP_DBL> dFdXpE(bsize, 0);  // end   bulk: dF / dXp
+    vector<OCP_DBL> dFdXsB(bsize2, 0); // begin bulk: dF / dXs
+    vector<OCP_DBL> dFdXsE(bsize2, 0); // end   bulk: dF / dXs
+    OCP_DBL*        dFdXpU;            // up    bulk: dF / dXp
+    OCP_DBL*        dFdXpD;            // down  bulk: dF / dXp
+    OCP_DBL*        dFdXsU;            // up    bulk: dF / dXs
+    OCP_DBL*        dFdXsD;            // down  bulk: dF / dXs
 
     OCP_USI  bId, eId, uId;
     OCP_USI  bId_np_j, eId_np_j, uId_np_j, dId_np_j;
@@ -1481,47 +1444,45 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
         fill(dFdXsB.begin(), dFdXsB.end(), 0.0);
         fill(dFdXsE.begin(), dFdXsE.end(), 0.0);
 
-        bId = conn.iteratorConn[c].BId();
-        eId = conn.iteratorConn[c].EId();
-        Akd = CONV1 * CONV2 * conn.iteratorConn[c].Area();
+        bId    = conn.iteratorConn[c].BId();
+        eId    = conn.iteratorConn[c].EId();
+        Akd    = CONV1 * CONV2 * conn.iteratorConn[c].Area();
         dGamma = GRAVITY_FACTOR * (bk.depth[bId] - bk.depth[eId]);
 
         for (USI j = 0; j < np; j++) {
             uId      = conn.upblock[c * np + j];
             uId_np_j = uId * np + j;
             if (!bk.phaseExist[uId_np_j]) continue;
-            bId_np_j = bId * np + j;
-            eId_np_j = eId * np + j;
+            bId_np_j     = bId * np + j;
+            eId_np_j     = eId * np + j;
             phaseExistBj = bk.phaseExist[bId_np_j];
             phaseExistEj = bk.phaseExist[eId_np_j];
 
             if (bId == uId) {
-                dFdXpU = &dFdXpB[0];
-                dFdXpD = &dFdXpE[0];
-                dFdXsU = &dFdXsB[0];
-                dFdXsD = &dFdXsE[0];
+                dFdXpU       = &dFdXpB[0];
+                dFdXpD       = &dFdXpE[0];
+                dFdXsU       = &dFdXsB[0];
+                dFdXsD       = &dFdXsE[0];
                 phaseExistDj = phaseExistEj;
-                dId_np_j = eId_np_j;
-            }
-            else {
-                dFdXpU = &dFdXpE[0];
-                dFdXpD = &dFdXpB[0];
-                dFdXsU = &dFdXsE[0];
-                dFdXsD = &dFdXsB[0];
+                dId_np_j     = eId_np_j;
+            } else {
+                dFdXpU       = &dFdXpE[0];
+                dFdXpD       = &dFdXpB[0];
+                dFdXsU       = &dFdXsE[0];
+                dFdXsD       = &dFdXsB[0];
                 phaseExistDj = phaseExistBj;
-                dId_np_j = bId_np_j;
+                dId_np_j     = bId_np_j;
             }
             if (phaseExistDj) {
                 rhoWghtU = 0.5;
                 rhoWghtD = 0.5;
-            }
-            else {
+            } else {
                 rhoWghtU = 1;
                 rhoWghtD = 0;
             }
 
             dP = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
-                conn.upblock_Rho[c * np + j] * dGamma;
+                 conn.upblock_Rho[c * np + j] * dGamma;
             xi     = bk.xi[uId_np_j];
             kr     = bk.kr[uId_np_j];
             mu     = bk.mu[uId_np_j];
@@ -1539,8 +1500,10 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
 
                 tmp = transJ * xiP * xij * dP;
                 tmp += -transIJ * muP / mu * dP;
-                dFdXpU[(i + 1) * ncol] += (tmp - transIJ * rhoWghtU * bk.rhoP[uId_np_j] * dGamma);
-                dFdXpD[(i + 1) * ncol] += -transIJ * rhoWghtD * bk.rhoP[dId_np_j] * dGamma;
+                dFdXpU[(i + 1) * ncol] +=
+                    (tmp - transIJ * rhoWghtU * bk.rhoP[uId_np_j] * dGamma);
+                dFdXpD[(i + 1) * ncol] +=
+                    -transIJ * rhoWghtD * bk.rhoP[dId_np_j] * dGamma;
 
                 // dS
                 for (USI k = 0; k < np; k++) {
@@ -1548,18 +1511,20 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
                         transIJ * bk.dPcj_dS[bId_np_j * np + k];
                     dFdXsE[(i + 1) * ncol2 + k] -=
                         transIJ * bk.dPcj_dS[eId_np_j * np + k];
-                    dFdXsU[(i + 1) * ncol2 + k] += Akd * bk.dKr_dS[uId_np_j * np + k] / mu * xi * xij * dP;
+                    dFdXsU[(i + 1) * ncol2 + k] +=
+                        Akd * bk.dKr_dS[uId_np_j * np + k] / mu * xi * xij * dP;
                 }
                 // dxij
                 for (USI k = 0; k < nc; k++) {
                     rhox = bk.rhox[uId_np_j * nc + k];
-                    xix = bk.xix[uId_np_j * nc + k];
-                    mux = bk.mux[uId_np_j * nc + k];
-                    tmp = -transIJ * rhoWghtU * rhox * dGamma;
+                    xix  = bk.xix[uId_np_j * nc + k];
+                    mux  = bk.mux[uId_np_j * nc + k];
+                    tmp  = -transIJ * rhoWghtU * rhox * dGamma;
                     tmp += transJ * xix * xij * dP;
                     tmp += -transIJ * mux / mu * dP;
                     dFdXsU[(i + 1) * ncol2 + np + j * nc + k] += tmp;
-                    dFdXsD[(i + 1) * ncol2 + np + j * nc + k] += -transIJ * rhoWghtD * bk.rhox[dId_np_j * nc + k] * dGamma;
+                    dFdXsD[(i + 1) * ncol2 + np + j * nc + k] +=
+                        -transIJ * rhoWghtD * bk.rhox[dId_np_j * nc + k] * dGamma;
                 }
                 dFdXsU[(i + 1) * ncol2 + np + j * nc + i] += transJ * xi * dP;
             }
@@ -1601,8 +1566,9 @@ void IsoT_FIM::AssembleMatBulks(LinearSystem&    ls,
     }
 }
 
-
-void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_FIM::AssembleMatBulksNew(LinearSystem&    ls,
+                                   const Reservoir& rs,
+                                   const OCP_DBL&   dt) const
 {
     const Bulk&     bk      = rs.bulk;
     const BulkConn& conn    = rs.conn;
@@ -1695,15 +1661,15 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
             bId_np_j = bId * np + j;
             eId_np_j = eId * np + j;
             uId_np_j = uId * np + j;
-            dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] 
-                     - conn.upblock_Rho[c * np + j] * dGamma;
-            xi       = bk.xi[uId_np_j];
-            kr       = bk.kr[uId_np_j];
-            mu       = bk.mu[uId_np_j];
-            muP      = bk.muP[uId_np_j];
-            xiP      = bk.xiP[uId_np_j];
-            rhoP     = bk.rhoP[uId_np_j];
-            transJ   = Akd * kr / mu;
+            dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
+                 conn.upblock_Rho[c * np + j] * dGamma;
+            xi     = bk.xi[uId_np_j];
+            kr     = bk.kr[uId_np_j];
+            mu     = bk.mu[uId_np_j];
+            muP    = bk.muP[uId_np_j];
+            xiP    = bk.xiP[uId_np_j];
+            rhoP   = bk.rhoP[uId_np_j];
+            transJ = Akd * kr / mu;
 
             for (USI i = 0; i < nc; i++) {
                 xij     = bk.xij[uId_np_j * nc + i];
@@ -1742,8 +1708,8 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
                         if (phasedS_B[j1]) {
                             dFdXsB[(i + 1) * ncolB + j1SB] +=
                                 transIJ * bk.dPcj_dS[bId_np_j * np + j1];
-                            tmp = Akd * xij * xi / mu *
-                                bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsB[(i + 1) * ncolB + j1SB] += tmp;
                             j1SB++;
                         }
@@ -1794,8 +1760,8 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
                         if (phasedS_E[j1]) {
                             dFdXsE[(i + 1) * ncolE + j1SE] -=
                                 transIJ * bk.dPcj_dS[eId_np_j * np + j1];
-                            tmp = Akd * xij * xi / mu *
-                                bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsE[(i + 1) * ncolE + j1SE] += tmp;
                             j1SE++;
                         }
@@ -1838,8 +1804,8 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
 
         // Assemble
         bmat = dFdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin - Begin -- add
         ls.AddDiag(bId, bmat);
@@ -1854,8 +1820,8 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
 #endif
 
         bmat = dFdXpE;
-        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP], 1,
+                bmat.data());
 
         Dscalar(bsize, dt, bmat.data());
         // Begin - End -- insert
@@ -1871,7 +1837,6 @@ void IsoT_FIM::AssembleMatBulksNew(LinearSystem& ls, const Reservoir& rs, const 
 #endif
     }
 }
-
 
 void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                                     const Reservoir& rs,
@@ -1965,7 +1930,7 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
             eId_np_j = eId * np + j;
             uId_np_j = uId * np + j;
             dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
-                conn.upblock_Rho[c * np + j] * dGamma;
+                 conn.upblock_Rho[c * np + j] * dGamma;
             xi     = bk.xi[uId_np_j];
             kr     = bk.kr[uId_np_j];
             mu     = bk.mu[uId_np_j];
@@ -1991,14 +1956,12 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                     tmp += transIJ * (-rhoP * dGamma);
                     dFdXpE[(i + 1) * ncol] += tmp;
                 } else {
-                    dFdXpB[(i + 1) * ncol] +=
-                        transIJ * dGamma *
-                        (-bk.rhoP[bId_np_j] * bk.S[bId_np_j]) /
-                        (bk.S[bId_np_j] + bk.S[eId_np_j]);
-                    dFdXpE[(i + 1) * ncol] +=
-                        transIJ * dGamma *
-                        (-bk.rhoP[eId_np_j] * bk.S[eId_np_j]) /
-                        (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                    dFdXpB[(i + 1) * ncol] += transIJ * dGamma *
+                                              (-bk.rhoP[bId_np_j] * bk.S[bId_np_j]) /
+                                              (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                    dFdXpE[(i + 1) * ncol] += transIJ * dGamma *
+                                              (-bk.rhoP[eId_np_j] * bk.S[eId_np_j]) /
+                                              (bk.S[bId_np_j] + bk.S[eId_np_j]);
                     if (bId == uId) {
                         dFdXpB[(i + 1) * ncol] += tmp;
                     } else {
@@ -2016,7 +1979,7 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         wghtb = 0;
                         wghte = 0;
                         if (j1 == j && phaseExistE[j]) {
-                            tmp = -dGamma / ((bk.S[bId_np_j] + bk.S[eId_np_j]) *
+                            tmp   = -dGamma / ((bk.S[bId_np_j] + bk.S[eId_np_j]) *
                                              (bk.S[bId_np_j] + bk.S[eId_np_j]));
                             wghtb = tmp * bk.rho[bId_np_j] * bk.S[eId_np_j];
                             wghte = tmp * bk.rho[eId_np_j] * bk.S[bId_np_j];
@@ -2025,8 +1988,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         if (phaseExistB[j1]) {
                             dFdXsB[(i + 1) * ncolB + j1SB] +=
                                 transIJ * (bk.dPcj_dS[bId_np_j * np + j1] + wghtb);
-                            tmp = Akd * xij * xi / mu *
-                                  bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsB[(i + 1) * ncolB + j1SB] += tmp;
                             j1SB++;
                         }
@@ -2051,10 +2014,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         if (i < pEnumComB[j])
                             dFdXsB[(i + 1) * ncolB + jxB + i] += xi * transJ * dP;
                     } else {
-                        wghtb = bk.S[bId_np_j] /
-                                (bk.S[bId_np_j] + bk.S[eId_np_j]);
-                        wghte = bk.S[eId_np_j] /
-                                (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                        wghtb = bk.S[bId_np_j] / (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                        wghte = bk.S[eId_np_j] / (bk.S[bId_np_j] + bk.S[eId_np_j]);
                         for (USI k = 0; k < pEnumComB[j]; k++) {
                             rhox = bk.rhox[bId_np_j * nc + k] * wghtb;
                             xix  = bk.xix[uId_np_j * nc + k];
@@ -2064,8 +2025,7 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                             tmp += -transIJ * mux / mu * dP;
                             dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
                             dFdXsE[(i + 1) * ncolE + jxE + k] +=
-                                -transIJ * dGamma * bk.rhox[eId_np_j * nc + k] *
-                                wghte;
+                                -transIJ * dGamma * bk.rhox[eId_np_j * nc + k] * wghte;
                         }
                         // WARNING !!!
                         if (i < pEnumComB[j])
@@ -2078,7 +2038,7 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         wghtb = 0;
                         wghte = 0;
                         if (j1 == j && phaseExistB[j]) {
-                            tmp = -dGamma / ((bk.S[bId_np_j] + bk.S[eId_np_j]) *
+                            tmp   = -dGamma / ((bk.S[bId_np_j] + bk.S[eId_np_j]) *
                                              (bk.S[bId_np_j] + bk.S[eId_np_j]));
                             wghtb = tmp * bk.rho[bId_np_j] * bk.S[eId_np_j];
                             wghte = tmp * bk.rho[eId_np_j] * bk.S[bId_np_j];
@@ -2092,8 +2052,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         if (phaseExistE[j1]) {
                             dFdXsE[(i + 1) * ncolE + j1SE] -=
                                 transIJ * (bk.dPcj_dS[eId_np_j * np + j1] + wghte);
-                            tmp = Akd * xij * xi / mu *
-                                  bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsE[(i + 1) * ncolE + j1SE] += tmp;
                             j1SE++;
                         }
@@ -2113,10 +2073,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                         if (i < pEnumComE[j])
                             dFdXsE[(i + 1) * ncolE + jxE + i] += xi * transJ * dP;
                     } else {
-                        wghtb = bk.S[bId_np_j] /
-                                (bk.S[bId_np_j] + bk.S[eId_np_j]);
-                        wghte = bk.S[eId_np_j] /
-                                (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                        wghtb = bk.S[bId_np_j] / (bk.S[bId_np_j] + bk.S[eId_np_j]);
+                        wghte = bk.S[eId_np_j] / (bk.S[bId_np_j] + bk.S[eId_np_j]);
                         for (USI k = 0; k < pEnumComE[j]; k++) {
                             rhox = bk.rhox[eId_np_j * nc + k] * wghte;
                             xix  = bk.xix[uId_np_j * nc + k];
@@ -2126,8 +2084,7 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
                             tmp += -transIJ * mux / mu * dP;
                             dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
                             dFdXsB[(i + 1) * ncolB + jxB + k] +=
-                                -transIJ * dGamma * bk.rhox[bId_np_j * nc + k] *
-                                wghtb;
+                                -transIJ * dGamma * bk.rhox[bId_np_j * nc + k] * wghtb;
                         }
                         // WARNING !!!
                         if (i < pEnumComE[j])
@@ -2141,8 +2098,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
 
         // Assemble
         bmat = dFdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin - Begin -- add
         ls.AddDiag(bId, bmat);
@@ -2158,8 +2115,8 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
 
         // End
         bmat = dFdXpE;
-        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin - End -- insert
         ls.NewOffDiag(bId, eId, bmat);
@@ -2175,50 +2132,51 @@ void IsoT_FIM::AssembleMatBulksNewS(LinearSystem&    ls,
     }
 }
 
-
-void IsoT_FIM::AssembleMatWells(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_FIM::AssembleMatWells(LinearSystem&    ls,
+                                const Reservoir& rs,
+                                const OCP_DBL&   dt) const
 {
     for (auto& wl : rs.allWells.wells) {
         if (wl.IsOpen()) {
 
             switch (wl.WellType()) {
-            case INJ:
-                AssembleMatInjWells(ls, rs.bulk, wl, dt);
-                break;
-            case PROD:
-                AssembleMatProdWells(ls, rs.bulk, wl, dt);
-                break;
-            default:
-                OCP_ABORT("Wrong well type");
+                case INJ:
+                    AssembleMatInjWells(ls, rs.bulk, wl, dt);
+                    break;
+                case PROD:
+                    AssembleMatProdWells(ls, rs.bulk, wl, dt);
+                    break;
+                default:
+                    OCP_ABORT("Wrong well type");
             }
         }
     }
 
     //// for Reinjection
-    //for (auto& wG : rs.allWells.wellGroup) {
-    //    if (wG.IfReInj()) {
-    //        for (auto& prod : rs.allWells.wellGroup[wG.prodGroup].wIdPROD) {
-    //            if (rs.allWells.wells[prod].IsOpen()) {
-    //                rs.allWells.wells[prod].AssembleMatReinjection_FIM(rs.bulk, ls, dt, rs.allWells.wells,
-    //                    wG.wIdINJ);
-    //            }
-    //        }
-    //    }
-    //}
+    // for (auto& wG : rs.allWells.wellGroup) {
+    //     if (wG.IfReInj()) {
+    //         for (auto& prod : rs.allWells.wellGroup[wG.prodGroup].wIdPROD) {
+    //             if (rs.allWells.wells[prod].IsOpen()) {
+    //                 rs.allWells.wells[prod].AssembleMatReinjection_FIM(rs.bulk, ls,
+    //                 dt, rs.allWells.wells,
+    //                     wG.wIdINJ);
+    //             }
+    //         }
+    //     }
+    // }
 }
-
 
 void IsoT_FIM::AssembleMatInjWells(LinearSystem&  ls,
                                    const Bulk&    bk,
                                    const Well&    wl,
                                    const OCP_DBL& dt) const
 {
-    const USI nc      = bk.numCom;
-    const USI np      = bk.numPhase;
-    const USI ncol    = nc + 1;
-    const USI ncol2   = np * nc + np;
-    const USI bsize   = ncol * ncol;
-    const USI bsize2  = ncol * ncol2;
+    const USI nc     = bk.numCom;
+    const USI np     = bk.numPhase;
+    const USI ncol   = nc + 1;
+    const USI ncol2  = np * nc + np;
+    const USI bsize  = ncol * ncol;
+    const USI bsize2 = ncol * ncol2;
     OCP_USI   n_np_j;
 
     vector<OCP_DBL> bmat(bsize, 0);
@@ -2228,7 +2186,7 @@ void IsoT_FIM::AssembleMatInjWells(LinearSystem&  ls,
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
     OCP_DBL mu, muP, dP, transIJ;
-    
+
     const OCP_USI wId = ls.AddDim(1) - 1;
     ls.NewDiag(wId, bmat);
 
@@ -2297,8 +2255,8 @@ void IsoT_FIM::AssembleMatInjWells(LinearSystem&  ls,
 
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * bsize2], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &bk.dSec_dPri[n * bsize2],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
@@ -2326,18 +2284,17 @@ void IsoT_FIM::AssembleMatInjWells(LinearSystem&  ls,
     }
 }
 
-
 void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
                                     const Bulk&    bk,
                                     const Well&    wl,
                                     const OCP_DBL& dt) const
 {
-    const USI nc        = bk.numCom;
-    const USI np        = bk.numPhase;
-    const USI ncol      = nc + 1;
-    const USI ncol2     = np * nc + np;
-    const USI bsize     = ncol * ncol;
-    const USI bsize2    = ncol * ncol2;
+    const USI nc     = bk.numCom;
+    const USI np     = bk.numPhase;
+    const USI ncol   = nc + 1;
+    const USI ncol2  = np * nc + np;
+    const USI bsize  = ncol * ncol;
+    const USI bsize2 = ncol * ncol2;
     OCP_USI   n_np_j;
 
     vector<OCP_DBL> bmat(bsize, 0);
@@ -2346,7 +2303,7 @@ void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
     vector<OCP_DBL> dQdXpW(bsize, 0);
     vector<OCP_DBL> dQdXsB(bsize2, 0);
 
-    OCP_DBL xij, xi, mu, muP, xiP, dP,transIJ, tmp;
+    OCP_DBL xij, xi, mu, muP, xiP, dP, transIJ, tmp;
 
     const OCP_USI wId = ls.AddDim(1) - 1;
     ls.NewDiag(wId, bmat);
@@ -2374,14 +2331,14 @@ void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
                 xij = bk.xij[n_np_j * nc + i];
                 // dQ / dP
                 transIJ = wl.PerfTransj(p, j) * xi * xij;
-                dQdXpB[(i + 1) * ncol] +=
-                    transIJ * (1 - dP * muP / mu) + dP * wl.PerfTransj(p, j) * xij * xiP;
+                dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu) +
+                                          dP * wl.PerfTransj(p, j) * xij * xiP;
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
                 // dQ / dS
                 for (USI k = 0; k < np; k++) {
-                    tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu * xi * xij *
-                          bk.dKr_dS[n_np_j * np + k];
+                    tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu * xi *
+                          xij * bk.dKr_dS[n_np_j * np + k];
                     // capillary pressure
                     tmp += transIJ * bk.dPcj_dS[n_np_j * np + k];
                     dQdXsB[(i + 1) * ncol2 + k] += tmp;
@@ -2389,8 +2346,7 @@ void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
                 // dQ / dCij
                 for (USI k = 0; k < nc; k++) {
                     tmp = dP * wl.PerfTransj(p, j) * xij *
-                          (bk.xix[n_np_j * nc + k] -
-                           xi / mu * bk.mux[n_np_j * nc + k]);
+                          (bk.xix[n_np_j * nc + k] - xi / mu * bk.mux[n_np_j * nc + k]);
                     dQdXsB[(i + 1) * ncol2 + np + j * nc + k] += tmp;
                 }
                 dQdXsB[(i + 1) * ncol2 + np + j * nc + i] +=
@@ -2428,8 +2384,8 @@ void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
 
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * bsize2], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncol2, 1, dQdXsB.data(), &bk.dSec_dPri[n * bsize2],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, wl.ProdWeight(i), bmat.data() + (i + 1) * ncol,
@@ -2458,28 +2414,31 @@ void IsoT_FIM::AssembleMatProdWells(LinearSystem&  ls,
     }
 }
 
-
-void IsoT_FIM::AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_FIM::AssembleMatWellsNew(LinearSystem&    ls,
+                                   const Reservoir& rs,
+                                   const OCP_DBL&   dt) const
 {
     for (auto& wl : rs.allWells.wells) {
         if (wl.IsOpen()) {
 
             switch (wl.WellType()) {
-            case INJ:
-                AssembleMatInjWellsNew(ls, rs.bulk, wl, dt);
-                break;
-            case PROD:
-                AssembleMatProdWellsNew(ls, rs.bulk, wl, dt);
-                break;
-            default:
-                OCP_ABORT("Wrong well type");
+                case INJ:
+                    AssembleMatInjWellsNew(ls, rs.bulk, wl, dt);
+                    break;
+                case PROD:
+                    AssembleMatProdWellsNew(ls, rs.bulk, wl, dt);
+                    break;
+                default:
+                    OCP_ABORT("Wrong well type");
             }
         }
     }
 }
 
-
-void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const
+void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem&  ls,
+                                      const Bulk&    bk,
+                                      const Well&    wl,
+                                      const OCP_DBL& dt) const
 {
     const USI nc      = bk.numCom;
     const USI np      = bk.numPhase;
@@ -2488,7 +2447,7 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
     const USI ncol2   = np * nc + np;
     const USI bsize   = ncol * ncol;
     const USI bsize2  = ncol * ncol2;
-       
+
     vector<OCP_DBL>  bmat(bsize, 0);
     vector<OCP_DBL>  bmat2(bsize, 0);
     vector<OCP_DBL>  dQdXpB(bsize, 0);
@@ -2504,56 +2463,55 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
 
     const OCP_USI wId = ls.AddDim(1) - 1;
     ls.NewDiag(wId, bmat);
-    
+
     for (USI p = 0; p < wl.PerfNum(); p++) {
         const OCP_USI n = wl.PerfLocation(p);
         fill(dQdXpB.begin(), dQdXpB.end(), 0.0);
         fill(dQdXpW.begin(), dQdXpW.end(), 0.0);
         fill(dQdXsB.begin(), dQdXsB.end(), 0.0);
-    
+
         dP = bk.P[n] - wl.BHP() - wl.DG(p);
-    
+
         USI jxB = 0;
         ncolB   = 0;
-    
+
         for (USI j = 0; j < np; j++) {
-            phaseExistB[j]  = bk.phaseExist[n * np + j];
-            phasedS_B[j]    = bk.pSderExist[n * np + j];
+            phaseExistB[j] = bk.phaseExist[n * np + j];
+            phasedS_B[j]   = bk.pSderExist[n * np + j];
             if (phasedS_B[j]) jxB++;
-            pVnumComB[j]    = bk.pVnumCom[n * np + j];
+            pVnumComB[j] = bk.pVnumCom[n * np + j];
             ncolB += pVnumComB[j];
         }
         ncolB += jxB;
-    
+
         for (USI j = 0; j < np; j++) {
-    
+
             if (!phaseExistB[j]) {
                 jxB += pVnumComB[j];
                 continue;
             }
-    
+
             n_np_j = n * np + j;
             mu     = bk.mu[n_np_j];
             muP    = bk.muP[n_np_j];
-    
+
             for (USI i = 0; i < nc; i++) {
                 // dQ / dP
                 transIJ = wl.PerfTransj(p, j) * wl.PerfXi(p) * wl.InjZi(i);
                 dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu);
                 dQdXpW[(i + 1) * ncol] += -transIJ;
-    
+
                 // dQ / dS
                 USI j1B = 0;
                 for (USI j1 = 0; j1 < np; j1++) {
                     if (phasedS_B[j1]) {
                         dQdXsB[(i + 1) * ncolB + j1B] +=
                             CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * wl.PerfXi(p) *
-                            wl.InjZi(i) * bk.dKr_dS[n_np_j * np + j1] *
-                            dP / mu;
+                            wl.InjZi(i) * bk.dKr_dS[n_np_j * np + j1] * dP / mu;
                         j1B++;
                     }
                 }
-    
+
                 // dQ / dxij
                 for (USI k = 0; k < pVnumComB[j]; k++) {
                     dQdXsB[(i + 1) * ncolB + jxB + k] +=
@@ -2562,19 +2520,19 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
             }
             jxB += pVnumComB[j];
         }
-    
+
         bmat = dQdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Bulk - Bulk -- add
         ls.AddDiag(n, bmat);
-    
+
         // Bulk - Well -- insert
         bmat = dQdXpW;
         Dscalar(bsize, dt, bmat.data());
         ls.NewOffDiag(n, wId, bmat);
-    
+
         // Well
         switch (wl.OptMode()) {
             case RATE_MODE:
@@ -2589,18 +2547,18 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
                     bmat[(i + 1) * ncol + i + 1] = 1;
                 }
                 ls.AddDiag(wId, bmat);
-    
+
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * lendSdP], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
                 }
                 ls.NewOffDiag(wId, n, bmat2);
                 break;
-    
+
             case BHP_MODE:
                 // Well - Well -- add
                 fill(bmat.begin(), bmat.end(), 0.0);
@@ -2608,12 +2566,12 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
                     bmat[i * ncol + i] = 1;
                 }
                 ls.AddDiag(wId, bmat);
-    
+
                 // Well - Bulk -- insert
                 fill(bmat.begin(), bmat.end(), 0.0);
                 ls.NewOffDiag(wId, n, bmat);
                 break;
-    
+
             default:
                 OCP_ABORT("Wrong Well Opt mode!");
                 break;
@@ -2621,16 +2579,18 @@ void IsoT_FIM::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const We
     }
 }
 
-
-void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const
+void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem&  ls,
+                                       const Bulk&    bk,
+                                       const Well&    wl,
+                                       const OCP_DBL& dt) const
 {
-    const USI nc        = bk.numCom;
-    const USI np        = bk.numPhase;
-    const USI lendSdP   = bk.maxLendSdP;
-    const USI ncol      = nc + 1;
-    const USI ncol2     = np * nc + np;
-    const USI bsize     = ncol * ncol;
-    const USI bsize2    = ncol * ncol2;
+    const USI nc      = bk.numCom;
+    const USI np      = bk.numPhase;
+    const USI lendSdP = bk.maxLendSdP;
+    const USI ncol    = nc + 1;
+    const USI ncol2   = np * nc + np;
+    const USI bsize   = ncol * ncol;
+    const USI bsize2  = ncol * ncol2;
 
     vector<OCP_DBL>  bmat(bsize, 0);
     vector<OCP_DBL>  bmat2(bsize, 0);
@@ -2686,16 +2646,16 @@ void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const W
                 xij = bk.xij[n_np_j * nc + i];
                 // dQ / dP
                 transIJ = wl.PerfTransj(p, j) * xi * xij;
-                dQdXpB[(i + 1) * ncol] +=
-                    transIJ * (1 - dP * muP / mu) + dP * wl.PerfTransj(p, j) * xij * xiP;
+                dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu) +
+                                          dP * wl.PerfTransj(p, j) * xij * xiP;
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
                 // dQ / dS
                 USI j1B = 0;
                 for (USI j1 = 0; j1 < np; j1++) {
                     if (phasedS_B[j1]) {
-                        tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu * xi *
-                              xij * bk.dKr_dS[n_np_j * np + j1];
+                        tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu *
+                              xi * xij * bk.dKr_dS[n_np_j * np + j1];
                         // capillary pressure
                         tmp += transIJ * bk.dPcj_dS[n_np_j * np + j1];
                         dQdXsB[(i + 1) * ncolB + j1B] += tmp;
@@ -2705,8 +2665,7 @@ void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const W
 
                 for (USI k = 0; k < pVnumComB[j]; k++) {
                     tmp = dP * wl.PerfTransj(p, j) * xij *
-                          (bk.xix[n_np_j * nc + k] -
-                           xi / mu * bk.mux[n_np_j * nc + k]);
+                          (bk.xix[n_np_j * nc + k] - xi / mu * bk.mux[n_np_j * nc + k]);
                     dQdXsB[(i + 1) * ncolB + jxB + k] += tmp;
                 }
                 // WARNING !!!
@@ -2743,8 +2702,8 @@ void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const W
 
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * lendSdP], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, wl.ProdWeight(i), bmat.data() + (i + 1) * ncol,
@@ -2773,27 +2732,28 @@ void IsoT_FIM::AssembleMatProdWellsNew(LinearSystem& ls, const Bulk& bk, const W
     }
 }
 
-
-void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const
+void IsoT_FIM::GetSolution(Reservoir&             rs,
+                           const vector<OCP_DBL>& u,
+                           const OCPControl&      ctrl) const
 {
     // Bulk
     const OCP_DBL dSmaxlim = ctrl.ctrlNR.NRdSmax;
     // const OCP_DBL dPmaxlim = ctrl.ctrlNR.NRdPmax;
 
-    Bulk&         bk  = rs.bulk;
-    const OCP_USI nb  = bk.numBulk;
-    const USI     np  = bk.numPhase;
-    const USI     nc  = bk.numCom;
-    const USI     row = np * (nc + 1);
-    const USI     col = nc + 1;
-    vector<OCP_DBL> dtmp(row, 0);    
+    Bulk&           bk  = rs.bulk;
+    const OCP_USI   nb  = bk.numBulk;
+    const USI       np  = bk.numPhase;
+    const USI       nc  = bk.numCom;
+    const USI       row = np * (nc + 1);
+    const USI       col = nc + 1;
+    vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
     OCP_DBL         choptmp = 0;
 
-    bk.dSNR         = bk.S;
-    bk.NRphaseNum   = bk.phaseNum;
-    bk.NRdPmax      = 0;
-    bk.NRdNmax      = 0;
+    bk.dSNR       = bk.S;
+    bk.NRphaseNum = bk.phaseNum;
+    bk.NRdPmax    = 0;
+    bk.NRdNmax    = 0;
 
     for (OCP_USI n = 0; n < nb; n++) {
         // const vector<OCP_DBL>& scm = satcm[SATNUM[n]];
@@ -2804,11 +2764,11 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
 
 #ifdef OCP_OLD_FIM
         DaAxpby(row, col, 1, &bk.dSec_dPri[n * bk.maxLendSdP], u.data() + n * col, 1,
-            dtmp.data());
+                dtmp.data());
         const OCP_BOOL newFIM = OCP_FALSE;
 #else
-        DaAxpby(bk.bRowSizedSdP[n], col, 1, &bk.dSec_dPri[n * bk.maxLendSdP], u.data() + n * col,
-            1, dtmp.data());
+        DaAxpby(bk.bRowSizedSdP[n], col, 1, &bk.dSec_dPri[n * bk.maxLendSdP],
+                u.data() + n * col, 1, dtmp.data());
         const OCP_BOOL newFIM = OCP_TRUE;
 #endif // OCP_OLD_FIM
 
@@ -2821,8 +2781,7 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
             choptmp = 1;
             if (fabs(dtmp[js]) > dSmaxlim) {
                 choptmp = dSmaxlim / fabs(dtmp[js]);
-            }
-            else if (bk.S[n * np + j] + dtmp[js] < 0.0) {
+            } else if (bk.S[n * np + j] + dtmp[js] < 0.0) {
                 choptmp = 0.9 * bk.S[n * np + j] / fabs(dtmp[js]);
             }
 
@@ -2841,8 +2800,8 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
                 bk.dSNRP[n * np + j] = 0;
                 continue;
             }
-            bk.dSNRP[n * np + j]    = chopmin * dtmp[js];
-            bk.S[n * np + j]       += bk.dSNRP[n * np + j];
+            bk.dSNRP[n * np + j] = chopmin * dtmp[js];
+            bk.S[n * np + j] += bk.dSNRP[n * np + j];
             js++;
         }
 
@@ -2850,7 +2809,7 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
         if (bk.IfUseEoS()) {
             if (bk.phaseNum[n] >= 3) {
                 // num of Hydroncarbon phase >= 2
-                OCP_USI  bId = 0;
+                OCP_USI bId = 0;
                 for (USI j = 0; j < 2; j++) {
                     bId = n * np * nc + j * nc;
                     for (USI i = 0; i < bk.numComH; i++) {
@@ -2881,9 +2840,9 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
 
             bk.Ni[n * nc + i] += bk.dNNR[n * nc + i];
 
-            //if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
-            //    bk.Ni[n * nc + i] = 1E-20;
-            //}
+            // if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
+            //     bk.Ni[n * nc + i] = 1E-20;
+            // }
         }
     }
 
@@ -2897,41 +2856,40 @@ void IsoT_FIM::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCon
     }
 }
 
-
 void IsoT_FIM::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
     Bulk& bk = rs.bulk;
 
     // Rock
-    bk.poro         = bk.lporo;
-    bk.poroP        = bk.lporoP;
-    bk.rockVp       = bk.lrockVp;
+    bk.poro   = bk.lporo;
+    bk.poroP  = bk.lporoP;
+    bk.rockVp = bk.lrockVp;
     // Fluid
-    bk.phaseNum     = bk.lphaseNum;
-    bk.Nt           = bk.lNt;
-    bk.Ni           = bk.lNi;
-    bk.vf           = bk.lvf;
-    bk.P            = bk.lP;
-    bk.Pj           = bk.lPj;
-    bk.Pc           = bk.lPc;
-    bk.phaseExist   = bk.lphaseExist;
-    bk.S            = bk.lS;
-    bk.xij          = bk.lxij;
-    bk.rho          = bk.lrho;
-    bk.xi           = bk.lxi;
-    bk.mu           = bk.lmu;
-    bk.kr           = bk.lkr;
+    bk.phaseNum   = bk.lphaseNum;
+    bk.Nt         = bk.lNt;
+    bk.Ni         = bk.lNi;
+    bk.vf         = bk.lvf;
+    bk.P          = bk.lP;
+    bk.Pj         = bk.lPj;
+    bk.Pc         = bk.lPc;
+    bk.phaseExist = bk.lphaseExist;
+    bk.S          = bk.lS;
+    bk.xij        = bk.lxij;
+    bk.rho        = bk.lrho;
+    bk.xi         = bk.lxi;
+    bk.mu         = bk.lmu;
+    bk.kr         = bk.lkr;
     // derivatives
-    bk.vfP          = bk.lvfP;
-    bk.vfi          = bk.lvfi;
-    bk.rhoP         = bk.lrhoP;
-    bk.rhox         = bk.lrhox;
-    bk.xiP          = bk.lxiP;
-    bk.xix          = bk.lxix;
-    bk.muP          = bk.lmuP;
-    bk.mux          = bk.lmux;
-    bk.dPcj_dS      = bk.ldPcj_dS;
-    bk.dKr_dS       = bk.ldKr_dS;
+    bk.vfP     = bk.lvfP;
+    bk.vfi     = bk.lvfi;
+    bk.rhoP    = bk.lrhoP;
+    bk.rhox    = bk.lrhox;
+    bk.xiP     = bk.lxiP;
+    bk.xix     = bk.lxix;
+    bk.muP     = bk.lmuP;
+    bk.mux     = bk.lmux;
+    bk.dPcj_dS = bk.ldPcj_dS;
+    bk.dKr_dS  = bk.ldKr_dS;
     // FIM-Specified
     bk.bRowSizedSdP = bk.lbRowSizedSdP;
     bk.dSec_dPri    = bk.ldSec_dPri;
@@ -2954,43 +2912,42 @@ void IsoT_FIM::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
     CalRes(rs, ctrl.GetCurDt(), OCP_TRUE);
 }
 
-
 void IsoT_FIM::UpdateLastTimeStep(Reservoir& rs) const
 {
     Bulk& bk = rs.bulk;
 
     // Rock
-    bk.lporo        = bk.poro;
-    bk.lporoP       = bk.poroP;
-    bk.lrockVp      = bk.rockVp;
+    bk.lporo   = bk.poro;
+    bk.lporoP  = bk.poroP;
+    bk.lrockVp = bk.rockVp;
 
     // Fluid
-    bk.lphaseNum    = bk.phaseNum;
-    bk.lNt          = bk.Nt;
-    bk.lNi          = bk.Ni;
-    bk.lvf          = bk.vf;
-    bk.lP           = bk.P;
-    bk.lPj          = bk.Pj;
-    bk.lPc          = bk.Pc;
-    bk.lphaseExist  = bk.phaseExist;
-    bk.lS           = bk.S;
-    bk.lxij         = bk.xij;
-    bk.lrho         = bk.rho;
-    bk.lxi          = bk.xi;
-    bk.lmu          = bk.mu;
-    bk.lkr          = bk.kr;
+    bk.lphaseNum   = bk.phaseNum;
+    bk.lNt         = bk.Nt;
+    bk.lNi         = bk.Ni;
+    bk.lvf         = bk.vf;
+    bk.lP          = bk.P;
+    bk.lPj         = bk.Pj;
+    bk.lPc         = bk.Pc;
+    bk.lphaseExist = bk.phaseExist;
+    bk.lS          = bk.S;
+    bk.lxij        = bk.xij;
+    bk.lrho        = bk.rho;
+    bk.lxi         = bk.xi;
+    bk.lmu         = bk.mu;
+    bk.lkr         = bk.kr;
 
     // derivatives
-    bk.lvfP         = bk.vfP;
-    bk.lvfi         = bk.vfi;
-    bk.lrhoP        = bk.rhoP;
-    bk.lrhox        = bk.rhox;
-    bk.lxiP         = bk.xiP;
-    bk.lxix         = bk.xix;
-    bk.lmuP         = bk.muP;
-    bk.lmux         = bk.mux;
-    bk.ldPcj_dS     = bk.dPcj_dS;
-    bk.ldKr_dS      = bk.dKr_dS;
+    bk.lvfP     = bk.vfP;
+    bk.lvfi     = bk.vfi;
+    bk.lrhoP    = bk.rhoP;
+    bk.lrhox    = bk.rhox;
+    bk.lxiP     = bk.xiP;
+    bk.lxix     = bk.xix;
+    bk.lmuP     = bk.muP;
+    bk.lmux     = bk.mux;
+    bk.ldPcj_dS = bk.dPcj_dS;
+    bk.ldKr_dS  = bk.dKr_dS;
 
     // FIM-Specified
     bk.lbRowSizedSdP = bk.bRowSizedSdP;
@@ -3002,12 +2959,9 @@ void IsoT_FIM::UpdateLastTimeStep(Reservoir& rs) const
     rs.optFeatures.UpdateLastTimeStep();
 }
 
-
-
 ////////////////////////////////////////////
 // OCP_FIMn
 ////////////////////////////////////////////
-
 
 /// Setup FIMn
 void IsoT_FIMn::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
@@ -3018,9 +2972,8 @@ void IsoT_FIMn::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
     IsoT_FIM::AllocateLinearSystem(ls, rs, ctrl);
 }
 
-
-void IsoT_FIMn::InitReservoir(Reservoir& rs) const 
-{ 
+void IsoT_FIMn::InitReservoir(Reservoir& rs) const
+{
     rs.bulk.InitPTSw(50);
 
     InitRock(rs.bulk);
@@ -3034,7 +2987,6 @@ void IsoT_FIMn::InitReservoir(Reservoir& rs) const
     UpdateLastTimeStep(rs);
 }
 
-
 /// Prepare for Assembling matrix.
 void IsoT_FIMn::Prepare(Reservoir& rs, const OCP_DBL& dt)
 {
@@ -3042,11 +2994,10 @@ void IsoT_FIMn::Prepare(Reservoir& rs, const OCP_DBL& dt)
     IsoT_FIM::CalRes(rs, dt, OCP_TRUE);
 }
 
-
 /// Assemble Matrix
 void IsoT_FIMn::AssembleMat(LinearSystem&    ls,
-                           const Reservoir& rs,
-                           const OCP_DBL&   dt) const
+                            const Reservoir& rs,
+                            const OCP_DBL&   dt) const
 {
     AssembleMatBulksNew(ls, rs, dt);
     AssembleMatWellsNew(ls, rs, dt);
@@ -3055,8 +3006,8 @@ void IsoT_FIMn::AssembleMat(LinearSystem&    ls,
 
 /// Solve the linear system.
 void IsoT_FIMn::SolveLinearSystem(LinearSystem& ls,
-                                 Reservoir&    rs,
-                                 OCPControl&   ctrl) const
+                                  Reservoir&    rs,
+                                  OCPControl&   ctrl) const
 {
 #ifdef DEBUG
     ls.CheckEquation();
@@ -3073,9 +3024,9 @@ void IsoT_FIMn::SolveLinearSystem(LinearSystem& ls,
     // cout << "LS step = " << status << endl;
 
 #ifdef DEBUG
-    //ls.OutputLinearSystem("testA_FIMn.out", "testb_FIMn.out");
-    //ls.OutputSolution("testx_FIMn.out");
-    //ls.CheckSolution();
+    // ls.OutputLinearSystem("testA_FIMn.out", "testb_FIMn.out");
+    // ls.OutputSolution("testx_FIMn.out");
+    // ls.CheckSolution();
 #endif // DEBUG
 
     ctrl.RecordTimeLS(Timer.Stop() / 1000);
@@ -3093,10 +3044,10 @@ OCP_BOOL IsoT_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL& dt = ctrl.current_dt;
 
     // First check: Ni check and bulk Pressure check
-    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
+    if (!ctrl.Check(rs, {"BulkNi", "BulkP"})) {
         ResetToLastTimeStep(rs, ctrl);
         cout << "Cut time step size and repeat! current dt = " << fixed
-            << setprecision(3) << dt << " days\n";
+             << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -3113,7 +3064,6 @@ OCP_BOOL IsoT_FIMn::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     return OCP_TRUE;
 }
 
-
 /// Finish a Newton-Raphson iteration.
 OCP_BOOL IsoT_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
 {
@@ -3124,17 +3074,16 @@ OCP_BOOL IsoT_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
     if (((rs.bulk.res.maxRelRes_V <= rs.bulk.res.maxRelRes0_V * ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
-        rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+          rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
+          rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
+         rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        if (!ctrl.Check(rs, { "WellP" })) {
+        if (!ctrl.Check(rs, {"WellP"})) {
             ResetToLastTimeStep(rs, ctrl);
             return OCP_FALSE;
-        }
-        else {
+        } else {
             return OCP_TRUE;
         }
 
@@ -3142,11 +3091,10 @@ OCP_BOOL IsoT_FIMn::FinishNR(Reservoir& rs, OCPControl& ctrl)
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
-            "current dt = "
-            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
+                "current dt = "
+             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
-    }
-    else {
+    } else {
         return OCP_FALSE;
     }
 }
@@ -3157,9 +3105,8 @@ void IsoT_FIMn::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter" });
+    ctrl.CalNextTimeStep(rs, {"dP", "dS", "iter"});
 }
-
 
 void IsoT_FIMn::AllocateReservoir(Reservoir& rs)
 {
@@ -3173,7 +3120,7 @@ void IsoT_FIMn::AllocateReservoir(Reservoir& rs)
     bk.nj.resize(nb * np);
     bk.res_n.resize(nb * (np + np * nc));
     bk.resPc.resize(nb);
-   
+
     bk.lnj.resize(nb * np);
     bk.lres_n.resize(nb * (np + np * nc));
     bk.lresPc.resize(nb);
@@ -3189,19 +3136,18 @@ void IsoT_FIMn::InitFlash(Bulk& bk) const
 
     if (bk.ifComps) {
         for (OCP_USI n = 0; n < nb; n++) {
-            bk.flashCal[bk.PVTNUM[n]]->InitFlashFIMn(bk.P[n], bk.Pb[n], bk.T[n], &bk.S[n * np],
-                bk.rockVp[n], bk.Ni.data() + n * nc, n);
+            bk.flashCal[bk.PVTNUM[n]]->InitFlashFIMn(bk.P[n], bk.Pb[n], bk.T[n],
+                                                     &bk.S[n * np], bk.rockVp[n],
+                                                     bk.Ni.data() + n * nc, n);
             for (USI i = 0; i < nc; i++) {
                 bk.Ni[n * nc + i] = bk.flashCal[bk.PVTNUM[n]]->GetNi(i);
             }
             PassFlashValue(bk, n);
         }
-    }
-    else {
+    } else {
         OCP_ABORT("Not Completed in BLKOIL MODEL!");
     }
 }
-
 
 void IsoT_FIMn::CalFlash(Bulk& bk)
 {
@@ -3212,8 +3158,8 @@ void IsoT_FIMn::CalFlash(Bulk& bk)
 
     if (bk.ifComps) {
         vector<USI> flagB(np, 0);
-        bk.maxNRdSSP        = 0;
-        bk.index_maxNRdSSP  = 0;
+        bk.maxNRdSSP       = 0;
+        bk.index_maxNRdSSP = 0;
 
         for (OCP_USI n = 0; n < nb; n++) {
 
@@ -3225,12 +3171,10 @@ void IsoT_FIMn::CalFlash(Bulk& bk)
 
             PassFlashValue(bk, n);
         }
-    }
-    else {
+    } else {
         OCP_ABORT("Not completed!");
     }
 }
-
 
 void IsoT_FIMn::PassFlashValue(Bulk& bk, const OCP_USI& n) const
 {
@@ -3245,11 +3189,11 @@ void IsoT_FIMn::PassFlashValue(Bulk& bk, const OCP_USI& n) const
             bk.nj[n * np + j] = bk.flashCal[pvtnum]->GetNj(j);
         }
     }
-    
-    Dcopy(bk.bRowSizedSdP[n], &bk.res_n[0] + n * (np * (nc + 1)), &bk.flashCal[pvtnum]->GetRes()[0]);
+
+    Dcopy(bk.bRowSizedSdP[n], &bk.res_n[0] + n * (np * (nc + 1)),
+          &bk.flashCal[pvtnum]->GetRes()[0]);
     bk.resPc[n] = bk.flashCal[pvtnum]->GetResPc();
 }
-
 
 void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
                                     const Reservoir& rs,
@@ -3354,7 +3298,7 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
             eId_np_j = eId * np + j;
             uId_np_j = uId * np + j;
             dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
-                conn.upblock_Rho[c * np + j] * dGamma;
+                 conn.upblock_Rho[c * np + j] * dGamma;
             xi     = bk.xi[uId_np_j];
             kr     = bk.kr[uId_np_j];
             mu     = bk.mu[uId_np_j];
@@ -3400,8 +3344,8 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
                         if (phasedS_B[j1]) {
                             dFdXsB[(i + 1) * ncolB + j1SB] +=
                                 transIJ * bk.dPcj_dS[bId_np_j * np + j1];
-                            tmp = Akd * xij * xi / mu *
-                                  bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsB[(i + 1) * ncolB + j1SB] += tmp;
                             j1SB++;
                         }
@@ -3456,8 +3400,8 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
                         if (phasedS_E[j1]) {
                             dFdXsE[(i + 1) * ncolE + j1SE] -=
                                 transIJ * bk.dPcj_dS[eId_np_j * np + j1];
-                            tmp = Akd * xij * xi / mu *
-                                  bk.dKr_dS[uId_np_j * np + j1] * dP;
+                            tmp = Akd * xij * xi / mu * bk.dKr_dS[uId_np_j * np + j1] *
+                                  dP;
                             dFdXsE[(i + 1) * ncolE + j1SE] += tmp;
                             j1SE++;
                         }
@@ -3513,8 +3457,8 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
 
         // Assemble mat
         bmat = dFdXpB;
-        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin - Begin -- add
         ls.AddDiag(bId, bmat);
@@ -3539,8 +3483,8 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
 
         // End
         bmat = dFdXpE;
-        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP],
-                1, bmat.data());
+        DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP], 1,
+                bmat.data());
         Dscalar(bsize, dt, bmat.data());
         // Begin - End -- insert
         ls.NewOffDiag(bId, eId, bmat);
@@ -3556,28 +3500,31 @@ void IsoT_FIMn::AssembleMatBulksNew(LinearSystem&    ls,
     }
 }
 
-
-void IsoT_FIMn::AssembleMatWellsNew(LinearSystem& ls, const Reservoir& rs, const OCP_DBL& dt) const
+void IsoT_FIMn::AssembleMatWellsNew(LinearSystem&    ls,
+                                    const Reservoir& rs,
+                                    const OCP_DBL&   dt) const
 {
     for (auto& wl : rs.allWells.wells) {
         if (wl.IsOpen()) {
 
             switch (wl.WellType()) {
-            case INJ:
-                AssembleMatInjWellsNew(ls, rs.bulk, wl, dt);
-                break;
-            case PROD:
-                AssembleMatProdWellsNew(ls, rs.bulk, wl, dt);
-                break;
-            default:
-                OCP_ABORT("Wrong well type");
+                case INJ:
+                    AssembleMatInjWellsNew(ls, rs.bulk, wl, dt);
+                    break;
+                case PROD:
+                    AssembleMatProdWellsNew(ls, rs.bulk, wl, dt);
+                    break;
+                default:
+                    OCP_ABORT("Wrong well type");
             }
         }
     }
 }
 
-
-void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const Well& wl, const OCP_DBL& dt) const
+void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem&  ls,
+                                       const Bulk&    bk,
+                                       const Well&    wl,
+                                       const OCP_DBL& dt) const
 {
 
     const USI nc      = bk.numCom;
@@ -3588,7 +3535,6 @@ void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const W
     const USI bsize   = ncol * ncol;
     const USI bsize2  = ncol * ncol2;
     OCP_USI   n_np_j;
-
 
     vector<OCP_DBL> tmpb(ncol, 0);
     vector<OCP_DBL> bmat(bsize, 0);
@@ -3649,8 +3595,7 @@ void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const W
                     if (phasedS_B[j1]) {
                         dQdXsB[(i + 1) * ncolB + j1B] +=
                             CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * wl.PerfXi(p) *
-                            wl.InjZi(i) * bk.dKr_dS[n_np_j * np + j1] * dP /
-                            mu;
+                            wl.InjZi(i) * bk.dKr_dS[n_np_j * np + j1] * dP / mu;
                         j1B++;
                     }
                 }
@@ -3702,8 +3647,8 @@ void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const W
 
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * lendSdP], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, 1.0, bmat.data() + (i + 1) * ncol, bmat2.data());
@@ -3731,19 +3676,18 @@ void IsoT_FIMn::AssembleMatInjWellsNew(LinearSystem& ls, const Bulk& bk, const W
     }
 }
 
-
 void IsoT_FIMn::AssembleMatProdWellsNew(LinearSystem&  ls,
                                         const Bulk&    bk,
                                         const Well&    wl,
                                         const OCP_DBL& dt) const
 {
-    const USI nc        = bk.numCom;
-    const USI np        = bk.numPhase;
-    const USI lendSdP   = bk.maxLendSdP;
-    const USI ncol      = nc + 1;
-    const USI ncol2     = np * nc + np;
-    const USI bsize     = ncol * ncol;
-    const USI bsize2    = ncol * ncol2;
+    const USI nc      = bk.numCom;
+    const USI np      = bk.numPhase;
+    const USI lendSdP = bk.maxLendSdP;
+    const USI ncol    = nc + 1;
+    const USI ncol2   = np * nc + np;
+    const USI bsize   = ncol * ncol;
+    const USI bsize2  = ncol * ncol2;
     OCP_USI   n_np_j;
 
     vector<OCP_DBL> tmpb(ncol, 0);
@@ -3801,16 +3745,16 @@ void IsoT_FIMn::AssembleMatProdWellsNew(LinearSystem&  ls,
                 xij = bk.xij[n_np_j * nc + i];
                 // dQ / dP
                 transIJ = wl.PerfTransj(p, j) * xi * xij;
-                dQdXpB[(i + 1) * ncol] +=
-                    transIJ * (1 - dP * muP / mu) + dP * wl.PerfTransj(p, j) * xij * xiP;
+                dQdXpB[(i + 1) * ncol] += transIJ * (1 - dP * muP / mu) +
+                                          dP * wl.PerfTransj(p, j) * xij * xiP;
                 dQdXpW[(i + 1) * ncol] += -transIJ;
 
                 // dQ / dS
                 USI j1B = 0;
                 for (USI j1 = 0; j1 < np; j1++) {
                     if (phasedS_B[j1]) {
-                        tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu * xi *
-                              xij * bk.dKr_dS[n_np_j * np + j1];
+                        tmp = CONV1 * wl.PerfWI(p) * wl.PerfMultiplier(p) * dP / mu *
+                              xi * xij * bk.dKr_dS[n_np_j * np + j1];
                         // capillary pressure
                         tmp += transIJ * bk.dPcj_dS[n_np_j * np + j1];
                         dQdXsB[(i + 1) * ncolB + j1B] += tmp;
@@ -3820,15 +3764,14 @@ void IsoT_FIMn::AssembleMatProdWellsNew(LinearSystem&  ls,
 
                 for (USI k = 0; k < pVnumComB[j]; k++) {
                     tmp = dP * wl.PerfTransj(p, j) * xij *
-                          (bk.xix[n_np_j * nc + k] -
-                           xi / mu * bk.mux[n_np_j * nc + k]);
+                          (bk.xix[n_np_j * nc + k] - xi / mu * bk.mux[n_np_j * nc + k]);
                     tmp -= transIJ * dP / bk.nj[n_np_j];
                     dQdXsB[(i + 1) * ncolB + jxB + k] += tmp;
                 }
                 // WARNING !!!
                 if (i < pVnumComB[j])
                     dQdXsB[(i + 1) * ncolB + jxB + i] +=
-                    wl.PerfTransj(p, j) * xi * dP / bk.nj[n_np_j];
+                        wl.PerfTransj(p, j) * xi * dP / bk.nj[n_np_j];
             }
             jxB += pVnumComB[j];
         }
@@ -3870,8 +3813,8 @@ void IsoT_FIMn::AssembleMatProdWellsNew(LinearSystem&  ls,
 
                 // Well - Bulk -- insert
                 bmat = dQdXpB;
-                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(),
-                        &bk.dSec_dPri[n * lendSdP], 1, bmat.data());
+                DaABpbC(ncol, ncol, ncolB, 1, dQdXsB.data(), &bk.dSec_dPri[n * lendSdP],
+                        1, bmat.data());
                 fill(bmat2.begin(), bmat2.end(), 0.0);
                 for (USI i = 0; i < nc; i++) {
                     Daxpy(ncol, wl.ProdWeight(i), bmat.data() + (i + 1) * ncol,
@@ -3900,9 +3843,10 @@ void IsoT_FIMn::AssembleMatProdWellsNew(LinearSystem&  ls,
     }
 }
 
-
 /// Update P, Ni, BHP after linear system is solved
-void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPControl& ctrl) const
+void IsoT_FIMn::GetSolution(Reservoir&             rs,
+                            const vector<OCP_DBL>& u,
+                            const OCPControl&      ctrl) const
 {
     // For saturations changes:
     // 1. maximum changes must be less than dSmaxlim,
@@ -3914,31 +3858,29 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
     const OCP_DBL dSmaxlim = ctrl.ctrlNR.NRdSmax;
     // const OCP_DBL dPmaxlim = ctrl.ctrlNR.NRdPmax;
 
-    Bulk&         bk  = rs.bulk;
-    const OCP_USI nb  = bk.numBulk;
-    const USI     np  = bk.numPhase;
-    const USI     nc  = bk.numCom;
-    const USI     row = np * (nc + 1);
-    const USI     col = nc + 1;
+    Bulk&           bk  = rs.bulk;
+    const OCP_USI   nb  = bk.numBulk;
+    const USI       np  = bk.numPhase;
+    const USI       nc  = bk.numCom;
+    const USI       row = np * (nc + 1);
+    const USI       col = nc + 1;
     vector<OCP_DBL> dtmp(row, 0);
     vector<OCP_DBL> tmpNij(np * nc, 0);
     OCP_USI         n_np_j;
 
-    bk.dSNR = bk.S;
+    bk.dSNR       = bk.S;
     bk.NRphaseNum = bk.phaseNum;
-    bk.NRdPmax = 0;
-    bk.NRdNmax = 0;
-  
+    bk.NRdPmax    = 0;
+    bk.NRdNmax    = 0;
 
     OCP_DBL dSmax;
     OCP_DBL dP;
     OCP_DBL chop = 1;
 
-
     for (OCP_USI n = 0; n < nb; n++) {
         const vector<OCP_DBL>& scm = bk.satcm[bk.SATNUM[n]];
 
-        dP = u[n * col];
+        dP         = u[n * col];
         bk.dPNR[n] = dP;
         bk.P[n] += dP; // seems better
         if (fabs(bk.NRdPmax) < fabs(dP)) bk.NRdPmax = dP;
@@ -3947,13 +3889,13 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
         // cout << scientific << setprecision(6) << dP << "   " << n << endl;
 
         dSmax = 0;
-        chop = 1;
+        chop  = 1;
 
         const USI cNp = bk.phaseNum[n];
         const USI len = bk.bRowSizedSdP[n];
         Dcopy(len, &dtmp[0], &bk.res_n[n * row]);
-        DaAxpby(len, col, 1.0, &bk.dSec_dPri[n * bk.maxLendSdP], u.data() + n * col, 1.0,
-            dtmp.data());
+        DaAxpby(len, col, 1.0, &bk.dSec_dPri[n * bk.maxLendSdP], u.data() + n * col,
+                1.0, dtmp.data());
 
         // Calculate dSmax
         USI js = 0;
@@ -3967,7 +3909,7 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
 
         // Calculate chop
         if (dSmax > dSmaxlim) {
-            chop = min(chop, dSmaxlim / dSmax);
+            chop  = min(chop, dSmaxlim / dSmax);
             dSmax = dSmaxlim;
         }
         js = 0;
@@ -3987,7 +3929,7 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
         fill(tmpNij.begin(), tmpNij.end(), 0.0);
         // fill(Ni.begin() + n * nc, Ni.begin() + n * nc + nc, 0.0);
 
-        js = 0;
+        js     = 0;
         USI jx = cNp;
         for (USI j = 0; j < np; j++) {
             n_np_j = n * np + j;
@@ -4025,15 +3967,15 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
                         }
                     }
                 } */
-                // for (USI j = 0; j < numPhase; j++) {
-                //     if (phaseExist[n * numPhase + j]) {
-                //         nj[n * numPhase + j] *= (tmpVf[index] / tmpVf[j]);
-                //         for (USI i = 0; i < nc; i++) {
-                //             Ni[n * nc + i] += nj[n * numPhase + j] * xij[(n * numPhase +
-                //             j) * nc + i];
-                //         }
-                //     }
-                // }
+        // for (USI j = 0; j < numPhase; j++) {
+        //     if (phaseExist[n * numPhase + j]) {
+        //         nj[n * numPhase + j] *= (tmpVf[index] / tmpVf[j]);
+        //         for (USI i = 0; i < nc; i++) {
+        //             Ni[n * nc + i] += nj[n * numPhase + j] * xij[(n * numPhase +
+        //             j) * nc + i];
+        //         }
+        //     }
+        // }
 
         bk.NRstep[n] = chop;
         for (USI i = 0; i < nc; i++) {
@@ -4044,7 +3986,6 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
         }
     }
 
-
     // Well
     OCP_USI wId = nb * col;
     for (auto& wl : rs.allWells.wells) {
@@ -4053,28 +3994,24 @@ void IsoT_FIMn::GetSolution(Reservoir& rs, const vector<OCP_DBL>& u, const OCPCo
             wId += col;
         }
     }
-
 }
-
 
 void IsoT_FIMn::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
-    rs.bulk.nj      = rs.bulk.lnj;
-    rs.bulk.res_n   = rs.bulk.lres_n;
-    rs.bulk.resPc   = rs.bulk.lresPc;
+    rs.bulk.nj    = rs.bulk.lnj;
+    rs.bulk.res_n = rs.bulk.lres_n;
+    rs.bulk.resPc = rs.bulk.lresPc;
 
     IsoT_FIM::ResetToLastTimeStep(rs, ctrl);
 }
 
-
 void IsoT_FIMn::UpdateLastTimeStep(Reservoir& rs) const
 {
-    rs.bulk.lnj     = rs.bulk.nj;
-    rs.bulk.lres_n  = rs.bulk.res_n;
-    rs.bulk.lresPc  = rs.bulk.resPc;
+    rs.bulk.lnj    = rs.bulk.nj;
+    rs.bulk.lres_n = rs.bulk.res_n;
+    rs.bulk.lresPc = rs.bulk.resPc;
     IsoT_FIM::UpdateLastTimeStep(rs);
 }
-
 
 ////////////////////////////////////////////
 // IsoT_AIMc
@@ -4085,11 +4022,11 @@ void IsoT_AIMc::Setup(Reservoir& rs, LinearSystem& ls, const OCPControl& ctrl)
     // Allocate Bulk and BulkConn Memory
     AllocateReservoir(rs);
     // Allocate memory for internal matrix structure
-    IsoT_FIM::AllocateLinearSystem(ls, rs, ctrl);  
+    IsoT_FIM::AllocateLinearSystem(ls, rs, ctrl);
 }
 
-void IsoT_AIMc::InitReservoir(Reservoir& rs) const 
-{   
+void IsoT_AIMc::InitReservoir(Reservoir& rs) const
+{
     rs.bulk.InitPTSw(50);
 
     InitRock(rs.bulk);
@@ -4120,9 +4057,9 @@ void IsoT_AIMc::Prepare(Reservoir& rs, const OCP_DBL& dt)
     // rs.bulk.ShowFIMBulk(OCP_FALSE);
 }
 
-void IsoT_AIMc::AssembleMat(LinearSystem&   ls,
-                           const Reservoir& rs,
-                           const OCP_DBL&   dt) const
+void IsoT_AIMc::AssembleMat(LinearSystem&    ls,
+                            const Reservoir& rs,
+                            const OCP_DBL&   dt) const
 {
     AssembleMatBulks(ls, rs, dt);
     IsoT_FIM::AssembleMatWellsNew(ls, rs, dt);
@@ -4145,9 +4082,9 @@ void IsoT_AIMc::SolveLinearSystem(LinearSystem& ls, Reservoir& rs, OCPControl& c
     }
 
 #ifdef DEBUG
-    //ls.OutputLinearSystem("testA_AIMc.out", "testb_AIMc.out");
-    //ls.OutputSolution("testx_AIMc.out");
-    //ls.CheckSolution();
+    // ls.OutputLinearSystem("testA_AIMc.out", "testb_AIMc.out");
+    // ls.OutputSolution("testx_AIMc.out");
+    // ls.CheckSolution();
 #endif // DEBUG
 
     ctrl.RecordTimeLS(Timer.Stop() / 1000);
@@ -4163,10 +4100,10 @@ OCP_BOOL IsoT_AIMc::UpdateProperty(Reservoir& rs, OCPControl& ctrl)
     OCP_DBL& dt = ctrl.current_dt;
 
     // First check: Ni check and bulk Pressure check
-    if (!ctrl.Check(rs, { "BulkNi", "BulkP" })) {
+    if (!ctrl.Check(rs, {"BulkNi", "BulkP"})) {
         ResetToLastTimeStep(rs, ctrl);
         cout << "Cut time step size and repeat! current dt = " << fixed
-            << setprecision(3) << dt << " days\n";
+             << setprecision(3) << dt << " days\n";
         return OCP_FALSE;
     }
 
@@ -4191,24 +4128,22 @@ OCP_BOOL IsoT_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
     // const OCP_DBL NRdNmax = rs.GetNRdNmax();
 
 #ifdef DEBUG
-    //cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
-    //     << resAIMc.maxRelRes0_V << "  " << resAIMc.maxRelRes_V << "  "
-    //     << resAIMc.maxRelRes_N << "  " << NRdPmax << "  " << NRdSmax << endl;
+    // cout << "### DEBUG: Residuals = " << setprecision(3) << scientific
+    //      << resAIMc.maxRelRes0_V << "  " << resAIMc.maxRelRes_V << "  "
+    //      << resAIMc.maxRelRes_N << "  " << NRdPmax << "  " << NRdSmax << endl;
 #endif
 
-
     if (((rs.bulk.res.maxRelRes_V <= rs.bulk.res.maxRelRes0_V * ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
-        rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
-        rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
+          rs.bulk.res.maxRelRes_V <= ctrl.ctrlNR.NRtol ||
+          rs.bulk.res.maxRelRes_N <= ctrl.ctrlNR.NRtol) &&
+         rs.bulk.res.maxWellRelRes_mol <= ctrl.ctrlNR.NRtol) ||
         (fabs(NRdPmax) <= ctrl.ctrlNR.NRdPmin &&
          fabs(NRdSmax) <= ctrl.ctrlNR.NRdSmin)) {
 
-        if (!ctrl.Check(rs, { "WellP" })) {
+        if (!ctrl.Check(rs, {"WellP"})) {
             ResetToLastTimeStep(rs, ctrl);
             return OCP_FALSE;
-        }
-        else {
+        } else {
             CalFlashEa(rs.bulk);
             CalKrPcE(rs.bulk);
             return OCP_TRUE;
@@ -4218,11 +4153,10 @@ OCP_BOOL IsoT_AIMc::FinishNR(Reservoir& rs, OCPControl& ctrl)
         ctrl.current_dt *= ctrl.ctrlTime.cutFacNR;
         ResetToLastTimeStep(rs, ctrl);
         cout << "### WARNING: NR not fully converged! Cut time step size and repeat!  "
-            "current dt = "
-            << fixed << setprecision(3) << ctrl.current_dt << " days\n";
+                "current dt = "
+             << fixed << setprecision(3) << ctrl.current_dt << " days\n";
         return OCP_FALSE;
-    }
-    else {
+    } else {
         return OCP_FALSE;
     }
 }
@@ -4233,7 +4167,7 @@ void IsoT_AIMc::FinishStep(Reservoir& rs, OCPControl& ctrl) const
     rs.CalIPRT(ctrl.GetCurDt());
     rs.CalMaxChange();
     UpdateLastTimeStep(rs);
-    ctrl.CalNextTimeStep(rs, { "dP", "dS", "iter" });
+    ctrl.CalNextTimeStep(rs, {"dP", "dS", "iter"});
 }
 
 /// Allocate memory for reservoir
@@ -4253,7 +4187,6 @@ void IsoT_AIMc::AllocateReservoir(Reservoir& rs)
     bk.cfl.resize(nb * np);
     bk.bulkTypeAIM.Setup(nb);
 }
-
 
 void IsoT_AIMc::SetFIMBulk(Reservoir& rs)
 {
@@ -4321,39 +4254,38 @@ void IsoT_AIMc::SetFIMBulk(Reservoir& rs)
     }
 }
 
-
 void IsoT_AIMc::CalFlashEp(Bulk& bk)
 {
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
-    const USI       nc = bk.numCom;
-
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
+    const USI     nc = bk.numCom;
 
     for (OCP_USI n = 0; n < nb; n++) {
         if (bk.bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
 
-            bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * nc], bk.phaseNum[n],
-                &bk.xijNR[n * np * nc], n);
+            bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * nc],
+                                                  bk.phaseNum[n],
+                                                  &bk.xijNR[n * np * nc], n);
             // bk.PassFlashValueAIMcEp(n);
             PassFlashValueEp(bk, n);
         }
     }
 }
 
-
 void IsoT_AIMc::CalFlashEa(Bulk& bk)
 {
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
-    const USI       nc = bk.numCom;
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
+    const USI     nc = bk.numCom;
 
     for (OCP_USI n = 0; n < nb; n++) {
         if (bk.bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
 
-            bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * nc], bk.phaseNum[n],
-                &bk.xij[n * np * nc], n);
+            bk.flashCal[bk.PVTNUM[n]]->FlashIMPEC(bk.P[n], bk.T[n], &bk.Ni[n * nc],
+                                                  bk.phaseNum[n], &bk.xij[n * np * nc],
+                                                  n);
             // bk.PassFlashValueAIMcEa(n);
 
             IsoT_IMPEC::PassFlashValue(bk, n);
@@ -4361,19 +4293,19 @@ void IsoT_AIMc::CalFlashEa(Bulk& bk)
     }
 }
 
-
 void IsoT_AIMc::CalFlashI(Bulk& bk)
 {
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
-    const USI       nc = bk.numCom;
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
+    const USI     nc = bk.numCom;
 
     for (OCP_USI n = 0; n < nb; n++) {
         if (bk.bulkTypeAIM.IfFIMbulk(n)) {
             // Implicit bulk
 
-            bk.flashCal[bk.PVTNUM[n]]->FlashFIM(bk.P[n], bk.T[n], &bk.Ni[n * nc], &bk.S[n * np], bk.phaseNum[n],
-                &bk.xij[n * np * nc], n);
+            bk.flashCal[bk.PVTNUM[n]]->FlashFIM(bk.P[n], bk.T[n], &bk.Ni[n * nc],
+                                                &bk.S[n * np], bk.phaseNum[n],
+                                                &bk.xij[n * np * nc], n);
             IsoT_FIM::PassFlashValue(bk, n);
             for (USI j = 0; j < np; j++) {
                 bk.vj[n * np + j] = bk.vf[n] * bk.S[n * np + j];
@@ -4382,17 +4314,15 @@ void IsoT_AIMc::CalFlashI(Bulk& bk)
     }
 }
 
-
-void IsoT_AIMc::PassFlashValueEp(Bulk& bk, const OCP_USI& n) 
+void IsoT_AIMc::PassFlashValueEp(Bulk& bk, const OCP_USI& n)
 {
     // only var about volume needs, some flash var also
     OCP_FUNCNAME;
 
-
-    const USI     np        = bk.numPhase;
-    const USI     nc        = bk.numCom;
-    const OCP_USI bIdp      = n * np;
-    const USI     pvtnum    = bk.PVTNUM[n];
+    const USI     np     = bk.numPhase;
+    const USI     nc     = bk.numCom;
+    const OCP_USI bIdp   = n * np;
+    const USI     pvtnum = bk.PVTNUM[n];
 
     bk.Nt[n]  = bk.flashCal[pvtnum]->GetNt();
     bk.vf[n]  = bk.flashCal[pvtnum]->GetVf();
@@ -4409,49 +4339,43 @@ void IsoT_AIMc::PassFlashValueEp(Bulk& bk, const OCP_USI& n)
             // IMPORTANT -- need for next Flash
             // But xij in nonlinear equations has been modified
             for (USI i = 0; i < nc; i++) {
-                bk.xijNR[bIdp * nc + j * nc + i] =
-                    bk.flashCal[pvtnum]->GetXij(j, i);
+                bk.xijNR[bIdp * nc + j * nc + i] = bk.flashCal[pvtnum]->GetXij(j, i);
             }
         }
     }
 }
 
-
-
 void IsoT_AIMc::CalKrPcE(Bulk& bk)
 {
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
 
     for (OCP_USI n = 0; n < nb; n++) {
         if (bk.bulkTypeAIM.IfIMPECbulk(n)) {
             // Explicit bulk
             const OCP_USI bId = n * np;
             bk.flow[bk.SATNUM[n]]->CalKrPc(&bk.S[bId], &bk.kr[bId], &bk.Pc[bId], n);
-            for (USI j = 0; j < np; j++)
-                bk.Pj[bId + j] = bk.P[n] + bk.Pc[bId + j];
-        }
-    }
-}
-
-
-void IsoT_AIMc::CalKrPcI(Bulk& bk)
-{
-    const OCP_USI   nb = bk.numBulk;
-    const USI       np = bk.numPhase;
-
-    for (OCP_USI n = 0; n < nb; n++) {
-        if (bk.bulkTypeAIM.IfFIMbulk(n)) {
-            // Implicit bulk
-            const OCP_USI bId = n * np;
-            bk.flow[bk.SATNUM[n]]->CalKrPcDeriv(
-                &bk.S[bId], &bk.kr[bId], &bk.Pc[bId], &bk.dKr_dS[bId * np],
-                &bk.dPcj_dS[bId * np], n);
             for (USI j = 0; j < np; j++) bk.Pj[bId + j] = bk.P[n] + bk.Pc[bId + j];
         }
     }
 }
 
+void IsoT_AIMc::CalKrPcI(Bulk& bk)
+{
+    const OCP_USI nb = bk.numBulk;
+    const USI     np = bk.numPhase;
+
+    for (OCP_USI n = 0; n < nb; n++) {
+        if (bk.bulkTypeAIM.IfFIMbulk(n)) {
+            // Implicit bulk
+            const OCP_USI bId = n * np;
+            bk.flow[bk.SATNUM[n]]->CalKrPcDeriv(&bk.S[bId], &bk.kr[bId], &bk.Pc[bId],
+                                                &bk.dKr_dS[bId * np],
+                                                &bk.dPcj_dS[bId * np], n);
+            for (USI j = 0; j < np; j++) bk.Pj[bId + j] = bk.P[n] + bk.Pc[bId + j];
+        }
+    }
+}
 
 void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
                                  const Reservoir& rs,
@@ -4593,7 +4517,7 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
                 eId_np_j = eId * np + j;
                 uId_np_j = uId * np + j;
                 dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
-                    conn.upblock_Rho[c * np + j] * dGamma;
+                     conn.upblock_Rho[c * np + j] * dGamma;
                 xi     = bk.xi[uId_np_j];
                 kr     = bk.kr[uId_np_j];
                 mu     = bk.mu[uId_np_j];
@@ -4730,7 +4654,7 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
                 eId_np_j = eId * np + j;
                 uId_np_j = uId * np + j;
                 dP       = bk.Pj[bId_np_j] - bk.Pj[eId_np_j] -
-                    conn.upblock_Rho[c * np + j] * dGamma;
+                     conn.upblock_Rho[c * np + j] * dGamma;
                 xi     = bk.xi[uId_np_j];
                 kr     = bk.kr[uId_np_j];
                 mu     = bk.mu[uId_np_j];
@@ -4811,8 +4735,7 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
                                 tmp += -transIJ * mux / mu * dP;
                                 dFdXsB[(i + 1) * ncolB + jxB + k] += tmp;
                                 dFdXsE[(i + 1) * ncolE + jxE + k] +=
-                                    -transIJ * bk.rhox[eId_np_j * nc + k] / 2 *
-                                    dGamma;
+                                    -transIJ * bk.rhox[eId_np_j * nc + k] / 2 * dGamma;
                             }
                             // WARNING !!!
                             if (i < pVnumComB[j])
@@ -4859,8 +4782,7 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
                                 tmp += -transIJ * mux / mu * dP;
                                 dFdXsE[(i + 1) * ncolE + jxE + k] += tmp;
                                 dFdXsB[(i + 1) * ncolB + jxB + k] +=
-                                    -transIJ * bk.rhox[bId_np_j * nc + k] / 2 *
-                                    dGamma;
+                                    -transIJ * bk.rhox[bId_np_j * nc + k] / 2 * dGamma;
                             }
                             // WARNING !!!
                             if (i < pVnumComE[j])
@@ -4881,8 +4803,8 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
         // Assemble
         bmat = dFdXpB;
         if (bIdFIM) {
-            DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(),
-                    &bk.dSec_dPri[bId * lendSdP], 1, bmat.data());
+            DaABpbC(ncol, ncol, ncolB, 1, dFdXsB.data(), &bk.dSec_dPri[bId * lendSdP],
+                    1, bmat.data());
         }
         Dscalar(bsize, dt, bmat.data());
         // Begin - Begin -- add
@@ -4900,8 +4822,8 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
         // End
         bmat = dFdXpE;
         if (eIdFIM) {
-            DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(),
-                    &bk.dSec_dPri[eId * lendSdP], 1, bmat.data());
+            DaABpbC(ncol, ncol, ncolE, 1, dFdXsE.data(), &bk.dSec_dPri[eId * lendSdP],
+                    1, bmat.data());
         }
         Dscalar(bsize, dt, bmat.data());
         // Begin - End -- insert
@@ -4918,7 +4840,6 @@ void IsoT_AIMc::AssembleMatBulks(LinearSystem&    ls,
     }
 }
 
-
 void IsoT_AIMc::GetSolution(Reservoir&             rs,
                             const vector<OCP_DBL>& u,
                             const OCPControl&      ctrl) const
@@ -4927,44 +4848,43 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
     const OCP_DBL dSmaxlim = ctrl.ctrlNR.NRdSmax;
     // const OCP_DBL dPmaxlim = ctrl.ctrlNR.NRdPmax;
 
-    Bulk& bk = rs.bulk;
-    const OCP_USI nb = bk.numBulk;
-    const USI     np = bk.numPhase;
-    const USI     nc = bk.numCom;
-    const USI     row = np * (nc + 1);
-    const USI     col = nc + 1;
+    Bulk&           bk  = rs.bulk;
+    const OCP_USI   nb  = bk.numBulk;
+    const USI       np  = bk.numPhase;
+    const USI       nc  = bk.numCom;
+    const USI       row = np * (nc + 1);
+    const USI       col = nc + 1;
     vector<OCP_DBL> dtmp(row, 0);
     OCP_DBL         chopmin = 1;
     OCP_DBL         choptmp = 0;
     OCP_USI         n_np_j;
 
-    bk.dSNR = bk.S;
+    bk.dSNR       = bk.S;
     bk.NRphaseNum = bk.phaseNum;
-    bk.NRdPmax = 0;
-    bk.NRdNmax = 0;
-
+    bk.NRdPmax    = 0;
+    bk.NRdNmax    = 0;
 
     for (OCP_USI n = 0; n < nb; n++) {
         if (bk.bulkTypeAIM.IfIMPECbulk(n)) {
             // IMPEC Bulk
             // Pressure
-            OCP_DBL dP      = u[n * col];
-            bk.NRdPmax      = max(bk.NRdPmax, fabs(dP));
-            bk.P[n]        += dP; // seems better
-            bk.dPNR[n]      = dP;
-            bk.NRstep[n]    = 1;
+            OCP_DBL dP = u[n * col];
+            bk.NRdPmax = max(bk.NRdPmax, fabs(dP));
+            bk.P[n] += dP; // seems better
+            bk.dPNR[n]   = dP;
+            bk.NRstep[n] = 1;
             // Ni
             for (USI i = 0; i < nc; i++) {
-                 bk.dNNR[n * nc + i] = u[n * col + 1 + i];
-                 bk.Ni[n * nc + i]  += bk.dNNR[n * nc + i];
+                bk.dNNR[n * nc + i] = u[n * col + 1 + i];
+                bk.Ni[n * nc + i] += bk.dNNR[n * nc + i];
 
-                 //if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
-                 //    bk.Ni[n * nc + i] = 1E-20;
-                 //}
+                // if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
+                //     bk.Ni[n * nc + i] = 1E-20;
+                // }
             }
             // Pj
             for (USI j = 0; j < np; j++) {
-                bk.Pj[n * np + j]    = bk.P[n] + bk.Pc[n * np + j];
+                bk.Pj[n * np + j] = bk.P[n] + bk.Pc[n * np + j];
             }
             continue;
         }
@@ -4972,8 +4892,8 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
         chopmin = 1;
         // compute the chop
         fill(dtmp.begin(), dtmp.end(), 0.0);
-        DaAxpby(bk.bRowSizedSdP[n], col, 1, &bk.dSec_dPri[n * bk.maxLendSdP], u.data() + n * col,
-                1, dtmp.data());
+        DaAxpby(bk.bRowSizedSdP[n], col, 1, &bk.dSec_dPri[n * bk.maxLendSdP],
+                u.data() + n * col, 1, dtmp.data());
 
         USI js = 0;
         for (USI j = 0; j < np; j++) {
@@ -5025,8 +4945,8 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
         // dP
         OCP_DBL dP = u[n * col];
         if (fabs(bk.NRdPmax) < fabs(dP)) bk.NRdPmax = dP;
-        bk.P[n]     += dP; // seems better
-        bk.dPNR[n]   = dP;
+        bk.P[n] += dP; // seems better
+        bk.dPNR[n] = dP;
 
         // dNi
         bk.NRstep[n] = chopmin;
@@ -5037,9 +4957,9 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
 
             bk.Ni[n * nc + i] += bk.dNNR[n * nc + i];
 
-            //if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
-            //    bk.Ni[n * nc + i] = 1E-20;
-            //}
+            // if (bk.Ni[n * nc + i] < 0 && bk.Ni[n * nc + i] > -1E-3) {
+            //     bk.Ni[n * nc + i] = 1E-20;
+            // }
         }
     }
 
@@ -5053,24 +4973,20 @@ void IsoT_AIMc::GetSolution(Reservoir&             rs,
     }
 }
 
-
 void IsoT_AIMc::ResetToLastTimeStep(Reservoir& rs, OCPControl& ctrl)
 {
-    rs.bulk.vj      = rs.bulk.lvj;
-    rs.bulk.xijNR   = rs.bulk.lxij;
+    rs.bulk.vj    = rs.bulk.lvj;
+    rs.bulk.xijNR = rs.bulk.lxij;
     IsoT_FIM::ResetToLastTimeStep(rs, ctrl);
 }
-
 
 void IsoT_AIMc::UpdateLastTimeStep(Reservoir& rs) const
 {
     IsoT_FIM::UpdateLastTimeStep(rs);
 
-    rs.bulk.lvj     = rs.bulk.vj;
-    rs.bulk.xijNR   = rs.bulk.xij;
+    rs.bulk.lvj   = rs.bulk.vj;
+    rs.bulk.xijNR = rs.bulk.xij;
 }
-
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

@@ -24,9 +24,7 @@ void BOMixture::BOMixtureInit(const ParamReservoir& rs_param)
         std_RhoW = RHOW_STD * rs_param.gravity.data[1];
         std_RhoG = RHOAIR_STD * rs_param.gravity.data[2];
     }
-
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */

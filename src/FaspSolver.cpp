@@ -395,7 +395,7 @@ void VectorFaspSolver::AssembleMat(const vector<vector<USI>>&     colId,
     A.nb  = blockDim;
     A.NNZ = nnz;
 
-    OCP_USI count1  = 0;
+    OCP_USI count1 = 0;
     OCP_USI count2 = 0;
     OCP_USI size_row;
     A.IA[0] = 0;

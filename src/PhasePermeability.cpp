@@ -9,28 +9,25 @@
  *-----------------------------------------------------------------------------------
  */
 
-
 #include "PhasePermeability.hpp"
-
 
 /////////////////////////////////////////////////////////////////////
 // Miscible For Compositional Model
 /////////////////////////////////////////////////////////////////////
 
-
-void Miscible::InputParam(const Miscstr& misterm) {
+void Miscible::InputParam(const Miscstr& misterm)
+{
     const USI len = misterm.surTenRef.size();
     if (len > 0) {
         ifUseMiscible = OCP_TRUE;
-        surTenRef = misterm.surTenRef[0];
-        surTenPc = 1;
+        surTenRef     = misterm.surTenRef[0];
+        surTenPc      = 1;
         if (len > 2) {
             surTenPc = misterm.surTenRef[2] / surTenRef;
         }
         Fkexp = 0.25;
     }
 }
-
 
 void Miscible::Setup(const OCP_USI& numBulk)
 {
@@ -44,10 +41,7 @@ void Miscible::Setup(const OCP_USI& numBulk)
         // Last time step
         lsurTen.resize(numBulk);
     }
-
-
 }
-
 
 OCP_BOOL Miscible::CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp)
 {
@@ -55,14 +49,12 @@ OCP_BOOL Miscible::CalFkFp(const OCP_USI& n, OCP_DBL& fk, OCP_DBL& fp)
         Fk[n] = 1;
         Fp[n] = 1;
         return OCP_FALSE; // InMiscible
-    }
-    else {
+    } else {
         Fk[n] = fk = min(1.0, pow(surTen[n] / surTenRef, Fkexp));
         Fp[n] = fp = min(surTenPc, surTen[n] / surTenRef);
-        return OCP_TRUE;  // Miscible
+        return OCP_TRUE; // Miscible
     }
 }
-
 
 /////////////////////////////////////////////////////////////////////
 // Scale The Water-Oil Capillary Pressure Curves (From SWATINIT)
@@ -79,13 +71,12 @@ void ScalePcow::Setup(const Grid& myGrid)
             swatInit.resize(myGrid.activeGridNum);
 
             for (OCP_USI bIda = 0; bIda < myGrid.activeGridNum; bIda++) {
-                OCP_USI bId = myGrid.map_Act2All[bIda];
+                OCP_USI bId    = myGrid.map_Act2All[bIda];
                 swatInit[bIda] = myGrid.SwatInit[bId];
             }
         }
     }
 }
-
 
 /*----------------------------------------------------------------------------*/
 /*  Brief Change History of This File                                         */
