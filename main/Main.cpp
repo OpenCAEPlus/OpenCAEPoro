@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
     OpenCAEPoro simulator;
     if (argc < 2) {
         simulator.PrintUsage(argv[0]);
-        return OCP_ERROR_NUM_INPUT; // Need at least one parameter: input data
+        return OCP_ERROR_NUM_INPUT; // Need at least one parameter
     } else {
         simulator.PrintVersion();
         if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")) {
@@ -37,12 +37,12 @@ int main(int argc, const char* argv[])
     }
 
     // Step 1. Read params from an input file to internal data structure.
-    // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md    simulator.ReadInputFile(argv[1]);
+    // Remark: The keywords are almost compatible with Ecl100/300; see Keywords.md.
     simulator.ReadInputFile(argv[1]);
 
     // Step 2. Set params using command-line
     // Remark: It sets up static info, such as active grids and their connections.
-    // Remark: Memory allocation for linear systems will also be done at this time.
+    // Remark: Memory allocation for linear systems will also be done at this step.
     simulator.SetupSimulator(argc, argv);
 
     // Step 3. Initialize the reservoir, which finishes the first step in iterations.
@@ -50,7 +50,7 @@ int main(int argc, const char* argv[])
     // well pressure.
     simulator.InitReservoir();
 
-    // Step 4. Run dynamic simulation using methods like IMPEC and FIM.
+    // Step 4. Run dynamic simulation using methods like IMPEC, AIM, and FIM.
     simulator.RunSimulation();
 
     // Step 5. Output the results according to control params.

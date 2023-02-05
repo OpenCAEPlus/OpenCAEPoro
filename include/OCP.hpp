@@ -20,7 +20,7 @@
 #include "Solver.hpp"
 #include "UtilTiming.hpp"
 
-#define OCPVersion "0.4.9" ///< Software version tag used for git
+#define OCPVersion "0.5.0" ///< Software version tag used for git
 
 /// Top-level data structure for the OpenCAEPoro simulator.
 class OpenCAEPoro
@@ -67,7 +67,7 @@ public:
              << endl;
     }
 
-    /// Read Param from input file
+    /// Read Param from an input file.
     void ReadInputFile(const string& filename);
 
     /// Read input parameters to an internal structure.
