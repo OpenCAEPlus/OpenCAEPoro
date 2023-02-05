@@ -20,7 +20,7 @@ void Output4Vtk::Init(const string&  myFile,
 {
     ofstream myVtk(myFile);
     if (!myVtk.is_open()) {
-        OCP_ABORT("Fail to Open " + myFile);
+        OCP_ABORT("Can not open file: " + myFile);
     }
 
     ios::sync_with_stdio(false);
@@ -31,9 +31,8 @@ void Output4Vtk::Init(const string&  myFile,
 
     // Title
     if (shortInfo.size() > VTK_MAX_TITLE_LENGTH) {
-        OCP_WARNING("length of title is beyond the limit: 256");
-        myVtk << "Invalid short info, Too many characters"
-              << "\n";
+        OCP_WARNING("Length of title is beyond the limit: 256");
+        myVtk << "Invalid short info, Too many characters\n";
     } else {
         myVtk << shortInfo << "\n";
     }
@@ -61,7 +60,7 @@ void Output4Vtk::OutputPOINTS(const string&                myFile,
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
     if (!myVtk.is_open()) {
-        OCP_ABORT("Can not open " + myFile);
+        OCP_ABORT("Can not open file: " + myFile);
     }
 
     ios::sync_with_stdio(false);
@@ -102,7 +101,7 @@ void Output4Vtk::OutputCELLS(const string&                myFile,
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
     if (!myVtk.is_open()) {
-        OCP_ABORT("Can not open " + myFile);
+        OCP_ABORT("Can not open file: " + myFile);
     }
 
     ios::sync_with_stdio(false);
@@ -151,7 +150,7 @@ void Output4Vtk::OutputCELL_TYPES(const string&                myFile,
     ofstream myVtk;
     myVtk.open(myFile, ios::app);
     if (!myVtk.is_open()) {
-        OCP_ABORT("Can not open " + myFile);
+        OCP_ABORT("Can not open file: " + myFile);
     }
 
     ios::sync_with_stdio(false);
@@ -180,4 +179,5 @@ void Output4Vtk::OutputCELL_TYPES(const string&                myFile,
 /*  Author              Date             Actions                              */
 /*----------------------------------------------------------------------------*/
 /*  Shizhe Li           Oct/19/2022      Create file                          */
+/*  Chensong Zhang      Feb/05/2023      Update output in vtk files           */
 /*----------------------------------------------------------------------------*/
