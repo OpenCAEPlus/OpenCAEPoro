@@ -24,31 +24,31 @@ set OCP_FastReview=FastReview.out
 set myFlag=Y
 
 set SPE1a_flag=Y
-set SPE1a_dir=..\spe1a\
+set SPE1a_dir=..\examples\spe1a\
 set SPE1a_test=%SPE1a_dir%spe1a.data  	method=FIM dtInit=1 dtMax=100 dtMin=0.1
 
 set SPE1b_flag=Y
-set SPE1b_dir=..\spe1b\
+set SPE1b_dir=..\examples\spe1b\
 set SPE1b_test=%SPE1b_dir%spe1b.data  	method=FIM dtInit=1 dtMax=100 dtMin=0.1
 
 set SPE9_flag=Y
-set SPE9_dir=..\spe9\
+set SPE9_dir=..\examples\spe9\
 set SPE9_test=%SPE9_dir%spe9_FIM.data
 
 set CP_flag=Y
-set CP_dir=..\cornerpoint\
+set CP_dir=..\examples\cornerpoint\
 set CP_test=%CP_dir%CP.data           	method=FIM dtInit=1 dtMax=100 dtMin=0.1
 
 set SPE3_flag=Y
-set SPE3_dir=..\spe3\
+set SPE3_dir=..\examples\spe3\
 set SPE3_test=%SPE3_dir%spe3.data    	method=FIM dtInit=1 dtMax=100 dtMin=0.1
 
 set SPE5_flag=Y
-set SPE5_dir=..\spe5\
+set SPE5_dir=..\examples\spe5\
 set SPE5_test=%SPE5_dir%spe5.data    	method=FIM dtInit=1 dtMax=50  dtMin=0.1
 
 set ZBCO2_flag=Y
-set ZBCO2_dir=..\3.ZB-CO2\OCP\
+set ZBCO2_dir=..\examples\3.ZB-CO2\OCP\
 set ZBCO2_test=%ZBCO2_dir%ZB-CO2.data  	method=FIM dtInit=1 dtMax=10  dtMin=0.1 pl=2
 
 
@@ -228,7 +228,7 @@ if /I %Success% == %myFlag% (
 	if /I %SPE1a_flag% == %myFlag% 	( xcopy .\SPE1a\%myfolder%  .\SPE1a\current\  /Y )
 	if /I %SPE1b_flag% == %myFlag% 	( xcopy .\SPE1b\%myfolder%  .\SPE1b\current\  /Y )
 	if /I %SPE9_flag% == %myFlag% 	( xcopy .\SPE9\%myfolder%  	.\SPE9\current\  /Y )
-	if /I %CP_flag% == %myFlag% 		( xcopy .\CP\%myfolder%  	.\CP\current\  /Y )
+	if /I %CP_flag% == %myFlag% 	( xcopy .\CP\%myfolder%  	.\CP\current\  /Y )
 	if /I %SPE3_flag% == %myFlag% 	( xcopy .\SPE3\%myfolder%  	.\SPE3\current\  /Y )
 	if /I %SPE5_flag% == %myFlag% 	( xcopy .\SPE5\%myfolder%  	.\SPE5\current\  /Y )
 	if /I %ZBCO2_flag% == %myFlag% 	( xcopy .\ZBCO2\%myfolder%  .\ZBCO2\current\  /Y )
